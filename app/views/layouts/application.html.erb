@@ -4,12 +4,12 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title><%= yield :title %> | shiftplan.com</title>
-    <%= stylesheet_link_tag 'application', 'datepicker' %>
+    <%= stylesheet_link_tag 'application' %>
     <!--[if IE]>
       <%= stylesheet_link_tag 'ie' %>
     <![endif]-->
     
-    <%= javascript_include_tag 'jquery', 'jquery.form.js', 'date', 'jquery.datepicker.js', :cache => true %>
+    <%= javascript_include_tag 'jquery', 'jquery.form.js', 'date', 'jquery-ui.js', :cache => true %>
     <%= yield(:head) %>
     <script type="text/javascript">
       $(function() {
