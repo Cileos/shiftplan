@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title><%= yield :title %> | shiftplan.com</title>
+    <%= stylesheet_link_tag 'application', 'datepicker' %>
+    <!--[if IE]>
+      <%= stylesheet_link_tag 'ie' %>
+    <![endif]-->
+    
+    <%= javascript_include_tag 'jquery', 'jquery.form.js', 'date', 'jquery.datepicker.js', :cache => true %>
+    <%= yield(:head) %>
+    <script type="text/javascript">
+      $(function() {
+        <%= yield(:jquery) %>
+      });
+    </script>
+  </head>
+  <body>
+    <div id="content">
+      <%- if flash[:notice] -%>
+        <div id="flash"><%= flash[:notice] %></div>
+      <%- end -%>
+      <%= yield %>
+    </div>
+  </body>
+</html>
