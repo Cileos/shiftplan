@@ -21,7 +21,7 @@
   					$(this).dialog('close');
   				},
   				'OK': function() {
-  				  $('#calendar .shifts .current').css('height', parseInt($('#shift_height').val())*4.8 + 'em');
+  				  $('#calendar .shifts .current').css('height', parseFloat($('#shift_height').val())*4.8 + 'em');
   				  $('#shift_height').val('');
   				  $('#calendar .shifts .current').removeClass('current');
   					$(this).dialog('close');
