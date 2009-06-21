@@ -1,33 +1,66 @@
+#calendar_container {
+  height: 400px;
+  overflow-y: scroll;
+}
+
 #calendar {
-  width: 1065px;
-  height: 950px;
-  float: left;
-  background: url(../images/grid.png);
+  width: auto;
+  border-collapse: collapse;
 }
 
-#calendar_day_labels {
-  margin-left: 4em;
+#calendar th, #calendar td {
+  padding: 0.2em 0.5em;
+  height: 2em;
+  width: 14.28%;
 }
 
-#calendar_day_labels li {
-  float: left;
-  margin-bottom: 1em;
-  width: 152px;
+#calendar th {
   text-align: center;
 }
 
-#calendar_time_labels {
-  float: left;
-  width: 4em;
-  margin-top: 2.5em;
-}
-
-#calendar_time_labels li {
-  margin-bottom: 2em;
-}
-
-#calendar_and_time_labels {
-  clear: both;
+#calendar tbody {
   height: 400px;
   overflow-y: scroll;
+}
+
+#calendar td {
+  border: 1px solid black;
+}
+
+#calendar_labels {
+  margin-top: 1.8em;
+  float: left;
+  width: 4em;
+}
+
+#calendar_labels li {
+  margin-bottom: 3.8em;
+}
+
+#tools {
+  width: 200px;
+  position: fixed;
+  top: 8em;
+  right: 4em;
+}
+
+#tools h2, #tools ul {
+  padding: 0.2em 0.5em;
+}
+
+/* bla */
+#workplaces {
+  margin-bottom: 1em;
+}
+
+#workplaces #workplace_1 {
+  color: red;
+}
+
+#workplaces #workplace_2 {
+  color: green;
+}
+
+#workplaces #workplace_3 {
+  color: orange;
 }
