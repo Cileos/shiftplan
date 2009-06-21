@@ -5,26 +5,52 @@
 
 #calendar {
   width: auto;
-  border-collapse: collapse;
+  position: absolute;
+  left: 7em;
 }
 
-#calendar th, #calendar td {
+#calendar #day_of_week_1, #calendar #day_of_week_2, #calendar #day_of_week_3, #calendar #day_of_week_4, #calendar #day_of_week_5, #calendar #day_of_week_6, #calendar #day_of_week_7 {
+  position: absolute;
+  top: 0em;
+  width: 10em;
   padding: 0.2em 0.5em;
-  height: 2em;
-  width: 14.28%;
 }
 
-#calendar th {
+#calendar h2 {
   text-align: center;
 }
 
-#calendar tbody {
-  height: 400px;
-  overflow-y: scroll;
+#calendar .shifts {
+  height: 200px;
+  border: 1px solid black;
 }
 
-#calendar td {
-  border: 1px solid black;
+#calendar #day_of_week_1 {
+  left: 0em;
+}
+
+#calendar #day_of_week_2 {
+  left: 10em;
+}
+
+#calendar #day_of_week_3 {
+  left: 20em;
+}
+
+#calendar #day_of_week_4 {
+  left: 30em;
+}
+
+#calendar #day_of_week_5 {
+  left: 40em;
+}
+
+#calendar #day_of_week_6 {
+  left: 50em;
+}
+
+#calendar #day_of_week_7 {
+  left: 60em;
 }
 
 #calendar_labels {
@@ -50,17 +76,23 @@
 
 /* bla */
 #workplaces {
+  margin: 0;
   margin-bottom: 1em;
 }
 
-#workplaces #workplace_1 {
-  color: red;
+#workplaces li {
+  padding: 0.2em 0.5em;
+  cursor: move;
 }
 
-#workplaces #workplace_2 {
-  color: green;
+.workplace_1 {
+  background-color: red;
 }
 
-#workplaces #workplace_3 {
-  color: orange;
+.workplace_2 {
+  background-color: green;
+}
+
+.workplace_3 {
+  background-color: orange;
 }
