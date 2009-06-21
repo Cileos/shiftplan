@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Schicht planen | shiftplan.com</title>
+    <script type="text/javascript" src="../public/javascripts/jquery.js"></script>
+    <script type="text/javascript" src="../public/javascripts/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/application.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/calendar.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/jquery-ui/ui-lightness/jquery-ui.css" />
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('#navigation').tabs({ selected: 1 });
+    });
+    </script>
+  </head>
+  <body>
+    <div id="navigation">
+      <ul>
+        <li><a href="#tab_dashboard">Übersicht</a></li>
+        <li><a href="#tab_calendar">Kalender</a></li>
+        <li><a href="#tab_users">Benutzer</a></li>
+      </ul>
+      <div id="tab_dashboard">
+        <h1>Übersicht</h1>
+      </div>
+      <div id="tab_calendar">
+        <h1>Kalender</h1>
+        <ol id="calendar_day_labels">
+          <li>Mo, 22. Juni</li>
+          <li>Di, 23. Juni</li>
+          <li>Mi, 24. Juni</li>
+          <li>Do, 25. Juni</li>
+          <li>Fr, 26. Juni</li>
+          <li>Sa, 27. Juni</li>
+          <li>So, 28. Juni</li>
+        </ol>
+        <div id="calendar_and_time_labels">
+          <ol id="calendar_time_labels">
+            <li>07:00</li>
+            <li>08:00</li>
+            <li>09:00</li>
+            <li>10:00</li>
+            <li>11:00</li>
+            <li>12:00</li>
+            <li>13:00</li>
+            <li>14:00</li>
+            <li>15:00</li>
+            <li>16:00</li>
+            <li>17:00</li>
+            <li>18:00</li>
+            <li>19:00</li>
+            <li>20:00</li>
+            <li>21:00</li>
+            <li>22:00</li>
+            <li>23:00</li>
+          </ol>
+          <div id="calendar">
+          </div>
+        </div>
+      </div>
+      <div id="tab_users">
+        <h1>Benutzer</h1>
+      </div>
+    </div>
+  </body>
+</html>

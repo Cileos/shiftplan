@@ -1,0 +1,33 @@
+#calendar {
+  width: 1065px;
+  height: 950px;
+  float: left;
+  background: url(../images/grid.png);
+}
+
+#calendar_day_labels {
+  margin-left: 4em;
+}
+
+#calendar_day_labels li {
+  float: left;
+  margin-bottom: 1em;
+  width: 152px;
+  text-align: center;
+}
+
+#calendar_time_labels {
+  float: left;
+  width: 4em;
+  margin-top: 2.5em;
+}
+
+#calendar_time_labels li {
+  margin-bottom: 2em;
+}
+
+#calendar_and_time_labels {
+  clear: both;
+  height: 400px;
+  overflow-y: scroll;
+}
