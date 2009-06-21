@@ -74,6 +74,11 @@
   padding: 0.2em 0.5em;
 }
 
+.ui-draggable-helper {
+  height: 3em;
+  width: 9em;
+}
+
 /* bla */
 #workplaces {
   margin: 0;

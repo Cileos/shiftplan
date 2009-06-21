@@ -16,14 +16,18 @@
 
       $('#workplaces li').draggable({
         cursor: 'move',
-        helper: 'clone',
+        helper: function() {
+          helper = document.createElement('div');
+          $(helper).addClass(this.className).addClass('ui-draggable-helper').append(document.createTextNode($(this).html()));
+          return helper;
+        },
         revert: 'invalid'
       });
       $('#calendar .shifts').droppable({
         accept: '#workplaces > li',
         activeClass: 'ui-state-highlight',
         drop: function(event, ui) {
-          
+          $(this).append($(ui.draggable).clone());
         }
       });
     });
