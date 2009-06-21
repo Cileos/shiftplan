@@ -1,0 +1,27 @@
+Eine Schicht ist ein Zeitslot, für den ein Einsatzort mit x Mitarbeitern besetzt werden müssen.
+Ein Einsatzort kann von einem Mitarbeiter besetzt werden, der dafür qualifiziert ist.
+Ein Mitarbeiter kann für eine Schicht verfügbar oder nicht verfügbar sein.
+
+Schicht ("Einsatzdefinition")
+- x Leute
+- von/bis (Zeitslot)
+- an einem Einsatzort
+
+
+Stages:
+
+1 - Definition von Einsatzorten
+	Man kann einen Einsatzort namentlich definieren.
+	Man kann qualifizierte User dem Einsatzort zuweisen.
+2 - Definition des Schichtplans
+	Man kann eine Schicht anlegen und Start/Endzeit definieren
+	Man kann der Schicht einen Einsatzort zuweisen
+3 - Ausfüllen des Schichtplans
+	Man kann Mitarbeiter einer Schicht zuweisen, für die sie qualifiziert sind
+	(jeder User ist immer für alle Schichten verfügbar)
+4 - Definition von Verfügbarkeiten
+	Jeder User kann für jeden User Verfügbarkeit pro Schicht bearbeiten.
+	Man kann Mitarbeiter einer Schicht nur zuweisen, wenn sie verfügbar sind.
+
+
+
