@@ -1,18 +1,20 @@
 #calendar_container {
   height: 400px;
+  width: 90em;
   overflow-y: scroll;
+  position: absolute;
 }
 
 #calendar {
   width: auto;
   position: absolute;
-  left: 7em;
+  left: 3em;
 }
 
 #calendar #day_of_week_1, #calendar #day_of_week_2, #calendar #day_of_week_3, #calendar #day_of_week_4, #calendar #day_of_week_5, #calendar #day_of_week_6, #calendar #day_of_week_7 {
   position: absolute;
   top: 0em;
-  width: 10em;
+  width: 11.95em;
   padding: 0.2em 0.5em;
 }
 
@@ -21,8 +23,9 @@
 }
 
 #calendar .shifts {
-  height: 200px;
+  height: 90em;
   border: 1px solid black;
+  margin-top: 1em;
 }
 
 #calendar #day_of_week_1 {
@@ -30,27 +33,27 @@
 }
 
 #calendar #day_of_week_2 {
-  left: 10em;
+  left: 12em;
 }
 
 #calendar #day_of_week_3 {
-  left: 20em;
+  left: 24em;
 }
 
 #calendar #day_of_week_4 {
-  left: 30em;
+  left: 36em;
 }
 
 #calendar #day_of_week_5 {
-  left: 40em;
+  left: 48em;
 }
 
 #calendar #day_of_week_6 {
-  left: 50em;
+  left: 60em;
 }
 
 #calendar #day_of_week_7 {
-  left: 60em;
+  left: 72em;
 }
 
 #calendar_labels {

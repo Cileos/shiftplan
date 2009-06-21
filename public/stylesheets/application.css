@@ -7,3 +7,7 @@ h1 {
   font-family: Georgia, serif;
   margin-bottom: 0.5em;
 }
+
+.ui-tabs-panel {
+  height: 500px;
+}

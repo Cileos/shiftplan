@@ -12,7 +12,22 @@
     <link rel="stylesheet" type="text/css" href="../public/stylesheets/jquery-ui/ui-lightness/jquery-ui.css" />
     <script type="text/javascript">
     $(document).ready(function() {
-      $('#navigation').tabs({ selected: 1 });
+      $('#content').tabs({ selected: 1 });
+
+      $('#shift_details_dialog').dialog({
+        autoOpen: false,
+        buttons: {
+          'Abbrechen': function() {
+  					$(this).dialog('close');
+  				},
+  				'OK': function() {
+  				  $('#calendar .shifts .current').css('height', parseInt($('#shift_height').val())*4.8 + 'em');
+  				  $('#shift_height').val('');
+  				  $('#calendar .shifts .current').removeClass('current');
+  					$(this).dialog('close');
+  				}
+				}
+      });
 
       $('#workplaces li').draggable({
         cursor: 'move',
@@ -23,18 +38,21 @@
         },
         revert: 'invalid'
       });
+
       $('#calendar .shifts').droppable({
         accept: '#workplaces > li',
         activeClass: 'ui-state-highlight',
         drop: function(event, ui) {
-          $(this).append($(ui.draggable).clone());
+          shift = ui.draggable.clone().addClass('current');
+          $(this).append(shift);
+          $('#shift_details_dialog').dialog('open');
         }
       });
     });
     </script>
   </head>
   <body>
-    <div id="navigation">
+    <div id="content">
       <ul>
         <li><a href="#tab_dashboard">Übersicht</a></li>
         <li><a href="#tab_calendar">Kalender</a></li>
@@ -121,6 +139,11 @@
       <div id="tab_employees">
         <h1>Mitarbeiter</h1>
       </div>
+    </div>
+    <div id="shift_details_dialog" style="display:none;" title="Schichtdetails">
+      <fieldset>
+        <label for="shift_height">Dauer (h)</label><input id="shift_height" type="text" />
+      </fieldset>
     </div>
   </body>
 </html>
