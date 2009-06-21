@@ -23,3 +23,9 @@ require 'culerity'
 
 require 'cucumber/rails/rspec'
 # require 'webrat/core/matchers'
+
+I18n.default_locale = :en
+
+$server = Culerity::run_server
+$browser = Culerity::RemoteBrowserProxy.new($server, :browser => :firefox)
+$host = 'http://localhost:3001'

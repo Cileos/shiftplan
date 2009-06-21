@@ -1,14 +1,19 @@
 require 'culerity'
 
-Before do
-  $server ||= Culerity::run_server
-  $browser = Culerity::RemoteBrowserProxy.new $server, {:browser => :firefox}
-  @host = 'http://localhost:3001'
-end
+# Before do
+#   $server ||= Culerity::run_server
+#   $browser = Culerity::RemoteBrowserProxy.new($server, :browser => :firefox)
+#   $host = 'http://localhost:3001'
+# end
 
 at_exit do
   $browser.exit
   $server.close
+end
+
+Given /^I am on (.+)$/ do |path|
+  $browser.goto $host + path_to(path)
+  assert_successful_response
 end
 
 When /I press "(.*)"/ do |button|
@@ -21,7 +26,7 @@ When /I follow "(.*)"/ do |link|
   assert_successful_response
 end
 
-When /I fill in "(.*)" for "(.*)"/ do |value, field|
+When /I fill in "(.*)" with "(.*)"/ do |field, value|
   $browser.text_field(:id, find_label(field).for).set(value)
 end
 
@@ -42,7 +47,7 @@ When /I choose "(.*)"/ do |field|
 end
 
 When /I go to (.+)/ do |path|
-  $browser.goto @host + path_to(path)
+  $browser.goto $host + path_to(path)
   assert_successful_response
 end
 
@@ -52,18 +57,22 @@ end
 
 Then /I should see "(.*)"/ do |text|
   # if we simply check for the browser.html content we don't find content that has been added dynamically, e.g. after an ajax call
-  div = $browser.div(:text, /#{text}/)
-  begin
-    div.html
-  rescue
-    #puts $browser.html
-    raise("div with '#{text}' not found")
-  end
+  # div = $browser.div(:text, /#{text}/)
+  # begin
+  #   div.html
+  # rescue
+  #   #puts $browser.html
+  #   raise("div with '#{text}' not found")
+  # end
+  elements = $browser.elements_by_xpath("//*") # TODO: improve xPath to only check descendants of /html/body
+  elements.any? { |element| eval(element.gsub('@io', '$server')).try(:text) == text rescue false }.should be_true
 end
 
 Then /I should not see "(.*)"/ do |text|
-  div = $browser.div(:text, /#{text}/).html rescue nil
-  div.should be_nil
+  # div = $browser.div(:text, /#{text}/).html rescue nil
+  # div.should be_nil
+  elements = $browser.elements_by_xpath("//*") # TODO: improve xPath to only check descendants of /html/body
+  elements.any? { |element| eval(element.gsub('@io', '$server')).try(:text) == text rescue false }.should be_false
 end
 
 def find_label(text)
@@ -80,8 +89,8 @@ def assert_successful_response
   elsif status != 200
     tmp = Tempfile.new 'culerity_results'
     tmp << $browser.html
-    tmp.close
     `open -a /Applications/Safari.app #{tmp.path}`
-    raise "Brower returned Response Code #{$browser.page.web_response.status_code}"
+    tmp.close
+    raise "Browser returned Response Code #{$browser.page.web_response.status_code}"
   end
 end
