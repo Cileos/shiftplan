@@ -19,5 +19,5 @@ Feature: Managing workplaces
     And I fill in "Name" with ""
     And I press "Save"
     Then I should see "Workplace could not be created."
-    # And I should see "Name can't be blank"
+    And I should see "Name can't be blank"
     
