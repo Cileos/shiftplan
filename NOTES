@@ -42,6 +42,9 @@ Ein Schichtplan ist als Würfel darstellbar, die Dimensionen sind das Datum, die
 - Mitarbeiter (MA)
 Mitarbeiter sind alle für den Einsatz in Schichten grundsätzlich verfügbaren User, die der Organisation zugeordnet sind. Es wird nach festangestellten und freien MA unterschieden. Ein festangestellter MA ist per se verfügbar, es sei denn er trägt Urlaub oder sonstiges in seine Verfügbarkeit ein. Ein freier MA ist per se nicht verfügbar und muss diese explizit eintragen. MA haben vertragliche Arbeitszeiten, die bei der Planung zu berücksichtigen sind.
 
+- Verfügbarkeit
+Mit der Verfügbarkeit dokumentiert ein MA die Bereitschaft zu Übernahme einer Schicht. Die Verfügbarkeit wandelt sich in einen geplanten Einsatz durch Zuordnung zu einer Schicht um. Die Verfügbarkeit wird durch die Angabe eines Datum und die Eingrenzung der Zeitspanne bestimmt. Die Zeitspanne kann die Standard-Business-Hours eines Schichttyps (z.B. Frühschicht) oder die Angabe des kompletten Arbeitstages zur Dokumentation des variablen Einsatzes dokumentieren.
+
 Anmerkungen zu den Stages:
 zu 3
 Was bedeutet, dass "jeder User für alle SChichten immer verfügbar ist"?
