@@ -24,11 +24,12 @@ Stages:
 	Man kann Mitarbeiter einer Schicht nur zuweisen, wenn sie verfügbar sind.
 
 ***
-Comments by FT 20090622:
+Comments by FT 20090622, 20090623:
 
 Begriffsdefinitionen:
 - Organisation
-Eine Organisation ist aus Sicht von shiftplan ein Mandant und die inhaltliche Klammer für alle Aktivitäten zur Pflege, Planung und Auswertung von Schichten der gleichen legal entity. Alle Einsatzorte, Schichtpläne und (zunächst) auch alle Mitarbeiter gehören zu einer Organisation und müssen von den Aktivitäten anderer Organisation getrennt sein.
+Eine Organisation ist aus Sicht von shiftplan ein Mandant und die inhaltliche Klammer für alle Aktivitäten zur Pflege, Planung und Auswertung von Schichten der gleichen legal entity. Alle Einsatzorte, Schichtpläne und (zunächst) auch alle Mitarbeiter gehören zu einer Organisation und müssen von den Aktivitäten anderer Organisation getrennt sein. 
+Anders ausgedrückt: die Organisation ist das höchste verbindende Element zwischen Einsatzplätzen, Schichten und Mitarbeitern. Jeder Mitarbeiter/Benutzer befindet sich während der shiftplan-Nutzung in einem Organisations-Scope bis er sich für einen scope switch (über das Dashboard) entscheidet. Das heißt: der Benutzer meldet sich an; wenn der Benutzer nur einer Organisation zugeordnet ist, erhält er automatisch diesen Org-Scope, ansonsten muss er ihn auswählen; danach sieht und tut er alles nur mit der Org-Scope-Brille (auch Verfügbarkeiten?).
 Offen: inwieweit wir eine Organisationsstruktur benötigen, ist noch unklar aber vorstellbar. Warum? Wenn man die Anforderungsdefinition von Circus nimmt, taucht darin schon die Frage nach der Trennung der beiden Häuser auf. Ein anderer (potentieller) Kunde hat 7 Restaurants und shared nur bedingt die Leute; die Planung wird meist von den "Lokalfürsten" durchgeführt, dabei können sie sich zum Teil aus dem "Pool" bedienen und zum Teil nicht. Noch ein Beispiel (wiederum ein möglicher Kandidat): Stadtverwaltung Potsdam hat verschiedene Ämter (Ordnungsamt, Grünflächenamt etc.), die Schichten planen müssen. Diese sind in ihrer Planung komplett autark, gehören aber zum Mandanten "Stadtverwaltung".
 Ob dann für eine solche Struktur unterschiedliche Zugriffsrechte gelten, sollten wir abwarten.
 
@@ -36,8 +37,14 @@ Ob dann für eine solche Struktur unterschiedliche Zugriffsrechte gelten, sollte
 Ein Einsatzplatz beschreibt grundsätzlich nur einen Aufgabenbereich und Ort innerhalb einer Organisation. Dabei werden die Minimal- und die Optimalzahl der benötigten MA angegeben. Die benötigte Qualifikation ergibt sich aus der Arbeitsplatzbeschreibung der Organisation und ist uns egal. Welcher MA dafür qualifiziert ist, obliegt der Entscheidung des Kunden und wird von ihm durch Zuordnung der MA gesteuert. (die Zuordnung sollte aus beiden Richtungen möglich sein: Einsatzplatz und MA)
 
 - Schicht
-Eine Schicht ist eine Arbeitseinheit zu einem bestimmten Datum für eine bestimmte Zeitspanne an bestimmten Einsatzplätzen und wird je Einsatzplatz von einem oder mehreren MA geleistet. Schichten können wiederkehrenden Charakter haben. Das heißt: alle Rahmenbedingungen sind gleich (Einsatzorte, Zeitspanne), nur das Datum und die MA wechseln.
+Eine Schicht ist eine Arbeitseinheit zu einem bestimmten Datum für eine bestimmte Zeitspanne an bestimmten Einsatzplätzen und wird je Einsatzplatz von einem oder mehreren MA geleistet. Schichten können wiederkehrenden Charakter haben. Das heißt: alle Rahmenbedingungen sind gleich (Einsatzorte, Zeitspanne), nur das Datum und die MA wechseln. Für die Wiederverwendung solcher wiederkehrenden Pläne werden Templates definiert (siehe Schichtplantemplate).
+
+- Schichtplan
+Ein Schichtplan ist ein Ereignis (Event), dass aus x Schichten besteht. Ein Schichtplan wird unter einem Namen geführt. Dieser Name ist entweder ein reelles Ereignis (z.B. Catering zum Sommerfest der Landesregierung) oder ein "Ereignis", das einer wiederkehrenden Datumsspanne entspricht (z.B. KW38; die KW sollte als Planmaß für die Schichtplanung festgelegt werden). 
 Ein Schichtplan ist als Würfel darstellbar, die Dimensionen sind das Datum, die Einsatzplätze und die Mitarbeiter. Die Sicht auf eine Schicht erfolgt durch Auswahl einer Dimension und der Darstellung der verbleibenden Dimensionen.
+
+- Schichtplantemplate
+Ein Schichtplantemplate dient als Vorlage für die Planerstellung gleicher oder ähnlicher Ereignisse. Damit hat der Planer die Möglichkeit, sich einmal einen Plan zurechtgelegt zu haben und ihn wiederzuverwenden. Das Template wird unter einem Namen mit Bezug zu einem benannten Schichtplan abgespeichert. Bei Verwendung des Templates wird der referenzierte Schichtplan auf das angegebene Datumsschema kopiert. Somit darf ein Schichtplan, der als Referenz dient, nicht bei Wartungs- und Archivierungsarbeiten gelöscht werden.
 
 - Mitarbeiter (MA)
 Mitarbeiter sind alle für den Einsatz in Schichten grundsätzlich verfügbaren User, die der Organisation zugeordnet sind. Es wird nach festangestellten und freien MA unterschieden. Ein festangestellter MA ist per se verfügbar, es sei denn er trägt Urlaub oder sonstiges in seine Verfügbarkeit ein. Ein freier MA ist per se nicht verfügbar und muss diese explizit eintragen. MA haben vertragliche Arbeitszeiten, die bei der Planung zu berücksichtigen sind.
@@ -47,7 +54,7 @@ Mit der Verfügbarkeit dokumentiert ein MA die Bereitschaft zu Übernahme einer 
 
 Anmerkungen zu den Stages:
 zu 3
-Was bedeutet, dass "jeder User für alle SChichten immer verfügbar ist"?
+Was bedeutet, dass "jeder User für alle Schichten immer verfügbar ist"?
 
 zu 4
 Warum sollte jeder User für jeden User Verfügbarkeiten bearbeiten können? Was bedeutet dabei "Verfügbarkeit pro Schicht"?
