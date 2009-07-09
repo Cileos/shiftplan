@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title><%= yield :title %> | shiftplan.com</title>
+    <%= stylesheet_link_tag 'jquery-ui/ui-lightness/jquery-ui', 'application' %>
+    <!--[if IE]>
+      <%= stylesheet_link_tag 'ie' %>
+    <![endif]-->
+    
+    <%= javascript_include_tag 'jquery', 'jquery.form.js', 'date', 'jquery-ui.js', :cache => true %>
+    <%= yield(:head) %>
+    <script type="text/javascript">
+      $(function() {
+        <%= yield(:jquery) %>
+      });
+    </script>
+  </head>
+  <body>
+    <ul id="navigation">
+      <li><%= link_to 'Workplaces', workplaces_path %></li>
+    </ul>
+    <div id="content">
+      <%- if flash[:notice] -%>
+        <div id="flash" class="notice"><%= flash[:notice] %></div>
+      <%- elsif flash[:error] -%>
+        <div id="flash" class="error"><%= flash[:error] %></div>
+      <%- end -%>
+      <%= yield %>
+    </div>
+  </body>
+</html>

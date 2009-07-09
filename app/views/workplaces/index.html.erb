@@ -1,0 +1,9 @@
+<%= link_to "Add a new workplace", new_workplace_path %>
+
+<ul>
+  <% for workplace in @workplaces -%>
+    <% content_tag_for(:li, workplace) do -%>
+    <%= link_to(workplace.name, workplace_path(workplace)) %>
+    <% end -%>
+  <% end -%>
+</ul>

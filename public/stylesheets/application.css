@@ -1,0 +1,13 @@
+body {
+  padding: 1em;
+}
+
+h1 {
+  font-size: 2em;
+  font-family: Georgia, serif;
+  margin-bottom: 0.5em;
+}
+
+.ui-tabs-panel {
+  height: 500px;
+}

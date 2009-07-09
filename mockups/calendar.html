@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Schicht planen | shiftplan.com</title>
+    <script type="text/javascript" src="../public/javascripts/jquery.js"></script>
+    <script type="text/javascript" src="../public/javascripts/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/application.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/calendar.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/jquery-ui/ui-lightness/jquery-ui.css" />
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('#content').tabs({ selected: 1 });
+
+      $('#shift_details_dialog').dialog({
+        autoOpen: false,
+        buttons: {
+          'Abbrechen': function() {
+  					$(this).dialog('close');
+  				},
+  				'OK': function() {
+  				  $('#calendar .shifts .current').css('height', parseFloat($('#shift_height').val())*4.8 + 'em');
+  				  $('#shift_height').val('');
+  				  $('#calendar .shifts .current').removeClass('current');
+  					$(this).dialog('close');
+  				}
+				}
+      });
+
+      $('#workplaces li').draggable({
+        cursor: 'move',
+        helper: function() {
+          helper = document.createElement('div');
+          $(helper).addClass(this.className).addClass('ui-draggable-helper').append(document.createTextNode($(this).html()));
+          return helper;
+        },
+        revert: 'invalid'
+      });
+
+      $('#calendar .shifts').droppable({
+        accept: '#workplaces > li',
+        activeClass: 'ui-state-highlight',
+        drop: function(event, ui) {
+          shift = ui.draggable.clone().addClass('current');
+          $(this).append(shift);
+          $('#shift_details_dialog').dialog('open');
+        }
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <div id="content">
+      <ul>
+        <li><a href="#tab_dashboard">Übersicht</a></li>
+        <li><a href="#tab_calendar">Kalender</a></li>
+        <li><a href="#tab_employees">Mitarbeiter</a></li>
+      </ul>
+      <div id="tab_dashboard">
+        <h1>Übersicht</h1>
+      </div>
+      <div id="tab_calendar">
+        <h1>Kalender</h1>
+        <div id="calendar_container">
+          <ol id="calendar_labels">
+            <li>07:00</li>
+            <li>08:00</li>
+            <li>09:00</li>
+            <li>10:00</li>
+            <li>11:00</li>
+            <li>12:00</li>
+            <li>13:00</li>
+            <li>14:00</li>
+            <li>15:00</li>
+            <li>16:00</li>
+            <li>17:00</li>
+            <li>18:00</li>
+            <li>19:00</li>
+            <li>20:00</li>
+            <li>21:00</li>
+            <li>22:00</li>
+            <li>23:00</li>
+          </ol>
+          <div id="calendar">
+            <div id="day_of_week_1">
+              <h2>Montag, 22. Juni</h2>
+              <ul class="shifts">
+              </ul>
+            </div>
+            <div id="day_of_week_2">
+              <h2>Dienstag, 23. Juni</h2>
+              <ul class="shifts">
+              </ul>
+            </div>
+            <div id="day_of_week_3">
+              <h2>Mittwoch, 24. Juni</h2>
+              <ul class="shifts">
+              </ul>
+            </div>
+            <div id="day_of_week_4">
+              <h2>Donnerstag, 25. Juni</h2>
+              <ul class="shifts">
+              </ul>
+            </div>
+            <div id="day_of_week_5">
+              <h2>Freitag, 26. Juni</h2>
+              <ul class="shifts">
+              </ul>
+            </div>
+            <div id="day_of_week_6">
+              <h2>Samstag, 27. Juni</h2>
+              <ul class="shifts">
+              </ul>
+            </div>
+            <div id="day_of_week_7">
+              <h2>Sonntag, 28. Juni</h2>
+              <ul class="shifts">
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div id="tools">
+          <h2 class="ui-widget-header">Einsatzorte</h2>
+          <ul id="workplaces" class="ui-widget-content">
+            <li class="workplace_1">Küche</li>
+            <li class="workplace_2">Rezeption</li>
+            <li class="workplace_3">Reinigung</li>
+          </ul>
+          <h2 class="ui-widget-header">Mitarbeiter</h2>
+          <ul id="employees" class="ui-widget-content">
+            <li>Fritz</li>
+            <li>Sven</li>
+            <li>Clemens</li>
+          </ul>
+        </div>
+      </div>
+      <div id="tab_employees">
+        <h1>Mitarbeiter</h1>
+      </div>
+    </div>
+    <div id="shift_details_dialog" style="display:none;" title="Schichtdetails">
+      <fieldset>
+        <label for="shift_height">Dauer (h)</label><input id="shift_height" type="text" />
+      </fieldset>
+    </div>
+  </body>
+</html>
