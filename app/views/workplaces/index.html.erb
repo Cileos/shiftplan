@@ -3,7 +3,7 @@
 <ul>
   <% for workplace in @workplaces -%>
     <% content_tag_for(:li, workplace) do -%>
-    <%= link_to(workplace.name, workplace_path(workplace)) %>
+    <%= link_to(workplace.name, workplace_path(workplace)) %> (<%= link_to(t(:edit), edit_workplace_path(workplace)) %>)
     <% end -%>
   <% end -%>
 </ul>

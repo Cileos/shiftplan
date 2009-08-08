@@ -1,23 +1,23 @@
 <p>
-  <b>Employee:</b>
+  <b>Mitarbeiter:</b>
   <%=h @allocation.employee.full_name %>
 </p>
 
 <p>
-  <b>Workplace:</b>
+  <b>Arbeitsplatz:</b>
   <%=h @allocation.workplace.name %>
 </p>
 
 <p>
-  <b>Start:</b>
+  <b>Beginn:</b>
   <%= l(@allocation.start) %>
 </p>
 
 <p>
-  <b>End:</b>
+  <b>Ende:</b>
   <%= l(@allocation.end) %>
 </p>
 
 
-<%= link_to 'Edit', edit_allocation_path(@allocation) %> |
-<%= link_to 'Back', allocations_path %>
+<%= link_to 'Bearbeiten', edit_allocation_path(@allocation) %> |
+<%= link_to 'Zurück', allocations_path %>

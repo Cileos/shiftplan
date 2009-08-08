@@ -31,3 +31,5 @@ config.action_mailer.delivery_method = :test
 # config.gem 'rspec-rails'
 # config.gem 'aslakhellesoy-cucumber', :source => 'http://gems.github.com'
 # config.gem 'langalex-culerity', :source => 'http://gems.github.com'
+
+config.i18n.default_locale = :en

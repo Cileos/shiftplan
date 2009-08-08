@@ -18,18 +18,20 @@
     </script>
   </head>
   <body>
-    <ul id="navigation">
-      <li><%= link_to 'Arbeitsplätze', workplaces_path %></li>
-			<li><%= link_to 'Mitarbeiter', employees_path %></li>
-			<li><%= link_to 'Einsätze', allocations_path %></li>
-    </ul>
-    <div id="content">
-      <%- if flash[:notice] -%>
-        <div id="flash" class="notice"><%= flash[:notice] %></div>
-      <%- elsif flash[:error] -%>
-        <div id="flash" class="error"><%= flash[:error] %></div>
-      <%- end -%>
-      <%= yield %>
-    </div>
+		<div>
+	    <ul id="navigation">
+	      <li><%= link_to t(:workplaces), workplaces_path %></li>
+				<li><%= link_to t(:employees), employees_path %></li>
+				<li><%= link_to t(:allocations), allocations_path %></li>
+	    </ul>
+	    <div id="content">
+	      <%- if flash[:notice] -%>
+	        <div id="flash" class="notice"><%= flash[:notice] %></div>
+	      <%- elsif flash[:error] -%>
+	        <div id="flash" class="error"><%= flash[:error] %></div>
+	      <%- end -%>
+	      <%= yield %>
+	    </div>
+		</div>
   </body>
 </html>

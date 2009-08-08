@@ -2,6 +2,18 @@
 # by Clemens Kofler (clemens@railway.at)
  
 de:
+  workplaces: Arbeitsplätze
+  workplace: Arbeitsplatz
+  employees: Mitarbeiter
+  employee: Mitarbeiter
+  allocations: Einsätze
+  allocation: Einsatz
+
+  edit: Bearbeiten
+  show: Details
+  destroy: Löschen
+  back: Zurück
+  
   date:
     formats:
       default: "%d.%m.%Y"
