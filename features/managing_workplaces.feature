@@ -51,7 +51,7 @@ Feature: Managing workplaces
 		And I press "Save"
 		Then I should see "Workplace could not be updated."
 
-	@white @current
+	@white
 	Scenario: Deleting an existing workplace
 		Given I am on the workplaces index page
 		When I follow "Delete"

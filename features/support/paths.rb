@@ -12,6 +12,8 @@ module NavigationHelpers
       root_path
     when /the workplaces index page/
       workplaces_path
+    when /the employees index page/
+      employees_path
 
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

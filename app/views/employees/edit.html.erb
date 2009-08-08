@@ -2,9 +2,6 @@
 
 <% form_for(@employee) do |f| %>
   <%= render :partial => "form", :locals => { :f => f } %>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
 <% end %>
 
 <%= link_to 'Show', @employee %> |
