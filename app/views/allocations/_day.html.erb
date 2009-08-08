@@ -1,0 +1,10 @@
+<h1>Einsätze <%= l(@date) %></h1>
+<ol>
+<% @allocations.each do |allocation| -%>
+	<li>
+		<%= allocation.employee.full_name %> 
+		(<%= allocation.workplace.name %>, 
+		 <%= l(allocation.start, :format => :time) %>-<%= l(allocation.end, :format => :time) %>)
+	</li>
+<% end -%>
+</ol>

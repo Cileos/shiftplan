@@ -1,0 +1,26 @@
+<h1>Listing allocations</h1>
+
+<table>
+  <tr>
+    <th>Employee</th>
+    <th>Workplace</th>
+    <th>Start</th>
+    <th>End</th>
+  </tr>
+
+<% @allocations.each do |allocation| %>
+  <tr>
+    <td><%=h allocation.employee.full_name %></td>
+    <td><%=h allocation.workplace.name %></td>
+    <td><%= l(allocation.start) %></td>
+    <td><%= l(allocation.end) %></td>
+    <td><%= link_to 'Show', allocation %></td>
+    <td><%= link_to 'Edit', edit_allocation_path(allocation) %></td>
+    <td><%= link_to 'Destroy', allocation, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New allocation', new_allocation_path %>
