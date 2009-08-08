@@ -28,9 +28,19 @@ class WorkplacesController < ApplicationController
   end
 
   def update
+    if @workplace.update_attributes(params[:workplace])
+      flash[:notice] = "Workplace successfully updated."
+      redirect_to workplaces_url
+    else
+      flash[:error] = "Workplace could not be updated."
+      render :action => 'edit'
+    end
   end
 
   def destroy
+    @workplace.destroy
+    flash[:notice] = "Workplace successfully deleted."
+    redirect_to workplaces_url
   end
 
   private

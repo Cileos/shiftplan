@@ -8,7 +8,11 @@ require 'cucumber/formatter/unicode'
 
 # Comment out the next line if you don't want transactions to
 # open/roll back around each scenario
-Cucumber::Rails.use_transactional_fixtures
+# Cucumber::Rails.use_transactional_fixtures
+
+Before do
+  ActiveRecord::Base.send(:subclasses).each { |model| model.delete_all rescue next }
+end
 
 # Comment out the next line if you want Rails' own error handling
 # (e.g. rescue_action_in_public / rescue_responses / rescue_from)
@@ -23,8 +27,6 @@ require 'culerity'
 
 require 'cucumber/rails/rspec'
 # require 'webrat/core/matchers'
-
-I18n.default_locale = :en
 
 $server = Culerity::run_server
 $browser = Culerity::RemoteBrowserProxy.new($server, :browser => :firefox)

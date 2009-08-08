@@ -2,21 +2,19 @@
 
 <table>
   <tr>
-    <th>First name</th>
-    <th>Last name</th>
+    <th>Name</th>
   </tr>
 
 <% @employees.each do |employee| %>
-  <tr>
-    <td><%=h employee.first_name %></td>
-    <td><%=h employee.last_name %></td>
+  <tr class="employee">
+    <td><%=h employee.full_name %></td>
     <td><%= link_to 'Show', employee %></td>
     <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-    <td><%= link_to 'Destroy', employee, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', employee, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New employee', new_employee_path %>
+<%= link_to 'Add a new employee', new_employee_path %>

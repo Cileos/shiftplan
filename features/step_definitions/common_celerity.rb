@@ -57,22 +57,22 @@ end
 
 Then /I should see "(.*)"/ do |text|
   # if we simply check for the browser.html content we don't find content that has been added dynamically, e.g. after an ajax call
-  # div = $browser.div(:text, /#{text}/)
-  # begin
-  #   div.html
-  # rescue
-  #   #puts $browser.html
-  #   raise("div with '#{text}' not found")
-  # end
-  elements = $browser.elements_by_xpath("//*") # TODO: improve xPath to only check descendants of /html/body
-  elements.any? { |element| eval(element.gsub('@io', '$server')).try(:text) == text rescue false }.should be_true
+  div = $browser.div(:text, /#{text}/)
+  begin
+    div.html
+  rescue
+    #puts $browser.html
+    raise("div with '#{text}' not found")
+  end
+  # elements = $browser.elements_by_xpath("//*") # TODO: improve xPath to only check descendants of /html/body
+  # elements.any? { |element| eval(element.gsub('@io', '$server')).try(:text) == text rescue false }.should be_true
 end
 
 Then /I should not see "(.*)"/ do |text|
-  # div = $browser.div(:text, /#{text}/).html rescue nil
-  # div.should be_nil
-  elements = $browser.elements_by_xpath("//*") # TODO: improve xPath to only check descendants of /html/body
-  elements.any? { |element| eval(element.gsub('@io', '$server')).try(:text) == text rescue false }.should be_false
+  div = $browser.div(:text, /#{text}/).html rescue nil
+  div.should be_nil
+  # elements = $browser.elements_by_xpath("//*") # TODO: improve xPath to only check descendants of /html/body
+  # elements.any? { |element| eval(element.gsub('@io', '$server')).try(:text) == text rescue false }.should be_false
 end
 
 def find_label(text)
