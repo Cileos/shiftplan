@@ -38,6 +38,9 @@ class WorkplacesController < ApplicationController
   end
 
   def destroy
+    @workplace.destroy
+    flash[:notice] = "Workplace successfully deleted."
+    redirect_to workplaces_url
   end
 
   private
