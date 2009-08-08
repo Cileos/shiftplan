@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Schicht planen | shiftplan.com</title>
+    <script type="text/javascript" src="../public/javascripts/jquery.js"></script>
+    <script type="text/javascript" src="../public/javascripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../public/javascripts/jquery-plugin-qtip.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/application.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/calendar.css" />
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/jquery-ui/ui-lightness/jquery-ui.css" />
+		<style type="text/css">
+			.fully_staffed {
+				background-color: green;
+			}
+			.understaffed {
+				background-color: yellow;
+			}
+			.unstaffed {
+				background-color: red;
+			}
+			tbody tr {
+				height: 4em;
+			}
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('tbody td').qtip({
+					content: {
+						title: {
+							text: 'Details',
+							button: 'Schließen'
+						}
+					},
+					position: {
+						corner: {
+							tooltip: 'topMiddle',
+							target: 'bottomMiddle'
+						}
+					},
+					show: 'click',
+					hide: false,
+					style: {
+						border: {
+							width: 5,
+							radius: 10
+						},
+						padding: 10,
+						tip: true,
+						name: 'green'
+					},
+					api: {
+						beforeShow: function(event) {
+							this.updateContent($(event.target).attr('data-tooltip'));
+						}
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="content">
+			<table style="width:100%;">
+				<thead>
+					<tr>
+						<th></th>
+						<th scope="col">Mo</th>
+						<th scope="col">Di</th>
+						<th scope="col">Mi</th>
+						<th scope="col">Do</th>
+						<th scope="col">Fr</th>
+						<th scope="col">Sa</th>
+						<th scope="col">So</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">Küche</th>
+						<td class="understaffed" data-tooltip="2 Schichten an diesem Tag sind noch nicht voll besetzt."></td>
+						<td class="understaffed"></td>
+						<td class="understaffed"></td>
+						<td class="fully_staffed"></td>
+						<td class="fully_staffed"></td>
+						<td class="fully_staffed"></td>
+						<td class="unstaffed"></td>
+					</tr>
+					<tr>
+						<th scope="row">Bar</th>
+						<td class="fully_staffed"></td>
+						<td class="unstaffed"></td>
+						<td class="understaffed"></td>
+						<td class="fully_staffed"></td>
+						<td class="understaffed"></td>
+						<td class="fully_staffed"></td>
+						<td class="unstaffed"></td>
+					</tr>
+					<tr>
+						<th scope="row">Rezeption</th>
+						<td class="fully_staffed"></td>
+						<td class="fully_staffed"></td>
+						<td class="understaffed"></td>
+						<td class="understaffed"></td>
+						<td class="fully_staffed"></td>
+						<td class="fully_staffed"></td>
+						<td class="fully_staffed"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
