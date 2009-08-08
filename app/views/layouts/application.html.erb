@@ -19,7 +19,9 @@
   </head>
   <body>
     <ul id="navigation">
-      <li><%= link_to 'Workplaces', workplaces_path %></li>
+      <li><%= link_to 'Arbeitsplätze', workplaces_path %></li>
+			<li><%= link_to 'Mitarbeiter', employees_path %></li>
+			<li><%= link_to 'Einsätze', allocations_path %></li>
     </ul>
     <div id="content">
       <%- if flash[:notice] -%>

@@ -6,6 +6,12 @@ describe Workplace do
   end
 
   describe "validations" do
+    before(:each) do
+      @workplace.attributes = {
+        :name => 'Kitchen'
+      }
+    end
+
     it "should require a name" do
       @workplace.should validate_presence_of(:name)
     end
