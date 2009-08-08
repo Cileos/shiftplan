@@ -14,7 +14,11 @@ module NavigationHelpers
       workplaces_path
     when /the employees index page/
       employees_path
-
+    when /the allocations listing for week (\d{1,2}) in year (\d{4})/
+      allocations_by_week_path(:week => $1, :year => $2)
+    when /the allocations listing for ?(\d{1,2})? (.*) (\d{4})/
+      year, month, day = Date._parse($&).values_at(:year, :mon, :mday)
+      allocations_by_date_path(:year => year, :month => month, :day => day)
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"
