@@ -1,6 +1,7 @@
 class CreateAllocations < ActiveRecord::Migration
   def self.up
     create_table :allocations do |t|
+      t.references :requirement
       t.references :employee
       t.references :workplace
       t.datetime :start

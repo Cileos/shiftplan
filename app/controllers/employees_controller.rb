@@ -26,7 +26,7 @@ class EmployeesController < ApplicationController
 
   def destroy
     @employee.destroy
-      flash[:notice] = 'Employee successfully deleted.'
+    flash[:notice] = 'Employee successfully deleted.'
     redirect_to employees_url
   end
 

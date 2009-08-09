@@ -1,3 +1,41 @@
+<!-- 
+	 style="width:100%;"
+	 -->
+<table id="allocations_by_day" data-day="<%= @date.strftime('%Y-%m-%d') %>">
+	<thead>
+		<tr>
+			<th></th>
+			<% @workplaces.each do |workplace| -%>
+				<th scope="col"><%= workplace.name %></th>
+			<% end -%>
+		</tr>
+	</thead>
+	<tbody>
+		<% 9.upto(20) do |hour| -%>
+			<tr>
+				<th scope="row"><%= l(@date + hour.hours, :format => :time) %></th>
+				<% @workplaces.each do |workplace| -%>
+				<td class="workplace workplace_<%= workplace.id %>" data-workplace-id="<%= workplace.id %>">
+					<% 0.upto(3) do |slot| -%>
+					<div class="slot" data-time="<%= time_by_slot(hour, slot) %>">
+						<% Array(@requirements_by_slot[time_by_slot(hour, slot)]).each do |requirement| -%>
+							<div id="requirement_<%= requirement.id %>" class="requirement <%= requirement.status %> workplace_<%= workplace.id %>" data-quantity="<%= requirement.quantity %>" data-start-time="<%= requirement.start.strftime('%H:%M') %>" data-end-time="<%= requirement.end.strftime('%H:%M') %>">
+								<ul>
+									<% requirement.allocations.each do |allocation| -%>
+										<li><%= allocation.employee.full_name %></li>
+									<% end -%>
+								<ul>
+							</div>
+						<% end -%>
+					</div>
+					<% end -%>
+				</td>
+				<% end -%>
+			</tr>
+		<% end -%>
+	</tbody>
+</table>
+
 <h1>Einsätze</h1>
 
 <table>

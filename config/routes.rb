@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :requirements
+
   map.resources :allocations
 
   map.resources :employees

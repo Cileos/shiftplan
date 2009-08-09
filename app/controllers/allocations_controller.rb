@@ -2,6 +2,8 @@ class AllocationsController < ApplicationController
   before_filter :set_date, :only => :index
   before_filter :set_allocations, :only => :index
   before_filter :set_allocation, :only => [:show, :edit, :destroy]
+  before_filter :set_workplaces, :only => :index
+  before_filter :set_requirements, :only => :index
 
   def create
     @allocation = Allocation.new(params[:allocation])
@@ -50,5 +52,13 @@ class AllocationsController < ApplicationController
 
     def set_allocation
       @allocation = params[:id] ? Allocation.find(params[:id]) : Allocation.new
+    end
+
+    def set_workplaces
+      @workplaces = Workplace.all
+    end
+
+    def set_requirements
+      @requirements_by_slot = Requirement.for_day(@date.year, @date.month, @date.day).group_by(&:time_slot)
     end
 end

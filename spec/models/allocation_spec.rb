@@ -19,15 +19,15 @@ describe Allocation do
       @allocation.should be_valid
     end
 
-    it "should require a start date" do
+    it "should require a start time" do
       @allocation.should validate_presence_of(:start)
     end
 
-    it "should require an end date" do
+    it "should require an end time" do
       @allocation.should validate_presence_of(:end)
     end
     
-    it "should have a start date before its end date" do
+    it "should have a start time before its end time" do
       @allocation.end = 2.hours.ago
       @allocation.should_not be_valid
     end
