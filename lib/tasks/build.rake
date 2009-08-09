@@ -8,5 +8,5 @@ task :build do
   Rake::Task['spec'].invoke
   sh "./script/server --port=3001 --environment=test -d && rake features"
   pid = File.open "#{Rails.root}/tmp/pids/server.pid"
-  sh "kill #{pid.read}"
+  sh "kill -9 #{pid.read}"
 end
