@@ -6,8 +6,8 @@ task :build do
   Rake::Task['db:migrate'].invoke
   Rake::Task['spec'].invoke
   sh "./script/server --port=3001 --environment=test -d"
+  sh "ls #{Rails.root}/tmp/pids"
   sh "wget http://localhost:3001"
+  sh "rm index.html"
   Rake::Task['features'].invoke
-  pid = File.open "#{Rails.root}/tmp/pids/server.pid"
-  sh "kill #{pid.read}"
 end
