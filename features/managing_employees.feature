@@ -6,7 +6,7 @@ Feature: Managing employees
 
 	Background:
 		Given the following employees:
-			| name |
+			| name 							|
 			| Fritz Thielemann  |
 
 	@white
