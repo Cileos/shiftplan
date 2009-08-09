@@ -10,4 +10,6 @@ task :build do
   sh "wget http://localhost:3001"
   sh "rm index.html"
   Rake::Task['features'].invoke
+  pid = File.open "#{Rails.root}/tmp/pids/server.pid"
+  sh "kill #{pid.read}"
 end
