@@ -1,11 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resource :dashboard
+
   map.resources :requirements
 
   map.resources :allocations
 
   map.resources :employees
 
-  map.root :controller => 'workplaces' # temporary
   map.resources :workplaces
 
   map.with_options :controller => 'allocations', :action => 'index' do |a|
@@ -15,4 +16,6 @@ ActionController::Routing::Routes.draw do |map|
     a.allocations_by_week 'plans/weeks/:year/:week',
       :requirements => { :year => /\d{4}/, :week => /\d{1,2}/ }
   end
+
+  map.root :controller => 'dashboard', :action => 'show'
 end

@@ -45,6 +45,28 @@
 			};
 
       $(document).ready(function() {
+        $('#content').tabs();
+        $('a.dialog').live('click', function(event) {
+          event.preventDefault();
+
+          var dialogContainer = $('<div id="dialog"></div>');
+          dialogContainer.dialog({
+            width:800,
+            title: this.title,
+            close: function() {
+              $(this).dialog('destroy').remove();
+            }
+          });
+          
+          $.ajax({
+            url: this.href,
+            dataType: 'html',
+            success: function(data, textStatus) {
+              dialogContainer.html(data);
+            }
+          });
+        });
+
 				$('.slot').live('dblclick', function() {
 					element = $(this);
 
@@ -80,20 +102,20 @@
     </script>
   </head>
   <body>
-		<div>
+    <div>
+      <%- if flash[:notice] -%>
+        <div id="flash" class="notice"><%= flash[:notice] %></div>
+      <%- elsif flash[:error] -%>
+        <div id="flash" class="error"><%= flash[:error] %></div>
+      <%- end -%>
+    </div>
+		<div id="content">
 	    <ul id="navigation">
+	      <li><%= link_to t(:overview), root_path %></li>
 	      <li><%= link_to t(:workplaces), workplaces_path %></li>
 				<li><%= link_to t(:employees), employees_path %></li>
 				<li><%= link_to t(:allocations), allocations_path %></li>
 	    </ul>
-	    <div id="content">
-	      <%- if flash[:notice] -%>
-	        <div id="flash" class="notice"><%= flash[:notice] %></div>
-	      <%- elsif flash[:error] -%>
-	        <div id="flash" class="error"><%= flash[:error] %></div>
-	      <%- end -%>
-	      <%= yield %>
-	    </div>
 		</div>
   </body>
 </html>

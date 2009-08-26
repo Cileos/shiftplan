@@ -1,20 +1,11 @@
-<h1>Listing employees</h1>
+<%= link_to 'Add a new employee', new_employee_path, :class => 'dialog', :title => 'New employee' %>
 
-<table>
-  <tr>
-    <th>Name</th>
-  </tr>
-
-<% @employees.each do |employee| %>
-  <tr class="employee">
-    <td><%=h employee.full_name %></td>
-    <td><%= link_to 'Show', employee %></td>
-    <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
-    <td><%= link_to 'Delete', employee, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'Add a new employee', new_employee_path %>
+<ul>
+  <% for employee in @employees -%>
+    <% content_tag_for(:li, employee) do -%>
+    	<%= link_to(employee.full_name, employee_path(employee)) %>
+				(<%= link_to(t(:edit), edit_employee_path(employee), :class => 'dialog', :title => "Employee #{employee.full_name}") %>,
+				<%= link_to(t(:destroy), employee_path(employee), :method => :delete) %>)
+    <% end -%>
+  <% end -%>
+</ul>

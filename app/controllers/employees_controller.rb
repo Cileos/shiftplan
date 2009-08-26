@@ -2,6 +2,14 @@ class EmployeesController < ApplicationController
   before_filter :set_employees, :only => :index
   before_filter :set_employee, :only => [:show, :new, :edit, :update, :destroy]
 
+  def index
+    render :layout => !request.xhr?
+  end
+
+  def new
+    render :layout => !request.xhr?
+  end
+
   def create
     @employee = Employee.new(params[:employee])
 
@@ -10,8 +18,12 @@ class EmployeesController < ApplicationController
       redirect_to employees_url
     else
       flash[:error] = 'Employee could not be created.'
-      render :action => "new"
+      render :action => "new", :layout => !request.xhr?
     end
+  end
+
+  def edit
+    render :layout => !request.xhr?
   end
 
   def update
@@ -20,7 +32,7 @@ class EmployeesController < ApplicationController
       redirect_to employees_url
     else
       flash[:error] = 'Employee could not be updated.'
-      render :action => "edit"
+      render :action => "edit", :layout => !request.xhr?
     end
   end
 

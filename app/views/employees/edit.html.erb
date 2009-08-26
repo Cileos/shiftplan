@@ -1,8 +1,3 @@
-<h1>Editing employee</h1>
-
 <% form_for(@employee) do |f| %>
   <%= render :partial => "form", :locals => { :f => f } %>
 <% end %>
-
-<%= link_to 'Show', @employee %> |
-<%= link_to 'Back', employees_path %>

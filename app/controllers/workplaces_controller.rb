@@ -3,6 +3,7 @@ class WorkplacesController < ApplicationController
   before_filter :set_workplace, :only => [:show, :edit, :update, :destroy]
 
   def index
+    render :layout => !request.xhr?
   end
 
   def show
@@ -10,6 +11,7 @@ class WorkplacesController < ApplicationController
 
   def new
     @workplace = Workplace.new
+    render :layout => !request.xhr?
   end
 
   def create
@@ -20,11 +22,12 @@ class WorkplacesController < ApplicationController
       redirect_to workplaces_url
     else
       flash[:error] = "Workplace could not be created."
-      render :action => 'new'
+      render :action => 'new', :layout => !request.xhr?
     end
   end
 
   def edit
+    render :layout => !request.xhr?
   end
 
   def update
@@ -33,7 +36,7 @@ class WorkplacesController < ApplicationController
       redirect_to workplaces_url
     else
       flash[:error] = "Workplace could not be updated."
-      render :action => 'edit'
+      render :action => 'edit', :layout => !request.xhr?
     end
   end
 
