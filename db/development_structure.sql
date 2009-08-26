@@ -1,48 +1,9 @@
-CREATE TABLE `allocations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `requirement_id` int(11) DEFAULT NULL,
-  `employee_id` int(11) DEFAULT NULL,
-  `workplace_id` int(11) DEFAULT NULL,
-  `start` datetime DEFAULT NULL,
-  `end` datetime DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `employees` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `requirements` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `workplace_id` int(11) DEFAULT NULL,
-  `start` datetime DEFAULT NULL,
-  `end` datetime DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `schema_migrations` (
-  `version` varchar(255) NOT NULL,
-  UNIQUE KEY `unique_schema_migrations` (`version`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `workplaces` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
+CREATE TABLE "allocations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "requirement_id" integer, "employee_id" integer, "workplace_id" integer, "start" datetime, "end" datetime, "created_at" datetime, "updated_at" datetime);
+CREATE TABLE "employees" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar(255), "last_name" varchar(255), "created_at" datetime, "updated_at" datetime);
+CREATE TABLE "requirements" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "workplace_id" integer, "start" datetime, "end" datetime, "quantity" integer, "created_at" datetime, "updated_at" datetime);
+CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL);
+CREATE TABLE "workplaces" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "color" varchar(6), "created_at" datetime, "updated_at" datetime);
+CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version");
 INSERT INTO schema_migrations (version) VALUES ('20090621144700');
 
 INSERT INTO schema_migrations (version) VALUES ('20090808093505');

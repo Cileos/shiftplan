@@ -1,4 +1,16 @@
+<script type="text/javascript">
+$(document).ready(function() {
+  $('input.colorpicker').colorPicker();
+});
+</script>
+
 <%= f.error_messages %>
 
-<%= f.label :name %>
-<%= f.text_field :name %>
+<div>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+</div>
+<div>
+  <%= f.label :color %>
+  <%= f.text_field :color, :value => f.object.color, :class => 'colorpicker' %>
+</div>
