@@ -1,8 +1,8 @@
-#employees {
+#workplaces {
   width: 1000px;
 }
 
-.employee {
+.workplace {
   width: 250px;
   float: left;
   background-color: #fff;
@@ -13,22 +13,29 @@
   cursor: pointer;
 }
 
-.employee h2 {
+.workplace h2 {
   font-weight: bold;
   margin-bottom: 0.5em;
 }
 
-.employee .tags {
+.workplace .color {
+  float: left;
+  margin-right: 1em;
+  border: 1px solid #ddd;
+  width: 60px;
+  height: 60px;
+}
+
+.workplace .tags {
   font-style: italic;
   font-size: 0.8em;
 }
 
-.employee img {
+.workplace img {
   float: left;
   margin-right: 1em;
-  border: 1px solid #ddd;
 }
 
-.employee .actions {
+.workplace .actions {
   float: right;
 }

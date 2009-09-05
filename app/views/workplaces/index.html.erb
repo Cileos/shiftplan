@@ -1,11 +1,18 @@
-<%= link_to "Add a new workplace", new_workplace_path, :class => 'dialog', :title => 'New workplace' %>
-
-<ul>
+<ul id="workplaces">
   <% for workplace in @workplaces -%>
     <% content_tag_for(:li, workplace) do -%>
-    	<%= link_to(workplace.name, workplace_path(workplace)) %> (<%= workplace.color %>)
-				(<%= link_to(t(:edit), edit_workplace_path(workplace), :class => 'dialog', :title => "Workplace #{workplace.name}") %>,
-				<%= link_to(t(:destroy), workplace_path(workplace), :method => :delete) %>)
+      <div class="color" style="background-color:<%= workplace.color %>"></div>
+    	<h2><%= workplace.name %></h2>
+    	<p class="tags"><%= workplace.name %></p>
+			<div class="actions">
+			  <%= link_to(t(:edit), edit_workplace_path(workplace), :class => 'edit dialog clickable_link', :title => "Workplace #{workplace.name}") %><%= link_to(t(:destroy), workplace_path(workplace), :class => 'delete', :method => :delete) %>
+			</div>
     <% end -%>
   <% end -%>
+  <li id="new_workplace" class="workplace clickable">
+    <div class="color" style="background-color:transparent;"></div>
+    <h2><%= link_to '[Click to add]', new_workplace_path, :class => 'dialog clickable_link', :title => 'New workplace' %></h2>
+    <p class="tags">Click here to add a new workplace</p>
+    <div class="actions"></div>
+  </li>
 </ul>
