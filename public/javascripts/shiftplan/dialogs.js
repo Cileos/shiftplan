@@ -6,16 +6,10 @@ var updateFlash = function(flashes) {
   $.each(flashes, function(type, message) {
     if(message == '') return;
 
-    var className = '.flash.' + type;
-    var dialog_flash = $(className, $('#dialog'));
-    if(dialog_flash.length > 0) {
-      dialog_flash.html(message);
-      dialog_flash.show();
-    } else {
-      var flash = $(className);
-      flash.html(message);
-      flash.show();
-    }
+    var flash = $('#flash');
+    flash.html(message);
+    flash.attr('class', type);
+    flash.show();
   });
 };
 
@@ -58,7 +52,7 @@ var createDialogForLink = function(link) {
     dataType: 'html',
     success: function(data, textStatus) {
       dialogContainer.html(data);
-      dialogContainer.prepend('<div class="flash error"></div><div class="flash notice"></div>');
+      dialogContainer.prepend('<div id="flash"></div>');
 
       $('#dialog form').ajaxForm({
         dataType: 'json',

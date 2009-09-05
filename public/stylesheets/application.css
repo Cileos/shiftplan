@@ -84,7 +84,7 @@ input.w100p {
   background: url(/images/icons/delete.png) no-repeat -5px top;
 }
 
-.flash {
+#flash {
   padding: 0.5em;
   border: 1px solid #ddd;
   color: #fff;
@@ -92,10 +92,10 @@ input.w100p {
   display: none;
 }
 
-.flash.notice {
+#flash.notice {
   background-color: green;
 }
 
-.flash.error {
+#flash.error {
   background-color: red;
 }
