@@ -7,4 +7,12 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password, :password_confirmation
+
+  before_filter :set_object_name
+
+  protected
+
+    def set_object_name
+      @object_name ||= params[:controller].split('/').last.singularize
+    end
 end

@@ -15,10 +15,19 @@ class EmployeesController < ApplicationController
 
     if @employee.save
       flash[:notice] = 'Employee successfully created.'
-      redirect_to employees_url
+
+      respond_to do |format|
+        format.html { redirect_to employees_url }
+        # render :json => "{ 'flash': { 'notice': '#{flash[:notice]}' }, 'schools': [#{schools.map { |school| school.to_json(:only => [:id, :title], :include => { :city => { :only => :title }, :region => { :only => :title } }) }.join(', ')}]}"
+        format.json { render :text => 'OK', :status => 201 }
+      end
     else
       flash[:error] = 'Employee could not be created.'
-      render :action => "new", :layout => !request.xhr?
+
+      respond_to do |format|
+        format.html { render :action => 'new' }
+        format.json { render :template => 'shared/errors', :status => 400 }
+      end
     end
   end
 
@@ -29,10 +38,18 @@ class EmployeesController < ApplicationController
   def update
     if @employee.update_attributes(params[:employee])
       flash[:notice] = 'Employee successfully updated.'
-      redirect_to employees_url
+
+      respond_to do |format|
+        format.html { redirect_to employees_url }
+        format.json { render :text => 'OK', :status => 200 }
+      end
     else
       flash[:error] = 'Employee could not be updated.'
-      render :action => "edit", :layout => !request.xhr?
+
+      respond_to do |format|
+        format.html { render :action => 'edit', :layout => !request.xhr? }
+        format.json { render :template => 'shared/errors', :status => 400 }
+      end
     end
   end
 

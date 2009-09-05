@@ -11,3 +11,7 @@ h1 {
 .ui-tabs-panel {
   height: 500px;
 }
+
+div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWithErrors select {
+  border: 1px solid red;
+}

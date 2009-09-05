@@ -1,0 +1,9 @@
+{
+  'flash': {
+    'notice': '<%= flash[:notice] %>',
+    'error': '<%= flash[:error] %>'
+  },
+  'errors': {
+    <%= json_errors_for(object) %>
+  }
+}
