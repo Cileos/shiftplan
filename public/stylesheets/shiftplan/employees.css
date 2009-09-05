@@ -1,0 +1,33 @@
+#employees {
+  width: 1000px;
+}
+
+.employee {
+  width: 250px;
+  float: left;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1em;
+  margin: 0 1em 1em 0;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.employee h2 {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.employee .tags {
+  font-style: italic;
+  font-size: 0.8em;
+}
+
+.employee img {
+  float: left;
+  margin-right: 1em;
+}
+
+.employee .actions {
+  float: right;
+}

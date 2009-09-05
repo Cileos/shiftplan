@@ -4,7 +4,8 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title><%= yield :title %> | shiftplan.com</title>
-    <%= stylesheet_link_tag 'jquery-ui/ui-lightness/jquery-ui', 'jquery-ui-colorpicker', 'application' %>
+    <%= stylesheet_link_tag 'reset', 'jquery-ui/ui-lightness/jquery-ui', 'jquery-ui-colorpicker', 'application',
+                            'shiftplan/employees', :cache => true %>
     <!--[if IE]>
       <%= stylesheet_link_tag 'ie' %>
     <![endif]-->
@@ -36,8 +37,8 @@
 		}
 		</style>
 
-    <%= javascript_include_tag 'jquery', 'jquery.form.js', 'date', 'jquery-ui.js', 'jquery-plugin-colorpicker', 'parseuri',
-                               'shiftplan/dialogs', 'shiftplan/plan', 'shiftplan/tabs', :cache => true %>
+    <%= javascript_include_tag 'util', 'jquery', 'jquery.form.js', 'date', 'jquery-ui.js', 'jquery-plugin-colorpicker', 'parseuri',
+                               'shiftplan/dialogs', 'shiftplan/lists', 'shiftplan/plan', 'shiftplan/tabs', :cache => true %>
     <%= yield(:head) %>
     <script type="text/javascript">
       $(document).ready(function() {

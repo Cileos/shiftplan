@@ -1,19 +1,3 @@
-// {
-//   'flash': {
-//     'notice': 'Muh',
-//     'error': 'Mäh'
-//   }
-//   'employee': {
-//     'errors': {
-//       'first_name': "can't be blank"
-//     }
-//   }
-// }
-
-Array.prototype.toSentence = function() {
-  return this.join(', ');
-};
-
 var handleSuccessfulDialogFormRequest = function(data, textStatus) {
   alert(data);
 };
@@ -40,30 +24,33 @@ var handleFailedDialogFormRequest = function(request, statusText, error) {
   });
 };
 
+var createDialogForLink = function(link) {
+  var dialogContainer = $('<div id="dialog"></div>');
+  dialogContainer.dialog({
+    width:800,
+    title: link.attr('title'),
+    close: function() {
+      link.dialog('destroy');
+    }
+  });
+
+  $.ajax({
+    url: link.attr('href'),
+    dataType: 'html',
+    success: function(data, textStatus) {
+      dialogContainer.html(data);
+      $('#dialog form').ajaxForm({
+        dataType: 'json',
+        success: handleSuccessfulDialogFormRequest,
+        error: handleFailedDialogFormRequest
+      });
+    }
+  });
+};
+
 $(document).ready(function() {
   $('a.dialog').live('click', function(event) {
     event.preventDefault();
-
-    var dialogContainer = $('<div id="dialog"></div>');
-    dialogContainer.dialog({
-      width:800,
-      title: this.title,
-      close: function() {
-        $(this).dialog('destroy').remove();
-      }
-    });
-  
-    $.ajax({
-      url: this.href,
-      dataType: 'html',
-      success: function(data, textStatus) {
-        dialogContainer.html(data);
-        $('#dialog form').ajaxForm({
-          dataType: 'json',
-          success: handleSuccessfulDialogFormRequest,
-          error: handleFailedDialogFormRequest
-        });
-      }
-    });
+    createDialogForLink($(this));
   });
 });

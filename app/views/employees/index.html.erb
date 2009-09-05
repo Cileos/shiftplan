@@ -1,12 +1,18 @@
-<%= link_to 'Add a new employee', new_employee_path, :class => 'dialog', :title => 'New employee' %>
-
-<ul>
+<ul id="employees">
   <% for employee in @employees -%>
-    <% content_tag_for(:li, employee) do -%>
-      <%= image_tag(employee.gravatar_url(:size => 40))%>
-    	<%= link_to(employee.full_name, employee_path(employee)) %>
-				(<%= link_to(t(:edit), edit_employee_path(employee), :class => 'dialog', :title => "Employee #{employee.full_name}") %>,
-				<%= link_to(t(:destroy), employee_path(employee), :method => :delete) %>)
+    <% content_tag_for(:li, employee, :class => 'clickable') do -%>
+      <%= image_tag(employee.gravatar_url(:size => 60)) %>
+    	<h2><%= employee.full_name %></h2>
+    	<p class="tags">Küche, Bar</p>
+			<div class="actions">
+  			<%= link_to(t(:edit), edit_employee_path(employee), :class => 'edit dialog clickable_link', :title => "Employee #{employee.full_name}") %><%= link_to(t(:destroy), employee_path(employee), :class => 'delete', :method => :delete) %>
+  		</div>
     <% end -%>
   <% end -%>
+  <li id="new_employee" class="employee clickable">
+    <%= image_tag(Employee.new.gravatar_url(:size => 60)) %>
+    <h2><%= link_to '[Click to add]', new_employee_path, :class => 'dialog clickable_link', :title => 'New employee' %></h2>
+    <p class="tags">Click here to add a new employee</p>
+    <div class="actions"></div>
+  </li>
 </ul>
