@@ -7,4 +7,6 @@ Rails::Initializer.run do |config|
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
   config.i18n.default_locale = :en
+
+  config.gem 'gravtastic', :version => '>= 2.1.0'
 end

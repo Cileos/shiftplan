@@ -3,6 +3,7 @@
 <ul>
   <% for employee in @employees -%>
     <% content_tag_for(:li, employee) do -%>
+      <%= image_tag(employee.gravatar_url(:size => 40))%>
     	<%= link_to(employee.full_name, employee_path(employee)) %>
 				(<%= link_to(t(:edit), edit_employee_path(employee), :class => 'dialog', :title => "Employee #{employee.full_name}") %>,
 				<%= link_to(t(:destroy), employee_path(employee), :method => :delete) %>)
