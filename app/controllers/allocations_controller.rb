@@ -5,34 +5,42 @@ class AllocationsController < ApplicationController
   before_filter :set_workplaces, :only => :index
   before_filter :set_requirements, :only => :index
 
+  def index
+    render :layout => !request.xhr?
+  end
+
   def create
     @allocation = Allocation.new(params[:allocation])
 
     if @allocation.save
       flash[:notice] = 'Allocation was successfully created.'
-      redirect_to(@allocation)
+      redirect_to allocations_url
     else
-      render :action => "new"
+      render :action => 'new', :layout => !request.xhr?
     end
   end
 
   def update
     if @allocation.update_attributes(params[:allocation])
       flash[:notice] = 'Allocation was successfully updated.'
-      redirect_to(@allocation)
+      redirect_to allocations_url
     else
-      render :action => "edit"
+      render :action => 'edit', :layout => !request.xhr?
     end
   end
 
   def destroy
     @allocation.destroy
-    redirect_to(allocations_url)
+    redirect_to allocations_url
   end
 
   protected
     def set_date
-      @date = Date.civil(*[params[:year], params[:month], params[:day]].compact.map(&:to_i)) if params[:year]
+      @date = if params[:year]
+        Date.civil(*[params[:year], params[:month], params[:day]].compact.map(&:to_i))
+      else
+        Date.current
+      end
       @week = params[:week] if params[:week]
     end
 
