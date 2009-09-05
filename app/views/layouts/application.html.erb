@@ -36,7 +36,7 @@
 		}
 		</style>
 
-    <%= javascript_include_tag 'jquery', 'jquery.form.js', 'date', 'jquery-ui.js', 'jquery-plugin-colorpicker', :cache => true %>
+    <%= javascript_include_tag 'jquery', 'jquery.form.js', 'date', 'jquery-ui.js', 'jquery-plugin-colorpicker', 'parseuri', :cache => true %>
     <%= yield(:head) %>
     <script type="text/javascript">
 		  var requirement_options = {
@@ -45,7 +45,21 @@
 			};
 
       $(document).ready(function() {
-        $('#content').tabs();
+        // find out which tab to select
+        var uri = URI.parse(window.location.href);
+        var directory = uri.directory;
+
+        var selected_tab = 0;
+
+        if(directory.search(/^\/workplaces/) > -1) {
+          selected_tab = 1;
+        } else if(directory.search(/^\/employees/) > -1) {
+          selected_tab = 2;
+        }
+
+        $('#content').tabs({
+          selected: selected_tab
+        });
 
         $('input.colorpicker').colorPicker();
 
