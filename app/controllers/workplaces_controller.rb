@@ -19,10 +19,16 @@ class WorkplacesController < ApplicationController
 
     if @workplace.save
       flash[:notice] = "Workplace successfully created."
-      redirect_to workplaces_url
+      respond_to do |format|
+        format.html { redirect_to workplaces_url }
+        format.json { render :text => 'OK', :status => 201 }
+      end
     else
       flash[:error] = "Workplace could not be created."
-      render :action => 'new', :layout => !request.xhr?
+      respond_to do |format|
+        format.html { render :action => 'new', :layout => !request.xhr? }
+        format.json { render :template => 'shared/errors', :status => 400 }
+      end
     end
   end
 
@@ -33,10 +39,16 @@ class WorkplacesController < ApplicationController
   def update
     if @workplace.update_attributes(params[:workplace])
       flash[:notice] = "Workplace successfully updated."
-      redirect_to workplaces_url
+      respond_to do |format|
+        format.html { redirect_to workplaces_url }
+        format.json { render :text => 'OK', :status => 200 }
+      end
     else
       flash[:error] = "Workplace could not be updated."
-      render :action => 'edit', :layout => !request.xhr?
+      respond_to do |format|
+        format.html { render :action => 'edit', :layout => !request.xhr? }
+        format.json { render :template => 'shared/errors', :status => 400 }
+      end
     end
   end
 

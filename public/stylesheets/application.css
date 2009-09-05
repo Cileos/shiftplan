@@ -83,3 +83,19 @@ input.w100p {
 .actions a.delete {
   background: url(/images/icons/delete.png) no-repeat -5px top;
 }
+
+.flash {
+  padding: 0.5em;
+  border: 1px solid #ddd;
+  color: #fff;
+  margin-bottom: 1em;
+  display: none;
+}
+
+.flash.notice {
+  background-color: green;
+}
+
+.flash.error {
+  background-color: red;
+}

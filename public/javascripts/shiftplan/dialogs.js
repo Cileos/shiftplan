@@ -2,8 +2,27 @@ var handleSuccessfulDialogFormRequest = function(data, textStatus) {
   alert(data);
 };
 
+var updateFlash = function(flashes) {
+  $.each(flashes, function(type, message) {
+    if(message == '') return;
+
+    var className = '.flash.' + type;
+    var dialog_flash = $(className, $('#dialog'));
+    if(dialog_flash.length > 0) {
+      dialog_flash.html(message);
+      dialog_flash.show();
+    } else {
+      var flash = $(className);
+      flash.html(message);
+      flash.show();
+    }
+  });
+};
+
 var handleFailedDialogFormRequest = function(request, statusText, error) {
   var data = $.httpData(request, 'json', {});
+
+  updateFlash(data['flash']);
 
   // unwrap all errors
   // FIXME: keep values
@@ -39,6 +58,8 @@ var createDialogForLink = function(link) {
     dataType: 'html',
     success: function(data, textStatus) {
       dialogContainer.html(data);
+      dialogContainer.prepend('<div class="flash error"></div><div class="flash notice"></div>');
+
       $('#dialog form').ajaxForm({
         dataType: 'json',
         success: handleSuccessfulDialogFormRequest,

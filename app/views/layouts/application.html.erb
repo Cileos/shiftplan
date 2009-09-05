@@ -48,13 +48,6 @@
     </script>
   </head>
   <body>
-    <div>
-      <%- if flash[:notice] -%>
-        <div id="flash" class="notice"><%= flash[:notice] %></div>
-      <%- elsif flash[:error] -%>
-        <div id="flash" class="error"><%= flash[:error] %></div>
-      <%- end -%>
-    </div>
 		<div id="content">
 	    <ul id="navigation">
 	      <li><%= link_to t(:overview), root_path %></li>
