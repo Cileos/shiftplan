@@ -24,7 +24,12 @@ ActiveRecord::Schema.define(:version => 20090808170413) do
   create_table "employees", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
+    t.date     "birthday"
     t.string   "email"
+    t.string   "phone"
+    t.string   "street"
+    t.string   "zipcode"
+    t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
