@@ -36,84 +36,12 @@
 		}
 		</style>
 
-    <%= javascript_include_tag 'jquery', 'jquery.form.js', 'date', 'jquery-ui.js', 'jquery-plugin-colorpicker', 'parseuri', :cache => true %>
+    <%= javascript_include_tag 'jquery', 'jquery.form.js', 'date', 'jquery-ui.js', 'jquery-plugin-colorpicker', 'parseuri',
+                               'shiftplan/dialogs', 'shiftplan/plan', 'shiftplan/tabs', :cache => true %>
     <%= yield(:head) %>
     <script type="text/javascript">
-		  var requirement_options = {
-				grid: [0, 15],
-				handles: 's, n'
-			};
-
       $(document).ready(function() {
-        // find out which tab to select
-        var uri = URI.parse(window.location.href);
-        var directory = uri.directory;
-
-        var selected_tab = 0;
-
-        if(directory.search(/^\/workplaces/) > -1) {
-          selected_tab = 1;
-        } else if(directory.search(/^\/employees/) > -1) {
-          selected_tab = 2;
-        }
-
-        $('#content').tabs({
-          selected: selected_tab
-        });
-
         $('input.colorpicker').colorPicker();
-
-        $('a.dialog').live('click', function(event) {
-          event.preventDefault();
-
-          var dialogContainer = $('<div id="dialog"></div>');
-          dialogContainer.dialog({
-            width:800,
-            title: this.title,
-            close: function() {
-              $(this).dialog('destroy').remove();
-            }
-          });
-          
-          $.ajax({
-            url: this.href,
-            dataType: 'html',
-            success: function(data, textStatus) {
-              dialogContainer.html(data);
-            }
-          });
-        });
-
-				$('.slot').live('dblclick', function() {
-					element = $(this);
-
-					var workplace_id = element.closest('.workplace').attr('data-workplace-id');
-
-					var match = element.attr('data-time').match(/^0?(\d*):(\d{2})/);
-
-					var start_time = new Date();
-					start_time.setHours(parseInt(match[1]));
-					start_time.setMinutes(parseInt(match[2]));
-
-					var end_time = new Date(start_time);
-					end_time.setHours(start_time.getHours() + 1);
-
-					var html = '<div class="requirement unstaffed workplace_' + workplace_id + '"></div>';
-					var children = element.children('.requirement').length;
-					var minutes = (end_time - start_time) / (60 * 1000);
-
-					element.append($(html).attr('data-quantity', 1).
- 					                       attr('data-start-time', [start_time.getHours(), start_time.getMinutes()].join(':')).
-					                       attr('data-end-time', [end_time.getHours(), end_time.getMinutes()].join(':')).
-																 css({'height': minutes.toString() + 'px', 'margin-left': (children * 20).toString() + 'px'}).
-																 resizable(requirement_options));
-				});
-
-				$('.requirement').live('dblclick', function() {
-					$(this).append('<form class="edit_requirement"><label for="quantity">Quantity</label><input id="quantity" type="text" /></form>');
-				});
-
-				$('.requirement').resizable(requirement_options);
         <%= yield(:jquery) %>
       });
     </script>
