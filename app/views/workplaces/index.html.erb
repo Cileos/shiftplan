@@ -6,7 +6,7 @@
     <div class="actions"></div>
   </li>
   <% for workplace in @workplaces -%>
-    <% content_tag_for(:li, workplace) do -%>
+    <% content_tag_for(:li, workplace, :class => 'clickable') do -%>
       <div class="color" style="background-color:<%= workplace.color %>"></div>
     	<h2><%= workplace.name %></h2>
     	<p class="tags"><%= workplace.name %></p>

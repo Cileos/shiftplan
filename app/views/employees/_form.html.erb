@@ -1,18 +1,39 @@
-<%= f.error_messages %>
-
-<div>
-  <%= f.label :first_name %>
-  <%= f.text_field :first_name %>
+<div class="photo">
+  <%= image_tag(f.object.gravatar_url(:size => 200)) %>
+  <p>Picture powered by <%= link_to 'gravatar.com', 'http://www.gravatar.com' %></p>
 </div>
-<div>
-  <%= f.label :last_name %>
-  <%= f.text_field :last_name %>
-</div>
-
-<div>
-  <%= f.label :email %>
-  <%= f.text_field :email %>
-</div>
-<div>
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+  <legend class="ui-widget-header">Base data</legend>
+  <div>
+    <%= f.label :first_name, 'Name' %>
+    <%= f.text_field :first_name, :class => 'w50p' %>
+    <%= f.text_field :last_name, :class => 'w50p' %>
+  </div>
+  <div>
+    <%= f.label :birthday %>
+    <%= f.date_select :birthday, :start_year => Time.current.year, :end_year => 1920 %>
+  </div>
+</fieldset>
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+  <legend class="ui-widget-header">Contact data</legend>
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email, :class => 'w100p' %>
+  </div>
+  <div>
+    <%= f.label :phone %>
+    <%= f.text_field :phone, :class => 'w100p' %>
+  </div>
+  <div>
+    <%= f.label :street %>
+    <%= f.text_field :street, :class => 'w100p' %>
+  </div>
+  <div>
+    <%= f.label :zipcode, 'City' %>
+    <%= f.text_field :zipcode, :class => 'w30p' %>
+    <%= f.text_field :city, :class => 'w70p' %>
+  </div>
+</fieldset>
+<div class="ui-widget-content ui-corner-all">
   <%= f.submit 'Save' %>
 </div>

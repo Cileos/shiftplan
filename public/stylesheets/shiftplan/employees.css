@@ -32,3 +32,16 @@
 .employee .actions {
   float: right;
 }
+
+form.edit_employee .photo, form.new_employee .photo {
+  float: right;
+  margin-left: 1em;
+  width: 200px;
+}
+
+form.edit_employee .photo p, form.new_employee .photo p {
+  margin-top: 0.5em;
+  text-align: center;
+  font-size: 0.7em;
+  font-style: italic;
+}

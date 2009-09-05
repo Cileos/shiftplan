@@ -39,3 +39,8 @@
 .workplace .actions {
   float: right;
 }
+
+form.new_workplace .color_picker, form.edit_workplace .color_picker {
+  position: relative;
+  left: 120px;
+}

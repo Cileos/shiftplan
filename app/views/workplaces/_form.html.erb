@@ -4,13 +4,14 @@ $(document).ready(function() {
 });
 </script>
 
-<%= f.error_messages %>
-
-<div>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-</div>
-<div>
-  <%= f.label :color %>
-  <%= f.text_field :color, :value => f.object.color, :class => 'colorpicker' %>
-</div>
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+  <legend class="ui-widget-header">Base data</legend>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :color %>
+    <%= f.text_field :color, :value => f.object.color, :class => 'colorpicker' %>
+  </div>
+</fieldset>

@@ -16,6 +16,42 @@ div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWit
   border: 1px solid red;
 }
 
+fieldset {
+  border: 1px solid black;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+}
+
+legend {
+  padding: 0 0.5em;
+}
+
+fieldset > div {
+  margin-bottom: 0.3em;
+}
+
+label {
+  display: block;
+  float: left;
+  width: 120px;
+}
+
+input.w50p {
+  width: 180px;
+}
+
+input.w30p {
+  width: 108px;
+}
+
+input.w70p {
+  width: 252px;
+}
+
+input.w100p {
+  width: 372px;
+}
+
 .actions a {
   display: inline-block;
   width: 16px;
