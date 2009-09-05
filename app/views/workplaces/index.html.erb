@@ -1,4 +1,10 @@
 <ul id="workplaces">
+  <li id="new_workplace" class="workplace clickable">
+    <div class="color" style="background-color:transparent;"></div>
+    <h2><%= link_to '[Click to add]', new_workplace_path, :class => 'dialog clickable_link', :title => 'New workplace' %></h2>
+    <p class="tags">Click here to add a new workplace</p>
+    <div class="actions"></div>
+  </li>
   <% for workplace in @workplaces -%>
     <% content_tag_for(:li, workplace) do -%>
       <div class="color" style="background-color:<%= workplace.color %>"></div>
@@ -9,10 +15,4 @@
 			</div>
     <% end -%>
   <% end -%>
-  <li id="new_workplace" class="workplace clickable">
-    <div class="color" style="background-color:transparent;"></div>
-    <h2><%= link_to '[Click to add]', new_workplace_path, :class => 'dialog clickable_link', :title => 'New workplace' %></h2>
-    <p class="tags">Click here to add a new workplace</p>
-    <div class="actions"></div>
-  </li>
 </ul>
