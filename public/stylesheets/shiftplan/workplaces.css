@@ -44,3 +44,22 @@ form.new_workplace .color_picker, form.edit_workplace .color_picker {
   position: relative;
   left: 120px;
 }
+
+form.new_workplace .right_column, form.edit_workplace .right_column {
+  float: right;
+  margin-left: 1em;
+  width: 200px;
+  font-size: 0.8em;
+}
+
+.right_column .qualified_employees {
+  margin-top: 0.5em;
+}
+
+.qualified_employees li {
+  height: 25px;
+  vertical-align: middle;
+  padding: 7px 0 0 35px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}

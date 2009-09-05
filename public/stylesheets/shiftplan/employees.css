@@ -33,15 +33,36 @@
   float: right;
 }
 
-form.edit_employee .photo, form.new_employee .photo {
+form.edit_employee .right_column, form.new_employee .right_column {
   float: right;
   margin-left: 1em;
   width: 200px;
+  font-size: 0.8em;
 }
 
-form.edit_employee .photo p, form.new_employee .photo p {
+.right_column .photo {
+  margin-bottom: 1em;
+}
+
+.right_column .photo p {
   margin-top: 0.5em;
   text-align: center;
-  font-size: 0.7em;
   font-style: italic;
+  font-size: 0.7em;
+}
+
+.possible_workplaces {
+  margin-top: 0.5em;
+}
+
+.possible_workplaces li {
+  margin-bottom: 0.25em;
+}
+
+.possible_workplaces .color {
+  width: 0.8em;
+  height: 0.8em;
+  float: left;
+  margin-right: 0.5em;
+  border: 1px solid #ddd;
 }

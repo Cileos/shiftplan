@@ -1,6 +1,8 @@
-<div class="photo">
-  <%= image_tag(f.object.gravatar_url(:size => 200)) %>
-  <p>Picture powered by <%= link_to 'gravatar.com', 'http://www.gravatar.com' %></p>
+<div class="right_column">
+  <div class="photo">
+    <%= image_tag(f.object.gravatar_url(:size => 200)) %>
+    <p>Picture powered by <%= link_to 'gravatar.com', 'http://www.gravatar.com' %></p>
+  </div>
 </div>
 <fieldset class="ui-widget ui-widget-content ui-corner-all">
   <legend class="ui-widget-header">Base data</legend>
@@ -12,6 +14,10 @@
   <div>
     <%= f.label :birthday %>
     <%= f.date_select :birthday, :start_year => Time.current.year, :end_year => 1920 %>
+  </div>
+  <div>
+    <%= f.label :qualification_list %>
+    <%= f.text_field :qualification_list %>
   </div>
 </fieldset>
 <fieldset class="ui-widget ui-widget-content ui-corner-all">
