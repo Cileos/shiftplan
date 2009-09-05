@@ -24,6 +24,21 @@ module NavigationHelpers
         "Now, go and add a mapping in #{__FILE__}"
     end
   end
+
+  def link_text_for(id)
+    case id
+
+    when /^add_/
+      '[Click to add]'
+    when /^edit_/
+      'Edit'
+    when /^delete_/
+      'Delete'
+
+    else
+      raise "Can't find link text for #{id}"
+    end
+  end
 end
 
 World(NavigationHelpers)

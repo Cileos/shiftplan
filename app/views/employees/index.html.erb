@@ -1,7 +1,7 @@
 <ul id="employees">
   <li id="new_employee" class="employee clickable">
     <%= image_tag(Employee.new.gravatar_url(:size => 60)) %>
-    <h2><%= link_to '[Click to add]', new_employee_path, :class => 'dialog clickable_link', :title => 'New employee' %></h2>
+    <h2><%= link_to '[Click to add]', new_employee_path, :class => 'add dialog clickable_link', :title => 'New employee' %></h2>
     <p class="tags">Click here to add a new employee</p>
     <div class="actions"></div>
   </li>

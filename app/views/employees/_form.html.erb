@@ -7,9 +7,12 @@
 <fieldset class="ui-widget ui-widget-content ui-corner-all">
   <legend class="ui-widget-header">Base data</legend>
   <div>
-    <%= f.label :first_name, 'Name' %>
-    <%= f.text_field :first_name, :class => 'w50p' %>
-    <%= f.text_field :last_name, :class => 'w50p' %>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, :class => 'w100p' %>
+  </div>
+  <div>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, :class => 'w100p' %>
   </div>
   <div>
     <%= f.label :birthday %>
@@ -17,7 +20,7 @@
   </div>
   <div>
     <%= f.label :qualification_list %>
-    <%= f.text_field :qualification_list %>
+    <%= f.text_field :qualification_list, :class => 'w100p' %>
   </div>
 </fieldset>
 <fieldset class="ui-widget ui-widget-content ui-corner-all">

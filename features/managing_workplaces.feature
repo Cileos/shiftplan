@@ -18,7 +18,7 @@ Feature: Managing workplaces
 	@white
   Scenario: Defining a new workplace
     Given I am on the workplaces index page
-    When I follow "Add a new workplace"
+    When I click on the button to add a workplace
     And I fill in "Name" with "Kitchen"
     And I press "Save"
     Then I should see "Workplace successfully created."
@@ -27,11 +27,12 @@ Feature: Managing workplaces
 	@black
   Scenario: Trying to define a workplace with insufficient data
     Given I am on the workplaces index page
-    When I follow "Add a new workplace"
+    When I click on the button to add a workplace
     And I fill in "Name" with ""
     And I press "Save"
     Then I should see "Workplace could not be created."
-    And I should see "Name can't be blank"
+    And I should see "can't be blank"
+    # FIXME: not good?
 
 	@white
 	Scenario: Updating an existing workplace

@@ -18,7 +18,7 @@ Feature: Managing employees
 	@white
   Scenario: Defining a new employee
     Given I am on the employees index page
-    When I follow "Add a new employee"
+    When I click on the button to add an employee
     And I fill in "First name" with "Clemens"
     And I fill in "Last name" with "Kofler"
     And I press "Save"
@@ -28,12 +28,13 @@ Feature: Managing employees
 	@black
   Scenario: Trying to define an employee with insufficient data
     Given I am on the employees index page
-    When I follow "Add a new employee"
+    When I click on the button to add an employee
     And I fill in "First name" with ""
     And I fill in "Last name" with "Kofler"
     And I press "Save"
     Then I should see "Employee could not be created."
-    And I should see "First name can't be blank"
+    And I should see "can't be blank"
+    # FIXME: not good?
 
 	@white
 	Scenario: Updating an existing employee
