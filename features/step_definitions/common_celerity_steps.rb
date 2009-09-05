@@ -1,32 +1,36 @@
 require 'culerity'
 
-# Before do
-#   $server ||= Culerity::run_server
-#   $browser = Culerity::RemoteBrowserProxy.new($server, :browser => :firefox)
-#   $host = 'http://localhost:3001'
-# end
-
-at_exit do
-  $browser.exit
-  $server.close
+# wtf?
+Culerity::RemoteBrowserProxy.class_eval do
+  undef_method :label
 end
 
-Given /^I am on (.+)$/ do |path|
-  $browser.goto $host + path_to(path)
-  assert_successful_response
+Before do
+  $server ||= Culerity::run_server
+  $browser = Culerity::RemoteBrowserProxy.new($server, { :browser => :firefox })
+  @host = 'http://localhost:3001'
+end
+
+at_exit do
+  $browser.exit if $browser
+  $server.close if $server
 end
 
 When /I press "(.*)"/ do |button|
   $browser.button(:text, button).click
   assert_successful_response
+
+  $browser.wait # transparently handle AJAX requests
 end
 
 When /I follow "(.*)"/ do |link|
   $browser.link(:text, /#{link}/).click
   assert_successful_response
+
+  $browser.wait # transparently handle AJAX requests
 end
 
-When /I fill in "(.*)" with "(.*)"/ do |field, value|
+When /I fill in "(.*)" for "(.*)"/ do |value, field|
   $browser.text_field(:id, find_label(field).for).set(value)
 end
 
@@ -47,7 +51,7 @@ When /I choose "(.*)"/ do |field|
 end
 
 When /I go to (.+)/ do |path|
-  $browser.goto $host + path_to(path)
+  $browser.goto @host + path_to(path)
   assert_successful_response
 end
 
@@ -64,19 +68,15 @@ Then /I should see "(.*)"/ do |text|
     #puts $browser.html
     raise("div with '#{text}' not found")
   end
-  # elements = $browser.elements_by_xpath("//*") # TODO: improve xPath to only check descendants of /html/body
-  # elements.any? { |element| eval(element.gsub('@io', '$server')).try(:text) == text rescue false }.should be_true
 end
 
 Then /I should not see "(.*)"/ do |text|
   div = $browser.div(:text, /#{text}/).html rescue nil
   div.should be_nil
-  # elements = $browser.elements_by_xpath("//*") # TODO: improve xPath to only check descendants of /html/body
-  # elements.any? { |element| eval(element.gsub('@io', '$server')).try(:text) == text rescue false }.should be_false
 end
 
 def find_label(text)
-  $browser.label :text, text
+  $browser.label(:text, text)
 end
 
 def assert_successful_response
@@ -89,8 +89,8 @@ def assert_successful_response
   elsif status != 200
     tmp = Tempfile.new 'culerity_results'
     tmp << $browser.html
-    `open -a /Applications/Safari.app #{tmp.path}`
     tmp.close
-    raise "Browser returned Response Code #{$browser.page.web_response.status_code}"
+    `open -a /Applications/Safari.app #{tmp.path}`
+    raise "Brower returned Response Code #{$browser.page.web_response.status_code}"
   end
 end

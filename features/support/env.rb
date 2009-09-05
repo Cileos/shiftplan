@@ -19,7 +19,7 @@ end
 Cucumber::Rails.bypass_rescue
 
 # require 'webrat'
-require 'culerity'
+# require 'culerity'
 
 # Webrat.configure do |config|
 #   config.mode = :rails
@@ -27,7 +27,3 @@ require 'culerity'
 
 require 'cucumber/rails/rspec'
 # require 'webrat/core/matchers'
-
-$server = Culerity::run_server
-$browser = Culerity::RemoteBrowserProxy.new($server, :browser => :firefox)
-$host = 'http://localhost:3001'
