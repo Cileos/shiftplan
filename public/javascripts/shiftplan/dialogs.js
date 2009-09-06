@@ -1,5 +1,29 @@
 var handleSuccessfulDialogFormRequest = function(data, textStatus) {
-  alert(data);
+  updateFlash(data['flash']);
+
+  var form = $('#dialog form')[0];
+  var match_data = form.id.match(/(new|edit)_([^0-9]+)(_[0-9]+)?$/);
+  var type = match_data[1];
+  var object = match_data[2];
+
+  $.each(data[object], function(attribute, value) {
+    var form_field = $('#' + object + '_' + attribute);
+    if(form_field.length > 0) {
+      form_field.val(value);
+    }
+  });
+
+  // update form
+  var form_object = $(form)
+  form_object.attr('id', 'edit_' + object + '_' + data[object]['id']).
+    addClass('edit_' + object).removeClass('new_' + object);
+  if(type == 'new') { // new form needs new URL, too
+    form_object.attr('action', form_object.attr('action') + '/' + data[object]['id']);
+  }
+
+  // add hidden field for PUT request
+  $('input[type=hidden][name=_method]', form_object).remove();
+  $('div:first-child', form_object).append('<input type="hidden" name="_method" value="put" />');
 };
 
 var updateFlash = function(flashes) {
@@ -23,16 +47,16 @@ var handleFailedDialogFormRequest = function(request, statusText, error) {
   $('div.fieldWithErrors').each(function() {
     $(this).replaceWith($(this).html());
   });
-  $('span.form_error_message').remove();
+  $('span.formErrorMessage').remove();
 
   $.each(data['errors'], function(object_name, fieldsWithErrors) {
     $.each(fieldsWithErrors, function(field_name, errors) {
       var selector = $('#' + object_name + '_' + field_name);
-      var errorMessagesSpan = '<span class="form_error_message">' + errors.toSentence() + '</span>';
+      var errorMessagesSpan = '<span class="formErrorMessage">' + errors.toSentence() + '</span>';
       if(selector.parent('div.fieldWithErrors').length < 1) {
         selector.wrap('<div class="fieldWithErrors"></div>').parent('div.fieldWithErrors').after(errorMessagesSpan);
       }
-      selector.parent('div.fieldWithErrors').siblings('span.form_error_message').replaceWith(errorMessagesSpan);
+      selector.parent('div.fieldWithErrors').siblings('span.formErrorMessage').replaceWith(errorMessagesSpan);
     });
   });
 };

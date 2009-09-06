@@ -18,8 +18,7 @@ class EmployeesController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to employees_url }
-        # render :json => "{ 'flash': { 'notice': '#{flash[:notice]}' }, 'schools': [#{schools.map { |school| school.to_json(:only => [:id, :title], :include => { :city => { :only => :title }, :region => { :only => :title } }) }.join(', ')}]}"
-        format.json { render :text => 'OK', :status => 201 }
+        format.json { render :json => "{ 'flash': { 'notice': '#{flash[:notice]}' }, 'employee': #{@employee.to_json} }", :status => 201 }
       end
     else
       flash[:error] = 'Employee could not be created.'
@@ -41,7 +40,7 @@ class EmployeesController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to employees_url }
-        format.json { render :text => 'OK', :status => 200 }
+        format.json { render :json => "{ 'flash': { 'notice': '#{flash[:notice]}' }, 'employee': #{@employee.to_json} }", :status => 201 }
       end
     else
       flash[:error] = 'Employee could not be updated.'
