@@ -1,8 +1,8 @@
 <ul id="employees">
   <li id="new_employee" class="employee clickable">
     <%= image_tag(Employee.new.gravatar_url(:size => 60)) %>
-    <h2><%= link_to '[Click to add]', new_employee_path, :class => 'add dialog clickable_link', :title => 'New employee' %></h2>
-    <p class="qualifications">Click here to add a new employee</p>
+    <h2><%= link_to "[#{t(:click_to_add_employee)}]", new_employee_path, :class => 'add dialog clickable_link', :title => t(:new_employee) %></h2>
+    <p class="qualifications"><%= t(:add_employee) %></p>
     <div class="actions"></div>
   </li>
   <%= render :partial => 'employee', :collection => @employees %>

@@ -10,6 +10,31 @@ de:
   allocations: Einsätze
   allocation: Einsatz
 
+  save: Speichern
+  picture_powered_by: "Bildquelle: {{link}}"
+
+  # workplaces
+  click_to_add_workplace: Hinzufügen
+  add_workplace: "Klicken Sie hier, um einen Arbeitsplatz hinzuzufügen"
+  new_workplace: Neuer Arbeitsplatz
+  edit_workplace: "Arbeitsplatz \"{{name}}\" bearbeiten"
+  workplace_successfully_created: "Arbeitsplatz erfolgreich angelegt."
+  workplace_could_not_be_created: "Arbeitsplatz konnte nicht angelegt werden."
+  workplace_successfully_updated: "Arbeitsplatz erfolgreich geändert."
+  workplace_could_not_be_updated: "Arbeitsplatz konnte nicht geändert werden."
+  workplace_successfully_deleted: "Arbeitsplatz erfolgreich gelöscht."
+
+  # employees
+  click_to_add_employee: Hinzufügen
+  add_employee: "Klicken Sie hier, um einen Mitarbeiter hinzuzufügen"
+  new_employee: Neuer Mitarbeiter
+  edit_employee: "Mitarbeiter \"{{full_name}}\" bearbeiten"
+  employee_successfully_created: "Mitarbeiter erfolgreich angelegt."
+  employee_could_not_be_created: "Mitarbeiter konnte nicht angelegt werden."
+  employee_successfully_updated: "Mitarbeiter erfolgreich geändert."
+  employee_could_not_be_updated: "Mitarbeiter konnte nicht geändert werden."
+  employee_successfully_deleted: "Mitarbeiter erfolgreich gelöscht."
+
   edit: Bearbeiten
   show: Details
   destroy: Löschen
@@ -26,7 +51,7 @@ de:
     abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
     month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
     abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
-    order: ['day', 'month', 'year']
+    order: [:day, :month, :year]
   
   time:
     formats:
@@ -130,4 +155,24 @@ de:
         less_than_or_equal_to: "muss kleiner oder gleich {{count}} sein"
         odd: "muss ungerade sein"
         even: "muss gerade sein"
-      models:
+    models:
+    attributes:
+      workplace:
+        base_data: Basisdaten
+        default_staffing: Standardbesetzung
+        name: Bezeichnung
+        active: Aktiv?
+        color: Farbe
+        qualification_list: Qualifikationen
+      employee:
+        base_data: Basisdaten
+        contact_information: Kontaktdaten
+        first_name: Vorname
+        last_name: Nachname
+        birthday: Geburtsdatum
+        active: Aktiv?
+        qualification_list: Qualifikationen
+        email: E-Mail
+        phone: Telefon
+        street: Straße
+        zipcode: "PLZ, Ort"

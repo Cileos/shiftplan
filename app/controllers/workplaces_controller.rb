@@ -18,13 +18,13 @@ class WorkplacesController < ApplicationController
     @workplace = Workplace.new(params[:workplace])
 
     if @workplace.save
-      flash[:notice] = "Workplace successfully created."
+      flash[:notice] = t(:workplace_successfully_created)
       respond_to do |format|
         format.html { redirect_to workplaces_url }
         format.json { render :status => 201 }
       end
     else
-      flash[:error] = "Workplace could not be created."
+      flash[:error] = t(:workplace_could_not_be_created)
       respond_to do |format|
         format.html { render :action => 'new', :layout => !request.xhr? }
         format.json { render :template => 'shared/errors', :status => 400 }
@@ -38,13 +38,13 @@ class WorkplacesController < ApplicationController
 
   def update
     if @workplace.update_attributes(params[:workplace])
-      flash[:notice] = "Workplace successfully updated."
+      flash[:notice] = t(:workplace_successfully_updated)
       respond_to do |format|
         format.html { redirect_to workplaces_url }
         format.json { render :status => 200 }
       end
     else
-      flash[:error] = "Workplace could not be updated."
+      flash[:error] = t(:workplace_could_not_be_updated)
       respond_to do |format|
         format.html { render :action => 'edit', :layout => !request.xhr? }
         format.json { render :template => 'shared/errors', :status => 400 }
@@ -54,7 +54,7 @@ class WorkplacesController < ApplicationController
 
   def destroy
     @workplace.destroy
-    flash[:notice] = "Workplace successfully deleted."
+    flash[:notice] = t(:workplace_successfully_deleted)
     redirect_to workplaces_url
   end
 

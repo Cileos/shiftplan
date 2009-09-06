@@ -1,8 +1,8 @@
 <ul id="workplaces">
   <li id="new_workplace" class="workplace clickable">
     <div class="color" style="background-color:transparent;"></div>
-    <h2><%= link_to '[Click to add]', new_workplace_path, :class => 'add dialog clickable_link', :title => 'New workplace' %></h2>
-    <p class="qualifications">Click here to add a new workplace</p>
+    <h2><%= link_to "[#{t(:click_to_add_workplace)}]", new_workplace_path, :class => 'add dialog clickable_link', :title => t(:new_workplace) %></h2>
+    <p class="qualifications"><%= t(:add_workplace)%></p>
     <div class="actions"></div>
   </li>
   <%= render :partial => 'workplace', :collection => @workplaces.select(&:active?) %>

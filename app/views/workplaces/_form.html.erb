@@ -5,7 +5,7 @@ $(document).ready(function() {
 </script>
 
 <fieldset class="ui-widget ui-widget-content ui-corner-all">
-  <legend class="ui-widget-header">Base data</legend>
+  <legend class="ui-widget-header"><%= t(:base_data, :scope => :'activerecord.attributes.workplace') %></legend>
   <div>
     <%= f.label :name %>
     <%= f.text_field :name %>
@@ -20,7 +20,7 @@ $(document).ready(function() {
   </div>
 </fieldset>
 <fieldset class="ui-widget ui-widget-content ui-corner-all">
-  <legend class="ui-widget-header">Default staffing</legend>
+  <legend class="ui-widget-header"><%= t(:default_staffing, :scope => :'activerecord.attributes.workplace') %></legend>
   <div>
     <%= f.label :qualification_list %>
     <%= f.text_field :qualification_list %>
@@ -41,5 +41,5 @@ $(document).ready(function() {
   </div>
 </fieldset>
 <div class="ui-widget-content ui-corner-all">
-  <%= f.submit "Save" %>
+  <%= f.submit t(:save) %>
 </div>

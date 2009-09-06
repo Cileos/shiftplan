@@ -14,14 +14,14 @@ class EmployeesController < ApplicationController
     @employee = Employee.new(params[:employee])
 
     if @employee.save
-      flash[:notice] = 'Employee successfully created.'
+      flash[:notice] = t(:employee_successfully_created)
 
       respond_to do |format|
         format.html { redirect_to employees_url }
         format.json { render :status => 201 }
       end
     else
-      flash[:error] = 'Employee could not be created.'
+      flash[:error] = t(:employee_could_not_be_created)
 
       respond_to do |format|
         format.html { render :action => 'new' }
@@ -36,14 +36,14 @@ class EmployeesController < ApplicationController
 
   def update
     if @employee.update_attributes(params[:employee])
-      flash[:notice] = 'Employee successfully updated.'
+      flash[:notice] = t(:employee_successfully_updated)
 
       respond_to do |format|
         format.html { redirect_to employees_url }
         format.json { render :status => 200 }
       end
     else
-      flash[:error] = 'Employee could not be updated.'
+      flash[:error] = t(:employee_could_not_be_updated)
 
       respond_to do |format|
         format.html { render :action => 'edit', :layout => !request.xhr? }
@@ -54,7 +54,7 @@ class EmployeesController < ApplicationController
 
   def destroy
     @employee.destroy
-    flash[:notice] = 'Employee successfully deleted.'
+    flash[:notice] = t(:employee_successfully_deleted)
     redirect_to employees_url
   end
 

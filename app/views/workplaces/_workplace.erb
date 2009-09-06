@@ -3,6 +3,6 @@
 	<h2><%= workplace.name %></h2>
 	<p class="qualifications" title="<%= requirement_list(workplace, :truncate => false) %>"><%= requirement_list(workplace) %>&nbsp;</p>
 	<div class="actions">
-	  <%= link_to(t(:edit), edit_workplace_path(workplace), :class => 'edit dialog clickable_link', :title => "Workplace #{workplace.name}") %><%= link_to(t(:destroy), workplace_path(workplace), :class => 'delete', :method => :delete) %>
+	  <%= link_to(t(:edit), edit_workplace_path(workplace), :class => 'edit dialog clickable_link', :title => t(:edit_workplace, :name => workplace.name)) %><%= link_to(t(:destroy), workplace_path(workplace), :class => 'delete', :method => :delete) %>
 	</div>
 <% end -%>
