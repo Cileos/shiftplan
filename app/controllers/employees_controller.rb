@@ -18,7 +18,7 @@ class EmployeesController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to employees_url }
-        format.json { render :json => "{ 'flash': { 'notice': '#{flash[:notice]}' }, 'employee': #{@employee.to_json} }", :status => 201 }
+        format.json { render :status => 201 }
       end
     else
       flash[:error] = 'Employee could not be created.'
@@ -40,7 +40,7 @@ class EmployeesController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to employees_url }
-        format.json { render :json => "{ 'flash': { 'notice': '#{flash[:notice]}' }, 'employee': #{@employee.to_json} }", :status => 201 }
+        format.json { render :status => 200 }
       end
     else
       flash[:error] = 'Employee could not be updated.'

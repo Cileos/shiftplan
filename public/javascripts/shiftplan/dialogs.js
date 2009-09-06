@@ -6,24 +6,42 @@ var handleSuccessfulDialogFormRequest = function(data, textStatus) {
   var type = match_data[1];
   var object = match_data[2];
 
-  $.each(data[object], function(attribute, value) {
-    var form_field = $('#' + object + '_' + attribute);
-    if(form_field.length > 0) {
-      form_field.val(value);
-    }
-  });
-
-  // update form
-  var form_object = $(form)
-  form_object.attr('id', 'edit_' + object + '_' + data[object]['id']).
-    addClass('edit_' + object).removeClass('new_' + object);
-  if(type == 'new') { // new form needs new URL, too
-    form_object.attr('action', form_object.attr('action') + '/' + data[object]['id']);
+  // HTML snippets
+  if(data['html']['append']) {
+    $.each(data['html']['append'], function(element, html) {
+      $(html).css('display', 'none').appendTo($(element)).effect('fold', { mode: 'show' }, 1000).effect('highlight', {}, 1000);
+    });
   }
 
-  // add hidden field for PUT request
-  $('input[type=hidden][name=_method]', form_object).remove();
-  $('div:first-child', form_object).append('<input type="hidden" name="_method" value="put" />');
+  if(data['html']['replace']) {
+    $.each(data['html']['replace'], function(element, html) {
+      $(html).css('display', 'none').replaceAll($(element)).effect('highlight', {}, 1000);
+    });
+  }
+
+  // update form values if necessary
+  if(data[object]) {
+    $.each(data[object], function(attribute, value) {
+      var form_field = $('#' + object + '_' + attribute);
+      if(form_field.length > 0) {
+        form_field.val(value);
+      }
+    });
+  }
+
+  // update form
+  if(type == 'new') {
+    var form_object = $(form)
+    form_object.attr('id', 'edit_' + object + '_' + data[object]['id']).
+      addClass('edit_' + object).removeClass('new_' + object);
+    if(type == 'new') { // new form needs new URL, too
+      form_object.attr('action', form_object.attr('action') + '/' + data[object]['id']);
+    }
+
+    // add hidden field for PUT request
+    $('input[type=hidden][name=_method]', form_object).remove();
+    $('div:first-child', form_object).append('<input type="hidden" name="_method" value="put" />');
+  }
 };
 
 var updateFlash = function(flashes) {

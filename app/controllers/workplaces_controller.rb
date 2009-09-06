@@ -21,7 +21,7 @@ class WorkplacesController < ApplicationController
       flash[:notice] = "Workplace successfully created."
       respond_to do |format|
         format.html { redirect_to workplaces_url }
-        format.json { render :json => "{ 'flash': { 'notice': '#{flash[:notice]}' }, 'workplace': #{@workplace.to_json} }", :status => 201 }
+        format.json { render :status => 201 }
       end
     else
       flash[:error] = "Workplace could not be created."
@@ -41,7 +41,7 @@ class WorkplacesController < ApplicationController
       flash[:notice] = "Workplace successfully updated."
       respond_to do |format|
         format.html { redirect_to workplaces_url }
-        format.json { render :json => "{ 'flash': { 'notice': '#{flash[:notice]}' }, 'workplace': #{@workplace.to_json} }", :status => 200 }
+        format.json { render :status => 200 }
       end
     else
       flash[:error] = "Workplace could not be updated."
