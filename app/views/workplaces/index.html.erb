@@ -5,5 +5,8 @@
     <p class="qualifications">Click here to add a new workplace</p>
     <div class="actions"></div>
   </li>
-  <%= render :partial => 'workplace', :collection => @workplaces %>
+  <%= render :partial => 'workplace', :collection => @workplaces.select(&:active?) %>
+</ul>
+<ul id="inactive_workplaces">
+  <%= render :partial => 'workplace', :collection => @workplaces.reject(&:active?) %>
 </ul>

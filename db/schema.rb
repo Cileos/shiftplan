@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20090906151345) do
     t.string   "first_name"
     t.string   "last_name"
     t.date     "birthday"
+    t.boolean  "active",     :default => true
     t.string   "email"
     t.string   "phone"
     t.string   "street"
@@ -71,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20090906151345) do
   create_table "workplaces", :force => true do |t|
     t.string   "name"
     t.string   "color",      :limit => 6
+    t.boolean  "active",                  :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

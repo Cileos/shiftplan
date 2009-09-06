@@ -1,4 +1,4 @@
-<% content_tag_for(:li, employee, :class => 'clickable') do -%>
+<% content_tag_for(:li, employee, :class => "clickable #{employee.state}") do -%>
   <%= image_tag(employee.gravatar_url(:size => 60)) %>
 	<h2><%= employee.full_name %></h2>
 	<p class="qualifications"><%= employee.qualification_list %>&nbsp;</p>

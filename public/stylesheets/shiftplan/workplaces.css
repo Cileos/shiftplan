@@ -13,6 +13,10 @@
   cursor: pointer;
 }
 
+.workplace.inactive {
+  background-color: #eee;
+}
+
 .workplace h2 {
   font-weight: bold;
   margin: 0.25em 0;

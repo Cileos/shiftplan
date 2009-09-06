@@ -44,6 +44,10 @@ $(document).ready(function() {
     <%= f.text_field :name %>
   </div>
   <div>
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+  </div>
+  <div>
     <%= f.label :color %>
     <%= f.text_field :color, :value => f.object.color, :class => 'colorpicker' %>
   </div>

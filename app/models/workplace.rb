@@ -4,6 +4,9 @@ class Workplace < ActiveRecord::Base
   has_many :allocations
   has_many :workplace_requirements
 
+  named_scope :active, :conditions => { :active => true }
+  named_scope :inactive, :conditions => { :active => false }
+
   validates_presence_of :name
 
   acts_as_taggable_on :qualifications
@@ -18,6 +21,10 @@ class Workplace < ActiveRecord::Base
       requirement.quantity = attributes[:quantity].to_i
       requirement.save # FIXME
     end
+  end
+
+  def state
+    active? ? 'active' : 'inactive'
   end
 
   def color
