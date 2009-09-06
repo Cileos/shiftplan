@@ -10,6 +10,12 @@ class Employee < ActiveRecord::Base
 
   acts_as_taggable_on :qualifications
 
+  def possible_workplaces
+    @possible_workplaces ||= qualifications.collect do |qualification|
+      Workplace.tagged_with(qualification.name, :on => :qualifications)
+    end.flatten.uniq
+  end
+
   def state
     active? ? 'active' : 'inactive'
   end

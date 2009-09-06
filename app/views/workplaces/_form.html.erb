@@ -1,41 +1,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
   $('input.colorpicker').colorPicker();
-  $('.staff_requirement.new').click(function() {
-    var element = $(this);
-    element.before('<li class="staff_requirement"></li>');
-    var quantity = element.closest('.staff_requirement_container').find('.required_quantity');
-    quantity.val(parseInt(quantity.val()) + 1);
-  });
-  $('.staff_requirement:not(.new)').live('click', function() {
-    var element = $(this);
-    if(element.siblings('.staff_requirement:not(.new)').length < 1) return;
-    var quantity = element.closest('.staff_requirement_container').find('.required_quantity');
-    element.remove();
-    quantity.val(parseInt(quantity.val()) - 1);
-  });
 });
 </script>
-
-<style type="text/css">
-.staff_requirement_container {
-  float: left;
-  margin-right: 2em;
-}
-
-.staff_requirement {
-  width: 30px;
-  height: 30px; 
-  background: #ddd url(http://github.com/images/gravatars/gravatar-30.png) no-repeat;
-  border: 1px solid #ddd;
-  float: left;
-  margin-right: 0.25em;
-}
-
-.staff_requirement.new {
-  background: #ddd;
-}
-</style>
 
 <fieldset class="ui-widget ui-widget-content ui-corner-all">
   <legend class="ui-widget-header">Base data</legend>
@@ -45,7 +12,7 @@ $(document).ready(function() {
   </div>
   <div>
     <%= f.label :active %>
-    <%= f.check_box :active %>
+    <%= f.check_box :active, {}, 1 %>
   </div>
   <div>
     <%= f.label :color %>
@@ -64,10 +31,10 @@ $(document).ready(function() {
       <%= hidden_field_tag "workplace[requirements][#{qualification.id}][quantity]", f.object.required_quantity_for(qualification), :class => 'required_quantity' %>
       <h3><%= qualification.name %></h3>
       <ul>
+        <li class="staff_requirement new">+</li>
         <% f.object.required_quantity_for(qualification).times do -%>
         <li class="staff_requirement"></li>
         <% end -%>
-        <li class="staff_requirement new">+</li>
       </ul>
     </div>
     <% end -%>

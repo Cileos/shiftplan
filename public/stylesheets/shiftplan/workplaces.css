@@ -67,3 +67,24 @@ form.new_workplace .right_column, form.edit_workplace .right_column {
   background-position: 0 0;
   background-repeat: no-repeat;
 }
+
+.staff_requirement_container {
+  float: left;
+  margin-right: 2em;
+}
+
+.staff_requirement {
+  width: 30px;
+  height: 30px; 
+  background: #ddd url(http://github.com/images/gravatars/gravatar-30.png) no-repeat;
+  border: 1px solid #ddd;
+  float: left;
+  margin-right: 0.25em;
+  cursor: pointer;
+}
+
+.staff_requirement.new {
+  background: #ddd;
+  text-align: center;
+  font-size: 1.5em;
+}
