@@ -73,6 +73,10 @@ form.new_workplace .right_column, form.edit_workplace .right_column {
   margin-right: 2em;
 }
 
+.staff_requirement_container h3 {
+  margin: 0.75em 0 0.25em 0;
+}
+
 .staff_requirement {
   width: 30px;
   height: 30px; 
@@ -84,7 +88,8 @@ form.new_workplace .right_column, form.edit_workplace .right_column {
 }
 
 .staff_requirement.new {
-  background: #ddd;
+  background: green;
+  color: #fff;
   text-align: center;
   font-size: 1.5em;
 }
