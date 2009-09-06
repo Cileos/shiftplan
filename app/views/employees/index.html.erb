@@ -9,7 +9,7 @@
     <% content_tag_for(:li, employee, :class => 'clickable') do -%>
       <%= image_tag(employee.gravatar_url(:size => 60)) %>
     	<h2><%= employee.full_name %></h2>
-    	<p class="tags"><%= employee.qualification_list %>&nbsp;</p>
+    	<p class="qualifications"><%= employee.qualification_list %>&nbsp;</p>
 			<div class="actions">
   			<%= link_to(t(:edit), edit_employee_path(employee), :class => 'edit dialog clickable_link', :title => "Employee #{employee.full_name}") %><%= link_to(t(:destroy), employee_path(employee), :class => 'delete', :method => :delete) %>
   		</div>
