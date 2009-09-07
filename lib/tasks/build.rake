@@ -3,7 +3,7 @@ task :build do
   target = "#{Rails.root}/config/database.yml"
   FileUtils.cp(source, target)
   ENV['RAILS_ENV'] = 'test'
-  Rake::Task['gems:install'].invoke # sudo?
+  sh "sudo rake gems:install"
   Rake::Task['db:create'].invoke
   Rake::Task['db:migrate'].invoke
   Rake::Task['spec'].invoke
