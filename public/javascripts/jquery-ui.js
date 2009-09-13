@@ -1357,7 +1357,6 @@ $.widget("ui.droppable", {
 	},
 
 	_over: function(event) {
-
 		var draggable = $.ui.ddmanager.current;
 		if (!draggable || (draggable.currentItem || draggable.element)[0] == this.element[0]) return; // Bail if draggable and droppable are same element
 
@@ -1434,6 +1433,11 @@ $.extend($.ui.droppable, {
 $.ui.intersect = function(draggable, droppable, toleranceMode) {
 
 	if (!droppable.offset) return false;
+
+// var pos = draggable.positionAbs || draggable.position.absolute
+// console.log('--')
+// console.log(pos)
+// console.log(droppable.offset)
 
 	var x1 = (draggable.positionAbs || draggable.position.absolute).left, x2 = x1 + draggable.helperProportions.width,
 		y1 = (draggable.positionAbs || draggable.position.absolute).top, y2 = y1 + draggable.helperProportions.height;

@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Schicht planen | shiftplan.com</title>
+    <script type="text/javascript" src="../public/javascripts/jquery.js"></script>
+    <script type="text/javascript" src="../public/javascripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../public/javascripts/jquery-plugin-qtip.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/reset.css" />
+		<style type="text/css">
+			body {
+				/*width: 1130px;*/
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			}
+			#plan {
+				width: 877px;
+				margin: 30px 500px 30px 30px;
+				padding-right: 320px;
+			}
+			#plan h2 {
+				margin-top: 1.5em;
+				font-size: 1.3em;
+				font-weight: normal;
+				color: #bbb;
+			}
+			#plan .day:first-child h2 {
+				margin-top: 0;
+			}
+			#plan .requirements {
+				margin-top: 1em;
+				border: 1px solid #aaa;
+				background-image: url(../public/images/plan-background-scale-12.png);
+				min-height: 36px;
+			}
+			#plan .assignments > li {
+				/*display: inline-block;*/
+				padding: 3px;
+			}
+			#plan .employee {
+				/*float: left;*/
+				display: block;
+				height: 30px;
+				width: 30px;
+				text-indent: 30px;
+				/*overflow: hidden;*/
+			}
+			#plan .workplace {
+				float: right;
+				margin: 1em 1em 0 0;
+				font-size: 0.9em;
+				font-style: italic;
+				color: #666;
+			}
+			#plan #requirement_1 {
+				margin-left: 292px;
+			}
+			#plan #requirement_2 {
+				margin-left: 219px;
+				margin-right: 73px;
+			}
+			#plan .workplace_1,
+			.workplace_1 div {
+				background-color: #ff8c8c;
+			}
+			#plan .workplace_2,
+			.workplace_2 div {
+				background-color: #ffc68c;
+			}
+			#plan .workplace_3,
+			.workplace_3 div {
+				background-color: #ffff8c;
+			}
+			#plan .workplace_4,
+			.workplace_4 div {
+				background-color: #c6ff8c;
+			}
+			#plan .workplace_5,
+			.workplace_5 div {
+				background-color: #8cff8c;
+			}
+			#plan .workplace_6,
+			.workplace_6 div {
+				background-color: #8cffc6;
+			}
+			#plan .workplace_7,
+			.workplace_7 div {
+				background-color: #8cffff;
+			}
+			#plan .workplace_8,
+			.workplace_8 div {
+				background-color: #8cc6ff;
+			}
+			#plan .employee,
+			.employee div {
+				background-image: url(http://github.com/images/gravatars/gravatar-30.png);
+				background-repeat: no-repeat;
+			}
+			#plan .employee_1,
+			.employee_1 div {
+				background-image: url(http://www.gravatar.com/avatar/5976001c9ebf095c4988855a4e102de5?s=30);
+			}
+			#plan .employee_2,
+			.employee_2 div {
+				background-image: url(http://www.gravatar.com/avatar/b2ee3ee5087b7aa7202a98da372cae00?s=30);
+			}
+			#plan .employee_3,
+			.employee_3 div {
+				background-image: url(http://www.gravatar.com/avatar/ddc37f9437dc06836e21e05c39fbdadc?s=30);
+			}
+			#plan .employee_4,
+			.employee_4 div {
+				background-image: url(http://www.gravatar.com/avatar/0db5aeb4cf9fc1e8e411a1d9eda82917?s=30);
+			}
+			#plan .employee_5,
+			.employee_5 div {
+				background-image: url(http://www.gravatar.com/avatar/920993ef8f677cc1be50fde5ce8cb4bb?s=30);
+			}
+			#plan .employee_6,
+			.employee_6 div {
+				background-image: url(http://www.gravatar.com/avatar/9d4f1b82fa9b0988598e870721421685?s=30);
+			}
+			#plan .employee_7,
+			.employee_7 div {
+				background-image: url(http://www.gravatar.com/avatar/484815d397b8f572a714c61c75afb7b0?s=30);
+			}
+			#plan .employee_8,
+			.employee_8 div {
+				background-image: url(http://www.gravatar.com/avatar/59436ecd4fe6ad7c34f67654d839f05f?s=30);
+			}
+			#sidebar {
+				position: fixed;
+				top: 0;
+				right: 0;
+				height: 100%;
+				padding: 1em;
+				border-left: 1px solid #ccc;
+				background-color: #fff;
+			}
+			#sidebar > * {
+				margin-left: 20px;
+				margin-bottom: 1em;
+			}
+			#sidebar h3:first-child {
+				margin-top: 0;
+			}
+			#sidebar h3 {
+				font-size: 1.15em;
+				color: #bbb;
+				margin-top: 1.5em;
+			}
+			#sidebar a {
+				text-decoration: none;
+				color: #666;
+			}
+			#sidebar form {
+				width: 250px;
+				display: none;
+			}
+			#sidebar input[type=search] {
+				width: 87%;
+			}
+			#sidebar #employees,
+			#sidebar #workplaces {
+				width: 250px;
+				overflow: auto; /* clearfix */
+			}
+			#sidebar .employee,
+			#sidebar .workplace {
+				display: block;
+				float: left;
+				width: 75px;
+				height: 42px;
+				padding: 0 0 0 42px;
+				margin: 0 5px 5px 0;
+				line-height: 42px;
+				font-size: 0.85em;
+				background-color: #efefef;
+				background-position: 6px 6px;
+			}
+			#sidebar .employee {
+				width: 34px;
+			}
+			#sidebar .employee div,
+			#sidebar .workplace div {
+				position: absolute;
+				margin-top: 6px;
+				margin-left: -36px;
+				height: 30px;
+				width: 30px;
+			}
+			#sidebar #employees .ui-draggable-dragging {
+				width: 30px !important;
+				height: 30px;
+				overflow: hidden;
+			}
+			#sidebar #employees .ui-draggable-dragging a {
+				background-position: left top;
+			}
+			.ui-droppable {
+				border: 2px solid red;
+			}
+		</style>
+		<script type="text/javascript">
+				
+			var Assignments = {
+				employee_dropped: function(event, ui) {
+					// var employee = $(ui.draggable).closest('a')[0];
+					console.log(ui.draggable)
+				}
+			};
+
+			$(document).ready(function() {
+				$("#sidebar #employees li").draggable({ helper: 'clone' });
+				$("#sidebar #workplaces li div").draggable({ helper: 'clone' });
+				$("#plan .assignments").droppable({
+					drop: Assignments.employee_dropped,
+					accept: '*'
+				});
+			});		
+		</script>
+	</head>
+	<body>
+		<div id="plan">
+			<div class="day">
+				<h2>Montag, 14.9.09</h2>
+				<ul class="requirements">
+					<li id="requirement_1" class="workplace_1" data-starttime="18:00" data-endtime="3:00">
+						<h3 class="workplace">Bar 1</h3>
+						<ul class="assignments">
+							<li><a href="#" class="employee employee_1"></a></li>
+							<li><a href="#" class="employee"></a></li>
+							<li><a href="#" class="employee"></a></li>
+						</ul>
+					</li>
+					<li id="requirement_2" class="workplace_2" data-starttime="19:00" data-endtime="3:00">
+						<h3 class="workplace">Bar 2</h3>
+						<ul class="assignments">
+							<li><a href="#" class="employee employee_2"></a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="day">
+				<h2>Dienstag, 15.9.09</h2>
+				<ul class="requirements"></ul>
+			</div>
+			<div class="day">
+				<h2>Mittwoch, 16.9.09</h2>
+				<ul class="requirements"></ul>
+			</div>
+			<div class="day">
+				<h2>Donnerstag, 17.9.09</h2>
+				<ul class="requirements"></ul>
+			</div>
+			<div class="day">
+				<h2>Freitag, 18.9.09</h2>
+				<ul class="requirements"></ul>
+			</div>
+		</div>
+		<div id="sidebar">
+			<h3>Mitarbeiter</h3>
+			<ul id="employees">
+				<!-- 
+				<li><a href="/users/1" class="employee employee_1">Clemens</a></li>
+				<li><a href="/users/2" class="employee employee_2">Yaroslav</a></li>
+				<li><a href="/users/3" class="employee employee_3">Irina</a></li>
+				<li><a href="/users/4" class="employee employee_4">Luigi</a></li>
+				<li><a href="/users/5" class="employee employee_5">Alexander</a></li>
+				<li><a href="/users/5" class="employee employee_6">Martin</a></li>
+				<li><a href="/users/5" class="employee employee_7">Sabine</a></li>
+				<li><a href="/users/5" class="employee employee_8">Michael</a></li> 
+				-->
+				<li><a href="/users/1" class="employee employee_1"><div></div>CK</a></li>
+				<li><a href="/users/2" class="employee employee_2"><div></div>YM</a></li>
+				<li><a href="/users/3" class="employee employee_3"><div></div>IM</a></li>
+				<li><a href="/users/4" class="employee employee_4"><div></div>LF</a></li>
+				<li><a href="/users/5" class="employee employee_5"><div></div>AL</a></li>
+				<li><a href="/users/5" class="employee employee_6"><div></div>MK</a></li>
+				<li><a href="/users/5" class="employee employee_7"><div></div>SP</a></li>
+				<li><a href="/users/5" class="employee employee_8"><div></div>MF</a></li>
+			</ul>
+			<form id="employees-search">
+				<input type="search" placeholder="search" autosave="on" results="5">
+			</form>
+
+			<h3>Einsatzplätze</h3>
+			<ul id="workplaces">
+				<li><a href="/workplaces/1" class="workplace workplace_1"><div></div>Bar 1</a></li>
+				<li><a href="/workplaces/2" class="workplace workplace_2"><div></div>Bar 2</a></li>
+				<li><a href="/workplaces/3" class="workplace workplace_3"><div></div>Küche</a></li>
+				<li><a href="/workplaces/4" class="workplace workplace_4"><div></div>Bedienung</a></li>
+			</ul>
+			<form id="workplaces-search">
+				<input type="search" placeholder="search" autosave="on" results="5">
+			</form>
+		</div>
+	</body>
+</html>

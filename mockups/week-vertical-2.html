@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Schicht planen | shiftplan.com</title>
+    <script type="text/javascript" src="../public/javascripts/jquery.js"></script>
+    <script type="text/javascript" src="../public/javascripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../public/javascripts/jquery-plugin-qtip.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/reset.css" />
+		<style type="text/css">
+			body {
+				/*width: 1130px;*/
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			}
+			#plan {
+				width: 877px;
+				margin: 30px 500px 30px 30px;
+				padding-right: 320px;
+			}
+			#plan h2 {
+				margin-top: 1.5em;
+				font-size: 1.3em;
+				font-weight: normal;
+				color: #bbb;
+			}
+			#plan .day:first-child h2 {
+				margin-top: 0;
+			}
+			#plan .requirements {
+				margin-top: 1em;
+				border: 1px solid #aaa;
+				background-image: url(../public/images/plan-background-scale-12.png);
+				min-height: 38px;
+			}
+			#plan .requirements > li {
+				min-height: 38px;
+			}
+			#plan .assignments > li {
+				display: inline-block;
+				padding: 3px;
+			}
+			#plan .employee {
+				float: left;
+				display: block;
+				height: 30px;
+				width: 30px;
+				text-indent: 30px;
+				overflow: hidden;
+			}
+			#plan h3 {
+				float: right;
+				margin: 1em 1em 0 0;
+				font-size: 0.9em;
+				font-style: italic;
+				color: #666;
+			}
+			#plan #requirement_1 {
+				margin-left: 292px;
+			}
+			#plan #requirement_2 {
+				margin-left: 219px;
+				margin-right: 73px;
+			}
+			#plan .workplace_1,
+			.workplace_1 div {
+				background-color: #ff8c8c;
+			}
+			#plan .workplace_2,
+			.workplace_2 div {
+				background-color: #ffc68c;
+			}
+			#plan .workplace_3,
+			.workplace_3 div {
+				background-color: #ffff8c;
+			}
+			#plan .workplace_4,
+			.workplace_4 div {
+				background-color: #c6ff8c;
+			}
+			#plan .workplace_5,
+			.workplace_5 div {
+				background-color: #8cff8c;
+			}
+			#plan .workplace_6,
+			.workplace_6 div {
+				background-color: #8cffc6;
+			}
+			#plan .workplace_7,
+			.workplace_7 div {
+				background-color: #8cffff;
+			}
+			#plan .workplace_8,
+			.workplace_8 div {
+				background-color: #8cc6ff;
+			}
+			#plan .employee,
+			.employee div {
+				background-image: url(http://github.com/images/gravatars/gravatar-30.png);
+				background-repeat: no-repeat;
+			}
+			#plan .employee_1,
+			.employee_1 div {
+				background-image: url(http://www.gravatar.com/avatar/5976001c9ebf095c4988855a4e102de5?s=30);
+			}
+			#plan .employee_2,
+			.employee_2 div {
+				background-image: url(http://www.gravatar.com/avatar/b2ee3ee5087b7aa7202a98da372cae00?s=30);
+			}
+			#plan .employee_3,
+			.employee_3 div {
+				background-image: url(http://www.gravatar.com/avatar/ddc37f9437dc06836e21e05c39fbdadc?s=30);
+			}
+			#plan .employee_4,
+			.employee_4 div {
+				background-image: url(http://www.gravatar.com/avatar/0db5aeb4cf9fc1e8e411a1d9eda82917?s=30);
+			}
+			#plan .employee_5,
+			.employee_5 div {
+				background-image: url(http://www.gravatar.com/avatar/920993ef8f677cc1be50fde5ce8cb4bb?s=30);
+			}
+			#plan .employee_6,
+			.employee_6 div {
+				background-image: url(http://www.gravatar.com/avatar/9d4f1b82fa9b0988598e870721421685?s=30);
+			}
+			#plan .employee_7,
+			.employee_7 div {
+				background-image: url(http://www.gravatar.com/avatar/484815d397b8f572a714c61c75afb7b0?s=30);
+			}
+			#plan .employee_8,
+			.employee_8 div {
+				background-image: url(http://www.gravatar.com/avatar/59436ecd4fe6ad7c34f67654d839f05f?s=30);
+			}
+			#sidebar {
+				position: fixed;
+				top: 0;
+				right: 0;
+				height: 100%;
+				padding: 1em;
+				border-left: 1px solid #ccc;
+				background-color: #fff;
+			}
+			#sidebar > * {
+				margin-left: 20px;
+				margin-bottom: 1em;
+			}
+			#sidebar h3:first-child {
+				margin-top: 0;
+			}
+			#sidebar h3 {
+				font-size: 1.15em;
+				color: #bbb;
+				margin-top: 1.5em;
+			}
+			#sidebar a {
+				text-decoration: none;
+				color: #666;
+			}
+			#sidebar form {
+				width: 250px;
+				display: none;
+			}
+			#sidebar input[type=search] {
+				width: 87%;
+			}
+			#sidebar #employees,
+			#sidebar #workplaces {
+				width: 250px;
+				overflow: auto; /* clearfix */
+			}
+			#sidebar .employee,
+			#sidebar .workplace {
+				display: block;
+				float: left;
+				margin: 0 4px 4px 0;
+				padding: 4px;
+				line-height: 30px;
+				font-size: 0.85em;
+				background-color: #efefef;
+			}
+			#sidebar .employee {
+				width: 70px;
+			}
+			#sidebar .workplace {
+				width: 110px;
+			}
+			#sidebar .employee div,
+			#sidebar .workplace div {
+				float: left;
+				height: 30px;
+				width: 30px;
+				margin-right: 4px;
+			}
+			#sidebar #employees .ui-draggable-dragging {
+				width: 30px !important;
+				height: 30px;
+				overflow: hidden;
+			}
+			#sidebar #employees .ui-draggable-dragging a {
+				background-position: left top;
+			}
+		</style>
+		<script type="text/javascript">
+			var Config = {
+				slot_width: 18,
+				default_slot_count: 12
+			}
+		
+			var Assignments = {
+				on_employee_drop: function(event, ui) {
+					var employee = $(ui.draggable).closest('a')[0];
+					this.className = employee.className;
+					$(this).effect('bounce', {}, 100)
+				},
+				on_employee_remove: function(event, ui) {
+					var employee = ui.draggable[0];
+					employee.className = 'employee';
+					employee.href = '#'
+				}
+			};
+			
+			var Requirements = {
+				on_workplace_drop: function(event, ui) {
+					var workplace = $(ui.draggable).closest('a')[0];
+					var name = workplace.innerHTML.replace(/<\/?[^>]+>/gi, '');
+
+					var slot = parseInt((ui.offset.left - this.offsetLeft - 1) / Config.slot_width);
+					var hour = parseInt(slot / 4);
+					var left = slot * Config.slot_width + hour; // 1px border between hours
+					var width = Config.slot_width * Config.default_slot_count + parseInt(Config.default_slot_count / 4) - 1;
+					
+					if(left + width > this.offsetWidth) {
+						borderOffset = parseInt(width / Config.slot_width / 4) - 1;
+						width = this.offsetWidth - left - borderOffset;
+					}
+
+					var html = $('<li class="' + workplace.className + '"><h3>' + name + '</h3><ul class="assignments"></ul></li>');
+					html.css({ 'margin-left': left + 'px' }).animate({ 'width': width });
+					$(this).append(html);
+
+					Requirements.on_workplace_out.apply(this, [event, ui]);
+				},
+				on_workplace_over: function(event, ui) {
+					Requirements.fix_droppable_proportions(30);
+					$(this).css('padding-bottom', '30px');
+				},
+				on_workplace_out: function(event, ui) { 
+					Requirements.fix_droppable_proportions(-30);
+					$(this).css('padding-bottom', '0px');
+				},
+				fix_droppable_proportions: function(offset) {
+					// jumping through hoops thanks to jquery.ui's stupidity
+					var list = $.ui.ddmanager.droppables['default'];
+					for (var i = 0; i < list.length; i++) {
+						list[i].proportions.height += offset;
+					}
+				}
+			}
+
+			$(document).ready(function() {
+				$("#employees a div").draggable({ 
+					helper: 'clone' 
+				});
+				$(".assignments .employee").draggable({
+					helper: 'clone'
+				});
+				$("#workplaces a div").draggable({ 
+					helper: 'clone'
+				});
+				$("body").droppable({ 
+					drop: Assignments.on_employee_remove, 
+					accept: ".assignments .employee" 
+				});
+				$(".assignments a").droppable({ 
+					drop: Assignments.on_employee_drop, 
+					accept: "#employees a div" 
+				});
+				$(".requirements").droppable({
+					drop: Requirements.on_workplace_drop, 
+					over: Requirements.on_workplace_over,
+					out:  Requirements.on_workplace_out,
+					accept: "#workplaces a div",
+					tolerance: 'touch'
+				})
+			});		
+		</script>
+	</head>
+	<body>
+		<div id="plan">
+			<div class="day">
+				<h2>Montag, 14.9.09</h2>
+				<ul class="requirements">
+					<li id="requirement_1" class="workplace_1" data-starttime="18:00" data-endtime="3:00">
+						<h3>Bar 1</h3>
+						<ul class="assignments">
+							<li><a href="#" class="employee employee_1"></a></li>
+							<li><a href="#" class="employee"></a></li>
+							<li><a href="#" class="employee"></a></li>
+						</ul>
+					</li>
+					<li id="requirement_2" class="workplace_2" data-starttime="19:00" data-endtime="3:00">
+						<h3 class="workplace">Bar 2</h3>
+						<ul class="assignments">
+							<li><a href="#" class="employee employee_2"></a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="day">
+				<h2>Dienstag, 15.9.09</h2>
+				<ul class="requirements"></ul>
+			</div>
+			<div class="day">
+				<h2>Mittwoch, 16.9.09</h2>
+				<ul class="requirements"></ul>
+			</div>
+			<div class="day">
+				<h2>Donnerstag, 17.9.09</h2>
+				<ul class="requirements"></ul>
+			</div>
+			<div class="day">
+				<h2>Freitag, 18.9.09</h2>
+				<ul class="requirements"></ul>
+			</div>
+		</div>	
+		<div id="sidebar">
+			<h3>Mitarbeiter</h3>	
+			<ul id="employees">
+				<li><a href="/users/1" class="employee employee_1"><div></div>CK</a></li>
+				<li><a href="/users/2" class="employee employee_2"><div></div>YM</a></li>
+				<li><a href="/users/3" class="employee employee_3"><div></div>IM</a></li>
+				<li><a href="/users/4" class="employee employee_3"><div></div>LF</a></li>
+				<li><a href="/users/5" class="employee employee_4"><div></div>AL</a></li>
+				<li><a href="/users/5" class="employee employee_5"><div></div>MK</a></li>
+				<li><a href="/users/5" class="employee employee_6"><div></div>SP</a></li>
+				<li><a href="/users/5" class="employee employee_7"><div></div>MF</a></li>
+			</ul>
+
+			<h3>Einsatzplätze</h3>
+			<ul id="workplaces">
+				<li><a href="/workplaces/1" class="workplace workplace_1"><div></div>Bar 1</a></li>
+				<li><a href="/workplaces/2" class="workplace workplace_2"><div></div>Bar 2</a></li>
+				<li><a href="/workplaces/3" class="workplace workplace_3"><div></div>Küche</a></li>
+				<li><a href="/workplaces/4" class="workplace workplace_4"><div></div>Bedienung</a></li>
+			</ul>
+		</div>
+	</body>
+</html>
