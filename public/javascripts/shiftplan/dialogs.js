@@ -62,19 +62,22 @@ var handleFailedDialogFormRequest = function(request, statusText, error) {
 
   // unwrap all errors
   // FIXME: keep values
-  $('div.fieldWithErrors').each(function() {
-    $(this).replaceWith($(this).html());
-  });
+  // $('div.fieldWithErrors').each(function() {
+  //   $(this).replaceWith($(this).html());
+  // });
+  $('div.fieldWithErrors').removeClass('fieldWithErrors').addClass('fieldWithUnsetErrors');
   $('span.formErrorMessage').remove();
 
   $.each(data['errors'], function(object_name, fieldsWithErrors) {
     $.each(fieldsWithErrors, function(field_name, errors) {
       var selector = $('#' + object_name + '_' + field_name);
       var errorMessagesSpan = '<span class="formErrorMessage">' + errors.toSentence() + '</span>';
-      if(selector.parent('div.fieldWithErrors').length < 1) {
-        selector.wrap('<div class="fieldWithErrors"></div>').parent('div.fieldWithErrors').after(errorMessagesSpan);
+      if(selector.parent('div.fieldWithUnsetErrors').length < 1) {
+        selector.wrap('<div class="fieldWithErrors"></div>').parent('div.fieldWithErrors');
+      } else {
+        selector.parent('div.fieldWithUnsetErrors').removeClass('fieldWithUnsetErrors').addClass('fieldWithErrors');
       }
-      selector.parent('div.fieldWithErrors').siblings('span.formErrorMessage').replaceWith(errorMessagesSpan);
+      selector.parent('div.fieldWithErrors').after(errorMessagesSpan);
     });
   });
 };
