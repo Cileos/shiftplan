@@ -22,7 +22,7 @@
 		border-style: solid;
 		border-color: #aaa;
 		border-width: 1px 0;
-		background-image: url(/images/plan_scale.png);
+		background-image: url(../public/images/plan_scale.png);
 		min-height: 38px;
 	}
 	#plan .shift {
@@ -131,7 +131,6 @@
 		height: 26px;
 		border-style: solid;
 		border-bottom-width: 4px;
-		border-color: transparent;
 		background-image: url(http://github.com/images/gravatars/gravatar-30.png);
 	}
 	#sidebar .ui-draggable-dragging {
@@ -161,38 +160,16 @@
 	}
 	<% end -%>
 
-	#plan .qualification_1,
-	#sidebar .qualification_1 div {
-		border-color: #ff5959;
+  <% @qualifications.each do |qualification| -%>
+	#plan .qualification_<%= qualification.id %>,
+	.qualification_<%= qualification.id %> div {
+		border-color: <%= qualification.color %>;
 	}
-	#plan .qualification_2,
-	#sidebar .qualification_2 div {
-		border-color: #ffac59;
-	}
-	#plan .qualification_3,
-	#sidebar .qualification_3 div {
-		border-color: #ffff59;
-	}
-	#plan .qualification_4,
-	#sidebar .qualification_4 div {
-		border-color: #acff59;
-	}
-	#plan .qualification_5,
-	#sidebar .qualification_5 div {
-		border-color: #59ff59;
-	}
-	#plan .qualification_6,
-	#sidebar .qualification_6 div {
-		border-color: #59ffac;
-	}
-	#plan .qualification_7,
-	#sidebar .qualification_7 div {
-		border-color: #59ffff;
-	}
-	#plan .qualification_8,
-	#sidebar .qualification_8 div {
-		border-color: #59acff;
-	}
+	<% end -%>
+  #plan .qualification.any,
+  .qualification.any div {
+    border-color: transparent;
+  }
 </style>
 <script type="text/javascript">
 $(document).ready(function() {

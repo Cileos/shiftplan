@@ -10,6 +10,8 @@ class Workplace < ActiveRecord::Base
 
   acts_as_taggable_on :qualifications
 
+  before_create :generate_color
+
   def required_quantity_for(qualification)
     workplace_requirements.detect { |wr| wr.qualification_id == qualification.id }.try(:quantity) || 1
   end
@@ -33,8 +35,15 @@ class Workplace < ActiveRecord::Base
     end
   end
 
-  def color=(color)
-    color = color.to_s if color
-    write_attribute(:color, color.starts_with?('#') ? color[1..-1] : color)
-  end
+  protected
+
+    def generate_color
+      step_width = 30
+      hue = Workplace.count * step_width # FIXME: adjust starting point for > 12 workplaces
+      saturation = 0.45
+      value = 1
+
+      color = Color.rgb_to_hex(*Color.hsv_to_rgb(hue, saturation, value))
+      write_attribute(:color, color)
+    end
 end

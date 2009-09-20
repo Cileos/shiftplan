@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20090920155743) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
+    t.string "color", :limit => 6
   end
 
   create_table "workplace_requirements", :force => true do |t|
