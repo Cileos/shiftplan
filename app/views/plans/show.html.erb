@@ -1,58 +1,265 @@
+<style type="text/css">
+	body {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+	#plan {
+		width: 865px;
+		margin: 30px 500px 30px 30px;
+		padding-right: 320px;
+	}
+	#plan h2 {
+		margin-top: 1.5em;
+		font-size: 1.3em;
+		font-weight: normal;
+		color: #bbb;
+	}
+	#plan .day:first-child h2 {
+		margin-top: 0;
+	}
+	#plan .shifts {
+		margin-top: 1em;
+		border-style: solid;
+		border-color: #aaa;
+		border-width: 1px 0;
+		background-image: url(../public/images/plan_scale.png);
+		min-height: 38px;
+	}
+	#plan .shift {
+		position: relative;
+		min-height: 38px;
+		/*cursor: move;*/
+	}
+	#plan .assignments > li {
+		float: left;
+		margin: 4px 0 0 4px;
+	}
+	#plan .assignment,
+	#plan .requirement {
+		float: left;
+		display: block;
+		height: 30px;
+		width: 30px;
+		text-indent: 30px;
+		overflow: hidden;
+		z-index: 999;
+	}
+	#plan h3 {
+		float: right;
+		margin: 1em 1em 0 0;
+		font-size: 0.9em;
+		font-style: italic;
+		color: #666;
+	}
+	#plan .shifts .resize_handle {
+		position: absolute;
+		display: block;
+		top: 0;
+		height: 100%;
+		width: 10px;
+		cursor: col-resize;
+	}
+	#plan .shifts .resize_handle.left {
+		left: 0;
+		cursor: w-resize;
+	}
+	#plan .shifts .resize_handle.right {
+		right: 0;
+		cursor: e-resize;
+	}
+	#sidebar {
+		position: fixed;
+		top: 0;
+		right: 0;
+		height: 100%;
+		padding: 1em;
+		border-left: 1px solid #ccc;
+		background-color: #fff;
+	}
+	#sidebar > * {
+		margin-left: 20px;
+		margin-bottom: 1em;
+	}
+	#sidebar h3:first-child {
+		margin-top: 0;
+	}
+	#sidebar h3 {
+		font-size: 1.15em;
+		color: #bbb;
+		margin-top: 1.5em;
+	}
+	#sidebar a {
+		text-decoration: none;
+		color: #666;
+	}
+	#sidebar form {
+		width: 250px;
+		display: none;
+	}
+	#sidebar input[type=search] {
+		width: 87%;
+	}
+	#sidebar ul {
+		width: 250px;
+		overflow: auto; /* clearfix */
+	}
+	#sidebar li a {
+		display: block;
+		float: left;
+		margin: 0 4px 4px 0;
+		padding: 4px;
+		line-height: 30px;
+		font-size: 0.85em;
+		background-color: #efefef;
+	}
+	#sidebar .employee {
+		width: 70px;
+	}
+	#sidebar .workplace,
+	#sidebar .qualification {
+		width: 110px;
+	}
+	#sidebar li div {
+		float: left;
+		height: 30px;
+		width: 30px;
+		margin-right: 4px;
+	}
+	#plan .assignment,
+	#plan .requirement,
+	#sidebar .qualification div {
+		height: 26px;
+		border-style: solid;
+		border-bottom-width: 4px;
+		border-color: transparent;
+		background-image: url(http://github.com/images/gravatars/gravatar-30.png);
+	}
+	#sidebar .ui-draggable-dragging {
+		width: 30px !important;
+		height: 30px;
+		overflow: hidden;
+	}
+	#sidebar .ui-draggable-dragging a {
+		background-position: left top;
+	}
+	
+	/* IMAGES */
+
+	#plan .employee_1,
+	.employee_1 div {
+		background-image: url(http://www.gravatar.com/avatar/5976001c9ebf095c4988855a4e102de5?s=30);
+	}
+	#plan .employee_2,
+	.employee_2 div {
+		background-image: url(http://www.gravatar.com/avatar/b2ee3ee5087b7aa7202a98da372cae00?s=30);
+	}
+	#plan .employee_3,
+	.employee_3 div {
+		background-image: url(http://www.gravatar.com/avatar/ddc37f9437dc06836e21e05c39fbdadc?s=30);
+	}
+	#plan .employee_4,
+	.employee_4 div {
+		background-image: url(http://www.gravatar.com/avatar/0db5aeb4cf9fc1e8e411a1d9eda82917?s=30);
+	}
+	#plan .employee_5,
+	.employee_5 div {
+		background-image: url(http://www.gravatar.com/avatar/920993ef8f677cc1be50fde5ce8cb4bb?s=30);
+	}
+	#plan .employee_6,
+	.employee_6 div {
+		background-image: url(http://www.gravatar.com/avatar/9d4f1b82fa9b0988598e870721421685?s=30);
+	}
+	#plan .employee_7,
+	.employee_7 div {
+		background-image: url(http://www.gravatar.com/avatar/484815d397b8f572a714c61c75afb7b0?s=30);
+	}
+	#plan .employee_8,
+	.employee_8 div {
+		background-image: url(http://www.gravatar.com/avatar/59436ecd4fe6ad7c34f67654d839f05f?s=30);
+	}
+
+	/* COLORS */
+	
+	#plan .workplace_1,
+	.workplace_1 div {
+		background-color: #ff8c8c;
+	}
+	#plan .workplace_2,
+	.workplace_2 div {
+		background-color: #ffc68c;
+	}
+	#plan .workplace_3,
+	.workplace_3 div {
+		background-color: #ffff8c;
+	}
+	#plan .workplace_4,
+	.workplace_4 div {
+		background-color: #c6ff8c;
+	}
+	#plan .workplace_5,
+	.workplace_5 div {
+		background-color: #8cff8c;
+	}
+	#plan .workplace_6,
+	.workplace_6 div {
+		background-color: #8cffc6;
+	}
+	#plan .workplace_7,
+	.workplace_7 div {
+		background-color: #8cffff;
+	}
+	#plan .workplace_8,
+	.workplace_8 div {
+		background-color: #8cc6ff;
+	}
+
+	#plan .qualification_1,
+	#sidebar .qualification_1 div {
+		border-color: #ff5959;
+	}
+	#plan .qualification_2,
+	#sidebar .qualification_2 div {
+		border-color: #ffac59;
+	}
+	#plan .qualification_3,
+	#sidebar .qualification_3 div {
+		border-color: #ffff59;
+	}
+	#plan .qualification_4,
+	#sidebar .qualification_4 div {
+		border-color: #acff59;
+	}
+	#plan .qualification_5,
+	#sidebar .qualification_5 div {
+		border-color: #59ff59;
+	}
+	#plan .qualification_6,
+	#sidebar .qualification_6 div {
+		border-color: #59ffac;
+	}
+	#plan .qualification_7,
+	#sidebar .qualification_7 div {
+		border-color: #59ffff;
+	}
+	#plan .qualification_8,
+	#sidebar .qualification_8 div {
+		border-color: #59acff;
+	}
+</style>
 <script type="text/javascript">
 $(document).ready(function() {
   $('#workplaces a.workplace').prepend('<div></div>');
   $('#employees a.employee').prepend('<div></div>');
+  $('#qualifications a.qualification').prepend('<div></div>');
 });
 </script>
-<div id="plan" data-start="480" data-duration="720">
+<div id="plan" data-start="<%= @shifts.map(&:start_in_minutes).min %>" data-duration="<%= (@shifts.map(&:start_in_minutes).max - @shifts.map(&:start_in_minutes).min) %>">
+  <% @days.each do |day| -%>
 	<div class="day">
-		<h2>Montag, 14.9.09</h2>
-		<ul class="requirements">
-			<li id="requirement_1" class="requirement workplace_1" data-start="720" data-duration="480">
-				<h3>Bar 1</h3>
-				<ul class="assignments">
-					<li><a href="#" class="employee employee_1"></a></li>
-					<li><a href="#" class="employee"></a></li>
-					<li><a href="#" class="employee"></a></li>
-				</ul>
-			</li>
-			<li id="requirement_2" class="requirement workplace_2" data-start="660" data-duration="360">
-				<h3 class="workplace">Bar 2</h3>
-				<ul class="assignments">
-					<li><a href="#" class="employee employee_2"></a></li>
-				</ul>
-			</li>
+		<h2><%= l(day, :format => :long) %></h2>
+		<ul class="shifts">
+		  <%= render :partial => 'shift', :collection => Array(@shifts_by_day[day]) %>
 		</ul>
 	</div>
-	<div class="day">
-		<h2>Dienstag, 15.9.09</h2>
-		<ul class="requirements"></ul>
-	</div>
-	<div class="day">
-		<h2>Mittwoch, 16.9.09</h2>
-		<ul class="requirements"></ul>
-	</div>
-	<div class="day">
-		<h2>Donnerstag, 17.9.09</h2>
-		<ul class="requirements"></ul>
-	</div>
-	<div class="day">
-		<h2>Freitag, 18.9.09</h2>
-		<ul class="requirements"></ul>
-	</div>
+	<% end -%>
 </div>
-<div id="sidebar">
-	<h3><%= t(:employees) %></h3>
-	<ul id="employees">
-	  <% @employees.each do |employee| -%>
-		<li><%= link_to employee.initials, employee_path(employee), :class => "employee #{dom_id(employee)} dialog", :'data-qualifications' => employee.qualifications.map { |q| "qualification-#{q.id}" }.join(', ') %></li>
-		<% end -%>
-	</ul>
-
-	<h3><%= t(:workplaces) %></h3>
-	<ul id="workplaces">
-	  <% @workplaces.each do |workplace| -%>
-		<li><%= link_to workplace.name, workplace_path(workplace), :class => "workplace #{dom_id(workplace)} dialog", :'data-default-shift-length' => workplace.default_shift_length %></li>
-		<% end -%>
-	</ul>
-</div>
+<%= render :partial => 'sidebar', :locals => { :employees => @employees, :workplaces => @workplaces, :qualifications => @qualifications } %>

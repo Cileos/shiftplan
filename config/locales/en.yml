@@ -6,6 +6,8 @@ en:
   employee: Employee
   plans: Plans
   plan: Plan
+  qualifications: Qualifications
+  qualification: Qualification
 
   save: Save
   picture_powered_by: "Picture powered by {{link}}"

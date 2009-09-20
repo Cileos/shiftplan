@@ -9,6 +9,8 @@ de:
   employee: Mitarbeiter
   plans: Schichtpläne
   plan: Schichtplan
+  qualifications: Qualifikationen
+  qualification: Qualifikation
 
   save: Speichern
   picture_powered_by: "Bild angetrieben von {{link}}"
