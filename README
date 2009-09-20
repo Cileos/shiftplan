@@ -4,10 +4,7 @@
 - mitarbeiter, workplaces etc dynamisch anzeigen
 - list qualifications in sidebar
 
-- fix z-index for dragging employees
-- remove qualifications from shifts
 - remove shifts from plan
-- drag requirements to shifts
 - paff effekt für entfernen von mitarbeitern, qualifications, shifts
 
 + rename requirements to shifts
@@ -17,4 +14,8 @@
 + fix positioning after adding a shift
 + update data after adding an shift
 
-
++ fix z-index for dragging employees
++ remove requirements from shifts
++ add qualifications list to sidebar
++ mark qualifications and requirements w/ colors
++ drag requirements to shifts

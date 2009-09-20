@@ -40,8 +40,8 @@
 				/*cursor: move;*/
 			}
 			#plan .assignments > li {
-				display: inline-block;
-				padding: 3px;
+				float: left;
+				margin: 4px 0 0 4px;
 			}
 			#plan .assignment,
 			#plan .requirement {
@@ -51,6 +51,7 @@
 				width: 30px;
 				text-indent: 30px;
 				overflow: hidden;
+				z-index: 999;
 			}
 			#plan h3 {
 				float: right;
@@ -74,75 +75,6 @@
 			#plan .shifts .resize_handle.right {
 				right: 0;
 				cursor: e-resize;
-			}
-			#plan .workplace_1,
-			.workplace_1 div {
-				background-color: #ff8c8c;
-			}
-			#plan .workplace_2,
-			.workplace_2 div {
-				background-color: #ffc68c;
-			}
-			#plan .workplace_3,
-			.workplace_3 div {
-				background-color: #ffff8c;
-			}
-			#plan .workplace_4,
-			.workplace_4 div {
-				background-color: #c6ff8c;
-			}
-			#plan .workplace_5,
-			.workplace_5 div {
-				background-color: #8cff8c;
-			}
-			#plan .workplace_6,
-			.workplace_6 div {
-				background-color: #8cffc6;
-			}
-			#plan .workplace_7,
-			.workplace_7 div {
-				background-color: #8cffff;
-			}
-			#plan .workplace_8,
-			.workplace_8 div {
-				background-color: #8cc6ff;
-			}
-			#plan .requirement,
-			.employee div {
-				background-image: url(http://github.com/images/gravatars/gravatar-30.png);
-				background-repeat: no-repeat;
-			}
-			#plan .employee_1,
-			.employee_1 div {
-				background-image: url(http://www.gravatar.com/avatar/5976001c9ebf095c4988855a4e102de5?s=30);
-			}
-			#plan .employee_2,
-			.employee_2 div {
-				background-image: url(http://www.gravatar.com/avatar/b2ee3ee5087b7aa7202a98da372cae00?s=30);
-			}
-			#plan .employee_3,
-			.employee_3 div {
-				background-image: url(http://www.gravatar.com/avatar/ddc37f9437dc06836e21e05c39fbdadc?s=30);
-			}
-			#plan .employee_4,
-			.employee_4 div {
-				background-image: url(http://www.gravatar.com/avatar/0db5aeb4cf9fc1e8e411a1d9eda82917?s=30);
-			}
-			#plan .employee_5,
-			.employee_5 div {
-				background-image: url(http://www.gravatar.com/avatar/920993ef8f677cc1be50fde5ce8cb4bb?s=30);
-			}
-			#plan .employee_6,
-			.employee_6 div {
-				background-image: url(http://www.gravatar.com/avatar/9d4f1b82fa9b0988598e870721421685?s=30);
-			}
-			#plan .employee_7,
-			.employee_7 div {
-				background-image: url(http://www.gravatar.com/avatar/484815d397b8f572a714c61c75afb7b0?s=30);
-			}
-			#plan .employee_8,
-			.employee_8 div {
-				background-image: url(http://www.gravatar.com/avatar/59436ecd4fe6ad7c34f67654d839f05f?s=30);
 			}
 			#sidebar {
 				position: fixed;
@@ -176,13 +108,11 @@
 			#sidebar input[type=search] {
 				width: 87%;
 			}
-			#sidebar #employees,
-			#sidebar #workplaces {
+			#sidebar ul {
 				width: 250px;
 				overflow: auto; /* clearfix */
 			}
-			#sidebar .employee,
-			#sidebar .workplace {
+			#sidebar li a {
 				display: block;
 				float: left;
 				margin: 0 4px 4px 0;
@@ -194,23 +124,135 @@
 			#sidebar .employee {
 				width: 70px;
 			}
-			#sidebar .workplace {
+			#sidebar .workplace,
+			#sidebar .qualification {
 				width: 110px;
 			}
-			#sidebar .employee div,
-			#sidebar .workplace div {
+			#sidebar li div {
 				float: left;
 				height: 30px;
 				width: 30px;
 				margin-right: 4px;
 			}
-			#sidebar #employees .ui-draggable-dragging {
+			#plan .assignment,
+			#plan .requirement,
+			#sidebar .qualification div {
+				height: 26px;
+				border-style: solid;
+				border-bottom-width: 4px;
+				border-color: transparent;
+				background-image: url(http://github.com/images/gravatars/gravatar-30.png);
+			}
+			#sidebar .ui-draggable-dragging {
 				width: 30px !important;
 				height: 30px;
 				overflow: hidden;
 			}
-			#sidebar #employees .ui-draggable-dragging a {
+			#sidebar .ui-draggable-dragging a {
 				background-position: left top;
+			}
+			
+			/* IMAGES */
+		
+			#plan .employee_1,
+			.employee_1 div {
+				background-image: url(http://www.gravatar.com/avatar/5976001c9ebf095c4988855a4e102de5?s=30);
+			}
+			#plan .employee_2,
+			.employee_2 div {
+				background-image: url(http://www.gravatar.com/avatar/b2ee3ee5087b7aa7202a98da372cae00?s=30);
+			}
+			#plan .employee_3,
+			.employee_3 div {
+				background-image: url(http://www.gravatar.com/avatar/ddc37f9437dc06836e21e05c39fbdadc?s=30);
+			}
+			#plan .employee_4,
+			.employee_4 div {
+				background-image: url(http://www.gravatar.com/avatar/0db5aeb4cf9fc1e8e411a1d9eda82917?s=30);
+			}
+			#plan .employee_5,
+			.employee_5 div {
+				background-image: url(http://www.gravatar.com/avatar/920993ef8f677cc1be50fde5ce8cb4bb?s=30);
+			}
+			#plan .employee_6,
+			.employee_6 div {
+				background-image: url(http://www.gravatar.com/avatar/9d4f1b82fa9b0988598e870721421685?s=30);
+			}
+			#plan .employee_7,
+			.employee_7 div {
+				background-image: url(http://www.gravatar.com/avatar/484815d397b8f572a714c61c75afb7b0?s=30);
+			}
+			#plan .employee_8,
+			.employee_8 div {
+				background-image: url(http://www.gravatar.com/avatar/59436ecd4fe6ad7c34f67654d839f05f?s=30);
+			}
+	
+			/* COLORS */
+			
+			#plan .workplace_1,
+			.workplace_1 div {
+				background-color: #ff8c8c;
+			}
+			#plan .workplace_2,
+			.workplace_2 div {
+				background-color: #ffc68c;
+			}
+			#plan .workplace_3,
+			.workplace_3 div {
+				background-color: #ffff8c;
+			}
+			#plan .workplace_4,
+			.workplace_4 div {
+				background-color: #c6ff8c;
+			}
+			#plan .workplace_5,
+			.workplace_5 div {
+				background-color: #8cff8c;
+			}
+			#plan .workplace_6,
+			.workplace_6 div {
+				background-color: #8cffc6;
+			}
+			#plan .workplace_7,
+			.workplace_7 div {
+				background-color: #8cffff;
+			}
+			#plan .workplace_8,
+			.workplace_8 div {
+				background-color: #8cc6ff;
+			}
+
+			#plan .qualification_1,
+			#sidebar .qualification_1 div {
+				border-color: #ff5959;
+			}
+			#plan .qualification_2,
+			#sidebar .qualification_2 div {
+				border-color: #ffac59;
+			}
+			#plan .qualification_3,
+			#sidebar .qualification_3 div {
+				border-color: #ffff59;
+			}
+			#plan .qualification_4,
+			#sidebar .qualification_4 div {
+				border-color: #acff59;
+			}
+			#plan .qualification_5,
+			#sidebar .qualification_5 div {
+				border-color: #59ff59;
+			}
+			#plan .qualification_6,
+			#sidebar .qualification_6 div {
+				border-color: #59ffac;
+			}
+			#plan .qualification_7,
+			#sidebar .qualification_7 div {
+				border-color: #59ffff;
+			}
+			#plan .qualification_8,
+			#sidebar .qualification_8 div {
+				border-color: #59acff;
 			}
 		</style>
 		<script type="text/javascript">
@@ -235,19 +277,33 @@
 				}
 			}
 			
+			var Util = {
+				id_from_href: function(href) {
+					var matches = href.match(/(\d+)$/);
+					if(matches) {
+						return matches[0];
+					} else {
+						return false;
+					}
+				}
+			}
+			
 			var Plan = {
-				init: function() {
+				bind_events: function() {
 					$("#employees a div").draggable({
 						helper: 'clone'
 					});
-					$(".assignment").draggable({
+					$(".assignments > li > a").draggable({
 						helper: 'clone'
 					});
 					$("#workplaces a div").draggable({
 						helper: 'clone'
 					});
+					$("#qualifications a div").draggable({
+						helper: 'clone'
+					});
 					$("body").droppable({
-						drop: Assignments.on_assignment_remove,
+						// drop: Assignments.on_assignment_remove,
 						drop: Plan.on_element_remove,
 						// accept: ".assignment" //  .shifts>li
 					});
@@ -259,24 +315,32 @@
 						accept: "#workplaces a div",
 						tolerance: 'touch',
 						greedy: true,
-						drop: Requirements.on_workplace_drop,
-						over: Requirements.on_workplace_over,
-						out:  Requirements.on_workplace_out
+						drop: Shifts.on_workplace_drop,
+						over: Shifts.on_workplace_over,
+						out:  Shifts.on_workplace_out
+					});
+					$(".shift").droppable({
+						accept: "#qualifications a div",
+						tolerance: 'touch',
+						greedy: true,
+						drop: Shifts.on_qualification_drop,
+						// over: Shifts.on_workplace_over,
+						// out:  Shifts.on_workplace_out
 					});
 					$(".shift").draggable({
 						containment: 'parent',
 						axis: 'x',
 						grid: [Config.slot_width, 38],
-						stop: Requirements.on_drag_stop
+						stop: Shifts.on_drag_stop
 					});
 					$(".shift").each(function(){ 
-						Requirements.add_resize_handles($(this)) 
+						Shifts.add_resize_handles($(this)) 
 					});
 					$(".shifts .resize_handle").draggable({
 						axis: 'x',
 						grid: [Config.slot_width, 0],
-						drag: Requirements.on_resize,
-						stop: Requirements.on_drag_stop
+						drag: Shifts.on_resize,
+						stop: Shifts.on_drag_stop
 					});
 				},
 				on_element_remove: function(event, ui) {
@@ -284,8 +348,11 @@
 						case ui.draggable.hasClass('assignment'): 
 							Assignments.remove_element(ui.draggable);
 							break;
-						case ui.draggable.hasClass('shift'): 
+						case ui.draggable.hasClass('requirement'): 
 							Requirements.remove_element(ui.draggable);
+							break;
+						case ui.draggable.hasClass('shift'): 
+							Shifts.remove_element(ui.draggable);
 							break;
 					}
 				}			
@@ -299,13 +366,13 @@
 
 			var Assignments = {
 				assign_employee: function(requirement, employee) {
-					var employee_id = employee.attr('href').match(/(\d+)$/)[0];
-					requirement.removeClass('requirement').addClass('assignment employee_' + employee_id);
+					var id = Util.id_from_href(employee.attr('href'));
+					requirement.removeClass('requirement').addClass('assignment employee_' + id);
 					requirement.attr('href', employee.attr('href'));
 				},
 				remove_element: function(element) {
-					var employee_id = element.attr('href').match(/(\d+)$/)[0];
-					element.removeClass('assignment employee_' + employee_id).addClass('requirement');
+					var id = Util.id_from_href(employee.attr('href'));
+					element.removeClass('assignment employee_' + id).addClass('requirement');
 					element.attr('href', '#');
 				},
 				on_employee_drop: function(event, ui) {
@@ -315,12 +382,24 @@
 					requirement.effect('bounce', {}, 100);
 				}
 			};
-
+			
 			var Requirements = {
+				remove_element: function(element) {
+					element.parent().remove();
+					element.remove();
+				}
+			}
+
+			var Shifts = {
 				init: function() {
 					$(".shift").each(function() {
-						Requirements.update_dimension_from_data($(this));
+						Shifts.update_dimension_from_data($(this));
 					});
+				},
+				add_requirement: function(shift, qualification) {
+					var id = Util.id_from_href(qualification.attr('href'));
+					var requirement = $('<li><a href="#" class="requirement qualification_' + id + '"></a></li>');
+					return requirement.appendTo($('.assignments', shift));
 				},
 				add_resize_handles: function(element) {
 					if($('.resize_handle', element).length == 0) {
@@ -345,12 +424,27 @@
 				remove_element: function(element) {
 					element.remove();
 				},
+				expand_workspace_drop_zone: function(element) {
+					Shifts.fix_droppable_proportions(30);
+					element.css('padding-bottom', '30px');
+				},
+				reset_workspace_drop_zone: function(element) {
+					Shifts.fix_droppable_proportions(-30);
+					element.css('padding-bottom', '0px');
+				},
+				fix_droppable_proportions: function(offset) {
+					// jumping through hoops thanks to jquery.ui's stupidity
+					var list = $.ui.ddmanager.droppables['default'];
+					for (var i = 0; i < list.length; i++) {
+						list[i].proportions.height += offset;
+					}
+				},
 				on_drag_stop: function(event, ui) {
 					var element = $(this);
 					if(element.hasClass('resize_handle')) {
 						element = $(element[0].parentNode);
 					}
-					Requirements.update_data_from_dimension(element);
+					Shifts.update_data_from_dimension(element);
 				},
 				on_resize: function(event, ui) {
 					var shift = $(this).closest('li');
@@ -387,35 +481,29 @@
 
 					var shift = $('<li class="shift ' + workplace.className + '"><h3>' + name + '</h3><ul class="assignments"></ul></li>');
 					shift.css({ left: left + 'px' })
-					shift.animate({ width: width }, {
-						complete: function() { Requirements.update_data_from_dimension($(this)); }
-					});
+					shift.animate({ width: width }, { complete: function() { Shifts.update_data_from_dimension($(this)); } });
 					$(this).append(shift);
 					
-					Plan.init();
-					
-					Requirements.on_workplace_out.apply(this, [event, ui]);
+					Plan.bind_events();
+					Shifts.reset_workspace_drop_zone($(this));
 				},
 				on_workplace_over: function(event, ui) {
-					Requirements.fix_droppable_proportions(30);
-					$(this).css('padding-bottom', '30px');
+					Shifts.expand_workspace_drop_zone($(this));
 				},
 				on_workplace_out: function(event, ui) {
-					Requirements.fix_droppable_proportions(-30);
-					$(this).css('padding-bottom', '0px');
+					Shifts.reset_workspace_drop_zone($(this));
 				},
-				fix_droppable_proportions: function(offset) {
-					// jumping through hoops thanks to jquery.ui's stupidity
-					var list = $.ui.ddmanager.droppables['default'];
-					for (var i = 0; i < list.length; i++) {
-						list[i].proportions.height += offset;
-					}
+				on_qualification_drop: function(event, ui) {
+					var shift = $(this);
+					var qualification = $(ui.draggable).closest('a');
+					requirement = Shifts.add_requirement(shift, qualification);
+					// requirement.effect('bounce', {}, 500);
 				}
 			}
 
 			$(document).ready(function() {
-				Requirements.init();
-				Plan.init();
+				Shifts.init();
+				Plan.bind_events();
 			});
 		</script>
 	</head>
@@ -427,9 +515,9 @@
 					<li id="shift_1" class="shift workplace_1" data-start="720" data-duration="480">
 						<h3>Bar 1</h3>
 						<ul class="assignments">
-							<li><a href="/users/1" class="assignment employee_1"></a></li>
-							<li><a href="#" class="requirement"></a></li>
-							<li><a href="#" class="requirement"></a></li>
+							<li><a href="/users/1" class="assignment employee_1 qualification_8"></a></li>
+							<li><a href="#" class="requirement qualification_3"></a></li>
+							<li><a href="#" class="requirement qualification_5"></a></li>
 						</ul>
 					</li>
 					<li id="shift_2" class="shift workplace_2" data-start="660" data-duration="360">
@@ -476,6 +564,15 @@
 				<li><a href="/workplaces/2" class="workplace workplace_2"><div></div>Bar 2</a></li>
 				<li><a href="/workplaces/3" class="workplace workplace_3"><div></div>Küche</a></li>
 				<li><a href="/workplaces/4" class="workplace workplace_4"><div></div>Bedienung</a></li>
+			</ul>
+
+			<h3>Qualifikationen</h3>
+			<ul id="qualifications">
+				<li><a href="/qualifications/1" class="qualification qualification_1"><div></div>Koch</a></li>
+				<li><a href="/qualifications/2" class="qualification qualification_2"><div></div>Barkeeper</a></li>
+				<li><a href="/qualifications/3" class="qualification qualification_3"><div></div>Bedienung</a></li>
+				<li><a href="/qualifications/4" class="qualification qualification_4"><div></div>Aushilfe</a></li>
+				<li><a href="#" class="qualification"><div></div>(Beliebig)</a></li>
 			</ul>
 		</div>
 	</body>
