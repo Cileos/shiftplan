@@ -1,12 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resource :dashboard
 
-  map.resources :requirements
-
-  map.resources :allocations
-
   map.resources :employees
-
   map.resources :workplaces
 
   map.with_options :controller => 'allocations', :action => 'index' do |a|
