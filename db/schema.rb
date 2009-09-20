@@ -9,14 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090906151345) do
+ActiveRecord::Schema.define(:version => 20090920155743) do
 
-  create_table "allocations", :force => true do |t|
+  create_table "assignments", :force => true do |t|
     t.integer  "requirement_id"
     t.integer  "employee_id"
-    t.integer  "workplace_id"
-    t.datetime "start"
-    t.datetime "end"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -36,10 +33,16 @@ ActiveRecord::Schema.define(:version => 20090906151345) do
   end
 
   create_table "requirements", :force => true do |t|
+    t.integer  "shift_id"
+    t.integer  "qualification_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "shifts", :force => true do |t|
     t.integer  "workplace_id"
     t.datetime "start"
     t.datetime "end"
-    t.integer  "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

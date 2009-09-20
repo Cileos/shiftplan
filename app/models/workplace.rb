@@ -16,7 +16,7 @@ class Workplace < ActiveRecord::Base
 
   def requirements=(requirements)
     requirements.each do |qualification_id, attributes|
-      requirement = workplace_requirements.detect { |wr| wr.qualification_id == qualification_id.to_i } || workplace_requirements.build(:qualification_id => qualification_id)
+      requirement = workplace_requirements.detect { |wr| wr.qualification_id == qualification_id.to_i } || workplace_requirements.build(:qualification_id => qualification_id.to_i)
       requirement.quantity = attributes[:quantity].to_i
       requirement.save # FIXME
     end
