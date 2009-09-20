@@ -26,11 +26,18 @@ en:
   add_employee: "Click here to add a new employee"
   new_employee: New employee
   edit_employee: "Edit employee \"{{full_name}}\""
-  employee_successfully_created: "Mitarbeiter successfully created."
-  employee_could_not_be_created: "Mitarbeiter could not be created."
-  employee_successfully_updated: "Mitarbeiter successfully updated."
-  employee_could_not_be_updated: "Mitarbeiter could not be updated."
-  employee_successfully_deleted: "Mitarbeiter successfully deleted."
+  employee_successfully_created: "Employee successfully created."
+  employee_could_not_be_created: "Employee could not be created."
+  employee_successfully_updated: "Employee successfully updated."
+  employee_could_not_be_updated: "Employee could not be updated."
+  employee_successfully_deleted: "Employee successfully deleted."
+
+  # shifts
+  shift_successfully_created: "Shift successfully created."
+  shift_could_not_be_created: "Shift could not be created."
+  shift_successfully_updated: "Shift successfully updated."
+  shift_could_not_be_updated: "Shift could not be updated."
+  shift_successfully_deleted: "Shift successfully deleted."
 
   edit: Edit
   show: Show

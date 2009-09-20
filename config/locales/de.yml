@@ -35,6 +35,13 @@ de:
   employee_could_not_be_updated: "Mitarbeiter konnte nicht geändert werden."
   employee_successfully_deleted: "Mitarbeiter erfolgreich gelöscht."
 
+  # shifts
+  shift_successfully_created: "Schicht erfolgreich angelegt."
+  shift_could_not_be_created: "Schicht konnte nicht angelegt werden."
+  shift_successfully_updated: "Schicht erfolgreich geändert."
+  shift_could_not_be_updated: "Schicht konnte nicht geändert werden."
+  shift_successfully_deleted: "Schicht erfolgreich gelöscht."
+
   edit: Bearbeiten
   show: Details
   destroy: Löschen
