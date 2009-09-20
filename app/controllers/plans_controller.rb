@@ -4,6 +4,10 @@ class PlansController < ApplicationController
   end
 
   def show
+    @shifts = Shift.all
+
+    @days = @shifts.first.start.to_date..(@shifts.first.start + 7.days).to_date # temporary
+
     @employees = Employee.all
     @workplaces = Workplace.active
 
