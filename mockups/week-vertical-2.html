@@ -26,7 +26,7 @@
 			#plan .day:first-child h2 {
 				margin-top: 0;
 			}
-			#plan .requirements {
+			#plan .shifts {
 				margin-top: 1em;
 				border-style: solid;
 				border-color: #aaa;
@@ -34,7 +34,7 @@
 				background-image: url(../public/images/plan_scale.png);
 				min-height: 38px;
 			}
-			#plan .requirements > li {
+			#plan .shift {
 				position: relative;
 				min-height: 38px;
 				/*cursor: move;*/
@@ -43,7 +43,8 @@
 				display: inline-block;
 				padding: 3px;
 			}
-			#plan .employee {
+			#plan .assignment,
+			#plan .requirement {
 				float: left;
 				display: block;
 				height: 30px;
@@ -58,7 +59,7 @@
 				font-style: italic;
 				color: #666;
 			}
-			#plan .requirements .resize_handle {
+			#plan .shifts .resize_handle {
 				position: absolute;
 				display: block;
 				top: 0;
@@ -66,11 +67,11 @@
 				width: 10px;
 				cursor: col-resize;
 			}
-			#plan .requirements .resize_handle.left {
+			#plan .shifts .resize_handle.left {
 				left: 0;
 				cursor: w-resize;
 			}
-			#plan .requirements .resize_handle.right {
+			#plan .shifts .resize_handle.right {
 				right: 0;
 				cursor: e-resize;
 			}
@@ -106,7 +107,7 @@
 			.workplace_8 div {
 				background-color: #8cc6ff;
 			}
-			#plan .employee,
+			#plan .requirement,
 			.employee div {
 				background-image: url(http://github.com/images/gravatars/gravatar-30.png);
 				background-repeat: no-repeat;
@@ -233,6 +234,62 @@
 					return minutes * Config.pixels_per_minute();
 				}
 			}
+			
+			var Plan = {
+				init: function() {
+					$("#employees a div").draggable({
+						helper: 'clone'
+					});
+					$(".assignment").draggable({
+						helper: 'clone'
+					});
+					$("#workplaces a div").draggable({
+						helper: 'clone'
+					});
+					$("body").droppable({
+						drop: Assignments.on_assignment_remove,
+						drop: Plan.on_element_remove,
+						// accept: ".assignment" //  .shifts>li
+					});
+					$(".assignments a").droppable({
+						accept: "#employees a div",
+						drop: Assignments.on_employee_drop
+					});
+					$(".shifts").droppable({
+						accept: "#workplaces a div",
+						tolerance: 'touch',
+						greedy: true,
+						drop: Requirements.on_workplace_drop,
+						over: Requirements.on_workplace_over,
+						out:  Requirements.on_workplace_out
+					});
+					$(".shift").draggable({
+						containment: 'parent',
+						axis: 'x',
+						grid: [Config.slot_width, 38],
+						stop: Requirements.on_drag_stop
+					});
+					$(".shift").each(function(){ 
+						Requirements.add_resize_handles($(this)) 
+					});
+					$(".shifts .resize_handle").draggable({
+						axis: 'x',
+						grid: [Config.slot_width, 0],
+						drag: Requirements.on_resize,
+						stop: Requirements.on_drag_stop
+					});
+				},
+				on_element_remove: function(event, ui) {
+					switch(true) {
+						case ui.draggable.hasClass('assignment'): 
+							Assignments.remove_element(ui.draggable);
+							break;
+						case ui.draggable.hasClass('shift'): 
+							Requirements.remove_element(ui.draggable);
+							break;
+					}
+				}			
+			}
 
 			var Day = {
 				start: function() {
@@ -241,23 +298,34 @@
 			}
 
 			var Assignments = {
-				on_employee_drop: function(event, ui) {
-					var employee = $(ui.draggable).closest('a')[0];
-					this.className = employee.className;
-					$(this).effect('bounce', {}, 100)
+				assign_employee: function(requirement, employee) {
+					var employee_id = employee.attr('href').match(/(\d+)$/)[0];
+					requirement.removeClass('requirement').addClass('assignment employee_' + employee_id);
+					requirement.attr('href', employee.attr('href'));
 				},
-				on_employee_remove: function(event, ui) {
-					var employee = ui.draggable[0];
-					employee.className = 'employee';
-					employee.href = '#'
+				remove_element: function(element) {
+					var employee_id = element.attr('href').match(/(\d+)$/)[0];
+					element.removeClass('assignment employee_' + employee_id).addClass('requirement');
+					element.attr('href', '#');
+				},
+				on_employee_drop: function(event, ui) {
+					var requirement = $(this);
+					var employee = $(ui.draggable).closest('a');
+					Assignments.assign_employee(requirement, employee);
+					requirement.effect('bounce', {}, 100);
 				}
 			};
 
 			var Requirements = {
 				init: function() {
-					$(".requirements > li").each(function() {
+					$(".shift").each(function() {
 						Requirements.update_dimension_from_data($(this));
 					});
+				},
+				add_resize_handles: function(element) {
+					if($('.resize_handle', element).length == 0) {
+						element.append($('<span class="resize_handle left"></span><span class="resize_handle right"></span>'));
+					}
 				},
 				update_dimension_from_data: function(element) {
 					element.css({
@@ -272,6 +340,10 @@
 						'data-start': Config.pixels_to_minutes(left),
 						'data-duration': Config.pixels_to_minutes(width)
 					})
+					// console.log('data updated to start: ' + element.attr('data-start') + ', duration: ' + element.attr('data-duration'));
+				},
+				remove_element: function(element) {
+					element.remove();
 				},
 				on_drag_stop: function(event, ui) {
 					var element = $(this);
@@ -281,46 +353,47 @@
 					Requirements.update_data_from_dimension(element);
 				},
 				on_resize: function(event, ui) {
-					var requirement = $(this).closest('li');
-					var requirements = requirement.closest('.requirements');
+					var shift = $(this).closest('li');
+					var shifts = shift.closest('.shifts');
 					var draggable = $(this).data('draggable'); // gotta set containment directly to the draggable
 
 					if (!draggable.containment) {
-						var left = requirements.position().left;
-						var top = requirement.position().top;
-						var containment = [left, top, left + requirements.width(), top + requirement.height()];
+						var left = shifts.position().left;
+						var top = shift.position().top;
+						var containment = [left, top, left + shifts.width(), top + shift.height()];
 						draggable.containment = containment;
 					}
 
 					if($(this).hasClass('left')) {
-						requirement.css({ 
-							"left":  parseInt(requirement.css('left')) + ui.position.left,
-							"width": parseInt(requirement.css('width')) - ui.position.left
+						shift.css({ 
+							"left":  parseInt(shift.css('left')) + ui.position.left,
+							"width": parseInt(shift.css('width')) - ui.position.left
 						})
 						draggable.offset.parent.left = draggable.offset.parent.left + ui.position.left;
 					} else {
-						requirement.css({ "width": ui.position.left + $(this).width() })
+						shift.css({ "width": ui.position.left + $(this).width() })
 					}
 				},				
 				on_workplace_drop: function(event, ui) {
 					var workplace = $(ui.draggable).closest('a')[0];
 					var name = workplace.innerHTML.replace(/<\/?[^>]+>/gi, '');
 
-					// FIXME can use ui.position.left instead
 					var slot = parseInt((ui.offset.left - this.offsetLeft - 1) / Config.slot_width);
-					var hour = parseInt(slot / Config.slots_per_hour);
-					var left = slot * Config.slot_width + hour; // 1px border between hours
-					var width = Config.slot_width * Config.default_slot_count + parseInt(Config.default_slot_count / Config.slots_per_hour) - 1;
-
+					var left = slot * Config.slot_width;
+					var width = Config.slot_width * Config.default_slot_count;
 					if(left + width > this.offsetWidth) {
-						borderOffset = parseInt(width / Config.slot_width / Config.slots_per_hour) - 1;
-						width = this.offsetWidth - left - borderOffset;
+						width = this.offsetWidth - left - 1;
 					}
 
-					var html = $('<li class="' + workplace.className + '"><h3>' + name + '</h3><ul class="assignments"></ul></li>');
-					html.css({ 'left': left + 'px' }).animate({ 'width': width });
-					$(this).append(html);
-
+					var shift = $('<li class="shift ' + workplace.className + '"><h3>' + name + '</h3><ul class="assignments"></ul></li>');
+					shift.css({ left: left + 'px' })
+					shift.animate({ width: width }, {
+						complete: function() { Requirements.update_data_from_dimension($(this)); }
+					});
+					$(this).append(shift);
+					
+					Plan.init();
+					
 					Requirements.on_workplace_out.apply(this, [event, ui]);
 				},
 				on_workplace_over: function(event, ui) {
@@ -342,43 +415,7 @@
 
 			$(document).ready(function() {
 				Requirements.init();
-
-				$("#employees a div").draggable({
-					helper: 'clone'
-				});
-				$(".assignments .employee").draggable({
-					helper: 'clone'
-				});
-				$("#workplaces a div").draggable({
-					helper: 'clone'
-				});
-				$("body").droppable({
-					drop: Assignments.on_employee_remove,
-					accept: ".assignments .employee"
-				});
-				$(".assignments a").droppable({
-					accept: "#employees a div",
-					drop: Assignments.on_employee_drop
-				});
-				$(".requirements").droppable({
-					accept: "#workplaces a div",
-					tolerance: 'touch',
-					drop: Requirements.on_workplace_drop,
-					over: Requirements.on_workplace_over,
-					out:  Requirements.on_workplace_out
-				});
-				$(".requirements li").draggable({
-					containment: 'parent',
-					axis: 'x',
-					grid: [Config.slot_width, 0],
-					stop: Requirements.on_drag_stop
-				});
-				$(".requirements .resize_handle").draggable({
-					axis: 'x',
-					grid: [Config.slot_width, 0],
-					drag: Requirements.on_resize,
-					stop: Requirements.on_drag_stop
-				});
+				Plan.init();
 			});
 		</script>
 	</head>
@@ -386,40 +423,38 @@
 		<div id="plan" data-start="480" data-duration="720">
 			<div class="day">
 				<h2>Montag, 14.9.09</h2>
-				<ul class="requirements">
-					<li id="requirement_1" class="workplace_1" data-start="720" data-duration="480">
+				<ul class="shifts">
+					<li id="shift_1" class="shift workplace_1" data-start="720" data-duration="480">
 						<h3>Bar 1</h3>
 						<ul class="assignments">
-							<li><a href="#" class="employee employee_1"></a></li>
-							<li><a href="#" class="employee"></a></li>
-							<li><a href="#" class="employee"></a></li>
+							<li><a href="/users/1" class="assignment employee_1"></a></li>
+							<li><a href="#" class="requirement"></a></li>
+							<li><a href="#" class="requirement"></a></li>
 						</ul>
 					</li>
-					<li id="requirement_2" class="workplace_2" data-start="660" data-duration="360">
+					<li id="shift_2" class="shift workplace_2" data-start="660" data-duration="360">
 						<h3 class="workplace">Bar 2</h3>
 						<ul class="assignments">
-							<li><a href="#" class="employee employee_2"></a></li>
+							<li><a href="/users/2" class="assignment employee_2"></a></li>
 						</ul>
-						<span class="resize_handle left"></span>
-						<span class="resize_handle right"></span>
 					</li>
 				</ul>
 			</div>
 			<div class="day">
 				<h2>Dienstag, 15.9.09</h2>
-				<ul class="requirements"></ul>
+				<ul class="shifts"></ul>
 			</div>
 			<div class="day">
 				<h2>Mittwoch, 16.9.09</h2>
-				<ul class="requirements"></ul>
+				<ul class="shifts"></ul>
 			</div>
 			<div class="day">
 				<h2>Donnerstag, 17.9.09</h2>
-				<ul class="requirements"></ul>
+				<ul class="shifts"></ul>
 			</div>
 			<div class="day">
 				<h2>Freitag, 18.9.09</h2>
-				<ul class="requirements"></ul>
+				<ul class="shifts"></ul>
 			</div>
 		</div>
 		<div id="sidebar">
@@ -428,11 +463,11 @@
 				<li><a href="/users/1" class="employee employee_1"><div></div>CK</a></li>
 				<li><a href="/users/2" class="employee employee_2"><div></div>YM</a></li>
 				<li><a href="/users/3" class="employee employee_3"><div></div>IM</a></li>
-				<li><a href="/users/4" class="employee employee_3"><div></div>LF</a></li>
-				<li><a href="/users/5" class="employee employee_4"><div></div>AL</a></li>
-				<li><a href="/users/5" class="employee employee_5"><div></div>MK</a></li>
-				<li><a href="/users/5" class="employee employee_6"><div></div>SP</a></li>
-				<li><a href="/users/5" class="employee employee_7"><div></div>MF</a></li>
+				<li><a href="/users/4" class="employee employee_4"><div></div>LF</a></li>
+				<li><a href="/users/5" class="employee employee_5"><div></div>AL</a></li>
+				<li><a href="/users/6" class="employee employee_6"><div></div>MK</a></li>
+				<li><a href="/users/7" class="employee employee_7"><div></div>SP</a></li>
+				<li><a href="/users/8" class="employee employee_8"><div></div>MF</a></li>
 			</ul>
 
 			<h3>Einsatzplätze</h3>

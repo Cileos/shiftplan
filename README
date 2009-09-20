@@ -1,0 +1,20 @@
+# TODO
+
+- styles + scripts aufräumen / extrahieren
+- mitarbeiter, workplaces etc dynamisch anzeigen
+- list qualifications in sidebar
+
+- fix z-index for dragging employees
+- remove qualifications from shifts
+- remove shifts from plan
+- drag requirements to shifts
+- paff effekt für entfernen von mitarbeitern, qualifications, shifts
+
++ rename requirements to shifts
++ rename "abstract" employees to requirements
++ use ".shift" instead of ".shifts > li"
++ use .live() or manually rewire events
++ fix positioning after adding a shift
++ update data after adding an shift
+
+
