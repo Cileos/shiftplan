@@ -45,14 +45,14 @@ $(document).ready(function() {
 	<h3><%= t(:employees) %></h3>
 	<ul id="employees">
 	  <% @employees.each do |employee| -%>
-		<li><%= link_to employee.initials, employee_path(employee), :class => "employee #{dom_id(employee)} dialog" %></li>
+		<li><%= link_to employee.initials, employee_path(employee), :class => "employee #{dom_id(employee)} dialog", :'data-qualifications' => employee.qualifications.map { |q| "qualification-#{q.id}" }.join(', ') %></li>
 		<% end -%>
 	</ul>
 
 	<h3><%= t(:workplaces) %></h3>
 	<ul id="workplaces">
 	  <% @workplaces.each do |workplace| -%>
-		<li><%= link_to workplace.name, workplace_path(workplace), :class => "workplace #{dom_id(workplace)} dialog" %></li>
+		<li><%= link_to workplace.name, workplace_path(workplace), :class => "workplace #{dom_id(workplace)} dialog", :'data-default-shift-length' => workplace.default_shift_length %></li>
 		<% end -%>
 	</ul>
 </div>
