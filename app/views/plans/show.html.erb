@@ -144,73 +144,21 @@
 	
 	/* IMAGES */
 
-	#plan .employee_1,
-	.employee_1 div {
-		background-image: url(http://www.gravatar.com/avatar/5976001c9ebf095c4988855a4e102de5?s=30);
+  <% @employees.each do |employee| -%>
+	#plan .<%= dom_id(employee) %>,
+	.<%= dom_id(employee) %> div {
+		background-image: url(<%= employee.gravatar_url_for_css(:size => 30) %>);
 	}
-	#plan .employee_2,
-	.employee_2 div {
-		background-image: url(http://www.gravatar.com/avatar/b2ee3ee5087b7aa7202a98da372cae00?s=30);
-	}
-	#plan .employee_3,
-	.employee_3 div {
-		background-image: url(http://www.gravatar.com/avatar/ddc37f9437dc06836e21e05c39fbdadc?s=30);
-	}
-	#plan .employee_4,
-	.employee_4 div {
-		background-image: url(http://www.gravatar.com/avatar/0db5aeb4cf9fc1e8e411a1d9eda82917?s=30);
-	}
-	#plan .employee_5,
-	.employee_5 div {
-		background-image: url(http://www.gravatar.com/avatar/920993ef8f677cc1be50fde5ce8cb4bb?s=30);
-	}
-	#plan .employee_6,
-	.employee_6 div {
-		background-image: url(http://www.gravatar.com/avatar/9d4f1b82fa9b0988598e870721421685?s=30);
-	}
-	#plan .employee_7,
-	.employee_7 div {
-		background-image: url(http://www.gravatar.com/avatar/484815d397b8f572a714c61c75afb7b0?s=30);
-	}
-	#plan .employee_8,
-	.employee_8 div {
-		background-image: url(http://www.gravatar.com/avatar/59436ecd4fe6ad7c34f67654d839f05f?s=30);
-	}
+	<% end -%>
 
 	/* COLORS */
 	
-	#plan .workplace_1,
-	.workplace_1 div {
-		background-color: #ff8c8c;
+	<% @workplaces.each do |workplace| -%>
+	#plan .<%= dom_id(workplace) %>,
+	.<%= dom_id(workplace) %> div {
+		background-color: <%= workplace.color %>;
 	}
-	#plan .workplace_2,
-	.workplace_2 div {
-		background-color: #ffc68c;
-	}
-	#plan .workplace_3,
-	.workplace_3 div {
-		background-color: #ffff8c;
-	}
-	#plan .workplace_4,
-	.workplace_4 div {
-		background-color: #c6ff8c;
-	}
-	#plan .workplace_5,
-	.workplace_5 div {
-		background-color: #8cff8c;
-	}
-	#plan .workplace_6,
-	.workplace_6 div {
-		background-color: #8cffc6;
-	}
-	#plan .workplace_7,
-	.workplace_7 div {
-		background-color: #8cffff;
-	}
-	#plan .workplace_8,
-	.workplace_8 div {
-		background-color: #8cc6ff;
-	}
+	<% end -%>
 
 	#plan .qualification_1,
 	#sidebar .qualification_1 div {

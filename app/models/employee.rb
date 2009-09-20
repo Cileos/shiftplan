@@ -30,4 +30,8 @@ class Employee < ActiveRecord::Base
       !initials.blank? ? initials : full_name.split(' ').map(&:first).join
     end
   end
+
+  def gravatar_url_for_css(*args)
+    gravatar_url(*args).gsub('&amp;', '&')
+  end
 end
