@@ -39,6 +39,20 @@ en:
   shift_could_not_be_updated: "Shift could not be updated."
   shift_successfully_deleted: "Shift successfully deleted."
 
+  # requirements
+  requirement_successfully_created: "Requirement successfully created."
+  requirement_could_not_be_created: "Requirement could not be created."
+  requirement_successfully_updated: "Requirement successfully updated."
+  requirement_could_not_be_updated: "Requirement could not be updated."
+  requirement_successfully_deleted: "Requirement successfully deleted."
+
+  # assignments
+  assignment_successfully_created: "Assignment successfully created."
+  assignment_could_not_be_created: "Assignment could not be created."
+  assignment_successfully_updated: "Assignment successfully updated."
+  assignment_could_not_be_updated: "Assignment could not be updated."
+  assignment_successfully_deleted: "Assignment successfully deleted."
+
   edit: Edit
   show: Show
   destroy: Delete

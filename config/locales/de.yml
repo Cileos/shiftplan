@@ -42,6 +42,20 @@ de:
   shift_could_not_be_updated: "Schicht konnte nicht geändert werden."
   shift_successfully_deleted: "Schicht erfolgreich gelöscht."
 
+  # requirements
+  requirement_successfully_created: "Anforderung erfolgreich angelegt."
+  requirement_could_not_be_created: "Anforderung konnte nicht angelegt werden."
+  requirement_successfully_updated: "Anforderung erfolgreich geändert."
+  requirement_could_not_be_updated: "Anforderung konnte nicht geändert werden."
+  requirement_successfully_deleted: "Anforderung erfolgreich gelöscht."
+
+  # assignments
+  assignment_successfully_created: "Zuweisung erfolgreich angelegt."
+  assignment_could_not_be_created: "Zuweisung konnte nicht angelegt werden."
+  assignment_successfully_updated: "Zuweisung erfolgreich geändert."
+  assignment_could_not_be_updated: "Zuweisung konnte nicht geändert werden."
+  assignment_successfully_deleted: "Zuweisung erfolgreich gelöscht."
+
   edit: Bearbeiten
   show: Details
   destroy: Löschen
