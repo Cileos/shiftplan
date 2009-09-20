@@ -6,39 +6,9 @@
     <title><%= yield :title %> | shiftplan.com</title>
     <%= stylesheet_link_tag 'reset', 'jquery-ui/ui-lightness/jquery-ui', 'jquery-ui-colorpicker', 'application',
                             'shiftplan/employees', 'shiftplan/workplaces', :cache => true %>
-    <!--[if IE]>
-      <%= stylesheet_link_tag 'ie' %>
-    <![endif]-->
-
-		<style type="text/css">
-		table {
-			border-collapse: collapse;
-		}
-		#allocations_by_day {
-			width: 100%;
-
-		}
-		#allocations_by_day tbody tr {
-			height: 60px;
-			vertical-align: top;
-		}
-		th, td {
-			padding: 0;
-			border: 1px solid black;
-		}
-		.requirement {
-			position: absolute;
-			height: 80px;
-			width: 20px;
-			background-color: yellow;
-		}
-		.slot {
-			height: 15px;
-		}
-		</style>
 
     <%= javascript_include_tag 'util', 'jquery', 'jquery.form.js', 'date', 'jquery-ui.js', 'jquery-plugin-colorpicker', 'parseuri',
-                               'shiftplan/dialogs', 'shiftplan/lists', 'shiftplan/plan', 'shiftplan/tabs', 'shiftplan/workplaces', :cache => true %>
+                               'shiftplan/dialogs', 'shiftplan/lists', 'shiftplan/tabs', 'shiftplan/workplaces', :cache => true %>
     <%= yield(:head) %>
     <script type="text/javascript">
       $(document).ready(function() {
