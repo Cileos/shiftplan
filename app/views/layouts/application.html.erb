@@ -50,10 +50,10 @@
   <body>
 		<div id="content">
 	    <ul id="navigation">
-	      <li><%= link_to t(:overview), root_path %></li>
-	      <li><%= link_to t(:workplaces), workplaces_path %></li>
-				<li><%= link_to t(:employees), employees_path %></li>
-				<li><%= link_to t(:plans), plan_path(1) %></li>
+	      <li><%= link_to t(:overview), root_path, :'data-tab-id' => 'overview' %></li>
+	      <li><%= link_to t(:workplaces), workplaces_path, :'data-tab-id' => 'workplaces' %></li>
+				<li><%= link_to t(:employees), employees_path, :'data-tab-id' => 'employees' %></li>
+				<li><%= link_to t(:plans), plan_path(1), :'data-tab-id' => 'plans' %></li>
 	    </ul>
 		</div>
   </body>

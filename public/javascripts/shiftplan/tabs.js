@@ -4,16 +4,21 @@ $(document).ready(function() {
   var directory = uri.directory;
 
   var selected_tab = 0;
+  var hash = document.location.hash;
 
-  if(directory.search(/^\/workplaces/) > -1) {
+  if(hash.search(/^#workplaces$/i) > -1) {
     selected_tab = 1;
-  } else if(directory.search(/^\/employees/) > -1) {
+  } else if(hash.search(/^#employees$/i) > -1) {
     selected_tab = 2;
-  } else if(directory.search(/^\/plans/) > - 1) {
+  } else if(hash.search(/^#plans$/i) > - 1) {
     selected_tab = 3;
   }
 
   $('#content').tabs({
-    selected: selected_tab
+    selected: selected_tab,
+    idPrefix: 'tab-',
+    select: function(event, ui) {
+      document.location = '#' + ($(ui.tab).attr('data-tab-id'));
+    }
   });
 });
