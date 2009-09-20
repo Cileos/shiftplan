@@ -4,8 +4,8 @@ en:
   workplace: Workplace
   employees: Employees
   employee: Employee
-  allocations: Allocations
-  allocation: Allocation
+  plans: Plans
+  plan: Plan
 
   save: Save
   picture_powered_by: "Picture powered by {{link}}"

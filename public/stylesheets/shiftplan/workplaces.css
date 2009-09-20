@@ -2,7 +2,7 @@
   width: 1000px;
 }
 
-.workplace {
+#workplaces .workplace {
   width: 250px;
   float: left;
   background-color: #fff;
@@ -13,16 +13,16 @@
   cursor: pointer;
 }
 
-.workplace.inactive {
+#workplaces .workplace.inactive {
   background-color: #eee;
 }
 
-.workplace h2 {
+#workplaces .workplace h2 {
   font-weight: bold;
   margin: 0.25em 0;
 }
 
-.workplace .color {
+#workplaces .workplace .color {
   float: left;
   margin-right: 1em;
   border: 1px solid #ddd;
@@ -30,17 +30,17 @@
   height: 60px;
 }
 
-.workplace .qualifications {
+#workplaces .workplace .qualifications {
   font-style: italic;
   font-size: 0.8em;
 }
 
-.workplace img {
+#workplaces .workplace img {
   float: left;
   margin-right: 1em;
 }
 
-.workplace .actions {
+#workplaces .workplace .actions {
   float: right;
 }
 

@@ -2,7 +2,7 @@
   width: 1000px;
 }
 
-.employee {
+#employees .employee {
   width: 250px;
   float: left;
   background-color: #fff;
@@ -13,27 +13,27 @@
   cursor: pointer;
 }
 
-.employee.inactive {
+#employees .employee.inactive {
   background-color: #eee;
 }
 
-.employee h2 {
+#employees .employee h2 {
   font-weight: bold;
   margin: 0.25em 0;
 }
 
-.employee .qualifications {
+#employees .employee .qualifications {
   font-style: italic;
   font-size: 0.8em;
 }
 
-.employee img {
+#employees .employee img {
   float: left;
   margin-right: 1em;
   border: 1px solid #ddd;
 }
 
-.employee .actions {
+#employees .employee .actions {
   float: right;
 }
 

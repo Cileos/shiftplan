@@ -23,4 +23,11 @@ class Employee < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def initials
+    @initials ||= begin
+      initials = read_attribute(:initials)
+      !initials.blank? ? initials : full_name.split(' ').map(&:first).join
+    end
+  end
 end

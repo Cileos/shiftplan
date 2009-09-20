@@ -7,11 +7,11 @@ de:
   workplace: Arbeitsplatz
   employees: Mitarbeiter
   employee: Mitarbeiter
-  allocations: Einsätze
-  allocation: Einsatz
+  plans: Schichtpläne
+  plan: Schichtplan
 
   save: Speichern
-  picture_powered_by: "Bildquelle: {{link}}"
+  picture_powered_by: "Bild angetrieben von {{link}}"
 
   # workplaces
   click_to_add_workplace: Hinzufügen

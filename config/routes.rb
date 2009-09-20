@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :employees
   map.resources :workplaces
+  map.resources :plans
 
   map.with_options :controller => 'allocations', :action => 'index' do |a|
     a.allocations_by_date  'plans/:year/:month/:day',

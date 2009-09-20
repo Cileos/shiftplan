@@ -1,0 +1,59 @@
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#workplaces a.workplace').prepend('<div></div>');
+  $('#employees a.employee').prepend('<div></div>');
+  $('ul.requirements li.requirement').append('<span class="resize_handle left"></span><span class="resize_handle right"></span>');
+});
+</script>
+<div id="plan" data-start="480" data-duration="720">
+	<div class="day">
+		<h2>Montag, 14.9.09</h2>
+		<ul class="requirements">
+			<li id="requirement_1" class="requirement workplace_1" data-start="720" data-duration="480">
+				<h3>Bar 1</h3>
+				<ul class="assignments">
+					<li><a href="#" class="employee employee_1"></a></li>
+					<li><a href="#" class="employee"></a></li>
+					<li><a href="#" class="employee"></a></li>
+				</ul>
+			</li>
+			<li id="requirement_2" class="requirement workplace_2" data-start="660" data-duration="360">
+				<h3 class="workplace">Bar 2</h3>
+				<ul class="assignments">
+					<li><a href="#" class="employee employee_2"></a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="day">
+		<h2>Dienstag, 15.9.09</h2>
+		<ul class="requirements"></ul>
+	</div>
+	<div class="day">
+		<h2>Mittwoch, 16.9.09</h2>
+		<ul class="requirements"></ul>
+	</div>
+	<div class="day">
+		<h2>Donnerstag, 17.9.09</h2>
+		<ul class="requirements"></ul>
+	</div>
+	<div class="day">
+		<h2>Freitag, 18.9.09</h2>
+		<ul class="requirements"></ul>
+	</div>
+</div>
+<div id="sidebar">
+	<h3><%= t(:employees) %></h3>
+	<ul id="employees">
+	  <% @employees.each do |employee| -%>
+		<li><%= link_to employee.initials, employee_path(employee), :class => "employee #{dom_id(employee)} dialog" %></li>
+		<% end -%>
+	</ul>
+
+	<h3><%= t(:workplaces) %></h3>
+	<ul id="workplaces">
+	  <% @workplaces.each do |workplace| -%>
+		<li><%= link_to workplace.name, workplace_path(workplace), :class => "workplace #{dom_id(workplace)} dialog" %></li>
+		<% end -%>
+	</ul>
+</div>
