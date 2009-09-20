@@ -18,7 +18,11 @@ class Shift < ActiveRecord::Base
   end
 
   def start_in_minutes
-    start.hour * 60 + start.min
+    self.start.hour * 60 + self.start.min
+  end
+
+  def end_in_minutes
+    self.end.hour * 60 + self.end.min
   end
 
   # temporary?

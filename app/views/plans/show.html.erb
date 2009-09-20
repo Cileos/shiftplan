@@ -252,8 +252,8 @@ $(document).ready(function() {
   $('#qualifications a.qualification').prepend('<div></div>');
 });
 </script>
-<div id="plan" data-start="<%= @shifts.map(&:start_in_minutes).min %>" data-duration="<%= (@shifts.map(&:start_in_minutes).max - @shifts.map(&:start_in_minutes).min) %>">
-  <% @days.each do |day| -%>
+<div id="plan" data-start="<%= @plan.start_in_minutes %>" data-duration="<%= @plan.duration_in_minutes %>">
+  <% @plan.days.each do |day| -%>
 	<div class="day">
 		<h2><%= l(day, :format => :long) %></h2>
 		<ul class="shifts">
