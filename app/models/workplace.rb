@@ -1,7 +1,6 @@
 class Workplace < ActiveRecord::Base
   self.partial_updates = false
 
-  has_many :allocations
   has_many :workplace_requirements
 
   named_scope :active, :conditions => { :active => true }
