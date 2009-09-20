@@ -304,28 +304,26 @@
 					});
 					$("body").droppable({
 						// drop: Assignments.on_assignment_remove,
-						drop: Plan.on_element_remove,
 						// accept: ".assignment" //  .shifts>li
+						drop: Plan.on_element_remove,
 					});
 					$(".assignments a").droppable({
 						accept: "#employees a div",
 						drop: Assignments.on_employee_drop
 					});
 					$(".shifts").droppable({
-						accept: "#workplaces a div",
+						accept: "#workplaces a div, #plan .requirement, #plan .assignment",
 						tolerance: 'touch',
 						greedy: true,
 						drop: Shifts.on_workplace_drop,
+						drop: Shifts.on_drop,
 						over: Shifts.on_workplace_over,
 						out:  Shifts.on_workplace_out
 					});
 					$(".shift").droppable({
 						accept: "#qualifications a div",
-						tolerance: 'touch',
 						greedy: true,
-						drop: Shifts.on_qualification_drop,
-						// over: Shifts.on_workplace_over,
-						// out:  Shifts.on_workplace_out
+						drop: Shifts.on_qualification_drop
 					});
 					$(".shift").draggable({
 						containment: 'parent',
@@ -371,7 +369,7 @@
 					requirement.attr('href', employee.attr('href'));
 				},
 				remove_element: function(element) {
-					var id = Util.id_from_href(employee.attr('href'));
+					var id = Util.id_from_href(element.attr('href'));
 					element.removeClass('assignment employee_' + id).addClass('requirement');
 					element.attr('href', '#');
 				},
@@ -468,6 +466,16 @@
 						shift.css({ "width": ui.position.left + $(this).width() })
 					}
 				},				
+				on_drop: function(event, ui) {
+					switch(true) {
+						case ui.draggable.parent().hasClass('workplace'):
+							Shifts.on_workplace_drop.call(this, event, ui);
+							break;
+						default:
+							Plan.on_element_remove(event, ui);
+							break;
+					}
+				},
 				on_workplace_drop: function(event, ui) {
 					var workplace = $(ui.draggable).closest('a')[0];
 					var name = workplace.innerHTML.replace(/<\/?[^>]+>/gi, '');
@@ -488,16 +496,21 @@
 					Shifts.reset_workspace_drop_zone($(this));
 				},
 				on_workplace_over: function(event, ui) {
-					Shifts.expand_workspace_drop_zone($(this));
+					if(ui.draggable.parent().hasClass('workplace')) {
+						Shifts.expand_workspace_drop_zone($(this));
+					}
 				},
 				on_workplace_out: function(event, ui) {
-					Shifts.reset_workspace_drop_zone($(this));
+					if(ui.draggable.parent().hasClass('workplace')) {
+						Shifts.reset_workspace_drop_zone($(this));
+					}
 				},
 				on_qualification_drop: function(event, ui) {
 					var shift = $(this);
 					var qualification = $(ui.draggable).closest('a');
 					requirement = Shifts.add_requirement(shift, qualification);
 					// requirement.effect('bounce', {}, 500);
+					Plan.bind_events();
 				}
 			}
 

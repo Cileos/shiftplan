@@ -13,9 +13,9 @@
 + use .live() or manually rewire events
 + fix positioning after adding a shift
 + update data after adding an shift
-
 + fix z-index for dragging employees
 + remove requirements from shifts
 + add qualifications list to sidebar
 + mark qualifications and requirements w/ colors
 + drag requirements to shifts
++ allow removing requirements and assignments by dragging on day/shifts area
