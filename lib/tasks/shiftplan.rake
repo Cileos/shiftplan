@@ -80,11 +80,11 @@ namespace :db do
       bar_shift_3 = Shift.create!(:workplace => bar, :start => beginning_of_week + 1.day + 8.hours, :end => beginning_of_week + 1.day + 17.hours)
       bar_shift_4 = Shift.create!(:workplace => bar, :start => beginning_of_week + 1.day + 17.hours, :end => beginning_of_week + 1.day + 26.hours)
 
-      reception_shift_1 = Shift.create!(:workplace => reception, :start => beginning_of_week + 6.hours, :end => beginning_of_week + 16.hours)
-      reception_shift_2 = Shift.create!(:workplace => reception, :start => beginning_of_week + 16.hours, :end => beginning_of_week + 26.hours)
-
-      reception_shift_3 = Shift.create!(:workplace => reception, :start => beginning_of_week + 1.day + 6.hours, :end => beginning_of_week + 1.day + 16.hours)
-      reception_shift_4 = Shift.create!(:workplace => reception, :start => beginning_of_week + 1.day + 16.hours, :end => beginning_of_week + 1.day + 26.hours)
+      # reception_shift_1 = Shift.create!(:workplace => reception, :start => beginning_of_week + 6.hours, :end => beginning_of_week + 16.hours)
+      # reception_shift_2 = Shift.create!(:workplace => reception, :start => beginning_of_week + 16.hours, :end => beginning_of_week + 26.hours)
+      # 
+      # reception_shift_3 = Shift.create!(:workplace => reception, :start => beginning_of_week + 1.day + 6.hours, :end => beginning_of_week + 1.day + 16.hours)
+      # reception_shift_4 = Shift.create!(:workplace => reception, :start => beginning_of_week + 1.day + 16.hours, :end => beginning_of_week + 1.day + 26.hours)
 
       # implicitly created when shifts are created
       #
