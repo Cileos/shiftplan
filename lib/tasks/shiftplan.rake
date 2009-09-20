@@ -35,9 +35,18 @@ namespace :db do
       bar_requirements       = { barkeeper.id => { :quantity => 2 } }
       reception_requirements = { receptionist.id => { :quantity => 1 } }
 
-      Workplace.create!(:name => 'Küche', :color => '880000', :active => true, :requirements => kitchen_requirements)
-      Workplace.create!(:name => 'Bar', :color => '008800', :active => true, :requirements => bar_requirements)
-      Workplace.create!(:name => 'Rezeption', :color => '000088', :active => false, :requirements => reception_requirements)
+      Workplace.create!(
+        :name => 'Küche', :qualification_list => 'Koch, Küchenhilfe',
+        :color => '880000', :active => true, :requirements => kitchen_requirements
+      )
+      Workplace.create!(
+        :name => 'Bar', :qualification_list => 'Barkeeper',
+        :color => '008800', :active => true, :requirements => bar_requirements
+      )
+      Workplace.create!(
+        :name => 'Rezeption', :qualification_list => 'Rezeptionist',
+        :color => '000088', :active => false, :requirements => reception_requirements
+      )
     end
   end
 end
