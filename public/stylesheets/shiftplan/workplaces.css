@@ -13,7 +13,11 @@
   cursor: pointer;
 }
 
-#workplaces .workplace.inactive, #inactive_workplaces .workplace.inactive {
+#inactive_workplaces {
+  clear: left;
+}
+
+#inactive_workplaces .workplace.inactive {
   background-color: #eee;
 }
 
