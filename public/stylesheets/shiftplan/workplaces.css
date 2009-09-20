@@ -2,7 +2,7 @@
   width: 1000px;
 }
 
-#workplaces .workplace {
+#workplaces .workplace, #inactive_workplaces .workplace {
   width: 250px;
   float: left;
   background-color: #fff;
@@ -13,16 +13,16 @@
   cursor: pointer;
 }
 
-#workplaces .workplace.inactive {
+#workplaces .workplace.inactive, #inactive_workplaces .workplace.inactive {
   background-color: #eee;
 }
 
-#workplaces .workplace h2 {
+#workplaces .workplace h2, #inactive_workplaces .workplace h2 {
   font-weight: bold;
   margin: 0.25em 0;
 }
 
-#workplaces .workplace .color {
+#workplaces .workplace .color, #inactive_workplaces .workplace .color {
   float: left;
   margin-right: 1em;
   border: 1px solid #ddd;
@@ -30,17 +30,17 @@
   height: 60px;
 }
 
-#workplaces .workplace .qualifications {
+#workplaces .workplace .qualifications, #inactive_workplaces .workplace .qualifications {
   font-style: italic;
   font-size: 0.8em;
 }
 
-#workplaces .workplace img {
+#workplaces .workplace img, #inactive_workplaces .workplace img {
   float: left;
   margin-right: 1em;
 }
 
-#workplaces .workplace .actions {
+#workplaces .workplace .actions, #inactive_workplaces .workplace .actions {
   float: right;
 }
 

@@ -9,6 +9,8 @@ $(document).ready(function() {
     selected_tab = 1;
   } else if(directory.search(/^\/employees/) > -1) {
     selected_tab = 2;
+  } else if(directory.search(/^\/plans/) > - 1) {
+    selected_tab = 3;
   }
 
   $('#content').tabs({

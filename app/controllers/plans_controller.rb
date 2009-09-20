@@ -1,5 +1,6 @@
 class PlansController < ApplicationController
   def index
+    redirect_to plan_path(1)
   end
 
   def show
