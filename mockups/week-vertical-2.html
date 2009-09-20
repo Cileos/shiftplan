@@ -10,11 +10,10 @@
     <link rel="stylesheet" type="text/css" href="../public/stylesheets/reset.css" />
 		<style type="text/css">
 			body {
-				/*width: 1130px;*/
 				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 			}
 			#plan {
-				width: 877px;
+				width: 865px;
 				margin: 30px 500px 30px 30px;
 				padding-right: 320px;
 			}
@@ -29,12 +28,16 @@
 			}
 			#plan .requirements {
 				margin-top: 1em;
-				border: 1px solid #aaa;
-				background-image: url(../public/images/plan-background-scale-12.png);
+				border-style: solid;
+				border-color: #aaa;
+				border-width: 1px 0;
+				background-image: url(../public/images/plan_scale.png);
 				min-height: 38px;
 			}
 			#plan .requirements > li {
+				position: relative;
 				min-height: 38px;
+				/*cursor: move;*/
 			}
 			#plan .assignments > li {
 				display: inline-block;
@@ -55,12 +58,21 @@
 				font-style: italic;
 				color: #666;
 			}
-			#plan #requirement_1 {
-				margin-left: 292px;
+			#plan .requirements .resize_handle {
+				position: absolute;
+				display: block;
+				top: 0;
+				height: 100%;
+				width: 10px;
+				cursor: col-resize;
 			}
-			#plan #requirement_2 {
-				margin-left: 219px;
-				margin-right: 73px;
+			#plan .requirements .resize_handle.left {
+				left: 0;
+				cursor: w-resize;
+			}
+			#plan .requirements .resize_handle.right {
+				right: 0;
+				cursor: e-resize;
 			}
 			#plan .workplace_1,
 			.workplace_1 div {
@@ -203,9 +215,31 @@
 		<script type="text/javascript">
 			var Config = {
 				slot_width: 18,
-				default_slot_count: 12
+				slots_per_hour: 4,
+				default_slot_count: 12,
+				minutes_per_slot: function() {
+					return parseInt(60 / Config.slots_per_hour);
+				},
+				pixels_per_hour: function() {
+					return Config.slot_width * Config.slots_per_hour;
+				},
+				pixels_per_minute: function() {
+					return Config.pixels_per_hour() / 60; 
+				},
+				pixels_to_minutes: function(pixels) {
+					return pixels / Config.pixels_per_minute();
+				},
+				minutes_to_pixels: function(minutes) {
+					return minutes * Config.pixels_per_minute();
+				}
 			}
-		
+
+			var Day = {
+				start: function() {
+					return $("#plan").attr("data-start");
+				}
+			}
+
 			var Assignments = {
 				on_employee_drop: function(event, ui) {
 					var employee = $(ui.draggable).closest('a')[0];
@@ -218,24 +252,73 @@
 					employee.href = '#'
 				}
 			};
-			
+
 			var Requirements = {
+				init: function() {
+					$(".requirements > li").each(function() {
+						Requirements.update_dimension_from_data($(this));
+					});
+				},
+				update_dimension_from_data: function(element) {
+					element.css({
+						left:  Config.minutes_to_pixels(element.attr('data-start') - Day.start()),
+						width: Config.minutes_to_pixels(element.attr('data-duration'))
+					})
+				},
+				update_data_from_dimension: function(element) {
+					var left = parseInt(element.css('left'));
+					var width = parseInt(element.css('width'));
+					element.attr({
+						'data-start': Config.pixels_to_minutes(left),
+						'data-duration': Config.pixels_to_minutes(width)
+					})
+				},
+				on_drag_stop: function(event, ui) {
+					var element = $(this);
+					if(element.hasClass('resize_handle')) {
+						element = $(element[0].parentNode);
+					}
+					Requirements.update_data_from_dimension(element);
+				},
+				on_resize: function(event, ui) {
+					var requirement = $(this).closest('li');
+					var requirements = requirement.closest('.requirements');
+					var draggable = $(this).data('draggable'); // gotta set containment directly to the draggable
+
+					if (!draggable.containment) {
+						var left = requirements.position().left;
+						var top = requirement.position().top;
+						var containment = [left, top, left + requirements.width(), top + requirement.height()];
+						draggable.containment = containment;
+					}
+
+					if($(this).hasClass('left')) {
+						requirement.css({ 
+							"left":  parseInt(requirement.css('left')) + ui.position.left,
+							"width": parseInt(requirement.css('width')) - ui.position.left
+						})
+						draggable.offset.parent.left = draggable.offset.parent.left + ui.position.left;
+					} else {
+						requirement.css({ "width": ui.position.left + $(this).width() })
+					}
+				},				
 				on_workplace_drop: function(event, ui) {
 					var workplace = $(ui.draggable).closest('a')[0];
 					var name = workplace.innerHTML.replace(/<\/?[^>]+>/gi, '');
 
+					// FIXME can use ui.position.left instead
 					var slot = parseInt((ui.offset.left - this.offsetLeft - 1) / Config.slot_width);
-					var hour = parseInt(slot / 4);
+					var hour = parseInt(slot / Config.slots_per_hour);
 					var left = slot * Config.slot_width + hour; // 1px border between hours
-					var width = Config.slot_width * Config.default_slot_count + parseInt(Config.default_slot_count / 4) - 1;
-					
+					var width = Config.slot_width * Config.default_slot_count + parseInt(Config.default_slot_count / Config.slots_per_hour) - 1;
+
 					if(left + width > this.offsetWidth) {
-						borderOffset = parseInt(width / Config.slot_width / 4) - 1;
+						borderOffset = parseInt(width / Config.slot_width / Config.slots_per_hour) - 1;
 						width = this.offsetWidth - left - borderOffset;
 					}
 
 					var html = $('<li class="' + workplace.className + '"><h3>' + name + '</h3><ul class="assignments"></ul></li>');
-					html.css({ 'margin-left': left + 'px' }).animate({ 'width': width });
+					html.css({ 'left': left + 'px' }).animate({ 'width': width });
 					$(this).append(html);
 
 					Requirements.on_workplace_out.apply(this, [event, ui]);
@@ -244,7 +327,7 @@
 					Requirements.fix_droppable_proportions(30);
 					$(this).css('padding-bottom', '30px');
 				},
-				on_workplace_out: function(event, ui) { 
+				on_workplace_out: function(event, ui) {
 					Requirements.fix_droppable_proportions(-30);
 					$(this).css('padding-bottom', '0px');
 				},
@@ -258,39 +341,53 @@
 			}
 
 			$(document).ready(function() {
-				$("#employees a div").draggable({ 
-					helper: 'clone' 
+				Requirements.init();
+
+				$("#employees a div").draggable({
+					helper: 'clone'
 				});
 				$(".assignments .employee").draggable({
 					helper: 'clone'
 				});
-				$("#workplaces a div").draggable({ 
+				$("#workplaces a div").draggable({
 					helper: 'clone'
 				});
-				$("body").droppable({ 
-					drop: Assignments.on_employee_remove, 
-					accept: ".assignments .employee" 
+				$("body").droppable({
+					drop: Assignments.on_employee_remove,
+					accept: ".assignments .employee"
 				});
-				$(".assignments a").droppable({ 
-					drop: Assignments.on_employee_drop, 
-					accept: "#employees a div" 
+				$(".assignments a").droppable({
+					accept: "#employees a div",
+					drop: Assignments.on_employee_drop
 				});
 				$(".requirements").droppable({
-					drop: Requirements.on_workplace_drop, 
-					over: Requirements.on_workplace_over,
-					out:  Requirements.on_workplace_out,
 					accept: "#workplaces a div",
-					tolerance: 'touch'
-				})
-			});		
+					tolerance: 'touch',
+					drop: Requirements.on_workplace_drop,
+					over: Requirements.on_workplace_over,
+					out:  Requirements.on_workplace_out
+				});
+				$(".requirements li").draggable({
+					containment: 'parent',
+					axis: 'x',
+					grid: [Config.slot_width, 0],
+					stop: Requirements.on_drag_stop
+				});
+				$(".requirements .resize_handle").draggable({
+					axis: 'x',
+					grid: [Config.slot_width, 0],
+					drag: Requirements.on_resize,
+					stop: Requirements.on_drag_stop
+				});
+			});
 		</script>
 	</head>
 	<body>
-		<div id="plan">
+		<div id="plan" data-start="480" data-duration="720">
 			<div class="day">
 				<h2>Montag, 14.9.09</h2>
 				<ul class="requirements">
-					<li id="requirement_1" class="workplace_1" data-starttime="18:00" data-endtime="3:00">
+					<li id="requirement_1" class="workplace_1" data-start="720" data-duration="480">
 						<h3>Bar 1</h3>
 						<ul class="assignments">
 							<li><a href="#" class="employee employee_1"></a></li>
@@ -298,11 +395,13 @@
 							<li><a href="#" class="employee"></a></li>
 						</ul>
 					</li>
-					<li id="requirement_2" class="workplace_2" data-starttime="19:00" data-endtime="3:00">
+					<li id="requirement_2" class="workplace_2" data-start="660" data-duration="360">
 						<h3 class="workplace">Bar 2</h3>
 						<ul class="assignments">
 							<li><a href="#" class="employee employee_2"></a></li>
 						</ul>
+						<span class="resize_handle left"></span>
+						<span class="resize_handle right"></span>
 					</li>
 				</ul>
 			</div>
@@ -322,9 +421,9 @@
 				<h2>Freitag, 18.9.09</h2>
 				<ul class="requirements"></ul>
 			</div>
-		</div>	
+		</div>
 		<div id="sidebar">
-			<h3>Mitarbeiter</h3>	
+			<h3>Mitarbeiter</h3>
 			<ul id="employees">
 				<li><a href="/users/1" class="employee employee_1"><div></div>CK</a></li>
 				<li><a href="/users/2" class="employee employee_2"><div></div>YM</a></li>
