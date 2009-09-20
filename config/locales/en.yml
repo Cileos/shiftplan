@@ -43,6 +43,7 @@ en:
       workplace:
         base_data: Base data
         default_staffing: Default staffing
+        default_shift_length: Default shift length
         name: Name
         active: Active?
         color: Color

@@ -160,6 +160,7 @@ de:
       workplace:
         base_data: Basisdaten
         default_staffing: Standardbesetzung
+        default_shift_length: Schichtlänge (Standard)
         name: Bezeichnung
         active: Aktiv?
         color: Farbe

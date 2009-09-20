@@ -3,6 +3,7 @@ class CreateWorkplaces < ActiveRecord::Migration
     create_table :workplaces do |t|
       t.string :name
       t.string :color, :limit => 6
+      t.integer :default_shift_length
       t.boolean :active, :default => true
 
       t.timestamps

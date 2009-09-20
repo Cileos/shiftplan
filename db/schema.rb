@@ -71,8 +71,9 @@ ActiveRecord::Schema.define(:version => 20090906151345) do
 
   create_table "workplaces", :force => true do |t|
     t.string   "name"
-    t.string   "color",      :limit => 6
-    t.boolean  "active",                  :default => true
+    t.string   "color",                :limit => 6
+    t.integer  "default_shift_length"
+    t.boolean  "active",                            :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
