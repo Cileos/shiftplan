@@ -43,15 +43,15 @@ namespace :db do
 
       Workplace.create!(
         :name => 'Küche', :qualification_list => 'Koch, Küchenhilfe', :default_shift_length => 480,
-        :color => '880000', :active => true, :requirements => kitchen_requirements
+        :color => 'ff8c8c', :active => true, :requirements => kitchen_requirements
       )
       Workplace.create!(
         :name => 'Bar', :qualification_list => 'Barkeeper', :default_shift_length => 600,
-        :color => '008800', :active => true, :requirements => bar_requirements
+        :color => 'ffc68c', :active => true, :requirements => bar_requirements
       )
       Workplace.create!(
         :name => 'Rezeption', :qualification_list => 'Rezeptionist', :default_shift_length => 480,
-        :color => '000088', :active => false, :requirements => reception_requirements
+        :color => 'ffff8c', :active => false, :requirements => reception_requirements
       )
     end
 
