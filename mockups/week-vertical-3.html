@@ -1,0 +1,788 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Schicht planen | shiftplan.com</title>
+    <script type="text/javascript" src="../public/javascripts/jquery.js"></script>
+    <script type="text/javascript" src="../public/javascripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../public/javascripts/jquery-plugin-qtip.js"></script>
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/reset.css" />
+		<style type="text/css">
+			body {
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			}
+			#plan {
+				width: 865px;
+				margin: 30px 500px 30px 30px;
+				padding-right: 320px;
+			}
+			#plan h2 {
+				margin-top: 1.5em;
+				font-size: 1.3em;
+				font-weight: normal;
+				color: #bbb;
+			}
+			#plan .day:first-child h2 {
+				margin-top: 0;
+			}
+			#plan .shifts {
+				margin-top: 1em;
+				border-style: solid;
+				border-color: #aaa;
+				border-width: 1px 0;
+				background-image: url(../public/images/plan_scale.png);
+				min-height: 38px;
+			}
+			#plan .shift {
+				position: relative;
+				min-height: 38px;
+				/*cursor: move;*/
+			}
+			#plan .assignments > li {
+				float: left;
+				margin: 4px 0 0 4px;
+			}
+			#plan .assignment,
+			#plan .requirement {
+				float: left;
+				display: block;
+				height: 30px;
+				width: 30px;
+				text-indent: 30px;
+				overflow: hidden;
+				z-index: 999;
+			}
+			#plan h3 {
+				float: right;
+				margin: 1em 1em 0 0;
+				font-size: 0.9em;
+				font-style: italic;
+				color: #666;
+			}
+			#plan .shifts .resize_handle {
+				position: absolute;
+				display: block;
+				top: 0;
+				height: 100%;
+				width: 10px;
+				cursor: col-resize;
+			}
+			#plan .shifts .resize_handle.left {
+				left: 0;
+				cursor: w-resize;
+			}
+			#plan .shifts .resize_handle.right {
+				right: 0;
+				cursor: e-resize;
+			}
+			#sidebar {
+				position: fixed;
+				top: 0;
+				right: 0;
+				height: 100%;
+				padding: 1em;
+				border-left: 1px solid #ccc;
+				background-color: #fff;
+			}
+			#sidebar > * {
+				margin-left: 20px;
+				margin-bottom: 1em;
+			}
+			#sidebar h3:first-child {
+				margin-top: 0;
+			}
+			#sidebar h3 {
+				font-size: 1.15em;
+				color: #bbb;
+				margin-top: 1.5em;
+			}
+			#sidebar a {
+				text-decoration: none;
+				color: #666;
+			}
+			#sidebar form {
+				width: 250px;
+				display: none;
+			}
+			#sidebar input[type=search] {
+				width: 87%;
+			}
+			#sidebar ul {
+				width: 250px;
+				overflow: auto; /* clearfix */
+			}
+			#sidebar li a {
+				display: block;
+				float: left;
+				margin: 0 4px 4px 0;
+				padding: 4px;
+				line-height: 30px;
+				font-size: 0.85em;
+				background-color: #efefef;
+			}
+			#sidebar .employee {
+				width: 70px;
+			}
+			#sidebar .workplace,
+			#sidebar .qualification {
+				width: 110px;
+			}
+			#sidebar li div {
+				float: left;
+				height: 30px;
+				width: 30px;
+				margin-right: 4px;
+			}
+			#plan .assignment,
+			#plan .requirement,
+			#sidebar .qualification div {
+				height: 26px;
+				border-style: solid;
+				border-bottom-width: 4px;
+				border-color: transparent;
+				background-image: url(http://github.com/images/gravatars/gravatar-30.png);
+			}
+			#sidebar .ui-draggable-dragging {
+				width: 30px !important;
+				height: 30px;
+				overflow: hidden;
+			}
+			#sidebar .ui-draggable-dragging a {
+				background-position: left top;
+			}
+
+			/* IMAGES */
+
+			#plan .employee_1,
+			.employee_1 div {
+				background-image: url(http://www.gravatar.com/avatar/5976001c9ebf095c4988855a4e102de5?s=30);
+			}
+			#plan .employee_2,
+			.employee_2 div {
+				background-image: url(http://www.gravatar.com/avatar/b2ee3ee5087b7aa7202a98da372cae00?s=30);
+			}
+			#plan .employee_3,
+			.employee_3 div {
+				background-image: url(http://www.gravatar.com/avatar/ddc37f9437dc06836e21e05c39fbdadc?s=30);
+			}
+			#plan .employee_4,
+			.employee_4 div {
+				background-image: url(http://www.gravatar.com/avatar/0db5aeb4cf9fc1e8e411a1d9eda82917?s=30);
+			}
+			#plan .employee_5,
+			.employee_5 div {
+				background-image: url(http://www.gravatar.com/avatar/920993ef8f677cc1be50fde5ce8cb4bb?s=30);
+			}
+			#plan .employee_6,
+			.employee_6 div {
+				background-image: url(http://www.gravatar.com/avatar/9d4f1b82fa9b0988598e870721421685?s=30);
+			}
+			#plan .employee_7,
+			.employee_7 div {
+				background-image: url(http://www.gravatar.com/avatar/484815d397b8f572a714c61c75afb7b0?s=30);
+			}
+			#plan .employee_8,
+			.employee_8 div {
+				background-image: url(http://www.gravatar.com/avatar/59436ecd4fe6ad7c34f67654d839f05f?s=30);
+			}
+
+			/* COLORS */
+
+			#plan .workplace_1,
+			.workplace_1 div {
+				background-color: #ff8c8c;
+			}
+			#plan .workplace_2,
+			.workplace_2 div {
+				background-color: #ffc68c;
+			}
+			#plan .workplace_3,
+			.workplace_3 div {
+				background-color: #ffff8c;
+			}
+			#plan .workplace_4,
+			.workplace_4 div {
+				background-color: #c6ff8c;
+			}
+			#plan .workplace_5,
+			.workplace_5 div {
+				background-color: #8cff8c;
+			}
+			#plan .workplace_6,
+			.workplace_6 div {
+				background-color: #8cffc6;
+			}
+			#plan .workplace_7,
+			.workplace_7 div {
+				background-color: #8cffff;
+			}
+			#plan .workplace_8,
+			.workplace_8 div {
+				background-color: #8cc6ff;
+			}
+
+			#plan .qualification_1,
+			#sidebar .qualification_1 div {
+				border-color: #ff5959;
+			}
+			#plan .qualification_2,
+			#sidebar .qualification_2 div {
+				border-color: #ffac59;
+			}
+			#plan .qualification_3,
+			#sidebar .qualification_3 div {
+				border-color: #ffff59;
+			}
+			#plan .qualification_4,
+			#sidebar .qualification_4 div {
+				border-color: #acff59;
+			}
+			#plan .qualification_5,
+			#sidebar .qualification_5 div {
+				border-color: #59ff59;
+			}
+			#plan .qualification_6,
+			#sidebar .qualification_6 div {
+				border-color: #59ffac;
+			}
+			#plan .qualification_7,
+			#sidebar .qualification_7 div {
+				border-color: #59ffff;
+			}
+			#plan .qualification_8,
+			#sidebar .qualification_8 div {
+				border-color: #59acff;
+			}
+		</style>
+		<script type="text/javascript">
+
+			// OK, LET'S ROCK ...
+
+			var Plan = {
+				slot_width: 18,
+				slots_per_hour: 4,
+				default_slot_count: 12,
+				start: function() {
+					return $("#plan").attr("data-start");
+				},
+				minutes_per_slot: function() {
+					return parseInt(60 / Plan.slots_per_hour);
+				},
+				pixels_per_hour: function() {
+					return Plan.slot_width * Plan.slots_per_hour;
+				},
+				pixels_per_minute: function() {
+					return Plan.pixels_per_hour() / 60;
+				},
+				bind_events: function() {
+					$("body").droppable({
+						accept: ".shift, .requirement, .assignment",
+						drop: Plan.on_element_remove,
+					});
+				},
+				on_element_remove: function(event, ui) {
+					switch(true) {
+						case ui.draggable.hasClass('assignment'):
+							ui.draggable.requirement().unassign_employee();
+							break;
+						case ui.draggable.hasClass('requirement'):
+							ui.draggable.requirement().remove();
+							break;
+						// FIXME implement ...
+						// case ui.draggable.hasClass('shift'):
+						// 	Shifts.remove_element(ui.draggable);
+						// 	break;
+					}
+				}
+			}
+
+			function Resource(type, element) {
+				if(element) {
+					this.type = type;
+					this.element = element;
+					Resource.register(this);
+				}
+			};
+			$.extend(Resource, {
+				bind_events: function() {
+					$.each(this.all(), function() {
+						this.bind_events();
+					})
+				},
+				register: function(resource) {
+					resource.element.data('resource', resource);
+				},
+				remove: function(resource) {
+					resource.element.data('resource', null);
+				},
+				lookup: function(element) {
+					return element.data('resource');
+				},
+				get: function(type, elements) {
+					var resources = []; // FIXME return a jquery Object instead
+					for(var i = 0; i < elements.length; i++) {
+						var element = elements.eq(i);
+						var resource = this.lookup(element);
+						resources.push(resource ? resource : new type(element));
+					}
+					return elements.length == 1 ? resources[0] : resources;
+				},
+				id: function(element) {
+					var source = element.attr('id');
+					source = source ? source : element.attr('href');
+
+					var matches = source.match(/(\d+)$/);
+					if(matches) {
+						return matches[0];
+					}
+					throw("can not find id for this element");
+				}
+			});
+			$.extend(Resource.prototype, {
+				id: function() {
+					return Resource.id(this.element);
+				},
+				href: function() {
+					return this.element.attr('href');
+				},
+				dom_id: function() {
+					return this.type.name.toLowerCase() + '_' + this.id();
+				},
+				left: function() {
+					if(arguments.length == 0) {
+						return parseInt(this.element.css('left'));
+					} else {
+						this.element.css('left', arguments[0]);
+					}
+				},
+				width: function() {
+					if(arguments.length == 0) {
+						return parseInt(this.element.css('width'));
+					} else {
+						this.element.css('width', arguments[0]);
+					}
+				},
+				remove: function(element) {
+					this.element.remove();
+					return Resource.remove(this);
+				}
+			})
+
+			function Employee(element) {
+				Resource.call(this, Employee, element);
+			};
+			$.extend(Employee, $.extend(Resource, {
+				elements: function() {
+					return $("#employees a");
+				},
+				all: function() {
+					return this.elements().employee(); // FIXME remove this
+				},
+			}));
+			Employee.prototype = $.extend(new Resource, {
+				bind_events: function() {
+					$('div', this.element).draggable({
+						helper: 'clone'
+					});
+				}
+			});
+
+			function Workplace(element) {
+				Resource.call(this, Workplace, element);
+			};
+			$.extend(Workplace, $.extend(Resource, {
+				elements: function() {
+					return $("#workplaces a");
+				},
+				all: function() {
+					return this.elements().workplace();
+				}
+			}));
+			Workplace.prototype = $.extend(new Resource, {
+				name: function() {
+					return this.element[0].innerHTML.replace(/<\/?[^>]+>/gi, '');
+				},
+				bind_events: function() {
+					this.element.draggable({
+						helper: 'clone'
+					});
+				}
+			});
+
+			function Requirement(element) {
+				Resource.call(this, Requirement, element);
+			};
+			Requirement.prototype = $.extend(new Resource, {
+				assign_employee: function(employee) {
+					this.element.addClass('assignment ' + employee.dom_id());
+					this.element.attr('href', employee.href());
+				},
+				unassign_employee: function() {
+					this.element.removeClass('assignment employee_' + this.id());
+					this.element.attr('href', '#');
+				},
+				remove: function(element) {
+					this.element.parent().remove();
+					return Resource.prototype.remove.call(this);
+				}
+			});
+
+			function Assignment(element) {
+				Resource.call(this, Assignment, element);
+			};
+			$.extend(Assignment, $.extend(Resource, {
+				bind_events: function() {
+					$(".assignments > li > a").draggable({
+						helper: 'clone'
+					});
+					$(".assignments a").droppable({
+						accept: "#employees a div",
+						drop: Assignment.on_employee_drop
+					});
+				},
+				on_employee_drop: function(event, ui) {
+					var requirement = $(this).requirement();
+					requirement.assign_employee($(ui.draggable).closest('a').employee());
+					requirement.element.effect('bounce', {}, 100);
+				}
+			}));
+			Assignment.prototype = $.extend(new Resource, {
+			});
+
+			function Qualification(element) {
+				Resource.call(this, Qualification, element);
+			};
+			$.extend(Qualification, $.extend(Resource, {
+				bind_events: function() {
+					$("#qualifications a div").draggable({
+						helper: 'clone'
+					});
+				}
+			}));
+			Qualification.prototype = $.extend(new Resource, {
+			});
+
+			function Shifts(element) {
+				Resource.call(this, Shifts, element);
+			};
+			$.extend(Shifts, $.extend(Resource, {
+				bind_events: function() {
+					$(".shifts").droppable({
+						accept: "#workplaces a div, #plan .requirement, #plan .assignment",
+						tolerance: 'touch',
+						greedy: true,
+						drop: Shifts.on_workplace_drop,
+						drop: Shifts.on_drop,
+						over: Shifts.on_workplace_over,
+						out:  Shifts.on_workplace_out
+					});
+				},
+				fix_droppable_proportions: function(offset) {
+					// jumping through hoops thanks to jquery.ui's stupidity
+					var list = $.ui.ddmanager.droppables['default'];
+					for (var i = 0; i < list.length; i++) {
+						list[i].proportions.height += offset;
+					}
+				},
+				on_drop: function(event, ui) {
+					switch(true) {
+						case ui.draggable.parent().hasClass('workplace'):
+							Shifts.on_workplace_drop.call(this, event, ui);
+							break;
+						default:
+							Plan.on_element_remove(event, ui);
+							break;
+					}
+				},
+				on_workplace_drop: function(event, ui) {
+					var shifts = $(this).shifts();
+					var workplace = ui.draggable.workplace();
+
+					// extract to shifts.rasterize(left, width)
+					var left = parseInt(ui.offset.left - this.offsetLeft - 1);
+					left = left - (left % Plan.slot_width);
+					var width = Plan.slot_width * Plan.default_slot_count;
+					if(left + width > this.offsetWidth) {
+						width = this.offsetWidth - left - 1;
+					}
+					shifts.append_shift(workplace, left, width);
+					shifts.reset_drop_zone();
+				},
+				on_workplace_over: function(event, ui) {
+					if(ui.draggable.parent().hasClass('workplace')) {
+						$(this).shifts().expand_drop_zone();
+					}
+				},
+				on_workplace_out: function(event, ui) {
+					if(ui.draggable.parent().hasClass('workplace')) {
+						$(this).shifts().reset_drop_zone();
+					}
+				},
+			}));
+			Shifts.prototype = $.extend(new Resource, {
+				append_shift: function(workplace, left, width) {
+					var shift = Shift.build(workplace);
+					shift.element.css({ left: left });
+					shift.expand_animated(width);
+					this.element.append(shift.element);
+					Shift.bind_events();
+				},
+				expand_drop_zone: function() {
+					Shifts.fix_droppable_proportions(30);
+					this.element.css('padding-bottom', '30px');
+				},
+				reset_drop_zone: function() {
+					Shifts.fix_droppable_proportions(-30);
+					this.element.css('padding-bottom', '0px');
+				},
+			});
+
+			function Shift(element) {
+				Resource.call(this, Shift, element);
+			};
+			$.extend(Shift, $.extend(Resource, {
+				bind_events: function() {
+					$(".shift").droppable({
+						accept: "#qualifications a div",
+						greedy: true,
+						drop: Shift.on_qualification_drop
+					});
+					$(".shift").draggable({
+						containment: 'parent',
+						axis: 'x',
+						grid: [Plan.slot_width, 38],
+						stop: Shift.on_drag_stop
+					});
+					$(".shift .resize_handle").draggable({
+						axis: 'x',
+						grid: [Plan.slot_width, 0],
+						drag: Shift.on_resize,
+						stop: Shift.on_drag_stop
+					});					
+				},
+				init: function() {
+					$(".shift").each(function() {
+						var shift = $(this).shift();
+						shift.init_resize_handles();
+						shift.update_dimension_from_data();
+					});
+				},
+				build: function(workplace) {
+					var class = workplace.dom_id();
+					var name = workplace.name();
+					var shift = $('<li class="shift ' + class + '"><h3>' + name + '</h3><ul class="assignments"></ul></li>').shift();
+					shift.init_resize_handles();
+					return shift;
+				},
+				pixels_to_minutes: function(pixels) {
+					return pixels / Plan.pixels_per_minute();
+				},
+				minutes_to_pixels: function(minutes) {
+					return minutes * Plan.pixels_per_minute();
+				},
+				on_drag_stop: function(event, ui) {
+					$(this).shift().update_data_from_dimension();
+				},
+				on_resize: function(event, ui) {
+					var shift = $(this).shift();
+					var draggable = $(this).data('draggable');
+					shift.init_containment(draggable);
+					
+					if($(this).hasClass('left')) {
+						shift.left(this.left() + offset);
+						shift.width(this.width() - offset);
+						draggable.offset.parent.left = draggable.offset.parent.left + ui.position.left;
+					} else {
+						shift.width(ui.position.left)
+					}
+				},
+				on_qualification_drop: function(event, ui) {
+					$(this).shift().add_requirement($(ui.draggable).qualification());
+				}
+			}));
+			Shift.prototype = $.extend(new Resource, {
+				init_resize_handles: function() {
+					if($('.resize_handle', this.element).length == 0) {
+						var handles = $('<span class="resize_handle left"></span><span class="resize_handle right"></span>');
+						this.element.append(handles);
+					}
+				},
+				init_containment: function(draggable) { // gotta set containment directly to the draggable
+					if (!draggable.containment) {
+						draggable.containment = this.containment();
+					}
+				},
+				containment: function() {
+					var container = this.container();
+					var left = container.position().left;
+					var top = this.element.position().top;
+					return [left, top, left + container.width(), top + this.element.height()];
+				},
+				container: function() {
+					return this.element.closest('.shifts');
+				},
+				start: function() {
+					if(arguments.length == 0) {
+						return parseInt(this.element.attr('data-start'));
+					} else {
+						this.element.attr('data-start', arguments[0]);
+					}
+				},
+				duration: function() {
+					if(arguments.length == 0) {
+						return parseInt(this.element.attr('data-duration'));
+					} else {
+						this.element.attr('data-duration', arguments[0]);
+					}
+				},
+				add_requirement: function(qualification) {
+					var html = $('<li><a href="#" class="requirement qualification_' + qualification.id() + '"></a></li>');
+					$('.assignments', this.element).append(html);
+					Requirement.bind_events();
+				},
+				update_dimension_from_data: function() {
+					this.left(Shift.minutes_to_pixels(this.start() - Plan.start()));
+					this.width(Shift.minutes_to_pixels(this.duration()));
+				},
+				update_data_from_dimension: function() {
+					this.element.attr({
+						'data-start': Shift.pixels_to_minutes(this.left()),
+						'data-duration': Shift.pixels_to_minutes(this.width())
+					});
+					console.log('data updated to start: ' + this.element.attr('data-start') + ', duration: ' + this.element.attr('data-duration'));
+				},
+				expand_animated: function(width) {
+					this.element.animate({ width: width }, {
+						complete: function() { $(this).shift().update_data_from_dimension(); }
+					});
+				},
+			});
+
+			(function() {
+			  var shiftplan = {
+			    employee: function() {
+						var element = this.closest('.employee');
+						element.ensure_ressource_type('employee');
+						return Resource.get(Employee, element);
+					},
+			    requirement: function() {
+						var element = this.closest('.requirement');
+						element.ensure_ressource_type('requirement');
+						return Resource.get(Requirement, element);
+					},
+			    workplace: function() {
+						var element = this.closest('.workplace');
+						element.ensure_ressource_type('workplace');
+						return Resource.get(Workplace, element);
+					},
+			    qualification: function() {
+						var element = this.closest('.qualification');
+						element.ensure_ressource_type('qualification');
+						return Resource.get(Qualification, element);
+					},
+			    shift: function() {
+						var element = this.closest('.shift');
+						element.ensure_ressource_type('shift');
+						return Resource.get(Shift, element);
+					},
+			    shifts: function() {
+						var element = this.closest('.shifts');
+						element.ensure_ressource_type('shifts');
+						return Resource.get(Shifts, element);
+					},
+					ensure_ressource_type: function(type) {
+						if(!this.hasClass(type)) {
+							throw('Trying to get a resource with type "' + type +
+										'" from an element that does not have the "' + type + '" class.');
+						}
+					}
+			  };
+			  jQuery.each(shiftplan, function(name) {
+			    jQuery.fn[name] = this;
+			  });
+			})();
+
+			$(document).ready(function() {
+				Shift.init();
+				Plan.bind_events();
+				Employee.bind_events();
+				Workplace.bind_events();
+				Assignment.bind_events();
+				Qualification.bind_events();
+				Shifts.bind_events();
+				Shift.bind_events();
+			});
+
+		</script>
+	</head>
+	<body>
+		<div id="plan" data-start="480" data-duration="720">
+			<div class="day">
+				<h2>Montag, 14.9.09</h2>
+				<ul class="shifts">
+					<li id="shift_1" class="shift workplace_1" data-start="720" data-duration="480">
+						<h3>Bar 1</h3>
+						<ul class="assignments">
+							<li><a href="/users/1" id="requirement_1" class="requirement assignment employee_1 qualification_8"></a></li>
+							<li><a href="#" id="requirement_2" class="requirement qualification_3"></a></li>
+							<li><a href="#" id="requirement_3" class="requirement qualification_5"></a></li>
+						</ul>
+					</li>
+					<li id="shift_2" class="shift workplace_2" data-start="660" data-duration="360">
+						<h3 class="workplace">Bar 2</h3>
+						<ul class="assignments">
+							<li><a href="/users/2" id="requirement_4" class="requirement assignment employee_2"></a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="day">
+				<h2>Dienstag, 15.9.09</h2>
+				<ul class="shifts"></ul>
+			</div>
+			<div class="day">
+				<h2>Mittwoch, 16.9.09</h2>
+				<ul class="shifts"></ul>
+			</div>
+			<div class="day">
+				<h2>Donnerstag, 17.9.09</h2>
+				<ul class="shifts"></ul>
+			</div>
+			<div class="day">
+				<h2>Freitag, 18.9.09</h2>
+				<ul class="shifts"></ul>
+			</div>
+		</div>
+		<div id="sidebar">
+			<h3>Mitarbeiter</h3>
+			<ul id="employees">
+				<li><a href="/users/1" class="employee employee_1"><div></div>CK</a></li>
+				<li><a href="/users/2" class="employee employee_2"><div></div>YM</a></li>
+				<li><a href="/users/3" class="employee employee_3"><div></div>IM</a></li>
+				<li><a href="/users/4" class="employee employee_4"><div></div>LF</a></li>
+				<li><a href="/users/5" class="employee employee_5"><div></div>AL</a></li>
+				<li><a href="/users/6" class="employee employee_6"><div></div>MK</a></li>
+				<li><a href="/users/7" class="employee employee_7"><div></div>SP</a></li>
+				<li><a href="/users/8" class="employee employee_8"><div></div>MF</a></li>
+			</ul>
+
+			<h3>Einsatzplätze</h3>
+			<ul id="workplaces">
+				<li><a href="/workplaces/1" class="workplace workplace_1"><div></div>Bar 1</a></li>
+				<li><a href="/workplaces/2" class="workplace workplace_2"><div></div>Bar 2</a></li>
+				<li><a href="/workplaces/3" class="workplace workplace_3"><div></div>Küche</a></li>
+				<li><a href="/workplaces/4" class="workplace workplace_4"><div></div>Bedienung</a></li>
+			</ul>
+
+			<h3>Qualifikationen</h3>
+			<ul id="qualifications">
+				<li><a href="/qualifications/1" class="qualification qualification_1"><div></div>Koch</a></li>
+				<li><a href="/qualifications/2" class="qualification qualification_2"><div></div>Barkeeper</a></li>
+				<li><a href="/qualifications/3" class="qualification qualification_3"><div></div>Bedienung</a></li>
+				<li><a href="/qualifications/4" class="qualification qualification_4"><div></div>Aushilfe</a></li>
+				<li><a href="#" class="qualification"><div></div>(Beliebig)</a></li>
+			</ul>
+		</div>
+	</body>
+</html>
