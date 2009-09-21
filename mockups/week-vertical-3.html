@@ -346,6 +346,9 @@
 				href: function() {
 					return this.element.attr('href');
 				},
+				class_names: function() {
+					return this.element.attr('class').split(/\s+/);
+				},
 				dom_id: function() {
 					return this.type.name.toLowerCase() + '_' + this.id();
 				},
@@ -404,7 +407,7 @@
 					return this.element[0].innerHTML.replace(/<\/?[^>]+>/gi, '');
 				},
 				bind_events: function() {
-					this.element.draggable({
+					$('div', this.element).draggable({
 						helper: 'clone'
 					});
 				}
@@ -413,39 +416,54 @@
 			function Requirement(element) {
 				Resource.call(this, Requirement, element);
 			};
-			Requirement.prototype = $.extend(new Resource, {
-				assign_employee: function(employee) {
-					this.element.addClass('assignment ' + employee.dom_id());
-					this.element.attr('href', employee.href());
+			$.extend(Requirement, $.extend(Resource, {
+				elements: function() {
+					return $(".requirement");
 				},
-				unassign_employee: function() {
-					this.element.removeClass('assignment employee_' + this.id());
-					this.element.attr('href', '#');
-				},
-				remove: function(element) {
-					this.element.parent().remove();
-					return Resource.prototype.remove.call(this);
-				}
-			});
-
-			function Assignment(element) {
-				Resource.call(this, Assignment, element);
-			};
-			$.extend(Assignment, $.extend(Resource, {
-				bind_events: function() {
-					$(".assignments > li > a").draggable({
-						helper: 'clone'
-					});
-					$(".assignments a").droppable({
-						accept: "#employees a div",
-						drop: Assignment.on_employee_drop
-					});
+				all: function() {
+					return this.elements().requirement();
 				},
 				on_employee_drop: function(event, ui) {
 					var requirement = $(this).requirement();
 					requirement.assign_employee($(ui.draggable).closest('a').employee());
 					requirement.element.effect('bounce', {}, 100);
 				}
+			}));
+			Requirement.prototype = $.extend(new Resource, {
+				employee_id: function() {
+					var class_names = this.class_names();
+					for(var i = 0; i < class_names.length; i++) {
+						var matches = class_names[i].match(/employee_(\d+)/);
+						if(matches) return matches[1];
+					}
+				},
+				assign_employee: function(employee) {
+					this.element.addClass('assignment ' + employee.dom_id());
+					this.element.attr('href', employee.href());
+				},
+				unassign_employee: function() {
+					this.element.removeClass('assignment employee_' + this.employee_id());
+					this.element.attr('href', '#');
+				},
+				remove: function(element) {
+					this.element.parent().remove();
+					return Resource.prototype.remove.call(this);
+				},
+				bind_events: function() {
+					$(".requirement").draggable({
+						helper: 'clone'
+					});
+					$(".requirement").droppable({
+						accept: ".employee div",
+						drop: Requirement.on_employee_drop
+					});
+				},
+			});
+
+			function Assignment(element) {
+				Resource.call(this, Assignment, element);
+			};
+			$.extend(Assignment, $.extend(Resource, {
 			}));
 			Assignment.prototype = $.extend(new Resource, {
 			});
@@ -590,8 +608,8 @@
 					shift.init_containment(draggable);
 					
 					if($(this).hasClass('left')) {
-						shift.left(this.left() + offset);
-						shift.width(this.width() - offset);
+						shift.left(shift.left() + ui.position.left);
+						shift.width(shift.width() - ui.position.left);
 						draggable.offset.parent.left = draggable.offset.parent.left + ui.position.left;
 					} else {
 						shift.width(ui.position.left)
@@ -637,9 +655,9 @@
 					}
 				},
 				add_requirement: function(qualification) {
-					var html = $('<li><a href="#" class="requirement qualification_' + qualification.id() + '"></a></li>');
-					$('.assignments', this.element).append(html);
-					Requirement.bind_events();
+					var element = $('<li><a href="#" class="requirement qualification_' + qualification.id() + '"></a></li>');
+					$('.assignments', this.element).append(element);
+					$('.requirement', element).requirement().bind_events();
 				},
 				update_dimension_from_data: function() {
 					this.left(Shift.minutes_to_pixels(this.start() - Plan.start()));
@@ -709,6 +727,7 @@
 				Employee.bind_events();
 				Workplace.bind_events();
 				Assignment.bind_events();
+				Requirement.bind_events();
 				Qualification.bind_events();
 				Shifts.bind_events();
 				Shift.bind_events();
