@@ -102,7 +102,6 @@ Shift.prototype = $.extend(new Resource, {
 	bind_events: function() {
     this.element.droppable({
      accept: "#qualifications a div",
-     greedy: true,
      drop: Shift.on_qualification_drop
     });
     this.element.draggable({

@@ -27,6 +27,7 @@ $.extend(Shifts, {
 		if(left + width > this.offsetWidth) {
 			width = this.offsetWidth - left - 1;
 		}
+
 		shifts.append_shift(workplace, left, width);
 		shifts.reset_drop_zone();
 	},

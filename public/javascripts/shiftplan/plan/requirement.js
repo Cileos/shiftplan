@@ -23,11 +23,15 @@ Requirement.prototype = $.extend(new Resource, {
 		}
 	},
 	assign_employee: function(employee) {
+	  this.unassign_employees();
 		element = $('<a class="assignment ' + employee.dom_id() + '" href="' + employee.href() + '"></a>');
 		this.element.append(element);
 		var assignment = $(element).assignment();
 		assignment.bind_events();
 		return assignment;
+	},
+	unassign_employees: function() {
+	  $(Assignment.selector, this.element).remove();
 	},
 	add_qualification: function(qualification) {
 		if(qualification.dom_id()) {
