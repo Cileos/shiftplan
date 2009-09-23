@@ -1,0 +1,5 @@
+// Employee.prototype = $.extend(new Resource, {
+// 	id: function() {
+// 		return Resource.prototype.id.call(this);
+// 	}
+// });
