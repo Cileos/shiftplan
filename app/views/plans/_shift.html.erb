@@ -1,6 +1,6 @@
 <% content_tag_for(:li, shift, :class => dom_id(shift.workplace), :'data-start' => shift.start_in_minutes, :'data-duration' => shift.duration_in_minutes) do %>
   <h3><%= shift.workplace.name %></h3>
-  <ul class="assignments">
+  <ul class="requirements">
     <%= render :partial => 'requirement', :collection => shift.requirements %>
 	</ul>
 <% end %>

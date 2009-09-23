@@ -1,5 +1,3 @@
-<% if requirement.fulfilled? -%>
-  <li><%= link_to '', employee_path(requirement.assignment.employee), :class => "assignment #{dom_id(employee)} qualification_#{requirement.qualification.id}} dialog" %></li>
-<% else -%>
-  <li><%= link_to '', '#', :class => "requirement qualification_#{requirement.qualification.id}" %></li>
-<% end -%>
+<% content_tag_for(:li, requirement, :class => "qualification_#{requirement.qualification.id}") do %>
+	<%= link_to '', employee_path(requirement.assignment.employee), :class => "assignment #{dom_id(employee)} qualification_#{requirement.qualification.id}} dialog" if requirement.assignment %>
+<% end %>

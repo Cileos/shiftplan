@@ -1,28 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title><%= yield :title %> | shiftplan.com</title>
-    <%= stylesheet_link_tag 'reset', 'jquery-ui/ui-lightness/jquery-ui', 'jquery-ui-colorpicker', 'application', :cache => true %>
-
-    <%= javascript_include_tag 'util', 'jquery', 'jquery.form.js', 'date', 'jquery-ui.js', 'jquery-plugin-colorpicker', 'parseuri',
-                               'shiftplan/dialogs', 'shiftplan/lists', 'shiftplan/tabs', 'shiftplan/workplaces', :cache => true %>
+    <%= javascript_include_tag :shiftplan, :cache => true %>
+    <%= stylesheet_link_tag :shiftplan, :cache => true %>
     <%= yield(:head) %>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        <%= yield(:jquery) %>
-      });
-    </script>
   </head>
   <body>
-		<div id="content">
-	    <ul id="navigation">
-	      <li><%= link_to t(:overview), root_path, :'data-tab-id' => 'overview' %></li>
-				<li><%= link_to t(:plans), plan_path(1), :'data-tab-id' => 'plans' %></li>
-	      <li><%= link_to t(:workplaces), workplaces_path, :'data-tab-id' => 'workplaces' %></li>
-				<li><%= link_to t(:employees), employees_path, :'data-tab-id' => 'employees' %></li>
-	    </ul>
-		</div>
+    <ul id="navigation">
+      <li><%= link_to t(:overview), root_path %></li>
+			<li><%= link_to t(:plans), plan_path(1) %></li>
+      <li><%= link_to t(:workplaces), workplaces_path %></li>
+			<li><%= link_to t(:employees), employees_path %></li>
+    </ul>
+
+		<%= yield %>
   </body>
 </html>

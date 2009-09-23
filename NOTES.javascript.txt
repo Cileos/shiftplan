@@ -1,3 +1,15 @@
+INSTALL RHINO
+
+http://peter.michaux.ca/articles/installing-rhino-on-os-x
+
+download + extract: 
+ftp://ftp.mozilla.org/pub/mozilla.org/js/rhino1_7R2.zip
+
+$ mkdir ~/Library/Java/
+$ mkdir ~/Library/Java/Extensions/
+$ cp rhino1_7R2/js.jar ~/Library/Java/Extensions/
+
+
 // Employee.prototype = $.extend(new Resource, {
 // 	id: function() {
 // 		return Resource.prototype.id.call(this);
