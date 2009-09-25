@@ -28,7 +28,8 @@ $.extend(Shifts, {
 			width = this.offsetWidth - left - 1;
 		}
 
-		shifts.append_shift(workplace, left, width);
+		var shift = Shift.build(workplace);
+		shifts.append_shift(shift, left, width);
 		shifts.reset_drop_zone();
 	},
 	on_workplace_over: function(event, ui) {
@@ -44,11 +45,11 @@ $.extend(Shifts, {
 });
 
 Shifts.prototype = $.extend(new Resource, {
-	append_shift: function(workplace, left, width) {
-		var shift = Shift.build(workplace);
+	append_shift: function(shift, left, width) {
 		shift.element.css({ left: left });
 		// shift.expand_animated(width);
-		shift.width(width)
+		shift.width(width);
+		shift.update_data_from_dimension();
 		this.element.append(shift.element);
 	},
 	expand_drop_zone: function() {
