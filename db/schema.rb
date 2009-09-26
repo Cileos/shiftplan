@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090920155743) do
+ActiveRecord::Schema.define(:version => 20090926154617) do
 
   create_table "assignments", :force => true do |t|
     t.integer  "requirement_id"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(:version => 20090920155743) do
     t.string   "street"
     t.string   "zipcode"
     t.string   "city"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "locations", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -74,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20090920155743) do
   end
 
   create_table "workplaces", :force => true do |t|
+    t.integer  "location_id"
     t.string   "name"
     t.string   "color",                :limit => 6
     t.integer  "default_shift_length"

@@ -1,6 +1,8 @@
 class CreateWorkplaces < ActiveRecord::Migration
   def self.up
     create_table :workplaces do |t|
+      t.references :location
+
       t.string :name
       t.string :color, :limit => 6
       t.integer :default_shift_length

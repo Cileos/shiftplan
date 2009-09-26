@@ -4,10 +4,17 @@ namespace :db do
 
     desc 'Seed all'
     task :all do
+      Rake::Task['db:seed:locations'].invoke
       Rake::Task['db:seed:qualifications'].invoke
       Rake::Task['db:seed:employees'].invoke
       Rake::Task['db:seed:workplaces'].invoke
       Rake::Task['db:seed:shifts'].invoke
+    end
+
+    desc 'Seed locations'
+    task :locations do
+      Location.create!(:name => 'Zentrum 1')
+      Location.create!(:name => 'Zentrum 2')
     end
 
     desc 'Seed qualifications'
@@ -32,6 +39,9 @@ namespace :db do
 
     desc 'Seed workplaces and workplace requirements'
     task :workplaces => :environment do
+      center_1 = Location.find_by_name('Zentrum 1')
+      center_2 = Location.find_by_name('Zentrum 2')
+
       cook              = Tag.find_by_name('Koch')
       cooking_assistant = Tag.find_by_name('Küchenhilfe')
       barkeeper         = Tag.find_by_name('Barkeeper')
@@ -42,16 +52,16 @@ namespace :db do
       reception_requirements = { receptionist.id => { :quantity => 1 } }
 
       Workplace.create!(
-        :name => 'Küche', :qualification_list => 'Koch, Küchenhilfe', :default_shift_length => 480,
-        :active => true, :requirements => kitchen_requirements
+        :location => center_1, :name => 'Küche', :qualification_list => 'Koch, Küchenhilfe',
+        :default_shift_length => 480, :active => true, :requirements => kitchen_requirements
       )
       Workplace.create!(
-        :name => 'Bar', :qualification_list => 'Barkeeper', :default_shift_length => 600,
-        :active => true, :requirements => bar_requirements
+        :location => center_1, :name => 'Bar', :qualification_list => 'Barkeeper',
+        :default_shift_length => 600, :active => true, :requirements => bar_requirements
       )
       Workplace.create!(
-        :name => 'Rezeption', :qualification_list => 'Rezeptionist', :default_shift_length => 480,
-        :active => false, :requirements => reception_requirements
+        :location => center_1, :name => 'Rezeption', :qualification_list => 'Rezeptionist',
+        :default_shift_length => 480, :active => false, :requirements => reception_requirements
       )
     end
 
