@@ -1,9 +1,8 @@
 class ShiftsController < ApplicationController
-  before_filter :set_shift, :only => [:update, :destroy]
+  before_filter :parse_times, :only => [:create, :update]
+  before_filter :set_shift
 
   def create
-    @shift = Shift.new(params[:shift])
-
     if @shift.save
       flash[:notice] = t(:shift_successfully_created)
 
@@ -47,6 +46,14 @@ class ShiftsController < ApplicationController
   protected
 
     def set_shift
-      @shift = Shift.find(params[:id])
+      @shift = params[:id] ? Shift.find(params[:id]) : Shift.new(params[:shift])
+    end
+
+    def parse_times
+      day          = Date.strptime(params[:shift].delete(:day), '%Y%m%d')
+      start        = params[:shift].delete(:start).to_i
+      duration     = params[:shift].delete(:duration).to_i
+      params[:shift][:start] = day + start.minutes
+      params[:shift][:end]   = params[:shift][:start] + duration.minutes
     end
 end

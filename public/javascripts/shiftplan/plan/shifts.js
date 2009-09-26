@@ -30,6 +30,7 @@ $.extend(Shifts, {
 
 		var shift = Shift.build(workplace);
 		shifts.append_shift(shift, left, width);
+		shift.save();
 		shifts.reset_drop_zone();
 	},
 	on_workplace_over: function(event, ui) {

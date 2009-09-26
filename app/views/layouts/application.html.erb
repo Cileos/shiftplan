@@ -5,16 +5,24 @@
     <title><%= yield :title %> | shiftplan.com</title>
     <%= javascript_include_tag :shiftplan, :cache => true %>
     <%= stylesheet_link_tag :shiftplan, :cache => true %>
+	
+	  <script type='text/javascript'>
+    //<![CDATA[
+      window._auth_token_name = '<%= request_forgery_protection_token %>';
+      window._auth_token = '<%= form_authenticity_token %>';
+    //]]>
+    </script>
+
     <%= yield(:head) %>
   </head>
   <body>
     <ul id="navigation">
       <li><%= link_to t(:overview), root_path %></li>
-			<li><%= link_to t(:plans), plan_path(1) %></li>
+      <li><%= link_to t(:plans), plan_path(1) %></li>
       <li><%= link_to t(:workplaces), workplaces_path %></li>
-			<li><%= link_to t(:employees), employees_path %></li>
+      <li><%= link_to t(:employees), employees_path %></li>
     </ul>
 
-		<%= yield %>
+    <%= yield %>
   </body>
 </html>

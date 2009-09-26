@@ -25,6 +25,8 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     shiftplan/stuff/dialogs
     shiftplan/stuff/lists
     shiftplan/stuff/workplaces
+
+    application
   )
 end
 

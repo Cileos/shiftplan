@@ -9,7 +9,7 @@
 	<h3><%= t(:workplaces) %></h3>
 	<ul id="workplaces">
 	  <% workplaces.each do |workplace| -%>
-		<li><%= link_to workplace.name, workplace_path(workplace), :class => "workplace #{dom_id(workplace)} dialog", :'data-default-shift-length' => workplace.default_shift_length %></li>
+		<li><%= link_to workplace.name, workplace_path(workplace), :class => "workplace #{dom_id(workplace)} dialog", :'data-workplace-id' => workplace.id, :'data-default-shift-length' => workplace.default_shift_length %></li>
 		<% end -%>
 	</ul>
 

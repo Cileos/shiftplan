@@ -7,10 +7,11 @@ $.extend(Shift, Resource);
 $.extend(Shift, {
 	selector: '.shift',
 	build: function(workplace) {
-		var html = '<li class="shift ' + workplace.dom_id() + '"><h3>' + workplace.name() + '</h3>' +
+		var html = '<li class="shift ' + workplace.dom_id() + '" data-workplace-id="' + workplace.id() + '"><h3>' + workplace.name() + '</h3>' +
 		  '<ul class="requirements"></ul>' +
 		  '</li>'
 		var shift = $(html).shift();
+		console.log('muh:' + shift.element.id);
 		shift.init();
 		shift.bind_events();
 		return shift;
@@ -22,7 +23,9 @@ $.extend(Shift, {
 		return minutes * Plan.pixels_per_minute();
 	},
 	on_drag_stop: function(event, ui) {
-		$(this).shift().update_data_from_dimension();
+	  var shift = $(this).shift();
+		shift.update_data_from_dimension();
+		shift.save();
 	},
 	on_resize: function(event, ui) {
 		var shift = $(this).shift();
@@ -62,6 +65,34 @@ Shift.prototype = $.extend(new Resource, {
 	container: function() {
 		return this.element.closest('.shifts');
 	},
+	save: function() {
+	  console.log(this.is_new_record());
+	  return;
+	  if(this.is_new_record()) {
+	    var url  = '/shifts';
+	    var type = 'post';
+	  } else {
+	    var url  = '/shifts/' + this.id();
+	    var type = 'put';
+	  }
+	  if(!this.is_new_record()) url += '/' + this.id();
+
+		$.ajax({
+		  'url': url,
+		  'type': type,
+		  'data': this.serialize()
+		});
+	},
+	is_new_record: function() {
+	  return this.id() == null;
+	},
+	workplace_id: function() {
+	  if(arguments.length == 0) {
+			return parseInt(this.element.attr('data-workplace-id'));
+		} else {
+			this.element.attr('data-workplace-id', arguments[0]);
+		}
+	},
 	start: function() {
 		if(arguments.length == 0) {
 			return parseInt(this.element.attr('data-start'));
@@ -75,6 +106,12 @@ Shift.prototype = $.extend(new Resource, {
 		} else {
 			this.element.attr('data-duration', arguments[0]);
 		}
+	},
+	serialize: function() {
+	  return 'shift[workplace_id]=' + this.workplace_id() +
+           '&shift[day]=' + this.element.closest('.day').attr('data-day') + // ugh
+           '&shift[start]=' + this.start() +
+           '&shift[duration]=' + this.duration();
 	},
 	add_requirement: function(qualification) {
 		var element = $('<li class="requirement"></li>');

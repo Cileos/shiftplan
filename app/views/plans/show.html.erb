@@ -34,7 +34,7 @@
 
 <div id="plan" data-start="<%= @plan.start_in_minutes %>" data-duration="<%= @plan.duration_in_minutes %>">
   <% @plan.days.each do |day| -%>
-		<div class="day">
+		<div class="day" data-day="<%= day.strftime('%Y%m%d') %>">
 			<h2><%= l(day, :format => "%A, %d. %B %y") %></h2>
 			<ul class="shifts">
 			  <%= render :partial => 'shift', :collection => Array(@shifts_by_day[day]) %>
