@@ -50,9 +50,13 @@ class ShiftsController < ApplicationController
     end
 
     def parse_times
+      plan = Plan.new # FIXME hack!
+      plan.shifts = Shift.all
+
       day          = Date.strptime(params[:shift].delete(:day), '%Y%m%d')
-      start        = params[:shift].delete(:start).to_i
+      start        = plan.start_in_minutes + params[:shift].delete(:start).to_i
       duration     = params[:shift].delete(:duration).to_i
+
       params[:shift][:start] = day + start.minutes
       params[:shift][:end]   = params[:shift][:start] + duration.minutes
     end

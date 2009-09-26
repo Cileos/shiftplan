@@ -7,11 +7,10 @@ $.extend(Shift, Resource);
 $.extend(Shift, {
 	selector: '.shift',
 	build: function(workplace) {
-		var html = '<li class="shift ' + workplace.dom_id() + '" data-workplace-id="' + workplace.id() + '"><h3>' + workplace.name() + '</h3>' +
+		var html = '<li id="new_shift" class="shift ' + workplace.dom_id() + '" data-workplace-id="' + workplace.id() + '"><h3>' + workplace.name() + '</h3>' +
 		  '<ul class="requirements"></ul>' +
 		  '</li>'
 		var shift = $(html).shift();
-		console.log('muh:' + shift.element.id);
 		shift.init();
 		shift.bind_events();
 		return shift;
@@ -66,8 +65,6 @@ Shift.prototype = $.extend(new Resource, {
 		return this.element.closest('.shifts');
 	},
 	save: function() {
-	  console.log(this.is_new_record());
-	  return;
 	  if(this.is_new_record()) {
 	    var url  = '/shifts';
 	    var type = 'post';
@@ -75,12 +72,13 @@ Shift.prototype = $.extend(new Resource, {
 	    var url  = '/shifts/' + this.id();
 	    var type = 'put';
 	  }
-	  if(!this.is_new_record()) url += '/' + this.id();
 
 		$.ajax({
 		  'url': url,
 		  'type': type,
-		  'data': this.serialize()
+		  'data': this.serialize(),
+		  'dataType': 'json',
+		  'success': this.is_new_record() ? this.on_create : this.on_update
 		});
 	},
 	is_new_record: function() {
@@ -156,5 +154,10 @@ Shift.prototype = $.extend(new Resource, {
     // ugh. draggable adds style="position:relative" ... wtf? why's that?
     $(".resize_handle", this.element).css('position', null);
 	},
+	on_create: function(data, textStatus) {
+	  $('#new_shift').attr('id', 'shift_' + data['shift']['id']);
+	},
+	on_update: function(data, textStatus) {
+	  // ...
+	}
 });
-

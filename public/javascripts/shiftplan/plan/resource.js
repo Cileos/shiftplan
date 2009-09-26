@@ -79,7 +79,7 @@ Resource.prototype = {
 		var source = this.element.attr('id');
 		source = source ? source : this.element.attr('href');
 
-		var matches = source.match(/(\d+)$/);
+		var matches = source ? source.match(/(\d+)$/) : null;
 		if(matches) {
 		  this.id = function() { return matches[0]; }
 			return matches[0];
