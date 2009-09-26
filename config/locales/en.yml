@@ -70,7 +70,7 @@ en:
         name: Name
         active: Active?
         color: Color
-        qualification_list: Qualifications
+        qualifications: Qualifications
       employee:
         base_data: Base data
         contact_information: Contact information

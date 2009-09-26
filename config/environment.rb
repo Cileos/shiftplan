@@ -9,5 +9,4 @@ Rails::Initializer.run do |config|
   config.i18n.default_locale = :en
 
   config.gem 'gravtastic', :version => '>= 2.1.0'
-  config.gem 'mbleigh-acts-as-taggable-on', :lib => 'acts-as-taggable-on', :source => 'http://gems.github.com'
 end

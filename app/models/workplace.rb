@@ -3,15 +3,25 @@ class Workplace < ActiveRecord::Base
 
   belongs_to :location
   has_many :workplace_requirements
+  has_many :workplace_qualifications
+  has_many :qualifications, :through => :workplace_qualifications
 
+  named_scope :for_qualification, lambda { |qualification|
+    {
+      :joins => :workplace_qualifications,
+      :conditions => ["qualification_id = ?", qualification.id]
+    }
+  }
   named_scope :active, :conditions => { :active => true }
   named_scope :inactive, :conditions => { :active => false }
 
   validates_presence_of :name
 
-  acts_as_taggable_on :qualifications
-
   before_create :generate_color
+
+  def needs_qualification?(qualification)
+    qualifications.include?(qualification)
+  end
 
   def required_quantity_for(qualification)
     workplace_requirements.detect { |wr| wr.qualification_id == qualification.id }.try(:quantity) || 1

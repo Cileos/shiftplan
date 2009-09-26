@@ -40,6 +40,15 @@ label {
   width: 120px;
 }
 
+form ul.qualifications {
+  margin-left: 120px;
+}
+form ul.qualifications li, form ul.qualifications li label {
+  display: inline;
+  float: none;
+  white-space: nowrap;
+}
+
 input.w50p {
   width: 180px;
 }

@@ -1,6 +1,8 @@
 class Employee < ActiveRecord::Base
-  is_gravtastic!
+  is_gravtastic
 
+  has_many :employee_qualifications
+  has_many :qualifications, :through => :employee_qualifications
   has_many :allocations
 
   validates_presence_of :first_name, :last_name
@@ -8,11 +10,13 @@ class Employee < ActiveRecord::Base
   named_scope :active, :conditions => { :active => true }
   named_scope :inactive, :conditions => { :active => false }
 
-  acts_as_taggable_on :qualifications
+  def has_qualification?(qualification)
+    qualifications.include?(qualification)
+  end
 
   def possible_workplaces
     @possible_workplaces ||= qualifications.collect do |qualification|
-      Workplace.tagged_with(qualification.name, :on => :qualifications)
+      Workplace.for_qualification(qualification)
     end.flatten.uniq
   end
 

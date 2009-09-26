@@ -23,8 +23,12 @@
     <%= f.date_select :birthday, :start_year => Time.current.year, :end_year => 1920 %>
   </div>
   <div>
-    <%= f.label :qualification_list %>
-    <%= f.text_field :qualification_list, :class => 'w100p' %>
+    <%= f.label :qualifications %>
+    <ul class="qualifications">
+      <% Qualification.all.each do |qualification| -%>
+        <li><%= check_box_tag 'employee[qualification_ids][]', qualification.id, f.object.has_qualification?(qualification), :id => "employee_qualification_#{qualification.id}" %><%= f.label "qualification_#{qualification.id}", qualification.name %></li>
+      <% end -%>
+    </ul>
   </div>
 </fieldset>
 <fieldset class="ui-widget ui-widget-content ui-corner-all">

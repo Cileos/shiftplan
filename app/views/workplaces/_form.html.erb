@@ -22,8 +22,12 @@ $(document).ready(function() {
 <fieldset class="ui-widget ui-widget-content ui-corner-all">
   <legend class="ui-widget-header"><%= t(:default_staffing, :scope => :'activerecord.attributes.workplace') %></legend>
   <div>
-    <%= f.label :qualification_list %>
-    <%= f.text_field :qualification_list %>
+    <%= f.label :qualifications %>
+    <ul class="qualifications">
+      <% Qualification.all.each do |qualification| -%>
+        <li><%= check_box_tag 'workplace[qualification_ids][]', qualification.id, f.object.needs_qualification?(qualification), :id => "workplace_qualification_#{qualification.id}" %><%= f.label "qualification_#{qualification.id}", qualification.name %></li>
+      <% end -%>
+    </ul>
   </div>
   <div style="float:left;">
     <% for qualification in f.object.qualifications -%>

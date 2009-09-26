@@ -19,21 +19,26 @@ namespace :db do
 
     desc 'Seed qualifications'
     task :qualifications => :environment do
-      Tag.create!(:name => 'Koch')
-      Tag.create!(:name => 'Küchenhilfe')
-      Tag.create!(:name => 'Barkeeper')
-      Tag.create!(:name => 'Rezeptionist')
+      Qualification.create!(:name => 'Koch')
+      Qualification.create!(:name => 'Küchenhilfe')
+      Qualification.create!(:name => 'Barkeeper')
+      Qualification.create!(:name => 'Rezeptionist')
     end
 
     desc 'Seed employees'
     task :employees => :environment do
-      Employee.create!(:first_name => 'Fritz', :last_name => 'Thielemann', :active => true, :qualification_list => 'Küchenhilfe, Barkeeper')
-      Employee.create!(:first_name => 'Sven', :last_name => 'Fuchs', :active => false, :email => 'svenfuchs@artweb-design.de', :qualification_list => 'Koch')
+      cook              = Qualification.find_by_name('Koch')
+      cooking_assistant = Qualification.find_by_name('Küchenhilfe')
+      barkeeper         = Qualification.find_by_name('Barkeeper')
+      receptionist      = Qualification.find_by_name('Rezeptionist')
+
+      Employee.create!(:first_name => 'Fritz', :last_name => 'Thielemann', :active => true, :qualifications => [cooking_assistant, barkeeper])
+      Employee.create!(:first_name => 'Sven', :last_name => 'Fuchs', :active => false, :email => 'svenfuchs@artweb-design.de', :qualifications => [cook])
       Employee.create!(
         :first_name => 'Clemens', :last_name => 'Kofler', :email => 'clemens@railway.at',
         :birthday => Date.civil(1986, 5, 21), :active => true,
         :street => 'Czarnikauer Str 6A', :zipcode => '10439', :city => 'Berlin',
-        :qualification_list => 'Rezeptionist, Barkeeper'
+        :qualifications => [receptionist, barkeeper]
       )
     end
 
@@ -42,25 +47,25 @@ namespace :db do
       center_1 = Location.find_by_name('Zentrum 1')
       center_2 = Location.find_by_name('Zentrum 2')
 
-      cook              = Tag.find_by_name('Koch')
-      cooking_assistant = Tag.find_by_name('Küchenhilfe')
-      barkeeper         = Tag.find_by_name('Barkeeper')
-      receptionist      = Tag.find_by_name('Rezeptionist')
+      cook              = Qualification.find_by_name('Koch')
+      cooking_assistant = Qualification.find_by_name('Küchenhilfe')
+      barkeeper         = Qualification.find_by_name('Barkeeper')
+      receptionist      = Qualification.find_by_name('Rezeptionist')
 
       kitchen_requirements   = { cook.id => { :quantity => 1 }, cooking_assistant.id => { :quantity => 2 } }
       bar_requirements       = { barkeeper.id => { :quantity => 2 } }
       reception_requirements = { receptionist.id => { :quantity => 1 } }
 
       Workplace.create!(
-        :location => center_1, :name => 'Küche', :qualification_list => 'Koch, Küchenhilfe',
+        :location => center_1, :name => 'Küche', :qualifications => [cook, cooking_assistant],
         :default_shift_length => 480, :active => true, :requirements => kitchen_requirements
       )
       Workplace.create!(
-        :location => center_1, :name => 'Bar', :qualification_list => 'Barkeeper',
+        :location => center_1, :name => 'Bar', :qualifications => [barkeeper],
         :default_shift_length => 600, :active => true, :requirements => bar_requirements
       )
       Workplace.create!(
-        :location => center_1, :name => 'Rezeption', :qualification_list => 'Rezeptionist',
+        :location => center_1, :name => 'Rezeption', :qualifications => [receptionist],
         :default_shift_length => 480, :active => false, :requirements => reception_requirements
       )
     end
@@ -73,10 +78,10 @@ namespace :db do
       bar       = Workplace.find_by_name('Bar')
       reception = Workplace.find_by_name('Rezeption')
 
-      cook              = Tag.find_by_name('Koch')
-      cooking_assistant = Tag.find_by_name('Küchenhilfe')
-      barkeeper         = Tag.find_by_name('Barkeeper')
-      receptionist      = Tag.find_by_name('Rezeptionist')
+      # cook              = Qualification.find_by_name('Koch')
+      # cooking_assistant = Qualification.find_by_name('Küchenhilfe')
+      # barkeeper         = Qualification.find_by_name('Barkeeper')
+      # receptionist      = Qualification.find_by_name('Rezeptionist')
 
       kitchen_shift_1 = Shift.create!(:workplace => kitchen, :start => beginning_of_week + 7.hours, :end => beginning_of_week + 13.hours)
       kitchen_shift_2 = Shift.create!(:workplace => kitchen, :start => beginning_of_week + 16.hours, :end => beginning_of_week + 22.hours)
