@@ -16,7 +16,7 @@
   <h3><%= t(:qualifications)%></h3>
 	<ul id="qualifications">
 	  <% qualifications.each do |qualification| -%>
-		<li><%= link_to qualification.name, "/qualifications/#{qualification.id}", :class => "qualification qualification_#{qualification.id} dialog" %></li>
+		<li><%= link_to qualification.name, "/qualifications/#{qualification.id}", :class => "qualification qualification_#{qualification.id} dialog", :'data-possible-workplaces' => qualification.possible_workplaces.map { |w| dom_id(w) }.join(', ') %></li>
 		<% end -%>
 		<!--<li><a href="#" class="qualification any">(Beliebig)</a></li>-->
 	</ul>

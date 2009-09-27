@@ -6,6 +6,10 @@ class Qualification < ActiveRecord::Base
 
   default_scope :order => "name ASC"
 
+  def possible_workplaces
+    @possible_workplaces ||= Workplace.for_qualification(self)
+  end
+
   def color
     @color ||= begin
       color = read_attribute(:color)
