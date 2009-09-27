@@ -98,6 +98,10 @@
 	cursor: e-resize;
 }
 
+#plan .shifts .unsuitable_workplace {
+  background-color: #ccc;
+}
+
 #sidebar {
 	position: fixed;
 	top: 0;

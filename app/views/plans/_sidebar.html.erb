@@ -2,7 +2,7 @@
 	<h3><%= t(:employees) %></h3>
 	<ul id="employees">
 	  <% employees.each do |employee| -%>
-		<li><%= link_to employee.initials, employee_path(employee), :class => "employee #{dom_id(employee)} dialog", :'data-qualifications' => employee.qualifications.map { |q| "qualification-#{q.id}" }.join(', ') %></li>
+		<li><%= link_to employee.initials, employee_path(employee), :class => "employee #{dom_id(employee)} dialog", :'data-qualifications' => employee.qualifications.map { |q| dom_id(q) }.join(', '), :'data-possible-workplaces' => employee.possible_workplaces.map { |w| dom_id(w) }.join(', ') %></li>
 		<% end -%>
 	</ul>
 
