@@ -92,13 +92,7 @@ Resource.prototype = {
 
     var regexp = new RegExp('[' + this.type.collection_name() + '|' + this.type.class_name() + ']' + '[/_](\\d+)$');
 		var matches = source ? source.match(regexp) : null;
-		if(matches) {
-		  this.id = function() { return matches[1]; }
-			return matches[1];
-		} else {
-		  this.id = function() { return null; }
-			return null;
-		}
+		return matches ? matches[1] : null;
 	},
   is_new_record: function() {
     return this.id() == null;
