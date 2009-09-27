@@ -113,8 +113,10 @@ Shift.prototype = $.extend(new Resource, {
 	},
 	update_data_from_dimension: function() {
 		this.element.attr({
-			'data-start': Shift.pixels_to_minutes(this.left() - 1),
-			'data-duration': Shift.pixels_to_minutes(this.width() + 1)
+      // 'data-start': Shift.pixels_to_minutes(this.left() - 1),
+      // 'data-duration': Shift.pixels_to_minutes(this.width() + 1)
+			'data-start': Shift.pixels_to_minutes(this.left()),
+			'data-duration': Shift.pixels_to_minutes(this.width())
 		});
 		console.log('data updated to start: ' + this.element.attr('data-start') + ', duration: ' + this.element.attr('data-duration'));
 	},
