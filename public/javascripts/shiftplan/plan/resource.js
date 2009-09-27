@@ -37,6 +37,11 @@ $.extend(Resource, {
 		this.class_name = function() { return class_name; }
 		return class_name;
 	},
+	collection_name: function() {
+	  var collection_name = this.class_name() + 's'; // FIXME
+	  this.collection_name = function() { return collection_name; }
+	  return collection_name;
+	},
 	elements: function() {
 		return $(this.selector);
 	},
@@ -88,6 +93,9 @@ Resource.prototype = {
 			return null;
 		}
 	},
+  is_new_record: function() {
+    return this.id() == null;
+  },
 	href: function() {
 		return this.element.attr('href');
 	},
@@ -116,5 +124,22 @@ Resource.prototype = {
 	remove: function(element) {
 		this.element.remove();
 		return Resource.remove(this);
+	},
+  save: function() {
+	  if(this.is_new_record()) {
+	    var url  = '/' + this.type.collection_name();
+	    var type = 'post';
+	  } else {
+	    var url  = '/' + this.type.collection_name() + '/' + this.id();
+	    var type = 'put';
+	  }
+
+		$.ajax({
+		  'url': url,
+		  'type': type,
+		  'data': this.serialize(),
+		  'dataType': 'json',
+		  'success': this.is_new_record() ? this.on_create : this.on_update
+		});
 	}
 };

@@ -47,5 +47,9 @@ Requirement.prototype = $.extend(new Resource, {
 			drop: Requirement.on_employee_drop
 		});
 	},
+	serialize: function() {
+	  return 'requirement[shift_id]=' + this.shift_id() +
+           '&requirement[qualification_id]=' + this.qualification_id();
+	}
 });
 

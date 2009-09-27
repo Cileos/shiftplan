@@ -64,26 +64,6 @@ Shift.prototype = $.extend(new Resource, {
 	container: function() {
 		return this.element.closest('.shifts');
 	},
-	save: function() {
-	  if(this.is_new_record()) {
-	    var url  = '/shifts';
-	    var type = 'post';
-	  } else {
-	    var url  = '/shifts/' + this.id();
-	    var type = 'put';
-	  }
-
-		$.ajax({
-		  'url': url,
-		  'type': type,
-		  'data': this.serialize(),
-		  'dataType': 'json',
-		  'success': this.is_new_record() ? this.on_create : this.on_update
-		});
-	},
-	is_new_record: function() {
-	  return this.id() == null;
-	},
 	workplace_id: function() {
 	  if(arguments.length == 0) {
 			return parseInt(this.element.attr('data-workplace-id'));
@@ -116,6 +96,7 @@ Shift.prototype = $.extend(new Resource, {
 		$('.requirements', this.element).append(element);
 		var requirement = element.requirement();
 		requirement.add_qualification(qualification);
+		requirement.save();
 		requirement.bind_events();
 	},
 	update_dimension_from_data: function() {
