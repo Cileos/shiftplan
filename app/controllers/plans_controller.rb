@@ -10,7 +10,7 @@ class PlansController < ApplicationController
 
     @employees = Employee.all
     @workplaces = Workplace.active
-    @qualifications = Tagging.find(:all, :conditions => "context = 'qualifications'").map(&:tag).uniq
+    @qualifications = Qualification.all
 
     render :layout => !request.xhr?
   end
