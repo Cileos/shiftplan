@@ -42,6 +42,12 @@ $.extend(Resource, {
 	  this.collection_name = function() { return collection_name; }
 	  return collection_name;
 	},
+	collection_path: function() {
+	  return '/' + this.collection_name();
+	},
+	member_path: function(resource) {
+	  return '/' + this.collection_name() + '/' + resource.id();
+	},
 	elements: function() {
 		return $(this.selector);
 	},
@@ -128,10 +134,10 @@ Resource.prototype = {
 	},
   save: function() {
 	  if(this.is_new_record()) {
-	    var url  = '/' + this.type.collection_name();
+	    var url  = this.type.collection_path();
 	    var type = 'post';
 	  } else {
-	    var url  = '/' + this.type.collection_name() + '/' + this.id();
+	    var url  = this.type.member_path(this);
 	    var type = 'put';
 	  }
 
@@ -144,7 +150,7 @@ Resource.prototype = {
 		});
 	},
 	destroy: function() {
-	  var url  = '/' + this.type.collection_name() + '/' + this.id();
+	  var url = this.type.member_path(this);
 	  $.ajax({
 		  'url': url,
 		  'type': 'delete',
