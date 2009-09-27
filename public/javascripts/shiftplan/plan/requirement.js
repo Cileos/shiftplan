@@ -62,7 +62,7 @@ Requirement.prototype = $.extend(new Resource, {
            '&requirement[qualification_id]=' + this.qualification_id();
 	},
  	on_create: function(data, textStatus) {
- 	  // ...
+ 	  $('#shift_' + data['requirement']['shift_id'] + ' .requirement:not([id])').attr('id', 'requirement_' + data['requirement']['id']);
  	},
  	on_update: function(data, textStatus) {
  	  // ...

@@ -31,7 +31,7 @@ Assignment.prototype = $.extend(new Resource, {
 	         '&assignment[employee_id]=' + this.employee_id();
 	},
 	on_create: function(data, textStatus) {
-	  // ...
+	  $('#requirement_' + data['assignment']['requirement_id'] + ' .assignment').attr('id', 'assignment_' + data['assignment']['id']);
 	},
 	on_update: function(data, textStatus) {
 	  // ...
