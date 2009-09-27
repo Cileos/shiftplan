@@ -9,6 +9,9 @@ $.extend(Workplace, {
 });
 
 Workplace.prototype = $.extend(new Resource, {
+  default_staffing: function() {
+    return eval(this.element.attr('data-default-staffing'));
+  },
   default_shift_length: function() {
     return parseInt(this.element.attr('data-default-shift-length'));
   },

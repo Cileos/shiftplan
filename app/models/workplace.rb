@@ -27,6 +27,12 @@ class Workplace < ActiveRecord::Base
     workplace_requirements.detect { |wr| wr.qualification_id == qualification.id }.try(:quantity) || 1
   end
 
+  def default_staffing
+    workplace_requirements.sort_by(&:qualification_id).collect do |requirement|
+      [requirement.qualification_id] * requirement.quantity
+    end.flatten
+  end
+
   def requirements=(requirements)
     requirements.each do |qualification_id, attributes|
       requirement = workplace_requirements.detect { |wr| wr.qualification_id == qualification_id.to_i } || workplace_requirements.build(:qualification_id => qualification_id.to_i)

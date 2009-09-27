@@ -7,9 +7,14 @@ $.extend(Shift, Resource);
 $.extend(Shift, {
 	selector: '.shift',
 	build: function(workplace) {
-		var html = '<li id="new_shift" class="shift ' + workplace.dom_id() + '" data-workplace-id="' + workplace.id() + '"><h3>' + workplace.name() + '</h3>' +
-		  '<ul class="requirements"></ul>' +
-		  '</li>'
+		var html = '<li id="new_shift" class="shift ' + workplace.dom_id() + '" data-workplace-id="' + workplace.id() + '"><h3>' + workplace.name() + '</h3><ul class="requirements">';
+
+		var default_staffing = workplace.default_staffing();
+    $.each(default_staffing, function() {
+      html += '<li class="requirement qualification_' + this + ' ui-draggable ui-droppable"></li>';
+    });
+
+		html += '</ul></li>';
 		var shift = $(html).shift();
 		shift.init();
 		shift.bind_events();
@@ -139,7 +144,11 @@ Shift.prototype = $.extend(new Resource, {
     $(".resize_handle", this.element).css('position', null);
 	},
 	on_create: function(data, textStatus) {
-	  $('#new_shift').attr('id', 'shift_' + data['shift']['id']);
+	  var shift_id = 'shift_' + data['shift']['id'];
+	  var shift = $('#new_shift').attr('id', shift_id);
+	  $('.requirement', shift).each(function(index) {
+	    $(this).attr('id', 'requirement_' + data['shift']['requirements'][index]['id']);
+	  });
 	},
 	on_update: function(data, textStatus) {
 	  // ...
