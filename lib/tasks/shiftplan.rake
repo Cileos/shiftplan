@@ -12,13 +12,17 @@ namespace :db do
     end
 
     desc 'Seed locations'
-    task :locations do
+    task :locations => :environment do
+      Location.delete_all
+
       Location.create!(:name => 'Zentrum 1')
       Location.create!(:name => 'Zentrum 2')
     end
 
     desc 'Seed qualifications'
     task :qualifications => :environment do
+      Qualification.delete_all
+
       Qualification.create!(:name => 'Koch')
       Qualification.create!(:name => 'Küchenhilfe')
       Qualification.create!(:name => 'Barkeeper')
@@ -27,6 +31,8 @@ namespace :db do
 
     desc 'Seed employees'
     task :employees => :environment do
+      Employee.delete_all
+
       cook              = Qualification.find_by_name('Koch')
       cooking_assistant = Qualification.find_by_name('Küchenhilfe')
       barkeeper         = Qualification.find_by_name('Barkeeper')
@@ -44,6 +50,8 @@ namespace :db do
 
     desc 'Seed workplaces and workplace requirements'
     task :workplaces => :environment do
+      Workplace.delete_all
+
       center_1 = Location.find_by_name('Zentrum 1')
       center_2 = Location.find_by_name('Zentrum 2')
 
@@ -72,7 +80,10 @@ namespace :db do
 
     desc 'Seed shifts, requirements and assignments'
     task :shifts => :environment do
-      beginning_of_week = Date.today.beginning_of_week
+      Shift.delete_all
+      
+      monday = Date.today.beginning_of_week
+      tuesday = monday + 1.day
 
       kitchen   = Workplace.find_by_name('Küche')
       bar       = Workplace.find_by_name('Bar')
@@ -83,17 +94,17 @@ namespace :db do
       # barkeeper         = Qualification.find_by_name('Barkeeper')
       # receptionist      = Qualification.find_by_name('Rezeptionist')
 
-      kitchen_shift_1 = Shift.create!(:workplace => kitchen, :start => beginning_of_week + 7.hours, :end => beginning_of_week + 13.hours)
-      kitchen_shift_2 = Shift.create!(:workplace => kitchen, :start => beginning_of_week + 16.hours, :end => beginning_of_week + 22.hours)
+      kitchen_shift_1 = Shift.create!(:workplace => kitchen, :start => monday + 7.hours, :end => monday + 11.hours)
+      kitchen_shift_2 = Shift.create!(:workplace => kitchen, :start => monday + 11.hours, :end => monday + 15.hours)
 
-      kitchen_shift_3 = Shift.create!(:workplace => kitchen, :start => beginning_of_week + 1.day + 7.hours, :end => beginning_of_week + 1.day + 13.hours)
-      kitchen_shift_4 = Shift.create!(:workplace => kitchen, :start => beginning_of_week + 1.day + 16.hours, :end => beginning_of_week + 1.day + 22.hours)
+      bar_shift_1 = Shift.create!(:workplace => bar, :start => monday + 9.hours, :end => monday + 12.hours)
+      bar_shift_2 = Shift.create!(:workplace => bar, :start => monday + 12.hours, :end => monday + 16.hours)
 
-      bar_shift_1 = Shift.create!(:workplace => bar, :start => beginning_of_week + 8.hours, :end => beginning_of_week + 17.hours)
-      bar_shift_2 = Shift.create!(:workplace => bar, :start => beginning_of_week + 17.hours, :end => beginning_of_week + 26.hours)
+      kitchen_shift_3 = Shift.create!(:workplace => kitchen, :start => tuesday + 7.hours, :end => tuesday + 11.hours)
+      kitchen_shift_4 = Shift.create!(:workplace => kitchen, :start => tuesday + 11.hours, :end => tuesday + 15.hours)
 
-      bar_shift_3 = Shift.create!(:workplace => bar, :start => beginning_of_week + 1.day + 8.hours, :end => beginning_of_week + 1.day + 17.hours)
-      bar_shift_4 = Shift.create!(:workplace => bar, :start => beginning_of_week + 1.day + 17.hours, :end => beginning_of_week + 1.day + 26.hours)
+      bar_shift_3 = Shift.create!(:workplace => bar, :start => tuesday + 9.hours, :end => tuesday + 12.hours)
+      bar_shift_4 = Shift.create!(:workplace => bar, :start => tuesday + 12.hours, :end => tuesday + 16.hours)
 
       # reception_shift_1 = Shift.create!(:workplace => reception, :start => beginning_of_week + 6.hours, :end => beginning_of_week + 16.hours)
       # reception_shift_2 = Shift.create!(:workplace => reception, :start => beginning_of_week + 16.hours, :end => beginning_of_week + 26.hours)
