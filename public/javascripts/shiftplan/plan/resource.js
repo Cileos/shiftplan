@@ -142,5 +142,14 @@ Resource.prototype = {
 		  'dataType': 'json',
 		  'success': this.is_new_record() ? this.on_create : this.on_update
 		});
+	},
+	destroy: function() {
+	  var url  = '/' + this.type.collection_name() + '/' + this.id();
+	  $.ajax({
+		  'url': url,
+		  'type': 'delete',
+		  'dataType': 'json',
+		  'success': this.on_destroy
+		});
 	}
 };

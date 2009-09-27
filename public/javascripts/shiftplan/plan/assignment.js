@@ -22,6 +22,7 @@ Assignment.prototype = $.extend(new Resource, {
 		});
 	},
 	remove: function() {
+	  this.destroy();
 		this.element.remove();
 	},
 	serialize: function() {
