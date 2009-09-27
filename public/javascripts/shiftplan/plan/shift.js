@@ -71,6 +71,9 @@ Shift.prototype = $.extend(new Resource, {
 			this.element.attr('data-workplace-id', arguments[0]);
 		}
 	},
+	day: function() {
+	  return this.element.closest('.day').attr('data-day'); // hmmm?
+	},
 	start: function() {
 		if(arguments.length == 0) {
 			return parseInt(this.element.attr('data-start'));
@@ -87,7 +90,7 @@ Shift.prototype = $.extend(new Resource, {
 	},
 	serialize: function() {
 	  return 'shift[workplace_id]=' + this.workplace_id() +
-           '&shift[day]=' + this.element.closest('.day').attr('data-day') + // ugh
+           '&shift[day]=' + this.day() +
            '&shift[start]=' + this.start() +
            '&shift[duration]=' + this.duration();
 	},
