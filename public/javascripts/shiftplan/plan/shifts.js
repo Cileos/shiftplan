@@ -23,7 +23,9 @@ $.extend(Shifts, {
 		// extract to shifts.rasterize(left, width)
 		var left = parseInt(ui.offset.left - this.offsetLeft - 1);
 		left = left - (left % Plan.slot_width);
-		var width = Plan.slot_width * Plan.default_slot_count;
+		// var width = Plan.slot_width * Plan.default_slot_count;
+		var default_shift_length = workplace.default_shift_length();
+		var width = default_shift_length ? default_shift_length * Plan.pixels_per_minute() : Plan.slot_width * Plan.default_slot_count;
 		if(left + width > this.offsetWidth) {
 			width = this.offsetWidth - left - 1;
 		}

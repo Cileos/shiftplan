@@ -9,6 +9,9 @@ $.extend(Workplace, {
 });
 
 Workplace.prototype = $.extend(new Resource, {
+  default_shift_length: function() {
+    return parseInt(this.element.attr('data-default-shift-length'));
+  },
   init: function() {
     this.element.prepend('<div></div>')    
   },
