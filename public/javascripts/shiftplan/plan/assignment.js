@@ -26,7 +26,6 @@ Assignment.prototype = $.extend(new Resource, {
 		this.element.remove();
 	},
 	serialize: function() {
-	  console.log(this.type.class_name())
 	  return 'assignment[requirement_id]=' + this.requirement().id() +
 	         '&assignment[employee_id]=' + this.employee_id();
 	},

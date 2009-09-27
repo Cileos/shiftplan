@@ -22,22 +22,22 @@ Requirement.prototype = $.extend(new Resource, {
     var matches = this.element.attr('class').match(/qualification_(\d+)/);
     if(matches) return matches[1];
   },
-	employee_id: function() {
-		var matches = this.element.attr('class').match(/employee_(\d+)/);
-    if(matches) return matches[1];
-	},
 	assign_employee: function(employee) {
-	  this.unassign_employees();
-	  // FIXME - href could have something like /assignments/1?
-		element = $('<a class="assignment ' + employee.dom_id() + '" href="#"></a>');
-		this.element.append(element);
-		var assignment = $(element).assignment();
+	  var assignment = $(Assignment.selector, this.element);
+
+	  if(assignment.size() > 0) {
+	    var assignment = assignment.assignment();
+	    assignment.element.removeClass('employee_' + assignment.employee_id()).addClass(employee.dom_id());
+	  } else {
+	    // FIXME - href could have something like /assignments/1?
+  		element = $('<a class="assignment ' + employee.dom_id() + '" href="#"></a>');
+  		this.element.append(element);
+  		var assignment = $(element).assignment();
+	  }
+
 		assignment.save();
 		assignment.bind_events();
 		return assignment;
-	},
-	unassign_employees: function() {
-	  $(Assignment.selector, this.element).remove();
 	},
 	add_qualification: function(qualification) {
 		if(qualification.dom_id()) {
