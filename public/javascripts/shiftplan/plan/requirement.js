@@ -15,12 +15,16 @@ $.extend(Requirement, {
 });
 
 Requirement.prototype = $.extend(new Resource, {
+  shift: function() {
+    return this.element.closest('.shift').shift();
+  },
+  qualification_id: function() {
+    var matches = this.element.attr('class').match(/qualification_(\d+)/);
+    if(matches) return matches[1];
+  },
 	employee_id: function() {
-		var class_names = this.class_names();
-		for(var i = 0; i < class_names.length; i++) {
-			var matches = class_names[i].match(/employee_(\d+)/);
-			if(matches) return matches[1];
-		}
+		var matches = this.element.attr('class').match(/employee_(\d+)/);
+    if(matches) return matches[1];
 	},
 	assign_employee: function(employee) {
 	  this.unassign_employees();
@@ -48,8 +52,14 @@ Requirement.prototype = $.extend(new Resource, {
 		});
 	},
 	serialize: function() {
-	  return 'requirement[shift_id]=' + this.shift_id() +
+	  return 'requirement[shift_id]=' + this.shift().id() +
            '&requirement[qualification_id]=' + this.qualification_id();
-	}
+	},
+ 	on_create: function(data, textStatus) {
+ 	  // ...
+ 	},
+ 	on_update: function(data, textStatus) {
+ 	  // ...
+ 	}
 });
 
