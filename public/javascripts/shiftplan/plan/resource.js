@@ -84,10 +84,11 @@ Resource.prototype = {
 		var source = this.element.attr('id');
 		source = source ? source : this.element.attr('href');
 
-		var matches = source ? source.match(/(\d+)$/) : null;
+    var regexp = new RegExp('[' + this.type.collection_name() + '|' + this.type.class_name() + ']' + '[/_](\\d+)$');
+		var matches = source ? source.match(regexp) : null;
 		if(matches) {
-		  this.id = function() { return matches[0]; }
-			return matches[0];
+		  this.id = function() { return matches[1]; }
+			return matches[1];
 		} else {
 		  this.id = function() { return null; }
 			return null;

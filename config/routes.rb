@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :shifts
   map.resources :requirements
+  map.resources :assignments
 
   map.with_options :controller => 'allocations', :action => 'index' do |a|
     a.allocations_by_date  'plans/:year/:month/:day',

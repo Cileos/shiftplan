@@ -28,9 +28,11 @@ Requirement.prototype = $.extend(new Resource, {
 	},
 	assign_employee: function(employee) {
 	  this.unassign_employees();
-		element = $('<a class="assignment ' + employee.dom_id() + '" href="' + employee.href() + '"></a>');
+	  // FIXME - href could have something like /assignments/1?
+		element = $('<a class="assignment ' + employee.dom_id() + '" href="#"></a>');
 		this.element.append(element);
 		var assignment = $(element).assignment();
+		assignment.save();
 		assignment.bind_events();
 		return assignment;
 	},
