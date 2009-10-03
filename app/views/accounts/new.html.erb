@@ -1,0 +1,42 @@
+<% form_for(@account) do |f| %>
+  <fieldset>
+    <legend>New account</legend>
+    <%= f.error_messages %>
+
+    <fieldset>
+      <legend>Account</legend>
+      <ol>
+        <li>
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+        </li>
+      </ol>
+    </fieldset>
+
+    <% f.fields_for :admin, User.new do |af| -%>
+    <fieldset>
+      <legend>Admin</legend>
+      <ol>
+        <li>
+          <%= af.label :email %>
+          <%= af.text_field :email %>
+        </li>
+        <li>
+          <%= af.label :password %>
+          <%= af.password_field :password %>
+        </li>
+        <li>
+          <%= af.label :password_confirmation %>
+          <%= af.password_field :password_confirmation %>
+        </li>
+      </ol>
+    </fieldset>
+    <% end -%>
+
+    <fieldset>
+      <legend>Payment</legend>
+    </fieldset>
+  </fieldset>
+
+  <%= f.submit 'Create' %>
+<% end -%>

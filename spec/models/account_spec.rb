@@ -11,4 +11,10 @@ describe Account do
       @account.should have_many(:users)
     end
   end
+
+  describe "validations" do
+    it "should require a name" do
+      @account.should validate_presence_of(:name)
+    end
+  end
 end

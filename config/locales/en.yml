@@ -55,6 +55,10 @@ en:
   assignment_could_not_be_updated: "Assignment could not be updated."
   assignment_successfully_deleted: "Assignment successfully deleted."
 
+  # accounts
+  account_successfully_created: "Account successfully created."
+  account_could_not_be_created: "Account could not be created."
+
   # login
   successfully_logged_in: "Successfully logged in."
   could_not_log_in: "Could not log in. Please try again and check that you have activated your account!"

@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resource :dashboard
+  map.resource :dashboard, :controller => 'dashboard'
 
   map.resources :employees
   map.resources :workplaces
@@ -17,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   #     :requirements => { :year => /\d{4}/, :week => /\d{1,2}/ }
   # end
 
+  map.resources :accounts
   map.resources :users
   map.resource  :session, :controller => 'session'
 
