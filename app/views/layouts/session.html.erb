@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title><%= yield :title %> | shiftplan.com</title>
+    <%= javascript_include_tag :shiftplan, :cache => true %>
+    <%= stylesheet_link_tag :shiftplan, :cache => true %>
+	
+	  <script type='text/javascript'>
+    //<![CDATA[
+      window._auth_token_name = '<%= request_forgery_protection_token %>';
+      window._auth_token = '<%= form_authenticity_token %>';
+    //]]>
+    </script>
+
+    <%= yield(:head) %>
+  </head>
+  <body>
+    <% unless flash.empty? -%>
+    <ul id="flash">
+      <% flash.each do |key, value| -%>
+        <li class="<%= key %>"><%= value %></li>
+      <% end -%>
+    </ul>
+    <% end -%>
+
+    <%= yield %>
+  </body>
+</html>

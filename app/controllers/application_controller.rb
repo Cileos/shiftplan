@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_object_name
 
+  include Authentication
+
   protected
 
     def set_object_name

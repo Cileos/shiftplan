@@ -58,6 +58,10 @@ de:
   assignment_could_not_be_updated: "Zuweisung konnte nicht geändert werden."
   assignment_successfully_deleted: "Zuweisung erfolgreich gelöscht."
 
+  # login
+  successfully_logged_in: "Erfolgreich eingeloggt."
+  could_not_log_in: "Login fehlgeschlagen. Bitte versuchen Sie es erneut und prüfen Sie, dass Sie Ihr Benutzerkonto aktiviert haben!"
+
   edit: Bearbeiten
   show: Details
   destroy: Löschen

@@ -1,0 +1,21 @@
+<% form_for(@user) do |f| %>
+  <fieldset>
+    <legend>New user</legend>
+    <%= f.error_messages %>
+    <ol>
+      <li>
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+      </li>
+      <li>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </li>
+      <li>
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+      </li>
+    </ol>
+  </fieldset>
+  <%= f.submit 'Create' %>
+<% end -%>
