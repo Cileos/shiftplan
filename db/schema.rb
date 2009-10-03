@@ -9,7 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090926162545) do
+ActiveRecord::Schema.define(:version => 20091003161427) do
+
+  create_table "accounts", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "assignments", :force => true do |t|
     t.integer  "requirement_id"
@@ -44,6 +50,16 @@ ActiveRecord::Schema.define(:version => 20090926162545) do
     t.datetime "updated_at"
   end
 
+  create_table "memberships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.boolean  "admin",      :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memberships", ["user_id", "account_id"], :name => "index_memberships_on_user_id_and_account_id", :unique => true
+
   create_table "qualifications", :force => true do |t|
     t.string "name"
     t.string "color", :limit => 6
@@ -63,6 +79,21 @@ ActiveRecord::Schema.define(:version => 20090926162545) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "users", :force => true do |t|
+    t.string   "email"
+    t.string   "encrypted_password", :limit => 128
+    t.string   "salt",               :limit => 128
+    t.string   "confirmation_token", :limit => 128
+    t.string   "remember_token",     :limit => 128
+    t.boolean  "email_confirmed",                   :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["id", "confirmation_token"], :name => "index_users_on_id_and_confirmation_token"
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
   create_table "workplace_qualifications", :force => true do |t|
     t.integer "workplace_id"
