@@ -31,7 +31,7 @@ module Authentication
     end
 
     def sign_in(user)
-      if user
+      if user && user.is_a?(User)
         user.remember_me
         cookies[:remember_token] = { :value => user.remember_token, :expires => 1.year.from_now.utc }
         current_user = user
@@ -45,14 +45,14 @@ module Authentication
 
     def deny_access(flash_message = nil)
       store_location
-      flash[:failure] = flash_message if flash_message
+      flash[:error] = flash_message if flash_message
       redirect_to(new_session_url)
     end
 
     protected
 
       def user_from_cookie
-        User.find_by_remember_token(token) if token = cookies[:remember_token]
+        User.find_by_remember_token(cookies[:remember_token]) if cookies[:remember_token]
       end
 
       def store_location
