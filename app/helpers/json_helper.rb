@@ -15,9 +15,9 @@ module JsonHelper
     end
   end
 
-  def map_json_fields(object, fields)
-    fields.split(',').map(&:strip).select { |field| object.respond_to?(field.to_sym) }.collect do |field|
-      "'#{escape_javascript(field)}': '#{escape_javascript(object.send(field.to_sym).to_s)}'"
-    end
-  end
+  # def map_json_fields(object, fields)
+  #   fields.split(',').map(&:strip).select { |field| object.respond_to?(field.to_sym) }.collect do |field|
+  #     "'#{escape_javascript(field)}': '#{escape_javascript(object.send(field.to_sym).to_s)}'"
+  #   end
+  # end
 end

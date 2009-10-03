@@ -48,7 +48,7 @@ class Color
     end
 
     def rgb_to_hex(r, g, b)
-      [r, g, b].map { |c| c.to_s(16) }.join
+      [r, g, b].map { |c| sprintf('%02x', c) }.join
     end
   end
 end

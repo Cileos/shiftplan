@@ -3,6 +3,7 @@ class CreateEmployees < ActiveRecord::Migration
     create_table :employees do |t|
       t.string  :first_name
       t.string  :last_name
+      t.string  :initials, :limit => 10
       t.date    :birthday
       t.boolean :active, :default => true
 

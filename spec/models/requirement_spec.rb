@@ -5,39 +5,41 @@ describe Requirement do
     @requirement = Requirement.new
   end
 
+  describe "associations" do
+    it "should belong to a shift" do
+      @requirement.should belong_to(:shift)
+    end
+
+    it "should reference a qualification" do
+      @requirement.should belong_to(:qualification)
+    end
+
+    it "should have an assignment" do
+      @requirement.should have_one(:assignment)
+    end
+  end
+
   describe "validations" do
     before(:each) do
-      @requirement.attributes = {
-        :workplace_id => 1,
-        :start => Time.now,
-        :end => 2.hours.from_now,
-        :quantity => 1
-      }
+      @requirement.attributes = {}
     end
 
     it "should regard a valid object as valid" do
       @requirement.should be_valid
     end
+  end
 
-    it "should require a quantity" do
-      @requirement.should validate_presence_of(:quantity)
-    end
+  describe "instance methods" do
+    describe "#fulfilled?" do
+      it "should be fulfilled if an assignment is present" do
+        @requirement.assignment = Assignment.new
+        @requirement.should be_fulfilled
+      end
 
-    it "should require a workplace" do
-      @requirement.should validate_presence_of(:workplace_id)
-    end
-
-    it "should require a start time" do
-      @requirement.should validate_presence_of(:start)
-    end
-
-    it "should require an end time" do
-      @requirement.should validate_presence_of(:end)
-    end
-
-    it "should have a start time before its end time" do
-      @requirement.end = 2.hours.ago
-      @requirement.should_not be_valid
+      it "should not be fulfilled if no assignment is present" do
+        @requirement.assignment = nil
+        @requirement.should_not be_fulfilled
+      end
     end
   end
 end

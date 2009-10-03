@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(:version => 20090926162545) do
   create_table "employees", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "initials",   :limit => 10
     t.date     "birthday"
-    t.boolean  "active",     :default => true
+    t.boolean  "active",                   :default => true
     t.string   "email"
     t.string   "phone"
     t.string   "street"
