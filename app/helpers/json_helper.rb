@@ -7,11 +7,12 @@ module JsonHelper
     return unless object.errors.present?
 
     returning('') do |json|
-      json << "'#{object.class.to_s.underscore}': {"
-      json << object.errors.collect do |field, errors|
-        "'#{escape_javascript(field)}': ['#{Array(errors).map { |error| escape_javascript(error) }.join("',\n'")}']"
+      json << "'#{object.class.to_s.underscore}': { "
+      # FIXME: weird? isn't there a better way to group by attribute?
+      json << object.errors.map(&:first).uniq.collect do |field|
+        "'#{escape_javascript(field)}': ['#{Array(object.errors.on(field.to_sym)).map { |error| escape_javascript(error) }.join("',\n'")}']"
       end.join(",\n")
-      json << "}"
+      json << " }"
     end
   end
 
