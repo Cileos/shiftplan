@@ -94,7 +94,33 @@ describe Employee do
     end
 
     describe "#possible_workplaces" do
-      # TODO
+      before(:each) do
+        @cook_qualification = Qualification.create!(:name => 'Cook')
+        @receptionist_qualification = Qualification.create!(:name => 'Receptionist')
+        @barkeeper_qualification = Qualification.create!(:name => 'Barkeeper')
+
+        @kitchen = Workplace.create!(:name => 'Kitchen', :qualifications => [@cook_qualification])
+        @reception = Workplace.create!(:name => 'Reception', :qualifications => [@receptionist_qualification])
+
+        @employee_1 = Employee.new(:qualifications => [@cook_qualification, @receptionist_qualification])
+        @employee_1.save(false)
+        @employee_2 = Employee.new(:qualifications => [@barkeeper_qualification])
+        @employee_2.save(false)
+      end
+
+      it "should return all possible workplaces" do
+        @employee_1.possible_workplaces.should include(@kitchen)
+        @employee_1.possible_workplaces.should include(@reception)
+
+        @employee_2.possible_workplaces.should be_empty
+      end
+    end
+
+    describe "#gravatar_url_for_css" do # temporary?
+      it "should replace &amp; with & so CSS doesn't complain" do
+        @employee.stub!(:gravatar_url).and_return('foo&amp;bar')
+        @employee.gravatar_url_for_css.should == 'foo&bar'
+      end
     end
   end
 end

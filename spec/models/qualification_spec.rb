@@ -25,4 +25,24 @@ describe Qualification do
       end
     end
   end
+
+  describe "instance methods" do
+    describe "#possible_workplaces" do
+      before(:each) do
+        @cook_qualification = Qualification.create!(:name => 'Cook')
+        @receptionist_qualification = Qualification.create!(:name => 'Receptionist')
+        @barkeeper_qualification = Qualification.create!(:name => 'Barkeeper')
+
+        @kitchen = Workplace.create!(:name => 'Kitchen', :qualifications => [@cook_qualification])
+        @reception = Workplace.create!(:name => 'Reception', :qualifications => [@receptionist_qualification])
+      end
+
+      it "should return all possible workplaces" do
+        @cook_qualification.possible_workplaces.should include(@kitchen)
+        @receptionist_qualification.possible_workplaces.should include(@reception)
+
+        @barkeeper_qualification.possible_workplaces.should be_empty
+      end
+    end
+  end
 end
