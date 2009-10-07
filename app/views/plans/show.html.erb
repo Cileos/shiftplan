@@ -2,7 +2,7 @@
 	/* IMAGES */
 
   <% @employees.each do |employee| -%>
-	#plan .<%= dom_id(employee) %>,
+	.plan .<%= dom_id(employee) %>,
 	.<%= dom_id(employee) %> div {
 		background-image: url(<%= employee.gravatar_url_for_css(:size => 30) %>);
 	}
@@ -10,19 +10,19 @@
 
 	/* COLORS */
 	<% @workplaces.each do |workplace| -%>
-	#plan .<%= dom_id(workplace) %>,
+	.plan .<%= dom_id(workplace) %>,
 	.<%= dom_id(workplace) %> div {
 		background-color: <%= workplace.color %>;
 	}
 	<% end -%>
 
   <% @qualifications.each do |qualification| -%>
-	#plan .qualification_<%= qualification.id %>,
+	.plan .qualification_<%= qualification.id %>,
 	.qualification_<%= qualification.id %> div {
 		border-color: <%= qualification.color %>;
 	}
 	<% end -%>
-  #plan .qualification.any,
+  .plan .qualification.any,
   .qualification.any div {
     border-color: transparent;
   }

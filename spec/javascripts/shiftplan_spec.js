@@ -10,17 +10,17 @@ Screw.Unit(function() {
 
   describe("Plan:", function() {
     it("should contain a list of shift collections",function() {
-      expect($('#plan .shifts .shift')).to_not(be_empty);
+      expect($('.plan .shifts .shift')).to_not(be_empty);
     });
   });
 
   describe("Shift:", function() {
     it("should contain a list of requirements",function() {
-      expect($('#plan .shift .requirements .requirement')).to_not(be_empty);
+      expect($('.plan .shift .requirements .requirement')).to_not(be_empty);
     });
 
     it("should have two resize handles",function() {
-      expect($('#plan .shift:first-child .resize_handle').length).to(equal, 2);
+      expect($('.plan .shift:first-child .resize_handle').length).to(equal, 2);
     });
   });
 

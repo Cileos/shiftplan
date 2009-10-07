@@ -65,7 +65,7 @@ Shifts.prototype = $.extend(new Resource, {
 	},
 	bind_events: function() {
 		this.element.droppable({
-			accept: "#workplaces a div, #plan .requirement, #plan .assignment",
+			accept: "#workplaces a div, .plan .requirement, .plan .assignment",
 			tolerance: 'touch',
 			greedy: true,
 			drop: Shifts.on_workplace_drop,

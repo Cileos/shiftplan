@@ -25,3 +25,16 @@ Given /^the following shifts:$/ do |shifts|
     )
   end
 end
+
+Then /^I should see a shift for the (.*) on ([\d-]*), starting at ([\d:]*), lasting ([\d]*) minutes, containing ([\d]*) requirements? for (?:(any) qualification|a (.*))(?: and an assignment for ([\w ]*))?$/ do |workplace, date, time, duration, requirements_count, qualification, *assignee|
+  # p workplace, date, time, duration, requirements_count, qualification, assignee
+  date = date.gsub('-', '')
+  day = page.getByXPath(%(html/body//*[@data-day="#{date}"])).get(0)
+  day.should_not be_nil
+  
+  shift = within(day) do
+    find_element()
+  end
+#    find_element(workplace).should_not be_nil
+  
+end

@@ -23,20 +23,20 @@
   text-decoration: underline;
 }
 
-#plan {
+.plan {
 	width: 865px;
 	padding-right: 320px;
 }
-#plan h2 {
+.plan h2 {
 	margin-top: 1.5em;
 	font-size: 1.3em;
 	font-weight: normal;
 	color: #bbb;
 }
-#plan .day:first-child h2 {
+.plan .day:first-child h2 {
 	margin-top: 0;
 }
-#plan .shifts {
+.plan .shifts {
 	margin-top: 1em;
 	border-style: solid;
 	border-color: #aaa;
@@ -44,7 +44,7 @@
 	background-image: url(/images/plan_scale.png);
 	min-height: 38px;
 }
-#plan .shift {
+.plan .shift {
 	position: relative;
 	min-height: 38px;
 	/*margin: -1px 0;
@@ -52,11 +52,11 @@
 	/*border-left: 1px solid #aaa;*/
 	/*cursor: move;*/
 }
-#plan .requirements > li {
+.plan .requirements > li {
 	float: left;
 	margin: 4px 0 0 4px;
 }
-#plan .requirement {
+.plan .requirement {
 	float: left;
 	display: block;
 	width: 30px;
@@ -66,7 +66,7 @@
 	border-color: transparent;
 	background-image: url(http://github.com/images/gravatars/gravatar-30.png);
 }
-#plan .assignment {
+.plan .assignment {
 	display: block;
 	height: 26px;
 	width: 30px;
@@ -74,14 +74,14 @@
 	overflow: hidden;
 	z-index: 999;
 }
-#plan h3 {
+.plan h3 {
 	float: right;
 	margin: 1em 1em 0 0;
 	font-size: 0.9em;
 	font-style: italic;
 	color: #666;
 }
-#plan .shifts .resize_handle {
+.plan .shifts .resize_handle {
 	position: absolute;
 	display: block;
 	top: 0;
@@ -89,16 +89,16 @@
 	width: 10px;
 	cursor: col-resize;
 }
-#plan .shifts .resize_handle.left {
+.plan .shifts .resize_handle.left {
 	left: 0;
 	cursor: w-resize;
 }
-#plan .shifts .resize_handle.right {
+.plan .shifts .resize_handle.right {
 	right: 0;
 	cursor: e-resize;
 }
 
-#plan .shifts .unsuitable_workplace {
+.plan .shifts .unsuitable_workplace {
   background-color: #ccc;
 }
 

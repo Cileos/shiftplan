@@ -12,7 +12,7 @@ var Plan = {
 		});
 	},
 	start: function() {
-		return $("#plan").attr("data-start");
+		return $(".plan").attr("data-start");
 	},
 	minutes_per_slot: function() {
 		return parseInt(60 / Plan.slots_per_hour);

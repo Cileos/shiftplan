@@ -97,7 +97,7 @@ namespace :db do
       tuesday_morning = monday_morning + 1.day
 
       plan = Plan.find_by_name('Plan 1')
-      p plan
+
       kitchen   = Workplace.find_by_name('Küche')
       bar       = Workplace.find_by_name('Bar')
       reception = Workplace.find_by_name('Rezeption')
