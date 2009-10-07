@@ -1,0 +1,8 @@
+--- 
+vendor/plugins/steam: 
+  branch: master
+  remote: braid/vendor/plugins/steam
+  revision: dc5405b0c17893d4e37b60115522a72c164ccb58
+  squashed: true
+  type: git
+  url: git@github.com:svenfuchs/steam.git
