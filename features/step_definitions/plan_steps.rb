@@ -3,16 +3,3 @@ Given /^the following plans:$/ do |plans|
     Plan.create!(attributes)
   end
 end
-
-
-Then /^I should see an employee named "([^\"]*)" listed in the sidebar$/ do |arg1|
-  pending
-end
-
-Then /^I should see a workplace named "([^\"]*)" listed in the sidebar$/ do |arg1|
-  pending
-end
-
-Then /^I should see a qualification named "([^\"]*)" listed in the sidebar$/ do |arg1|
-  pending
-end

@@ -26,15 +26,22 @@ Given /^the following shifts:$/ do |shifts|
   end
 end
 
-Then /^I should see a shift for the (.*) on ([\d-]*), starting at ([\d:]*), lasting ([\d]*) minutes, containing ([\d]*) requirements? for (?:(any) qualification|a (.*))(?: and an assignment for ([\w ]*))?$/ do |workplace, date, time, duration, requirements_count, qualification, *assignee|
-  # p workplace, date, time, duration, requirements_count, qualification, assignee
-  date = date.gsub('-', '')
-  day = page.getByXPath(%(html/body//*[@data-day="#{date}"])).get(0)
-  day.should_not be_nil
-  
-  shift = within(day) do
-    find_element()
+Then /^I should see a shift for the (.*) on ([\d-]*), starting at ([\d:]*), lasting ([\d]*) minutes, containing ([\d]*) requirements? for (?:(any) qualification|a (.*))(?: and an assignment for ([\w ]*))?$/ \
+  do |workplace, date, time, duration, requirements_count, qualification, *assignee|
+
+  qualification = Qualification.find_by_name(qualification)
+  # assignee = User.find_by_name(assignee)
+
+  find_element(:class => 'day', :'data-day' => date.gsub('-', '')) do
+    find_element(:class => /shift/) do
+      find_element(workplace).should_not be_nil
+      find_element(:class => 'requirement') do |element|
+        element.getClassAttribute.should_match /"qualification_#{qualification.id}"/
+      end if qualification
+      # find_elements(:class => /requirement/).count.should_by requirements_count.to_i
+      if assignee
+        # TODO
+      end
+    end
   end
-#    find_element(workplace).should_not be_nil
-  
 end

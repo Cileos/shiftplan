@@ -9,6 +9,12 @@ class Employee < ActiveRecord::Base
 
   named_scope :active, :conditions => { :active => true }
   named_scope :inactive, :conditions => { :active => false }
+    
+  class << self
+    def find_by_name(name)
+      find_by_first_name_and_last_name(*name.split(' '))
+    end
+  end
 
   def has_qualification?(qualification)
     qualifications.include?(qualification)

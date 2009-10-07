@@ -13,9 +13,9 @@ Feature: THE plan
 			| Kitchen   |
 			| Bar       |
 		And the following employees:
-      | name             | qualifications |
-      | Clemens Kofler   | Chef           |
-      | Laura Kozlowski  | Barkeeper      |
+      | name             | initials | qualifications |
+      | Clemens Kofler   | CK       | Chef           |
+      | Laura Kozlowski  | LK       | Barkeeper      |
 		And the following plans:
 			| name     | start            | end              |
 			| Plan 1   | 2009-09-09 08:00 | 2009-09-12 20:00 |
