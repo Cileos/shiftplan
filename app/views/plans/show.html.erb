@@ -30,7 +30,7 @@
 <!--
 -->
 
-<div id="plan" data-start="<%= @plan.start_in_minutes %>" data-duration="<%= @plan.duration_in_minutes %>">
+<div id="plan" data-start="<%= @plan.start_time_in_minutes %>" data-duration="<%= @plan.duration %>">
   <% @plan.days.each do |day| -%>
 		<div class="day" data-day="<%= day.strftime('%Y%m%d') %>">
 			<h2><%= l(day, :format => "%A, %d. %B %y") %></h2>

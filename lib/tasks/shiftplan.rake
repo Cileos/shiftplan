@@ -19,6 +19,16 @@ namespace :db do
       Location.create!(:name => 'Zentrum 2')
     end
 
+    desc 'Seed plans'
+    task :locations => :environment do
+      Plan.delete_all
+
+      monday_morning   = Date.parse('2009-09-07 08:00')
+      friday_afternoon = Date.parse('2009-09-11 16:00')
+
+      Plan.create!(:name => 'Plan 1', :start => monday_morning, :end => friday_afternoon)
+    end
+
     desc 'Seed qualifications'
     task :qualifications => :environment do
       Qualification.delete_all
@@ -82,9 +92,11 @@ namespace :db do
     task :shifts => :environment do
       Shift.delete_all
       
-      monday = Date.today.beginning_of_week
-      tuesday = monday + 1.day
+      monday_morning = Datetime.parse('2009-09-07 8:00')
+      monday_morning = monday + 1.day
 
+      plan = Plan.find_by_name('Plan 1')
+      
       kitchen   = Workplace.find_by_name('Küche')
       bar       = Workplace.find_by_name('Bar')
       reception = Workplace.find_by_name('Rezeption')
@@ -94,17 +106,17 @@ namespace :db do
       # barkeeper         = Qualification.find_by_name('Barkeeper')
       # receptionist      = Qualification.find_by_name('Rezeptionist')
 
-      kitchen_shift_1 = Shift.create!(:workplace => kitchen, :start => monday + 7.hours, :end => monday + 11.hours)
-      kitchen_shift_2 = Shift.create!(:workplace => kitchen, :start => monday + 11.hours, :end => monday + 15.hours)
+      kitchen_shift_1 = Shift.create!(:plan => plan, :workplace => kitchen, :start => monday_morning, :end => monday_morning + 8.hours)
+      kitchen_shift_2 = Shift.create!(:plan => plan, :workplace => kitchen, :start => monday_morning + 3.hours, :end => monday_morning + 15.hours)
 
-      bar_shift_1 = Shift.create!(:workplace => bar, :start => monday + 9.hours, :end => monday + 12.hours)
-      bar_shift_2 = Shift.create!(:workplace => bar, :start => monday + 12.hours, :end => monday + 16.hours)
+      bar_shift_1 = Shift.create!(:plan => plan, :workplace => bar, :start => monday + 9.hours, :end => monday + 12.hours)
+      bar_shift_2 = Shift.create!(:plan => plan, :workplace => bar, :start => monday + 12.hours, :end => monday + 16.hours)
 
-      kitchen_shift_3 = Shift.create!(:workplace => kitchen, :start => tuesday + 7.hours, :end => tuesday + 11.hours)
-      kitchen_shift_4 = Shift.create!(:workplace => kitchen, :start => tuesday + 11.hours, :end => tuesday + 15.hours)
+      kitchen_shift_3 = Shift.create!(:plan => plan, :workplace => kitchen, :start => tuesday + 7.hours, :end => tuesday + 11.hours)
+      kitchen_shift_4 = Shift.create!(:plan => plan, :workplace => kitchen, :start => tuesday + 11.hours, :end => tuesday + 15.hours)
 
-      bar_shift_3 = Shift.create!(:workplace => bar, :start => tuesday + 9.hours, :end => tuesday + 12.hours)
-      bar_shift_4 = Shift.create!(:workplace => bar, :start => tuesday + 12.hours, :end => tuesday + 16.hours)
+      bar_shift_3 = Shift.create!(:plan => plan, :workplace => bar, :start => tuesday + 9.hours, :end => tuesday + 12.hours)
+      bar_shift_4 = Shift.create!(:plan => plan, :workplace => bar, :start => tuesday + 12.hours, :end => tuesday + 16.hours)
 
       # reception_shift_1 = Shift.create!(:workplace => reception, :start => beginning_of_week + 6.hours, :end => beginning_of_week + 16.hours)
       # reception_shift_2 = Shift.create!(:workplace => reception, :start => beginning_of_week + 16.hours, :end => beginning_of_week + 26.hours)

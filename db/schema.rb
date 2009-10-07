@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20091003161427) do
 
   create_table "assignments", :force => true do |t|
     t.integer  "requirement_id"
-    t.integer  "employee_id"
+    t.integer  "assignee_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -60,6 +60,16 @@ ActiveRecord::Schema.define(:version => 20091003161427) do
 
   add_index "memberships", ["user_id", "account_id"], :name => "index_memberships_on_user_id_and_account_id", :unique => true
 
+  create_table "plans", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "name"
+    t.datetime "start"
+    t.datetime "end"
+    t.integer  "duration"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "qualifications", :force => true do |t|
     t.string "name"
     t.string "color", :limit => 6
@@ -73,9 +83,11 @@ ActiveRecord::Schema.define(:version => 20091003161427) do
   end
 
   create_table "shifts", :force => true do |t|
+    t.integer  "plan_id"
     t.integer  "workplace_id"
     t.datetime "start"
     t.datetime "end"
+    t.integer  "duration"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

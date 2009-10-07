@@ -2,7 +2,7 @@ require 'culerity'
 
 # wtf?
 Culerity::RemoteBrowserProxy.class_eval do
-  undef_method :label
+  undef_method :label if method_defined?(:label)
 end
 
 Before do
@@ -62,11 +62,12 @@ end
 Then /I should see "(.*)"/ do |text|
   # if we simply check for the browser.html content we don't find content that has been added dynamically, e.g. after an ajax call
   div = $browser.div(:text, /#{text}/)
+  # div = $browser.body(:text, /#{text}/)
   begin
     div.html
   rescue
-    #puts $browser.html
-    raise("div with '#{text}' not found")
+    # puts $browser.html
+    raise("div with '#{text}' not found in #{$browser.html}")
   end
 end
 
@@ -87,10 +88,11 @@ def assert_successful_response
     $browser.goto location
     assert_successful_response
   elsif status != 200
-    tmp = Tempfile.new 'culerity_results'
-    tmp << $browser.html
-    tmp.close
-    `open -a /Applications/Safari.app #{tmp.path}`
-    raise "Brower returned Response Code #{$browser.page.web_response.status_code}"
+    puts $browser.html
+    # tmp = Tempfile.new 'culerity_results'
+    # tmp << $browser.html
+    # tmp.close
+    # `open -a /Applications/Safari.app #{tmp.path}`
+    # raise "Brower returned Response Code #{$browser.page.web_response.status_code}"
   end
 end

@@ -16,13 +16,14 @@
     <%= yield(:head) %>
   </head>
   <body>
-    <ul id="navigation">
-      <li><%= link_to t(:overview), root_path %></li>
-      <li><%= link_to t(:plans), plan_path(1) %></li>
-      <li><%= link_to t(:workplaces), workplaces_path %></li>
-      <li><%= link_to t(:employees), employees_path %></li>
-    </ul>
-
-    <%= yield %>
+		<div>
+	    <ul id="navigation">
+	      <li><%= link_to t(:overview), root_path %></li>
+	      <li><%= link_to t(:plans), plan_path(1) %></li>
+	      <li><%= link_to t(:workplaces), workplaces_path %></li>
+	      <li><%= link_to t(:employees), employees_path %></li>
+	    </ul>
+	    <%= yield %>
+		</div>
   </body>
 </html>

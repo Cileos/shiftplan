@@ -1,15 +1,23 @@
-class Plan
-  attr_accessor :shifts
+class Plan < ActiveRecord::Base
+  has_many :shifts
+
+  before_validation :set_duration
 
   def days
-    shifts.first.start.to_date..(shifts.first.start + 6.days).to_date
+    (self.start.to_date)..(self.end.to_date)
   end
 
-  def start_in_minutes
-    shifts.map(&:start_in_minutes).min
+  def start_time_in_minutes
+    self.start.hour * 60 + self.start.min
   end
 
-  def duration_in_minutes
-    shifts.map(&:end_in_minutes).max - shifts.map(&:start_in_minutes).min
+  def end_time_in_minutes
+    self.end.hour * 60 + self.end.min
   end
+
+  protected
+
+    def set_duration
+      self.duration = end_time_in_minutes - start_time_in_minutes
+    end
 end

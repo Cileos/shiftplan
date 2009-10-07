@@ -7,7 +7,7 @@ describe Assignment do
 
   describe "associations" do
     it "should reference an employee" do
-      @assignment.should belong_to(:employee)
+      @assignment.should belong_to(:assignee)
     end
 
     it "should reference a requirement" do

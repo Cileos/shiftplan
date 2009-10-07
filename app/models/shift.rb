@@ -1,28 +1,22 @@
 class Shift < ActiveRecord::Base
   belongs_to :workplace
   has_many :requirements
+  belongs_to :plan
 
   validates_presence_of :start, :end
-  # TODO: validate workplace? validate :end after :start?
+  validate :start_before_end
 
   before_create :build_requirements
+  before_validation :synchronize_duration_end_time, :if => lambda { |shift| !!shift.start }
 
   default_scope :order => "start ASC, end ASC"
 
-  def duration
-    self.end - self.start
-  end
-
-  def duration_in_minutes
-    (duration / 1.minute).round
-  end
-
   def start_in_minutes
-    self.start.hour * 60 + self.start.min
+    start.hour * 60 + start.min
   end
 
   def end_in_minutes
-    self.end.hour * 60 + self.end.min
+    start_in_minutes + duration
   end
 
   # temporary?
@@ -32,9 +26,21 @@ class Shift < ActiveRecord::Base
 
   protected
 
+    def synchronize_duration_end_time
+      if self.duration && self.end.nil?
+        self.end = self.start + self.duration.minutes
+      elsif self.end && self.duration.nil?
+        self.duration = ((self.end - self.start) / 60).round
+      end
+    end
+
     def build_requirements
       workplace.workplace_requirements.each do |requirement|
         requirement.quantity.times { requirements.build(:qualification => requirement.qualification) }
       end
+    end
+
+    def start_before_end
+      errors.add_to_base("Start must be before end") unless self.start && self.end && self.start < self.end
     end
 end
