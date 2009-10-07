@@ -1,5 +1,6 @@
 Given /^the following shifts:$/ do |shifts|
   shifts.hashes.each do |attributes|
+    plan = Plan.find_or_create_by_name(attributes['plan'])
     workplace = Workplace.find_or_create_by_name(attributes['workplace'])
     start, duration = attributes['start'], attributes['duration']
 
@@ -16,6 +17,7 @@ Given /^the following shifts:$/ do |shifts|
     end
 
     Shift.create!(
+      :plan => plan,
       :workplace => workplace,
       :requirements => requirements,
       :start => start,

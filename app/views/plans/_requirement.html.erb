@@ -1,3 +1,9 @@
-<% content_tag_for(:li, requirement, :class => "qualification_#{requirement.qualification.id}") do %>
-	<%= link_to '', employee_path(requirement.assignment.assignee), :class => "assignment #{dom_id(employee)} qualification_#{requirement.qualification.id}} dialog" if requirement.assignment %>
+<% 
+	qualification = requirement.qualification
+	assignee = requirement.assignment && requirement.assignment.assignee
+	link = link_to('', employee_path(assignee), :class => "assignment #{dom_id(assignee)} qualification_#{qualification.id}} dialog") if assignee
+%>
+
+<% content_tag_for(:li, requirement, :class => qualification ? "qualification_#{qualification.id}" : '') do %>
+	<%= link %>
 <% end %>

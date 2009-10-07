@@ -8,19 +8,22 @@ Feature: THE plan
 			| name      |
 			| Chef      |
 			| Barkeeper |
-    Given the following workplaces:
+    And the following workplaces:
 			| name      |
 			| Kitchen   |
 			| Bar       |
-		Given the following employees:
+		And the following employees:
       | name             | qualifications |
       | Clemens Kofler   | Chef           |
       | Laura Kozlowski  | Barkeeper      |
-		Given the following shifts:
-			| workplace | requirements        | start            | duration |
-			| Kitchen   | any                 | 2009-09-09 08:00 | 240      |
-			| Kitchen   | Chef:Clemens Kofler | 2009-09-09 09:00 | 240      |
-			| Bar       | Barkeeper           | 2009-09-09 12:00 | 240      |
+		And the following plans:
+			| name     | start            | end              |
+			| Plan 1   | 2009-09-09 08:00 | 2009-09-12 20:00 |
+		And the following shifts:
+			| plan   | workplace | requirements        | start            | duration |
+			| Plan 1 | Kitchen   | any                 | 2009-09-09 08:00 | 240      |
+			| Plan 1 | Kitchen   | Chef:Clemens Kofler | 2009-09-09 09:00 | 240      |
+			| Plan 1 | Bar       | Barkeeper           | 2009-09-09 12:00 | 240      |
 
 	@wip
 	Scenario: Viewing a plan

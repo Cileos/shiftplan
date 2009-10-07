@@ -1,11 +1,11 @@
 class PlansController < ApplicationController
   def index
-    redirect_to plan_path(1)
+    redirect_to plan_path(Plan.first)
   end
 
   def show
-    @plan = Plan.new
-    @plan.shifts = Shift.all
+    @plan = Plan.find(params[:id])
+    # @plan.shifts = Shift.all
     @shifts_by_day = @plan.shifts.group_by(&:day)
 
     @employees = Employee.all

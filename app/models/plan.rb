@@ -4,11 +4,11 @@ class Plan < ActiveRecord::Base
   before_validation :set_duration
 
   def days
-    (self.start.to_date)..(self.end.to_date)
+    (start.to_date)..(self.end.to_date)
   end
 
   def start_time_in_minutes
-    self.start.hour * 60 + self.start.min
+    start.hour * 60 + start.min
   end
 
   def end_time_in_minutes
