@@ -1,0 +1,19 @@
+class ShiftPresenter < Presenter
+  def attributes
+    { 
+      :class => dom_id(workplace),
+      :'data-workplace-id' => workplace_id, 
+      :'data-start' => start_in_minutes, 
+      :'data-duration' => duration
+    }
+  end
+  
+  def render
+    content_tag_for(:li, shift, attributes) do
+      h3(workplace.name) +
+      ul(:class => 'requirements') do
+    		requirements.map { |requirement| presenter_for(requirement) }
+      end
+    end
+  end
+end

@@ -1,23 +1,17 @@
 <div id="sidebar">
 	<h3><%= t(:employees) %></h3>
 	<ul id="employees">
-	  <% employees.each do |employee| -%>
-		<li><%= link_to employee.initials, employee_path(employee), :class => "employee #{dom_id(employee)} dialog", :'data-qualifications' => employee.qualifications.map { |q| dom_id(q) }.join(', '), :'data-possible-workplaces' => employee.possible_workplaces.map { |w| dom_id(w) }.join(', ') %></li>
-		<% end -%>
+	  <%= employees.map { |model| presenter_for(model) } -%>
 	</ul>
 
 	<h3><%= t(:workplaces) %></h3>
 	<ul id="workplaces">
-	  <% workplaces.each do |workplace| -%>
-		<li><%= link_to workplace.name, workplace_path(workplace), :class => "workplace #{dom_id(workplace)} dialog", :'data-workplace-id' => workplace.id, :'data-default-shift-length' => workplace.default_shift_length, :'data-default-staffing' => workplace.default_staffing.to_json %></li>
-		<% end -%>
+	  <%= workplaces.map { |model| presenter_for(model) } -%>
 	</ul>
 
   <h3><%= t(:qualifications)%></h3>
 	<ul id="qualifications">
-	  <% qualifications.each do |qualification| -%>
-		<li><%= link_to qualification.name, "/qualifications/#{qualification.id}", :class => "qualification qualification_#{qualification.id} dialog", :'data-possible-workplaces' => qualification.possible_workplaces.map { |w| dom_id(w) }.join(', ') %></li>
-		<% end -%>
+	  <%= qualifications.map { |model| presenter_for(model) } -%>
 		<!--<li><a href="#" class="qualification any">(Beliebig)</a></li>-->
 	</ul>
 </div>

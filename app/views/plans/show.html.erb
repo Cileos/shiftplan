@@ -27,18 +27,7 @@
     border-color: transparent;
   }
 </style>
-<!--
--->
 
-<div id="plan" data-start="<%= @plan.start_time_in_minutes %>" data-duration="<%= @plan.duration %>">
-  <% @plan.days.each do |day| -%>
-		<div class="day" data-day="<%= day.strftime('%Y%m%d') %>">
-			<h2><%= l(day, :format => "%A, %d. %B %y") %></h2>
-			<ul class="shifts">
-			  <%= render :partial => 'shift', :collection => Array(@shifts_by_day[day]) %>
-			</ul>
-		</div>
-	<% end -%>
-</div>
+<%= presenter_for(@plan) %>
 
 <%= render :partial => 'sidebar', :locals => { :employees => @employees, :workplaces => @workplaces, :qualifications => @qualifications } %>

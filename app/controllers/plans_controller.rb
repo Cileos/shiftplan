@@ -1,17 +1,32 @@
 class PlansController < ApplicationController
+  before_filter :set_plan,           :only => :show
+  before_filter :set_employees,      :only => :show
+  before_filter :set_workplaces,     :only => :show
+  before_filter :set_qualifications, :only => :show
+  
   def index
     redirect_to plan_path(Plan.first)
   end
 
   def show
-    @plan = Plan.find(params[:id])
-    # @plan.shifts = Shift.all
-    @shifts_by_day = @plan.shifts.group_by(&:day)
-
-    @employees = Employee.all
-    @workplaces = Workplace.active
-    @qualifications = Qualification.all
-
     render :layout => !request.xhr?
   end
+
+  protected
+  
+    def set_plan 
+      @plan = Plan.find(params[:id])
+    end
+  
+    def set_employees
+      @employees = Employee.all
+    end
+  
+    def set_workplaces
+      @workplaces = Workplace.active
+    end
+  
+    def set_qualifications
+      @qualifications = Qualification.all
+    end
 end

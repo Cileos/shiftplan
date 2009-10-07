@@ -1,5 +1,9 @@
 class Plan < ActiveRecord::Base
-  has_many :shifts
+  has_many :shifts do
+    def by_day
+      all.group_by(&:day)
+    end
+  end
 
   before_validation :set_duration
 
