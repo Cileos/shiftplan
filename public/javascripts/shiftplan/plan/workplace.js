@@ -20,11 +20,13 @@ Workplace.prototype = $.extend(new Resource, {
   },
 	bind_events: function() {
 		$('div', this.element).draggable({
-			helper: 'clone'
+			helper: 'clone',
+			start: function() {
+			  document.title = 'dragging!'
+			}
 		});
 	},
 	name: function() {
 		return this.element[0].innerHTML.replace(/<\/?[^>]+>/gi, '');
 	},
 });
-

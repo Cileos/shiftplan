@@ -68,10 +68,11 @@ Shifts.prototype = $.extend(new Resource, {
 			accept: "#workplaces a div, .plan .requirement, .plan .assignment",
 			tolerance: 'touch',
 			greedy: true,
-			drop: Shifts.on_workplace_drop,
+			// drop: Shifts.on_workplace_drop,
 			drop: Shifts.on_drop,
 			over: Shifts.on_workplace_over,
 			out:  Shifts.on_workplace_out
 		});
+		this.element.mouseover(function() { document.title = 'OVER!'; });
 	},
 });

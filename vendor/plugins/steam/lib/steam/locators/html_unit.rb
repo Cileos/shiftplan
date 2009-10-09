@@ -86,6 +86,25 @@ module Steam
       def click_area(selector)
         find_area(selector).click
       end
+      
+      def click(*args)
+        # element = find_element(*args)
+        element = args.first
+        @page = element.click
+      end
+      
+      def drag(*args)
+        # element = find_element(*args)
+        element = args.first
+        @page = element.mouseDown
+      end
+      
+      def drop(*args)
+        # element = find_element(*args)
+        element = args.first
+        element.mouseMove
+        @page = element.mouseUp
+      end
 
       def drag_and_drop(selector, options = {})
         drag = find_element(selector)
@@ -122,7 +141,7 @@ module Steam
 
           locator = lambda { type.new(page, *args).locate }
           element = scope ? within(scope) { locator.call } : locator.call
-          element = within(element) { yield(element) } if block_given?
+          element = within(element) { yield(element) } if element && block_given?
           element
         end
 
