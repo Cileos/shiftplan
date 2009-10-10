@@ -21,7 +21,7 @@ module Steam
 
         def xpath(type)
           "#{scope}//#{type}" + attributes.map do |name, value| 
-            "[@#{name}=\"#{value}\"]"
+            "[contains(@#{name}, \"#{value}\")]"
           end.join
 
           # return "#{scope}//#{type}" if attributes.empty?

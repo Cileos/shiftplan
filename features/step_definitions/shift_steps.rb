@@ -31,15 +31,21 @@ Then /^I should see the following shifts, required qualifications and assignment
     find_element(:class => 'day', :'data-day' => attributes['date'].gsub('-', '')) do |day|
       workplace = Workplace.find_by_name(attributes['workplace'])
       
-      find_element(:'data-workplace-id' => workplace.id) do |shift|
+      find_element(:class => 'shift', :'data-workplace-id' => workplace.id) do |shift|
         attributes['qualifications'].split(',').map(&:strip).each do |qualification|
           qualification_name, assignee_name = qualification.split(':')
+          requirement = find_element(:ul) { find_element(:class => 'requirement') }
+
+          unless qualification_name == 'any'
+            qualification = Qualification.find_by_name(qualification_name)
+            requirement.getClassAttribute.should include("qualification_#{qualification.id}")
+          end
           
-          # FIXME
-          # unless qualification_name == 'any'
-          #   qualification = Qualification.find_by_name(qualification_name)
-          #   find_element(:id => "qualification_#{qualification.id}").should_not be_nil
-          # end
+          if assignee_name
+            assignee = Employee.find_by_name('Clemens Kofler')
+            assignment = within(requirement) { find_element(:class => 'assignment') }
+            assignment.getClassAttribute.should include("employee_#{assignee.id}")
+          end
         end
       end
     end

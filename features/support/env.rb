@@ -6,22 +6,19 @@ require 'rubygems'
 # require 'cucumber/formatter/unicode'
 # require 'cucumber/rails/rspec'
 
+# ActionController::Base.allow_rescue = false
+
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 require 'steam'
 
-ActiveRecord::Base.establish_connection(:test)
-# ActionController::Base.allow_rescue = false
+browser = Steam::Browser::HtmlUnit.new #(connection)
+# root   = File.expand_path(RAILS_ROOT + '/public')
+# static = Connection::Static.new(:root => root)
+# rails  = Connection::Rails.new
+# connection = Rack::Cascade.new([static, rails])
 
 World do
-  include Steam
-
-  # root   = File.expand_path(RAILS_ROOT + '/public')
-  # static = Connection::Static.new(:root => root)
-  # rails  = Connection::Rails.new
-  # connection = Rack::Cascade.new([static, rails])
-
-  browser    = Browser::HtmlUnit.new #(connection)
-  @session   = Session::Rails.new(browser)
+  @session = Steam::Session::Rails.new(browser)
 end
 
 Before do
@@ -34,6 +31,7 @@ end
 # end
 # 
 # Spork.each_run do
+#   ActiveRecord::Base.establish_connection(:test)
 # end
-
-
+# 
+# 

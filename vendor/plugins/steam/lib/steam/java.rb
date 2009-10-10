@@ -20,12 +20,6 @@ module Steam
           @initialized = true
           set_classpath!
           import_common!
-          
-          # System.getProperties().put("org.apache.commons.logging.simplelog.defaultlog", "ERROR");
-          # System.getProperties().put("log4j.logger.com.gargoylesoftware.htmlunit.javascript.DebugFrameImpl", "ERROR");
-          # System.getProperties().put("log4j.logger.com.gargoylesoftware.htmlunit.WebTestCase", "ERROR");
-          # System.getProperties().put("log4j.logger.com.gargoylesoftware.htmlunit", "ERROR");
-          # System.getProperties().put("log4j.logger.org.apache.commons", "ERROR");
         end
         
         def import_common!
