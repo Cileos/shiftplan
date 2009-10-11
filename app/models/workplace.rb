@@ -52,6 +52,19 @@ class Workplace < ActiveRecord::Base
     end
   end
 
+  def form_values_json
+    qualifications = Qualification.all.collect { |qualification| "'#{qualification.id}'" if needs_qualification?(qualification) }.compact.join(', ')
+    json = <<-json
+      {
+        name: '#{name}',
+        active: #{active?},
+        default_shift_length: #{default_shift_length || 0},
+        qualifications: [#{qualifications}]
+      }
+    json
+    json.gsub("\n", ' ').strip
+  end
+
   protected
 
     def generate_color
