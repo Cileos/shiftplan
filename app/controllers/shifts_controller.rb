@@ -1,6 +1,6 @@
 class ShiftsController < ApplicationController
-  before_filter :parse_times, :only => [:create, :update]
   before_filter :set_shift
+  before_filter :parse_times, :only => [:create, :update]
 
   def create
     if @shift.save
@@ -50,11 +50,8 @@ class ShiftsController < ApplicationController
     end
 
     def parse_times
-      plan = Plan.new # FIXME hack!
-      plan.shifts = Shift.all
-
       day          = Date.strptime(params[:shift].delete(:day), '%Y%m%d')
-      start        = plan.start_in_minutes + params[:shift].delete(:start).to_i
+      start        = @shift.plan.start_time_in_minutes + params[:shift].delete(:start).to_i
       duration     = params[:shift].delete(:duration).to_i
 
       params[:shift][:start] = day + start.minutes

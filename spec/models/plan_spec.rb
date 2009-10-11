@@ -42,11 +42,11 @@ describe Plan do
     @plan.days.should == (Date.parse('2009-09-07')..Date.parse('2009-09-11'))
   end
 
-  it "start_in_minutes returns the start_time in minutes" do
+  it "start_time_in_minutes returns the start_time in minutes" do
     @plan.start_time_in_minutes.should == 8 * 60 + 30
   end
 
-  it "end_in_minutes returns the end_time in minutes" do
+  it "end_time_in_minutes returns the end_time in minutes" do
     @plan.end_time_in_minutes.should == 16 * 60 + 30
   end
 end
