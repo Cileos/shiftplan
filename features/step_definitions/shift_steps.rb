@@ -34,26 +34,13 @@ end
 
 Then /^I should see the following shifts, required qualifications and assignments:$/ do |shifts|
   shifts.hashes.each do |attributes|
-    workplace = Workplace.find_by_name(attributes['workplace'])
-    
-    find_element(:class => 'day', :'data-day' => attributes['date'].gsub('-', '')) do |day|
-      find_element(:class => 'shift', :'data-workplace-id' => workplace.id) do |shift|
-        attributes['qualifications'].split(',').map(&:strip).each do |qualification|
-          qualification_name, assignee_name = qualification.split(':')
-          requirement = find_element(:ul) { find_element(:class => 'requirement') }
-
-          unless qualification_name == 'any'
-            qualification = Qualification.find_by_name(qualification_name)
-            requirement.getClassAttribute.should include("qualification_#{qualification.id}")
-          end
-
-          if assignee_name
-            assignee = Employee.find_by_name('Clemens Kofler')
-            assignment = within(requirement) { find_element(:class => 'assignment') }
-            assignment.getClassAttribute.should include("employee_#{assignee.id}")
-          end
-        end
-      end
+    date, workplace, qualifications = attributes.values_at('date', 'workplace', 'qualifications')
+    qualifications.split(',').map(&:strip).each do |qualification|
+      qualification, assignee = qualification.split(':')
+      element = assignee ?
+        locate_assignment(assignee, date, workplace, qualification) :
+        locate_requirement(date, workplace, qualification)
+      element.should_not be_nil
     end
   end
 end

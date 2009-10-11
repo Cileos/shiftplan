@@ -33,14 +33,20 @@ module PlanHelpers
   def locate_shift(date, workplace, &block)
     locate_day(date) do 
       workplace = Workplace.find_by_name(workplace)
-      find_element(:class => "workplace_#{workplace.id}", &block)
+      find_element(:class => 'shift', :class => "workplace_#{workplace.id}", &block)
     end
   end
   
   def locate_requirement(date, workplace, qualification, &block)
-    locate_shift(date, workplace) do 
-      qualification = Qualification.find_by_name(qualification)
-      find_element(:class => "qualification_#{qualification.id}", &block)
+    locate_shift(date, workplace) do |shift|
+      find_element(:class => 'requirements') do
+        if qualification == 'any'
+          find_element(:class => "requirement", &block)
+        else
+          qualification = Qualification.find_by_name(qualification)
+          find_element(:class => "qualification_#{qualification.id}", &block)
+        end
+      end
     end
   end
   
@@ -51,9 +57,19 @@ module PlanHelpers
     end
   end
   
-  def locate_employee(employee)
-    employee = Employee.find_by_name(employee)
+  def locate_employee(name)
+    employee = Employee.find_by_name(name)
     locate_sidebar { find_element(:href => "/employees/#{employee.id}") }
+  end
+  
+  def locate_workplace(name)
+    workplace = Workplace.find_by_name(name)
+    locate_sidebar { find_element(:href => "/workplaces/#{workplace.id}") }
+  end
+  
+  def locate_qualification(name)
+    qualification = Qualification.find_by_name(name)
+    locate_sidebar { find_element(:href => "/qualifications/#{qualification.id}") }
   end
   
   def find_shift(date, workplace)

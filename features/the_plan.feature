@@ -25,6 +25,7 @@ Feature: THE plan
 			| Plan 1 | Kitchen   | Chef:Clemens Kofler | Monday 09:00 | 240      |
 			| Plan 1 | Bar       | Barkeeper           | Monday 12:00 | 240      |
 
+	@wip
 	Scenario: Viewing a plan
 		When I go to the plan show page
 		Then I should see a plan named "Plan 1"
