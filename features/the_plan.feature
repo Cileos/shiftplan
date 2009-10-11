@@ -37,7 +37,6 @@ Feature: THE plan
 		And I should see a workplace named "Kitchen" listed in the sidebar
 		And I should see a qualification named "Chef" listed in the sidebar
 	
-	@wip
 	Scenario: Adding a requirement to a shift
 		Given I am on the plan show page
 		When I drag the workplace "Kitchen"

@@ -7,7 +7,8 @@
 Then /^I should see an? (.*) named "([^\"]*)"$/ do |klass, name|
   css_class = klass.downcase.gsub(/\s+/, ' ').gsub(/\s/, '_')
   name = /#{name}/ unless name.is_a?(Regexp)
-  element = page.getByXPath("html/body//*[@class=\"#{klass}\"]").get(0) # FIXME use find_element
+  # element = page.getByXPath("html/body//*[@class=\"#{klass}\"]").get(0) # FIXME use find_element
+  element = find_element(:class => klass)
   element.getTextContent.should match(name)
 end
 
