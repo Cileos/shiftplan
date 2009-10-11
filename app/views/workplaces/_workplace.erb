@@ -1,4 +1,4 @@
-<% content_tag_for(:li, workplace, :class => workplace.state) do -%>
+<% content_tag_for(:li, workplace, :class => "#{workplace.state} resource", :'data-form-values' => form_values_for(workplace)) do -%>
   <div class="color" style="background-color:<%= workplace.color %>"></div>
 	<h2><%= workplace.name %></h2>
 	<p class="qualifications" title="<%= requirement_list(workplace, :truncate => false) %>"><%= requirement_list(workplace) %>&nbsp;</p>

@@ -1,23 +1,38 @@
 $(document).ready(function() {
-  $('li.workplace').live('click', function(event) {
+  $('li.resource').live('click', function(event) {
     event.preventDefault();
     event.stopPropagation();
 
     // find link with class 'clickable_link' and open a dialog for it
     // createDialogForLink($('a.clickable_link', $(this)));
-    var match = this.id.match(/workplace_(\d+)/);
-    if(match) {
-      var id = parseInt(match[1]);
-      var path = '/workplaces/' + id;
-      var method = 'get';
-      $.ajax({
-        url: path,
-        type: method,
-        dataType: 'json'
-      });
-      $('#workplace_form').attr('target', path)
+    var match = this.id.match(/(.*)_(\d+)/);
+
+    if(match && match[2]) {
+      var resource_name = match[1];
+
+      var id = parseInt(match[2]);
+      var path = '/' + resource_name + 's/' + id;
     } else {
-      // formular umbauen
+      match = this.id.match(/new_(.*)/);
+      var resource_name = match[1];
+      var path = '/' + resource_name;
     }
+
+    $('#sidebar form').attr('action', path);
+
+    var form_values = eval('(' + $(this).attr('data-form-values') + ')');
+    $.each(form_values, function(field, value) {
+      if($.isArray(value)) {
+        $('.' + resource_name + '_' + field).val(value);
+      } else {    
+        var field = $('#' + resource_name + '_' + field);
+
+        if(typeof value == 'boolean') { // assume that true/false goes for checkboxes
+          field.attr('checked', value);
+        } else {
+          field.val(value);
+        }
+      }
+    });
   });
 });

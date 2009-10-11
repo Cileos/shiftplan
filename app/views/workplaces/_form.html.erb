@@ -1,4 +1,4 @@
-<% form_for Workplace.new do |f| %>
+<% form_for Workplace.new, :html => { :id => 'workplace_form' } do |f| %>
 	<fieldset>
 	  <legend><%= t(:base_data, :scope => :'activerecord.attributes.workplace') %></legend>
 	  <div>
@@ -21,7 +21,7 @@
 	    <%= f.label :qualifications %>
 	    <ul class="qualifications">
 	      <% Qualification.all.each do |qualification| -%>
-	        <li><%= check_box_tag 'workplace[qualification_ids][]', qualification.id, f.object.needs_qualification?(qualification), :id => "workplace_qualification_#{qualification.id}" %><%= f.label "qualification_#{qualification.id}", qualification.name %></li>
+	        <li><%= check_box_tag 'workplace[qualification_ids][]', qualification.id, f.object.needs_qualification?(qualification), :id => "workplace_qualification_#{qualification.id}", :class => 'workplace_qualifications' %><%= f.label "qualification_#{qualification.id}", qualification.name %></li>
 	      <% end -%>
 	    </ul>
 	  </div>
