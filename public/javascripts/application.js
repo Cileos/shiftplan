@@ -13,4 +13,12 @@ jQuery(document).ready(function() {
     s.data = s.data + encodeURIComponent(window._auth_token_name)
                     + '=' + encodeURIComponent(window._auth_token);
   });
+
+  $('#sidebar form').ajaxForm({
+    dataType: 'json',
+    beforeSubmit: function(form_data, form, options) {
+      options['type'] = form.attr('action').match(/.*\d+/) ? 'put' : 'post';
+      return true;
+    }
+  });
 });
