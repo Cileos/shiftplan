@@ -12,7 +12,7 @@ Assignment.prototype = $.extend(new Resource, {
   requirement: function() {
     return this.element.closest('.requirement').requirement();
   },
-  employee_id: function() {
+  assignee_id: function() {
     var matches = this.element.attr('class').match(/employee_(\d+)/);
     if(matches) return matches[1];
   },
@@ -27,7 +27,7 @@ Assignment.prototype = $.extend(new Resource, {
 	},
 	serialize: function() {
 	  return 'assignment[requirement_id]=' + this.requirement().id() +
-	         '&assignment[employee_id]=' + this.employee_id();
+	         '&assignment[assignee_id]=' + this.assignee_id();
 	},
 	on_create: function(data, textStatus) {
 	  $('#requirement_' + data['assignment']['requirement_id'] + ' .assignment').attr('id', 'assignment_' + data['assignment']['id']);
