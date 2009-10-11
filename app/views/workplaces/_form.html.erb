@@ -26,9 +26,9 @@
   	      <% end -%>
   	    </ul>
   	  </div>
-  	  <div style="float:left;">
+  	  <ul id="staff_requirements">
   	    <% for qualification in f.object.qualifications -%>
-  	    <div class="staff_requirement_container">
+  	    <li class="staff_requirement_container">
   	      <%= hidden_field_tag "workplace[requirements][#{qualification.id}][quantity]", f.object.required_quantity_for(qualification), :class => 'required_quantity' %>
   	      <h3><%= qualification.name %></h3>
   	      <ul>
@@ -37,9 +37,9 @@
   	        <li class="staff_requirement"></li>
   	        <% end -%>
   	      </ul>
-  	    </div>
+  	    </li>
   	    <% end -%>
-  	  </div>
+  	  </ul>
   	</fieldset>
   	<%= f.submit t(:save) %>
 	</fieldset>

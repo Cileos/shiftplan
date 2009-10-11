@@ -72,26 +72,35 @@ form.new_workplace .right_column, form.edit_workplace .right_column {
   background-repeat: no-repeat;
 }
 
-.staff_requirement_container {
-  float: left;
-  margin-right: 2em;
+#sidebar #staff_requirements, #sidebar #staff_requirements ul {
+  width: 350px;
 }
 
-.staff_requirement_container h3 {
-  margin: 0.75em 0 0.25em 0;
+#sidebar #staff_requirements .staff_requirement_container {
 }
 
-.staff_requirement {
+#sidebar #staff_requirements .staff_requirement_container ul {
+  display: inline;
+}
+
+#sidebar #staff_requirements .staff_requirement_container h3 {
+  margin: 0.75em 0 0.25em 10px;
+  display: inline-block;
+  width: 120px;
+  font-size: 1em;
+}
+
+#sidebar .staff_requirement {
   width: 30px;
   height: 30px; 
   background: #ddd url(http://github.com/images/gravatars/gravatar-30.png) no-repeat;
   border: 1px solid #ddd;
-  float: left;
+  display: inline-block;
   margin-right: 0.25em;
   cursor: pointer;
 }
 
-.staff_requirement.new {
+#sidebar .staff_requirement.new {
   background: green;
   color: #fff;
   text-align: center;
