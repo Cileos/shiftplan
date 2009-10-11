@@ -33,18 +33,18 @@ $.extend(Shifts, {
 		var shift = Shift.build(workplace);
 		shifts.append_shift(shift, left, width);
 		shift.save();
-		shifts.reset_drop_zone();
+		// shifts.reset_drop_zone();
 	},
-	on_workplace_over: function(event, ui) {
-		if(ui.draggable.parent().hasClass('workplace')) {
-			$(this).shifts().expand_drop_zone();
-		}
-	},
-	on_workplace_out: function(event, ui) {
-		if(ui.draggable.parent().hasClass('workplace')) {
-			$(this).shifts().reset_drop_zone();
-		}
-	},
+  // on_workplace_over: function(event, ui) {
+  //  if(ui.draggable.parent().hasClass('workplace')) {
+  //    $(this).shifts().expand_drop_zone();
+  //  }
+  // },
+  // on_workplace_out: function(event, ui) {
+  //  if(ui.draggable.parent().hasClass('workplace')) {
+  //    $(this).shifts().reset_drop_zone();
+  //  }
+  // },
 });
 
 Shifts.prototype = $.extend(new Resource, {
@@ -68,11 +68,9 @@ Shifts.prototype = $.extend(new Resource, {
 			accept: "#workplaces a div, .plan .requirement, .plan .assignment",
 			tolerance: 'touch',
 			greedy: true,
-			// drop: Shifts.on_workplace_drop,
-			drop: Shifts.on_drop,
-			over: Shifts.on_workplace_over,
-			out:  Shifts.on_workplace_out
+			drop: Shifts.on_drop
+      // over: Shifts.on_workplace_over,
+      // out:  Shifts.on_workplace_out
 		});
-		this.element.mouseover(function() { document.title = 'OVER!'; });
 	},
 });

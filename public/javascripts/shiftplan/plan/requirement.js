@@ -45,10 +45,10 @@ Requirement.prototype = $.extend(new Resource, {
 		}
 	},
 	bind_events: function() {
-		$(".requirement").draggable({
+		this.element.draggable({
 			helper: 'clone'
 		});
-		$(".requirement").droppable({
+		this.element.droppable({
 			accept: ".employee div",
 			drop: Requirement.on_employee_drop
 		});

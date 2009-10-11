@@ -7,17 +7,20 @@ $.extend(Shift, Resource);
 $.extend(Shift, {
 	selector: '.shift',
 	build: function(workplace) {
-		var html = '<li id="new_shift" class="shift ' + workplace.dom_id() + '" data-workplace-id="' + workplace.id() + '"><h3>' + workplace.name() + '</h3><ul class="requirements">';
-
 		var default_staffing = workplace.default_staffing();
+
+		var html = '<li id="new_shift" class="shift ' + workplace.dom_id() +
+		  '" data-workplace-id="' + workplace.id() + '"><h3>' + workplace.name() +
+		  '</h3><ul class="requirements">';
     $.each(default_staffing, function() {
       html += '<li class="requirement qualification_' + this + ' ui-draggable ui-droppable"></li>';
     });
-
 		html += '</ul></li>';
+
 		var shift = $(html).shift();
 		shift.init();
 		shift.bind_events();
+		$('.requirement', shift.element).each(function() { $(this).requirement().bind_events(); })
 		return shift;
 	},
 	pixels_to_minutes: function(pixels) {
@@ -30,6 +33,7 @@ $.extend(Shift, {
 	  var shift = $(this).shift();
 		shift.update_data_from_dimension();
 		shift.save();
+		event.stopPropagation();
 	},
 	on_resize: function(event, ui) {
 		var shift = $(this).shift();

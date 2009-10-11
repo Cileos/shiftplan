@@ -17,7 +17,7 @@ Assignment.prototype = $.extend(new Resource, {
     if(matches) return matches[1];
   },
 	bind_events: function() {
-		$(".assignment").draggable({
+		this.element.draggable({
 			helper: 'clone'
 		});
 	},

@@ -20,10 +20,7 @@ Workplace.prototype = $.extend(new Resource, {
   },
 	bind_events: function() {
 		$('div', this.element).draggable({
-			helper: 'clone',
-			start: function() {
-			  document.title = 'dragging!'
-			}
+			helper: 'clone'
 		});
 	},
 	name: function() {
