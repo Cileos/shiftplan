@@ -47,7 +47,7 @@ class ShiftsController < ApplicationController
   protected
 
     def set_plan
-      @plan = Plan.find(1) # FIXME FIXME FIXME
+      @plan = Plan.first # FIXME FIXME FIXME
       # careful: fixing this might require changing routes (e.g. scoping shifts on plans)
       # which in turn might also involve heavy changes to our JS approach ...
     end
