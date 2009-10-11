@@ -2,6 +2,7 @@ class Workplace < ActiveRecord::Base
   self.partial_updates = false
 
   belongs_to :location
+  has_many :shifts
   has_many :workplace_requirements
   has_many :workplace_qualifications
   has_many :qualifications, :through => :workplace_qualifications

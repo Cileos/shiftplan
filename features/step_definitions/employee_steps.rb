@@ -15,8 +15,6 @@ Given /^the following employees:$/ do |employees|
   end
 end
 
-Then /^I should see an employee named "([^\"]*)" listed in the sidebar$/ do |initials|
-  employee = Employee.find_by_initials(initials)
-  element = find_element('sidebar') { find_element(:href => "/employees/#{employee.id}") }
-  element.should_not be_nil
+Then /^I should see an employee named "([^\"]*)" listed in the sidebar$/ do |name|
+  locate_employee(name).should_not be_nil
 end
