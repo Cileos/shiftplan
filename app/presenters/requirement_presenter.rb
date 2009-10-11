@@ -16,6 +16,6 @@ class RequirementPresenter < Presenter
   end
   
   def link_to_assignee
-    link_to('', employee_path(assignee), :class => "assignment #{dom_id(assignee)} qualification_#{qualification.id}} dialog")
+    link_to('', employee_path(assignee), :class => "assignment #{dom_id(assignee)} qualification_#{qualification.id} dialog")
   end
 end

@@ -36,7 +36,7 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     shiftplan/plan
 
     application
-    jquery-ui/ui-lightness/jquery-ui
   )
+  # jquery-ui/ui-lightness/jquery-ui
 end
 

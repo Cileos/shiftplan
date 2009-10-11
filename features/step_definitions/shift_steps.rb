@@ -26,21 +26,27 @@ Given /^the following shifts:$/ do |shifts|
   end
 end
 
-Then /^I should see a shift for the (.*) on ([\d-]*), starting at ([\d:]*), lasting ([\d]*) minutes, containing ([\d]*) requirements? for (?:(any) qualification|a (.*))(?: and an assignment for ([\w ]*))?$/ \
-  do |workplace, date, time, duration, requirements_count, qualification, *assignee|
+Then /^I should see the following shifts, required qualifications and assignments:$/ do |shifts|
+  shifts.hashes.each do |attributes|
+    find_element(:class => 'day', :'data-day' => attributes['date'].gsub('-', '')) do |day|
+      workplace = Workplace.find_by_name(attributes['workplace'])
+      
+      find_element(:class => 'shift', :'data-workplace-id' => workplace.id) do |shift|
+        attributes['qualifications'].split(',').map(&:strip).each do |qualification|
+          qualification_name, assignee_name = qualification.split(':')
+          requirement = find_element(:ul) { find_element(:class => 'requirement') }
 
-  qualification = Qualification.find_by_name(qualification)
-  # assignee = User.find_by_name(assignee)
-
-  find_element(:class => 'day', :'data-day' => date.gsub('-', '')) do
-    find_element(:class => /shift/) do
-      find_element(workplace).should_not be_nil
-      find_element(:class => 'requirement') do |element|
-        element.getClassAttribute.should_match /"qualification_#{qualification.id}"/
-      end if qualification
-      # find_elements(:class => /requirement/).count.should_by requirements_count.to_i
-      if assignee
-        # TODO
+          unless qualification_name == 'any'
+            qualification = Qualification.find_by_name(qualification_name)
+            requirement.getClassAttribute.should include("qualification_#{qualification.id}")
+          end
+          
+          if assignee_name
+            assignee = Employee.find_by_name('Clemens Kofler')
+            assignment = within(requirement) { find_element(:class => 'assignment') }
+            assignment.getClassAttribute.should include("employee_#{assignee.id}")
+          end
+        end
       end
     end
   end
