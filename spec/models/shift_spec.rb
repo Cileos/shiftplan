@@ -2,16 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Shift do
   def now
-    @now ||= Time.parse('2009-09-09 12:00')
+    @now ||= Time.local(2009, 9, 9, 12, 0)
   end
 
   before(:each) do
-    @shift = Shift.new do |s|
-      s.workplace_id = 1
-      s.start        = now
-      s.end          = now + 2.hours
-      s.duration     = nil
-    end
+    @shift = Shift.new
   end
 
   describe "associations" do
@@ -31,6 +26,15 @@ describe Shift do
 
     it "should require a valid end" do
       @shift.should validate_presence_of(:end)
+    end
+
+    it "should have a start time before its end time" do
+      @shift.start = now
+      @shift.end   = now - 2.hours
+
+      @shift.should_not be_valid
+      @shift.should have_at_least(1).error_on(:base)
+      @shift.errors.on(:base).should include("Start must be before end")
     end
   end
 
@@ -58,16 +62,21 @@ describe Shift do
     end
 
     describe "#synchronize_duration_end_time" do
+      before(:each) do
+        @shift.start = now
+        @shift.end   = now + 2.hours
+      end
+
       it "synchronizes missing duration from start/end time before validation" do
         @shift.duration = nil
-        @shift.valid?
+        @shift.valid? # @shift.send(:synchronize_duration_end_time) # ?
         @shift.duration.should == 120
       end
 
       it "synchronizes missing end time from start time and duration before validation" do
         @shift.duration = 180
         @shift.end = nil
-        @shift.valid?
+        @shift.valid? # @shift.send(:synchronize_duration_end_time) # ?
         @shift.end.should == now + 3.hours
       end
     end
@@ -80,6 +89,10 @@ describe Shift do
         @shift.duration = 120
       end
 
+      it "should show the day" do
+        @shift.day.should == Date.civil(2009, 9, 9)
+      end
+
       it "should show the start in minutes from midnight" do
         @shift.start_in_minutes.should == 23 * 60
       end
@@ -87,24 +100,6 @@ describe Shift do
       it "calculates end_in_minutes based on start and duration (i.e. might be longer than 24 hours)" do
         @shift.end_in_minutes.should == 23 * 60 + 120
       end
-    end
-
-    it "should regard a valid object as valid" do
-      @shift.should be_valid
-    end
-
-    it "should require a start time" do
-      @shift.should validate_presence_of(:start)
-    end
-
-    it "should require an end time" do
-      @shift.should validate_presence_of(:end)
-    end
-
-    it "should have a start time before its end time" do
-      @shift.end = now - 2.hours
-      @shift.should_not be_valid
-      assert @shift.errors.on(:base).include?("Start must be before end")
     end
   end
 end
