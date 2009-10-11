@@ -1,49 +1,45 @@
-<script type="text/javascript">
-$(document).ready(function() {
-  $('input.colorpicker').colorPicker();
-});
-</script>
+<% form_for Workplace.new do |f| %>
+	<fieldset>
+	  <legend><%= t(:base_data, :scope => :'activerecord.attributes.workplace') %></legend>
+	  <div>
+	    <%= f.label :name %>
+	    <%= f.text_field :name %>
+	  </div>
+	  <div>
+	    <%= f.label :active %>
+	    <%= f.check_box :active, {}, 1 %>
+	  </div>
+	  <div>
+	    <%= f.label :default_shift_length %>
+	    <%= f.text_field :default_shift_length %>
+	  </div>
+	</fieldset>
 
-<fieldset class="ui-widget ui-widget-content ui-corner-all">
-  <legend class="ui-widget-header"><%= t(:base_data, :scope => :'activerecord.attributes.workplace') %></legend>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div>
-    <%= f.label :active %>
-    <%= f.check_box :active, {}, 1 %>
-  </div>
-  <div>
-    <%= f.label :default_shift_length %>
-    <%= f.text_field :default_shift_length %>
-  </div>
-</fieldset>
-<fieldset class="ui-widget ui-widget-content ui-corner-all">
-  <legend class="ui-widget-header"><%= t(:default_staffing, :scope => :'activerecord.attributes.workplace') %></legend>
-  <div>
-    <%= f.label :qualifications %>
-    <ul class="qualifications">
-      <% Qualification.all.each do |qualification| -%>
-        <li><%= check_box_tag 'workplace[qualification_ids][]', qualification.id, f.object.needs_qualification?(qualification), :id => "workplace_qualification_#{qualification.id}" %><%= f.label "qualification_#{qualification.id}", qualification.name %></li>
-      <% end -%>
-    </ul>
-  </div>
-  <div style="float:left;">
-    <% for qualification in f.object.qualifications -%>
-    <div class="staff_requirement_container">
-      <%= hidden_field_tag "workplace[requirements][#{qualification.id}][quantity]", f.object.required_quantity_for(qualification), :class => 'required_quantity' %>
-      <h3><%= qualification.name %></h3>
-      <ul>
-        <li class="staff_requirement new">+</li>
-        <% f.object.required_quantity_for(qualification).times do -%>
-        <li class="staff_requirement"></li>
-        <% end -%>
-      </ul>
-    </div>
-    <% end -%>
-  </div>
-</fieldset>
-<div class="ui-widget-content ui-corner-all">
-  <%= f.submit t(:save) %>
-</div>
+	<fieldset>
+	  <legend><%= t(:default_staffing, :scope => :'activerecord.attributes.workplace') %></legend>
+	  <div>
+	    <%= f.label :qualifications %>
+	    <ul class="qualifications">
+	      <% Qualification.all.each do |qualification| -%>
+	        <li><%= check_box_tag 'workplace[qualification_ids][]', qualification.id, f.object.needs_qualification?(qualification), :id => "workplace_qualification_#{qualification.id}" %><%= f.label "qualification_#{qualification.id}", qualification.name %></li>
+	      <% end -%>
+	    </ul>
+	  </div>
+	  <div style="float:left;">
+	    <% for qualification in f.object.qualifications -%>
+	    <div class="staff_requirement_container">
+	      <%= hidden_field_tag "workplace[requirements][#{qualification.id}][quantity]", f.object.required_quantity_for(qualification), :class => 'required_quantity' %>
+	      <h3><%= qualification.name %></h3>
+	      <ul>
+	        <li class="staff_requirement new">+</li>
+	        <% f.object.required_quantity_for(qualification).times do -%>
+	        <li class="staff_requirement"></li>
+	        <% end -%>
+	      </ul>
+	    </div>
+	    <% end -%>
+	  </div>
+	</fieldset>
+
+	<%= f.submit t(:save) %>
+<% end %>

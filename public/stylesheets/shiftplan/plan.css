@@ -129,8 +129,8 @@
 	color: #666;
 }
 #sidebar form {
-	width: 250px;
-	display: none;
+	/*width: 250px;
+	 display: none;*/
 }
 #sidebar input[type=search] {
 	width: 87%;
