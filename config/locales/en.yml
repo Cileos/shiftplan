@@ -92,12 +92,12 @@ en:
         qualifications: Qualifications
       employee:
         base_data: Base data
+        qualifications: Qualifications
         contact_information: Contact information
         first_name: First name
         last_name: Last name
         birthday: Birthday
         active: Active?
-        qualification_list: Qualifications
         email: Email
         phone: Phone
         street: Street

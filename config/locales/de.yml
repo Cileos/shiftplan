@@ -209,12 +209,12 @@ de:
         qualification_list: Qualifikationen
       employee:
         base_data: Basisdaten
+        qualifications: Qualifikationen
         contact_information: Kontaktdaten
         first_name: Vorname
         last_name: Nachname
         birthday: Geburtsdatum
         active: Aktiv?
-        qualification_list: Qualifikationen
         email: E-Mail
         phone: Telefon
         street: Straße
