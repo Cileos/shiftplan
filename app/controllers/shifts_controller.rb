@@ -1,6 +1,7 @@
 class ShiftsController < ApplicationController
-  before_filter :set_shift
+  before_filter :set_plan
   before_filter :parse_times, :only => [:create, :update]
+  before_filter :set_shift
 
   def create
     if @shift.save
@@ -45,13 +46,19 @@ class ShiftsController < ApplicationController
 
   protected
 
+    def set_plan
+      @plan = Plan.find(1) # FIXME FIXME FIXME
+      # careful: fixing this might require changing routes (e.g. scoping shifts on plans)
+      # which in turn might also involve heavy changes to our JS approach ...
+    end
+
     def set_shift
-      @shift = params[:id] ? Shift.find(params[:id]) : Shift.new(params[:shift])
+      @shift = params[:id] ? @plan.shifts.find(params[:id]) : @plan.shifts.build(params[:shift])
     end
 
     def parse_times
       day          = Date.strptime(params[:shift].delete(:day), '%Y%m%d')
-      start        = @shift.plan.start_time_in_minutes + params[:shift].delete(:start).to_i
+      start        = @plan.start_time_in_minutes + params[:shift].delete(:start).to_i
       duration     = params[:shift].delete(:duration).to_i
 
       params[:shift][:start] = day + start.minutes
