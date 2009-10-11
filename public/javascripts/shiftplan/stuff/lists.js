@@ -15,7 +15,7 @@ $(document).ready(function() {
     } else {
       match = this.id.match(/new_(.*)/);
       var resource_name = match[1];
-      var path = '/' + resource_name;
+      var path = '/' + resource_name + 's';
     }
 
     $('#sidebar form').attr('action', path);

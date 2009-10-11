@@ -1,56 +1,60 @@
-<div class="right_column">
-  <div class="photo">
-    <%= image_tag(f.object.gravatar_url(:size => 200), :class => 'employee_picture_200') %>
-    <p><%= t(:picture_powered_by, :link => link_to('gravatar.com', 'http://www.gravatar.com'))%></p>
+<% form_for Employee.new do |f| %>
+  <!--
+  <div class="right_column">
+    <div class="photo">
+      <%= image_tag(f.object.gravatar_url(:size => 200), :class => 'employee_picture_200') %>
+      <p><%= t(:picture_powered_by, :link => link_to('gravatar.com', 'http://www.gravatar.com'))%></p>
+    </div>
   </div>
-</div>
-<fieldset class="ui-widget ui-widget-content ui-corner-all">
-  <legend class="ui-widget-header"><%= t(:base_data, :scope => :'activerecord.attributes.employee') %></legend>
-  <div>
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name, :class => 'w100p' %>
+  -->
+  <fieldset class="ui-widget ui-widget-content ui-corner-all">
+    <legend class="ui-widget-header"><%= t(:base_data, :scope => :'activerecord.attributes.employee') %></legend>
+    <div>
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, :class => 'w100p' %>
+    </div>
+    <div>
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, :class => 'w100p' %>
+    </div>
+    <div>
+      <%= f.label :active %>
+      <%= f.check_box :active, {}, 1 %>
+    </div>
+    <div>
+      <%= f.label :birthday %>
+      <%= f.date_select :birthday, :start_year => Time.current.year, :end_year => 1920, :include_blank => true %>
+    </div>
+    <div>
+      <%= f.label :qualifications %>
+      <ul class="qualifications">
+        <% Qualification.all.each do |qualification| -%>
+          <li><%= check_box_tag 'employee[qualification_ids][]', qualification.id, f.object.has_qualification?(qualification), :id => "employee_qualification_#{qualification.id}", :class => 'employee_qualifications' %><%= f.label "qualification_#{qualification.id}", qualification.name %></li>
+        <% end -%>
+      </ul>
+    </div>
+  </fieldset>
+  <fieldset class="ui-widget ui-widget-content ui-corner-all">
+    <legend class="ui-widget-header"><%= t(:contact_information, :scope => :'activerecord.attributes.employee') %></legend>
+    <div>
+      <%= f.label :email %>
+      <%= f.text_field :email, :class => 'w100p' %>
+    </div>
+    <div>
+      <%= f.label :phone %>
+      <%= f.text_field :phone, :class => 'w100p' %>
+    </div>
+    <div>
+      <%= f.label :street %>
+      <%= f.text_field :street, :class => 'w100p' %>
+    </div>
+    <div>
+      <%= f.label :zipcode %>
+      <%= f.text_field :zipcode, :class => 'w30p' %>
+      <%= f.text_field :city, :class => 'w70p' %>
+    </div>
+  </fieldset>
+  <div class="ui-widget-content ui-corner-all">
+    <%= f.submit t(:save) %>
   </div>
-  <div>
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name, :class => 'w100p' %>
-  </div>
-  <div>
-    <%= f.label :active %>
-    <%= f.check_box :active, {}, 1 %>
-  </div>
-  <div>
-    <%= f.label :birthday %>
-    <%= f.date_select :birthday, :start_year => Time.current.year, :end_year => 1920 %>
-  </div>
-  <div>
-    <%= f.label :qualifications %>
-    <ul class="qualifications">
-      <% Qualification.all.each do |qualification| -%>
-        <li><%= check_box_tag 'employee[qualification_ids][]', qualification.id, f.object.has_qualification?(qualification), :id => "employee_qualification_#{qualification.id}" %><%= f.label "qualification_#{qualification.id}", qualification.name %></li>
-      <% end -%>
-    </ul>
-  </div>
-</fieldset>
-<fieldset class="ui-widget ui-widget-content ui-corner-all">
-  <legend class="ui-widget-header"><%= t(:contact_information, :scope => :'activerecord.attributes.employee') %></legend>
-  <div>
-    <%= f.label :email %>
-    <%= f.text_field :email, :class => 'w100p' %>
-  </div>
-  <div>
-    <%= f.label :phone %>
-    <%= f.text_field :phone, :class => 'w100p' %>
-  </div>
-  <div>
-    <%= f.label :street %>
-    <%= f.text_field :street, :class => 'w100p' %>
-  </div>
-  <div>
-    <%= f.label :zipcode %>
-    <%= f.text_field :zipcode, :class => 'w30p' %>
-    <%= f.text_field :city, :class => 'w70p' %>
-  </div>
-</fieldset>
-<div class="ui-widget-content ui-corner-all">
-  <%= f.submit t(:save) %>
-</div>
+<% end %>

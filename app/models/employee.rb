@@ -9,7 +9,7 @@ class Employee < ActiveRecord::Base
 
   named_scope :active, :conditions => { :active => true }
   named_scope :inactive, :conditions => { :active => false }
-    
+
   class << self
     def find_by_name(name)
       find_by_first_name_and_last_name(*name.split(' '))
@@ -43,5 +43,26 @@ class Employee < ActiveRecord::Base
 
   def gravatar_url_for_css(*args)
     gravatar_url(*args).gsub('&amp;', '&')
+  end
+
+  def form_values_json
+    qualifications = Qualification.all.collect { |qualification| "'#{qualification.id}'" if has_qualification?(qualification) }.compact.join(', ')
+    json = <<-json
+      {
+        first_name: '#{first_name}',
+        last_name: '#{last_name}',
+        active: #{active?},
+        qualifications: [#{qualifications}],
+        email: '#{email}',
+        phone: '#{phone}',
+        street: '#{street}',
+        zipcode: '#{zipcode}',
+        city: '#{city}',
+        birthday_1i: '#{birthday.try(:year)}',
+        birthday_2i: '#{birthday.try(:mon)}',
+        birthday_3i: '#{birthday.try(:mday)}'
+      }
+    json
+    json.gsub("\n", ' ').strip
   end
 end

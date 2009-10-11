@@ -1,11 +1,13 @@
 <%= stylesheet_link_tag 'shiftplan/employees' %>
 
 <ul id="employees">
-  <li id="new_employee" class="employee clickable">
+  <li id="new_employee" class="employee resource" data-form-values="<%= Employee.new.form_values_json %>">
     <%= image_tag(Employee.new.gravatar_url(:size => 60)) %>
-    <h2><%= link_to "[#{t(:click_to_add_employee)}]", new_employee_path, :class => 'add dialog clickable_link', :title => t(:new_employee) %></h2>
+    <h2><%= link_to "[#{t(:click_to_add_employee)}]", new_employee_path, :class => 'add', :title => t(:new_employee) %></h2>
     <p class="qualifications"><%= t(:add_employee) %></p>
     <div class="actions"></div>
   </li>
   <%= render :partial => 'employee', :collection => @employees %>
 </ul>
+
+<%= render :partial => 'sidebar' %>
