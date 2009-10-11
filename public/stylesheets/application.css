@@ -46,7 +46,6 @@ input[type='checkbox'], input[type='radio'] {
 }
 
 #sidebar form ul.qualifications {
-  width: 350px;
   overflow: hidden;
 }
 

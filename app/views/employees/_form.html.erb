@@ -31,7 +31,7 @@
     <fieldset>
       <legend><%= t(:qualifications, :scope => :'activerecord.attributes.employee') %></legend>
       <div>
-        <ul class="qualifications">
+        <ul class="qualifications" style="width:350px;">
           <% Qualification.all.each do |qualification| -%>
             <li><%= check_box_tag 'employee[qualification_ids][]', qualification.id, f.object.has_qualification?(qualification), :id => "employee_qualification_#{qualification.id}", :class => 'employee_qualifications' %><%= f.label "qualification_#{qualification.id}", qualification.name %></li>
           <% end -%>
