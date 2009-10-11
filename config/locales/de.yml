@@ -37,6 +37,17 @@ de:
   employee_could_not_be_updated: "Mitarbeiter konnte nicht geändert werden."
   employee_successfully_deleted: "Mitarbeiter erfolgreich gelöscht."
 
+  # qualifications
+  click_to_add_qualification: Hinzufügen
+  add_qualification: "Klicken Sie hier, um einen Qualifikation hinzuzufügen"
+  new_qualification: Neuer Qualifikation
+  edit_qualification: "Qualifikation \"{{name}}\" bearbeiten"
+  qualification_successfully_created: "Qualifikation erfolgreich angelegt."
+  qualification_could_not_be_created: "Qualifikation konnte nicht angelegt werden."
+  qualification_successfully_updated: "Qualifikation erfolgreich geändert."
+  qualification_could_not_be_updated: "Qualifikation konnte nicht geändert werden."
+  qualification_successfully_deleted: "Qualifikation erfolgreich gelöscht."
+
   # shifts
   shift_successfully_created: "Schicht erfolgreich angelegt."
   shift_could_not_be_created: "Schicht konnte nicht angelegt werden."
@@ -208,3 +219,6 @@ de:
         phone: Telefon
         street: Straße
         zipcode: "PLZ, Ort"
+      qualification:
+        base_data: Basisdaten
+        name: Name

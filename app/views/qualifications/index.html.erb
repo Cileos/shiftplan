@@ -1,0 +1,13 @@
+<%= stylesheet_link_tag 'shiftplan/qualifications' %>
+
+<ul id="qualifications">
+  <li id="new_qualification" class="qualification resource" data-form-values="<%= Qualification.new.form_values_json %>">
+    <div class="color" style="background-color:transparent;"></div>
+    <h2><%= link_to "[#{t(:click_to_add_qualification)}]", new_qualification_path, :class => 'add', :title => t(:new_qualification) %></h2>
+    <p class="qualifications"><%= t(:add_qualification) %></p>
+    <div class="actions"></div>
+  </li>
+  <%= render :partial => 'qualification', :collection => @qualifications %>
+</ul>
+
+<%= render :partial => 'sidebar' %>

@@ -1,0 +1,99 @@
+#qualifications {
+  width: 1000px;
+}
+
+#qualifications .qualification, #inactive_qualifications .qualification {
+  width: 250px;
+  float: left;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1em;
+  margin: 0 1em 1em 0;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+#inactive_qualifications {
+  clear: left;
+}
+
+#inactive_qualifications .qualification.inactive {
+  background-color: #eee;
+}
+
+#qualifications .qualification h2, #inactive_qualifications .qualification h2 {
+  font-weight: bold;
+  margin: 0.25em 0;
+}
+
+#qualifications .qualification .color, #inactive_qualifications .qualification .color {
+  float: left;
+  margin-right: 1em;
+  border: 1px solid #ddd;
+  width: 60px;
+  height: 60px;
+}
+
+#qualifications .qualification .qualifications, #inactive_qualifications .qualification .qualifications {
+  font-style: italic;
+  font-size: 0.8em;
+}
+
+#qualifications .qualification img, #inactive_qualifications .qualification img {
+  float: left;
+  margin-right: 1em;
+}
+
+#qualifications .qualification .actions, #inactive_qualifications .qualification .actions {
+  float: right;
+}
+
+form.new_qualification .color_picker, form.edit_qualification .color_picker {
+  position: relative;
+  left: 120px;
+}
+
+form.new_qualification .right_column, form.edit_qualification .right_column {
+  float: right;
+  margin-left: 1em;
+  width: 200px;
+  font-size: 0.8em;
+}
+
+.right_column .qualified_employees {
+  margin-top: 0.5em;
+}
+
+.qualified_employees li {
+  height: 25px;
+  vertical-align: middle;
+  padding: 7px 0 0 35px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
+.staff_requirement_container {
+  float: left;
+  margin-right: 2em;
+}
+
+.staff_requirement_container h3 {
+  margin: 0.75em 0 0.25em 0;
+}
+
+.staff_requirement {
+  width: 30px;
+  height: 30px; 
+  background: #ddd url(http://github.com/images/gravatars/gravatar-30.png) no-repeat;
+  border: 1px solid #ddd;
+  float: left;
+  margin-right: 0.25em;
+  cursor: pointer;
+}
+
+.staff_requirement.new {
+  background: green;
+  color: #fff;
+  text-align: center;
+  font-size: 1.5em;
+}

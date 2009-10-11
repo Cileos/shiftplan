@@ -1,0 +1,7 @@
+<% content_tag_for(:li, qualification, :class => "resource", :'data-form-values' => qualification.form_values_json) do -%>
+  <div class="color" style="background-color:<%= qualification.color %>"></div>
+	<h2><%= qualification.name %></h2>
+	<div class="actions">
+		<%= link_to(t(:edit), edit_qualification_path(qualification), :class => 'edit', :title => t(:edit_qualification, :name => qualification.name)) %><%= link_to(t(:destroy), qualification_path(qualification), :class => 'delete', :method => :delete) %>
+	</div>
+<% end -%>

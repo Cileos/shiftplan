@@ -17,6 +17,15 @@ class Qualification < ActiveRecord::Base
     end
   end
 
+  def form_values_json
+    json = <<-json
+      {
+        name: '#{name}',
+      }
+    json
+    json.gsub("\n", ' ').strip
+  end
+
   protected
 
     def generate_color

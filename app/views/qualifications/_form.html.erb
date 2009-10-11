@@ -1,0 +1,11 @@
+<% form_for Qualification.new do |f| %>
+	<fieldset>
+	  <legend><%= t(:base_data, :scope => :'activerecord.attributes.qualification') %></legend>
+	  <div>
+	    <%= f.label :name %>
+	    <%= f.text_field :name %>
+	  </div>
+  </fieldset>
+
+	<%= f.submit t(:save) %>
+<% end %>

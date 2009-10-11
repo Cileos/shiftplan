@@ -1,0 +1,11 @@
+{
+  'flash': {
+    'notice': '<%= escape_javascript(flash[:notice]) %>'
+  },
+  'qualification': <%= @qualification.to_json %>,
+  'html': {
+    'replace': {
+      '#<%= dom_id(@qualification) %>': '<%= escape_javascript(render(:partial => 'qualification', :object => @qualification)) %>'
+    }
+  }
+}

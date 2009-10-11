@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :employees
   map.resources :workplaces
   map.resources :plans
+  map.resources :qualifications
 
   map.resources :shifts
   map.resources :requirements
