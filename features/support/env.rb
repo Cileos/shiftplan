@@ -8,10 +8,9 @@ require 'steam'
 Spork.prefork do
   require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
-  Steam::Browser::HtmlUnit::Drb::Service.daemonize and sleep(0.25)
-
+  # Steam::Browser::HtmlUnit::Drb::Service.daemonize and sleep(0.25)
   World do
-    browser = Steam::Browser::HtmlUnit.new(:drb => true)
+    browser = Steam::Browser::HtmlUnit.new # (:drb => true)
     Steam::Session::Rails.new(browser)
   end
 

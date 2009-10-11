@@ -20,3 +20,6 @@ Then /^I should not see an? (.*) named "([^\"]*)"$/ do |klass, name|
   # ($browser.div(:text, /#{name}/).html rescue nil).should be_nil
   flunk
 end
+
+When /^I wait for the animation to finish$/ do
+end

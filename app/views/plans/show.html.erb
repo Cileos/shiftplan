@@ -1,10 +1,7 @@
 <style type="text/css">
-	/* IMAGES */
   <%= render :partial => 'employees/employee.css', :collection => @employees %>
-
-	/* COLORS */
-	<%= render :partial => 'workplaces/workplace.css', :collection => @workplaces %>
-	<%= render :partial => 'qualifications/qualification.css', :collection => @qualifications %>
+  <%= render :partial => 'workplaces/workplace.css', :collection => @workplaces %>
+  <%= render :partial => 'qualifications/qualification.css', :collection => @qualifications %>
 </style>
 
 <%= presenter_for(@plan) %>
