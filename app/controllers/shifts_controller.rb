@@ -37,11 +37,8 @@ class ShiftsController < ApplicationController
 
   def destroy
     @shift.destroy
-    flash[:notice] = t(:shift_successfully_deleted)
-
-    respond_to do |format|
-      format.json { render :status => 200 }
-    end
+    # flash[:notice] = t(:shift_successfully_deleted)
+    redirect_to plan_url(@shift.plan)
   end
 
   protected

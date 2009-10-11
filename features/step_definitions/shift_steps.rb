@@ -32,6 +32,12 @@ When /^I drop onto to the shift "([^\"]*)" on (.+)$/ do |workplace, date|
   drop(element)
 end
 
+When /^I follow "([^\"]*)" within the shift "([^\"]*)" on (.+)/ do |link, workplace, date|
+  locate_shift(date, workplace) do
+    click_link(link)
+  end
+end
+
 Then /^I should see the following shifts, required qualifications and assignments:$/ do |shifts|
   shifts.hashes.each do |attributes|
     date, workplace, qualifications = attributes.values_at('date', 'workplace', 'qualifications')

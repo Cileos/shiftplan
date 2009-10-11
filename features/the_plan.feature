@@ -52,10 +52,12 @@ Feature: THE plan
 		# can't test this w/ htmlunit
 	
 	# TODO remove existing/new shift
+	@wip
 	Scenario: Remove a shift from a shifts collection
 		Given I am on the plan show page
-		When I drag the shift "Kitchen" on Monday
-		And I drop onto the plan area
+		When I follow "delete" within the shift "Kitchen" on Monday
+		# When I drag the shift "Kitchen" on Monday
+		# And I drop onto the plan area
 		Then I should not see a shift "Kitchen" on Monday
 		And there should not be a shift "Kitchen" on Monday stored in the database
 		
