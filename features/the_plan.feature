@@ -25,7 +25,6 @@ Feature: THE plan
 			| Plan 1 | Kitchen   | Chef:Clemens Kofler | Monday 09:00 | 240      |
 			| Plan 1 | Bar       | Barkeeper           | Monday 12:00 | 240      |
 
-	@wip
 	Scenario: Viewing a plan
 		When I go to the plan show page
 		Then I should see a plan named "Plan 1"
@@ -38,6 +37,7 @@ Feature: THE plan
 		And I should see a workplace named "Kitchen" listed in the sidebar
 		And I should see a qualification named "Chef" listed in the sidebar
 
+	@wip
 	Scenario: Adding a new shift
 		Given I am on the plan show page
 		When I drag the workplace "Kitchen"
@@ -52,7 +52,6 @@ Feature: THE plan
 		# can't test this w/ htmlunit
 	
 	# TODO remove existing/new shift
-	@wip
 	Scenario: Remove a shift from a shifts collection
 		Given I am on the plan show page
 		When I follow "delete" within the shift "Kitchen" on Monday
