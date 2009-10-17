@@ -1,0 +1,8 @@
+<li id="new_shift" class="shift <%= workplace.dom_id() %>" data-workplace-id="<%= workplace.id() %>">
+  <h3><%= workplace.name() %></h3>
+  <ul class="requirements">
+    <% for(var i = 0; i < default_staffing.length; i++) { %>
+      <li class="requirement <%= "qualification_" + default_staffing[i] %> ui-draggable ui-droppable"></li>
+    <% } %>
+  </ul>
+</li>

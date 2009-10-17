@@ -28,6 +28,6 @@
   	}
   });  
 
-  Plan.types.push(Employee);
+  Resource.types.push(Employee);
 
 }.apply(Plan));

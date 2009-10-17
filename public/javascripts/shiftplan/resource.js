@@ -7,6 +7,7 @@ Resource = function(type, element) {
 };
 
 $.extend(Resource, {
+  types: [],
 	type_names: function() {
 		var type_names = $.map(this.types, function(type) {
 			return type.type_name();
@@ -178,3 +179,11 @@ $.extend($.fn, {
 		return class_names[0];
 	}
 });
+
+$(document).ready(function() {
+  $.each(Resource.types, function() {
+  	var type = this;
+    type.init();
+  	$.fn[type.class_name()] = function() { return this.resource(type); }
+  })
+})

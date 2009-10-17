@@ -52,6 +52,6 @@
   	},
   });
   
-  Plan.types.push(Shifts);
+  Resource.types.push(Shifts);
 
 }.apply(Plan));

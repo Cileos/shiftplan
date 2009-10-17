@@ -28,6 +28,6 @@
   	}
   });
   
-  Plan.types.push(Qualification);
+  Resource.types.push(Qualification);
 
 }.apply(Plan));

@@ -4,13 +4,7 @@ Plan = {
 	default_slot_count: 12,
 	init: function() {
     this.bind_events();
-    $.each(this.types, function() {
-    	var type = this;
-      type.init();
-    	$.fn[type.class_name()] = function() { return this.resource(type); }
-    })
 	},
-	types: [],
 	bind_events: function() {
 		$("body").droppable({
 			accept: ".shift, .requirement, .assignment",

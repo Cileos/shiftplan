@@ -27,6 +27,6 @@
   	},
   });
   
-  Plan.types.push(Workplace);
+  Resource.types.push(Workplace);
 
 }.apply(Plan));

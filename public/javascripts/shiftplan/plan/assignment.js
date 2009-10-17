@@ -36,5 +36,5 @@
   	}
   });
   
-  Plan.types.push(Assignment);
+  Resource.types.push(Assignment);
 }.apply(Plan));

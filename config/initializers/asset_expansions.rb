@@ -1,12 +1,12 @@
 ActionView::Helpers::AssetTagHelper.module_eval do
   register_javascript_expansion :shiftplan => %w(
-    core_ext/array
-    core_ext/date
-    core_ext/uri
-
-    jquery/jquery
-    jquery/jquery-ui
-    jquery/jquery-plugin-form
+    lib/core_ext/array
+    lib/core_ext/date
+    lib/core_ext/uri
+    lib/ejs
+    lib/jquery/jquery
+    lib/jquery/jquery-ui
+    lib/jquery/jquery-plugin-form
 
     shiftplan/resource
     shiftplan/plan
@@ -18,10 +18,6 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     shiftplan/plan/employee
     shiftplan/plan/workplace
     shiftplan/plan/qualification
-
-    shiftplan/plan/_init
-
-    shiftplan/employees/employee
 
     shiftplan/stuff/dialogs
     shiftplan/stuff/lists

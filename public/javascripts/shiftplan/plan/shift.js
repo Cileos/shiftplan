@@ -6,15 +6,11 @@
   $.extend(Shift, Resource, {
   	selector: '.shift',
   	build: function(workplace) {
-  		var default_staffing = workplace.default_staffing();
-
-  		var html = '<li id="new_shift" class="shift ' + workplace.dom_id() +
-  		  '" data-workplace-id="' + workplace.id() + '"><h3>' + workplace.name() +
-  		  '</h3><ul class="requirements">';
-      $.each(default_staffing, function() {
-        html += '<li class="requirement qualification_' + this + ' ui-draggable ui-droppable"></li>';
-      });
-  		html += '</ul></li>';
+  		var template = new EJS({ url: '/javascripts/shiftplan/plan/shift/new_shift.ejs' })
+  		var html = template.render({ 
+  		  workplace: workplace, 
+  		  default_staffing: workplace.default_staffing() 
+  		});
 
   		var shift = $(html).shift();
   		shift.init();
@@ -158,6 +154,6 @@
   	}
   });
   
-  Plan.types.push(Shift);
+  Resource.types.push(Shift);
 
 }.apply(Plan));
