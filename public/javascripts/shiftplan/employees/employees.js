@@ -1,10 +1,13 @@
+Employees = {}
+
 (function() {
   Employee = function(element) {
   	Resource.call(this, Employee, element);
   };
 
   $.extend(Employee, Resource, {
-  	selector: ".employee",
+    foo: 'FOO',
+  	selector: "#employees .employee",
   	on_drag_start: function(event, ui) {
   	  // TODO: should also take into account that the employee might already be assigned to this or another shift
       // var possible_workplaces = ui.helper.closest('.employee').attr('data-possible-workplaces').split(', ');
@@ -28,6 +31,6 @@
   	}
   });  
 
-  Plan.types.push(Employee);
+  Resource.types.push(Employee);
 
-}.apply(Plan));
+}.apply(Employees));

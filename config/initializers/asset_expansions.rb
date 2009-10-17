@@ -8,20 +8,20 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     jquery/jquery-ui
     jquery/jquery-plugin-form
 
-    shiftplan/plan/resource
-    shiftplan/plan/plan
+    shiftplan/resource
+    shiftplan/plan
+    
     shiftplan/plan/shifts
     shiftplan/plan/shift
     shiftplan/plan/requirement
     shiftplan/plan/assignment
-
     shiftplan/plan/employee
     shiftplan/plan/workplace
     shiftplan/plan/qualification
 
-    shiftplan/plan/shiftplan
-    shiftplan/plan/util
     shiftplan/plan/_init
+
+    shiftplan/employees/employee
 
     shiftplan/stuff/dialogs
     shiftplan/stuff/lists

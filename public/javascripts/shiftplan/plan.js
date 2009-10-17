@@ -1,10 +1,16 @@
-var Plan = {
+Plan = {
 	slot_width: 18,
 	slots_per_hour: 4,
 	default_slot_count: 12,
 	init: function() {
     this.bind_events();
+    $.each(this.types, function() {
+    	var type = this;
+      type.init();
+    	$.fn[type.class_name()] = function() { return this.resource(type); }
+    })
 	},
+	types: [],
 	bind_events: function() {
 		$("body").droppable({
 			accept: ".shift, .requirement, .assignment",
@@ -26,4 +32,8 @@ var Plan = {
 	on_element_remove: function(event, ui) {
 		ui.draggable.resource().remove();
 	}
-}
+};
+
+$(document).ready(function() {
+	Plan.init();
+});
