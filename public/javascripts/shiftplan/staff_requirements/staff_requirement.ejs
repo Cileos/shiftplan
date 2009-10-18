@@ -1,6 +1,9 @@
 <li id="workplace_requirements_<%= qualification_id %>" class="staff_requirement_container">
-  <input type="hidden" name="workplace[workplace_requirements_attributes][<%= next_id %>][qualification_id]" value="<%= qualification_id %>" />
-  <input type="hidden" name="workplace[workplace_requirements_attributes][<%= next_id %>][quantity]" class="required_quantity" value="<%= required_quantity %>" />
+  <% if(id && id != null) { %>
+    <input type="hidden" id="workplace_workplace_requirements_attributes_<%= next_id %>_id" name="workplace[workplace_requirements_attributes][<%= next_id %>][id]" value="<%= id %>" />
+  <% } %>
+  <input type="hidden" id="workplace_workplace_requirements_attributes_<%= next_id %>_qualification_id" name="workplace[workplace_requirements_attributes][<%= next_id %>][qualification_id]" value="<%= qualification_id %>" />
+  <input type="hidden" id="workplace_workplace_requirements_attributes_<%= next_id %>_quantity" name="workplace[workplace_requirements_attributes][<%= next_id %>][quantity]" class="required_quantity" value="<%= required_quantity %>" />
   <h3><%= qualification_name %></h3>
   <ul>
     <li class="staff_requirement new">+</li>

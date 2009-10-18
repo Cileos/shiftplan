@@ -13,6 +13,7 @@ $(document).ready(function() {
       var html = '';
       for(var i = 0; i < requirements.length; i++) {
         html += template.render({
+          id: requirements[i]['id'],
     		  next_id: i,
     		  qualification_id: requirements[i]['qualification']['id'],
     		  qualification_name: requirements[i]['qualification']['name'],
@@ -32,13 +33,14 @@ $(document).ready(function() {
 
       if(id) {
         var next_id_match = id.match(/workplace_workplace_requirements_attributes_(\d+)_quantity/);
-        var next_id = next_id_match ? parseInt(next_id_match[1]) : 0;
+        var next_id = next_id_match ? parseInt(next_id_match[1]) + 1 : 0;
       } else {
         var next_id = 0;
       }
 
       var template = new EJS({ url: '/javascripts/shiftplan/staff_requirements/staff_requirement.ejs' });
   		var html = template.render({
+  		  id: null,
   		  next_id: next_id,
   		  qualification_id: element.val(),
   		  qualification_name: element.siblings('label').eq(0).html(),

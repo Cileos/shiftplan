@@ -72,6 +72,7 @@ class Workplace < ActiveRecord::Base
     workplace_requirements_json = workplace_requirements.map do |requirement|
       <<-json
         {
+          id: #{requirement.id},
           qualification: {
             id: #{requirement.qualification_id},
             name: '#{requirement.qualification.name}'
