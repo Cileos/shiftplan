@@ -1,4 +1,4 @@
-<% form_for(workplace) do |f| -%>
+<% fields_for(workplace) do |f| -%>
 <ul id="staff_requirements">
   <% f.fields_for :workplace_requirements do |wrf| -%>
     <li id="workplace_requirements_<%= wrf.object.qualification.id %>" class="staff_requirement_container">
