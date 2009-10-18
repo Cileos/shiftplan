@@ -7,7 +7,7 @@ Plan = {
 	},
 	bind_events: function() {
 		$("body").droppable({
-			accept: ".shift, .requirement, .assignment",
+			accept: ".requirement, .assignment",
 			drop: Plan.on_element_remove,
 		});
 	},

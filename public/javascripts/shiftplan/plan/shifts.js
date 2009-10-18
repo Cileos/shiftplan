@@ -42,14 +42,14 @@
   		shift.update_data_from_dimension();
   		this.element.append(shift.element);
   	},
-  	bind_events: function() {
-  		this.element.droppable({
-  			accept: "#workplaces a div, .plan .requirement, .plan .assignment",
-  			tolerance: 'touch',
-  			greedy: true,
-  			drop: Shifts.on_drop
-  		});
-  	},
+    bind_events: function() {
+      this.element.droppable({
+       accept: "#workplaces a div, .plan .requirement, .plan .assignment",
+       tolerance: 'touch',
+       greedy: true,
+       drop: Shifts.on_drop
+      });
+    },
   });
   
   Resource.types.push(Shifts);

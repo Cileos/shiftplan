@@ -54,7 +54,7 @@
   	},
   	remove: function() {
   	  this.destroy();
-  	  this.element.remove();
+  	  Resource.prototype.remove.call(this);
   	},
   	serialize: function() {
   	  return 'requirement[shift_id]=' + this.shift().id() +

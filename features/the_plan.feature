@@ -37,7 +37,6 @@ Feature: THE plan
 		And I should see a workplace named "Kitchen" listed in the sidebar
 		And I should see a qualification named "Chef" listed in the sidebar
 
-	@wip
 	Scenario: Adding a new shift
 		Given I am on the plan show page
 		When I drag the workplace "Kitchen"
@@ -54,9 +53,8 @@ Feature: THE plan
 	# TODO remove existing/new shift
 	Scenario: Remove a shift from a shifts collection
 		Given I am on the plan show page
-		When I follow "delete" within the shift "Kitchen" on Monday
-		# When I drag the shift "Kitchen" on Monday
-		# And I drop onto the plan area
+		When I drag the shift "Kitchen" on Monday
+		And I drop onto the plan area
 		Then I should not see a shift "Kitchen" on Monday
 		And there should not be a shift "Kitchen" on Monday stored in the database
 		

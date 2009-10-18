@@ -12,7 +12,7 @@ When /^I drag the (.*) "([^\"]*)"$/ do |type, name|
 end
 
 When /^I drop onto the plan area$/ do
-  element = locate_plan
+  element = locate_body
   drop(element)
 end
 

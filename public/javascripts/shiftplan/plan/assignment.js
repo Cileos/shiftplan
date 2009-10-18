@@ -22,7 +22,7 @@
   	},
   	remove: function() {
   	  this.destroy();
-  		this.element.remove();
+  	  Resource.prototype.remove.call(this);
   	},
   	serialize: function() {
   	  return 'assignment[requirement_id]=' + this.requirement().id() +
