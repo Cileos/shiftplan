@@ -12,14 +12,16 @@ $(document).ready(function() {
 
       var id = parseInt(match[2]);
       var path = '/' + resource_name + 's/' + id;
+      var title = $('h2', $(this)).html();
     } else {
       match = this.id.match(/new_(.*)/);
       var resource_name = match[1];
       var path = '/' + resource_name + 's';
+      var title = 'New ' + resource_name;
     }
 
     $('#sidebar form').attr('action', path);
-    $('#sidebar form > fieldset > legend').html($('h2 a, a.edit', $(this)).attr('title')); // ugh
+    $('#sidebar > h3').html(title);
 
     var form_values = eval('(' + $(this).attr('data-form-values') + ')');
     $.each(form_values, function(field, value) {
