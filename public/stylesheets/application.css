@@ -11,75 +11,8 @@ h1 {
   margin-bottom: 0.5em;
 }
 
-.ui-tabs-panel {
-  height: 500px;
-}
-
 div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWithErrors select {
   border: 1px solid red;
-}
-
-fieldset {
-  border: 1px solid black;
-  padding: 0.5em 1em;
-  margin-bottom: 1em;
-}
-
-legend {
-  padding: 0 0.5em;
-}
-
-fieldset > div {
-  margin-bottom: 0.3em;
-  clear: left;
-}
-
-label {
-  display: block;
-  cursor: pointer;
-  float: left;
-  width: 120px;
-}
-
-input[type='checkbox'], input[type='radio'] {
-  cursor: pointer;
-}
-
-#sidebar form h3 {
-  color: #000;
-}
-
-#sidebar form ul.qualifications {
-  overflow: hidden;
-}
-
-#sidebar form ul.qualifications li {
-  display: inline-block;
-  white-space: nowrap;
-  width: 110px;
-}
-
-#sidebar form ul.qualifications li label {
-  display: inline;
-  position: relative;
-  bottom: 2px;
-  float: none;
-}
-
-input.w50p {
-  width: 90px;
-}
-
-input.w30p {
-  width: 54px;
-}
-
-input.w70p {
-  width: 126px;
-}
-
-input.w100p {
-  width: 190px;
 }
 
 .actions a {
@@ -129,40 +62,3 @@ input.w100p {
   background-color: red;
 }
 
-#sidebar form > fieldset {
-  padding: 0;
-  border: 0;
-}
-
-#sidebar form > fieldset > legend {
-  display: none;
-  font-family: Georgia, serif;
-  font-size: 1.4em;
-  padding: 0;
-  margin-bottom: 0.5em;
-}
-
-#sidebar fieldset fieldset {
-  background-color: #f0f0f0;
-  border-color: #ddd;
-}
-
-#sidebar fieldset fieldset legend {
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  padding: 5px 10px;
-  font-variant: small-caps;
-}
-
-#sidebar fieldset fieldset > div {
-  margin-left: 10px;
-}
-
-#sidebar input[type='submit'] {
-  border: 1px solid #ddd;
-  padding: 5px 10px 5px 24px;
-  background: #f0f0f0 url(/images/icons/ok.png) no-repeat;
-  background-position: 5px 7px;
-  cursor: pointer;
-  font-size: 0.95em;
-}

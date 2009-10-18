@@ -1,0 +1,138 @@
+#sidebar {
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 100%;
+	padding: 1em;
+  padding-top: 60px;
+	border-left: 1px solid #ccc;
+	background-color: #fff;
+	font-size: 12px;
+}
+#sidebar > * {
+	margin-left: 20px;
+	margin-bottom: 1em;
+}
+
+#sidebar h3:first-child {
+	margin-top: 0;
+}
+#sidebar h3 {
+	font-size: 16px;
+	color: #bbb;
+	margin-top: 1.5em;
+}
+#sidebar a {
+	text-decoration: none;
+	color: #666;
+}
+
+#sidebar form {
+  width: 310px;
+}
+#sidebar fieldset {
+  margin-bottom: 1.5em;
+}
+#sidebar legend {
+	font-size: 14px;
+	color: #bbb;
+	padding: 0 0 1em 0;
+}
+#sidebar fieldset > div {
+  margin-bottom: 4px;
+  clear: left;
+}
+#sidebar label {
+  clear: left;
+  display: block;
+  cursor: pointer;
+  float: left;
+  width: 90px;
+  line-height: 18px;
+}
+
+#sidebar input {
+  width: 160px;
+}
+#sidebar input.zipcode {
+  width: 50px;
+}
+#sidebar input.city {
+  width: 101px;
+}
+#sidebar input[type='checkbox'], 
+#sidebar input[type='radio'] {
+  width: auto;
+  cursor: pointer;
+}
+#sidebar input[type='submit'] {
+  border: 1px solid #ddd;
+  padding: 5px 10px 5px 24px;
+  background: #f0f0f0 url(/images/icons/ok.png) no-repeat;
+  background-position: 5px 7px;
+  cursor: pointer;
+  font-size: 0.95em;
+  width: auto;
+}
+
+#sidebar ul.qualifications {
+  overflow: hidden;
+}
+#sidebar ul.qualifications li {
+  display: inline-block;
+  white-space: nowrap;
+  width: 90px;
+}
+#sidebar ul.qualifications li label {
+  display: inline;
+  position: relative;
+  margin: 4px 0 0 2px;
+  float: none;
+}
+
+
+#sidebar #employees,
+#sidebar #workplaces,
+#sidebar #qualifications {
+	width: 250px;
+	overflow: auto; /* clearfix */
+}
+#sidebar #employees a,
+#sidebar #workplaces a,
+#sidebar #qualifications a {
+	display: block;
+	float: left;
+	margin: 0 4px 4px 0;
+	padding: 4px;
+	line-height: 30px;
+	background-color: #efefef;
+}
+#sidebar .employee {
+	width: 70px;
+}
+#sidebar .workplace,
+#sidebar .qualification {
+	width: 110px;
+}
+#sidebar #employees a div,
+#sidebar #workplaces a div,
+#sidebar #qualifications a div {
+	float: left;
+	height: 30px;
+	width: 30px;
+	margin-right: 4px;
+}
+#sidebar #qualifications a div {
+	height: 26px;
+	border-style: solid;
+	border-bottom-width: 4px;
+	background-image: url(http://github.com/images/gravatars/gravatar-30.png);
+}
+#sidebar .ui-draggable-dragging {
+	width: 30px !important;
+	height: 30px;
+	overflow: hidden;
+}
+#sidebar .ui-draggable-dragging a {
+	background-position: left top;
+}

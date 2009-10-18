@@ -1,14 +1,14 @@
 #employees {
-  width: 1000px;
+  width: 69%;
 }
 
 #employees .employee {
-  width: 250px;
+  width: 27%;
   float: left;
   background-color: #fff;
   border: 1px solid #ddd;
   padding: 1em;
-  margin: 0 1em 1em 0;
+  margin: 0 2% 2% 0;
   vertical-align: top;
   cursor: pointer;
 }
@@ -42,17 +42,6 @@ form.edit_employee .right_column, form.new_employee .right_column {
   margin-left: 1em;
   width: 200px;
   font-size: 0.8em;
-}
-
-.right_column .photo {
-  margin-bottom: 1em;
-}
-
-.right_column .photo p {
-  margin-top: 0.5em;
-  text-align: center;
-  font-style: italic;
-  font-size: 0.7em;
 }
 
 .possible_workplaces {

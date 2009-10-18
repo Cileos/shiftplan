@@ -1,8 +1,8 @@
 Cursor = {
-	show: function(class) {
+	show: function(html_class) {
 	  var cursor = $('#cursor');
 	  if(cursor.length == 0) {
-      cursor = $('body').append('<div id="cursor" class="' + class + '"></div>');
+      cursor = $('body').append('<div id="cursor" class="' + html_class + '"></div>');
 	  }
     cursor.show();
 	},
