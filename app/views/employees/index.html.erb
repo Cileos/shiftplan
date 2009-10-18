@@ -1,11 +1,11 @@
 <ul id="list" class="employees">
-  <%= render :partial => 'employee', :collection => @employees %>
   <li id="new_employee" class="employee resource" data-form-values="<%= Employee.new.form_values_json %>">
     <%= image_tag(Employee.new.gravatar_url(:size => 60)) %>
     <h2>New</h2>
     <p class="qualifications"><%= t(:add_employee) %></p>
     <div class="actions"></div>
   </li>
+  <%= render :partial => 'employee', :collection => @employees %>
 </ul>
 
 <%= render :partial => 'sidebar' %>

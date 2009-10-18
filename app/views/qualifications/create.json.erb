@@ -5,7 +5,7 @@
   'qualification': <%= @qualification.to_json %>,
   'html': {
     'append': {
-      '#qualifications': '<%= escape_javascript(render(:partial => 'qualification', :object => @qualification)) %>'
+      '#list': '<%= escape_javascript(render(:partial => 'qualification', :object => @qualification)) %>'
     }
   }
 }

@@ -5,7 +5,7 @@
   'workplace': <%= @workplace.to_json %>,
   'html': {
     'append': {
-      '#workplaces': '<%= escape_javascript(render(:partial => 'workplace', :object => @workplace)) %>'
+      '#list': '<%= escape_javascript(render(:partial => 'workplace', :object => @workplace)) %>'
     }
   }
 }

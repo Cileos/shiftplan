@@ -5,7 +5,7 @@
   'employee': <%= @employee.to_json %>,
   'html': {
     'append': {
-      '#employees': '<%= escape_javascript(render(:partial => 'employee', :object => @employee)) %>'
+      '#list': '<%= escape_javascript(render(:partial => 'employee', :object => @employee)) %>'
     },
     'replace': {
       '.employee_picture_200': '<%= escape_javascript(image_tag(@employee.gravatar_url(:size => 200), :class => 'employee_picture_200')) %>'

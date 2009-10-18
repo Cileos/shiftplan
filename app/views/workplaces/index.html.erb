@@ -1,11 +1,11 @@
 <ul id="list" class="workplaces">
-  <%= render :partial => 'workplace', :collection => @workplaces %>
   <li id="new_workplace" class="workplace resource" data-form-values="<%= Workplace.new.form_values_json %>">
     <div class="color" style="background-color:transparent;"></div>
     <h2>New</h2>
     <p class="qualifications"><%= t(:add_workplace)%></p>
     <div class="actions"></div>
   </li>
+  <%= render :partial => 'workplace', :collection => @workplaces %>
 </ul>
 
 <%= render :partial => 'sidebar' %>
