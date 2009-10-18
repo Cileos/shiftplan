@@ -12,6 +12,7 @@ de:
   qualifications: Qualifikationen
   qualification: Qualifikation
 
+  new: Neu
   save: Speichern
   picture_powered_by: "Bild angetrieben von {{link}}"
 
@@ -206,7 +207,7 @@ de:
         name: Bezeichnung
         active: Aktiv?
         color: Farbe
-        qualification_list: Qualifikationen
+        qualifications: Qualifikationen
       employee:
         base_data: Basisdaten
         qualifications: Qualifikationen
