@@ -60,10 +60,6 @@
       this.element.append(handles);
       this.update_dimension_from_data();
     },
-  	remove: function() {
-  	  // TODO send delete request through ajax
-  	  Resource.prototype.remove.call(this);
-  	},
   	init_containment: function(draggable) { // gotta set containment directly to the draggable
   		if (!draggable.containment) {
   			draggable.containment = this.containment();
@@ -107,6 +103,10 @@
              '&shift[day]=' + this.day() +
              '&shift[start]=' + this.start() +
              '&shift[duration]=' + this.duration();
+  	},
+  	remove: function() {
+  	  this.destroy();
+  	  Resource.prototype.remove.call(this);
   	},
   	add_requirement: function(qualification) {
   		var element = $('<li class="requirement"></li>');
@@ -220,7 +220,10 @@
   	},
   	on_update: function(data, textStatus) {
   	  // ...
-  	}
+  	},
+  	on_destroy: function(data, textStatus) {
+  	  // ...
+  	},
   });
 
   Resource.types.push(Shift);
