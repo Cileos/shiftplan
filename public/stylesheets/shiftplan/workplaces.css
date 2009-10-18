@@ -1,4 +1,4 @@
-/*#workplaces .workplace, 
+#workplaces .workplace, 
 #inactive_workplaces .workplace {
   width: 250px;
   float: left;
@@ -74,7 +74,7 @@ form.new_workplace .right_column, form.edit_workplace .right_column {
   background-repeat: no-repeat;
 }
 
-/*#sidebar #staff_requirements, #sidebar #staff_requirements ul {
+#sidebar #staff_requirements, #sidebar #staff_requirements ul {
   width: 350px;
 }
 

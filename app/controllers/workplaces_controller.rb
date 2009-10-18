@@ -38,6 +38,8 @@ class WorkplacesController < ApplicationController
 
   def update
     if @workplace.update_attributes(params[:workplace])
+      @workplace.workplace_requirements.reject!(&:marked_for_destruction?) # ugh - wtf?!
+
       flash[:notice] = t(:workplace_successfully_updated)
       respond_to do |format|
         format.html { redirect_to workplaces_url }

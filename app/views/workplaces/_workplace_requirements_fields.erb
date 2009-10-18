@@ -1,0 +1,16 @@
+<% form_for(workplace) do |f| -%>
+<ul id="staff_requirements">
+  <% f.fields_for :workplace_requirements do |wrf| -%>
+    <li id="workplace_requirements_<%= wrf.object.qualification.id %>" class="staff_requirement_container">
+      <%= wrf.hidden_field :quantity, :class => 'required_quantity' %>
+      <h3><%= wrf.object.qualification.name %></h3>
+      <ul>
+        <li class="staff_requirement new">+</li>
+        <% (wrf.object.quantity).times do -%>
+        <li class="staff_requirement"></li>
+        <% end -%>
+      </ul>
+    </li>
+  <% end -%>
+</ul>
+<% end -%>

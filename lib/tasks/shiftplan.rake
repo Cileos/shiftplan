@@ -71,28 +71,43 @@ namespace :db do
       barkeeper         = Qualification.find_by_name('Barkeeper')
       receptionist      = Qualification.find_by_name('Rezeptionist')
 
-      kitchen_requirements   = { cook.id => { :quantity => 1 }, cooking_assistant.id => { :quantity => 2 } }
-      bar_requirements       = { barkeeper.id => { :quantity => 2 } }
-      reception_requirements = { receptionist.id => { :quantity => 1 } }
+      # kitchen_requirements   = { cook.id => { :quantity => 1 }, cooking_assistant.id => { :quantity => 2 } }
+      # bar_requirements       = { barkeeper.id => { :quantity => 2 } }
+      # reception_requirements = { receptionist.id => { :quantity => 1 } }
+      kitchen_requirements   = [{ :qualification_id => cook.id, :quantity => 1 }, { :qualification_id => cooking_assistant.id, :quantity => 2 }]
+      bar_requirements       = [{ :qualification_id => barkeeper.id, :quantity => 2 }]
+      reception_requirements = [{ :qualification_id => receptionist.id, :quantity => 1 }]
 
+      # Workplace.create!(
+      #   :location => center_1, :name => 'Küche', :qualifications => [cook, cooking_assistant],
+      #   :default_shift_length => 480, :active => true, :requirements => kitchen_requirements
+      # )
+      # Workplace.create!(
+      #   :location => center_1, :name => 'Bar', :qualifications => [barkeeper],
+      #   :default_shift_length => 600, :active => true, :requirements => bar_requirements
+      # )
+      # Workplace.create!(
+      #   :location => center_1, :name => 'Rezeption', :qualifications => [receptionist],
+      #   :default_shift_length => 480, :active => false, :requirements => reception_requirements
+      # )
       Workplace.create!(
         :location => center_1, :name => 'Küche', :qualifications => [cook, cooking_assistant],
-        :default_shift_length => 480, :active => true, :requirements => kitchen_requirements
+        :default_shift_length => 480, :active => true, :workplace_requirements_attributes => kitchen_requirements
       )
       Workplace.create!(
         :location => center_1, :name => 'Bar', :qualifications => [barkeeper],
-        :default_shift_length => 600, :active => true, :requirements => bar_requirements
+        :default_shift_length => 600, :active => true, :workplace_requirements_attributes => bar_requirements
       )
       Workplace.create!(
         :location => center_1, :name => 'Rezeption', :qualifications => [receptionist],
-        :default_shift_length => 480, :active => false, :requirements => reception_requirements
+        :default_shift_length => 480, :active => false, :workplace_requirements_attributes => reception_requirements
       )
     end
 
     desc 'Seed shifts, requirements and assignments'
     task :shifts => :environment do
       Shift.delete_all
-      
+
       monday_morning = Time.parse('2009-09-07 8:00')
       tuesday_morning = monday_morning + 1.day
 

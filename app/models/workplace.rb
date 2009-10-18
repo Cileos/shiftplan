@@ -20,6 +20,8 @@ class Workplace < ActiveRecord::Base
 
   before_create :generate_color
 
+  accepts_nested_attributes_for :workplace_requirements, :allow_destroy => true
+
   def needs_qualification?(qualification)
     qualifications.include?(qualification)
   end
@@ -34,13 +36,13 @@ class Workplace < ActiveRecord::Base
     end.flatten
   end
 
-  def requirements=(requirements)
-    requirements.each do |qualification_id, attributes|
-      requirement = workplace_requirements.detect { |wr| wr.qualification_id == qualification_id.to_i } || workplace_requirements.build(:qualification_id => qualification_id.to_i)
-      requirement.quantity = attributes[:quantity].to_i
-      requirement.save # FIXME
-    end
-  end
+  # def requirements=(requirements)
+  #   requirements.each do |qualification_id, attributes|
+  #     requirement = workplace_requirements.detect { |wr| wr.qualification_id == qualification_id.to_i } || workplace_requirements.build(:qualification_id => qualification_id.to_i)
+  #     requirement.quantity = attributes[:quantity].to_i
+  #     requirement.save # FIXME
+  #   end
+  # end
 
   def state
     active? ? 'active' : 'inactive'
@@ -64,6 +66,21 @@ class Workplace < ActiveRecord::Base
       }
     json
     json.gsub("\n", ' ').strip
+  end
+
+  def workplace_requirements_json
+    workplace_requirements_json = workplace_requirements.map do |requirement|
+      <<-json
+        {
+          qualification: {
+            id: #{requirement.qualification_id},
+            name: '#{requirement.qualification.name}'
+          },
+          quantity: #{requirement.quantity}
+        }
+      json
+    end.join(', ')
+    "[#{workplace_requirements_json}]".gsub("\n", ' ').strip
   end
 
   protected

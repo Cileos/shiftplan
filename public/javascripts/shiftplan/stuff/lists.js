@@ -37,5 +37,9 @@ $(document).ready(function() {
         }
       }
     });
+    $('#sidebar form').trigger({
+      type: 'on_' + resource_name + '_load',
+      resource: $(this)
+    });
   });
 });

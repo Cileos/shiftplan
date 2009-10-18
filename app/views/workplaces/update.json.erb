@@ -5,7 +5,8 @@
   'workplace': <%= @workplace.to_json %>,
   'html': {
     'replace': {
-      '#<%= dom_id(@workplace) %>': '<%= escape_javascript(render(:partial => 'workplace', :object => @workplace)) %>'
+      '#<%= dom_id(@workplace) %>': '<%= escape_javascript(render(:partial => 'workplace', :object => @workplace)) %>',
+      '#staff_requirements': '<%= escape_javascript(render(:partial => 'workplace_requirements_fields', :locals => { :workplace => @workplace })) %>'
     }
   }
 }

@@ -1,0 +1,11 @@
+<li id="workplace_requirements_<%= qualification_id %>" class="staff_requirement_container">
+  <input type="hidden" name="workplace[workplace_requirements_attributes][<%= next_id %>][qualification_id]" value="<%= qualification_id %>" />
+  <input type="hidden" name="workplace[workplace_requirements_attributes][<%= next_id %>][quantity]" class="required_quantity" value="<%= required_quantity %>" />
+  <h3><%= qualification_name %></h3>
+  <ul>
+    <li class="staff_requirement new">+</li>
+    <% for(var i = 0; i < required_quantity; i++) { %>
+    <li class="staff_requirement"></li>
+    <% } %>
+  </ul>
+</li>
