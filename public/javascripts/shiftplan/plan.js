@@ -27,6 +27,7 @@ Plan = {
 		ui.draggable.resource().remove();
 	}
 };
+Plan.grid = [Plan.slot_width, 38],
 
 $(document).ready(function() {
 	Plan.init();

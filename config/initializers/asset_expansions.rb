@@ -8,6 +8,7 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     lib/jquery/jquery-ui
     lib/jquery/jquery-plugin-form
 
+    shiftplan/cursor
     shiftplan/resource
     shiftplan/plan
     

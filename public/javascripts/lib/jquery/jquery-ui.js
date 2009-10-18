@@ -657,6 +657,7 @@ $.widget("ui.draggable", $.extend({}, $.ui.mouse, {
 
 		if(!this.options.axis || this.options.axis != "y") this.helper[0].style.left = this.position.left+'px';
 		if(!this.options.axis || this.options.axis != "x") this.helper[0].style.top = this.position.top+'px';
+
 		if($.ui.ddmanager) $.ui.ddmanager.drag(this, event);
 
 		return false;
@@ -801,6 +802,7 @@ $.widget("ui.draggable", $.extend({}, $.ui.mouse, {
 				co.left+(over ? Math.max(ce.scrollWidth,ce.offsetWidth) : ce.offsetWidth) - (parseInt($(ce).css("borderLeftWidth"),10) || 0) - (parseInt($(ce).css("paddingRight"),10) || 0) - this.helperProportions.width - this.margins.left,
 				co.top+(over ? Math.max(ce.scrollHeight,ce.offsetHeight) : ce.offsetHeight) - (parseInt($(ce).css("borderTopWidth"),10) || 0) - (parseInt($(ce).css("paddingBottom"),10) || 0) - this.helperProportions.height - this.margins.top
 			];
+
 		} else if(o.containment.constructor == Array) {
 			this.containment = o.containment;
 		}

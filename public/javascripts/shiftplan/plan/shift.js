@@ -7,9 +7,9 @@
   	selector: '.shift',
   	build: function(workplace) {
   		var template = new EJS({ url: '/javascripts/shiftplan/plan/shift/new_shift.ejs' })
-  		var html = template.render({ 
-  		  workplace: workplace, 
-  		  default_staffing: workplace.default_staffing() 
+  		var html = template.render({
+  		  workplace: workplace,
+  		  default_staffing: workplace.default_staffing()
   		});
 
   		var shift = $(html).shift();
@@ -25,10 +25,16 @@
   		return minutes * Plan.pixels_per_minute();
   	},
   	on_drag_stop: function(event, ui) {
-  	  var shift = $(this).shift();
-  		shift.update_data_from_dimension();
-  		shift.save();
-  		event.stopPropagation();
+  	  var shift = ui.helper.shift();
+  	  if(shift.removing) {
+  	    shift.remove();
+  	    Cursor.hide();
+        Cursor.poof();
+  	  } else {
+    		shift.update_data_from_dimension();
+    		shift.save(); // TODO only save if modified
+    		event.stopPropagation();
+    	}
   	},
   	on_resize: function(event, ui) {
   		var shift = $(this).shift();
@@ -54,6 +60,10 @@
       this.element.append(handles);
       this.update_dimension_from_data();
     },
+  	remove: function() {
+  	  // TODO send delete request through ajax
+  	  Resource.prototype.remove.call(this);
+  	},
   	init_containment: function(draggable) { // gotta set containment directly to the draggable
   		if (!draggable.containment) {
   			draggable.containment = this.containment();
@@ -122,22 +132,81 @@
   			complete: function() { $(this).shift().update_data_from_dimension(); }
   		});
   	},
+  	draggable: function() {
+  	  return this.element.data('draggable');
+  	},
+  	shiftsDimensions: function() {
+      if(!this.element.data('shiftsDimensions')) {
+        var draggable = this.element.data('draggable');
+        this.element.data('shiftsDimensions', {
+          left:   draggable.containment[0] - 5,
+          top:    draggable.containment[1] - 5,
+          right:  draggable.containment[2] + this.element.width() + 5,
+          bottom: draggable.containment[3] + this.element.height() + 5
+        });
+      }
+      return this.element.data('shiftsDimensions');
+  	},
+  	isOverShiftsBox: function(event) {
+      var box = this.shiftsDimensions();
+      return event.pageX >= box.left && event.pageX <= box.right &&
+             event.pageY >= box.top  && event.pageY <= box.bottom
+  	  
+  	},
+  	updateDragMode: function(event) {
+      var over = this.isOverShiftsBox(event);
+      if(over) {
+        this.setDragAdjusting(event);
+      } else if(!over) {
+        this.setDragRemoving(event);
+        Cursor.update_position(event.pageX, event.pageY + 10)
+      }
+  	},
+  	setDragAdjusting: function(event) {
+  	  if(this.removing) {
+        this.removing = false;
+  	    this.element[0].style.top = '0px';
+  	    var draggable = this.draggable();
+  	    $.extend(true, draggable, { 
+  	      containment: 'parent',
+  	      options: { axis: 'x', grid: Plan.grid } 
+  	    });
+  	    draggable._setContainment();
+  	    Cursor.hide();
+      }
+  	},
+  	setDragRemoving: function(event) {
+  	  if(!this.removing) {
+        this.removing = true;
+  	    $.extend(true, this.draggable(), { 
+  	      containment: null,
+  	      options: { axis: null, grid: null } 
+  	    });
+        Cursor.show('poof');
+      }
+  	},
   	bind_events: function() {
       this.element.droppable({
        accept: "#qualifications a div",
        drop: Shift.on_qualification_drop
       });
       this.element.draggable({
-       containment: 'parent',
-       axis: 'x',
-       grid: [Plan.slot_width, 38],
-       stop: Shift.on_drag_stop
+        containment: 'parent',
+        axis: 'x',
+        grid: Plan.grid,
+        stop: function(event, ui) {
+          ui.helper.data('shiftsDimensions', null);
+          Shift.on_drag_stop(event, ui);
+        },
+        drag: function(event, ui) {
+          ui.helper.shift().updateDragMode(event);
+        }
       });
       $(".resize_handle", this.element).draggable({
-       axis: 'x',
-       grid: [Plan.slot_width, 0],
-       drag: Shift.on_resize,
-       stop: Shift.on_drag_stop
+        axis: 'x',
+        grid: Plan.grid,
+        drag: Shift.on_resize,
+        stop: Shift.on_drag_stop
       });
       // ugh. draggable adds style="position:relative" ... wtf? why's that?
       $(".resize_handle", this.element).css('position', null);
@@ -153,7 +222,7 @@
   	  // ...
   	}
   });
-  
+
   Resource.types.push(Shift);
 
 }.apply(Plan));

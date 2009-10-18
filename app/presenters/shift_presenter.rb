@@ -10,7 +10,7 @@ class ShiftPresenter < Presenter
   
   def render
     content_tag_for(:li, shift, attributes) do
-      div(:class => 'actions') { link_to('delete', shift_path(shift), :method => :delete, :class => 'delete') } +
+      # div(:class => 'actions') { link_to('delete', shift_path(shift), :method => :delete, :class => 'delete') } +
       h3(workplace.name) + 
       ul(:class => 'requirements') do
     		requirements.map { |requirement| presenter_for(requirement) }
