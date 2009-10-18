@@ -19,7 +19,7 @@ div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWit
   display: inline-block;
   width: 16px;
   height: 16px; 
-  margin-left: 4px;
+  margin: 3px 0 0 4px;
   text-indent: 16px;
   overflow: hidden;
   vertical-align: middle;
@@ -43,7 +43,7 @@ div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWit
 }
 
 .actions a.delete {
-  background: url(/images/icons/delete.png) no-repeat -5px top;
+  background: url(/images/icons/delete.png) no-repeat right top;
 }
 
 #flash {

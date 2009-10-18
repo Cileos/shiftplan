@@ -1,18 +1,11 @@
-<% content_for :head do %>
-	<%= stylesheet_link_tag 'shiftplan/workplaces' %>
-<% end %>
-
-<ul id="workplaces">
+<ul id="list" class="workplaces">
+  <%= render :partial => 'workplace', :collection => @workplaces %>
   <li id="new_workplace" class="workplace resource" data-form-values="<%= Workplace.new.form_values_json %>">
     <div class="color" style="background-color:transparent;"></div>
-    <h2><%= link_to "[#{t(:click_to_add_workplace)}]", new_workplace_path, :class => 'add', :title => t(:new_workplace) %></h2>
+    <h2>New</h2>
     <p class="qualifications"><%= t(:add_workplace)%></p>
     <div class="actions"></div>
   </li>
-  <%= render :partial => 'workplace', :collection => @workplaces.select(&:active?) %>
-</ul>
-<ul id="inactive_workplaces">
-  <%= render :partial => 'workplace', :collection => @workplaces.reject(&:active?) %>
 </ul>
 
 <%= render :partial => 'sidebar' %>

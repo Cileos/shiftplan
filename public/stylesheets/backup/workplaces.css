@@ -1,8 +1,5 @@
-#workplaces {
-  width: 1000px;
-}
-
-#workplaces .workplace, #inactive_workplaces .workplace {
+/*#workplaces .workplace, 
+#inactive_workplaces .workplace {
   width: 250px;
   float: left;
   background-color: #fff;
@@ -21,12 +18,14 @@
   background-color: #eee;
 }
 
-#workplaces .workplace h2, #inactive_workplaces .workplace h2 {
+#workplaces .workplace h2, 
+#inactive_workplaces .workplace h2 {
   font-weight: bold;
   margin: 0.25em 0;
 }
 
-#workplaces .workplace .color, #inactive_workplaces .workplace .color {
+#workplaces .workplace .color, 
+#inactive_workplaces .workplace .color {
   float: left;
   margin-right: 1em;
   border: 1px solid #ddd;
@@ -34,17 +33,20 @@
   height: 60px;
 }
 
-#workplaces .workplace .qualifications, #inactive_workplaces .workplace .qualifications {
+#workplaces .workplace .qualifications, 
+#inactive_workplaces .workplace .qualifications {
   font-style: italic;
   font-size: 0.8em;
 }
 
-#workplaces .workplace img, #inactive_workplaces .workplace img {
+#workplaces .workplace img, 
+#inactive_workplaces .workplace img {
   float: left;
   margin-right: 1em;
 }
 
-#workplaces .workplace .actions, #inactive_workplaces .workplace .actions {
+#workplaces .workplace .actions, 
+#inactive_workplaces .workplace .actions {
   float: right;
 }
 
@@ -72,7 +74,7 @@ form.new_workplace .right_column, form.edit_workplace .right_column {
   background-repeat: no-repeat;
 }
 
-#sidebar #staff_requirements, #sidebar #staff_requirements ul {
+/*#sidebar #staff_requirements, #sidebar #staff_requirements ul {
   width: 350px;
 }
 
@@ -105,4 +107,4 @@ form.new_workplace .right_column, form.edit_workplace .right_column {
   color: #fff;
   text-align: center;
   font-size: 1.5em;
-}
+}*/*/

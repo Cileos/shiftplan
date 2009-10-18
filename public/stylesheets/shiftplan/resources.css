@@ -1,8 +1,8 @@
-#employees {
+#list {
   width: 69%;
 }
 
-#employees .employee {
+#list .resource {
   width: 27%;
   float: left;
   background-color: #fff;
@@ -13,35 +13,40 @@
   cursor: pointer;
 }
 
-#employees .employee.inactive {
-  background-color: #eee;
+#list .resource.inactive {
+  background-color: #f6f6f6;
+  color: #aaa;
 }
 
-#employees .employee h2 {
+#list .resource .color {
+  float: left;
+  margin-right: 1em;
+  border: 1px solid #ddd;
+  width: 60px;
+  height: 60px;
+}
+#list .inactive .color {
+  background-color: #f6f6f6;
+}
+
+#list .resource h2 {
   font-weight: bold;
   margin: 0.25em 0;
 }
 
-#employees .employee .qualifications {
+#list .resource .qualifications {
   font-style: italic;
   font-size: 0.8em;
 }
 
-#employees .employee img {
+#list .resource img {
   float: left;
   margin-right: 1em;
   border: 1px solid #ddd;
 }
 
-#employees .employee .actions {
+#list .resource .actions {
   float: right;
-}
-
-form.edit_employee .right_column, form.new_employee .right_column {
-  float: right;
-  margin-left: 1em;
-  width: 200px;
-  font-size: 0.8em;
 }
 
 .possible_workplaces {
