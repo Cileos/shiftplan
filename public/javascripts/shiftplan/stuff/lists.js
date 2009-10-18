@@ -19,7 +19,7 @@ $(document).ready(function() {
     }
 
     $('#sidebar form').attr('action', path);
-    $('#sidebar form > fieldset legend').html($('h2 a, a.edit', $(this)).attr('title')); // ugh
+    $('#sidebar form > fieldset > legend').html($('h2 a, a.edit', $(this)).attr('title')); // ugh
 
     var form_values = eval('(' + $(this).attr('data-form-values') + ')');
     $.each(form_values, function(field, value) {
