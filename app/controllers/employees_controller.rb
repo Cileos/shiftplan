@@ -11,7 +11,7 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    @employee = Employee.new(params[:employee])
+    @employee = current_account.employees.build(params[:employee])
 
     if @employee.save
       flash[:notice] = t(:employee_successfully_created)
@@ -61,10 +61,10 @@ class EmployeesController < ApplicationController
   private
 
     def set_employees
-      @employees = Employee.all
+      @employees = current_account.employees
     end
 
     def set_employee
-      @employee = params[:id] ? Employee.find(params[:id]) : Employee.new
+      @employee = params[:id] ? current_account.employees.find(params[:id]) : current_account.employees.build
     end
 end

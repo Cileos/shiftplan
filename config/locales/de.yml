@@ -15,6 +15,8 @@ de:
   new: Neu
   save: Speichern
   picture_powered_by: "Bild angetrieben von {{link}}"
+  logged_in_as: "Eingeloggt als {{user}}"
+  logout: Abmelden
 
   # workplaces
   click_to_add_workplace: Hinzufügen
@@ -77,6 +79,7 @@ de:
   assignment_successfully_deleted: "Zuweisung erfolgreich gelöscht."
 
   # accounts
+  new_account: Neuer Account
   account_successfully_created: "Account erfolgreich angelegt."
   account_could_not_be_created: "Account konnte nicht angelegt werden."
 
@@ -233,3 +236,11 @@ de:
         name: Name
         start: Start
         end: Ende
+      account:
+        base_data: Base data
+        admin: Admin
+        name: Name
+      user:
+        email: E-Mail
+        password: Passwort
+        password_confirmation: Passwortbestätigung

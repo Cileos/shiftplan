@@ -10,12 +10,12 @@ class QualificationsController < ApplicationController
   end
 
   def new
-    @qualification = Qualification.new
+    @qualification = current_account.qualification.build
     render :layout => !request.xhr?
   end
 
   def create
-    @qualification = Qualification.new(params[:qualification])
+    @qualification = current_account.qualifications.build(params[:qualification])
 
     if @qualification.save
       flash[:notice] = t(:qualification_successfully_created)
@@ -60,10 +60,10 @@ class QualificationsController < ApplicationController
 
   private
   def set_qualifications
-    @qualifications = Qualification.all
+    @qualifications = current_account.qualifications
   end
 
   def set_qualification
-    @qualification = Qualification.find(params[:id])
+    @qualification = current_account.qualifications.find(params[:id])
   end
 end

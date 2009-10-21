@@ -1,4 +1,7 @@
 class AccountsController < ApplicationController
+  skip_before_filter :authenticate, :except => [:edit, :update]
+  layout 'session'
+
   def new
     @account = Account.new
   end

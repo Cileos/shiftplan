@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_filter :authenticate, :except => [:edit, :update]
+
   def new
     @user = User.new(params[:user])
   end

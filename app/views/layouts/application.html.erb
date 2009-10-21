@@ -35,6 +35,12 @@
 	      <li><%= link_to t(:employees), employees_path %></li>
 	      <li><%= link_to t(:qualifications), qualifications_path %></li>
 	    </ul>
+	    <div id="login_status">
+	      <% if signed_in? -%>
+  	      <%= t(:logged_in_as, :user => current_user.email) %>
+  	      (<%= link_to t(:logout), logout_path, :method => :delete %>)
+  	    <% end -%>
+	    </div>
 	    <%= yield %>
 		</div>
   </body>

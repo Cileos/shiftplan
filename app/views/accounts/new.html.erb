@@ -1,10 +1,44 @@
+<style type="text/css">
+#new_account {
+  position: absolute;
+  left: 50%;
+  width: 400px;
+  margin-left: -230px;
+}
+
+#new_account h1 {
+  margin-left: 30px;
+}
+
+#new_account fieldset fieldset {
+  border: 1px solid #ddd;
+  padding: 30px;
+  background-color: #f6f6f6;
+  margin-bottom: 30px;
+}
+
+#new_account label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+#new_account input {
+  margin-bottom: 1em;
+  font-size: 1.4em;
+}
+
+#new_account input[type=submit] {
+  margin-bottom: 0;
+  margin-left: 30px;
+}
+</style>
+
 <% form_for(@account) do |f| %>
+  <h1><%= t(:new_account) %></h1>
   <fieldset>
-    <legend>New account</legend>
     <%= f.error_messages %>
 
     <fieldset>
-      <legend>Account</legend>
       <ol>
         <li>
           <%= f.label :name %>
@@ -14,28 +48,29 @@
     </fieldset>
 
     <% f.fields_for :admin, User.new do |af| -%>
-    <fieldset>
-      <legend>Admin</legend>
-      <ol>
-        <li>
-          <%= af.label :email %>
-          <%= af.text_field :email %>
-        </li>
-        <li>
-          <%= af.label :password %>
-          <%= af.password_field :password %>
-        </li>
-        <li>
-          <%= af.label :password_confirmation %>
-          <%= af.password_field :password_confirmation %>
-        </li>
-      </ol>
-    </fieldset>
+      <fieldset>
+        <h2><%= t(:admin, :scope => :'activerecord.attributes.account') %></h2>
+        <ol>
+          <li>
+            <%= af.label :email %>
+            <%= af.text_field :email %>
+          </li>
+          <li>
+            <%= af.label :password %>
+            <%= af.password_field :password %>
+          </li>
+          <li>
+            <%= af.label :password_confirmation %>
+            <%= af.password_field :password_confirmation %>
+          </li>
+        </ol>
+      </fieldset>
     <% end -%>
-
+    <!--
     <fieldset>
       <legend>Payment</legend>
     </fieldset>
+    -->
   </fieldset>
 
   <%= f.submit 'Create' %>

@@ -1,28 +1,3 @@
-#navigation {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  margin-bottom: 30px;
-  padding: 6px 30px;
-	overflow: auto; /* clearfix */
-	border-bottom: 1px solid #ddd;
-	z-index: 999;
-	background-color: #eee;
-}
-#navigation li {
-  float: left;
-  margin-right: 30px;
-}
-#navigation a {
-  color: #666;
-  text-decoration: none;
-  font-size: 0.9em;
-}
-#navigation a:hover {
-  text-decoration: underline;
-}
-
 .plan {
 	width: 865px;
 	padding-right: 320px;

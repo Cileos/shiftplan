@@ -1,6 +1,8 @@
 class CreateEmployees < ActiveRecord::Migration
   def self.up
     create_table :employees do |t|
+      t.belongs_to :account
+
       t.string  :first_name
       t.string  :last_name
       t.string  :initials, :limit => 10

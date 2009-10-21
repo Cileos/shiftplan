@@ -10,6 +10,8 @@ namespace :db do
       Rake::Task['db:seed:employees'].invoke
       Rake::Task['db:seed:workplaces'].invoke
       Rake::Task['db:seed:shifts'].invoke
+
+      Rake::Task['db:seed:account'].invoke
     end
 
     desc 'Seed locations'
@@ -162,6 +164,14 @@ namespace :db do
       # let's say the first bar shifts only need 1 barkeeper
       # bar_shift_1.requirements.last.destroy
       # bar_shift_3.requirements.last.destroy
+    end
+
+    desc 'Seed account and user data'
+    task :account => :environment do
+      account = Account.create!(:name => 'Awesome Hostels Inc.', :admin => { :email => 'boss@awesome-hostels.com', :password => 'boss', :password_confirmation => 'boss', :email_confirmed => true })
+
+      # set all objects to be part of the newly created account
+      [Employee, Location, Workplace, Qualification, Plan, User].each { |model| model.update_all("account_id = #{account.id}") }
     end
   end
 end

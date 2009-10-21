@@ -1,4 +1,6 @@
 class SessionController < ApplicationController
+  skip_before_filter :authenticate, :except => :destroy
+
   protect_from_forgery :except => :create
   layout 'session'
 

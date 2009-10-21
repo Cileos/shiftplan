@@ -22,5 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resource  :session, :controller => 'session'
 
+  map.logout '/logout', :controller => 'session', :action => 'destroy', :conditions => { :method => :delete }
+
   map.root :controller => 'dashboard', :action => 'show'
 end

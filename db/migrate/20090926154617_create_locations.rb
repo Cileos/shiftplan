@@ -1,7 +1,10 @@
 class CreateLocations < ActiveRecord::Migration
   def self.up
     create_table :locations do |t|
+      t.belongs_to :account
+
       t.string :name
+
       t.timestamps
     end
   end

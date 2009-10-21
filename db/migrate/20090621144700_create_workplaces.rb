@@ -1,7 +1,8 @@
 class CreateWorkplaces < ActiveRecord::Migration
   def self.up
     create_table :workplaces do |t|
-      t.references :location
+      t.belongs_to :account
+      t.belongs_to :location
 
       t.string :name
       t.string :color, :limit => 6

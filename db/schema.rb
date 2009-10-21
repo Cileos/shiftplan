@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20091003161427) do
   end
 
   create_table "employees", :force => true do |t|
+    t.integer  "account_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "initials",   :limit => 10
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20091003161427) do
   end
 
   create_table "locations", :force => true do |t|
+    t.integer  "account_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -71,8 +73,11 @@ ActiveRecord::Schema.define(:version => 20091003161427) do
   end
 
   create_table "qualifications", :force => true do |t|
-    t.string "name"
-    t.string "color", :limit => 6
+    t.integer  "account_id"
+    t.string   "name"
+    t.string   "color",      :limit => 6
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "requirements", :force => true do |t|
@@ -93,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20091003161427) do
   end
 
   create_table "users", :force => true do |t|
+    t.integer  "account_id"
     t.string   "email"
     t.string   "encrypted_password", :limit => 128
     t.string   "salt",               :limit => 128
@@ -121,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20091003161427) do
   end
 
   create_table "workplaces", :force => true do |t|
+    t.integer  "account_id"
     t.integer  "location_id"
     t.string   "name"
     t.string   "color",                :limit => 6

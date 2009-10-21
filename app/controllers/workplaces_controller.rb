@@ -10,12 +10,12 @@ class WorkplacesController < ApplicationController
   end
 
   def new
-    @workplace = Workplace.new
+    @workplace = current_account.workplaces.build
     render :layout => !request.xhr?
   end
 
   def create
-    @workplace = Workplace.new(params[:workplace])
+    @workplace = current_account.workplaces.build(params[:workplace])
 
     if @workplace.save
       flash[:notice] = t(:workplace_successfully_created)
@@ -62,10 +62,10 @@ class WorkplacesController < ApplicationController
 
   private
   def set_workplaces
-    @workplaces = Workplace.all
+    @workplaces = current_account.workplaces
   end
 
   def set_workplace
-    @workplace = Workplace.find(params[:id])
+    @workplace = current_account.workplaces.find(params[:id])
   end
 end

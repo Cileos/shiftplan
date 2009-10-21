@@ -12,7 +12,7 @@ class PlansController < ApplicationController
   end
 
   def create
-    @plan = Plan.new(params[:plan])
+    @plan = current_account.plans.build(params[:plan])
 
     if @plan.save
       flash[:notice] = t(:plan_successfully_created)
@@ -26,22 +26,22 @@ class PlansController < ApplicationController
   protected
 
     def set_plans
-      @plans = Plan.all
+      @plans = current_account.plans
     end
 
     def set_plan
-      @plan = Plan.find(params[:id])
+      @plan = current_account.plans.find(params[:id])
     end
 
     def set_employees
-      @employees = Employee.all
+      @employees = current_account.employees
     end
 
     def set_workplaces
-      @workplaces = Workplace.active
+      @workplaces = current_account.workplaces.active
     end
 
     def set_qualifications
-      @qualifications = Qualification.all
+      @qualifications = current_account.qualifications
     end
 end
