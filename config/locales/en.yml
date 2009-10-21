@@ -46,6 +46,12 @@ en:
   qualification_could_not_be_updated: "Qualification could not be updated."
   qualification_successfully_deleted: "Qualification successfully deleted."
 
+  # plans
+  new_plan: New plan
+  plan_from_to: "{{start}} - {{end}}"
+  plan_successfully_created: "Plan successfully created."
+  plan_could_not_be_created: "Plan could not be created."
+
   # shifts
   shift_successfully_created: "Shift successfully created."
   shift_could_not_be_created: "Shift could not be created."
@@ -106,3 +112,7 @@ en:
       qualification:
         base_data: Base data
         name: Name
+      plan:
+        name: Name
+        start: Start
+        end: End

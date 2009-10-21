@@ -49,6 +49,12 @@ de:
   qualification_could_not_be_updated: "Qualifikation konnte nicht geändert werden."
   qualification_successfully_deleted: "Qualifikation erfolgreich gelöscht."
 
+  # plans
+  new_plan: Neuer Schichtplan
+  plan_from_to: "{{start}} bis {{end}}"
+  plan_successfully_created: "Schichtplan erfolgreich angelegt."
+  plan_could_not_be_created: "Schichtplan konnte nicht angelegt werden."
+
   # shifts
   shift_successfully_created: "Schicht erfolgreich angelegt."
   shift_could_not_be_created: "Schicht konnte nicht angelegt werden."
@@ -223,3 +229,7 @@ de:
       qualification:
         base_data: Basisdaten
         name: Name
+      plan:
+        name: Name
+        start: Start
+        end: Ende

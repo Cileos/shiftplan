@@ -7,10 +7,11 @@ class PlanPresenter < Presenter
       :'data-duration' => duration
     }
   end
-  
+
   def render
     div(attributes) do
       h1(plan.name) +
+      div(plan.dates) +
       days.map { |day| ShiftGroupPresenter.new(day, view).render(Array(shifts.by_day[day])) }.join
     end
   end

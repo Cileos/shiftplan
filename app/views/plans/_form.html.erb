@@ -1,0 +1,23 @@
+<div id="sidebar">
+  <h3><%= t(:new_plan) %></h3>
+
+  <% form_for(Plan.new) do |f| %>
+    <fieldset>
+    	<fieldset>
+    	  <div>
+    	    <%= f.label :name %>
+    	    <%= f.text_field :name %>
+    	  </div>
+    	  <div>
+    	    <%= f.label :start %>
+    	    <%= f.date_select :start %>
+    	  </div>
+    	  <div>
+    	    <%= f.label :end %>
+    	    <%= f.date_select :end %>
+    	  </div>
+      </fieldset>
+    	<%= f.submit t(:save) %>
+    </fieldset>
+  <% end %>
+</div>

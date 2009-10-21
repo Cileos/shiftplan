@@ -1,0 +1,7 @@
+<ol>
+  <% @plans.each do |plan| -%>
+    <li><%= link_to plan.name_and_dates, plan_path(plan) %></li>
+  <% end -%>
+</ol>
+
+<%= render :partial => 'form' %>
