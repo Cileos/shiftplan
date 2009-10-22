@@ -1,7 +1,10 @@
 class Workplace < ActiveRecord::Base
-  self.partial_updates = false
+  belongs_to :account
+
+  self.partial_updates = false # TODO do we still need that?
 
   belongs_to :location
+
   has_many :shifts
   has_many :workplace_requirements
   has_many :workplace_qualifications

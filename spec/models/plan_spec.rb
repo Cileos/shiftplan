@@ -14,6 +14,10 @@ describe Plan do
   end
 
   describe "associations" do
+    it "should belong to an account" do
+      @plan.should belong_to(:account)
+    end
+
     it "should have shifts" do
       @plan.should have_many(:shifts)
     end
@@ -47,6 +51,29 @@ describe Plan do
 
       it "should return a range of days from start day to end day" do
         @plan.days.should == (Date.civil(2009, 9, 7)..Date.civil(2009, 9, 11))
+      end
+    end
+
+    describe "#dates" do
+      before(:each) do
+        @plan.start = monday_morning
+        @plan.end   = friday_afternoon
+      end
+
+      it "should return the dates as string" do
+        @plan.dates.should == '2009-09-07 - 2009-09-11'
+      end
+    end
+
+    describe "#name_and_dates" do
+      before(:each) do
+        @plan.name  = 'Plan 1'
+        @plan.start = monday_morning
+        @plan.end   = friday_afternoon
+      end
+
+      it "should return the name and dates as string" do
+        @plan.name_and_dates.should == 'Plan 1 (2009-09-07 - 2009-09-11)'
       end
     end
 

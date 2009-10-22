@@ -6,6 +6,10 @@ describe Workplace do
   end
 
   describe "associations" do
+    it "should belong to an account" do
+      @workplace.should belong_to(:account)
+    end
+
     it "should belong to a location" do
       @workplace.should belong_to(:location)
     end
@@ -126,6 +130,43 @@ describe Workplace do
 
       it "should return false if the workplaces doesn't need the given qualification" do
         @workplace.needs_qualification?(@receptionist_qualification).should be_false
+      end
+    end
+
+    describe "#form_values_json" do
+      before(:each) do
+        @workplace.attributes = {
+          :name => 'Kitchen',
+          :active => true,
+          :default_shift_length => 480
+        }
+        # no qualifications for the sake of simplicity
+      end
+
+      it "should return the relevant form values as JSON" do
+        json = @workplace.form_values_json
+
+        json.should include("name: 'Kitchen'")
+        json.should include("active: true")
+        json.should include("default_shift_length: 480")
+        json.should include("qualifications: []")
+      end
+    end
+
+    describe "#workplace_requirements_json" do
+      before(:each) do
+        @cook_qualification = mock_model(Qualification, :id => 1, :name => 'Cook')
+        @workplace.workplace_requirements.build(:qualification => @cook_qualification, :quantity => 3)
+        @workplace.workplace_requirements.last.stub!(:id).and_return(2) # yuck
+      end
+
+      it "should return the relevant workplace requirement values as JSON" do
+        json = @workplace.workplace_requirements_json
+
+        json.should include("id: 2")
+        json.should include("id: 1")
+        json.should include("name: 'Cook'")
+        json.should include("quantity: 3")
       end
     end
   end

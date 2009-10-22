@@ -63,6 +63,13 @@ describe Employee do
         @employee.initials = 'FT'
         @employee.initials.should == 'FT'
       end
+
+      it "should cache the initials" do # stupid test as it tests implementation?
+        @employee.initials = 'FT'
+        @employee.initials.should == 'FT'
+        @employee.initials = 'FT2'
+        @employee.initials.should == 'FT'
+      end
     end
 
     describe "#state" do
@@ -120,6 +127,46 @@ describe Employee do
       it "should replace &amp; with & so CSS doesn't complain" do
         @employee.stub!(:gravatar_url).and_return('foo&amp;bar')
         @employee.gravatar_url_for_css.should == 'foo&bar'
+      end
+    end
+    # first_name: '#{first_name}',
+    # last_name: '#{last_name}',
+    # active: #{active?},
+    # qualifications: [#{qualifications}],
+    # email: '#{email}',
+    # phone: '#{phone}',
+    # street: '#{street}',
+    # zipcode: '#{zipcode}',
+    # city: '#{city}',
+    # birthday_1i: '#{birthday.try(:year)}',
+    # birthday_2i: '#{birthday.try(:mon)}',
+    # birthday_3i: '#{birthday.try(:mday)}'
+    describe "#form_values_json" do
+      before(:each) do
+        @employee.attributes = {
+          :first_name => 'Fritz', :last_name => 'Thielemann', :birthday => Date.civil(1965, 2, 1),
+          :email => 'fritz@thielemann.de', :phone => '1234',
+          :street => 'Some street 1', :zipcode => '12345', :city => 'Somewhere',
+          :active => true
+        }
+        # no qualifications to make life a bit simpler
+      end
+
+      it "should return the relevant form values as JSON" do
+        json = @employee.form_values_json
+
+        json.should include("first_name: 'Fritz'")
+        json.should include("last_name: 'Thielemann'")
+        json.should include("email: 'fritz@thielemann.de'")
+        json.should include("phone: '1234'")
+        json.should include("street: 'Some street 1'")
+        json.should include("zipcode: '12345'")
+        json.should include("city: 'Somewhere'")
+        json.should include("birthday_1i: '1965'")
+        json.should include("birthday_2i: '2'")
+        json.should include("birthday_3i: '1'")
+        json.should include("active: true")
+        json.should include("qualifications: []")
       end
     end
   end

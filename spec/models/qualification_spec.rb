@@ -6,6 +6,10 @@ describe Qualification do
   end
 
   describe "associations" do
+    it "should belong to an account" do
+      @qualification.should belong_to(:account)
+    end
+
     it "should be associated with employees" do
       @qualification.should have_many(:employee_qualifications)
       @qualification.should have_many(:employees)
@@ -42,6 +46,16 @@ describe Qualification do
         @receptionist_qualification.possible_workplaces.should include(@reception)
 
         @barkeeper_qualification.possible_workplaces.should be_empty
+      end
+    end
+
+    describe "#form_values_json" do
+      before(:each) do
+        @cook_qualification = Qualification.new(:name => 'Cook')
+      end
+
+      it "should return the relevant form values as JSON" do
+        @cook_qualification.form_values_json.should include("name: 'Cook'")
       end
     end
   end

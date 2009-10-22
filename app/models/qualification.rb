@@ -1,4 +1,6 @@
 class Qualification < ActiveRecord::Base
+  belongs_to :account
+
   has_many :employee_qualifications
   has_many :employees, :through => :employee_qualifications
 
@@ -18,12 +20,7 @@ class Qualification < ActiveRecord::Base
   end
 
   def form_values_json
-    json = <<-json
-      {
-        name: '#{name}',
-      }
-    json
-    json.gsub("\n", ' ').strip
+    "{ name: '#{name}' }"
   end
 
   protected
