@@ -129,18 +129,7 @@ describe Employee do
         @employee.gravatar_url_for_css.should == 'foo&bar'
       end
     end
-    # first_name: '#{first_name}',
-    # last_name: '#{last_name}',
-    # active: #{active?},
-    # qualifications: [#{qualifications}],
-    # email: '#{email}',
-    # phone: '#{phone}',
-    # street: '#{street}',
-    # zipcode: '#{zipcode}',
-    # city: '#{city}',
-    # birthday_1i: '#{birthday.try(:year)}',
-    # birthday_2i: '#{birthday.try(:mon)}',
-    # birthday_3i: '#{birthday.try(:mday)}'
+
     describe "#form_values_json" do
       before(:each) do
         @employee.attributes = {
