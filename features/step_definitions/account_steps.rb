@@ -6,7 +6,5 @@ Given /^the following accounts:$/ do |accounts|
     end
     Account.create!(attributes)
   end
-  p Account.first.users
-  p User.first
 end
 

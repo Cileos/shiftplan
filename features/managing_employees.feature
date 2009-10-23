@@ -15,7 +15,7 @@ Feature: Managing employees
 		When I follow "Employees"
 		Then I should see an employee named "Fritz Thielemann"
 
-	@white @wip
+	@white
   Scenario: Defining a new employee
     Given I am on the employees index page
     When I click on "Click here to add a new employee"
