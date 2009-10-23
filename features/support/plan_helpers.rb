@@ -43,7 +43,7 @@ module PlanHelpers
 
   def locate_requirement(date, workplace, qualification, &block)
     locate_shift(date, workplace) do |shift|
-      locate_element(:class => 'requirements') do
+      locate_element(:class => 'requirements') do |requirements|
         if qualification == 'any'
           locate_element(:class => "requirement", &block)
         else

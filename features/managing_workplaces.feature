@@ -18,7 +18,7 @@ Feature: Managing workplaces
 	@white
   Scenario: Defining a new workplace
     Given I am on the workplaces index page
-    When I click on the button to add a workplace
+    When I click on the button to add a new workplace
     And I fill in "Name" with "Kitchen"
     And I press "Save"
     Then I should see "Workplace successfully created."

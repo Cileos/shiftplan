@@ -2,7 +2,7 @@ require 'digest/sha1'
 
 # inspired by Thoughtbot's Clearance
 class User < ActiveRecord::Base
-  belongs_to :account
+  has_many :accounts, :through => :memberships
 
   has_many :memberships
   has_many :accounts, :through => :memberships

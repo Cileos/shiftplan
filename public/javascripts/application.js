@@ -21,10 +21,12 @@ jQuery(document).ready(function() {
       return true;
     },
     success: function(data, textStatus) {
+          document.title = 'FOOOO'
       // HTML snippets
       if(data['html']['append']) {
         $.each(data['html']['append'], function(element, html) {
-          $(html).css('display', 'none').appendTo($(element)).effect('fold', { mode: 'show' }, 1000).effect('highlight', {}, 1000);
+          // $(html).css('display', 'none').appendTo($(element)).effect('fold', { mode: 'show' }, 1000).effect('highlight', {}, 1000);
+          $(html).appendTo($(element));
         });
       }
   

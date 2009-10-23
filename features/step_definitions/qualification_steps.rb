@@ -1,6 +1,8 @@
 Given /^the following qualifications:$/ do |qualifications|
-  qualifications.hashes.each do |qualification_attributes|
-    Qualification.create!(qualification_attributes)
+  qualifications.hashes.each do |attributes|
+    attributes = attributes.dup
+    attributes['account'] = Account.find_by_name(attributes['account'])
+    Qualification.create!(attributes)
   end
 end
 

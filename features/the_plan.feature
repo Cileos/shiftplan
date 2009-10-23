@@ -4,28 +4,36 @@ Feature: THE plan
   In order to reach enlightment
 
   Background:
-		Given the following qualifications:
-			| name      |
-			| Chef      |
-			| Barkeeper |
-    And the following workplaces:
-			| name      |
-			| Kitchen   |
-			| Bar       |
+		Given the following users:
+		  | name             | email               | password |
+		  | Fritz Thielemann | fritz@thielemann.de | oracle   |
+		And the following accounts:
+			| name        | users               |
+			| the account | fritz@thielemann.de |
 		And the following employees:
-      | name             | initials | qualifications |
-      | Clemens Kofler   | CK       | Chef           |
-      | Laura Kozlowski  | LK       | Barkeeper      |
+      | account     | name             | initials | qualifications |
+      | the account | Clemens Kofler   | CK       | Chef           |
+      | the account | Laura Kozlowski  | LK       | Barkeeper      |
+    And the following workplaces:
+			| account     | name      |
+			| the account | Kitchen   |
+			| the account | Bar       |
+		And the following qualifications:
+			| account     | name      |
+			| the account | Chef      |
+			| the account | Barkeeper |
 		And the following plans:
-			| name     | start        | end           |
-			| Plan 1   | Monday 08:00 | Tuesday 20:00 |
+			| account     | name     | start        | end           |
+			| the account | Plan 1   | Monday 08:00 | Tuesday 20:00 |
 		And the following shifts:
 			| plan   | workplace | requirements        | start        | duration |
 			| Plan 1 | Reception | any                 | Monday 08:00 | 300      |
 			| Plan 1 | Kitchen   | Chef:Clemens Kofler | Monday 09:00 | 240      |
 			| Plan 1 | Bar       | Barkeeper           | Monday 12:00 | 240      |
-
+	
+	@wip
 	Scenario: Viewing a plan
+		Given I am logged in with "fritz@thielemann.de" and "oracle"
 		When I go to the plan show page
 		Then I should see a plan named "Plan 1"
 		And I should see the following shifts, required qualifications and assignments:

@@ -15,6 +15,9 @@ class ApplicationController < ActionController::Base
     end
 
     def current_account
-      @current_account ||= current_user.try(:account)
+      @current_account ||= begin
+        current_user         || raise("not logged in")
+        current_user.account || raise("current user #{current_user.inspect} does not belong to an account")
+      end
     end
 end

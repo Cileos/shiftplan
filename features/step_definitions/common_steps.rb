@@ -116,7 +116,7 @@ When /^I attach the file at "([^\"]*)" to "([^\"]*)"$/ do |path, field|
 end
 
 Then /^I should see "([^\"]*)"$/ do |text|
-  self.should contain(text)
+  locate_element(text).should_not be_nil
 end
 
 Then /^I should see "([^\"]*)" within "([^\"]*)"$/ do |text, selector|

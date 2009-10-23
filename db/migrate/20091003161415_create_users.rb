@@ -1,8 +1,6 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
-      t.belongs_to :account # temporary - multiple memberships should be possible
-
       t.string   :email
       t.string   :encrypted_password, :limit => 128
       t.string   :salt,               :limit => 128

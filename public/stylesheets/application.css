@@ -6,16 +6,21 @@ body {
 }
 
 h1 {
-  font-size: 2em;
-  font-family: Georgia, serif;
   margin-bottom: 0.5em;
+  font-size: 1.8em;
+  /*font-family: Georgia, serif;*/
+  /*font-weight: bold;*/
+  color: #bbb;
 }
 
-h2 {
+/* 
+totally craps out on "Employees" etc. ... also, Gorgia??
+h2 { 
   font-size: 1.5em;
   font-family: Georgia, serif;
   margin-bottom: 0.5em;
 }
+*/
 
 div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWithErrors select {
   border: 1px solid red;

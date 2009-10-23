@@ -15,15 +15,14 @@ Feature: Managing employees
 		When I follow "Employees"
 		Then I should see an employee named "Fritz Thielemann"
 
-	@white
+	@white @wip
   Scenario: Defining a new employee
     Given I am on the employees index page
-    When I click on the button to add an employee
+    When I click on "Click here to add a new employee"
     And I fill in "First name" with "Clemens"
     And I fill in "Last name" with "Kofler"
     And I press "Save"
-    Then I should see "Employee successfully created."
-    And I should see an employee named "Clemens Kofler"
+    Then I should see an employee named "Clemens Kofler"
 
 	@black
   Scenario: Trying to define an employee with insufficient data
@@ -34,7 +33,6 @@ Feature: Managing employees
     And I press "Save"
     Then I should see "Employee could not be created."
     And I should see "can't be blank"
-    # FIXME: not good?
 
 	@white
 	Scenario: Updating an existing employee

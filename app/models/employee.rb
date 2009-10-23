@@ -1,6 +1,7 @@
 class Employee < ActiveRecord::Base
   is_gravtastic
 
+  belongs_to :account
   has_many :employee_qualifications
   has_many :qualifications, :through => :employee_qualifications
   has_many :allocations
