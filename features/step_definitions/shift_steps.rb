@@ -38,6 +38,16 @@ When /^I follow "([^\"]*)" within the shift "([^\"]*)" on (.+)/ do |link, workpl
   end
 end
 
+When /^I drag the shift "([^\"]*)" on (.*)$/ do |workplace, date|
+  element = locate_shift(date, workplace)
+  drag(element)
+end
+
+When /^I drop onto the shifts area for day (.*)$/ do |date|
+  element = locate_shifts(date)
+  drop(element)
+end
+
 Then /^I should see the following shifts, required qualifications and assignments:$/ do |shifts|
   shifts.hashes.each do |attributes|
     date, workplace, qualifications = attributes.values_at('date', 'workplace', 'qualifications')
@@ -49,16 +59,6 @@ Then /^I should see the following shifts, required qualifications and assignment
       element.should_not be_nil
     end
   end
-end
-
-When /^I drag the shift "([^\"]*)" on (.*)$/ do |workplace, date|
-  element = locate_shift(date, workplace)
-  drag(element)
-end
-
-When /^I drop onto the shifts area for day (.*)$/ do |date|
-  element = locate_shifts(date)
-  drop(element)
 end
 
 Then /^I should see a shift "([^\"]*)" on (.*)$/ do |workplace, date|

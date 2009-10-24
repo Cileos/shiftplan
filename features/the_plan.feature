@@ -30,9 +30,9 @@ Feature: THE plan
 			| Plan 1 | Reception | any                 | Monday 08:00 | 300      |
 			| Plan 1 | Kitchen   | Chef:Clemens Kofler | Monday 09:00 | 240      |
 			| Plan 1 | Bar       | Barkeeper           | Monday 12:00 | 240      |
+		And I am logged in with "fritz@thielemann.de" and "oracle"
 
 	Scenario: Viewing a plan
-		Given I am logged in with "fritz@thielemann.de" and "oracle"
 		When I go to the plan show page
 		Then I should see a plan named "Plan 1"
 		And I should see the following shifts, required qualifications and assignments:
@@ -44,6 +44,7 @@ Feature: THE plan
 		And I should see a workplace named "Kitchen" listed in the sidebar
 		And I should see a qualification named "Chef" listed in the sidebar
 
+  @wip
 	Scenario: Adding a new shift
 		Given I am on the plan show page
 		When I drag the workplace "Kitchen"
