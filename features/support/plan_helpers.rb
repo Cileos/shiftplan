@@ -8,7 +8,7 @@ module PlanHelpers
   end
 
   def reformat_date!(string)
-    string.gsub!(/(#{shift_days.keys.join('|')})/) { shift_days[$1] }
+    string.gsub!(/(#{shift_days.keys.join('|')})/) { shift_days[$1] } if string
   end
 
   def locate_sidebar

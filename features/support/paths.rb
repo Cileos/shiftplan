@@ -10,6 +10,8 @@ module NavigationHelpers
 
     when /the start page/
       root_path
+    when /the plans index page/
+      plans_path
     when /the plan show page/
       plan_path(Plan.first)
     when /the workplaces index page/

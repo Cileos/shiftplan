@@ -1,6 +1,8 @@
 <ol>
   <% @plans.each do |plan| -%>
-    <li><%= link_to plan.name_and_dates, plan_path(plan) %></li>
+    <% content_tag_for(:li, plan) do %>
+			<%= link_to plan_name_and_dates(plan), plan_path(plan) %>
+		<% end %>
   <% end -%>
 </ol>
 
