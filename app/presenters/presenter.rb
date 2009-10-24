@@ -9,7 +9,11 @@ class Presenter
   end
 
   def model_name
-    object.class.name.underscore
+    @model_name ||= if object.is_a?(Array)
+      object.first.class.name.underscore.pluralize
+    else
+      object.class.name.underscore
+    end
   end
 
   def id
@@ -24,15 +28,7 @@ class Presenter
     render
   end
 
-  [:div, :ol, :ul, :li, :h1, :h2, :h3, :h4, ].each do |tag_name|
-    # define_method(tag_name) do |*args, &block|
-    #   content_tag(tag_name, *args, &block)
-    # end
-    # 
-    # define_method(:"#{tag_name}_for") do |*args, &block|
-    #   content_tag_for(tag_name, *args, &block)
-    # end
-
+  [:h1, :h2, :h3, :h4, :div, :ol, :ul, :li, :span].each do |tag_name|
     class_eval <<-code, __FILE__, __LINE__
       def #{tag_name}(*args, &block)
         content_tag(:#{tag_name}, *args, &block)

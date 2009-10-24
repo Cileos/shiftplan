@@ -7,10 +7,13 @@ body {
 
 h1 {
   margin-bottom: 0.5em;
-  font-size: 1.8em;
-  /*font-family: Georgia, serif;*/
-  /*font-weight: bold;*/
+  font-size: 24px;
   color: #bbb;
+}
+h1 .dates {
+  float: right;
+  font-size: 13px;
+  line-height: 30px;
 }
 
 /* 
