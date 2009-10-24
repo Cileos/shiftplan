@@ -123,7 +123,7 @@
   	update_data_from_dimension: function() {
   		this.element.attr({
   			'data-start': Shift.pixels_to_minutes(this.left()),
-  			'data-duration': Shift.pixels_to_minutes(this.width())
+  			'data-duration': Shift.pixels_to_minutes(this.width() + 2)
   		});
   		// console.log('data updated to start: ' + this.element.attr('data-start') + ', duration: ' + this.element.attr('data-duration'));
   	},
