@@ -17,7 +17,7 @@ Spork.prefork do
   Before do
     ActiveRecord::Base.send(:subclasses).each do |model|
       connection = model.connection
-      if connection.instance_variable_get(:@config)['adapter'] == 'mysql'
+      if connection.instance_variable_get(:@config)[:adapter] == 'mysql'
         connection.execute("TRUNCATE #{model.table_name}")
       else
         connection.execute("DELETE FROM #{model.table_name}")
