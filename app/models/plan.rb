@@ -7,15 +7,9 @@ class Plan < ActiveRecord::Base
     end
   end
 
-  before_validation :set_duration
+  validates_presence_of :start, :end
 
-  def name_and_dates
-    @name_and_dates ||= "#{name} (#{dates})"
-  end
-
-  def dates
-    @dates ||= I18n.t(:plan_from_to, :start => I18n.l(self.start.to_date), :end => I18n.l(self.end.to_date))
-  end
+  before_save :set_duration
 
   def days
     (start.to_date)..(self.end.to_date)

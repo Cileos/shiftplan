@@ -23,8 +23,14 @@ describe Plan do
     end
   end
 
-
   describe "validations" do
+    it "should require a start time" do
+      @plan.should validate_presence_of(:start)
+    end
+
+    it "should require an end time" do
+      @plan.should validate_presence_of(:end)
+    end
   end
 
   describe "callbacks" do
@@ -34,9 +40,9 @@ describe Plan do
         @plan.end   = friday_afternoon
       end
 
-      it "should set the duration from start/end time before validation" do
+      it "should set the duration from start/end time before save" do
         @plan.duration = nil
-        @plan.valid? # @plan.send(:set_duration) # ?
+        @plan.save
         @plan.duration.should == 8 * 60
       end
     end
@@ -51,29 +57,6 @@ describe Plan do
 
       it "should return a range of days from start day to end day" do
         @plan.days.should == (Date.civil(2009, 9, 7)..Date.civil(2009, 9, 11))
-      end
-    end
-
-    describe "#dates" do
-      before(:each) do
-        @plan.start = monday_morning
-        @plan.end   = friday_afternoon
-      end
-
-      it "should return the dates as string" do
-        @plan.dates.should == '2009-09-07 - 2009-09-11'
-      end
-    end
-
-    describe "#name_and_dates" do
-      before(:each) do
-        @plan.name  = 'Plan 1'
-        @plan.start = monday_morning
-        @plan.end   = friday_afternoon
-      end
-
-      it "should return the name and dates as string" do
-        @plan.name_and_dates.should == 'Plan 1 (2009-09-07 - 2009-09-11)'
       end
     end
 
