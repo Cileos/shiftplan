@@ -101,5 +101,20 @@ describe Shift do
         @shift.end_in_minutes.should == 23 * 60 + 120
       end
     end
+
+    describe "updating start/end attributes" do
+      shift = Shift.create!(:start => Time.now, :end => 2.hours.from_now, :duration => 120)
+
+      start_time = Time.parse('Mon Sep 07 08:00:00 +0200 2009')
+      end_time   = Time.parse('Mon Sep 07 11:00:00 +0200 2009')
+      attributes = { "start" => start_time, "end" => end_time, "workplace_id" => "2" }
+
+      shift.update_attributes!(attributes)
+      shift.reload
+
+      shift.start.should == start_time
+      shift.end.should == end_time
+      shift.duration.should == 180
+    end
   end
 end

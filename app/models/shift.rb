@@ -9,8 +9,6 @@ class Shift < ActiveRecord::Base
   before_create :build_requirements
   before_validation :synchronize_duration_end_time, :if => lambda { |shift| !!shift.start }
 
-  default_scope :order => "start ASC, end ASC"
-
   def start_in_minutes
     start.hour * 60 + start.min
   end
@@ -29,7 +27,7 @@ class Shift < ActiveRecord::Base
     def synchronize_duration_end_time
       if self.duration && self.end.nil?
         self.end = self.start + self.duration.minutes
-      elsif self.end && self.duration.nil?
+      elsif self.end
         self.duration = ((self.end - self.start) / 60).round
       end
     end
@@ -37,7 +35,7 @@ class Shift < ActiveRecord::Base
     def build_requirements
       workplace.workplace_requirements.each do |requirement|
         requirement.quantity.times { requirements.build(:qualification => requirement.qualification) }
-      end
+      end if workplace
     end
 
     def start_before_end
