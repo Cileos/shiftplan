@@ -1,5 +1,7 @@
-When /^I click on "([^\"]*)"$/ do |text|
-  click_on(text)
+When /^I click on the (.*) "([^\"]*)"$/ do |klass, name|
+  css_class = klass.downcase.gsub(/\s+/, ' ').gsub(/\s/, '_')
+  name = /#{name}/ unless name.is_a?(Regexp)
+  click_on(name, :class => klass)
 end
 
 When /^I drag the (.*) "([^\"]*)"$/ do |type, name|
@@ -22,8 +24,15 @@ end
 
 Then /^I should see an? (.*) named "([^\"]*)"$/ do |klass, name|
   css_class = klass.downcase.gsub(/\s+/, ' ').gsub(/\s/, '_')
-  name = /#{name}/ unless name.is_a?(Regexp)
+  # name = /#{name}/ unless name.is_a?(Regexp)
   element = locate_element(name, :class => klass)
   element.should_not be_nil
   element.inner_html.should match(name)
+end
+
+Then /^I should not see an? (.*) named "([^\"]*)"$/ do |klass, name|
+  css_class = klass.downcase.gsub(/\s+/, ' ').gsub(/\s/, '_')
+  # name = /#{name}/ unless name.is_a?(Regexp)
+  element = locate_element(name, :class => klass)
+  element.should be_nil
 end

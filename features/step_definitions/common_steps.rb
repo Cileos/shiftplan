@@ -16,6 +16,10 @@ When /^I press "([^\"]*)"$/ do |button|
   click_button(button)
 end
 
+When /^I click on "([^\"]*)"$/ do |text|
+  click_on(text)
+end
+
 When /^I follow "([^\"]*)"$/ do |link|
   click_link(link)
 end

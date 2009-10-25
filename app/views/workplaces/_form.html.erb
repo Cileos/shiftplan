@@ -64,6 +64,7 @@ $(document).ready(function() {
 
 <h3><%= t(:new_workplace) %></h3>
 <% form_for Workplace.new do |f| %>
+	<input type="hidden" name="_method" value="" />
   <fieldset>
   	<fieldset>
   	  <div>
