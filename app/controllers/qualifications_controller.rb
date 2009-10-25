@@ -20,13 +20,13 @@ class QualificationsController < ApplicationController
     if @qualification.save
       flash[:notice] = t(:qualification_successfully_created)
       respond_to do |format|
-        format.html { redirect_to qualifications_url }
+        # htmlunit does not seem to send any accept header set through xhr objects, 2.7. should fix this
+        # http://sourceforge.net/tracker/?func=detail&aid=2862553&group_id=47038&atid=448266
         format.json { render :status => 201 }
       end
     else
       flash[:error] = t(:qualification_could_not_be_created)
       respond_to do |format|
-        format.html { render :action => 'new', :layout => !request.xhr? }
         format.json { render :template => 'shared/errors', :status => 400 }
       end
     end
@@ -40,13 +40,11 @@ class QualificationsController < ApplicationController
     if @qualification.update_attributes(params[:qualification])
       flash[:notice] = t(:qualification_successfully_updated)
       respond_to do |format|
-        format.html { redirect_to qualifications_url }
         format.json { render :status => 200 }
       end
     else
       flash[:error] = t(:qualification_could_not_be_updated)
       respond_to do |format|
-        format.html { render :action => 'edit', :layout => !request.xhr? }
         format.json { render :template => 'shared/errors', :status => 400 }
       end
     end
