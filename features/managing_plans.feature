@@ -25,29 +25,29 @@ Feature: Managing plans
     And I press "Save"
     Then I should see a plan named "Plan 2"
 
-  Scenario: Trying to define a plan with insufficient data
-    Given I am on the plans index page
-    When I fill in "Name" with ""
-    And I press "Save"
-    Then I should see "Plan could not be created."
-    And I should see "can't be blank"
-
-	Scenario: Updating an existing plan
-		Given I am on the employees index page
-		When I follow "Edit"
-		And I fill in "Name" with "Plan 3"
-		And I press "Save"
-		Then I should see a plan named "Plan 3"
-	
-	Scenario: Trying to update an existing plan with insufficient data
-		Given I am on the employees index page
-		When I follow "Edit"
-		And I fill in "Name" with ""
-		And I press "Save"
-		Then I should see "Plan could not be updated."
-    And I should see "can't be blank"
-	
-	Scenario: Deleting an existing plan
-		Given I am on the plans index page
-		When I follow "Delete"
-		Then I should not see a plan named "Plan 1"
+	# Scenario: Trying to define a plan with insufficient data
+	#   Given I am on the plans index page
+	#   When I fill in "Name" with ""
+	#   And I press "Save"
+	#   Then I should see "Plan could not be created."
+	#   And I should see "can't be blank"
+	# 
+	# Scenario: Updating an existing plan
+	# 	Given I am on the employees index page
+	# 	When I follow "Edit"
+	# 	And I fill in "Name" with "Plan 3"
+	# 	And I press "Save"
+	# 	Then I should see a plan named "Plan 3"
+	# 
+	# Scenario: Trying to update an existing plan with insufficient data
+	# 	Given I am on the employees index page
+	# 	When I follow "Edit"
+	# 	And I fill in "Name" with ""
+	# 	And I press "Save"
+	# 	Then I should see "Plan could not be updated."
+	#     And I should see "can't be blank"
+	# 
+	# Scenario: Deleting an existing plan
+	# 	Given I am on the plans index page
+	# 	When I follow "Delete"
+	# 	Then I should not see a plan named "Plan 1"

@@ -11,11 +11,13 @@ $(document).ready(function() {
       var resource_name = match[1];
 
       var id = parseInt(match[2]);
+      var method = 'put';
       var path = '/' + resource_name + 's/' + id;
       var title = $('h2', $(this)).html();
     } else {
       match = this.id.match(/new_(.*)/);
       var resource_name = match[1];
+      var method = 'post';
       var path = '/' + resource_name + 's';
       var title = 'New ' + resource_name;
     }
@@ -23,6 +25,7 @@ $(document).ready(function() {
     $('#sidebar form').attr('action', path);
     $('#sidebar > h3').html(title);
 
+    $('#sidebar form input[name=_method]').attr('value', method);
     var form_values = eval('(' + $(this).attr('data-form-values') + ')');
     $.each(form_values, function(field, value) {
       if($.isArray(value)) {
@@ -37,6 +40,7 @@ $(document).ready(function() {
         }
       }
     });
+    
     $('#sidebar form').trigger({
       type: 'on_' + resource_name + '_load',
       resource: $(this)
