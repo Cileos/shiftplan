@@ -98,7 +98,6 @@ ActiveRecord::Schema.define(:version => 20091003161427) do
   end
 
   create_table "users", :force => true do |t|
-    t.integer  "account_id"
     t.string   "email"
     t.string   "encrypted_password", :limit => 128
     t.string   "salt",               :limit => 128

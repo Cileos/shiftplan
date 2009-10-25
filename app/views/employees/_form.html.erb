@@ -1,6 +1,7 @@
 <h3><%= t(:new_employee )%></h3>
 
 <% form_for Employee.new do |f| %>
+	<input type="hidden" name="_method" value="" />
 	<fieldset>
 	  <div>
 	    <%= f.label :first_name %>
