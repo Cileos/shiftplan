@@ -28,12 +28,14 @@ barkeeper         = Qualification.create!(:name => 'Barkeeper')
 receptionist      = Qualification.create!(:name => 'Rezeptionist')
 
 Employee.create!(
+  :account        => account,
   :first_name     => 'Fritz',
   :last_name      => 'Thielemann',
   :active         => true,
   :qualifications => [cooking_assistant, barkeeper]
 )
 Employee.create!(
+  :account        => account,
   :first_name     => 'Sven',
   :last_name      => 'Fuchs',
   :active         => false,
@@ -41,6 +43,7 @@ Employee.create!(
   :qualifications => [cook]
 )
 Employee.create!(
+  :account        => account,
   :first_name     => 'Clemens',
   :last_name      => 'Kofler',
   :email          => 'clemens@railway.at',

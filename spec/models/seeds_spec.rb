@@ -12,20 +12,26 @@ describe "Seeds" do
   end
 
   it "should create Employees w/ qualifications" do
-    employee = Employee.first
-    employee.should_not be_nil
-    employee.qualifications.should_not be_empty
+    Employee.all.each do |employee|
+      employee.should_not be_nil
+      employee.account.should_not be_nil
+      employee.qualifications.should_not be_empty
+    end
   end
 
   it "should create Workplaces w/ workplace_requirements" do
-    workplace = Workplace.first
-    workplace.should_not be_nil
-    workplace.workplace_requirements.should_not be_empty
+    Workplace.all.each do |workplace|
+      workplace.should_not be_nil
+      workplace.account.should_not be_nil
+      workplace.workplace_requirements.should_not be_empty
+    end
   end
 
   it "should create a Plan w/ shifts" do
-    plan = Plan.first
-    plan.should_not be_nil
-    plan.shifts.should_not be_empty
+    Plan.all.each do |plan|
+      plan.should_not be_nil
+      plan.account.should_not be_nil
+      plan.shifts.should_not be_empty
+    end
   end
 end
