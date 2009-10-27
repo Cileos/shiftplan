@@ -90,6 +90,8 @@ end
 Then /^there should not be a shift "([^\"]*)" on (.*) stored in the database$/ do |workplace, date|
   find_shift(date, workplace).should be_nil
 end
+<<<<<<< HEAD
+=======
 
 Then /^the shift "([^\"]*)" on (.*) should be marked unsuitable$/ do |workplace, date|
   shift = locate_shift(date, workplace)
@@ -101,3 +103,4 @@ Then /^the shift "([^\"]*)" on (.*) should not be marked unsuitable$/ do |workpl
   shift.attribute('class').should_not match(/unsuitable_workplace/)
 end
 
+>>>>>>> test dragging employees "filter" behaviour

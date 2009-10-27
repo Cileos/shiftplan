@@ -22,6 +22,10 @@ When /^I drop onto the plan area$/ do
   drop(element)
 end
 
+When "I drop the element" do
+  drop
+end
+
 Then /^I should see an? (.*) named "([^\"]*)"$/ do |klass, name|
   css_class = klass.downcase.gsub(/\s+/, ' ').gsub(/\s/, '_')
   # name = /#{name}/ unless name.is_a?(Regexp)

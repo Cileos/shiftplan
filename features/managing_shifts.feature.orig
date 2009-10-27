@@ -123,6 +123,17 @@ Feature: THE plan
 		And I drop onto the plan area
 		Then I should not see a requirement for a "Chef" in the shift "Bar" on Monday
 		And there should not be a requirement for a "Chef" in the shift "Bar" on Monday stored in the database
+<<<<<<< HEAD
+		
+	Scenario: Assigning an employee to an existing requirement
+		Given I am on the plan show page
+		When I drag the employee "Laura Kozlowski"
+		And I drop onto the requirement for a "Barkeeper" in the shift "Bar" on Monday
+		And I wait for the animation to finish
+		Then I should see the employee "Laura Kozlowski" assigned to the requirement for a "Barkeeper" in the shift "Bar" on Monday
+		And the assignment of "Laura Kozlowski" to the requirement for a "Barkeeper" in the shift "Bar" on Monday should be stored in the database
+		
+=======
 
 	Scenario: Assigning an employee to an existing requirement
 		Given I am on the plan show page
@@ -132,7 +143,9 @@ Feature: THE plan
 		When I drop the element
 		Then I should see the employee "Laura Kozlowski" assigned to the requirement for a "Barkeeper" in the shift "Bar" on Monday
 		And the assignment of "Laura Kozlowski" to the requirement for a "Barkeeper" in the shift "Bar" on Monday should be stored in the database
-		
+
+  @wip
+>>>>>>> test dragging employees "filter" behaviour
 	Scenario: Assigning an employee to a new requirement
 		Given I am on the plan show page
 		When I drag the qualification "Chef" 

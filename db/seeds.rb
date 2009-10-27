@@ -11,11 +11,11 @@ end
 
 account = Account.create!(
   :name  => 'Awesome Hostels Inc.',
-  :admin => { 
+  :admin => {
     :email => 'boss@awesome-hostels.com',
     :password => 'boss',
     :password_confirmation => 'boss',
-    :email_confirmed => true 
+    :email_confirmed => true
   }
 )
 
@@ -28,26 +28,26 @@ barkeeper         = Qualification.create!(:name => 'Barkeeper')
 receptionist      = Qualification.create!(:name => 'Rezeptionist')
 
 Employee.create!(
-  :first_name     => 'Fritz', 
-  :last_name      => 'Thielemann', 
-  :active         => true, 
+  :first_name     => 'Fritz',
+  :last_name      => 'Thielemann',
+  :active         => true,
   :qualifications => [cooking_assistant, barkeeper]
 )
 Employee.create!(
-  :first_name     => 'Sven', 
-  :last_name      => 'Fuchs', 
-  :active         => false, 
-  :email          => 'svenfuchs@artweb-design.de', 
+  :first_name     => 'Sven',
+  :last_name      => 'Fuchs',
+  :active         => false,
+  :email          => 'svenfuchs@artweb-design.de',
   :qualifications => [cook]
 )
 Employee.create!(
-  :first_name     => 'Clemens', 
-  :last_name      => 'Kofler', 
+  :first_name     => 'Clemens',
+  :last_name      => 'Kofler',
   :email          => 'clemens@railway.at',
-  :birthday       => Date.civil(1986, 5, 21), 
+  :birthday       => Date.civil(1986, 5, 21),
   :active         => true,
-  :street         => 'Czarnikauer Str 6A', 
-  :zipcode        => '10439', 
+  :street         => 'Czarnikauer Str 6A',
+  :zipcode        => '10439',
   :city           => 'Berlin',
   :qualifications => [receptionist, barkeeper]
 )
@@ -55,34 +55,34 @@ Employee.create!(
 
 kitchen = Workplace.create!(
   :account              => account,
-  # :location             => center_1, 
-  :name                 => 'Küche', 
+  # :location             => center_1,
+  :name                 => 'Küche',
   :qualifications       => [cook, cooking_assistant],
-  :default_shift_length => 480, 
-  :active               => true, 
+  :default_shift_length => 480,
+  :active               => true,
   :workplace_requirements_attributes => [
-    { :qualification_id => cook.id, :quantity => 1 }, 
+    { :qualification_id => cook.id, :quantity => 1 },
     { :qualification_id => cooking_assistant.id, :quantity => 2 }
   ]
 )
 bar = Workplace.create!(
   :account              => account,
-  # :location             => center_1, 
-  :name                 => 'Bar', 
+  # :location             => center_1,
+  :name                 => 'Bar',
   :qualifications       => [barkeeper],
-  :default_shift_length => 600, 
-  :active               => true, 
+  :default_shift_length => 600,
+  :active               => true,
   :workplace_requirements_attributes => [
     { :qualification_id => barkeeper.id, :quantity => 2 }
   ]
 )
 reception = Workplace.create!(
   :account              => account,
-  # :location             => center_1, 
-  :name                 => 'Rezeption', 
+  # :location             => center_1,
+  :name                 => 'Rezeption',
   :qualifications       => [receptionist],
-  :default_shift_length => 480, 
-  :active               => false, 
+  :default_shift_length => 480,
+  :active               => false,
   :workplace_requirements_attributes => [
     { :qualification_id => receptionist.id, :quantity => 1 }
   ]
@@ -99,7 +99,7 @@ plan_1 = Plan.create!(
   :end     => friday_afternoon
 )
 Shift.create!(
-  :plan      => plan_1, 
+  :plan      => plan_1,
   :workplace => kitchen,
   :start     => monday_morning,
   :end       => monday_morning + 8.hours

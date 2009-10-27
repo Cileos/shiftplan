@@ -63,7 +63,12 @@ module PlanHelpers
 
   def locate_employee(name)
     employee = Employee.find_by_name(name)
-    locate_sidebar { locate_element(:href => "/employees/#{employee.id}") }
+    # FIXME should be able to use select_element("#sidebar .employee_1 div")
+    locate_sidebar do
+      locate_element(:class => "employee_#{employee.id}") do
+        locate_element(:div)
+      end
+    end
   end
 
   def locate_workplace(name)
