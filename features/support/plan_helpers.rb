@@ -11,12 +11,12 @@ module PlanHelpers
     string.gsub!(/(#{shift_days.keys.join('|')})/) { shift_days[$1] } if string
   end
 
-  def locate_sidebar
-    locate_element(:id => 'sidebar')
+  def locate_sidebar(&block)
+    locate_element(:id => 'sidebar', &block)
   end
 
-  def locate_body
-    locate_element(:body)
+  def locate_body(&block)
+    locate_element(:body, &block)
   end
 
   def locate_plan(&block)
