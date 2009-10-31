@@ -10,6 +10,22 @@
   		var employee = $(ui.draggable).employee()
   		var assignment = requirement.assign_employee(employee);
   		assignment.element.effect('bounce', {}, 100);
+  	},
+  	on_click: function(event) {
+  	  event.preventDefault();
+  	  event.stopPropagation();
+  	  var requirement = $(this).requirement();
+
+	    $('#sidebar .employee').removeClass('suitable').removeClass('unsuitable');
+
+  	  if(requirement.selected()) {
+  	    requirement.element.removeClass('selected');
+  	  } else {
+  	    $('.plan .selected').removeClass('selected');
+  	    requirement.element.addClass('selected');
+  	    requirement.suitable_employees().addClass('suitable');
+  	    requirement.unsuitable_employees().addClass('unsuitable');
+  	  }
   	}
   });
 
@@ -51,7 +67,17 @@
   			accept: ".employee div",
   			drop: Requirement.on_employee_drop
   		});
+  		this.element.click(Requirement.on_click)
   	},
+    selected: function() {
+      return this.element.hasClass('selected');
+    },
+    suitable_employees: function() {
+      return $('#sidebar .employee[data-qualifications*=qualification_' + this.qualification_id() +']');
+    },
+    unsuitable_employees: function() {
+      return $('#sidebar .employee:not([data-qualifications*=qualification_' + this.qualification_id() +'])');
+    },
   	remove: function() {
   	  this.destroy();
   	  Resource.prototype.remove.call(this);

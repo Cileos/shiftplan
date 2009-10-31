@@ -110,7 +110,13 @@
 }
 #sidebar .employee {
   width: 70px;
+  border: 1px solid #efefef;
 }
+#sidebar .employee.unsuitable {
+  opacity: 0.40;
+  -moz-opacity: 0.40;
+}
+
 #sidebar .workplace,
 #sidebar .qualification {
   width: 110px;

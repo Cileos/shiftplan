@@ -27,6 +27,12 @@
 	/*border-left: 1px solid #aaa;*/
 	/*cursor: move;*/
 }
+
+.plan .shift.selected,
+.plan .requirement.selected {
+  border: 1px solid red; /* FIXME */
+}
+
 .plan .requirements > li {
 	float: left;
 	margin: 4px 0 0 4px;

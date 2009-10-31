@@ -13,6 +13,11 @@ Given /^the following requirements:$/ do |requirements|
   end
 end
 
+When /^I click on the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|
+  element = locate_requirement(date, workplace, qualification)
+  page.getFirstByXPath(element.xpath).click # yuck
+  respond!
+end
 
 When /^I drag the requirement for a "([^\"]*)" from the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|
   element = locate_requirement(date, workplace, qualification)
@@ -29,6 +34,14 @@ When /^I drag the assignment of "([^\"]*)" from the requirement for a "([^\"]*)"
   drag(element)
 end
 
+
+Then /^the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.*) should be highlighted$/ do |qualification, workplace, date|
+  locate_requirement(date, workplace, qualification).element['class'].should include('selected')
+end
+
+Then /^the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.*) should not be highlighted$/ do |qualification, workplace, date|
+  locate_requirement(date, workplace, qualification).element['class'].should_not include('selected')
+end
 
 Then /^I should see a requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|
   locate_requirement(date, workplace, qualification).should_not be_nil

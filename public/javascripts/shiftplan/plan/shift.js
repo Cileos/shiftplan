@@ -24,6 +24,20 @@
   	minutes_to_pixels: function(minutes) {
   		return minutes * Plan.pixels_per_minute();
   	},
+  	on_click: function(event) {
+  	  var shift = $(this).shift();
+
+	    $('#sidebar .employee').removeClass('suitable').removeClass('unsuitable');
+
+  	  if(shift.selected()) {
+  	    shift.element.removeClass('selected');
+  	  } else {
+  	    $('.plan .selected').removeClass('selected');
+  	    shift.element.addClass('selected');
+  	    shift.suitable_employees().addClass('suitable');
+  	    shift.unsuitable_employees().addClass('unsuitable');
+  	  }
+  	},
   	on_drag_stop: function(event, ui) {
   	  var shift = ui.helper.shift();
   	  if(shift.removing) {
@@ -59,6 +73,15 @@
       var handles = $('<span class="resize_handle left"></span><span class="resize_handle right"></span>');
       this.element.append(handles);
       this.update_dimension_from_data();
+    },
+    selected: function() {
+      return this.element.hasClass('selected');
+    },
+    suitable_employees: function() {
+      return $('#sidebar .employee[data-possible-workplaces*=workplace_' + this.workplace_id() +']');
+    },
+    unsuitable_employees: function() {
+      return $('#sidebar .employee:not([data-possible-workplaces*=workplace_' + this.workplace_id() +'])');
     },
   	init_containment: function(draggable) { // gotta set containment directly to the draggable
   		if (!draggable.containment) {
@@ -186,6 +209,7 @@
       }
   	},
   	bind_events: function() {
+  	  this.element.click(Shift.on_click);
       this.element.droppable({
        accept: "#qualifications a div",
        drop: Shift.on_qualification_drop

@@ -27,6 +27,12 @@ Given /^the following shifts:$/ do |shifts|
   end
 end
 
+When /^I click on the shift "([^\"]*)" on (.+)$/ do |workplace, date|
+  element = locate_shift(date, workplace)
+  page.getFirstByXPath(element.xpath).click # yuck
+  respond!
+end
+
 When /^I drop onto to the shift "([^\"]*)" on (.+)$/ do |workplace, date|
   element = locate_shift(date, workplace)
   drop(element)
@@ -59,6 +65,14 @@ Then /^I should see the following shifts, required qualifications and assignment
       element.should_not be_nil
     end
   end
+end
+
+Then /^the shift "([^\"]*)" on (.*) should be highlighted$/ do |workplace, date|
+  locate_shift(date, workplace).element['class'].should include('selected')
+end
+
+Then /^the shift "([^\"]*)" on (.*) should not be highlighted$/ do |workplace, date|
+  locate_shift(date, workplace).element['class'].should_not include('selected')
 end
 
 Then /^I should see a shift "([^\"]*)" on (.*)$/ do |workplace, date|

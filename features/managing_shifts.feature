@@ -10,18 +10,20 @@ Feature: THE plan
 		And the following accounts:
 			| name        | users               |
 			| the account | fritz@thielemann.de |
-		And the following employees:
-      | account     | name             | initials | qualifications |
-      | the account | Clemens Kofler   | CK       | Chef           |
-      | the account | Laura Kozlowski  | LK       | Barkeeper      |
-    And the following workplaces:
-			| account     | name      |
-			| the account | Kitchen   |
-			| the account | Bar       |
 		And the following qualifications:
 			| account     | name      |
 			| the account | Chef      |
 			| the account | Barkeeper |
+			| the account | Waiter    |
+		And the following employees:
+      | account     | name             | initials | qualifications |
+      | the account | Clemens Kofler   | CK       | Chef           |
+      | the account | Laura Kozlowski  | LK       | Barkeeper      |
+      | the account | Sven Fuchs       | SF       | Waiter         |
+    And the following workplaces:
+			| account     | name      | qualifications    |
+			| the account | Kitchen   | Chef              |
+			| the account | Bar       | Barkeeper, Waiter |
 		And the following plans:
 			| account     | name     | start        | end           |
 			| the account | Plan 1   | Monday 08:00 | Tuesday 20:00 |
@@ -44,7 +46,6 @@ Feature: THE plan
 		And I should see a workplace named "Kitchen" listed in the sidebar
 		And I should see a qualification named "Chef" listed in the sidebar
 
-  @wip
 	Scenario: Adding a new shift
 		Given I am on the plan show page
 		When I drag the workplace "Kitchen"
@@ -57,7 +58,41 @@ Feature: THE plan
 		
 	Scenario: Resize a shift to a different start time
 		# can't test this w/ htmlunit
-	
+
+  Scenario: Checking for suitable employees for a shift
+    Given I am on the plan show page
+    When I click on the shift "Bar" on Monday
+    Then the shift "Bar" on Monday should be highlighted
+    And the employees should have the following statuses:
+      | employee        | status     |
+      | Laura Kozlowski | suitable   |
+      | Sven Fuchs      | suitable   |
+      | Clemens Kofler  | unsuitable |
+    When I click on the shift "Bar" on Monday
+    Then the shift "Bar" on Monday should not be highlighted
+    And the employees should not have the following statuses:
+      | employee        | status     |
+      | Laura Kozlowski | suitable   |
+      | Sven Fuchs      | suitable   |
+      | Clemens Kofler  | unsuitable |
+
+  Scenario: Checking for suitable employees for a requirement
+    Given I am on the plan show page
+    When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+    Then the requirement for a "Barkeeper" in the shift "Bar" on Monday should be highlighted
+    And the employees should have the following statuses:
+      | employee        | status     |
+      | Laura Kozlowski | suitable   |
+      | Sven Fuchs      | unsuitable |
+      | Clemens Kofler  | unsuitable |
+    When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+    Then the requirement for a "Barkeeper" in the shift "Bar" on Monday should not be highlighted
+    And the employees should not have the following statuses:
+      | employee        | status     |
+      | Laura Kozlowski | suitable   |
+      | Sven Fuchs      | unsuitable |
+      | Clemens Kofler  | unsuitable |
+
 	# TODO remove existing/new shift
 	Scenario: Remove a shift from a shifts collection
 		Given I am on the plan show page
