@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # Note: This is actually a test for the Authentication mixin
 
-describe AccountsController do
+describe DashboardController do
   before(:each) do
     @user = User.create!(:email => 'fritz@thielemann.de', :password => 'foo', :password_confirmation => 'foo')
   end
@@ -89,20 +89,16 @@ describe AccountsController do
     end
 
     describe "#deny_access" do
-      before(:each) do
-        AccountsController.before_filter(:deny_access)
-      end
-
       it "should redirect the user to the login form" do
         controller.should_receive(:redirect_to)
-        get 'new'
+        get 'show'
       end
 
       it "should set an error message if given"
 
       it "should store the current location as the return url" do
-        get 'new'
-        session[:return_to].should == '/accounts/new'
+        get 'show'
+        session[:return_to].should == '/dashboard'
       end
     end
 
