@@ -112,9 +112,10 @@
   width: 70px;
   border: 1px solid #efefef;
 }
-#sidebar .employee.unsuitable {
-  opacity: 0.40;
-  -moz-opacity: 0.40;
+#sidebar #employees .employee.unsuitable {
+  display: none;
+/*  opacity: 0.40;
+  -moz-opacity: 0.40;*/
 }
 
 #sidebar .workplace,
