@@ -128,6 +128,9 @@ Resource.prototype = {
 		this.element.remove();
 		return Resource.remove(this);
 	},
+	plan_id: function() {
+	  return this.element.closest('.plan').attr('id').match(/plan_(\d+)/)[1];
+	},
   save: function() {
 	  if(this.is_new_record()) {
 	    var url  = this.type.collection_path();
@@ -137,19 +140,24 @@ Resource.prototype = {
 	    var type = 'put';
 	  }
 
+    var data = 'plan_id=' + this.plan_id() + '&' + this.serialize(); // FIXME not good, but the simplest thing at the moment
+
 		$.ajax({
 		  'url': url,
 		  'type': type,
-		  'data': this.serialize(),
+		  'data': data,
 		  'dataType': 'json',
 		  'success': this.is_new_record() ? this.on_create : this.on_update
 		});
 	},
 	destroy: function() {
 	  var url = this.type.member_path(this);
+	  var data = '_method=delete&plan_id=' + this.plan_id(); // FIXME not good, but the simplest thing at the moment
+
 	  $.ajax({
 		  'url': url,
-		  'type': 'delete',
+		  'type': 'post', // seems like HTMLUnit doesn't allow DELETE requests to have parameters ...
+		  'data': data,
 		  'dataType': 'json',
 		  'success': this.on_destroy
 		});
