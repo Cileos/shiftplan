@@ -6,7 +6,7 @@ task :build do
   sh "ln -nfs /var/www/shiftplan/shared/vendor/plugins/steam #{Rails.root}/vendor/plugins/steam"
   ENV['RAILS_ENV'] = 'test'
   system("sudo env PATH=$PATH rake gems:install")
-  sh "ENV['RAILS_ENV'] = 'test' rake db:drop db:create db:migrate db:seed"
+  sh "rake environment RAILS_ENV=test db:drop db:create db:migrate db:seed"
   sh "./script/server --port=3001 --environment=test -d && rake features"
   pid = File.open("#{Rails.root}/tmp/pids/server.pid")
   sh "kill -9 #{pid.read}"
