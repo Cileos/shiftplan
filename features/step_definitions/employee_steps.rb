@@ -32,7 +32,7 @@ end
 When /I drag the employee "([^\"]*)" over the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.*)$/ do |name, qualification, workplace, date|
   requirement = locate_requirement(date, workplace, qualification)
   requirement.should_not be_nil
-  employee = locate_employee(name)
+  employee = locate_employee(name) { locate_element(:div) }
   employee.should_not be_nil
   drag(employee, :over => requirement)
 end

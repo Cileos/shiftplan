@@ -61,24 +61,21 @@ module PlanHelpers
     end
   end
 
-  def locate_employee(name)
+  def locate_employee(name, &block)
     employee = Employee.find_by_name(name)
-    # FIXME should be able to use select_element("#sidebar .employee_1 div")
     locate_sidebar do
-      locate_element(:class => "employee_#{employee.id}") do
-        locate_element(:div)
-      end
+      locate_element(:class => "employee_#{employee.id}", &block)
     end
   end
 
-  def locate_workplace(name)
+  def locate_workplace(name, &block)
     workplace = Workplace.find_by_name(name)
-    locate_sidebar { locate_element(:href => "/workplaces/#{workplace.id}") }
+    locate_sidebar { locate_element(:href => "/workplaces/#{workplace.id}", &block) }
   end
 
-  def locate_qualification(name)
+  def locate_qualification(name, &block)
     qualification = Qualification.find_by_name(name)
-    locate_sidebar { locate_element(:href => "/qualifications/#{qualification.id}") }
+    locate_sidebar { locate_element(:href => "/qualifications/#{qualification.id}", &block) }
   end
 
   def find_shift(date, workplace)
