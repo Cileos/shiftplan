@@ -22,10 +22,10 @@ account = Account.create!(
 # center_1 = Location.create!(:name => 'Zentrum 1')
 # center_2 = Location.create!(:name => 'Zentrum 2')
 
-cook              = Qualification.create!(:name => 'Koch')
-cooking_assistant = Qualification.create!(:name => 'Küchenhilfe')
-barkeeper         = Qualification.create!(:name => 'Barkeeper')
-receptionist      = Qualification.create!(:name => 'Rezeptionist')
+cook              = Qualification.create!(:account => account, :name => 'Koch')
+cooking_assistant = Qualification.create!(:account => account, :name => 'Küchenhilfe')
+barkeeper         = Qualification.create!(:account => account, :name => 'Barkeeper')
+receptionist      = Qualification.create!(:account => account, :name => 'Rezeptionist')
 
 Employee.create!(
   :account        => account,
