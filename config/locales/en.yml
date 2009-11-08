@@ -37,6 +37,9 @@ en:
   employee_could_not_be_updated: "Employee could not be updated."
   employee_successfully_deleted: "Employee successfully deleted."
 
+  # availabilities
+  available_from_to: "{{from}} - {{to}}"
+
   # qualifications
   click_to_add_qualification: Click to add
   add_qualification: "Click here to add a new qualification"
@@ -88,7 +91,11 @@ en:
   show: Show
   destroy: Delete
   back: Back
-  
+
+  time:
+    formats:
+      time: "%H:%M"
+
   activerecord:
     models:
     attributes:

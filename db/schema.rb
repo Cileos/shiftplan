@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091003161427) do
+ActiveRecord::Schema.define(:version => 20091108140858) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(:version => 20091003161427) do
   create_table "assignments", :force => true do |t|
     t.integer  "requirement_id"
     t.integer  "assignee_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "default_availabilities", :force => true do |t|
+    t.integer  "employee_id"
+    t.integer  "day_of_week", :limit => 1
+    t.time     "start"
+    t.time     "end"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

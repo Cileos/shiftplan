@@ -1,0 +1,21 @@
+<%
+day_names = []
+t(:'date.day_names').each_with_index { |d, i| day_names << [d, i] }
+%>
+<% form_for([@employee, default_availability]) do |f| %>
+  <div>
+    <%= f.label :day_of_week %>
+    <%= f.select :day_of_week, options_for_select(day_names) %>
+  </div>
+  <div>
+    <%= f.label :start %>
+    <%= f.time_select :start, :minute_step => 5 %>
+  </div>
+  <div>
+    <%= f.label :end %>
+    <%= f.time_select :end, :minute_step => 5 %>
+  </div>
+  <div>
+    <%= f.submit 'Save' %>
+  </div>
+<% end %>

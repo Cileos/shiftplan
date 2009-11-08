@@ -6,6 +6,8 @@ class Employee < ActiveRecord::Base
   has_many :qualifications, :through => :employee_qualifications
   has_many :allocations
 
+  has_many :default_availabilities
+
   validates_presence_of :first_name, :last_name
 
   named_scope :active, :conditions => { :active => true }

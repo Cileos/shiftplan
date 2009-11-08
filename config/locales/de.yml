@@ -40,6 +40,9 @@ de:
   employee_could_not_be_updated: "Mitarbeiter konnte nicht geändert werden."
   employee_successfully_deleted: "Mitarbeiter erfolgreich gelöscht."
 
+  # availabilities
+  available_from_to: "{{from}} bis {{to}}"
+
   # qualifications
   click_to_add_qualification: Hinzufügen
   add_qualification: "Klicken Sie hier, um einen Qualifikation hinzuzufügen"
