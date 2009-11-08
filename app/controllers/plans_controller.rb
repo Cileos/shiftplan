@@ -34,7 +34,7 @@ class PlansController < ApplicationController
     end
 
     def set_employees
-      @employees = current_account.employees
+      @employees = current_account.employees.active
     end
 
     def set_workplaces
