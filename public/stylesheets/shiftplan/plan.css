@@ -2,22 +2,37 @@
 	width: 865px;
 	padding-right: 320px;
 }
+.plan .day {
+  clear: left;
+}
 .plan h2 {
+  clear: left;
 	margin-top: 1.5em;
-	font-size: 1.3em;
+  font-size: 13px;
 	font-weight: normal;
 	color: #bbb;
 }
 .plan .day:first-child h2 {
 	margin-top: 0;
 }
+.plan .hours {
+  height: 1em;
+}
+.plan .hour {
+  float: left;
+  overflow: none;
+  padding: 4px 0 0 0px;
+  font-size: 10px;
+  color: #ccc;
+}
 .plan .shifts {
-	margin-top: 1em;
+	margin-top: 0.5em;
 	border-style: solid;
 	border-color: #aaa;
 	border-width: 1px 0;
 	background-image: url(/images/plan_scale.png);
 	min-height: 38px;
+  /*overflow: hidden;*/
 }
 .plan .shift {
 	position: relative;

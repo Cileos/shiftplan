@@ -12,13 +12,14 @@ h1 {
 }
 h1 .dates {
   float: right;
+  padding-left: 1em;
   font-size: 13px;
-  line-height: 30px;
+  line-height: 34px;
 }
 
-/* 
+/*
 totally craps out on "Employees" etc. ... also, Gorgia??
-h2 { 
+h2 {
   font-size: 1.5em;
   font-family: Georgia, serif;
   margin-bottom: 0.5em;
@@ -32,7 +33,7 @@ div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWit
 .actions a {
   display: inline-block;
   width: 16px;
-  height: 16px; 
+  height: 16px;
   margin: 3px 0 0 4px;
   text-indent: 16px;
   overflow: hidden;

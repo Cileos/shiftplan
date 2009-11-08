@@ -174,7 +174,7 @@
       var box = this.shiftsDimensions();
       return event.pageX >= box.left && event.pageX <= box.right &&
              event.pageY >= box.top  && event.pageY <= box.bottom
-  	  
+
   	},
   	updateDragMode: function(event) {
       var over = this.isOverShiftsBox(event);
@@ -190,9 +190,9 @@
         this.removing = false;
   	    this.element[0].style.top = '0px';
   	    var draggable = this.draggable();
-  	    $.extend(true, draggable, { 
+  	    $.extend(true, draggable, {
   	      containment: 'parent',
-  	      options: { axis: 'x', grid: Plan.grid } 
+  	      options: { axis: 'x', grid: Plan.grid }
   	    });
   	    draggable._setContainment();
   	    Cursor.hide();
@@ -201,9 +201,9 @@
   	setDragRemoving: function(event) {
   	  if(!this.removing) {
         this.removing = true;
-  	    $.extend(true, this.draggable(), { 
+  	    $.extend(true, this.draggable(), {
   	      containment: null,
-  	      options: { axis: null, grid: null } 
+  	      options: { axis: null, grid: null }
   	    });
         Cursor.show('poof');
       }

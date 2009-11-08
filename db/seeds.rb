@@ -93,7 +93,7 @@ reception = Workplace.create!(
 
 monday_morning   = Time.parse('2009-09-07 08:00')
 tuesday_morning  = Time.parse('2009-09-08 08:00')
-friday_afternoon = Time.parse('2009-09-11 16:00')
+friday_afternoon = Time.parse('2009-09-11 22:00')
 
 plan_1 = Plan.create!(
   :account => account,

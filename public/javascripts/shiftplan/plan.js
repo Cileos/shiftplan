@@ -3,6 +3,8 @@ Plan = {
 	slots_per_hour: 4,
 	default_slot_count: 12,
 	init: function() {
+    $('.plan').css({ width: Plan.width() + 'px' });
+    // $('.hours').css({ width: Plan.width() + 50 + 'px'})
     this.bind_events();
 	},
 	bind_events: function() {
@@ -12,8 +14,20 @@ Plan = {
 		});
 	},
 	start: function() {
-		return $(".plan").attr("data-start");
+		return parseInt($('.plan').attr("data-start"));
 	},
+  duration: function() {
+    return parseInt($('.plan').attr("data-duration"));
+  },
+  end: function() {
+    return this.start() + this.duration();
+  },
+  hours: function() {
+    return parseInt(this.duration() / 60);
+  },
+  width: function() {
+    return Plan.hours() * Plan.slots_per_hour * Plan.slot_width + 1;
+  },
 	minutes_per_slot: function() {
 		return parseInt(60 / Plan.slots_per_hour);
 	},
