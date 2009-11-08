@@ -1,4 +1,8 @@
 task :build do
+  system "export JAVA_HOME=/usr/lib/jvm/java-1.5.0-sun"
+  system "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/jre/lib/i386:${JAVA_HOME}/jre/lib/i386/client"
+  system "echo $JAVA_HOME"
+  system "echo $LD_LIBRARY_PATH"
   system "ODIR=`pwd` && cd /var/www/shiftplan/shared/vendor/plugins/steam && git pull && cd $ODIR"
   system "ln -nfs /var/www/shiftplan/shared/vendor/plugins/steam #{Rails.root}/vendor/plugins/steam"
   source = "#{Rails.root}/config/database.yml.example"
