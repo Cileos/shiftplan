@@ -10,9 +10,9 @@ Feature: Managing workplaces
 		And the following accounts:
 			| name        | users               |
 			| the account | fritz@thielemann.de |
-		And the following workplaces:
-			| account     | name |
-			| the account | Bar  |
+		And the following workplaces for "the account":
+			| name |
+			| Bar  |
 		And I am logged in with "fritz@thielemann.de" and "oracle"
 
 	Scenario: Listing all workplaces

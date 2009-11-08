@@ -9,9 +9,9 @@ Feature: Managing plans
 		And the following accounts:
 			| name        | users               |
 			| the account | fritz@thielemann.de |
-		And the following plans:
-			| account     | name   | start        | end           |
-			| the account | Plan 1 | Monday 08:00 | Tuesday 20:00 |
+		And the following plans for "the account":
+			| name   | start        | end           |
+			| Plan 1 | Monday 08:00 | Tuesday 20:00 |
 		And I am logged in with "fritz@thielemann.de" and "oracle"
 
 	Scenario: Listing all plans

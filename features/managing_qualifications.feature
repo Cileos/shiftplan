@@ -10,9 +10,9 @@ Feature: Managing qualifications
 		And the following accounts:
 			| name        | users               |
 			| the account | fritz@thielemann.de |
-		And the following qualifications:
-			| account     | name       |
-			| the account | Barkeeper  |
+		And the following qualifications for "the account":
+			| name       |
+			| Barkeeper  |
 		And I am logged in with "fritz@thielemann.de" and "oracle"
 
 	Scenario: Listing all qualifications

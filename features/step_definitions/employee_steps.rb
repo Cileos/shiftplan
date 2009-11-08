@@ -16,6 +16,25 @@ Given /^the following employees:$/ do |employees|
   end
 end
 
+# TODO: somehow merge this with the above to DRY it up
+Given /^the following employees for "([^\"]*)":$/ do |account, employees|
+  employees.hashes.each do |attributes|
+    attributes = attributes.dup
+
+    attributes['account'] = Account.find_by_name(account)
+    attributes['first_name'], attributes['last_name'] = attributes.delete('name').split(' ')
+
+    attributes['qualifications'] = attributes['qualifications'].split(',').map(&:strip).map do |name|
+      Qualification.find_by_name(name)
+    end if attributes.has_key?('qualifications')
+    qualifications ||= []
+
+    attributes['initials'] = attributes.delete('initials')
+
+    Employee.create!(attributes)
+  end
+end
+
 
 Then /^the employees should have the following statuses:$/ do |employees|
   employees.hashes.each do |attributes|

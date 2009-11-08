@@ -10,23 +10,23 @@ Feature: THE plan
 		And the following accounts:
 			| name        | users               |
 			| the account | fritz@thielemann.de |
-		And the following qualifications:
-			| account     | name      |
-			| the account | Chef      |
-			| the account | Barkeeper |
-			| the account | Waiter    |
-		And the following employees:
-      | account     | name             | initials | qualifications |
-      | the account | Clemens Kofler   | CK       | Chef           |
-      | the account | Laura Kozlowski  | LK       | Barkeeper      |
-      | the account | Sven Fuchs       | SF       | Waiter         |
-    And the following workplaces:
-			| account     | name      | qualifications    |
-			| the account | Kitchen   | Chef              |
-			| the account | Bar       | Barkeeper, Waiter |
-		And the following plans:
-			| account     | name     | start        | end           |
-			| the account | Plan 1   | Monday 08:00 | Tuesday 20:00 |
+		And the following qualifications for "the account":
+			| name      |
+			| Chef      |
+			| Barkeeper |
+			| Waiter    |
+		And the following employees for "the account":
+      | name             | initials | qualifications |
+      | Clemens Kofler   | CK       | Chef           |
+      | Laura Kozlowski  | LK       | Barkeeper      |
+      | Sven Fuchs       | SF       | Waiter         |
+    And the following workplaces for "the account":
+			| name      | qualifications    |
+			| Kitchen   | Chef              |
+			| Bar       | Barkeeper, Waiter |
+		And the following plans for "the account":
+			| name     | start        | end           |
+			| Plan 1   | Monday 08:00 | Tuesday 20:00 |
 		And the following shifts:
 			| plan   | workplace | requirements        | start        | duration |
 			| Plan 1 | Reception | any                 | Monday 08:00 | 300      |
