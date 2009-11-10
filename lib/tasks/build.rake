@@ -1,4 +1,7 @@
 task :build do
+  #the next two lines just show the java settings currently setted
+  #in case the jdk will be updated change the ruby wrapper used for
+  #passenger in apache conf
   system "echo $JAVA_HOME"
   system "echo $LD_LIBRARY_PATH"
   system "ODIR=`pwd` && cd /var/www/shiftplan/shared/vendor/plugins/steam && git pull && cd $ODIR"
