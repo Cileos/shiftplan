@@ -11,7 +11,7 @@ task :build do
   FileUtils.cp(source, target)
   system("sudo env PATH=$PATH rake gems:install")
   system "rake environment RAILS_ENV=test db:drop db:create db:migrate db:seed"
-  status = system "./script/server --port=3001 --environment=test -d && rake environment RAILS_ENV=test features && echo $?"
+  status = system "./script/server --port=3000 --environment=test -d && rake environment RAILS_ENV=test features && echo $?"
   pid = File.open("#{Rails.root}/tmp/pids/server.pid")
   system "kill -9 #{pid.read}"
   exit 1 unless status
