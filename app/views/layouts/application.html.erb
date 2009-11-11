@@ -27,6 +27,11 @@
     <%= yield(:head) %>
   </head>
   <body>
+    <div id="logo">
+      <a href="/" id="home">
+        <h1>shiftplan</h1>
+      </a>
+    </div>
 		<div>
 	    <ul id="navigation">
 	      <li><%= link_to t(:overview), root_path %></li>
@@ -34,14 +39,19 @@
 	      <li><%= link_to t(:workplaces), workplaces_path %></li>
 	      <li><%= link_to t(:employees), employees_path %></li>
 	      <li><%= link_to t(:qualifications), qualifications_path %></li>
+  	    <li id="login_status">
+  	      <% if signed_in? -%>
+    	      <%= t(:logged_in_as, :user => current_user.email) %>
+    	      (<%= link_to t(:logout), logout_path, :method => :delete %>)
+    	    <% end -%>
+  	    </li>
 	    </ul>
-	    <div id="login_status">
-	      <% if signed_in? -%>
-  	      <%= t(:logged_in_as, :user => current_user.email) %>
-  	      (<%= link_to t(:logout), logout_path, :method => :delete %>)
-  	    <% end -%>
+	    <div id="main">
+	      <%= yield %>
 	    </div>
-	    <%= yield %>
+	    <div id="footer" style="clear:both;">
+	      &copy; 2009 shiftplan technologies
+	    </div>
 		</div>
   </body>
 </html>

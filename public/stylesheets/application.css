@@ -1,8 +1,32 @@
 body {
-  padding: 30px;
-  padding-top: 60px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 0.9em;
+}
+
+#logo {
+  margin-left: 20px;
+}
+
+#home {
+  display: inline-block;
+  height: 73px;
+  width: 250px;
+  text-indent: 250px;
+  overflow: hidden;
+  background: url(/images/logo.png) no-repeat;
+}
+
+#main {
+  margin: 2em;
+  width: 100%;
+}
+
+#footer {
+  display: none;
+  width: 100%;
+  padding: 0.5em;
+  text-align: center;
+	background-color: #a8a8a8;
 }
 
 h1 {
@@ -15,6 +39,10 @@ h1 .dates {
   padding-left: 1em;
   font-size: 13px;
   line-height: 34px;
+}
+
+#main a {
+  color: #f9b500;
 }
 
 /*
@@ -78,37 +106,27 @@ div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWit
 }
 
 #navigation {
-  position: fixed;
   width: 100%;
-  top: 0;
-  left: 0;
-  margin-bottom: 30px;
   padding: 6px 30px;
 	overflow: auto; /* clearfix */
 	border-bottom: 1px solid #ddd;
 	z-index: 999;
-	background-color: #eee;
+	background-color: #a8a8a8;
 }
 #navigation li {
   float: left;
   margin-right: 30px;
 }
 #navigation a {
-  color: #666;
+  color: #fff;
   text-decoration: none;
-  font-size: 0.9em;
 }
-#navigation a:hover {
+#navigation a:hover, #login_status a:hover {
   text-decoration: underline;
 }
 
-#login_status {
-  position: absolute;
-  top: 0;
-  z-index: 999;
-  right: 0;
-  margin-right: 1em;
-  margin-top: 0.5em;
-  color: #666;
-  font-size: 0.9em;
+#navigation #login_status {
+  float: right;
+  margin-right: 3em;
+  color: #fff;
 }
