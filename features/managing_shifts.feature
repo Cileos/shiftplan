@@ -133,6 +133,7 @@ Feature: THE plan
 		When I drop the element
 		Then I should see the employee "Laura Kozlowski" assigned to the requirement for a "Barkeeper" in the shift "Bar" on Monday
 		And the assignment of "Laura Kozlowski" to the requirement for a "Barkeeper" in the shift "Bar" on Monday should be stored in the database
+		And no shifts should be marked as unsuitable
 
 	Scenario: Assigning an employee to a new requirement
 		Given I am on the plan show page
