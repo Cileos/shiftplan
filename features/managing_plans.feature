@@ -19,7 +19,7 @@ Feature: Managing plans
 		When I follow "Plans"
 		Then I should see a plan named "Plan 1"
 
-  Scenario: Defining a new plan
+  Scenario: Creating a new plan
     Given I am on the plans index page
     When I fill in the following:
       | name   | start date | end date | start time | end time |

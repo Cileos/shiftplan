@@ -30,7 +30,7 @@ $(document).ready(function() {
     $.each(form_values, function(field, value) {
       if($.isArray(value)) {
         $('.' + resource_name + '_' + field).val(value);
-      } else {    
+      } else {
         var field = $('#' + resource_name + '_' + field);
 
         if(typeof value == 'boolean') { // assume that true/false goes for checkboxes
@@ -40,7 +40,7 @@ $(document).ready(function() {
         }
       }
     });
-    
+
     $('#sidebar form').trigger({
       type: 'on_' + resource_name + '_load',
       resource: $(this)
