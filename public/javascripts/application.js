@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
       // if there was no data, $ didn't set the content-type
       xhr.setRequestHeader('Content-Type', s.contentType);
     }
-    s.data += encodeURIComponent(window._auth_token_name) + '=' + 
+    s.data += encodeURIComponent(window._auth_token_name) + '=' +
               encodeURIComponent(window._auth_token);
   });
 

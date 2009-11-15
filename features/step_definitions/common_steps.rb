@@ -5,6 +5,10 @@ Given /^I am on (.+)$/ do |page_name|
   response.status.should == 200
 end
 
+Given "I output the body" do
+  puts response.body
+end
+
 When /^I go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
@@ -83,6 +87,7 @@ end
 # Use this step in conjunction with Rail's date_select helper.  For example:
 # When I select "February 20, 1981" as the date
 When /^I select "([^\"]*)" as the date$/ do |date|
+  reformat_date!(date)
   select_date(date)
 end
 
@@ -90,6 +95,7 @@ end
 # you want to specify the name of the date on the form. For example:
 # When I select "April 26, 1982" as the "Date of Birth" date
 When /^I select "([^\"]*)" as the "([^\"]*)" date$/ do |date, date_label|
+  reformat_date!(date)
   select_date(date, :from => date_label)
 end
 
