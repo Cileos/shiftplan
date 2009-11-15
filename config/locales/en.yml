@@ -102,7 +102,7 @@ en:
       workplace:
         base_data: Base data
         default_staffing: Default staffing
-        default_shift_length: Default shift length
+        default_shift_length: Shift length
         name: Name
         active: Active?
         color: Color
@@ -118,7 +118,7 @@ en:
         email: Email
         phone: Phone
         street: Street
-        zipcode: "Zipcode, City"
+        zipcode: "Zip, City"
       qualification:
         base_data: Base data
         name: Name
@@ -126,6 +126,10 @@ en:
         name: Name
         start: Start
         end: End
+        shifts: Shifts
+      shift:
+        start: Start time
+        end: End time
       account:
         base_data: Base data
         admin: Admin
