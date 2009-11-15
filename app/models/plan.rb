@@ -7,25 +7,22 @@ class Plan < ActiveRecord::Base
     end
   end
 
-  validates_presence_of :start, :end
-
-  before_save :set_duration
+  validates_presence_of :start_date, :end_date, :start_time, :end_time
+  # before_save :set_duration
 
   def days
-    (start.to_date)..(self.end.to_date)
+    (start_date)..(end_date)
   end
 
   def start_time_in_minutes
-    start.hour * 60 + start.min
+    start_time.hour * 60 + start_time.min
   end
 
   def end_time_in_minutes
-    self.end.hour * 60 + self.end.min
+    end_time.hour * 60 + end_time.min
   end
 
-  protected
-
-    def set_duration
-      self.duration = end_time_in_minutes - start_time_in_minutes
-    end
+  def duration
+    @duration ||= end_time_in_minutes - start_time_in_minutes
+  end
 end

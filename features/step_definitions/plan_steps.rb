@@ -2,8 +2,8 @@ Given /^the following plans:$/ do |plans|
   plans.hashes.each do |attributes|
     attributes = attributes.dup
     attributes['account'] = Account.find_by_name(attributes['account'])
-    reformat_date!(attributes['start'])
-    reformat_date!(attributes['end'])
+    reformat_date!(attributes['start_date'])
+    reformat_date!(attributes['end_date'])
     Plan.create!(attributes)
   end
 end
@@ -13,8 +13,8 @@ Given /^the following plans for "([^\"]*)":$/ do |account, plans|
   plans.hashes.each do |attributes|
     attributes = attributes.dup
     attributes['account'] = Account.find_by_name(account)
-    reformat_date!(attributes['start'])
-    reformat_date!(attributes['end'])
+    reformat_date!(attributes['start_date'])
+    reformat_date!(attributes['end_date'])
     Plan.create!(attributes)
   end
 end

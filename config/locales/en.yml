@@ -53,7 +53,7 @@ en:
 
   # plans
   new_plan: New plan
-  plan_from_to: "{{start}} - {{end}}"
+  plan_from_to: "{{start_date}} - {{end_date}}"
   plan_successfully_created: "Plan successfully created."
   plan_could_not_be_created: "Plan could not be created."
 

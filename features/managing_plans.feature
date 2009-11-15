@@ -10,8 +10,8 @@ Feature: Managing plans
 			| name        | users               |
 			| the account | fritz@thielemann.de |
 		And the following plans for "the account":
-			| name   | start        | end           |
-			| Plan 1 | Monday 08:00 | Tuesday 20:00 |
+			| name   | start date | end date | start time | end time |
+			| Plan 1 | Monday     | Tuesday  | 8:00       | 20:00    |
 		And I am logged in with "fritz@thielemann.de" and "oracle"
 
 	Scenario: Listing all plans
@@ -21,9 +21,14 @@ Feature: Managing plans
 
   Scenario: Defining a new plan
     Given I am on the plans index page
-    When I fill in "Name" with "Plan 2"
+    When I fill in the following:
+      | name   | start date | end date | start time | end time |
+      | Plan 2 | Tuesday    | Thursday | 9:00       | 12:00    |
     And I press "Save"
     Then I should see a plan named "Plan 2"
+    And a plan with the following attributes should be stored:
+      | name   | start date | end date | stare time| end time |
+      | Plan 2 | Tuesday    | Thursday | 9:00      | 12:00    |
 
 	# Scenario: Trying to define a plan with insufficient data
 	#   Given I am on the plans index page
@@ -31,14 +36,14 @@ Feature: Managing plans
 	#   And I press "Save"
 	#   Then I should see "Plan could not be created."
 	#   And I should see "can't be blank"
-	# 
+	#
 	# Scenario: Updating an existing plan
 	# 	Given I am on the employees index page
 	# 	When I follow "Edit"
 	# 	And I fill in "Name" with "Plan 3"
 	# 	And I press "Save"
 	# 	Then I should see a plan named "Plan 3"
-	# 
+	#
 	# Scenario: Trying to update an existing plan with insufficient data
 	# 	Given I am on the employees index page
 	# 	When I follow "Edit"
@@ -46,7 +51,7 @@ Feature: Managing plans
 	# 	And I press "Save"
 	# 	Then I should see "Plan could not be updated."
 	#     And I should see "can't be blank"
-	# 
+	#
 	# Scenario: Deleting an existing plan
 	# 	Given I am on the plans index page
 	# 	When I follow "Delete"
