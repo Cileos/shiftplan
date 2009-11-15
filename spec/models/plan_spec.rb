@@ -1,12 +1,20 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Plan do
-  def monday_morning
-    @monday ||= Time.local(2009, 9, 7, 8, 30)
+  def monday
+    @monday ||= Time.local(2009, 9, 7)
   end
 
-  def friday_afternoon
-    @friday ||= Time.local(2009, 9, 11, 16, 30)
+  def friday
+    @friday ||= Time.local(2009, 9, 11)
+  end
+
+  def morning
+    @morning ||= Time.parse('8:30')
+  end
+
+  def afternoon
+    @afternoon ||= Time.parse('16:30')
   end
 
   before(:each) do
@@ -24,59 +32,48 @@ describe Plan do
   end
 
   describe "validations" do
+    it "should require a start date" do
+      @plan.should validate_presence_of(:start_date)
+    end
+
+    it "should require an end date" do
+      @plan.should validate_presence_of(:end_date)
+    end
+
     it "should require a start time" do
-      @plan.should validate_presence_of(:start)
+      @plan.should validate_presence_of(:start_time)
     end
 
     it "should require an end time" do
-      @plan.should validate_presence_of(:end)
-    end
-  end
-
-  describe "callbacks" do
-    describe "#set_duration" do
-      before(:each) do
-        @plan.start = monday_morning
-        @plan.end   = friday_afternoon
-      end
-
-      it "should set the duration from start/end time before save" do
-        @plan.duration = nil
-        @plan.save
-        @plan.duration.should == 8 * 60
-      end
+      @plan.should validate_presence_of(:end_time)
     end
   end
 
   describe "instance methods" do
+    before(:each) do
+      @plan.start_date = monday
+      @plan.end_date   = friday
+      @plan.start_time = morning
+      @plan.end_time   = afternoon
+    end
+
     describe "#days" do
-      before(:each) do
-        @plan.start = monday_morning
-        @plan.end   = friday_afternoon
+      it "should calculate duration from start/end time" do
+        @plan.duration.should == 8 * 60
       end
 
       it "should return a range of days from start day to end day" do
-        @plan.days.should == (Date.civil(2009, 9, 7)..Date.civil(2009, 9, 11))
+        @plan.days.should == (Time.local(2009, 9, 7)..Time.local(2009, 9, 11))
       end
     end
 
     describe "#start_time_in_minutes" do
-      before(:each) do
-        @plan.start = monday_morning
-        @plan.end   = friday_afternoon
-      end
-
       it "should return the start time in minutes" do
         @plan.start_time_in_minutes.should == 8 * 60 + 30
       end
     end
 
     describe "#end_time_in_minutes" do
-      before(:each) do
-        @plan.start = monday_morning
-        @plan.end   = friday_afternoon
-      end
-
       it "should return the end time in minutes" do
         @plan.end_time_in_minutes.should == 16 * 60 + 30
       end

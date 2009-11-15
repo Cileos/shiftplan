@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091108140858) do
+ActiveRecord::Schema.define(:version => 20091115151733) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -74,11 +74,12 @@ ActiveRecord::Schema.define(:version => 20091108140858) do
   create_table "plans", :force => true do |t|
     t.integer  "account_id"
     t.string   "name"
-    t.datetime "start"
-    t.datetime "end"
-    t.integer  "duration"
+    t.date     "start_date"
+    t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.time     "start_time"
+    t.time     "end_time"
   end
 
   create_table "qualifications", :force => true do |t|

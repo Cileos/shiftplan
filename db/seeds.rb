@@ -98,8 +98,10 @@ friday_afternoon = Time.parse('2009-09-11 22:00')
 plan_1 = Plan.create!(
   :account => account,
   :name    => 'Plan 1',
-  :start   => monday_morning,
-  :end     => friday_afternoon
+  :start_date => monday_morning.to_date,
+  :end_date   => friday_afternoon.to_date,
+  :start_time => monday_morning.to_time,
+  :end_time   => friday_afternoon.to_time
 )
 Shift.create!(
   :plan      => plan_1,
