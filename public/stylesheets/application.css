@@ -18,7 +18,7 @@ body {
 
 #main {
   margin: 2em;
-  width: 100%;
+  /* width: 100%; */
 }
 
 #footer {
@@ -106,12 +106,13 @@ div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWit
 }
 
 #navigation {
-  width: 100%;
+  /* width: 100%; */
   padding: 6px 30px;
 	overflow: auto; /* clearfix */
 	border-bottom: 1px solid #ddd;
 	z-index: 999;
 	background-color: #a8a8a8;
+  font-size: 13px !important;
 }
 #navigation li {
   float: left;
@@ -127,6 +128,6 @@ div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWit
 
 #navigation #login_status {
   float: right;
-  margin-right: 3em;
+  margin-right: 0;
   color: #fff;
 }
