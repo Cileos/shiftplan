@@ -4,8 +4,8 @@ describe PlanHelper do
   before(:each) do
     @plan = Plan.new(
       :name  => 'Plan 1',
-      :start => Time.local(2009, 9, 7, 8, 30),
-      :end   => Time.local(2009, 9, 11, 16, 30)
+      :start_date => Date.civil(2009, 9, 7),
+      :end_date   => Date.civil(2009, 9, 11)
     )
   end
 
