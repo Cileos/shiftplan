@@ -14,6 +14,10 @@ describe Employee do
     it "should have allocations" do
       @employee.should have_many(:allocations)
     end
+
+    it "should have availabilities" do
+      @employee.should have_many(:availabilities)
+    end
   end
 
   describe "validations" do

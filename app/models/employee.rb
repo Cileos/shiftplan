@@ -6,7 +6,7 @@ class Employee < ActiveRecord::Base
   has_many :qualifications, :through => :employee_qualifications
   has_many :allocations
 
-  has_many :default_availabilities
+  has_many :availabilities
 
   validates_presence_of :first_name, :last_name
 

@@ -2,7 +2,7 @@
 day_names = []
 t(:'date.day_names').each_with_index { |d, i| day_names << [d, i] }
 %>
-<% form_for([@employee, default_availability]) do |f| %>
+<% form_for([employee, default_availability], :url => employee_default_availabilities_path(employee)) do |f| %>
   <div>
     <%= f.label :day_of_week %>
     <%= f.select :day_of_week, options_for_select(day_names) %>
