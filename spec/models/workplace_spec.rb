@@ -39,27 +39,53 @@ describe Workplace do
   describe "scopes" do
     describe ".for_qualification" do
       before(:each) do
-        @scope_options = Workplace.for_qualification(mock_model(Qualification, :id => 1)).proxy_options
+        @workplace_1 = Workplace.create!(
+          :name => 'Workplace for qualification 1',
+          :workplace_qualifications => [WorkplaceQualification.new(:qualification_id => 1)]
+        )
+        @workplace_2 = Workplace.create!(
+          :name => 'Workplace for qualification 2',
+          :workplace_qualifications => [WorkplaceQualification.new(:qualification_id => 2)]
+        )
+        @scope = Workplace.for_qualification(mock_model(Qualification, :id => 1))
       end
 
-      it "should return all workplaces that fit a given qualification" do
-        @scope_options[:joins].should == :workplace_qualifications
-        @scope_options[:conditions].should == ["qualification_id = ?", 1]
+      it "should include workplaces that fit a given qualification" do
+        @scope.should include(@workplace_1)
+      end
+
+      it "should not include workplaces that don't fit a given qualification" do
+        @scope.should_not include(@workplace_2)
       end
     end
 
-    describe ".active/.inactive" do
+    describe ".active" do
       before(:each) do
-        @active_scope_options = Workplace.active.proxy_options
-        @inactive_scope_options = Workplace.inactive.proxy_options
+        @active_workplace   = Workplace.create!(:name => 'Active workplace',   :active => true)
+        @inactive_workplace = Workplace.create!(:name => 'Inactive workplace', :active => false)
       end
 
-      it "should return all active workplaces" do
-        @active_scope_options[:conditions].should == { :active => true }
+      it "should include active workplaces" do
+        Workplace.active.should include(@active_workplace)
       end
 
-      it "should return all inactive workplaces" do
-        @inactive_scope_options[:conditions].should == { :active => false }
+      it "should not include inactive workplaces" do
+        Workplace.active.should_not include(@inactive_workplace)
+      end
+    end
+
+    describe ".inactive" do
+      before(:each) do
+        @active_workplace   = Workplace.create!(:name => 'Active workplace',   :active => true)
+        @inactive_workplace = Workplace.create!(:name => 'Inactive workplace', :active => false)
+      end
+
+      it "should include inactive workplaces" do
+        Workplace.inactive.should include(@inactive_workplace)
+      end
+
+      it "should not include active workplaces" do
+        Workplace.inactive.should_not include(@active_workplace)
       end
     end
   end

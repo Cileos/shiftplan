@@ -39,14 +39,32 @@ describe Availability do
 
   describe "scopes" do
     describe ".default" do
-      it "should have a .default scope" do
-        Availability.default.proxy_options[:conditions].should == "day IS NULL AND day_of_week IS NOT NULL"
+      before(:each) do
+        @default_availability = Availability.create!(:employee_id => 1, :day_of_week => 0,    :start => '09:00', :end => '17:00')
+        @override             = Availability.create!(:employee_id => 1, :day => '2009-11-22', :start => '09:00', :end => '17:00')
+      end
+
+      it "should include default availabilites" do
+        Availability.default.should include(@default_availability)
+      end
+
+      it "should not include overrides" do
+        Availability.default.should_not include(@override)
       end
     end
 
     describe ".override" do
-      it "should have a .override scope" do
-        Availability.override.proxy_options[:conditions].should == "day_of_week IS NULL AND day IS NOT NULL"
+      before(:each) do
+        @default_availability = Availability.create!(:employee_id => 1, :day_of_week => 0,    :start => '09:00', :end => '17:00')
+        @override             = Availability.create!(:employee_id => 1, :day => '2009-11-22', :start => '09:00', :end => '17:00')
+      end
+
+      it "should include overrides" do
+        Availability.override.should include(@override)
+      end
+
+      it "should not include default availabilites" do
+        Availability.override.should_not include(@default_availability)
       end
     end
   end
