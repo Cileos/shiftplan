@@ -9,7 +9,7 @@ Then /^the employee "([^\"]*)" should be available on "(Monday|Tuesday|Wednesday
   # TODO add DOM expectations
 end
 
-Then /^the employee "([^\"]*)" should be available on "([^\"]*)" from "([^\"]*)" to "([^\"]*)"$/ do |employee, day, start_time, end_time|
+Then /^the employee "([^\"]*)" should be available on "(\d[^\"]*)" from "([^\"]*)" to "([^\"]*)"$/ do |employee, day, start_time, end_time|
   employee = Employee.find_by_name(employee)
   availability = employee.availabilities.override.detect do |availability|
     availability.day == Date.parse(day) &&
