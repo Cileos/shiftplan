@@ -7,7 +7,7 @@ class DefaultAvailabilitiesController < ApplicationController
   end
 
   def create
-    @default_availability = @employee.availabilities.default.build(params[:availability])
+    @default_availability = @employee.availabilities.build(params[:availability])
 
     if @default_availability.save
       flash[:notice] = t(:default_availability_successfully_created)

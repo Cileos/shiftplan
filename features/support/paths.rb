@@ -22,6 +22,8 @@ module NavigationHelpers
       qualifications_path
     when /the default availabilities index page/
       default_availabilities_path
+    when /the availabilities index page/
+      availabilities_path
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"
