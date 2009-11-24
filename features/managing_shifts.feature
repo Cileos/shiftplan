@@ -25,33 +25,49 @@ Feature: THE plan
 			| Kitchen   | Chef              |
 			| Bar       | Barkeeper, Waiter |
 		And the following plans for "the account":
-			| name   | start_date | end_date | start_time | end_time |
-			| Plan 1 | Monday     | Tuesday  | 8:00       | 20:00    |
+			| name   | start_date | end_date  | start_time | end_time |
+			| Plan 1 | Monday     | Wednesday | 8:00       | 20:00    |
 		And the following shifts:
-			| plan   | workplace | requirements        | start        | duration |
-			| Plan 1 | Reception | any                 | Monday 08:00 | 300      |
-			| Plan 1 | Kitchen   | Chef:Clemens Kofler | Monday 09:00 | 240      |
-			| Plan 1 | Bar       | Barkeeper           | Monday 12:00 | 240      |
+			| plan   | workplace | requirements        | start         | duration |
+			| Plan 1 | Reception | any                 | Monday 08:00  | 300      |
+			| Plan 1 | Kitchen   | Chef:Clemens Kofler | Monday 09:00  | 240      |
+			| Plan 1 | Bar       | Barkeeper           | Monday 12:00  | 240      |
+			| Plan 1 | Reception | any                 | Tuesday 08:00 | 300      |
 		And I am logged in with "fritz@thielemann.de" and "oracle"
 
 	Scenario: Viewing a plan
 		When I go to the plan show page
 		Then I should see a plan named "Plan 1"
 		And I should see the following shifts, required qualifications and assignments:
-		 | workplace | date   | start | duration | qualifications      |
-		 | Reception | Monday | 08:00 | 300      | any                 |
-		 | Kitchen   | Monday | 09:00 | 240      | Chef:Clemens Kofler |
-		 | Bar       | Monday | 12:00 | 240      | Barkeeper           |
+		 | workplace | date    | start | duration | qualifications      |
+		 | Reception | Monday  | 08:00 | 300      | any                 |
+		 | Kitchen   | Monday  | 09:00 | 240      | Chef:Clemens Kofler |
+		 | Bar       | Monday  | 12:00 | 240      | Barkeeper           |
+		 | Reception | Tuesday | 08:00 | 300      | any                 |
 		And I should see an employee named "Clemens Kofler" listed in the sidebar
 		And I should see a workplace named "Kitchen" listed in the sidebar
 		And I should see a qualification named "Chef" listed in the sidebar
 
-	Scenario: Adding a new shift
+	Scenario: Adding a new shift on an empty day
 		Given I am on the plan show page
 		When I drag the workplace "Kitchen"
-		And I drop onto the shifts area for day Tuesday
-		Then I should see a shift "Kitchen" on Tuesday
-		And there should be a shift "Kitchen" on Tuesday stored in the database
+		And I drop onto the shifts area for Wednesday
+		Then I should see a shift "Kitchen" on Wednesday
+		And there should be a shift "Kitchen" on Wednesday stored in the database
+
+	Scenario: Adding a new shift on a day where no shift for this workplace exists
+		Given I am on the plan show page
+		When I drag the workplace "Kitchen"
+	 	And I drop onto the shifts area for the workplace "Kitchen" on Tuesday
+	 	Then I should see a shift "Kitchen" on Tuesday
+	 	And there should be a shift "Kitchen" on Tuesday stored in the database
+
+	# Scenario: Adding a new shift on a day where a shift for this workplace exists
+	# 	Given I am on the plan show page
+	# 	When I drag the workplace "Reception"
+	#  	And I drop onto the shifts area for the workplace "Reception" on Monday
+	#  	Then I should see a shift "Reception" on Monday
+	#  	And there should be 2 shifts "Reception" on Monday stored in the database
 
 	Scenario: Moving a shift to a different start time
 		# can't test this w/ htmlunit

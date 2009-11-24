@@ -3,24 +3,58 @@ body {
 	font-size: 0.9em;
 }
 
-#logo {
-  margin-left: 20px;
+#header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background-color: white;
+  z-index: 999;
 }
-
 #home {
   display: inline-block;
   height: 73px;
   width: 250px;
+  margin-left: 20px;
   text-indent: 250px;
   overflow: hidden;
   background: url(/images/logo.png) no-repeat;
 }
-
-#main {
-  margin: 2em;
-  /* width: 100%; */
+#navigation {
+  position: fixed;
+  top: 80px;
+  width: 100%;
+  padding: 6px 0;
+	overflow: auto; /* clearfix */
+	background-color: #a8a8a8;
+  -moz-box-shadow: 0 3px 5px #ccc;
+  -webkit-box-shadow: 0 3px 5px #ccc;
+  font-size: 13px !important;
+  z-index: 999;
+}
+#navigation li {
+  float: left;
+  margin-right: 30px;
+}
+#navigation li:first-child {
+  margin-left: 30px;
+}
+#navigation a {
+  color: #fff;
+  text-decoration: none;
+}
+#navigation a:hover, #login_status a:hover {
+  text-decoration: underline;
+}
+#navigation #login_status {
+  float: right;
+  margin-right: 30px;
+  color: #fff;
 }
 
+#main {
+  margin: 120px 2em 20px;
+}
 #footer {
   display: none;
   width: 100%;
@@ -44,15 +78,6 @@ h1 .dates {
 #main a {
   color: #f9b500;
 }
-
-/*
-totally craps out on "Employees" etc. ... also, Gorgia??
-h2 {
-  font-size: 1.5em;
-  font-family: Georgia, serif;
-  margin-bottom: 0.5em;
-}
-*/
 
 div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWithErrors select {
   border: 1px solid red;
@@ -105,29 +130,3 @@ div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWit
   background-color: red;
 }
 
-#navigation {
-  /* width: 100%; */
-  padding: 6px 30px;
-	overflow: auto; /* clearfix */
-	border-bottom: 1px solid #ddd;
-	z-index: 999;
-	background-color: #a8a8a8;
-  font-size: 13px !important;
-}
-#navigation li {
-  float: left;
-  margin-right: 30px;
-}
-#navigation a {
-  color: #fff;
-  text-decoration: none;
-}
-#navigation a:hover, #login_status a:hover {
-  text-decoration: underline;
-}
-
-#navigation #login_status {
-  float: right;
-  margin-right: 0;
-  color: #fff;
-}

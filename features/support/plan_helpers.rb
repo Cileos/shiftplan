@@ -29,15 +29,17 @@ module PlanHelpers
   end
 
   def locate_shifts(date, &block)
-    locate_day(date) do
-      locate_element(:ul, &block)
+    locate_day(date) do |element|
+      locate_element(:ul, :class => 'shifts', &block)
     end
   end
 
   def locate_shift(date, workplace, &block)
     locate_day(date) do
       workplace = Workplace.find_by_name(workplace)
-      locate_element(:class => 'shift', :class => "workplace_#{workplace.id}", &block)
+      locate_element(:ul, :class => "workplace workplace_#{workplace.id}") do
+        locate_element(:li, :class => "shift", &block)
+      end
     end
   end
 
@@ -79,15 +81,23 @@ module PlanHelpers
   end
 
   def find_shift(date, workplace)
+    find_shifts(date, workplace).first
+  end
+
+  def find_shifts(date, workplace)
     reformat_date!(date)
     workplace = Workplace.find_by_name(workplace)
-    workplace.shifts.find(:first, :conditions => ['DATE(start) = ?', date])
+    workplace.shifts.all(:conditions => ['DATE(start) = ?', date])
   end
 
   def find_requirement(date, workplace, qualification)
+    find_requirements(date, workplace, qualification).first
+  end
+
+  def find_requirements(date, workplace, qualification)
     shift = find_shift(date, workplace)
     qualification = Qualification.find_by_name(qualification)
-    shift.requirements.find(:first, :conditions => ['qualification_id = ?', qualification.id])
+    shift.requirements.all(:conditions => ['qualification_id = ?', qualification.id])
   end
 
   def find_assignment(employee, date, workplace, qualification)

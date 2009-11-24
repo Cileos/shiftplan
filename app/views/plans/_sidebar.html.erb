@@ -1,17 +1,17 @@
 <div id="sidebar">
 	<h3><%= t(:employees) %></h3>
 	<ul id="employees">
-	  <%= employees.map { |model| presenter_for(model) } -%>
+	  <%= employees.map { |employee| presenter_for(employee, 'plan/sidebar/employee') } -%>
 	</ul>
 
 	<h3><%= t(:workplaces) %></h3>
 	<ul id="workplaces">
-	  <%= workplaces.map { |model| presenter_for(model) } -%>
+	  <%= workplaces.map { |workplace| presenter_for(workplace, 'plan/sidebar/workplace') } -%>
 	</ul>
 
   <h3><%= t(:qualifications)%></h3>
 	<ul id="qualifications">
-	  <%= qualifications.map { |model| presenter_for(model) } -%>
+	  <%= qualifications.map { |qualification| presenter_for(qualification, 'plan/sidebar/qualification') } -%>
 		<!--<li><a href="#" class="qualification any">(Beliebig)</a></li>-->
 	</ul>
 </div>

@@ -99,6 +99,9 @@ Resource.prototype = {
   is_new_record: function() {
     return this.id() == null;
   },
+	plan_id: function() {
+	  return this.element.closest('.plan').attr('id').match(/plan_(\d+)/)[1];
+	},
 	href: function() {
 		return this.element.attr('href');
 	},
@@ -110,26 +113,44 @@ Resource.prototype = {
 		  return this.type.class_name() + '_' + this.id();
 		}
 	},
+  top: function() {
+		if(arguments.length == 0) {
+			return parseInt(this.element.css('top'));
+		} else {
+			this.element.css('top', arguments[0] + 'px');
+		}
+  },
 	left: function() {
 		if(arguments.length == 0) {
 			return parseInt(this.element.css('left'));
 		} else {
-			this.element.css('left', arguments[0]);
+			this.element.css('left', arguments[0] + 'px');
 		}
 	},
 	width: function() {
 		if(arguments.length == 0) {
 			return parseInt(this.element.css('width'));
 		} else {
-			this.element.css('width', arguments[0]);
+			this.element.css('width', arguments[0] + 'px');
 		}
 	},
+	height: function() {
+		if(arguments.length == 0) {
+			return parseInt(this.element.css('height'));
+		} else {
+			this.element.css('height', arguments[0] + 'px');
+		}
+	},
+  click_cancelled: function() {
+		if(arguments.length == 0) {
+			return this.element.data('click_cancelled');
+		} else {
+			this.element.data('click_cancelled', arguments[0]);
+		}
+  },
 	remove: function(element) {
 		this.element.remove();
 		return Resource.remove(this);
-	},
-	plan_id: function() {
-	  return this.element.closest('.plan').attr('id').match(/plan_(\d+)/)[1];
 	},
   save: function() {
 	  if(this.is_new_record()) {
@@ -191,7 +212,9 @@ $.extend($.fn, {
 $(document).ready(function() {
   $.each(Resource.types, function() {
   	var type = this;
-    type.init();
-  	$.fn[type.class_name()] = function() { return this.resource(type); }
-  })
+  	$.fn[this.class_name()] = function() { return this.resource(type); }
+  });
+  $.each(Resource.types, function() {
+    this.init();
+  });
 })

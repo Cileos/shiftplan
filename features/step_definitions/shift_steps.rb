@@ -49,9 +49,9 @@ When /^I drag the shift "([^\"]*)" on (.*)$/ do |workplace, date|
   drag(element)
 end
 
-When /^I drop onto the shifts area for day (.*)$/ do |date|
-  element = locate_shifts(date)
-  drop(element)
+When /^I drop onto the shifts area for the workplace "(.*)" on (.*)$/ do |workplace, date|
+  shifts = locate_shifts(date)
+  drop(shifts)
 end
 
 Then /^I should see the following shifts, required qualifications and assignments:$/ do |shifts|
@@ -83,8 +83,10 @@ Then /^I should not see a shift "([^\"]*)" on (.*)$/ do |workplace, date|
   locate_shift(date, workplace).should be_nil
 end
 
-Then /^there should be a shift "([^\"]*)" on (.*) stored in the database$/ do |workplace, date|
-  find_shift(date, workplace).should_not be_nil
+Then /^there should be (a|[\d]*) shifts? "([^\"]*)" on (.*) stored in the database$/ do |count, workplace, date|
+  shifts = find_shifts(date, workplace)
+  count = count == 'a' ? 1 : count.to_i
+  shifts.size.should == count
 end
 
 Then /^there should not be a shift "([^\"]*)" on (.*) stored in the database$/ do |workplace, date|

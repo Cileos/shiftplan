@@ -5,6 +5,10 @@ class Plan < ActiveRecord::Base
     def by_day
       all.group_by(&:day)
     end
+
+    def by_workplace
+      all.group_by(&:workplace)
+    end
   end
 
   validates_presence_of :start_date, :end_date, :start_time, :end_time

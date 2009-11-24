@@ -11,7 +11,8 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     shiftplan/cursor
     shiftplan/resource
     shiftplan/plan
-    
+
+    shiftplan/plan/day
     shiftplan/plan/shifts
     shiftplan/plan/shift
     shiftplan/plan/requirement

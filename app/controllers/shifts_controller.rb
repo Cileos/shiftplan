@@ -54,7 +54,7 @@ class ShiftsController < ApplicationController
 
     def parse_times
       day          = Date.strptime(params[:shift].delete(:day), '%Y%m%d')
-      start        = @plan.start_time_in_minutes + params[:shift].delete(:start).to_i
+      start        = params[:shift].delete(:start).to_i
       duration     = params[:shift].delete(:duration).to_i
 
       params[:shift][:start] = day + start.minutes

@@ -24,8 +24,12 @@
   	minutes_to_pixels: function(minutes) {
   		return minutes * Plan.pixels_per_minute();
   	},
+    on_mousedown: function(event) {
+      $(this).shift().click_cancelled(false);
+    },
   	on_click: function(event) {
   	  var shift = $(this).shift();
+      if(shift.click_cancelled()) return;
 
 	    $('#sidebar .employee').removeClass('suitable').removeClass('unsuitable');
 
@@ -46,9 +50,11 @@
         Cursor.poof();
   	  } else {
     		shift.update_data_from_dimension();
+        shift.shifts().adjust_shift_positions();
     		shift.save(); // TODO only save if modified
-    		event.stopPropagation();
     	}
+      event.stopPropagation();
+      shift.click_cancelled(true);
   	},
   	on_resize: function(event, ui) {
   		var shift = $(this).shift();
@@ -73,6 +79,9 @@
       var handles = $('<span class="resize_handle left"></span><span class="resize_handle right"></span>');
       this.element.append(handles);
       this.update_dimension_from_data();
+    },
+    shifts: function() {
+      return this.element.closest('.shifts').shifts();
     },
     selected: function() {
       return this.element.hasClass('selected');
@@ -114,6 +123,9 @@
   			this.element.attr('data-start', arguments[0]);
   		}
   	},
+    end: function() {
+      return this.start() + this.duration();
+    },
   	duration: function() {
   		if(arguments.length == 0) {
   			return parseInt(this.element.attr('data-duration'));
@@ -128,8 +140,10 @@
              '&shift[duration]=' + this.duration();
   	},
   	remove: function() {
+      var shifts = this.shifts();
   	  this.destroy();
   	  Resource.prototype.remove.call(this);
+      shifts.empty() ? shifts.remove() : shifts.adjust_shift_positions();
   	},
   	add_requirement: function(qualification) {
   		var element = $('<li class="requirement"></li>');
@@ -140,13 +154,13 @@
   		requirement.bind_events();
   	},
   	update_dimension_from_data: function() {
-  		this.left(Shift.minutes_to_pixels(this.start() - Plan.start()) + 1);
-  		this.width(Shift.minutes_to_pixels(this.duration()) - 1);
+  		this.left(Shift.minutes_to_pixels(this.start() - Plan.start()));
+  		this.width(Shift.minutes_to_pixels(this.duration()));
   	},
   	update_data_from_dimension: function() {
   		this.element.attr({
-  			'data-start': Shift.pixels_to_minutes(this.left()),
-  			'data-duration': Shift.pixels_to_minutes(this.width() + 2)
+  			'data-start': Shift.pixels_to_minutes(this.left()) + Plan.start(),
+  			'data-duration': Shift.pixels_to_minutes(this.width())
   		});
   		// console.log('data updated to start: ' + this.element.attr('data-start') + ', duration: ' + this.element.attr('data-duration'));
   	},
@@ -160,12 +174,25 @@
   	},
   	shiftsDimensions: function() {
       if(!this.element.data('shiftsDimensions')) {
-        var draggable = this.element.data('draggable');
+        var containment = this.element.data('draggable').containment;
+        console.log(draggable.containment)
         this.element.data('shiftsDimensions', {
-          left:   draggable.containment[0] - 5,
-          top:    draggable.containment[1] - 5,
-          right:  draggable.containment[2] + this.element.width() + 5,
-          bottom: draggable.containment[3] + this.element.height() + 5
+          left:   containment[0] - 5,
+          top:    containment[1] - 5,
+          right:  containment[2] + this.element.width() + 5,
+          bottom: containment[3] + this.element.height() + 5
+        });
+      }
+      return this.element.data('shiftsDimensions');
+  	},
+  	shiftsDimensions: function() {
+      if(!this.element.data('shiftsDimensions')) {
+        var day = this.element.closest('.day')[0];
+        this.element.data('shiftsDimensions', {
+          left:   day.offsetLeft - 10,
+          top:    day.offsetTop - 10,
+          right:  day.offsetLeft + day.offsetWidth + 10,
+          bottom: day.offsetTop + day.offsetHeight + 10
         });
       }
       return this.element.data('shiftsDimensions');
@@ -209,6 +236,7 @@
       }
   	},
   	bind_events: function() {
+      this.element.mousedown(Shift.on_mousedown);
   	  this.element.click(Shift.on_click);
       this.element.droppable({
        accept: "#qualifications a div",

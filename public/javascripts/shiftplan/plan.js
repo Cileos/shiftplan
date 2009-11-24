@@ -4,7 +4,6 @@ Plan = {
 	default_slot_count: 12,
 	init: function() {
     $('.plan').css({ width: Plan.width() + 'px' });
-    // $('.hours').css({ width: Plan.width() + 50 + 'px'})
     this.bind_events();
 	},
 	bind_events: function() {
