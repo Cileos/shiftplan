@@ -36,7 +36,7 @@
   	  if(shift.selected()) {
   	    shift.element.removeClass('selected');
   	  } else {
-  	    $('.plan .selected').removeClass('selected');
+  	    $('#plan .selected').removeClass('selected');
   	    shift.element.addClass('selected');
   	    shift.suitable_employees().addClass('suitable');
   	    shift.unsuitable_employees().addClass('unsuitable');

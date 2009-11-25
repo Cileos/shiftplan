@@ -10,15 +10,31 @@ h1 .dates {
   line-height: 34px;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+tr.even {
+  background-color: #f0f0f0;
+}
+th {
+  font-style: italic;
+  color: #999;
+  background-color: #f0f0f0;
+}
+th, td {
+  padding: 8px 16px 7px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
 div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWithErrors select {
   border: 1px solid red;
 }
-
 .actions a {
   display: inline-block;
   width: 16px;
   height: 16px;
-  margin: 3px 0 0 4px;
+  margin: 0 0 0 4px;
   text-indent: 16px;
   overflow: hidden;
   vertical-align: middle;

@@ -21,7 +21,7 @@
   	  if(requirement.selected()) {
   	    requirement.element.removeClass('selected');
   	  } else {
-  	    $('.plan .selected').removeClass('selected');
+  	    $('#plan .selected').removeClass('selected');
   	    requirement.element.addClass('selected');
   	    requirement.suitable_employees().addClass('suitable');
   	    requirement.unsuitable_employees().addClass('unsuitable');
@@ -94,7 +94,7 @@
    	  // ...
    	}
   });
-  
+
   Resource.types.push(Requirement);
 
 }.apply(Plan));

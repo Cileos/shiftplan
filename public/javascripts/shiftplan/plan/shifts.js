@@ -19,7 +19,7 @@
       var day = $(this).day();
   		var workplace = ui.draggable.workplace();
       var shifts = day.find_shifts(workplace) || day.append_shifts(workplace);
-      
+
       var left = parseInt(ui.offset.left - this.offsetLeft - 1);
   		left = left - (left % Plan.slot_width);
   		var width = workplace.default_shift_length() ?
@@ -75,7 +75,7 @@
     },
     bind_events: function() {
       this.element.droppable({
-       accept: "#workplaces a div, .plan .requirement, .plan .assignment",
+       accept: "#workplaces a div, #plan .requirement, #plan .assignment",
        tolerance: 'touch',
        greedy: true,
        drop: Shifts.on_drop

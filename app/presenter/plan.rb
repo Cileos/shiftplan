@@ -2,8 +2,8 @@ module Presenter
   class Plan < Base
     def attributes
       {
-        :id => dom_id(plan),
-        :class => 'plan',
+        :id => 'plan',
+        :class => "plan #{dom_id(plan)}", # yuck!
         :'data-start' => start_time_in_minutes,
         :'data-duration' => duration
       }

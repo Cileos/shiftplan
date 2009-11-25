@@ -1,32 +1,27 @@
-#plans {
-  width: 100%;
-  margin-right: 20px;
-}
-
-.plan .day {
+#plan .day {
   clear: left;
 }
-.plan h2 {
+#plan h2 {
   clear: left;
 	margin-top: 1.5em;
   font-size: 13px;
 	font-weight: normal;
 	color: #bbb;
 }
-.plan .day:first-child h2 {
+#plan .day:first-child h2 {
 	margin-top: 0;
 }
-.plan .hours {
+#plan .hours {
   height: 1em;
 }
-.plan .hour {
+#plan .hour {
   float: left;
   overflow: none;
   padding: 4px 0 0 0px;
   font-size: 10px;
   color: #ccc;
 }
-.plan .day {
+#plan .day {
 	margin-top: 0.5em;
 	border-style: solid;
 	border-color: #aaa;
@@ -35,16 +30,16 @@
 	min-height: 36px;
   /*overflow: hidden;*/
 }
-.plan .workplace {
+#plan .workplace {
   position: relative;
   margin-top: -1px;
   width: 100%;
   /* overflow: hidden; */
 }
-.plan .workplace:last-child {
+#plan .workplace:last-child {
   margin-bottom: -1px;
 }
-.plan .shift {
+#plan .shift {
   position: absolute;
 	top: 0;
   min-height: 36px;
@@ -52,18 +47,18 @@
   /* cursor: move; */
 }
 
-.plan .shift.selected,
-.plan .requirement.selected {
+#plan .shift.selected,
+#plan .requirement.selected {
   -moz-box-shadow: 0 0 3px 1px #009dff; /* lime */
   -webkit-box-shadow: 0 0 3px #009dff;  /* lime */
   z-index: 1000;
 }
 
-.plan .requirements > li {
+#plan .requirements > li {
 	float: left;
 	margin: 4px 0 0 4px;
 }
-.plan .requirement {
+#plan .requirement {
 	float: left;
 	display: block;
 	width: 30px;
@@ -73,7 +68,7 @@
 	border-color: transparent;
 	background-image: url(http://github.com/images/gravatars/gravatar-30.png);
 }
-.plan .assignment {
+#plan .assignment {
 	display: block;
 	height: 26px;
 	width: 30px;
@@ -81,11 +76,11 @@
 	overflow: hidden;
 	z-index: 999;
 }
-.plan .actions {
+#plan .actions {
   float: right;
 	margin: 10px 10px 0 0;
 }
-.plan h3 {
+#plan h3 {
 	float: right;
 	margin: 1em 0.6em 0 0;
 	font-size: 0.85em;
@@ -102,10 +97,10 @@
 .poof {
 	background: transparent url(/images/poof.png) no-repeat 0 0;
 }
-.plan .shifts .removing * {
+#plan .shifts .removing * {
   display: none;
 }
-.plan .shifts .resize_handle {
+#plan .shifts .resize_handle {
 	position: absolute;
 	display: block;
 	top: 0;
@@ -113,16 +108,16 @@
 	width: 10px;
 	cursor: col-resize;
 }
-.plan .shifts .resize_handle.left {
+#plan .shifts .resize_handle.left {
 	left: 0;
 	cursor: w-resize;
 }
-.plan .shifts .resize_handle.right {
+#plan .shifts .resize_handle.right {
 	right: 0;
 	cursor: e-resize;
 }
 
-.plan .shifts .unsuitable_workplace {
+#plan .shifts .unsuitable_workplace {
   background-color: #ccc !important;
 }
 

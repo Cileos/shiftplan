@@ -4,7 +4,7 @@ Plan = {
 	default_slot_count: 12,
 	init: function() {
     $('#main').css({ width: Plan.width() + 12 + 'px' });
-    $('.plan').css({ width: Plan.width() + 'px' });
+    $('#plan').css({ width: Plan.width() + 'px' });
     this.bind_events();
 	},
 	bind_events: function() {
@@ -14,10 +14,10 @@ Plan = {
 		});
 	},
 	start: function() {
-		return parseInt($('.plan').attr("data-start"));
+		return parseInt($('#plan').attr("data-start"));
 	},
   duration: function() {
-    return parseInt($('.plan').attr("data-duration"));
+    return parseInt($('#plan').attr("data-duration"));
   },
   end: function() {
     return this.start() + this.duration();
@@ -44,7 +44,5 @@ Plan = {
 Plan.grid = [Plan.slot_width, 38],
 
 $(document).ready(function() {
-  if($('#main > .plan').length > 0) {   // set body class plan_show or something like that
-	  Plan.init();
-  }
+  if($('#plan').length > 0) Plan.init();
 });

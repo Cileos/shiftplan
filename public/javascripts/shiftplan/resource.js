@@ -100,7 +100,7 @@ Resource.prototype = {
     return this.id() == null;
   },
 	plan_id: function() {
-	  return this.element.closest('.plan').attr('id').match(/plan_(\d+)/)[1];
+	  return $('#plan').attr('class').match(/plan_(\d+)/)[1];
 	},
 	href: function() {
 		return this.element.attr('href');

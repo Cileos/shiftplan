@@ -43,7 +43,7 @@
   	},
     bind_events: function() {
       this.element.droppable({
-       accept: "#workplaces a div, .plan .requirement, .plan .assignment",
+       accept: "#workplaces a div, #plan .requirement, #plan .assignment",
        tolerance: 'touch',
        greedy: true,
        drop: Day.on_drop
