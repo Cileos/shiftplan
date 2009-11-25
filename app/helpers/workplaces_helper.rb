@@ -4,7 +4,9 @@ module WorkplacesHelper
     options[:truncate] = true unless options.key?(:truncate)
     options[:length] ||= 20
 
-    text = workplace.workplace_requirements.map { |wr| "#{wr.quantity}x #{wr.qualification.name}" }.join(', ')
+    text = workplace.workplace_requirements.map do |requirement| 
+      "#{requirement.quantity}x #{requirement.qualification.name}" if requirement.qualification
+    end.compact.join(', ')
     text = truncate(text, :length => options[:length]) if options[:truncate]
     text
   end

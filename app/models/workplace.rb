@@ -73,6 +73,7 @@ class Workplace < ActiveRecord::Base
 
   def workplace_requirements_json
     workplace_requirements_json = workplace_requirements.map do |requirement|
+      next unless requirement.qualification
       <<-json
         {
           id: #{requirement.id},
@@ -83,7 +84,7 @@ class Workplace < ActiveRecord::Base
           quantity: #{requirement.quantity}
         }
       json
-    end.join(', ')
+    end.compact.join(', ')
     "[#{workplace_requirements_json}]".gsub("\n", ' ').strip
   end
 
