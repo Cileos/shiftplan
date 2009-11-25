@@ -1,9 +1,27 @@
-<ol>
+<table id="plans">
+  <tr>
+    <th>Name</th>
+    <th>Start date</th>
+    <th>End date</th>
+  </tr>
   <% @plans.each do |plan| -%>
-    <% content_tag_for(:li, plan) do %>
-			<%= link_to plan_name_and_dates(plan), plan_path(plan) %>
+    <% content_tag_for(:tr, plan, :class => cycle('odd', 'even')) do %>
+      <td class="name">
+        <%= plan.name %>
+      </td>
+      <td class="start_date">
+        <%= l(plan.start_date) %>
+      </td>
+      <td class="end_date">
+        <%= l(plan.end_date) %>
+      </td>
+      <td class="actions">
+        <%= link_to('edit', edit_plan_path(plan), :class => 'edit') %>
+	      <%= link_to(t(:destroy), plan_path(plan), :class => 'delete', :method => :delete) %>
+      </td>
 		<% end %>
   <% end -%>
-</ol>
+</table>
+
 
 <%= render :partial => 'form' %>
