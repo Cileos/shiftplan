@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
   before_filter :set_plans,          :only => :index
-  before_filter :set_plan,           :only => :show
+  before_filter :set_plan,           :only => [:show, :update, :destroy]
   before_filter :set_employees,      :only => :show
   before_filter :set_workplaces,     :only => :show
   before_filter :set_qualifications, :only => :show
@@ -21,6 +21,12 @@ class PlansController < ApplicationController
       flash[:error] = t(:plan_could_not_be_created)
       render :action => 'index'
     end
+  end
+
+  def destroy
+    @plan.destroy
+    flash[:notice] = t(:plan_successfully_deleted)
+    redirect_to plans_url
   end
 
   protected
