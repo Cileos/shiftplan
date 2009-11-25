@@ -80,8 +80,8 @@ $(document).ready(function() {
   	    <%= f.text_field :default_shift_length %>
   	  </div>
   	</fieldset>
+  	<h4><%= t(:default_staffing, :scope => :'activerecord.attributes.workplace') %></h4>
   	<fieldset>
-  	  <legend><%= t(:default_staffing, :scope => :'activerecord.attributes.workplace') %></legend>
   	  <div>
   	    <%= f.label :qualifications %>
   	    <ul id="required_qualifications" class="qualifications">

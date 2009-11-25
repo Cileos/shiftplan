@@ -3,6 +3,7 @@ Plan = {
 	slots_per_hour: 4,
 	default_slot_count: 12,
 	init: function() {
+    $('#main').css({ width: Plan.width() + 12 + 'px' });
     $('.plan').css({ width: Plan.width() + 'px' });
     this.bind_events();
 	},
@@ -43,5 +44,7 @@ Plan = {
 Plan.grid = [Plan.slot_width, 38],
 
 $(document).ready(function() {
-	Plan.init();
+  if($('#main > .plan').length > 0) {   // set body class plan_show or something like that
+	  Plan.init();
+  }
 });

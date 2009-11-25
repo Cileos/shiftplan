@@ -1,0 +1,40 @@
+#home {
+  display: inline-block;
+  height: 73px;
+  width: 250px;
+  margin-left: 12px;
+  text-indent: 250px;
+  overflow: hidden;
+  background: url(/images/logo.png) no-repeat;
+}
+#navigation {
+  position: absolute;
+  z-index: 999;
+  bottom: 0;
+  width: 100%;
+  padding: 6px 0;
+	overflow: auto; /* clearfix */
+	background-color: #a8a8a8;
+  -moz-box-shadow: 0 3px 5px #ccc;
+  -webkit-box-shadow: 0 3px 5px #ccc;
+  font-size: 12px;
+}
+#navigation li {
+  float: left;
+  margin-right: 30px;
+}
+#navigation li:first-child {
+  margin-left: 24px;
+}
+#navigation a {
+  color: #fff;
+  text-decoration: none;
+}
+#navigation a:hover, #login_status a:hover {
+  text-decoration: underline;
+}
+#navigation #login_status {
+  float: right;
+  margin-right: 24px;
+  color: #fff;
+}

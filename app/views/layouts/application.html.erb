@@ -31,8 +31,6 @@
       <a href="/" id="home">
         <h1>shiftplan</h1>
       </a>
-    </div>
-		<div>
 	    <ul id="navigation">
 	      <li><%= link_to t(:overview), root_path %></li>
 	      <li><%= link_to t(:plans), plans_path %></li>
@@ -46,12 +44,9 @@
     	    <% end -%>
   	    </li>
 	    </ul>
-	    <div id="main">
-	      <%= yield %>
-	    </div>
-	    <div id="footer" style="clear:both;">
-	      &copy; 2009 shiftplan technologies
-	    </div>
+    </div>
+	  <div id="main">
+	    <%= yield %>
 		</div>
   </body>
 </html>

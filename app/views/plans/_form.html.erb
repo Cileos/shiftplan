@@ -1,6 +1,5 @@
 <div id="sidebar">
   <h3><%= t(:new_plan) %></h3>
-
   <% form_for(Plan.new) do |f| %>
     <fieldset>
       <div>
@@ -16,8 +15,9 @@
         <%= f.date_select :end_date %>
       </div>
     </fieldset>
+
+    <h4><%= t(:shifts, :scope => :'activerecord.attributes.plan') %></h4>
   	<fieldset>
-  	  <legend><%= t(:shifts, :scope => :'activerecord.attributes.plan') %></legend>
       <div>
         <%= f.label :start_time %>
         <%= f.time_select :start_time %>
@@ -27,6 +27,7 @@
         <%= f.time_select :end_time %>
       </div>
     </fieldset>
+
     <%= f.submit t(:save) %>
   <% end %>
 </div>

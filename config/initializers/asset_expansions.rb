@@ -32,11 +32,12 @@ end
 ActionView::Helpers::AssetTagHelper.module_eval do
   register_stylesheet_expansion :shiftplan => %w(
     reset
-    shiftplan/plan
-    shiftplan/resources
-    shiftplan/sidebar
-
-    application
+    layout
+    header
+    sidebar
+    styles
+    plan
+    resources
   )
   # jquery-ui/ui-lightness/jquery-ui
 end

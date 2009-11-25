@@ -20,8 +20,9 @@
 	    <%= f.check_box :active, {}, 1 %>
 	  </div>
 	</fieldset>
+  
+  <h4><%= t(:qualifications, :scope => :'activerecord.attributes.employee') %></h4>
 	<fieldset>
-	  <legend><%= t(:qualifications, :scope => :'activerecord.attributes.employee') %></legend>
 	  <div>
 	    <ul class="qualifications" style="width:350px;">
 	      <% Qualification.all.each do |qualification| -%>
@@ -30,8 +31,9 @@
 	    </ul>
 	  </div>
 	</fieldset>
+  
+  <h4><%= t(:contact_information, :scope => :'activerecord.attributes.employee') %></h4>
 	<fieldset>
-	  <legend><%= t(:contact_information, :scope => :'activerecord.attributes.employee') %></legend>
 	  <div>
 	    <%= f.label :email %>
 	    <%= f.text_field :email %>

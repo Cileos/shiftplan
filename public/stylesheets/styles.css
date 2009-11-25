@@ -1,0 +1,57 @@
+h1 {
+  margin-bottom: 0.5em;
+  font-size: 24px;
+  color: #bbb;
+}
+h1 .dates {
+  float: right;
+  padding-left: 1em;
+  font-size: 13px;
+  line-height: 34px;
+}
+
+div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWithErrors select {
+  border: 1px solid red;
+}
+
+.actions a {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin: 3px 0 0 4px;
+  text-indent: 16px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.actions a.text {
+  display: inline;
+  text-indent: 0;
+  height: auto;
+  width: auto;
+  overflow: none;
+  font-size: 12px;
+}
+.actions a:first-child {
+  margin-left: 0;
+}
+.actions a.edit {
+  background: url(/images/icons/edit.png) no-repeat;
+}
+.actions a.delete {
+  background: url(/images/icons/delete.png) no-repeat right top;
+}
+
+#flash {
+  padding: 0.5em;
+  border: 1px solid #ddd;
+  color: #fff;
+  margin-bottom: 1em;
+  display: none;
+}
+#flash.notice {
+  background-color: green;
+}
+#flash.error {
+  background-color: red;
+}
+
