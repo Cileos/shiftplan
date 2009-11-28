@@ -30,6 +30,28 @@ describe Employee do
     end
   end
 
+  describe "scopes" do
+    describe ".for_qualification" do
+      it "should return all employees with the given qualification" do
+        @cook_qualification         = Qualification.make(:name => 'Cook')
+        @barkeeper_qualification    = Qualification.make(:name => 'Barkeeper')
+        @cook_1    = Employee.make(:qualifications => [@cook_qualification])
+        @cook_2    = Employee.make(:qualifications => [@cook_qualification])
+        @barkeeper = Employee.make(:qualifications => [@barkeeper_qualification])
+
+        cooks = Employee.for_qualification(@cook_qualification)
+        cooks.should     include(@cook_1)
+        cooks.should     include(@cook_2)
+        cooks.should_not include(@barkeeper)
+
+        barkeepers = Employee.for_qualification(@barkeeper_qualification)
+        barkeepers.should     include(@barkeeper)
+        barkeepers.should_not include(@cook_1)
+        barkeepers.should_not include(@cook_2)
+      end
+    end
+  end
+
   describe "instance methods" do
     describe "#full_name" do
       before(:each) do
