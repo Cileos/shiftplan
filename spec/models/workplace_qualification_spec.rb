@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe WorkplaceQualification do
   before(:each) do
-    @workplace_qualification = WorkplaceQualification.new
+    @workplace_qualification = WorkplaceQualification.make
   end
 
   describe "associations" do

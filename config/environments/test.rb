@@ -28,5 +28,6 @@ config.action_mailer.delivery_method = :test
 # config.active_record.schema_format = :sql
 
 config.gem 'machinist', :source => 'http://gemcutter.org'
+config.gem 'faker',     :source => 'http://gemcutter.org'
 
 config.i18n.default_locale = :en

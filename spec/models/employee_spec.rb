@@ -21,17 +21,6 @@ describe Employee do
   end
 
   describe "validations" do
-    before(:each) do
-      @employee.attributes = {
-        :first_name => "Fritz",
-        :last_name => "Thielemann"
-      }
-    end
-
-    it "should regard a valid object as valid" do
-      @employee.should be_valid
-    end
-
     it "should require a first name" do
       @employee.should validate_presence_of(:first_name)
     end
@@ -44,8 +33,7 @@ describe Employee do
   describe "instance methods" do
     describe "#full_name" do
       before(:each) do
-        @employee.first_name = 'Fritz'
-        @employee.last_name = 'Thielemann'
+        @employee = Employee.make(:first_name => 'Fritz', :last_name => 'Thielemann')
       end
 
       it "should return the employee's full name" do
@@ -55,8 +43,7 @@ describe Employee do
 
     describe "#initials" do
       before(:each) do
-        @employee.first_name = 'Fritz Joachim Werner'
-        @employee.last_name = 'von Thielemann'
+        @employee = Employee.make(:first_name => 'Fritz Joachim Werner', :last_name => 'von Thielemann')
       end
 
       it "should generate the first of each name part as initials" do
@@ -90,8 +77,8 @@ describe Employee do
 
     describe "#has_qualification?" do
       before(:each) do
-        @cook_qualification = Qualification.new(:name => 'Cook')
-        @receptionist_qualification = Qualification.new(:name => 'Receptionist')
+        @cook_qualification = Qualification.make(:name => 'Cook')
+        @receptionist_qualification = Qualification.make(:name => 'Receptionist')
         @employee.qualifications = [@cook_qualification]
       end
 
@@ -106,17 +93,15 @@ describe Employee do
 
     describe "#possible_workplaces" do
       before(:each) do
-        @cook_qualification = Qualification.create!(:name => 'Cook')
-        @receptionist_qualification = Qualification.create!(:name => 'Receptionist')
-        @barkeeper_qualification = Qualification.create!(:name => 'Barkeeper')
+        @cook_qualification         = Qualification.make(:name => 'Cook')
+        @receptionist_qualification = Qualification.make(:name => 'Receptionist')
+        @barkeeper_qualification    = Qualification.make(:name => 'Barkeeper')
 
-        @kitchen = Workplace.create!(:name => 'Kitchen', :qualifications => [@cook_qualification])
-        @reception = Workplace.create!(:name => 'Reception', :qualifications => [@receptionist_qualification])
+        @kitchen   = Workplace.make(:name => 'Kitchen',   :qualifications => [@cook_qualification])
+        @reception = Workplace.make(:name => 'Reception', :qualifications => [@receptionist_qualification])
 
-        @employee_1 = Employee.new(:qualifications => [@cook_qualification, @receptionist_qualification])
-        @employee_1.save(false)
-        @employee_2 = Employee.new(:qualifications => [@barkeeper_qualification])
-        @employee_2.save(false)
+        @employee_1 = Employee.make(:qualifications => [@cook_qualification, @receptionist_qualification])
+        @employee_2 = Employee.make(:qualifications => [@barkeeper_qualification])
       end
 
       it "should return all possible workplaces" do
@@ -136,12 +121,12 @@ describe Employee do
 
     describe "#form_values_json" do
       before(:each) do
-        @employee.attributes = {
+        @employee = Employee.make(
           :first_name => 'Fritz', :last_name => 'Thielemann', :birthday => Date.civil(1965, 2, 1),
           :email => 'fritz@thielemann.de', :phone => '1234',
           :street => 'Some street 1', :zipcode => '12345', :city => 'Somewhere',
           :active => true
-        }
+        )
         # no qualifications to make life a bit simpler
       end
 

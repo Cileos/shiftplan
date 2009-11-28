@@ -41,9 +41,9 @@ describe Shift do
   describe "callbacks" do
     describe "#build_requirements" do
       before(:each) do
-        @cook_qualification = Qualification.new(:name => 'Cook')
-        @receptionist_qualification = Qualification.new(:name => 'Receptionist')
-        @workplace = Workplace.new
+        @cook_qualification         = Qualification.make(:name => 'Cook')
+        @receptionist_qualification = Qualification.make(:name => 'Receptionist')
+        @workplace = Workplace.make
         @workplace.workplace_requirements.build([
           { :qualification => @cook_qualification, :quantity => 3 },
           { :qualification => @receptionist_qualification, :quantity => 2 }
@@ -103,7 +103,7 @@ describe Shift do
     end
 
     describe "updating start/end attributes" do
-      shift = Shift.create!(:start => Time.now, :end => 2.hours.from_now, :duration => 120)
+      shift = Shift.make(:start => Time.now, :end => 2.hours.from_now, :duration => 120)
 
       start_time = Time.parse('Mon Sep 07 08:00:00 +0200 2009')
       end_time   = Time.parse('Mon Sep 07 11:00:00 +0200 2009')

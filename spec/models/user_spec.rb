@@ -28,7 +28,7 @@ describe User do
   describe "class methods" do
     describe ".authenticate" do
       before(:each) do
-        @user = User.create!(:email => 'fritz@thielemann.de', :password => 'foo', :password_confirmation => 'foo')
+        @user = User.make(:email => 'fritz@thielemann.de', :password => 'foo', :password_confirmation => 'foo')
       end
 
       it "should not authenticate a user with a non-existent email" do

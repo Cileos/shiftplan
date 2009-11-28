@@ -32,7 +32,7 @@ describe Requirement do
   describe "instance methods" do
     describe "#fulfilled?" do
       it "should be fulfilled if an assignment is present" do
-        @requirement.assignment = Assignment.new
+        @requirement.assignment = Assignment.make
         @requirement.should be_fulfilled
       end
 
