@@ -3,6 +3,10 @@ require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_
 require 'spec/autorun'
 require 'spec/rails'
 
+require 'machinist/active_record'
+require 'sham'
+require File.expand_path(File.dirname(__FILE__) + '/blueprints')
+
 if Account.first
   ActiveRecord::Base.send(:subclasses).each do |model|
     connection = model.connection
@@ -17,5 +21,7 @@ end
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
-  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+
+  config.before(:all)  { Sham.reset(:before_all)  }
+  config.before(:each) { Sham.reset(:before_each) }
 end
