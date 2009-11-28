@@ -1,0 +1,13 @@
+<% if @employee && @statuses -%>
+  <% @statuses.each do |day, statuses| -%>
+    <h3><%= l(day) %></h3>
+    <ul>
+      <%= render :partial => 'status', :collection => statuses %>
+    </ul>
+  <% end -%>
+  <%= render :partial => 'form', :locals => { :employee => @employee, :status => @employee.statuses.build } %>
+<% else -%>
+  <% @employees.each do |employee| -%>
+    <%= link_to employee.full_name, employee_statuses_path(employee) %>
+  <% end -%>
+<% end -%>

@@ -1,13 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
   map.resource :dashboard, :controller => 'dashboard'
 
-  map.resources :employees, :has_many => [:default_availabilities, :availabilities]
+  map.resources :employees, :has_many => [:default_statuses, :statuses]
   map.resources :workplaces
   map.resources :plans
   map.resources :qualifications
 
-  map.resources :default_availabilities
-  map.resources :availabilities
+  map.resources :default_statuses
+  map.resources :statuses
 
   map.resources :shifts
   map.resources :requirements

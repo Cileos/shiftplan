@@ -1,7 +1,7 @@
-Feature: Managing default availabilities
-  In order to be able to always see when my employees are usually available
+Feature: Managing default statuses
+  In order to be able to always see when my employees are usually available or unavailable
   As a shift manager
-  I want to be able to manage my employees' default availabilities
+  I want to be able to manage my employees' default statuses
 
 	Background:
     Given the following users:
@@ -15,11 +15,22 @@ Feature: Managing default availabilities
   		| Fritz Thielemann  |
   	And I am logged in with "fritz@thielemann.de" and "oracle"
 
-  Scenario: Adding a default availability entry
-    Given I am on the default availabilities index page
+  Scenario: Adding an availability entry
+    Given I am on the default statuses index page
     When I click on "Fritz Thielemann"
     And I select "Monday" from "Day of week"
     And I select "10:00" as the "Start" time
     And I select "22:00" as the "End" time
+    And I choose "Available"
     And I press "Save"
     Then the employee "Fritz Thielemann" should be available on "Monday" from "10:00" to "22:00"
+
+  Scenario: Adding an unavailability entry
+    Given I am on the default statuses index page
+    When I click on "Fritz Thielemann"
+    And I select "Monday" from "Day of week"
+    And I select "10:00" as the "Start" time
+    And I select "22:00" as the "End" time
+    And I choose "Unavailable"
+    And I press "Save"
+    Then the employee "Fritz Thielemann" should be unavailable on "Monday" from "10:00" to "22:00"

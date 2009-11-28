@@ -15,8 +15,8 @@ describe Employee do
       @employee.should have_many(:allocations)
     end
 
-    it "should have availabilities" do
-      @employee.should have_many(:availabilities)
+    it "should have statuses" do
+      @employee.should have_many(:statuses)
     end
   end
 
