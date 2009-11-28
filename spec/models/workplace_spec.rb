@@ -133,14 +133,13 @@ describe Workplace do
       before(:each) do
         @cook_qualification = Qualification.make(:name => 'Cook')
         @receptionist_qualification = Qualification.make(:name => 'Receptionist')
-        @workplace.workplace_requirements.build([
-          { :qualification => @cook_qualification, :quantity => 3 },
-          { :qualification => @receptionist_qualification, :quantity => 2 }
-        ])
+        WorkplaceRequirement.make(:workplace => @workplace, :quantity => 3, :qualification => @cook_qualification)
+        WorkplaceRequirement.make(:workplace => @workplace, :quantity => 2, :qualification => @receptionist_qualification)
       end
 
       it "shows the workplace's default staffing (ids)" do
-        @workplace.default_staffing.should == [1, 1, 1, 2, 2]
+        expected = ([@cook_qualification.id] * 3) + ([@receptionist_qualification.id] * 2)
+        @workplace.default_staffing.should == expected
       end
     end
 
@@ -183,15 +182,14 @@ describe Workplace do
     describe "#workplace_requirements_json" do
       before(:each) do
         @cook_qualification = Qualification.make(:name => 'Cook')
-        @workplace.workplace_requirements.build(:qualification => @cook_qualification, :quantity => 3)
-        @workplace.workplace_requirements.last.stub!(:id).and_return(2) # yuck
+        @workplace_requirement = WorkplaceRequirement.make(:qualification => @cook_qualification, :workplace => @workplace, :quantity => 3)
       end
 
       it "should return the relevant workplace requirement values as JSON" do
         json = @workplace.workplace_requirements_json
 
-        json.should include("id: 2")
-        json.should include("id: 1")
+        json.should include("id: #{@workplace_requirement.id}")
+        json.should include("id: #{@cook_qualification.id}")
         json.should include("name: 'Cook'")
         json.should include("quantity: 3")
       end

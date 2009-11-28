@@ -19,13 +19,9 @@ describe Qualification do
   describe "callbacks" do
     describe "#generate_color" do
       it "generates a color dependent on the number of existing qualifications" do
-        @qualification.send(:generate_color)
-        @qualification.color.should == '#ffcf3f'
-
         Qualification.stub!(:maximum).and_return(1)
-        another_qualification = Qualification.make
-        another_qualification.send(:generate_color)
-        another_qualification.color.should == '#ffcf3f'
+        qualification = Qualification.make
+        qualification.color.should == '#ffcf3f'
       end
     end
   end
