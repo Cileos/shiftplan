@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Employee do
   before(:each) do
-    @employee = Employee.new
+    @employee = Employee.make
   end
 
   describe "associations" do

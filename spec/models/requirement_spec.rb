@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Requirement do
   before(:each) do
-    @requirement = Requirement.new
+    @requirement = Requirement.make
   end
 
   describe "associations" do

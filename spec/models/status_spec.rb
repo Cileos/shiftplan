@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Status do
   before(:each) do
-    @status = Status.new
+    @status = Status.make
   end
 
   describe "associations" do

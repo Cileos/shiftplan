@@ -8,7 +8,9 @@ end
 
 Status.blueprint do
   employee_id
-  status { Status::VALID_STATUSES.first }
+  status   { Status::VALID_STATUSES.first }
+  start    { Time.current }
+  self.end { 8.hours.from_now }
 end
 
 Employee.blueprint do
@@ -48,4 +50,16 @@ end
 User.blueprint do
   email { Faker::Internet.email }
   password
+end
+
+Membership.blueprint do
+end
+
+Location.blueprint do
+end
+
+EmployeeQualification.blueprint do
+end
+
+Requirement.blueprint do
 end
