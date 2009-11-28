@@ -112,4 +112,16 @@ describe Requirement do
       end
     end
   end
+
+  describe "delegates" do
+    before(:each) do
+      @requirement = Requirement.make
+    end
+
+    [:day, :start, :end].each do |method|
+      it "should delegate :#{method} to its shift" do
+        @requirement.send(method).should == @requirement.shift.send(method)
+      end
+    end
+  end
 end
