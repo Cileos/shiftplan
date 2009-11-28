@@ -5,7 +5,14 @@ Given /^the following shifts:$/ do |shifts|
     start, duration = attributes['start'], attributes['duration']
     reformat_date!(start)
 
-    requirements = attributes['requirements'].split(',').map do |requirement|
+    shift = Shift.create!(
+      :plan => plan,
+      :workplace => workplace,
+      :start => start,
+      :end => Time.parse(start) + duration.to_i.minutes
+    )
+
+    attributes['requirements'].split(',').each do |requirement|
       qualification, name = requirement.strip.split(':')
 
       qualification = Qualification.find_by_name(qualification)
@@ -14,16 +21,8 @@ Given /^the following shifts:$/ do |shifts|
         Employee.find_by_first_name_and_last_name(first_name, last_name)
       end
 
-      Requirement.create!(:qualification => qualification, :assignee => assignee)
+      shift.requirements.create!(:qualification => qualification, :assignee => assignee)
     end
-
-    Shift.create!(
-      :plan => plan,
-      :workplace => workplace,
-      :requirements => requirements,
-      :start => start,
-      :end => Time.parse(start) + duration.to_i.minutes
-    )
   end
 end
 

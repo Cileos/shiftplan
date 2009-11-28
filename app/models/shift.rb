@@ -3,6 +3,7 @@ class Shift < ActiveRecord::Base
   has_many :requirements
   belongs_to :plan
 
+  validates_presence_of :plan_id, :if => lambda { |record| record.plan.nil? }
   validates_presence_of :start, :end
   validate :start_before_end
 

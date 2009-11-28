@@ -20,13 +20,13 @@ describe Requirement do
   end
 
   describe "validations" do
-    before(:each) do
-      @requirement.attributes = {}
+    it "should require to be associated to a shift" do
+      @requirement.should validate_presence_of(:shift_id)
     end
 
-    it "should regard a valid object as valid" do
-      @requirement.should be_valid
-    end
+    # it "should require to be associated to a qualification" do
+    #   @requirement.should validate_presence_of(:qualification_id)
+    # end
   end
 
   describe "instance methods" do

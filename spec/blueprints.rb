@@ -1,4 +1,3 @@
-Sham.employee_id(:unique => false) { 1 }
 Sham.password do
   chars = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
   password = ''
@@ -6,8 +5,12 @@ Sham.password do
   password
 end
 
+Account.blueprint do
+  name { Faker::Name.name }
+end
+
 Status.blueprint do
-  employee_id
+  employee { Employee.make }
   status   { Status::VALID_STATUSES.first }
   start    { Time.current }
   self.end { 8.hours.from_now }
@@ -27,6 +30,7 @@ Workplace.blueprint do
 end
 
 Plan.blueprint do
+  account    { Account.make }
   start_date { Date.tomorrow }
   end_date   { 8.days.from_now.to_date }
   start_time { Date.tomorrow.beginning_of_day }
@@ -34,17 +38,24 @@ Plan.blueprint do
 end
 
 Assignment.blueprint do
+  assignee    { Employee.make }
+  requirement { Requirement.make }
 end
 
 Shift.blueprint do
-  start { Time.current }
+  plan     { Plan.make }
+  start    { Time.current }
   self.end { 8.hours.from_now }
 end
 
 WorkplaceRequirement.blueprint do
+  workplace     { Workplace.make }
+  qualification { Qualification.make }
 end
 
 WorkplaceQualification.blueprint do
+  workplace     { Workplace.make }
+  qualification { Qualification.make }
 end
 
 User.blueprint do
@@ -59,7 +70,11 @@ Location.blueprint do
 end
 
 EmployeeQualification.blueprint do
+  employee      { Employee.make }
+  qualification { Qualification.make }
 end
 
 Requirement.blueprint do
+  shift         { Shift.make }
+  qualification { Qualification.make }
 end

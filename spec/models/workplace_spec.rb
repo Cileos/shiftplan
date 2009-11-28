@@ -37,15 +37,18 @@ describe Workplace do
   describe "scopes" do
     describe ".for_qualification" do
       before(:each) do
+        @qualification_1 = Qualification.make
+        @qualification_2 = Qualification.make
+
         @workplace_1 = Workplace.make(
           :name => 'Workplace for qualification 1',
-          :workplace_qualifications => [WorkplaceQualification.new(:qualification_id => 1)]
+          :workplace_qualifications => [WorkplaceQualification.make(:qualification => @qualification_1)]
         )
         @workplace_2 = Workplace.make(
           :name => 'Workplace for qualification 2',
-          :workplace_qualifications => [WorkplaceQualification.new(:qualification_id => 2)]
+          :workplace_qualifications => [WorkplaceQualification.make(:qualification => @qualification_2)]
         )
-        @scope = Workplace.for_qualification(mock_model(Qualification, :id => 1))
+        @scope = Workplace.for_qualification(@qualification_1)
       end
 
       it "should include workplaces that fit a given qualification" do

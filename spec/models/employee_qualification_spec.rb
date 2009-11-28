@@ -14,4 +14,14 @@ describe EmployeeQualification do
       @employee_qualification.should belong_to(:qualification)
     end
   end
+
+  describe "validations" do
+    it "should require to be associated to an employee" do
+      @employee_qualification.should validate_presence_of(:employee_id)
+    end
+
+    it "should require to be associated to a qualification" do
+      @employee_qualification.should validate_presence_of(:qualification_id)
+    end
+  end
 end

@@ -14,4 +14,14 @@ describe WorkplaceQualification do
       @workplace_qualification.should belong_to(:qualification)
     end
   end
+
+  describe "validations" do
+    it "should require to be associated to a workplace" do
+      @workplace_qualification.should validate_presence_of(:workplace_id)
+    end
+
+    it "should require to be associated to a qualification" do
+      @workplace_qualification.should validate_presence_of(:qualification_id)
+    end
+  end
 end
