@@ -30,7 +30,7 @@ Workplace.blueprint do
 end
 
 Plan.blueprint do
-  account    { Account.make }
+  account
   start_date { Date.tomorrow }
   end_date   { 8.days.from_now.to_date }
   start_time { Date.tomorrow.beginning_of_day }
@@ -38,24 +38,24 @@ Plan.blueprint do
 end
 
 Assignment.blueprint do
-  assignee    { Employee.make }
-  requirement { Requirement.make }
+  assignee
+  requirement
 end
 
 Shift.blueprint do
-  plan     { Plan.make }
+  plan
   start    { Time.current }
   self.end { 8.hours.from_now }
 end
 
 WorkplaceRequirement.blueprint do
-  workplace     { Workplace.make }
-  qualification { Qualification.make }
+  workplace
+  qualification
 end
 
 WorkplaceQualification.blueprint do
-  workplace     { Workplace.make }
-  qualification { Qualification.make }
+  workplace
+  qualification
 end
 
 User.blueprint do
@@ -70,11 +70,11 @@ Location.blueprint do
 end
 
 EmployeeQualification.blueprint do
-  employee      { Employee.make }
-  qualification { Qualification.make }
+  employee
+  qualification
 end
 
 Requirement.blueprint do
-  shift         { Shift.make }
-  qualification { Qualification.make }
+  shift
+  qualification
 end
