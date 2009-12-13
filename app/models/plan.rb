@@ -12,7 +12,14 @@ class Plan < ActiveRecord::Base
   end
 
   validates_presence_of :start_date, :end_date, :start_time, :end_time
-  # before_save :set_duration
+
+  def initialize(*args)
+    super
+    self.start_date = Date.today.beginning_of_week + 7.days
+    self.end_date   = start_date + 5.days
+    self.start_time = Time.parse('08:00')
+    self.end_time   = Time.parse('18:00')
+  end
 
   def days
     (start_date)..(end_date)
@@ -29,7 +36,7 @@ class Plan < ActiveRecord::Base
   def duration
     @duration ||= end_time_in_minutes - start_time_in_minutes
   end
-  
+
   def form_values_json
     json = <<-json
       {

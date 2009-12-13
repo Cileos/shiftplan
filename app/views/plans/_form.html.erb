@@ -21,11 +21,11 @@
   	<fieldset>
       <div>
         <%= f.label :start_time %>
-        <%= f.time_select :start_time %>
+        <%= f.time_select :start_time, :minute_step => 15 %>
       </div>
       <div>
         <%= f.label :end_time %>
-        <%= f.time_select :end_time %>
+        <%= f.time_select :end_time, :minute_step => 15 %>
       </div>
     </fieldset>
 
