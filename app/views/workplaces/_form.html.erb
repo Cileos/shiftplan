@@ -1,65 +1,65 @@
 <% content_for :head do -%>
-<%= stylesheet_link_tag 'shiftplan/workplaces' %>
+	<%#= stylesheet_link_tag 'shiftplan/workplaces' %>
 
-<script type="text/javascript">
-// FIXME: procedural bullshit - so svenfuchs must fix it :-)
-$(document).ready(function() {
-  $('form.new_workplace, form.edit_workplace').bind('on_workplace_load', function(event) {
-    $('#staff_requirements').empty();
-    var requirements = eval('(' + $(event.resource).attr('data-workplace-requirements') + ')');
+	<script type="text/javascript">
+	// FIXME: procedural bullshit - so svenfuchs must fix it :-)
+	$(document).ready(function() {
+	  $('form.new_workplace, form.edit_workplace').bind('on_workplace_load', function(event) {
+	    $('#staff_requirements').empty();
+	    var requirements = eval('(' + $(event.resource).attr('data-workplace-requirements') + ')');
 
-    if(requirements) {
-      var template = new EJS({ url: '/javascripts/shiftplan/staff_requirements/staff_requirement.ejs' });
-      var html = '';
-      for(var i = 0; i < requirements.length; i++) {
-        html += template.render({
-          id: requirements[i]['id'],
-    		  next_id: i,
-    		  qualification_id: requirements[i]['qualification']['id'],
-    		  qualification_name: requirements[i]['qualification']['name'],
-    		  required_quantity: requirements[i]['quantity']
-    		});
-  		}
-    }
+	    if(requirements) {
+	      var template = new EJS({ url: '/javascripts/shiftplan/staff_requirements/staff_requirement.ejs' });
+	      var html = '';
+	      for(var i = 0; i < requirements.length; i++) {
+	        html += template.render({
+	          id: requirements[i]['id'],
+	    		  next_id: i,
+	    		  qualification_id: requirements[i]['qualification']['id'],
+	    		  qualification_name: requirements[i]['qualification']['name'],
+	    		  required_quantity: requirements[i]['quantity']
+	    		});
+	  		}
+	    }
 
-		$('#staff_requirements').append(html);
-  });
+			$('#staff_requirements').append(html);
+	  });
 
-  $('#required_qualifications input[type=checkbox]').click(function() {
-    var element = $(this);
+	  $('#required_qualifications input[type=checkbox]').click(function() {
+	    var element = $(this);
 
-    if(element.is(':checked')) {
-      var id = $('#staff_requirements .staff_requirement_container:last-child .required_quantity').eq(0).attr('id');
+	    if(element.is(':checked')) {
+	      var id = $('#staff_requirements .staff_requirement_container:last-child .required_quantity').eq(0).attr('id');
 
-      if(id) {
-        var next_id_match = id.match(/workplace_workplace_requirements_attributes_(\d+)_quantity/);
-        var next_id = next_id_match ? parseInt(next_id_match[1]) + 1 : 0;
-      } else {
-        var next_id = 0;
-      }
+	      if(id) {
+	        var next_id_match = id.match(/workplace_workplace_requirements_attributes_(\d+)_quantity/);
+	        var next_id = next_id_match ? parseInt(next_id_match[1]) + 1 : 0;
+	      } else {
+	        var next_id = 0;
+	      }
 
-      var template = new EJS({ url: '/javascripts/shiftplan/staff_requirements/staff_requirement.ejs' });
-  		var html = template.render({
-  		  id: null,
-  		  next_id: next_id,
-  		  qualification_id: element.val(),
-  		  qualification_name: element.siblings('label').eq(0).html(),
-  		  required_quantity: 1
-  		});
-  		$('#staff_requirements').append(html);
-    } else {
-      var id = $('#workplace_requirements_' + element.val() + ' .required_quantity').eq(0).attr('id');
-      if(id) {
-        var clicked_id_match = id.match(/workplace_workplace_requirements_attributes_(\d+)_quantity/);
-        if(clicked_id_match) {
-          var clicked_id = parseInt(clicked_id_match[1]);
-          $('#workplace_requirements_' + element.val()).append('<input type="hidden" name="workplace[workplace_requirements_attributes][' + clicked_id + '][_delete]" value="1" />').hide();
-        }
-      }
-    }
-  });
-});
-</script>
+	      var template = new EJS({ url: '/javascripts/shiftplan/staff_requirements/staff_requirement.ejs' });
+	  		var html = template.render({
+	  		  id: null,
+	  		  next_id: next_id,
+	  		  qualification_id: element.val(),
+	  		  qualification_name: element.siblings('label').eq(0).html(),
+	  		  required_quantity: 1
+	  		});
+	  		$('#staff_requirements').append(html);
+	    } else {
+	      var id = $('#workplace_requirements_' + element.val() + ' .required_quantity').eq(0).attr('id');
+	      if(id) {
+	        var clicked_id_match = id.match(/workplace_workplace_requirements_attributes_(\d+)_quantity/);
+	        if(clicked_id_match) {
+	          var clicked_id = parseInt(clicked_id_match[1]);
+	          $('#workplace_requirements_' + element.val()).append('<input type="hidden" name="workplace[workplace_requirements_attributes][' + clicked_id + '][_delete]" value="1" />').hide();
+	        }
+	      }
+	    }
+	  });
+	});
+	</script>
 <% end -%>
 
 <h3><%= t(:new_workplace) %></h3>

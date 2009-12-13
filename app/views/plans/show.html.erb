@@ -1,9 +1,3 @@
-<style type="text/css">
-  <%= render :partial => 'employees/employee.css', :collection => @employees %>
-  <%= render :partial => 'workplaces/workplace.css', :collection => @workplaces %>
-  <%= render :partial => 'qualifications/qualification.css', :collection => @qualifications %>
-</style>
-
 <%= presenter_for(@plan) %>
 
 <%= render :partial => 'sidebar', :locals => { :employees => @employees, :workplaces => @workplaces, :qualifications => @qualifications } %>
