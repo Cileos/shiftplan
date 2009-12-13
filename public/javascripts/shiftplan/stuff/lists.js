@@ -26,16 +26,22 @@ $(document).ready(function() {
     $('#sidebar form input[name=_method]').attr('value', method);
     var form_values = eval('(' + $(resource).attr('data-form-values') + ')');
 
-    $.each(form_values, function(field, value) {
+    $.each(form_values, function(name, value) {
       if($.isArray(value)) {
-        $('.' + resource_name + '_' + field).val(value);
+        $('.' + resource_name + '_' + name).val(value);
       } else {
-        var field = $('#' + resource_name + '_' + field);
-
         if(typeof value == 'boolean') { // assume that true/false goes for checkboxes
-          field.attr('checked', value);
+          $('#' + resource_name + '_' + name).attr('checked', value);
+        } else if(name.match(/_date/)) {
+          for(var i = 0; i < 3; i++) {
+            $('#' + resource_name + '_' + name + '_' + (i + 1) + 'i').val(value.split('-')[i]);
+          }
+        } else if(name.match(/_time/)) {
+          for(var i = 0; i < 3; i++) {
+            $('#' + resource_name + '_' + name + '_' + (i + 4) + 'i').val(value.split(':')[i]);
+          }
         } else {
-          field.val(value);
+          $('#' + resource_name + '_' + name).val(value);
         }
       }
     });
