@@ -1,5 +1,5 @@
 <% content_for :head do -%>
-	<%#= stylesheet_link_tag 'shiftplan/workplaces' %>
+	<%= stylesheet_link_tag 'workplaces' %>
 
 	<script type="text/javascript">
 	// FIXME: procedural bullshit - so svenfuchs must fix it :-)
@@ -72,12 +72,12 @@
   	    <%= f.text_field :name %>
   	  </div>
   	  <div>
-  	    <%= f.label :active %>
-  	    <%= f.check_box :active, {}, 1 %>
-  	  </div>
-  	  <div>
   	    <%= f.label :default_shift_length %>
   	    <%= f.text_field :default_shift_length %>
+  	  </div>
+  	  <div>
+  	    <%= f.label :active %>
+  	    <%= f.check_box :active, {}, 1 %>
   	  </div>
   	</fieldset>
   	<h4><%= t(:default_staffing, :scope => :'activerecord.attributes.workplace') %></h4>

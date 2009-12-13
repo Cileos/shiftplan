@@ -29,4 +29,19 @@ class Plan < ActiveRecord::Base
   def duration
     @duration ||= end_time_in_minutes - start_time_in_minutes
   end
+  
+  def form_values_json
+    json = <<-json
+      {
+        name:       '#{name}',
+        start_date: '#{start_date}',
+        end_date:   '#{end_date}',
+        created_at: '#{created_at}',
+        updated_at: '#{updated_at}',
+        start_time: '#{start_time}',
+        end_time:   '#{end_time}'
+      }
+    json
+    json.gsub("\n", ' ').strip
+  end
 end

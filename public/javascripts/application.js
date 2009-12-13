@@ -26,7 +26,9 @@ jQuery(document).ready(function() {
       // HTML snippets
       if(data['html']['append']) {
         $.each(data['html']['append'], function(element, html) {
-          $(html).css('display', 'none').appendTo($(element)).effect('fold', { mode: 'show' }, 1000).effect('highlight', {}, 1000);
+          // folding dos not work well with table rows
+          // $(html).css('display', 'none').appendTo($(element)).effect('fold', { mode: 'show' }, 1000).effect('highlight', {}, 1000);
+          $(html).appendTo($(element)).effect('highlight', {}, 1000);
         });
       }
 
@@ -34,7 +36,7 @@ jQuery(document).ready(function() {
       if(data['html']['replace']) {
         $.each(data['html']['replace'], function(element, html) {
           // $(html).css('display', 'none').replaceAll($(element)).effect('highlight', {}, 1000);
-          $(html).replaceAll($(element));
+          $(html).replaceAll($(element)).effect('highlight', {}, 1000);
         });
       }
     }

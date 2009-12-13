@@ -74,7 +74,12 @@ form.new_workplace .right_column, form.edit_workplace .right_column {
   background-repeat: no-repeat;
 }
 
-#sidebar #staff_requirements, #sidebar #staff_requirements ul {
+#sidebar #staff_requirements {
+  margin-top: 16px;
+}
+
+#sidebar #staff_requirements, 
+#sidebar #staff_requirements ul {
   width: 350px;
 }
 
@@ -92,7 +97,7 @@ form.new_workplace .right_column, form.edit_workplace .right_column {
   display: block;
   clear: left;
   float: left;
-  width: 90px;
+  width: 80px;
   font-size: 1em;
 }
 

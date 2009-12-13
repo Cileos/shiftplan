@@ -16,10 +16,30 @@ class PlansController < ApplicationController
 
     if @plan.save
       flash[:notice] = t(:plan_successfully_created)
-      redirect_to plans_path
+      respond_to do |format|
+        # htmlunit does not seem to send any accept header set through xhr objects, 2.7. should fix this
+        # http://sourceforge.net/tracker/?func=detail&aid=2862553&group_id=47038&atid=448266
+        format.json { render :status => 201 }
+      end
     else
       flash[:error] = t(:plan_could_not_be_created)
-      render :action => 'index'
+      respond_to do |format|
+        format.json { render :template => 'shared/errors', :status => 400 }
+      end
+    end
+  end
+
+  def update
+    if @plan.update_attributes(params[:plan])
+      flash[:notice] = t(:plan_successfully_updated)
+      respond_to do |format|
+        format.json { render :status => 200 }
+      end
+    else
+      flash[:error] = t(:plan_could_not_be_updated)
+      respond_to do |format|
+        format.json { render :template => 'shared/errors', :status => 400 }
+      end
     end
   end
 

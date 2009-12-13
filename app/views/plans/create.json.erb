@@ -1,0 +1,11 @@
+{
+  'flash': {
+    'notice': '<%= escape_javascript(flash[:notice]) %>'
+  },
+  'plan': <%= @plan.to_json %>,
+  'html': {
+    'append': {
+      '#plans tbody': '<%= escape_javascript(render(:partial => 'plan', :object => @plan)) %>'
+    }
+  }
+}

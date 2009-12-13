@@ -1,0 +1,11 @@
+{
+  'flash': {
+    'notice': '<%= escape_javascript(flash[:notice]) %>'
+  },
+  'plan': <%= @plan.to_json %>,
+  'html': {
+    'replace': {
+      '#<%= dom_id(@plan) %>': '<%= escape_javascript(render(:partial => 'plan', :object => @plan)) %>'
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<% content_tag_for(:tr, plan, :class => 'resource ' + cycle('odd', 'even'), :'data-form-values' => plan.form_values_json) do %>
+  <td class="name">
+    <%= link_to(plan.name, plan_path(plan)) %>
+  </td>
+  <td class="start_date">
+    <%= l(plan.start_date) %>
+  </td>
+  <td class="end_date">
+    <%= l(plan.end_date) %>
+  </td>
+  <td class="shifts">
+    <%= l(plan.start_time, :format => '%H:%M') %> -
+    <%= l(plan.end_time, :format => '%H:%M') %>
+  </td>
+  <td class="actions">
+    <%= link_to('edit', edit_plan_path(plan), :class => 'edit') %>
+   <%= link_to(t(:destroy), plan_path(plan), :class => 'delete', :method => :delete) %>
+  </td>
+<% end %>
