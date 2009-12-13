@@ -45,8 +45,8 @@ class Plan < ActiveRecord::Base
         end_date:   '#{end_date}',
         created_at: '#{created_at}',
         updated_at: '#{updated_at}',
-        start_time: '#{start_time}',
-        end_time:   '#{end_time}'
+        start_time: '#{start_time.strftime('%H:%M')}',
+        end_time:   '#{end_time.strftime('%H:%M')}'
       }
     json
     json.gsub("\n", ' ').strip
