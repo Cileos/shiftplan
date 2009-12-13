@@ -36,14 +36,18 @@ describe Shift do
       @shift.should have_at_least(1).error_on(:base)
       @shift.errors.on(:base).should include("Start must be before end")
     end
+
+    it "should require to be associated to a plan" do
+      @shift.should validate_presence_of(:plan_id)
+    end
   end
 
   describe "callbacks" do
     describe "#build_requirements" do
       before(:each) do
-        @cook_qualification = Qualification.new(:name => 'Cook')
-        @receptionist_qualification = Qualification.new(:name => 'Receptionist')
-        @workplace = Workplace.new
+        @cook_qualification         = Qualification.make(:name => 'Cook')
+        @receptionist_qualification = Qualification.make(:name => 'Receptionist')
+        @workplace = Workplace.make
         @workplace.workplace_requirements.build([
           { :qualification => @cook_qualification, :quantity => 3 },
           { :qualification => @receptionist_qualification, :quantity => 2 }
@@ -103,18 +107,21 @@ describe Shift do
     end
 
     describe "updating start/end attributes" do
-      shift = Shift.create!(:start => Time.now, :end => 2.hours.from_now, :duration => 120)
+      it "should update start/end attributes" do
+        # ???
+        shift = Shift.make(:start => Time.now, :end => 2.hours.from_now, :duration => 120)
 
-      start_time = Time.parse('Mon Sep 07 08:00:00 +0200 2009')
-      end_time   = Time.parse('Mon Sep 07 11:00:00 +0200 2009')
-      attributes = { "start" => start_time, "end" => end_time, "workplace_id" => "2" }
+        start_time = Time.parse('Mon Sep 07 08:00:00 +0200 2009')
+        end_time   = Time.parse('Mon Sep 07 11:00:00 +0200 2009')
+        attributes = { "start" => start_time, "end" => end_time, "workplace_id" => "2" }
 
-      shift.update_attributes!(attributes)
-      shift.reload
+        shift.update_attributes!(attributes)
+        shift.reload
 
-      shift.start.should == start_time
-      shift.end.should == end_time
-      shift.duration.should == 180
+        shift.start.should == start_time
+        shift.end.should == end_time
+        shift.duration.should == 180  
+      end
     end
   end
 end

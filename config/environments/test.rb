@@ -22,14 +22,14 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
+config.active_record.colorize_logging = false
+
 # Use SQL instead of Active Record's schema dumper when creating the test database.
 # This is necessary if your schema can't be completely dumped by the schema dumper,
 # like if you have constraints or database-specific column types
 # config.active_record.schema_format = :sql
 
-# config.gem 'rspec'
-# config.gem 'rspec-rails'
-# config.gem 'aslakhellesoy-cucumber', :source => 'http://gems.github.com'
-# config.gem 'langalex-culerity', :source => 'http://gems.github.com'
+config.gem 'machinist', :source => 'http://gemcutter.org'
+config.gem 'faker',     :source => 'http://gemcutter.org'
 
 config.i18n.default_locale = :en

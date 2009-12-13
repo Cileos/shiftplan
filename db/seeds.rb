@@ -19,9 +19,6 @@ account = Account.create!(
   }
 )
 
-# center_1 = Location.create!(:name => 'Zentrum 1')
-# center_2 = Location.create!(:name => 'Zentrum 2')
-
 cook              = Qualification.create!(:account => account, :name => 'Koch')
 cooking_assistant = Qualification.create!(:account => account, :name => 'Küchenhilfe')
 barkeeper         = Qualification.create!(:account => account, :name => 'Barkeeper')
@@ -58,42 +55,37 @@ Employee.create!(
 
 kitchen = Workplace.create!(
   :account              => account,
-  # :location             => center_1,
   :name                 => 'Küche',
   :qualifications       => [cook, cooking_assistant],
   :default_shift_length => 480,
-  :active               => true,
-  :workplace_requirements_attributes => [
-    { :qualification_id => cook.id, :quantity => 1 },
-    { :qualification_id => cooking_assistant.id, :quantity => 2 }
-  ]
+  :active               => true
 )
+
+kitchen.workplace_requirements.create!(:quantity => 1, :qualification => cook)
+kitchen.workplace_requirements.create!(:quantity => 2, :qualification => cooking_assistant)
+
 bar = Workplace.create!(
   :account              => account,
-  # :location             => center_1,
   :name                 => 'Bar',
   :qualifications       => [barkeeper],
   :default_shift_length => 600,
-  :active               => true,
-  :workplace_requirements_attributes => [
-    { :qualification_id => barkeeper.id, :quantity => 2 }
-  ]
+  :active               => true
 )
+
+bar.workplace_requirements.create!(:quantity => 2, :qualification => barkeeper)
+
 reception = Workplace.create!(
   :account              => account,
-  # :location             => center_1,
   :name                 => 'Rezeption',
   :qualifications       => [receptionist],
   :default_shift_length => 480,
-  :active               => false,
-  :workplace_requirements_attributes => [
-    { :qualification_id => receptionist.id, :quantity => 1 }
-  ]
+  :active               => false
 )
+reception.workplace_requirements.create!(:quantity => 1, :qualification => receptionist)
 
-monday_morning   = Time.parse('2009-09-07 08:00')
-tuesday_morning  = Time.parse('2009-09-08 08:00')
-friday_afternoon = Time.parse('2009-09-11 22:00')
+monday_morning   = Time.local(2009, 9,  7,  8, 0)
+tuesday_morning  = Time.local(2009, 9,  8,  8, 0)
+friday_afternoon = Time.local(2009, 9, 11, 22, 0)
 
 plan_1 = Plan.create!(
   :account => account,
@@ -103,14 +95,12 @@ plan_1 = Plan.create!(
   :start_time => monday_morning.to_time,
   :end_time   => friday_afternoon.to_time
 )
-Shift.create!(
-  :plan      => plan_1,
+plan_1.shifts.create!(
   :workplace => kitchen,
   :start     => monday_morning,
   :end       => monday_morning + 8.hours
 )
-Shift.create!(
-  :plan      => plan_1,
+plan_1.shifts.create!(
   :workplace => kitchen,
   :start     => tuesday_morning + 3.hours,
   :end       => tuesday_morning + 11.hours

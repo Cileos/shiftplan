@@ -37,8 +37,10 @@ en:
   employee_could_not_be_updated: "Employee could not be updated."
   employee_successfully_deleted: "Employee successfully deleted."
 
-  # availabilities
-  available_from_to: "{{from}} - {{to}}"
+  # statuses
+  status_from_to: "{{from}} - {{to}}"
+  status_available: Available
+  status_unavailable: Unavailable
 
   # qualifications
   click_to_add_qualification: Click to add

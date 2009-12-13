@@ -2,7 +2,7 @@
 day_names = []
 t(:'date.day_names').each_with_index { |d, i| day_names << [d, i] }
 %>
-<% form_for([employee, availability]) do |f| %>
+<% form_for([employee, status]) do |f| %>
   <div>
     <%= f.label :day %>
     <%= f.date_select :day, :start_year => Time.current.year %>
@@ -14,6 +14,12 @@ t(:'date.day_names').each_with_index { |d, i| day_names << [d, i] }
   <div>
     <%= f.label :end %>
     <%= f.time_select :end, :minute_step => 5 %>
+  </div>
+  <div>
+    <% Status::VALID_STATUSES.each do |status| -%>
+      <%= f.radio_button :status, status %>
+      <%= f.label "status_#{status.underscore}", t(:"status_#{status.underscore}", :default => status) %>
+    <% end -%>
   </div>
   <div>
     <%= f.submit 'Save' %>

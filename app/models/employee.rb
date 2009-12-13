@@ -6,12 +6,19 @@ class Employee < ActiveRecord::Base
   has_many :qualifications, :through => :employee_qualifications
   has_many :allocations
 
-  has_many :availabilities
+  has_many :statuses
 
   validates_presence_of :first_name, :last_name
 
   named_scope :active, :conditions => { :active => true }
   named_scope :inactive, :conditions => { :active => false }
+
+  named_scope :for_qualification, lambda { |qualification|
+    {
+      :joins => :employee_qualifications,
+      :conditions => ["qualification_id = ?", qualification.id]
+    }
+  }
 
   class << self
     def find_by_name(name)

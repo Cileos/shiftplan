@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Workplace do
   before(:each) do
-    @workplace = Workplace.new
+    @workplace = Workplace.make
   end
 
   describe "associations" do
@@ -26,9 +26,7 @@ describe Workplace do
 
   describe "validations" do
     before(:each) do
-      @workplace.attributes = {
-        :name => 'Kitchen'
-      }
+      @workplace = Workplace.make(:name => 'Kitchen')
     end
 
     it "should require a name" do
@@ -39,15 +37,18 @@ describe Workplace do
   describe "scopes" do
     describe ".for_qualification" do
       before(:each) do
-        @workplace_1 = Workplace.create!(
+        @qualification_1 = Qualification.make
+        @qualification_2 = Qualification.make
+
+        @workplace_1 = Workplace.make(
           :name => 'Workplace for qualification 1',
-          :workplace_qualifications => [WorkplaceQualification.new(:qualification_id => 1)]
+          :workplace_qualifications => [WorkplaceQualification.make(:qualification => @qualification_1)]
         )
-        @workplace_2 = Workplace.create!(
+        @workplace_2 = Workplace.make(
           :name => 'Workplace for qualification 2',
-          :workplace_qualifications => [WorkplaceQualification.new(:qualification_id => 2)]
+          :workplace_qualifications => [WorkplaceQualification.make(:qualification => @qualification_2)]
         )
-        @scope = Workplace.for_qualification(mock_model(Qualification, :id => 1))
+        @scope = Workplace.for_qualification(@qualification_1)
       end
 
       it "should include workplaces that fit a given qualification" do
@@ -61,8 +62,8 @@ describe Workplace do
 
     describe ".active" do
       before(:each) do
-        @active_workplace   = Workplace.create!(:name => 'Active workplace',   :active => true)
-        @inactive_workplace = Workplace.create!(:name => 'Inactive workplace', :active => false)
+        @active_workplace   = Workplace.make(:name => 'Active workplace',   :active => true)
+        @inactive_workplace = Workplace.make(:name => 'Inactive workplace', :active => false)
       end
 
       it "should include active workplaces" do
@@ -76,8 +77,8 @@ describe Workplace do
 
     describe ".inactive" do
       before(:each) do
-        @active_workplace   = Workplace.create!(:name => 'Active workplace',   :active => true)
-        @inactive_workplace = Workplace.create!(:name => 'Inactive workplace', :active => false)
+        @active_workplace   = Workplace.make(:name => 'Active workplace',   :active => true)
+        @inactive_workplace = Workplace.make(:name => 'Inactive workplace', :active => false)
       end
 
       it "should include inactive workplaces" do
@@ -94,7 +95,7 @@ describe Workplace do
     describe "#generate_color" do
       it "generates a color dependent on the number of existing workplaces" do
         @workplace.send(:generate_color)
-        @workplace.color.should == '#ff8c8c'
+        @workplace.color.should == '#ffc58c'
 
         Workplace.stub!(:count).and_return(1)
         another_workplace = Workplace.new
@@ -119,7 +120,7 @@ describe Workplace do
 
     describe "#required_quantity_for" do
       before(:each) do
-        @cook_qualification = mock_model(Qualification, :id => 1, :name => 'Cook')
+        @cook_qualification = Qualification.make(:name => 'Cook')
         @workplace.workplace_requirements.build(:qualification => @cook_qualification, :quantity => 3)
       end
 
@@ -130,23 +131,22 @@ describe Workplace do
 
     describe "#required_quantity_for" do
       before(:each) do
-        @cook_qualification = mock_model(Qualification, :id => 1, :name => 'Cook')
-        @receptionist_qualification = mock_model(Qualification, :id => 2, :name => 'Receptionist')
-        @workplace.workplace_requirements.build([
-          { :qualification => @cook_qualification, :quantity => 3 },
-          { :qualification => @receptionist_qualification, :quantity => 2 }
-        ])
+        @cook_qualification = Qualification.make(:name => 'Cook')
+        @receptionist_qualification = Qualification.make(:name => 'Receptionist')
+        WorkplaceRequirement.make(:workplace => @workplace, :quantity => 3, :qualification => @cook_qualification)
+        WorkplaceRequirement.make(:workplace => @workplace, :quantity => 2, :qualification => @receptionist_qualification)
       end
 
       it "shows the workplace's default staffing (ids)" do
-        @workplace.default_staffing.should == [1, 1, 1, 2, 2]
+        expected = ([@cook_qualification.id] * 3) + ([@receptionist_qualification.id] * 2)
+        @workplace.default_staffing.should == expected
       end
     end
 
     describe "#needs_qualification?" do
       before(:each) do
-        @cook_qualification = Qualification.new(:name => 'Cook')
-        @receptionist_qualification = Qualification.new(:name => 'Receptionist')
+        @cook_qualification = Qualification.make(:name => 'Cook')
+        @receptionist_qualification = Qualification.make(:name => 'Receptionist')
         @workplace.qualifications = [@cook_qualification]
       end
 
@@ -161,11 +161,11 @@ describe Workplace do
 
     describe "#form_values_json" do
       before(:each) do
-        @workplace.attributes = {
+        @workplace = Workplace.make(
           :name => 'Kitchen',
           :active => true,
           :default_shift_length => 480
-        }
+        )
         # no qualifications for the sake of simplicity
       end
 
@@ -181,16 +181,15 @@ describe Workplace do
 
     describe "#workplace_requirements_json" do
       before(:each) do
-        @cook_qualification = mock_model(Qualification, :id => 1, :name => 'Cook')
-        @workplace.workplace_requirements.build(:qualification => @cook_qualification, :quantity => 3)
-        @workplace.workplace_requirements.last.stub!(:id).and_return(2) # yuck
+        @cook_qualification = Qualification.make(:name => 'Cook')
+        @workplace_requirement = WorkplaceRequirement.make(:qualification => @cook_qualification, :workplace => @workplace, :quantity => 3)
       end
 
       it "should return the relevant workplace requirement values as JSON" do
         json = @workplace.workplace_requirements_json
 
-        json.should include("id: 2")
-        json.should include("id: 1")
+        json.should include("id: #{@workplace_requirement.id}")
+        json.should include("id: #{@cook_qualification.id}")
         json.should include("name: 'Cook'")
         json.should include("quantity: 3")
       end

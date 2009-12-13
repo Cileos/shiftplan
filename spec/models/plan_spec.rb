@@ -18,7 +18,7 @@ describe Plan do
   end
 
   before(:each) do
-    @plan = Plan.new
+    @plan = Plan.make
   end
 
   describe "associations" do
@@ -51,10 +51,7 @@ describe Plan do
 
   describe "instance methods" do
     before(:each) do
-      @plan.start_date = monday
-      @plan.end_date   = friday
-      @plan.start_time = morning
-      @plan.end_time   = afternoon
+      @plan = Plan.make(:start_date => monday, :end_date => friday, :start_time => morning, :end_time => afternoon)
     end
 
     describe "#days" do
@@ -63,7 +60,7 @@ describe Plan do
       end
 
       it "should return a range of days from start day to end day" do
-        @plan.days.should == (Time.local(2009, 9, 7)..Time.local(2009, 9, 11))
+        @plan.days.should == (Date.civil(2009, 9, 7)..Date.civil(2009, 9, 11))
       end
     end
 

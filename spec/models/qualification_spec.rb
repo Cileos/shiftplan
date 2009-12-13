@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Qualification do
   before(:each) do
-    @qualification = Qualification.new
+    @qualification = Qualification.make
   end
 
   describe "associations" do
@@ -19,13 +19,9 @@ describe Qualification do
   describe "callbacks" do
     describe "#generate_color" do
       it "generates a color dependent on the number of existing qualifications" do
-        @qualification.send(:generate_color)
-        @qualification.color.should == '#ff6f3f'
-
         Qualification.stub!(:maximum).and_return(1)
-        another_qualification = Workplace.new
-        another_qualification.send(:generate_color)
-        another_qualification.color.should == '#ff8c8c'
+        qualification = Qualification.make
+        qualification.color.should == '#ffcf3f'
       end
     end
   end
@@ -33,12 +29,12 @@ describe Qualification do
   describe "instance methods" do
     describe "#possible_workplaces" do
       before(:each) do
-        @cook_qualification = Qualification.create!(:name => 'Cook')
-        @receptionist_qualification = Qualification.create!(:name => 'Receptionist')
-        @barkeeper_qualification = Qualification.create!(:name => 'Barkeeper')
+        @cook_qualification         = Qualification.make(:name => 'Cook')
+        @receptionist_qualification = Qualification.make(:name => 'Receptionist')
+        @barkeeper_qualification    = Qualification.make(:name => 'Barkeeper')
 
-        @kitchen = Workplace.create!(:name => 'Kitchen', :qualifications => [@cook_qualification])
-        @reception = Workplace.create!(:name => 'Reception', :qualifications => [@receptionist_qualification])
+        @kitchen   = Workplace.make(:name => 'Kitchen',   :qualifications => [@cook_qualification])
+        @reception = Workplace.make(:name => 'Reception', :qualifications => [@receptionist_qualification])
       end
 
       it "should return all possible workplaces" do
@@ -51,7 +47,7 @@ describe Qualification do
 
     describe "#form_values_json" do
       before(:each) do
-        @cook_qualification = Qualification.new(:name => 'Cook')
+        @cook_qualification = Qualification.make(:name => 'Cook')
       end
 
       it "should return the relevant form values as JSON" do

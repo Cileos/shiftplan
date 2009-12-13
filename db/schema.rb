@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091122152444) do
+ActiveRecord::Schema.define(:version => 20091128145750) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -22,16 +22,6 @@ ActiveRecord::Schema.define(:version => 20091122152444) do
     t.integer  "assignee_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "availabilities", :force => true do |t|
-    t.integer  "employee_id"
-    t.integer  "day_of_week", :limit => 1
-    t.time     "start"
-    t.time     "end"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.date     "day"
   end
 
   create_table "employee_qualifications", :force => true do |t|
@@ -106,6 +96,17 @@ ActiveRecord::Schema.define(:version => 20091122152444) do
     t.integer  "duration"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "statuses", :force => true do |t|
+    t.integer  "employee_id"
+    t.integer  "day_of_week", :limit => 1
+    t.time     "start"
+    t.time     "end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "day"
+    t.string   "status",      :limit => 20
   end
 
   create_table "users", :force => true do |t|

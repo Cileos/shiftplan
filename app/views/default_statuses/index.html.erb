@@ -1,0 +1,13 @@
+<% if @employee && @default_statuses -%>
+  <% @default_statuses.each do |day_of_week, default_statuses| -%>
+    <h3><%= t(:'date.day_names')[day_of_week] %></h3>
+    <ul>
+      <%= render :partial => 'default_status', :collection => default_statuses %>
+    </ul>
+  <% end -%>
+  <%= render :partial => 'form', :locals => { :employee => @employee, :default_status => @employee.statuses.default.build } %>
+<% else -%>
+  <% @employees.each do |employee| -%>
+    <%= link_to employee.full_name, employee_default_statuses_path(employee) %>
+  <% end -%>
+<% end -%>

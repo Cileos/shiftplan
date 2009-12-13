@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Location do
   before(:each) do
-    @location = Location.new
+    @location = Location.make
   end
 
   describe "associations" do
