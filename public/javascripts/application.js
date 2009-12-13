@@ -23,7 +23,6 @@ jQuery(document).ready(function() {
     //   return true;
     // },
     success: function(data, textStatus) {
-      // HTML snippets
       if(data['html']['append']) {
         $.each(data['html']['append'], function(element, html) {
           // folding dos not work well with table rows
@@ -32,7 +31,6 @@ jQuery(document).ready(function() {
         });
       }
 
-      document.title = ''
       if(data['html']['replace']) {
         $.each(data['html']['replace'], function(element, html) {
           // $(html).css('display', 'none').replaceAll($(element)).effect('highlight', {}, 1000);
