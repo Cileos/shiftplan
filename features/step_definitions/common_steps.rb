@@ -38,10 +38,8 @@ When /^I fill in "([^\"]*)" for "([^\"]*)"$/ do |value, field|
 end
 
 When /^I fill in the following:$/ do |fields|
-  puts response.body
   fields.hashes.first.each do |name, value|
     reformat_date!(value) if name =~ /_date/
-    p "#{name} #{value}"
     When %{I fill in "#{name}" with "#{value}"}
   end
 end
