@@ -1,0 +1,12 @@
+#dashboard_show .box {
+  width: 250px;
+  float: left;
+  padding: 1em;
+  border: 1px solid #bbb;
+}
+
+#dashboard_show .box h2 {
+  font-size: 18px;
+  color: #bbb;
+  margin-bottom: 0.5em;
+}

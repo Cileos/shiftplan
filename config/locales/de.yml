@@ -16,6 +16,16 @@ de:
   save: Speichern
   picture_powered_by: "Bild angetrieben von {{link}}"
 
+  employees:
+    one:   "{{count}} Mitarbeiter"
+    other: "{{count}} Mitarbeiter"
+  qualifications:
+    one:   "{{count}} Qualifikation"
+    other: "{{count}} Qualifikationen"
+  workplaces:
+    one:   "{{count}} Arbeitsplatz"
+    other: "{{count}} Arbeitsplätze"
+
   # workplaces
   click_to_add_workplace: Hinzufügen
   add_workplace: "Klicken Sie hier, um einen Arbeitsplatz hinzuzufügen"

@@ -38,6 +38,7 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     styles
     plan
     resources
+    dashboard
   )
   # jquery-ui/ui-lightness/jquery-ui
 end

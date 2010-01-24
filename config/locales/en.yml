@@ -16,6 +16,16 @@ en:
   save: Save
   picture_powered_by: "Picture powered by {{link}}"
 
+  employees:
+    one:   "{{count}} employee"
+    other: "{{count}} employees"
+  qualifications:
+    one:   "{{count}} qualification"
+    other: "{{count}} qualifications"
+  workplaces:
+    one:   "{{count}} workplace"
+    other: "{{count}} workplaces"
+
   # workplaces
   click_to_add_workplace: Click to add
   add_workplace: "Click here to add a new workplace"

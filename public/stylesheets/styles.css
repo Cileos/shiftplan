@@ -71,3 +71,12 @@ div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWit
   background-color: red;
 }
 
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  text-decoration: underline;
+}
