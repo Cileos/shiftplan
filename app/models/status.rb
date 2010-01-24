@@ -8,8 +8,8 @@ class Status < ActiveRecord::Base
   validates_inclusion_of :status, :in => VALID_STATUSES
   validate :day_or_day_of_week_needs_to_be_set
 
-  named_scope :default,  :conditions => "day IS NULL AND day_of_week IS NOT NULL"
-  named_scope :override, :conditions => "day_of_week IS NULL AND day IS NOT NULL"
+  named_scope :default,  :conditions => "day IS NULL AND day_of_week IS NOT NULL", :order => "day_of_week ASC, start ASC, end ASC"
+  named_scope :override, :conditions => "day_of_week IS NULL AND day IS NOT NULL", :order => "day ASC, start ASC, end ASC"
 
   class << self
     def for(*args)
