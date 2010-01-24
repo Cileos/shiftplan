@@ -30,6 +30,6 @@ class StatusesController < ApplicationController
     end
 
     def set_statuses
-      @statuses = @employee.statuses.default.group_by(&:day_of_week).sort_by(&:first) if @employee
+      @statuses = @employee.statuses.override.group_by(&:day).sort_by(&:first) if @employee
     end
 end
