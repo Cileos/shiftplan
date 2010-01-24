@@ -30,6 +30,27 @@ class Status < ActiveRecord::Base
 
       args.size == 1 ? statuses[start_date] : statuses
     end
+
+    def fill_gaps!(day_of_week, statuses)
+      return [new(:day_of_week => day_of_week, :start => '00:00:00', :end => '00:00:00', :status => nil)] unless statuses.present?
+
+      statuses = statuses.sort_by(&:start)
+
+      # first and last status should be filled up from/until midnight, if necessary
+      if (first_status = statuses.first).start.strftime('%H:%M:%S') != '00:00:00'
+        statuses.unshift(new(first_status.attributes.merge(:start => '00:00:00', :end => first_status.start, :status => nil)))
+      end
+
+      if (last_status = statuses.last).end.strftime('%H:%M:%S') != '00:00:00'
+        statuses.push(new(last_status.attributes.merge(:start => last_status.end, :end => '00:00:00', :status => nil)))
+      end
+
+      statuses.each_with_index do |status, index|
+        if status != statuses.last && status.end != statuses[index+1].start
+          statuses.insert(index+1, new(status.attributes.merge(:start => status.end, :end => statuses[index+1].start, :status => nil)))
+        end
+      end
+    end
   end
 
   # dynamically define query methods for all statuses

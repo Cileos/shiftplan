@@ -24,7 +24,7 @@
           <% 0.upto(6) do |day_of_week| -%>
             <td>
               <ul class="status">
-                <%= render :partial => 'default_status', :collection => default_statuses[day_of_week], :locals => { :employee => employee } %>
+                <%= render :partial => 'default_status', :collection => Status.fill_gaps!(day_of_week, default_statuses[day_of_week]), :locals => { :employee => employee } %>
               </ul>
             </td>
           <% end -%>

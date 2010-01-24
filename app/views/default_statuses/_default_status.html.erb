@@ -1,3 +1,6 @@
-<li class="<%= default_status.status.underscore %>">
-  <%= link_to t(:status_from_to, :from => l(default_status.start, :format => :time), :to => l(default_status.end, :format => :time)), edit_employee_default_status_path(employee, default_status) %>
+<li class="<%= default_status.status.to_s.underscore %>">
+  <%= link_to t(:status_from_to, :from => l(default_status.start, :format => :time), :to => l(default_status.end, :format => :time)),
+    default_status.new_record? ?
+      new_employee_default_status_path(employee, :status => default_status.attributes.slice('start', 'end', 'status', 'day_of_week')) :
+      edit_employee_default_status_path(employee, default_status) %>
 </li>

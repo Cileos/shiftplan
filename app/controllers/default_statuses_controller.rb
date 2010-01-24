@@ -7,6 +7,10 @@ class DefaultStatusesController < ApplicationController
   def index
   end
 
+  def new
+    @default_status = @employee.statuses.build(params[:status])
+  end
+
   def create
     @default_status = @employee.statuses.build(params[:status])
 

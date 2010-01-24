@@ -162,6 +162,63 @@ describe Status do
         end
       end
     end
+
+    describe ".fill_gaps!" do
+      it "should fill up a gap during the day" do
+        statuses = Status.fill_gaps!(0, [Status.new(:day_of_week => 0, :start => '00:00', :end => '12:00'), Status.new(:day_of_week => 0, :start => '17:00', :end => '00:00')])
+        statuses.size.should == 3
+        statuses[1].start.strftime('%H:%M').should == '12:00'
+        statuses[1].end.strftime('%H:%M').should   == '17:00'
+      end
+
+      describe "with empty array / nil" do
+        it "should return an array with one full day status if nil given" do
+          statuses = Status.fill_gaps!(0, nil)
+          statuses.size.should == 1
+          statuses.first.start.strftime('%H:%M').should == '00:00'
+          statuses.first.end.strftime('%H:%M').should   == '00:00'
+        end
+
+        it "should return an array with one full day status if empty array given" do
+          statuses = Status.fill_gaps!(0, [])
+          statuses.size.should == 1
+          statuses.first.start.strftime('%H:%M').should == '00:00'
+          statuses.first.end.strftime('%H:%M').should   == '00:00'
+        end
+      end
+
+      describe "filling up gaps until midnight" do
+        it "should fill up a gap to midnight" do
+          statuses = Status.fill_gaps!(0, [Status.new(:day_of_week => 0, :start => '00:00', :end => '16:00')])
+          statuses.size.should == 2
+          statuses.last.start.strftime('%H:%M').should == '16:00'
+          statuses.last.end.strftime('%H:%M').should   == '00:00'
+        end
+
+        it "should fill up a gap to midnight - with 2 statuses" do
+          statuses = Status.fill_gaps!(0, [Status.new(:day_of_week => 0, :start => '00:00', :end => '14:00'), Status.new(:day_of_week => 0, :start => '14:00', :end => '16:00')])
+          statuses.size.should == 3
+          statuses.last.start.strftime('%H:%M').should == '16:00'
+          statuses.last.end.strftime('%H:%M').should   == '00:00'
+        end
+      end
+
+      describe "filling up gaps from midnight" do
+        it "should fill up a gap from midnight" do
+          statuses = Status.fill_gaps!(0, [Status.new(:day_of_week => 0, :start => '16:00', :end => '00:00')])
+          statuses.size.should == 2
+          statuses.first.start.strftime('%H:%M').should == '00:00'
+          statuses.first.end.strftime('%H:%M').should   == '16:00'
+        end
+
+        it "should fill up a gap from midnight - with 2 statuses" do
+          statuses = Status.fill_gaps!(0, [Status.new(:day_of_week => 0, :start => '18:00', :end => '00:00'), Status.new(:day_of_week => 0, :start => '16:00', :end => '18:00')])
+          statuses.size.should == 3
+          statuses.first.start.strftime('%H:%M').should == '00:00'
+          statuses.first.end.strftime('%H:%M').should   == '16:00'
+        end
+      end
+    end
   end
 
   describe "instance methods" do

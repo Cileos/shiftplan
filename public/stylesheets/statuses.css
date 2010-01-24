@@ -1,7 +1,15 @@
+ul.status li a:after {
+  content: "?";
+}
+
 ul.status li.available a {
   color: green;
 }
 
 ul.status li.unavailable a {
   color: red;
+}
+
+ul.status li.available a:after, ul.status li.unavailable a:after {
+  content: "";
 }
