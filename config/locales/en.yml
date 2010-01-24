@@ -1,19 +1,20 @@
 en:
-  overview: Overview
-  workplaces: Workplaces
-  workplace: Workplace
-  employees: Employees
-  employee: Employee
-  plans: Plans
-  plan: Plan
-  qualifications: Qualifications
-  qualification: Qualification
+  navigation:
+    overview: Overview
+    workplaces: Workplaces
+    workplace: Workplace
+    employees: Employees
+    employee: Employee
+    plans: Plans
+    plan: Plan
+    qualifications: Qualifications
+    qualification: Qualification
+    logged_in_as: "Logged in as {{user}}"
+    logout: Logout
 
   new: New
   save: Save
   picture_powered_by: "Picture powered by {{link}}"
-  logged_in_as: "Logged in as {{user}}"
-  logout: Logout
 
   # workplaces
   click_to_add_workplace: Click to add

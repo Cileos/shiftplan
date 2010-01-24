@@ -1,15 +1,15 @@
 <div id="sidebar">
-	<h4><%= t(:employees) %></h4>
+	<h4><%= t(:employees, :scope => :navigation) %></h4>
 	<ul id="employees">
 	  <%= employees.map { |employee| presenter_for(employee, 'plan/sidebar/employee') } -%>
 	</ul>
 
-	<h4><%= t(:workplaces) %></h4>
+	<h4><%= t(:workplaces, :scope => :navigation) %></h4>
 	<ul id="workplaces">
 	  <%= workplaces.map { |workplace| presenter_for(workplace, 'plan/sidebar/workplace') } -%>
 	</ul>
 
-  <h4><%= t(:qualifications)%></h4>
+  <h4><%= t(:qualifications, :scope => :navigation)%></h4>
 	<ul id="qualifications">
 	  <%= qualifications.map { |qualification| presenter_for(qualification, 'plan/sidebar/qualification') } -%>
 		<!--<li><a href="#" class="qualification any">(Beliebig)</a></li>-->
