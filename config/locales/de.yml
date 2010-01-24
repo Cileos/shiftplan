@@ -212,6 +212,9 @@ de:
         less_than_or_equal_to: "muss kleiner oder gleich {{count}} sein"
         odd: "muss ungerade sein"
         even: "muss gerade sein"
+
+        day_or_day_of_week_needs_to_be_set: "Tag oder Wochentag muss ausgefüllt werden"
+
     models:
     attributes:
       workplace:

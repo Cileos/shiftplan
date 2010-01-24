@@ -6,6 +6,7 @@ class Status < ActiveRecord::Base
   validates_presence_of :start, :end
   validates_inclusion_of :day_of_week, :in => 0..6, :allow_nil => true
   validates_inclusion_of :status, :in => VALID_STATUSES
+  validate :day_or_day_of_week_needs_to_be_set
 
   named_scope :default,  :conditions => "day IS NULL AND day_of_week IS NOT NULL"
   named_scope :override, :conditions => "day_of_week IS NULL AND day IS NOT NULL"
@@ -37,4 +38,10 @@ class Status < ActiveRecord::Base
       self.status == status
     end
   end
+
+  protected
+
+    def day_or_day_of_week_needs_to_be_set
+      errors.add_to_base(I18n.t(:day_or_day_of_week_needs_to_be_set, :scope => [:activerecord, :errors, :messages])) if day.blank? && day_of_week.blank?
+    end
 end

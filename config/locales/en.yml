@@ -99,6 +99,10 @@ en:
       time: "%H:%M"
 
   activerecord:
+    errors:
+      messages:
+        day_or_day_of_week_needs_to_be_set: "Day or day of week must be set"
+
     models:
     attributes:
       workplace:

@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Status do
   before(:each) do
-    @status = Status.make
+    @status = Status.make(:day => Date.today)
   end
 
   describe "associations" do
@@ -21,6 +21,8 @@ describe Status do
     end
 
     it "should require a day of week between 0 and 6" do
+      @status.day = nil
+
       @status.day_of_week = -1
       @status.should_not be_valid
       @status.should have_at_least(1).error_on(:day_of_week)
@@ -34,6 +36,20 @@ describe Status do
         @status.valid?
         @status.should have(:no).errors_on(:day_of_week)
       end
+    end
+
+    it "should require either day or day of week to be set" do
+      @status.day_of_week = nil
+      @status.day         = nil
+      @status.should have_at_least(1).error_on(:base)
+
+      @status.day_of_week = 0
+      @status.day         = nil
+      @status.should have(:no).errors_on(:base)
+
+      @status.day_of_week = nil
+      @status.day         = Date.today
+      @status.should have(:no).errors_on(:base)
     end
 
     it "should validate that status is a valid status" do
