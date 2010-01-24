@@ -270,7 +270,8 @@ de:
         day: Tag
         start: Start
         end: Ende
-        status:
+        status: Status
+        statuses:
           available: Verfügbar
           unavailable: Nicht verfügbar
       user:

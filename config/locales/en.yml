@@ -165,7 +165,8 @@ en:
         day: Day
         start: Start
         end: End
-        status:
+        status: Status
+        statuses:
           available: Available
           unavailable: Unavailable
       user:

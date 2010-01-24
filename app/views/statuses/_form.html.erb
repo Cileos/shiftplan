@@ -18,7 +18,7 @@ t(:'date.day_names').each_with_index { |d, i| day_names << [d, i] }
   <div>
     <% Status::VALID_STATUSES.each do |status| -%>
       <%= f.radio_button :status, status %>
-      <%= f.label "status_#{status.underscore}", t(:"status_#{status.underscore}", :default => status) %>
+      <%= f.label "status_#{status.underscore}", t(:"statuses.#{status.underscore}", :scope => [:activerecord, :attributes, :status], :default => status) %>
     <% end -%>
   </div>
   <div>
