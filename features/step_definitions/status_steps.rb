@@ -1,3 +1,11 @@
+Given /^the following default statuses:$/ do |statuses|
+  statuses.hashes.each do |attributes|
+    attributes[:employee]    = Employee.find_by_name(attributes.delete('employee'))
+    attributes[:day_of_week] = I18n.t(:'date.day_names').index(attributes.delete('day of week'))
+    Status.create!(attributes)
+  end
+end
+
 # TODO refactor
 Then /^the employee "([^\"]*)" should be available on "(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)" from "([^\"]*)" to "([^\"]*)"$/ do |employee, day_of_week, start_time, end_time|
   employee = Employee.find_by_name(employee)

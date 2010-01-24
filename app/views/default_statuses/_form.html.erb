@@ -2,10 +2,10 @@
 day_names = []
 t(:'date.day_names').each_with_index { |d, i| day_names << [d, i] }
 %>
-<% form_for([employee, default_status], :url => employee_default_statuses_path(employee)) do |f| %>
+<% form_for([employee, default_status], :url => default_status.new_record? ? employee_default_statuses_path(employee) : employee_default_status_path(employee, default_status)) do |f| %>
   <div>
     <%= f.label :day_of_week %>
-    <%= f.select :day_of_week, options_for_select(day_names) %>
+    <%= f.select :day_of_week, options_for_select(day_names, f.object.day_of_week) %>
   </div>
   <div>
     <%= f.label :start %>
@@ -18,7 +18,7 @@ t(:'date.day_names').each_with_index { |d, i| day_names << [d, i] }
   <div>
     <% Status::VALID_STATUSES.each do |status| -%>
       <%= f.radio_button :status, status %>
-      <%= f.label "status_#{status.underscore}", t(:"status_#{status.underscore}", :default => status) %>
+      <%= f.label "status_#{status.underscore}", t(:"status.#{status.underscore}", :scope => [:activerecord, :attributes, :status], :default => status) %>
     <% end -%>
   </div>
   <div>

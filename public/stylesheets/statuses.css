@@ -1,0 +1,7 @@
+ul.status li.available a {
+  color: green;
+}
+
+ul.status li.unavailable a {
+  color: red;
+}

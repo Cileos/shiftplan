@@ -50,8 +50,16 @@ de:
 
   # statuses
   status_from_to: "{{from}} bis {{to}}"
-  status_available: Verfügbar
-  status_unavailable: Nicht verfügbar
+  status_successfully_created: "Verfügbarkeit erfolgreich angelegt."
+  status_could_not_be_created: "Verfügbarkeit konnte nicht angelegt werden."
+  status_successfully_updated: "Verfügbarkeit erfolgreich geändert."
+  status_could_not_be_updated: "Verfügbarkeit konnte nicht geändert werden."
+  status_successfully_deleted: "Verfügbarkeit erfolgreich gelöscht."
+  default_status_successfully_created: "Standardverfügbarkeit erfolgreich angelegt."
+  default_status_could_not_be_created: "Standardverfügbarkeit konnte nicht angelegt werden."
+  default_status_successfully_updated: "Standardverfügbarkeit erfolgreich geändert."
+  default_status_could_not_be_updated: "Standardverfügbarkeit konnte nicht geändert werden."
+  default_status_successfully_deleted: "Standardverfügbarkeit erfolgreich gelöscht."
 
   # qualifications
   click_to_add_qualification: Hinzufügen
@@ -256,6 +264,15 @@ de:
         base_data: Base data
         admin: Admin
         name: Name
+      status:
+        employee_id: Mitarbeiter
+        day_of_week: Wochentag
+        day: Tag
+        start: Start
+        end: Ende
+        status:
+          available: Verfügbar
+          unavailable: Nicht verfügbar
       user:
         email: E-Mail
         password: Passwort

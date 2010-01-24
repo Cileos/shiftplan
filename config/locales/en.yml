@@ -50,8 +50,16 @@ en:
 
   # statuses
   status_from_to: "{{from}} - {{to}}"
-  status_available: Available
-  status_unavailable: Unavailable
+  status_successfully_created: "Status successfully created."
+  status_could_not_be_created: "Status could not be created."
+  status_successfully_updated: "Status successfully updated."
+  status_could_not_be_updated: "Status could not be updated."
+  status_successfully_deleted: "Status successfully deleted."
+  default_status_successfully_created: "Default status successfully created."
+  default_status_could_not_be_created: "Default status could not be created."
+  default_status_successfully_updated: "Default status successfully updated."
+  default_status_could_not_be_updated: "Default status could not be updated."
+  default_status_successfully_deleted: "Default status successfully deleted."
 
   # qualifications
   click_to_add_qualification: Click to add
@@ -151,6 +159,15 @@ en:
         base_data: Base data
         admin: Admin
         name: Name
+      status:
+        employee_id: Employee
+        day_of_week: Day of week
+        day: Day
+        start: Start
+        end: End
+        status:
+          available: Available
+          unavailable: Unavailable
       user:
         email: Email
         password: Password

@@ -1,3 +1,4 @@
+@status_management
 Feature: Managing default statuses
   In order to be able to always see when my employees are usually available or unavailable
   As a shift manager
@@ -13,6 +14,9 @@ Feature: Managing default statuses
   	And the following employees for "the account":
   		| name 							|
   		| Fritz Thielemann  |
+  	And the following default statuses:
+  	  | employee         | day of week | start | end   | status    |
+  	  | Fritz Thielemann | Tuesday     | 8:00  | 16:00 | Available |
   	And I am logged in with "fritz@thielemann.de" and "oracle"
 
   Scenario: Adding an availability entry
@@ -34,3 +38,10 @@ Feature: Managing default statuses
     And I choose "Unavailable"
     And I press "Save"
     Then the employee "Fritz Thielemann" should be unavailable on "Monday" from "10:00" to "22:00"
+
+  Scenario: Editing a status entry
+    Given I am on the default statuses index page
+    When I click on "08:00 - 16:00"
+    And I choose "Unavailable"
+    And I press "Save"
+    Then the employee "Fritz Thielemann" should be unavailable on "Tuesday" from "08:00" to "16:00"

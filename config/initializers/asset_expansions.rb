@@ -39,6 +39,7 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     plan
     resources
     dashboard
+    statuses
   )
   # jquery-ui/ui-lightness/jquery-ui
 end

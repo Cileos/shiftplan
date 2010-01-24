@@ -1,13 +1,35 @@
 <% if @employee && @default_statuses -%>
   <% @default_statuses.each do |day_of_week, default_statuses| -%>
     <h3><%= t(:'date.day_names')[day_of_week] %></h3>
-    <ul>
-      <%= render :partial => 'default_status', :collection => default_statuses %>
+    <ul class="status">
+      <%= render :partial => 'default_status', :collection => default_statuses, :locals => { :employee => @employee } %>
     </ul>
   <% end -%>
   <%= render :partial => 'form', :locals => { :employee => @employee, :default_status => @employee.statuses.default.build } %>
 <% else -%>
-  <% @employees.each do |employee| -%>
-    <%= link_to employee.full_name, employee_default_statuses_path(employee) %>
-  <% end -%>
+  <table>
+    <thead>
+      <tr>
+        <th><%= t(:employee_id, :scope => [:activerecord, :attributes, :status]) %></th>
+        <% 0.upto(6) do |day_of_week| -%>
+          <th><%= t(:'date.day_names')[day_of_week] %></th>
+        <% end -%>
+      </tr>
+    </thead>
+    <tbody>
+      <% @employees.each do |employee| -%>
+        <tr>
+          <td><%= link_to employee.full_name, employee_default_statuses_path(employee) %></td>
+          <% default_statuses = employee.statuses.default.group_by(&:day_of_week) %>
+          <% 0.upto(6) do |day_of_week| -%>
+            <td>
+              <ul class="status">
+                <%= render :partial => 'default_status', :collection => default_statuses[day_of_week], :locals => { :employee => employee } %>
+              </ul>
+            </td>
+          <% end -%>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
 <% end -%>
