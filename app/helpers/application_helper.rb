@@ -8,4 +8,11 @@ module ApplicationHelper
     type = type ? type.classify : model.class.name
     "Presenter::#{type}".constantize.new(model, self)
   end
+
+  def resource_css_classes(plan)
+    names = %w(resource)
+    names << 'template' if plan.respond_to?(:template?) && plan.template?
+    names << cycle('odd', 'even', :name => "#{plan.class.name.underscore}_cycle")
+    names.join(' ')
+  end
 end
