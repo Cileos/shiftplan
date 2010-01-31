@@ -16,6 +16,11 @@ de:
   save: Speichern
   options: Optionen
   picture_powered_by: "Bild angetrieben von {{link}}"
+  copy_from: "Kopieren"
+
+  shifts: Schichten
+  requirements: Anforderungen
+  assignments: Zuweisung
 
   employees:
     one:   "{{count}} Mitarbeiter"

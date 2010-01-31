@@ -11,6 +11,8 @@ class Plan < ActiveRecord::Base
     end
   end
 
+  named_scope :templates, :conditions => { :template => true }
+
   validates_presence_of :start_date, :end_date, :start_time, :end_time
 
   def initialize(*args)
@@ -35,6 +37,10 @@ class Plan < ActiveRecord::Base
 
   def duration
     @duration ||= end_time_in_minutes - start_time_in_minutes
+  end
+
+  def copy_from(other, options = {})
+    other.shifts.each { |shift| shifts << shift.clone(options) }
   end
 
   def form_values_json

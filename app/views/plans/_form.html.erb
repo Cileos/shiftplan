@@ -15,6 +15,24 @@
         <%= f.label :end_date %>
         <%= f.date_select :end_date %>
       </div>
+      <div>
+        <%= label_tag :template_id, t(:'activerecord.attributes.plan.template') %>
+        <%= select_tag 'template[id]', '<option></option>' + options_from_collection_for_select(@templates, :id, :name) %>
+      </div>
+      <div id="template_options">
+        <div>
+          <%= check_box_tag 'template[copy][]', 'shifts', {}, :id => :template_copy_shifts %>
+    	    <%= label_tag :template_copy_shifts, t(:shifts), :class => 'inline' %>
+        </div>
+        <div>
+          <%= check_box_tag 'template[copy][]', 'requirements', {}, :id => :template_copy_requirements %>
+    	    <%= label_tag :template_copy_requirements, t(:requirements), :class => 'inline' %>
+        </div>
+        <div>
+          <%= check_box_tag 'template[copy][]', 'assignments', {}, :id => :template_copy_assignments %>
+    	    <%= label_tag :template_copy_assignments, t(:assignments), :class => 'inline' %>
+        </div>
+      </div>
     </fieldset>
 
     <h4><%= t(:shifts, :scope => :'activerecord.attributes.plan') %></h4>
@@ -32,7 +50,7 @@
   	<h4><%= t(:options) %></h4>
   	<fieldset>
   	  <div>
-  	    <%= f.label :template %>
+  	    <%= f.label :template, t(:'activerecord.attributes.plan.template') %>
         <%= f.check_box :template %>
   	  </div>
   	</fieldset>

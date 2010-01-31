@@ -75,5 +75,42 @@ describe Plan do
         @plan.end_time_in_minutes.should == 16 * 60 + 30
       end
     end
+
+    describe "#copy_from" do
+      before(:each) do
+        requirement = Requirement.make(:qualification => Qualification.make, :assignment => Assignment.make)
+        shift       = Shift.make(:requirements => [requirement])
+        @template   = Plan.make(:template => true, :shifts => [shift])
+      end
+
+      it "should copy shifts" do
+        @plan.copy_from(@template)
+        @plan.save!
+
+        shift = @plan.shifts.first
+        shift.id.should_not be_nil
+        shift.id.should_not == @template.shifts.first.id
+
+        shift.requirements.should be_empty
+      end
+
+      it "should copy requirements if requested" do
+        @plan.copy_from(@template, :copy => %w(requirements))
+        @plan.save!
+
+        requirement = @plan.shifts.first.requirements.first
+        requirement.id.should_not be_nil
+        requirement.id.should_not == @template.shifts.first.requirements.first.id
+      end
+
+      it "should copy assignments if requested" do
+        @plan.copy_from(@template, :copy => %w(requirements assignments))
+        @plan.save!
+
+        assignment = @plan.shifts.first.requirements.first.assignment
+        assignment.id.should_not be_nil
+        assignment.id.should_not == @template.shifts.first.requirements.first.assignment.id
+      end
+    end
   end
 end

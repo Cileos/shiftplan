@@ -5,6 +5,9 @@ class PlansController < ApplicationController
   before_filter :set_workplaces,     :only => :show
   before_filter :set_qualifications, :only => :show
 
+  before_filter :set_templates,      :only => :index
+  before_filter :set_template,       :only => :create
+
   def index
   end
 
@@ -13,6 +16,7 @@ class PlansController < ApplicationController
 
   def create
     @plan = current_account.plans.build(params[:plan])
+    @plan.copy_from(@template_plan, :copy => params[:template][:copy]) if @template_plan
 
     if @plan.save
       flash[:notice] = t(:plan_successfully_created)
@@ -53,6 +57,15 @@ class PlansController < ApplicationController
 
     def set_plans
       @plans = current_account.plans
+    end
+    
+    def set_templates
+      @templates = current_account.plans.templates
+    end
+    
+    def set_template
+      id = params[:template][:id] if params[:template]
+      @template_plan = current_account.plans.templates.first(id) unless id.blank?
     end
 
     def set_plan

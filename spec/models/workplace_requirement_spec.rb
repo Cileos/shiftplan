@@ -16,9 +16,10 @@ describe WorkplaceRequirement do
   end
 
   describe "validations" do
-    it "should require to be associated to a workplace" do
-      @workplace_requirement.should validate_presence_of(:workplace_id)
-    end
+    # FIXME causes new workplace form submit to fail if default staffing given
+    # it "should require to be associated to a workplace" do
+    #   @workplace_requirement.should validate_presence_of(:workplace_id)
+    # end
 
     it "should require to be associated to a qualification" do
       @workplace_requirement.should validate_presence_of(:qualification_id)

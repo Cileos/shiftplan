@@ -4,6 +4,8 @@ class ShiftsController < ApplicationController
   before_filter :set_shift
 
   def create
+    @shift.build_requirements
+
     if @shift.save
       flash[:notice] = t(:shift_successfully_created)
 

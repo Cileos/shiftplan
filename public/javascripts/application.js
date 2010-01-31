@@ -46,4 +46,12 @@ jQuery(document).ready(function() {
 
   // stop events from bubbling up (would populate the sidebar form)
   $('a.delete').click(function() { return false; });
+
+  $('form #template_id').change(function() {
+    if($(this).val() == '') {
+      $('form #template_options').hide();
+    } else {
+      $('form #template_options').show();
+    }
+  });
 });

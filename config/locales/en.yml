@@ -16,6 +16,11 @@ en:
   save: Save
   options: Optionen
   picture_powered_by: "Picture powered by {{link}}"
+  copy_from: "Copy from"
+
+  shifts: Shifts
+  requirements: Requirements
+  assignments: Assignments
 
   employees:
     one:   "{{count}} employee"

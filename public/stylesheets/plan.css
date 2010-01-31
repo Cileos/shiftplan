@@ -2,6 +2,15 @@
   background: url(/images/icons/cog.png) no-repeat 15px 10px;
   padding-left: 40px;
 }
+form #template_options {
+  display: none;
+}
+form #template_options div {
+  margin-left: 72px;
+}
+form #template_options label {
+  margin-left: 5px;
+}
 
 #plan .day {
   clear: left;

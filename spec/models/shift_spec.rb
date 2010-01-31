@@ -120,7 +120,7 @@ describe Shift do
 
         shift.start.should == start_time
         shift.end.should == end_time
-        shift.duration.should == 180  
+        shift.duration.should == 180
       end
     end
   end

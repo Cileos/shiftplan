@@ -18,7 +18,11 @@ module Presenter
       end
 
       def link_to_assignee
-        link_to('', employee_path(assignee), :class => "assignment #{dom_id(assignee)} qualification_#{qualification.id} dialog")
+        if assignee
+          classes = "assignment #{dom_id(assignee)} dialog"
+          classes << "qualification_#{qualification.id}" if qualification
+          link_to('', employee_path(assignee), :class => classes)
+        end
       end
     end
   end

@@ -16,6 +16,8 @@
 }
 #sidebar fieldset > div {
   margin-top: 8px;
+}
+#sidebar fieldset div {
   clear: left;
 }
 #sidebar label {
@@ -25,6 +27,10 @@
   float: left;
   width: 75px;
   line-height: 18px;
+}
+#sidebar label.inline {
+  clear: none;
+  width: auto;
 }
 #sidebar input {
   width: 160px;
@@ -37,6 +43,7 @@
 }
 #sidebar input[type='checkbox'], 
 #sidebar input[type='radio'] {
+  float: left;
   width: auto;
   cursor: pointer;
 }
