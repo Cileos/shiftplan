@@ -45,7 +45,7 @@ Feature: Managing plans
     And I select "Thursday" as the "plan_end_date" date
     And I select "9:00" as the "plan_start_time" time
     And I select "12:00" as the "plan_end_time" time
-    And I check "Template"
+    And I check "plan_template"
     And I press "Save"
     Then I should see a plan named "Plan 2"
     And the following plans should be stored:
