@@ -23,6 +23,10 @@ jQuery(document).ready(function() {
     //   return true;
     // },
     success: function(data, textStatus) {
+      $('#sidebar form').each(function() {
+        this.reset();
+        // TODO reset default staffing for workplaces?
+      });
       if(data['html']['append']) {
         $.each(data['html']['append'], function(element, html) {
           // folding dos not work well with table rows
