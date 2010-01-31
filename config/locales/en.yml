@@ -14,6 +14,7 @@ en:
 
   new: New
   save: Save
+  options: Optionen
   picture_powered_by: "Picture powered by {{link}}"
 
   employees:
@@ -156,6 +157,7 @@ en:
         start: Start
         end: End
         shifts: Shifts
+        template: Template
       shift:
         start: Start time
         end: End time

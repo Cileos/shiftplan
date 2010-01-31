@@ -80,6 +80,7 @@
   	    <%= f.check_box :active, {}, 1 %>
   	  </div>
   	</fieldset>
+
   	<h4><%= t(:default_staffing, :scope => :'activerecord.attributes.workplace') %></h4>
   	<fieldset>
   	  <div>
@@ -94,6 +95,7 @@
   	  </div>
   	  <%= render :partial => 'workplace_requirements_fields', :locals => { :workplace => f.object } %>
   	</fieldset>
+
   	<%= f.submit t(:save) %>
 	</fieldset>
 <% end %>

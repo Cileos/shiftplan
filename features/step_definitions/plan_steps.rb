@@ -28,7 +28,12 @@ Then /^the following plans should be stored:$/ do |plans|
   plans.hashes.each do |attributes|
     attributes = attributes.dup
     attributes.each do |name, value|
-      attributes[name] = reformat_date!(value) if name =~ /_date/
+      case name
+      when /_date/
+        attributes[name] = reformat_date!(value)
+      when 'template'
+        attributes[name] = eval(value)
+      end
     end
     Plan.first(:conditions => attributes).should_not be_nil
   end
