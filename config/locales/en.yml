@@ -36,6 +36,7 @@ en:
   workplace_successfully_updated: "Workplace successfully updated."
   workplace_could_not_be_updated: "Workplace could not be updated."
   workplace_successfully_deleted: "Workplace successfully deleted."
+  workplace_delete_confirmation: "Do you really want to delete this workplace?"
 
   # employees
   click_to_add_employee: Click to add
@@ -47,6 +48,7 @@ en:
   employee_successfully_updated: "Employee successfully updated."
   employee_could_not_be_updated: "Employee could not be updated."
   employee_successfully_deleted: "Employee successfully deleted."
+  employee_delete_confirmation: "Do you really want to delete this employee?"
 
   # statuses
   status_from_to: "{{from}} - {{to}}"
@@ -63,20 +65,22 @@ en:
 
   # qualifications
   click_to_add_qualification: Click to add
-  add_qualification: "Click here to add a new qualification"
-  new_qualification: New qualification
+  add_qualification:  "Click here to add a new qualification"
+  new_qualification:  "New qualification"
   edit_qualification: "Edit qualification \"{{name}}\""
   qualification_successfully_created: "Qualification successfully created."
   qualification_could_not_be_created: "Qualification could not be created."
   qualification_successfully_updated: "Qualification successfully updated."
   qualification_could_not_be_updated: "Qualification could not be updated."
   qualification_successfully_deleted: "Qualification successfully deleted."
+  qualification_delete_confirmation: "Do you really want to delete this qualification?"
 
   # plans
   new_plan: New plan
   plan_from_to: "{{start_date}} - {{end_date}}"
   plan_successfully_created: "Plan successfully created."
   plan_could_not_be_created: "Plan could not be created."
+  plan_delete_confirmation: "Do you really want to delete this plan?"
 
   # shifts
   shift_successfully_created: "Shift successfully created."
