@@ -43,4 +43,7 @@ jQuery(document).ready(function() {
       }
     }
   });
+
+  // stop events from bubbling up (would populate the sidebar form)
+  $('a.delete').click(function() { return false; });
 });
