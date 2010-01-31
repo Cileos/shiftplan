@@ -1,3 +1,8 @@
+#plans .template td:first-child {
+  background: url(/images/icons/cog.png) no-repeat 15px 10px;
+  padding-left: 40px;
+}
+
 #plan .day {
   clear: left;
 }
@@ -116,7 +121,6 @@
 	right: 0;
 	cursor: e-resize;
 }
-
 #plan .shifts .unsuitable_workplace {
   background-color: #ccc !important;
 }
