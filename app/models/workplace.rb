@@ -10,14 +10,14 @@ class Workplace < ActiveRecord::Base
   has_many :workplace_qualifications
   has_many :qualifications, :through => :workplace_qualifications
 
-  named_scope :for_qualification, lambda { |qualification|
+  scope :for_qualification, lambda { |qualification|
     {
       :joins => :workplace_qualifications,
       :conditions => ["qualification_id = ?", qualification.id]
     }
   }
-  named_scope :active, :conditions => { :active => true }
-  named_scope :inactive, :conditions => { :active => false }
+  scope :active,   where(:active => true)
+  scope :inactive, where(:active => false)
 
   validates_presence_of :name
 

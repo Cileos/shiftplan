@@ -10,10 +10,10 @@ class Employee < ActiveRecord::Base
 
   validates_presence_of :first_name, :last_name
 
-  named_scope :active, :conditions => { :active => true }
-  named_scope :inactive, :conditions => { :active => false }
+  scope :active, where(:active => true)
+  scope :inactive, where(:active => false)
 
-  named_scope :for_qualification, lambda { |qualification|
+  scope :for_qualification, lambda { |qualification|
     {
       :joins => :employee_qualifications,
       :conditions => ["qualification_id = ?", qualification.id]

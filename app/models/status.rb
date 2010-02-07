@@ -8,8 +8,8 @@ class Status < ActiveRecord::Base
   validates_inclusion_of :status, :in => VALID_STATUSES
   validate :day_or_day_of_week_needs_to_be_set
 
-  named_scope :default,  :conditions => "day IS NULL AND day_of_week IS NOT NULL", :order => "day_of_week ASC, start ASC, end ASC"
-  named_scope :override, :conditions => "day_of_week IS NULL AND day IS NOT NULL", :order => "day ASC, start ASC, end ASC"
+  scope :default,  where("day IS NULL AND day_of_week IS NOT NULL").order("day_of_week ASC, start ASC, end ASC")
+  scope :override, where("day_of_week IS NULL AND day IS NOT NULL").order("day ASC, start ASC, end ASC")
 
   class << self
     def for(*args)
@@ -18,7 +18,7 @@ class Status < ActiveRecord::Base
       date_range   = start_date..end_date
       days_of_week = date_range.map(&:wday).uniq
 
-      statuses = all(:conditions => ["day BETWEEN ? AND ? OR day_of_week IN(?)", start_date, end_date, days_of_week])
+      statuses = where(["day BETWEEN ? AND ? OR day_of_week IN(?)", start_date, end_date, days_of_week])
 
       statuses = date_range.inject(ActiveSupport::OrderedHash.new) do |by_day, day|
         by_day.merge(day => begin

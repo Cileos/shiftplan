@@ -6,7 +6,7 @@ class Qualification < ActiveRecord::Base
 
   before_create :generate_color
 
-  default_scope :order => "name ASC"
+  default_scope order("name ASC")
 
   def possible_workplaces
     @possible_workplaces ||= Workplace.for_qualification(self)
