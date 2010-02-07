@@ -1,31 +1,32 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resource :dashboard, :controller => 'dashboard'
+Shiftplan::Application.routes.draw do |map|
+  controller :dashboard do
+    resource :dashboard
+  end
 
-  map.resources :employees, :has_many => [:default_statuses, :statuses]
-  map.resources :workplaces
-  map.resources :plans
-  map.resources :qualifications
+  resources :employees do
+    resources :default_statuses
+    resources :statuses
+  end
 
-  map.resources :default_statuses
-  map.resources :statuses
+  resources :workplaces
+  resources :plans
+  resources :qualifications
 
-  map.resources :shifts
-  map.resources :requirements
-  map.resources :assignments
+  resources :default_statuses
+  resources :statuses
 
-  # map.with_options :controller => 'allocations', :action => 'index' do |a|
-  #   a.allocations_by_date  'plans/:year/:month/:day',
-  #     :month => nil, :day => nil,
-  #     :requirements => { :year => /\d{4}/, :month => /\d{1,2}/, :day => /\d{1,2}/ }
-  #   a.allocations_by_week 'plans/weeks/:year/:week',
-  #     :requirements => { :year => /\d{4}/, :week => /\d{1,2}/ }
-  # end
+  resources :shifts
+  resources :requirements
+  resources :assignments
 
-  map.resources :accounts
-  map.resources :users
-  map.resource  :session, :controller => 'session'
+  resources :accounts
+  resources :users
 
-  map.logout '/logout', :controller => 'session', :action => 'destroy', :conditions => { :method => :delete }
+  controller :session do
+    resource :session
+  end
 
-  map.root :controller => 'dashboard', :action => 'show'
+  delete '/logout', :as => :logout, :to => 'session#destroy'
+
+  root :to => 'dashboard#show'
 end
