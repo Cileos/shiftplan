@@ -10,11 +10,12 @@ gem 'mysql'
 
 gem 'gravtastic', '>= 2.1.0'
 
-gem 'machinist',    :group => :test
-gem 'faker',        :group => :test
-gem 'cucumber',     :group => :cucumber
-gem 'rspec',        :group => [:cucumber, :test]
-gem 'rspec-rails',  :group => [:cucumber, :test]
+gem 'machinist',          :group => :test
+gem 'faker',              :group => :test
+gem 'cucumber',           :group => :cucumber
+
+gem 'rspec',              '>= 2.0.0.a5', :group => [:cucumber, :test]
+gem 'rspec-rails',        '>= 2.0.0.a6', :group => [:cucumber, :test]
 
 # Bundle the extra gems:
 # gem "bj"
