@@ -2,19 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Plan do
   def monday
-    @monday ||= Time.local(2009, 9, 7)
+    @monday ||= Date.civil(2009, 9, 7)
   end
 
   def friday
-    @friday ||= Time.local(2009, 9, 11)
+    @friday ||= Date.civil(2009, 9, 11)
   end
 
   def morning
-    @morning ||= Time.parse('8:30')
+    @morning ||= Time.utc(2009, 9, 7, 8, 30)
   end
 
   def afternoon
-    @afternoon ||= Time.parse('16:30')
+    @afternoon ||= Time.utc(2009, 9, 11, 16, 30)
   end
 
   before(:each) do
