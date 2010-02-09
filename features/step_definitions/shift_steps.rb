@@ -27,9 +27,7 @@ Given /^the following shifts:$/ do |shifts|
 end
 
 When /^I click on the shift "([^\"]*)" on (.+)$/ do |workplace, date|
-  element = locate_shift(date, workplace)
-  page.getFirstByXPath(element.xpath).click # yuck
-  respond!
+  click_on locate_shift(date, workplace)
 end
 
 When /^I drop onto to the shift "([^\"]*)" on (.+)$/ do |workplace, date|
