@@ -5,6 +5,7 @@ gem "rails", :git => "git://github.com/rails/rails.git"
 # Bundle edge Rails instead:
 # gem "rails", :git => "git://github.com/rails/rails.git"
 
+gem 'rack'
 gem 'mysql'
 
 gem 'gravtastic', '>= 2.1.0'
