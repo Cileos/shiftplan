@@ -79,8 +79,7 @@ Then /^I should see a shift "([^\"]*)" on (.*)$/ do |workplace, date|
 end
 
 Then /^I should not see a shift "([^\"]*)" on (.*)$/ do |workplace, date|
-  # locate_shift(date, workplace).should be_nil
-  locate_shift(date, workplace).nil?.should == true
+  lambda { locate_shift(date, workplace) }.should raise_error(Steam::ElementNotFound)
 end
 
 Then /^there should be (a|[\d]*) shifts? "([^\"]*)" on (.*) stored in the database$/ do |count, workplace, date|

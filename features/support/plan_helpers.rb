@@ -11,46 +11,46 @@ module PlanHelpers
     string.gsub!(/(#{shift_days.keys.join('|')})/) { shift_days[$1] } if string
   end
 
-  def locate_sidebar(&block)
-    locate_element(:id => 'sidebar', &block)
+  def locate_body(&block)
+    locate(:body, &block)
   end
 
-  def locate_body(&block)
-    locate_element(:body, &block)
+  def locate_sidebar(&block)
+    locate(:id => 'sidebar', &block)
   end
 
   def locate_plan(&block)
-    locate_element(:class => 'plan', &block)
+    locate(:class => 'plan', &block)
   end
 
   def locate_day(date, &block)
     reformat_date!(date)
-    locate_element(:class => 'day', :'data-day' => date.gsub('-', ''), &block)
+    locate(:class => 'day', :'data-day' => date.gsub('-', ''), &block)
   end
 
   def locate_shifts(date, &block)
     locate_day(date) do |element|
-      locate_element(:ul, :class => 'shifts', &block)
+      locate(:ul, :class => 'shifts', &block)
     end
   end
 
   def locate_shift(date, workplace, &block)
     locate_day(date) do
       workplace = Workplace.find_by_name(workplace)
-      locate_element(:ul, :class => "workplace workplace_#{workplace.id}") do
-        locate_element(:li, :class => "shift", &block)
+      locate(:ul, :class => "workplace workplace_#{workplace.id}") do
+        locate(:li, :class => "shift", &block)
       end
     end
   end
 
   def locate_requirement(date, workplace, qualification, &block)
     locate_shift(date, workplace) do |shift|
-      locate_element(:class => 'requirements') do |requirements|
+      locate(:class => 'requirements') do |requirements|
         if qualification == 'any'
-          locate_element(:class => "requirement", &block)
+          locate(:class => "requirement", &block)
         else
           qualification = Qualification.find_by_name(qualification)
-          locate_element(:class => "qualification_#{qualification.id}", &block)
+          locate(:class => "qualification_#{qualification.id}", &block)
         end
       end
     end
@@ -59,25 +59,25 @@ module PlanHelpers
   def locate_assignment(employee, date, workplace, qualification, &block)
     locate_requirement(date, workplace, qualification) do
       employee = Employee.find_by_name(employee)
-      locate_element(:class => "employee_#{employee.id}", &block)
+      locate(:class => "employee_#{employee.id}", &block)
     end
   end
 
   def locate_employee(name, &block)
     employee = Employee.find_by_name(name)
     locate_sidebar do
-      locate_element(:class => "employee_#{employee.id}", &block)
+      locate(:class => "employee_#{employee.id}", &block)
     end
   end
 
   def locate_workplace(name, &block)
     workplace = Workplace.find_by_name(name)
-    locate_sidebar { locate_element(:href => "/workplaces/#{workplace.id}", &block) }
+    locate_sidebar { locate(:href => "/workplaces/#{workplace.id}", &block) }
   end
 
   def locate_qualification(name, &block)
     qualification = Qualification.find_by_name(name)
-    locate_sidebar { locate_element(:href => "/qualifications/#{qualification.id}", &block) }
+    locate_sidebar { locate(:href => "/qualifications/#{qualification.id}", &block) }
   end
 
   def find_shift(date, workplace)

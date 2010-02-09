@@ -81,7 +81,7 @@ Feature: Managing plans
 
   Scenario: Updating an existing plan
     Given I am on the plans index page
-    When I follow "Edit"
+    When I follow "edit"
     And I fill in "Name" with "Plan 3"
     And I press "Save"
     Then I should see a plan named "Plan 3"

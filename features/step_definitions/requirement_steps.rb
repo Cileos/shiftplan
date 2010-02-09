@@ -15,8 +15,9 @@ end
 
 When /^I click on the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|
   element = locate_requirement(date, workplace, qualification)
-  page.getFirstByXPath(element.xpath).click # yuck
-  respond!
+  click_on(element)
+  # page.getFirstByXPath(element.xpath).click # yuck
+  # respond!
 end
 
 When /^I drag the requirement for a "([^\"]*)" from the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|
@@ -48,8 +49,7 @@ Then /^I should see a requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.
 end
 
 Then /^I should not see a requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|
-  # locate_requirement(date, workplace, qualification).should be_nil
-  locate_requirement(date, workplace, qualification).nil?.should == true
+  lambda { locate_requirement(date, workplace, qualification) }.should raise_error(Steam::ElementNotFound)
 end
 
 Then /^I should see the employee "([^\"]*)" assigned to the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |employee, qualification, workplace, date|
@@ -57,8 +57,7 @@ Then /^I should see the employee "([^\"]*)" assigned to the requirement for a "(
 end
 
 Then /^I should not see the employee "([^\"]*)" assigned to the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |employee, qualification, workplace, date|
-  # locate_assignment(employee, date, workplace, qualification).should be_nil
-  locate_assignment(employee, date, workplace, qualification).nil?.should == true
+  lambda { locate_assignment(employee, date, workplace, qualification) }.should raise_error(Steam::ElementNotFound)
 end
 
 

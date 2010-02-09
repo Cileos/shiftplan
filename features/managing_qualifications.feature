@@ -17,7 +17,7 @@ Feature: Managing qualifications
 
 	Scenario: Listing all qualifications
 		Given I am on the start page
-		When I follow "qualifications"
+		When I follow "Qualifications"
 		Then I should see a qualification named "Barkeeper"
 
   Scenario: Defining a new qualification
