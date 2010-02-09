@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
   });
 
   $('#sidebar form').ajaxForm({
-    dataType: 'json',
+    dataType: 'text',
     // xhr put request should work with htmlunit, but they actually never get sent
     // for now will use rails' tunneling instead
     // beforeSubmit: function(form_data, form, options) {
@@ -23,6 +23,8 @@ jQuery(document).ready(function() {
     //   return true;
     // },
     success: function(data, textStatus) {
+      data = eval("(" + data + ")");
+
       // reset form
       $('#sidebar form').each(function() { this.reset(); });
       $('#staff_requirements').each(function() { $(this).empty(); })

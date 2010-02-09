@@ -87,10 +87,12 @@
              '&requirement[qualification_id]=' + this.qualification_id();
   	},
    	on_create: function(data, textStatus) {
+      data = eval("(" + data + ")");
    	  $('#shift_' + data['requirement']['shift_id'] + ' .requirement:not([id])').
    	    attr('id', 'requirement_' + data['requirement']['id']);
    	},
    	on_update: function(data, textStatus) {
+      data = eval("(" + data + ")");
    	  // ...
    	}
   });

@@ -167,7 +167,7 @@ Resource.prototype = {
 		  'url': url,
 		  'type': type,
 		  'data': data,
-		  'dataType': 'json',
+		  'dataType': 'text',
 		  'success': this.is_new_record() ? this.on_create : this.on_update
 		});
 	},
@@ -182,7 +182,7 @@ Resource.prototype = {
 		  'url': url,
 		  'type': 'post', // seems like HTMLUnit doesn't allow DELETE requests to have parameters ...
 		  'data': data,
-		  'dataType': 'json',
+		  'dataType': 'text',
 		  'success': this.on_destroy
 		});
 	}

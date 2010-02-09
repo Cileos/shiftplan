@@ -264,6 +264,7 @@
       $(".resize_handle", this.element).css('position', null);
   	},
   	on_create: function(data, textStatus) {
+      data = eval("(" + data + ")");
   	  var shift_id = 'shift_' + data['shift']['id'];
   	  var shift = $('#new_shift').attr('id', shift_id);
   	  $('.requirement', shift).each(function(index) {
@@ -271,9 +272,11 @@
   	  });
   	},
   	on_update: function(data, textStatus) {
+      data = eval("(" + data + ")");
   	  // ...
   	},
   	on_destroy: function(data, textStatus) {
+      data = eval("(" + data + ")");
   	  // ...
   	},
   });

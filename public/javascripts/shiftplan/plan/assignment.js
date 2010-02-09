@@ -29,9 +29,11 @@
   	         '&assignment[assignee_id]=' + this.assignee_id();
   	},
   	on_create: function(data, textStatus) {
+      data = eval("(" + data + ")");
   	  $('#requirement_' + data['assignment']['requirement_id'] + ' .assignment').attr('id', 'assignment_' + data['assignment']['id']);
   	},
   	on_update: function(data, textStatus) {
+      data = eval("(" + data + ")");
   	  // ...
   	}
   });
