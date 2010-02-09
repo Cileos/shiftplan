@@ -50,6 +50,6 @@ class Shift < ActiveRecord::Base
     end
 
     def start_before_end
-      errors.add_to_base("Start must be before end") unless self.start && self.end && self.start < self.end
+      errors[:base] << ("Start must be before end") unless self.start && self.end && self.start < self.end
     end
 end

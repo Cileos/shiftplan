@@ -32,18 +32,18 @@ class User < ActiveRecord::Base
 
   def remember_me
     self.remember_token = encrypt("--#{Time.now.utc}--#{password}--")
-    save(false)
+    save(:validate => false)
   end
 
   def confirm_email
     self.email_confirmed    = true
     self.confirmation_token = nil
-    save(false)
+    save(:validate => false)
   end
 
   def forgot_password
     generate_confirmation_token
-    save(false)
+    save(:validate => false)
   end
 
   def update_password(new_password, new_password_confirmation)

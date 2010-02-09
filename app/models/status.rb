@@ -63,6 +63,6 @@ class Status < ActiveRecord::Base
   protected
 
     def day_or_day_of_week_needs_to_be_set
-      errors.add_to_base(I18n.t(:day_or_day_of_week_needs_to_be_set, :scope => [:activerecord, :errors, :messages])) if day.blank? && day_of_week.blank?
+      errors[:base] << I18n.t(:day_or_day_of_week_needs_to_be_set, :scope => [:activerecord, :errors, :messages]) if day.blank? && day_of_week.blank?
     end
 end
