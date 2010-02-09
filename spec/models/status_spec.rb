@@ -25,31 +25,40 @@ describe Status do
 
       @status.day_of_week = -1
       @status.should_not be_valid
-      @status.should have_at_least(1).error_on(:day_of_week)
+      # @status.should have_at_least(1).error_on(:day_of_week)
+      @status.errors[:day_of_week].size.should be >= 1
 
       @status.day_of_week = 7
       @status.should_not be_valid
-      @status.should have_at_least(1).error_on(:day_of_week)
+      # @status.should have_at_least(1).error_on(:day_of_week)
+      @status.errors[:day_of_week].size.should be >= 1
 
       0.upto(6) do |day_of_week|
         @status.day_of_week = day_of_week
         @status.valid?
-        @status.should have(:no).errors_on(:day_of_week)
+        # @status.should have(:no).errors_on(:day_of_week)
+        @status.errors[:day_of_week].should be_empty
       end
     end
 
     it "should require either day or day of week to be set" do
       @status.day_of_week = nil
       @status.day         = nil
-      @status.should have_at_least(1).error_on(:base)
+      # @status.should have_at_least(1).error_on(:base)
+      @status.valid?
+      @status.errors[:base].size.should be >= 1
 
       @status.day_of_week = 0
       @status.day         = nil
-      @status.should have(:no).errors_on(:base)
+      @status.valid?
+      # @status.should have(:no).errors_on(:base)
+      @status.errors[:base].should be_empty
 
       @status.day_of_week = nil
       @status.day         = Date.today
-      @status.should have(:no).errors_on(:base)
+      @status.valid?
+      # @status.should have(:no).errors_on(:base)
+      @status.errors[:base].should be_empty
     end
 
     it "should validate that status is a valid status" do
@@ -58,13 +67,15 @@ describe Status do
       Status::VALID_STATUSES.each do |status|
         @status.status = status
         @status.valid?
-        @status.should have(:no).errors_on(:status)
+        # @status.should have(:no).errors_on(:status)
+        @status.errors[:status].should be_empty
       end
 
       %w(foo bar bam baz).each do |status|
         @status.status = status
         @status.valid?
-        @status.should have_at_least(1).error_on(:status)
+        # @status.should have_at_least(1).error_on(:status)
+        @status.errors[:status].size.should be >= 1
       end
     end
   end
@@ -77,11 +88,11 @@ describe Status do
       end
 
       it "should include default statuses" do
-        Status.default.should include(@sunday_default)
+        Status.default.all.should include(@sunday_default)
       end
 
       it "should not include overrides" do
-        Status.default.should_not include(@sunday_override)
+        Status.default.all.should_not include(@sunday_override)
       end
     end
 
@@ -92,11 +103,11 @@ describe Status do
       end
 
       it "should include overrides" do
-        Status.override.should include(@sunday_override)
+        Status.override.all.should include(@sunday_override)
       end
 
       it "should not include default statuses" do
-        Status.override.should_not include(@sunday_default)
+        Status.override.all.should_not include(@sunday_default)
       end
     end
   end

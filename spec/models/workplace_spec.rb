@@ -48,15 +48,15 @@ describe Workplace do
           :name => 'Workplace for qualification 2',
           :workplace_qualifications => [WorkplaceQualification.make(:qualification => @qualification_2)]
         )
-        @scope = Workplace.for_qualification(@qualification_1)
+        @workplaces_for_qualification_1 = Workplace.for_qualification(@qualification_1).all
       end
 
       it "should include workplaces that fit a given qualification" do
-        @scope.should include(@workplace_1)
+        @workplaces_for_qualification_1.should include(@workplace_1)
       end
 
       it "should not include workplaces that don't fit a given qualification" do
-        @scope.should_not include(@workplace_2)
+        @workplaces_for_qualification_1.should_not include(@workplace_2)
       end
     end
 
@@ -67,11 +67,11 @@ describe Workplace do
       end
 
       it "should include active workplaces" do
-        Workplace.active.should include(@active_workplace)
+        Workplace.active.all.should include(@active_workplace)
       end
 
       it "should not include inactive workplaces" do
-        Workplace.active.should_not include(@inactive_workplace)
+        Workplace.active.all.should_not include(@inactive_workplace)
       end
     end
 
@@ -82,11 +82,11 @@ describe Workplace do
       end
 
       it "should include inactive workplaces" do
-        Workplace.inactive.should include(@inactive_workplace)
+        Workplace.inactive.all.should include(@inactive_workplace)
       end
 
       it "should not include active workplaces" do
-        Workplace.inactive.should_not include(@active_workplace)
+        Workplace.inactive.all.should_not include(@active_workplace)
       end
     end
   end
@@ -129,7 +129,7 @@ describe Workplace do
       end
     end
 
-    describe "#required_quantity_for" do
+    describe "#default_staffing" do
       before(:each) do
         @cook_qualification = Qualification.make(:name => 'Cook')
         @receptionist_qualification = Qualification.make(:name => 'Receptionist')

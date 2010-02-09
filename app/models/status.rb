@@ -18,7 +18,7 @@ class Status < ActiveRecord::Base
       date_range   = start_date..end_date
       days_of_week = date_range.map(&:wday).uniq
 
-      statuses = where(["day BETWEEN ? AND ? OR day_of_week IN(?)", start_date, end_date, days_of_week])
+      statuses = where(["day BETWEEN ? AND ? OR day_of_week IN(?)", start_date, end_date, days_of_week]).all
 
       statuses = date_range.inject(ActiveSupport::OrderedHash.new) do |by_day, day|
         by_day.merge(day => begin

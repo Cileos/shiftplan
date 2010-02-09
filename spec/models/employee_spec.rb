@@ -39,12 +39,12 @@ describe Employee do
         @cook_2    = Employee.make(:qualifications => [@cook_qualification])
         @barkeeper = Employee.make(:qualifications => [@barkeeper_qualification])
 
-        cooks = Employee.for_qualification(@cook_qualification)
+        cooks = Employee.for_qualification(@cook_qualification).all
         cooks.should     include(@cook_1)
         cooks.should     include(@cook_2)
         cooks.should_not include(@barkeeper)
 
-        barkeepers = Employee.for_qualification(@barkeeper_qualification)
+        barkeepers = Employee.for_qualification(@barkeeper_qualification).all
         barkeepers.should     include(@barkeeper)
         barkeepers.should_not include(@cook_1)
         barkeepers.should_not include(@cook_2)
