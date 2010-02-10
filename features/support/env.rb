@@ -1,4 +1,4 @@
-ENV["RAILS_ENV"] ||= "test"
+ENV["RAILS_ENV"] ||= "cucumber"
 
 $: << File.expand_path(File.dirname(__FILE__) + "/../../vendor/plugins/steam/lib")
 require 'rubygems'
