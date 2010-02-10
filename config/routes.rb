@@ -1,7 +1,15 @@
 Shiftplan::Application.routes.draw do |map|
-  controller :dashboard do
-    resource :dashboard
-  end
+  # controller :session do
+  #   resource :session
+  # end
+  #
+  # controller :dashboard do
+  #   resource :dashboard
+  # end
+
+  resource :session
+  resource :dashboard
+  resource :favorite
 
   resources :employees do
     resources :default_statuses
@@ -22,11 +30,7 @@ Shiftplan::Application.routes.draw do |map|
   resources :accounts
   resources :users
 
-  controller :session do
-    resource :session
-  end
-
   delete '/logout', :as => :logout, :to => 'session#destroy'
 
-  root :to => 'dashboard#show'
+  root :to => 'dashboards#show'
 end

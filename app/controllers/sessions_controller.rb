@@ -1,4 +1,4 @@
-class SessionController < ApplicationController
+class SessionsController < ApplicationController
   skip_before_filter :authenticate, :except => :destroy
 
   protect_from_forgery :except => :create

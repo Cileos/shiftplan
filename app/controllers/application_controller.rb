@@ -5,8 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_object_name
-  # FIXME - somehow this can't find the session controller?
-  # before_filter :authenticate
+  before_filter :authenticate
 
   protected
 
