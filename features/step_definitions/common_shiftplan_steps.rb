@@ -30,7 +30,8 @@ Then /^I should see an? (.*) named "([^\"]*)"$/ do |klass, name|
   css_class = klass.downcase.gsub(/\s+/, ' ').gsub(/\s/, '_')
   # name = /#{name}/ unless name.is_a?(Regexp)
   element = locate_element(name, :class => klass)
-  element.should_not be_nil
+  # element.should_not be_nil
+  element.nil?.should == false
   element.inner_html.should match(name)
 end
 
@@ -38,5 +39,6 @@ Then /^I should not see an? (.*) named "([^\"]*)"$/ do |klass, name|
   css_class = klass.downcase.gsub(/\s+/, ' ').gsub(/\s/, '_')
   # name = /#{name}/ unless name.is_a?(Regexp)
   element = locate_element(name, :class => klass)
-  element.should be_nil
+  # element.should be_nil
+  element.nil?.should == true
 end

@@ -10,6 +10,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
 
 require 'rspec'
+require 'rspec/rails'
 
 # Steam::Browser::HtmlUnit::Drb::Service.daemonize and sleep(0.25)
 browser = Steam::Browser::HtmlUnit.new #(:drb => true)

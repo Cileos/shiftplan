@@ -14,8 +14,10 @@ Then /^the employee "([^\"]*)" should be available on "(Monday|Tuesday|Wednesday
     da.start.strftime('%H:%M') == start_time &&
     da.end.strftime('%H:%M') == end_time
   end
-  default_status.should_not be_nil
-  default_status.should be_available
+  # default_status.should_not be_nil
+  # default_status.should be_available
+  default_status.nil?.should == false
+  default_status.available?.should == true
   # TODO add DOM expectations
 end
 
@@ -26,8 +28,10 @@ Then /^the employee "([^\"]*)" should be unavailable on "(Monday|Tuesday|Wednesd
     da.start.strftime('%H:%M') == start_time &&
     da.end.strftime('%H:%M') == end_time
   end
-  default_status.should_not be_nil
-  default_status.should be_unavailable
+  # default_status.should_not be_nil
+  # default_status.should be_unavailable
+  default_status.nil?.should == false
+  default_status.unavailable?.should == true
   # TODO add DOM expectations
 end
 
@@ -38,8 +42,10 @@ Then /^the employee "([^\"]*)" should be available on "(\d[^\"]*)" from "([^\"]*
     status.start.strftime('%H:%M') == start_time &&
     status.end.strftime('%H:%M') == end_time
   end
-  status.should_not be_nil
-  status.should be_available
+  # status.should_not be_nil
+  # status.should be_available
+  status.nil?.should == false
+  status.available?.should == true
   # TODO add DOM expectations
 end
 
@@ -50,7 +56,9 @@ Then /^the employee "([^\"]*)" should be unavailable on "(\d[^\"]*)" from "([^\"
     status.start.strftime('%H:%M') == start_time &&
     status.end.strftime('%H:%M') == end_time
   end
-  status.should_not be_nil
-  status.should be_unavailable
+  # status.should_not be_nil
+  # status.should be_unavailable
+  status.nil?.should == false
+  status.unavailable?.should == true
   # TODO add DOM expectations
 end
