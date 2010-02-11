@@ -4,6 +4,13 @@ module ApplicationHelper
   #   [sprintf("%02d", hour), sprintf("%02d", slot * 15)].join(':')
   # end
 
+  def day_names
+    returning([]) do |day_names|
+      t(:'date.day_names').each_with_index { |d, i| day_names << [d, i] }
+      day_names
+    end
+  end
+
   def presenter_for(model, type = nil)
     type = type ? type.classify : model.class.name
     "Presenter::#{type}".constantize.new(model, self)
