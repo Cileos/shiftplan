@@ -65,7 +65,7 @@ class PlansController < ApplicationController
     
     def set_template
       id = params[:template][:id] if params[:template]
-      @template_plan = current_account.plans.templates.first(id) unless id.blank?
+      @template_plan = current_account.plans.templates.find(id) unless id.blank?
     end
 
     def set_plan
