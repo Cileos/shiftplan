@@ -2,5 +2,5 @@
   'flash': {
     'notice': '<%= escape_javascript(flash[:notice]) %>'
   },
-  'requirement': <%= @requirement.to_json %>
+  'requirement': <%= @requirement.to_json.html_safe %>
 }

@@ -6,7 +6,7 @@ class PlanPresenter
           :class => "#{workplace.class.name.underscore} #{dom_id(workplace)} dialog",
           :'data-workplace-id' => id,
           :'data-default-shift-length' => default_shift_length,
-          :'data-default-staffing' => default_staffing.to_json
+          :'data-default-staffing' => default_staffing.to_json.html_safe
         }
       end
 
