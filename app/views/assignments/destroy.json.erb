@@ -2,5 +2,5 @@
   'flash': {
     'notice': '<%= escape_javascript(flash[:notice]) %>'
   },
-  'assignment': <%= @assignment.to_json.html_safe %>
+  'assignment': <%=raw @assignment.to_json %>
 }

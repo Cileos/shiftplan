@@ -2,7 +2,7 @@
   'flash': {
     'notice': '<%= escape_javascript(flash[:notice]) %>'
   },
-  'employee': <%= @employee.to_json.html_safe %>,
+  'employee': <%=raw @employee.to_json %>,
   'html': {
     'append': {
       '#list': '<%= escape_javascript(render(:partial => 'employee', :object => @employee)) %>'

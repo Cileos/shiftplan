@@ -2,7 +2,7 @@
   'flash': {
     'notice': '<%= escape_javascript(flash[:notice]) %>'
   },
-  'qualification': <%= @qualification.to_json.html_safe %>,
+  'qualification': <%=raw @qualification.to_json %>,
   'html': {
     'append': {
       '#list': '<%= escape_javascript(render(:partial => 'qualification', :object => @qualification)) %>'
