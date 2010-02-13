@@ -5,7 +5,7 @@ Given /^I am on (.+)$/ do |page_name|
   response.status.should == 200
 end
 
-Given "I output the body" do
+When "I output the body" do
   puts response.body
 end
 
