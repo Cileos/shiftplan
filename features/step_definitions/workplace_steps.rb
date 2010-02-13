@@ -26,5 +26,6 @@ Given /^the following workplaces for "([^\"]*)":$/ do |account, workplaces|
 end
 
 Then /^I should see a workplace named "([^\"]*)" listed in the sidebar$/ do |name|
-  locate_workplace(name).should_not be_nil
+  # locate_workplace(name).should_not be_nil
+  locate_workplace(name).nil?.should == false
 end

@@ -36,11 +36,13 @@ end
 
 
 Then /^the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.*) should be highlighted$/ do |qualification, workplace, date|
-  locate_requirement(date, workplace, qualification).element['class'].should include('selected')
+  # locate_requirement(date, workplace, qualification).element['class'].should include('selected')
+  locate_requirement(date, workplace, qualification).element['class'].include?('selected').should == true
 end
 
 Then /^the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.*) should not be highlighted$/ do |qualification, workplace, date|
-  locate_requirement(date, workplace, qualification).element['class'].should_not include('selected')
+  # locate_requirement(date, workplace, qualification).element['class'].should_not include('selected')
+  locate_requirement(date, workplace, qualification).element['class'].include?('selected').should == false
 end
 
 Then /^I should see a requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|

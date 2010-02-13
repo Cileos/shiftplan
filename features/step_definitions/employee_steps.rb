@@ -38,13 +38,15 @@ end
 
 Then /^the employees should have the following statuses:$/ do |employees|
   employees.hashes.each do |attributes|
-    locate_employee(attributes['employee']).element['class'].should include(attributes['status'])
+    # locate_employee(attributes['employee']).element['class'].should include(attributes['status'])
+    locate_employee(attributes['employee']).element['class'].include?(attributes['status']).should == true
   end
 end
 
 Then /^the employees should not have the following statuses:$/ do |employees|
   employees.hashes.each do |attributes|
-    locate_employee(attributes['employee']).element['class'].should_not include(attributes['status'])
+    # locate_employee(attributes['employee']).element['class'].should_not include(attributes['status'])
+    locate_employee(attributes['employee']).element['class'].include?(attributes['status']).should == false
   end
 end
 

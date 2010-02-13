@@ -68,11 +68,13 @@ Then /^I should see the following shifts, required qualifications and assignment
 end
 
 Then /^the shift "([^\"]*)" on (.*) should be highlighted$/ do |workplace, date|
-  locate_shift(date, workplace).element['class'].should include('selected')
+  # locate_shift(date, workplace).element['class'].should include('selected')
+  locate_shift(date, workplace).element['class'].include?('selected').should == true
 end
 
 Then /^the shift "([^\"]*)" on (.*) should not be highlighted$/ do |workplace, date|
-  locate_shift(date, workplace).element['class'].should_not include('selected')
+  # locate_shift(date, workplace).element['class'].should_not include('selected')
+  locate_shift(date, workplace).element['class'].include?('selected').should == false
 end
 
 Then /^I should see a shift "([^\"]*)" on (.*)$/ do |workplace, date|
@@ -98,14 +100,17 @@ end
 
 Then /^the shift "([^\"]*)" on (.*) should be marked unsuitable$/ do |workplace, date|
   shift = locate_shift(date, workplace)
-  shift.attribute('class').should match(/unsuitable_workplace/)
+  # shift.attribute('class').should match(/unsuitable_workplace/)
+  shift.attribute('class').should =~ /unsuitable_workplace/
 end
 
 Then /^the shift "([^\"]*)" on (.*) should not be marked unsuitable$/ do |workplace, date|
   shift = locate_shift(date, workplace)
-  shift.attribute('class').should_not match(/unsuitable_workplace/)
+  # shift.attribute('class').should_not match(/unsuitable_workplace/)
+  shift.attribute('class').should_not =~ /unsuitable_workplace/
 end
 
 Then /^no shifts should be marked as unsuitable$/ do
-  response.body.join.should_not match(/unsuitable_workplace/)
+  # response.body.join.should_not match(/unsuitable_workplace/)
+  response.body.join.should_not =~ /unsuitable_workplace/
 end
