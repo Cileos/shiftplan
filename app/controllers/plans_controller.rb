@@ -50,7 +50,10 @@ class PlansController < ApplicationController
   def destroy
     @plan.destroy
     flash[:notice] = t(:plan_successfully_deleted)
-    redirect_to plans_url
+
+    respond_to do |format|
+      format.json { render :status => 200 }
+    end
   end
 
   protected

@@ -55,7 +55,10 @@ class WorkplacesController < ApplicationController
   def destroy
     @workplace.destroy
     flash[:notice] = t(:workplace_successfully_deleted)
-    redirect_to workplaces_url
+
+    respond_to do |format|
+      format.json { render :status => 200 }
+    end
   end
 
   private

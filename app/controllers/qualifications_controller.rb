@@ -53,7 +53,10 @@ class QualificationsController < ApplicationController
   def destroy
     @qualification.destroy
     flash[:notice] = t(:qualification_successfully_deleted)
-    redirect_to qualifications_url
+
+    respond_to do |format|
+      format.json { render :status => 200 }
+    end
   end
 
   private
