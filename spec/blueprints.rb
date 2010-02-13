@@ -66,9 +66,6 @@ end
 Membership.blueprint do
 end
 
-Location.blueprint do
-end
-
 EmployeeQualification.blueprint do
   employee
   qualification

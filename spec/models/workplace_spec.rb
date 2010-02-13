@@ -10,8 +10,6 @@ describe Workplace do
       @workplace.should belong_to(:account)
     end
 
-    it "should belong to a location" do
-      @workplace.should belong_to(:location)
     end
 
     it "should have workplace requirements" do
