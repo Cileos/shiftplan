@@ -39,4 +39,3 @@ Then /^the following plans should be stored:$/ do |plans|
     Plan.first(:conditions => attributes).nil?.should == false
   end
 end
-

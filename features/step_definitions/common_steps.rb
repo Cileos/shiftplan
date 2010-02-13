@@ -9,10 +9,6 @@ Given "I output the body" do
   puts response.body
 end
 
-When 'puts' do
-  puts response.body
-end
-
 When /^I go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
