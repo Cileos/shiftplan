@@ -44,34 +44,42 @@ Then /^the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.*) should n
 end
 
 Then /^I should see a requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|
-  locate_requirement(date, workplace, qualification).should_not be_nil
+  # locate_requirement(date, workplace, qualification).should_not be_nil
+  locate_requirement(date, workplace, qualification).nil?.should == false
 end
 
 Then /^I should not see a requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|
-  locate_requirement(date, workplace, qualification).should be_nil
+  # locate_requirement(date, workplace, qualification).should be_nil
+  locate_requirement(date, workplace, qualification).nil?.should == true
 end
 
 Then /^I should see the employee "([^\"]*)" assigned to the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |employee, qualification, workplace, date|
-  locate_assignment(employee, date, workplace, qualification).should_not be_nil
+  # locate_assignment(employee, date, workplace, qualification).should_not be_nil
+  locate_assignment(employee, date, workplace, qualification).nil?.should == false
 end
 
 Then /^I should not see the employee "([^\"]*)" assigned to the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |employee, qualification, workplace, date|
-  locate_assignment(employee, date, workplace, qualification).should be_nil
+  # locate_assignment(employee, date, workplace, qualification).should be_nil
+  locate_assignment(employee, date, workplace, qualification).nil?.should == true
 end
 
 
 Then /^there should be a requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+) stored in the database$/ do |qualification, workplace, date|
-  find_requirement(date, workplace, qualification).should_not be_nil
+  # find_requirement(date, workplace, qualification).should_not be_nil
+  find_requirement(date, workplace, qualification).nil?.should == false
 end
 
 Then /^there should not be a requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+) stored in the database$/ do |qualification, workplace, date|
-  find_requirement(date, workplace, qualification).should be_nil
+  # find_requirement(date, workplace, qualification).should be_nil
+  find_requirement(date, workplace, qualification).nil?.should == true
 end
 
 Then /^the assignment of "([^\"]*)" to the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+) should be stored in the database$/ do |employee, qualification, workplace, date|
-  find_assignment(employee, date, workplace, qualification).should_not be_nil
+  # find_assignment(employee, date, workplace, qualification).should_not be_nil
+  find_assignment(employee, date, workplace, qualification).nil?.should == false
 end
 
 Then /^the assignment of "([^\"]*)" to the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+) should not be stored in the database$/ do |employee, qualification, workplace, date|
-  find_assignment(employee, date, workplace, qualification).should be_nil
+  # find_assignment(employee, date, workplace, qualification).should be_nil
+  find_assignment(employee, date, workplace, qualification).nil?.should == true
 end

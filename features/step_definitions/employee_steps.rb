@@ -50,12 +50,15 @@ end
 
 When /I drag the employee "([^\"]*)" over the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.*)$/ do |name, qualification, workplace, date|
   requirement = locate_requirement(date, workplace, qualification)
-  requirement.should_not be_nil
+  # requirement.should_not be_nil
+  requirement.nil?.should == false
   employee = locate_employee(name) { locate_element(:div) }
-  employee.should_not be_nil
+  # employee.should_not be_nil
+  employee.nil?.should == false
   drag(employee, :over => requirement)
 end
 
 Then /^I should see an employee named "([^\"]*)" listed in the sidebar$/ do |name|
-  locate_employee(name).should_not be_nil
+  # locate_employee(name).should_not be_nil
+  locate_employee(name).nil?.should == false
 end

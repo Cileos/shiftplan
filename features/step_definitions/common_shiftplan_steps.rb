@@ -32,7 +32,8 @@ Then /^I should see an? (.*) named "([^\"]*)"$/ do |klass, name|
   element = locate_element(name, :class => klass)
   # element.should_not be_nil
   element.nil?.should == false
-  element.inner_html.should match(name)
+  # element.inner_html.should match(name)
+  element.inner_html.should =~ /#{name}/
 end
 
 Then /^I should not see an? (.*) named "([^\"]*)"$/ do |klass, name|
