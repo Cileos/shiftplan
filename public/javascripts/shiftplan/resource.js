@@ -173,7 +173,10 @@ Resource.prototype = {
 	},
 	destroy: function() {
 	  var url = this.type.member_path(this);
-	  var data = '_method=delete&plan_id=' + this.plan_id(); // FIXME not good, but the simplest thing at the moment
+	  var data = '_method=delete';
+    // if(this.plan_id() > 0) {
+    //   data += '&plan_id=' + this.plan_id(); // FIXME not good, but the simplest thing at the moment
+    // }
 
 	  $.ajax({
 		  'url': url,

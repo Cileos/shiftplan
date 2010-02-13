@@ -1,5 +1,35 @@
 $(document).ready(function() {
+  $('.resource .actions a.delete').live('click', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    var resource = $(this).closest('.resource')[0];
+    var match = resource.id.match(/(.*)_(\d+)/);
+    var resource_name = match[1];
+
+    if(resource_name == 'plan') { // yuck FIXME
+      var url = '/plans/' + match[2];
+  	  var data = '_method=delete';
+
+  	  $.ajax({
+  		  'url': url,
+  		  'type': 'post', // seems like HTMLUnit doesn't allow DELETE requests to have parameters ...
+  		  'data': data,
+  		  'dataType': 'json',
+  		  'success': function(data, textStatus) {
+  		    $(resource).remove();
+  		  }
+  		});
+    } else {
+      $(resource)[resource_name]().destroy();
+      $(resource).remove();
+    }
+  });
+
+  // $('li.resource, .resource .actions a.edit')
   $('li.resource, .resource .actions a.edit').live('click', function(event) {
+    if(event.isPropagationStopped()) return; // wtf?
+
     event.preventDefault();
     event.stopPropagation();
 
