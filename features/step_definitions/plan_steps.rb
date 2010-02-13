@@ -35,7 +35,6 @@ Then /^the following plans should be stored:$/ do |plans|
         attributes[name] = eval(value)
       end
     end
-    # Plan.first(:conditions => attributes).should_not be_nil
-    Plan.first(:conditions => attributes).nil?.should == false
+    Plan.first(:conditions => attributes).should_not be_nil
   end
 end

@@ -61,25 +61,21 @@ Then /^I should see the following shifts, required qualifications and assignment
       element = assignee ?
         locate_assignment(assignee, date, workplace, qualification) :
         locate_requirement(date, workplace, qualification)
-      # element.should_not be_nil
-      element.nil?.should == false
+      element.should_not be_nil
     end
   end
 end
 
 Then /^the shift "([^\"]*)" on (.*) should be highlighted$/ do |workplace, date|
-  # locate_shift(date, workplace).element['class'].should include('selected')
-  locate_shift(date, workplace).element['class'].include?('selected').should == true
+  locate_shift(date, workplace).element['class'].should include('selected')
 end
 
 Then /^the shift "([^\"]*)" on (.*) should not be highlighted$/ do |workplace, date|
-  # locate_shift(date, workplace).element['class'].should_not include('selected')
-  locate_shift(date, workplace).element['class'].include?('selected').should == false
+  locate_shift(date, workplace).element['class'].should_not include('selected')
 end
 
 Then /^I should see a shift "([^\"]*)" on (.*)$/ do |workplace, date|
-  # locate_shift(date, workplace).should_not be_nil
-  locate_shift(date, workplace).nil?.should == false
+  locate_shift(date, workplace).should_not be_nil
 end
 
 Then /^I should not see a shift "([^\"]*)" on (.*)$/ do |workplace, date|
@@ -94,23 +90,19 @@ Then /^there should be (a|[\d]*) shifts? "([^\"]*)" on (.*) stored in the databa
 end
 
 Then /^there should not be a shift "([^\"]*)" on (.*) stored in the database$/ do |workplace, date|
-  # find_shift(date, workplace).should be_nil
-  find_shift(date, workplace).nil?.should == true
+  find_shift(date, workplace).should be_nil
 end
 
 Then /^the shift "([^\"]*)" on (.*) should be marked unsuitable$/ do |workplace, date|
   shift = locate_shift(date, workplace)
-  # shift.attribute('class').should match(/unsuitable_workplace/)
-  shift.attribute('class').should =~ /unsuitable_workplace/
+  shift.attribute('class').should match(/unsuitable_workplace/)
 end
 
 Then /^the shift "([^\"]*)" on (.*) should not be marked unsuitable$/ do |workplace, date|
   shift = locate_shift(date, workplace)
-  # shift.attribute('class').should_not match(/unsuitable_workplace/)
-  shift.attribute('class').should_not =~ /unsuitable_workplace/
+  shift.attribute('class').should_not match(/unsuitable_workplace/)
 end
 
 Then /^no shifts should be marked as unsuitable$/ do
-  # response.body.join.should_not match(/unsuitable_workplace/)
-  response.body.join.should_not =~ /unsuitable_workplace/
+  response.body.join.should_not match(/unsuitable_workplace/)
 end

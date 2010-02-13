@@ -38,15 +38,13 @@ end
 
 Then /^the employees should have the following statuses:$/ do |employees|
   employees.hashes.each do |attributes|
-    # locate_employee(attributes['employee']).element['class'].should include(attributes['status'])
-    locate_employee(attributes['employee']).element['class'].include?(attributes['status']).should == true
+    locate_employee(attributes['employee']).element['class'].should include(attributes['status'])
   end
 end
 
 Then /^the employees should not have the following statuses:$/ do |employees|
   employees.hashes.each do |attributes|
-    # locate_employee(attributes['employee']).element['class'].should_not include(attributes['status'])
-    locate_employee(attributes['employee']).element['class'].include?(attributes['status']).should == false
+    locate_employee(attributes['employee']).element['class'].should_not include(attributes['status'])
   end
 end
 
@@ -61,6 +59,5 @@ When /I drag the employee "([^\"]*)" over the requirement for a "([^\"]*)" in th
 end
 
 Then /^I should see an employee named "([^\"]*)" listed in the sidebar$/ do |name|
-  # locate_employee(name).should_not be_nil
-  locate_employee(name).nil?.should == false
+  locate_employee(name).should_not be_nil
 end
