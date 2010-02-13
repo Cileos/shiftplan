@@ -52,4 +52,4 @@ Feature: Managing workplaces
 	Scenario: Deleting an existing workplace
 		Given I am on the workplaces index page
 		When I follow "Delete"
-		And I should not see a workplace named "Bar"
+		Then I should not see a workplace named "Bar"

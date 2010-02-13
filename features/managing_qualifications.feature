@@ -48,8 +48,8 @@ Feature: Managing qualifications
 	# 	And I fill in "Name" with ""
 	# 	And I press "Save"
 	# 	Then I should see "qualification could not be updated."
-	
+
 	Scenario: Deleting an existing qualification
 		Given I am on the qualifications index page
 		When I follow "Delete"
-		And I should not see a qualification named "Barkeeper"
+		Then I should not see a qualification named "Barkeeper"
