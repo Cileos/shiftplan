@@ -19,11 +19,6 @@ Given /^the following plans for "([^\"]*)":$/ do |account, plans|
   end
 end
 
-When /^I drop onto the shifts area for ([^\"]*)$/ do |date|
-  day = locate_day(date)
-  drop(day)
-end
-
 Then /^the following plans should be stored:$/ do |plans|
   plans.hashes.each do |attributes|
     attributes = attributes.dup

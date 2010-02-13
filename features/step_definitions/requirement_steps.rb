@@ -16,8 +16,6 @@ end
 When /^I click on the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|
   element = locate_requirement(date, workplace, qualification)
   click_on(element)
-  # page.getFirstByXPath(element.xpath).click # yuck
-  # respond!
 end
 
 When /^I drag the requirement for a "([^\"]*)" from the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|
@@ -28,6 +26,8 @@ end
 When /^I drop onto the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |qualification, workplace, date|
   element = locate_requirement(date, workplace, qualification)
   drop(element)
+  # puts "DROPPED ONTO #{element.to_s}"
+  # puts "LAST INSERTED ASSIGNMENT IS #{Assignment.last.inspect}"
 end
 
 When /^I drag the assignment of "([^\"]*)" from the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.+)$/ do |employee, qualification, workplace, date|

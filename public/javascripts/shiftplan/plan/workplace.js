@@ -19,7 +19,8 @@
     },
   	bind_events: function() {
   		$('div', this.element).draggable({
-  			helper: 'clone'
+  			helper: 'clone',
+  			// start: function() { alert('DRAGGING!') }
   		});
   	},
   	name: function() {

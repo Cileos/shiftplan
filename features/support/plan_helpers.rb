@@ -28,9 +28,15 @@ module PlanHelpers
     locate(:class => 'day', :'data-day' => date.gsub('-', ''), &block)
   end
 
-  def locate_shifts(date, &block)
+  def locate_shifts(date, workplace = nil, &block)
     locate_day(date) do |element|
-      locate(:ul, :class => 'shifts', &block)
+      if workplace
+        workplace = Workplace.find_by_name(workplace)
+        css_class = "workplace_#{workplace.id}"
+      else
+        css_class = "shifts"
+      end
+      locate(:ul, :class => css_class, &block)
     end
   end
 

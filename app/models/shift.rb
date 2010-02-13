@@ -5,7 +5,7 @@ class Shift < ActiveRecord::Base
 
   # validates_presence_of :plan_id, :if => lambda { |record| record.plan.nil? }
   validates_presence_of :start, :end
-  validate :start_before_end
+  # validate :start_before_end
 
   before_validation :synchronize_duration_end_time, :if => lambda { |shift| !!shift.start }
 

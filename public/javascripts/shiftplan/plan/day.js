@@ -6,6 +6,7 @@
   $.extend(Day, Resource, {
   	selector: '.day',
   	on_drop: function(event, ui) {
+  	  // document.title = 'DROPPED ONTO: ' + $(this).closest('.day').outerHTML();
   		switch(true) {
   			case ui.draggable.parent().hasClass('workplace'):
   				Day.on_workplace_drop.call(this, event, ui);
@@ -16,7 +17,7 @@
   		}
   	},
   	on_workplace_drop: function(event, ui) {
-      // drops a workplace onto an empty day: create a workplace, then delegate
+      // drops a workplace onto an empty day
       Shifts.on_workplace_drop.call(this, event, ui);
   	}
   });
@@ -50,6 +51,7 @@
       });
     },
     render_hours: function() {
+      return
       var hours = $('<ul class="hours">');
       this.element.after(hours);
       for(var i = Plan.start(); i < Plan.end(); i += 60) {

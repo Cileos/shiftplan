@@ -14,8 +14,6 @@
 
   		var shift = $(html).shift();
   		shift.init();
-  		shift.bind_events();
-  		$('.requirement', shift.element).each(function() { $(this).requirement().bind_events(); })
   		return shift;
   	},
   	pixels_to_minutes: function(pixels) {
@@ -237,11 +235,12 @@
   	},
   	bind_events: function() {
       this.element.mousedown(Shift.on_mousedown);
-  	  this.element.click(Shift.on_click);
+      this.element.click(Shift.on_click);
       this.element.droppable({
-       accept: "#qualifications a div",
-       drop: Shift.on_qualification_drop
+        accept: "#qualifications a div",
+        drop: Shift.on_qualification_drop
       });
+
       this.element.draggable({
         containment: 'parent',
         axis: 'x',

@@ -30,7 +30,7 @@ When /^I click on the shift "([^\"]*)" on (.+)$/ do |workplace, date|
   click_on locate_shift(date, workplace)
 end
 
-When /^I drop onto to the shift "([^\"]*)" on (.+)$/ do |workplace, date|
+When /^I drop onto the shift "([^\"]*)" on (.+)$/ do |workplace, date|
   element = locate_shift(date, workplace)
   drop(element)
 end
@@ -47,8 +47,16 @@ When /^I drag the shift "([^\"]*)" on (.*)$/ do |workplace, date|
 end
 
 When /^I drop onto the shifts area for the workplace "(.*)" on (.*)$/ do |workplace, date|
-  shifts = locate_shifts(date)
-  drop(shifts)
+  element = workplace ? locate_shifts(date, workplace) : locate_day(date)
+  drop(element)
+end
+
+When /^I drop onto the shifts area for (.*)$/ do |date|
+  element = locate_day(date)
+  drop(element)
+  puts "DROPPED ONTO #{element.to_s}"
+  puts "JAVASCRIPT SAYS: #{page.getTitleText}"
+  p response.content_type
 end
 
 Then /^I should see the following shifts, required qualifications and assignments:$/ do |shifts|
@@ -73,7 +81,7 @@ Then /^the shift "([^\"]*)" on (.*) should not be highlighted$/ do |workplace, d
 end
 
 Then /^I should see a shift "([^\"]*)" on (.*)$/ do |workplace, date|
-  locate_shift(date, workplace).should_not be_nil
+  locate_shift(date, workplace).should_not raise_error(Steam::ElementNotFound)
 end
 
 Then /^I should not see a shift "([^\"]*)" on (.*)$/ do |workplace, date|
