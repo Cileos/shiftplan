@@ -1,23 +1,18 @@
 ENV["RAILS_ENV"] ||= "cucumber"
 
-$: << File.expand_path(File.dirname(__FILE__) + "/../../vendor/plugins/steam/lib")
-require 'rubygems'
-# require 'spork'
-require 'steam'
-
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
-Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
-
+require 'steam'
 require 'rspec'
 require 'rspec/rails'
 
-# Steam::Browser::HtmlUnit::Drb::Service.daemonize and sleep(0.25)
-browser = Steam::Browser::HtmlUnit.new #(:drb => true)
 World do
-  Steam::Session::Rails.new(browser)
+  Steam::Session::Rails.new(Steam::Browser::HtmlUnit.new)
 end
 
+World(Rspec::Matchers)
+
+Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
 Before do
   ActiveRecord::Base.send(:subclasses).each do |model|
     connection = model.connection
@@ -30,12 +25,3 @@ Before do
     end
   end
 end
-
-# Spork.prefork do
-# end
-# 
-# Spork.each_run do
-#   ActiveRecord::Base.establish_connection(:test)
-# end
-
-
