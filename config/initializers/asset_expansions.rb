@@ -44,7 +44,7 @@ JQUERY_141 = %w(
 )
 
 ActionView::Helpers::AssetTagHelper.module_eval do
-  register_javascript_expansion :shiftplan => JQUERY_141 + %w(
+  register_javascript_expansion :shiftplan => JQUERY_132 + %w(
     lib/core_ext/array
     lib/core_ext/date
     lib/core_ext/uri
