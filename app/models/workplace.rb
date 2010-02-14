@@ -23,6 +23,12 @@ class Workplace < ActiveRecord::Base
 
   accepts_nested_attributes_for :workplace_requirements, :allow_destroy => true
 
+  class << self
+    def search(term)
+      where(["name LIKE ?", "%#{term}%"])
+    end
+  end
+
   def needs_qualification?(qualification)
     qualifications.include?(qualification)
   end

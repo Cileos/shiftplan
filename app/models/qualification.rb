@@ -8,6 +8,12 @@ class Qualification < ActiveRecord::Base
 
   default_scope order("name ASC")
 
+  class << self
+    def search(term)
+      where(["name LIKE ?", "%#{term}%"])
+    end
+  end
+
   def possible_workplaces
     @possible_workplaces ||= Workplace.for_qualification(self)
   end

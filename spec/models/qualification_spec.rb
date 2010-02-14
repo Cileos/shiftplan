@@ -26,6 +26,34 @@ describe Qualification do
     end
   end
 
+  describe "class methods" do
+    describe ".search" do
+      before(:each) do
+        @qualification = Qualification.make(:name => 'Cook')
+      end
+
+      describe "successful" do
+        it "should find qualifications that match a given name" do
+          Qualification.search('cook').should include(@qualification)
+        end
+
+        # it "should find qualifications that match a given workplace name" do
+        #   Qualification.search('kitchen').should include(@qualification)
+        # end
+      end
+
+      describe "unsuccessful" do
+        it "should find qualifications that don't match a given name" do
+          Qualification.search('barkeeper').should_not include(@qualification)
+        end
+
+        # it "should find qualifications that don't match a given workplace name" do
+        #   Qualification.search('bar').should_not include(@qualification)
+        # end
+      end
+    end
+  end
+
   describe "instance methods" do
     describe "#possible_workplaces" do
       before(:each) do

@@ -101,6 +101,34 @@ describe Workplace do
     end
   end
 
+  describe "class methods" do
+    describe ".search" do
+      before(:each) do
+        @workplace = Workplace.make(:name => 'Kitchen')
+      end
+
+      describe "successful" do
+        it "should find workplaces that match a given name" do
+          Workplace.search('kitchen').should include(@workplace)
+        end
+
+        # it "should find workplaces that match a given qualification name" do
+        #   Workplace.search('cook').should include(@workplace)
+        # end
+      end
+
+      describe "unsuccessful" do
+        it "should find workplaces that don't match a given name" do
+          Workplace.search('bar').should_not include(@workplace)
+        end
+
+        # it "should find workplaces that don't match a given qualification name" do
+        #   Workplace.search('barkeeper').should_not include(@workplace)
+        # end
+      end
+    end
+  end
+
   describe "instance methods" do
     describe "#state" do
       it "returns 'active' if the workplace is active" do

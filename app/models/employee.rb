@@ -25,6 +25,10 @@ class Employee < ActiveRecord::Base
     def find_by_name(name)
       find_by_first_name_and_last_name(*name.split(' '))
     end
+
+    def search(term)
+      where(["CONCAT(first_name, last_name, cached_tag_list) LIKE ?", "%#{term}%"])
+    end
   end
 
   def has_qualification?(qualification)

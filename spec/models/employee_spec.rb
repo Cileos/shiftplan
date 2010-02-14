@@ -57,6 +57,58 @@ describe Employee do
     end
   end
 
+  describe "class methods" do
+    describe ".search" do
+      before(:each) do
+        @employee = Employee.make(:first_name => 'Fritz', :last_name => 'Thielemann', :tag_list => 'cool, dude')
+      end
+
+      describe "successful" do
+        it "should find employees that match a given first name" do
+          Employee.search('fritz').should include(@employee)
+        end
+
+        it "should find employees that match a given last name" do
+          Employee.search('thielemann').should include(@employee)
+        end
+
+        it "should find employees that match a given tag" do
+          Employee.search('dude').should include(@employee)
+        end
+
+        # it "should find employees that match a given qualification name" do
+        #   Employee.search('cook').should include(@employee)
+        # end
+        # 
+        # it "should find employees that match a given workplace name" do
+        #   Employee.search('kitchen').should include(@employee)
+        # end
+      end
+
+      describe "unsuccessful" do
+        it "should not find employees that don't match a given first name" do
+          Employee.search('sven').should_not include(@employee)
+        end
+
+        it "should not find employees that don't match a given last name" do
+          Employee.search('fuchs').should_not include(@employee)
+        end
+
+        it "should not find employees that don't match a given tag" do
+          Employee.search('uncool').should_not include(@employee)
+        end
+
+        # it "should not find employees that don't match a given qualification name" do
+        #   Employee.search('barkeeper').should_not include(@employee)
+        # end
+        # 
+        # it "should not find employees that don't match a given workplace name" do
+        #   Employee.search('bar').should_not include(@employee)
+        # end
+      end
+    end
+  end
+
   describe "instance methods" do
     describe "#full_name" do
       before(:each) do
