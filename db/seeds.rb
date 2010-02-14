@@ -10,11 +10,11 @@ if Account.first
 end
 
 account = Account.create!(
-  :name  => 'Awesome Hostels Inc.',
+  :name  => 'Cileos UG',
   :admin => {
-    :email => 'boss@awesome-hostels.com',
-    :password => 'boss',
-    :password_confirmation => 'boss',
+    :email => 'fritz@thielemann.de',
+    :password => 'oracle',
+    :password_confirmation => 'oracle',
     :email_confirmed => true
   }
 )
