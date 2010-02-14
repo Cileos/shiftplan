@@ -31,7 +31,7 @@ jQuery(document).ready(function() {
 
       if(data['html']['append']) {
         $.each(data['html']['append'], function(element, html) {
-          // folding dos not work well with table rows
+          // folding does not work well with table rows
           // $(html).css('display', 'none').appendTo($(element)).effect('fold', { mode: 'show' }, 1000).effect('highlight', {}, 1000);
           $(html).appendTo($(element)).effect('highlight', {}, 1000);
         });

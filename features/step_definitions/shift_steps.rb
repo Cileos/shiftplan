@@ -54,9 +54,6 @@ end
 When /^I drop onto the shifts area for (.*)$/ do |date|
   element = locate_day(date)
   drop(element)
-  puts "DROPPED ONTO #{element.to_s}"
-  puts "JAVASCRIPT SAYS: #{page.getTitleText}"
-  p response.content_type
 end
 
 Then /^I should see the following shifts, required qualifications and assignments:$/ do |shifts|

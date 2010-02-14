@@ -48,7 +48,6 @@ Feature: THE plan
 		And I should see a workplace named "Kitchen" listed in the sidebar
 		And I should see a qualification named "Chef" listed in the sidebar
 
-  @wip
 	Scenario: Adding a new shift on an empty day
 		Given I am on the plan show page
 		When I drag the workplace "Kitchen"
@@ -56,14 +55,14 @@ Feature: THE plan
 		Then I should see a shift "Kitchen" on Wednesday
 		And there should be a shift "Kitchen" on Wednesday stored in the database
 
-  # Scenario: Adding a new shift on a day where no shift for this workplace exists
-  #   Given I am on the plan show page
-  #   When I drag the workplace "Kitchen"
-  #   And I drop onto the shifts area for Tuesday
-  #   # And I drop onto the shifts area for the workplace "Reception" on Tuesday
-  #   Then I should see a shift "Kitchen" on Tuesday
-  #   And there should be a shift "Kitchen" on Tuesday stored in the database
-  # 
+  Scenario: Adding a new shift on a day where no shift for this workplace exists
+    Given I am on the plan show page
+    When I drag the workplace "Kitchen"
+    And I drop onto the shifts area for Tuesday
+    # And I drop onto the shifts area for the workplace "Reception" on Tuesday
+    Then I should see a shift "Kitchen" on Tuesday
+    And there should be a shift "Kitchen" on Tuesday stored in the database
+
   #   Scenario: Adding a new shift on a day where a shift for this workplace exists
   #     Given I am on the plan show page
   #     When I drag the workplace "Reception"
