@@ -12,7 +12,7 @@ class PlanPresenter
       div(:class => 'day', :'data-day' => object.strftime('%Y%m%d')) do
         shifts.group_by(&:workplace).map do |workplace, shifts|
           presenter_for(workplace, 'plan/workplace').render(shifts)
-        end.join("\n")
+        end.join("\n").html_safe
       end
     end
   end

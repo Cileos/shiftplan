@@ -9,8 +9,8 @@ class PlanPresenter
 
     def render(shifts)
       ul(:class => "workplace #{dom_id(workplace)} shifts") do
-        shifts.map { |shift| presenter_for(shift, 'plan/shift').render }
-      end
+        shifts.map { |shift| presenter_for(shift, 'plan/shift').render }.join.html_safe
+      end.html_safe
     end
   end
 end
