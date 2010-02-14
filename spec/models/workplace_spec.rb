@@ -91,7 +91,7 @@ describe Workplace do
     describe "#generate_color" do
       it "generates a color dependent on the number of existing workplaces" do
         @workplace.send(:generate_color)
-        @workplace.color.should == '#ffc58c'
+        @workplace.color.should == '#ff8c8c'
 
         Workplace.stub!(:count).and_return(1)
         another_workplace = Workplace.new
