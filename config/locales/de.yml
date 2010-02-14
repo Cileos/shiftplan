@@ -17,6 +17,7 @@ de:
   options: Optionen
   picture_powered_by: "Bild angetrieben von {{link}}"
   copy_from: "Kopieren"
+  tags: "Tags: {{tags}}"
 
   shifts: Schichten
   requirements: Anforderungen
@@ -247,6 +248,8 @@ de:
         active: Aktiv?
         color: Farbe
         qualifications: Qualifikationen
+        tags: Tags
+        tag_list: Tags
       employee:
         base_data: Basisdaten
         qualifications: Qualifikationen
@@ -259,6 +262,8 @@ de:
         phone: Telefon
         street: Straße
         zipcode: "PLZ, Ort"
+        tags: Tags
+        tag_list: Tags
       qualification:
         base_data: Basisdaten
         name: Name

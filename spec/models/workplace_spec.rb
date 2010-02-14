@@ -10,8 +10,6 @@ describe Workplace do
       @workplace.should belong_to(:account)
     end
 
-    end
-
     it "should have workplace requirements" do
       @workplace.should have_many(:workplace_requirements)
     end

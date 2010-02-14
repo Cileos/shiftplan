@@ -1,5 +1,6 @@
 class Employee < ActiveRecord::Base
   is_gravtastic
+  acts_as_taggable
 
   belongs_to :account
   has_many :employee_qualifications
@@ -63,6 +64,7 @@ class Employee < ActiveRecord::Base
         last_name: '#{last_name}',
         active: #{active?},
         qualifications: [#{qualifications}],
+        tag_list: '#{tag_list}',
         email: '#{email}',
         phone: '#{phone}',
         street: '#{street}',

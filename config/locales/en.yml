@@ -17,6 +17,7 @@ en:
   options: Optionen
   picture_powered_by: "Picture powered by {{link}}"
   copy_from: "Copy from"
+  tags: "Tags: {{tags}}"
 
   shifts: Shifts
   requirements: Requirements
@@ -154,6 +155,8 @@ en:
         phone: Phone
         street: Street
         zipcode: "Zip, City"
+        tags: Tags
+        tag_list: Tags
       qualification:
         base_data: Base data
         name: Name

@@ -34,7 +34,7 @@
   margin: 0.25em 0;
 }
 
-#list .resource .qualifications {
+#list .resource .qualifications, #list .resource .tags {
   font-style: italic;
   font-size: 0.8em;
 }

@@ -5,4 +5,5 @@
 	</div>
 	<h2 class="name"><%= employee.full_name %></h2>
 	<p class="qualifications"><%= employee.possible_workplaces.map(&:name).join(', ') %>&nbsp;</p>
+	<p class="tags"><%= truncate(t(:tags, :tags => employee.tag_list)) %>&nbsp;</p>
 <% end -%>
