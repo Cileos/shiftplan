@@ -13,6 +13,10 @@ end
 World(Rspec::Matchers)
 
 Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
+at_exit do
+  browser.close
+end
+
 Before do
   ActiveRecord::Base.send(:subclasses).each do |model|
     connection = model.connection
