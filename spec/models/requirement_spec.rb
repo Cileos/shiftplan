@@ -36,7 +36,7 @@ describe Requirement do
         @cook_qualification      = Qualification.make(:name => 'Cook')
         @barkeeper_qualification = Qualification.make(:name => 'Barkeeper')
 
-        @kitchen_shift = Shift.make(:start => Time.local(2009, 11, 30, 8, 0), :end => Time.local(2009, 11, 30, 17, 0))
+        @kitchen_shift = Shift.make(:start => Time.utc(2009, 11, 30, 8, 0), :end => Time.utc(2009, 11, 30, 17, 0))
         @cook_requirement = Requirement.make(:shift => @kitchen_shift, :qualification => @cook_qualification)
 
         @cook_1    = Employee.make(:qualifications => [@cook_qualification])
