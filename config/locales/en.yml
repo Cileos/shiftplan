@@ -19,6 +19,13 @@ en:
   copy_from: "Copy from"
   tags: "Tags: {{tags}}"
 
+  select_all: Select all
+  deselect_all: Deselect all
+  search: Search
+  employee_search: Employee search
+  workplace_search: Workplace search
+  qualification_search: Qualification search
+
   shifts: Shifts
   requirements: Requirements
   assignments: Assignments

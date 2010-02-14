@@ -12,6 +12,11 @@ class Qualification < ActiveRecord::Base
     def search(term)
       where(["name LIKE ?", "%#{term}%"])
     end
+
+    # helper method for the time being
+    def active
+      all
+    end
   end
 
   def possible_workplaces

@@ -1,15 +1,15 @@
 <div id="sidebar">
-	<h4><%= t(:employees, :scope => :navigation) %></h4>
+	<h4><%= t(:employees, :scope => :navigation) %> (<%= link_to t(:search), '#', :id => 'show_employee_search', :class => 'show_search' %>)</h4>
 	<ul id="employees">
 	  <%= employees.map { |employee| presenter_for(employee, 'plan/sidebar/employee') }.join.html_safe -%>
 	</ul>
 
-	<h4><%= t(:workplaces, :scope => :navigation) %></h4>
+	<h4><%= t(:workplaces, :scope => :navigation) %> (<%= link_to t(:search), '#', :id => 'show_workplace_search', :class => 'show_search' %>)</h4>
 	<ul id="workplaces">
 	  <%= workplaces.map { |workplace| presenter_for(workplace, 'plan/sidebar/workplace') }.join.html_safe -%>
 	</ul>
 
-  <h4><%= t(:qualifications, :scope => :navigation)%></h4>
+  <h4><%= t(:qualifications, :scope => :navigation)%> (<%= link_to t(:search), '#', :id => 'show_qualification_search', :class => 'show_search' %>)</h4>
 	<ul id="qualifications">
 	  <%= qualifications.map { |qualification| presenter_for(qualification, 'plan/sidebar/qualification') }.join.html_safe -%>
 		<!--<li><a href="#" class="qualification any">(Beliebig)</a></li>-->

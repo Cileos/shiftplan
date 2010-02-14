@@ -19,6 +19,13 @@ de:
   copy_from: "Kopieren"
   tags: "Tags: {{tags}}"
 
+  select_all: Alle auswählen
+  deselect_all: Alle abwählen
+  search: Suche
+  employee_search: Mitarbeiter suchen
+  workplace_search: Arbeitsplätze suchen
+  qualification_search: Qualifikationen suchen
+
   shifts: Schichten
   requirements: Anforderungen
   assignments: Zuweisung

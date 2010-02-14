@@ -1,3 +1,17 @@
 <%= presenter_for(@plan) %>
 
 <%= render :partial => 'sidebar', :locals => { :employees => @employees, :workplaces => @workplaces, :qualifications => @qualifications } %>
+
+<% [:employee, :workplace, :qualification].each do |resource_type| -%>
+  <% content_tag(:div, :id => "#{resource_type}_search", :class => 'search_box') do %>
+    <%= image_tag('icons/close.png', :alt => 'Close', :class => 'close') %>
+    <h3><%= t(:"#{resource_type}_search") %></h3>
+    <%= tag(:input, :id => "#{resource_type}_search_query", :type => 'text') %>
+    <%= link_to t(:select_all), '#', :class => 'select_all' %> | <%= link_to t(:deselect_all), '#', :class => 'deselect_all' %>
+    <table>
+      <tbody>
+        <%= render :partial => resource_type.to_s, :collection => resource_type.to_s.classify.constantize.active %>
+      </tbody>
+    </table>
+  <% end -%>
+<% end -%>

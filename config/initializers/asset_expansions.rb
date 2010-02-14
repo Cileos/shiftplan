@@ -7,6 +7,7 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     lib/jquery/jquery
     lib/jquery/jquery-ui
     lib/jquery/jquery-plugin-form
+    lib/jquery/jquery-plugin-quicksearch
 
     shiftplan/cursor
     shiftplan/resource
@@ -20,6 +21,7 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     shiftplan/plan/employee
     shiftplan/plan/workplace
     shiftplan/plan/qualification
+    shiftplan/plan/search
 
     shiftplan/stuff/dialogs
     shiftplan/stuff/lists
@@ -40,6 +42,7 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     resources
     dashboard
     statuses
+    search
   )
   # jquery-ui/ui-lightness/jquery-ui
 end
