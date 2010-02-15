@@ -1,3 +1,5 @@
+require 'core_ext/array/join_safe'
+
 class PlanPresenter
   class ShiftPresenter < Presenter
     def attributes
@@ -14,7 +16,7 @@ class PlanPresenter
         # div(:class => 'actions') { link_to('delete', shift_path(shift), :method => :delete, :class => 'delete') } +
         h3(workplace.name) +
         ul(:class => 'requirements') do
-          requirements.map { |requirement| presenter_for(requirement, 'plan/requirement').render }.join.html_safe
+          requirements.map { |requirement| presenter_for(requirement, 'plan/requirement').render }.join_safe
         end
       end
     end

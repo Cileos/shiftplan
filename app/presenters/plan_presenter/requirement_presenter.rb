@@ -20,7 +20,7 @@ class PlanPresenter
       if assignee
         classes = "assignment #{dom_id(assignee)} dialog"
         classes << "qualification_#{qualification.id}" if qualification
-        link_to('', employee_path(assignee), :class => classes)
+        link_to(''.html_safe, employee_path(assignee), :class => classes)
       end
     end
   end
