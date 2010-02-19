@@ -9,10 +9,10 @@ echo $LD_LIBRARY_PATH
 # get latest steam code, the version of locactor gem has to be checked manually
 # if steam gets more stable we could comment out the update step
 ODIR=`pwd` && cd /var/www/shiftplan/shared/vendor/plugins/steam && git pull && cd $ODIR
-ln -nfs /var/www/shiftplan/shared/vendor/plugins/steam ../vendor/plugins/steam
+ln -nfs /var/www/shiftplan/shared/vendor/plugins/steam vendor/plugins/steam
 
 # create database configuration
-ln -nfs /var/www/shiftplan/shared/config/database.yml.test ../config/database.yml
+ln -nfs /var/www/shiftplan/shared/config/database.yml.test config/database.yml
 
 # run bundler stuff
 env PATH=$PATH bundle install --relock
