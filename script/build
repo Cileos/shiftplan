@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# set JAVA stuff for installing rjb
+export JAVA_HOME=/usr/lib/jvm/java-1.5.0-sun
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/jre/lib/i386:${JAVA_HOME}/jre/lib/i386/client
+echo $JAVA_HOME
+echo $LD_LIBRARY_PATH
+
+# get latest steam code, the version of locactor gem has to be checked manually
+# if steam gets more stable we could comment out the update step
+ODIR=`pwd` && cd /var/www/shiftplan/shared/vendor/plugins/steam && git pull && cd $ODIR
+ln -nfs /var/www/shiftplan/shared/vendor/plugins/steam ../vendor/plugins/steam
+
+# create database configuration
+ln -nfs /var/www/shiftplan/shared/config/database.yml.test ../config/database.yml
+
+# run bundler stuff
+env PATH=$PATH bundle install --relock
+
+# prepare test db
+rake environment RAILS_ENV=test db:drop db:create db:migrate
+
+# start the test server into background
+nohup rails server -p 3000 -e test 2>/dev/null 1>/dev/null &
+
+# wait for starting server and run the tests
+sleep 20 && bundle exec cucumber -b features RAILS_ENV=test && bundle exec rspec ./spec
+STATUS=`echo $?`
+
+# stop the before started test server
+if [ -f 'tmp/pids/server.pid' ]
+then
+  kill -9 `cat tmp/pids/server.pid`
+  rm tmp/pids/server.pid
+fi
+
+echo $STATUS

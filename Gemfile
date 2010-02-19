@@ -6,7 +6,7 @@ gem "rails", :git => "git://github.com/rails/rails.git"
 # gem "rails", :git => "git://github.com/rails/rails.git"
 
 gem 'rack'
-gem 'mysql'
+gem 'mysql', '2.7'
 
 gem 'gravtastic', '>= 2.1.0'
 

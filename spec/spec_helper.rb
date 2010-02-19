@@ -84,7 +84,7 @@ module Rspec
   end
 end
 
-Rspec::Core.configure do |c|
+Rspec.configure do |c|
   c.before(:all)  { Sham.reset(:before_all)  }
   c.before(:each) { Sham.reset(:before_each) }
 
