@@ -26,6 +26,7 @@ Feature: Managing workplaces
     And I fill in "Name" with "Kitchen"
     And I press "Save"
     Then I should see a workplace named "Kitchen"
+    And I should see a flash confirmation
 
   # Scenario: Trying to define a workplace with insufficient data
   #   Given I am on the workplaces index page
@@ -33,6 +34,7 @@ Feature: Managing workplaces
   #   And I fill in "Name" with ""
   #   And I press "Save"
   #   Then I should see "can't be blank"
+  #   And I should see a flash confirmation
 
 	Scenario: Updating an existing workplace
 		Given I am on the workplaces index page
@@ -41,15 +43,18 @@ Feature: Managing workplaces
 		And I press "Save"
 		Then I should see a workplace named "Reception"
 		And I should not see a workplace named "Bar"
-	
+    And I should see a flash confirmation
+
 	# Scenario: Trying to update an existing workplace with insufficient data
 	# 	Given I am on the workplaces index page
 	#	  When I click on the workplace "Bar"
 	# 	And I fill in "Name" with ""
 	# 	And I press "Save"
 	# 	Then I should see "Workplace could not be updated."
+  #   And I should see a flash confirmation
 	
 	Scenario: Deleting an existing workplace
 		Given I am on the workplaces index page
 		When I follow "Delete"
 		Then I should not see a workplace named "Bar"
+    And I should see a flash confirmation

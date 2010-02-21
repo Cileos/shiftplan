@@ -51,8 +51,8 @@ Feature: Managing plans
     And the following plans should be stored:
       | name   | start_date | end_date | start_time | end_time | template |
       | Plan 2 | Tuesday    | Thursday | 9:00       | 12:00    | true     |
+    And I should see a flash confirmation
 
-  @wip
   Scenario: Creating a new plan from a template copying shifts
     Given I am on the plans index page
     When I fill in "Name" with "Plan 2"
@@ -72,6 +72,7 @@ Feature: Managing plans
 		 | Kitchen   | Monday  | 11:00 | 240      | Chef:Clemens Kofler |
 		 | Bar       | Monday  | 12:00 | 240      | Barkeeper           |
 		 | Reception | Tuesday | 10:00 | 300      | any                 |
+    And I should see a flash confirmation
 
   # Scenario: Trying to define a plan with insufficient data
   #   Given I am on the plans index page
@@ -90,7 +91,8 @@ Feature: Managing plans
     And I select "18:00" as the "plan_end_time" time
     And I press "Save"
     Then I should see a plan named "Plan 3"
-  
+    And I should see a flash confirmation
+
 	# Scenario: Trying to update an existing plan with insufficient data
 	# 	Given I am on the employees index page
 	# 	When I follow "Edit"
@@ -103,3 +105,4 @@ Feature: Managing plans
     Given I am on the plans index page
     When I follow "Delete"
     Then I should not see a plan named "Plan 1"
+    And I should see a flash confirmation

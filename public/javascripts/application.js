@@ -44,6 +44,14 @@ jQuery(document).ready(function() {
           $(html).replaceAll($(element)).effect('highlight', {}, 1000);
         });
       }
+
+      if(data['flash']) {
+        $.each(data['flash'], function(type, message) {
+          if(message != '') {
+            $('#flash').html(message).attr('class', type).show().delay(3000).fadeOut(2000);
+          }
+        });
+      }
     }
   });
 
@@ -59,5 +67,12 @@ jQuery(document).ready(function() {
 (function($) {  
   $.fn.outerHTML = function() {
     return $('<div>').append( this.eq(0).clone() ).html();
+  };
+  
+  $.fn.delay = function(time, name) {
+    return this.queue((name || "fx"), function() {
+      var self = this;
+      setTimeout(function() { $.dequeue(self); } , time );
+    });
   };
 })(jQuery);

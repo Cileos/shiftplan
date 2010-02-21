@@ -1,11 +1,15 @@
 JQUERY_132 = %w(
   lib/jquery/jquery
+)
+JQUERY_141 = %w(
+  lib/jquery/jquery-1.4.1
+)
+JQUERY_UI_17 = %w(
   lib/jquery/jquery-ui
   lib/jquery/jquery-plugin-form
   lib/jquery/jquery-plugin-quicksearch
 )
-JQUERY_141 = %w(
-  lib/jquery/jquery-1.4.1
+JQUERY_UI_18 = %w(
   lib/jquery-ui-1.8rc1/jquery-ui
   lib/jquery-ui-1.8rc1/jquery-ui.js
   lib/jquery-ui-1.8rc1/jquery.ui.core.js
@@ -44,7 +48,7 @@ JQUERY_141 = %w(
 )
 
 ActionView::Helpers::AssetTagHelper.module_eval do
-  register_javascript_expansion :shiftplan => JQUERY_132 + %w(
+  register_javascript_expansion :shiftplan => JQUERY_132 + JQUERY_UI_17 + %w(
     lib/core_ext/array
     lib/core_ext/date
     lib/core_ext/uri

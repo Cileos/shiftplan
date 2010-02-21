@@ -26,6 +26,7 @@ Feature: Managing qualifications
     And I fill in "Name" with "Chef"
     And I press "Save"
     Then I should see a qualification named "Chef"
+    And I should see a flash confirmation
 
   # Scenario: Trying to define a qualification with insufficient data
   #   Given I am on the qualifications index page
@@ -33,6 +34,7 @@ Feature: Managing qualifications
   #   And I fill in "Name" with ""
   #   And I press "Save"
   #   Then I should see "can't be blank"
+  #   And I should see a flash confirmation
 
 	Scenario: Updating an existing qualification
 		Given I am on the qualifications index page
@@ -41,15 +43,18 @@ Feature: Managing qualifications
 		And I press "Save"
 		Then I should see a qualification named "Reception"
 		And I should not see a qualification named "Barkeeper"
-	
+    And I should see a flash confirmation
+
 	# Scenario: Trying to update an existing qualification with insufficient data
 	# 	Given I am on the qualifications index page
 	#	  When I click on the qualification "Barkeeper"
 	# 	And I fill in "Name" with ""
 	# 	And I press "Save"
 	# 	Then I should see "qualification could not be updated."
+  #   And I should see a flash confirmation
 
 	Scenario: Deleting an existing qualification
 		Given I am on the qualifications index page
 		When I follow "Delete"
 		Then I should not see a qualification named "Barkeeper"
+    And I should see a flash confirmation

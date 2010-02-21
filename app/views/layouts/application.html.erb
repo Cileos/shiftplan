@@ -4,10 +4,6 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title><%= yield :title %> | shiftplan.com</title>
 
-		<script>
-			// var Plan = {}
-		</script>
-
     <%= javascript_include_tag :shiftplan, :cache => true %>
     <%= stylesheet_link_tag :shiftplan %>
 	
@@ -44,6 +40,7 @@
     	    <% end -%>
   	    </li>
 	    </ul>
+	    <div id="flash"></div>
     </div>
 	  <div id="main">
 	    <%= yield %>

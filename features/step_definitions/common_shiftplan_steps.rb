@@ -35,3 +35,9 @@ Then /^I should not see an? (.*) named "([^\"]*)"$/ do |klass, name|
   # name = /#{name}/ unless name.is_a?(Regexp)
   lambda { locate(name, :class => klass) }.should raise_error(Steam::ElementNotFound)
 end
+
+Then /^I should see a flash confirmation$/ do
+  element = locate(:id => 'flash', :class => 'notice')
+  element.should_not be_nil
+  element.content.should_not be_blank
+end

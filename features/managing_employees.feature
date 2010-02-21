@@ -27,6 +27,7 @@ Feature: Managing employees
     And I fill in "Last name" with "Kofler"
     And I press "Save"
     Then I should see an employee named "Clemens Kofler"
+    And I should see a flash confirmation
 
   # Scenario: Trying to define an employee with insufficient data
   #   Given I am on the employees index page
@@ -45,6 +46,7 @@ Feature: Managing employees
 		And I press "Save"
 		Then I should see an employee named "Laura Kozlowski"
 		And I should not see an employee named "Fritz Thielemann"
+    And I should see a flash confirmation
 
 	# Scenario: Trying to update an existing employee with insufficient data
 	# 	Given I am on the employees index page
@@ -57,3 +59,4 @@ Feature: Managing employees
 		Given I am on the employees index page
 		When I follow "Delete"
 		Then I should not see an employee named "Fritz Thielemann"
+    And I should see a flash confirmation

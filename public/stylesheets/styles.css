@@ -62,11 +62,15 @@ div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWit
 }
 
 #flash {
+  position: relative;
   padding: 0.5em;
   border: 1px solid #ddd;
   color: #fff;
   margin-bottom: 1em;
   display: none;
+  z-index: 1000;
+  font-size: 12px;
+  padding-left: 24px;
 }
 #flash.notice {
   background-color: green;
