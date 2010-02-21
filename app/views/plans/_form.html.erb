@@ -16,21 +16,21 @@
         <%= f.date_select :end_date %>
       </div>
       <div>
-        <%= label_tag :template_id, t(:'activerecord.attributes.plan.template') %>
-        <%= select_tag 'template[id]', tag(:option) + options_from_collection_for_select(@templates, :id, :name) %>
+        <%= label_tag :copy_from_id, t(:'activerecord.attributes.plan.template') %>
+        <%= select_tag 'copy_from[id]', tag(:option) + options_from_collection_for_select(@templates, :id, :name) %>
       </div>
-      <div id="template_options">
+      <div id="copy_from_options">
         <div>
-          <%= check_box_tag 'template[copy][]', 'shifts', {}, :id => :template_copy_shifts %>
-    	    <%= label_tag :template_copy_shifts, t(:shifts), :class => 'inline' %>
+          <%= check_box_tag 'copy_from[elements][]', 'shifts', {}, :id => :copy_from_shifts %>
+    	    <%= label_tag :copy_from_shifts, t(:shifts), :class => 'inline' %>
         </div>
         <div>
-          <%= check_box_tag 'template[copy][]', 'requirements', {}, :id => :template_copy_requirements %>
-    	    <%= label_tag :template_copy_requirements, t(:requirements), :class => 'inline' %>
+          <%= check_box_tag 'copy_from[elements][]', 'requirements', {}, :id => :copy_from_requirements %>
+    	    <%= label_tag :copy_from_requirements, t(:requirements), :class => 'inline' %>
         </div>
         <div>
-          <%= check_box_tag 'template[copy][]', 'assignments', {}, :id => :template_copy_assignments %>
-    	    <%= label_tag :template_copy_assignments, t(:assignments), :class => 'inline' %>
+          <%= check_box_tag 'copy_from[elements][]', 'assignments', {}, :id => :copy_from_assignments %>
+    	    <%= label_tag :copy_from_assignments, t(:assignments), :class => 'inline' %>
         </div>
       </div>
     </fieldset>

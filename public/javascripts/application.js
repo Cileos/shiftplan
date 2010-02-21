@@ -28,6 +28,7 @@ jQuery(document).ready(function() {
       // reset form
       $('#sidebar form').each(function() { this.reset(); });
       $('#staff_requirements').each(function() { $(this).empty(); })
+      $('#copy_from_options').hide();
 
       if(data['html']['append']) {
         $.each(data['html']['append'], function(element, html) {
@@ -46,11 +47,11 @@ jQuery(document).ready(function() {
     }
   });
 
-  $('form #template_id').change(function() {
+  $('form #copy_from_id').change(function() {
     if($(this).val() == '') {
-      $('form #template_options').hide();
+      $('#copy_from_options').hide();
     } else {
-      $('form #template_options').show();
+      $('#copy_from_options').show();
     }
   });
 });

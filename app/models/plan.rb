@@ -40,7 +40,13 @@ class Plan < ActiveRecord::Base
   end
 
   def copy_from(other, options = {})
-    other.shifts.each { |shift| shifts << shift.clone(options) }
+    offset = (start_date - other.start_date).days
+    other.shifts.each do |shift|
+      shift = shift.clone(options)
+      shift.start += offset
+      shift.end   += offset
+      shifts << shift
+    end
   end
 
   def form_values_json

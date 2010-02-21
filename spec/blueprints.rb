@@ -31,10 +31,10 @@ end
 
 Plan.blueprint do
   account
-  start_date { Date.tomorrow }
+  start_date { Date.today }
   end_date   { 8.days.from_now.to_date }
-  start_time { Date.tomorrow.beginning_of_day }
-  end_time   { 8.days.from_now.end_of_day }
+  start_time { Date.today.beginning_of_day }
+  end_time   { Date.today.end_of_day }
 end
 
 Assignment.blueprint do

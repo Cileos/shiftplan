@@ -78,9 +78,20 @@ describe Plan do
 
     describe "#copy_from" do
       before(:each) do
+        monday = self.monday - 149.days
+        friday = self.friday - 149.days
+
         requirement = Requirement.make(:qualification => Qualification.make, :assignment => Assignment.make)
-        shift       = Shift.make(:requirements => [requirement])
-        @template   = Plan.make(:template => true, :shifts => [shift])
+        shift       = Shift.make :requirements => [requirement],
+                                 :start => monday.beginning_of_day + 8.hours,
+                                 :end   => monday.beginning_of_day + 16.hours
+
+        @template   = Plan.make :start_date => monday,
+                                :end_date   => friday,
+                                :start_time => morning,
+                                :end_time   => afternoon,
+                                :template   => true,
+                                :shifts     => [shift]
       end
 
       it "should copy shifts" do
@@ -90,6 +101,8 @@ describe Plan do
         shift = @plan.shifts.first
         shift.id.should_not be_nil
         shift.id.should_not == @template.shifts.first.id
+        shift.start.to_date.should == monday
+        shift.end.to_date.should   == monday
 
         shift.requirements.should be_empty
       end

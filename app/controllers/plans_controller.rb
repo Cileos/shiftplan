@@ -16,7 +16,7 @@ class PlansController < ApplicationController
 
   def create
     @plan = current_account.plans.build(params[:plan])
-    @plan.copy_from(@template_plan, :copy => params[:template][:copy]) if @template_plan
+    @plan.copy_from(@copy_from, :copy => params[:copy_from][:elements]) if @copy_from
 
     if @plan.save
       flash[:notice] = t(:plan_successfully_created)
@@ -67,8 +67,8 @@ class PlansController < ApplicationController
     end
     
     def set_template
-      id = params[:template][:id] if params[:template]
-      @template_plan = current_account.plans.templates.find(id) unless id.blank?
+      id = params[:copy_from][:id] if params[:copy_from]
+      @copy_from = current_account.plans.templates.find(id) unless id.blank?
     end
 
     def set_plan
