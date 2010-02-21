@@ -17,7 +17,7 @@
       </div>
       <div>
         <%= label_tag :template_id, t(:'activerecord.attributes.plan.template') %>
-        <%= select_tag 'template[id]', '<option></option>' + options_from_collection_for_select(@templates, :id, :name) %>
+        <%= select_tag 'template[id]', tag(:option) + options_from_collection_for_select(@templates, :id, :name) %>
       </div>
       <div id="template_options">
         <div>
