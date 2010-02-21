@@ -9,22 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @employees.each do |employee| -%>
-      <tr>
-        <td><%= link_to employee.full_name, employee_default_statuses_path(employee) %></td>
-        <td><%= link_to t(:override_defaults), employee_statuses_path(employee) %></td>
-        <% default_statuses = employee.statuses.default.group_by(&:day_of_week) %>
-        <% 0.upto(6) do |day_of_week| -%>
-          <td>
-            <ul class="statuses">
-              <%= render :partial => 'default_status',
-                         :collection => Status.fill_gaps!(employee, day_of_week, default_statuses[day_of_week]),
-                         :locals => { :employee => employee } %>
-            </ul>
-          </td>
-        <% end -%>
-      </tr>
-    <% end -%>
+    <%= render :partial => 'employee', :collection => @employees %>
   </tbody>
 </table>
 

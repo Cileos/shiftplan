@@ -12,7 +12,6 @@ Shiftplan::Application.routes.draw do |map|
   resource :favorite
 
   resources :employees do
-    resources :default_statuses
     resources :statuses
   end
 

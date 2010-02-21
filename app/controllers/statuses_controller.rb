@@ -2,20 +2,38 @@ class StatusesController < ApplicationController
   before_filter :set_employees
   before_filter :set_employee
   before_filter :set_statuses, :only => :index
+  before_filter :set_status,   :only => :update
 
   def index
   end
 
   def create
-    @status = @employee.statuses.build(params[:status])
+    @status = Status.new(params[:status])
 
     if @status.save
       flash[:notice] = t(:status_successfully_created)
-      redirect_to employee_statuses_url(@employee)
+      respond_to do |format|
+        format.json { render :template => 'statuses/success', :status => 201 }
+      end
     else
-      set_employees
       flash[:error] = t(:status_could_not_be_created)
-      render :action => 'index'
+      respond_to do |format|
+        format.json { render :template => 'shared/errors', :status => 400 }
+      end
+    end
+  end
+
+  def update
+    if @status.update_attributes(params[:status])
+      flash[:notice] = t(:status_successfully_updated)
+      respond_to do |format|
+        format.json { render :template => 'statuses/success', :status => 200 }
+      end
+    else
+      flash[:error] = t(:status_could_not_be_updated)
+      respond_to do |format|
+        format.json { render :template => 'shared/errors', :status => 400 }
+      end
     end
   end
 
@@ -31,5 +49,9 @@ class StatusesController < ApplicationController
 
     def set_statuses
       @statuses = @employee.statuses.override.group_by(&:day).sort_by(&:first) if @employee
+    end
+
+    def set_status
+      @status = Status.find(params[:id])
     end
 end

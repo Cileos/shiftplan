@@ -1,0 +1,12 @@
+<tr>
+  <td><%= employee.full_name %></td>
+  <td><%= link_to t(:override_defaults), employee_statuses_path(employee) %></td>
+  <% default_statuses = employee.statuses.default.group_by(&:day_of_week) %>
+  <% 0.upto(6) do |day_of_week| -%>
+    <%= render :partial => 'day',
+               :locals => {
+                 :employee => employee,
+                 :day_of_week => day_of_week,
+                 :statuses => Status.fill_gaps!(employee, day_of_week, default_statuses[day_of_week]) } %>
+  <% end -%>
+</tr>

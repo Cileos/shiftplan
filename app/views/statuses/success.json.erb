@@ -1,0 +1,23 @@
+{
+  'flash': {
+    'notice': '<%= escape_javascript(flash[:notice]) %>'
+  },
+  'status': <%=raw @status.to_json %>,
+<% if @status.default? -%>
+<%
+# FIXME ugly
+employee = @status.employee
+day_of_week = @status.day_of_week
+default_statuses = employee.statuses.default.group_by(&:day_of_week)
+%>
+  'html': {
+    'replace': {
+      '#<%= "#{dom_id(employee)}_day_#{day_of_week}" %>': '<%= escape_javascript(render(:partial => 'default_statuses/day',
+              :locals => {
+                :employee => employee,
+                :day_of_week => day_of_week,
+                :statuses => Status.fill_gaps!(employee, day_of_week, default_statuses[day_of_week]) })) %>'
+    }
+  }
+<% end -%>
+}

@@ -1,6 +1,7 @@
 <h3><%= t(:new_default_status) %></h3>
 
 <% form_for(Status.new) do |f| %>
+	<input type="hidden" name="_method" value="" />
   <fieldset>
     <div>
       <%= f.label :employee_id %>
