@@ -1,10 +1,12 @@
 ENV["RAILS_ENV"] ||= "cucumber"
 
-require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
+require File.expand_path('../../../config/environment', __FILE__)
 
 require 'steam'
 require 'rspec'
 require 'rspec/rails'
+
+Steam.config[:html_unit][:java_path] = File.expand_path('../../../vendor/htmlunit-2.6', __FILE__)
 
 browser = Steam::Browser.create # (:daemon => true)
 World do

@@ -4,6 +4,6 @@ tmp/**/*
 config/database.yml
 db/*.sqlite3
 coverage
-vendor/plugins/steam
+vendor/htmlunit*
 vendor/rails
 tmp/restart.txt
