@@ -8,7 +8,7 @@ echo $LD_LIBRARY_PATH
 
 # get latest steam code, the version of locactor gem has to be checked manually
 # if steam gets more stable we could comment out the update step
-# steam is now a gem
+# steam is now a gem and not a plugin
 #ODIR=`pwd` && cd /var/www/shiftplan/shared/vendor/plugins/steam && git pull && cd $ODIR
 ln -nfs /var/www/shiftplan/shared/vendor/htmlunit-2.6 vendor/htmlunit-2.6
 
