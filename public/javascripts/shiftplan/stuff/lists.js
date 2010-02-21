@@ -48,15 +48,17 @@ $(document).ready(function() {
       var resource_name = match[1];
       var id = parseInt(match[2]);
       var method = 'put';
-      var path = '/' + resource_name + 's/' + id;
       var title = $('.name', $(resource)).html();
     } else {
       match = this.id.match(/new_(.*)/);
       var resource_name = match[1];
       var method = 'post';
-      var path = '/' + resource_name + 's';
       var title = 'New ' + resource_name;
     }
+
+    var match = $('#sidebar form').attr('action').match(/^\/([a-zA-Z\-_]*)/);
+    var path = '/' + match[1];
+    if(id) path += '/' + id;
 
     $('#sidebar form').attr('action', path);
     $('#sidebar > h3').html(title);
