@@ -48,10 +48,9 @@ class EmployeesController < ApplicationController
   def destroy
     @employee.destroy
     flash[:notice] = t(:employee_successfully_deleted)
-    render :status => 200
-    # respond_to do |format|
-    #   format.json { render :status => 200 }
-    # end
+    respond_to do |format|
+      format.json { render :status => 200 }
+    end
   end
 
   private
