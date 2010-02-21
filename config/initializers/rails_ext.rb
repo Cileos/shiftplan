@@ -4,3 +4,6 @@ class Array
     each { |e| e.html_safe unless e.nil? }
   end
 end
+
+require 'core_ext/array/join_safe'
+

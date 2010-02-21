@@ -1,5 +1,3 @@
-require 'core_ext/array/join_safe'
-
 class PlanPresenter
   class ShiftPresenter < Presenter
     def attributes
