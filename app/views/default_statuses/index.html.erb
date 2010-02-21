@@ -3,7 +3,7 @@
     <tr>
       <th><%= t(:employee_id, :scope => [:activerecord, :attributes, :status]) %></th>
       <th></th>
-      <% 0.upto(6) do |day_of_week| -%>
+      <% days_of_week.each do |day_of_week| -%>
         <th><%= t(:'date.day_names')[day_of_week] %></th>
       <% end -%>
     </tr>

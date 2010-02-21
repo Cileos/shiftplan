@@ -185,6 +185,9 @@ en:
   destroy: Delete
   back: Back
 
+  date:
+    first_day_of_week: 0
+
   time:
     formats:
       time: "%H:%M"

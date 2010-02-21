@@ -153,6 +153,7 @@ de:
   back: Zurück
   
   date:
+    first_day_of_week: 1
     formats:
       default: "%d.%m.%Y"
       short: "%e. %B"
