@@ -106,6 +106,9 @@ en:
   plan_from_to: "{{start_date}} - {{end_date}}"
   plan_successfully_created: "Plan successfully created."
   plan_could_not_be_created: "Plan could not be created."
+  plan_successfully_updated: "Plan successfully updated."
+  plan_could_not_be_updated: "Plan could not be updated."
+  plan_successfully_deleted: "Plan successfully deleted."
   plan_delete_confirmation: "Do you really want to delete this plan?"
 
   # shifts

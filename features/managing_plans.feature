@@ -64,6 +64,7 @@ Feature: Managing plans
     And I check "Shifts"
     And I press "Save"
     Then I should see a plan named "Plan 2"
+    And I should see a flash confirmation
 		When I follow "Plan 2"
 		Then I should see a plan named "Plan 2"
 		And I should see the following shifts, required qualifications and assignments:
@@ -72,7 +73,6 @@ Feature: Managing plans
 		 | Kitchen   | Monday  | 11:00 | 240      | Chef:Clemens Kofler |
 		 | Bar       | Monday  | 12:00 | 240      | Barkeeper           |
 		 | Reception | Tuesday | 10:00 | 300      | any                 |
-    And I should see a flash confirmation
 
   # Scenario: Trying to define a plan with insufficient data
   #   Given I am on the plans index page

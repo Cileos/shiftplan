@@ -15,10 +15,18 @@ $(document).ready(function() {
   		  'url': url,
   		  'type': 'post', // seems like HTMLUnit doesn't allow DELETE requests to have parameters ...
   		  'data': data,
-  		  'dataType': 'json',
+  		  'dataType': 'text',
   		  'success': function(data, textStatus) {
   		    $(resource).remove();
-  		  }
+          data = eval("(" + data + ")");
+          if(data['flash']) {
+            $.each(data['flash'], function(type, message) {
+              if(message != '') {
+                $('#flash').html(message).attr('class', type).show().delay(3000).fadeOut(2000);
+              }
+            });
+          }
+        }
   		});
     } else {
       $(resource)[resource_name]().destroy();

@@ -94,6 +94,17 @@
    	on_update: function(data, textStatus) {
       data = eval("(" + data + ")");
    	  // ...
+   	},
+   	on_destroy: function(data, textStatus) {
+      data = eval("(" + data + ")");
+
+      if(data['flash']) {
+        $.each(data['flash'], function(type, message) {
+          if(message != '') {
+            $('#flash').html(message).attr('class', type).show().delay(3000).fadeOut(2000);
+          }
+        });
+      }
    	}
   });
 
