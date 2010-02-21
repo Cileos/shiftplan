@@ -6,7 +6,7 @@ gem "rails", :git => "git://github.com/rails/rails.git"
 # gem "rails", :git => "git://github.com/rails/rails.git"
 
 gem 'rack'
-gem 'mysql', '2.7'
+gem 'mysql', '>= 2.7'
 
 gem 'gravtastic', '>= 2.1.0'
 
@@ -21,7 +21,7 @@ gem 'rspec-rails', '>= 2.0.0.a6', :group => [:cucumber, :test]
 
 # Bundle the extra gems:
 # gem "bj"
-# gem "hpricot", "0.6"
+# gem "hpricot", ">= 0.6"
 # gem "sqlite3-ruby", :require => "sqlite3"
 # gem "aws-s3", :require => "aws/s3"
 
