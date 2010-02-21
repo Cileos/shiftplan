@@ -24,6 +24,8 @@ module NavigationHelpers
     #   default_statuses_path
     # when /the statuses index page/
     #   statuses_path
+    # when /the tags index page/
+    #   tags_path
     when /the start page/
       '/'
     when /the plans index page/
@@ -40,6 +42,8 @@ module NavigationHelpers
       '/default_statuses'
     when /the statuses index page/
       '/statuses'
+    when /the tags index page/
+      '/tags'
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"

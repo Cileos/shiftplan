@@ -77,14 +77,25 @@ de:
 
   # qualifications
   click_to_add_qualification: Hinzufügen
-  add_qualification: "Klicken Sie hier, um einen Qualifikation hinzuzufügen"
-  new_qualification: Neuer Qualifikation
+  add_qualification: "Klicken Sie hier, um eine Qualifikation hinzuzufügen"
+  new_qualification: Neue Qualifikation
   edit_qualification: "Qualifikation \"{{name}}\" bearbeiten"
   qualification_successfully_created: "Qualifikation erfolgreich angelegt."
   qualification_could_not_be_created: "Qualifikation konnte nicht angelegt werden."
   qualification_successfully_updated: "Qualifikation erfolgreich geändert."
   qualification_could_not_be_updated: "Qualifikation konnte nicht geändert werden."
   qualification_successfully_deleted: "Qualifikation erfolgreich gelöscht."
+
+  # tags
+  click_to_add_tag: Hinzufügen
+  add_tag: "Klicken Sie hier, um einen Tag hinzuzufügen"
+  new_tag: Neuer Tag
+  edit_tag: "Tag \"{{name}}\" bearbeiten"
+  tag_successfully_created: "Tag erfolgreich angelegt."
+  tag_could_not_be_created: "Tag konnte nicht angelegt werden."
+  tag_successfully_updated: "Tag erfolgreich geändert."
+  tag_could_not_be_updated: "Tag konnte nicht geändert werden."
+  tag_successfully_deleted: "Tag erfolgreich gelöscht."
 
   # plans
   new_plan: Neuer Schichtplan
