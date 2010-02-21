@@ -9,6 +9,7 @@ de:
     plan: Schichtplan
     qualifications: Qualifikationen
     qualification: Qualifikation
+    statuses: Verfügbarkeitsplanung
     logged_in_as: "Angemeldet als {{user}}"
     logout: Abmelden
 
@@ -29,6 +30,8 @@ de:
   shifts: Schichten
   requirements: Anforderungen
   assignments: Zuweisung
+
+  override_defaults: Überschreiben
 
   employees:
     one:   "{{count}} Mitarbeiter"
@@ -72,6 +75,8 @@ de:
   employee_successfully_deleted: "Mitarbeiter erfolgreich gelöscht."
 
   # statuses
+  new_status: Neue Verfügbarkeit
+  new_default_status: Neue Standardverfügbarkeit
   status_from_to: "{{from}} bis {{to}}"
   status_successfully_created: "Verfügbarkeit erfolgreich angelegt."
   status_could_not_be_created: "Verfügbarkeit konnte nicht angelegt werden."
@@ -307,8 +312,8 @@ de:
         employee_id: Mitarbeiter
         day_of_week: Wochentag
         day: Tag
-        start: Start
-        end: Ende
+        start_time: Start
+        end_time: Ende
         status: Status
         statuses:
           available: Verfügbar

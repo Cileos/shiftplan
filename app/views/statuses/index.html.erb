@@ -7,7 +7,9 @@
   <% end -%>
   <%= render :partial => 'form', :locals => { :employee => @employee, :status => @employee.statuses.build } %>
 <% else -%>
-  <% @employees.each do |employee| -%>
-    <%= link_to employee.full_name, employee_statuses_path(employee) %>
-  <% end -%>
+  <ul>
+    <% @employees.each do |employee| -%>
+      <li><%= link_to employee.full_name, employee_statuses_path(employee) %></li>
+    <% end -%>
+  </ul>
 <% end -%>

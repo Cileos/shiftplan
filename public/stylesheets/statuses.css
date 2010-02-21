@@ -1,15 +1,15 @@
-ul.status li a:after {
+ul.statuses li a:after {
   content: "?";
 }
 
-ul.status li.available a {
+ul.statuses li.available a {
   color: green;
 }
 
-ul.status li.unavailable a {
+ul.statuses li.unavailable a {
   color: red;
 }
 
-ul.status li.available a:after, ul.status li.unavailable a:after {
+ul.statuses li.available a:after, ul.statuses li.unavailable a:after {
   content: "";
 }

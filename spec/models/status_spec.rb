@@ -13,11 +13,11 @@ describe Status do
 
   describe "validations" do
     it "should require a start time" do
-      @status.should validate_presence_of(:start)
+      @status.should validate_presence_of(:start_time)
     end
 
     it "should require a end time" do
-      @status.should validate_presence_of(:end)
+      @status.should validate_presence_of(:end_time)
     end
 
     it "should require a day of week between 0 and 6" do
@@ -83,8 +83,8 @@ describe Status do
   describe "scopes" do
     describe ".default" do
       before(:each) do
-        @sunday_default  = Status.make(:day_of_week => 0,    :start => '09:00', :end => '17:00')
-        @sunday_override = Status.make(:day => '2009-11-22', :start => '08:00', :end => '16:00')
+        @sunday_default  = Status.make(:day_of_week => 0,    :start_time => '09:00', :end_time => '17:00')
+        @sunday_override = Status.make(:day => '2009-11-22', :start_time => '08:00', :end_time => '16:00')
       end
 
       it "should include default statuses" do
@@ -98,8 +98,8 @@ describe Status do
 
     describe ".override" do
       before(:each) do
-        @sunday_default  = Status.make(:day_of_week => 0,    :start => '09:00', :end => '17:00')
-        @sunday_override = Status.make(:day => '2009-11-22', :start => '08:00', :end => '16:00')
+        @sunday_default  = Status.make(:day_of_week => 0,    :start_time => '09:00', :end_time => '17:00')
+        @sunday_override = Status.make(:day => '2009-11-22', :start_time => '08:00', :end_time => '16:00')
       end
 
       it "should include overrides" do
@@ -115,11 +115,11 @@ describe Status do
   describe "class methods" do
     describe ".for" do
       before(:each) do
-        @sunday_default    = Status.make(:day_of_week => 0,    :start => '09:00', :end => '17:00')
-        @monday_default    = Status.make(:day_of_week => 1,    :start => '06:00', :end => '14:00')
-        @monday_default_2  = Status.make(:day_of_week => 1,    :start => '16:00', :end => '23:00')
-        @sunday_override   = Status.make(:day => '2009-11-22', :start => '06:00', :end => '14:00')
-        @sunday_override_2 = Status.make(:day => '2009-11-22', :start => '16:00', :end => '23:00')
+        @sunday_default    = Status.make(:day_of_week => 0,    :start_time => '09:00', :end_time => '17:00')
+        @monday_default    = Status.make(:day_of_week => 1,    :start_time => '06:00', :end_time => '14:00')
+        @monday_default_2  = Status.make(:day_of_week => 1,    :start_time => '16:00', :end_time => '23:00')
+        @sunday_override   = Status.make(:day => '2009-11-22', :start_time => '06:00', :end_time => '14:00')
+        @sunday_override_2 = Status.make(:day => '2009-11-22', :start_time => '16:00', :end_time => '23:00')
       end
 
       describe "with only one parameter (= day)" do
@@ -175,58 +175,71 @@ describe Status do
     end
 
     describe ".fill_gaps!" do
+      before(:each) do
+        @employee = Employee.make
+      end
+
       it "should fill up a gap during the day" do
-        statuses = Status.fill_gaps!(0, [Status.new(:day_of_week => 0, :start => '00:00', :end => '12:00'), Status.new(:day_of_week => 0, :start => '17:00', :end => '00:00')])
+        statuses = Status.fill_gaps!(@employee, 0, [
+          Status.new(:day_of_week => 0, :start_time => '00:00', :end_time => '12:00'),
+          Status.new(:day_of_week => 0, :start_time => '17:00', :end_time => '00:00')
+        ])
         statuses.size.should == 3
-        statuses[1].start.strftime('%H:%M').should == '12:00'
-        statuses[1].end.strftime('%H:%M').should   == '17:00'
+        statuses[1].start_time.strftime('%H:%M').should == '12:00'
+        statuses[1].end_time.strftime('%H:%M').should   == '17:00'
       end
 
       describe "with empty array / nil" do
         it "should return an array with one full day status if nil given" do
-          statuses = Status.fill_gaps!(0, nil)
+          statuses = Status.fill_gaps!(@employee, 0, nil)
           statuses.size.should == 1
-          statuses.first.start.strftime('%H:%M').should == '00:00'
-          statuses.first.end.strftime('%H:%M').should   == '00:00'
+          statuses.first.start_time.strftime('%H:%M').should == '00:00'
+          statuses.first.end_time.strftime('%H:%M').should   == '00:00'
         end
 
         it "should return an array with one full day status if empty array given" do
-          statuses = Status.fill_gaps!(0, [])
+          statuses = Status.fill_gaps!(@employee, 0, [])
           statuses.size.should == 1
-          statuses.first.start.strftime('%H:%M').should == '00:00'
-          statuses.first.end.strftime('%H:%M').should   == '00:00'
+          statuses.first.start_time.strftime('%H:%M').should == '00:00'
+          statuses.first.end_time.strftime('%H:%M').should   == '00:00'
         end
       end
 
       describe "filling up gaps until midnight" do
         it "should fill up a gap to midnight" do
-          statuses = Status.fill_gaps!(0, [Status.new(:day_of_week => 0, :start => '00:00', :end => '16:00')])
+          statuses = Status.fill_gaps!(@employee, 0, [Status.new(:day_of_week => 0, :start_time => '00:00', :end_time => '16:00')])
           statuses.size.should == 2
-          statuses.last.start.strftime('%H:%M').should == '16:00'
-          statuses.last.end.strftime('%H:%M').should   == '00:00'
+          statuses.last.start_time.strftime('%H:%M').should == '16:00'
+          statuses.last.end_time.strftime('%H:%M').should   == '00:00'
         end
 
         it "should fill up a gap to midnight - with 2 statuses" do
-          statuses = Status.fill_gaps!(0, [Status.new(:day_of_week => 0, :start => '00:00', :end => '14:00'), Status.new(:day_of_week => 0, :start => '14:00', :end => '16:00')])
+          statuses = Status.fill_gaps!(@employee, 0, [
+            Status.new(:day_of_week => 0, :start_time => '00:00', :end_time => '14:00'),
+            Status.new(:day_of_week => 0, :start_time => '14:00', :end_time => '16:00')
+          ])
           statuses.size.should == 3
-          statuses.last.start.strftime('%H:%M').should == '16:00'
-          statuses.last.end.strftime('%H:%M').should   == '00:00'
+          statuses.last.start_time.strftime('%H:%M').should == '16:00'
+          statuses.last.end_time.strftime('%H:%M').should   == '00:00'
         end
       end
 
       describe "filling up gaps from midnight" do
         it "should fill up a gap from midnight" do
-          statuses = Status.fill_gaps!(0, [Status.new(:day_of_week => 0, :start => '16:00', :end => '00:00')])
+          statuses = Status.fill_gaps!(@employee, 0, [Status.new(:day_of_week => 0, :start_time => '16:00', :end_time => '00:00')])
           statuses.size.should == 2
-          statuses.first.start.strftime('%H:%M').should == '00:00'
-          statuses.first.end.strftime('%H:%M').should   == '16:00'
+          statuses.first.start_time.strftime('%H:%M').should == '00:00'
+          statuses.first.end_time.strftime('%H:%M').should   == '16:00'
         end
 
         it "should fill up a gap from midnight - with 2 statuses" do
-          statuses = Status.fill_gaps!(0, [Status.new(:day_of_week => 0, :start => '18:00', :end => '00:00'), Status.new(:day_of_week => 0, :start => '16:00', :end => '18:00')])
+          statuses = Status.fill_gaps!(@employee, 0, [
+            Status.new(:day_of_week => 0, :start_time => '18:00', :end_time => '00:00'),
+            Status.new(:day_of_week => 0, :start_time => '16:00', :end_time => '18:00')
+          ])
           statuses.size.should == 3
-          statuses.first.start.strftime('%H:%M').should == '00:00'
-          statuses.first.end.strftime('%H:%M').should   == '16:00'
+          statuses.first.start_time.strftime('%H:%M').should == '00:00'
+          statuses.first.end_time.strftime('%H:%M').should   == '16:00'
         end
       end
     end
@@ -243,6 +256,90 @@ describe Status do
         it "should return true if status is not set to '#{status}'" do
           @status.status = "foo-#{status}-bar"
           @status.send(:"#{status.underscore}?").should be_false
+        end
+      end
+    end
+
+    describe "default?" do
+      it "should be true if status is a default status" do
+        status = Status.make(:day_of_week => 1)
+        status.should be_default
+      end
+
+      it "should be false if status is not a default status" do
+        status = Status.make(:day => Date.today)
+        status.should_not be_default
+      end
+    end
+
+    describe "override?" do
+      it "should be true if status is an override status" do
+        status = Status.make(:day => Date.today)
+        status.should be_override
+      end
+
+      it "should be false if status is not an override status" do
+        status = Status.make(:day_of_week => 1)
+        status.should_not be_override
+      end
+    end
+
+    describe "#form_values_json" do
+      before(:each) do
+        @employee = Employee.make
+      end
+
+      describe "for default status" do
+        before(:each) do
+          @status = Status.make(
+            :employee    => @employee,
+            :day_of_week => 1,
+            :start_time  => '08:00',
+            :end_time    => '16:00',
+            :status      => Status::VALID_STATUSES.first
+          )
+        end
+
+        it "should return the relevant form values as JSON" do
+          json = @status.form_values_json
+
+          json.should include("employee_id: #{@employee.id}")
+          json.should include("day_of_week: 1")
+          json.should include("start_time: '08:00'")
+          json.should include("end_time: '16:00'")
+          json.should include("status: '#{Status::VALID_STATUSES.first}'")
+
+          json.should include("status_#{Status::VALID_STATUSES.first.underscore}: true")
+          Status::VALID_STATUSES[1..-1].each do |status|
+            json.should include("status_#{status.underscore}: false")
+          end
+        end
+      end
+
+      describe "for override status" do
+        before(:each) do
+          @status = Status.make(
+            :employee   => @employee,
+            :day        => '2010-02-21',
+            :start_time => '08:00',
+            :end_time   => '16:00',
+            :status     => Status::VALID_STATUSES.first
+          )
+        end
+
+        it "should return the relevant form values as JSON" do
+          json = @status.form_values_json
+
+          json.should include("employee_id: #{@employee.id}")
+          json.should include("day: '2010-02-21'")
+          json.should include("start_time: '08:00'")
+          json.should include("end_time: '16:00'")
+          json.should include("status: '#{Status::VALID_STATUSES.first}'")
+
+          json.should include("status_#{Status::VALID_STATUSES.first.underscore}: true")
+          Status::VALID_STATUSES[1..-1].each do |status|
+            json.should include("status_#{status.underscore}: false")
+          end
         end
       end
     end

@@ -1,5 +1,5 @@
 class DefaultStatusesController < ApplicationController
-  before_filter :set_employees, :only => :index
+  before_filter :set_employees
   before_filter :set_employee
   before_filter :set_default_statuses, :only => :index
   before_filter :set_default_status, :only => [:edit, :update, :destroy]

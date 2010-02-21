@@ -14,10 +14,10 @@ Account.blueprint do
 end
 
 Status.blueprint do
-  employee { Employee.make }
-  status   { Status::VALID_STATUSES.first }
-  start    { Time.current }
-  self.end { 8.hours.from_now }
+  employee   { Employee.make }
+  status     { Status::VALID_STATUSES.first }
+  start_time { Time.current }
+  end_time   { 8.hours.from_now }
 end
 
 Employee.blueprint do

@@ -9,6 +9,7 @@ en:
     plan: Plan
     qualifications: Qualifications
     qualification: Qualification
+    statuses: Availabilities
     logged_in_as: "Logged in as {{user}}"
     logout: Logout
   headings:
@@ -32,6 +33,8 @@ en:
   shifts: Shifts
   requirements: Requirements
   assignments: Assignments
+
+  override_defaults: Override
 
   employees:
     one:   "{{count}} employee"
@@ -99,6 +102,8 @@ en:
   employee_delete_confirmation: "Do you really want to delete this employee?"
 
   # statuses
+  new_status: New availability
+  new_default_status: New default availability
   status_from_to: "{{from}} - {{to}}"
   status_successfully_created: "Status successfully created."
   status_could_not_be_created: "Status could not be created."
@@ -233,8 +238,8 @@ en:
         employee_id: Employee
         day_of_week: Day of week
         day: Day
-        start: Start
-        end: End
+        start_time: Start
+        end_time: End
         status: Status
         statuses:
           available: Available

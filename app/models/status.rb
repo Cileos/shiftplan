@@ -3,13 +3,13 @@ class Status < ActiveRecord::Base
 
   belongs_to :employee
 
-  validates_presence_of :start, :end
+  validates_presence_of :start_time, :end_time
   validates_inclusion_of :day_of_week, :in => 0..6, :allow_nil => true
   validates_inclusion_of :status, :in => VALID_STATUSES
   validate :day_or_day_of_week_needs_to_be_set
 
-  scope :default,  where("day IS NULL AND day_of_week IS NOT NULL").order("day_of_week ASC, start ASC, end ASC")
-  scope :override, where("day_of_week IS NULL AND day IS NOT NULL").order("day ASC, start ASC, end ASC")
+  scope :default,  where("day IS NULL AND day_of_week IS NOT NULL").order("day_of_week ASC, start_time ASC, end_time ASC")
+  scope :override, where("day_of_week IS NULL AND day IS NOT NULL").order("day ASC, start_time ASC, end_time ASC")
 
   class << self
     def for(*args)
@@ -31,23 +31,23 @@ class Status < ActiveRecord::Base
       args.size == 1 ? statuses[start_date] : statuses
     end
 
-    def fill_gaps!(day_of_week, statuses)
-      return [new(:day_of_week => day_of_week, :start => '00:00:00', :end => '00:00:00', :status => nil)] unless statuses.present?
+    def fill_gaps!(employee, day_of_week, statuses)
+      return [new(:employee => employee, :day_of_week => day_of_week, :start_time => '00:00:00', :end_time => '00:00:00', :status => nil)] unless statuses.present?
 
-      statuses = statuses.sort_by(&:start)
+      statuses = statuses.sort_by(&:start_time)
 
       # first and last status should be filled up from/until midnight, if necessary
-      if (first_status = statuses.first).start.strftime('%H:%M:%S') != '00:00:00'
-        statuses.unshift(new(first_status.attributes.merge(:start => '00:00:00', :end => first_status.start, :status => nil)))
+      if (first_status = statuses.first).start_time.strftime('%H:%M:%S') != '00:00:00'
+        statuses.unshift(new(first_status.attributes.merge(:start_time => '00:00:00', :end_time => first_status.start_time, :status => nil)))
       end
 
-      if (last_status = statuses.last).end.strftime('%H:%M:%S') != '00:00:00'
-        statuses.push(new(last_status.attributes.merge(:start => last_status.end, :end => '00:00:00', :status => nil)))
+      if (last_status = statuses.last).end_time.strftime('%H:%M:%S') != '00:00:00'
+        statuses.push(new(last_status.attributes.merge(:start_time => last_status.end_time, :end_time => '00:00:00', :status => nil)))
       end
 
       statuses.each_with_index do |status, index|
-        if status != statuses.last && status.end != statuses[index+1].start
-          statuses.insert(index+1, new(status.attributes.merge(:start => status.end, :end => statuses[index+1].start, :status => nil)))
+        if status != statuses.last && status.end_time != statuses[index+1].start_time
+          statuses.insert(index+1, new(status.attributes.merge(:start_time => status.end_time, :end_time => statuses[index+1].start_time, :status => nil)))
         end
       end
     end
@@ -56,8 +56,33 @@ class Status < ActiveRecord::Base
   # dynamically define query methods for all statuses
   VALID_STATUSES.each do |status|
     define_method(:"#{status.underscore}?") do
-      self.status == status
+      self.status == status.to_s
     end
+  end
+
+  def default?
+    !!day_of_week && !day
+  end
+
+  def override?
+    !!day && !day_of_week
+  end
+
+  def form_values_json
+    day_or_day_of_week = default? ? "day_of_week: #{day_of_week}" : "day: '#{day.to_s(:db)}'"
+    statuses = Status::VALID_STATUSES.map { |status| "status_#{status.underscore}: #{send("#{status.underscore}?")}" }.join(",\n")
+
+    json = <<-json
+      {
+        employee_id: #{employee.id},
+        #{day_or_day_of_week},
+        start_time: '#{start_time.strftime('%H:%M')}',
+        end_time: '#{end_time.strftime('%H:%M')}',
+        status: '#{status}',
+        #{statuses}
+      }
+    json
+    json.gsub("\n", ' ').strip
   end
 
   protected

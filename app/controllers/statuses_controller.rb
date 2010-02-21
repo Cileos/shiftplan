@@ -1,5 +1,5 @@
 class StatusesController < ApplicationController
-  before_filter :set_employees, :only => :index
+  before_filter :set_employees
   before_filter :set_employee
   before_filter :set_statuses, :only => :index
 
