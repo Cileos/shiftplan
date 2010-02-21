@@ -107,6 +107,14 @@ describe Plan do
         shift.requirements.should be_empty
       end
 
+      it "does not copy shifts if their adjusted date is greater than the plan's end_date" do
+        shift = @template.shifts.first
+        shift.update_attributes!(:start => shift.start + 7.days, :end => shift.end + 7.days)
+
+        @plan.copy_from(@template)
+        @plan.shifts.should be_empty
+      end
+
       it "should copy requirements if requested" do
         @plan.copy_from(@template, :copy => %w(requirements))
         @plan.save!

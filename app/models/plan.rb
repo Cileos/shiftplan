@@ -45,7 +45,7 @@ class Plan < ActiveRecord::Base
       shift = shift.clone(options)
       shift.start += offset
       shift.end   += offset
-      shifts << shift
+      shifts << shift if shift.start.to_date <= end_date
     end
   end
 
