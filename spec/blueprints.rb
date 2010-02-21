@@ -33,8 +33,8 @@ Plan.blueprint do
   account
   start_date { Date.today }
   end_date   { 8.days.from_now.to_date }
-  start_time { Date.today.beginning_of_day }
-  end_time   { Date.today.end_of_day }
+  start_time { Time.parse('08:00:00') }
+  end_time   { Time.parse('18:00:00') }
 end
 
 Assignment.blueprint do

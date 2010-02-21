@@ -27,11 +27,11 @@ class Shift < ActiveRecord::Base
       requirement.quantity.times { requirements.build(:qualification => requirement.qualification) }
     end if workplace
   end
-  
+
   def copy_from(other, options = {})
     other.requirements.each { |requirement| requirements << requirement.clone(options) }
   end
-  
+
   def clone(options = {})
     clone = super()
     clone.plan = nil

@@ -47,6 +47,20 @@ describe Plan do
     it "should require an end time" do
       @plan.should validate_presence_of(:end_time)
     end
+
+    it "validates start_date < end_date" do
+      @plan.start_date = Date.parse('2010-01-02')
+      @plan.end_date   = Date.parse('2010-01-02')
+      @plan.valid?.should be_false
+      @plan.errors[:base].should include('Start date must be before end date')
+    end
+
+    it "validates start_time < end_time" do
+      @plan.start_time = Time.parse('12:00:00')
+      @plan.end_time   = Time.parse('11:00:00')
+      @plan.valid?.should be_false
+      @plan.errors[:base].should include('Start time must be before end time')
+    end
   end
 
   describe "instance methods" do

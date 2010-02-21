@@ -14,6 +14,7 @@ class Plan < ActiveRecord::Base
   scope :templates, where(:template => true)
 
   validates_presence_of :start_date, :end_date, :start_time, :end_time
+  validate :start_before_end
 
   def initialize(*args)
     super
@@ -63,4 +64,11 @@ class Plan < ActiveRecord::Base
     json
     json.gsub("\n", ' ').strip
   end
+
+  protected
+
+    def start_before_end
+      errors[:base] << "Start date must be before end date" unless self.start_date && self.end_date && self.start_date < self.end_date
+      errors[:base] << "Start time must be before end time" unless self.start_time && self.end_time && self.start_time < self.end_time
+    end
 end
