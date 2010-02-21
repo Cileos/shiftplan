@@ -10,16 +10,17 @@ require 'faker'
 require 'sham'
 require File.expand_path(File.dirname(__FILE__) + '/blueprints')
 
-# if Account.first
-#   ActiveRecord::Base.send(:subclasses).each do |model|
-#     connection = model.connection
-#     if connection.instance_variable_get(:@config)[:adapter] == 'mysql'
-#       connection.execute("TRUNCATE #{model.table_name}")
-#     else
-#       connection.execute("DELETE FROM #{model.table_name}")
-#     end
-#   end
-# end
+Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
+ActiveRecord::Base.send(:subclasses).each do |model|
+  connection = model.connection
+  if model.table_exists?
+    if connection.instance_variable_get(:@config)[:adapter] == 'mysql'
+      connection.execute("TRUNCATE #{model.table_name}")
+    else
+      connection.execute("DELETE FROM #{model.table_name}")
+    end
+  end
+end
 
 module Rspec
   module Matchers
