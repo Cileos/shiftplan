@@ -22,7 +22,7 @@ env PATH=$PATH bundle install --relock
 rake environment RAILS_ENV=test db:drop db:create db:migrate
 
 # create tmp/pids dir if not already exists and set chmod 666
-mkdir -m 666 tmp/pids
+mkdir -m 766 tmp/pids
 
 # start the test server into background
 nohup rails server -p 3000 -e test 2>/dev/null 1>/dev/null &
