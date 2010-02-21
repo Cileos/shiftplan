@@ -6,8 +6,9 @@ require 'steam'
 require 'rspec'
 require 'rspec/rails'
 
+browser = Steam::Browser.create # (:daemon => true)
 World do
-  Steam::Session::Rails.new(Steam::Browser::HtmlUnit.new)
+  Steam::Session::Rails.new(browser)
 end
 
 World(Rspec::Matchers)

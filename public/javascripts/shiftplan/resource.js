@@ -100,7 +100,10 @@ Resource.prototype = {
     return this.id() == null;
   },
 	plan_id: function() {
-	  return $('#plan').attr('class').match(/plan_(\d+)/)[1];
+	  var plan = $('#plan');
+	  if(plan.size() > 0) {
+	    return plan.attr('class').match(/plan_(\d+)/)[1];
+    }
 	},
 	href: function() {
 		return this.element.attr('href');
@@ -174,9 +177,9 @@ Resource.prototype = {
 	destroy: function() {
 	  var url = this.type.member_path(this);
 	  var data = '_method=delete';
-    // if(this.plan_id() > 0) {
-    //   data += '&plan_id=' + this.plan_id(); // FIXME not good, but the simplest thing at the moment
-    // }
+    if(this.plan_id()) {
+      data += '&plan_id=' + this.plan_id();
+    }
 
 	  $.ajax({
 		  'url': url,

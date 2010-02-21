@@ -52,6 +52,7 @@ Feature: Managing plans
       | name   | start_date | end_date | start_time | end_time | template |
       | Plan 2 | Tuesday    | Thursday | 9:00       | 12:00    | true     |
 
+  @wip
   Scenario: Creating a new plan from a template copying shifts
     Given I am on the plans index page
     When I fill in "Name" with "Plan 2"
