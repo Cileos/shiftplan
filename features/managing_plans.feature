@@ -84,6 +84,10 @@ Feature: Managing plans
     Given I am on the plans index page
     When I follow "edit"
     And I fill in "Name" with "Plan 3"
+    And I select "Monday" as the "plan_start_date" date
+    And I select "Tuesday" as the "plan_end_date" date
+    And I select "10:00" as the "plan_start_time" time
+    And I select "18:00" as the "plan_end_time" time
     And I press "Save"
     Then I should see a plan named "Plan 3"
   

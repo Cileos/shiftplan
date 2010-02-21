@@ -8,10 +8,11 @@ module JsonHelper
 
     returning('') do |json|
       json << "'#{object.class.to_s.underscore}': { "
-      # FIXME: weird? isn't there a better way to group by attribute?
-      json << object.errors.map(&:first).uniq.collect do |field|
-        "'#{escape_javascript(field)}': ['#{Array(object.errors.on(field.to_sym)).map { |error| escape_javascript(error) }.join("',\n'")}']"
-      end.join(",\n")
+      object.errors.each do |type, errors|
+        json << "'#{escape_javascript(type.to_s)}': ["
+        json << errors.map { |error| "'#{escape_javascript(error)}'" }.join(",\n")
+        json << "],\n"
+      end
       json << " }"
     end
   end
