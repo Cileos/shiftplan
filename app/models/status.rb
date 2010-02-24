@@ -76,8 +76,8 @@ class Status < ActiveRecord::Base
       {
         employee_id: #{employee.id},
         #{day_or_day_of_week},
-        start_time: '#{start_time.strftime('%H:%M')}',
-        end_time: '#{end_time.strftime('%H:%M')}',
+        start_time: '#{start_time ? start_time.strftime('%H:%M') : '00:00'}',
+        end_time: '#{end_time ? end_time.strftime('%H:%M') : '00:00'}',
         status: '#{status}',
         #{statuses}
       }
