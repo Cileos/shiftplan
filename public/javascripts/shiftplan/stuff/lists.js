@@ -74,7 +74,7 @@ $(document).ready(function() {
           $('#' + resource_name + '_' + name).attr('checked', value);
         } else if(name.match(/_date/)) {
           for(var i = 0; i < 3; i++) {
-            $('#' + resource_name + '_' + name + '_' + (i + 1) + 'i').val(value.split('-')[i]);
+            $('#' + resource_name + '_' + name + '_' + (i + 1) + 'i').val(parseInt(value.split('-')[i]));
           }
         } else if(name.match(/_time/)) {
           for(var i = 0; i < 3; i++) {
