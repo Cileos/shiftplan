@@ -44,7 +44,7 @@ $(document).ready(function() {
     var resource = $(this).closest('.resource')[0];
     var match = resource.id.match(/(.*)_(\d+)/);
 
-    if(match && match[2]) {
+    if(match != null && match[2]) {
       var resource_name = match[1];
       var id = parseInt(match[2]);
       var method = 'put';
