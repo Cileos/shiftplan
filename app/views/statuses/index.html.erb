@@ -1,15 +1,28 @@
-<% if @employee && @statuses -%>
-  <% @statuses.each do |day, statuses| -%>
-    <h3><%= l(day) %></h3>
-    <ul>
-      <%= render :partial => 'status', :collection => statuses %>
-    </ul>
-  <% end -%>
-  <%= render :partial => 'form', :locals => { :employee => @employee, :status => @employee.statuses.build } %>
-<% else -%>
-  <ul>
-    <% @employees.each do |employee| -%>
-      <li><%= link_to employee.full_name, employee_statuses_path(employee) %></li>
+<%
+# a case for LaterDude? do it on cw or monthly basis? maybe even quarter?
+weeks = Date.civil(2010, 2, 21)..Date.civil(2010, 3, 20)
+%>
+
+<h1><%= @employee.full_name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <% days_of_week.each do |day_of_week| -%>
+        <th><%= t(:'date.day_names')[day_of_week] %></th>
+      <% end -%>
+    </tr>
+  </thead>
+  <tbody>
+    <% weeks.to_a.in_groups_of(7) do |days| -%>
+      <%= render :partial => 'week',
+                 :locals => {
+                   :days => days,
+                   :employee => @employee,
+                   :statuses => @employee.statuses.override.all } %>
     <% end -%>
-  </ul>
-<% end -%>
+  </tbody>
+</table>
+
+<%= render :partial => 'sidebar' %>

@@ -1,1 +1,3 @@
-<li><%= t(:status_from_to, :from => l(status.start_time, :format => :time), :to => l(status.end_time, :format => :time)) %></li>
+<% content_tag_for(:li, status, :class => "#{status.status.to_s.underscore} resource", :'data-form-values' => status.form_values_json) do %>
+  <%= link_to t(:status_from_to, :from => l(status.start_time, :format => :time), :to => l(status.end_time, :format => :time)), edit_status_path(status), :class => 'edit' %>
+<% end %>

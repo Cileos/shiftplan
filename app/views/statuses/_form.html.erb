@@ -1,22 +1,30 @@
-<% form_for([employee, status]) do |f| %>
-  <div>
-    <%= f.label :day %>
-    <%= f.date_select :day, :start_year => Time.current.year %>
-  </div>
-  <div>
-    <%= f.label :start_time %>
-    <%= f.time_select :start_time, :minute_step => 5 %>
-  </div>
-  <div>
-    <%= f.label :end_time %>
-    <%= f.time_select :end_time, :minute_step => 5 %>
-  </div>
-  <div>
-    <% Status::VALID_STATUSES.each do |status| -%>
-      <%= f.radio_button :status, status %>
-      <%= f.label "status_#{status.underscore}", t(:"statuses.#{status.underscore}", :scope => [:activerecord, :attributes, :status], :default => status) %>
-    <% end -%>
-  </div>
+<h3><%= t(:new_status) %></h3>
+
+<% form_for(Status.new(:employee => @employee)) do |f| %>
+	<input type="hidden" name="_method" value="" />
+	<%= f.hidden_field :employee_id %>
+  <fieldset>
+    <div>
+      <%= f.label :day %>
+      <%= f.date_select :day, :start_year => Time.current.year %>
+    </div>
+    <div>
+      <%= f.label :start_time %>
+      <%= f.time_select :start_time, :minute_step => 5 %>
+    </div>
+    <div>
+      <%= f.label :end_time %>
+      <%= f.time_select :end_time, :minute_step => 5 %>
+    </div>
+    <ul>
+      <% Status::VALID_STATUSES.each do |status| -%>
+        <li>
+          <%= f.radio_button :status, status %>
+          <%= f.label "status_#{status.underscore}", t(:"statuses.#{status.underscore}", :scope => [:activerecord, :attributes, :status], :default => status), :class => 'inline' %>
+        </li>
+      <% end -%>
+    </ul>
+  </fieldset>
   <div>
     <%= f.submit 'Save' %>
   </div>
