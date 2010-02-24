@@ -72,7 +72,7 @@ $(document).ready(function() {
       } else {
         if(typeof value == 'boolean') { // assume that true/false goes for checkboxes
           $('#' + resource_name + '_' + name).attr('checked', value);
-        } else if(name.match(/_date/)) {
+        } else if(name == 'day' || name.match(/_date/)) {
           for(var i = 0; i < 3; i++) {
             $('#' + resource_name + '_' + name + '_' + (i + 1) + 'i').val(parseInt(value.split('-')[i]));
           }
