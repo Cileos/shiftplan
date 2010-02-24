@@ -1,5 +1,5 @@
 <tr>
-  <td><%= employee.full_name %></td>
+  <th scope="row"><%= employee.full_name %></th>
   <td><%= link_to t(:override_defaults), employee_statuses_path(employee) %></td>
   <% default_statuses = employee.statuses.default.group_by(&:day_of_week) %>
   <% 0.upto(6) do |day_of_week| -%>
