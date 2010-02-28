@@ -89,6 +89,13 @@ Then /^there should be (a|[\d]*) shifts? "([^\"]*)" on (.*) stored in the databa
   shifts = find_shifts(date, workplace)
   count = count == 'a' ? 1 : count.to_i
   shifts.size.should == count
+
+  # make sure the displayed element's start time equals the stored start time
+  shifts.each do |shift|
+    element = locate(:id => "shift_#{shift.id}")
+    element_start = Time.parse(date) + element.attribute('data-start').to_i.minutes
+    element_start.hour.should == shift.start.hour
+  end
 end
 
 Then /^there should not be a shift "([^\"]*)" on (.*) stored in the database$/ do |workplace, date|

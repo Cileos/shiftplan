@@ -2,9 +2,9 @@ if Account.first
   ActiveRecord::Base.send(:subclasses).each do |model|
     connection = model.connection
     if connection.instance_variable_get(:@config)[:adapter] == 'mysql'
-      connection.execute("TRUNCATE #{model.table_name}")
+      connection.execute("TRUNCATE #{model.table_name}") rescue nil
     else
-      connection.execute("DELETE FROM #{model.table_name}")
+      connection.execute("DELETE FROM #{model.table_name}") rescue nil
     end
   end
 end
