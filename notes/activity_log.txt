@@ -1,0 +1,123 @@
+# ActivityLog Vorüberlegungen
+
+Das ActivityLog soll dazu dienen, User zu informieren, wer wann was in der
+Applikation angestellt hat.
+
+Dazu ist es nötig, die von der Applikation erzeugten Informationen zu
+aggregieren und zusammenzufassen. Wir können das Log schlecht mit jeder
+einzelnen Änderungen zuspammen, die während des Editierens eines Plans
+anfällt.
+
+Das gleiche gilt für E-Mail Benachrichtigungen.
+
+Beispiel:
+
+## Aktionen (Ereignisse) auf Applikationsebene
+
+User legt einen neuen Plan an
+User bearbeitet Eigenschaften des Plans
+User fügt eine Schicht zum Plan hinzu
+User verschiebt die Startzeit der Schicht (3x)
+User fügt ein Requirement zur Schicht hinzu (3x)
+User weist Employee A einem Requirement hinzu
+User weist Employee B einem Requirement hinzu
+User weist Employee C einem Requirement hinzu
+User entfernt einen Employee wieder
+User weist jetzt Employee D dem Requirement hinzu
+etc.
+
+## Einträge im ActivityLog
+
+Diese Aktionen sollten jetzt so aggregiert werden, daß jeweils Endergebnisse
+dargestellt werden.
+
+User legt einen neuen Plan mit folgenden Eigenschaften an
+User legt eine neue Schicht mit folgenden Eigenschaften und Requirements an
+User plant Employee A für die Schicht XY
+User plant Employee B für die Schicht XY
+User plant Employee D für die Schicht XY
+
+## Aggregation
+
+Das Problem besteht darin, zu erkennen, wenn ein User mit dem Bearbeiten
+"fertig" ist. Jede Änderung wird direkt gespeichert und es gibt keine
+Möglichkeit, einwandfrei zu bestimmen, ob der User den Rechner ausgemacht und
+nach Hause gegangen ist, oder ob er lediglich eine Kaffeepause eingelegt hat.
+D.h., es besteht das übliche Problem, in einer stateless HTTP Umgebung
+Arbeitssitzungen (Sessions) zu identifizieren.
+
+Anstelle dessen können wir eine Phase von z.B. 10 Minuten Inaktivität als Ende
+einer Sitzung interpretieren. D.h., Aktivitäten würden fortlaufend aggregiert,
+solange nicht eine Phase von 10 Minuten Inaktivität festgestellt werden kann.
+Nach einer solchen Phase werden neue Aktivitäten dann nicht mehr mit älteren
+aggregiert, sondern eine neue Aggregation begonnen.
+
+Diese Aggregation könnte als solche sogar inline laufen, nachdem der Response
+verschickt wurde (gibt es ein solches Konzept in Rails überhaupt?), das könnte
+Vorteile i.B.a. das Testen haben (welche?) und uns vorläufig einen Scheduler
+ersparen. Auf längere Sicht könnte ein Scheduler z.B. 1x pro Minute einen Job
+anstoßen, der jeweils Aktivitäten aggregiert und nach einer Phase von 10
+Minuten Inaktivität E-Mail Benachrichtigungen versendet.
+
+## Implementation
+
+Die üblichen Audit Log Implementationen (acts_as_audited etc.) scheinen mir zu
+low-level (Framework Level) für diesen Zweck. Sie dienen eher dazu, zu einen
+beliebigen Zeitpunkt Daten in früheren Stadien zu betrachten und ggf.
+wiederherzustellen.
+
+Was wir statt dessen wollen, ist ein Konzept auf Application Level, das für
+uns interessante Aktionen kapselt.
+
+module Activity
+  class Base
+    set_table_name 'activities'
+    belongs_to :user
+    attr :aggretated, :data, :started_at, :ended_at
+  end
+
+  class Plan 
+    # kapselt create, update, delete von Plans
+  end
+
+  class Shift
+    # kapselt create, update, delete von Shifts, add/remove von Requirements
+  end
+  
+  class Assignment
+    # kapselt create, delete von Assignments von Usern zu Requirements
+  end
+end
+
+Bei jeder relevanten Aktivität wird ein Log Eintrag geschrieben:
+
+  Activity::Plan.log(:create, plan, user)
+  # => data = { 
+    action:     'create',
+    attributes: { name: 'Plan A', template: 0, start_date: ... } 
+  }
+
+  Activity::Plan.log(:update, plan, user)
+  # => data = { attributes: { template: 1 } }
+
+  Activity::Plan.log(:update, plan, user)
+  # => data = { attributes: { name: 'Plan B' } }
+
+Irgendwann wird aggregiert:
+
+  Activity.aggregate!
+  # => data = { 
+    action:     'create',
+    attributes: { name: 'Plan B', template: 1, start_date: ... } 
+  }
+
+Diese aggregierten Daten können dann als Basis für Notifications verwendet
+werden.
+
+
+
+
+
+
+
+
