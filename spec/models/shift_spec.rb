@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Shift do
   def now
-    @now ||= Time.local(2009, 9, 9, 12, 0)
+    @now ||= Time.zone.local(2009, 9, 9, 12, 0)
   end
 
   before(:each) do
@@ -90,7 +90,7 @@ describe Shift do
   describe "instance methods" do
     describe "start/end/duration related methods" do
       before(:each) do
-        @shift.start = Time.utc(2009, 9, 9, 23, 0, 0)
+        @shift.start = Time.zone.local(2009, 9, 9, 23, 0, 0)
         @shift.duration = 120
       end
 
