@@ -1,12 +1,8 @@
-require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
+require File.expand_path('../../support/paths', __FILE__)
 
 Given /^I am on (.+)$/ do |page_name|
   visit path_to(page_name)
   response.status.should == 200
-end
-
-When "I output the body" do
-  puts response.body
 end
 
 When /^I go to (.+)$/ do |page_name|
@@ -26,7 +22,7 @@ When /^I follow "([^\"]*)"$/ do |link|
 end
 
 When /^I follow "([^\"]*)" within "([^\"]*)"$/ do |link, parent|
-  click_link_within(parent, link)
+  click_link(link, :within => parent)
 end
 
 When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
@@ -113,48 +109,36 @@ When /^I attach the file at "([^\"]*)" to "([^\"]*)"$/ do |path, field|
   attach_file(field, path)
 end
 
-Then /^I should see "([^\"]*)"$/ do |text|
-  locate(text).should_not be_nil
+Then /^(?:|I )should see "([^\"]*)"$/ do |text|
+  response.should contain(text)
 end
 
-Then /^I should see "([^\"]*)" within "([^\"]*)"$/ do |text, selector|
-  within(selector) do |content|
-    content.should contain(text)
-  end
+Then /^(?:|I )should see "([^\"]*)" within "([^\"]*)"$/ do |text, selector|
+  within(selector) { assert_contain(text) }
 end
 
-Then /^I should see \/([^\/]*)\/$/ do |regexp|
-  regexp = Regexp.new(regexp)
-  page.should contain(regexp)
+Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
+  assert_contain(response.body, Regexp.new(regexp))
 end
 
-Then /^I should see \/([^\/]*)\/ within "([^\"]*)"$/ do |regexp, selector|
-  within(selector) do |content|
-    regexp = Regexp.new(regexp)
-    content.should contain(regexp)
-  end
+Then /^(?:|I )should see \/([^\/]*)\/ within "([^\"]*)"$/ do |regexp, selector|
+  within(selector) { assert_contain(Regexp.new(regexp)) }
 end
 
-Then /^I should not see "([^\"]*)"$/ do |text|
-  response.should_not contain(text)
+Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
+  assert_not_contain(response.body, text)
 end
 
-Then /^I should not see "([^\"]*)" within "([^\"]*)"$/ do |text, selector|
-  within(selector) do |content|
-    content.should_not contain(text)
-  end
+Then /^(?:|I )should not see "([^\"]*)" within "([^\"]*)"$/ do |text, selector|
+  within(selector) { assert_not_contain(text) }
 end
 
-Then /^I should not see \/([^\/]*)\/$/ do |regexp|
-  regexp = Regexp.new(regexp)
-  response.should_not contain(regexp)
+Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
+  assert_not_contain(response.body, Regexp.new(regexp))
 end
 
-Then /^I should not see \/([^\/]*)\/ within "([^\"]*)"$/ do |regexp, selector|
-  within(selector) do |content|
-    regexp = Regexp.new(regexp)
-    content.should_not contain(regexp)
-  end
+Then /^(?:|I )should not see \/([^\/]*)\/ within "([^\"]*)"$/ do |regexp, selector|
+  within(selector) { assert_not_contain(Regexp.new(regexp)) }
 end
 
 Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, value|
@@ -174,9 +158,14 @@ Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
 end
 
 Then /^I should be on (.+)$/ do |page_name|
-  URI.parse(page.url).path.should == path_to(page_name)
+  URI.parse(page.url).path.should == URI.parse(path_to(page_name)).path
 end
 
-Then /^show me the page$/ do
-  save_and_open_page
+register_rb_step_definition /^(?:|I )(?:show me|browse) the page$/ do
+  Steam.save_and_open(request.url, response)
 end
+
+register_rb_step_definition "I output the body" do
+  puts response.body
+end
+

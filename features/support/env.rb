@@ -13,11 +13,11 @@ World do
   Steam::Session::Rails.new(browser)
 end
 
-World(Rspec::Matchers)
-
 at_exit do
   browser.close
 end
+
+World(Rspec::Matchers)
 
 Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
 Before do
