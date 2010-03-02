@@ -1,4 +1,8 @@
+require 'activity'
+
 class Shift < ActiveRecord::Base
+  self.activity_attrs = %w(start end)
+
   belongs_to :plan
   belongs_to :workplace
   has_many :requirements
@@ -8,6 +12,8 @@ class Shift < ActiveRecord::Base
   validate :start_before_end
 
   before_validation :synchronize_duration_end_time, :if => lambda { |shift| !!shift.start }
+
+  keep_track_of :requirements
 
   def start_in_minutes
     start.hour * 60 + start.min
@@ -37,6 +43,26 @@ class Shift < ActiveRecord::Base
     clone.plan = nil
     clone.copy_from(self, options) if Array(options[:copy]).include?('requirements')
     clone
+  end
+
+  def log_create
+    log = super[:to].merge!(:plan => plan.name, :workplace => workplace.name)
+    log[:requirements] = requirements.map { |r| r.qualification.name } unless requirements.empty?
+    { :to => log }
+  end
+  alias :log_destroy :log_create
+
+  def log_update
+    log = super
+    if requirements_changed?
+      log[:from][:requirements] = requirements_were_fixed.map { |r| r.qualification.name }
+      log[:to][:requirements]   = requirements.map { |r| r.qualification.name }
+    end
+    log
+  end
+
+  def requirements_were_fixed
+    requirement_ids_were.empty? ? [] : requirements_were
   end
 
   protected

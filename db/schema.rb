@@ -9,10 +9,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100213233812) do
+ActiveRecord::Schema.define(:version => 20100228233338) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "activities", :force => true do |t|
+    t.string   "action"
+    t.text     "changes"
+    t.integer  "object_id"
+    t.string   "object_type"
+    t.integer  "user_id"
+    t.string   "user_name"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.datetime "aggregated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -130,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20100213233812) do
     t.boolean  "email_confirmed",                   :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

@@ -1,4 +1,8 @@
+require 'activity'
+
 class Plan < ActiveRecord::Base
+  self.activity_attrs = %w(name start_date end_date template)
+
   belongs_to :account
 
   has_many :shifts do

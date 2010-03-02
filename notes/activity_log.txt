@@ -114,7 +114,22 @@ Irgendwann wird aggregiert:
 Diese aggregierten Daten können dann als Basis für Notifications verwendet
 werden.
 
+  Activity::Shift.log(:create, shift, user)
+  data = {
+    attributes: {
+      plan: { id: 1 },
+      date: ...,
+      start_time: ...,
+      end_time: ...,
+      workplace: { id: 1, name: 'Bar' },
+      requirements: [ 
+        { id: 1, qualification: { id: 1, name: 'Barkeeper' } }, 
+        { id: 2, qualification: { id: 1, name: 'Barkeeper' } }
+      ]
+    }
+  }
 
+  
 
 
 

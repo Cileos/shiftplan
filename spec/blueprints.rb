@@ -5,6 +5,10 @@ Sham.password do
   password
 end
 
+Sham.plan_name do |index|
+  "Plan #{index}"
+end
+
 Account.blueprint do
   name { Faker::Name.name }
 end
@@ -30,6 +34,7 @@ Workplace.blueprint do
 end
 
 Plan.blueprint do
+  name       { Sham.plan_name }
   account
   start_date { Date.today }
   end_date   { 8.days.from_now.to_date }
@@ -44,6 +49,7 @@ end
 
 Shift.blueprint do
   plan
+  workplace
   start    { Time.current }
   self.end { 8.hours.from_now }
 end
@@ -59,6 +65,7 @@ WorkplaceQualification.blueprint do
 end
 
 User.blueprint do
+  name  { Faker::Name.name }
   email { Faker::Internet.email }
   password
 end
