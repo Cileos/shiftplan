@@ -48,7 +48,7 @@ Assignment.blueprint do
 end
 
 Shift.blueprint do
-  plan
+  # plan
   workplace
   start    { Time.current }
   self.end { 8.hours.from_now }

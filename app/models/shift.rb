@@ -46,20 +46,11 @@ class Shift < ActiveRecord::Base
   end
 
   def log_create
-    log = super[:to].merge!(:plan => plan.name, :workplace => workplace.name)
-    log[:requirements] = requirements.map { |r| r.qualification.name } unless requirements.empty?
-    { :to => log }
+    { :to => super[:to].merge!(
+      :plan => plan.name,
+      :workplace => workplace.name) }
   end
   alias :log_destroy :log_create
-
-  def log_update
-    log = super
-    if requirements_changed?
-      log[:from][:requirements] = requirements_were_fixed.map { |r| r.qualification.name }
-      log[:to][:requirements]   = requirements.map { |r| r.qualification.name }
-    end
-    log
-  end
 
   def requirements_were_fixed
     requirement_ids_were.empty? ? [] : requirements_were

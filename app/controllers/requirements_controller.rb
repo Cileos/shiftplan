@@ -1,9 +1,7 @@
 class RequirementsController < ApplicationController
-  before_filter :set_requirement, :only => [:update, :destroy]
+  before_filter :set_requirement
 
   def create
-    @requirement = Requirement.new(params[:requirement])
-
     if @requirement.save
       flash[:notice] = t(:requirement_successfully_created)
 
@@ -47,6 +45,6 @@ class RequirementsController < ApplicationController
   protected
 
     def set_requirement
-      @requirement = Requirement.find(params[:id])
+      @requirement = params[:id] ? Requirement.find(params[:id]) : Requirement.new(params[:requirement])
     end
 end

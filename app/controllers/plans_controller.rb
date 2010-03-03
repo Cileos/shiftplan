@@ -61,11 +61,11 @@ class PlansController < ApplicationController
     def set_plans
       @plans = current_account.plans
     end
-    
+
     def set_templates
       @templates = current_account.plans.templates
     end
-    
+
     def set_template
       id = params[:copy_from][:id] if params[:copy_from]
       @copy_from = current_account.plans.templates.find(id) unless id.blank?
