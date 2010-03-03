@@ -13,8 +13,6 @@ class Shift < ActiveRecord::Base
 
   before_validation :synchronize_duration_end_time, :if => lambda { |shift| !!shift.start }
 
-  keep_track_of :requirements
-
   def start_in_minutes
     start.hour * 60 + start.min
   end
@@ -46,9 +44,7 @@ class Shift < ActiveRecord::Base
   end
 
   def log_create
-    { :to => super[:to].merge!(
-      :plan => plan.name,
-      :workplace => workplace.name) }
+    { :to => super[:to].merge!(:plan => plan.name, :workplace => workplace.name) }
   end
   alias :log_destroy :log_create
 
