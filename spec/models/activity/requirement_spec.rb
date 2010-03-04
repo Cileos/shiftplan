@@ -3,40 +3,39 @@ require File.expand_path('../../../spec_helper', __FILE__)
 describe 'Requirement activities' do
   before do
     @user = User.make
+    @shift = Shift.make
+    @qualification = Qualification.make
+
+    ActiveRecord::Observer.enable_observers
+    @requirement = Requirement.create(:shift => @shift, :qualification => @qualification)
+  end
+  
+  after do
+    ActiveRecord::Observer.disable_observers
   end
 
   describe 'logging' do
     it 'logs a creation activity' do
-      shift = Shift.make
-      shift.initialize_dirty_associations
-      requirement = Requirement.make
-      requirements.shift = shift
-
-      Activity.log('create', requirement, @user)
-
       activity = Activity.first
       activity.action.should    == 'update'
-      activity.object.should    == shift
+      activity.object.should    == @shift
       activity.user.should      == @user
       activity.user_name.should == @user.name
       activity.aggregated_at.should be_nil
 
       activity.changes[:to].should == {
-        :requirements => [requirement.qualification.name]
+        :requirements => [@qualification.name]
       }
     end
 
     it 'logs a destroy activity' do
-      shift = Shift.make
-      shift.initialize_dirty_associations
-      requirement = Requirement.make
-      requirements.shift = shift
-
-      Activity.log('destroy', requirement, @user)
-
+      Activity.delete_all
+      
+      @requirement.destroy
+      
       activity = Activity.first
       activity.action.should    == 'update'
-      activity.object.should    == shift
+      activity.object.should    == @shift
       activity.user.should      == @user
       activity.user_name.should == @user.name
       activity.aggregated_at.should be_nil

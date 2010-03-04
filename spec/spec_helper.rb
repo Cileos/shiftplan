@@ -5,10 +5,13 @@ require 'rspec'
 require 'rspec/autorun'
 require 'rspec/rails'
 
+require 'no_peeping_toms'
 require 'machinist/active_record'
 require 'faker'
 require 'sham'
 require File.expand_path(File.dirname(__FILE__) + '/blueprints')
+
+ActiveRecord::Observer.disable_observers
 
 Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
 ActiveRecord::Base.send(:subclasses).each do |model|

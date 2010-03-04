@@ -1,71 +1,72 @@
 require File.expand_path('../../../spec_helper', __FILE__)
 
 describe 'Plan activities' do
-  before do
+  before(:each) do
     @user = User.make
+    ActiveRecord::Observer.enable_observers
+    @plan = Plan.make
+  end
+  
+  after(:each) do
+    ActiveRecord::Observer.disable_observers
   end
 
   describe 'logging' do
     it 'logs a creation activity' do
-      plan = Plan.make
-      Activity.log('create', plan, @user)
-
       activity = Activity.first
       activity.action.should    == 'create'
-      activity.object.should    == plan
+      activity.object.should    == @plan
       activity.user.should      == @user
       activity.user_name.should == @user.name
       activity.aggregated_at.should be_nil
 
       activity.changes[:to].should == {
-        :name       => plan.name,
-        :start_date => plan.start_date,
-        :end_date   => plan.end_date,
-        :template   => plan.template
+        :name       => @plan.name,
+        :start_date => @plan.start_date,
+        :end_date   => @plan.end_date,
+        :template   => @plan.template
       }
     end
 
     it 'logs a changed start/end time to an update activity' do
-      plan = Plan.make
-    
-      plan.start_date += 1.day
-      Activity.log('update', plan, @user)
+      Activity.delete_all
+
+      @plan.start_date += 1.day
+      @plan.save!
     
       activity = Activity.first
     
       activity.action.should  == 'update'
       activity.changes.should == {
-        :from => { :start_date => plan.start_date - 1.day },
-        :to   => { :start_date => plan.start_date }
+        :from => { :start_date => @plan.start_date - 1.day },
+        :to   => { :start_date => @plan.start_date }
       }
     end
     
     it 'logs a destroy activity' do
-      plan = Plan.make
-      plan.destroy
-      Activity.log('destroy', plan, @user)
+      Activity.delete_all
+
+      @plan.destroy
+      @plan.save!
     
       activity = Activity.first
       activity.action.should == 'destroy'
       activity.changes[:to].should == {
-        :name       => plan.name,
-        :start_date => plan.start_date,
-        :end_date   => plan.end_date,
-        :template   => plan.template
+        :name       => @plan.name,
+        :start_date => @plan.start_date,
+        :end_date   => @plan.end_date,
+        :template   => @plan.template
       }
     end
   end
 
   describe 'aggregation' do
     it 'aggregates a create and two update activities' do
-      plan = Plan.make
-      Activity.log('create', plan, @user)
+      @plan.name = 'Plan 2'
+      @plan.save!
   
-      plan.name = 'Plan 2'
-      Activity.log('update', plan, @user)
-  
-      plan.start_date += 1.day
-      Activity.log('update', plan, @user)
+      @plan.start_date += 1.day
+      @plan.save!
   
       Activity.aggregate!
       Activity.count.should == 1
@@ -78,21 +79,21 @@ describe 'Plan activities' do
       activity.aggregated_at.should_not be_nil
   
       activity.changes.should == {
-        :name       => plan.name,
-        :start_date => plan.start_date,
-        :end_date   => plan.end_date,
-        :template   => plan.template
+        :name       => @plan.name,
+        :start_date => @plan.start_date,
+        :end_date   => @plan.end_date,
+        :template   => @plan.template
       }
     end
   
     it 'aggregates two update activities' do
-      plan = Plan.make
+      Activity.delete_all
+
+      @plan.name = 'Plan 2'
+      @plan.save!
   
-      plan.name = 'Plan 2'
-      Activity.log('update', plan, @user)
-  
-      plan.start_date += 1.day
-      Activity.log('update', plan, @user)
+      @plan.start_date += 1.day
+      @plan.save!
   
       Activity.aggregate!
       Activity.count.should == 1
@@ -105,22 +106,21 @@ describe 'Plan activities' do
       activity.aggregated_at.should_not be_nil
   
       activity.changes.should == {
-        :name       => plan.name,
-        :start_date => plan.start_date,
+        :name       => @plan.name,
+        :start_date => @plan.start_date,
       }
     end
   
     it 'aggregates two update and a destroy activity' do
-      plan = Plan.make
+      Activity.delete_all
+
+      @plan.name = 'Plan 2'
+      @plan.save!
   
-      plan.name = 'Plan 2'
-      Activity.log('update', plan, @user)
+      @plan.start_date += 1.day
+      @plan.save!
   
-      plan.start_date += 1.day
-      Activity.log('update', plan, @user)
-  
-      plan.destroy
-      Activity.log('destroy', plan, @user)
+      @plan.destroy
   
       Activity.aggregate!
       Activity.count.should == 1
@@ -133,23 +133,19 @@ describe 'Plan activities' do
       activity.aggregated_at.should_not be_nil
   
       activity.changes.should == {
-        :name       => plan.name,
-        :start_date => plan.start_date,
-        :end_date   => plan.end_date,
-        :template   => plan.template
+        :name       => @plan.name,
+        :start_date => @plan.start_date,
+        :end_date   => @plan.end_date,
+        :template   => @plan.template
       }
     end
   
     it 'aggregates a create, an update and a destroy activity by deleting all of them' do
-      plan = Plan.make
-      Activity.log('create', plan, @user)
+      @plan.name = 'Plan 2'
+      @plan.save!
   
-      plan.name = 'Plan 2'
-      Activity.log('update', plan, @user)
-  
-      plan.destroy
-      Activity.log('destroy', plan, @user)
-  
+      @plan.destroy
+
       Activity.aggregate!
       Activity.count.should == 0
     end

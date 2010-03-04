@@ -1,15 +1,20 @@
 require File.expand_path('../../../spec_helper', __FILE__)
 
 describe 'Shift activities' do
-  before do
+  before(:each) do
     @user = User.make
     @plan = Plan.make
     @qualification = Qualification.make
-    Activity.delete_all
 
     @shift = Shift.make_unsaved(:plan => @plan)
     @shift.requirements.build(:qualification => @qualification)
+
+    ActiveRecord::Observer.enable_observers
     @shift.save!
+  end
+  
+  after(:each) do
+    ActiveRecord::Observer.disable_observers
   end
 
   describe 'logging' do
@@ -60,7 +65,7 @@ describe 'Shift activities' do
       activity.action.should == 'update'
       activity.changes.should == {
         :from => {},
-        :to   => { :requirements => [@qualification.name] }
+        :to   => { :requirements => [@qualification.name, @qualification.name] }
       }
     end
 
@@ -104,7 +109,7 @@ describe 'Shift activities' do
         :end   => @shift.end,
         :plan  => @shift.plan.name,
         :workplace => @shift.workplace.name,
-        :requirements => [@qualification.name]
+        :requirements => [@qualification.name, @qualification.name]
       }
     end
 
@@ -132,7 +137,7 @@ describe 'Shift activities' do
       activity.changes.should == {
         :start => @shift.start,
         :end   => @shift.end,
-        :requirements => [@qualification.name]
+        :requirements => [@qualification.name, @qualification.name]
       }
     end
 
