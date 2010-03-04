@@ -11,6 +11,8 @@ class Activity::ElementObserver < ActiveRecord::Observer
 
     def update_requirements(object)
       activity = Activity.current || Activity.log('update', object.shift, User.first)
-      activity.changes[:to][:requirements] = object.shift.reload.requirements.map { |r| r.qualification.name }
+      requirements = object.shift.reload.requirements
+      requirements.map! { |r| r.qualification.try(:name) || '[undefined]' }
+      activity.changes[:to][:requirements] = requirements
     end
 end

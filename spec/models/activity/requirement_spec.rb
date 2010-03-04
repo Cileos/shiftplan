@@ -9,7 +9,7 @@ describe 'Requirement activities' do
     ActiveRecord::Observer.enable_observers
     @requirement = Requirement.create(:shift => @shift, :qualification => @qualification)
   end
-  
+
   after do
     ActiveRecord::Observer.disable_observers
   end
@@ -28,11 +28,28 @@ describe 'Requirement activities' do
       }
     end
 
+    it 'logs a creation activity for a requirement without a qualification' do
+      Activity.delete_all
+
+      @requirement = Requirement.create(:shift => @shift)
+
+      activity = Activity.first
+      activity.action.should    == 'update'
+      activity.object.should    == @shift
+      activity.user.should      == @user
+      activity.user_name.should == @user.name
+      activity.aggregated_at.should be_nil
+
+      activity.changes[:to].should == {
+        :requirements => [@qualification.name, '[undefined]']
+      }
+    end
+
     it 'logs a destroy activity' do
       Activity.delete_all
-      
+
       @requirement.destroy
-      
+
       activity = Activity.first
       activity.action.should    == 'update'
       activity.object.should    == @shift
@@ -53,12 +70,12 @@ describe 'Requirement activities' do
   #     requirement = Requirement.make
   #     qualification = requirement.requirement.qualification
   #     shift.requirements << requirement.requirement
-  # 
+  #
   #     Activity.log('create', requirement, @user)
-  # 
+  #
   #     requirement.destroy
   #     Activity.log('destroy', requirement, @user)
-  # 
+  #
   #     Activity.aggregate!
   #     Activity.count.should == 0
   #   end
