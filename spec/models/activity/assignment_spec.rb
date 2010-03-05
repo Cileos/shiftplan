@@ -29,10 +29,12 @@ describe 'Assignment activities' do
       activity.user_name.should == @user.name
       activity.aggregated_at.should be_nil
 
-      activity.changes[:to].should == {
-        :assignee => @assignment.assignee.full_name,
-        :requirement => @requirement.qualification.name,
-        :shift => { :plan => @shift.plan.name, :workplace => @shift.workplace.name, :start => @shift.start, :end => @shift.end },
+      activity.changes.should == {
+        :to => {
+          :assignee => @assignment.assignee.full_name,
+          :requirement => @requirement.qualification.name,
+          :shift => { :plan => @shift.plan.name, :workplace => @shift.workplace.name, :start => @shift.start, :end => @shift.end }
+        }
       }
     end
 
@@ -44,10 +46,12 @@ describe 'Assignment activities' do
       activity = Activity.first
       activity.action.should == 'destroy'
 
-      activity.changes[:to].should == {
-        :assignee => @assignment.assignee.full_name,
-        :requirement => @requirement.qualification.name,
-        :shift => { :plan => @shift.plan.name, :workplace => @shift.workplace.name, :start => @shift.start, :end => @shift.end },
+      activity.changes.should == {
+        :to => {
+          :assignee => @assignment.assignee.full_name,
+          :requirement => @requirement.qualification.name,
+          :shift => { :plan => @shift.plan.name, :workplace => @shift.workplace.name, :start => @shift.start, :end => @shift.end }
+        }
       }
     end
   end

@@ -6,10 +6,10 @@ class ActivityPresenter::PlanPresenter < Presenter
   end
   
   def summary
-    t(:"activity.plan.#{activity.status}", {
+    t(:"activity.plan.#{status}", {
       :action => action,
-      :plan => plan,
-      :user => activity.user_name,   # link to user profile if it still exists
+      :plan => plan_name,
+      :user => activity.user_name, # link to user profile if it still exists
       :started_at => started_at,
       :finished_at => finished_at
     })
@@ -17,17 +17,21 @@ class ActivityPresenter::PlanPresenter < Presenter
   
   def details
     case activity.action
-    when 'create'
-      ''
     when 'update'
       table { changes(:from) + changes(:to) }
-    when 'destroy'
-      ''
+    else
+      table { changes(:to, :label => false ) }
     end
   end
   
-  def plan
-    activity.changes[:from][:name] rescue '' # link to the plan if it still exists
+  def status
+    activity.started_at == activity.finished_at ? activity.status : :unaggregated
+  end
+  
+  def plan_name
+    name = activity.changes[:from][:name] rescue nil # link to the plan if it still exists
+    name ||= activity.changes[:to][:name] rescue nil
+    name || activity.object.name rescue ''
   end
   
   def action
@@ -42,14 +46,18 @@ class ActivityPresenter::PlanPresenter < Presenter
     l(activity.finished_at, :format => :short) if activity.finished_at
   end
   
-  def changes(type)
-    changes = (activity.changes[type] || [])
-    changes.map do |name, value|
+  def changes(type, options = {})
+    options[:label] = true unless options.key?(:label)
+    changes = (activity.changes[type] || {})
+    attr_names = [:name, :start_date, :end_date]
+
+    attr_names.map do |name|
+      value = changes[name]
       tr do
-        th { name == changes.keys.first ? t(:"activity.#{type}") : '' } +
+        (options[:label] ? th(:class => :label) { name == attr_names.first ? t(:"activity.#{type}") : '' } : '').html_safe +
         th { t(:"activity.plan.attributes.#{name}") } + 
-        td { value }
-      end
-    end.join_safe
+        td { DateTime == value || Date === value ? l(value, :format => :short) : value }
+      end if changes.key?(name)
+    end.compact.join_safe
   end
 end

@@ -27,8 +27,7 @@ describe 'Plan activities' do
       activity.changes[:to].should == {
         :name       => @plan.name,
         :start_date => @plan.start_date,
-        :end_date   => @plan.end_date,
-        :template   => @plan.template
+        :end_date   => @plan.end_date
       }
     end
 
@@ -58,8 +57,7 @@ describe 'Plan activities' do
       activity.changes[:to].should == {
         :name       => @plan.name,
         :start_date => @plan.start_date,
-        :end_date   => @plan.end_date,
-        :template   => @plan.template
+        :end_date   => @plan.end_date
       }
     end
   end
@@ -81,17 +79,20 @@ describe 'Plan activities' do
       activity.started_at.should_not be_nil
       activity.finished_at.should_not be_nil
       activity.aggregated_at.should_not be_nil
-  
+
       activity.changes.should == {
-        :name       => @plan.name,
-        :start_date => @plan.start_date,
-        :end_date   => @plan.end_date,
-        :template   => @plan.template
+        :to => {
+          :name       => @plan.name,
+          :start_date => @plan.start_date,
+          :end_date   => @plan.end_date
+        }
       }
     end
   
     it 'aggregates two update activities' do
       Activity.delete_all
+      plan_name  = @plan.name
+      start_date = @plan.start_date
 
       @plan.name = 'Plan 2'
       @plan.save!
@@ -110,8 +111,14 @@ describe 'Plan activities' do
       activity.aggregated_at.should_not be_nil
   
       activity.changes.should == {
-        :name       => @plan.name,
-        :start_date => @plan.start_date,
+        :from => {
+          :name => plan_name,
+          :start_date => start_date
+        },
+        :to => {
+          :name       => @plan.name,
+          :start_date => @plan.start_date,
+        }
       }
     end
   
@@ -137,10 +144,11 @@ describe 'Plan activities' do
       activity.aggregated_at.should_not be_nil
   
       activity.changes.should == {
-        :name       => @plan.name,
-        :start_date => @plan.start_date,
-        :end_date   => @plan.end_date,
-        :template   => @plan.template
+        :to => {
+          :name       => @plan.name,
+          :start_date => @plan.start_date,
+          :end_date   => @plan.end_date
+        }
       }
     end
   

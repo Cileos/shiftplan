@@ -9,7 +9,7 @@
 .activity tr.even {
   background-color: #f0f0f0;
 }
-.activity th:first-child {
+.activity th.label {
   width: 30px;
 }
 .activity th {

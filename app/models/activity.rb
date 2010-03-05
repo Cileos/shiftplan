@@ -1,3 +1,5 @@
+require 'core_ext/hash/compact'
+
 class Activity < ActiveRecord::Base
   module Logging
     def self.included(base)
@@ -16,18 +18,17 @@ class Activity < ActiveRecord::Base
     alias :log_destroy :log_create
 
     def log_attributes(map)
-      map.inject({}) do |result, name|
-        # TODO map :qualification => name
-        result[name] = send(name)
-      end
+      # TODO map assoc objects with :qualification => name
+      map.inject({}) { |result, name| result[name] = send(name) }
     end
 
     def log_update
-      changes.slice(*activity_attrs).inject(:from => {}, :to => {}) do |log, (name, change)|
+      log = changes.slice(*activity_attrs).inject(:from => {}, :to => {}) do |log, (name, change)|
         log[:from][name.to_sym] = change.first
         log[:to][name.to_sym]   = change.last
         log
       end
+      log
     end
   end
   ActiveRecord::Base.send(:include, Logging)
@@ -49,11 +50,11 @@ class Activity < ActiveRecord::Base
 
   class << self
     def session_timeout
-      @@session_timeout ||= 10
+      defined?(@session_timeout) ? @session_timeout : 10
     end
 
     def session_timeout=(timeout)
-      @@session_timeout = timeout
+      @session_timeout = timeout
     end
 
     def current
@@ -73,7 +74,7 @@ class Activity < ActiveRecord::Base
       self.current = Activity.new(
         :action      => action.to_s,
         :object      => object, # FIXME can potentially run into endless loop
-        :changes     => object.send(:"log_#{action}"),
+        :changes     => object.send(:"log_#{action}").compact,
         :user        => user,
         :user_name   => user && user.name,
         :started_at  => Time.zone.now
@@ -82,7 +83,6 @@ class Activity < ActiveRecord::Base
 
     def aggregate!
       to_aggregate.group_by(&:object_key).each do |key, activities|
-        p activities
         canceled?(activities) ? delete(activities) : merge(activities)
       end
     end
@@ -96,12 +96,14 @@ class Activity < ActiveRecord::Base
       last     = activities.last || activity
 
       activity = activities.inject(activity) do |activity, other|
+        activity.changes[:from].reverse_merge!(other.changes[:from] || {}) if activity.changes[:from]
         activity.changes[:to].merge!(other.changes[:to])
         activity
       end
+      activity.changes.delete(:from) if activity.created? || last.destroyed?
 
       activity.update_attributes!(
-        :action        => activity.action == 'create' ? 'create' : last.action,
+        :action        => activity.created? ? 'create' : last.action,
         :finished_at   => last.started_at,
         :aggregated_at => Time.zone.now
       )

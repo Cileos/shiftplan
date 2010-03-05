@@ -31,12 +31,14 @@ describe 'Shift activities' do
       activity.user_name.should == @user.name
       activity.aggregated_at.should be_nil
 
-      activity.changes[:to].should == {
-        :start => @shift.start,
-        :end   => @shift.end,
-        :plan  => @shift.plan.name,
-        :workplace => @shift.workplace.name,
-        :requirements => [@qualification.name]
+      activity.changes.should == {
+        :to => {
+          :start => @shift.start,
+          :end   => @shift.end,
+          :plan  => @shift.plan.name,
+          :workplace => @shift.workplace.name,
+          :requirements => [@qualification.name]
+        }
       }
     end
 
@@ -67,7 +69,7 @@ describe 'Shift activities' do
       activity = Activity.first
       activity.action.should == 'update'
       activity.changes.should == {
-        :from => {},
+        :from => { :requirements => [@qualification.name] },
         :to   => { :requirements => [@qualification.name, @qualification.name] }
       }
     end
@@ -81,11 +83,13 @@ describe 'Shift activities' do
 
       activity = Activity.first
       activity.action.should == 'destroy'
-      activity.changes[:to].should == {
-        :start => @shift.start,
-        :end   => @shift.end,
-        :plan  => @shift.plan.name,
-        :workplace => @shift.workplace.name
+      activity.changes.should == {
+        :to => {
+          :start => @shift.start,
+          :end   => @shift.end,
+          :plan  => @shift.plan.name,
+          :workplace => @shift.workplace.name
+        }
       }
     end
   end
@@ -108,16 +112,20 @@ describe 'Shift activities' do
       activity.aggregated_at.should_not be_nil
 
       activity.changes.should == {
-        :start => @shift.start,
-        :end   => @shift.end,
-        :plan  => @shift.plan.name,
-        :workplace => @shift.workplace.name,
-        :requirements => [@qualification.name, @qualification.name]
+        :to => {
+          :start => @shift.start,
+          :end   => @shift.end,
+          :plan  => @shift.plan.name,
+          :workplace => @shift.workplace.name,
+          :requirements => [@qualification.name, @qualification.name]
+        }
       }
     end
 
     it 'aggregates three update activities' do
       Activity.delete_all
+      shift_start = @shift.start
+      shift_end   = @shift.end
 
       @shift.start += 1.hour
       @shift.save!
@@ -138,9 +146,16 @@ describe 'Shift activities' do
       activity.aggregated_at.should_not be_nil
 
       activity.changes.should == {
-        :start => @shift.start,
-        :end   => @shift.end,
-        :requirements => [@qualification.name, @qualification.name]
+        :from => {
+          :start => shift_start,
+          :end   => shift_end,
+          :requirements => [@qualification.name]
+        },
+        :to => {
+          :start => @shift.start,
+          :end   => @shift.end,
+          :requirements => [@qualification.name, @qualification.name]
+        }
       }
     end
 
@@ -166,10 +181,12 @@ describe 'Shift activities' do
       activity.aggregated_at.should_not be_nil
 
       activity.changes.should == {
-        :start => @shift.start,
-        :end   => @shift.end,
-        :plan  => @shift.plan.name,
-        :workplace => @shift.workplace.name
+        :to => {
+          :start => @shift.start,
+          :end   => @shift.end,
+          :plan  => @shift.plan.name,
+          :workplace => @shift.workplace.name
+        }
       }
     end
 
