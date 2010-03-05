@@ -38,9 +38,21 @@ class Activity < ActiveRecord::Base
   belongs_to :object, :polymorphic => true
   serialize  :changes
 
-  scope :to_aggregate, where(:aggregated_at => nil)
+  scope :to_aggregate, lambda {
+    scope = where(:aggregated_at => nil)
+    scope = scope.where('created_at > ?', session_timeout.minutes.ago) if session_timeout
+    scope
+  }
 
   class << self
+    def session_timeout
+      @@session_timeout ||= 10
+    end
+
+    def session_timeout=(timeout)
+      @@session_timeout = timeout
+    end
+
     def current
       Thread.current[:activity]
     end
@@ -50,17 +62,17 @@ class Activity < ActiveRecord::Base
     end
 
     def flush
-      current.save! if current # .changed? # this only seems to catch changes when done through attr accessors
+      current.save! if current
       Thread.current[:activity] = nil
     end
 
     def log(action, object, user)
       self.current = Activity.new(
         :action      => action.to_s,
-        :object      => object, # FIXME can run into endless loop
+        :object      => object, # FIXME can potentially run into endless loop
         :changes     => object.send(:"log_#{action}"),
         :user        => user,
-        :user_name   => user.name,
+        :user_name   => user && user.name,
         :started_at  => Time.zone.now
       )
     end

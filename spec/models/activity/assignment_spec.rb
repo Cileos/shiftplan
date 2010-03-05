@@ -2,6 +2,8 @@ require File.expand_path('../../../spec_helper', __FILE__)
 
 describe 'Assignment activities' do
   before do
+    Activity.session_timeout = false
+
     @user = User.make
     @shift = Shift.make
     @requirement = Requirement.make
@@ -9,6 +11,7 @@ describe 'Assignment activities' do
     @shift.requirements << @requirement
 
     ActiveRecord::Observer.enable_observers
+    Thread.current[:current_user] = @user
 
     @assignment = Assignment.create(:requirement => @requirement, :assignee => @employee)
   end
@@ -35,7 +38,7 @@ describe 'Assignment activities' do
 
     it 'logs a destroy activity' do
       Activity.delete_all
-      
+
       @assignment.destroy
 
       activity = Activity.first
