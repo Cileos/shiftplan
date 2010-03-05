@@ -35,7 +35,7 @@ class Activity::ResourceObserver < ActiveRecord::Observer
   protected
   
     def log_activity(action, object)
-      Activity.log(action, object, Thread.current[:current_user])
+      Activity.log(action, object, Thread.current[:user])
       true
     end
 end

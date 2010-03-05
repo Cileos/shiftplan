@@ -39,10 +39,13 @@ class Activity < ActiveRecord::Base
   serialize  :changes
 
   scope :to_aggregate, lambda {
-    scope = where(:aggregated_at => nil)
-    scope = scope.where('created_at > ?', session_timeout.minutes.ago) if session_timeout
+    scope = unaggregated
+    scope = scope.where('created_at < ?', session_timeout.minutes.ago) if session_timeout
     scope
   }
+
+  scope :unaggregated, where(:aggregated_at => nil)
+  scope :aggregated,   where('aggregated_at IS NOT NULL')
 
   class << self
     def session_timeout
@@ -79,6 +82,7 @@ class Activity < ActiveRecord::Base
 
     def aggregate!
       to_aggregate.group_by(&:object_key).each do |key, activities|
+        p activities
         canceled?(activities) ? delete(activities) : merge(activities)
       end
     end
@@ -98,7 +102,6 @@ class Activity < ActiveRecord::Base
 
       activity.update_attributes!(
         :action        => activity.action == 'create' ? 'create' : last.action,
-        :changes       => activity.changes[:to],
         :finished_at   => last.started_at,
         :aggregated_at => Time.zone.now
       )
@@ -116,5 +119,13 @@ class Activity < ActiveRecord::Base
 
   def destroyed?
     action == 'destroy'
+  end
+
+  def aggregated?
+    !aggregated_at.nil?
+  end
+
+  def status
+    aggregated? ? 'aggregated' : 'unaggregated'
   end
 end

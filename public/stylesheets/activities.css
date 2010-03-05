@@ -1,0 +1,24 @@
+.activity {
+  margin: 16px 0;
+}
+.activity table {
+  width: 100%;
+  margin: 16px 0 0 0;
+  border-collapse: collapse;
+}
+.activity tr.even {
+  background-color: #f0f0f0;
+}
+.activity th:first-child {
+  width: 30px;
+}
+.activity th {
+  font-style: italic;
+  color: #999;
+  background-color: #ffffff;
+  width: 60px;
+}
+.activity th, .activity td {
+  padding: 2px 8px 2px 0px;
+  border: none;
+}

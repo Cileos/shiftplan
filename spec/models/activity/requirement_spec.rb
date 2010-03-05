@@ -9,7 +9,7 @@ describe 'Requirement activities' do
     @qualification = Qualification.make
 
     ActiveRecord::Observer.enable_observers
-    Thread.current[:current_user] = @user
+    Thread.current[:user] = @user
     @requirement = Requirement.create(:shift => @shift, :qualification => @qualification)
   end
 

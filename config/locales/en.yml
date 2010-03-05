@@ -40,6 +40,22 @@ en:
     one:   "{{count}} workplace"
     other: "{{count}} workplaces"
 
+  activity:
+    from: "From"
+    to: "To"
+    action:
+      create:  "created"
+      update:  "updated"
+      destroy: "deleted"
+    plan:
+      unaggregated: '%{started_at}: %{user} has %{action} the plan "%{plan}"'
+      aggregated:   '%{started_at} - %{finished_at}: %{user} has %{action} the plan "%{plan}"'
+      attributes:
+        name: "Name"
+        start_date: "Start date"
+        end_date: "End date"
+        template: "Template"
+
   # workplaces
   click_to_add_workplace: Click to add
   add_workplace: "Click here to add a new workplace"

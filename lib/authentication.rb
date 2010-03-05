@@ -11,11 +11,11 @@ module Authentication
 
   module InstanceMethods
     def current_user
-      Thread.current[:current_user] ||= user_from_cookie
+      Thread.current[:user] ||= user_from_cookie
     end
 
     def current_user=(user)
-      Thread.current[:current_user] = user
+      Thread.current[:user] = user
     end
 
     def signed_in?

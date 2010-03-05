@@ -40,6 +40,15 @@ de:
     one:   "{{count}} Arbeitsplatz"
     other: "{{count}} Arbeitsplätze"
 
+  activities:
+    plan:
+      unaggregated: '%{started_at}: %{user} hat den Plan %{plan} "%{action}"'
+      aggregated:   '%{started_at} - %{finished_at}: %{user} hat den Plan %{plan} "%{action}"'
+      action:
+        create:   "angelegt"
+        update:   "bearbeitet"
+        destroye: "gelöscht"
+
   # workplaces
   click_to_add_workplace: Hinzufügen
   add_workplace: "Klicken Sie hier, um einen Arbeitsplatz hinzuzufügen"

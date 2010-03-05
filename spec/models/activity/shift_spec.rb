@@ -12,7 +12,7 @@ describe 'Shift activities' do
     @shift.requirements.build(:qualification => @qualification)
 
     ActiveRecord::Observer.enable_observers
-    Thread.current[:current_user] = @user
+    Thread.current[:user] = @user
     @shift.save!
   end
   

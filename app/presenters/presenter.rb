@@ -28,7 +28,7 @@ class Presenter
     render
   end
 
-  [:h1, :h2, :h3, :h4, :div, :ol, :ul, :li, :span].each do |tag_name|
+  [:h1, :h2, :h3, :h4, :div, :ol, :ul, :li, :span, :table, :th, :tr, :td].each do |tag_name|
     class_eval <<-code, __FILE__, __LINE__
       def #{tag_name}(*args, &block)
         content_tag(:#{tag_name}, *args, &block)

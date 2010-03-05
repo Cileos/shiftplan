@@ -7,7 +7,7 @@ describe 'Plan activities' do
     @user = User.make
 
     ActiveRecord::Observer.enable_observers
-    Thread.current[:current_user] = @user
+    Thread.current[:user] = @user
     @plan = Plan.make
   end
   

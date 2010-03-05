@@ -88,6 +88,7 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     dashboard
     statuses
     search
+    activities
   )
   # jquery-ui/ui-lightness/jquery-ui
 end

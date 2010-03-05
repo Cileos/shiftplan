@@ -11,7 +11,7 @@ describe 'Assignment activities' do
     @shift.requirements << @requirement
 
     ActiveRecord::Observer.enable_observers
-    Thread.current[:current_user] = @user
+    Thread.current[:user] = @user
 
     @assignment = Assignment.create(:requirement => @requirement, :assignee => @employee)
   end

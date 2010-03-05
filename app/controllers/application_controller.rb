@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate
 
   after_filter :aggregate_activities # should probably spawn a thread or something
+  after_filter :cleanup_thread
 
   protected
 
@@ -27,5 +28,10 @@ class ApplicationController < ActionController::Base
 
     def aggregate_activities
       Activity.aggregate!
+    end
+
+    def cleanup_thread
+      Thread.current[:user] = nil
+      Thread.current[:activity] = nil
     end
 end
