@@ -2,11 +2,14 @@ require File.expand_path('../../../spec_helper', __FILE__)
 
 describe 'Requirement activities' do
   before do
+    Activity.session_timeout = false
+
     @user = User.make
     @shift = Shift.make
     @qualification = Qualification.make
 
     ActiveRecord::Observer.enable_observers
+    Thread.current[:current_user] = @user
     @requirement = Requirement.create(:shift => @shift, :qualification => @qualification)
   end
 

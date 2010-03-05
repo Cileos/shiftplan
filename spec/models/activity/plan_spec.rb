@@ -2,8 +2,12 @@ require File.expand_path('../../../spec_helper', __FILE__)
 
 describe 'Plan activities' do
   before(:each) do
+    Activity.session_timeout = false
+
     @user = User.make
+
     ActiveRecord::Observer.enable_observers
+    Thread.current[:current_user] = @user
     @plan = Plan.make
   end
   
