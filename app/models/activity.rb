@@ -76,14 +76,18 @@ class Activity < ActiveRecord::Base
     end
 
     def merge(activities)
-      activity = activities.inject(activities.shift) do |activity, other|
+      activity = activities.shift
+      last     = activities.last || activity
+
+      activity = activities.inject(activity) do |activity, other|
         activity.changes[:to].merge!(other.changes[:to])
         activity
       end
+
       activity.update_attributes!(
-        :action        => activity.action == 'create' ? 'create' : activities.last.action,
+        :action        => activity.action == 'create' ? 'create' : last.action,
         :changes       => activity.changes[:to],
-        :finished_at   => activities.last.started_at,
+        :finished_at   => last.started_at,
         :aggregated_at => Time.zone.now
       )
       delete(activities)

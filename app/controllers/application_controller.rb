@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_object_name
   before_filter :authenticate
 
+  after_filter :aggregate_activities # should probably spawn a thread or something
+
   protected
 
     def set_object_name
@@ -21,5 +23,9 @@ class ApplicationController < ActionController::Base
         # current_user.accounts.first || raise("current user #{current_user.inspect} does not belong to an account")
         Account.first
       end
+    end
+
+    def aggregate_activities
+      Activity.aggregate!
     end
 end
