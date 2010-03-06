@@ -1,4 +1,4 @@
-require 'activity'
+require 'activity_logging'
 
 class Plan < ActiveRecord::Base
   self.activity_attrs = %w(name start_date end_date template)
@@ -15,7 +15,8 @@ class Plan < ActiveRecord::Base
     end
   end
 
-  scope :templates, where(:template => true)
+  # note: arel + scopes + unmigrated tables = boom!
+  scope :templates, :conditions => { :template => true } #where(:template => true)
 
   validates_presence_of :start_date, :end_date, :start_time, :end_time
   validate :start_before_end
