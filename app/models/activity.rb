@@ -13,8 +13,9 @@ class Activity < ActiveRecord::Base
     scope
   }
 
-  scope :unaggregated, where(:aggregated_at => nil)
-  scope :aggregated,   where('aggregated_at IS NOT NULL')
+  # note: arel + scopes + unmigrated tables = boom!
+  scope :unaggregated, :conditions => { :aggregated_at => nil }   # where(:aggregated_at => nil)
+  scope :aggregated,   :conditions => "aggregated_at IS NOT NULL" # where('aggregated_at IS NOT NULL')
 
   class << self
     def session_timeout
