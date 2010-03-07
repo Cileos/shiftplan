@@ -11,6 +11,9 @@ en:
     qualification: Qualification
     logged_in_as: "Logged in as {{user}}"
     logout: Logout
+  headings:
+    overview: Overview
+    statistics: Statistics
 
   new: New
   save: Save
@@ -55,6 +58,21 @@ en:
         start_date: "Start date"
         end_date: "End date"
         template: "Template"
+    shift:
+      unaggregated: '%{started_at}: %{user} has %{action} a shift for "%{workplace}"'
+      aggregated:   '%{started_at} - %{finished_at}: %{user} has %{action} a shift for "%{workplace}"'
+      attributes:
+        start: "Start"
+        end: "End"
+        requirements: "Requirements"
+    assignment:
+      created:   '%{started_at}: %{user} has assigned %{employee} to "%{workplace}" %{qualification} on %{day}'
+      destroyed: '%{started_at}: %{user} has assigned %{employee} from "%{workplace}" %{qualification} on %{day}'
+      qualification: "(%{name})"
+      attributes:
+        start: "Start"
+        end: "End"
+
 
   # workplaces
   click_to_add_workplace: Click to add

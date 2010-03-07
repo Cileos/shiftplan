@@ -14,3 +14,5 @@ module Shiftplan
     config.active_record.observers = [:'activity/resource_observer', :'activity/element_observer']
   end
 end
+
+

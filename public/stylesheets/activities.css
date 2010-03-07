@@ -2,7 +2,7 @@
   margin: 16px 0;
 }
 .activity table {
-  width: 100%;
+  display: none;
   margin: 16px 0 0 0;
   border-collapse: collapse;
 }

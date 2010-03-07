@@ -226,11 +226,13 @@ $.extend($.fn, {
 });
 
 $(document).ready(function() {
-  $.each(Resource.types, function() {
-  	var type = this;
-  	$.fn[this.class_name()] = function() { return this.resource(type); }
-  });
-  $.each(Resource.types, function() {
-    this.init();
-  });
+  if($('#plan').length > 0) {
+    $.each(Resource.types, function() {
+    	var type = this;
+    	$.fn[this.class_name()] = function() { return this.resource(type); }
+    });
+    $.each(Resource.types, function() {
+      this.init();
+    });
+  }
 })

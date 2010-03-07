@@ -45,7 +45,7 @@ class Activity < ActiveRecord::Base
         :object      => object, # FIXME can potentially run into endless loop
         :changes     => object.send(:"log_#{action}").compact,
         :user        => user,
-        :user_name   => user && user.name,
+        :user_name   => user && (user.name || user.email),
         :started_at  => Time.zone.now
       )
     end
