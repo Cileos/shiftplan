@@ -12,7 +12,7 @@ default_statuses = employee.statuses.default.group_by(&:day_of_week)
 %>
   'html': {
     'replace': {
-      '#<%= "#{dom_id(employee)}_day_#{day_of_week}" %>': '<%= escape_javascript(render(:partial => 'default_statuses/day',
+      '#<%= "#{dom_id(employee)}_day_#{day_of_week}" %>': '<%= escape_javascript(render(:partial => 'default_statuses/day.html',
               :locals => {
                 :employee => employee,
                 :day_of_week => day_of_week,
@@ -22,11 +22,8 @@ default_statuses = employee.statuses.default.group_by(&:day_of_week)
 <% else -%>
   'html': {
     'replace': {
-      '#<%= "#{dom_id(@status.employee)}_#{@status.day.to_s(:number)}" %>': '<%= escape_javascript(render(:partial => 'statuses/day',
-              :locals => {
-                :day => @status.day,
-                :statuses => statuses_for(@status.day, @status.employee.statuses.override.all),
-                :employee => @status.employee })) %>'
+      '#<%= "#{dom_id(@status.employee)}_#{@status.day.to_s(:number)}" %> ul': '<%= escape_javascript(render(:partial => 'statuses/statuses.html',
+              :locals => { :statuses => statuses_for(@status.day, @status.employee.statuses.override.all) })) %>'
     }
   }
 <% end -%>

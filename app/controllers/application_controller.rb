@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include Authentication
 
   helper :all
+  helper LaterDude::CalendarHelper
   protect_from_forgery
 
   before_filter :set_object_name

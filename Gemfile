@@ -5,6 +5,7 @@ gem "rails", :git => "git://github.com/rails/rails.git"
 gem 'rack'
 gem 'mysql',      '>= 2.7'
 gem 'gravtastic', '>= 2.1.0'
+gem 'later_dude', '>= 0.3.1'
 
 group :test do
 	gem 'ruby-debug'

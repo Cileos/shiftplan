@@ -1,3 +1,24 @@
+/* calendar */
+body.statuses .calendar .month_names th.current {
+  text-align: center;
+}
+body.statuses .calendar .month_names th.previous {
+  text-align: left;
+}
+body.statuses .calendar .month_names th.next {
+  text-align: right;
+}
+body.statuses .calendar th,
+body.statuses .calendar td {
+  width: 14%;
+  vertical-align: top;
+}
+body.statuses .calendar .otherMonth {
+  visibility: hidden;
+  color: transparent;
+}
+
+/* */
 ul.statuses li a:after {
   content: "?";
 }

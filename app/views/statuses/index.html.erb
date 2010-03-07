@@ -1,38 +1,5 @@
-<%
-# a case for LaterDude? do it on cw or monthly basis? maybe even quarter?
-weeks = Date.civil(2009, 12, 28)..Date.civil(2011, 1, 2)
-%>
-
 <h1><%= @employee.full_name %></h1>
 
-<table>
-  <colgroup>
-    <col width="9%" />
-    <col width="13%" />
-    <col width="13%" />
-    <col width="13%" />
-    <col width="13%" />
-    <col width="13%" />
-    <col width="13%" />
-    <col width="13%" />
-  </colgroup>
-  <thead>
-    <tr>
-      <th></th>
-      <% days_of_week.each do |day_of_week| -%>
-        <th><%= t(:'date.day_names')[day_of_week] %></th>
-      <% end -%>
-    </tr>
-  </thead>
-  <tbody>
-    <% weeks.to_a.in_groups_of(7) do |days| -%>
-      <%= render :partial => 'week',
-                 :locals => {
-                   :days => days,
-                   :employee => @employee,
-                   :statuses => @employee.statuses.override.all } %>
-    <% end -%>
-  </tbody>
-</table>
+<%= calendar_for(Date.today.year, Date.today.month, calendar_options(@employee), &calendar_status_proc(@employee)) %>
 
 <%= render :partial => 'sidebar' %>

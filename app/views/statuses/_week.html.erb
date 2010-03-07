@@ -1,8 +1,0 @@
-<%
-first_day_of_week = I18n.t(:'date.first_day_of_week')
-week_no = days[0].strftime(first_day_of_week == 1 ? '%W' : '%U')
-%>
-<tr>
-  <th scope="row"><abbr title="Kalenderwoche <%= week_no %> (<%= l(days.first, :format => :short) %> bis <%= l(days.last, :format => :short) %>)">KW <%= week_no %></abbr></th>
-  <%= render :partial => 'day', :collection => days, :locals => { :employee => employee, :statuses => statuses } %>
-</tr>

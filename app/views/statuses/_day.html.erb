@@ -1,8 +1,5 @@
-<% content_tag(:td, :id => "#{dom_id(employee)}_#{day.to_s(:number)}") do %>
-  <ul class="statuses">
-    <%= render :partial => 'status', :collection => statuses_for(day, statuses) %>
-  </ul>
-  <% content_tag(:div, :class => "resource", :'data-form-values' => Status.new(:employee_id => employee.id, :day => day).form_values_json) do %>
-    <p class="actions"><%= link_to 'New', new_status_path(:employee_id => employee.id, :day => day), :class => 'edit', :id => 'new_status' %></p>
-  <% end -%>
-<% end -%>
+<%=
+content_tag(:h3, day.day) +
+render(:partial => 'statuses.html', :locals => { :statuses => statuses }) +
+content_tag(:div, content_tag(:p, link_to('New', new_status_path(:employee_id => employee.id, :day => day), :class => 'edit', :id => 'new_status'), :class => 'actions'), :class => 'resource', :'data-form-values' => Status.new(:employee_id => employee.id, :day => day).form_values_json)
+%>
