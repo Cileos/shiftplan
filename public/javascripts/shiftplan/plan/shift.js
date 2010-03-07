@@ -173,7 +173,6 @@
   	shiftsDimensions: function() {
       if(!this.element.data('shiftsDimensions')) {
         var containment = this.element.data('draggable').containment;
-        console.log(draggable.containment)
         this.element.data('shiftsDimensions', {
           left:   containment[0] - 5,
           top:    containment[1] - 5,

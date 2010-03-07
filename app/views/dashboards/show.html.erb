@@ -1,7 +1,7 @@
 <h1><%= t(:'headings.overview') %></h1>
 
-<%= @current_activities.map { |activity| p activity; presenter_for(activity, "activity/#{activity.object_type}").to_s }.join_safe %>
-<%= @aggregated_activities.map { |activity| p activity; presenter_for(activity, "activity/#{activity.object_type}").to_s }.join_safe %>
+<%= activities_list(@current_activities) %>
+<%= activities_list(@aggregated_activities) %>
 
 <div id="sidebar">
   <h3><%= t(:'headings.statistics') %></h3>
