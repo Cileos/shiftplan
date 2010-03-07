@@ -1,20 +1,18 @@
 module Foo
-  class Bar < Minimal::Template
+  class Simple < Minimal::Template
     def content
       html do
         head
         body do
           h1 'plain'
           bar
-          div do
-            render :partial => 'foo/partial', :locals => { :local => 'partial' }
-          end
+          div { div { 'nested' }}
         end
       end
     end
 
     def bar
-      p  { local }
+      p { local }
     end
   end
 end

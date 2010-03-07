@@ -3,10 +3,13 @@ class Plans::Index < Minimal::Template
     h1 'Plans'
     table :id => 'plans' do
       tr do
-        ths = ['Name', 'Start date', 'End date', 'Shifts', '']
-        ths.each { |text| th(text) }
+        th 'Name'
+        th 'Start date'
+        th 'End date'
+        th 'Shifts'
+        th
       end
-      plans.each { |plan| render(:partial => plan) }
+      render(:partial => plans)
     end
     render(:partial => 'form')
   end

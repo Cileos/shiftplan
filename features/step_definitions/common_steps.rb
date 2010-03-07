@@ -165,7 +165,7 @@ register_rb_step_definition /^(?:|I )(?:show me|browse) the page$/ do
   Steam.save_and_open(request.url, response)
 end
 
-register_rb_step_definition "I output the body" do
+register_rb_step_definition /^(?:|I )output the body/ do
   puts response.body
 end
 

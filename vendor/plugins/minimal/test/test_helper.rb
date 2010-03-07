@@ -4,10 +4,14 @@ require 'rubygems'
 require 'test/unit'
 require 'pp'
 require 'minimal'
+require 'action_controller'
+require 'active_model'
+
+Minimal::Template.send(:include, Minimal::Template::FormBuilderProxy)
 
 ActionView::Template.register_template_handler('rb', Minimal::Template::Handler)
 
-# Minimal::Template.send(:include, Minimal::Tidy)
+ActionView::Base.class_eval { def protect_against_forgery?; false end } # HAX
 
 module TestMethod
   def self.included(base)
