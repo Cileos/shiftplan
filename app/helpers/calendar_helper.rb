@@ -1,9 +1,11 @@
 module CalendarHelper
   def calendar_options(employee)
     {
-      :current_month  => lambda { |date| l(date, :format => '%B %Y') },
-      :next_month     => lambda { |date| link_to(l(date, :format => '%B %Y &raquo;').html_safe, employee_statuses_path(employee, :year => date.year, :month => date.month)) },
-      :previous_month => lambda { |date| link_to(l(date, :format => '&laquo; %B %Y').html_safe, employee_statuses_path(employee, :year => date.year, :month => date.month)) }
+      :calendar_class     => "#{dom_id(employee)}_overrides calendar",
+      :use_full_day_names => true,
+      :current_month      => lambda { |date| l(date, :format => '%B %Y') },
+      :next_month         => lambda { |date| link_to(l(date, :format => '%B %Y &raquo;').html_safe, employee_statuses_path(employee, :year => date.year, :month => date.month)) },
+      :previous_month     => lambda { |date| link_to(l(date, :format => '&laquo; %B %Y').html_safe, employee_statuses_path(employee, :year => date.year, :month => date.month)) }
     }
   end
 
