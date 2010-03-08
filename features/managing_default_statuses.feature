@@ -15,13 +15,13 @@ Feature: Managing default statuses
   		| name 							|
   		| Fritz Thielemann  |
   	And the following default statuses:
-  	  | employee         | day of week | start | end   | status    |
-  	  | Fritz Thielemann | Tuesday     | 8:00  | 16:00 | Available |
+  	  | employee         | day of week | start_time | end_time | status    |
+  	  | Fritz Thielemann | Tuesday     | 8:00       | 16:00    | Available |
   	And I am logged in with "fritz@thielemann.de" and "oracle"
 
   Scenario: Adding an availability entry
     Given I am on the default statuses index page
-    When I click on "Fritz Thielemann"
+    When I select "Fritz Thielemann" from "Employee"
     And I select "Monday" from "Day of week"
     And I select "10:00" as the "Start" time
     And I select "22:00" as the "End" time
@@ -31,7 +31,7 @@ Feature: Managing default statuses
 
   Scenario: Adding an unavailability entry
     Given I am on the default statuses index page
-    When I click on "Fritz Thielemann"
+    When I select "Fritz Thielemann" from "Employee"
     And I select "Monday" from "Day of week"
     And I select "10:00" as the "Start" time
     And I select "22:00" as the "End" time

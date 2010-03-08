@@ -8,41 +8,45 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-    # when /the start page/
+    # when /^the start page$/
     #   root_path
-    # when /the plans index page/
+    # when /the plans index page$/
     #   plans_path
-    # when /the plan show page/
+    # when /^the plan show page$/
     #   plan_path(Plan.first)
-    # when /the employees index page/
+    # when /^the employees index page$/
     #   employees_path
-    # when /the workplaces index page/
+    # when /^the workplaces index page$/
     #   workplaces_path
-    # when /the qualifications index page/
+    # when /^the qualifications index page$/
     #   qualifications_path
-    # when /the default statuses index page/
+    # when /^the default statuses index page$/
     #   default_statuses_path
-    # when /the statuses index page/
+    # when /^the statuses index page$/
     #   statuses_path
-    # when /the tags index page/
+    # when /^the tags index page$/
     #   tags_path
-    when /the start page/
+    when /^the start page$/
       '/'
-    when /the plans index page/
+    when /^the plans index page$/
       '/plans'
-    when /the plan show page/
+    when /^the plan show page$/
       "/plans/#{Plan.first.id}"
-    when /the employees index page/
+    when /^the employees index page$/
       '/employees'
-    when /the workplaces index page/
+    when /^the workplaces index page$/
       '/workplaces'
-    when /the qualifications index page/
+    when /^the qualifications index page$/
       '/qualifications'
-    when /the default statuses index page/
+    when /^the default statuses index page$/
       '/default_statuses'
-    when /the statuses index page/
+    when /^the statuses index page$/
       '/statuses'
-    when /the tags index page/
+    when /^the statuses index page for "(.+)" for "(.+)"$/
+      month, year = $2.split
+      month = Date::MONTHNAMES.index(month)
+      "/employees/#{Employee.find_by_name($1).id}/statuses?year=#{year}&month=#{month}"
+    when /^the tags index page$/
       '/tags'
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
