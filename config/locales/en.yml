@@ -33,6 +33,9 @@ en:
   shifts: Shifts
   requirements: Requirements
   assignments: Assignments
+  statuses:
+    defaults: Default availabilities
+    overrides: Overridden availabilities
 
   override_defaults: Override
 

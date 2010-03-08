@@ -35,7 +35,7 @@ $(document).ready(function() {
   });
 
   // $('li.resource, .resource .actions a.edit')
-  $('li.resource, .resource .actions a.edit').live('click', function(event) {
+  $('li.resource, .resource .actions a.edit, .resource .actions a.add').live('click', function(event) {
     if(event.isPropagationStopped()) return; // wtf?
 
     event.preventDefault();

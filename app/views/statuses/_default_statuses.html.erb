@@ -1,0 +1,21 @@
+<table class="<%= dom_id(employee) %>_defaults defaults">
+  <tbody>
+    <tr>
+      <% default_statuses = employee.statuses.default.group_by(&:day_of_week) %>
+      <% 0.upto(6) do |day_of_week| -%>
+        <%= render :partial => 'default_statuses/day',
+                   :locals => {
+                     :employee => employee,
+                     :day_of_week => day_of_week,
+                     :statuses => Status.fill_gaps!(employee, day_of_week, default_statuses[day_of_week]) } %>
+      <% end -%>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <% days_of_week.each do |day_of_week| -%>
+        <th><%= t(:'date.day_names')[day_of_week] %></th>
+      <% end -%>
+    </tr>
+  </thead>
+</table>

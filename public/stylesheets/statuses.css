@@ -1,3 +1,17 @@
+body.statuses h2 {
+  margin: 16px 0 8px 0;
+  font-size: 16px;
+  color: #BBBBBB;
+}
+
+body.statuses table.defaults th {
+  text-align: center;
+}
+body.statuses table.defaults th,
+body.statuses table.defaults td {
+  border: 1px solid #BBBBBB;
+}
+
 /* calendar */
 body.statuses .calendar .month_names th.current {
   text-align: center;
@@ -8,14 +22,28 @@ body.statuses .calendar .month_names th.previous {
 body.statuses .calendar .month_names th.next {
   text-align: right;
 }
+body.statuses .calendar .day_names th {
+  text-align: center;
+}
 body.statuses .calendar th,
 body.statuses .calendar td {
+  border: 1px solid #BBBBBB;
   width: 14%;
   vertical-align: top;
 }
 body.statuses .calendar .otherMonth {
   visibility: hidden;
   color: transparent;
+}
+body.statuses .calendar h3 {
+  float: right;
+  color: #BBBBBB;
+}
+body.statuses .calendar .actions {
+  float: right;
+  margin-top: 5px;
+  text-align: right;
+  width: 100%;
 }
 
 /* */

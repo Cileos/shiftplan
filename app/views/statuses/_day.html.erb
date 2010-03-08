@@ -1,5 +1,5 @@
 <%=
 content_tag(:h3, day.day) +
 render(:partial => 'statuses.html', :locals => { :statuses => statuses }) +
-content_tag(:div, content_tag(:p, link_to('New', new_status_path(:employee_id => employee.id, :day => day), :class => 'add', :id => 'new_status'), :class => 'actions'), :class => 'resource', :'data-form-values' => Status.new(:employee_id => employee.id, :day => day).form_values_json)
+content_tag(:div, content_tag(:p, link_to('New', new_status_path(:employee_id => employee.id, :day => day), :class => 'add', :id => 'new_status'), :class => 'actions'), :class => 'status override resource', :'data-form-values' => Status.new(:employee_id => employee.id, :day => day).form_values_json)
 %>

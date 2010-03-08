@@ -30,6 +30,9 @@ de:
   shifts: Schichten
   requirements: Anforderungen
   assignments: Zuweisung
+  statuses:
+    defaults: Standardverfügbarkeiten
+    overrides: Überschriebene Verfügbarkeiten
 
   override_defaults: Überschreiben
 

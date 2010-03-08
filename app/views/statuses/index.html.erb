@@ -1,5 +1,11 @@
 <h1><%= @employee.full_name %></h1>
 
+<h2><%= t(:defaults, :scope => :statuses) %></h2>
+
+<%= render :partial => 'default_statuses', :locals => { :employee => @employee } %>
+
+<h2><%= t(:overrides, :scope => :statuses) %></h2>
+
 <%= calendar_for(Date.today.year, Date.today.month, calendar_options(@employee), &calendar_status_proc(@employee)) %>
 
 <%= render :partial => 'sidebar' %>

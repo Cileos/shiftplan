@@ -1,4 +1,7 @@
 <table>
+  <tbody>
+    <%= render :partial => 'employee', :collection => @employees %>
+  </tbody>
   <thead>
     <tr>
       <th></th>
@@ -8,9 +11,6 @@
       <% end -%>
     </tr>
   </thead>
-  <tbody>
-    <%= render :partial => 'employee', :collection => @employees %>
-  </tbody>
 </table>
 
 <%= render :partial => 'sidebar' %>

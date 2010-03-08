@@ -56,6 +56,7 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     shiftplan/cursor
     shiftplan/resource
     shiftplan/plan
+    shiftplan/status
 
     shiftplan/plan/day
     shiftplan/plan/shifts
