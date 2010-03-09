@@ -1,7 +1,9 @@
-class ActivityPresenter::PlanPresenter < ActivityPresenter
+require 'activities/base'
+
+class Activities::Plan < Activities::Base
   def content
     li :class => 'activity plan' do
-      self << link_to(summary, '#')
+      link_to(summary, '#')
       render_details(:name, :start_date, :end_date)
     end
   end

@@ -5,16 +5,17 @@ class Minimal::Template
     include ActionView::Template::Handlers::Compilable
 
     def compile(template)
-      require template.identifier
+      require_dependency template.identifier
       klass = template.identifier =~ %r(views/(.*).rb) && $1.camelize
       "@output_buffer = ActiveSupport::SafeBuffer.new;#{klass}.new(self)._render(local_assigns)"
     end
   end
 
   AUTO_BUFFER = %r(render|tag|error_message_|select|debug|_to|_for)
+  NO_AUTO_BUFFER = %r(form_tag|form_for)
 
-  TAG_NAMES = %w(a body div em fieldset form h1 h2 h3 h4 head html img input
-    label li link ol option p pre script select span strong table td th tr ul)
+  TAG_NAMES = %w(a body div em fieldset h1 h2 h3 h4 head html img input label li
+    link ol option p pre script select span strong table thead tbody tfoot td th tr ul)
 
   module Base
     attr_reader :view, :buffers, :locals
@@ -26,10 +27,12 @@ class Minimal::Template
     def _render(locals = nil)
       @locals = locals || {}
       content
+      view.output_buffer
     end
 
     TAG_NAMES.each do |name|
       define_method(name) { |*args, &block| content_tag(name, *args, &block) }
+      define_method("#{name}_for") { |*args, &block| content_tag_for(name, *args, &block) }
     end
 
     def <<(output)
@@ -45,8 +48,12 @@ class Minimal::Template
       end
 
       def call_view(method, *args, &block)
-        result = view.capture { view.send(method, *args, &block) }
-        AUTO_BUFFER =~ method.to_s ? self << result : result
+        block = lambda { |*a| self << view.with_output_buffer { yield(*a) } } if block
+        view.send(method, *args, &block).tap { |result| self << result if auto_buffer?(method) }
+      end
+
+      def auto_buffer?(method)
+        AUTO_BUFFER =~ method.to_s && NO_AUTO_BUFFER !~ method.to_s
       end
   end
   include Base

@@ -1,7 +1,9 @@
-class ActivityPresenter::ShiftPresenter < ActivityPresenter
+require 'activities/base'
+
+class Activities::Shift < Activities::Base
   def content
     li :class => 'activity shift' do
-      self << link_to(summary, '#')
+      link_to(summary, '#')
       render_details(:start, :end, :requirements)
     end
   end
