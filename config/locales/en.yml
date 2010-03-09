@@ -10,6 +10,7 @@ en:
     qualifications: Qualifications
     qualification: Qualification
     statuses: Availabilities
+    default_statuses: Default availabilities
     logged_in_as: "Logged in as {{user}}"
     logout: Logout
   headings:
@@ -190,6 +191,8 @@ en:
 
   date:
     first_day_of_week: 0
+    formats:
+      month_and_year: '%B %Y'
 
   time:
     formats:

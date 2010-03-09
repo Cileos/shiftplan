@@ -1,5 +1,5 @@
 <tr>
-  <th scope="row"><%= employee.full_name %></th>
+  <th scope="row"><%= content_tag(:a, employee.full_name, :name => employee_default_availabilities_dom_id(employee)) %></th>
   <td><%= link_to t(:override_defaults), employee_statuses_path(employee) %></td>
   <% default_statuses = employee.statuses.default.group_by(&:day_of_week) %>
   <% 0.upto(6) do |day_of_week| -%>

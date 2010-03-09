@@ -1,4 +1,5 @@
 class StatusesController < ApplicationController
+  before_filter :set_year_and_month
   before_filter :set_employees
   before_filter :set_employee
   before_filter :set_statuses, :only => :index
@@ -38,6 +39,11 @@ class StatusesController < ApplicationController
   end
 
   protected
+
+    def set_year_and_month
+      @year  = params[:year].to_i  || Date.current.year
+      @month = params[:month].to_i || Date.current.month
+    end
 
     def set_employees
       @employees = Employee.all

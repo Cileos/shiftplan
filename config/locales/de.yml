@@ -10,6 +10,7 @@ de:
     qualifications: Qualifikationen
     qualification: Qualifikation
     statuses: Verfügbarkeitsplanung
+    default_statuses: Standardverfügbarkeiten
     logged_in_as: "Angemeldet als {{user}}"
     logout: Abmelden
 
@@ -158,6 +159,7 @@ de:
   date:
     first_day_of_week: 1
     formats:
+      month_and_year: '%B %Y'
       default: "%d.%m.%Y"
       short: "%e. %B"
       long: "%e. %B %Y"
