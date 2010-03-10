@@ -15,8 +15,8 @@ class Requirement < ActiveRecord::Base
     @suitable_employees ||= begin
       Employee.for_qualification(qualification).all.select do |employee|
         employee.statuses.for(shift.day).any? do |status|
-          status.start.strftime('%H%M%S') <= self.start.strftime('%H%M%S') &&
-          status.end.strftime('%H%M%S')   >= self.end.strftime('%H%M%S')   &&
+          status.start_time.strftime('%H%M%S') <= self.start.strftime('%H%M%S') &&
+          status.end_time.strftime('%H%M%S')   >= self.end.strftime('%H%M%S')   &&
           Array(statuses).include?(status.status)
         end
       end

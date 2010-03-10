@@ -52,9 +52,9 @@ describe Requirement do
           end
 
           it "should return suitable employees with overlapping availability times" do
-            Status.make({ :employee => @cook_1,    :start => '8:00', :end => '17:00' }.reverse_merge(@default_attributes))
-            Status.make({ :employee => @cook_2,    :start => '8:00', :end => '17:00' }.reverse_merge(@default_attributes))
-            Status.make({ :employee => @barkeeper, :start => '8:00', :end => '17:00' }.reverse_merge(@default_attributes))
+            Status.make({ :employee => @cook_1,    :start_time => '8:00', :end_time => '17:00' }.reverse_merge(@default_attributes))
+            Status.make({ :employee => @cook_2,    :start_time => '8:00', :end_time => '17:00' }.reverse_merge(@default_attributes))
+            Status.make({ :employee => @barkeeper, :start_time => '8:00', :end_time => '17:00' }.reverse_merge(@default_attributes))
 
             employees = @cook_requirement.suitable_employees(@status)
             employees.should     include(@cook_1)
@@ -63,8 +63,8 @@ describe Requirement do
           end
 
           it "should return suitable employees with larger than necessary availability times" do
-            Status.make({ :employee => @cook_1, :start => '7:00', :end => '18:00' }.reverse_merge(@default_attributes))
-            Status.make({ :employee => @cook_2, :start => '0:00', :end => '23:00' }.reverse_merge(@default_attributes))
+            Status.make({ :employee => @cook_1, :start_time => '7:00', :end_time => '18:00' }.reverse_merge(@default_attributes))
+            Status.make({ :employee => @cook_2, :start_time => '0:00', :end_time => '23:00' }.reverse_merge(@default_attributes))
 
             employees = @cook_requirement.suitable_employees(@status)
             employees.should     include(@cook_1)
@@ -73,8 +73,8 @@ describe Requirement do
           end
 
           it "should not return suitable employees with wrong availability times" do
-            Status.make({ :employee => @cook_1, :start => '9:00', :end => '18:00' }.reverse_merge(@default_attributes))
-            Status.make({ :employee => @cook_2, :start => '7:00', :end => '16:00' }.reverse_merge(@default_attributes))
+            Status.make({ :employee => @cook_1, :start_time => '9:00', :end_time => '18:00' }.reverse_merge(@default_attributes))
+            Status.make({ :employee => @cook_2, :start_time => '7:00', :end_time => '16:00' }.reverse_merge(@default_attributes))
 
             @cook_requirement.suitable_employees(@status).should be_empty
           end
@@ -91,15 +91,15 @@ describe Requirement do
         end
 
         it "should return an employee that isn't available by default but is available on a specific day" do
-          Status.make(:employee => @cook_1, :day_of_week => 1, :start => '14:00', :end => '23:00', :status => @status)
-          Status.make(:employee => @cook_1, :day => Date.civil(2009, 11, 30), :start => '8:00', :end => '17:00', :status => @status)
+          Status.make(:employee => @cook_1, :day_of_week => 1, :start_time => '14:00', :end_time => '23:00', :status => @status)
+          Status.make(:employee => @cook_1, :day => Date.civil(2009, 11, 30), :start_time => '8:00', :end_time => '17:00', :status => @status)
 
           @cook_requirement.suitable_employees(@status).should include(@cook_1)
         end
 
         it "should not return an employee that is available by default but isn't available on a specific day" do
-          Status.make(:employee => @cook_1, :day_of_week => 1, :start => '8:00', :end => '17:00', :status => @status)
-          Status.make(:employee => @cook_1, :day => Date.civil(2009, 11, 30), :start => '14:00', :end => '23:00', :status => @status)
+          Status.make(:employee => @cook_1, :day_of_week => 1, :start_time => '8:00', :end_time => '17:00', :status => @status)
+          Status.make(:employee => @cook_1, :day => Date.civil(2009, 11, 30), :start_time => '14:00', :end_time => '23:00', :status => @status)
 
           @cook_requirement.suitable_employees(@status).should_not include(@cook_1)
         end

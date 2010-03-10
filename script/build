@@ -15,8 +15,10 @@ ln -nfs /var/www/shiftplan/shared/vendor/htmlunit-2.6 vendor/htmlunit-2.6
 # create database configuration
 ln -nfs /var/www/shiftplan/shared/config/database.yml.test config/database.yml
 
-# run bundler stuff
-env PATH=$PATH bundle install --relock
+# run bundler stuff 
+# run bundle install only if bundle check misses something
+# taking out the --relock as we don't change the Gemfile.lock
+bundle check || env PATH=$PATH bundle install
 
 # prepare test db
 rake environment RAILS_ENV=test db:drop db:create db:migrate
@@ -25,7 +27,7 @@ rake environment RAILS_ENV=test db:drop db:create db:migrate
 mkdir -p -m 766 tmp/pids
 
 # start the test server into background
-nohup rails server -p 3000 -e test 2>/dev/null 1>/dev/null &
+nohup bundle exec rails server -p 3000 -e test > log/server.log &
 
 # wait for starting server and run the tests
 sleep 10 && bundle exec cucumber -b features RAILS_ENV=test && bundle exec rspec ./spec
