@@ -15,8 +15,7 @@ class Plan < ActiveRecord::Base
     end
   end
 
-  # note: arel + scopes + unmigrated tables = boom!
-  scope :templates, :conditions => { :template => true } #where(:template => true)
+  scope :templates, where(:template => true)
 
   validates_presence_of :start_date, :end_date, :start_time, :end_time
   validate :start_before_end
