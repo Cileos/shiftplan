@@ -1,10 +1,15 @@
-class ActivityPresenter < Minimal::Presenter
+class Activities::Base < Minimal::Template
   def render_details(*attr_names)
     case activity.action
     when 'update'
-      table { render_changes(:from, attr_names) + render_changes(:to, attr_names) }
+      table do
+        render_changes(:from, attr_names)
+        render_changes(:to, attr_names)
+      end
     else
-      table { render_changes(:to, attr_names, :label => false ) }
+      table do
+        render_changes(:to, attr_names, :label => false )
+      end
     end
   end
   
@@ -12,12 +17,12 @@ class ActivityPresenter < Minimal::Presenter
     options[:label] = true unless options.key?(:label)
     changes = (activity.changes[type] || {})
 
-    attr_names.map do |name|
+    attr_names.each do |name|
       value = changes[name]
       tr do
-        th(:class => :label) { name == attr_names.first ? t(:"activity.#{type}") : '' } if options[:label]
-        th { t(:"activity.#{object_type}.attributes.#{name}") }
-        td { format_value(value) }
+        th (name == attr_names.first ? t(:"activity.#{type}") : ''), :class => :label if options[:label]
+        th t(:"activity.#{object_type}.attributes.#{name}")
+        td format_value(value)
       end if changes.key?(name)
     end
   end
@@ -51,7 +56,7 @@ class ActivityPresenter < Minimal::Presenter
     when DateTime, Date, Time
       l(value, :format => :short)
     else
-      value
-    end
+      escape_once(value)
+    end.html_safe
   end
 end

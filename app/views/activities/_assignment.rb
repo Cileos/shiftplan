@@ -1,9 +1,8 @@
-class ActivityPresenter::AssignmentPresenter < ActivityPresenter
+require 'activities/base'
+
+class Activities::Assignment < Activities::Base
   def content
-    li :class => 'activity assignment' do
-      self << summary
-      # details(:name, :start_date, :end_date)
-    end
+    li summary, :class => 'activity assignment'
   end
 
   def summary
