@@ -7,8 +7,8 @@ class Plans::Form < Minimal::Template
 
         fieldset do
           text_field f, :name
-          text_field f, :start_date
-          text_field f, :end_date
+          date_select f, :start_date
+          date_select f, :end_date
           div do
             label_tag :copy_from_id, t(:'activerecord.attributes.plan.template')
             select_tag 'copy_from[id]', tag(:option) + options_from_collection_for_select(templates, :id, :name)
@@ -50,6 +50,13 @@ class Plans::Form < Minimal::Template
     div do
       check_box_tag 'copy_from[elements][]', name, {}, :id => :"copy_from_#{name}"
       label_tag :"copy_from_#{name}", t(name), :class => 'inline'
+    end
+  end
+
+  def date_select(builder, name)
+    div do
+      builder.label name
+      builder.date_select name
     end
   end
 

@@ -1,7 +1,7 @@
 class Plans::Sidebar::Qualification < Minimal::Template
   def content
     li do
-      link_to(qualification.name, "/qualifications/#{id}", attributes)
+      link_to(qualification.name, qualification_path(qualification), attributes)
     end
   end
 

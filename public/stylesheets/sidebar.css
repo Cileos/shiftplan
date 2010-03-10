@@ -78,6 +78,11 @@
   float: none;
 }
 
+#sidebar .show_search {
+  float: right;
+  margin-right: 25px;
+  font-size: 11px;
+}
 
 #sidebar #employees,
 #sidebar #workplaces,
