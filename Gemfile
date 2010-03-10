@@ -1,7 +1,7 @@
 source 'http://gemcutter.org'
 
-gem "rails", :git => "git://github.com/rails/rails.git"
-
+# gem "rails", :git => "git://github.com/rails/rails.git"
+gem "rails",      '>=3.0.0beta1'
 gem 'rack'
 gem 'mysql',      '>= 2.7'
 gem 'gravtastic', '>= 2.1.0'
