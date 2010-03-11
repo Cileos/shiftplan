@@ -27,7 +27,10 @@ rake environment RAILS_ENV=test db:drop db:create db:migrate
 mkdir -p -m 766 tmp/pids
 
 # start the test server into background
-nohup bundle exec rails server -p 3000 -e test > log/server.log &
+# as long we use rails3beta1 we have to pass RAILS_ENV to the server
+# this is solved 5 days after releasing beta1 (LH #3877)
+#nohup bundle exec rails server -p 3000 -e test > log/server.log &
+nohup env RAILS_ENV=test bundle exec rails server -p 3000 > log/server.log &
 
 # wait for starting server and run the tests
 sleep 10 && bundle exec cucumber -b features RAILS_ENV=test && bundle exec rspec ./spec
