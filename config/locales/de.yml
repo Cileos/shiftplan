@@ -79,6 +79,7 @@ de:
   employee_successfully_deleted: "Mitarbeiter erfolgreich gelöscht."
 
   # statuses
+  click_here_to_manage_availabilities_by_week: "Klicken Sie hier, um Wochen-Verfügbarkeiten zu verwalten"
   new_status: Neue Verfügbarkeit
   new_default_status: Neue Standardverfügbarkeit
   status_from_to: "{{from}} bis {{to}}"
@@ -157,13 +158,14 @@ de:
   back: Zurück
   
   date:
+    calendar_week: "KW {{week}}"
     first_day_of_week: 1
     formats:
-      month_and_year: '%B %Y'
-      default: "%d.%m.%Y"
+      short_with_day_name: "%a, %e. %B"
+      month_and_year: "%B %Y"
+      default: "%e.%m.%Y"
       short: "%e. %B"
       long: "%e. %B %Y"
-      only_day: "%e"
  
     day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
     abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]

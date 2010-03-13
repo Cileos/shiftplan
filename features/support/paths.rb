@@ -42,10 +42,11 @@ module NavigationHelpers
       '/default_statuses'
     when /^the statuses index page$/
       '/statuses'
-    when /^the statuses index page for "(.+)" for "(.+)"$/
-      month, year = $2.split
-      month = Date::MONTHNAMES.index(month)
-      "/employees/#{Employee.find_by_name($1).id}/statuses?year=#{year}&month=#{month}"
+    when /^the statuses index page for week (\d{1,2}) of year (\d{4})$/
+      "/statuses/#{$2}/W#{$1}"
+    when /^the statuses index page for "(.+)" for "(.+) (\d{4})"$/
+      month = Date::MONTHNAMES.index($2)
+      "/employees/#{Employee.find_by_name($1).id}/statuses?year=#{$3}&month=#{month}"
     when /^the tags index page$/
       '/tags'
     else

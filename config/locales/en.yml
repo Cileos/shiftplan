@@ -106,6 +106,7 @@ en:
   employee_delete_confirmation: "Do you really want to delete this employee?"
 
   # statuses
+  click_here_to_manage_availabilities_by_week: "Click here to manage availabilities by week"
   new_status: New availability
   new_default_status: New default availability
   status_from_to: "{{from}} - {{to}}"
@@ -190,9 +191,11 @@ en:
   back: Back
 
   date:
-    first_day_of_week: 0
+    calendar_week: "Week {{week}}"
+    first_day_of_week: 1
     formats:
-      month_and_year: '%B %Y'
+      month_and_year: "%B %Y"
+      short_with_day_name: "%a, %b %d"
 
   time:
     formats:

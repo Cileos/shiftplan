@@ -13,23 +13,29 @@ body.statuses table.defaults td {
 }
 
 /* calendar */
-body.statuses .calendar .month_names th.current {
+body.statuses .calendar .month_names th.current,
+body.statuses .calendar .weeks th.current {
   text-align: center;
 }
-body.statuses .calendar .month_names th.previous {
+body.statuses .calendar .month_names th.previous,
+body.statuses .calendar .weeks th.previous {
   text-align: left;
 }
-body.statuses .calendar .month_names th.next {
+body.statuses .calendar .month_names th.next,
+body.statuses .calendar .weeks th.next {
   text-align: right;
 }
-body.statuses .calendar .day_names th {
+body.statuses .calendar .day_names th,
+body.statuses .calendar .days th {
   text-align: center;
 }
 body.statuses .calendar th,
 body.statuses .calendar td {
   border: 1px solid #BBBBBB;
-  width: 14%;
   vertical-align: top;
+}
+body.statuses .calendar td.day {
+  width: 14%;
 }
 body.statuses .calendar .otherMonth {
   visibility: hidden;
@@ -44,6 +50,16 @@ body.statuses .calendar .actions {
   margin-top: 5px;
   text-align: right;
   width: 100%;
+}
+/* for week calendar only */
+body.statuses .calendar.week tbody .days th {
+  width: 16%;
+}
+body.statuses .calendar.week tbody td {
+  width: 12%;
+}
+body.statuses .calendar.week h3 {
+  display: none;
 }
 
 /* */

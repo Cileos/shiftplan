@@ -1,19 +1,23 @@
 <% if @employee -%>
-  <h1><%= @employee.full_name %></h1>
-
-  <h2><%= t(:defaults, :scope => :statuses) %></h2>
-  <%= render :partial => 'default_statuses', :locals => { :employee => @employee } %>
-
-  <h2><%= t(:overrides, :scope => :statuses) %></h2>
-  <%= calendar_for(@year, @month, calendar_options(@employee), &calendar_status_proc(@employee)) %>
-  <%= render :partial => 'sidebar' %>
+  <%= render :partial => 'employee' %>
 <% else -%>
-  <h1><%= t(:statuses, :scope => :navigation) %></h1>
-  <table>
-    <tbody>
-      <% @employees.each do |employee| -%>
-        <%= status_month_list_for(employee) %>
-      <% end -%>
-    </tbody>
-  </table>
+  <% if @week -%>
+    <h1><%= t(:statuses, :scope => :navigation) %></h1>
+    <%= render :partial => 'week' %>
+
+    <%= render :partial => 'sidebar' %>
+  <% else -%>
+    <h1><%= t(:statuses, :scope => :navigation) %></h1>
+
+    <%= link_to t(:click_here_to_manage_availabilities_by_week),
+                employees_week_statuses_path(:year => Date.current.year, :week => Date.current.cweek) %>
+
+    <table>
+      <tbody>
+        <% @employees.each do |employee| -%>
+          <%= status_month_list_for(employee) %>
+        <% end -%>
+      </tbody>
+    </table>
+  <% end -%>
 <% end -%>

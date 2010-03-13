@@ -22,6 +22,7 @@ Shiftplan::Application.routes.draw do |map|
 
   resources :default_statuses
   resources :statuses
+  get '/statuses/:year/W:week', :as => :employees_week_statuses, :to => 'statuses#index'
 
   resources :shifts
   resources :requirements
