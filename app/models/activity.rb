@@ -1,5 +1,3 @@
-require 'core_ext/hash/compact'
-
 class Activity < ActiveRecord::Base
   self.inheritance_column = 'none'
 

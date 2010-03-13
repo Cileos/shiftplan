@@ -6,4 +6,5 @@ class Array
 end
 
 require 'core_ext/array/join_safe'
-
+require 'core_ext/date/calculations'
+require 'core_ext/hash/compact'
