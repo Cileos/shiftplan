@@ -4,6 +4,8 @@ tmp/**/*
 config/database.yml
 db/*.sqlite3
 coverage
+public/javascripts/all.js
+public/stylesheets/all.css
 vendor/htmlunit*
 vendor/rails
 tmp/restart.txt
