@@ -4,8 +4,8 @@ module CalendarHelper
       :calendar_class     => "#{dom_id(employee)}_overrides calendar",
       :use_full_day_names => true,
       :current_month      => lambda { |date| l(date, :format => :month_and_year) },
-      :next_month         => lambda { |date| link_to((l(date, :format => :month_and_year) + '&raquo;').html_safe, employee_statuses_path(employee, :year => date.year, :month => date.month)) },
-      :previous_month     => lambda { |date| link_to(('&laquo;' + l(date, :format => :month_and_year)).html_safe, employee_statuses_path(employee, :year => date.year, :month => date.month)) }
+      :next_month         => lambda { |date| link_to((l(date, :format => :month_and_year) + ' &raquo;').html_safe, employee_statuses_path(employee, :year => date.year, :month => date.month)) },
+      :previous_month     => lambda { |date| link_to(('&laquo; ' + l(date, :format => :month_and_year)).html_safe, employee_statuses_path(employee, :year => date.year, :month => date.month)) }
     }
   end
 
