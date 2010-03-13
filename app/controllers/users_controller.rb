@@ -6,10 +6,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    params[:user].merge!(:email_confirmed => true) # temporary
     @user = User.new(params[:user])
 
     if @user.save
+      @user.confirm! # temporary
       redirect_to new_session_url
     else
       render :action => 'new'

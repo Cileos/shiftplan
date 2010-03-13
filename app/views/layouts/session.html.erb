@@ -13,9 +13,39 @@
     //]]>
     </script>
 
+    <style type="text/css">
+      body.sessions form {
+        position: absolute;
+        left: 50%;
+        width: 400px;
+        margin-left: -230px;
+        border: 1px solid #ddd;
+        padding: 30px;
+        background-color: #f6f6f6;
+      }
+
+      body.sessions form label {
+        display: block;
+        margin-bottom: 0.5em;
+      }
+
+      body.sessions form input {
+        margin-bottom: 1em;
+        font-size: 1.4em;
+      }
+
+      body.sessions form input[type=submit] {
+        margin-bottom: 0;
+      }
+
+      body.sessions form label[for=user_remember_me] {
+        display: inline;
+      }
+    </style>
+
     <%= yield(:head) %>
   </head>
-  <body>
+  <body class="sessions">
     <% unless flash.empty? -%>
     <ul id="flash">
       <% flash.each do |key, value| -%>

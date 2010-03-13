@@ -9,13 +9,16 @@ if Account.first
   end
 end
 
+Shiftplan::Application.routes.draw do |map|
+  devise_for :users
+end
+
 account = Account.create!(
   :name  => 'Cileos UG',
   :admin => {
     :email => 'fritz@thielemann.de',
     :password => 'oracle',
-    :password_confirmation => 'oracle',
-    :email_confirmed => true
+    :password_confirmation => 'oracle'
   }
 )
 

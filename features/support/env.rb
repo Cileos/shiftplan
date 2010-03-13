@@ -8,6 +8,10 @@ require 'rspec/rails'
 
 Steam.config[:html_unit][:java_path] = File.expand_path('../../../vendor/htmlunit-2.6', __FILE__)
 
+Shiftplan::Application.routes.draw do |map|
+  devise_for :users
+end
+
 browser = Steam::Browser.create # (:daemon => true)
 World do
   Steam::Session::Rails.new(browser)
@@ -18,6 +22,12 @@ at_exit do
 end
 
 World(Rspec::Matchers)
+
+# don't like this ... better ideas?
+# ensure logout after each scenario
+After do
+  visit '/users/sign_out'
+end
 
 Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
 Before do

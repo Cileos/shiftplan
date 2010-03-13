@@ -1,12 +1,10 @@
 class ApplicationController < ActionController::Base
-  include Authentication
-
   helper :all
   helper LaterDude::CalendarHelper
   protect_from_forgery
 
   before_filter :set_object_name
-  before_filter :authenticate
+  before_filter :authenticate_user!
 
   after_filter :aggregate_activities # should probably spawn a thread or something
   after_filter :cleanup_thread

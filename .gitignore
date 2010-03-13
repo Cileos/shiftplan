@@ -4,6 +4,7 @@ tmp/**/*
 config/database.yml
 db/*.sqlite3
 coverage
+coverage.data
 public/javascripts/all.js
 public/stylesheets/all.css
 vendor/htmlunit*

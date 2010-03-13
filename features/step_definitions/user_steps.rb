@@ -3,14 +3,14 @@ Given /^the following users:$/ do |users|
     attributes = attributes.dup
     attributes.delete('name') # because users don't have names ...
     attributes['password_confirmation'] = attributes['password']
-    attributes['email_confirmed'] = true
-    User.create!(attributes)
+    user = User.create!(attributes)
+    user.confirm!
   end
 end
 
 Given /^I am logged in with "([^\"]*)" and "([^\"]*)"$/ do |email, password|
-  visit '/session/new'
-  fill_in 'E-Mail', :with => email
+  visit '/users/sign_in'
+  fill_in 'Email', :with => email
   fill_in 'Password', :with => password
   click_button 'Login'
   response.status.should == 200

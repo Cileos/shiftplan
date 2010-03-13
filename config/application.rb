@@ -2,6 +2,9 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+# this has been fixed in Rails 3.0.0.beta1
+ActionMailer::Base.send(:include, ActionController::UrlFor) unless ActionMailer.respond_to?(:default_url_options)
+
 # Auto-require default libraries and those for the current Rails environment.
 Bundler.require :default, Rails.env
 

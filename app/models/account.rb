@@ -10,9 +10,12 @@ class Account < ActiveRecord::Base
   validates_presence_of :name
 
   def admin=(attributes)
+    user = User.create!(attributes)
+    user.confirm!
+
     memberships.build(
       :account => self,
-      :user => User.new(attributes.merge(:email_confirmed => true)),
+      :user => user,
       :admin => true
     ) if new_record?
   end

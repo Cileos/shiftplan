@@ -35,9 +35,9 @@
 	      <li><%= link_to t(:employees, :scope => :navigation), employees_path %></li>
 	      <li><%= link_to t(:qualifications, :scope => :navigation), qualifications_path %></li>
   	    <li id="login_status">
-  	      <% if signed_in? -%>
+  	      <% if user_signed_in? -%>
     	      <%= t(:logged_in_as, :scope => :navigation, :user => current_user.email) %>
-    	      (<%= link_to t(:logout, :scope => :navigation), logout_path, :method => :delete %>)
+    	      (<%= link_to t(:logout, :scope => :navigation), destroy_user_session_path %>)
     	    <% end -%>
   	    </li>
 	    </ul>

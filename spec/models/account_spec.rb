@@ -38,7 +38,7 @@ describe Account do
     describe "#admin=" do # even if it's only temporary ...
       before(:each) do
         @account.name = 'Test account'
-        @account.admin = { :email => 'fritz@thielemann.de', :password => '1234', :password_confirmation => '1234' }
+        @account.admin = { :email => 'fritz@thielemann.de', :password => 'oracle', :password_confirmation => 'oracle' }
         @account.save!
 
         @admin = @account.users.first
@@ -47,7 +47,7 @@ describe Account do
 
       it "should set an account admin" do
         @admin.email.should == 'fritz@thielemann.de'
-        @admin.email_confirmed.should be_true
+        @admin.confirmed_at.should_not be_nil
       end
 
       it "should create a membership" do

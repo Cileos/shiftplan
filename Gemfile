@@ -7,6 +7,8 @@ gem 'mysql',      '>= 2.7'
 gem 'gravtastic', '>= 2.1.0'
 gem 'later_dude', '>= 0.3.1'
 gem 'minimal'
+gem 'warden'
+gem 'devise',     '>= 1.1.pre'
 
 group :test do
 	gem 'ruby-debug'
@@ -16,6 +18,7 @@ group :test do
 	gem 'steam'
 	gem 'rspec',       '>= 2.0.0.a5'
 	gem 'rspec-rails', '>= 2.0.0.a6'
+	gem 'rcov'
 	gem 'launchy'
 	gem 'no_peeping_toms'
 end

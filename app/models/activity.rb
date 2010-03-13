@@ -11,8 +11,8 @@ class Activity < ActiveRecord::Base
     scope
   }
 
-  scope :unaggregated, where(:aggregated_at => nil)
-  scope :aggregated,   where('aggregated_at IS NOT NULL')
+  scope :unaggregated, lambda { where(:aggregated_at => nil) }
+  scope :aggregated,   lambda { where('aggregated_at IS NOT NULL') }
 
   class << self
     def session_timeout

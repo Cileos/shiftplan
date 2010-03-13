@@ -15,7 +15,7 @@ class Plan < ActiveRecord::Base
     end
   end
 
-  scope :templates, where(:template => true)
+  scope :templates, lambda { where(:template => true) }
 
   validates_presence_of :start_date, :end_date, :start_time, :end_time
   validate :start_before_end

@@ -1,8 +1,6 @@
 Shiftplan::Application.routes.draw do |map|
-  # controller :session do
-  #   resource :session
-  # end
-  #
+  devise_for :users
+
   # controller :dashboard do
   #   resource :dashboard
   # end
@@ -29,9 +27,6 @@ Shiftplan::Application.routes.draw do |map|
   resources :assignments
 
   resources :accounts
-  resources :users
-
-  delete '/logout', :as => :logout, :to => 'session#destroy'
 
   root :to => 'dashboards#show'
 end
