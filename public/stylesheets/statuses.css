@@ -11,7 +11,10 @@ body.statuses table.defaults th,
 body.statuses table.defaults td {
   border: 1px solid #BBBBBB;
 }
-
+body.statuses th.employee {
+  font-style: normal;
+  color: #000000;
+}
 body.statuses th.employee div {
   float: left;
   height: 30px;
