@@ -57,7 +57,7 @@ class Employee < ActiveRecord::Base
   end
 
   def gravatar_url_for_css(*args)
-    gravatar_url(*args).gsub('&amp;', '&')
+    gravatar_url(*args).gsub('&amp;', '&').html_safe
   end
 
   def form_values_json
