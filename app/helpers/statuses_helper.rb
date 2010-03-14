@@ -10,6 +10,7 @@ module StatusesHelper
   def status_month_list_for(employee, number_of_months = 6)
     current_month_number = Date.current.month
     last_month_number    = current_month_number + number_of_months
+    current_year         = Date.current.year
 
     content_tag(:tr) do
       content_tag(:th, initials_for(employee), :scope => 'row', :class => "employee #{dom_id(employee)}") +
@@ -18,7 +19,7 @@ module StatusesHelper
                 default_statuses_path(:anchor => employee_default_availabilities_dom_id(employee))
       end +
       (current_month_number..last_month_number).to_a.map do |month_number|
-        year  = month_number > 12 ? Date.current.year + month_number/12 : Date.current.year
+        year  = month_number > 12 ? current_year + month_number/12 : current_year
         month = month_number > 12 ? month_number % 12 : month_number
 
         content_tag(:td) do
