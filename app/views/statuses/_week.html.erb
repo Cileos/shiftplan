@@ -2,7 +2,7 @@
   <tbody>
     <% @employees.each do |employee| -%>
       <tr>
-        <th scope="row"><%= employee.full_name %></th>
+        <th scope="row" class="employee <%= dom_id(employee) %>"><%= initials_for(employee) %></th>
         <% @days.each do |day| -%>
           <% content_tag(:td, :id => "#{dom_id(employee)}_#{day.to_s(:number)}") do %>
             <%= render :partial => 'day', :locals => {

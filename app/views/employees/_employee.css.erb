@@ -2,3 +2,7 @@
 .<%= dom_id(employee) %> div {
 	background-image: url(<%= employee.gravatar_url_for_css(:size => 30) %>);
 }
+
+body.statuses .<%= dom_id(employee) %> div {
+	background-image: url(<%= employee.gravatar_url_for_css(:size => 30) %>);
+}

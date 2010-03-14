@@ -9,7 +9,8 @@ class Plans::Sidebar::Employee < Minimal::Template
     {
       :class => "#{employee.class.name.underscore} #{dom_id(employee)} dialog",
       :'data-qualifications' => qualifications,
-      :'data-possible-workplaces' => possible_workplaces
+      :'data-possible-workplaces' => possible_workplaces,
+      :title => employee.full_name
     }
   end
 

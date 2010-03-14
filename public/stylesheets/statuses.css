@@ -12,6 +12,13 @@ body.statuses table.defaults td {
   border: 1px solid #BBBBBB;
 }
 
+body.statuses th.employee div {
+  float: left;
+  height: 30px;
+  margin-right: 4px;
+  width: 30px;
+}
+
 /* calendar */
 body.statuses .calendar .month_names th.current,
 body.statuses .calendar .weeks th.current {
@@ -53,10 +60,10 @@ body.statuses .calendar .actions {
 }
 /* for week calendar only */
 body.statuses .calendar.week tbody .days th {
-  width: 16%;
+  width: 9%;
 }
 body.statuses .calendar.week tbody td {
-  width: 12%;
+  width: 13%;
 }
 body.statuses .calendar.week h3 {
   display: none;

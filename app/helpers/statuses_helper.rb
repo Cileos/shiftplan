@@ -12,7 +12,7 @@ module StatusesHelper
     last_month_number    = current_month_number + number_of_months
 
     content_tag(:tr) do
-      content_tag(:th, employee.full_name, :scope => 'row') +
+      content_tag(:th, initials_for(employee), :scope => 'row', :class => "employee #{dom_id(employee)}") +
       content_tag(:td) do
         link_to t(:defaults, :scope => :statuses),
                 default_statuses_path(:anchor => employee_default_availabilities_dom_id(employee))
