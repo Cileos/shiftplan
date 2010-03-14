@@ -1,5 +1,15 @@
 #!/bin/sh
 
+# make sure server isn't running from a previous build
+if [ -f 'tmp/pids/server.pid' ]
+then
+  kill -9 `cat tmp/pids/server.pid`
+  rm tmp/pids/server.pid
+fi
+
+# sleep a little, just to make sure the server is killed properly
+sleep 10
+
 # set JAVA stuff for installing rjb
 export JAVA_HOME=/usr/lib/jvm/java-1.5.0-sun
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/jre/lib/i386:${JAVA_HOME}/jre/lib/i386/client
