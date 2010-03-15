@@ -3,7 +3,7 @@
     :date => {
       :range => lambda { |key, values|
         start_date, end_date = values.values_at(:start, :end)
-        raise ArgumentError.new('missing argument: start and end must be given') unless !!start_date && !!end_date
+        raise ArgumentError.new('fehlendes Argument: Start und Ende müssen angegeben sein') unless !!start_date && !!end_date
 
         start_format, end_format = if Date.same_month?(start_date, end_date)
           ['%e', '%e. %B %Y']

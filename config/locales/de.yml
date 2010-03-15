@@ -13,11 +13,14 @@ de:
     default_statuses: Standardverfügbarkeiten
     logged_in_as: "Angemeldet als {{user}}"
     logout: Abmelden
+  headings:
+    overview: Übersicht
+    statistics: Statistiken
 
   new: Neu
   save: Speichern
   options: Optionen
-  picture_powered_by: "Bild angetrieben von {{link}}"
+  picture_powered_by: "Bild bereitgestellt von {{link}}"
   copy_from: "Kopieren"
   tags: "Tags: {{tags}}"
 
@@ -47,14 +50,35 @@ de:
     one:   "{{count}} Arbeitsplatz"
     other: "{{count}} Arbeitsplätze"
 
-  activities:
+  activity:
+    from: "Von"
+    to: "Bis"
+    action:
+      create:   "angelegt"
+      update:   "bearbeitet"
+      destroy: "gelöscht"
     plan:
-      unaggregated: '%{started_at}: %{user} hat den Plan %{plan} "%{action}"'
-      aggregated:   '%{started_at} - %{finished_at}: %{user} hat den Plan %{plan} "%{action}"'
-      action:
-        create:   "angelegt"
-        update:   "bearbeitet"
-        destroye: "gelöscht"
+      unaggregated: '%{started_at}: %{user} hat den Plan "%{plan}" %{action}'
+      aggregated:   '%{started_at} - %{finished_at}: %{user} hat den Plan "%{plan}" %{action}'
+      attributes:
+        name: "Name"
+        start_date: "Start date"
+        end_date: "End date"
+        template: "Template"
+    shift:
+      unaggregated: '%{started_at}: %{user} hat eine Schicht für "%{workplace}" %{action}'
+      aggregated:   '%{started_at} - %{finished_at}: %{user} hat eine Schicht für "%{workplace}" %{action}'
+      attributes:
+        start: "Start"
+        end: "Ende"
+        requirements: "Anforderung"
+    assignment:
+      created:   '%{started_at}: %{user} hat %{employee} zu "%{workplace} zugeordnet" %{qualification} am %{day}'
+      destroyed: '%{started_at}: %{user} hat Zuordnung von %{employee} von "%{workplace} weggegnommen" %{qualification} am %{day}'
+      qualification: "(%{name})"
+      attributes:
+        start: "Start"
+        end: "Ende"
 
   # workplaces
   click_to_add_workplace: Hinzufügen
@@ -66,6 +90,7 @@ de:
   workplace_successfully_updated: "Arbeitsplatz erfolgreich geändert."
   workplace_could_not_be_updated: "Arbeitsplatz konnte nicht geändert werden."
   workplace_successfully_deleted: "Arbeitsplatz erfolgreich gelöscht."
+  workplace_delete_confirmation: "Wollen Sie diesen Arbeitsplatz wirklich löschen?"
 
   # employees
   click_to_add_employee: Hinzufügen
@@ -77,6 +102,7 @@ de:
   employee_successfully_updated: "Mitarbeiter erfolgreich geändert."
   employee_could_not_be_updated: "Mitarbeiter konnte nicht geändert werden."
   employee_successfully_deleted: "Mitarbeiter erfolgreich gelöscht."
+  employee_delete_confirmation: "Wollen Sie den Mitarbeiter wirklich löschen?"
 
   # statuses
   click_here_to_manage_availabilities_by_week: "Klicken Sie hier, um Wochen-Verfügbarkeiten zu verwalten"
@@ -104,23 +130,29 @@ de:
   qualification_successfully_updated: "Qualifikation erfolgreich geändert."
   qualification_could_not_be_updated: "Qualifikation konnte nicht geändert werden."
   qualification_successfully_deleted: "Qualifikation erfolgreich gelöscht."
+  qualification_delete_confirmation: "Wollen Sie dies Qualifikation wirklich löschen?"
 
   # tags
   click_to_add_tag: Hinzufügen
-  add_tag: "Klicken Sie hier, um einen Tag hinzuzufügen"
-  new_tag: Neuer Tag
-  edit_tag: "Tag \"{{name}}\" bearbeiten"
-  tag_successfully_created: "Tag erfolgreich angelegt."
-  tag_could_not_be_created: "Tag konnte nicht angelegt werden."
-  tag_successfully_updated: "Tag erfolgreich geändert."
-  tag_could_not_be_updated: "Tag konnte nicht geändert werden."
-  tag_successfully_deleted: "Tag erfolgreich gelöscht."
+  add_tag: "Klicken Sie hier, um einen Suchbegriff hinzuzufügen"
+  new_tag: Neuer Suchbegriff
+  edit_tag: "Suchbegriff \"{{name}}\" bearbeiten"
+  tag_successfully_created: "Suchbegriff erfolgreich angelegt."
+  tag_could_not_be_created: "Suchbegriff konnte nicht angelegt werden."
+  tag_successfully_updated: "Suchbegriff erfolgreich geändert."
+  tag_could_not_be_updated: "Suchbegriff konnte nicht geändert werden."
+  tag_successfully_deleted: "Suchbegriff erfolgreich gelöscht."
+  tag_delete_confirmation: "Wollen Sie diesen Suchbegriff wirklich löschen?"
 
   # plans
   new_plan: Neuer Schichtplan
-  plan_from_to: "{{start}} bis {{end}}"
+  plan_from_to: "{{start_date}} bis {{end_date}}"
   plan_successfully_created: "Schichtplan erfolgreich angelegt."
   plan_could_not_be_created: "Schichtplan konnte nicht angelegt werden."
+  plan_successfully_updated: "Schichtplan erfolgreich geändert."
+  plan_could_not_be_updated: "Schichtplan konnte nicht geändert werden."
+  plan_successfully_deleted: "Schichtplan erfolgreich gelöscht."
+  plan_delete_confirmation: "Wollen Sie diesen Schichtplan wirklich löschen?"
 
   # shifts
   shift_successfully_created: "Schicht erfolgreich angelegt."
@@ -288,8 +320,8 @@ de:
         active: Aktiv?
         color: Farbe
         qualifications: Qualifikationen
-        tags: Tags
-        tag_list: Tags
+        tags: Suchbegriffe
+        tag_list: Suchbegriffe
       employee:
         base_data: Basisdaten
         qualifications: Qualifikationen
@@ -302,8 +334,8 @@ de:
         phone: Telefon
         street: Straße
         zipcode: "PLZ, Ort"
-        tags: Tags
-        tag_list: Tags
+        tags: Suchbegriffe
+        tag_list: Suchbegriffe
       qualification:
         base_data: Basisdaten
         name: Name
@@ -311,9 +343,13 @@ de:
         name: Name
         start: Start
         end: Ende
+        shifts: Schichten
         template: Vorlage
+      shift:
+        start: Startzeit
+        end: Endezeit
       account:
-        base_data: Base data
+        base_data: Basisdaten
         admin: Admin
         name: Name
       status:
