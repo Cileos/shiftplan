@@ -26,6 +26,7 @@ ln -nfs /var/www/shiftplan/shared/vendor/htmlunit-2.6 vendor/htmlunit-2.6
 ln -nfs /var/www/shiftplan/shared/config/database.yml.test config/database.yml
 
 # run bundler stuff 
+cp Gemfile.devel Gemfile
 # run bundle install only if bundle check misses something
 # taking out the --relock as we don't change the Gemfile.lock
 bundle check || env PATH=$PATH bundle install
