@@ -8,6 +8,9 @@ gem 'later_dude', '>= 0.3.1'
 gem 'minimal'
 gem 'warden'
 gem 'devise',     '>= 1.1.pre'
+gem 'rspec',       '>= 2.0.0.a5'
+gem 'rspec-rails', '>= 2.0.0.a6'
+gem 'cucumber'
 
 #needed for heroku
 #use locally "bundle install --without production"
