@@ -26,7 +26,7 @@ Feature: Managing employees
     And I fill in "First name" with "Clemens"
     And I fill in "Last name" with "Kofler"
     And I press "Save"
-    Then I should see an employee named "Fritz Kofler"
+    Then I should see an employee named "Clemens Kofler"
     And I should see a flash confirmation
 
   # Scenario: Trying to define an employee with insufficient data
