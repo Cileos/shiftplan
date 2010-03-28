@@ -7,6 +7,12 @@ $(document).ready(function() {
     var match = resource.id.match(/(.*)_(\d+)/);
     var resource_name = match[1];
 
+    if($(this).attr('data-confirm')) {
+      if(!confirm($(this).attr('data-confirm'))) {
+        return false;
+      }
+    }
+
     if(resource_name == 'plan') { // yuck FIXME
       var url = '/plans/' + match[2];
   	  var data = '_method=delete';
