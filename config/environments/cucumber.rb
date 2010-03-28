@@ -5,5 +5,6 @@ Shiftplan::Application.configure do
   config.action_controller.perform_caching             = false
   config.action_controller.allow_forgery_protection    = false
   config.action_mailer.delivery_method                 = :test
+  config.i18n.default_locale                           = :en
   config.action_mailer.default_url_options             = { :host => 'localhost:3000' }
 end
