@@ -22,7 +22,6 @@ de:
   options: Optionen
   picture_powered_by: "Bild bereitgestellt von {{link}}"
   copy_from: "Kopieren"
-  tags: "Tags: {{tags}}"
 
   select_all: Alle auswählen
   deselect_all: Alle abwählen
@@ -131,18 +130,6 @@ de:
   qualification_could_not_be_updated: "Qualifikation konnte nicht geändert werden."
   qualification_successfully_deleted: "Qualifikation erfolgreich gelöscht."
   qualification_delete_confirmation: "Wollen Sie dies Qualifikation wirklich löschen?"
-
-  # tags
-  click_to_add_tag: Hinzufügen
-  add_tag: "Klicken Sie hier, um einen Suchbegriff hinzuzufügen"
-  new_tag: Neuer Suchbegriff
-  edit_tag: "Suchbegriff \"{{name}}\" bearbeiten"
-  tag_successfully_created: "Suchbegriff erfolgreich angelegt."
-  tag_could_not_be_created: "Suchbegriff konnte nicht angelegt werden."
-  tag_successfully_updated: "Suchbegriff erfolgreich geändert."
-  tag_could_not_be_updated: "Suchbegriff konnte nicht geändert werden."
-  tag_successfully_deleted: "Suchbegriff erfolgreich gelöscht."
-  tag_delete_confirmation: "Wollen Sie diesen Suchbegriff wirklich löschen?"
 
   # plans
   new_plan: Neuer Schichtplan
@@ -320,8 +307,6 @@ de:
         active: Aktiv?
         color: Farbe
         qualifications: Qualifikationen
-        tags: Suchbegriffe
-        tag_list: Suchbegriffe
       employee:
         base_data: Basisdaten
         qualifications: Qualifikationen
@@ -334,7 +319,6 @@ de:
         phone: Telefon
         street: Straße
         zipcode: "PLZ, Ort"
-        tags: Suchbegriffe
         tag_list: Suchbegriffe
       qualification:
         base_data: Basisdaten

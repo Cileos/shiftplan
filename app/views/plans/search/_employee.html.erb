@@ -3,5 +3,4 @@
   <td><%= image_tag(employee.gravatar_url(:size => 30)) %></td>
 	<td><%= employee.full_name %></td>
 	<td><%= employee.possible_workplaces.map(&:name).join(', ') %></td>
-	<td><%= employee.cached_tag_list.blank? ? '' : truncate(employee.cached_tag_list) %></td>
 <% end -%>

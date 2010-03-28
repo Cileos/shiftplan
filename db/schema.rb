@@ -47,9 +47,9 @@ ActiveRecord::Schema.define(:version => 20100313175055) do
     t.integer  "account_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "initials",        :limit => 10
+    t.string   "initials",   :limit => 10
     t.date     "birthday"
-    t.boolean  "active",                        :default => true
+    t.boolean  "active",                   :default => true
     t.string   "email"
     t.string   "phone"
     t.string   "street"
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(:version => 20100313175055) do
     t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "cached_tag_list"
   end
 
   create_table "memberships", :force => true do |t|
@@ -116,23 +115,6 @@ ActiveRecord::Schema.define(:version => 20100313175055) do
     t.datetime "updated_at"
     t.date     "day"
     t.string   "status",      :limit => 20
-  end
-
-  create_table "taggings", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
-
-  create_table "tags", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
