@@ -1,3 +1,5 @@
+# laod all models and truncate corresponding tables
+Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
 if Account.first
   ActiveRecord::Base.send(:subclasses).each do |model|
     connection = model.connection
