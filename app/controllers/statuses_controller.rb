@@ -41,8 +41,8 @@ class StatusesController < ApplicationController
   protected
 
     def set_date_fields
-      @year  = params[:year].to_i  || Date.current.year
-      @month = params[:month].to_i || Date.current.month
+      @year  = (params[:year]  || Date.current.year).to_i
+      @month = (params[:month] || Date.current.month).to_i
       if params[:week]
         @week = params[:week].to_i
         @days = Date.week(@year, @week)
