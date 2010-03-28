@@ -6,8 +6,16 @@ $(document).ready(function() {
   $('#sidebar a.show_search').click(function(event) {
     event.preventDefault();
 
-    var target = this.id.match(/show_(.*)/)[1];
-    $('#' + target).show();
+    var resource   = this.id.match(/show_(.*)_search/)[1];
+    var search_box = $('#' + resource + '_search');
+
+    // preselect currently shown resources
+    $('#sidebar .' + resource + ':not(.hidden)').each(function(idx, selected) {
+      var dom_id = $(selected)[resource]().dom_id();
+      $('.' + dom_id + ' input[type=checkbox]', search_box).attr('checked', 'checked');
+    });
+
+    search_box.show();
   });
 
   $('.search_box .close').click(function(event) {
@@ -19,7 +27,7 @@ $(document).ready(function() {
     search_box.find('input[type=checkbox]').each(function() {
       var checkbox = $(this);
       var resource = $('#sidebar .' + checkbox.closest('tr').attr('class'));
-      checkbox.is(':checked') ? resource.show() : resource.hide();
+      checkbox.is(':checked') ? resource.removeClass('hidden') : resource.addClass('hidden');
     });
 
     search_box.hide();

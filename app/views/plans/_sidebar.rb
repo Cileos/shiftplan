@@ -11,7 +11,7 @@ class Plans::Sidebar < Minimal::Template
 
       h4 do
         self << t(:'navigation.workplaces')
-        link_to_search('employee')
+        link_to_search('workplace')
       end
       ul :id => 'workplaces' do
         render :partial => 'plans/sidebar/workplace', :collection => workplaces

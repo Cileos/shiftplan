@@ -91,3 +91,7 @@ a {
 a:hover, a:active {
   text-decoration: underline;
 }
+
+.hidden {
+  display: none !important;
+}
