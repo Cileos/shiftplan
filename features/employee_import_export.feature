@@ -1,4 +1,3 @@
-@wip
 Feature: Importing and exporting employees
   In order to manage employee data more efficiently
   As a shift manager
@@ -40,7 +39,6 @@ Feature: Importing and exporting employees
       | Sven Fuchs       |
       | Clemens Kofler   |
 
-  @wip
   Scenario: Exporting a blank CSV file
     Given the following employees for "the account":
       | name             |
@@ -50,4 +48,4 @@ Feature: Importing and exporting employees
     When I go to the employees index page
     # And I follow on "Import/Export"
     And I follow "Export blank CSV"
-    Then I should get a blank CSV file
+    Then I should get a blank employee CSV file

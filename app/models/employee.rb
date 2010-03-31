@@ -21,6 +21,10 @@ class Employee < ActiveRecord::Base
   }
 
   class << self
+    def csv_fields
+      @@csv_fields ||= %w(last_name first_name initials birthday active email phone street zipcode city)
+    end
+
     def find_by_name(name)
       find_by_first_name_and_last_name(*name.split(' '))
     end
@@ -59,9 +63,8 @@ class Employee < ActiveRecord::Base
     gravatar_url(*args).gsub('&amp;', '&').html_safe
   end
 
-  def to_csv(separator = ';')
-    fields = %w(last_name first_name initials birthday active email phone street zipcode city)
-    attributes.values_at(*fields).join(separator)
+  def to_csv_line(options = {})
+    attributes.values_at(*self.class.csv_headers)
   end
 
   def form_values_json

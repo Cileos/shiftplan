@@ -52,18 +52,20 @@ Then /^I should see the following employees:$/ do |employees|
 end
 
 Then /^I should get a CSV file containing the following employees:$/ do |employees|
-  # NOTE: don't forget this only works with hacked steam (TextPage vs. HtmlPage)
-
-  lines = FasterCSV.parse(response.body, :col_sep => ';')#, :headers => true)
+  lines = FasterCSV.parse(response.body, :col_sep => ';', :headers => true)
   lines.size.should == employees.hashes.size
 
   employees.hashes.each do |attributes|
-    values = attributes.delete('name').split
+    attributes['first_name'], attributes['last_name'] = attributes.delete('name').split
 
     lines.any? do |line|
-      values.all? { |value| line.include?(value) }
+      attributes.all? { |name, value| line.field(name) == value }
     end.should be_true
   end
+end
+
+Then /^I should get a blank employee CSV file$/ do
+  response.body.should == Employee.csv_fields.to_csv(:col_sep => ';')
 end
 
 Then /^the employees should have the following statuses:$/ do |employees|
