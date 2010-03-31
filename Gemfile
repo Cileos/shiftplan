@@ -8,6 +8,7 @@ gem 'later_dude', '>= 0.3.1'
 gem 'minimal'
 gem 'warden'
 gem 'devise',     '>= 1.1.pre'
+gem 'fastercsv'
 
 group :test do
 	gem 'mysql',      '>= 2.7'
