@@ -1,3 +1,4 @@
+@csv
 Feature: Importing and exporting employees
   In order to manage employee data more efficiently
   As a shift manager
@@ -14,7 +15,7 @@ Feature: Importing and exporting employees
 
   Scenario: Importing employees from a CSV
     When I go to the employees index page
-    # And I follow on "Import/Export"
+    And I follow "Import/Export"
     And I follow "Import from CSV"
     And I attach the file at "spec/fixtures/employees.csv" to "File"
     And I press "Import"
@@ -31,7 +32,7 @@ Feature: Importing and exporting employees
       | Sven Fuchs       |
       | Clemens Kofler   |
     When I go to the employees index page
-    # And I follow on "Import/Export"
+    And I follow "Import/Export"
     And I follow "Export as CSV"
     Then I should get a CSV file containing the following employees:
       | name             |
@@ -46,6 +47,6 @@ Feature: Importing and exporting employees
       | Sven Fuchs       |
       | Clemens Kofler   |
     When I go to the employees index page
-    # And I follow on "Import/Export"
+    And I follow "Import/Export"
     And I follow "Export blank CSV"
     Then I should get a blank employee CSV file

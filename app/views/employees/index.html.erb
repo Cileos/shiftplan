@@ -1,8 +1,23 @@
-<%= link_to "Import from CSV", import_employees_path %>
-<%= link_to "Export as CSV", employees_path(:format => :csv) %>
-<%= link_to "Export blank CSV", employees_path(:format => :csv, :blank => true) %>
+<% javascript_tag do %>
+  $(document).ready(function() {
+    $('#import_export_employees_toggle').click(function(event) {
+      event.preventDefault();
+      $('#import_export_employees ul').slideToggle();
+    });
+  });
+<% end %>
 
-<ul id="list" class="employees">
+<div id="import_export_employees" style="position:absolute; z-index:100; width:150px; border:1px solid black;">
+  <h3 style="padding:10px; background-color:#f0f0f0;"><%= link_to "Import/Export", '#', :id => 'import_export_employees_toggle' %></h3>
+
+  <ul style="display:none; padding:10px; background-color:white;">
+    <li><%= link_to "Import from CSV", import_employees_path %></li>
+    <li><%= link_to "Export as CSV", employees_path(:format => :csv) %></li>
+    <li><%= link_to "Export blank CSV", employees_path(:format => :csv, :blank => true) %></li>
+  </ul>
+</div>
+
+<ul id="list" class="employees" style="clear:right; margin-top:50px;">
   <li id="new_employee" class="employee resource" data-form-values="<%= Employee.new.form_values_json %>">
     <%= image_tag(Employee.new.gravatar_url(:size => 60)) %>
     <h2><%= t(:new) %></h2>
