@@ -59,6 +59,11 @@ class Employee < ActiveRecord::Base
     gravatar_url(*args).gsub('&amp;', '&').html_safe
   end
 
+  def to_csv(separator = ';')
+    fields = %w(last_name first_name initials birthday active email phone street zipcode city)
+    attributes.values_at(*fields).join(separator)
+  end
+
   def form_values_json
     qualifications = Qualification.all.collect { |qualification| "'#{qualification.id}'" if has_qualification?(qualification) }.compact.join(', ')
     json = <<-json

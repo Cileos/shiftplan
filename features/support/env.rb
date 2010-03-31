@@ -8,8 +8,21 @@ require 'rspec/rails'
 
 Steam.config[:html_unit][:java_path] = File.expand_path('../../../vendor/htmlunit-2.6', __FILE__)
 
+# hack - why do we need this?
 Shiftplan::Application.routes.draw do |map|
   devise_for :users
+end
+
+# hack steam to enable CSV downloads for the time being
+# TODO: backport to steam
+Steam::Browser:: HtmlUnit::Page.class_eval do
+  def body
+    if @page.getWebResponse.getContentType == 'text/html'
+      @page.asXml
+    else
+      @page.getContent
+    end
+  end
 end
 
 browser = Steam::Browser.create # (:daemon => true)

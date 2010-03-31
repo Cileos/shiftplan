@@ -99,6 +99,7 @@ en:
   edit_employee: "Edit employee \"{{full_name}}\""
   employee_successfully_created: "Employee successfully created."
   employee_could_not_be_created: "Employee could not be created."
+  employees_successfully_imported: "Employees successfully imported."
   employee_successfully_updated: "Employee successfully updated."
   employee_could_not_be_updated: "Employee could not be updated."
   employee_successfully_deleted: "Employee successfully deleted."

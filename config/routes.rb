@@ -10,6 +10,11 @@ Shiftplan::Application.routes.draw do |map|
   resource :favorite
 
   resources :employees do
+    collection do
+      post :upload
+      get  :import
+    end
+
     resources :statuses
   end
 

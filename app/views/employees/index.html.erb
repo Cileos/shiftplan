@@ -1,3 +1,6 @@
+<%= link_to "Import from CSV", import_employees_path %>
+<%= link_to "Export as CSV", employees_path(:format => :csv) %>
+
 <ul id="list" class="employees">
   <li id="new_employee" class="employee resource" data-form-values="<%= Employee.new.form_values_json %>">
     <%= image_tag(Employee.new.gravatar_url(:size => 60)) %>

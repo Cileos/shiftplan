@@ -98,6 +98,7 @@ de:
   edit_employee: "Mitarbeiter \"{{full_name}}\" bearbeiten"
   employee_successfully_created: "Mitarbeiter erfolgreich angelegt."
   employee_could_not_be_created: "Mitarbeiter konnte nicht angelegt werden."
+  employees_successfully_imported: "Mitarbeiter erfolgreich importiert."
   employee_successfully_updated: "Mitarbeiter erfolgreich geändert."
   employee_could_not_be_updated: "Mitarbeiter konnte nicht geändert werden."
   employee_successfully_deleted: "Mitarbeiter erfolgreich gelöscht."

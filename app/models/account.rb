@@ -9,6 +9,13 @@ class Account < ActiveRecord::Base
 
   validates_presence_of :name
 
+  # TODO: return some kind of status for imported/not imported employees?
+  def import_employees_from_file(file, options = {})
+    options.reverse_merge!(:headers => true)
+    FasterCSV.foreach(file.path, options) { |row| employees.create(row.to_hash) }
+    1 # should probably return [number_inserted, number_in_file]
+  end
+
   def admin=(attributes)
     user = User.create!(attributes)
     user.confirm!

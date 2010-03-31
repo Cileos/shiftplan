@@ -3,11 +3,22 @@ class EmployeesController < ApplicationController
   before_filter :set_employee, :only => [:show, :new, :edit, :update, :destroy]
 
   def index
-    render :layout => !request.xhr?
+    respond_to do |format|
+      format.html { render :layout => !request.xhr? }
+      format.csv do
+        file = Tempfile.new('employees.csv')
+        @employees.each { |employee| file << employee.to_csv << "\n" }
+        file.close
+        send_file(file.path, :type => :csv, :stream => false)
+      end
+    end
   end
 
   def new
     render :layout => !request.xhr?
+  end
+
+  def import
   end
 
   def create
@@ -25,6 +36,12 @@ class EmployeesController < ApplicationController
         format.json { render :template => 'shared/errors', :status => 400 }
       end
     end
+  end
+
+  def upload
+    number_of_imported_employees = current_account.import_employees_from_file(params[:file])
+    flash[:notice] = t(:employee_could_not_be_created)
+    redirect_to employees_url
   end
 
   def edit
