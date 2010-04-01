@@ -6,14 +6,7 @@ class EmployeesController < ApplicationController
     respond_to do |format|
       format.html { render :layout => !request.xhr? }
       format.csv do
-        file = Tempfile.new('employees.csv')
-        file << if params[:blank].present?
-          Employee.csv_fields.to_csv(:col_sep => ';')
-        else
-          @employees.to_csv(:col_sep => ';')
-        end
-        file.close
-
+        file = Employee.generate_csv_file(@employees, :blank => params[:blank])
         send_file(file.path, :type => :csv, :stream => false)
       end
     end
