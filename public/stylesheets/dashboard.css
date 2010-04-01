@@ -1,12 +1,18 @@
-#dashboard_show .box {
-  width: 250px;
-  float: left;
-  padding: 1em;
-  border: 1px solid #bbb;
+#dashboards_show h2 {
+  color: #bbb;
+  font-size: 18px;
+  margin-bottom: 0.5em;
 }
 
-#dashboard_show .box h2 {
-  font-size: 18px;
-  color: #bbb;
-  margin-bottom: 0.5em;
+#dashboards_show h3 {
+  font-weight: bold;
+  margin-bottom: 0.25em;
+}
+
+#dashboards_show #master_data > li {
+  padding: 1em;
+  border: 1px solid #ddd;
+  float: left;
+  width: 27%;
+  margin: 0 2% 2% 0;
 }

@@ -17,7 +17,7 @@ Feature: Managing employees
 
 	Scenario: Listing all employees
 		Given I am on the start page
-		When I follow "Employees"
+		When I follow "Manage employees"
 		Then I should see an employee named "Fritz Thielemann"
 
   Scenario: Defining a new employee

@@ -13,9 +13,17 @@ de:
     default_statuses: Standardverfügbarkeiten
     logged_in_as: "Angemeldet als {{user}}"
     logout: Abmelden
-  headings:
+
+  dashboard:
     overview: Übersicht
     statistics: Statistiken
+    master_data: Stammdaten
+    manage_employees: Mitarbeiter verwalten
+    import_employees: Mitarbeiter importieren
+    export_employees: Mitarbeiter exportieren
+    employees_import_template: Vorlage
+    manage_workplaces: Arbeitsplätze verwalten
+    manage_qualifications: Qualifikationen verwalten
 
   new: Neu
   save: Speichern

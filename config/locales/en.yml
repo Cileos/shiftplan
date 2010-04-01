@@ -13,9 +13,17 @@ en:
     default_statuses: Default availabilities
     logged_in_as: "Logged in as {{user}}"
     logout: Logout
-  headings:
+
+  dashboard:
     overview: Overview
     statistics: Statistics
+    master_data: Master data
+    manage_employees: Manage employees
+    import_employees: Import employees
+    export_employees: Export employees
+    employees_import_template: Template
+    manage_workplaces: Manage workplaces
+    manage_qualifications: Manage qualifications
 
   new: New
   save: Save

@@ -17,7 +17,7 @@ Feature: Managing workplaces
 
 	Scenario: Listing all workplaces
 		Given I am on the start page
-		When I follow "Workplaces"
+		When I follow "Manage workplaces"
 		Then I should see a workplace named "Bar"
 
   Scenario: Defining a new workplace

@@ -14,9 +14,8 @@ Feature: Importing and exporting employees
 		And I am logged in with "fritz@thielemann.de" and "oracle"
 
   Scenario: Importing employees from a CSV
-    When I go to the employees index page
-    And I follow "Import/Export"
-    And I follow "Import from CSV"
+    When I go to the start page
+    And I follow "Import employees"
     And I attach the file at "spec/fixtures/employees.csv" to "File"
     And I press "Import"
     Then I should see the following employees:
@@ -31,9 +30,8 @@ Feature: Importing and exporting employees
       | Fritz Thielemann |
       | Sven Fuchs       |
       | Clemens Kofler   |
-    When I go to the employees index page
-    And I follow "Import/Export"
-    And I follow "Export as CSV"
+    When I go to the start page
+    And I follow "Export employees"
     Then I should get a CSV file containing the following employees:
       | name             |
       | Fritz Thielemann |
@@ -46,7 +44,6 @@ Feature: Importing and exporting employees
       | Fritz Thielemann |
       | Sven Fuchs       |
       | Clemens Kofler   |
-    When I go to the employees index page
-    And I follow "Import/Export"
-    And I follow "Export blank CSV"
+    When I go to the start page
+    And I follow "Template"
     Then I should get a blank employee CSV file

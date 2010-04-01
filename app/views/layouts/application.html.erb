@@ -4,15 +4,12 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title><%= yield :title %> | shiftplan.com</title>
 
-    <%= javascript_include_tag :shiftplan, :cache => false %>
     <%= stylesheet_link_tag :shiftplan %>
 	
-	  <script type='text/javascript'>
-    //<![CDATA[
-      window._auth_token_name = '<%= request_forgery_protection_token %>';
+	  <% javascript_tag do %>
+	    window._auth_token_name = '<%= request_forgery_protection_token %>';
       window._auth_token = '<%= form_authenticity_token %>';
-    //]]>
-    </script>
+	  <% end %>
 
 		<style type="text/css">
 		  <%= render :partial => 'employees/employee.css', :collection => @employees %>
@@ -31,9 +28,7 @@
 	      <li><%= link_to t(:overview, :scope => :navigation), root_path %></li>
 	      <li><%= link_to t(:plans, :scope => :navigation), plans_path %></li>
 	      <li><%= link_to t(:statuses, :scope => :navigation), statuses_path %></li>
-	      <li><%= link_to t(:workplaces, :scope => :navigation), workplaces_path %></li>
-	      <li><%= link_to t(:employees, :scope => :navigation), employees_path %></li>
-	      <li><%= link_to t(:qualifications, :scope => :navigation), qualifications_path %></li>
+	      <li><%#= link_to t(:master_data, :scope => :navigation), master_data_path %></li>
   	    <li id="login_status">
   	      <% if user_signed_in? -%>
     	      <%= t(:logged_in_as, :scope => :navigation, :user => current_user.email) %>
@@ -46,5 +41,7 @@
 	  <div id="main">
 	    <%= yield %>
 		</div>
+
+    <%= javascript_include_tag :shiftplan, :cache => false %>
   </body>
 </html>
