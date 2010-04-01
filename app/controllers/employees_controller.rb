@@ -38,7 +38,7 @@ class EmployeesController < ApplicationController
 
   def upload
     number_of_imported_employees = current_account.import_employees_from_file(params[:file])
-    flash[:notice] = t(:employee_could_not_be_created)
+    flash[:notice] = t(:employee_import_successful)
     redirect_to employees_url
   end
 

@@ -1,3 +1,5 @@
+require 'sha1'
+
 class Employee < ActiveRecord::Base
   is_gravtastic
 
@@ -21,8 +23,16 @@ class Employee < ActiveRecord::Base
   }
 
   class << self
+    def token_sql
+      "SHA1(CONCAT('---', id, '---', created_at, '---')) = ?"
+    end
+
+    def find_by_token(token)
+      first(:conditions => [token_sql, token])
+    end
+
     def csv_fields
-      @@csv_fields ||= %w(last_name first_name initials birthday active email phone street zipcode city)
+      @@csv_fields ||= %w(last_name first_name initials birthday active email phone street zipcode city token)
     end
 
     def find_by_name(name)
@@ -82,5 +92,9 @@ class Employee < ActiveRecord::Base
       }
     json
     json.gsub("\n", ' ').strip
+  end
+
+  def token
+    SHA1.sha1("---#{id}---#{created_at.to_s(:db)}---")
   end
 end

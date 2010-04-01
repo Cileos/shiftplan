@@ -51,6 +51,13 @@ Then /^I should see the following employees:$/ do |employees|
   end
 end
 
+Then /^I should not see the following employees:$/ do |employees|
+  employees.hashes.each do |attributes|
+    Employee.find_by_name(attributes['name']).should be_nil
+    lambda { locate(attributes['name']) }.should raise_error(Steam::ElementNotFound)
+  end
+end
+
 Then /^I should get a CSV file containing the following employees:$/ do |employees|
   lines = FasterCSV.parse(response.body, :col_sep => ';', :headers => true)
   lines.size.should == employees.hashes.size
