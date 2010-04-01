@@ -6,8 +6,8 @@ class EmployeesController < ApplicationController
     respond_to do |format|
       format.html { render :layout => !request.xhr? }
       format.csv do
-        file = Employee.generate_csv_file(@employees, :blank => params[:blank])
-        send_file(file.path, :type => :csv, :stream => false)
+        csv_data = (params[:blank].present? ? Employee.csv_fields : @employees).to_csv(:col_sep => ';')
+        send_data(csv_data, :type => :csv, :filename => 'employees.csv')
       end
     end
   end

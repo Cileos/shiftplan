@@ -25,16 +25,6 @@ class Employee < ActiveRecord::Base
       @@csv_fields ||= %w(last_name first_name initials birthday active email phone street zipcode city)
     end
 
-    def generate_csv_file(employees, options = {})
-      blank = options.delete(:blank)
-      options.reverse_merge!(:col_sep => ';')
-
-      file = Tempfile.new('employees.csv')
-      file << (blank ? csv_fields : employees).to_csv(options)
-      file.close
-      file
-    end
-
     def find_by_name(name)
       find_by_first_name_and_last_name(*name.split(' '))
     end
