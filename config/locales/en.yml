@@ -30,6 +30,8 @@ en:
   options: Optionen
   picture_powered_by: "Picture powered by {{link}}"
   copy_from: "Copy from"
+  upload: Upload
+  file: File
 
   select_all: Select all
   deselect_all: Deselect all

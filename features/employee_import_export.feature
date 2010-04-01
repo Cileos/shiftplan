@@ -17,7 +17,7 @@ Feature: Importing and exporting employees
     When I go to the start page
     And I follow "Import employees"
     And I attach the file at "spec/fixtures/employees.csv" to "File"
-    And I press "Import"
+    And I press "Upload"
     Then I should see the following employees:
       | name             |
       | Fritz Thielemann |
@@ -33,7 +33,7 @@ Feature: Importing and exporting employees
     When I go to the start page
     And I follow "Import employees"
     And I attach the file at "spec/fixtures/employees2.csv" to "File"
-    And I press "Import"
+    And I press "Upload"
     Then I should see the following employees:
       | name             |
       | Sven-Olof Fuchs  |
@@ -50,7 +50,7 @@ Feature: Importing and exporting employees
     When I go to the start page
     And I follow "Import employees"
     And I attach the file at "spec/fixtures/employees2.csv" to "File"
-    And I press "Import"
+    And I press "Upload"
     And I should not see the following employees:
       | name           |
       | Clemens Kofler |

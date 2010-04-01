@@ -30,6 +30,8 @@ de:
   options: Optionen
   picture_powered_by: "Bild bereitgestellt von {{link}}"
   copy_from: "Kopieren"
+  upload: Hochladen
+  file: Datei
 
   select_all: Alle auswählen
   deselect_all: Alle abwählen
