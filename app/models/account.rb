@@ -9,9 +9,11 @@ class Account < ActiveRecord::Base
 
   validates_presence_of :name
 
-  # TODO: return some kind of status for imported/not imported employees?
+  # TODO:
+  # return some kind of status for imported/not imported employees?
+  # maybe even detailed information (like "Couldn't import the following lines: - 12: Email can't be blank.")
   def import_employees_from_file(file, options = {})
-    options.reverse_merge!(:headers => true)
+    options.reverse_merge!(:headers => true, :converters => :all)
     FasterCSV.foreach(file.path, options) { |row| employees.create(row.to_hash) }
     1 # should probably return [number_inserted, number_in_file]
   end
