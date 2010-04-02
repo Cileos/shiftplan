@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
         Account.first
       end
     end
+    helper_method :current_account
 
     def aggregate_activities
       Activity.aggregate!
