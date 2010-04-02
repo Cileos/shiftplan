@@ -8,9 +8,9 @@ class Employees::Index < Minimal::Template
         div(:class => 'actions') {}
       end
 
-      render :partial => 'employee', :collection => employees
+      render(:partial => 'employee', :collection => employees)
     end
 
-    render :partial => 'sidebar'
+    render(:partial => 'sidebar')
   end
 end

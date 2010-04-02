@@ -2,7 +2,7 @@ class Employees::Form < Minimal::Template
   def content
     h3(t(:new_employee))
 
-    form_for(employee) do |f|
+    form_for(object) do |f|
       hidden_field_tag('_method')
 
       fieldset do
@@ -18,7 +18,7 @@ class Employees::Form < Minimal::Template
           ul(:class => 'qualifications', :style => 'width:350px;') do
             current_account.qualifications.each do |qualification|
               li do
-                check_box_tag('employee[qualification_ids][]', qualification.id, employee.has_qualification?(qualification), :id => "employee_qualification_#{qualification.id}", :class => 'employee_qualifications')
+                check_box_tag('employee[qualification_ids][]', qualification.id, object.has_qualification?(qualification), :id => "employee_qualification_#{qualification.id}", :class => 'employee_qualifications')
                 label_tag("employee_qualification_#{qualification.id}", qualification.name)
               end
             end
@@ -48,7 +48,7 @@ class Employees::Form < Minimal::Template
       form.send(type, field, *args)
     end
 
-    def employee
-      @employee ||= Employee.new
+    def object
+      @object ||= Employee.new
     end
 end
