@@ -1,8 +1,0 @@
-<% content_tag_for(:li, employee, :class => "#{employee.state} resource", :'data-form-values' => employee.form_values_json) do -%>
-  <%= image_tag(employee.gravatar_url(:size => 60)) %>
-	<div class="actions">
-		<%= link_to(t(:destroy), employee_path(employee), :class => 'delete', :method => :delete, :confirm => t(:employee_delete_confirmation)) %>
-	</div>
-	<h2 class="name"><%= employee.full_name %></h2>
-	<p class="qualifications"><%= employee.possible_workplaces.map(&:name).join(', ') %>&nbsp;</p>
-<% end -%>
