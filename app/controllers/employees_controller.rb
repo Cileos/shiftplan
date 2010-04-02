@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
   before_filter :set_employees, :only => :index
-  before_filter :set_employee, :only => [:show, :new, :edit, :update, :destroy]
+  before_filter :set_employee, :only => [:update, :destroy]
 
   def index
     respond_to do |format|
@@ -10,10 +10,6 @@ class EmployeesController < ApplicationController
         send_data(csv_data, :type => :csv, :filename => 'employees.csv')
       end
     end
-  end
-
-  def new
-    render :layout => !request.xhr?
   end
 
   def import
@@ -40,10 +36,6 @@ class EmployeesController < ApplicationController
     number_of_imported_employees = current_account.import_employees_from_file(params[:file])
     flash[:notice] = t(:employee_import_successful)
     redirect_to employees_url
-  end
-
-  def edit
-    render :layout => !request.xhr?
   end
 
   def update

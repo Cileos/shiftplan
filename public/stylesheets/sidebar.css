@@ -37,6 +37,7 @@
 }
 #sidebar input.zipcode {
   width: 50px;
+  margin-right: 3px;
 }
 #sidebar input.city {
   width: 101px;
