@@ -15,14 +15,11 @@ Shiftplan::Application.routes.draw do |map|
   devise_for :users
 end
 
-account = Account.create!(
-  :name  => 'Cileos UG',
-  :admin => {
-    :email => 'fritz@thielemann.de',
-    :password => 'oracle',
-    :password_confirmation => 'oracle'
-  }
-)
+admin = User.new(:email => 'fritz@thielemann.de', :password => 'oracle')
+admin.skip_confirmation!
+admin.save!
+
+account = Account.create!(:name  => 'Cileos UG', :admin => admin)
 
 cook              = Qualification.create!(:account => account, :name => 'Koch')
 cooking_assistant = Qualification.create!(:account => account, :name => 'Küchenhilfe')

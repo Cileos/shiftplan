@@ -63,7 +63,7 @@ class Activity < ActiveRecord::Base
 
       activity = activities.inject(activity) do |activity, other|
         activity.changes[:from].reverse_merge!(other.changes[:from] || {}) if activity.changes[:from]
-        activity.changes[:to].merge!(other.changes[:to])
+        activity.changes[:to].merge!(other.changes[:to]) if activity.changes[:to]
         activity
       end
       activity.changes.delete(:from) if activity.created? || last.destroyed?

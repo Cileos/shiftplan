@@ -33,8 +33,8 @@ class Account < ActiveRecord::Base
     1 # should probably return [number_inserted, number_in_file]
   end
 
-  def admin=(attributes)
-    user = User.create!(attributes)
+  def admin=(user)
+    user = user.is_a?(User) ? user : User.create!(user)
     user.confirm!
 
     memberships.build(
