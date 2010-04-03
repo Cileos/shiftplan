@@ -14,7 +14,7 @@ class Statuses::DefaultStatuses < Minimal::Template
 
       thead do
         tr do
-          days_of_week.each { |day_of_week| th(t(:'date.day_names')[day_of_week]) }
+          days_of_week.each { |day_of_week| th(day_of_week) }
         end
       end
     end

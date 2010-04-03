@@ -8,7 +8,7 @@ class Dashboards::MasterData < Minimal::Template
           li do
             link_to t(:'dashboard.import_employees'), import_employees_path
             template_link = capture { link_to t(:'dashboard.employees_import_template'), employees_path(:format => :csv, :blank => true) }
-            span " (#{template_link})"
+            span " (#{template_link})".html_safe
           end
           li { link_to t(:'dashboard.export_employees'), employees_path(:format => :csv) }
         end

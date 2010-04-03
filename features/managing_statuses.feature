@@ -30,7 +30,7 @@ Feature: Managing statuses
     And I choose "Available"
     And I press "Save"
     Then the employee "Fritz Thielemann" should be available on "24 March 2010" from "10:00" to "22:00"
-  
+
   Scenario: Adding an override unavailability entry
     Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
     When I select "24 March 2010" as the date

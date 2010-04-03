@@ -12,12 +12,11 @@ class Statuses::Form < Minimal::Template
         end
 
         div(:class => 'default_only', :style => 'display:none;') do
-          # field_with_label(f, :select :day_of_week, options_for_select(day_names, object.day_of_week), {}, :disabled => true)
-          f.label(:day_of_week)
-          f.select(:day_of_week, options_for_select(day_names, object.day_of_week), {}, :disabled => true)
+          field_with_label(f, :collection_select, :day_of_week, day_names, :last, :first, {}, :disabled => true)
         end
 
         div(:class => 'override_only') { field_with_label(f, :date_select, :day, :start_year => Time.current.year) }
+
         div { field_with_label(f, :time_select, :start_time, :minute_step => 5) }
         div { field_with_label(f, :time_select, :end_time, :minute_step => 5) }
 

@@ -6,11 +6,7 @@ class DefaultStatuses::Form < Minimal::Template
 
       fieldset do
         div { field_with_label(f, :collection_select, :employee_id, employees, :id, :full_name, :include_blank => true) }
-        # div { field_with_label(f, :select, :day_of_week, options_for_select(day_names, object.day_of_week)) }
-        div do
-          f.label(:day_of_week)
-          f.select(:day_of_week, options_for_select(day_names, object.day_of_week))
-        end
+        div { field_with_label(f, :collection_select, :day_of_week, day_names, :last, :first) }
         div { field_with_label(f, :time_select, :start_time, :minute_step => 5) }
         div { field_with_label(f, :time_select, :end_time, :minute_step => 5) }
 

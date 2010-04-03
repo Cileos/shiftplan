@@ -6,7 +6,7 @@ module ApplicationHelper
 
   def day_names
     returning([]) do |day_names|
-      t(:'date.day_names').each_with_index { |d, i| day_names << [d, i] }
+      I18n.t(:'date.day_names').each_with_index { |d, i| day_names << [d, i] }
       day_names
     end
   end
