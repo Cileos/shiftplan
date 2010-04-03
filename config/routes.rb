@@ -1,4 +1,5 @@
 Shiftplan::Application.routes.draw do |map|
+  SprocketsApplication.routes(map)
   devise_for :users
 
   resource :dashboard

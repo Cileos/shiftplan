@@ -1,0 +1,7 @@
+//= require "vendor/jquery/jquery"
+//= require "vendor/jquery/jquery-ui"
+//= require "vendor/jquery/jquery-plugin-form"
+//= require "vendor/jquery/jquery-plugin-quicksearch"
+//= require "vendor/ejs/ejs"
+//= require "ext"
+//= require "shiftplan"

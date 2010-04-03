@@ -3,7 +3,6 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title><%= yield :title %> | shiftplan.com</title>
-    <%= javascript_include_tag :shiftplan %>
     <%= stylesheet_link_tag :shiftplan %>
 	
 	  <script type='text/javascript'>
@@ -55,5 +54,7 @@
     <% end -%>
 
     <%= yield %>
+
+    <%= sprockets_include_tag %>
   </body>
 </html>
