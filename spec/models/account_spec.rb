@@ -38,7 +38,9 @@ describe Account do
     describe "#admin=" do # even if it's only temporary ...
       before(:each) do
         @account.name = 'Test account'
-        @account.admin = { :email => 'fritz@thielemann.de', :password => 'oracle', :password_confirmation => 'oracle' }
+        admin = User.new(:email => 'fritz@thielemann.de', :password => 'oracle', :password_confirmation => 'oracle')
+        admin.skip_confirmation!
+        @account.admin = admin
         @account.save!
 
         @admin = @account.users.first

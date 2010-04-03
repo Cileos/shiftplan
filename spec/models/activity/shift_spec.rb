@@ -4,7 +4,12 @@ describe 'Shift activities' do
   before(:each) do
     Activity.session_timeout = false
 
-    @user = User.make
+    # FIXME: devise issues
+    # @user = User.make
+    @user = User.new(:name => 'Fritz Thielemann', :email => 'fritz@thielemann.de', :password => 'oracle')
+    @user.skip_confirmation!
+    @user.save!
+
     @plan = Plan.make
     @qualification = Qualification.make
 

@@ -4,7 +4,12 @@ describe 'Requirement activities' do
   before do
     Activity.session_timeout = false
 
-    @user = User.make
+    # FIXME: devise issues
+    # @user = User.make
+    @user = User.new(:name => 'Fritz Thielemann', :email => 'fritz@thielemann.de', :password => 'oracle')
+    @user.skip_confirmation!
+    @user.save!
+
     @shift = Shift.make
     @qualification = Qualification.make
 
