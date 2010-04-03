@@ -1,11 +1,6 @@
 Shiftplan::Application.routes.draw do |map|
   devise_for :users
 
-  # controller :dashboard do
-  #   resource :dashboard
-  # end
-
-  resource :session
   resource :dashboard
   resource :favorite
 
