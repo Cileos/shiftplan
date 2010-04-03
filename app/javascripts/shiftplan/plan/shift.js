@@ -6,11 +6,12 @@
   $.extend(Shift, Resource, {
   	selector: '.shift',
   	build: function(workplace) {
-  		var template = new EJS({ url: '/javascripts/shiftplan/plan/shift/new_shift.ejs' })
-  		var html = template.render({
-  		  workplace: workplace,
-  		  default_staffing: workplace.default_staffing()
-  		});
+  	  // TODO: can we clean this up somehow?
+      var html = '<li id="new_shift" class="shift ' + workplace.dom_id() + '" data-workplace-id="' + workplace.id() + '"><h3>' + workplace.name() + '</h3><ul class="requirements">';
+      for(var i = 0; i < workplace.default_staffing().length; i++) {
+        html += '<li class="requirement qualification_' + workplace.default_staffing()[i] + ' ui-draggable ui-droppable"></li>';
+      }
+      html += '</ul></li>';
 
   		var shift = $(html).shift();
   		shift.init();
