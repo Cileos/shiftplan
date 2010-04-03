@@ -22,7 +22,7 @@ default_statuses = employee.statuses.default.group_by(&:day_of_week)
 <% else -%>
   'html': {
     'replace': {
-      '#<%= "#{dom_id(@status.employee)}_#{@status.day.to_s(:number)}" %> ul': '<%= escape_javascript(render(:partial => 'statuses/statuses.html',
+      '#<%= "#{dom_id(@status.employee)}_#{@status.day.to_s(:number)}" %> ul': '<%= escape_javascript(render(:partial => 'statuses/statuses',
               :locals => { :statuses => statuses_for(@status.day, @status.employee.statuses.override.all) })) %>'
     }
   }
