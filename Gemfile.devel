@@ -4,10 +4,9 @@ gem "rails",      '>= 3.0.0.beta2'
 gem 'rack'
 gem 'gravtastic', '>= 2.1.0'
 gem 'later_dude', '>= 0.3.1'
-gem 'minimal',    '>= 0.0.3'
+gem 'minimal',    '>= 0.0.5'
 gem 'warden'
-# gotta use devise master until devise is compatible with rails beta 2
-gem 'devise',     :git => "git://github.com/plataformatec/devise.git" 
+gem 'devise',     '>= 1.1.rc0'
 gem 'fastercsv'
 
 group :test do
