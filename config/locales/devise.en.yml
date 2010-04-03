@@ -6,10 +6,7 @@ en:
       not_locked: "was not locked"
 
   devise:
-    sessions:
-      link: 'Sign in'
-      signed_in: 'Signed in successfully.'
-      signed_out: 'Signed out successfully.'
+    failure:
       unauthenticated: 'You need to sign in or sign up before continuing.'
       unconfirmed: 'You have to confirm your account before continuing.'
       locked: 'Your account is locked.'
@@ -17,6 +14,10 @@ en:
       invalid_token: 'Invalid authentication token.'
       timeout: 'Your session expired, please sign in again to continue.'
       inactive: 'Your account was not activated yet.'
+    sessions:
+      link: 'Sign in'
+      signed_in: 'Signed in successfully.'
+      signed_out: 'Signed out successfully.'
     passwords:
       link: 'Forgot password?'
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'

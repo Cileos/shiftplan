@@ -6,10 +6,7 @@ en:
       not_locked: "ist nicht gesperrt"
 
   devise:
-    sessions:
-      link: 'Anmelden'
-      signed_in: 'Erfolgreich angemeldet.'
-      signed_out: 'Erfolgreich abgemeldet.'
+    failure:
       unauthenticated: 'Sie müssen sich anmelden oder registrieren, um fortfahren zu können.'
       unconfirmed: 'Sie müssen Ihren Benutzerkonto bestätigen, um fotfahren zu können.'
       locked: 'Ihr Benutzerkonto ist gesperrt.'
@@ -17,6 +14,10 @@ en:
       invalid_token: 'Invalid authentication token.'
       timeout: 'Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an, um fortfahren zu können.'
       inactive: 'Ihr Benutzerkonto ist noch nicht aktiviert.'
+    sessions:
+      link: 'Anmelden'
+      signed_in: 'Erfolgreich angemeldet.'
+      signed_out: 'Erfolgreich abgemeldet.'
     passwords:
       link: 'Passwort vergessen?'
       send_instructions: 'Sie erhalten in wenigen Minuten eine E-Mail mit Informationen, wie Sie Ihr Passwort zurücksetzen können.'
