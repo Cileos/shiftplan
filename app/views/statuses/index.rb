@@ -24,7 +24,7 @@ class Statuses::Index < Minimal::Template
   protected
 
     def employee_given?
-      @employee || respond_to?(:v) || view.instance_variable_defined?(:@employee)
+      @employee || respond_to?(:employee) || view.instance_variable_defined?(:@employee)
     end
 
     def week_given?
