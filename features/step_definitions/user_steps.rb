@@ -3,8 +3,9 @@ Given /^the following users:$/ do |users|
     attributes = attributes.dup
     attributes.delete('name') # because users don't have names ...
     attributes['password_confirmation'] = attributes['password']
-    user = User.create!(attributes)
-    user.confirm!
+    user = User.new(attributes)
+    user.skip_confirmation!
+    user.save!
   end
 end
 
