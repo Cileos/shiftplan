@@ -11,11 +11,6 @@ module ApplicationHelper
     end
   end
 
-  def presenter_for(model, type = nil)
-    type = type ? type.split('/').map(&:classify).join('Presenter::') : model.class.name
-    "#{type}Presenter".constantize.new(model, self)
-  end
-
   def resource_css_classes(plan)
     names = %w(resource)
     names << 'template' if plan.respond_to?(:template?) && plan.template?
