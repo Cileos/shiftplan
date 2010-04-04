@@ -1,4 +1,4 @@
-<% content_tag(:tr, :class => dom_id(employee)) do -%>
+<%= content_tag(:tr, :class => dom_id(employee)) do -%>
   <td><input type="checkbox" /></td>
   <td><%= image_tag(employee.gravatar_url(:size => 30)) %></td>
 	<td><%= employee.full_name %></td>
