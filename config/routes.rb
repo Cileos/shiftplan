@@ -17,6 +17,7 @@ Shiftplan::Application.routes.draw do |map|
   resources :workplaces
   resources :plans
   resources :qualifications
+  resources :tags
 
   resources :default_statuses
   resources :statuses

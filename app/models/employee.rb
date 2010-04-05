@@ -2,6 +2,7 @@ require 'sha1'
 
 class Employee < ActiveRecord::Base
   is_gravtastic
+  acts_as_taggable
 
   belongs_to :account
   has_many :employee_qualifications
@@ -40,7 +41,7 @@ class Employee < ActiveRecord::Base
     end
 
     def search(term)
-      where(["CONCAT(first_name, last_name) LIKE ?", "%#{term}%"])
+      where(["CONCAT(first_name, last_name, cached_tag_list) LIKE ?", "%#{term}%"])
     end
   end
 
@@ -81,6 +82,7 @@ class Employee < ActiveRecord::Base
         last_name: '#{last_name}',
         active: #{active?},
         qualifications: [#{qualifications}],
+        tag_list: '#{tag_list}',
         email: '#{email}',
         phone: '#{phone}',
         street: '#{street}',

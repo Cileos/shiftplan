@@ -6,6 +6,11 @@ describe Employee do
   end
 
   describe "associations" do
+    it "should have tags" do
+      @employee.should have_many(:tags)
+      @employee.should have_many(:taggings)
+    end
+
     it "should have qualifications" do
       @employee.should have_many(:employee_qualifications)
       @employee.should have_many(:qualifications)
@@ -55,7 +60,7 @@ describe Employee do
   describe "class methods" do
     describe ".search" do
       before(:each) do
-        @employee = Employee.make(:first_name => 'Fritz', :last_name => 'Thielemann')
+        @employee = Employee.make(:first_name => 'Fritz', :last_name => 'Thielemann', :tag_list => 'cool, dude')
       end
 
       describe "successful" do
@@ -65,6 +70,10 @@ describe Employee do
 
         it "should find employees that match a given last name" do
           Employee.search('thielemann').should include(@employee)
+        end
+
+        it "should find employees that match a given tag" do
+          Employee.search('dude').should include(@employee)
         end
 
         # it "should find employees that match a given qualification name" do
@@ -83,6 +92,10 @@ describe Employee do
 
         it "should not find employees that don't match a given last name" do
           Employee.search('fuchs').should_not include(@employee)
+        end
+
+        it "should not find employees that don't match a given tag" do
+          Employee.search('uncool').should_not include(@employee)
         end
 
         # it "should not find employees that don't match a given qualification name" do
@@ -191,7 +204,7 @@ describe Employee do
           :first_name => 'Fritz', :last_name => 'Thielemann', :birthday => Date.civil(1965, 2, 1),
           :email => 'fritz@thielemann.de', :phone => '1234',
           :street => 'Some street 1', :zipcode => '12345', :city => 'Somewhere',
-          :active => true
+          :tag_list => 'cool, dude', :active => true
         )
         # no qualifications to make life a bit simpler
       end
@@ -209,6 +222,7 @@ describe Employee do
         json.should include("birthday_1i: '1965'")
         json.should include("birthday_2i: '2'")
         json.should include("birthday_3i: '1'")
+        json.should include("tag_list: 'cool, dude'")
         json.should include("active: true")
         json.should include("qualifications: []")
       end

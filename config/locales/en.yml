@@ -32,6 +32,7 @@ en:
   copy_from: "Copy from"
   upload: Upload
   file: File
+  tags: "Tags: {{tags}}"
 
   select_all: Select all
   deselect_all: Deselect all
@@ -143,6 +144,18 @@ en:
   qualification_successfully_deleted: "Qualification successfully deleted."
   qualification_delete_confirmation: "Do you really want to delete this qualification?"
 
+  # tags
+  click_to_add_tag: Click to add
+  add_tag:  "Click here to add a new tag"
+  new_tag:  "New tag"
+  edit_tag: "Edit tag \"{{name}}\""
+  tag_successfully_created: "Tag successfully created."
+  tag_could_not_be_created: "Tag could not be created."
+  tag_successfully_updated: "Tag successfully updated."
+  tag_could_not_be_updated: "Tag could not be updated."
+  tag_successfully_deleted: "Tag successfully deleted."
+  tag_delete_confirmation: "Do you really want to delete this tag?"
+
   # plans
   new_plan: New plan
   plan_from_to: "{{start_date}} - {{end_date}}"
@@ -226,6 +239,8 @@ en:
         phone: Phone
         street: Street
         zipcode: "Zip, City"
+        tags: Tags
+        tag_list: Tags
       qualification:
         base_data: Base data
         name: Name
