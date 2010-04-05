@@ -354,6 +354,10 @@ de:
         name: Name
         start: Start
         end: Ende
+        start_date: Startdatum
+        end_date: Enddatum
+        start_time: Startzeit
+        end_time: Endzeit
         shifts: Schichten
         template: Vorlage
       shift:
