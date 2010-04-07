@@ -1,5 +1,3 @@
-require 'sha1'
-
 class Employee < ActiveRecord::Base
   is_gravtastic
   acts_as_taggable
@@ -97,6 +95,6 @@ class Employee < ActiveRecord::Base
   end
 
   def token
-    SHA1.sha1("---#{id}---#{created_at.to_s(:db)}---")
+    Digest::SHA1.hexdigest("---#{id}---#{created_at.to_s(:db)}---")
   end
 end
