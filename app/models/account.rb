@@ -13,7 +13,7 @@ class Account < ActiveRecord::Base
   # return some kind of status for imported/not imported employees?
   # maybe even detailed information (like "Couldn't import the following lines: - 12: Email can't be blank.")
   def import_employees_from_file(file, options = {})
-    options.reverse_merge!(:headers => true, :converters => :all)
+    options.reverse_merge!(:headers => true, :converters => :all, :col_sep => ';')
     FasterCSV.foreach(file.path, options) do |row|
       attributes = row.to_hash
 
