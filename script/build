@@ -44,7 +44,7 @@ mkdir -p -m 766 tmp/pids
 nohup env RAILS_ENV=test bundle exec rails server -p 3000 > log/server.log &
 
 # wait for starting server and run the tests
-sleep 10 && bundle exec cucumber -b features RAILS_ENV=test && bundle exec rspec ./spec
+sleep 30 && bundle exec cucumber -b features RAILS_ENV=test && bundle exec rspec ./spec
 STATUS=`echo $?`
 
 # stop the before started test server
