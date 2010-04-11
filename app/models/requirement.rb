@@ -12,7 +12,7 @@ class Requirement < ActiveRecord::Base
   delegate :day, :start, :end, :to => :shift
 
   def qualified_employee_ids
-    @qualified_employee_ids ||= Employee.for_qualification(qualification, :select => 'employees.id').map(&:id)
+    @qualified_employee_ids ||= qualification ? Employee.for_qualification(qualification, :select => 'employees.id').map(&:id) : []
   end
 
   def fulfilled?

@@ -72,11 +72,20 @@
     selected: function() {
       return this.element.hasClass('selected');
     },
+    qualified_employee_ids: function() {
+      return eval($(this.element).attr("data-qualified_employee_ids")) || [];
+    },
+    suitable_employee_ids: function() {
+      return this.qualified_employee_ids().intersect(this.shift().available_employee_ids());
+    },
+    unsuitable_employee_ids: function() {
+      return Employee.ids().except(this.shift().available_employee_ids());
+    },
     suitable_employees: function() {
-      return $('#sidebar .employee[data-qualifications*=qualification_' + this.qualification_id() +']');
+      return $($.map(this.suitable_employee_ids(), function(id) { return '#employees .employee_' + id; }).join(','));
     },
     unsuitable_employees: function() {
-      return $('#sidebar .employee:not([data-qualifications*=qualification_' + this.qualification_id() +'])');
+      return $($.map(this.unsuitable_employee_ids(), function(id) { return '#employees .employee_' + id; }).join(','));
     },
   	remove: function() {
   	  this.destroy();

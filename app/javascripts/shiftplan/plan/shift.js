@@ -84,6 +84,16 @@
     selected: function() {
       return this.element.hasClass('selected');
     },
+    available_employee_ids: function() {
+      var _available_employee_ids = eval($(this.element).attr("data-available_employee_ids")) || [];
+      this.available_employee_ids = function() { return _available_employee_ids; };
+      return _available_employee_ids;
+    },
+    unavailable_employee_ids: function() {
+      var _available_employee_ids = eval($(this.element).attr("data-unavailable_employee_ids")) || [];
+      this.available_employee_ids = function() { return _available_employee_ids; };
+      return _available_employee_ids;
+    },
     suitable_employees: function() {
       return $('#sidebar .employee[data-qualified-workplaces*=workplace_' + this.workplace_id() +']');
     },

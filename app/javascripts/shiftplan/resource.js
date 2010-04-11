@@ -55,9 +55,15 @@ $.extend(Resource, {
 	},
 	all: function() {
 		var type = this;
-		return objects = this.elements().map(function() {
+		return this.elements().map(function() {
 			return $(this).resource(type)
 		});
+	},
+	ids: function() {
+		var type = this;
+		return $.makeArray(this.elements().map(function() {
+			return parseInt($(this).resource(type).id());
+		}));
 	},
 	init: function() {
 		$.each(this.all(), function() {
