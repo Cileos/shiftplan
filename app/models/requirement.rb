@@ -11,18 +11,18 @@ class Requirement < ActiveRecord::Base
 
   delegate :day, :start, :end, :to => :shift
 
-  def suitable_employees(statuses)
-    @suitable_employees ||= {}
-    @suitable_employees[statuses] ||= begin
-      Employee.for_qualification(qualification).all.select do |employee|
-        employee.statuses.for(shift.day).any? do |status|
-          status.start_time.strftime('%H%M%S') <= self.start.strftime('%H%M%S') &&
-          status.end_time.strftime('%H%M%S')   >= self.end.strftime('%H%M%S')   &&
-          Array(statuses).include?(status.status)
-        end
-      end
-    end
-  end
+  # def suitable_employees(statuses)
+  #   @suitable_employees ||= {}
+  #   @suitable_employees[statuses] ||= begin
+  #     Employee.for_qualification(qualification).all.select do |employee|
+  #       employee.statuses.for(shift.day).any? do |status|
+  #         status.start_time.strftime('%H%M%S') <= self.start.strftime('%H%M%S') &&
+  #         status.end_time.strftime('%H%M%S')   >= self.end.strftime('%H%M%S')   &&
+  #         Array(statuses).include?(status.status)
+  #       end
+  #     end
+  #   end
+  # end
 
   def fulfilled?
     !!assignment
