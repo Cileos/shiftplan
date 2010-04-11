@@ -24,7 +24,7 @@ class Status < ActiveRecord::Base
         by_day.merge(day => begin
           for_day = statuses.select { |status| status.day == day }
           # select the defaults for the given day if no availabilities are defined
-          for_day.empty? ? statuses.select { |status| status.day_of_week = day.wday } : for_day
+          for_day.empty? ? statuses.select { |status| status.day_of_week == day.wday } : for_day
         end)
       end
 
