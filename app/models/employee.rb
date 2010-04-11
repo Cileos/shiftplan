@@ -14,11 +14,12 @@ class Employee < ActiveRecord::Base
   scope :active, where(:active => true)
   scope :inactive, where(:active => false)
 
-  scope :for_qualification, lambda { |qualification|
-    {
+  scope :for_qualification, lambda { |*args|
+    qualification, options = *args
+    (options || {}).merge({
       :joins => :employee_qualifications,
       :conditions => ["qualification_id = ?", qualification.id]
-    }
+    })
   }
 
   class << self
