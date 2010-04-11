@@ -21,11 +21,12 @@ class Status < ActiveRecord::Base
       statuses = where(["day BETWEEN ? AND ? OR day_of_week IN(?)", start_date, end_date, days_of_week]).all
 
       statuses = date_range.inject(ActiveSupport::OrderedHash.new) do |by_day, day|
-        by_day.merge(day => begin
-          for_day = statuses.select { |status| status.day == day }
-          # select the defaults for the given day if no availabilities are defined
-          for_day.empty? ? statuses.select { |status| status.day_of_week == day.wday } : for_day
-        end)
+        for_day = statuses.select { |status| status.day == day }
+        statuses.each do |status|
+          # select the default statuses for the given day if no override statuses are defined
+          for_day << status.dup.tap { |status| status.day = day } if status.day_of_week == day.wday
+        end if for_day.empty?
+        by_day.merge(day => for_day)
       end
 
       args.size == 1 ? statuses[start_date] : statuses
@@ -83,6 +84,15 @@ class Status < ActiveRecord::Base
       }
     json
     json.gsub("\n", ' ').strip
+  end
+  
+  def to_json
+    {
+      'status' => status,
+      'day' => day,
+      'start_time' => start_time,
+      'end_time' => end_time
+    }.to_json
   end
 
   protected
