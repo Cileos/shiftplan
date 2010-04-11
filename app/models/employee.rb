@@ -47,8 +47,8 @@ class Employee < ActiveRecord::Base
     qualifications.include?(qualification)
   end
 
-  def possible_workplaces
-    @possible_workplaces ||= qualifications.collect do |qualification|
+  def qualified_workplaces
+    @qualified_workplaces ||= qualifications.collect do |qualification|
       Workplace.for_qualification(qualification)
     end.flatten.uniq
   end

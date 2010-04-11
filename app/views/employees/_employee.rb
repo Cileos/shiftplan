@@ -5,7 +5,7 @@ module Employees
         image_tag(employee.gravatar_url(:size => 60))
         div(:class => 'actions') { link_to_destroy(employee) }
         h2(employee.full_name, :class => 'name')
-        p(employee.possible_workplaces.map(&:name).join(', '), :class => 'qualifications')
+        p(employee.qualified_workplaces.map(&:name).join(', '), :class => 'qualifications')
       end
     end
     

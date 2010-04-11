@@ -49,15 +49,15 @@
   float: right;
 }
 
-.possible_workplaces {
+.qualified_workplaces {
   margin-top: 0.5em;
 }
 
-.possible_workplaces li {
+.qualified_workplaces li {
   margin-bottom: 0.25em;
 }
 
-.possible_workplaces .color {
+.qualified_workplaces .color {
   width: 0.8em;
   height: 0.8em;
   float: left;

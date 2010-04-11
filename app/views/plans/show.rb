@@ -10,7 +10,8 @@ class Plans::Show < Minimal::Template
       end
     end
 
-    render :partial => 'sidebar', :locals => { :employees => employees, :workplaces => workplaces, :qualifications => qualifications }
+    render :partial => 'sidebar', :locals => { :plan => plan, :employees => employees, 
+      :workplaces => workplaces, :qualifications => qualifications }
     render :partial => 'search'
   end
 

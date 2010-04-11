@@ -19,8 +19,8 @@ class Qualification < ActiveRecord::Base
     end
   end
 
-  def possible_workplaces
-    @possible_workplaces ||= Workplace.for_qualification(self)
+  def qualified_workplaces
+    @qualified_workplaces ||= Workplace.for_qualification(self)
   end
 
   def color

@@ -170,7 +170,7 @@ describe Employee do
       end
     end
 
-    describe "#possible_workplaces" do
+    describe "#qualified_workplaces" do
       before(:each) do
         @cook_qualification         = Qualification.make(:name => 'Cook')
         @receptionist_qualification = Qualification.make(:name => 'Receptionist')
@@ -184,10 +184,10 @@ describe Employee do
       end
 
       it "should return all possible workplaces" do
-        @employee_1.possible_workplaces.should include(@kitchen)
-        @employee_1.possible_workplaces.should include(@reception)
+        @employee_1.qualified_workplaces.should include(@kitchen)
+        @employee_1.qualified_workplaces.should include(@reception)
 
-        @employee_2.possible_workplaces.should be_empty
+        @employee_2.qualified_workplaces.should be_empty
       end
     end
 

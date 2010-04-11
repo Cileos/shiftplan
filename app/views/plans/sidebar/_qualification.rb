@@ -8,12 +8,12 @@ class Plans::Sidebar::Qualification < Minimal::Template
   def attributes
     {
       :class => "#{qualification.class.name.underscore} #{dom_id(qualification)} dialog",
-      :'data-possible-workplaces' => possible_workplaces
+      :'data-possible-workplaces' => qualified_workplaces
     }
   end
 
-  def possible_workplaces
-    qualification.possible_workplaces.map { |workplace| dom_id(workplace) }.join(', ')
+  def qualified_workplaces
+    qualification.qualified_workplaces.map { |workplace| dom_id(workplace) }.join(', ')
   end
 end
 

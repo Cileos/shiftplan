@@ -55,7 +55,7 @@ describe Qualification do
   end
 
   describe "instance methods" do
-    describe "#possible_workplaces" do
+    describe "#qualified_workplaces" do
       before(:each) do
         @cook_qualification         = Qualification.make(:name => 'Cook')
         @receptionist_qualification = Qualification.make(:name => 'Receptionist')
@@ -66,10 +66,10 @@ describe Qualification do
       end
 
       it "should return all possible workplaces" do
-        @cook_qualification.possible_workplaces.should include(@kitchen)
-        @receptionist_qualification.possible_workplaces.should include(@reception)
+        @cook_qualification.qualified_workplaces.should include(@kitchen)
+        @receptionist_qualification.qualified_workplaces.should include(@reception)
 
-        @barkeeper_qualification.possible_workplaces.should be_empty
+        @barkeeper_qualification.qualified_workplaces.should be_empty
       end
     end
 

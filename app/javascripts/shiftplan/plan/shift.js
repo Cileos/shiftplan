@@ -31,7 +31,6 @@
       if(shift.click_cancelled()) return;
 
 	    $('#sidebar .employee').removeClass('suitable').removeClass('unsuitable');
-
   	  if(shift.selected()) {
   	    shift.element.removeClass('selected');
   	  } else {
@@ -86,10 +85,10 @@
       return this.element.hasClass('selected');
     },
     suitable_employees: function() {
-      return $('#sidebar .employee[data-possible-workplaces*=workplace_' + this.workplace_id() +']');
+      return $('#sidebar .employee[data-qualified-workplaces*=workplace_' + this.workplace_id() +']');
     },
     unsuitable_employees: function() {
-      return $('#sidebar .employee:not([data-possible-workplaces*=workplace_' + this.workplace_id() +'])');
+      return $('#sidebar .employee:not([data-qualified-workplaces*=workplace_' + this.workplace_id() +'])');
     },
   	init_containment: function(draggable) { // gotta set containment directly to the draggable
   		if (!draggable.containment) {

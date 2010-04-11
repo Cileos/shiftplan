@@ -6,7 +6,7 @@
   $.extend(Employee, Resource, {
   	selector: ".employee",
   	on_drag_start: function(event, ui) {
-      var workplaces = ui.helper.closest('.employee').attr('data-possible-workplaces');
+      var workplaces = ui.helper.closest('.employee').attr('data-qualified-workplaces');
       if(workplaces.length != 0) {
         workplaces = $.map(workplaces.split(/,\s?/), function(workplace) {
           return '.' + workplace;
