@@ -52,6 +52,17 @@ class Shift < ActiveRecord::Base
     requirement_ids_were.empty? ? [] : requirements_were
   end
 
+  def statused_employee_ids(status) # according to webster this is a verb
+    @statused_employee_ids = {}
+    @statused_employee_ids[status] ||= begin
+      Status.for(day).select do |s|
+        s.start_time.strftime('%H%M%S') <= self.start.strftime('%H%M%S') && # TODO move this shit to Status#for
+        s.end_time.strftime('%H%M%S')   >= self.end.strftime('%H%M%S')   &&
+        s.status == status
+      end.map(&:employee_id).uniq
+    end
+  end
+
   protected
 
     def synchronize_duration_end_time

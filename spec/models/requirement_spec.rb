@@ -31,80 +31,27 @@ describe Requirement do
   end
 
   describe "instance methods" do
-    # describe "#suitable_employees" do
-    #   before(:each) do
-    #     @cook_qualification      = Qualification.make(:name => 'Cook')
-    #     @barkeeper_qualification = Qualification.make(:name => 'Barkeeper')
-    # 
-    #     @kitchen_shift = Shift.make(:start => Time.zone.local(2009, 11, 30, 8, 0), :end => Time.zone.local(2009, 11, 30, 17, 0))
-    #     @cook_requirement = Requirement.make(:shift => @kitchen_shift, :qualification => @cook_qualification)
-    # 
-    #     @cook_1    = Employee.make(:qualifications => [@cook_qualification])
-    #     @cook_2    = Employee.make(:qualifications => [@cook_qualification])
-    #     @barkeeper = Employee.make(:qualifications => [@barkeeper_qualification])
-    #   end
-    # 
-    #   { :day_of_week => 1, :day => Date.civil(2009, 11, 30) }.each do |key, value|
-    #     describe "with #{key == :day ? 'specific' : 'default'} statuses" do
-    #       before(:each) do
-    #         @status = Status::VALID_STATUSES.first
-    #         @default_attributes = { key => value, :status => @status }
-    #       end
-    # 
-    #       it "should return suitable employees with overlapping availability times" do
-    #         Status.make({ :employee => @cook_1,    :start_time => '8:00', :end_time => '17:00' }.reverse_merge(@default_attributes))
-    #         Status.make({ :employee => @cook_2,    :start_time => '8:00', :end_time => '17:00' }.reverse_merge(@default_attributes))
-    #         Status.make({ :employee => @barkeeper, :start_time => '8:00', :end_time => '17:00' }.reverse_merge(@default_attributes))
-    # 
-    #         employees = @cook_requirement.suitable_employees(@status)
-    #         employees.should     include(@cook_1)
-    #         employees.should     include(@cook_2)
-    #         employees.should_not include(@barkeeper)
-    #       end
-    # 
-    #       it "should return suitable employees with larger than necessary availability times" do
-    #         Status.make({ :employee => @cook_1, :start_time => '7:00', :end_time => '18:00' }.reverse_merge(@default_attributes))
-    #         Status.make({ :employee => @cook_2, :start_time => '0:00', :end_time => '23:00' }.reverse_merge(@default_attributes))
-    # 
-    #         employees = @cook_requirement.suitable_employees(@status)
-    #         employees.should     include(@cook_1)
-    #         employees.should     include(@cook_2)
-    #         employees.should_not include(@barkeeper)
-    #       end
-    # 
-    #       it "should not return suitable employees with wrong availability times" do
-    #         Status.make({ :employee => @cook_1, :start_time => '9:00', :end_time => '18:00' }.reverse_merge(@default_attributes))
-    #         Status.make({ :employee => @cook_2, :start_time => '7:00', :end_time => '16:00' }.reverse_merge(@default_attributes))
-    # 
-    #         @cook_requirement.suitable_employees(@status).should be_empty
-    #       end
-    # 
-    #       it "should not return suitable employees with no availability times" do
-    #         @cook_requirement.suitable_employees(@status).should be_empty
-    #       end
-    #     end
-    #   end
-    # 
-    #   describe "with overridden statuses" do
-    #     before(:each) do
-    #       @status = Status::VALID_STATUSES.first
-    #     end
-    # 
-    #     it "should return an employee that isn't available by default but is available on a specific day" do
-    #       Status.make(:employee => @cook_1, :day_of_week => 1, :start_time => '14:00', :end_time => '23:00', :status => @status)
-    #       Status.make(:employee => @cook_1, :day => Date.civil(2009, 11, 30), :start_time => '8:00', :end_time => '17:00', :status => @status)
-    # 
-    #       @cook_requirement.suitable_employees(@status).should include(@cook_1)
-    #     end
-    # 
-    #     it "should not return an employee that is available by default but isn't available on a specific day" do
-    #       Status.make(:employee => @cook_1, :day_of_week => 1, :start_time => '8:00', :end_time => '17:00', :status => @status)
-    #       Status.make(:employee => @cook_1, :day => Date.civil(2009, 11, 30), :start_time => '14:00', :end_time => '23:00', :status => @status)
-    # 
-    #       @cook_requirement.suitable_employees(@status).should_not include(@cook_1)
-    #     end
-    #   end
-    # end
+    describe "#qualified_employee_ids" do
+      before(:each) do
+        @cook_qualification      = Qualification.make(:name => 'Cook')
+        @barkeeper_qualification = Qualification.make(:name => 'Barkeeper')
+
+        @kitchen_shift    = Shift.make(:start => Time.zone.local(2009, 11, 30, 8, 0), :end => Time.zone.local(2009, 11, 30, 17, 0))
+        @cook_requirement = Requirement.make(:shift => @kitchen_shift, :qualification => @cook_qualification)
+
+        @cook_1    = Employee.make(:qualifications => [@cook_qualification])
+        @cook_2    = Employee.make(:qualifications => [@cook_qualification])
+        @barkeeper = Employee.make(:qualifications => [@barkeeper_qualification])
+      end
+
+      it "should include the qualified employees' ids" do
+        @cook_requirement.qualified_employee_ids.should include(@cook_1.id, @cook_2.id)
+      end
+
+      it "should not include the unqualified employees' ids" do
+        @cook_requirement.qualified_employee_ids.should_not include(@barkeeper.id)
+      end
+    end
 
     describe "#fulfilled?" do
       it "should be fulfilled if an assignment is present" do

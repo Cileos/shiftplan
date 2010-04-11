@@ -14,6 +14,9 @@ class Plans::Show::Requirement < Minimal::Template
   end
 
   def attributes
-    { :class => qualification ? "qualification_#{qualification.id}" : '' }
+    {
+      :class => qualification ? "qualification_#{qualification.id}" : '',
+      :'data-qualified_employee_ids' => requirement.qualified_employee_ids.to_json
+    }
   end
 end
