@@ -125,12 +125,19 @@ describe Status do
       describe "with only one parameter (= day)" do
         it "should include the overrides if at least one override is defined for the given day" do
           statuses = Status.for(Date.civil(2009, 11, 22))
+          statuses.should have(2).items
           statuses.should include(@sunday_override)
           statuses.should include(@sunday_override_2)
         end
 
         it "should not include the defaults if at least one override is defined for the given day" do
           Status.for(Date.civil(2009, 11, 22)).should_not include(@sunday_default)
+        end
+
+        it "should set the :day for default statuses" do
+          statuses = Status.for(Date.civil(2009, 11, 23))
+          statuses.should have(2).items
+          statuses.map(&:day).should_not include(nil)
         end
 
         it "should include the defaults if no override is defined for the given day" do
@@ -150,10 +157,22 @@ describe Status do
           end_date   = Date.civil(2009, 11, 23)
 
           statuses = Status.for(start_date, end_date)
+          statuses[start_date].should have(2).items
+          statuses[end_date].should have(2).items
+
           statuses[start_date].should include(@sunday_override)
           statuses[start_date].should include(@sunday_override_2)
           statuses[end_date].should   include(@monday_default)
           statuses[end_date].should   include(@monday_default_2)
+        end
+
+        it "should set the :day for default statuses" do
+          start_date = Date.civil(2009, 11, 23)
+          end_date   = Date.civil(2009, 11, 30)
+
+          statuses = Status.for(start_date, end_date)
+          statuses[start_date].map(&:day).should == [start_date, start_date]
+          statuses[end_date].map(&:day).should == [end_date, end_date]
         end
 
         it "should not include the defaults for the given days if overrides are defined" do
