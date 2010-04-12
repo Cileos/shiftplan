@@ -55,3 +55,13 @@ Before do
     end
   end
 end
+
+# # How to clean your database when transactions are turned off. See
+# # http://github.com/bmabey/database_cleaner for more info.
+# if defined?(ActiveRecord::Base)
+#   begin
+#     require 'database_cleaner'
+#     DatabaseCleaner.strategy = :truncation
+#   rescue LoadError => ignore_if_database_cleaner_not_present
+#   end
+# end
