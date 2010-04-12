@@ -35,6 +35,22 @@ Given /^the following employees for "([^\"]*)":$/ do |account, employees|
   end
 end
 
+Given /^the following employee qualifications and statuses$/ do |table|
+  table.hashes.each do |row|
+    name, qualification, statuses = row.values_at('name', 'qualification', 'statuses')
+    employee = Employee.find_by_name(name)
+    statuses.split(',').each do |status|
+      day, status = status.split(':')
+      reformat_date!(day)
+      employee.statuses.create!(:day => day, :start_time => '8:00', :end_time => '17:00', :status => status)
+    end
+    unless qualification.blank?
+      qualification = Qualification.find_by_name(qualification)
+      employee.qualifications << qualification
+    end
+  end
+end
+
 When /I drag the employee "([^\"]*)" over the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.*)$/ do |name, qualification, workplace, date|
   requirement = locate_requirement(date, workplace, qualification)
   requirement.should_not be_nil
@@ -75,13 +91,13 @@ Then /^I should get a blank employee CSV file$/ do
   response.body.should == Employee.csv_fields.to_csv(:col_sep => ';')
 end
 
-Then /^the employees should have the following statuses:$/ do |employees|
+Then /^the employees should present the following statuses:$/ do |employees|
   employees.hashes.each do |attributes|
     locate_employee(attributes['employee']).element['class'].should include(attributes['status'])
   end
 end
 
-Then /^the employees should not have the following statuses:$/ do |employees|
+Then /^the employees should not present the following statuses:$/ do |employees|
   employees.hashes.each do |attributes|
     locate_employee(attributes['employee']).element['class'].should_not include(attributes['status'])
   end

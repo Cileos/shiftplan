@@ -16,10 +16,10 @@ Feature: THE plan
 			| Barkeeper |
 			| Waiter    |
 		And the following employees for "the account":
-      | name             | initials | qualifications |
-      | Clemens Kofler   | CK       | Chef           |
-      | Laura Kozlowski  | LK       | Barkeeper      |
-      | Sven Fuchs       | SF       | Waiter         |
+      | name             | initials |
+      | Clemens Kofler   | CK       |
+      | Laura Kozlowski  | LK       |
+      | Sven Fuchs       | SF       |
     And the following workplaces for "the account":
 			| name      | qualifications    |
 			| Kitchen   | Chef              |
@@ -76,39 +76,73 @@ Feature: THE plan
 	Scenario: Resize a shift to a different start time
 		# can't test this w/ htmlunit
 
-  Scenario: Checking for suitable employees for a shift
-    Given I am on the plan show page
-    When I click on the shift "Bar" on Monday
-    Then the shift "Bar" on Monday should be highlighted
-    And the employees should have the following statuses:
-      | employee        | status     |
-      | Laura Kozlowski | suitable   |
-      | Sven Fuchs      | suitable   |
-      | Clemens Kofler  | unsuitable |
-    When I click on the shift "Bar" on Monday
-    Then the shift "Bar" on Monday should not be highlighted
-    And the employees should not have the following statuses:
-      | employee        | status     |
-      | Laura Kozlowski | suitable   |
-      | Sven Fuchs      | suitable   |
-      | Clemens Kofler  | unsuitable |
+  # TODO employee drag/drop
 
-  Scenario: Checking for suitable employees for a requirement
+  Scenario: Checking for suitable employees for a shift where the employee is qualified and available
     Given I am on the plan show page
+    And the following employee qualifications and statuses
+      | name            | qualification | statuses           |
+      | Laura Kozlowski | Barkeeper     | Monday:Available   |
     When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
     Then the requirement for a "Barkeeper" in the shift "Bar" on Monday should be highlighted
-    And the employees should have the following statuses:
+    And the employees should present the following statuses:
       | employee        | status     |
       | Laura Kozlowski | suitable   |
-      | Sven Fuchs      | unsuitable |
-      | Clemens Kofler  | unsuitable |
+
+  Scenario: Checking for suitable employees for a shift where the employee is qualified and unavailable
+    Given I am on the plan show page
+    And the following employee qualifications and statuses
+      | name            | qualification | statuses           |
+      | Laura Kozlowski | Barkeeper     | Monday:Unavailable |
     When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
-    Then the requirement for a "Barkeeper" in the shift "Bar" on Monday should not be highlighted
-    And the employees should not have the following statuses:
+    Then the requirement for a "Barkeeper" in the shift "Bar" on Monday should be highlighted
+    And the employees should present the following statuses:
+      | employee        | status     |
+      | Laura Kozlowski | unsuitable |
+
+  Scenario: Checking for suitable employees for a shift where the employee is qualified
+    Given I am on the plan show page
+    And the following employee qualifications and statuses
+      | name            | qualification | statuses           |
+      | Laura Kozlowski | Barkeeper     |                    |
+    When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+    Then the requirement for a "Barkeeper" in the shift "Bar" on Monday should be highlighted
+    And the employees should present the following statuses:
       | employee        | status     |
       | Laura Kozlowski | suitable   |
-      | Sven Fuchs      | unsuitable |
-      | Clemens Kofler  | unsuitable |
+
+  Scenario: Checking for suitable employees for a shift where the employee is not qualified and available
+    Given I am on the plan show page
+    And the following employee qualifications and statuses
+      | name            | qualification | statuses           |
+      | Laura Kozlowski |               | Monday:Available   |
+    When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+    Then the requirement for a "Barkeeper" in the shift "Bar" on Monday should be highlighted
+    And the employees should present the following statuses:
+      | employee        | status     |
+      | Laura Kozlowski | unsuitable |
+
+  Scenario: Checking for suitable employees for a shift where the employee is not qualified and unavailable
+    Given I am on the plan show page
+    And the following employee qualifications and statuses
+      | name            | qualification | statuses           |
+      | Laura Kozlowski |               | Monday:Unavailable |
+    When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+    Then the requirement for a "Barkeeper" in the shift "Bar" on Monday should be highlighted
+    And the employees should present the following statuses:
+      | employee        | status     |
+      | Laura Kozlowski | unsuitable |
+
+  Scenario: Checking for suitable employees for a shift where the employee is not qualified
+    Given I am on the plan show page
+    And the following employee qualifications and statuses
+      | name            | qualification | statuses           |
+      | Laura Kozlowski |               |                    |
+    When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+    Then the requirement for a "Barkeeper" in the shift "Bar" on Monday should be highlighted
+    And the employees should present the following statuses:
+      | employee        | status     |
+      | Laura Kozlowski | unsuitable |
 
 	# TODO remove existing/new shift
 	Scenario: Remove a shift from a shifts collection
@@ -144,8 +178,8 @@ Feature: THE plan
 	Scenario: Assigning an employee to an existing requirement
 		Given I am on the plan show page
 		When I drag the employee "Laura Kozlowski" over the requirement for a "Barkeeper" in the shift "Bar" on Monday
-    Then the shift "Kitchen" on Monday should be marked unsuitable
-    And the shift "Bar" on Monday should not be marked unsuitable
+    # Then the shift "Kitchen" on Monday should be marked unsuitable
+    # And the shift "Bar" on Monday should not be marked unsuitable
 		When I drop the element
 		Then I should see the employee "Laura Kozlowski" assigned to the requirement for a "Barkeeper" in the shift "Bar" on Monday
 		And the assignment of "Laura Kozlowski" to the requirement for a "Barkeeper" in the shift "Bar" on Monday should be stored in the database
