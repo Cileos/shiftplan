@@ -203,7 +203,7 @@ en:
 
   date:
     calendar_week: "Week {{week}}"
-    first_day_of_week: 1
+    first_day_of_week: 0
     formats:
       month_and_year: "%B %Y"
       short_with_day_name: "%a, %b %d"
