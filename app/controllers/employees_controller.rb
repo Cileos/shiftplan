@@ -39,6 +39,9 @@ class EmployeesController < ApplicationController
   end
 
   def update
+    # FIXME yuck – there must be a better way to do this
+    params[:employee][:qualification_ids] ||= []
+
     if @employee.update_attributes(params[:employee])
       flash[:notice] = t(:employee_successfully_updated)
       respond_to do |format|
