@@ -125,48 +125,44 @@ describe Shift do
       end
     end
 
-    # describe "#available_employee_ids" do
-    #   before(:each) do
-    #     @shift       = Shift.make(:start => Time.zone.local(2009, 11, 30, 8, 0), :end => Time.zone.local(2009, 11, 30, 17, 0))
-    #     @requirement = Requirement.make(:shift => @shift)
-    #     @employee_1  = Employee.make
-    #     @employee_2  = Employee.make
-    #   end
-    # 
-    #   { :day_of_week => 1, :day => Date.civil(2009, 11, 30) }.each do |key, value|
-    #     describe "with #{key == :day ? 'overridden' : 'default'} statuses" do
-    #       before(:each) do
-    #         @default_attributes = { key => value, :status => Status::VALID_STATUSES.first }
-    #       end
-    # 
-    #       it "should return available employees with overlapping availability times" do
-    #         Status.make({ :employee => @employee_1, :start_time => '8:00', :end_time => '17:00' }.reverse_merge(@default_attributes))
-    # 
-    #         employees = @requirement.available_employee_ids
-    #         employees.should include(@employee_1.id)
-    #       end
-    # 
-    #       it "should return available employees with larger than necessary availability times" do
-    #         Status.make({ :employee => @employee_1, :start_time => '7:00', :end_time => '18:00' }.reverse_merge(@default_attributes))
-    #         Status.make({ :employee => @employee_2, :start_time => '0:00', :end_time => '23:00' }.reverse_merge(@default_attributes))
-    # 
-    #         employees = @requirement.available_employee_ids
-    #         employees.should include(@employee_1.id)
-    #         employees.should include(@employee_2.id)
-    #       end
-    # 
-    #       it "should not return available employees with wrong availability times" do
-    #         Status.make({ :employee => @employee_1, :start_time => '9:00', :end_time => '18:00' }.reverse_merge(@default_attributes))
-    #         Status.make({ :employee => @employee_2, :start_time => '7:00', :end_time => '16:00' }.reverse_merge(@default_attributes))
-    # 
-    #         @requirement.available_employee_ids.should be_empty
-    #       end
-    # 
-    #       it "should not return employees with no availability times" do
-    #         @requirement.available_employee_ids.should be_empty
-    #       end
-    #     end
-    #   end
-    # end
+    describe "#available_employee_ids" do
+      before(:each) do
+        @shift       = Shift.make(:start => Time.zone.local(2009, 11, 30, 8, 0), :end => Time.zone.local(2009, 11, 30, 17, 0))
+        @employee_1  = Employee.make
+        @employee_2  = Employee.make
+      end
+
+      Status::VALID_STATUSES.each do |status|
+        { :day_of_week => 1, :day => Date.civil(2009, 11, 30) }.each do |key, value|
+          describe "with #{key == :day ? 'overridden' : 'default'} statuses" do
+            before(:each) do
+              @attributes = { key => value, :status => status }
+            end
+
+            it "should return available employees with overlapping availability times" do
+              Status.make({ :employee => @employee_1, :start_time => '8:00', :end_time => '17:00' }.reverse_merge(@attributes))
+              @shift.statused_employee_ids(status).should include(@employee_1.id)
+            end
+
+            it "should return available employees with larger than necessary availability times" do
+              Status.make({ :employee => @employee_1, :start_time => '7:00', :end_time => '18:00' }.reverse_merge(@attributes))
+              Status.make({ :employee => @employee_2, :start_time => '0:00', :end_time => '23:00' }.reverse_merge(@attributes))
+              @shift.statused_employee_ids(status).should include(@employee_1.id)
+              @shift.statused_employee_ids(status).should include(@employee_2.id)
+            end
+
+            it "should not return available employees with wrong availability times" do
+              Status.make({ :employee => @employee_1, :start_time => '9:00', :end_time => '18:00' }.reverse_merge(@attributes))
+              Status.make({ :employee => @employee_2, :start_time => '7:00', :end_time => '16:00' }.reverse_merge(@attributes))
+              @shift.statused_employee_ids(status).should be_empty
+            end
+
+            it "should not return employees with no availability times" do
+              @shift.statused_employee_ids(status).should be_empty
+            end
+          end
+        end
+      end
+    end
   end
 end
