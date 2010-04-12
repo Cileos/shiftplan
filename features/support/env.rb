@@ -5,6 +5,7 @@ require File.expand_path('../../../config/environment', __FILE__)
 require 'steam'
 require 'rspec'
 require 'rspec/rails'
+require 'fileutils'
 
 Steam.config[:html_unit][:java_path] = File.expand_path('../../../vendor/htmlunit-2.6', __FILE__)
 
@@ -32,6 +33,7 @@ end
 
 at_exit do
   browser.close
+  FileUtils.rm(Rails.root.join('public/sprockets.js'))
 end
 
 World(Rspec::Matchers)
