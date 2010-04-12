@@ -1,4 +1,4 @@
-When /^I click on the (.*) "([^\"]*)"$/ do |klass, name|
+When /^I click on the (employee|qualification|workplace) "([^\"]*)"$/ do |klass, name|
   css_class = klass.downcase.gsub(/\s+/, ' ').gsub(/\s/, '_')
   name = /#{name}/ unless name.is_a?(Regexp)
   click_on(name, :class => klass)
