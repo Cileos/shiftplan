@@ -4,7 +4,7 @@ class Plans::Search < Minimal::Template
       div :id => "#{type}_search", :class => 'search_box' do
         image_tag 'icons/close.png', :alt => 'Close', :class => 'close'
         h3 t(:"#{type}_search")
-        text_field_tag :id => "#{type}_search_query", :type => 'text'
+        text_field_tag "#{type}_search_query"
 
         link_to t(:select_all), '#', :class => 'select_all'
         self << '|'
