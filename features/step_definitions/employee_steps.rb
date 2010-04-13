@@ -91,15 +91,15 @@ Then /^I should get a blank employee CSV file$/ do
   response.body.should == Employee.csv_fields.to_csv(:col_sep => ';')
 end
 
-Then /^the employees should present the following statuses:$/ do |employees|
+Then /^the employees should show the following statuses:$/ do |employees|
   employees.hashes.each do |attributes|
-    locate_employee(attributes['employee']).element['class'].should include(attributes['status'])
+    locate_employee(attributes['employee']).attribute('class').should include(attributes['status'])
   end
 end
 
-Then /^the employees should not present the following statuses:$/ do |employees|
+Then /^the employees should not show the following statuses:$/ do |employees|
   employees.hashes.each do |attributes|
-    locate_employee(attributes['employee']).element['class'].should_not include(attributes['status'])
+    locate_employee(attributes['employee']).attribute('class').should_not include(attributes['status'])
   end
 end
 

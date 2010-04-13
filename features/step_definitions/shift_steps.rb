@@ -112,6 +112,16 @@ Then /^the shift "([^\"]*)" on (.*) should not be marked unsuitable$/ do |workpl
   shift.attribute('class').should_not match(/unsuitable_workplace/)
 end
 
+Then /^the requirement for a "([^\"]*)" on the shift "([^\"]*)" on (.*) should be marked unsuitable$/ do |qualification, workplace, date|
+  requirement = locate_requirement(date, workplace, qualification)
+  requirement.attribute('class').should match(/unsuitable_workplace/)
+end
+
+Then /^the requirement for a "([^\"]*)" on the shift "([^\"]*)" on (.*) should not be marked unsuitable$/ do |qualification, workplace, date|
+  requirement = locate_requirement(date, workplace, qualification)
+  requirement.attribute('class').should_not match(/unsuitable_workplace/)
+end
+
 Then /^no shifts should be marked as unsuitable$/ do
   response.body.should_not match(/unsuitable_workplace/)
 end
