@@ -12,12 +12,13 @@ class Plans::Show::Shift < Minimal::Template
 
   def attributes
     {
-      :class => dom_id(workplace),
-      :'data-workplace-id' => workplace.id,
-      :'data-start' => shift.start_in_minutes,
-      :'data-duration' => shift.duration,
-      :'data-available_employee_ids' => shift.statused_employee_ids('Available').to_json,
-      :'data-unavailable_employee_ids' => shift.statused_employee_ids('Unavailable').to_json
+      :class                           => dom_id(workplace),
+      :'data-workplace-id'             => workplace.id,
+      :'data-start'                    => shift.start_in_minutes,
+      :'data-duration'                 => shift.duration,
+      :'data-available_employee_ids'   => shift.statused_employee_ids('Available').to_json,
+      :'data-unavailable_employee_ids' => shift.statused_employee_ids('Unavailable').to_json,
+      :'data-qualifications'           => shift.requirements.map(&:qualification).map { |q| dom_id(q) }.uniq.to_json
     }
   end
 end

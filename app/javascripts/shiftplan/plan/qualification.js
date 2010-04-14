@@ -17,7 +17,7 @@
 
   Qualification.prototype = $.extend(new Resource, {
     init: function() {
-      this.element.prepend('<div></div>')    
+      this.element.prepend('<div></div>')
     },
   	bind_events: function() {
   		$('div', this.element).draggable({
@@ -27,7 +27,7 @@
   		});
   	}
   });
-  
+
   Resource.types.push(Qualification);
 
 }.apply(Plan));

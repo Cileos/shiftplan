@@ -5,29 +5,17 @@
 
   $.extend(Employee, Resource, {
   	selector: ".employee",
+  	by_ids: function(ids) {
+  	  return $($.map(ids, function(id) { return '#employees .employee_' + id; }).join(','));
+  	},
   	on_drag_start: function(event, ui) {
-  	  var id = parseInt(ui.helper.employee().id()); // TODO move parseInt to id()
-      var qualifications = ui.helper.closest('.employee').attr('data-qualifications');
-      var workplaces = ui.helper.closest('.employee').attr('data-qualified-workplaces');
+  	  var employee = ui.helper.employee();
 
-  	  // mask all shifts for which the employee is unavailable
-      $('.shift').each(function() {
-        if($(this).shift().unavailable_employee_ids().contains(id)) {
-          $(this).addClass('unsuitable_workplace');
-        }
-      })
+      employee.mark_requirements()
+  	  // var id = parseInt(employee.id()); // TODO move parseInt to id()
+      // var available_on   = ui.helper.closest('.employee').attr('data-available-on');
+      // var unavailable_on = ui.helper.closest('.employee').attr('data-unavailable-on');
 
-	    // mask all shifts that do not have a requirement for this employee's qualifications
-      if(workplaces.length != 0) {
-        var classes = $.map(workplaces.split(/,\s?/), function(workplace) { return '.' + workplace; });
-        $('.shift:not(' + classes.join(',') + ')').addClass('unsuitable_workplace');
-      }
-
-	    // mask all requirements that do not fit this employee's qualifications
-      if(qualifications.length != 0) {
-        var classes = $.map(qualifications.split(/,\s?/), function(qualification) { return '.' + qualification; });
-        $('.requirement:not(' + classes.join(',') + ')').addClass('unsuitable_workplace');
-      }
   	},
   	on_drag_stop: function(event, ui) {
       $('.unsuitable_workplace').removeClass('unsuitable_workplace');
@@ -44,6 +32,23 @@
   			start: Employee.on_drag_start,
   			stop: Employee.on_drag_stop
   		});
+  	},
+  	qualifications: function() {
+  	  return this.element.attr('data-qualifications').split(', ');
+  	},
+  	qualified_requirements: function() {
+  	  return $($.map(this.qualifications(), function(qualification, ix) { return '.requirement.' + qualification }).join(','));
+  	},
+  	unqualified_requirements: function() {
+  	  return $('.requirement:not(.' + this.qualifications().join(',') + ')');
+  	},
+  	mark_requirements: function() {
+      this.qualified_requirements().addClass('qualified');
+      this.unqualified_requirements().addClass('unqualified');
+      // add class 'qualified' to all shifts that have at least one qualified requirement
+      // add class 'unqualified' to all shifts that do not have any qualified requirement
+      $('.shift .requirement.qualified').each(function() { $(this).shift().element.addClass('qualified') });
+      $('.shift:not(.requirement.qualified)').each(function() { $(this).shift().element.addClass('unqualified') });
   	}
   });
 

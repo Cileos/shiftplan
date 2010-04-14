@@ -5,6 +5,10 @@
 
   $.extend(Requirement, Resource, {
   	selector: ".requirement",
+  	unmark_employees: function() {
+	    $('#employees .employee').removeClass('qualified').removeClass('unqualified');
+	    Shift.unmark_employees();
+  	},
   	on_employee_drop: function(event, ui) {
   		var requirement = $(this).requirement();
   		var employee = $(ui.draggable).employee()
@@ -14,17 +18,17 @@
   	on_click: function(event) {
   	  event.preventDefault();
   	  event.stopPropagation();
+
+	    Requirement.unmark_employees();
+
   	  var requirement = $(this).requirement();
-
-	    $('#sidebar .employee').removeClass('suitable').removeClass('unsuitable');
-
   	  if(requirement.selected()) {
   	    requirement.element.removeClass('selected');
   	  } else {
   	    $('#plan .selected').removeClass('selected');
   	    requirement.element.addClass('selected');
-  	    requirement.suitable_employees().addClass('suitable');
-  	    requirement.unsuitable_employees().addClass('unsuitable');
+  	    requirement.mark_employees();
+  	    requirement.shift().mark_employees();
   	  }
   	}
   });
@@ -75,17 +79,12 @@
     qualified_employee_ids: function() {
       return eval($(this.element).attr("data-qualified_employee_ids")) || [];
     },
-    suitable_employee_ids: function() {
-      return this.qualified_employee_ids().intersect(this.shift().available_employee_ids());
+    unqualified_employee_ids: function() {
+      return Employee.ids().except(this.qualified_employee_ids());
     },
-    unsuitable_employee_ids: function() {
-      return Employee.ids().except(this.shift().available_employee_ids());
-    },
-    suitable_employees: function() {
-      return $($.map(this.suitable_employee_ids(), function(id) { return '#employees .employee_' + id; }).join(','));
-    },
-    unsuitable_employees: function() {
-      return $($.map(this.unsuitable_employee_ids(), function(id) { return '#employees .employee_' + id; }).join(','));
+    mark_employees: function() {
+	    Employee.by_ids(this.qualified_employee_ids()).addClass('qualified');
+	    Employee.by_ids(this.unqualified_employee_ids()).addClass('unqualified');
     },
   	remove: function() {
   	  this.destroy();

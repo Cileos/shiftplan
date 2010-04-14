@@ -23,6 +23,9 @@
   	minutes_to_pixels: function(minutes) {
   		return minutes * Plan.pixels_per_minute();
   	},
+  	unmark_employees: function() {
+	    $('#employees .employee').removeClass('available').removeClass('unavailable').removeClass('qualified').removeClass('unqualified');
+  	},
     on_mousedown: function(event) {
       $(this).shift().click_cancelled(false);
     },
@@ -30,14 +33,14 @@
   	  var shift = $(this).shift();
       if(shift.click_cancelled()) return;
 
-	    $('#sidebar .employee').removeClass('suitable').removeClass('unsuitable');
+      Shift.unmark_employees();
+
   	  if(shift.selected()) {
   	    shift.element.removeClass('selected');
   	  } else {
   	    $('#plan .selected').removeClass('selected');
   	    shift.element.addClass('selected');
-  	    shift.suitable_employees().addClass('suitable');
-  	    shift.unsuitable_employees().addClass('unsuitable');
+  	    shift.mark_employees();
   	  }
   	},
   	on_drag_stop: function(event, ui) {
@@ -85,25 +88,34 @@
       return this.element.hasClass('selected');
     },
     available_employee_ids: function() {
-      var _available_employee_ids = eval($(this.element).attr("data-available_employee_ids")) || [];
-      this.available_employee_ids = function() { return _available_employee_ids; };
-      return _available_employee_ids;
+      return eval($(this.element).attr("data-available_employee_ids")) || [];
     },
     unavailable_employee_ids: function() {
-      var _available_employee_ids = eval($(this.element).attr("data-unavailable_employee_ids")) || [];
-      this.available_employee_ids = function() { return _available_employee_ids; };
-      return _available_employee_ids;
+      return eval($(this.element).attr("data-unavailable_employee_ids")) || [];
     },
-    suitable_employees: function() {
-      return $('#sidebar .employee[data-qualified-workplaces*=workplace_' + this.workplace_id() +']');
+    qualifications: function() {
+      return eval($(this.element).attr("data-qualifications")) || [];
     },
-    unsuitable_employees: function() {
-      return $('#sidebar .employee:not([data-qualified-workplaces*=workplace_' + this.workplace_id() +'])');
+    available_employees: function() {
+      return Employee.by_ids(this.available_employee_ids());
+    },
+    unavailable_employees: function() {
+      return Employee.by_ids(this.unavailable_employee_ids());
+    },
+    qualified_employees: function() {
+      return $($.map(this.qualifications(), function(qualification) { return '.employee.' + qualification }).join(','));
+    },
+    unqualified_employees: function() {
+      return $('.employee:not(.' + this.qualifications().join(',') + ')');
+    },
+    mark_employees: function() {
+	    this.available_employees().addClass('available');
+	    this.unavailable_employees().addClass('unavailable');
+	    this.qualified_employees().addClass('qualified');
+	    this.unqualified_employees().addClass('unqualified');
     },
   	init_containment: function(draggable) { // gotta set containment directly to the draggable
-  		if (!draggable.containment) {
-  			draggable.containment = this.containment();
-  		}
+  		if (!draggable.containment) { draggable.containment = this.containment(); }
   	},
   	containment: function() {
   		var container = this.container();
