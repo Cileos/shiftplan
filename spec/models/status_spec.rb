@@ -12,14 +12,6 @@ describe Status do
   end
 
   describe "validations" do
-    it "should require a start time" do
-      @status.should validate_presence_of(:start_time)
-    end
-
-    it "should require a end time" do
-      @status.should validate_presence_of(:end_time)
-    end
-
     it "should require a day of week between 0 and 6" do
       @status.day = nil
 

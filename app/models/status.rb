@@ -3,7 +3,6 @@ class Status < ActiveRecord::Base
 
   belongs_to :employee
 
-  validates_presence_of :start_time, :end_time
   validates_inclusion_of :day_of_week, :in => 0..6, :allow_nil => true
   validates_inclusion_of :status, :in => VALID_STATUSES
   validate :day_or_day_of_week_needs_to_be_set
