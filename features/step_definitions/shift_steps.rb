@@ -101,27 +101,3 @@ end
 Then /^there should not be a shift "([^\"]*)" on (.*) stored in the database$/ do |workplace, date|
   find_shift(date, workplace).should be_nil
 end
-
-Then /^the shift "([^\"]*)" on (.*) should be marked unsuitable$/ do |workplace, date|
-  shift = locate_shift(date, workplace)
-  shift.attribute('class').should match(/unsuitable_workplace/)
-end
-
-Then /^the shift "([^\"]*)" on (.*) should not be marked unsuitable$/ do |workplace, date|
-  shift = locate_shift(date, workplace)
-  shift.attribute('class').should_not match(/unsuitable_workplace/)
-end
-
-Then /^the requirement for a "([^\"]*)" on the shift "([^\"]*)" on (.*) should be marked unsuitable$/ do |qualification, workplace, date|
-  requirement = locate_requirement(date, workplace, qualification)
-  requirement.attribute('class').should match(/unsuitable_workplace/)
-end
-
-Then /^the requirement for a "([^\"]*)" on the shift "([^\"]*)" on (.*) should not be marked unsuitable$/ do |qualification, workplace, date|
-  requirement = locate_requirement(date, workplace, qualification)
-  requirement.attribute('class').should_not match(/unsuitable_workplace/)
-end
-
-Then /^no shifts should be marked as unsuitable$/ do
-  response.body.should_not match(/unsuitable_workplace/)
-end

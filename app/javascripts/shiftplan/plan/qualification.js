@@ -11,7 +11,7 @@
       // $('.shift:not(.' + qualified_workplaces.join(', .') + ')').addClass('unsuitable_workplace');
   	},
   	on_drag_stop: function(event, ui) {
-  	  $('.unsuitable_workplace').removeClass('unsuitable_workplace');
+  	  // $('.unsuitable_workplace').removeClass('unsuitable_workplace');
   	}
   });
 

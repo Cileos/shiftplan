@@ -54,13 +54,8 @@ class Shift < ActiveRecord::Base
 
   def statused_employee_ids(status) # according to webster this is a verb
     @statused_employee_ids = {}
-    @statused_employee_ids[status] ||= begin
-      Status.for(day).select do |s|
-        s.start_time.strftime('%H%M%S') <= self.start.strftime('%H%M%S') && # TODO move this shit to Status#for
-        s.end_time.strftime('%H%M%S')   >= self.end.strftime('%H%M%S')   &&
-        s.status == status
-      end.map(&:employee_id).uniq
-    end
+    @statused_employee_ids[status] ||=
+      Status.for(day, :status => status, :start_time => self.start, :end_time => self.end).map(&:employee_id).uniq
   end
 
   protected

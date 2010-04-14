@@ -10,16 +10,21 @@ class Status < ActiveRecord::Base
   scope :default,  where("day IS NULL AND day_of_week IS NOT NULL").order("day_of_week ASC, start_time ASC, end_time ASC")
   scope :override, where("day_of_week IS NULL AND day IS NOT NULL").order("day ASC, start_time ASC, end_time ASC")
 
+  scope :with_status, lambda { |status|  }
+  scope :in_range,    lambda { ||  }
+
   class << self
     def for(*args)
+      options = args.extract_options!
       start_date, end_date = *args
       end_date   ||= start_date
-      date_range   = start_date..end_date
-      days_of_week = date_range.map(&:wday).uniq
 
-      statuses = where(["day BETWEEN ? AND ? OR day_of_week IN(?)", start_date, end_date, days_of_week]).all
+      statuses = within_dates(start_date, end_date)
+      statuses = within_times(options[:start_time], options[:end_time]) if options[:start_time]
+      statuses = statuses.with_status(options[:status]) if options[:status]
+      statuses = statuses.all
 
-      statuses = date_range.inject(ActiveSupport::OrderedHash.new) do |by_day, day|
+      statuses = (start_date..end_date).inject(ActiveSupport::OrderedHash.new) do |by_day, day|
         for_day = statuses.select { |status| status.day == day }
         statuses.each do |status|
           # select the default statuses for the given day if no override statuses are defined
@@ -29,6 +34,19 @@ class Status < ActiveRecord::Base
       end
 
       args.size == 1 ? statuses[start_date] : statuses
+    end
+    
+    def within_dates(start_date, end_date)
+      where("day BETWEEN ? AND ? OR day_of_week IN(?)", start_date, end_date, (start_date..end_date).map(&:wday).uniq)
+    end
+    
+    def within_times(start_time, end_time)
+      start_time, end_time = start_time.strftime('%H:%M:%S'), end_time.strftime('%H:%M:%S')
+      where("? BETWEEN start_time AND end_time AND ? BETWEEN start_time AND end_time OR start_time IS NULL", start_time, end_time)
+    end
+    
+    def with_status(status)
+      where("status = ?", status)
     end
 
     def fill_gaps!(employee, day_of_week, statuses)
@@ -59,6 +77,14 @@ class Status < ActiveRecord::Base
       self.status == status.to_s
     end
   end
+  
+  def start_time
+    read_attribute(:start_time) || Time.new.midnight
+  end
+
+  def end_time
+    read_attribute(:end_time) || Time.new.midnight
+  end
 
   def default?
     !!day_of_week && !day
@@ -84,13 +110,13 @@ class Status < ActiveRecord::Base
     json
     json.gsub("\n", ' ').strip
   end
-  
+
   def to_json
     {
-      'status' => status,
-      'day' => day,
-      'start_time' => start_time,
-      'end_time' => end_time
+      'status'     => status,
+      'day'        => day,
+      'start_time' => start_time ? start_time.strftime('%H:%M') : '00:00',
+      'end_time'   => end_time   ? end_time.strftime('%H:%M')   : '00:00'
     }.to_json
   end
 

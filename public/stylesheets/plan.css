@@ -125,7 +125,12 @@ form #copy_from_options label {
 	right: 0;
 	cursor: e-resize;
 }
-#plan .shifts .unsuitable_workplace {
+#plan .shift.unavailable,
+#plan .shift.unqualified {
   background-color: #ccc !important;
+}
+#plan .requirement.unavailable,
+#plan .requirement.unqualified {
+  border-color: #ccc !important;
 }
 

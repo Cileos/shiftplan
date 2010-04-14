@@ -23,8 +23,26 @@
   	minutes_to_pixels: function(minutes) {
   		return minutes * Plan.pixels_per_minute();
   	},
-  	unmark_employees: function() {
-	    $('#employees .employee').removeClass('available').removeClass('unavailable').removeClass('qualified').removeClass('unqualified');
+  	unmark: function() {
+  	  this.unmark_availabilities();
+  	  this.unmark_qualifications();
+  	},
+  	unmark_availabilities: function() {
+  	  $('.shift').removeClass('available unavailable');
+  	},
+  	unmark_qualifications: function() {
+  	  $('.shift').removeClass('qualified unqualified');
+  	},
+    mark_availabilities_for: function(employee) {
+      this.unmark_availabilities();
+      $(this.all()).each(function(ix, shift) { shift.mark_availabilities_for(employee); });
+    },
+    mark_qualifictions_from_requirements: function() {
+      this.unmark_qualifications();
+      // add 'qualified' to all shifts that have at least one qualified requirement and
+      // add 'unqualified' to all shifts that do not have any qualified requirement
+      $('.shift:has(.requirement.qualified)').addClass('qualified');
+      $('.shift:not(.qualified)').addClass('unqualified');
   	},
     on_mousedown: function(event) {
       $(this).shift().click_cancelled(false);
@@ -33,8 +51,7 @@
   	  var shift = $(this).shift();
       if(shift.click_cancelled()) return;
 
-      Shift.unmark_employees();
-
+      Employee.unmark();
   	  if(shift.selected()) {
   	    shift.element.removeClass('selected');
   	  } else {
@@ -113,6 +130,11 @@
 	    this.unavailable_employees().addClass('unavailable');
 	    this.qualified_employees().addClass('qualified');
 	    this.unqualified_employees().addClass('unqualified');
+    },
+    mark_availabilities_for: function(employee) {
+  	  var employee_id = parseInt(employee.id());
+      if(this.available_employee_ids().contains(employee_id))   { this.element.addClass('available')   }
+      if(this.unavailable_employee_ids().contains(employee_id)) { this.element.addClass('unavailable') }
     },
   	init_containment: function(draggable) { // gotta set containment directly to the draggable
   		if (!draggable.containment) { draggable.containment = this.containment(); }

@@ -5,9 +5,31 @@
 
   $.extend(Requirement, Resource, {
   	selector: ".requirement",
-  	unmark_employees: function() {
-	    $('#employees .employee').removeClass('qualified').removeClass('unqualified');
-	    Shift.unmark_employees();
+  	qualified_requirements: function(qualifications) {
+  	  if(qualifications.length > 0) {
+	      var selector = Requirement.selector;
+	      return $($.map(qualifications, function(qualification, ix) { return '.requirement.' + qualification }).join(','));
+	    } else {
+	      return $([])
+	    }
+  	},
+  	qualified_requirements: function(qualifications) {
+      var selector = qualifications.length > 0 ?
+        $.map(qualifications, function(q) { return Requirement.selector + '.' + q }).join(',') : []
+      return $(selector);
+  	},
+  	unqualified_requirements: function(qualifications) {
+	    var selector = Requirement.selector;
+	    if(qualifications.length > 0) { selector = selector + ':not(.' + qualifications.join(',') + ')' }
+      return $(selector);
+  	},
+  	unmark: function() {
+  	  $('.requirement').removeClass('qualified unqualified');
+	  },
+  	mark_qualifications: function(qualifications) {
+  	  this.unmark();
+      this.qualified_requirements(qualifications).addClass('qualified');
+      this.unqualified_requirements(qualifications).addClass('unqualified');
   	},
   	on_employee_drop: function(event, ui) {
   		var requirement = $(this).requirement();
@@ -19,8 +41,7 @@
   	  event.preventDefault();
   	  event.stopPropagation();
 
-	    Requirement.unmark_employees();
-
+      Employee.unmark();
   	  var requirement = $(this).requirement();
   	  if(requirement.selected()) {
   	    requirement.element.removeClass('selected');

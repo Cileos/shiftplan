@@ -107,6 +107,7 @@ Feature: THE plan
 		Then I should not see a requirement for a "Chef" in the shift "Bar" on Monday
 		And there should not be a requirement for a "Chef" in the shift "Bar" on Monday stored in the database
 
+  @sven
 	Scenario: Assigning an employee to an existing requirement
 		Given I am on the plan show page
 		When I drag the employee "Laura Kozlowski" over the requirement for a "Barkeeper" in the shift "Bar" on Monday

@@ -51,6 +51,11 @@ Given /^the following employee qualifications and statuses$/ do |table|
   end
 end
 
+Given /^the employee "([^\"]*)" is "([^\"]*)" on (.*)$/ do |employee, status, day|
+  reformat_date!(day)
+  Status.create!(:employee => Employee.find_by_name(employee), :status => status, :day => day)
+end
+
 When /I drag the employee "([^\"]*)" over the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.*)$/ do |name, qualification, workplace, date|
   requirement = locate_requirement(date, workplace, qualification)
   requirement.should_not be_nil
@@ -74,6 +79,18 @@ Then /^I should not see the following employees:$/ do |employees|
   end
 end
 
+Then /^I should see an employee named "([^\"]*)" listed in the sidebar$/ do |name|
+  locate_employee(name).should_not be_nil
+end
+
+Then /^the employee "([^\"]*)" should be marked as "([^\"]*)"$/ do |employee, status|
+  locate_employee(employee).attribute('class').should have_css_class(status)
+end
+
+Then /^the employee "([^\"]*)" should not be marked as "([^\"]*)"$/ do |employee, status|
+  locate_employee(employee).attribute('class').should_not have_css_class(status)
+end
+
 Then /^I should get a CSV file containing the following employees:$/ do |employees|
   lines = FasterCSV.parse(response.body, :col_sep => ';', :headers => true)
   lines.size.should == employees.hashes.size
@@ -89,20 +106,4 @@ end
 
 Then /^I should get a blank employee CSV file$/ do
   response.body.should == Employee.csv_fields.to_csv(:col_sep => ';')
-end
-
-Then /^the employees should show the following statuses:$/ do |employees|
-  employees.hashes.each do |attributes|
-    locate_employee(attributes['employee']).attribute('class').should include(attributes['status'])
-  end
-end
-
-Then /^the employees should not show the following statuses:$/ do |employees|
-  employees.hashes.each do |attributes|
-    locate_employee(attributes['employee']).attribute('class').should_not include(attributes['status'])
-  end
-end
-
-Then /^I should see an employee named "([^\"]*)" listed in the sidebar$/ do |name|
-  locate_employee(name).should_not be_nil
 end

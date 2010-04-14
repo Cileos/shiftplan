@@ -18,7 +18,7 @@ class Plans::Show::Shift < Minimal::Template
       :'data-duration'                 => shift.duration,
       :'data-available_employee_ids'   => shift.statused_employee_ids('Available').to_json,
       :'data-unavailable_employee_ids' => shift.statused_employee_ids('Unavailable').to_json,
-      :'data-qualifications'           => shift.requirements.map(&:qualification).map { |q| dom_id(q) }.uniq.to_json
+      :'data-qualifications'           => shift.requirements.map(&:qualification).compact.map { |q| dom_id(q) }.uniq.to_json
     }
   end
 end

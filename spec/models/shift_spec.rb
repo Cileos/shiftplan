@@ -134,7 +134,7 @@ describe Shift do
 
       Status::VALID_STATUSES.each do |status|
         { :day_of_week => 1, :day => Date.civil(2009, 11, 30) }.each do |key, value|
-          describe "with #{key == :day ? 'overridden' : 'default'} statuses" do
+          describe "with #{key == :day ? 'overridden' : 'default'} status #{status.inspect}" do
             before(:each) do
               @attributes = { key => value, :status => status }
             end

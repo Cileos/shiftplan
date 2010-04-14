@@ -8,17 +8,17 @@
   	by_ids: function(ids) {
   	  return $($.map(ids, function(id) { return '#employees .employee_' + id; }).join(','));
   	},
+  	unmark: function() {
+	    $('#employees .employee').removeClass('available unavailable qualified unqualified');
+  	},
   	on_drag_start: function(event, ui) {
-  	  var employee = ui.helper.employee();
-
-      employee.mark_requirements()
-  	  // var id = parseInt(employee.id()); // TODO move parseInt to id()
-      // var available_on   = ui.helper.closest('.employee').attr('data-available-on');
-      // var unavailable_on = ui.helper.closest('.employee').attr('data-unavailable-on');
-
+      var employee = ui.helper.employee();
+      employee.mark_requirements();
+      employee.mark_shifts()
   	},
   	on_drag_stop: function(event, ui) {
-      $('.unsuitable_workplace').removeClass('unsuitable_workplace');
+      Requirement.unmark();
+      Shift.unmark();
   	}
   });
 
@@ -34,22 +34,15 @@
   		});
   	},
   	qualifications: function() {
-  	  return this.element.attr('data-qualifications').split(', ');
-  	},
-  	qualified_requirements: function() {
-  	  return $($.map(this.qualifications(), function(qualification, ix) { return '.requirement.' + qualification }).join(','));
-  	},
-  	unqualified_requirements: function() {
-  	  return $('.requirement:not(.' + this.qualifications().join(',') + ')');
+  	  return eval(this.element.attr('data-qualifications')) || [];
   	},
   	mark_requirements: function() {
-      this.qualified_requirements().addClass('qualified');
-      this.unqualified_requirements().addClass('unqualified');
-      // add class 'qualified' to all shifts that have at least one qualified requirement
-      // add class 'unqualified' to all shifts that do not have any qualified requirement
-      $('.shift .requirement.qualified').each(function() { $(this).shift().element.addClass('qualified') });
-      $('.shift:not(.requirement.qualified)').each(function() { $(this).shift().element.addClass('unqualified') });
-  	}
+  	  Requirement.mark_qualifications(this.qualifications());
+    },
+    mark_shifts: function() {
+  	  Shift.mark_availabilities_for(this);
+  	  Shift.mark_qualifictions_from_requirements();
+    }
   });
 
   Resource.types.push(Employee);
