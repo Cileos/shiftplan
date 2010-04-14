@@ -1,6 +1,6 @@
 source 'http://gemcutter.org'
 
-gem "rails",      '>= 3.0.0.beta2'
+gem "rails",      '= 3.0.0.beta2'
 gem 'rack'
 gem 'gravtastic', '>= 2.1.0'
 gem 'later_dude', '>= 0.3.1'
