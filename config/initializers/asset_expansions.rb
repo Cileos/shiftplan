@@ -7,6 +7,7 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     styles
     plan
     resources
+    workplaces
     dashboard
     statuses
     search

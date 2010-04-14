@@ -66,6 +66,7 @@ Feature: Managing statuses
 
   Scenario: Adding a default availability entry
     Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
+    # TODO: could be less brittle if I specify the day here, like When I follow "00:00 - 00:00" for "Sunday"
     When I follow "00:00 - 00:00"
     And I select "10:00" as the "Start" time
     And I select "22:00" as the "End" time
@@ -75,6 +76,7 @@ Feature: Managing statuses
 
   Scenario: Adding a default unavailability entry
     Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
+    # TODO: could be less brittle if I specify the day here, like When I follow "00:00 - 00:00" for "Sunday"
     When I follow "00:00 - 00:00"
     And I select "10:00" as the "Start" time
     And I select "22:00" as the "End" time
