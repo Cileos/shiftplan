@@ -122,9 +122,19 @@
     qualified_employees: function() {
       return $($.map(this.qualifications(), function(qualification) { return '.employee.' + qualification }).join(','));
     },
-    unqualified_employees: function() {
-      return $('.employee:not(.' + this.qualifications().join(',') + ')');
+    requirements: function() {
+	  return $('.requirement', this.element).map(function() { return $(this).requirement(); })
     },
+    unqualified_employee_ids: function() {
+	  var all_employee_ids = Employee.ids();
+	  this.requirements().each(function(){
+		all_employee_ids = all_employee_ids.except(this.qualified_employee_ids());
+	  });
+      return all_employee_ids;
+    },
+	unqualified_employees: function() {
+	  return $($.map(this.unqualified_employee_ids(), function(id) { return '#employees .employee_' + id; }).join(','));
+	},
     mark_employees: function() {
 	    this.available_employees().addClass('available');
 	    this.unavailable_employees().addClass('unavailable');

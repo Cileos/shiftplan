@@ -20,7 +20,7 @@ class Status < ActiveRecord::Base
       end_date   ||= start_date
 
       statuses = within_dates(start_date, end_date)
-      statuses = within_times(options[:start_time], options[:end_time]) if options[:start_time]
+      statuses = statuses.within_times(options[:start_time], options[:end_time]) if options[:start_time]
       statuses = statuses.with_status(options[:status]) if options[:status]
       statuses = statuses.all
 
@@ -77,9 +77,9 @@ class Status < ActiveRecord::Base
       self.status == status.to_s
     end
   end
-  
+
   def start_time
-    read_attribute(:start_time) || Time.new.midnight
+    read_attribute(:start_time) || Time.new.midnight # should be Time.zone.new ... ?
   end
 
   def end_time
