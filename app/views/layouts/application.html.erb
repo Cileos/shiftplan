@@ -31,7 +31,7 @@
 	      <li><%#= link_to t(:master_data, :scope => :navigation), master_data_path %></li>
   	    <li id="login_status">
   	      <% if user_signed_in? -%>
-    	      <%= t(:logged_in_as, :scope => :navigation, :user => current_user.email) %>
+    	      <%= t(:logged_in_as, :scope => :navigation, :user => current_user.name || current_user.email) %>
     	      (<%= link_to t(:logout, :scope => :navigation), destroy_user_session_path %>)
     	    <% end -%>
   	    </li>
