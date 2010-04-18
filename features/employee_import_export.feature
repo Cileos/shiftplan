@@ -11,7 +11,7 @@ Feature: Importing and exporting employees
 		And the following accounts:
 			| name        | users               |
 			| the account | fritz@thielemann.de |
-		And I am logged in with "fritz@thielemann.de" and "oracle"
+		And I am logged in as "fritz@thielemann.de"
 
   Scenario: Creating employees by uploading a CSV
     When I go to the start page

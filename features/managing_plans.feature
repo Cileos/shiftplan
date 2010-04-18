@@ -31,7 +31,7 @@ Feature: Managing plans
 			| Template | Kitchen   | Chef:Clemens Kofler | Monday 11:00  | 240      |
 			| Template | Bar       | Barkeeper           | Monday 12:00  | 240      |
 			| Template | Reception | any                 | Tuesday 10:00 | 300      |
-		And I am logged in with "fritz@thielemann.de" and "oracle"
+		And I am logged in as "fritz@thielemann.de"
 
 	Scenario: Listing all plans
 		Given I am on the start page

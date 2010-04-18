@@ -1,8 +1,22 @@
-# Use this hook to configure devise mailer, warden hooks and so forth. The first
-# four configuration values can also be set straight in your models.
+Warden::Strategies.add(:mock) do
+  def valid?
+    env['HTTP_TEST.CURRENT_USER.ID'].present?
+  end
+
+  def authenticate!
+    user = User.find(env['HTTP_TEST.CURRENT_USER.ID'])
+    user.nil? ? fail!("Could not log in") : success!(user)
+  end
+end unless Rails.env.production?
+
 Devise.setup do |config|
-  # Configure the e-mail address which will be shown in DeviseMailer.
+  require 'devise/orm/active_record'
+
   config.mailer_sender = "admin@shiftplan.de"
+  config.pepper = 'e2bd2c1516fd034a52a415ab4dd14bbd62f1aa3c228a24a7c4f876d90dd36357c588357bcabe7012b671d829eab057a6d14e8adad7b1ee83d08827dc8ce24307'
+  config.encryptor = :sha512
+
+  config.warden { |w| w.default_strategies(:scope => :user) << :mock unless Rails.env.production? }
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating an user. By default is
@@ -21,20 +35,8 @@ Devise.setup do |config|
   # The realm used in Http Basic Authentication
   # config.http_authentication_realm = "Application"
 
-  # ==> Configuration for :database_authenticatable
-  # Invoke `rake secret` and use the printed value to setup a pepper to generate
-  # the encrypted password. By default no pepper is used.
-  config.pepper = 'e2bd2c1516fd034a52a415ab4dd14bbd62f1aa3c228a24a7c4f876d90dd36357c588357bcabe7012b671d829eab057a6d14e8adad7b1ee83d08827dc8ce24307'
-
   # Configure how many times you want the password is reencrypted. Default is 10.
   # config.stretches = 10
-
-  # Define which will be the encryption algorithm. Supported algorithms are :sha1
-  # (default), :sha512 and :bcrypt. Devise also supports encryptors from others
-  # authentication tools as :clearance_sha1, :authlogic_sha512 (then you should set
-  # stretches above to 20 for default behavior) and :restful_authentication_sha1
-  # (then you should set stretches to 10, and copy REST_AUTH_SITE_KEY to pepper)
-  config.encryptor = :sha512
 
   # ==> Configuration for :confirmable
   # The time you want give to your user to confirm his account. During this time
@@ -81,11 +83,6 @@ Devise.setup do |config|
   # Defines name of the authentication token params key
   # config.token_authentication_key = :auth_token
 
-  # ==> General configuration
-  # Load and configure the ORM. Supports :active_record (default), :mongoid
-  # (requires mongo_ext installed) and :data_mapper (experimental).
-  require 'devise/orm/active_record'
-
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "sessions/users/new". It's turned off by default because it's slower if you
   # are using only default views.
@@ -100,17 +97,4 @@ Devise.setup do |config|
   # Configure the default scope used by Devise. By default it's the first devise
   # role declared in your routes.
   # config.default_scope = :user
-
-  # If you want to use other strategies, that are not (yet) supported by Devise,
-  # you can configure them inside the config.warden block. The example below
-  # allows you to setup OAuth, using http://github.com/roman/warden_oauth
-  #
-  # config.warden do |manager|
-  #   manager.oauth(:twitter) do |twitter|
-  #     twitter.consumer_secret = <YOUR CONSUMER SECRET>
-  #     twitter.consumer_key  = <YOUR CONSUMER KEY>
-  #     twitter.options :site => 'http://twitter.com'
-  #   end
-  #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
-  # end
 end

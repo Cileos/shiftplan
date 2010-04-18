@@ -18,7 +18,7 @@ Feature: Managing workplaces
 		And the following workplaces for "the account":
 			| name          | requirements |
 			| Cocktail bar  | 2x Barkeeper |
-		And I am logged in with "fritz@thielemann.de" and "oracle"
+		And I am logged in as "fritz@thielemann.de"
 
 	Scenario: Listing all workplaces
 		Given I am on the start page

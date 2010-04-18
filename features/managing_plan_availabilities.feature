@@ -29,7 +29,8 @@ Feature: Suitable Employees on Plans
       | plan   | workplace | requirements | start         | duration |
       | Plan 1 | Bar       | Barkeeper    | Monday 12:00  | 240      |
       | Plan 1 | Kitchen   | Chef         | Monday 12:00  | 240      |
-		And I am logged in with "fritz@thielemann.de" and "oracle"
+		# And I am logged in with "fritz@thielemann.de" and "oracle"
+		And I am logged in as "fritz@thielemann.de"
 
   # HIGHLIGHTING A SHIFT
 

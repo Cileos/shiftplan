@@ -38,12 +38,6 @@ end
 
 World(Rspec::Matchers)
 
-# don't like this ... better ideas?
-# ensure logout after each scenario
-After do
-  visit '/users/sign_out'
-end
-
 Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
 Before do
   ActiveRecord::Base.send(:subclasses).each do |model|

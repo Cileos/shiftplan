@@ -13,7 +13,7 @@ Feature: Managing employees
 		And the following employees for "the account":
 			| name 							|
 			| Fritz Thielemann  |
-		And I am logged in with "fritz@thielemann.de" and "oracle"
+		And I am logged in as "fritz@thielemann.de"
 
 	Scenario: Listing all employees
 		Given I am on the start page

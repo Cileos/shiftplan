@@ -13,7 +13,7 @@ Feature: Managing qualifications
 		And the following qualifications for "the account":
 			| name       |
 			| Barkeeper  |
-		And I am logged in with "fritz@thielemann.de" and "oracle"
+		And I am logged in as "fritz@thielemann.de"
 
 	Scenario: Listing all qualifications
 		Given I am on the start page

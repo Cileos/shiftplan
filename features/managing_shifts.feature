@@ -33,7 +33,7 @@ Feature: THE plan
       | Plan 1 | Kitchen   | Chef:Clemens Kofler | Monday 09:00  | 240      |
       | Plan 1 | Bar       | Barkeeper           | Monday 12:00  | 240      |
       | Plan 1 | Reception | any                 | Tuesday 12:00 | 300      |
-		And I am logged in with "fritz@thielemann.de" and "oracle"
+		And I am logged in as "fritz@thielemann.de"
 
 	Scenario: Viewing a plan
 		When I go to the plan show page

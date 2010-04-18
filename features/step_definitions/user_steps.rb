@@ -16,3 +16,8 @@ Given /^I am logged in with "([^\"]*)" and "([^\"]*)"$/ do |email, password|
   click_button 'Login'
   response.status.should == 200
 end
+
+Given /^I am logged in as "([^\"]*)"$/ do |email|
+  user = User.find_by_email(email)
+  @browser.request.headers['test.current_user.id'] = 1
+end

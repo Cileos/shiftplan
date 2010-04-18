@@ -5,6 +5,10 @@ Given /^I am on (.+)$/ do |page_name|
   response.status.should == 200
 end
 
+Given 'I am not logged in' do
+  visit '/users/sign_out'
+end
+
 When /^I go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end

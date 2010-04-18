@@ -20,7 +20,7 @@ Feature: Managing statuses
   	And the following default statuses:
   	  | employee         | day of week | start_time | end_time | status    |
   	  | Fritz Thielemann | Monday      | 8:00       | 16:00    | Available |
-  	And I am logged in with "fritz@thielemann.de" and "oracle"
+  	And I am logged in as "fritz@thielemann.de"
 
   Scenario: Adding an override availability entry
     Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
