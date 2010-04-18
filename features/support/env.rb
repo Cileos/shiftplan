@@ -26,7 +26,9 @@ Steam::Browser:: HtmlUnit::Page.class_eval do
   end
 end
 
-browser = Steam::Browser.create # (:daemon => true)
+browser = Steam::Browser.create
+browser.set_handler(:confirm) { |page, message| true } # always simulates the ok button
+
 World do
   Steam::Session::Rails.new(browser)
 end

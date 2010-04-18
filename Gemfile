@@ -16,7 +16,7 @@ group :test do
 	gem 'machinist'
 	gem 'faker'
 	gem 'cucumber'
-	gem 'steam',       '>= 0.0.5'
+	gem 'steam',       '>= 0.0.6'
 	gem 'locator',     '>= 0.0.7'
 	gem 'rspec',       '>= 2.0.0.a5'
 	gem 'rspec-rails', '>= 2.0.0.a6'
