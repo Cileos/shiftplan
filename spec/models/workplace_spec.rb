@@ -104,12 +104,16 @@ describe Workplace do
   describe "class methods" do
     describe ".search" do
       before(:each) do
-        @workplace = Workplace.make(:name => 'Kitchen')
+        @workplace = Workplace.make(:name => 'Kitchen', :tag_list => 'Hotel')
       end
 
       describe "successful" do
         it "should find workplaces that match a given name" do
           Workplace.search('kitchen').should include(@workplace)
+        end
+
+        it "should find workplaces that match a given tag" do
+          Workplace.search('hotel').should include(@workplace)
         end
 
         # it "should find workplaces that match a given qualification name" do
@@ -118,11 +122,15 @@ describe Workplace do
       end
 
       describe "unsuccessful" do
-        it "should find workplaces that don't match a given name" do
+        it "should not find workplaces that don't match a given name" do
           Workplace.search('bar').should_not include(@workplace)
         end
 
-        # it "should find workplaces that don't match a given qualification name" do
+        it "should not find workplaces that don't match a given tag" do
+          Workplace.search('hostel').should_not include(@workplace)
+        end
+
+        # it "should not find workplaces that don't match a given qualification name" do
         #   Workplace.search('barkeeper').should_not include(@workplace)
         # end
       end
@@ -187,6 +195,7 @@ describe Workplace do
       before(:each) do
         @workplace = Workplace.make(
           :name => 'Kitchen',
+          :tag_list => 'Hotel, Munich',
           :active => true,
           :default_shift_length => 480
         )
@@ -197,6 +206,7 @@ describe Workplace do
         json = @workplace.form_values_json
 
         json.should include("name: 'Kitchen'")
+        json.should include("tag_list: 'Hotel, Munich'")
         json.should include("active: true")
         json.should include("default_shift_length: 480")
         json.should include("qualifications: []")

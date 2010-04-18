@@ -8,6 +8,7 @@ class Workplaces::Form < Minimal::Template
       fieldset do
         fieldset do
           div { field_with_label(f, :text_field, :name) }
+          div { field_with_label(f, :text_field, :tag_list) }
           div { field_with_label(f, :text_field, :default_shift_length) }
           div { field_with_label(f, :check_box, :active, {}, 1) }
         end

@@ -227,6 +227,8 @@ en:
         active: Active?
         color: Color
         qualifications: Qualifications
+        tags: Tags
+        tag_list: Tags
       employee:
         base_data: Base data
         qualifications: Qualifications

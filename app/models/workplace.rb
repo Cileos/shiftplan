@@ -1,6 +1,8 @@
 class Workplace < ActiveRecord::Base
   self.partial_updates = false # TODO do we still need that?
 
+  acts_as_taggable
+
   belongs_to :account
 
   has_many :shifts
@@ -25,7 +27,7 @@ class Workplace < ActiveRecord::Base
 
   class << self
     def search(term)
-      where(["name LIKE ?", "%#{term}%"])
+      where(["CONCAT(name, cached_tag_list) LIKE ?", "%#{term}%"])
     end
   end
 
@@ -67,6 +69,7 @@ class Workplace < ActiveRecord::Base
     json = <<-json
       {
         name: '#{name}',
+        tag_list: '#{tag_list}',
         active: #{active?},
         default_shift_length: #{default_shift_length || 0},
         qualifications: [#{qualifications}]
