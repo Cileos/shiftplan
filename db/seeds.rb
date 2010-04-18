@@ -15,7 +15,7 @@ Shiftplan::Application.routes.draw do |map|
   devise_for :users
 end
 
-admin = User.new(:email => 'fritz@thielemann.de', :password => 'oracle')
+admin = User.new(:name => 'Fritz Thielemann', :email => 'fritz@thielemann.de', :password => 'oracle')
 admin.skip_confirmation!
 admin.save!
 
