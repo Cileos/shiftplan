@@ -18,6 +18,6 @@ Given /^I am logged in with "([^\"]*)" and "([^\"]*)"$/ do |email, password|
 end
 
 Given /^I am logged in as "([^\"]*)"$/ do |email|
-  user = User.find_by_email(email)
+  user = User.find_by_email(email) || raise("can't find a user with the email address #{email}")
   @browser.request.headers['test.current_user.id'] = user.id
 end
