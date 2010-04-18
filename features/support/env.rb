@@ -33,7 +33,7 @@ end
 
 at_exit do
   browser.close
-  FileUtils.rm(Rails.root.join('public/sprockets.js'))
+  FileUtils.rm(Rails.root.join('public/sprockets.js')) rescue Errno::ENOENT
 end
 
 World(Rspec::Matchers)
