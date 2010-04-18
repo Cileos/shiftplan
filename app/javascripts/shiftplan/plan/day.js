@@ -51,7 +51,6 @@
       });
     },
     render_hours: function() {
-      return
       var hours = $('<ul class="hours">');
       this.element.after(hours);
       for(var i = Plan.start(); i < Plan.end(); i += 60) {
