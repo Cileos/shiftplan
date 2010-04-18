@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Devise::Controllers::Helpers
+
   helper :all
   helper LaterDude::CalendarHelper
   protect_from_forgery
