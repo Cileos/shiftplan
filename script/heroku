@@ -1,0 +1,24 @@
+#!/bin/sh
+# run as deploy script of shiftplan to heroku shiftplandemo app
+
+# as long as heroku doesn't respect bundler groups we need different Gemfile's
+cp Gemfile.heroku Gemfile
+
+# unset sprocket caching as heroku has read-only file systen
+sed -i.bak 's/unless/#unless/' config/initializer/sprockets.rb && rm config/initializer/sprockets.rb.bak
+
+# commit your work
+git add Gemfile
+git add config/initializer/sprockets.rb
+git commit -m "heroku setup"
+
+# deploy and reset
+git push --force heroku master
+git reset --hard origin/master
+
+# for resetting the DB on heroku use
+# heroku db:reset --app shiftplandemo
+# and setup a new one
+# heroku rake db:setup
+
+
