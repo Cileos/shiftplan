@@ -19,5 +19,5 @@ end
 
 Given /^I am logged in as "([^\"]*)"$/ do |email|
   user = User.find_by_email(email)
-  @browser.request.headers['test.current_user.id'] = 1
+  @browser.request.headers['test.current_user.id'] = user.id
 end
