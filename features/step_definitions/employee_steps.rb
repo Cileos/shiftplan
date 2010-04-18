@@ -51,11 +51,6 @@ Given /^the following employee qualifications and statuses$/ do |table|
   end
 end
 
-Given /^the employee "([^\"]*)" is "([^\"]*)" on (.*)$/ do |employee, status, day|
-  reformat_date!(day)
-  Status.create!(:employee => Employee.find_by_name(employee), :status => status, :day => day)
-end
-
 When /I drag the employee "([^\"]*)" over the requirement for a "([^\"]*)" in the shift "([^\"]*)" on (.*)$/ do |name, qualification, workplace, date|
   requirement = locate_requirement(date, workplace, qualification)
   requirement.should_not be_nil

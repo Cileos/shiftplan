@@ -13,6 +13,18 @@ Given /^the following statuses:$/ do |statuses|
   end
 end
 
+Given /^the employee "([^\"]*)" is "([^\"]*)" on (.*)$/ do |employee, status, day|
+  reformat_date!(day)
+  Status.create!(:employee => Employee.find_by_name(employee), :status => status, :day => day)
+end
+
+Given /^the employee "([^\"]*)" is "([^\"]*)" from "([^\"]*)" to "([^\"]*)" on (.*)$/ do |employee, status, start_time, end_time, day|
+  reformat_date!(day)
+  start_time, end_time = Time.parse(start_time), Time.parse(end_time)
+  Status.create!(:employee => Employee.find_by_name(employee), :status => status, :day => day, :start_time => start_time, :end_time => end_time)
+end
+
+
 # TODO refactor
 Then /^the employee "([^\"]*)" should be available on "(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)" from "([^\"]*)" to "([^\"]*)"$/ do |employee, day_of_week, start_time, end_time|
   employee = Employee.find_by_name(employee)

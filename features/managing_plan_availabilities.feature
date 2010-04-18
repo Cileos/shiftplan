@@ -13,18 +13,22 @@ Feature: Suitable Employees on Plans
 		And the following qualifications for "the account":
 			| name      |
 			| Barkeeper |
+			| Chef      |
 		And the following employees for "the account":
-      | name            | initials |
-      | Laura Kozlowski | LK       |
+      | name             | initials | qualifications    |
+      | Laura Kozlowski  | LK       |                   |
+      | Fritz Thielemann | FT       | Chef              |
     And the following workplaces for "the account":
 			| name      | qualifications    |
 			| Bar       | Barkeeper         |
+			| Kitchen   | Chef              |
 		And the following plans for "the account":
 			| name   | start_date | end_date  | start_time | end_time |
 			| Plan 1 | Monday     | Wednesday | 8:00       | 20:00    |
     And the following shifts:
       | plan   | workplace | requirements | start         | duration |
       | Plan 1 | Bar       | Barkeeper    | Monday 12:00  | 240      |
+      | Plan 1 | Kitchen   | Chef         | Monday 12:00  | 240      |
 		And I am logged in with "fritz@thielemann.de" and "oracle"
 
   # HIGHLIGHTING A SHIFT
@@ -46,9 +50,50 @@ Feature: Suitable Employees on Plans
     Then the requirement for a "Barkeeper" in the shift "Bar" on Monday should not be highlighted
 
 
+  # QUALIFICATION BY SHIFT
+  Scenario: Clicking on a shift where the employee is qualified
+    Given the employee "Laura Kozlowski" is qualified as a "Barkeeper"
+    And I am on the plan show page
+    When I click on the shift "Bar" on Monday
+    Then the employee "Laura Kozlowski" should be marked as "qualified"
+    And the employee "Laura Kozlowski" should not be marked as "unqualified"
+    When I click on the shift "Bar" on Monday
+    Then the employee "Laura Kozlowski" should not be marked as "qualified"
+
+  Scenario: Clicking on a shift where the employee is not qualified
+    Given the employee "Laura Kozlowski" is not qualified as a "Barkeeper"
+    And I am on the plan show page
+    When I click on the shift "Bar" on Monday
+    Then the employee "Laura Kozlowski" should be marked as "unqualified"
+    And the employee "Laura Kozlowski" should not be marked as "qualified"
+    When I click on the shift "Bar" on Monday
+    Then the employee "Laura Kozlowski" should not be marked as "unqualified"
+
+
+  # QUALIFICATION BY REQUIREMENT
+  Scenario: Clicking on a shift where the employee is qualified
+    Given the employee "Laura Kozlowski" is qualified as a "Barkeeper"
+    And I am on the plan show page
+    When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+    Then the employee "Laura Kozlowski" should be marked as "qualified"
+    And the employee "Laura Kozlowski" should not be marked as "unqualified"
+    When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+    Then the employee "Laura Kozlowski" should not be marked as "qualified"
+
+  Scenario: Clicking on a shift where the employee is not qualified
+    Given the employee "Laura Kozlowski" is not qualified as a "Barkeeper"
+    And I am on the plan show page
+    When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+    Then the employee "Laura Kozlowski" should be marked as "unqualified"
+    And the employee "Laura Kozlowski" should not be marked as "qualified"
+    When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+    Then the employee "Laura Kozlowski" should not be marked as "unqualified"
+
+
   # AVAILABILITY BY SHIFT
+
   Scenario: Clicking on a shift where the employee is available
-    Given the employee "Laura Kozlowski" is "Available" on Monday
+    Given the employee "Laura Kozlowski" is "Available" from "12:00" to "18:00" on Monday
     And I am on the plan show page
     When I click on the shift "Bar" on Monday
     Then the employee "Laura Kozlowski" should be marked as "available"
@@ -56,9 +101,8 @@ Feature: Suitable Employees on Plans
     When I click on the shift "Bar" on Monday
     Then the employee "Laura Kozlowski" should not be marked as "available"
 
-  @sven
   Scenario: Clicking on a shift where the employee is unavailable
-    Given the employee "Laura Kozlowski" is "Unavailable" on Monday
+    Given the employee "Laura Kozlowski" is "Unavailable" from "12:00" to "18:00" on Monday
     And I am on the plan show page
     When I click on the shift "Bar" on Monday
     Then the employee "Laura Kozlowski" should not be marked as "available"

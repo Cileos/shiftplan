@@ -15,6 +15,16 @@ Given /^the following qualifications for "([^\"]*)":$/ do |account, qualificatio
   end
 end
 
+Given /^the employee "([^\"]*)" is qualified as a "([^\"]*)"$/ do |employee, qualification|
+  employee = Employee.find_by_name(employee)
+  employee.qualifications << Qualification.find_by_name(qualification)
+end
+
+Given /^the employee "([^\"]*)" is not qualified as a "([^\"]*)"$/ do |employee, qualification|
+  employee = Employee.find_by_name(employee)
+  qualification = employee.qualifications.detect { |q| q.name == qualification }
+  qualification.delete if qualification
+end
 
 Then /^I should see a qualification named "([^\"]*)" listed in the sidebar$/ do |name|
   locate_qualification(name).should_not be_nil
