@@ -4,7 +4,7 @@
   };
 
   $.extend(Day, Resource, {
-  	selector: '.day',
+  	selector: '.plan .day',
   	on_drop: function(event, ui) {
   	  // document.title = 'DROPPED ONTO: ' + $(this).closest('.day').outerHTML();
   		switch(true) {
