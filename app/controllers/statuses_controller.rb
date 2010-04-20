@@ -40,7 +40,7 @@ class StatusesController < ApplicationController
 
   def destroy
     @status.destroy
-    flash[:notice] = t(:status_successfully_deleted)
+    flash[:notice] = @status.override? ? t(:status_successfully_deleted) : t(:default_status_successfully_deleted)
 
     respond_to do |format|
       format.json { render :status => 200 }

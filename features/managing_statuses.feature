@@ -49,7 +49,7 @@ Feature: Managing statuses
 
   Scenario: Deleting an existing override entry
 		Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
-		When I follow "Delete"
+		When I follow "Delete" within ".overrides"
 		Then the employee "Fritz Thielemann" should have no availability entries for "24 March 2010"
     And I should see a flash confirmation
 
@@ -96,3 +96,9 @@ Feature: Managing statuses
     And I choose "Unavailable"
     And I press "Save"
     Then the employee "Fritz Thielemann" should be unavailable on "Monday" from "08:00" to "16:00"
+
+  Scenario: Deleting an existing default entry
+		Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
+		When I follow "Delete" within ".defaults"
+		Then the employee "Fritz Thielemann" should have no availability entries for "Monday"
+    And I should see a flash confirmation

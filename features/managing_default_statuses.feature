@@ -45,3 +45,9 @@ Feature: Managing default statuses
     And I choose "Unavailable"
     And I press "Save"
     Then the employee "Fritz Thielemann" should be unavailable on "Tuesday" from "08:00" to "16:00"
+
+  Scenario: Deleting an existing override entry
+    Given I am on the default statuses index page
+		When I follow "Delete"
+		Then the employee "Fritz Thielemann" should have no availability entries for "Tuesday"
+    And I should see a flash confirmation

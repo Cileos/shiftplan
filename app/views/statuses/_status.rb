@@ -7,7 +7,9 @@ class Statuses::Status < Minimal::Template
     end
   end
 
-  def link_to_destroy(status)
-    link_to(t(:destroy), status_path(status), :class => 'delete', :method => :delete, :confirm => t(:status_delete_confirmation))
-  end
+  protected
+
+    def link_to_destroy(status)
+      link_to(t(:destroy), status_path(status), :class => 'delete', :method => :delete, :confirm => t(:status_delete_confirmation))
+    end
 end

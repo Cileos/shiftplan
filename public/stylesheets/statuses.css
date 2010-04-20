@@ -73,7 +73,7 @@ body.statuses .calendar.week h3 {
 }
 
 /* */
-ul.statuses {
+.overrides ul.statuses {
   margin-top: 20px;
 }
 

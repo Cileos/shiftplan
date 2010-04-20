@@ -126,11 +126,13 @@ en:
   status_successfully_updated: "Status successfully updated."
   status_could_not_be_updated: "Status could not be updated."
   status_successfully_deleted: "Status successfully deleted."
+  status_delete_confirmation: "Do you really want to delete this status?"
   default_status_successfully_created: "Default status successfully created."
   default_status_could_not_be_created: "Default status could not be created."
   default_status_successfully_updated: "Default status successfully updated."
   default_status_could_not_be_updated: "Default status could not be updated."
   default_status_successfully_deleted: "Default status successfully deleted."
+  default_status_delete_confirmation: "Do you really want to delete this default status?"
 
   # qualifications
   click_to_add_qualification: Click to add
