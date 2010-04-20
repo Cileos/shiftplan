@@ -130,6 +130,7 @@ de:
   default_status_successfully_updated: "Standardverfügbarkeit erfolgreich geändert."
   default_status_could_not_be_updated: "Standardverfügbarkeit konnte nicht geändert werden."
   default_status_successfully_deleted: "Standardverfügbarkeit erfolgreich gelöscht."
+  status_delete_confirmation: "Wollen Sie diese Verfügbarkeit wirklich löschen?"
 
   # qualifications
   click_to_add_qualification: Hinzufügen

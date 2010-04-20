@@ -47,6 +47,12 @@ Feature: Managing statuses
     And I press "Save"
     Then the employee "Fritz Thielemann" should be unavailable on "23 March 2010" from "10:00" to "18:00"
 
+  Scenario: Deleting an existing override entry
+		Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
+		When I follow "Delete"
+		Then the employee "Fritz Thielemann" should have no availability entries for "24 March 2010"
+    And I should see a flash confirmation
+
   Scenario: Adding an override availability entry in week view
     Given I am on the statuses index page for week 12 of year 2010
     When I select "Fritz Thielemann" from "Employee"

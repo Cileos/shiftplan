@@ -3,7 +3,7 @@ class StatusesController < ApplicationController
   before_filter :set_employees
   before_filter :set_employee
   before_filter :set_statuses, :only => :index
-  before_filter :set_status,   :only => :update
+  before_filter :set_status,   :only => [:update, :destroy]
 
   def index
   end
@@ -35,6 +35,15 @@ class StatusesController < ApplicationController
       respond_to do |format|
         format.json { render :template => 'shared/errors', :status => 400 }
       end
+    end
+  end
+
+  def destroy
+    @status.destroy
+    flash[:notice] = t(:status_successfully_deleted)
+
+    respond_to do |format|
+      format.json { render :status => 200 }
     end
   end
 

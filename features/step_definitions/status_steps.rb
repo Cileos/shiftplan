@@ -73,3 +73,10 @@ Then /^the employee "([^\"]*)" should be unavailable on "(\d[^\"]*)" from "([^\"
   status.should be_unavailable
   # TODO add DOM expectations
 end
+
+Then /^the employee "([^\"]*)" should have no availability entries for "([^\"]*)"$/ do |employee, day|
+  employee = Employee.find_by_name(employee)
+  statuses = employee.statuses.override.select { |status| status.day == Date.parse(day) }
+  statuses.should be_empty
+  # TODO add DOM expectations
+end
