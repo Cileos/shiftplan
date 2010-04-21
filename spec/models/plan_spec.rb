@@ -32,32 +32,24 @@ describe Plan do
   end
 
   describe "validations" do
-    it "should require a start date" do
-      @plan.should validate_presence_of(:start_date)
+    it "should require a start datetime" do
+      @plan.should validate_presence_of(:start)
     end
 
-    it "should require an end date" do
-      @plan.should validate_presence_of(:end_date)
-    end
-
-    it "should require a start time" do
-      @plan.should validate_presence_of(:start_time)
-    end
-
-    it "should require an end time" do
-      @plan.should validate_presence_of(:end_time)
+    it "should require an end datetime" do
+      @plan.should validate_presence_of(:end)
     end
 
     it "validates start_date < end_date" do
-      @plan.start_date = Time.zone.parse('2010-01-02').to_date
-      @plan.end_date   = Time.zone.parse('2010-01-02').to_date
+      @plan.start = Time.zone.parse('2010-01-02 11:00:00').to_date
+      @plan.end   = Time.zone.parse('2010-01-02 12:00:00').to_date
       @plan.valid?.should be_false
       @plan.errors[:base].should include('Start date must be before end date')
     end
 
     it "validates start_time < end_time" do
-      @plan.start_time = Time.zone.parse('12:00:00')
-      @plan.end_time   = Time.zone.parse('11:00:00')
+      @plan.start = Time.zone.parse('2010-01-02 12:00:00')
+      @plan.end   = Time.zone.parse('2010-01-02 11:00:00')
       @plan.valid?.should be_false
       @plan.errors[:base].should include('Start time must be before end time')
     end
@@ -65,7 +57,7 @@ describe Plan do
 
   describe "instance methods" do
     before(:each) do
-      @plan = Plan.make(:start_date => monday, :end_date => friday, :start_time => monday_morning, :end_time => friday_afternoon)
+      @plan = Plan.make(:start => monday_morning, :end => friday_afternoon)
       @plan.reload
     end
 
@@ -101,10 +93,8 @@ describe Plan do
                                  :start => monday_morning,
                                  :end   => monday_morning + 8.hours
 
-        @template   = Plan.make :start_date => monday,
-                                :end_date   => friday,
-                                :start_time => monday_morning,
-                                :end_time   => friday_afternoon,
+        @template   = Plan.make :start      => monday_morning,
+                                :end        => friday_afternoon,
                                 :template   => true,
                                 :shifts     => [shift]
       end

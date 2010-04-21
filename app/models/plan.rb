@@ -1,7 +1,7 @@
 require 'activity_logging'
 
 class Plan < ActiveRecord::Base
-  self.activity_attrs = %w(name start_date end_date template)
+  self.activity_attrs = %w(name start end template)
 
   belongs_to :account
 
@@ -17,32 +17,19 @@ class Plan < ActiveRecord::Base
 
   scope :templates, lambda { where(:template => true) }
 
-  validates_presence_of :start_date, :end_date, :start_time, :end_time
+  validates_presence_of :start, :end
   validate :start_before_end
-
-  def initialize(*args)
-    super
-    # this is confusing, because it might be wrong but then get's overwritten. why do we need it?
-    # it might be wrong because the current timezone (now) might be a daylight saving timezone 
-    # while the plan's timezone might be a non-daylight saving timezone
-    self.start_date ||= Time.zone.now.to_date.beginning_of_week + 7.days
-    self.end_date   ||= start_date + 5.days
-    self.start_time ||= Time.zone.parse('08:00')
-    self.end_time   ||= Time.zone.parse('18:00')
-  end
 
   def days
     (start_date)..(end_date)
   end
 
-  def start_time_in_minutes
-    start_time = self.start_time.in_time_zone
-    start_time.hour * 60 + start_time.min
+  %w(start end).product(%w(date time)).each do |attribute, type|
+    define_method(:"#{attribute}_#{type}") { send(attribute).send(:"to_#{type}") }
   end
 
-  def end_time_in_minutes
-    end_time = self.end_time.in_time_zone
-    end_time.hour * 60 + end_time.min
+  %w(start end).each do |attribute|
+    define_method(:"#{attribute}_time_in_minutes") { send(attribute).hour * 60 + send(attribute).min }
   end
 
   def duration
@@ -77,7 +64,11 @@ class Plan < ActiveRecord::Base
   protected
 
     def start_before_end
-      errors[:base] << "Start date must be before end date" unless self.start_date && self.end_date && self.start_date < self.end_date
-      errors[:base] << "Start time must be before end time" unless self.start_time && self.end_time && self.start_time < self.end_time
+      errors[:base] << "Start date must be before end date" unless before?(start.try(:to_date), self.end.try(:to_date))
+      errors[:base] << "Start time must be before end time" unless before?(start.try(:to_time), self.end.try(:to_time))
+    end
+
+    def before?(left, right)
+      left && right && (left < right)
     end
 end

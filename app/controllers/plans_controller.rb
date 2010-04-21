@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
   before_filter :set_plans,          :only => :index
-  before_filter :set_plan,           :only => [:show, :update, :destroy]
+  before_filter :set_plan,           :only => [:index, :show, :update, :destroy]
   before_filter :set_employees,      :only => :show
   before_filter :set_workplaces,     :only => :show
   before_filter :set_qualifications, :only => :show
@@ -72,7 +72,9 @@ class PlansController < ApplicationController
     end
 
     def set_plan
-      @plan = current_account.plans.find(params[:id])
+      @plan = params[:id] ? current_account.plans.find(params[:id]) :
+        Plan.new(:start => Time.zone.now.beginning_of_day + 8.hours,
+                 :end   => Time.zone.now.beginning_of_day + 5.days + 18.hours)
     end
 
     def set_employees

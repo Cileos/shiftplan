@@ -92,10 +92,8 @@ friday_afternoon = Time.zone.local(2009, 9, 11, 22, 0)
 plan_1 = Plan.create!(
   :account => account,
   :name    => 'Plan 1',
-  :start_date => monday_morning.to_date,
-  :end_date   => friday_afternoon.to_date,
-  :start_time => monday_morning.to_time,
-  :end_time   => friday_afternoon.to_time
+  :start   => monday_morning,
+  :end     => friday_afternoon
 )
 plan_1.shifts.create!(
   :workplace => kitchen,

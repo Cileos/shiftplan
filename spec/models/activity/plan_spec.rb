@@ -29,24 +29,24 @@ describe 'Plan activities' do
       activity.aggregated_at.should be_nil
 
       activity.changes[:to].should == {
-        :name       => @plan.name,
-        :start_date => @plan.start_date,
-        :end_date   => @plan.end_date
+        :name  => @plan.name,
+        :start => @plan.start,
+        :end   => @plan.end
       }
     end
 
     it 'logs a changed start/end time to an update activity' do
       Activity.delete_all
 
-      @plan.start_date += 1.day
+      @plan.start += 1.day
       @plan.save!
     
       activity = Activity.first
     
       activity.action.should  == 'update'
       activity.changes.should == {
-        :from => { :start_date => @plan.start_date - 1.day },
-        :to   => { :start_date => @plan.start_date }
+        :from => { :start => @plan.start - 1.day },
+        :to   => { :start => @plan.start }
       }
     end
     
@@ -59,9 +59,9 @@ describe 'Plan activities' do
       activity = Activity.first
       activity.action.should == 'destroy'
       activity.changes[:to].should == {
-        :name       => @plan.name,
-        :start_date => @plan.start_date,
-        :end_date   => @plan.end_date
+        :name  => @plan.name,
+        :start => @plan.start,
+        :end   => @plan.end
       }
     end
   end
@@ -71,7 +71,7 @@ describe 'Plan activities' do
       @plan.name = 'Plan 2'
       @plan.save!
   
-      @plan.start_date += 1.day
+      @plan.start += 1.day
       @plan.save!
   
       Activity.aggregate!
@@ -86,22 +86,22 @@ describe 'Plan activities' do
 
       activity.changes.should == {
         :to => {
-          :name       => @plan.name,
-          :start_date => @plan.start_date,
-          :end_date   => @plan.end_date
+          :name  => @plan.name,
+          :start => @plan.start,
+          :end   => @plan.end
         }
       }
     end
   
     it 'aggregates two update activities' do
       Activity.delete_all
-      plan_name  = @plan.name
-      start_date = @plan.start_date
+      plan_name = @plan.name
+      start = @plan.start
 
       @plan.name = 'Plan 2'
       @plan.save!
   
-      @plan.start_date += 1.day
+      @plan.start += 1.day
       @plan.save!
   
       Activity.aggregate!
@@ -116,12 +116,12 @@ describe 'Plan activities' do
   
       activity.changes.should == {
         :from => {
-          :name => plan_name,
-          :start_date => start_date
+          :name  => plan_name,
+          :start => start
         },
         :to => {
-          :name       => @plan.name,
-          :start_date => @plan.start_date,
+          :name  => @plan.name,
+          :start => @plan.start,
         }
       }
     end
@@ -132,7 +132,7 @@ describe 'Plan activities' do
       @plan.name = 'Plan 2'
       @plan.save!
   
-      @plan.start_date += 1.day
+      @plan.start += 1.day
       @plan.save!
   
       @plan.destroy
@@ -149,9 +149,9 @@ describe 'Plan activities' do
   
       activity.changes.should == {
         :to => {
-          :name       => @plan.name,
-          :start_date => @plan.start_date,
-          :end_date   => @plan.end_date
+          :name  => @plan.name,
+          :start => @plan.start,
+          :end   => @plan.end
         }
       }
     end

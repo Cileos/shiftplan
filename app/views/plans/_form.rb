@@ -2,24 +2,24 @@ class Plans::Form < Minimal::Template
   def content
     div :id => 'sidebar' do
       h3 t(:new_plan)
-      form_for(Plan.new) do |f|
+      form_for(plan) do |f|
         hidden_field_tag '_method', ''
 
         fieldset do
           text_field f, :name
-          date_select f, :start_date
-          date_select f, :end_date
+          select(f, :date, :start)
+          select(f, :date, :end)
           div do
             label_tag :copy_from_id, t(:'activerecord.attributes.plan.template')
-            select_tag 'copy_from[id]', tag(:option) + options_from_collection_for_select(templates, :id, :name)
+            select_tag 'copy_from[id]', capture { tag(:option) + options_from_collection_for_select(templates, :id, :name) }
           end
           div :id => 'copy_from_options' do
             copy_option :shifts
             copy_option :requirements
             copy_option :assignments
           end
-          time_select f, :start_time
-          time_select f, :end_time
+          select(f, :time, :start)
+          select(f, :time, :end)
         end
 
         h4 t(:options)
@@ -52,18 +52,13 @@ class Plans::Form < Minimal::Template
       label_tag :"copy_from_#{name}", t(name), :class => 'inline'
     end
   end
-
-  def date_select(builder, name)
+  
+  def select(builder, type, name)
     div do
-      builder.label name
-      builder.date_select name
-    end
-  end
-
-  def time_select(builder, name)
-    div do
-      builder.label name
-      builder.time_select name, :minute_step => 15
+      id      = :"plan_#{name}"
+      options = type == :date ? {} : { :ignore_date => true }
+      builder.label(name, I18n.t(:"activerecord.attributes.plan.#{name}_#{type}"), :id => id)
+      builder.send(:"#{type}_select", name, options.merge(:id => id))
     end
   end
 end

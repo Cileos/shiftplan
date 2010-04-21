@@ -8,6 +8,6 @@ class Plans::Index < Minimal::Template
             t(:"activerecord.attributes.plan.shifts"), nil].each { |name| th name } }
       render :partial => plans
     end
-    render :partial => 'form'
+    render :partial => 'form', :locals => { :plan => plan }
   end
 end

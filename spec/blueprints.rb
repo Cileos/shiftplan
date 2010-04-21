@@ -34,12 +34,10 @@ Workplace.blueprint do
 end
 
 Plan.blueprint do
-  name       { Sham.plan_name }
+  name     { Sham.plan_name }
   account
-  start_date { Date.today }
-  end_date   { 8.days.from_now.to_date }
-  start_time { Time.zone.parse('08:00:00') }
-  end_time   { Time.zone.parse('18:00:00') }
+  start    { Time.zone.parse('2009-09-07 08:00:00') }
+  self.end { Time.zone.parse('2009-09-15 18:00:00') }
 end
 
 Assignment.blueprint do

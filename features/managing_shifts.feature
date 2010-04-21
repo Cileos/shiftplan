@@ -25,8 +25,8 @@ Feature: THE plan
 			| Kitchen   | Chef              |
 			| Bar       | Barkeeper, Waiter |
 		And the following plans for "the account":
-			| name   | start_date | end_date  | start_time | end_time |
-			| Plan 1 | Monday     | Wednesday | 8:00       | 20:00    |
+			| name   | start       | end             |
+			| Plan 1 | Monday 8:00 | Wednesday 20:00 |
     And the following shifts:
       | plan   | workplace | requirements        | start         | duration |
       | Plan 1 | Reception | any                 | Monday 08:00  | 300      |

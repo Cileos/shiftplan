@@ -23,8 +23,8 @@ Feature: Suitable Employees on Plans
 			| Bar       | Barkeeper         |
 			| Kitchen   | Chef              |
 		And the following plans for "the account":
-			| name   | start_date | end_date  | start_time | end_time |
-			| Plan 1 | Monday     | Wednesday | 8:00       | 20:00    |
+			| name   | start       | end             |
+			| Plan 1 | Monday 8:00 | Wednesday 20:00 |
     And the following shifts:
       | plan   | workplace | requirements | start         | duration |
       | Plan 1 | Bar       | Barkeeper    | Monday 12:00  | 240      |

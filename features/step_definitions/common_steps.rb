@@ -86,7 +86,7 @@ end
 # When I select "February 20, 1981" as the date
 When /^I select "([^\"]*)" as the date$/ do |date|
   reformat_date!(date)
-  select_date(date)
+  select_date(date.to_date)
 end
 
 # Use this step when using multiple date_select helpers on one page or
@@ -94,7 +94,7 @@ end
 # When I select "April 26, 1982" as the "Date of Birth" date
 When /^I select "([^\"]*)" as the "([^\"]*)" date$/ do |date, date_label|
   reformat_date!(date)
-  select_date(date, :from => date_label)
+  select_date(date.to_date, :from => date_label)
 end
 
 When /^I check "([^\"]*)"$/ do |field|

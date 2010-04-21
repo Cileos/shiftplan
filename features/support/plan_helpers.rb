@@ -1,14 +1,18 @@
 module PlanHelpers
   def shift_days
     @shift_days ||= begin
-      monday = Date.parse('2009-09-07')
+      monday = Time.zone.parse('2009-09-07').to_date
       days = monday..(monday + 5.days)
       days = days.inject({}) { |days, date| days[date.strftime('%A')] = date; days }
     end
   end
 
   def reformat_date!(string)
-    string.gsub!(/(#{shift_days.keys.join('|')})/) { shift_days[$1] } if string
+    if string
+      datetime = string.gsub(/(#{shift_days.keys.join('|')})/) { shift_days[$1] }
+      datetime = Time.zone.parse(datetime)
+      string.replace(datetime.to_s)
+    end
   end
 
   def locate_body(&block)
@@ -25,7 +29,7 @@ module PlanHelpers
 
   def locate_day(date, &block)
     reformat_date!(date)
-    locate(:class => 'day', :'data-day' => date.gsub('-', ''), &block)
+    locate(:class => 'day', :'data-day' => date.to_date.to_s.gsub('-', ''), &block)
   end
 
   def locate_shifts(date, workplace = nil, &block)
