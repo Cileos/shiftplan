@@ -79,11 +79,11 @@ class Status < ActiveRecord::Base
   end
 
   def start_time
-    read_attribute(:start_time) || Time.new.midnight # should be Time.zone.new ... ?
+    read_attribute(:start_time) || Time.zone.now.midnight
   end
 
   def end_time
-    read_attribute(:end_time) || Time.new.midnight
+    read_attribute(:end_time) || Time.zone.now.midnight
   end
 
   def default?

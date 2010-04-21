@@ -48,6 +48,7 @@ Feature: THE plan
 		And I should see a workplace named "Kitchen" listed in the sidebar
 		And I should see a qualification named "Chef" listed in the sidebar
 
+  @sven
 	Scenario: Adding a new shift on an empty day
 		Given I am on the plan show page
 		When I drag the workplace "Kitchen"

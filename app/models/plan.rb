@@ -22,10 +22,13 @@ class Plan < ActiveRecord::Base
 
   def initialize(*args)
     super
-    self.start_date ||= Date.today.beginning_of_week + 7.days
+    # this is confusing, because it might be wrong but then get's overwritten. why do we need it?
+    # it might be wrong because the current timezone (now) might be a daylight saving timezone 
+    # while the plan's timezone might be a non-daylight saving timezone
+    self.start_date ||= Time.zone.now.to_date.beginning_of_week + 7.days
     self.end_date   ||= start_date + 5.days
-    self.start_time ||= Time.parse('08:00')
-    self.end_time   ||= Time.parse('18:00')
+    self.start_time ||= Time.zone.parse('08:00')
+    self.end_time   ||= Time.zone.parse('18:00')
   end
 
   def days
@@ -33,10 +36,12 @@ class Plan < ActiveRecord::Base
   end
 
   def start_time_in_minutes
+    start_time = self.start_time.in_time_zone
     start_time.hour * 60 + start_time.min
   end
 
   def end_time_in_minutes
+    end_time = self.end_time.in_time_zone
     end_time.hour * 60 + end_time.min
   end
 

@@ -55,7 +55,7 @@ class ShiftsController < ApplicationController
     end
 
     def parse_times
-      day          = Date.strptime(params[:shift].delete(:day), '%Y%m%d')
+      day          = Time.zone.parse(params[:shift].delete(:day), '%Y%m%d')
       start        = params[:shift].delete(:start).to_i
       duration     = params[:shift].delete(:duration).to_i
 

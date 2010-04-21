@@ -16,7 +16,7 @@ end
 Status.blueprint do
   employee   { Employee.make }
   status     { Status::VALID_STATUSES.first }
-  start_time { Time.current }
+  start_time { Time.zone.now }
   end_time   { 8.hours.from_now }
 end
 
@@ -38,8 +38,8 @@ Plan.blueprint do
   account
   start_date { Date.today }
   end_date   { 8.days.from_now.to_date }
-  start_time { Time.parse('08:00:00') }
-  end_time   { Time.parse('18:00:00') }
+  start_time { Time.zone.parse('08:00:00') }
+  end_time   { Time.zone.parse('18:00:00') }
 end
 
 Assignment.blueprint do
@@ -50,7 +50,7 @@ end
 Shift.blueprint do
   plan
   workplace
-  start    { Time.current }
+  start    { Time.zone.now }
   self.end { 8.hours.from_now }
 end
 

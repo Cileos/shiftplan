@@ -9,7 +9,7 @@ Given /^the following shifts:$/ do |shifts|
       :plan => plan,
       :workplace => workplace,
       :start => start,
-      :end => Time.parse(start) + duration.to_i.minutes
+      :end => Time.zone.parse(start) + duration.to_i.minutes
     )
 
     attributes['requirements'].split(',').each do |requirement|
@@ -90,10 +90,9 @@ Then /^there should be (a|[\d]*) shifts? "([^\"]*)" on (.*) stored in the databa
   count = count == 'a' ? 1 : count.to_i
   shifts.size.should == count
 
-  # make sure the displayed element's start time equals the stored start time
   shifts.each do |shift|
     element = locate(:id => "shift_#{shift.id}")
-    element_start = Time.parse(date) + element.attribute('data-start').to_i.minutes
+    element_start = Time.zone.parse(date) + element.attribute('data-start').to_i.minutes
     element_start.hour.should == shift.start.hour
   end
 end

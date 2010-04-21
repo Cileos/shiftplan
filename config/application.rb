@@ -8,7 +8,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 module Shiftplan
   class Application < Rails::Application
     config.load_paths += %w(#{Rails.root}/app/observers #{Rails.root}/app/views)
-    config.time_zone = "Berlin"
+    # config.time_zone = "Pacific Time (US & Canada)" # "Berlin"
     config.i18n.default_locale = :de
     config.filter_parameters += [:password, :password_confirmation]
     config.active_record.observers = [:'activity/resource_observer', :'activity/element_observer']

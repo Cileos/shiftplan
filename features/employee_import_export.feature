@@ -24,6 +24,7 @@ Feature: Importing and exporting employees
       | Sven Fuchs       |
       | Clemens Kofler   |
 
+  @sven
   Scenario: Updating employees by uploading a CSV
     Given the following employees for "the account":
       | name             | created_at          |

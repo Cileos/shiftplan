@@ -85,9 +85,9 @@ reception = Workplace.create!(
 )
 reception.workplace_requirements.create!(:quantity => 1, :qualification => receptionist)
 
-monday_morning   = Time.local(2009, 9,  7,  8, 0)
-tuesday_morning  = Time.local(2009, 9,  8,  8, 0)
-friday_afternoon = Time.local(2009, 9, 11, 22, 0)
+monday_morning   = Time.zone.local(2009, 9,  7,  8, 0)
+tuesday_morning  = Time.zone.local(2009, 9,  8,  8, 0)
+friday_afternoon = Time.zone.local(2009, 9, 11, 22, 0)
 
 plan_1 = Plan.create!(
   :account => account,

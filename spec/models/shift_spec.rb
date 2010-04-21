@@ -110,10 +110,10 @@ describe Shift do
     describe "updating start/end attributes" do
       it "should update start/end attributes" do
         # ???
-        shift = Shift.make(:start => Time.now, :end => 2.hours.from_now, :duration => 120)
+        shift = Shift.make(:start => Time.zone.now, :end => Time.zone.now + 2.hours, :duration => 120)
 
-        start_time = Time.parse('Mon Sep 07 08:00:00 +0200 2009')
-        end_time   = Time.parse('Mon Sep 07 11:00:00 +0200 2009')
+        start_time = Time.zone.parse('Mon Sep 07 08:00:00 +0200 2009')
+        end_time   = Time.zone.parse('Mon Sep 07 11:00:00 +0200 2009')
         attributes = { "start" => start_time, "end" => end_time, "workplace_id" => "2" }
 
         shift.update_attributes!(attributes)

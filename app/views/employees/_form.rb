@@ -8,7 +8,7 @@ class Employees::Form < Minimal::Template
       fieldset do
         div { field_with_label(f, :text_field, :first_name) }
         div { field_with_label(f, :text_field, :last_name) }
-        div { field_with_label(f, :date_select, :birthday, :start_year => Time.current.year, :end_year => 1920, :include_blank => true) }
+        div { field_with_label(f, :date_select, :birthday, :start_year => Time.zone.now.year, :end_year => 1920, :include_blank => true) }
         div { field_with_label(f, :text_field, :tag_list) }
         div { field_with_label(f, :check_box, :active, {}, 1) }
       end

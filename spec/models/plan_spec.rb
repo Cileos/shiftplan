@@ -2,19 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Plan do
   def monday
-    @monday ||= Date.civil(2009, 9, 7)
+    @monday ||= Time.zone.local(2009, 9, 7).to_date
   end
 
   def friday
-    @friday ||= Date.civil(2009, 9, 11)
+    @friday ||= Time.zone.local(2009, 9, 11).to_date
   end
 
-  def morning
-    @morning ||= Time.utc(2009, 9, 7, 8, 30)
+  def monday_morning
+    @monday_morning ||= Time.zone.local(2009, 9, 7, 8, 30)
   end
 
-  def afternoon
-    @afternoon ||= Time.utc(2009, 9, 11, 16, 30)
+  def friday_afternoon
+    @friday_afternoon ||= Time.zone.local(2009, 9, 11, 16, 30)
   end
 
   before(:each) do
@@ -49,15 +49,15 @@ describe Plan do
     end
 
     it "validates start_date < end_date" do
-      @plan.start_date = Date.parse('2010-01-02')
-      @plan.end_date   = Date.parse('2010-01-02')
+      @plan.start_date = Time.zone.parse('2010-01-02').to_date
+      @plan.end_date   = Time.zone.parse('2010-01-02').to_date
       @plan.valid?.should be_false
       @plan.errors[:base].should include('Start date must be before end date')
     end
 
     it "validates start_time < end_time" do
-      @plan.start_time = Time.parse('12:00:00')
-      @plan.end_time   = Time.parse('11:00:00')
+      @plan.start_time = Time.zone.parse('12:00:00')
+      @plan.end_time   = Time.zone.parse('11:00:00')
       @plan.valid?.should be_false
       @plan.errors[:base].should include('Start time must be before end time')
     end
@@ -65,7 +65,8 @@ describe Plan do
 
   describe "instance methods" do
     before(:each) do
-      @plan = Plan.make(:start_date => monday, :end_date => friday, :start_time => morning, :end_time => afternoon)
+      @plan = Plan.make(:start_date => monday, :end_date => friday, :start_time => monday_morning, :end_time => friday_afternoon)
+      @plan.reload
     end
 
     describe "#days" do
@@ -74,7 +75,7 @@ describe Plan do
       end
 
       it "should return a range of days from start day to end day" do
-        @plan.days.should == (Date.civil(2009, 9, 7)..Date.civil(2009, 9, 11))
+        @plan.days.should == (Time.zone.local(2009, 9, 7).to_date..Time.zone.local(2009, 9, 11).to_date)
       end
     end
 
@@ -92,18 +93,18 @@ describe Plan do
 
     describe "#copy_from" do
       before(:each) do
-        monday = self.monday - 149.days
-        friday = self.friday - 149.days
+        monday = self.monday # - 149.days
+        friday = self.friday # - 149.days
 
         requirement = Requirement.make(:qualification => Qualification.make, :assignment => Assignment.make)
         shift       = Shift.make :requirements => [requirement],
-                                 :start => monday.beginning_of_day + 8.hours,
-                                 :end   => monday.beginning_of_day + 16.hours
+                                 :start => monday_morning,
+                                 :end   => monday_morning + 8.hours
 
         @template   = Plan.make :start_date => monday,
                                 :end_date   => friday,
-                                :start_time => morning,
-                                :end_time   => afternoon,
+                                :start_time => monday_morning,
+                                :end_time   => friday_afternoon,
                                 :template   => true,
                                 :shifts     => [shift]
       end

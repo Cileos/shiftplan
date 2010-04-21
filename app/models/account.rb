@@ -14,6 +14,7 @@ class Account < ActiveRecord::Base
   # maybe even detailed information (like "Couldn't import the following lines: - 12: Email can't be blank.")
   def import_employees_from_file(file, options = {})
     options.reverse_merge!(:headers => true, :converters => :all, :col_sep => ';')
+
     FasterCSV.foreach(file.path, options) do |row|
       attributes = row.to_hash
 
@@ -27,6 +28,7 @@ class Account < ActiveRecord::Base
           # skipped ... should probably do something here
         end
       else
+        p "not found"
         employees.create(attributes)
       end
     end

@@ -20,7 +20,7 @@ end
 
 Given /^the employee "([^\"]*)" is "([^\"]*)" from "([^\"]*)" to "([^\"]*)" on (.*)$/ do |employee, status, start_time, end_time, day|
   reformat_date!(day)
-  start_time, end_time = Time.parse(start_time), Time.parse(end_time)
+  start_time, end_time = Time.zone.parse(start_time), Time.zone.parse(end_time)
   Status.create!(:employee => Employee.find_by_name(employee), :status => status, :day => day, :start_time => start_time, :end_time => end_time)
 end
 
