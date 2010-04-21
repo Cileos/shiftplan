@@ -50,6 +50,13 @@ Then /^the employee "([^\"]*)" should be unavailable on "(Monday|Tuesday|Wednesd
   # TODO add DOM expectations
 end
 
+Then /^the employee "([^\"]*)" should have no availability entries for "(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)"$/ do |employee, day_of_week|
+  employee = Employee.find_by_name(employee)
+  default_statuses = employee.statuses.default.select { |status| I18n.t(:'date.day_names')[status.day_of_week] == day_of_week }
+  default_statuses.should be_empty
+  # TODO add DOM expectations
+end
+
 Then /^the employee "([^\"]*)" should be available on "(\d[^\"]*)" from "([^\"]*)" to "([^\"]*)"$/ do |employee, day, start_time, end_time|
   employee = Employee.find_by_name(employee)
   status = employee.statuses.override.detect do |status|
@@ -71,5 +78,12 @@ Then /^the employee "([^\"]*)" should be unavailable on "(\d[^\"]*)" from "([^\"
   end
   status.should_not be_nil
   status.should be_unavailable
+  # TODO add DOM expectations
+end
+
+Then /^the employee "([^\"]*)" should have no availability entries for "(\d[^\"]*)"$/ do |employee, day|
+  employee = Employee.find_by_name(employee)
+  statuses = employee.statuses.override.select { |status| status.day == Date.parse(day) }
+  statuses.should be_empty
   # TODO add DOM expectations
 end

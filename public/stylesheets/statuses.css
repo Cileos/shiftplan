@@ -55,7 +55,7 @@ body.statuses .calendar h3 {
   float: right;
   color: #BBBBBB;
 }
-body.statuses .calendar .actions {
+body.statuses .calendar div.actions {
   float: right;
   margin-top: 5px;
   text-align: right;
@@ -73,6 +73,10 @@ body.statuses .calendar.week h3 {
 }
 
 /* */
+.overrides ul.statuses {
+  margin-top: 20px;
+}
+
 ul.statuses li a:after {
   content: "?";
 }
