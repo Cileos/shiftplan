@@ -27,10 +27,10 @@ Feature: Importing and exporting employees
   @sven
   Scenario: Updating employees by uploading a CSV
     Given the following employees for "the account":
-      | name             | created_at          |
-      | Fritz Thielemann | 2010-04-01 22:00:00 |
-      | Sven Fuchs       | 2010-04-01 22:00:00 |
-      | Clemens Kofler   | 2010-04-01 22:00:00 |
+      | name             | token | 
+      | Fritz Thielemann | 1234  |
+      | Sven Fuchs       | 2345  |
+      | Clemens Kofler   | 3456  |
     When I go to the start page
     And I follow "Import employees"
     And I attach the file at "spec/fixtures/employees2.csv" to "File"
@@ -44,10 +44,10 @@ Feature: Importing and exporting employees
 
   Scenario: Deleting employees by uploading a CSV
     Given the following employees for "the account":
-      | name             | created_at          |
-      | Fritz Thielemann | 2010-04-01 22:00:00 |
-      | Sven Fuchs       | 2010-04-01 22:00:00 |
-      | Clemens Kofler   | 2010-04-01 22:00:00 |
+      | name             | token |
+      | Fritz Thielemann | 1234  |
+      | Sven Fuchs       | 2345  |
+      | Clemens Kofler   | 3456  |
     When I go to the start page
     And I follow "Import employees"
     And I attach the file at "spec/fixtures/employees2.csv" to "File"

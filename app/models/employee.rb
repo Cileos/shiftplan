@@ -10,6 +10,8 @@ class Employee < ActiveRecord::Base
   has_many :statuses
 
   validates_presence_of :first_name, :last_name
+  
+  before_validation :generate_token
 
   scope :active, where(:active => true)
   scope :inactive, where(:active => false)
@@ -23,14 +25,6 @@ class Employee < ActiveRecord::Base
   }
 
   class << self
-    def token_sql
-      "SHA1(CONCAT('---', id, '---', created_at, '---')) = ?"
-    end
-
-    def find_by_token(token)
-      first(:conditions => [token_sql, token])
-    end
-
     def csv_fields
       @@csv_fields ||= %w(last_name first_name initials birthday active email phone street zipcode city token)
     end
@@ -95,7 +89,10 @@ class Employee < ActiveRecord::Base
     json.gsub("\n", ' ').strip
   end
 
-  def token
-    Digest::SHA1.hexdigest("---#{id}---#{created_at.to_s(:db)}---")
+  def generate_token
+    self.token ||= Digest::SHA1.hexdigest(%(
+      #{rand}cebf65f392a1eed541ecfa331dcfa502dfc67108fcbfdfb517e61be144326
+      bb9e04b93f95c91ed636399bc7db6f0c0cd8a6951384afe793a08873ebdfca4e841
+    ))
   end
 end
