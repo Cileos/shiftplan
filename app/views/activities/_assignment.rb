@@ -9,9 +9,8 @@ class Activities::Assignment < Activities::Base
     changes = activity.changes
     
     qualification = changes[:to][:requirement]
-    qualification = t(:"activity.assignment.qualification", :name => qualification) if qualification
 
-    t(:"activity.assignment.#{action}", {
+    t(:"activity.assignment.#{activity.action}", {
       :user       => activity.user_name, # link to user profile if it still exists
       :started_at => started_at,
       :employee   => changes[:to][:assignee],

@@ -68,24 +68,23 @@ de:
       update:   "bearbeitet"
       destroy: "gelöscht"
     plan:
-      unaggregated: '%{started_at}: %{user} hat den Plan "%{plan}" %{action}'
-      aggregated:   '%{started_at} - %{finished_at}: %{user} hat den Plan "%{plan}" %{action}'
+      unaggregated: '%{started_at}: %{user} hat den Plan "%{plan}" %{action}.'
+      aggregated:   '%{started_at} - %{finished_at}: %{user} hat den Plan "%{plan}" %{action}.'
       attributes:
         name: "Name"
-        start_date: "Start date"
-        end_date: "End date"
+        start_date: "Start"
+        end_date: "Ende"
         template: "Template"
     shift:
-      unaggregated: '%{started_at}: %{user} hat eine Schicht für "%{workplace}" %{action}'
-      aggregated:   '%{started_at} - %{finished_at}: %{user} hat eine Schicht für "%{workplace}" %{action}'
+      unaggregated: '%{started_at}: %{user} hat eine Schicht für "%{workplace}" %{action}.'
+      aggregated:   '%{started_at} - %{finished_at}: %{user} hat eine Schicht für "%{workplace}" %{action}.'
       attributes:
         start: "Start"
         end: "Ende"
         requirements: "Anforderung"
     assignment:
-      created:   '%{started_at}: %{user} hat %{employee} zu "%{workplace} zugeordnet" %{qualification} am %{day}'
-      destroyed: '%{started_at}: %{user} hat Zuordnung von %{employee} von "%{workplace} weggegnommen" %{qualification} am %{day}'
-      qualification: "(%{name})"
+      create:  '%{started_at}: %{user} hat %{employee} zum Arbeitsplatz "%{workplace}" (%{qualification}) am %{day} zugeordnet.'
+      destroy: '%{started_at}: %{user} hat die Zuordnung von %{employee} zum Arbeitsplatz "%{workplace}" (%{qualification}) am %{day} entfernt.'
       attributes:
         start: "Start"
         end: "Ende"
