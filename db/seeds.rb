@@ -19,6 +19,8 @@ admin = User.new(:name => 'Fritz Thielemann', :email => 'fritz@thielemann.de', :
 admin.skip_confirmation!
 admin.save!
 
+Thread.current[:user] = admin
+
 account = Account.create!(:name  => 'Cileos UG', :admin => admin)
 
 cook              = Qualification.create!(:account => account, :name => 'Koch')
