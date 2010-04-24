@@ -1,4 +1,4 @@
-<% content_tag_for(:li, workplace, :class => "#{workplace.state} resource", :'data-form-values' => workplace.form_values_json, :'data-workplace-requirements' => workplace.workplace_requirements_json) do -%>
+<%= content_tag_for(:li, workplace, :class => "#{workplace.state} resource", :'data-form-values' => workplace.form_values_json, :'data-workplace-requirements' => workplace.workplace_requirements_json) do -%>
   <div class="color" style="background-color: <%= workplace.color %>"></div>
 	<div class="actions">
 	  <%= link_to(t(:destroy), workplace_path(workplace), :class => 'delete', :method => :delete, :confirm => t(:workplace_delete_confirmation)) %>
