@@ -1,15 +1,6 @@
-# laod all models and truncate corresponding tables
-Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
-if Account.first
-  ActiveRecord::Base.send(:subclasses).each do |model|
-    connection = model.connection
-    if connection.instance_variable_get(:@config)[:adapter] == 'mysql'
-      connection.execute("TRUNCATE #{model.table_name}") rescue nil
-    else
-      connection.execute("DELETE FROM #{model.table_name}") rescue nil
-    end
-  end
-end
+# truncate all tables
+require 'database_cleaner'
+DatabaseCleaner.clean_with(:truncation)
 
 Shiftplan::Application.routes.draw do |map|
   devise_for :users

@@ -23,4 +23,5 @@ group :test do
 	gem 'rcov'
 	gem 'launchy'
 	gem 'no_peeping_toms'
+	gem 'database_cleaner'
 end

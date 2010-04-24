@@ -13,18 +13,6 @@ require File.expand_path(File.dirname(__FILE__) + '/blueprints')
 
 ActiveRecord::Observer.disable_observers
 
-Dir[Rails.root + 'app/models/**/*.rb'].each { |f| require f }
-ActiveRecord::Base.send(:subclasses).each do |model|
-  connection = model.connection
-  if model.table_exists?
-    if connection.instance_variable_get(:@config)[:adapter] == 'mysql'
-      connection.execute("TRUNCATE #{model.table_name}")
-    else
-      connection.execute("DELETE FROM #{model.table_name}")
-    end
-  end
-end
-
 module Rspec
   module Matchers
     def belong_to(association)
@@ -89,9 +77,21 @@ module Rspec
 end
 
 Rspec.configure do |c|
-  c.before(:all)  { Sham.reset(:before_all)  }
-  c.before(:each) { Sham.reset(:before_each) }
+  c.before(:all) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+    Sham.reset(:before_all)
+  end
 
-  c.mock_with :rspec
-  c.include Rspec::Matchers
+  c.before(:each) do
+    DatabaseCleaner.start
+    Sham.reset(:before_each)
+  end
+
+  c.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  c.mock_with(:rspec)
+  c.include(Rspec::Matchers)
 end
