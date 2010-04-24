@@ -5,11 +5,11 @@
 cp Gemfile.heroku Gemfile
 
 # unset sprocket caching as heroku has read-only file systen
-sed -i.bak 's/unless/#unless/' config/initializer/sprockets.rb && rm config/initializer/sprockets.rb.bak
+sed -i.bak 's/unless/#unless/' config/initializers/sprockets.rb && rm config/initializers/sprockets.rb.bak
 
 # commit your work
 git add Gemfile
-git add config/initializer/sprockets.rb
+git add config/initializers/sprockets.rb
 git commit -m "heroku setup"
 
 # deploy and reset
