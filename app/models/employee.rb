@@ -26,7 +26,7 @@ class Employee < ActiveRecord::Base
 
   class << self
     def csv_fields
-      @@csv_fields ||= %w(last_name first_name initials birthday active email phone street zipcode city token)
+      @@csv_fields ||= %w(last_name first_name initials birthday active email phone street zipcode city tag_list token)
     end
 
     def find_by_name(name)
