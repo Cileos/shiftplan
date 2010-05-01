@@ -21,11 +21,13 @@ module SprocketsApplication
 
     protected
       def secretary
-        @secretary ||= Sprockets::Secretary.new(configuration.merge(:root => RAILS_ROOT))
+        # @secretary ||= Sprockets::Secretary.new(configuration.merge(:root => RAILS_ROOT))
+        @secretary ||= Sprockets::Secretary.new(configuration.merge(:root => Rails.root))
       end
     
       def configuration
-        YAML.load(IO.read(File.join(RAILS_ROOT, "config", "sprockets.yml"))) || {}
+        # YAML.load(IO.read(File.join(RAILS_ROOT, "config", "sprockets.yml"))) || {}
+        YAML.load(IO.read(Rails.root.join("config/sprockets.yml"))) || {}
       end
 
       def concatenation
