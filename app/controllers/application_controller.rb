@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
     def current_account
       @current_account ||= begin
-        account   = Account.find_by_subdomain(request.subdomains.last)
+        account   = Account.find_by_subdomain(request.subdomain)
         account ||= Account.first # temporary for testing
       end
     end
