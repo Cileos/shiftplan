@@ -1,7 +1,7 @@
 class DeviseCreateUsers < ActiveRecord::Migration
   def self.up
     create_table(:users) do |t|
-      t.authenticatable :encryptor => :sha512, :null => false
+      t.database_authenticatable :null => true
       t.confirmable
       t.recoverable
       t.rememberable
