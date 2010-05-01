@@ -12,7 +12,7 @@ admin.save!
 
 Thread.current[:user] = admin
 
-account = Account.create!(:name  => 'Cileos UG', :admin => admin)
+account = Account.create!(:name  => 'Cileos UG', :subdomain => 'cileos', :admin => admin)
 
 cook              = Qualification.create!(:account => account, :name => 'Koch')
 cooking_assistant = Qualification.create!(:account => account, :name => 'Küchenhilfe')

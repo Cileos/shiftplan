@@ -19,11 +19,8 @@ class ApplicationController < ActionController::Base
 
     def current_account
       @current_account ||= begin
-        # current_user         || raise("not logged in")
-        # current_user.account || raise("current user #{current_user.inspect} does not belong to an account")
-        # FIXME should be based on subdomains or something like that ...
-        # current_user.accounts.first || raise("current user #{current_user.inspect} does not belong to an account")
-        Account.first
+        account   = Account.find_by_subdomain(request.subdomains.last)
+        account ||= Account.first # temporary for testing
       end
     end
     helper_method :current_account
