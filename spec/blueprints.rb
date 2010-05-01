@@ -9,8 +9,13 @@ Sham.plan_name do |index|
   "Plan #{index}"
 end
 
+Sham.account_subdomain do |index|
+  "domain-#{index}"
+end
+
 Account.blueprint do
-  name { Faker::Name.name }
+  name      { Faker::Company.name }
+  subdomain { Sham.account_subdomain }
 end
 
 Status.blueprint do

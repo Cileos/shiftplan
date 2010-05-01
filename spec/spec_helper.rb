@@ -59,8 +59,9 @@ module Rspec
     def validate_uniqueness_of(attribute)
       Matcher.new(:validate_uniqueness_of, attribute) do |_attribute_|
         match do |object|
-          object.class.stub!(:find).and_return(true)
-          !object.valid? && object.errors[_attribute_].any?
+          object.save(:validate => false)
+          duplicate = object.class.new(_attribute_ => object.attributes[_attribute_])
+          !duplicate.valid? && duplicate.errors[_attribute_].any?
         end
       end
     end

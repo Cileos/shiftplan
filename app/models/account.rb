@@ -13,6 +13,10 @@ class Account < ActiveRecord::Base
 
   validates_presence_of :name
 
+  validates_presence_of   :subdomain
+  validates_uniqueness_of :subdomain, :case_sensitive => false
+  validates_format_of     :subdomain, :with => /^[A-Za-z0-9-]+$/
+
   # TODO:
   # return some kind of status for imported/not imported employees?
   # maybe even detailed information (like "Couldn't import the following lines: - 12: Email can't be blank.")
