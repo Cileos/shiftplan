@@ -30,7 +30,7 @@ ln -nfs /var/www/shiftplan/shared/config/database.yml.test config/database.yml
 bundle check || env PATH=$PATH bundle install
 
 # prepare test db
-rake environment RAILS_ENV=test db:setup
+rake environment RAILS_ENV=test db:drop db:create db:schema:load
 
 # create tmp/pids dir if not already exists and set chmod 666
 mkdir -p -m 766 tmp/pids
