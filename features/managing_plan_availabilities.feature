@@ -102,20 +102,37 @@ Feature: Suitable Employees on Plans
     When I click on the shift "Bar" on Monday
     Then the employee "Laura Kozlowski" should not be marked as "available"
 
+  # TEMPORARY: disabled status/availability management
   Scenario: Clicking on a shift where the employee is unavailable
     Given the employee "Laura Kozlowski" is "Unavailable" from "12:00" to "18:00" on Monday
     And I am on the plan show page
     When I click on the shift "Bar" on Monday
-    Then the employee "Laura Kozlowski" should not be marked as "available"
-    And the employee "Laura Kozlowski" should be marked as "unavailable"
+    Then the employee "Laura Kozlowski" should be marked as "available"
+    And the employee "Laura Kozlowski" should not be marked as "unavailable"
     When I click on the shift "Bar" on Monday
     Then the employee "Laura Kozlowski" should not be marked as "unavailable"
 
   Scenario: Clicking on a shift where the employee's availability is not defined
     Given I am on the plan show page
     When I click on the shift "Bar" on Monday
-    Then the employee "Laura Kozlowski" should not be marked as "available"
+    Then the employee "Laura Kozlowski" should be marked as "available"
     And the employee "Laura Kozlowski" should not be marked as "unavailable"
+
+  # TEMPORARY: disabled status/availability management
+  # Scenario: Clicking on a shift where the employee is unavailable
+  #   Given the employee "Laura Kozlowski" is "Unavailable" from "12:00" to "18:00" on Monday
+  #   And I am on the plan show page
+  #   When I click on the shift "Bar" on Monday
+  #   Then the employee "Laura Kozlowski" should not be marked as "available"
+  #   And the employee "Laura Kozlowski" should be marked as "unavailable"
+  #   When I click on the shift "Bar" on Monday
+  #   Then the employee "Laura Kozlowski" should not be marked as "unavailable"
+  # 
+  # Scenario: Clicking on a shift where the employee's availability is not defined
+  #   Given I am on the plan show page
+  #   When I click on the shift "Bar" on Monday
+  #   Then the employee "Laura Kozlowski" should not be marked as "available"
+  #   And the employee "Laura Kozlowski" should not be marked as "unavailable"
 
 
   # AVAILABILITY BY REQUIREMENT
@@ -129,20 +146,37 @@ Feature: Suitable Employees on Plans
     When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
     Then the employee "Laura Kozlowski" should not be marked as "available"
 
+  # TEMPORARY: disabled status/availability management
   Scenario: Clicking on a requirement where the employee is unavailable for the shift
     Given the employee "Laura Kozlowski" is "Unavailable" on Monday
     And I am on the plan show page
     When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
-    Then the employee "Laura Kozlowski" should not be marked as "available"
-    And the employee "Laura Kozlowski" should be marked as "unavailable"
+    Then the employee "Laura Kozlowski" should be marked as "available"
+    And the employee "Laura Kozlowski" should not be marked as "unavailable"
     When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
     Then the employee "Laura Kozlowski" should not be marked as "unavailable"
 
   Scenario: Clicking on a requirement where the employee's availability for the shift is not defined
     Given I am on the plan show page
     When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
-    Then the employee "Laura Kozlowski" should not be marked as "available"
+    Then the employee "Laura Kozlowski" should be marked as "available"
     And the employee "Laura Kozlowski" should not be marked as "unavailable"
+
+  # TEMPORARY: disabled status/availability management
+  # Scenario: Clicking on a requirement where the employee is unavailable for the shift
+  #   Given the employee "Laura Kozlowski" is "Unavailable" on Monday
+  #   And I am on the plan show page
+  #   When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+  #   Then the employee "Laura Kozlowski" should not be marked as "available"
+  #   And the employee "Laura Kozlowski" should be marked as "unavailable"
+  #   When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+  #   Then the employee "Laura Kozlowski" should not be marked as "unavailable"
+  # 
+  # Scenario: Clicking on a requirement where the employee's availability for the shift is not defined
+  #   Given I am on the plan show page
+  #   When I click on the requirement for a "Barkeeper" in the shift "Bar" on Monday
+  #   Then the employee "Laura Kozlowski" should not be marked as "available"
+  #   And the employee "Laura Kozlowski" should not be marked as "unavailable"
 
       
   # # DRAG AND DROP

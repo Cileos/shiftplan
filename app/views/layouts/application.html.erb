@@ -27,7 +27,9 @@
 	    <ul id="navigation">
 	      <li><%= link_to t(:overview, :scope => :navigation), root_path %></li>
 	      <li><%= link_to t(:plans, :scope => :navigation), plans_path %></li>
+	      <!--
 	      <li><%= link_to t(:statuses, :scope => :navigation), statuses_path %></li>
+	      -->
 	      <li><%#= link_to t(:master_data, :scope => :navigation), master_data_path %></li>
   	    <li id="login_status">
   	      <% if user_signed_in? -%>

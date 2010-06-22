@@ -52,6 +52,7 @@ class Shift < ActiveRecord::Base
     requirement_ids_were.empty? ? [] : requirements_were
   end
 
+  # FIXME: is this scoped on accounts? doesn't look like it
   def statused_employee_ids(status) # according to webster this is a verb
     @statused_employee_ids = {}
     @statused_employee_ids[status] ||=
