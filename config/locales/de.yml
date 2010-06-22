@@ -41,9 +41,10 @@ de:
   workplace_search: Arbeitsplätze suchen
   qualification_search: Qualifikationen suchen
 
+  plans: Schichtpläne
   shifts: Schichten
   requirements: Anforderungen
-  assignments: Zuweisung
+  assignments: Zuweisungen
   statuses:
     defaults: Standardverfügbarkeiten
     overrides: Überschriebene Verfügbarkeiten
