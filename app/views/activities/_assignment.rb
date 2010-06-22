@@ -6,17 +6,17 @@ class Activities::Assignment < Activities::Base
   end
 
   def summary
-    changes = activity.changes
+    alterations = activity.alterations
     
-    qualification = changes[:to][:requirement]
+    qualification = alterations[:to][:requirement]
 
-    t(:"activity.assignment.#{activity.action}", {
-      :user       => activity.user_name, # link to user profile if it still exists
-      :started_at => started_at,
-      :employee   => changes[:to][:assignee],
-      :day        => l(changes[:to][:shift][:start], :format => :short),
-      :workplace  => changes[:to][:shift][:workplace],
+    t(:"activity.assignment.#{activity.action}",
+      :user          => activity.user_name, # link to user profile if it still exists
+      :started_at    => started_at,
+      :employee      => alterations[:to][:assignee],
+      :day           => l(alterations[:to][:shift][:start], :format => :short),
+      :workplace     => alterations[:to][:shift][:workplace],
       :qualification => qualification
-    })
+    )
   end
 end

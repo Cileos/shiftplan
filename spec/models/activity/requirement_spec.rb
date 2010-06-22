@@ -31,7 +31,7 @@ describe 'Requirement activities' do
       activity.user_name.should == @user.name
       activity.aggregated_at.should be_nil
 
-      activity.changes.should == {
+      activity.alterations.should == {
         :to => {
           :requirements => [@qualification.name]
         }
@@ -50,7 +50,7 @@ describe 'Requirement activities' do
       activity.user_name.should == @user.name
       activity.aggregated_at.should be_nil
 
-      activity.changes.should == {
+      activity.alterations.should == {
         :to => {
           :requirements => [@qualification.name, '[undefined]']
         }
@@ -69,7 +69,7 @@ describe 'Requirement activities' do
       activity.user_name.should == @user.name
       activity.aggregated_at.should be_nil
 
-      activity.changes.should == {
+      activity.alterations.should == {
         :to => {
           :requirements => []
         }

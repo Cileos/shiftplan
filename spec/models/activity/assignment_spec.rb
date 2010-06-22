@@ -35,7 +35,7 @@ describe 'Assignment activities' do
       activity.user_name.should == @user.name
       activity.aggregated_at.should be_nil
 
-      activity.changes.should == {
+      activity.alterations.should == {
         :to => {
           :assignee => @assignment.assignee.full_name,
           :requirement => @requirement.qualification.name,
@@ -52,7 +52,7 @@ describe 'Assignment activities' do
       activity = Activity.first
       activity.action.should == 'destroy'
 
-      activity.changes.should == {
+      activity.alterations.should == {
         :to => {
           :assignee => @assignment.assignee.full_name,
           :requirement => @requirement.qualification.name,

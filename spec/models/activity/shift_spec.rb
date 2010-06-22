@@ -36,7 +36,7 @@ describe 'Shift activities' do
       activity.user_name.should == @user.name
       activity.aggregated_at.should be_nil
 
-      activity.changes.should == {
+      activity.alterations.should == {
         :to => {
           :start => @shift.start,
           :end   => @shift.end,
@@ -58,7 +58,7 @@ describe 'Shift activities' do
 
       activity = Activity.first
       activity.action.should  == 'update'
-      activity.changes.should == {
+      activity.alterations.should == {
         :from => { :start => @shift.start - 1.hour, :end => @shift.end - 1.hour },
         :to   => { :start => @shift.start, :end => @shift.end },
       }
@@ -73,7 +73,7 @@ describe 'Shift activities' do
 
       activity = Activity.first
       activity.action.should == 'update'
-      activity.changes.should == {
+      activity.alterations.should == {
         :from => { :requirements => [@qualification.name] },
         :to   => { :requirements => [@qualification.name, @qualification.name] }
       }
@@ -88,7 +88,7 @@ describe 'Shift activities' do
 
       activity = Activity.first
       activity.action.should == 'destroy'
-      activity.changes.should == {
+      activity.alterations.should == {
         :to => {
           :start => @shift.start,
           :end   => @shift.end,
@@ -116,7 +116,7 @@ describe 'Shift activities' do
       activity.finished_at.should_not be_nil
       activity.aggregated_at.should_not be_nil
 
-      activity.changes.should == {
+      activity.alterations.should == {
         :to => {
           :start => @shift.start,
           :end   => @shift.end,
@@ -150,7 +150,7 @@ describe 'Shift activities' do
       activity.finished_at.should_not be_nil
       activity.aggregated_at.should_not be_nil
 
-      activity.changes.should == {
+      activity.alterations.should == {
         :from => {
           :start => shift_start,
           :end   => shift_end,
@@ -185,7 +185,7 @@ describe 'Shift activities' do
       activity.finished_at.should_not be_nil
       activity.aggregated_at.should_not be_nil
 
-      activity.changes.should == {
+      activity.alterations.should == {
         :to => {
           :start => @shift.start,
           :end   => @shift.end,

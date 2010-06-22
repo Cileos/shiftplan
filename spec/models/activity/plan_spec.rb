@@ -28,7 +28,7 @@ describe 'Plan activities' do
       activity.user_name.should == @user.name
       activity.aggregated_at.should be_nil
 
-      activity.changes[:to].should == {
+      activity.alterations[:to].should == {
         :name  => @plan.name,
         :start => @plan.start,
         :end   => @plan.end
@@ -44,7 +44,7 @@ describe 'Plan activities' do
       activity = Activity.first
     
       activity.action.should  == 'update'
-      activity.changes.should == {
+      activity.alterations.should == {
         :from => { :start => @plan.start - 1.day },
         :to   => { :start => @plan.start }
       }
@@ -58,7 +58,7 @@ describe 'Plan activities' do
     
       activity = Activity.first
       activity.action.should == 'destroy'
-      activity.changes[:to].should == {
+      activity.alterations[:to].should == {
         :name  => @plan.name,
         :start => @plan.start,
         :end   => @plan.end
@@ -84,7 +84,7 @@ describe 'Plan activities' do
       activity.finished_at.should_not be_nil
       activity.aggregated_at.should_not be_nil
 
-      activity.changes.should == {
+      activity.alterations.should == {
         :to => {
           :name  => @plan.name,
           :start => @plan.start,
@@ -114,7 +114,7 @@ describe 'Plan activities' do
       activity.finished_at.should_not be_nil
       activity.aggregated_at.should_not be_nil
   
-      activity.changes.should == {
+      activity.alterations.should == {
         :from => {
           :name  => plan_name,
           :start => start
@@ -147,7 +147,7 @@ describe 'Plan activities' do
       activity.finished_at.should_not be_nil
       activity.aggregated_at.should_not be_nil
   
-      activity.changes.should == {
+      activity.alterations.should == {
         :to => {
           :name  => @plan.name,
           :start => @plan.start,

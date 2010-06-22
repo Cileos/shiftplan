@@ -3,27 +3,27 @@ class Activities::Base < Minimal::Template
     case activity.action
     when 'update'
       table do
-        render_changes(:from, attr_names)
-        render_changes(:to, attr_names)
+        render_alterations(:from, attr_names)
+        render_alterations(:to, attr_names)
       end
     else
       table do
-        render_changes(:to, attr_names, :label => false )
+        render_alterations(:to, attr_names, :label => false )
       end
     end
   end
   
-  def render_changes(type, attr_names, options = {})
+  def render_alterations(type, attr_names, options = {})
     options[:label] = true unless options.key?(:label)
-    changes = (activity.changes[type] || {})
+    alterations = (activity.alterations[type] || {})
 
     attr_names.each do |name|
-      value = changes[name]
+      value = alterations[name]
       tr do
         th (name == attr_names.first ? t(:"activity.#{type}") : ''), :class => :label if options[:label]
         th t(:"activity.#{object_type}.attributes.#{name}")
         td format_value(value)
-      end if changes.key?(name)
+      end if alterations.key?(name)
     end
   end
   

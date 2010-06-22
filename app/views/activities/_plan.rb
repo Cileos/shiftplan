@@ -9,18 +9,18 @@ class Activities::Plan < Activities::Base
   end
   
   def summary
-    t(:"activity.plan.#{status}", {
+    t(:"activity.plan.#{status}",
       :action => action,
       :plan => plan_name,
       :user => activity.user_name, # link to user profile if it still exists
       :started_at => started_at,
       :finished_at => finished_at
-    })
+    )
   end
   
   def plan_name
-    name = activity.changes[:from][:name] rescue nil # link to the plan if it still exists
-    name ||= activity.changes[:to][:name] rescue nil
+    name = activity.alterations[:from][:name] rescue nil # link to the plan if it still exists
+    name ||= activity.alterations[:to][:name] rescue nil
     name || activity.object.name rescue ''
   end
 end

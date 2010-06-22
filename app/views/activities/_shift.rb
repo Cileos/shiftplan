@@ -9,12 +9,12 @@ class Activities::Shift < Activities::Base
   end
   
   def summary
-    t(:"activity.shift.#{status}", {
-      :action => action,
-      :workplace => activity.object ? activity.object.workplace.try(:name) : '',
-      :user => activity.user_name, # link to user profile if it still exists
-      :started_at => started_at,
+    t(:"activity.shift.#{status}",
+      :action      => action,
+      :workplace   => activity.object ? activity.object.workplace.try(:name) : '',
+      :user        => activity.user_name, # link to user profile if it still exists
+      :started_at  => started_at,
       :finished_at => finished_at
-    })
+    )
   end
 end

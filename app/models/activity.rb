@@ -3,7 +3,7 @@ class Activity < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :object, :polymorphic => true
-  serialize  :changes
+  serialize  :alterations
 
   scope :to_aggregate, lambda {
     scope = unaggregated
@@ -40,7 +40,7 @@ class Activity < ActiveRecord::Base
       self.current = Activity.new(
         :action      => action.to_s,
         :object      => object, # FIXME can potentially run into endless loop
-        :changes     => object.send(:"log_#{action}").compact,
+        :alterations => object.send(:"log_#{action}").compact,
         :user        => user,
         :user_name   => user && (user.name || user.email),
         :started_at  => Time.zone.now
@@ -62,11 +62,11 @@ class Activity < ActiveRecord::Base
       last     = activities.last || activity
 
       activity = activities.inject(activity) do |activity, other|
-        activity.changes[:from].reverse_merge!(other.changes[:from] || {}) if activity.changes[:from]
-        activity.changes[:to].merge!(other.changes[:to] || {})             if activity.changes[:to]
+        activity.alterations[:from].reverse_merge!(other.alterations[:from] || {}) if activity.alterations[:from]
+        activity.alterations[:to].merge!(other.alterations[:to] || {})             if activity.alterations[:to]
         activity
       end
-      activity.changes.delete(:from) if activity.created? || last.destroyed?
+      activity.alterations.delete(:from) if activity.created? || last.destroyed?
 
       activity.update_attributes!(
         :action        => activity.created? ? 'create' : last.action,
