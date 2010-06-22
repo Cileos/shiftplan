@@ -1,3 +1,7 @@
+require 'machinist/active_record'
+require 'faker'
+require 'sham'
+
 Sham.password do
   chars = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
   password = ''
