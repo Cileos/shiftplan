@@ -59,6 +59,11 @@ class Shift < ActiveRecord::Base
       Status.for(day, :status => status, :start_time => self.start, :end_time => self.end).map(&:employee_id).uniq
   end
 
+  # TODO: test
+  def assigned_employees
+    requirements.map(&:assignee).compact
+  end
+
   protected
 
     def synchronize_duration_end_time

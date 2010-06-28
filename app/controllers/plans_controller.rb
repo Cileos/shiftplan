@@ -1,3 +1,6 @@
+require 'prawn'
+require 'prawn/layout'
+
 class PlansController < ApplicationController
   before_filter :set_plans,          :only => :index
   before_filter :set_plan,           :only => [:index, :show, :update, :destroy]
@@ -12,6 +15,13 @@ class PlansController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = generate_pdf(@plan)
+        send_file(pdf.path, :disposition => 'inline')
+      end
+    end
   end
 
   def create
@@ -87,5 +97,35 @@ class PlansController < ApplicationController
 
     def set_qualifications
       @qualifications = current_account.qualifications
+    end
+
+    # TODO: refactor, test
+    def generate_pdf(plan)
+      Prawn::Document.generate("plan_#{plan.id}.pdf", :page_size => 'A4') do |pdf|
+        pdf.text "Plan: #{plan.name}", :size => 18
+        pdf.text t(:plan_from_to, :start_date => l(plan.start_date), :end_date => l(plan.end_date))
+
+        plan.days.each do |day|
+          pdf.pad_top 20 do
+            pdf.text l(day, :format => "%A, %d. %B %y")
+
+            shifts = Array(plan.shifts.by_day[day])
+            data = shifts.group_by(&:workplace).collect do |workplace, shifts|
+              shifts.map! do |shift|
+                from_to = t(:plan_from_to, :start_date => l(shift.start, :format => :time), :end_date => l(shift.end, :format => :time))
+                employees = shift.assigned_employees.map(&:full_name).join(', ')
+                "#{from_to}: #{employees.present? ? employees : '(niemand)'}"
+              end
+              [workplace.name, shifts.join("\n")]
+            end
+
+            if data.present?
+              pdf.table data, :border_style => :grid
+            else
+              pdf.text "Keine Schichten für diesen Tag eintragen."
+            end
+          end
+        end
+      end
     end
 end
