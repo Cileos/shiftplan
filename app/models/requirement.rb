@@ -29,4 +29,10 @@ class Requirement < ActiveRecord::Base
     clone.copy_from(self, options) if Array(options[:copy]).include?('assignments')
     clone
   end
+
+  def assignee_and_qualification
+    if assignee
+      "#{assignee.full_name} (#{qualification.name})"
+    end
+  end
 end

@@ -113,7 +113,7 @@ class PlansController < ApplicationController
             data = shifts.group_by(&:workplace).collect do |workplace, shifts|
               shifts.map! do |shift|
                 from_to = t(:plan_from_to, :start_date => l(shift.start, :format => :time), :end_date => l(shift.end, :format => :time))
-                employees = shift.assigned_employees.map(&:full_name).join(', ')
+                employees = shift.requirements.map(&:assignee_and_qualification).compact.join(', ')
                 "#{from_to}: #{employees.present? ? employees : '(niemand)'}"
               end
               [workplace.name, shifts.join("\n")]
