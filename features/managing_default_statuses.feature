@@ -8,16 +8,16 @@ Feature: Managing default statuses
     Given the following users:
   	  | name             | email               | password |
   	  | Fritz Thielemann | fritz@thielemann.de | oracle   |
-  	And the following accounts:
-  		| name        | users               |
-  		| the account | fritz@thielemann.de |
+		And the following accounts:
+			| name        | subdomain   | users               |
+			| the account | the-account | fritz@thielemann.de |
   	And the following employees for "the account":
   		| name 							|
   		| Fritz Thielemann  |
   	And the following default statuses:
   	  | employee         | day of week | start_time | end_time | status    |
   	  | Fritz Thielemann | Tuesday     | 8:00       | 16:00    | Available |
-  	And I am logged in as "fritz@thielemann.de"
+  	And I am logged in for "the account" with "fritz@thielemann.de" and "oracle"
 
   Scenario: Adding an availability entry
     Given I am on the default statuses index page

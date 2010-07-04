@@ -19,8 +19,11 @@ class ApplicationController < ActionController::Base
 
     def current_account
       @current_account ||= begin
-        account   = Account.find_by_subdomain(request.subdomain)
-        account ||= Account.first # temporary for testing
+        account   = Account.find(session[:account_id]) if session[:account_id]
+        account ||= Account.find_by_subdomain(params[:account_name]) # request.subdomain
+        raise ActiveRecord::RecordNotFound unless account
+        session[:account_id] = account.id
+        account
       end
     end
     helper_method :current_account

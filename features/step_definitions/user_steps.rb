@@ -1,3 +1,7 @@
+After do
+  visit "/users/sign_out"
+end
+
 Given /^the following users:$/ do |users|
   users.hashes.each do |attributes|
     attributes = attributes.dup
@@ -9,8 +13,10 @@ Given /^the following users:$/ do |users|
   end
 end
 
-Given /^I am logged in with "([^\"]*)" and "([^\"]*)"$/ do |email, password|
-  visit '/users/sign_in'
+Given /^I am logged in for "([^\"]*)" with "([^\"]*)" and "([^\"]*)"$/ do |account, email, password|
+  account = Account.find_by_name(account)
+
+  visit "/users/sign_in?account_name=#{account.subdomain}"
   fill_in 'Email', :with => email
   fill_in 'Password', :with => password
   click_button 'Login'

@@ -8,8 +8,8 @@ Feature: THE plan
 		  | name             | email               | password |
 		  | Fritz Thielemann | fritz@thielemann.de | oracle   |
 		And the following accounts:
-			| name        | users               |
-			| the account | fritz@thielemann.de |
+			| name        | subdomain   | users               |
+			| the account | the-account | fritz@thielemann.de |
 		And the following qualifications for "the account":
 			| name      |
 			| Chef      |
@@ -33,7 +33,7 @@ Feature: THE plan
       | Plan 1 | Kitchen   | Chef:Clemens Kofler | Monday 09:00  | 240      |
       | Plan 1 | Bar       | Barkeeper           | Monday 12:00  | 240      |
       | Plan 1 | Reception | any                 | Tuesday 12:00 | 300      |
-		And I am logged in as "fritz@thielemann.de"
+		And I am logged in for "the account" with "fritz@thielemann.de" and "oracle"
 
 	Scenario: Viewing a plan
 		When I go to the plan show page

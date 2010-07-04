@@ -7,8 +7,8 @@ Feature: Managing plans
 		  | name             | email               | password |
 		  | Fritz Thielemann | fritz@thielemann.de | oracle   |
 		And the following accounts:
-			| name        | users               |
-			| the account | fritz@thielemann.de |
+			| name        | subdomain   | users               |
+			| the account | the-account | fritz@thielemann.de |
 		And the following plans for "the account":
 			| name     | start        | end           | template |
 			| Plan 1   | Monday 8:00  | Tuesday 20:00 | false    |
@@ -31,7 +31,7 @@ Feature: Managing plans
 			| Template | Kitchen   | Chef:Clemens Kofler | Monday 11:00  | 240      |
 			| Template | Bar       | Barkeeper           | Monday 12:00  | 240      |
 			| Template | Reception | any                 | Tuesday 10:00 | 300      |
-		And I am logged in as "fritz@thielemann.de"
+		And I am logged in for "the account" with "fritz@thielemann.de" and "oracle"
 
 	Scenario: Listing all plans
 		Given I am on the start page

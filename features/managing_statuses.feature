@@ -8,9 +8,9 @@ Feature: Managing statuses
     Given the following users:
   	  | name             | email               | password |
   	  | Fritz Thielemann | fritz@thielemann.de | oracle   |
-  	And the following accounts:
-  		| name        | users               |
-  		| the account | fritz@thielemann.de |
+		And the following accounts:
+			| name        | subdomain   | users               |
+			| the account | the-account | fritz@thielemann.de |
   	And the following employees for "the account":
   		| name 							|
   		| Fritz Thielemann  |
@@ -20,7 +20,7 @@ Feature: Managing statuses
   	And the following default statuses:
   	  | employee         | day of week | start_time | end_time | status    |
   	  | Fritz Thielemann | Monday      | 8:00       | 16:00    | Available |
-  	And I am logged in as "fritz@thielemann.de"
+  	And I am logged in for "the account" with "fritz@thielemann.de" and "oracle"
 
   Scenario: Adding an override availability entry
     Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
