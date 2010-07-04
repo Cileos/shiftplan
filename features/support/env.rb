@@ -39,7 +39,7 @@ browser = Steam::Browser.create
 browser.set_handler(:confirm) { |page, message| true } # always simulates the ok button
 
 World { Steam::Session::Rails.new(browser) }
-World(Rspec::Matchers)
+World(RSpec::Matchers)
 
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation

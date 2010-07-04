@@ -1,8 +1,5 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_ROOT)
-
-require 'rspec'
-require 'rspec/autorun'
 require 'rspec/rails'
 
 require File.expand_path(File.dirname(__FILE__) + '/blueprints')
