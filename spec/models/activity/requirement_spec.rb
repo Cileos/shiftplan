@@ -10,11 +10,16 @@ describe 'Requirement activities' do
     @user.skip_confirmation!
     @user.save!
 
+    @account = Account.create!(:name  => 'Cileos UG', :subdomain => 'cileos', :admin => @user)
+
     @shift = Shift.make
     @qualification = Qualification.make
 
     ActiveRecord::Observer.enable_observers
+
     Thread.current[:user] = @user
+    Thread.current[:account] = @account
+
     @requirement = Requirement.create(:shift => @shift, :qualification => @qualification)
   end
 
@@ -29,6 +34,7 @@ describe 'Requirement activities' do
       activity.object.should    == @shift
       activity.user.should      == @user
       activity.user_name.should == @user.name
+      activity.account.should   == @account
       activity.aggregated_at.should be_nil
 
       activity.alterations.should == {
@@ -48,6 +54,7 @@ describe 'Requirement activities' do
       activity.object.should    == @shift
       activity.user.should      == @user
       activity.user_name.should == @user.name
+      activity.account.should   == @account
       activity.aggregated_at.should be_nil
 
       activity.alterations.should == {
@@ -67,6 +74,7 @@ describe 'Requirement activities' do
       activity.object.should    == @shift
       activity.user.should      == @user
       activity.user_name.should == @user.name
+      activity.account.should   == @account
       activity.aggregated_at.should be_nil
 
       activity.alterations.should == {

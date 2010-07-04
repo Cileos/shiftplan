@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100622175710) do
+ActiveRecord::Schema.define(:version => 20100704042352) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -32,7 +32,10 @@ ActiveRecord::Schema.define(:version => 20100622175710) do
     t.datetime "aggregated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "account_id"
   end
+
+  add_index "activities", ["account_id"], :name => "index_activities_on_account_id"
 
   create_table "assignments", :force => true do |t|
     t.integer  "requirement_id"

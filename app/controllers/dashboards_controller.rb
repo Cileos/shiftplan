@@ -10,7 +10,7 @@ class DashboardsController < ApplicationController
   protected
 
     def set_activities
-      @current_activities    = Activity.unaggregated.order('created_at DESC')
-      @aggregated_activities = Activity.aggregated.order('created_at DESC')
+      @current_activities    = current_account.activities.unaggregated.order('created_at DESC')
+      @aggregated_activities = current_account.activities.aggregated.order('created_at DESC')
     end
 end

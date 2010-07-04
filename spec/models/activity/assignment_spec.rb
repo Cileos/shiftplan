@@ -10,6 +10,7 @@ describe 'Assignment activities' do
     @user.skip_confirmation!
     @user.save!
 
+    @account = Account.create!(:name  => 'Cileos UG', :subdomain => 'cileos', :admin => @user)
 
     @shift = Shift.make
     @requirement = Requirement.make
@@ -17,7 +18,9 @@ describe 'Assignment activities' do
     @shift.requirements << @requirement
 
     ActiveRecord::Observer.enable_observers
+
     Thread.current[:user] = @user
+    Thread.current[:account] = @account
 
     @assignment = Assignment.create(:requirement => @requirement, :assignee => @employee)
   end
@@ -33,6 +36,7 @@ describe 'Assignment activities' do
       activity.object.should    == @assignment
       activity.user.should      == @user
       activity.user_name.should == @user.name
+      activity.account.should   == @account
       activity.aggregated_at.should be_nil
 
       activity.alterations.should == {

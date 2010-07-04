@@ -31,8 +31,10 @@ class ApplicationController < ActionController::Base
 
     def set_and_cleanup_thread
       Thread.current[:user] = current_user
+      Thread.current[:account] = current_account
       yield
       Thread.current[:user] = nil
+      Thread.current[:account] = nil
       Thread.current[:activity] = nil
     end
 end

@@ -10,6 +10,8 @@ describe 'Shift activities' do
     @user.skip_confirmation!
     @user.save!
 
+    @account = Account.create!(:name  => 'Cileos UG', :subdomain => 'cileos', :admin => @user)
+
     @plan = Plan.make
     @qualification = Qualification.make
 
@@ -17,7 +19,10 @@ describe 'Shift activities' do
     @shift.requirements.build(:qualification => @qualification)
 
     ActiveRecord::Observer.enable_observers
+
     Thread.current[:user] = @user
+    Thread.current[:account] = @account
+
     @shift.save!
   end
   
@@ -34,6 +39,7 @@ describe 'Shift activities' do
       activity.object.should    == @shift
       activity.user.should      == @user
       activity.user_name.should == @user.name
+      activity.account.should   == @account
       activity.aggregated_at.should be_nil
 
       activity.alterations.should == {

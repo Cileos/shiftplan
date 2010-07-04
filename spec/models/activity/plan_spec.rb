@@ -10,8 +10,13 @@ describe 'Plan activities' do
     @user.skip_confirmation!
     @user.save!
 
+    @account = Account.create!(:name  => 'Cileos UG', :subdomain => 'cileos', :admin => @user)
+
     ActiveRecord::Observer.enable_observers
+
     Thread.current[:user] = @user
+    Thread.current[:account] = @account
+
     @plan = Plan.make
   end
   
@@ -26,6 +31,7 @@ describe 'Plan activities' do
       activity.object.should    == @plan
       activity.user.should      == @user
       activity.user_name.should == @user.name
+      activity.account.should   == @account
       activity.aggregated_at.should be_nil
 
       activity.alterations[:to].should == {

@@ -11,6 +11,8 @@ class Account < ActiveRecord::Base
   has_many :qualifications
   has_many :plans
 
+  has_many :activities
+
   validates_presence_of :name
 
   validates_presence_of   :subdomain

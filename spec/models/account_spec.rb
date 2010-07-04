@@ -26,6 +26,10 @@ describe Account do
     it "should have plans" do
       @account.should have_many(:plans)
     end
+
+    it "should have activities" do
+      @account.should have_many(:activities)
+    end
   end
 
   describe "validations" do

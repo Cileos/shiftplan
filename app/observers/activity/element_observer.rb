@@ -17,7 +17,7 @@ class Activity::ElementObserver < ActiveRecord::Observer
       requirements = object.shift.requirements
       requirements.map! { |r| r.qualification.try(:name) || '[undefined]' }
       unless requirements.empty?
-        activity = Activity.current || Activity.log('update', object.shift, User.first)
+        activity = Activity.current || Activity.log('update', object.shift, Thread.current[:account], Thread.current[:user])
         activity.alterations[:from] ||= {}
         activity.alterations[:from][:requirements] = requirements
       end
@@ -26,7 +26,7 @@ class Activity::ElementObserver < ActiveRecord::Observer
     def update_requirements(object)
       requirements = object.shift.reload.requirements
       requirements.map! { |r| r.qualification.try(:name) || '[undefined]' }
-      activity = Activity.current || Activity.log('update', object.shift, User.first)
+      activity = Activity.current || Activity.log('update', object.shift, Thread.current[:account], Thread.current[:user])
       activity.alterations[:to] ||= {}
       activity.alterations[:to][:requirements] = requirements
     end

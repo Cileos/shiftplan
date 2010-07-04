@@ -1,6 +1,7 @@
 class Activity < ActiveRecord::Base
   self.inheritance_column = 'none'
 
+  belongs_to :account
   belongs_to :user
   belongs_to :object, :polymorphic => true
   serialize  :alterations
@@ -36,11 +37,12 @@ class Activity < ActiveRecord::Base
       Thread.current[:activity] = nil
     end
 
-    def log(action, object, user)
+    def log(action, object, account, user)
       self.current = Activity.new(
         :action      => action.to_s,
         :object      => object, # FIXME can potentially run into endless loop
         :alterations => object.send(:"log_#{action}").compact,
+        :account     => account,
         :user        => user,
         :user_name   => user && (user.name || user.email),
         :started_at  => Time.zone.now
