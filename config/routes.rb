@@ -1,6 +1,6 @@
 Shiftplan::Application.routes.draw do |map|
   SprocketsApplication.routes(map)
-  devise_for :users
+  devise_for :users, :controllers => { :sessions => 'sessions' }
 
   resource :dashboard
   resource :favorite
