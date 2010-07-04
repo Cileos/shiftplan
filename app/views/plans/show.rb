@@ -3,8 +3,11 @@ class Plans::Show < Minimal::Template
     div(attributes) do
       h1 do
         self << escape_once(plan.name).html_safe
+        # temporary
+        span(:class => 'actions', :style => 'float:none; padding-left:5px;') { link_to('PDF', plan_path(plan, :format => 'pdf'), :class => 'pdf', :title => 'Plan als PDF exportieren') }
         span plan_dates, :class => 'dates'
       end
+
       plan.days.each do |day|
         render :partial => 'plans/show/day', :locals => { :day => day, :shifts => Array(plan.shifts.by_day[day]) }
       end

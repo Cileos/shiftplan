@@ -54,6 +54,9 @@ div.fieldWithErrors input[type=text], div.fieldWithErrors textarea, div.fieldWit
 .actions a:first-child {
   margin-left: 0;
 }
+.actions a.pdf {
+  background: url(/images/icons/pdf.gif) no-repeat;
+}
 .actions a.add {
   background: url(/images/icons/add.png) no-repeat;
 }
