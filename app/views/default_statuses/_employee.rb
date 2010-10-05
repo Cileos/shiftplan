@@ -1,5 +1,5 @@
 class DefaultStatuses::Employee < Minimal::Template
-  def content
+  def to_html
     tr do
       th(:scope => 'row') { a(employee.full_name, :name => employee_default_availabilities_dom_id(employee)) }
       td { link_to(t(:override_defaults), employee_statuses_path(employee)) }

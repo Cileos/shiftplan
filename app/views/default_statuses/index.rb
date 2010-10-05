@@ -1,5 +1,5 @@
 class DefaultStatuses::Index < Minimal::Template
-  def content
+  def to_html
     h1(t(:default_statuses, :scope => :navigation))
 
     table do

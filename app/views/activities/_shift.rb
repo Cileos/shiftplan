@@ -1,7 +1,7 @@
 require 'activities/base'
 
 class Activities::Shift < Activities::Base
-  def content
+  def to_html
     li :class => 'activity shift' do
       link_to(summary, '#')
       render_details(:start, :end, :requirements)

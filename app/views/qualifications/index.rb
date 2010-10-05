@@ -1,5 +1,5 @@
 class Qualifications::Index < Minimal::Template
-  def content
+  def to_html
     ul(:id => 'list', :class => 'qualifications') do
       li(:id => 'new_qualification', :class => 'qualification resource', :'data-form-values' => Qualification.new.form_values_json) do
         div('', :class => 'color', :style => 'background-color:transparent;')

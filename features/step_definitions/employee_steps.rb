@@ -88,6 +88,7 @@ end
 
 Then /^I should get a CSV file containing the following employees:$/ do |employees|
   lines = FasterCSV.parse(response.body, :col_sep => ';', :headers => true)
+#  lines = CSV.parse(response.body, :col_sep => ';', :headers => true)
   lines.size.should == employees.hashes.size
 
   employees.hashes.each do |attributes|

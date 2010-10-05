@@ -1,3 +1,5 @@
+require "color"
+
 class Workplace < ActiveRecord::Base
   self.partial_updates = false # TODO do we still need that?
 

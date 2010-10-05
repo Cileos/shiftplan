@@ -1,5 +1,5 @@
 class Plans::Search < Minimal::Template
-  def content
+  def to_html
     [:employee, :workplace, :qualification].each do |type|
       div :id => "#{type}_search", :class => 'search_box' do
         image_tag 'icons/close.png', :alt => 'Close', :class => 'close'

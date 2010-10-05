@@ -1,5 +1,5 @@
 class Dashboards::MasterData < Minimal::Template
-  def content
+  def to_html
     ul(:id => 'master_data') do
       li do
         h3 t(:'navigation.employees')

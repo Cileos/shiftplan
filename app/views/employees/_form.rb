@@ -1,5 +1,5 @@
 class Employees::Form < Minimal::Template
-  def content
+  def to_html
     h3(t(:new_employee))
 
     form_for(object) do |f|

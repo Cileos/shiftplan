@@ -1,5 +1,5 @@
 class Statuses::Day < Minimal::Template
-  def content
+  def to_html
     h3(day.day)
     render(:partial => 'statuses', :locals => { :statuses => statuses })
     div(:class => 'status override resource', :'data-form-values' => Status.new(:employee_id => employee.id, :day => day).form_values_json) do

@@ -1,3 +1,5 @@
+require "color"
+
 class Qualification < ActiveRecord::Base
   belongs_to :account
 

@@ -1,5 +1,5 @@
 class Plans::Form < Minimal::Template
-  def content
+  def to_html
     div :id => 'sidebar' do
       h3 t(:new_plan)
       form_for(plan) do |f|

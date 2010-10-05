@@ -1,5 +1,5 @@
 class Statuses::Week < Minimal::Template
-  def content
+  def to_html
     table(:class => 'calendar week') do
       tbody do
         employees.each do |employee|

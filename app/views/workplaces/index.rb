@@ -1,5 +1,5 @@
 class Workplaces::Index < Minimal::Template
-  def content
+  def to_html
     ul(:id => 'list', :class => 'workplaces') do
       li(:id => 'new_workplace', :class => 'workplace resource', :'data-form-values' => Workplace.new.form_values_json) do
         div('', :class => 'color', :style => 'background-color:transparent;')

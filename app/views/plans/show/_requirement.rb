@@ -1,7 +1,7 @@
 class Plans::Show::Requirement < Minimal::Template
   delegate :assignee, :qualification, :to => :requirement
 
-  def content
+  def to_html
     li_for(requirement, attributes) { link_to_assignee }
   end
 

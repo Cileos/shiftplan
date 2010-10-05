@@ -1,5 +1,5 @@
 class Statuses::Statuses < Minimal::Template
-  def content
+  def to_html
     ul(:class => 'statuses') { render(:partial => 'status', :collection => statuses) }
   end
 end

@@ -1,5 +1,5 @@
 class Plans::Index < Minimal::Template
-  def content
+  def to_html
     h1 t(:"navigation.plans")
     table :id => 'plans' do
       tr { [t(:"activerecord.attributes.plan.name"), 

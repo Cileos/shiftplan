@@ -1,5 +1,5 @@
 class Dashboards::Sidebar < Minimal::Template
-  def content
+  def to_html
     div :id => 'sidebar' do
       h3 t(:'dashboard.statistics')
       ul do

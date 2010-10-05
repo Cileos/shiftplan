@@ -1,7 +1,7 @@
 require 'activities/base'
 
 class Activities::Assignment < Activities::Base
-  def content
+  def to_html
     li summary, :class => 'activity assignment'
   end
 

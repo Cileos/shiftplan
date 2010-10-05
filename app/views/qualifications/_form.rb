@@ -1,5 +1,5 @@
 class Qualifications::Form < Minimal::Template
-  def content
+  def to_html
     h3(t(:new_qualification))
     form_for(Qualification.new) do |f|
       hidden_field_tag('_method')

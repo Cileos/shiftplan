@@ -1,7 +1,7 @@
 class Plans::Show::Shift < Minimal::Template
   delegate :workplace, :requirements, :to => :shift
 
-  def content
+  def to_html
     li_for shift, attributes do
       h3 workplace.name
       ul :class => 'requirements' do

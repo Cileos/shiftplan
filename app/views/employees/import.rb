@@ -1,5 +1,5 @@
 class Employees::Import < Minimal::Template
-  def content
+  def to_html
     form_tag(upload_employees_path, :multipart => true) do
       label_tag('file', t(:file))
       file_field_tag('file')

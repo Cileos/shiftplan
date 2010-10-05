@@ -1,5 +1,5 @@
 class Statuses::DefaultStatuses < Minimal::Template
-  def content
+  def to_html
     default_statuses = employee.statuses.default.group_by(&:day_of_week)
 
     table(:class => "#{dom_id(employee)}_defaults defaults") do

@@ -1,6 +1,7 @@
 # FasterCSV would try to convert tokens starting with a number to Floats which
 # would raise a nasty warning, so we silence it
 FasterCSV::Converters[:silence] = lambda { |value| value }
+#CSV::Converters[:silence] = lambda { |value| value }
 
 class Account < ActiveRecord::Base
   has_many :memberships
@@ -26,6 +27,7 @@ class Account < ActiveRecord::Base
     options.reverse_merge!(:headers => true, :converters => :all, :col_sep => ';', :converters => :silence)
 
     FasterCSV.foreach(file.path, options) do |row|
+#    CSV.foreach(file.path, options) do |row|
       attributes = row.to_hash
 
       if token = attributes.delete('token')

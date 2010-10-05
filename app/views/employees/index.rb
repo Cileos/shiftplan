@@ -1,5 +1,5 @@
 class Employees::Index < Minimal::Template
-  def content
+  def to_html
     ul(:id => 'list', :class => 'employees') do
       li(:id => 'new_employee', :class => 'employee resource', :'data-form-values' => Employee.new.form_values_json) do
         image_tag(Employee.new.gravatar_url(:size => 60))

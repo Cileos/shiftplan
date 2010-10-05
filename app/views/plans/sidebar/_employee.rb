@@ -1,5 +1,5 @@
 class Plans::Sidebar::Employee < Minimal::Template
-  def content
+  def to_html
     li do
       link_to(employee.initials, employee_path(employee), attributes)
     end

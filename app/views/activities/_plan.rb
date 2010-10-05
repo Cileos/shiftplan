@@ -1,7 +1,7 @@
 require 'activities/base'
 
 class Activities::Plan < Activities::Base
-  def content
+  def to_html
     li :class => 'activity plan' do
       link_to(summary, '#')
       render_details(:name, :start_date, :end_date)

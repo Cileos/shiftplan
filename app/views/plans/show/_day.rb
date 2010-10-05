@@ -1,5 +1,5 @@
 class Plans::Show::Day < Minimal::Template
-  def content
+  def to_html
     if shifts
       h2 l(day, :format => "%A, %d. %B %y")
       div :class => 'day', :'data-day' => day.strftime('%Y%m%d') do

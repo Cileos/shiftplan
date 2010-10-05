@@ -1,5 +1,5 @@
 class DefaultStatuses::Form < Minimal::Template
-  def content
+  def to_html
     h3(t(:new_default_status))
     form_for(object) do |f|
       hidden_field_tag('_method')

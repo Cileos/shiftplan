@@ -1,5 +1,5 @@
 class Statuses::Index < Minimal::Template
-  def content
+  def to_html
     if employee_given?
       render(:partial => 'employee', :locals => { :employee => employee })
     else

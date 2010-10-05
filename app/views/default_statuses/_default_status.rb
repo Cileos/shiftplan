@@ -1,5 +1,5 @@
 class DefaultStatuses::DefaultStatus < Minimal::Template
-  def content
+  def to_html
     content_tag_for(:li, default_status, :class => "#{default_status.status.to_s.underscore} default resource", :'data-form-values' => default_status.form_values_json) do
       text = t(:status_from_to, :from => l(default_status.start_time, :format => :time), :to => l(default_status.end_time, :format => :time))
       link_to(text, default_status_url, :class => 'edit')

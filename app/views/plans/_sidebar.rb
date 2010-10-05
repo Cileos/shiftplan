@@ -1,5 +1,5 @@
 class Plans::Sidebar < Minimal::Template
-  def content
+  def to_html
     div :id => 'sidebar' do
       h4 do
         self << t(:'navigation.employees')

@@ -1,5 +1,5 @@
 class Plans::Plan < Minimal::Template
-  def content
+  def to_html
     tr_for(plan, :class => resource_css_classes(plan), :'data-form-values' => plan.form_values_json) do
       td :class => :name do
         link_to(plan.name, plan_path(plan))

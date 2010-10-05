@@ -1,5 +1,5 @@
 class DefaultStatuses::Sidebar < Minimal::Template
-  def content
+  def to_html
     div(:id => 'sidebar') { render(:partial => 'form') }
   end
 end

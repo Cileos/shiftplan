@@ -1,5 +1,5 @@
 class Plans::Show < Minimal::Template
-  def content
+  def to_html
     div(attributes) do
       h1 do
         self << escape_once(plan.name).html_safe

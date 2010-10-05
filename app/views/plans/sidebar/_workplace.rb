@@ -1,5 +1,5 @@
 class Plans::Sidebar::Workplace < Minimal::Template
-  def content
+  def to_html
     li do
       link_to(workplace.name, workplace_path(workplace), attributes)
     end
