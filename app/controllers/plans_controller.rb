@@ -1,3 +1,4 @@
+# encoding: utf-8 
 require 'prawn'
 require 'prawn/layout'
 
@@ -122,7 +123,7 @@ class PlansController < ApplicationController
             if data.present?
               pdf.table data, :border_style => :grid
             else
-              pdf.text "Keine Schichten für diesen Tag eintragen."
+              pdf.text 'Keine Schichten für diesen Tag eintragen.'
             end
           end
         end
