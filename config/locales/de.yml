@@ -166,6 +166,7 @@ de:
   plan_could_not_be_updated: "Schichtplan konnte nicht geändert werden."
   plan_successfully_deleted: "Schichtplan erfolgreich gelöscht."
   plan_delete_confirmation: "Wollen Sie diesen Schichtplan wirklich löschen?"
+  plan_export_as_pdf: "Plan als PDF exportieren"
 
   # shifts
   shift_successfully_created: "Schicht erfolgreich angelegt."

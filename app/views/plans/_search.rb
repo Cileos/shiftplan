@@ -1,18 +1,20 @@
-class Plans::Search < Minimal::Template
-  def to_html
-    [:employee, :workplace, :qualification].each do |type|
-      div :id => "#{type}_search", :class => 'search_box' do
-        image_tag 'icons/close.png', :alt => 'Close', :class => 'close'
-        h3 t(:"#{type}_search")
-        text_field_tag "#{type}_search_query"
+module Plans
+  class Search < Minimal::Template
+    def to_html
+      [:employee, :workplace, :qualification].each do |type|
+        div :id => "#{type}_search", :class => 'search_box' do
+          image_tag 'icons/close.png', :alt => 'Close', :class => 'close'
+          h3 t(:"#{type}_search")
+          text_field_tag "#{type}_search_query"
 
-        link_to t(:select_all), '#', :class => 'select_all'
-        self << '|'
-        link_to t(:deselect_all), '#', :class => 'deselect_all'
+          link_to t(:select_all), '#', :class => 'select_all'
+          self << '|'
+          link_to t(:deselect_all), '#', :class => 'deselect_all'
 
-        table do
-          tbody do
-            render :partial => "plans/search/#{type.to_s}", :collection => type.to_s.classify.constantize.active
+          table do
+            tbody do
+              render :partial => "plans/search/#{type.to_s}", :collection => type.to_s.classify.constantize.active
+            end
           end
         end
       end

@@ -1,13 +1,15 @@
-class Plans::Index < Minimal::Template
-  def to_html
-    h1 t(:"navigation.plans")
-    table :id => 'plans' do
-      tr { [t(:"activerecord.attributes.plan.name"), 
-            t(:"activerecord.attributes.plan.start"), 
-            t(:"activerecord.attributes.plan.end"), 
-            t(:"activerecord.attributes.plan.shifts"), nil].each { |name| th name } }
-      render :partial => plans
+module Plans
+  class Index < Minimal::Template
+    def to_html
+      h1 t(:"navigation.plans")
+      table :id => 'plans' do
+        tr { [t(:"activerecord.attributes.plan.name"), 
+              t(:"activerecord.attributes.plan.start"), 
+              t(:"activerecord.attributes.plan.end"), 
+              t(:"activerecord.attributes.plan.shifts"), nil].each { |name| th name } }
+        render :partial => @plans
+      end
+      render :partial => 'form', :locals => { :plan => @plan }
     end
-    render :partial => 'form', :locals => { :plan => plan }
   end
 end

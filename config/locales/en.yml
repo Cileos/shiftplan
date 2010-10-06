@@ -166,6 +166,8 @@ en:
   plan_could_not_be_updated: "Plan could not be updated."
   plan_successfully_deleted: "Plan successfully deleted."
   plan_delete_confirmation: "Do you really want to delete this plan?"
+  plan_export_as_pdf: "Export plan as PDF"
+  
 
   # shifts
   shift_successfully_created: "Shift successfully created."

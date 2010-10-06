@@ -1,7 +1,7 @@
 module Employees
   class Employee < Minimal::Template
     def to_html
-      li_for(employee, :class => "#{employee.state} resource", :'data-form-values' => employee.form_values_json) do
+      li(employee, :class => "#{employee.state} resource", :'data-form-values' => employee.form_values_json) do
         image_tag(employee.gravatar_url(:size => 60))
         div(:class => 'actions') { link_to_destroy(employee) }
         h2(employee.full_name, :class => 'name')
