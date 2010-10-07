@@ -3,7 +3,7 @@ module Plans
     delegate :assignee, :qualification, :to => :requirement
 
     def to_html
-      li_for(requirement, attributes) { link_to_assignee }
+      li(requirement, attributes) { link_to_assignee }
     end
 
     def link_to_assignee

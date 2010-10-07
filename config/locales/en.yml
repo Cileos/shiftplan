@@ -11,7 +11,7 @@ en:
     qualification: Qualification
     statuses: Availabilities
     default_statuses: Default availabilities
-    logged_in_as: "Logged in as {{user}}"
+    logged_in_as: "Logged in as %{user}"
     logout: Logout
 
   dashboard:
@@ -28,11 +28,11 @@ en:
   new: New
   save: Save
   options: Optionen
-  picture_powered_by: "Picture powered by {{link}}"
+  picture_powered_by: "Picture powered by %{link}"
   copy_from: "Copy from"
   upload: Upload
   file: File
-  tags: "Tags: {{tags}}"
+  tags: "Tags: %{tags}"
 
   select_all: Select all
   deselect_all: Deselect all
@@ -51,14 +51,14 @@ en:
   override_defaults: Override
 
   employees:
-    one:   "{{count}} employee"
-    other: "{{count}} employees"
+    one:   "%{count} employee"
+    other: "%{count} employees"
   qualifications:
-    one:   "{{count}} qualification"
-    other: "{{count}} qualifications"
+    one:   "%{count} qualification"
+    other: "%{count} qualifications"
   workplaces:
-    one:   "{{count}} workplace"
-    other: "{{count}} workplaces"
+    one:   "%{count} workplace"
+    other: "%{count} workplaces"
 
   activity:
     from: "From"
@@ -94,7 +94,7 @@ en:
   click_to_add_workplace: Click to add
   add_workplace: "Click here to add a new workplace"
   new_workplace: New workplace
-  edit_workplace: "Edit workplace \"{{name}}\""
+  edit_workplace: "Edit workplace \"%{name}\""
   workplace_successfully_created: "Workplace successfully created."
   workplace_could_not_be_created: "Workplace could not be created."
   workplace_successfully_updated: "Workplace successfully updated."
@@ -106,7 +106,7 @@ en:
   click_to_add_employee: Click to add
   add_employee: "Click here to add a new employee"
   new_employee: New employee
-  edit_employee: "Edit employee \"{{full_name}}\""
+  edit_employee: "Edit employee \"%{full_name}\""
   employee_successfully_created: "Employee successfully created."
   employee_could_not_be_created: "Employee could not be created."
   employee_import_successful: "Finished employee import."
@@ -119,7 +119,7 @@ en:
   click_here_to_manage_availabilities_by_week: "Click here to manage availabilities by week"
   new_status: New availability
   new_default_status: New default availability
-  status_from_to: "{{from}} - {{to}}"
+  status_from_to: "%{from} - %{to}"
   status_successfully_created: "Status successfully created."
   status_could_not_be_created: "Status could not be created."
   status_successfully_updated: "Status successfully updated."
@@ -137,7 +137,7 @@ en:
   click_to_add_qualification: Click to add
   add_qualification:  "Click here to add a new qualification"
   new_qualification:  "New qualification"
-  edit_qualification: "Edit qualification \"{{name}}\""
+  edit_qualification: "Edit qualification \"%{name}\""
   qualification_successfully_created: "Qualification successfully created."
   qualification_could_not_be_created: "Qualification could not be created."
   qualification_successfully_updated: "Qualification successfully updated."
@@ -149,7 +149,7 @@ en:
   click_to_add_tag: Click to add
   add_tag:  "Click here to add a new tag"
   new_tag:  "New tag"
-  edit_tag: "Edit tag \"{{name}}\""
+  edit_tag: "Edit tag \"%{name}\""
   tag_successfully_created: "Tag successfully created."
   tag_could_not_be_created: "Tag could not be created."
   tag_successfully_updated: "Tag successfully updated."
@@ -159,7 +159,7 @@ en:
 
   # plans
   new_plan: New plan
-  plan_from_to: "{{start_date}} - {{end_date}}"
+  plan_from_to: "%{start_date} - %{end_date}"
   plan_successfully_created: "Plan successfully created."
   plan_could_not_be_created: "Plan could not be created."
   plan_successfully_updated: "Plan successfully updated."
@@ -205,7 +205,7 @@ en:
   back: Back
 
   date:
-    calendar_week: "Week {{week}}"
+    calendar_week: "Week %{week}"
     first_day_of_week: 0
     formats:
       month_and_year: "%B %Y"

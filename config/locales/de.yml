@@ -11,7 +11,7 @@ de:
     qualification: Qualifikation
     statuses: Verfügbarkeitsplanung
     default_statuses: Standardverfügbarkeiten
-    logged_in_as: "Angemeldet als {{user}}"
+    logged_in_as: "Angemeldet als %{user}"
     logout: Abmelden
 
   dashboard:
@@ -28,11 +28,11 @@ de:
   new: Neu
   save: Speichern
   options: Optionen
-  picture_powered_by: "Bild bereitgestellt von {{link}}"
+  picture_powered_by: "Bild bereitgestellt von %{link}"
   copy_from: "Kopieren"
   upload: Hochladen
   file: Datei
-  tags: "Tags: {{tags}}"
+  tags: "Tags: %{tags}"
 
   select_all: Alle auswählen
   deselect_all: Alle abwählen
@@ -52,14 +52,14 @@ de:
   override_defaults: Überschreiben
 
   employees:
-    one:   "{{count}} Mitarbeiter"
-    other: "{{count}} Mitarbeiter"
+    one:   "%{count} Mitarbeiter"
+    other: "%{count} Mitarbeiter"
   qualifications:
-    one:   "{{count}} Qualifikation"
-    other: "{{count}} Qualifikationen"
+    one:   "%{count} Qualifikation"
+    other: "%{count} Qualifikationen"
   workplaces:
-    one:   "{{count}} Arbeitsplatz"
-    other: "{{count}} Arbeitsplätze"
+    one:   "%{count} Arbeitsplatz"
+    other: "%{count} Arbeitsplätze"
 
   activity:
     from: "Von"
@@ -94,7 +94,7 @@ de:
   click_to_add_workplace: Hinzufügen
   add_workplace: "Klicken Sie hier, um einen Arbeitsplatz hinzuzufügen"
   new_workplace: Neuer Arbeitsplatz
-  edit_workplace: "Arbeitsplatz \"{{name}}\" bearbeiten"
+  edit_workplace: "Arbeitsplatz \"%{name}\" bearbeiten"
   workplace_successfully_created: "Arbeitsplatz erfolgreich angelegt."
   workplace_could_not_be_created: "Arbeitsplatz konnte nicht angelegt werden."
   workplace_successfully_updated: "Arbeitsplatz erfolgreich geändert."
@@ -106,7 +106,7 @@ de:
   click_to_add_employee: Hinzufügen
   add_employee: "Klicken Sie hier, um einen Mitarbeiter hinzuzufügen"
   new_employee: Neuer Mitarbeiter
-  edit_employee: "Mitarbeiter \"{{full_name}}\" bearbeiten"
+  edit_employee: "Mitarbeiter \"%{full_name}\" bearbeiten"
   employee_successfully_created: "Mitarbeiter erfolgreich angelegt."
   employee_could_not_be_created: "Mitarbeiter konnte nicht angelegt werden."
   employee_import_successful: "Mitarbeiterimport abgeschlossen."
@@ -119,7 +119,7 @@ de:
   click_here_to_manage_availabilities_by_week: "Klicken Sie hier, um Wochen-Verfügbarkeiten zu verwalten"
   new_status: Neue Verfügbarkeit
   new_default_status: Neue Standardverfügbarkeit
-  status_from_to: "{{from}} bis {{to}}"
+  status_from_to: "%{from} bis %{to}"
   status_successfully_created: "Verfügbarkeit erfolgreich angelegt."
   status_could_not_be_created: "Verfügbarkeit konnte nicht angelegt werden."
   status_successfully_updated: "Verfügbarkeit erfolgreich geändert."
@@ -137,7 +137,7 @@ de:
   click_to_add_qualification: Hinzufügen
   add_qualification: "Klicken Sie hier, um eine Qualifikation hinzuzufügen"
   new_qualification: Neue Qualifikation
-  edit_qualification: "Qualifikation \"{{name}}\" bearbeiten"
+  edit_qualification: "Qualifikation \"%{name}\" bearbeiten"
   qualification_successfully_created: "Qualifikation erfolgreich angelegt."
   qualification_could_not_be_created: "Qualifikation konnte nicht angelegt werden."
   qualification_successfully_updated: "Qualifikation erfolgreich geändert."
@@ -149,7 +149,7 @@ de:
   click_to_add_tag: Hinzufügen
   add_tag: "Klicken Sie hier, um einen Suchbegriff hinzuzufügen"
   new_tag: Neuer Suchbegriff
-  edit_tag: "Suchbegriff \"{{name}}\" bearbeiten"
+  edit_tag: "Suchbegriff \"%{name}\" bearbeiten"
   tag_successfully_created: "Suchbegriff erfolgreich angelegt."
   tag_could_not_be_created: "Suchbegriff konnte nicht angelegt werden."
   tag_successfully_updated: "Suchbegriff erfolgreich geändert."
@@ -159,7 +159,7 @@ de:
 
   # plans
   new_plan: Neuer Schichtplan
-  plan_from_to: "{{start_date}} bis {{end_date}}"
+  plan_from_to: "%{start_date} bis %{end_date}"
   plan_successfully_created: "Schichtplan erfolgreich angelegt."
   plan_could_not_be_created: "Schichtplan konnte nicht angelegt werden."
   plan_successfully_updated: "Schichtplan erfolgreich geändert."
@@ -204,7 +204,7 @@ de:
   back: Zurück
   
   date:
-    calendar_week: "KW {{week}}"
+    calendar_week: "KW %{week}"
     first_day_of_week: 1
     formats:
       short_with_day_name: "%a, %e. %B"
@@ -235,35 +235,35 @@ de:
       less_than_x_seconds:
         zero: 'weniger als 1 Sekunde'
         one: 'weniger als 1 Sekunde'
-        other: 'weniger als {{count}} Sekunden'
+        other: 'weniger als %{count} Sekunden'
       x_seconds:
         one: '1 Sekunde'
-        other: '{{count}} Sekunden'
+        other: '%{count} Sekunden'
       less_than_x_minutes:
         zero: 'weniger als 1 Minute'
         one: 'weniger als eine Minute'
-        other: 'weniger als {{count}} Minuten'
+        other: 'weniger als %{count} Minuten'
       x_minutes:
         one: '1 Minute'
-        other: '{{count}} Minuten'
+        other: '%{count} Minuten'
       about_x_hours:
         one: 'etwa 1 Stunde'
-        other: 'etwa {{count}} Stunden'
+        other: 'etwa %{count} Stunden'
       x_days:
         one: '1 Tag'
-        other: '{{count}} Tage'
+        other: '%{count} Tage'
       about_x_months:
         one: 'etwa 1 Monat'
-        other: 'etwa {{count}} Monate'
+        other: 'etwa %{count} Monate'
       x_months:
         one: '1 Monat'
-        other: '{{count}} Monate'
+        other: '%{count} Monate'
       about_x_years:
         one: 'etwa 1 Jahr'
-        other: 'etwa {{count}} Jahre'
+        other: 'etwa %{count} Jahre'
       over_x_years:
         one: 'mehr als 1 Jahr'
-        other: 'mehr als {{count}} Jahre'
+        other: 'mehr als %{count} Jahre'
       
   number:
     format:
@@ -297,8 +297,8 @@ de:
     errors:
       template:
         header:
-          one:    "Konnte dieses {{model}} Objekt nicht speichern: 1 Fehler."
-          other:  "Konnte dieses {{model}} Objekt nicht speichern: {{count}} Fehler."
+          one:    "Konnte dieses %{model} Objekt nicht speichern: 1 Fehler."
+          other:  "Konnte dieses %{model} Objekt nicht speichern: %{count} Fehler."
         body: "Bitte überprüfen Sie die folgenden Felder:"
  
       messages:
@@ -309,16 +309,16 @@ de:
         accepted: "muss akzeptiert werden"
         empty: "muss ausgefüllt werden"
         blank: "muss ausgefüllt werden"
-        too_long: "ist zu lang (nicht mehr als {{count}} Zeichen)"
-        too_short: "ist zu kurz (nicht weniger als {{count}} Zeichen)"
-        wrong_length: "hat die falsche Länge (muss genau {{count}} Zeichen haben)"
+        too_long: "ist zu lang (nicht mehr als %{count} Zeichen)"
+        too_short: "ist zu kurz (nicht weniger als %{count} Zeichen)"
+        wrong_length: "hat die falsche Länge (muss genau %{count} Zeichen haben)"
         taken: "ist bereits vergeben"
         not_a_number: "ist keine Zahl"
-        greater_than: "muss größer als {{count}} sein"
-        greater_than_or_equal_to: "muss größer oder gleich {{count}} sein"
-        equal_to: "muss genau {{count}} sein"
-        less_than: "muss kleiner als {{count}} sein"
-        less_than_or_equal_to: "muss kleiner oder gleich {{count}} sein"
+        greater_than: "muss größer als %{count} sein"
+        greater_than_or_equal_to: "muss größer oder gleich %{count} sein"
+        equal_to: "muss genau %{count} sein"
+        less_than: "muss kleiner als %{count} sein"
+        less_than_or_equal_to: "muss kleiner oder gleich %{count} sein"
         odd: "muss ungerade sein"
         even: "muss gerade sein"
 
