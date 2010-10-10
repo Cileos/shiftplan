@@ -6,13 +6,13 @@ module DefaultStatuses
         hidden_field_tag('_method')
 
         fieldset do
-          div { field_with_label(f, :collection_select, :employee_id, employees, :id, :full_name, :include_blank => true) }
+          div { field_with_label(f, :collection_select, :employee_id, @employees, :id, :full_name, :include_blank => true) }
           div { field_with_label(f, :collection_select, :day_of_week, day_names, :last, :first) }
           div { field_with_label(f, :time_select, :start_time, :minute_step => 5) }
           div { field_with_label(f, :time_select, :end_time, :minute_step => 5) }
 
           ul do
-            Status::VALID_STATUSES.each do |status|
+            ::Status::VALID_STATUSES.each do |status|
               li do
                 text = t(:"statuses.#{status.underscore}", :scope => [:activerecord, :attributes, :status], :default => status)
                 f.radio_button(:status, status)
@@ -34,7 +34,7 @@ module DefaultStatuses
       end
 
       def object
-        @object ||= Status.new
+        @object ||= ::Status.new
       end
   end
 end

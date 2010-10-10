@@ -3,7 +3,7 @@ module Plans
     delegate :workplace, :requirements, :to => :shift
 
     def to_html
-      li shift, attributes do
+      content_tag_for(:li, shift, attributes) do
         h3 workplace.name
         ul :class => 'requirements' do
           render :partial => 'plans/show/requirement', :collection => requirements

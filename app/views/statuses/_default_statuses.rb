@@ -7,7 +7,7 @@ module Statuses
         tbody do
           tr do
             numeric_days_of_week.each do |day_of_week|
-              locals = { :employee => @employee, :day_of_week => day_of_week, :statuses => Status.fill_gaps!(@employee, day_of_week, default_statuses[day_of_week]) }
+              locals = { :employee => @employee, :day_of_week => day_of_week, :statuses => ::Status.fill_gaps!(@employee, day_of_week, default_statuses[day_of_week]) }
               render(:partial => 'default_statuses/day', :locals => locals)
             end
           end

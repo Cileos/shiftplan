@@ -22,7 +22,7 @@ module Statuses
           div { field_with_label(f, :time_select, :end_time, :minute_step => 5) }
 
           ul do
-            Status::VALID_STATUSES.each do |status|
+            ::Status::VALID_STATUSES.each do |status|
               li do
                 text = t(:"statuses.#{status.underscore}", :scope => [:activerecord, :attributes, :status], :default => status)
                 f.radio_button(:status, status)
@@ -48,7 +48,7 @@ module Statuses
       end
 
       def object
-        @object ||= Status.new(:employee => employee_given? ? employee : nil)
+        @object ||= ::Status.new(:employee => employee_given? ? employee : nil)
       end
   end
 end

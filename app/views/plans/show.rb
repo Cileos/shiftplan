@@ -1,7 +1,7 @@
 module Plans
   class Show < Minimal::Template
     def to_html
-      div(attributes) do
+      content_tag(:div, attributes) do
         h1 do
           self << escape_once(@plan.name).html_safe
           # temporary

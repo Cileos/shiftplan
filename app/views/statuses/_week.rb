@@ -24,7 +24,7 @@ module Statuses
           end
           tr(:class => 'days') do
             th('')
-            days.each { |day| th(l(day, :format => :short_with_day_name)) }
+            @days.each { |day| th(l(day, :format => :short_with_day_name)) }
           end
         end
       end

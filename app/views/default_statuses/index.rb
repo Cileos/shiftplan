@@ -9,7 +9,7 @@ module DefaultStatuses
           tr do
             th
             th
-            days_of_week.each { |day_of_week| th(t(:'date.day_names')[day_of_week]) }
+            days_of_week.each { |day_of_week| th(t(:'date.day_names')[day_of_week.to_i]) }
           end
         end
       end

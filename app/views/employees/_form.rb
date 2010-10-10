@@ -51,7 +51,7 @@ module Employees
       end
 
       def object
-        @object ||= Employee.new
+        @object ||= ::Employee.new
       end
   end
 end
