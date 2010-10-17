@@ -7,6 +7,7 @@ require 'rspec'
 require 'rspec/rails'
 require 'fileutils'
 
+Steam.config[:java_load_params] = ['-Xmx1024M']
 Steam.config[:html_unit][:java_path] = File.expand_path('../../../vendor/htmlunit-2.6', __FILE__)
 
 # hack - why do we need this?
@@ -27,13 +28,29 @@ end
 # TODO: backport to steam
 Steam::Browser::HtmlUnit::Page.class_eval do
   def body
+    # why?
     if @page.getWebResponse.getContentType == 'text/html'
       @page.asXml
     else
-      @page.getContent
+      # is this what we expect?
+      @page._classname == 'com.gargoylesoftware.htmlunit.UnexpectedPage' ?
+        @page.getInputStream.toString :
+        @page.getContent
     end
   end
 end
+
+# fixes deprecation warning
+# Steam::Session::Rails.class_eval do
+#   def initialize(browser = nil)
+#     super
+# 
+#     # install the named routes in this session instance.
+#     klass = class << self; self; end
+#     Rails.application.routes.install_helpers(klass)
+#     klass.module_eval { public *Routing::Routes.named_routes.helpers }
+#   end
+# end
 
 browser = Steam::Browser.create
 browser.set_handler(:confirm) { |page, message| true } # always simulates the ok button
