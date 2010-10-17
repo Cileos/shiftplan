@@ -7,6 +7,13 @@ require 'rspec'
 require 'rspec/rails'
 require 'fileutils'
 
+# put at least these in your /etc/hosts to make things work:
+# development
+# 0.0.0.0 cileos.shiftplan.local
+# cucumber
+# 0.0.0.0 the-account.shiftplan.local
+Steam.config[:request_url] = 'http://shiftplan.local'
+Steam.config[:server_name] = 'shiftplan.local'
 Steam.config[:java_load_params] = ['-Xmx1024M']
 Steam.config[:html_unit][:java_path] = File.expand_path('../../../vendor/htmlunit-2.6', __FILE__)
 

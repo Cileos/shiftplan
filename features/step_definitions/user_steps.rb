@@ -17,7 +17,7 @@ Given /^I am logged in for "([^\"]*)" with "([^\"]*)" and "([^\"]*)"$/ do |accou
   account = Account.find_by_name(account)
 
   # visit "/users/sign_in?account_name=#{account.subdomain}"
-  host! "#{account.subdomain}.shiftplan.local:3000"
+  host! "#{account.subdomain}.#{Steam.config[:server_name]}:#{Steam.config[:server_port]}"
   visit "/users/sign_in"
   fill_in 'Email', :with => email
   fill_in 'Password', :with => password
