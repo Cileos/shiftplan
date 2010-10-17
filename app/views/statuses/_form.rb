@@ -44,7 +44,8 @@ module Statuses
       end
 
       def employee_given?
-        @employee || respond_to?(:employee) || view.instance_variable_defined?(:@employee)
+        # is the last one really correct?
+        @employee || (respond_to?(:employee) && employee) || view.instance_variable_defined?(:@employee)
       end
 
       def object

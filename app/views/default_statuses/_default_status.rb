@@ -17,7 +17,7 @@ module DefaultStatuses
       def default_status_url
         default_status.new_record? ?
           new_default_status_path(:status => default_status.attributes.slice('start_time', 'end_time', 'status', 'day_of_week', 'employee_id')) :
-          edit_default_status_path(employee, default_status)
+          edit_default_status_path(default_status)
       end
   end
 end
