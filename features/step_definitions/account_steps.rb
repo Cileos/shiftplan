@@ -4,7 +4,7 @@ Given /^the following accounts:$/ do |accounts|
     attributes['users'] = attributes['users'].split(',').map do |email|
       User.find_by_email(email.strip)
     end
-    attributes['subdomain'] = "account-#{Time.current.to_i}"
+    attributes['subdomain'] ||= "account-#{Time.current.to_i}"
     Account.create!(attributes)
   end
 end

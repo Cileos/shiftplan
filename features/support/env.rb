@@ -40,17 +40,23 @@ Steam::Browser::HtmlUnit::Page.class_eval do
   end
 end
 
+Steam::Browser::HtmlUnit.class_eval do
+  def host!(host)
+    request.host = host
+  end
+end
+
 # fixes deprecation warning
-# Steam::Session::Rails.class_eval do
-#   def initialize(browser = nil)
-#     super
-# 
-#     # install the named routes in this session instance.
-#     klass = class << self; self; end
-#     Rails.application.routes.install_helpers(klass)
-#     klass.module_eval { public *Routing::Routes.named_routes.helpers }
-#   end
-# end
+Steam::Session::Rails.class_eval do
+  def initialize(browser = nil)
+    super
+
+    # install the named routes in this session instance.
+    klass = class << self; self; end
+    Rails.application.routes.install_helpers(klass)
+    klass.module_eval { public *Rails.application.routes.named_routes.helpers }
+  end
+end
 
 browser = Steam::Browser.create
 browser.set_handler(:confirm) { |page, message| true } # always simulates the ok button

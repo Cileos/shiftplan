@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 
   # GET /resource/sign_in
   def new
+    params[:user].delete(:subdomain) if params[:user] && params[:user].key?(:subdomain) # <= this is different from Devise's standard controller
     clean_up_passwords(build_resource)
     render_with_scope :new
   end

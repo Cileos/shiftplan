@@ -16,7 +16,9 @@ end
 Given /^I am logged in for "([^\"]*)" with "([^\"]*)" and "([^\"]*)"$/ do |account, email, password|
   account = Account.find_by_name(account)
 
-  visit "/users/sign_in?account_name=#{account.subdomain}"
+  # visit "/users/sign_in?account_name=#{account.subdomain}"
+  host! "#{account.subdomain}.shiftplan.local:3000"
+  visit "/users/sign_in"
   fill_in 'Email', :with => email
   fill_in 'Password', :with => password
   click_button 'Login'

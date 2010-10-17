@@ -1,4 +1,6 @@
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <%= f.hidden_field :subdomain, :value => request.subdomain %>
+
   <p><%= f.label :email %></p>
   <p><%= f.text_field :email %></p>
 
