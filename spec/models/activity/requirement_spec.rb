@@ -30,11 +30,11 @@ describe 'Requirement activities' do
   describe 'logging' do
     it 'logs a creation activity' do
       activity = Activity.first
-      activity.action.should    == 'update'
-      activity.object.should    == @shift
-      activity.user.should      == @user
-      activity.user_name.should == @user.name
-      activity.account.should   == @account
+      activity.action.should          == 'update'
+      activity.activity_object.should == @shift
+      activity.user.should            == @user
+      activity.user_name.should       == @user.name
+      activity.account.should         == @account
       activity.aggregated_at.should be_nil
 
       activity.alterations.should == {
@@ -50,11 +50,11 @@ describe 'Requirement activities' do
       @requirement = Requirement.create(:shift => @shift)
 
       activity = Activity.first
-      activity.action.should    == 'update'
-      activity.object.should    == @shift
-      activity.user.should      == @user
-      activity.user_name.should == @user.name
-      activity.account.should   == @account
+      activity.action.should          == 'update'
+      activity.activity_object.should == @shift
+      activity.user.should            == @user
+      activity.user_name.should       == @user.name
+      activity.account.should         == @account
       activity.aggregated_at.should be_nil
 
       activity.alterations.should == {
@@ -70,11 +70,11 @@ describe 'Requirement activities' do
       @requirement.destroy
 
       activity = Activity.first
-      activity.action.should    == 'update'
-      activity.object.should    == @shift
-      activity.user.should      == @user
-      activity.user_name.should == @user.name
-      activity.account.should   == @account
+      activity.action.should          == 'update'
+      activity.activity_object.should == @shift
+      activity.user.should            == @user
+      activity.user_name.should       == @user.name
+      activity.account.should         == @account
       activity.aggregated_at.should be_nil
 
       activity.alterations.should == {

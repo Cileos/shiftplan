@@ -5,7 +5,7 @@ module ApplicationHelper
   # end
 
   def day_names
-    returning([]) do |day_names|
+    [].tap do |day_names|
       I18n.t(:'date.day_names').each_with_index { |d, i| day_names << [d, i] }
       day_names
     end

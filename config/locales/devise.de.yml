@@ -36,6 +36,9 @@ en:
       send_instructions: 'Sie erhalten in wenigen Minuten eine E-Mail mit Informationen, wie Sie Ihr Benutzerkonto entsperren können.'
       unlocked: 'Ihr Benutzerkonto wurde entsperrt. Sie sind jetzt angemeldet.'
     mailer:
-      confirmation_instructions: 'Informationen zur Bestätigung des Benutzerkontos'
-      reset_password_instructions: 'Informationen zum Zurücksetzen des Passworts'
-      unlock_instructions: 'Informationen zur Entsperrung des Benutzerkontos'
+      confirmation_instructions:
+        subject: 'Informationen zur Bestätigung des Benutzerkontos'
+      reset_password_instructions:
+        subject: 'Informationen zum Zurücksetzen des Passworts'
+      unlock_instructions:
+        subject: 'Informationen zur Entsperrung des Benutzerkontos'

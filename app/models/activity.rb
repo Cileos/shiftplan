@@ -3,7 +3,7 @@ class Activity < ActiveRecord::Base
 
   belongs_to :account
   belongs_to :user
-  belongs_to :object, :polymorphic => true
+  belongs_to :activity_object, :polymorphic => true
   serialize  :alterations
 
   scope :to_aggregate, lambda {
@@ -37,20 +37,20 @@ class Activity < ActiveRecord::Base
       Thread.current[:activity] = nil
     end
 
-    def log(action, object, account, user)
+    def log(action, activity_object, account, user)
       self.current = Activity.new(
-        :action      => action.to_s,
-        :object      => object, # FIXME can potentially run into endless loop
-        :alterations => object.send(:"log_#{action}").compact,
-        :account     => account,
-        :user        => user,
-        :user_name   => user && (user.name || user.email),
-        :started_at  => Time.zone.now
+        :action          => action.to_s,
+        :activity_object => activity_object, # FIXME can potentially run into endless loop
+        :alterations     => activity_object.send(:"log_#{action}").compact,
+        :account         => account,
+        :user            => user,
+        :user_name       => user && (user.name || user.email),
+        :started_at      => Time.zone.now
       )
     end
 
     def aggregate!
-      to_aggregate.group_by(&:object_key).each do |key, activities|
+      to_aggregate.group_by(&:activity_object_key).each do |key, activities|
         canceled?(activities) ? delete(activities) : merge(activities)
       end
     end
@@ -79,8 +79,8 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  def object_key
-    "#{object_type}_#{object_id}"
+  def activity_object_key
+    "#{activity_object_type}_#{activity_object_id}"
   end
 
   def created?

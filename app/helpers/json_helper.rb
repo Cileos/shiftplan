@@ -6,11 +6,11 @@ module JsonHelper
   def json_errors_for(object)
     return unless object.errors.present?
 
-    returning('') do |json|
+    ''.tap do |json|
       json << "'#{object.class.to_s.underscore}': { "
       object.errors.each do |type, errors|
         json << "'#{escape_javascript(type.to_s)}': ["
-        json << errors.map { |error| "'#{escape_javascript(error)}'" }.join(",\n")
+        json << Array(errors).map { |error| "'#{escape_javascript(error)}'" }.join(",\n")
         json << "],\n"
       end
       json << " }"

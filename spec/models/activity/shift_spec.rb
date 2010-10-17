@@ -35,11 +35,11 @@ describe 'Shift activities' do
       Activity.count.should == 1
 
       activity = Activity.first
-      activity.action.should    == 'create'
-      activity.object.should    == @shift
-      activity.user.should      == @user
-      activity.user_name.should == @user.name
-      activity.account.should   == @account
+      activity.action.should          == 'create'
+      activity.activity_object.should == @shift
+      activity.user.should            == @user
+      activity.user_name.should       == @user.name
+      activity.account.should         == @account
       activity.aggregated_at.should be_nil
 
       activity.alterations.should == {

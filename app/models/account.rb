@@ -1,7 +1,7 @@
 # FasterCSV would try to convert tokens starting with a number to Floats which
 # would raise a nasty warning, so we silence it
-FasterCSV::Converters[:silence] = lambda { |value| value }
-#CSV::Converters[:silence] = lambda { |value| value }
+# FasterCSV::Converters[:silence] = lambda { |value| value }
+# CSV::Converters[:silence] = lambda { |value| value }
 
 class Account < ActiveRecord::Base
   has_many :memberships

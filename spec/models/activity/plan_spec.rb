@@ -27,11 +27,11 @@ describe 'Plan activities' do
   describe 'logging' do
     it 'logs a creation activity' do
       activity = Activity.first
-      activity.action.should    == 'create'
-      activity.object.should    == @plan
-      activity.user.should      == @user
-      activity.user_name.should == @user.name
-      activity.account.should   == @account
+      activity.action.should          == 'create'
+      activity.activity_object.should == @plan
+      activity.user.should            == @user
+      activity.user_name.should       == @user.name
+      activity.account.should         == @account
       activity.aggregated_at.should be_nil
 
       activity.alterations[:to].should == {
