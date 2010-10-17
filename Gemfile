@@ -10,6 +10,7 @@ gem 'devise'
 gem 'sprockets'
 gem 'prawn'
 gem 'nokogiri'
+gem 'fastercsv'
 
 group :test do
 	gem 'mysql2'

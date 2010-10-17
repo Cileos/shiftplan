@@ -1,7 +1,7 @@
 module Plans
   class Plan < Minimal::Template
     def to_html
-      tr(plan, :class => resource_css_classes(plan), :'data-form-values' => plan.form_values_json) do
+      content_tag_for(:tr, plan, :class => resource_css_classes(plan), :'data-form-values' => plan.form_values_json) do
         td :class => :name do
           link_to(plan.name, plan_path(plan))
         end
