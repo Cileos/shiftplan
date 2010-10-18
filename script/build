@@ -16,10 +16,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/jre/lib/i386:${JAVA_HOME}/j
 echo $JAVA_HOME
 echo $LD_LIBRARY_PATH
 
-#test env vars
-env
-which bundle
-which rake
+#set env
+export PATH=$PATH:/opt/ruby/bin
+echo $PATH
 
 # get latest steam code, the version of locactor gem has to be checked manually
 # if steam gets more stable we could comment out the update step
