@@ -29,7 +29,7 @@ module Activities
     end
   
     def object_type
-      activity.object_type.underscore
+      activity.activity_object_type.underscore
     end
   
     def status
