@@ -10,6 +10,8 @@ sed -i.bak 's/unless/#unless/' config/initializers/sprockets.rb && rm config/ini
 # commit your work
 git add Gemfile
 git add config/initializers/sprockets.rb
+bundle check || env PATH=$PATH bundle install
+git add Gemfile.lock
 git commit -m "heroku setup"
 
 # deploy and reset

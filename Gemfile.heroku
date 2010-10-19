@@ -11,6 +11,7 @@ gem 'fastercsv'
 gem 'sprockets'
 gem 'prawn'
 gem 'nokogiri'
+gem 'database_cleaner', '>= 0.6.0.rc.3'
 
 #needed for heroku
 #use locally "bundle install --without production"
