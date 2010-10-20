@@ -40,6 +40,19 @@ namespace :deploy do
 
     confirm('This will deploy the master branch to production.')
 
+    puts "Deployment preparation…"
+    # as long as heroku doesn't respect bundler groups we need different Gemfile's
+    run "cp Gemfile.heroku Gemfile"
+    # unset sprocket caching as heroku has read-only file systen
+    run "sed -i.bak 's/unless/#unless/' config/initializers/sprockets.rb && rm config/initializers/sprockets.rb.bak"
+    # commit your work
+    run "git add Gemfile"
+    run "git add config/initializers/sprockets.rb"
+    # regenerate Gemfile.lock
+    run "bundle check || env PATH=$PATH bundle install"
+    run "git add Gemfile.lock"
+    run "git commit -m 'heroku setup'"
+    
     puts "Backing up…"
     Dir.chdir(File.join(File.dirname(__FILE__), *%w[.. .. backups])) do
       run "heroku bundles:destroy deploybackup --app #{PRODUCTION_APP}" if `heroku bundles --app #{PRODUCTION_APP}` =~ /deploybackup/
@@ -52,14 +65,18 @@ namespace :deploy do
       run "heroku bundles:download deploybackup --app #{PRODUCTION_APP}"
       run "mv #{PRODUCTION_APP}{,_#{iso_date}}.tar.gz"
     end
+    
+    puts "Reset to origin for pushing new tag…"
+    # reset after deploy your local changes
+    run "git reset --hard origin/master"
 
     puts "Pushing new tag…"
     tag_name = "heroku-#{iso_date}"
     puts "Tagging as #{tag_name}…"
     run "git tag #{tag_name} master"
     run "git push origin #{tag_name}"
-    
-    puts "Deployment preparation…"
+
+    puts "Prepare again…"
     # as long as heroku doesn't respect bundler groups we need different Gemfile's
     run "cp Gemfile.heroku Gemfile"
     # unset sprocket caching as heroku has read-only file systen
@@ -74,7 +91,7 @@ namespace :deploy do
     
     # run the deployment
     puts "Deploying…"
-    run "git push git@heroku.com:#{PRODUCTION_APP}.git #{tag_name}:master"
+    run "git push git@heroku.com:#{PRODUCTION_APP}.git HEAD:master"
 
     puts "Migrating…"
     run "heroku rake db:migrate --app #{PRODUCTION_APP}"
