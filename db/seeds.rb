@@ -1,7 +1,10 @@
 # encoding: utf-8 
-# truncate all tables
-require 'database_cleaner'
-DatabaseCleaner.clean_with(:truncation)
+# truncate all tables for test and development
+# on demo production we use heroku commands to clean db
+if Rails.env != 'production'
+  require 'database_cleaner'
+  DatabaseCleaner.clean_with(:truncation)
+end
 
 Shiftplan::Application.routes.draw do |map|
   devise_for :users
