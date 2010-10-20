@@ -11,10 +11,8 @@ gem 'fastercsv'
 gem 'sprockets'
 gem 'prawn'
 gem 'nokogiri'
+gem 'heroku'
 
 #needed for heroku
-#use locally "bundle install --without production"
-group :production do
-	gem 'pg'
-	gem 'thin'
-end
+gem 'pg'
+gem 'thin'
