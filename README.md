@@ -4,10 +4,6 @@ _Dieses Readme soll für alle als Nachschlagwerk für die Arbeit am Projekt dien
 
 ###Setup local dev env
 
-Beim Setup der lokalen Entwicklungsumgebung sollte dem "bundle install" ein "env ARCH_FLAGS='-arch x86_64'" vorangestellt werden, wenn auf Mac OS X 10.6 entwickelt wird.
-
-    env ARCH_FLAGS='-arch x86_64' bundle install
-
 Die minimale Mysql-Version ist 5.1. SQLite3 sollte nicht eingesetzt werden, da es hier ein paar Probleme mit Datentypen gibt (die Tests laufen jedenfalls nicht durch). PostgreSQL und Oracle laufen in jeder Version.
 
 ###Setup local test env
