@@ -15,12 +15,9 @@ namespace :deploy do
   desc "Deploy to staging"
   task :staging do
     confirm('This will deploy your current HEAD to staging.')
-    # as long as heroku doesn't respect bundler groups we need different Gemfile's
-    #run "cp Gemfile.heroku Gemfile"
     # unset sprocket caching as heroku has read-only file systen
     run "sed -i.bak 's/unless/#unless/' config/initializers/sprockets.rb && rm config/initializers/sprockets.rb.bak"
     # commit your work
-    #run "git add Gemfile"
     run "git add config/initializers/sprockets.rb"
     # regenerate Gemfile.lock
     run "bundle check || env PATH=$PATH bundle install --without test"
@@ -41,12 +38,9 @@ namespace :deploy do
     confirm('This will deploy the master branch to production.')
 
     puts "Deployment preparation…"
-    # as long as heroku doesn't respect bundler groups we need different Gemfile's
-    #run "cp Gemfile.heroku Gemfile"
     # unset sprocket caching as heroku has read-only file systen
     run "sed -i.bak 's/unless/#unless/' config/initializers/sprockets.rb && rm config/initializers/sprockets.rb.bak"
     # commit your work
-    #run "git add Gemfile"
     run "git add config/initializers/sprockets.rb"
     # regenerate Gemfile.lock
     run "bundle check || env PATH=$PATH bundle install --without test"
@@ -77,12 +71,9 @@ namespace :deploy do
     run "git push origin #{tag_name}"
 
     puts "Prepare again…"
-    # as long as heroku doesn't respect bundler groups we need different Gemfile's
-    #run "cp Gemfile.heroku Gemfile"
     # unset sprocket caching as heroku has read-only file systen
     run "sed -i.bak 's/unless/#unless/' config/initializers/sprockets.rb && rm config/initializers/sprockets.rb.bak"
     # commit your work
-    #run "git add Gemfile"
     run "git add config/initializers/sprockets.rb"
     # regenerate Gemfile.lock
     run "bundle check || env PATH=$PATH bundle install --without test"
