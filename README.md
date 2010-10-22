@@ -41,6 +41,9 @@ Derzeit hosten wir staging und production bei Heroku. Die Apps heißen shiftplan
 
 durchgeführt werden. Es wird derzeit immer master deployed (dies muss nach Festlegung des Git-Workflows ggf. angepasst werden).
 
+Folgende config var sollte auf alle Fälle vor dem ersten deployment für heroku gesetzt sein:
+    heroku config:add BUNDLE_WITHOUT="development test"
+
 Wenn man im Zusammenhang mit Heroku die Kommandos "db:pull" oder "db:push" verwenden will muss man das Gem "taps" zuvor installiert haben.
 
 ####Heroku staging (shiftplandemo.[com|de])
