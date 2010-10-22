@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     // FIXME: this all *really* sucks
     var successHandler = function(data, textStatus) {
-	    $(resource).remove();
+      $(resource).remove();
       data = eval("(" + data + ")");
       if(data['flash']) {
         $.each(data['flash'], function(type, message) {
@@ -26,17 +26,17 @@ $(document).ready(function() {
       }
     };
     var ajaxOptions = {
-		  'type':     'post', // seems like HTMLUnit doesn't allow DELETE requests to have parameters ...
-		  'data':     '_method=delete',
-		  'dataType': 'text',
-		  'success':   successHandler
+      'type':     'post', // seems like HTMLUnit doesn't allow DELETE requests to have parameters ...
+      'data':     '_method=delete',
+      'dataType': 'text',
+      'success':   successHandler
     }
     switch(resource_name) {
       case 'plan':
-    	  $.ajax($.extend(ajaxOptions, { 'url': '/plans/' + match[2] }));
+        $.ajax($.extend(ajaxOptions, { 'url': '/plans/' + match[2] }));
         break;
       case 'status':
-    	  $.ajax($.extend(ajaxOptions, { 'url': '/statuses/' + match[2] }));
+        $.ajax($.extend(ajaxOptions, { 'url': '/statuses/' + match[2] }));
         break;
       default:
         $(resource)[resource_name]().destroy();

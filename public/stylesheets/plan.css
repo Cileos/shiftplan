@@ -17,13 +17,13 @@ form #copy_from_options label {
 }
 #plan h2 {
   clear: left;
-	margin-top: 1.5em;
+  margin-top: 1.5em;
   font-size: 13px;
-	font-weight: normal;
-	color: #bbb;
+  font-weight: normal;
+  color: #bbb;
 }
 #plan .day:first-child h2 {
-	margin-top: 0;
+  margin-top: 0;
 }
 #plan .hours {
   height: 1em;
@@ -36,12 +36,12 @@ form #copy_from_options label {
   color: #ccc;
 }
 #plan .day {
-	margin-top: 0.5em;
-	border-style: solid;
-	border-color: #aaa;
-	border-width: 1px 0;
-	background-image: url(/images/plan_scale.png);
-	min-height: 36px;
+  margin-top: 0.5em;
+  border-style: solid;
+  border-color: #aaa;
+  border-width: 1px 0;
+  background-image: url(/images/plan_scale.png);
+  min-height: 36px;
 }
 #plan .workplace {
   position: relative;
@@ -53,7 +53,7 @@ form #copy_from_options label {
 }
 #plan .shift {
   position: absolute;
-	top: 0;
+  top: 0;
   min-height: 36px;
   border: 1px solid #aaa;
 }
@@ -65,65 +65,65 @@ form #copy_from_options label {
   z-index: 1000;
 }
 #plan .requirements li {
-	float: left;
-	margin: 4px 0 0 4px;
+  float: left;
+  margin: 4px 0 0 4px;
 }
 #plan .requirement {
-	float: left;
-	display: block;
-	width: 30px;
-	height: 26px;
-	border-style: solid;
-	border-bottom-width: 4px;
-	border-color: transparent;
-	background-image: url(http://github.com/images/gravatars/gravatar-30.png);
+  float: left;
+  display: block;
+  width: 30px;
+  height: 26px;
+  border-style: solid;
+  border-bottom-width: 4px;
+  border-color: transparent;
+  background-image: url(http://github.com/images/gravatars/gravatar-30.png);
 }
 #plan .assignment {
-	display: block;
-	height: 26px;
-	width: 30px;
-	text-indent: 30px;
-	overflow: hidden;
-	z-index: 999;
+  display: block;
+  height: 26px;
+  width: 30px;
+  text-indent: 30px;
+  overflow: hidden;
+  z-index: 999;
 }
 #plan .actions {
   float: right;
-	margin: 10px 10px 0 0;
+  margin: 10px 10px 0 0;
 }
 #plan h3 {
-	float: right;
-	margin: 1em 0.6em 0 0;
-	font-size: 0.85em;
-	color: #666;
+  float: right;
+  margin: 1em 0.6em 0 0;
+  font-size: 0.85em;
+  color: #666;
 }
 #cursor {
-	position: absolute;
-	cursor: pointer;
-	display: hidden;
-	height: 32px;
-	width: 32px;
+  position: absolute;
+  cursor: pointer;
+  display: hidden;
+  height: 32px;
+  width: 32px;
 }
 .poof {
-	background: transparent url(/images/poof.png) no-repeat 0 0;
+  background: transparent url(/images/poof.png) no-repeat 0 0;
 }
 #plan .shifts .removing * {
   display: none;
 }
 #plan .shifts .resize_handle {
-	position: absolute;
-	display: block;
-	top: 0;
-	height: 100%;
-	width: 10px;
-	cursor: col-resize;
+  position: absolute;
+  display: block;
+  top: 0;
+  height: 100%;
+  width: 10px;
+  cursor: col-resize;
 }
 #plan .shifts .resize_handle.left {
-	left: 0;
-	cursor: w-resize;
+  left: 0;
+  cursor: w-resize;
 }
 #plan .shifts .resize_handle.right {
-	right: 0;
-	cursor: e-resize;
+  right: 0;
+  cursor: e-resize;
 }
 #plan .shift.unavailable,
 #plan .shift.unqualified {

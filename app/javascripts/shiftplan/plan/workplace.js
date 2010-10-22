@@ -1,10 +1,10 @@
 (function() {
   Workplace = function(element) {
-  	Resource.call(this, Workplace, element);
+    Resource.call(this, Workplace, element);
   };
 
   $.extend(Workplace, Resource, {
-  	selector: ".workplace",
+    selector: ".workplace",
   });
 
   Workplace.prototype = $.extend(new Resource, {
@@ -17,15 +17,15 @@
     init: function() {
       this.element.prepend('<div></div>')    
     },
-  	bind_events: function() {
-  		$('div', this.element).draggable({
-  			helper: 'clone',
-  			// start: function() { alert('DRAGGING!') }
-  		});
-  	},
-  	name: function() {
-  		return this.element[0].innerHTML.replace(/<\/?[^>]+>/gi, '');
-  	},
+    bind_events: function() {
+      $('div', this.element).draggable({
+        helper: 'clone',
+        // start: function() { alert('DRAGGING!') }
+      });
+    },
+    name: function() {
+      return this.element[0].innerHTML.replace(/<\/?[^>]+>/gi, '');
+    },
   });
   
   Resource.types.push(Workplace);
