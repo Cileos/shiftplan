@@ -1,22 +1,22 @@
 (function() {
   Shifts = function(element) {
-  	Resource.call(this, Shifts, element);
+    Resource.call(this, Shifts, element);
   };
 
   $.extend(Shifts, Resource, {
-  	selector: '.shifts',
-  	on_drop: function(event, ui) {
-  	  // document.title = 'DROPPED ONTO: ' + $(this).closest('.day').outerHTML();
-  		switch(true) {
-  			case ui.draggable.parent().hasClass('workplace'):
-  				Shifts.on_workplace_drop.call(this, event, ui);
-  				break;
-  			default:
-  				Plan.on_element_remove(event, ui);
-  				break;
-  		}
-  	},
-  	on_workplace_drop: function(event, ui) {
+    selector: '.shifts',
+    on_drop: function(event, ui) {
+      // document.title = 'DROPPED ONTO: ' + $(this).closest('.day').outerHTML();
+      switch(true) {
+        case ui.draggable.parent().hasClass('workplace'):
+          Shifts.on_workplace_drop.call(this, event, ui);
+          break;
+        default:
+          Plan.on_element_remove(event, ui);
+          break;
+      }
+    },
+    on_workplace_drop: function(event, ui) {
       var day = $(this).day();
       var workplace = ui.draggable.workplace();
       var shifts = day.find_shifts(workplace) || day.append_shifts(workplace);
@@ -33,7 +33,7 @@
       var shift = shifts.append_shift(workplace, left, width);
       shift.save();
       shifts.adjust_shift_positions();
-  	}
+    }
   });
 
   Shifts.prototype = $.extend(new Resource, {
@@ -46,20 +46,20 @@
     empty: function() {
       return $('.shift', this.element).length == 0;
     },
-  	append_shift: function(workplace, left, width) {
-  		var shift = Shift.build(workplace);
-  		// shifts.expand_animated(width);
-  		shift.element.css({ position: 'absolute' }); // draggable adds position: relative
-  		shift.left(left);
-  		shift.width(width);
-  		shift.update_data_from_dimension();
-  		this.element.append(shift.element);
-  		
-  		// with jquery >= 1.4 this has to happen after appending the element to the dom
-  		shift.bind_events();
-  		$('.requirement', shift.element).each(function() { $(this).requirement().bind_events(); })
+    append_shift: function(workplace, left, width) {
+      var shift = Shift.build(workplace);
+      // shifts.expand_animated(width);
+      shift.element.css({ position: 'absolute' }); // draggable adds position: relative
+      shift.left(left);
+      shift.width(width);
+      shift.update_data_from_dimension();
+      this.element.append(shift.element);
+      
+      // with jquery >= 1.4 this has to happen after appending the element to the dom
+      shift.bind_events();
+      $('.requirement', shift.element).each(function() { $(this).requirement().bind_events(); })
       return shift;
-  	},
+    },
     adjust_shift_positions: function() {
       var last = null;
       $('.shift', this.element).each(function() {

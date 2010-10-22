@@ -1,25 +1,25 @@
 (function() {
   Day = function(element) {
-  	Resource.call(this, Day, element);
+    Resource.call(this, Day, element);
   };
 
   $.extend(Day, Resource, {
-  	selector: '.plan .day',
-  	on_drop: function(event, ui) {
-  	  // document.title = 'DROPPED ONTO: ' + $(this).closest('.day').outerHTML();
-  		switch(true) {
-  			case ui.draggable.parent().hasClass('workplace'):
-  				Day.on_workplace_drop.call(this, event, ui);
-  				break;
-  			default:
-  				Plan.on_element_remove(event, ui);
-  				break;
-  		}
-  	},
-  	on_workplace_drop: function(event, ui) {
+    selector: '.plan .day',
+    on_drop: function(event, ui) {
+      // document.title = 'DROPPED ONTO: ' + $(this).closest('.day').outerHTML();
+      switch(true) {
+        case ui.draggable.parent().hasClass('workplace'):
+          Day.on_workplace_drop.call(this, event, ui);
+          break;
+        default:
+          Plan.on_element_remove(event, ui);
+          break;
+      }
+    },
+    on_workplace_drop: function(event, ui) {
       // drops a workplace onto an empty day
       Shifts.on_workplace_drop.call(this, event, ui);
-  	}
+    }
   });
 
   Day.prototype = $.extend(new Resource, {
@@ -35,13 +35,13 @@
       this.element.append(shifts);
       return shifts.shifts();
     },
-  	append_shift: function(day, left, width) {
-  		shift.element.css({ left: left });
-  		// shift.expand_animated(width);
-  		shift.width(width);
-  		shift.update_data_from_dimension();
-  		this.element.append(shift.element);
-  	},
+    append_shift: function(day, left, width) {
+      shift.element.css({ left: left });
+      // shift.expand_animated(width);
+      shift.width(width);
+      shift.update_data_from_dimension();
+      this.element.append(shift.element);
+    },
     bind_events: function() {
       this.element.droppable({
        accept: "#workplaces a div, #plan .requirement, #plan .assignment",
