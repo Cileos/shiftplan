@@ -167,6 +167,8 @@ de:
   plan_successfully_deleted: "Schichtplan erfolgreich gelöscht."
   plan_delete_confirmation: "Wollen Sie diesen Schichtplan wirklich löschen?"
   plan_export_as_pdf: "Plan als PDF exportieren"
+  nobody: "(niemand)"
+  no_shifts_for_this_day: "Keine Schichten für diesen Tag eintragen."
 
   # shifts
   shift_successfully_created: "Schicht erfolgreich angelegt."
@@ -197,6 +199,7 @@ de:
   # login
   successfully_logged_in: "Erfolgreich eingeloggt."
   could_not_log_in: "Login fehlgeschlagen. Bitte versuchen Sie es erneut und prüfen Sie, dass Sie Ihr Benutzerkonto aktiviert haben!"
+  no_auth_for_account: "Sie haben auf diesen Account keinen Zugriff!"
 
   edit: Bearbeiten
   show: Details

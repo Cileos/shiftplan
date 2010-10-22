@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
           # it's better in line with the HTTP spec: 403 should be raised when authentication won't make
           # a difference (this error here happens when a logged-in user tries to access an account they
           # don't have access to)
-          render :text => "You don't have authorization to access this account!", :status => :forbidden
+          render :text => t(:no_auth_for_account), :status => :forbidden
         end
       end
     end

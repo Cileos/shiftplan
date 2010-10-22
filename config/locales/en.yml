@@ -167,7 +167,8 @@ en:
   plan_successfully_deleted: "Plan successfully deleted."
   plan_delete_confirmation: "Do you really want to delete this plan?"
   plan_export_as_pdf: "Export plan as PDF"
-  
+  nobody: "(nobody)"
+  no_shifts_for_this_day: "There are no shifts for this day."
 
   # shifts
   shift_successfully_created: "Shift successfully created."
@@ -198,6 +199,7 @@ en:
   # login
   successfully_logged_in: "Successfully logged in."
   could_not_log_in: "Could not log in. Please try again and check that you have activated your account!"
+  no_auth_for_account: "You don't have authorization to access this account!"
 
   edit: Edit
   show: Show
