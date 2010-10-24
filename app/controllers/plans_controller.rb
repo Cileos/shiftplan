@@ -102,7 +102,8 @@ class PlansController < ApplicationController
 
     # TODO: refactor, test
     def generate_pdf(plan)
-      Prawn::Document.generate("plan_#{plan.id}.pdf", :page_size => 'A4') do |pdf|
+#      Prawn::Document.generate("plan_#{plan.id}.pdf", :page_size => 'A4') do |pdf|
+      prawnto :filename => "plan_#{plan.id}.pdf", :prawn => {:page_size => 'A4'} do |pdf|
         pdf.text "Plan: #{plan.name}", :size => 18
         pdf.text t(:plan_from_to, :start_date => l(plan.start_date), :end_date => l(plan.end_date))
 
