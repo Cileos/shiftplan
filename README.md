@@ -6,6 +6,8 @@ _Dieses Readme soll für alle als Nachschlagwerk für die Arbeit am Projekt dien
 
 Die minimale Mysql-Version ist 5.1. SQLite3 sollte nicht eingesetzt werden, da es hier ein paar Probleme mit Datentypen gibt (die Tests laufen jedenfalls nicht durch). PostgreSQL und Oracle laufen in jeder Version.
 
+Für die lokale database.yml als Adapter mysql2 angeben (siehe config/database.yml.example).
+
 ###Setup local test env
 
 Für das lokale Testen gibt es ein Skript im script Verzeichnis mit dem Namen localbuild. Dieses startet den Test-Server, führt die Features und Specs aus und beendet den Server auch wieder.
@@ -13,7 +15,7 @@ Für das lokale Testen gibt es ein Skript im script Verzeichnis mit dem Namen lo
     ./script/localbuild
 
 Der Browser-Test basiert auf httpunit. Dafür sind folgende Sachen notwendig:
-1. RJB
+1. RJB (=1.2.9; v1.3.0 läuft im Test nicht -> FIXME; wenn "bundle install" v1.3.0 installiert, das lokale Gemfile.lock auf origin/master resetten und erneut "bundle install" laufen lassen)
 2. httpunit
 
 Für RJB muss vor dem Installieren des Gems das Java Home und "LD_LIBRARY_PATH" gesetzt sein. Beispiel:

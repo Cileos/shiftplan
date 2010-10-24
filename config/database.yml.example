@@ -1,7 +1,7 @@
 mysql: &MYSQL
-  adapter: mysql
+  adapter: mysql2
   host: localhost
-  user: root
+  user: <lokal_db_user>
   password:
 
 development:
@@ -21,4 +21,4 @@ cucumber_ci:
 
 production:
   <<: *MYSQL
-  database: shiftplan_development
+  database: shiftplan_production
