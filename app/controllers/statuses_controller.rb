@@ -59,7 +59,7 @@ class StatusesController < ApplicationController
     end
 
     def set_employees
-      @employees = Employee.all
+      @employees = current_account.employees
     end
 
     def set_employee
