@@ -28,7 +28,7 @@ module Plans
             check_box f, :template
           end
 
-          f.submit t(:save)
+          f.submit t(:save, :disable_with => t(:wait))
         end
       end
     end

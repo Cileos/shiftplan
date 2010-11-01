@@ -25,8 +25,11 @@ de:
     manage_workplaces: Arbeitsplätze verwalten
     manage_qualifications: Qualifikationen verwalten
 
+  login: Login
   new: Neu
   save: Speichern
+  create: Anlegen
+  wait: "Bitte warten ..."
   options: Optionen
   picture_powered_by: "Bild bereitgestellt von %{link}"
   copy_from: "Kopieren"
