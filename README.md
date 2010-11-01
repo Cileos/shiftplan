@@ -15,9 +15,11 @@ Für das lokale Testen gibt es ein Skript im script Verzeichnis mit dem Namen lo
     ./script/localbuild
 
 Der Browser-Test basiert auf httpunit. Dafür sind folgende Sachen notwendig:
-1. RJB (=1.2.9; v1.3.0 läuft im Test nicht -> FIXME; wenn "bundle install" v1.3.0 installiert, das lokale Gemfile.lock auf origin/master resetten und erneut "bundle install" laufen lassen)
+
+1. RJB
 
 Für RJB muss vor dem Installieren des Gems beachtet werden:
+    
     MACOSX:
     zunächst installierte Java-Version checken:
     java -version
@@ -36,7 +38,7 @@ Für RJB muss vor dem Installieren des Gems beachtet werden:
     - dann das Gemfile.lock checken; wenn da rjb mit Version 1.3.2 angegeben ist, alles klar, ansonsten ändern
     - ein bundle check/bundle install durchführen und alles sollte klar sein
     - setzen des JAVA_HOME: export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework
-    wenn die Javae Version kleiner ist (Apple Java Update 2 oder kleiner):
+    wenn die Java Version kleiner ist (Apple Java Update 2 oder kleiner):
     - setzen des JAVA_HOME: export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
     - dann das Gemfile.lock checken; wenn da rjb mit Version 1.2.9 angegeben ist, alles klar, ansonsten ändern
     - ein bundle check/bundle install durchführen und alles sollte klar sein
