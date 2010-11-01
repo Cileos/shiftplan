@@ -28,7 +28,7 @@ Für RJB muss vor dem Installieren des Gems beachtet werden:
     Java(TM) SE Runtime Environment (build 1.6.0_22-b04-307-10M3261)
     Java HotSpot(TM) 64-Bit Server VM (build 17.1-b03-307, mixed mode)
     dann hat man das Update 3 über die Systemaktualisierung installiert und muss folgendes machen:
-    - ein eventuell gesetztes JAVA_HOME leeren
+    - ein eventuell gesetztes JAVA_HOME leeren (wobei das auf zwei Maschinen unterschiedlich funktionierte: auf der einen Seite musste das JAVA_HOME leer sein und auf der anderen musste es gesetzt sein; insofern ausprobieren; ich habe es auf meinem Rechner so gemacht, dass ich in der .zshrc das JAVA_HOME auf den Wert "/System/Library/Frameworks/JavaVM.framework" setze, vor dem "bundle install" es leere: "export JAVA_HOME=''" und wenn dann "bundle install" bei der Installation von rjb das JAVA_HOME anmahnt, mach ich ein "source ~/.zshrc"; danach ist es auf dem zweiten Rechner gelaufen)
     - folgenden Artikel beachten:
     http://rubyforge.org/forum/forum.php?forum_id=38127
     "Java update 3 for Snow Leopard removes necessary header files. So installing rjb gem may fail on OS X.
