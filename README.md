@@ -25,21 +25,22 @@ Für RJB muss vor dem Installieren des Gems beachtet werden:
     java version "1.6.0_22"
     Java(TM) SE Runtime Environment (build 1.6.0_22-b04-307-10M3261)
     Java HotSpot(TM) 64-Bit Server VM (build 17.1-b03-307, mixed mode)
-	dann hat man das Update 3 über die Systemaktualisierung installiert und muss folgendes machen:
-	- ein eventuell gesetztes JAVA_HOME leeren
-	- folgenden Artikel beachten:
-	http://rubyforge.org/forum/forum.php?forum_id=38127
-	"Java update 3 for Snow Leopard removes necessary header files. So installing rjb gem may fail on OS X.
-	The solution is to install Java for Mac OS X 10.6 Update 3 Developer Package from http://connect.apple.com before gem install.
-	Or if you use original bundled ruby, install rjb-1.3.1-universal-darwin-10.gem from rubygem.org. Because 1.3.1 and 1.3.2 are 
-	identical except for compile environment checking."
-	- dann das Gemfile.lock checken; wenn da rjb mit Version 1.3.2 angegeben ist, alles klar, ansonsten ändern
-	- ein bundle check/bundle install durchführen und alles sollte klar sein
-	wenn die Javae Version kleiner ist (Apple Java Update 2 oder kleiner):
-	- setzen des JAVA_HOME
-	export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
-	- dann das Gemfile.lock checken; wenn da rjb mit Version 1.2.9 angegeben ist, alles klar, ansonsten ändern
-	- ein bundle check/bundle install durchführen und alles sollte klar sein
+    dann hat man das Update 3 über die Systemaktualisierung installiert und muss folgendes machen:
+    - ein eventuell gesetztes JAVA_HOME leeren
+    - folgenden Artikel beachten:
+    http://rubyforge.org/forum/forum.php?forum_id=38127
+    "Java update 3 for Snow Leopard removes necessary header files. So installing rjb gem may fail on OS X.
+    The solution is to install Java for Mac OS X 10.6 Update 3 Developer Package from http://connect.apple.com before gem install.
+    Or if you use original bundled ruby, install rjb-1.3.1-universal-darwin-10.gem from rubygem.org. Because 1.3.1 and 1.3.2 are 
+    identical except for compile environment checking."
+    - dann das Gemfile.lock checken; wenn da rjb mit Version 1.3.2 angegeben ist, alles klar, ansonsten ändern
+    - ein bundle check/bundle install durchführen und alles sollte klar sein
+    - setzen des JAVA_HOME: export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework
+    wenn die Javae Version kleiner ist (Apple Java Update 2 oder kleiner):
+    - setzen des JAVA_HOME: export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
+    - dann das Gemfile.lock checken; wenn da rjb mit Version 1.2.9 angegeben ist, alles klar, ansonsten ändern
+    - ein bundle check/bundle install durchführen und alles sollte klar sein
+    
     LINUX:
     export JAVA_HOME=/usr/lib/jvm/java-1.5.0-sun
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/jre/lib/i386:${JAVA_HOME}/jre/lib/i386/client
