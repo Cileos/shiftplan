@@ -47,7 +47,7 @@ class ShiftsController < ApplicationController
   protected
 
     def set_plan
-      @plan = Plan.find(params[:plan_id])
+      @plan = current_account.plans.find(params[:plan_id])
     end
 
     def set_shift
