@@ -19,7 +19,7 @@ Der Browser-Test basiert auf httpunit. Dafür sind folgende Sachen notwendig:
 1. RJB
 
 Für RJB muss vor dem Installieren des Gems beachtet werden:
-    
+
     MACOSX:
     zunächst installierte Java-Version checken:
     java -version
@@ -33,7 +33,7 @@ Für RJB muss vor dem Installieren des Gems beachtet werden:
     http://rubyforge.org/forum/forum.php?forum_id=38127
     "Java update 3 for Snow Leopard removes necessary header files. So installing rjb gem may fail on OS X.
     The solution is to install Java for Mac OS X 10.6 Update 3 Developer Package from http://connect.apple.com before gem install.
-    Or if you use original bundled ruby, install rjb-1.3.1-universal-darwin-10.gem from rubygem.org. Because 1.3.1 and 1.3.2 are 
+    Or if you use original bundled ruby, install rjb-1.3.1-universal-darwin-10.gem from rubygem.org. Because 1.3.1 and 1.3.2 are
     identical except for compile environment checking."
     - dann das Gemfile.lock checken; wenn da rjb mit Version 1.3.2 angegeben ist, alles klar, ansonsten ändern
     - ein bundle check/bundle install durchführen und alles sollte klar sein
@@ -42,10 +42,18 @@ Für RJB muss vor dem Installieren des Gems beachtet werden:
     - setzen des JAVA_HOME: export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
     - dann das Gemfile.lock checken; wenn da rjb mit Version 1.2.9 angegeben ist, alles klar, ansonsten ändern
     - ein bundle check/bundle install durchführen und alles sollte klar sein
-    
+
     LINUX:
     export JAVA_HOME=/usr/lib/jvm/java-1.5.0-sun
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/jre/lib/i386:${JAVA_HOME}/jre/lib/i386/client
+
+1.1. RJB mit RVM ([BUG] cross-thread violation on rb_gc())
+
+RJB installiert ein bereits kompiliertes Gem, was sich immer auf's System-Ruby bezieht, anstatt nach dem aktuell installierten Ruby zu fragen. Problem ist wie folgt zu lösen:
+  - `bundle install`
+  - `gem install rjb --platform ruby`
+  - `gem list rjb`, wenn 'universal-darwin' installiert, diese Version deinstallieren
+  - profit.
 
 2. httpunit
 
@@ -63,9 +71,9 @@ Der CI Sever läuft derzeit auf einem Debian Lenny mit Ruby 1.8.7 (REE 2010.2 p2
 
 ###Deployment
 
-Derzeit hosten wir staging und production bei Heroku. Die Apps heißen shiftplandemo (staging) und shiftplanapp (production). Für das Deployment gibt es einen Rake-Task (lib/tasks/heroku.rake). Da Heroku ein paar Sonderlocken braucht und Bundler noch nicht 100%ig damit umgehen kann, werden während des Deployments lokal einige Änderungen am Repo vorgenommen, die nach Beendigung wieder zurückgesetzt werden. Insofern nach dem Deployment immer auf den Git-Status achten. Wenn master auf ein commit mit der Message "heroku setup" verweist, ist was schiefgelaufen und es sollte manuell ein 
+Derzeit hosten wir staging und production bei Heroku. Die Apps heißen shiftplandemo (staging) und shiftplanapp (production). Für das Deployment gibt es einen Rake-Task (lib/tasks/heroku.rake). Da Heroku ein paar Sonderlocken braucht und Bundler noch nicht 100%ig damit umgehen kann, werden während des Deployments lokal einige Änderungen am Repo vorgenommen, die nach Beendigung wieder zurückgesetzt werden. Insofern nach dem Deployment immer auf den Git-Status achten. Wenn master auf ein commit mit der Message "heroku setup" verweist, ist was schiefgelaufen und es sollte manuell ein
 
-    git reset --hard origin/master" 
+    git reset --hard origin/master"
 
 durchgeführt werden. Es wird derzeit immer master deployed (dies muss nach Festlegung des Git-Workflows ggf. angepasst werden).
 
@@ -95,7 +103,7 @@ Dieser Deployment-Task macht eine Backup der aktuellen Version auf Heroku, macht
 
 Nach dem Backup wird der lokale master mit einem tag versehen, das folgenden Aufbau hat: heroku-2010-10-20T124014. Das Tag wird nach origin gepushed und mit der Version zu Heroku deployed. Anschliessend werden die Migrations laufen gelassen.
 
-Sollte das Deployment schiefgegangen sein, kann man mit 
+Sollte das Deployment schiefgegangen sein, kann man mit
 
     heroku bundles:animate myappbaseline --app myapp
 
