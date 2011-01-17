@@ -6,6 +6,8 @@ _Dieses Readme soll für alle als Nachschlagwerk für die Arbeit am Projekt dien
 
 Die minimale Mysql-Version ist 5.1. SQLite3 sollte nicht eingesetzt werden, da es hier ein paar Probleme mit Datentypen gibt (die Tests laufen jedenfalls nicht durch). PostgreSQL und Oracle laufen in jeder Version.
 
+Für die lokale database.yml als Adapter mysql2 angeben (siehe config/database.yml.example).
+
 ###Setup local test env
 
 Für das lokale Testen gibt es ein Skript im script Verzeichnis mit dem Namen localbuild. Dieses startet den Test-Server, führt die Features und Specs aus und beendet den Server auch wieder.
@@ -13,13 +15,39 @@ Für das lokale Testen gibt es ein Skript im script Verzeichnis mit dem Namen lo
     ./script/localbuild
 
 Der Browser-Test basiert auf httpunit. Dafür sind folgende Sachen notwendig:
+
 1. RJB
-2. httpunit
 
-Für RJB muss vor dem Installieren des Gems das Java Home und "LD_LIBRARY_PATH" gesetzt sein. Beispiel:
-
+Für RJB muss vor dem Installieren des Gems beachtet werden:
+    
+    MACOSX:
+    zunächst installierte Java-Version checken:
+    java -version
+    wenn output:
+    java version "1.6.0_22"
+    Java(TM) SE Runtime Environment (build 1.6.0_22-b04-307-10M3261)
+    Java HotSpot(TM) 64-Bit Server VM (build 17.1-b03-307, mixed mode)
+    dann hat man das Update 3 über die Systemaktualisierung installiert und muss folgendes machen:
+    - ein eventuell gesetztes JAVA_HOME leeren (wobei das auf zwei Maschinen unterschiedlich funktionierte: auf der einen Seite musste das JAVA_HOME leer sein und auf der anderen musste es gesetzt sein; insofern ausprobieren; ich habe es auf meinem Rechner so gemacht, dass ich in der .zshrc das JAVA_HOME auf den Wert "/System/Library/Frameworks/JavaVM.framework" setze, vor dem "bundle install" es leere: "export JAVA_HOME=''" und wenn dann "bundle install" bei der Installation von rjb das JAVA_HOME anmahnt, mach ich ein "source ~/.zshrc"; danach ist es auf dem zweiten Rechner gelaufen)
+    - folgenden Artikel beachten:
+    http://rubyforge.org/forum/forum.php?forum_id=38127
+    "Java update 3 for Snow Leopard removes necessary header files. So installing rjb gem may fail on OS X.
+    The solution is to install Java for Mac OS X 10.6 Update 3 Developer Package from http://connect.apple.com before gem install.
+    Or if you use original bundled ruby, install rjb-1.3.1-universal-darwin-10.gem from rubygem.org. Because 1.3.1 and 1.3.2 are 
+    identical except for compile environment checking."
+    - dann das Gemfile.lock checken; wenn da rjb mit Version 1.3.2 angegeben ist, alles klar, ansonsten ändern
+    - ein bundle check/bundle install durchführen und alles sollte klar sein
+    - setzen des JAVA_HOME: export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework
+    wenn die Java Version kleiner ist (Apple Java Update 2 oder kleiner):
+    - setzen des JAVA_HOME: export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
+    - dann das Gemfile.lock checken; wenn da rjb mit Version 1.2.9 angegeben ist, alles klar, ansonsten ändern
+    - ein bundle check/bundle install durchführen und alles sollte klar sein
+    
+    LINUX:
     export JAVA_HOME=/usr/lib/jvm/java-1.5.0-sun
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/jre/lib/i386:${JAVA_HOME}/jre/lib/i386/client
+
+2. httpunit
 
 Bei httpunit wird derzeit Version 2.6 benötigt. Das Paket ist nicht im Repo, da zu groß. Also irgendwo ablegen und linken:
 
@@ -40,6 +68,9 @@ Derzeit hosten wir staging und production bei Heroku. Die Apps heißen shiftplan
     git reset --hard origin/master" 
 
 durchgeführt werden. Es wird derzeit immer master deployed (dies muss nach Festlegung des Git-Workflows ggf. angepasst werden).
+
+Folgende config var sollte auf alle Fälle vor dem ersten deployment für heroku gesetzt sein:
+    heroku config:add BUNDLE_WITHOUT="development test"
 
 Wenn man im Zusammenhang mit Heroku die Kommandos "db:pull" oder "db:push" verwenden will muss man das Gem "taps" zuvor installiert haben.
 

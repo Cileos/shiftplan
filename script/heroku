@@ -2,15 +2,15 @@
 # run as deploy script of shiftplan to heroku shiftplandemo app
 
 # as long as heroku doesn't respect bundler groups we need different Gemfile's
-cp Gemfile.heroku Gemfile
+#cp Gemfile.heroku Gemfile
 
 # unset sprocket caching as heroku has read-only file systen
 sed -i.bak 's/unless/#unless/' config/initializers/sprockets.rb && rm config/initializers/sprockets.rb.bak
 
 # commit your work
-git add Gemfile
+#git add Gemfile
 git add config/initializers/sprockets.rb
-bundle check || env PATH=$PATH bundle install
+bundle check || env PATH=$PATH bundle install --without test
 git add Gemfile.lock
 git commit -m "heroku setup"
 

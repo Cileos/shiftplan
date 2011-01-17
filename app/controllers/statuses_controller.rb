@@ -59,11 +59,11 @@ class StatusesController < ApplicationController
     end
 
     def set_employees
-      @employees = Employee.all
+      @employees = current_account.employees
     end
 
     def set_employee
-      @employee = Employee.find(params[:employee_id]) if params[:employee_id]
+      @employee = current_account.employees.find(params[:employee_id]) if params[:employee_id]
     end
 
     def set_statuses

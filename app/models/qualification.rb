@@ -8,6 +8,8 @@ class Qualification < ActiveRecord::Base
 
   before_create :generate_color
 
+  validates_presence_of :name
+
   default_scope order("name ASC")
 
   class << self

@@ -34,7 +34,7 @@ module Workplaces
             render(:partial => 'workplace_requirements_fields', :locals => { :workplace => object })
           end
 
-          f.submit(t(:save))
+          f.submit(t(:save), :disable_with => t(:wait))
         end
       end
     end

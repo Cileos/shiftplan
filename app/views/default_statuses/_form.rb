@@ -21,7 +21,7 @@ module DefaultStatuses
             end
           end
 
-          f.submit(t(:save))
+          f.submit(t(:save), :disable_with => t(:wait))
         end
       end
     end
