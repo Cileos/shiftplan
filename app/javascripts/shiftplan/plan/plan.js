@@ -14,22 +14,22 @@ Plan = {
     });
   },
   start: function() {
-    return parseInt($('#plan').attr("data-start"));
+    return parseInt($('#plan').attr("data-start"), 10);
   },
   duration: function() {
-    return parseInt($('#plan').attr("data-duration"));
+    return parseInt($('#plan').attr("data-duration"), 10);
   },
   end: function() {
     return this.start() + this.duration();
   },
   hours: function() {
-    return parseInt(this.duration() / 60);
+    return parseInt(this.duration() / 60, 10);
   },
   width: function() {
     return Plan.hours() * Plan.slots_per_hour * Plan.slot_width + 1;
   },
   minutes_per_slot: function() {
-    return parseInt(60 / Plan.slots_per_hour);
+    return parseInt(60 / Plan.slots_per_hour, 10);
   },
   pixels_per_hour: function() {
     return Plan.slot_width * Plan.slots_per_hour;
@@ -41,8 +41,8 @@ Plan = {
     ui.draggable.resource().remove();
   }
 };
-Plan.grid = [Plan.slot_width, 38],
+Plan.grid = [Plan.slot_width, 38];
 
-$(document).ready(function() {
+$(function() {
   if($('#plan').length > 0) Plan.init();
 });

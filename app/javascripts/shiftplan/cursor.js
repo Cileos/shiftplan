@@ -8,7 +8,7 @@ Cursor = {
   },
   hide: function() {
     $('#cursor').hide();
-  },  
+  },
   update_position: function(left, top) {
     $('#cursor').css({ left: left, top: top });
   },

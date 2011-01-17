@@ -231,7 +231,7 @@ $.extend($.fn, {
   }
 });
 
-$(document).ready(function() {
+$(function() {
   $.each(Resource.types, function() {
     var type = this;
     $.fn[this.class_name()] = function() { return this.resource(type); }
@@ -239,4 +239,4 @@ $(document).ready(function() {
   $.each(Resource.types, function() {
     this.init();
   });
-})
+});

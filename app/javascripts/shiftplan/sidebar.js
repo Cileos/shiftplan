@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
   $('#sidebar form').ajaxForm({
     dataType: 'text',
     // xhr put request should work with htmlunit, but they actually never get sent

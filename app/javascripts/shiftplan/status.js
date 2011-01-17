@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
   $('.status a.edit, .status a.add').live('click', function(event) {
     var status = $(this).closest('.resource');
     if(status.hasClass('default')) {
