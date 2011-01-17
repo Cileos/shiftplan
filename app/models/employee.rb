@@ -1,5 +1,7 @@
 class Employee < ActiveRecord::Base
+  include Gravtastic
   is_gravtastic
+
   acts_as_taggable
 
   belongs_to :account
