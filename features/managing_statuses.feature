@@ -4,74 +4,74 @@ Feature: Managing statuses
   As a shift manager
   I want to be able to manage my employees' statuses
 
-	Background:
+  Background:
     Given the following users:
-  	  | name             | email               | password |
-  	  | Fritz Thielemann | fritz@thielemann.de | oracle   |
-		And the following accounts:
-			| name        | subdomain   | users               |
-			| the account | the-account | fritz@thielemann.de |
-  	And the following employees for "the account":
-  		| name 							|
-  		| Fritz Thielemann  |
-  	And the following statuses:
-  	  | employee         | day        | start_time | end_time | status    |
-  	  | Fritz Thielemann | 2010-03-23 | 10:00      | 18:00    | Available |
-  	And the following default statuses:
-  	  | employee         | day of week | start_time | end_time | status    |
-  	  | Fritz Thielemann | Monday      | 8:00       | 16:00    | Available |
-  	And I am logged in for "the account" with "fritz@thielemann.de" and "oracle"
+      | name             | email               | password |
+      | Fritz Thielemann | fritz@thielemann.de | oracle   |
+    And the following accounts:
+      | name        | subdomain   | users               |
+      | the account | the-account | fritz@thielemann.de |
+    And the following employees for "the account":
+      | name              |
+      | Fritz Thielemann  |
+    And the following statuses:
+      | employee         | day        | start_time | end_time | status    |
+      | Fritz Thielemann | 2011-03-23 | 10:00      | 18:00    | Available |
+    And the following default statuses:
+      | employee         | day of week | start_time | end_time | status    |
+      | Fritz Thielemann | Monday      | 8:00       | 16:00    | Available |
+    And I am logged in for "the account" with "fritz@thielemann.de" and "oracle"
 
   Scenario: Adding an override availability entry
-    Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
-    When I select "24 March 2010" as the date
+    Given I am on the statuses index page for "Fritz Thielemann" for "March 2011"
+    When I select "24 March 2011" as the date
     And I select "10:00" as the "Start" time
     And I select "22:00" as the "End" time
     And I choose "Available"
     And I press "Save"
-    Then the employee "Fritz Thielemann" should be available on "24 March 2010" from "10:00" to "22:00"
+    Then the employee "Fritz Thielemann" should be available on "24 March 2011" from "10:00" to "22:00"
 
   Scenario: Adding an override unavailability entry
-    Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
-    When I select "24 March 2010" as the date
+    Given I am on the statuses index page for "Fritz Thielemann" for "March 2011"
+    When I select "24 March 2011" as the date
     And I select "10:00" as the "Start" time
     And I select "22:00" as the "End" time
     And I choose "Unavailable"
     And I press "Save"
-    Then the employee "Fritz Thielemann" should be unavailable on "24 March 2010" from "10:00" to "22:00"
+    Then the employee "Fritz Thielemann" should be unavailable on "24 March 2011" from "10:00" to "22:00"
 
   Scenario: Editing an override entry
-    Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
+    Given I am on the statuses index page for "Fritz Thielemann" for "March 2011"
     When I follow "10:00 - 18:00"
     And I choose "Unavailable"
     And I press "Save"
-    Then the employee "Fritz Thielemann" should be unavailable on "23 March 2010" from "10:00" to "18:00"
+    Then the employee "Fritz Thielemann" should be unavailable on "23 March 2011" from "10:00" to "18:00"
 
   Scenario: Deleting an existing override entry
-		Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
-		When I follow "Delete" within ".overrides"
-		Then the employee "Fritz Thielemann" should have no availability entries for "24 March 2010"
+    Given I am on the statuses index page for "Fritz Thielemann" for "March 2011"
+    When I follow "Delete" within ".overrides"
+    Then the employee "Fritz Thielemann" should have no availability entries for "24 March 2011"
     And I should see a flash confirmation
 
   Scenario: Adding an override availability entry in week view
-    Given I am on the statuses index page for week 12 of year 2010
+    Given I am on the statuses index page for week 12 of year 2011
     When I select "Fritz Thielemann" from "Employee"
-    And I select "24 March 2010" as the date
+    And I select "24 March 2011" as the date
     And I select "10:00" as the "Start" time
     And I select "22:00" as the "End" time
     And I choose "Available"
     And I press "Save"
-    Then the employee "Fritz Thielemann" should be available on "24 March 2010" from "10:00" to "22:00"
+    Then the employee "Fritz Thielemann" should be available on "24 March 2011" from "10:00" to "22:00"
 
   Scenario: Editing an override entry in week view
-    Given I am on the statuses index page for week 12 of year 2010
+    Given I am on the statuses index page for week 12 of year 2011
     When I follow "10:00 - 18:00"
     And I choose "Unavailable"
     And I press "Save"
-    Then the employee "Fritz Thielemann" should be unavailable on "23 March 2010" from "10:00" to "18:00"
+    Then the employee "Fritz Thielemann" should be unavailable on "23 March 2011" from "10:00" to "18:00"
 
   Scenario: Adding a default availability entry
-    Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
+    Given I am on the statuses index page for "Fritz Thielemann" for "March 2011"
     # TODO: could be less brittle if I specify the day here, like When I follow "00:00 - 00:00" for "Sunday"
     When I follow "00:00 - 00:00"
     And I select "10:00" as the "Start" time
@@ -81,7 +81,7 @@ Feature: Managing statuses
     Then the employee "Fritz Thielemann" should be available on "Sunday" from "10:00" to "22:00"
 
   Scenario: Adding a default unavailability entry
-    Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
+    Given I am on the statuses index page for "Fritz Thielemann" for "March 2011"
     # TODO: could be less brittle if I specify the day here, like When I follow "00:00 - 00:00" for "Sunday"
     When I follow "00:00 - 00:00"
     And I select "10:00" as the "Start" time
@@ -91,14 +91,14 @@ Feature: Managing statuses
     Then the employee "Fritz Thielemann" should be unavailable on "Sunday" from "10:00" to "22:00"
 
   Scenario: Editing a default entry
-    Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
+    Given I am on the statuses index page for "Fritz Thielemann" for "March 2011"
     When I follow "8:00 - 16:00"
     And I choose "Unavailable"
     And I press "Save"
     Then the employee "Fritz Thielemann" should be unavailable on "Monday" from "08:00" to "16:00"
 
   Scenario: Deleting an existing default entry
-		Given I am on the statuses index page for "Fritz Thielemann" for "March 2010"
-		When I follow "Delete" within ".defaults"
-		Then the employee "Fritz Thielemann" should have no availability entries for "Monday"
+    Given I am on the statuses index page for "Fritz Thielemann" for "March 2011"
+    When I follow "Delete" within ".defaults"
+    Then the employee "Fritz Thielemann" should have no availability entries for "Monday"
     And I should see a flash confirmation
