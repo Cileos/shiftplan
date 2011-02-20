@@ -55,6 +55,24 @@ RJB installiert ein bereits kompiliertes Gem, was sich immer auf's System-Ruby b
   - `gem list rjb`, wenn 'universal-darwin' installiert, diese Version deinstallieren
   - profit.
 
+1.2. Geht immer noch nicht?
+
+http://groups.google.com/group/rubyonrails-talk/browse_thread/thread/dd73c2b868b0e085
+
+  FYI to my future self and anyone else that might benefit...I was able to get *RJB 1.3.2* working after installing Java for Mac OS X 10.6 Update 3 Developer Package and performing the following:
+
+  $ cd /System/Library/Frameworks/JavaVM.framework/Versions
+  $ sudo rm -f CurrentJDK
+  $ sudo ln -s /Library/Java/JavaVirtualMachines/1.6.0_22-b04-307.jdk/Contents CurrentJDK
+
+http://rubyforge.org/forum/forum.php?thread_id=48092&forum_id=8190
+
+  $ JAVA_HOME=/System/Library/Frameworks/JavaVM.framework irb -rubygems
+  $ require 'rjb'
+  $ Rjb.load
+  $ Rjb::import('java.lang.String').new('hello world').toString
+  => "hello world"
+
 2. httpunit
 
 Bei httpunit wird derzeit Version 2.6 benötigt. Das Paket ist nicht im Repo, da zu groß. Also irgendwo ablegen und linken:
