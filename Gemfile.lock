@@ -39,7 +39,7 @@ GEM
       gherkin (~> 2.3.2)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
-    database_cleaner (0.6.0)
+    database_cleaner (0.6.3)
     devise (1.1.5)
       bcrypt-ruby (~> 2.1.2)
       warden (~> 1.0.2)
@@ -66,15 +66,16 @@ GEM
       htmlentities (>= 4.2.0)
       nokogiri (>= 1.4.1)
     machinist (1.0.6)
-    mail (2.2.14)
+    mail (2.2.15)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    minimal (0.0.24)
+    minimal (0.0.25)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    mysql (2.8.1)
     mysql2 (0.2.6)
     no_peeping_toms (1.1.0)
       activerecord (>= 1.1)
@@ -109,7 +110,7 @@ GEM
     rcov (0.9.9)
     rest-client (1.6.1)
       mime-types (>= 1.16)
-    rjb (1.3.4)
+    rjb (1.3.2)
     rspec (2.4.0)
       rspec-core (~> 2.4.0)
       rspec-expectations (~> 2.4.0)
@@ -151,6 +152,7 @@ DEPENDENCIES
   locator
   machinist
   minimal
+  mysql (= 2.8.1)
   mysql2
   no_peeping_toms
   nokogiri

@@ -11,6 +11,7 @@ gem 'prawn'
 gem 'nokogiri'
 gem 'fastercsv'
 gem 'heroku'
+gem 'mysql', '2.8.1'
 
 group :test do
   gem 'mysql2'
