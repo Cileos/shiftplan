@@ -9,19 +9,82 @@ Die Features werden nach Themenbereichen gruppiert. Die atomarste Ebene ist ein 
 
 -------------------------------------------------
 
+
 ##Setup
 
-**Mitarbeiter/Users/Rollen**
+###Qualifikationen verwalten
+- Als Planer möchte ich für meinen Account Qualifikationen anlegen um diese später Mitarbeitern und Arbeitsplätzen
+  zuordnen zu können.
+- Als Planer möchte ich die Qualifikationen meines Accounts ändern können.
+- Als Planer möchte ich die Qualifikationen meines Accounts deaktivieren können.
+  - Aus Konsistenzgründen ist ein Löschen nicht möglich.
+  - Bereits verwendete Qualifikationen werden normal angezeigt aber als deaktiv markiert.
+  - Für neue Pläne stehen die deaktivierten Qualifikationen nicht mehr zur Verfügung (nicht angezeigt).
+  - In Plan-Templates verwendete deaktivierte Qualifikationen werden nicht mitkopiert, stattdessen wird ein Platzhalter/Deaktivsymbol angezeigt
+  - Plan-/Template-Owner werden über die Deaktivierung informiert
 
-- Mitarbeiter werden mit ihren Qualifikationen erfasst
-- Mitarbeiter sind gleichzeitig auch User mit eigener Anmeldung
+###Mitarbeiter/Benutzer/Rollen verwalten
+**Miarbeiter**
+
+- Als Planer möchte ich Mitarbeiter meines Accounts mit ihren Qualifikationen (ref. Quali) anlegen.
+  - Folgende Daten werden benötigt: Vorname, Name, Aktiv=Ja
+  - Folgende Daten sind optional: Geburtsdatum, Adresse, Telefon, E-Mail
+- Als Planer möchte ich einem Mitarbeiter meines Accounts ein Foto zuordnen können.
+  - Bei dem Foto hat der Planer die Auswahl zwischen Upload oder Gravatar
+  - Wenn Gravatar, muss E-Mail gefüllt sein.
+  - Wenn Upload, öffnet sich ein eigener Dialog zum Upload eines Mitarbeiter-Fotos.
+- Als Planer möchte ich Mitarbeiter meines Accounts ändern.
+- Als Planer möchte ich einen Mitarbeiter meines Accounts deaktivieren können.
+  - Aus Konsistenzgründen ist ein Löschen nicht möglich.
+  - Wenn es einen Benutzer für diesen Mitarbeiter gibt, wird dieser für diesen Account deaktiviert (Benutzer kann zu mehreren Accounts gehören)
+  - Bereits verwendete Mitarbeiter werden normal angezeigt aber als deaktiv markiert.
+  - Für neue Pläne stehen die deaktivierten Mitarbeiter nicht mehr zur Verfügung (nicht angezeigt).
+  - In Plan-Templates verwendete deaktivierte Mitarbeiter werden nicht mitkopiert, stattdessen wird ein Platzhalter/Deaktivsymbol angezeigt.
+  - Plan-/Template-Owner werden über die Deaktivierung informiert
+
+- Daten können per Import/Export bearbeitet werden (Excel-Listen)
+  - Es gibt eine Struktur-Vorlage.
+  - Fehlerbehandlung muss definiert werden (to spec)
+
+**Benutzer**
+
+- Als Planer möchte ich einen Mitarbeiter als Benutzer zu meinem Account hinzufügen.
+  - Dies kann zum einen während des Anlegens eines Mitarbeiters erfolgen.
+  - Dies kann auf der anderen Seite auch nachträglich passieren.
+  - Dem Benutzer wird eine Einladung per E-Mail mit Bestätigungslink zugesandt (Double Opt-In).
+  - Als Benutzername wird die E-Mail verwendet.
+  - Wenn es einen Benutzer mit der angegebenen Email bereits gibt, wird dieser lediglich dem Account und Mitarbeiter zugeordnet und erhält eine Nachricht
+- Als Planer möchte ich einen Benutzer meines Accounts deaktivieren.
+- Als Benutzer möchte ich mein Passwort ändern und bekomme eine Benachrichtigung.
+- Als Benutzer möchte ich meine E-Mail ändern und bekomme eine Benachrichtigung (eventuelles Double Opt-In).
+  - Der Benutzer kann dabei entscheiden, für welche Accounts die Mitarbeiter-E-Mail geändert werden soll.
+  - Wenn es nur eine Account-Zuordnung gibt, wird die MitarbeiterE-Mail automatisch mit geändert.
+- Als Benutzer möchte ich mir eine E-Mail mit einem neuen Passwort zuschicken lassen (Passwort vergessen Funktion).
+
+**Login**
+
+- Als Benutzer möchte ich mich bei shiftplan anmelden/login.
+  - Startseite (Landingpage=www)
+    - Szenario 1:
+      - Ich gebe in ein Formularfeld die Subdomain ein und werde auf die Account-bezogene Login-Page weitergeleitet.
+      - Wenn ich meine Subdomains vergessen habe, kann ich mir eine Liste per Mail zuschicken lassen.
+    - Szenario 2:
+      - Nachdem ich mich erfolgreich mit meinem Benutzernamen und Passwort angemeldet habe, werde ich:
+        - direkt auf das Dashboard meines Accounts weitergeleitet, falls ich nur einem Account zugeordnet bin.
+        - aufgefordert unter meinen Accounts einen auszuwählen.
+  - Account-Subdomain
+    - Nachdem ich mich erfolgreich mit meinem Benutzernamen und Passwort angemeldet habe, werde ich direkt auf das Dashboard meines Accounts weitergeleitet, falls ich nur einem Account zugeordnet bin.
+- Als Benutzer beende ich meine Session durch Logout und lande auf der Login-Seite des aktuellen Accounts.
+- Als angemeldeter Benutzer möchte ich meinen Account wechseln können ohne mich davor ausloggen zu müssen.
+
+**Rollen**
+
 - es gibt nur drei Rollen:
   - Benutzer -> einfacher Mitarbeiter, der sein Profil und seine Verfügbarkeiten pflegt
   - Planer -> vom Admin bestimmte User, die Pläne bearbeiten dürfen
-  - Admin -> der Account-Admin und gleichzeitig auch Planer 
-- Daten können per Import/Export bearbeitet werden (Excel-Listen)
+  - Admin -> der Account-Admin und gleichzeitig auch Planer
 
-**Arbeits- oder Einsatzplätze**
+###Arbeits- oder Einsatzplätze
 
 - Arbeits- oder Einsatzplätze sind die Orte für die eine Schicht in einem Plan erstellt wird
 - sie beinhalten die benötigten Qualifikationen und standardmäßige Anzahl dieser, außerdem kann die Standardlänge einer Schicht erfasst werden
@@ -31,26 +94,26 @@ Die Features werden nach Themenbereichen gruppiert. Die atomarste Ebene ist ein 
 - Unterscheidung von internen und externen Mitarbeitern erfolgt durch die Art der Erfassung von Verfügbarkeiten
 - die Erfassung wird durch Kalenderansichten unterstützt
 
-**Defaults**
+###Defaults
 
 - Erfassung eines Standardverfügbarkeitsmusters auf Basis von Wochentagen (für interne Mitarbeiter, bei denen man per se von einer Verfügbarkeit zu den Business-Zeiten ausgeht)
 - wird als Grundlage bei der Planung verwendet, wenn keine Verfügbarkeit für ein spezielles Datum angegeben ist
 - Beispiel: wenn es für Montag, 25.10.2010 keine dedizierte Verfügbarkeit für einen Mitarbeiter gibt, wird geschaut, ob es eine Standardverfügbarkeit für den Wochentag Montag gibt
 
-**Verfügbarkeit**
+###Verfügbarkeit
 
 - anders als ein interner Mitarbeiter ist ein Externer per se nicht standardmäßig verfügbar
 - er muss angeben, wann er für Einsätze geplant werden kann
 - dies erfolgt durch Angabe des Datums und der Uhrzeit bzw. Bereich der Uhrzeit
 
-**Nichtverfügbarkeit**
+###Nichtverfügbarkeit
 
 - wenn es eine Standardverfügbarkeit für einen Mitarbeiter gibt, er aber an einem bestimmten Datum nicht verfügbar ist, wird dies als Nichtverfügbarkeit erfasst
 - es erfolgt keine Trennung bzw. Kategorisierung der Nichtverfügbarkeiten (Urlaub, Krankheit, Schulung etc.), es wird aber nach einer generischen Lösung für das Problem gesucht, da die Relevanz für den Planungsprozess gegeben ist (bei Fehlen von ausreichend Mitarbeitern, kann anhand der Art der Nichtverfügbarkeit entschieden werden, welche Mitarbeiter man um Verfügbarkeit bittet; jemand der krank ist kann nicht zurückgeholt werden, jemand auf Schulung oder im Urlaub schon eher)
 
 ##Schichtpläne
 
-**Der Plan**
+###Der Plan
 
 - anders als in anderen Systemen ist der Ausgangspunkt der Planung nicht das Datum, sondern der Plan
 - durch den freiwählbaren Datumsbereich kann von der Langfristplanung bis zum Event alles erfasst werden
@@ -67,8 +130,8 @@ Die Features werden nach Themenbereichen gruppiert. Die atomarste Ebene ist ein 
 - die Planung erfolgt auf Basis eines 15-Minuten-Rasters, das für die Anzahl der angegeben Planstunden und über den angegebenen Datumsbereich geht
 - die Planung der Bestandteile eines Plans erfolgt als Drag&Drop der Elemente; d.h. man zieht einen Arbeitsplatz auf das Raster und platziert ihn am gewünschten Tag zur gewünschten Startzeit, anhand der vordefinierten Länge einer Schicht (beim Arbeitsplatz, s.o.) wird ein Balken über das Raster gelegt; die Position des Balkens kann verändert werden, ebenso die Anfangs- und Endpunkte für die Änderung der Schichtlänge; wenn es vordefinierte Qualifikationsanforderungen für den Arbeitsplatz gibt, werden diese auf dem Balken als anonymisierter, farblich markierter Thumbnail angezeigt, die Korrektur der Anzahl erfolgt ebenfalls per Drag&Drop
 - die Zusammenführung der zu besetzenden Schichten, Qualifikationen und Mitarbeiter erfolgt ebenfalls per Drag&Drop; anders aber als zuvor wird anhand der beim Mitarbeiter vordefinierten Qualifikationen und Verfügbarkeiten eine visuelle Unterstützung bei der Planung gegeben: wird ein Mitarbeiter auf das Raster gezogen, werden alle nicht-relevanten Schichten und Qualifikationen auf dem Raster ausgegraut; wird eine Schicht- oder eine Qualifikation per Klick markiert, werden alle nicht-relevanten Mitarbeiter ausgeblendet
-- ein dediziertes Speichern ist nicht notwendig, da alle Änderungen fortlaufend in die Datenbank geschrieben werden 
-- in Zukunft soll es die Möglichkeit geben, sich vom System einen Besetzungsvorschlag erstellen zu lassen 
+- ein dediziertes Speichern ist nicht notwendig, da alle Änderungen fortlaufend in die Datenbank geschrieben werden
+- in Zukunft soll es die Möglichkeit geben, sich vom System einen Besetzungsvorschlag erstellen zu lassen
 - (Splitschichten: 2 MA teilen sich eine Schicht oder verlängert seine Schicht um den fehlenden Teil einer anderen Schicht)
 - (Indikator für außergewöhnliche Besetzungen: z.B. Doppelschicht)
 - (tagesübergreifende Schichten)
