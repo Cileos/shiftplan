@@ -24,7 +24,7 @@ Die Features werden nach Themenbereichen gruppiert. Die atomarste Ebene ist ein 
   - Plan-/Template-Owner werden über die Deaktivierung informiert
 
 ###Mitarbeiter/Benutzer/Rollen verwalten
-**Miarbeiter**
+**Mitarbeiter**
 
 - Als Planer möchte ich Mitarbeiter meines Accounts mit ihren Qualifikationen (ref. Quali) anlegen.
   - Folgende Daten werden benötigt: Vorname, Name, Aktiv=Ja
@@ -41,10 +41,15 @@ Die Features werden nach Themenbereichen gruppiert. Die atomarste Ebene ist ein 
   - Für neue Pläne stehen die deaktivierten Mitarbeiter nicht mehr zur Verfügung (nicht angezeigt).
   - In Plan-Templates verwendete deaktivierte Mitarbeiter werden nicht mitkopiert, stattdessen wird ein Platzhalter/Deaktivsymbol angezeigt.
   - Plan-/Template-Owner werden über die Deaktivierung informiert
+- Als Planer möchte ich Mitarbeiter per Import einer CSV-Datei verwalten.
+  - Die CSV-Datei muss einer definierten Strukturvorlage entsprechen.
+  - Bestehende Mitarbeiter können als CSV-Datei entsprechend der Strukturvorlage exportiert werden.
+  - Jeder Mitarbeiter wird über ein eindeutiges Token, das Teil der Strukturvorlage ist, identifiziert.
+      - ist kein Token angegeben wird der Mitarbeiter angelegt
+      - ist ein Token angegeben und ein Mitarbeiter mit diesem Token existiert, wird der Mitarbeiter aktualisiert.
+      - ist ein Token angegeben und kein Mitarbeiter mit diesem Token existiert, wird der Import abgelehnt.
 
-- Daten können per Import/Export bearbeitet werden (Excel-Listen)
-  - Es gibt eine Struktur-Vorlage.
-  - Fehlerbehandlung muss definiert werden (to spec)
+  - In Zukunft soll auch über den Import das Verwalten von Mitarbeitern als Benutzer gesteuert werden (z.Bsp. über eine Spalte in der Strukturvorlage "Benutzer Ja/Nein")
 
 **Benutzer**
 
@@ -79,62 +84,95 @@ Die Features werden nach Themenbereichen gruppiert. Die atomarste Ebene ist ein 
 
 **Rollen**
 
-- es gibt nur drei Rollen:
-  - Benutzer -> einfacher Mitarbeiter, der sein Profil und seine Verfügbarkeiten pflegt
+- In Zukunft soll es ein Rollenkonzept geben.
+- Es sind nur drei Rollen für Benutzer vorgesehen:
+  - Mitarbeiter -> einfacher Mitarbeiter, der sein Profil und seine Verfügbarkeiten pflegt
   - Planer -> vom Admin bestimmte User, die Pläne bearbeiten dürfen
   - Admin -> der Account-Admin und gleichzeitig auch Planer
+- Als Planer möchte ich meinen Benutzern Rollen zuweisen.
+- Solange diese Funktionalität nicht definiert ist, kann jeder Benutzer alles machen.
 
 ###Arbeits- oder Einsatzplätze
 
-- Arbeits- oder Einsatzplätze sind die Orte für die eine Schicht in einem Plan erstellt wird
-- sie beinhalten die benötigten Qualifikationen und standardmäßige Anzahl dieser, außerdem kann die Standardlänge einer Schicht erfasst werden
+- Als Planer möchte ich für meinen Account Arbeitsplätze anlegen, um diese später bei der Planung verwenden zu können.
+  - Der Planer kann für einen Arbeisplatz die Standardschichtlänge und die Standardbesetzung definieren.
+    Beispiel für Arbeitsplatz "Küche":
+	  - Standardschichtlänge: 480 Min
+	  - Standardbesetzung: 1 Koch und 2 Küchenhilfen (wobei Koch und Küchenhilfe Qualifikationen meines Accounts sind)
+- Als Planer möchte ich die Arbeitsplätze meines Accounts ändern können.
+- Als Planer möchte ich die Arbeitsplätze meines Accounts deaktivieren können.
+  - Aus Konsistenzgründen ist ein Löschen nicht möglich.
+  - Bereits verwendete Qualifikationen werden normal angezeigt aber als deaktiv markiert.
+  - Für neue Pläne stehen die deaktivierten Arbeitsplätze nicht mehr zur Verfügung (nicht angezeigt).
+  - In Plan-Templates verwendete deaktivierte Arbeitsplätze werden nicht mitkopiert, stattdessen wird ein Platzhalter/Deaktivsymbol angezeigt
+  - Plan-/Template-Owner werden über die Deaktivierung informiert
+
 
 ##Verfügbarkeiten
 
-- Unterscheidung von internen und externen Mitarbeitern erfolgt durch die Art der Erfassung von Verfügbarkeiten
-- die Erfassung wird durch Kalenderansichten unterstützt
-
-###Defaults
-
-- Erfassung eines Standardverfügbarkeitsmusters auf Basis von Wochentagen (für interne Mitarbeiter, bei denen man per se von einer Verfügbarkeit zu den Business-Zeiten ausgeht)
-- wird als Grundlage bei der Planung verwendet, wenn keine Verfügbarkeit für ein spezielles Datum angegeben ist
-- Beispiel: wenn es für Montag, 25.10.2010 keine dedizierte Verfügbarkeit für einen Mitarbeiter gibt, wird geschaut, ob es eine Standardverfügbarkeit für den Wochentag Montag gibt
-
-###Verfügbarkeit
-
-- anders als ein interner Mitarbeiter ist ein Externer per se nicht standardmäßig verfügbar
-- er muss angeben, wann er für Einsätze geplant werden kann
-- dies erfolgt durch Angabe des Datums und der Uhrzeit bzw. Bereich der Uhrzeit
-
-###Nichtverfügbarkeit
-
-- wenn es eine Standardverfügbarkeit für einen Mitarbeiter gibt, er aber an einem bestimmten Datum nicht verfügbar ist, wird dies als Nichtverfügbarkeit erfasst
-- es erfolgt keine Trennung bzw. Kategorisierung der Nichtverfügbarkeiten (Urlaub, Krankheit, Schulung etc.), es wird aber nach einer generischen Lösung für das Problem gesucht, da die Relevanz für den Planungsprozess gegeben ist (bei Fehlen von ausreichend Mitarbeitern, kann anhand der Art der Nichtverfügbarkeit entschieden werden, welche Mitarbeiter man um Verfügbarkeit bittet; jemand der krank ist kann nicht zurückgeholt werden, jemand auf Schulung oder im Urlaub schon eher)
+- Als Benutzer möchte ich meine Standardverfügbarkeiten für jeden Wochentag definieren können.
+- Als Benutzer möchte ich zusätzlich meine Standardverfügbarkeiten durch dedizierte Verfügbarkeiten/Nichtverfügbarkeiten
+  überschreiben können.
+  - Eine Kalenderansicht unterstützt den Benutzer hierbei.
 
 ##Schichtpläne
 
-###Der Plan
+###Pläne
 
-- anders als in anderen Systemen ist der Ausgangspunkt der Planung nicht das Datum, sondern der Plan
-- durch den freiwählbaren Datumsbereich kann von der Langfristplanung bis zum Event alles erfasst werden
-- so kann es an einem Tag einen allgemeinen Arbeitsplan geben und parallel dazu ein Eventplan
+- Als Planer möchte ich für meinen Account Schichtpläne verwalten.
+  - Es wird das Start- und das Enddatum sowie Start- und Endzeitpunkt eingetragen.
+  - Start- und Endzeitpunkt definiert die Schichtlänge für jeden Arbeitstag des Plangeltungszeitraums
+- Als Benutzer möchte ich Pläne ausdrucken und speichern können.
+  - Export im PDF Format
+- Als Benutzer möchte ich mir alle aktuellen Pläne auflisten lassen.
+- Als Benutzer möchte ich mir in einer anderen Ansicht alle abgelaufenen Pläne auflisten lassen.
+- Als Planer möchte ich aus Plänen Vorlagen erstellen, um sie für zukünftige Pläne wiederverwenden zu können.
+- Als Planer möchte ich beim Anlegen eines Planes eine Vorlage aus der Liste der existieren Vorlagen auswählen können.
+  - Dabei möchte auswählen, welche Inhalte aus der Vorlage für meinen neuen Plan übernommen werden sollen. (Arbeitsplätze, Qualifikationszuordnungen und Mitarbeiterzuordnungen)
+  - Nach Auswahl einer Vorlage ist nur noch das Startdatum auswählbar. Das Startdatum ergibt sich aus der Vorlagendefinition.
 
-**Templates**
+**Plannung**
 
-- viele Pläne sind wiederverwendbar, man muss lediglich den Geltungsbereich anpassen
-- dazu kann man sich sogenannte Planschablonen definieren und die als Basis eines neuen Planes verwenden
-- dabei kann auch der Detailgrad der zu übernehmenden Daten spezifiziert werden (nur Arbeitsplätze, Arbeitsplätze und Qualifikationsanforderungen, Alles)
-
-**Planning**
-
-- die Planung erfolgt auf Basis eines 15-Minuten-Rasters, das für die Anzahl der angegeben Planstunden und über den angegebenen Datumsbereich geht
-- die Planung der Bestandteile eines Plans erfolgt als Drag&Drop der Elemente; d.h. man zieht einen Arbeitsplatz auf das Raster und platziert ihn am gewünschten Tag zur gewünschten Startzeit, anhand der vordefinierten Länge einer Schicht (beim Arbeitsplatz, s.o.) wird ein Balken über das Raster gelegt; die Position des Balkens kann verändert werden, ebenso die Anfangs- und Endpunkte für die Änderung der Schichtlänge; wenn es vordefinierte Qualifikationsanforderungen für den Arbeitsplatz gibt, werden diese auf dem Balken als anonymisierter, farblich markierter Thumbnail angezeigt, die Korrektur der Anzahl erfolgt ebenfalls per Drag&Drop
-- die Zusammenführung der zu besetzenden Schichten, Qualifikationen und Mitarbeiter erfolgt ebenfalls per Drag&Drop; anders aber als zuvor wird anhand der beim Mitarbeiter vordefinierten Qualifikationen und Verfügbarkeiten eine visuelle Unterstützung bei der Planung gegeben: wird ein Mitarbeiter auf das Raster gezogen, werden alle nicht-relevanten Schichten und Qualifikationen auf dem Raster ausgegraut; wird eine Schicht- oder eine Qualifikation per Klick markiert, werden alle nicht-relevanten Mitarbeiter ausgeblendet
-- ein dediziertes Speichern ist nicht notwendig, da alle Änderungen fortlaufend in die Datenbank geschrieben werden
-- in Zukunft soll es die Möglichkeit geben, sich vom System einen Besetzungsvorschlag erstellen zu lassen
-- (Splitschichten: 2 MA teilen sich eine Schicht oder verlängert seine Schicht um den fehlenden Teil einer anderen Schicht)
-- (Indikator für außergewöhnliche Besetzungen: z.B. Doppelschicht)
-- (tagesübergreifende Schichten)
+- Als Planer möchte ich per Drag & Drop meine Arbeitsplätze auf das Zeitraster des zu planenden Tages ziehen, um eine Schicht für
+  diesen Arbeitsplatz zu definieren.
+  - Nach dem Platzieren auf dem Zeitraster wird die Schicht mit der Standardschichtlänge und Standardbesetzung des Arbeitsplatzes
+    dargestellt.
+- Als Planer möchte die Länge einer Schicht durch Ziehen auf den Zeitraster verändern können.
+- Als Planer möchte die Besetzung einer Schicht durch Drag & Drop der Besetzungen verändern können.
+  - Besetzungen füge ich hinzu, indem ich eine Qualifikation aus der Sidebar auf die Schicht ziehe.
+  - Besetzungen entferne ich, indem ich eine Qualifikation aus der Schicht herausziehe.
+- Als Planer möchte ich mir nach Klicken auf eine Schicht die Mitarbeiter anzeigen lassen können, die aufgrund ihrer Verfügbarkeiten und Qualifikationen, die diese Schicht erfordert in Frage kommen.
+  - Mitarbeiter, die bereits in einem anderen Plan in diesem Zeitraum eingeteilt sind, werden separat in der Sidebar aufgelistet oder
+    optisch anders dargestellt.
+  - Entschließt sich der Planer trotzdem, einen solchen Mitarbeiter einzuteilen, wird ihm als Hilfe ein Konfliktdialog angezeigt, der ihm folgende Entscheidungsmöglichkeiten anbietet:
+      1. Mitarbeiter in dieser Schicht einplanen und aus dem anderen Plan löschen?
+         - Die Planer des betroffenen Planes und der betroffene Mitarbeiter werden hierüber informiert. (siehe Punkt Benachrichtigungen)
+      2. Mitarbeiter nicht in dieser Schicht einplanen?
+         - Der Mitarbeiter wird wieder aus der Schicht entfernt.
+- Als Planer möchte ich mir nach Klicken auf einen Besetzungsplatzhalter einer Schicht die Mitarbeiter anzeigen lassen, die aufgrund ihrer Verfügbarkeiten und der Qualifikation, die diese Besetzung erfordert in Frage kommen.
+  - Mitarbeiter, die bereits in einem anderen Plan in diesem Zeitraum eingeteilt sind, werden separat in der Sidebar aufgelistet oder
+    optisch anders dargestellt.
+  - Entschließt sich der Planer trotzdem, einen solchen Mitarbeiter einzuteilen, wird ihm als Hilfe ein Konfliktdialog angezeigt, der ihm folgende Entscheidungsmöglichkeiten anbietet:
+	      1. Mitarbeiter in dieser Schicht einplanen und aus dem anderen Plan löschen?
+	         - Die Planer des betroffenen Planes und der betroffene Mitarbeiter werden hierüber informiert. (siehe Punkt Benachrichtigungen)
+	      2. Mitarbeiter nicht in dieser Schicht einplanen?
+	         - Der Mitarbeiter wird wieder aus der Schicht entfernt.
+  - Mitarbeiter, die bereits in dem aktuellen Plan in diesem Zeitraum anderweitig eingeteilt sind, werden separat in der Sidebar aufgelistet oder optisch anders dargestellt.
+  - Entschließt sich der Planer trotzdem, einen solchen Mitarbeiter einzuteilen, wird ihm als Hilfe ein Konfliktdialog angezeigt, der ihm folgende Entscheidungsmöglichkeiten anbietet:
+      1. Mitarbeiter in dieser Schicht einplanen und aus der anderen Einteilung/Besetzung löschen?
+         - Bemerkung: der Mitarbeiter ist an dieser Stelle entweder bereits in der gleichen Schicht für eine andere Besetzung eingeteilt, oder er ist in einer anderen Schicht des gleichen Plans für eine Besetzung vorgesehen.
+      2. Mitarbeiter nicht in dieser Schicht einplanen?
+         - Der Mitarbeiter wird wieder aus der Schicht entfernt.
+- Als Planer möchte ich mir nach Klicken auf einen Mitarbeiter in der Sidebar Besetzungsvorschläge anzeigen lassen, die für den Mitarbeiter aufgrund seiner Qualifikation und Verfügbarkeiten in Frage kommen (nicht zutreffende Schichten und Qualifikation werden ausgegraut).
+  - Für Schichten, bei denen der Mitarbeiter bereits für eine Qualifikation eingeteilt bin, gibt es zwei Punkte, die zu unterscheiden sind:
+        1. falls es weitere Besetzungen gibt, für die der Mitarbeiter qualifiziert ist, wird die Schicht nicht ausgegraut und die in Frage kommenden Besetzung optisch markiert
+        2. falls es keine weiteren in Frage kommende Besetzung gibt, ist die Schicht inklusive Besetzungen ausgegraut
+  - Wenn der Mitarbeiter schon für eine andere zeitgleiche Schicht eingeteilt ist, aber für eine Besetzung einer anderen Schicht ebenfalls die Qualifikation besitzt, wird diese andere Schicht nicht ausgegraut.
+- Als Planer möchte ich durch Drag&Drop einen Mitarbeiter auf eine Besetzung einer Schicht einteilen und dabei die gleichen optischen Markierungen sehen, wie beim Klicken auf den Mitarbeiter
+- Wenn der Mitarbeiter für eine Schicht eingeplant wird und ein Konflikt zu einer bestehenden Einteilung auftritt, wird dem Planer als Hilfe ein Konfliktdialog angezeigt, der ihm folgende Entscheidungsmöglichkeiten anbietet:
+	      1. Mitarbeiter in dieser Schicht/Besetzung einplanen und aus der anderen Schicht/Besetzung löschen?
+	      2. Mitarbeiter nicht in dieser Schicht/Besetzung einplanen?
+	         - Der Mitarbeiter wird wieder aus der Schicht/Besetzung entfernt.
 
 **Shift Trading**
 

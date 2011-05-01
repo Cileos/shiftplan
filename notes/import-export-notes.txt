@@ -1,0 +1,6 @@
+Erklärung Dateistruktur Import/Export Mitarbeiter
+
+Feld "Token"
+* ohne token = Mitarbeiter wird neu angelegt
+* mit (gueltigem) token = Mitarbeiter wird geändert
+* - vor dem token = Mitarbeiter wird geloescht
