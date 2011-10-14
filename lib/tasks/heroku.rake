@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 namespace :deploy do
   PRODUCTION_APP = 'shiftplanapp'
   STAGING_APP = 'shiftplandemo'
