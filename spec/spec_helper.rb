@@ -11,7 +11,7 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 require 'no_peeping_toms'
 ActiveRecord::Observer.disable_observers
 
-Rspec.configure do |c|
+RSpec.configure do |c|
   c.before(:all) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
