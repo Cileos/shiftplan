@@ -7,7 +7,6 @@ gem 'gravtastic' # gravatar urls
 gem 'later_dude' # calendar helper
 gem 'minimal'
 gem 'devise'
-gem 'fastercsv'
 gem 'heroku'
 
 gem 'prawnto', :git => 'git://github.com/smecsia/prawnto.git'

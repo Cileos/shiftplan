@@ -1,8 +1,5 @@
 # FasterCSV would try to convert tokens starting with a number to Floats which
 # would raise a nasty warning, so we silence it
-FasterCSV::Converters[:silence] = lambda { |value| value }
-# CSV::Converters[:silence] = lambda { |value| value }
-
 class Account < ActiveRecord::Base
   has_many :memberships
   has_many :users, :through => :memberships
@@ -23,6 +20,7 @@ class Account < ActiveRecord::Base
   # TODO:
   # return some kind of status for imported/not imported employees?
   # maybe even detailed information (like "Couldn't import the following lines: - 12: Email can't be blank.")
+  # FIXME use ruby 1.9's own csv parser
   def import_employees_from_file(file, options = {})
     options.reverse_merge!(:headers => true, :converters => :all, :col_sep => ';', :converters => :silence)
 
