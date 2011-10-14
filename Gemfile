@@ -14,6 +14,8 @@ gem 'fastercsv'
 gem 'heroku'
 gem 'mysql', '2.8.1'
 
+gem 'prawnto', :git => 'git://github.com/smecsia/prawnto.git'
+
 group :test do
   gem 'machinist'
   gem 'faker', '0.3.1' # 0.9.x is horrible broken

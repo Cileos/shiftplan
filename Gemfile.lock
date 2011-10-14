@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/smecsia/prawnto.git
+  revision: 8a03c1173af49d45c5653d49938d9dc7596f71a2
+  specs:
+    prawnto (2.0.1)
+
 GEM
   remote: http://gemcutter.org/
   specs:
@@ -148,6 +154,7 @@ DEPENDENCIES
   nokogiri
   pg
   prawn
+  prawnto!
   rack
   rails (= 3.0.0)
   rcov
