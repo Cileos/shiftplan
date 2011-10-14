@@ -77,7 +77,6 @@ GEM
     minimal (0.0.25)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    mysql (2.8.1)
     no_peeping_toms (1.1.0)
       activerecord (>= 1.1)
     nokogiri (1.4.4)
@@ -149,7 +148,6 @@ DEPENDENCIES
   launchy
   machinist
   minimal
-  mysql (= 2.8.1)
   no_peeping_toms
   nokogiri
   pg

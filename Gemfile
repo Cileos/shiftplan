@@ -12,7 +12,6 @@ gem 'prawn'
 gem 'nokogiri'
 gem 'fastercsv'
 gem 'heroku'
-gem 'mysql', '2.8.1'
 
 gem 'prawnto', :git => 'git://github.com/smecsia/prawnto.git'
 
