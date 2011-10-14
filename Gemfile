@@ -1,6 +1,7 @@
 source 'http://gemcutter.org'
 
 gem 'rails', '3.0.0'
+gem 'pg'
 gem 'rack'
 gem 'gravtastic' # gravatar urls
 gem 'later_dude' # calendar helper
