@@ -103,6 +103,7 @@ Bei jeder relevanten Aktivität wird ein Log Eintrag geschrieben:
   Activity::Plan.log(:update, plan, user)
   # => data = { attributes: { name: 'Plan B' } }
 
+(Dies kann mit den Rails-internen Observern realisiert werden)
 Irgendwann wird aggregiert:
 
   Activity.aggregate!
