@@ -9,6 +9,7 @@ gem 'minimal'
 gem 'devise'
 gem 'heroku'
 
+gem 'prawn'
 gem 'prawnto', :git => 'git://github.com/smecsia/prawnto.git'
 
 group :test do
