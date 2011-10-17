@@ -121,9 +121,9 @@ GEM
       rake
     polyglot (0.3.2)
     prawn (0.8.4)
-      prawn-core (< 0.9, >= 0.8.4)
-      prawn-layout (< 0.9, >= 0.8.4)
-      prawn-security (< 0.9, >= 0.8.4)
+      prawn-core (>= 0.8.4, < 0.9)
+      prawn-layout (>= 0.8.4, < 0.9)
+      prawn-security (>= 0.8.4, < 0.9)
     prawn-core (0.8.4)
     prawn-layout (0.8.4)
     prawn-security (0.8.4)
@@ -218,7 +218,7 @@ DEPENDENCIES
   no_peeping_toms
   pg
   pickle
-  prawn
+  prawn (~> 0.8.4)
   prawnto!
   rack
   rails (= 3.1.1)
