@@ -13,13 +13,22 @@ gem 'prawn'
 gem 'prawnto', :git => 'git://github.com/smecsia/prawnto.git'
 
 group :test do
-  gem 'machinist'
-  gem 'faker', '0.3.1' # 0.9.x is horrible broken
-  gem 'cucumber'
-  gem 'rspec'
-  gem 'rspec-rails'
+  gem 'cucumber-rails', "~> 1.1.1"
+  gem 'rspec-rails', "~> 2.7.0"
   gem 'rcov'
   gem 'launchy'
+  gem "pickle"
+  gem "timecop"
   gem 'no_peeping_toms' # disable observers
   gem 'database_cleaner'
+  gem 'factory_girl'
+
+  gem "spork", "~> 0.9.0.rc2"
+  gem "guard", "~> 0.8.4"
+  gem "guard-rspec", "~> 0.5.0"
+  gem "guard-cucumber", "~> 0.7.3"
+  gem "guard-spork", "~> 0.3.0"
+  gem "guard-bundler", "~> 0.1.3"
+  gem "guard-process"
+  gem "libnotify"
 end

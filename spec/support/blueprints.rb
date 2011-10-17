@@ -1,3 +1,7 @@
+# TODO remove this file when all blueprints have been tranformed into factories
+
+if false
+
 require 'machinist/active_record'
 require 'faker'
 require 'sham'
@@ -88,4 +92,6 @@ end
 Requirement.blueprint do
   shift
   qualification
+end
+
 end

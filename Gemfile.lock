@@ -39,12 +39,25 @@ GEM
     arel (2.2.1)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
+    capybara (1.1.1)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
+    childprocess (0.2.2)
+      ffi (~> 1.0.6)
     cucumber (1.1.0)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.2)
       gherkin (~> 2.5.0)
       json (>= 1.4.6)
       term-ansicolor (>= 1.0.6)
+    cucumber-rails (1.1.1)
+      capybara (>= 1.1.1)
+      cucumber (>= 1.1.0)
+      nokogiri (>= 1.5.0)
     database_cleaner (0.6.7)
     devise (1.4.8)
       bcrypt-ruby (~> 3.0)
@@ -52,10 +65,29 @@ GEM
       warden (~> 1.0.3)
     diff-lcs (1.1.3)
     erubis (2.7.0)
-    faker (0.3.1)
+    factory_girl (2.2.0)
+      activesupport
+    ffi (1.0.9)
     gherkin (2.5.2)
       json (>= 1.4.6)
     gravtastic (3.2.6)
+    guard (0.8.4)
+      thor (~> 0.14.6)
+    guard-bundler (0.1.3)
+      bundler (>= 1.0.0)
+      guard (>= 0.2.2)
+    guard-cucumber (0.7.3)
+      cucumber (>= 0.10)
+      guard (>= 0.8.3)
+    guard-process (1.0.2)
+      ffi (~> 1.0.9)
+      guard (>= 0.4.2)
+      spoon (~> 0.0.1)
+    guard-rspec (0.5.0)
+      guard (>= 0.8.4)
+    guard-spork (0.3.1)
+      guard (>= 0.8.4)
+      spork (>= 0.8.4)
     heroku (2.9.0)
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
@@ -64,10 +96,11 @@ GEM
     hike (1.2.1)
     i18n (0.6.0)
     json (1.6.1)
+    json_pure (1.6.1)
     later_dude (0.3.3)
     launchy (2.0.5)
       addressable (~> 2.2.6)
-    machinist (1.0.6)
+    libnotify (0.5.7)
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -80,8 +113,12 @@ GEM
     no_peeping_toms (2.1.1)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
+    nokogiri (1.5.0)
     orm_adapter (0.0.5)
     pg (0.11.0)
+    pickle (0.4.10)
+      cucumber (>= 0.8)
+      rake
     polyglot (0.3.2)
     prawn (0.8.4)
       prawn-core (< 0.9, >= 0.8.4)
@@ -120,20 +157,27 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rspec (2.6.0)
-      rspec-core (~> 2.6.0)
-      rspec-expectations (~> 2.6.0)
-      rspec-mocks (~> 2.6.0)
-    rspec-core (2.6.4)
-    rspec-expectations (2.6.0)
+    rspec (2.7.0)
+      rspec-core (~> 2.7.0)
+      rspec-expectations (~> 2.7.0)
+      rspec-mocks (~> 2.7.0)
+    rspec-core (2.7.0)
+    rspec-expectations (2.7.0)
       diff-lcs (~> 1.1.2)
-    rspec-mocks (2.6.0)
-    rspec-rails (2.6.1)
+    rspec-mocks (2.7.0)
+    rspec-rails (2.7.0)
       actionpack (~> 3.0)
       activesupport (~> 3.0)
       railties (~> 3.0)
-      rspec (~> 2.6.0)
+      rspec (~> 2.7.0)
     rubyzip (0.9.4)
+    selenium-webdriver (2.8.0)
+      childprocess (>= 0.2.1)
+      ffi (>= 1.0.7)
+      json_pure
+      rubyzip
+    spoon (0.0.1)
+    spork (0.9.0.rc9)
     sprockets (2.0.2)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -141,33 +185,44 @@ GEM
     term-ansicolor (1.0.7)
     thor (0.14.6)
     tilt (1.3.3)
+    timecop (0.3.5)
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.30)
     warden (1.0.6)
       rack (>= 1.0)
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  cucumber
+  cucumber-rails (~> 1.1.1)
   database_cleaner
   devise
-  faker (= 0.3.1)
+  factory_girl
   gravtastic
+  guard (~> 0.8.4)
+  guard-bundler (~> 0.1.3)
+  guard-cucumber (~> 0.7.3)
+  guard-process
+  guard-rspec (~> 0.5.0)
+  guard-spork (~> 0.3.0)
   heroku
   later_dude
   launchy
-  machinist
+  libnotify
   minimal
   no_peeping_toms
   pg
+  pickle
   prawn
   prawnto!
   rack
   rails (= 3.1.1)
   rcov
-  rspec
-  rspec-rails
+  rspec-rails (~> 2.7.0)
+  spork (~> 0.9.0.rc2)
+  timecop
