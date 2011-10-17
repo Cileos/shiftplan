@@ -3,6 +3,7 @@ class Hello
 
   Greeting = /\b(hello|hi|hallo|hallihallo|na|welcome|howdy|oi|greetings|fuck)\b/i
 
+  prefix lambda{ |m| m.bot.nick + ": " }
   match Greeting, :use_prefix => false
 
   def execute(m)
