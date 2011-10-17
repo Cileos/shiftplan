@@ -6,15 +6,20 @@ require 'cinch'
 $:.unshift File.expand_path('../../lib/cinch', __FILE__)
 
 require 'hello'
+require 'cijoe'
+
+channel = debug ? "#lanpartei" : "#shiftplan"
 
 bot = Cinch::Bot.new do
   configure do |c|
     c.server          = "irc.freenode.org"
     c.nick            = debug ? 'lanpy' : 'cilea'
-    c.channels        = [debug ? "#lanpartei" : "#shiftplan"]
+    c.channels        = [channel]
     c.verbose         = true
-    c.plugins.plugins = [Hello]
+    c.plugins.plugins = [Hello, Cijoe]
   end
 end
+
+Thread.new { Cijoe::Server.listen(bot, channel) }
 
 bot.start
