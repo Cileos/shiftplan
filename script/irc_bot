@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+debug = ENV['DEBUG']
+require 'pry' if debug
 require 'cinch'
 $:.unshift File.expand_path('../../lib/cinch', __FILE__)
 
@@ -8,8 +10,8 @@ require 'hello'
 bot = Cinch::Bot.new do
   configure do |c|
     c.server          = "irc.freenode.org"
-    c.nick            = 'cilea'
-    c.channels        = ["#shiftplan"]
+    c.nick            = debug ? 'lanpy' : 'cilea'
+    c.channels        = [debug ? "#lanpartei" : "#shiftplan"]
     c.verbose         = true
     c.plugins.plugins = [Hello]
   end
