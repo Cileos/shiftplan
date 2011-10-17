@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require 'cinch'
+$:.unshift File.expand_path('../../lib/cinch', __FILE__)
+
+require 'hello'
+
+bot = Cinch::Bot.new do
+  configure do |c|
+    c.server          = "irc.freenode.org"
+    c.nick            = 'cilea'
+    c.channels        = ["#shiftplan"]
+    c.verbose         = true
+    c.plugins.plugins = [Hello]
+  end
+end
+
+bot.start
