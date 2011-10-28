@@ -1,0 +1,9 @@
+de:
+  helpers:
+    actions:
+      profile: Profil
+      dashboard: Dashboard
+      signin: Einloggen
+      signout: Ausloggen
+      signup: Registrieren
+

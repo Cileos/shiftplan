@@ -6,9 +6,9 @@ Feature: Signing in
   Scenario: Signing in successfully
     Given I am on the home page
       And a confirmed_user exists with email: "me@example.com"
-     When I follow "einloggen"
+     When I follow "Einloggen"
       And I fill in "E-Mail" with "me@example.com"
       And I fill in "Passwort" with "secret"
-      And I press "login"
+      And I press "Einloggen"
      Then I should see "Erfolgreich eingeloggt."
       And I should be logged in as "me@example.com"
