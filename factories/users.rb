@@ -1,4 +1,6 @@
-FactoryGirl::Password = 'secret'
+unless defined?(FactoryGirl::Password)
+  FactoryGirl::Password = 'secret'
+end
 
 FactoryGirl.define do
   factory :user do
