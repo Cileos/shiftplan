@@ -28,8 +28,6 @@ gem 'jquery-rails'
 
 
 group :test do
-  # Pretty printed test output
-  gem 'turn', :require => false
   gem 'cucumber-rails', "~> 1.1.1"
   gem 'rspec-rails', "~> 2.7.0"
   gem 'rcov'
@@ -38,7 +36,7 @@ group :test do
   gem "timecop"
   gem 'no_peeping_toms' # disable observers
   gem 'database_cleaner'
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem "email_spec"
 
   gem "spork", "~> 0.9.0.rc2"
@@ -49,6 +47,12 @@ group :test do
   gem "guard-bundler", "~> 0.1.3"
   gem "guard-process"
   gem "libnotify"
+
+  gem 'pry'
+end
+
+group :development do
+  gem 'pry'
 end
 
 gem 'devise'

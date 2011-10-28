@@ -1,0 +1,12 @@
+!!!5
+%html
+  %head
+    %title Shiftplan
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    = render 'session'
+    = render 'flash', :flash => flash
+    = yield
+
