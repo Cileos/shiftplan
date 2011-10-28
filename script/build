@@ -1,59 +1,39 @@
-#!/bin/sh
+#!/bin/bash
 
-# make sure server isn't running from a previous build
-if [ -f 'tmp/pids/server.pid' ]
-then
-  kill -9 `cat tmp/pids/server.pid`
-  rm tmp/pids/server.pid
-fi
+# this solved *some* problems with cijoe (sorry)
+unset RAILS_RELATIVE_URL_ROOT
+unset RACK_BASE_URI
 
-# sleep a little, just to make sure the server is killed properly
-sleep 10
+NEEDED_RUBY='1.9.2-p290@shiftplan-ci'
+RAILS_ENV=test
+export RAILS_ENV
 
-# set JAVA stuff for installing rjb
-export JAVA_HOME=/usr/lib/jvm/java-1.5.0-sun
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/jre/lib/i386:${JAVA_HOME}/jre/lib/i386/client
-echo $JAVA_HOME
-echo $LD_LIBRARY_PATH
+APP_DIR=`pwd`
 
-#set env
-export PATH=$PATH:/opt/ruby/bin
-echo $PATH
 
-# get latest steam code, the version of locactor gem has to be checked manually
-# if steam gets more stable we could comment out the update step
-# steam is now a gem and not a plugin
-#ODIR=`pwd` && cd /var/www/shiftplan/shared/vendor/plugins/steam && git pull && cd $ODIR
-ln -nfs /var/www/shiftplan/shared/vendor/htmlunit-2.6 vendor/htmlunit-2.6
+# Setup rvm. on FTD001 it is installed by root
+if [[ -s "/usr/local/rvm/scripts/rvm" ]]  ; then source "/usr/local/rvm/scripts/rvm" ; fi
+if [[ -s "$HOME/.rvm/scripts/rvm" ]]  ; then source "$HOME/.rvm/scripts/rvm" ; fi
 
-# create database configuration
-ln -nfs /var/www/shiftplan/shared/config/database.yml.test config/database.yml
+rvm use $NEEDED_RUBY
+
+which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 25
 
 # run bundle install only if bundle check misses something
 # taking out the --relock as we don't change the Gemfile.lock
-bundle check || env PATH=$PATH bundle install
+bundle check || bundle install || exit 27
+
 
 # prepare test db
-rake environment RAILS_ENV=test db:drop db:create db:schema:load
+bundle exec rake environment db:drop db:create db:schema:load
 
-# create tmp/pids dir if not already exists and set chmod 666
-mkdir -p -m 766 tmp/pids
+# we want all tests to run, even if other test components fail before, 
+# so we toggle one bit of the exit/return value if a test component fails
+ret=$((0))
 
-# start the test server into background
-# as long we use rails3beta1 we have to pass RAILS_ENV to the server
-# this is solved 5 days after releasing beta1 (LH #3877)
-#nohup bundle exec rails server -p 3000 -e test > log/server.log &
-nohup env RAILS_ENV=test bundle exec rails server -p 3000 > log/server.log &
+bundle exec rspec ./spec             || ret=$(($ret+1))
+bundle exec cucumber features        || ret=$(($ret+2))
 
-# wait for starting server and run the tests
-sleep 30 && bundle exec rspec ./spec && bundle exec cucumber features RAILS_ENV=test
-STATUS=`echo $?`
-
-# stop the before started test server
-if [ -f 'tmp/pids/server.pid' ]
-then
-  kill -9 `cat tmp/pids/server.pid`
-  rm tmp/pids/server.pid
-fi
-
-exit $STATUS
+echo
+echo "fin. (exit code: $ret)"
+exit $ret

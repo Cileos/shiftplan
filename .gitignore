@@ -1,6 +1,5 @@
 .bundle
 .DS_Store
-.rvmrc
 log/*.log
 tmp/**/*
 config/database.yml
