@@ -39,6 +39,7 @@ group :test do
   gem 'no_peeping_toms' # disable observers
   gem 'database_cleaner'
   gem 'factory_girl'
+  gem "email_spec"
 
   gem "spork", "~> 0.9.0.rc2"
   gem "guard", "~> 0.8.4"
