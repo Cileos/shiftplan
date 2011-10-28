@@ -12,6 +12,7 @@ export RAILS_ENV
 APP_DIR=`pwd`
 
 # Setup rvm. on FTD001 it is installed by root
+rvmrc="$HOME/.rvmrc"
 cat >> $rvmrc <<-EORC
 rvm_install_on_use_flag=1
 EORC
