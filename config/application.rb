@@ -44,5 +44,12 @@ module Shiftplan
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.generators do |g|
+      g.orm :active_record
+      g.test_framework :rspec
+      g.javascript_engine :coffee
+      g.template_engine :haml
+    end
   end
 end
