@@ -37,7 +37,9 @@ bundle exec rake db:drop db:create db:migrate
 # so we toggle one bit of the exit/return value if a test component fails
 ret=$((0))
 
+echo ">>> rSpec"
 bundle exec rspec ./spec             || ret=$(($ret+1))
+echo ">>> Cucumber"
 bundle exec cucumber features        || ret=$(($ret+2))
 
 echo
