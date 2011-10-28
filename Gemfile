@@ -28,8 +28,6 @@ gem 'jquery-rails'
 
 
 group :test do
-  # Pretty printed test output
-  gem 'turn', :require => false
   gem 'cucumber-rails', "~> 1.1.1"
   gem 'rspec-rails', "~> 2.7.0"
   gem 'rcov'
