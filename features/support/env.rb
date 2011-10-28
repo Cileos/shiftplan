@@ -8,6 +8,9 @@ Spork.prefork do
   require 'rspec/rails'
   require 'fileutils'
 
+  require 'capybara/rails'
+  require 'cucumber/rails'
+
   World(RSpec::Matchers)
 
   # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
@@ -33,7 +36,6 @@ Spork.prefork do
 end
 
 Spork.each_run do
-  Timecop.return
   I18n.reload!
   FactoryGirl.reload
 end
