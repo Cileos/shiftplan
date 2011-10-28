@@ -11,6 +11,9 @@ Spork.prefork do
   require 'capybara/rails'
   require 'cucumber/rails'
 
+  require 'email_spec'
+  require 'email_spec/cucumber'
+
   World(RSpec::Matchers)
 
   # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
@@ -30,9 +33,6 @@ Spork.prefork do
   Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
     DatabaseCleaner.strategy = :transaction
   end
-
-  Before { DatabaseCleaner.start }
-  After { DatabaseCleaner.clean }
 end
 
 Spork.each_run do

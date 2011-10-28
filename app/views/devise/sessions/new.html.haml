@@ -3,7 +3,7 @@
   = f.input :password, :input_html => { :size => 40 }, :hint => false
   - if devise_mapping.rememberable?
     = f.input :remember_me, :as => :boolean
-  = f.button :submit, t('helpers.actions.signin')
+  = f.button :submit, translate_action('.signin')
 
   .actions
     = render :partial => "devise/shared/links"

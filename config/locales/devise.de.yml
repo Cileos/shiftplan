@@ -21,13 +21,10 @@ de:
       send_instructions: 'Du wirst in ein paar Minuten eine eMail erhalten, um Dein Passwort zurückzusetzen.'
       updated: 'Dein Passwort wurde erfolgreich geändert - Du bist nun angemeldet.'
     confirmations:
-      send_instructions: 'Du wirst in ein paar Minuten eine eMail erhalten, um Deine eMailadresse zu bestätigen.'
       confirmed: 'Sie haben erfolgreich Ihren Accout bestätigt und sind nun eingeloggt.'
       updated: 'Deine eMailadresse wurde erfolgreich geändert - Du bist nun angemeldet.'
     registrations:
-      signed_up: 'Du hats Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine eMailadresse zu bestätigen.'
-      # the follwoing gets a %(reason), but we do not where to translate this
-      inactive_signed_up: 'Sie haben sich erfolgreich registriert, allerdings konnten wir Sie nicht einloggen, da Ihr Account unbestätigt ist. Bitte schauen Sie in Ihr E-Mail-Postfach.'
+      inactive_signed_up: 'Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen.'
       updated: 'Profil erfolgreich geändert.'
       destroyed: 'Auf wiedersehen! Dein Konto wurde vollständig gelöscht.'
     unlocks:
