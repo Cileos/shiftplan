@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'drb'
+DRb.start_service()
+bot = DRbObject.new(nil, 'druby://localhost:5678')
+ENV['PROJECT'] = 'shiftplan'
+bot.notify 'worked', ENV
+
