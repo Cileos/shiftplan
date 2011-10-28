@@ -33,6 +33,7 @@ Spork.prefork do
 end
 
 Spork.each_run do
+  Timecop.return
   I18n.reload!
   FactoryGirl.reload
 end
