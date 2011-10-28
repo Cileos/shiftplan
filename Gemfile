@@ -1,11 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.1'
-
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3'
+gem 'pg'
 
 
 # Gems used only for assets and not required
@@ -30,7 +26,29 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+  gem 'cucumber-rails', "~> 1.1.1"
+  gem 'rspec-rails', "~> 2.7.0"
+  gem 'rcov'
+  gem 'launchy'
+  gem "pickle"
+  gem "timecop"
+  gem 'no_peeping_toms' # disable observers
+  gem 'database_cleaner'
+  gem 'factory_girl'
+
+  gem "spork", "~> 0.9.0.rc2"
+  gem "guard", "~> 0.8.4"
+  gem "guard-rspec", "~> 0.5.0"
+  gem "guard-cucumber", "~> 0.7.3"
+  gem "guard-spork", "~> 0.3.0"
+  gem "guard-bundler", "~> 0.1.3"
+  gem "guard-process"
+  gem "libnotify"
 end
+
+gem 'devise'
+gem 'simple_form'
