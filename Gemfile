@@ -36,7 +36,7 @@ group :test do
   gem "timecop"
   gem 'no_peeping_toms' # disable observers
   gem 'database_cleaner'
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem "email_spec"
 
   gem "spork", "~> 0.9.0.rc2"
