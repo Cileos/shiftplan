@@ -28,7 +28,8 @@ Spork.prefork do
     DatabaseCleaner.strategy = :transaction
   end
 
-  Before { DatabaseCleaner.clean }
+  Before { DatabaseCleaner.start }
+  After { DatabaseCleaner.clean }
 end
 
 Spork.each_run do
