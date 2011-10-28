@@ -47,6 +47,12 @@ group :test do
   gem "guard-bundler", "~> 0.1.3"
   gem "guard-process"
   gem "libnotify"
+
+  gem 'pry'
+end
+
+group :development do
+  gem 'pry'
 end
 
 gem 'devise'
