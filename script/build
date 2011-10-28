@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# this solved *some* problems with cijoe (sorry)
+unset RAILS_RELATIVE_URL_ROOT
+unset RACK_BASE_URI
+
+NEEDED_RUBY='1.9.2-p290@shiftplan-ci'
+DATABASE='shiftplan_test'
+RAILS_ENV=test
+export RAILS_ENV
+
+APP_DIR=`pwd`
+
+# Setup rvm. on FTD001 it is installed by root
+cat >> $rvmrc <<-EORC
+rvm_install_on_use_flag=1
+EORC
+sort -u -o $rvmrc $rvmrc
+
+if [[ -s "/usr/local/rvm/scripts/rvm" ]]  ; then source "/usr/local/rvm/scripts/rvm" ; fi
+if [[ -s "$HOME/.rvm/scripts/rvm" ]]  ; then source "$HOME/.rvm/scripts/rvm" ; fi
+
+rvm use $NEEDED_RUBY --create
+
+which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 25
+
+# postgres
+dropdb $DATABASE
+createdb $DATABASE || echo "please run createuser -d -R -S $USER (as user postgres)" || exit 128
+
+cat > config/database.yml <<-EOYML
+test:
+  adapter: postgresql
+  encoding: utf8
+  pool: 5
+  database: $DATABASE
+EOYML
+
+
+# run bundle install only if bundle check misses something
+# taking out the --relock as we don't change the Gemfile.lock
+bundle check || bundle install || exit 27
+
+# prepare test db
+bundle exec rake environment db:migrate
+
+# we want all tests to run, even if other test components fail before, 
+# so we toggle one bit of the exit/return value if a test component fails
+ret=$((0))
+
+bundle exec rspec ./spec             || ret=$(($ret+1))
+bundle exec cucumber features        || ret=$(($ret+2))
+
+echo
+echo "fin. (exit code: $ret)"
+exit $ret
