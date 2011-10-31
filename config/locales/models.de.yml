@@ -4,6 +4,8 @@ de:
       user:
         one: "Benutzer"
         other: "%{count} Benutzer"
+      employee:
+        one: "Mitarbeiter"
     attributes:
       user:
         email: "E-Mail"
@@ -16,4 +18,8 @@ de:
         mobile_number: "Mobilfunknummer"
         remember_me: "angemeldet bleiben"
         avatar: "Profilbild"
+      employee:
+        first_name: Vorname
+        last_name: Nachname
+        full_name: Name
 
