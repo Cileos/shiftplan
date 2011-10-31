@@ -1,10 +1,10 @@
 Feature: Create Employees
   In order to assign my employees to their shift
-  As a manager
+  As a planer
   I want to create employees
 
   Scenario: Create an employee with name
-    Given I am signed in as manager
+    Given I am signed in as planer
      When I follow "Mitarbeiter"
       And I follow "Hinzufügen"
       And I fill in the following:
