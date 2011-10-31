@@ -5,4 +5,6 @@ class Employee < ActiveRecord::Base
   def full_name
     %Q~#{first_name} #{last_name}~
   end
+
+  belongs_to :organization
 end
