@@ -1,0 +1,7 @@
+%ul.actions
+  %li= link_to '.add', new_employee_path
+
+%ul.employees
+  - for employee in collection
+    %li
+      %span.full_name= employee.full_name
