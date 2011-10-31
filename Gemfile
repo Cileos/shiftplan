@@ -58,3 +58,4 @@ end
 gem 'devise'
 gem 'simple_form'
 gem 'haml-rails'
+gem 'inherited_resources'
