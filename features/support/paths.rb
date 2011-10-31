@@ -11,6 +11,9 @@ module NavigationHelpers
     when /^the (?:home|landing)\s?page$/
       '/'
 
+    when /^my dashboard$/
+      dashboard_path
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
