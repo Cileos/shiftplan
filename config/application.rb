@@ -50,6 +50,8 @@ module Shiftplan
       g.test_framework :rspec
       g.javascript_engine :coffee
       g.template_engine :haml
+      g.controller_specs false
+      g.view_specs false
     end
   end
 end
