@@ -13,3 +13,4 @@ Feature: Signing in
      Then I should see "Erfolgreich eingeloggt."
       And I should be logged in as "me@example.com"
       And I should be on my dashboard
+      And I should be signed in as "me@example.com"
