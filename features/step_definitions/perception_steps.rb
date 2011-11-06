@@ -37,3 +37,11 @@ Then /^the page should be titled "([^"]*)"$/ do |title|
    And %Q~I should see "#{title}" within "html body #title~
 end
 
+# FIXME can only match the whole calendar
+Then /^I should see the following calendar:$/ do |expected|
+  actual = find("#calendar").all("tr").map do |tr|
+    tr.find('th, td')
+  end
+  expected.diff! actual
+end
+
