@@ -31,3 +31,9 @@ Then /^I should see a list of the following (.+):$/ do |plural, expected|
   actual.unshift expected.column_names
   expected.diff! actual
 end
+
+Then /^the page should be titled "([^"]*)"$/ do |title|
+  Then %Q~I should see "#{title}" within "html head title~
+   And %Q~I should see "#{title}" within "html body #title~
+end
+
