@@ -13,7 +13,7 @@ Feature: Create Employees
       And I press "Hinzufügen"
      Then I should see message "Mitarbeiter erfolgreich angelegt."
       And I should see a list of the following employees:
-        | full_name     |
+        | name          |
         | Homer Simpson |
 
 

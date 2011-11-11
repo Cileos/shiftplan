@@ -1,12 +1,19 @@
 !!!5
 %html
   %head
-    %title Shiftplan
+    %title
+      - if content_for?(:title)
+        = yield(:title)
+        \-
+      Shiftplan
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body
     = render 'session'
     = render 'flash', :flash => flash
+
+    - if show_title?
+      %h1#title= yield(:title)
     = yield
 

@@ -31,3 +31,17 @@ Then /^I should see a list of the following (.+):$/ do |plural, expected|
   actual.unshift expected.column_names
   expected.diff! actual
 end
+
+Then /^the page should be titled "([^"]*)"$/ do |title|
+  Then %Q~I should see "#{title}" within "html head title"~
+   And %Q~I should see "#{title}" within "html body #title"~
+end
+
+# FIXME can only match the whole calendar
+Then /^I should see the following calendar:$/ do |expected|
+  actual = find("#calendar").all("tr").map do |tr|
+    tr.all('th, td').map(&:text)
+  end
+  expected.diff! actual
+end
+

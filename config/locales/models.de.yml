@@ -22,4 +22,12 @@ de:
         first_name: Vorname
         last_name: Nachname
         full_name: Name
+      plan:
+        name: Name
+        month: Monat
+
+    values:
+      plan:
+        durations:
+          1_month: ganzer Monat
 
