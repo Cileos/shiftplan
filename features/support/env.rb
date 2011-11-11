@@ -19,6 +19,8 @@ Spork.prefork do
   require 'email_spec'
   require 'email_spec/cucumber'
 
+  require 'factory_girl'
+
   World(RSpec::Matchers)
 
   # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In

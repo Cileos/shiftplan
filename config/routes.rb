@@ -1,8 +1,8 @@
 Shiftplan::Application.routes.draw do
 
-  resources :schedulings
-
-  resources :plans
+  resources :plans do
+    resources :schedulings
+  end
 
   resources :employees
 

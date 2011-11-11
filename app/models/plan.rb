@@ -1,5 +1,6 @@
 class Plan < ActiveRecord::Base
   belongs_to :organization
+  has_many :schedulings
 
   validates_presence_of :name
   validates_presence_of :month
@@ -20,9 +21,13 @@ class Plan < ActiveRecord::Base
   end
 
   def each_day
-    (1..duration_in_days).to_a.each do |d|
+    days.each do |d|
       yield(first_day + (d-1).days)
     end
+  end
+
+  def days
+    (1..duration_in_days).to_a
   end
 
   def duration_in_days
