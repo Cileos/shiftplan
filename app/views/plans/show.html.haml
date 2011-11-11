@@ -7,7 +7,7 @@
       - @plan.each_day do |day|
         %th= day.day
   %tbody
-    - @plan.organization.employees.each do |employee|
+    - @plan.organization.employees.order_by_name.each do |employee|
       %tr
         %td.employee= employee.name
         - @plan.duration_in_days.times do

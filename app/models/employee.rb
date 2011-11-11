@@ -6,5 +6,9 @@ class Employee < ActiveRecord::Base
     %Q~#{first_name} #{last_name}~
   end
 
+  def self.order_by_name
+    order('last_name ASC, first_name ASC')
+  end
+
   belongs_to :organization
 end
