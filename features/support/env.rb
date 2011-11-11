@@ -2,6 +2,11 @@ require 'rubygems'
 require 'spork'
 
 Spork.prefork do
+  # keep devise from preloading User model, see https://gist.github.com/1344547
+  require 'rails/application'
+  Spork.trap_method(Rails::Application, :reload_routes!)
+  Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
+
   require File.expand_path('../../../config/environment', __FILE__)
 
   require 'rspec'
@@ -33,9 +38,10 @@ Spork.prefork do
   Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
     DatabaseCleaner.strategy = :transaction
   end
+
 end
 
 Spork.each_run do
-  I18n.reload!
+  I18n.backend.reload!
   FactoryGirl.reload
 end
