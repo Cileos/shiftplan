@@ -1,0 +1,16 @@
+module PlansHelper
+  def months_for_select(plan, far=12)
+    start = Date.today.beginning_of_month
+    (0..far).to_a.map do |more|
+      start + more.months
+    end.map do |day|
+      [l(day, :format => :long_without_day), day]
+    end
+  end
+
+  def durations_for_select(plan)
+    Plan::Durations.map do |duration|
+      [translate(duration, :scope => 'activerecord.values.plans.durations'), duration]
+    end
+  end
+end

@@ -1,5 +1,7 @@
 Shiftplan::Application.routes.draw do
 
+  resources :plans
+
   resources :employees
 
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'

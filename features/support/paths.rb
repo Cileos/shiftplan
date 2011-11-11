@@ -11,6 +11,15 @@ module NavigationHelpers
     when /^the (?:home|landing)\s?page$/
       '/'
 
+    when /^the page (?:of|for) #{capture_model}$/
+      case model = model!($1)
+      when Plan
+        # TODO we may have to scope this under its organization laater
+        plan_path(model)
+      else
+        raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
+      end
+
     when /^my dashboard$/
       dashboard_path
 

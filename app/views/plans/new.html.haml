@@ -1,0 +1,8 @@
+= simple_form_for @plan do |f|
+  - unless @plan.duration.present?
+    = f.input :duration, :collection => durations_for_select(@plan), :as => :radio
+    = f.button :submit, translate_action('.next')
+  - else
+    = f.input :name
+    = f.input :month, :collection => months_for_select(@plan)
+    = f.button :submit, translate_action('.create')
