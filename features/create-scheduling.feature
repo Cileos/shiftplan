@@ -4,15 +4,15 @@ Feature: create a scheduling
   I want to create a scheduling for my employees
 
   Scenario: just entering time span
-    Given today is 2011-10-01
-      And I am signed in as a planer
+      And a planer exists
       And an organization exists with planer: the planer
       And the organization has the following employees:
         | first_name | last_name |
         | Homer      | S         |
         | Lenny      | L         |
         | Carl       | C         |
-      And a plan exists with organization: the organization
+      And a plan exists with organization: the organization, first_day: "2011-02-01"
+      And I am signed in as the planer
       And I am on the page of the plan
      When I follow "Neue Terminierung"
       And I select "Homer S" from "Mitarbeiter"
@@ -21,7 +21,7 @@ Feature: create a scheduling
       And I press "Anlegen"
      Then I should be on the page of the plan
       And I should see the following calendar:
-        | Mitarbeiter | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 |
-        | Carl C      |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
-        | Lenny L     |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
-        | Homer S     |   |   |   |   |   |   |   |   |   |    | 9-17 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+        | Mitarbeiter | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 |
+        | Carl C      |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+        | Lenny L     |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+        | Homer S     |   |   |   |   |   |   |   |   |   |    | 9-17 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |

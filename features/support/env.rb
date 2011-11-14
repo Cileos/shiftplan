@@ -21,6 +21,8 @@ Spork.prefork do
 
   require 'factory_girl'
 
+  require 'ruby-debug'
+
   World(RSpec::Matchers)
 
   # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
@@ -36,7 +38,7 @@ Spork.prefork do
   Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
     DatabaseCleaner.strategy = :truncation, {:except => %w[widgets]}
   end
-  
+
   Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
     DatabaseCleaner.strategy = :transaction
   end
