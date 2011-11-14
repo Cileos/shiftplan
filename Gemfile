@@ -34,7 +34,6 @@ group :test do
   gem 'launchy'
   gem "pickle"
   gem "timecop"
-  gem 'no_peeping_toms' # disable observers
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem "email_spec"
@@ -49,10 +48,12 @@ group :test do
   gem "libnotify"
 
   gem 'pry'
+  gem 'ruby-debug19'
 end
 
 group :development do
   gem 'pry'
+  gem 'ruby-debug19'
 end
 
 gem 'devise'
