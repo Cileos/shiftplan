@@ -13,6 +13,6 @@
     - @plan.organization.employees.order_by_name.each do |employee|
       %tr
         %td.employee= employee.name
-        - @plan.each_day do |day|
-          %td.scheduling= employee.schedulings.find_all_by_plan_id(@plan.id).select { |s| s.starts_at && s.starts_at.day == day.day }.map { |s| "#{s.starts_at.hour}-#{s.ends_at.hour}" }.first
-
+        - @plan.each_day do |column|
+          %td.scheduling
+            = @plan.schedulings.select {|s| s.employee_id == employee.id }.select {|s| s.starts_at.day == column.day }.map { |s| "#{s.starts_at.hour}-#{s.ends_at.hour}"}.first

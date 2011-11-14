@@ -5,6 +5,7 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_ROOT)
   require 'rspec/rails'
+  require 'ruby-debug'
 
 
   RSpec.configure do |config|

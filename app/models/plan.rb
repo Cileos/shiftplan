@@ -34,6 +34,10 @@ class Plan < ActiveRecord::Base
     (last_day - first_day).to_i + 1
   end
 
+  def day_at(offset)
+    (first_day + (offset.to_i - 1 ).days).to_time_in_current_zone
+  end
+
 
   private
   before_validation :set_last_day

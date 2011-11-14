@@ -2,13 +2,23 @@ class Scheduling < ActiveRecord::Base
   belongs_to :plan
   belongs_to :employee
 
-  attr_accessor :day, :quicky
+  validates :starts_at, :ends_at, :plan, :presence => true
+
+  attr_accessor :day
+  attr_accessor :quicky
+
 
   private
-  before_validation :set_starts_and_ends_at
-  def set_starts_and_ends_at
-    quicky =~ /^(\d{1,2})-(\d{1,2})$/
-    self.starts_at = (plan.first_day + day.to_i.days - 1) + $1.to_i.hours
-    self.ends_at = (plan.first_day + day.to_i.days - 1) + $2.to_i.hours
+  before_validation :parse_quicky
+
+  def parse_quicky
+    if quicky.present?
+      if parsed = Quicky.parse(quicky)
+        self.starts_at = plan.day_at(day) + parsed.start_hours
+        self.ends_at = plan.day_at(day) + parsed.end_hours
+        self.quicky = parsed.to_s # clean the entered quicky
+      end
+    end
   end
+
 end
