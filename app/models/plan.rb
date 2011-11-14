@@ -1,4 +1,5 @@
 class Plan < ActiveRecord::Base
+  include Draper::ModelSupport
   belongs_to :organization
   has_many :schedulings
 

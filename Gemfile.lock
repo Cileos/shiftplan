@@ -68,6 +68,8 @@ GEM
       orm_adapter (~> 0.0.3)
       warden (~> 1.0.3)
     diff-lcs (1.1.3)
+    draper (0.9.5)
+      activesupport (>= 2.3.10)
     email_spec (1.2.1)
       mail (~> 2.2)
       rspec (~> 2.0)
@@ -243,6 +245,7 @@ DEPENDENCIES
   cucumber-rails (~> 1.1.1)
   database_cleaner
   devise
+  draper
   email_spec
   factory_girl_rails
   guard (~> 0.8.4)

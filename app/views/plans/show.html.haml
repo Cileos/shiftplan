@@ -3,16 +3,16 @@
 %ul.actions
   %li= link_to '.new_scheduling', new_plan_scheduling_path(resource)
 
-%table#calendar
-  %thead
-    %tr
-      %th= translate_action '.employees'
-      - @plan.each_day do |day|
-        %th= day.day
-  %tbody
-    - @plan.organization.employees.order_by_name.each do |employee|
+= decorate @plan do |p|
+  %table#calendar
+    %thead
       %tr
-        %td.employee= employee.name
-        - @plan.each_day do |column|
-          %td.scheduling
-            = @plan.schedulings.select {|s| s.employee_id == employee.id }.select {|s| s.starts_at.day == column.day }.map { |s| "#{s.starts_at.hour}-#{s.ends_at.hour}"}.first
+        %th= translate_action '.employees'
+        - p.model.each_day do |day|
+          %th= day.day
+    %tbody
+      - p.employees.each do |employee|
+        %tr
+          %td.employee= employee.name
+          - @plan.each_day do |column|
+            %td= p.quickies_for(employee, column.day)
