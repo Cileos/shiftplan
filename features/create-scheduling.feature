@@ -4,7 +4,7 @@ Feature: create a scheduling
   I want to create a scheduling for my employees
 
   Scenario: just entering time span
-      And a planner exists
+    Given a planner exists
       And an organization exists with planner: the planner
       And the organization has the following employees:
         | first_name | last_name |
@@ -25,3 +25,11 @@ Feature: create a scheduling
         | Carl C      |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
         | Lenny L     |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
         | Homer S     |   |   |   |   |   |   |   |   |   |    | 9-17 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+
+  Scenario: planner should not be able to create schedulings if no employees exist, yet
+    Given a planner exists
+      And an organization exists with planner: the planner
+      And a plan exists with organization: the organization, first_day: "2011-02-01"
+      And I am signed in as the planner
+      And I am on the page of the plan
+     Then I should not see "Neue Terminierung"

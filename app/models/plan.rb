@@ -39,6 +39,9 @@ class Plan < ActiveRecord::Base
     (first_day + (offset.to_i - 1 ).days).to_time_in_current_zone
   end
 
+  def employees_available?
+    !organization.employees.empty?
+  end
 
   private
   before_validation :set_last_day
