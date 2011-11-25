@@ -2,7 +2,7 @@ class Scheduling < ActiveRecord::Base
   belongs_to :plan
   belongs_to :employee
 
-  validates :starts_at, :ends_at, :plan, :presence => true
+  validates :starts_at, :ends_at, :plan, :employee, :presence => true
 
   attr_accessor :day
   attr_accessor :quicky
