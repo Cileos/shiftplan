@@ -10,5 +10,5 @@ require 'factory_girl'
 FactoryGirl.reload
 
 unless planner = User.find_by_email('planner@dev.shiftplan.com')
-  planner = Factory :confirmed_user, :email => 'planner@dev.shiftplan.com'
+  planner = Factory :planner, :email => 'planner@dev.shiftplan.com'
 end
