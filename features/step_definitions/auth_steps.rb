@@ -33,3 +33,7 @@ end
 When /^I sign in as #{capture_model}$/ do |model|
   Given %~I am signed in as #{model}~
 end
+
+Then /^#{capture_model} should have the role "([^"]*)"$/ do |name, role|
+  model!(name).roles.include?(role).should be_true
+end

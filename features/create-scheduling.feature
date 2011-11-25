@@ -1,18 +1,18 @@
 Feature: create a scheduling
   In order for my employees not to miss any of their shifts
-  As a planer
+  As a planner
   I want to create a scheduling for my employees
 
   Scenario: just entering time span
-      And a planer exists
-      And an organization exists with planer: the planer
+      And a planner exists
+      And an organization exists with planner: the planner
       And the organization has the following employees:
         | first_name | last_name |
         | Homer      | S         |
         | Lenny      | L         |
         | Carl       | C         |
       And a plan exists with organization: the organization, first_day: "2011-02-01"
-      And I am signed in as the planer
+      And I am signed in as the planner
       And I am on the page of the plan
      When I follow "Neue Terminierung"
       And I select "Homer S" from "Mitarbeiter"

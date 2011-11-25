@@ -11,8 +11,8 @@ FactoryGirl.define do
     factory :confirmed_user do
       after_create { |u| u.confirm! }
 
-      factory :planer do
-        roles %w(planer)
+      factory :planner do
+        roles %w(planner)
       end
     end
   end
