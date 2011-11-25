@@ -1,7 +1,8 @@
 - title @plan.name
 
 %ul.actions
-  %li= link_to '.new_scheduling', new_plan_scheduling_path(resource) if @plan.employees_available?
+  - if @plan.employees_available?
+    %li= link_to '.new_scheduling', new_plan_scheduling_path(@plan), :class => 'new_scheduling'
 
 = decorate @plan do |p|
   %table#calendar
@@ -15,4 +16,4 @@
         %tr
           %td.employee= employee.name
           - @plan.each_day do |column|
-            %td= p.quickies_for(employee, column.day)
+            %td{data: {employee_id: employee.id, day: column.day}}= p.quickies_for(employee, column.day)

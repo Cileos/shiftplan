@@ -8,6 +8,6 @@ When /^I click on cell "([^"]*)"\/"([^"]*)"$/ do |column_label, row_label|
   column = columns.index(column_label)
   row    = rows.index(row_label)
 
-  cell = page.find("tbody tr:nth-child(#{row+1}) td:nth-child(#{column})")
+  cell = page.find("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})")
   cell.click
 end
