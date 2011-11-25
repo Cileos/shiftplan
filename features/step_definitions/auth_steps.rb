@@ -35,5 +35,5 @@ When /^I sign in as #{capture_model}$/ do |model|
 end
 
 Then /^#{capture_model} should have the role "([^"]*)"$/ do |name, role|
-  model!(name).roles.include?(role).should be_true
+  model!(name).roles.should include(role)
 end
