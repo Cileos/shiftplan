@@ -24,6 +24,8 @@ Spork.prefork do
 
   require 'ruby-debug'
 
+  require 'kopflos/cucumber'
+
   World(RSpec::Matchers)
 
   # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In

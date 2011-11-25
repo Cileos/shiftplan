@@ -49,6 +49,7 @@ group :test do
 
   gem 'pry'
   gem 'ruby-debug19'
+  gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
 end
 
 group :development do
