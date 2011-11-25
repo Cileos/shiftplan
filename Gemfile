@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1'
+gem 'rails', '3.1.3'
 gem 'pg'
 
 
@@ -28,7 +28,7 @@ gem 'jquery-rails'
 
 
 group :test do
-  gem 'cucumber-rails', "~> 1.1.1"
+  gem 'cucumber-rails', "~> 1.2.0"
   gem 'rspec-rails', "~> 2.7.0"
   gem 'rcov'
   gem 'launchy'
