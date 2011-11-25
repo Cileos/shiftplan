@@ -3,7 +3,7 @@ Feature: Signing in
   As a visitor
   I want to sign in
 
-  Scenario: Signing in successfully
+  Scenario: Signing in and signing out successfully
     Given I am on the home page
       And a confirmed_user exists with email: "me@example.com"
      When I follow "Einloggen"
@@ -13,3 +13,6 @@ Feature: Signing in
      Then I should see "Erfolgreich eingeloggt."
       And I should be on my dashboard
       And I should be signed in as "me@example.com"
+     When I follow "Ausloggen"
+     Then I should be on the home page
+      And I should see "Einloggen"
