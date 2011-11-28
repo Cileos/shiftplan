@@ -6,3 +6,7 @@ Given /^today is (.+)$/ do |timey|
   Timecop.travel Time.parse(timey)
 end
 
+When /^I wait for (.+) to appear$/ do |name|
+  selector = selector_for name
+  wait_until { page.has_css?(selector) }
+end

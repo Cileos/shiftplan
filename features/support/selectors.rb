@@ -13,6 +13,9 @@ module HtmlSelectorsHelpers
     when "my list of recent achievements"
       "ul.achievements"
 
+    when /^the new (.+) form$/
+      "form#new_#{$1}"
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

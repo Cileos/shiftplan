@@ -33,6 +33,7 @@ Feature: create a scheduling
   @javascript
   Scenario: just entering time span with javascript
      When I click on cell "11"/"Homer S"
+      And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
      Then I should be on the page of the plan
