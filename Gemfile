@@ -58,6 +58,10 @@ group :development do
   gem 'capistrano'
 end
 
+group :production do
+  gem 'therubyracer' # to compile our coffeescript
+end
+
 gem 'devise'
 gem 'simple_form'
 gem 'haml-rails'

@@ -58,7 +58,7 @@ namespace :deploy do
     run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
   end
 
-  after 'deploy:update_code', 'deploy:compile_assets'
+  after 'deploy:symlink', 'deploy:compile_assets'
 end
 
 namespace :setup do
