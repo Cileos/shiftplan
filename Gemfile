@@ -55,6 +55,7 @@ end
 group :development do
   gem 'pry'
   gem 'ruby-debug19'
+  gem 'capistrano'
 end
 
 gem 'devise'
