@@ -9,6 +9,6 @@
 require 'factory_girl'
 FactoryGirl.reload
 
-unless planner = User.find_by_email('planner@dev.shiftplan.com')
-  planner = Factory :planner, :email => 'planner@dev.shiftplan.com'
+unless planner = User.find_by_email('planner@dev.shiftplan.de')
+  planner = Factory :planner, :email => 'planner@dev.shiftplan.de'
 end
