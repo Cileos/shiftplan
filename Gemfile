@@ -35,7 +35,6 @@ group :test do
   gem "pickle"
   gem "timecop"
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
   gem "email_spec"
 
   gem "spork", "~> 0.9.0.rc2"
@@ -67,3 +66,4 @@ gem 'simple_form'
 gem 'haml-rails'
 gem 'inherited_resources'
 gem 'draper'
+gem 'factory_girl_rails' # we use this for seeds, too
