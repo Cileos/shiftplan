@@ -41,7 +41,7 @@ namespace :deploy do
 
   desc "Migrate the Database"
   task :migrate, :roles => :db do
-    run "cd #{current_release} && RAILS_ENV=production rake db:migrate"
+    run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:migrate"
   end
 
   task :symlink_static_directories do
