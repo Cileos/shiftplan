@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  Roles = %w(planer)
+  Roles = %w(planner)
   serialize :roles, Array
 
   def roles
@@ -25,8 +25,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  # planer
-  has_many :organizations, :foreign_key => 'planer_id'
+  # planner
+  has_many :organizations, :foreign_key => 'planner_id'
   def organization
     organizations.first
   end

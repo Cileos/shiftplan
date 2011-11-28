@@ -1,3 +1,27 @@
 // Place all the styles related to the Plans controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$cell_width: 6em;
+$cell_border: #ccc;
+
+table#calendar {
+  tbody tr {
+    &:nth-child(2n) {
+      background-color: lighten($cell_border, 15%);
+    }
+    &:nth-child(2n+1) {
+      background-color: lighten($cell_border, 10%);
+    }
+  }
+  tbody td {
+    cursor: pointer;
+    width: $cell_width; /* TODO wide table behaves differently */
+    label[for=scheduling_quicky] {
+      display: none;
+    }
+    input#scheduling_quicky {
+      width: 5/6 * $cell_width;
+    }
+  }
+}

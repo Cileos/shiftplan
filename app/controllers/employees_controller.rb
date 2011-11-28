@@ -5,7 +5,7 @@ class EmployeesController < InheritedResources::Base
 
   private
 
-  # TODO more than one organization per planer
+  # TODO more than one organization per planner
   def begin_of_association_chain
     current_user.organization
   end

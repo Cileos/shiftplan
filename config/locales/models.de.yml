@@ -25,7 +25,10 @@ de:
       plan:
         name: Name
         month: Monat
-
+      scheduling:
+        employee: Mitarbeiter
+        day: Tag
+        quicky: Quickie
     values:
       plan:
         durations:

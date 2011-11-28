@@ -1,5 +1,7 @@
 class Plan < ActiveRecord::Base
+  include Draper::ModelSupport
   belongs_to :organization
+  has_many :schedulings
 
   validates_presence_of :name
   validates_presence_of :month
@@ -20,15 +22,26 @@ class Plan < ActiveRecord::Base
   end
 
   def each_day
-    (1..duration_in_days).to_a.each do |d|
+    days.each do |d|
       yield(first_day + (d-1).days)
     end
+  end
+
+  def days
+    (1..duration_in_days).to_a
   end
 
   def duration_in_days
     (last_day - first_day).to_i + 1
   end
 
+  def day_at(offset)
+    (first_day + (offset.to_i - 1 ).days).to_time_in_current_zone
+  end
+
+  def employees_available?
+    !organization.employees.empty?
+  end
 
   private
   before_validation :set_last_day

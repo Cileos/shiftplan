@@ -34,6 +34,7 @@ end
 
 
 guard 'cucumber', :cli => "--drb" do
+  watch(%r{^config/locales/.+\.yml$})
   watch(%r{^features/.+\.feature$})
   watch(%r{^app/.+$})                       { "features" }
   watch(%r{^factories/.+$})                 { "features" }

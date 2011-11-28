@@ -1,18 +1,18 @@
 Feature: Creating a plan
   In order to schedule work in my organization
-  As a planer
+  As a planner
   I want to create a plan
 
   Scenario: creating a plan for the current plan
-    Given a planer exists
-      And an organization exists with planer: the planer
+    Given a planner exists
+      And an organization exists with planner: the planner
       And the organization has the following employees:
         | first_name | last_name |
         | Homer      | S         |
         | Lenny      | L         |
         | Carl       | C         |
       And today is 2011-10-01
-      And I am signed in as the planer
+      And I am signed in as the planner
 
      When I follow "neuer Plan"
       # duration of plan is fixed for now

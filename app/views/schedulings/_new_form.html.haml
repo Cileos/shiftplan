@@ -1,0 +1,12 @@
+= simple_form_for scheduling, :url => plan_schedulings_path(scheduling.plan) do |f|
+  - unless scheduling.employee.present?
+    = f.association :employee, :as => :select, :include_blank => false
+  - else
+    = f.hidden_field :employee_id
+  - unless scheduling.day.present?
+    = f.input :day, :collection => scheduling.plan.days, :include_blank => false
+  - else
+    = f.hidden_field :day
+  = f.input :quicky
+  = f.button :submit, translate_action('.create')
+
