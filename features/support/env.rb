@@ -46,6 +46,9 @@ Spork.prefork do
     DatabaseCleaner.strategy = :transaction
   end
 
+  # some people have slow computers, 2s are not enough. CI is slow also
+  Capybara.default_wait_time = 23
+
 end
 
 Spork.each_run do
