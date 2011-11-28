@@ -44,6 +44,15 @@ namespace :deploy do
     run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:migrate"
   end
 
+  desc "Seed the Database"
+  task :seed, :roles => :db do
+    if ENV['SEED'].nil?
+      STDERR.puts "set the environment variable SEED to anything to confirm this harmful operation"
+    else
+      run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:seed"
+    end
+  end
+
   task :symlink_static_directories do
     run "rm -f #{current_release}/config/database.yml"
     run "ln -sf #{deploy_to}/shared/config/database.yml #{current_release}/config/database.yml"
