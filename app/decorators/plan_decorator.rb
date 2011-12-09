@@ -9,6 +9,10 @@ class PlanDecorator < ApplicationDecorator
     h.render :partial => 'plans/quicky_list', :locals => { :quicky_list =>  quickies_for(employee, day) }
   end
 
+  def quicky_list(employee, day)
+    h.render :partial => 'quicky_list', :locals => { :quicky_list =>  quickies_for(employee, day) }
+  end
+
   def schedulings
     @schedulings ||= model.schedulings
   end
