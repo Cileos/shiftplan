@@ -2,8 +2,11 @@ class PlanDecorator < ApplicationDecorator
   decorates :plan
 
   def quickies_for(employee, day)
-    sch = schedulings_for(employee, day)
-    sch.map { |s| quicky_for s }
+    schedulings_for(employee, day).map { |s| quicky_for s }
+  end
+
+  def quicky_list(employee, day)
+    h.render :partial => 'plans/quicky_list', :locals => { :quicky_list =>  quickies_for(employee, day) }
   end
 
   def schedulings
@@ -16,6 +19,32 @@ class PlanDecorator < ApplicationDecorator
 
   def employees
     model.organization.employees.order_by_name
+  end
+
+  def cell_selector(employee, day)
+    %Q~#calendar tbody td[data-day=#{day}][data-employee_id=#{employee.id}]~
+  end
+
+  def respond_to_missing?(name)
+    name =~ /^(.*)_for_scheduling$/ || super
+  end
+
+  # you can call a method anding in _for_scheduling
+  def method_missing(name, *args, &block)
+    if name =~ /^(.*)_for_scheduling$/
+      scheduling = args.first
+      send($1, scheduling.employee, scheduling.starts_at.day)
+    else
+      super
+    end
+  end
+
+  def dom_id
+    h.dom_id(model)
+  end
+
+  def new_scheduling_dom_id
+    h.dom_id(model, 'new_scheduling')
   end
 
   private
@@ -56,10 +85,12 @@ end
 
 
 class Array
+  # give a real employee
   def for_employee(employee)
     select {|i| i.employee_id == employee.id }
   end
 
+  # give a day number (?)
   def for_day(day)
     select {|i| i.starts_at.day == day }
   end

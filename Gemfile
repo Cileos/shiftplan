@@ -10,6 +10,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-rails'
+  gem "jquery_mobile-rails"
 end
 
 
