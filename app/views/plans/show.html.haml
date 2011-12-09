@@ -10,7 +10,7 @@
       %thead
         %tr
           %th= translate_action '.employees'
-          - p.model.each_day do |day|
+          - @plan.each_day do |day|
             %th= day.day
       %tbody
         - p.employees.each do |employee|
@@ -18,6 +18,7 @@
             %td.employee= employee.name
             - @plan.each_day do |column|
               %td{data: {employee_id: employee.id, day: column.day}}
-                %ul.quickies
-                  - p.quickies_for(employee, column.day).each do |quicky|
-                    %li= quicky
+                - if p.quickies_for(employee, column.day).present?
+                  %ul.quickies
+                    - p.quickies_for(employee, column.day).each do |quicky|
+                      %li= quicky
