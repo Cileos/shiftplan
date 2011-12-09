@@ -42,3 +42,15 @@ Feature: create a scheduling
         | Carl C      |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
         | Lenny L     |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
         | Homer S     |   |   |   |   |   |   |   |   |   |    | 9-17 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+
+  @javascript
+  Scenario: navigating through the plan with keystrokes
+    Then the cell "1"/"Carl C" should be active
+    When I press arrow down
+    Then the cell "1"/"Lenny L" should be active
+    When I press arrow right
+    Then the cell "2"/"Lenny L" should be active
+    When I press arrow up
+    Then the cell "2"/"Carl C" should be active
+    When I press arrow left
+    Then the cell "1"/"Carl C" should be active

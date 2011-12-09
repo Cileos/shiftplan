@@ -14,6 +14,9 @@ table#calendar {
       background-color: lighten($cell_border, 10%);
     }
   }
+  tbody td.active {
+    outline: 0.1em solid blue;
+  }
   tbody td {
     cursor: pointer;
     min-width: $cell_width; /* TODO wide table behaves differently */
