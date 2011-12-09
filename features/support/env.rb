@@ -32,8 +32,10 @@ Spork.prefork do
   # steps to use the XPath syntax.
   Capybara.default_selector = :css
    
-  Capybara.register_driver :selenium do |app|
-    Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  if ENV['CAPYBARA_CHROME'] == 'yes'
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :chrome)
+    end
   end
 
   Capybara.server do |app, port|
