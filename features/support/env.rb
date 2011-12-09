@@ -22,8 +22,6 @@ Spork.prefork do
 
   require 'factory_girl'
 
-  require 'ruby-debug'
-
   require 'kopflos/cucumber'
 
   World(RSpec::Matchers)

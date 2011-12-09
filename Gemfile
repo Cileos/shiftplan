@@ -8,7 +8,6 @@ gem 'pg'
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
-  gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -47,13 +46,13 @@ group :test do
   gem "libnotify"
 
   gem 'pry'
-  gem 'ruby-debug19'
+  # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
 end
 
 group :development do
   gem 'pry'
-  gem 'ruby-debug19'
+  # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem 'capistrano'
 end
 
@@ -61,6 +60,7 @@ group :production do
   gem 'therubyracer' # to compile our coffeescript
 end
 
+gem 'coffee-rails', '~> 3.1.1'
 gem 'devise'
 gem 'simple_form'
 gem 'haml-rails'
