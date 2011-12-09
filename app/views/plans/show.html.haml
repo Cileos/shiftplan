@@ -19,7 +19,7 @@
           %tr
             %td.employee= employee.name
             - @plan.each_day do |column|
-              %td{data: {employee_id: employee.id, day: column.day}}= p.quickies_for(employee, column.day)
+              %td{data: {employee_id: employee.id, day: column.day}}= p.quicky_list(employee, column.day)
 
   = mobile_tag :role => 'page', :id => p.new_scheduling_dom_id do
     = render 'schedulings/new_form', :scheduling => @plan.schedulings.new
