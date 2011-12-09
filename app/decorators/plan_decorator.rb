@@ -3,10 +3,7 @@ class PlanDecorator < ApplicationDecorator
 
   def quickies_for(employee, day)
     sch = schedulings_for(employee, day)
-    return '' if sch.empty?
-    sch.map do |s|
-      quicky_for s
-    end.join(' ').html_safe
+    sch.map { |s| quicky_for s }
   end
 
   def schedulings
