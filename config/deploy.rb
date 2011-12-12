@@ -1,7 +1,7 @@
 # RVM bootstrap
 $:.unshift(File.expand_path("~/.rvm/lib"))
 require 'rvm/capistrano'
-set :rvm_ruby_string, '1.9.2-p290@shiftplan'
+set :rvm_ruby_string, '1.9.3-p0@shiftplan'
 set :rvm_type, :user
 
 # bundler bootstrap
