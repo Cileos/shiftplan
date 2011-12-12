@@ -46,6 +46,12 @@ Feature: create a scheduling
   @javascript
   Scenario: navigating through the plan with keystrokes
     Then the cell "1"/"Carl C" should be active
+    # top-left corner case, active cell remains the same if user presses arrow up
+    When I press arrow up
+    Then the cell "1"/"Carl C" should be active
+    # top-left corner case, active cell remains the same if user presses arrow left
+    When I press arrow left
+    Then the cell "1"/"Carl C" should be active
     When I press arrow down
     Then the cell "1"/"Lenny L" should be active
     When I press arrow right
@@ -54,3 +60,31 @@ Feature: create a scheduling
     Then the cell "2"/"Carl C" should be active
     When I press arrow left
     Then the cell "1"/"Carl C" should be active
+    # navigate to the top-right corner
+    When I press arrow right 27 times
+    Then the cell "28"/"Carl C" should be active
+    # top-right corner case, active cell remains the same if user presses arrow up
+    When I press arrow up
+    Then the cell "28"/"Carl C" should be active
+    # top-right corner case, active cell remains the same if user presses arrow right
+    When I press arrow right
+    Then the cell "28"/"Carl C" should be active
+    # navigate to the bottom-right corner
+    When I press arrow down 2 times
+    Then the cell "28"/"Homer S" should be active
+    # bottom-right corner case, active cell remains the same if user presses arrow down
+    When I press arrow down
+    Then the cell "28"/"Homer S" should be active
+    # top-right corner case, active cell remains the same if user presses arrow right
+    When I press arrow right
+    Then the cell "28"/"Homer S" should be active
+    # navigate to the bottom-left corner
+    When I press arrow left 27 times
+    Then the cell "1"/"Homer S" should be active
+    # bottom-left corner case, active cell remains the same if user presses arrow down
+    When I press arrow down
+    Then the cell "1"/"Homer S" should be active
+    # top-right corner case, active cell remains the same if user presses arrow left
+    When I press arrow left
+    Then the cell "1"/"Homer S" should be active
+

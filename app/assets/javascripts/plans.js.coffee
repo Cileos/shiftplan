@@ -19,14 +19,16 @@ jQuery(document).ready ->
 
     $('body').bind 'keydown', (event) ->
       $active_cell = $('table#calendar tbody td.active')
-      switch event.keyCode
+      $target_cell = switch event.keyCode
         when 37 # arrow left
-          $active_cell.closest('tr').children('td').eq($active_cell.index()-1).addClass('active')
+          $active_cell.closest('tr').children('td').eq($active_cell.index()-1)
         when 38 # arrow up
-          $active_cell.closest('tr').prev().children('td').eq($active_cell.index()).addClass('active')
+          $active_cell.closest('tr').prev().children('td').eq($active_cell.index())
         when 39 # arrow right
-          $active_cell.closest('tr').children('td').eq($active_cell.index()+1).addClass('active')
+          $active_cell.closest('tr').children('td').eq($active_cell.index()+1)
         when 40 # arrow down
-          $active_cell.closest('tr').next().children('td').eq($active_cell.index()).addClass('active')
+          $active_cell.closest('tr').next().children('td').eq($active_cell.index())
 
-      $active_cell.removeClass('active')
+      if $target_cell.hasClass('schedulings')
+        $active_cell.removeClass('active')
+        $target_cell.addClass('active')

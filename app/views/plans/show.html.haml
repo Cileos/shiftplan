@@ -18,7 +18,7 @@
           %tr
             %td.employee= employee.name
             - p.model.each_day do |column|
-              %td{data: {employee_id: employee.id, day: column.day}}= p.quicky_list(employee, column.day)
+              %td.schedulings{data: {employee_id: employee.id, day: column.day}}= p.quicky_list(employee, column.day)
 
   - extra_page :id => p.new_scheduling_dom_id do
     = render 'schedulings/new_form', :scheduling => p.schedulings.new

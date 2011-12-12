@@ -13,10 +13,19 @@ Then /^the cell "([^"]*)"\/"([^"]*)" should be active$/ do |column_label, row_la
   assert page.find("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1}).active")
 end
 
-When /^I press arrow ([^"]*)/ do |direction|
+def directions
+  "up|down|right|left"
+end
+
+When /^I press arrow (#{directions})$/ do |direction|
   step %{I send arrow_#{direction} to "body"}
 end
 
+When /^I press arrow (#{directions}) (\d{1,2}) times$/ do |direction, times|
+  times.to_i.times do
+    step %{I send arrow_#{direction} to "body"}
+  end
+end
 
 def column_index_for(column_label)
   columns = page.all('thead tr th').map(&:text)
