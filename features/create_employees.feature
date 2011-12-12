@@ -6,7 +6,7 @@ Feature: Create Employees
   Scenario: Create an employee with name
     Given I am signed in as planner
      When I follow "Mitarbeiter"
-      And I follow "Hinzufügen"
+      And I follow "Mitarbeiter hinzufügen"
       And I fill in the following:
         | Vorname  | Homer   |
         | Nachname | Simpson |

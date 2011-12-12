@@ -2,7 +2,7 @@ jQuery(document).ready ->
 
   $('table#calendar').each ->
     $calendar = $(this)
-    $new_link = $('.actions a.new_scheduling')
+    $new_link = $('a.new_scheduling')
     $new_form = $('form#new_scheduling')
 
     $calendar.on 'click', 'tbody td', ->

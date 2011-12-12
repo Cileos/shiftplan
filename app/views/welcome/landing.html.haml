@@ -1,1 +1,11 @@
+- title "Landing Page"
+- for_header do
+  - if user_signed_in?
+    = link_to :dashboard, dashboard_path
+  - else
+    = link_to :signin, new_user_session_path
+
 .fixme Dies ist shiftplan.
+
+- for_footer :class => 'ui-bar' do
+  = render 'session'
