@@ -1,3 +1,4 @@
+- title :new_plan
 = simple_form_for @plan do |f|
   - unless @plan.duration.present?
     = f.input :duration, :collection => durations_for_select(@plan), :as => :radio

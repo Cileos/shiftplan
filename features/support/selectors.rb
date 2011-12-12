@@ -16,6 +16,9 @@ module HtmlSelectorsHelpers
     when /^the new (.+) form$/
       "form#new_#{$1}"
 
+    when "the calendar"
+      'table#calendar'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

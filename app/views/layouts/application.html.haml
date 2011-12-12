@@ -7,13 +7,15 @@
         \-
       Shiftplan
     = stylesheet_link_tag 'application'
+    = javascript_include_tag 'lib'
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body
-    = render 'session'
-    = render 'flash', :flash => flash
 
     - if show_title?
-      %h1#title= yield(:title)
-    = yield
+      - for_header do
+        %h1#title= yield(:title)
 
+    - page_options.merge! 'data-add-back-btn' => true
+
+    = mobile_page

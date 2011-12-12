@@ -1,0 +1,15 @@
+de:
+  activerecord:
+    models:
+      employee:
+        one: "Mitarbeiter"
+    attributes:
+      employee:
+        first_name: Vorname
+        last_name: Nachname
+        full_name: Name
+  simple_form:
+    placeholders:
+      employee:
+        first_name: Vorname
+        last_name: Nachname

@@ -1,4 +1,4 @@
-= simple_form_for scheduling, :url => plan_schedulings_path(scheduling.plan) do |f|
+= simple_form_for scheduling, url: plan_schedulings_path(scheduling.plan), remote: true, html: { 'data-ajax' => false } do |f|
   - unless scheduling.employee.present?
     = f.association :employee, :as => :select, :include_blank => false
   - else

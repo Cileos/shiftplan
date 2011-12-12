@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$cell_width: 6em;
+$cell_width: 3.3em;
 $cell_border: #ccc;
 
 table#calendar {
@@ -14,9 +14,12 @@ table#calendar {
       background-color: lighten($cell_border, 10%);
     }
   }
+  tbody td.active {
+    outline: 0.1em solid blue;
+  }
   tbody td {
     cursor: pointer;
-    width: $cell_width; /* TODO wide table behaves differently */
+    min-width: $cell_width; /* TODO wide table behaves differently */
     label[for=scheduling_quicky] {
       display: none;
     }
@@ -24,4 +27,14 @@ table#calendar {
       width: 5/6 * $cell_width;
     }
   }
+}
+
+div#calendar-container {
+  width: 100%;
+  overflow: auto;
+}
+
+ul.quickies {
+  list-style: none;
+  padding-left: 0.5em;
 }

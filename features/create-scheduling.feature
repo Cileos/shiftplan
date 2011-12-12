@@ -11,13 +11,13 @@ Feature: create a scheduling
         | Homer      | S         |
         | Lenny      | L         |
         | Carl       | C         |
-      And a plan exists with organization: the organization, first_day: "2011-02-01"
+      And a plan exists with organization: the organization, first_day: "2011-02-01", name: "Der Plan"
       And I am signed in as the planner
-      And I am on the page of the plan
 
 
   Scenario: just entering time span
-     When I follow "Neue Terminierung"
+     When I follow "Der Plan"
+      And I follow "Neue Terminierung"
       And I select "Homer S" from "Mitarbeiter"
       And I select "11" from "Tag"
       And I fill in "Quickie" with "9-17"
@@ -32,7 +32,9 @@ Feature: create a scheduling
 
   @javascript
   Scenario: just entering time span with javascript
-     When I click on cell "11"/"Homer S"
+     When I follow "Der Plan"
+      And I wait for the calendar to appear
+      And I click on cell "11"/"Homer S"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
@@ -42,3 +44,26 @@ Feature: create a scheduling
         | Carl C      |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
         | Lenny L     |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
         | Homer S     |   |   |   |   |   |   |   |   |   |    | 9-17 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+
+  @javascript
+  Scenario: navigating through the plan with keystrokes
+     When I follow "Der Plan"
+      And I wait for the calendar to appear
+    Then the cell "1"/"Carl C" should be active
+    When I press arrow up
+    Then the cell "1"/"Homer S" should be active
+    When I press arrow left
+    Then the cell "28"/"Homer S" should be active
+    When I press arrow down
+    Then the cell "28"/"Carl C" should be active
+    When I press arrow right
+    Then the cell "1"/"Carl C" should be active
+    When I press arrow right
+    Then the cell "2"/"Carl C" should be active
+    When I press arrow down
+    Then the cell "2"/"Lenny L" should be active
+    When I press arrow left
+    Then the cell "1"/"Lenny L" should be active
+    When I press arrow up
+    Then the cell "1"/"Carl C" should be active
+

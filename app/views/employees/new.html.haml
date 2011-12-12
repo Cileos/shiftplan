@@ -1,4 +1,5 @@
+- title :new_employee
 = simple_form_for resource do |f|
-  = f.input :first_name
-  = f.input :last_name
+  = f.input :first_name, :wrapper_class => 'ui-hide-label'
+  = f.input :last_name, :wrapper_class => 'ui-hide-label'
   = f.button :submit, translate_action('.add')

@@ -1,7 +1,8 @@
-%ul.actions
-  %li= link_to '.add', new_employee_path
+- title :employees
 
-%ul.employees
-  - for employee in collection
-    %li
-      %span.name= employee.name
+- for_header do
+  = link_to :new_employee, new_employee_path
+
+= linked_list_of collection, :class => 'employees' do |employee|
+  %li
+    %span.name= employee.name
