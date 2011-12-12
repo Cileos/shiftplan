@@ -3,7 +3,6 @@
 - for_header do
   = link_to :new_employee, new_employee_path
 
-%ul.employees
-  - for employee in collection
-    %li
-      %span.name= employee.name
+= linked_list_of collection, :class => 'employees' do |employee|
+  %li
+    %span.name= employee.name
