@@ -10,7 +10,6 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-rails'
-  gem "jquery_mobile-rails", :git => 'git://github.com/niklas/jquery_mobile-rails.git'
 end
 
 
@@ -68,3 +67,4 @@ gem 'haml-rails'
 gem 'inherited_resources'
 gem 'draper'
 gem 'factory_girl_rails' # we use this for seeds, too
+gem "jquery_mobile-rails", :git => 'git://github.com/niklas/jquery_mobile-rails.git'
