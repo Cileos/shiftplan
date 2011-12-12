@@ -41,3 +41,9 @@ jQuery(document).ready ->
       if $target_cell
         $active_cell.removeClass('active')
         $target_cell.addClass('active')
+        if(must_scroll($target_cell))
+          $('#calendar-container').scrollTo($target_cell, offset: -100)
+
+    must_scroll = (target_cell) ->
+      target_cell_position = target_cell.position().left + target_cell.width()
+      target_cell_position > $('#calendar-container').width() || target_cell_position < $('#calendar-container').scrollLeft()
