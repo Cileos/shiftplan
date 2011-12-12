@@ -10,7 +10,7 @@ Then /^the cell "([^"]*)"\/"([^"]*)" should be active$/ do |column_label, row_la
   column = column_index_for(column_label)
   row    = row_index_for(row_label)
 
-  assert page.find("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1}).active")
+  assert page.find("tbody tr:nth-child(#{row+1}) td:nth-child(#{column}).active")
 end
 
 def directions
@@ -34,7 +34,7 @@ def column_index_for(column_label)
 end
 
 def row_index_for(row_label)
-  rows = page.all('tbody tr td:first').map(&:text)
+  rows = page.all('tbody th').map(&:text)
   rows.should include(row_label)
   rows.index(row_label)
 end
