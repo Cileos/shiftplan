@@ -7,7 +7,7 @@
 = collapsible :collapsed => false do
   %h3= ta :plans
   = linked_list_of current_user.organization.plans, :class => 'plans' do |plan|
-    %li= link_to plan.name, plan
+    %li= link_to plan.name, plan, 'data-ajax' => false
 
 - for_footer :class => 'ui-bar' do
   = render 'session'
