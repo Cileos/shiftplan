@@ -6,6 +6,7 @@ set :rvm_type, :user
 
 # bundler bootstrap
 require 'bundler/capistrano'
+load 'deploy/assets'
 
 # server details
 default_run_options[:pty] = true
@@ -63,11 +64,6 @@ namespace :deploy do
 
   after 'deploy:symlink', 'deploy:symlink_static_directories'
 
-  task :compile_assets, :roles => :app do
-    run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
-  end
-
-  after 'deploy:symlink', 'deploy:compile_assets'
 end
 
 namespace :setup do
