@@ -47,6 +47,8 @@ Feature: create a scheduling
 
   @javascript
   Scenario: navigating through the plan with keystrokes
+     When I follow "Der Plan"
+      And I wait for the calendar to appear
     Then the cell "1"/"Carl C" should be active
     When I press arrow up
     Then the cell "1"/"Homer S" should be active

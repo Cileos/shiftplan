@@ -16,7 +16,7 @@
       %tbody
         - p.employees.each do |employee|
           %tr
-            %td.employee= employee.name
+            %th.employee= employee.name
             - p.model.each_day do |column|
               %td{data: {employee_id: employee.id, day: column.day}}= p.quicky_list(employee, column.day)
 

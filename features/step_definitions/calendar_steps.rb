@@ -10,7 +10,8 @@ Then /^the cell "([^"]*)"\/"([^"]*)" should be active$/ do |column_label, row_la
   column = column_index_for(column_label)
   row    = row_index_for(row_label)
 
-  assert page.find("tbody tr:nth-child(#{row+1}) td:nth-child(#{column}).active")
+  cell = page.find("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})")
+  cell[:class].should include('active')
 end
 
 def directions
