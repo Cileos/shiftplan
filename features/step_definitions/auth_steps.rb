@@ -1,5 +1,5 @@
 Then /^I should be signed in as "([^"]*)"$/ do |email|
-  step %Q~I should see "#{email}" within "#session"~
+  step %Q~I should see "#{email}" within "#session,.ui-footer,div[data-role=footer]"~
 end
 
 Given /^I am signed in as #{capture_model}$/ do |user|
