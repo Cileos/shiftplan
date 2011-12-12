@@ -12,4 +12,8 @@ module ApplicationHelper
   def link_to(text, *args, &block)
     super translate_action(text), *args, &block
   end
+
+  def back_to_dashboard
+    back_button_to ta(:dashboard), dashboard_path
+  end
 end

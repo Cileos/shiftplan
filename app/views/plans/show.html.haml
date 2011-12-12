@@ -3,7 +3,6 @@
 = decorate @plan do |p|
   - page_options.merge! :id => p.dom_id
   - for_header do
-    = back_button_to ta(:dashboard), dashboard_path
     - if @plan.employees_available?
       = link_to '.new_scheduling', "##{p.new_scheduling_dom_id}", :class => 'new_scheduling', 'data-rel' => 'dialog'
 

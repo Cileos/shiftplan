@@ -16,4 +16,6 @@
       - for_header do
         %h1#title= yield(:title)
 
+    - page_options.merge! 'data-add-back-btn' => true
+
     = mobile_page
