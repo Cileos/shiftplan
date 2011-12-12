@@ -1,8 +1,9 @@
 GIT
   remote: git://github.com/niklas/jquery_mobile-rails.git
-  revision: ad5ab4d7460c5eed961d26a8f03098bf0cdc060c
+  revision: 4bef9e88f8942870e539e4bce40f19de83c9f8ed
   specs:
     jquery_mobile-rails (1.0)
+      activesupport (~> 3.1.0)
 
 GIT
   remote: git://github.com/niklas/kopflos.git
