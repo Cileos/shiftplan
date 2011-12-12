@@ -56,13 +56,13 @@ namespace :deploy do
 
   task :symlink_static_directories do
     run "rm -f #{current_release}/config/database.yml"
-    run "ln -sf #{deploy_to}/shared/config/database.yml #{current_release}/config/database.yml"
+    run "ln -sf #{deploy_to}/shared/config/database.yml #{latest_release}/config/database.yml"
     #run "rm -f #{current_release}/config/application.yml"
     #run "ln -sf #{deploy_to}/shared/config/application.yml #{current_release}/config/application.yml"
     #run "ln -sf #{deploy_to}/shared/system #{current_release}/public/"
   end
 
-  after 'deploy:symlink', 'deploy:symlink_static_directories'
+  before "deploy:assets:precompile", "deploy:symlink_static_directories"
 
 end
 
