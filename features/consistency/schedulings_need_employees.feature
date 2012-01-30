@@ -1,6 +1,6 @@
 Feature: Schedulings need employees
   In order to create schedulings
-  As a planer
+  As a planner
   I first have to register employees for my organisation
 
   Scenario: planner should not be able to create schedulings if no employees exist, yet
