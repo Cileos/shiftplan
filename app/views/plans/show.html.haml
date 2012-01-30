@@ -6,7 +6,7 @@
     - if @plan.employees_available?
       = link_to '.new_scheduling', "##{p.new_scheduling_dom_id}", :class => 'new_scheduling', 'data-rel' => 'dialog'
 
-  %div#calendar-container
+  %div.scroller
     %table#calendar
       %thead
         %tr

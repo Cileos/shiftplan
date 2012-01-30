@@ -49,21 +49,21 @@ Feature: create a scheduling
   Scenario: navigating through the plan with keystrokes
      When I follow "Der Plan"
       And I wait for the calendar to appear
-    Then the cell "1"/"Carl C" should be active
+    Then the cell "1"/"Carl C" should be focus
     When I press arrow up
-    Then the cell "1"/"Homer S" should be active
+    Then the cell "1"/"Homer S" should be focus
     When I press arrow left
-    Then the cell "28"/"Homer S" should be active
+    Then the cell "28"/"Homer S" should be focus
     When I press arrow down
-    Then the cell "28"/"Carl C" should be active
+    Then the cell "28"/"Carl C" should be focus
     When I press arrow right
-    Then the cell "1"/"Carl C" should be active
+    Then the cell "1"/"Carl C" should be focus
     When I press arrow right
-    Then the cell "2"/"Carl C" should be active
+    Then the cell "2"/"Carl C" should be focus
     When I press arrow down
-    Then the cell "2"/"Lenny L" should be active
+    Then the cell "2"/"Lenny L" should be focus
     When I press arrow left
-    Then the cell "1"/"Lenny L" should be active
+    Then the cell "1"/"Lenny L" should be focus
     When I press arrow up
-    Then the cell "1"/"Carl C" should be active
+    Then the cell "1"/"Carl C" should be focus
 

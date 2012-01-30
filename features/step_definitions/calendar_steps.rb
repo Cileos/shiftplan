@@ -6,12 +6,12 @@ When /^I click on cell "([^"]*)"\/"([^"]*)"$/ do |column_label, row_label|
   cell.click
 end
 
-Then /^the cell "([^"]*)"\/"([^"]*)" should be active$/ do |column_label, row_label|
+Then /^the cell "([^"]*)"\/"([^"]*)" should be (focus)$/ do |column_label, row_label, predicate|
   column = column_index_for(column_label)
   row    = row_index_for(row_label)
 
   cell = page.find("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})")
-  cell[:class].should include('active')
+  cell[:class].split.should include(predicate)
 end
 
 def directions
@@ -28,6 +28,7 @@ When /^I press arrow (#{directions}) (\d{1,2}) times$/ do |direction, times|
   end
 end
 
+# TODO move this to selectors.rb
 def column_index_for(column_label)
   columns = page.all('thead tr th').map(&:text)
   columns.should include(column_label)

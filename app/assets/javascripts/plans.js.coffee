@@ -2,10 +2,16 @@ jQuery(document).ready ->
 
   $('table#calendar').each ->
     $calendar = $(this)
+    $body     = $calendar.find('tbody:first')
+    $scroller = $calendar.closest('.scroller')
     $new_link = $('a.new_scheduling')
     $new_form = $('form#new_scheduling')
 
+    focussed_cell = ->
+      $body.find('td.focus')
+
     $calendar.on 'click', 'tbody td', ->
+      $calendar.trigger 'calendar.cell_focus', this
       $calendar.trigger 'calendar.cell_activate', this
 
     $calendar.bind 'calendar.cell_activate', (event, cell) =>
@@ -14,36 +20,41 @@ jQuery(document).ready ->
       $new_form.find('select#scheduling_employee_id').val($cell.data('employee_id')).change()
       $new_form.find('select#scheduling_day').val($cell.data('day')).change()
 
-    # activate first calendar data celli
-    $('table#calendar tbody tr:nth-child(1) td:nth-child(2)').addClass('active')
+    must_scroll = ($cell) ->
+      target_cell_position = $cell.position().left + $cell.width()
+      target_cell_position > $scroller.width() || target_cell_position < $scroller.scrollLeft()
 
-    columns_count = $('table#calendar tbody td.active').closest('tr').children('td').size()
-    rows_count = $('table#calendar tbody td.active').closest('tbody').children('tr').size()
+    $calendar.bind 'calendar.cell_focus', (event, cell) =>
+      $cell = $(cell)
+      focussed_cell().removeClass('focus')
+      $cell.addClass('focus')
+      if(must_scroll($cell))
+        $scroller.scrollTo($cell, offset: -100)
+
+
+    # focus first calendar data cell
+    $calendar.trigger 'calendar.cell_focus', $body.find('tr:nth-child(1) td:nth-child(2)')
+
+    columns_count = focussed_cell().closest('tr').children('td').size()
+    rows_count = focussed_cell().closest('tbody').children('tr').size()
 
     $('body').bind 'keydown', (event) ->
-      $active_cell = $('table#calendar tbody td.active')
-      column_index = $active_cell.closest('tr').children('td').index($active_cell)
-      row_index = $active_cell.closest('tbody').children('tr').index($active_cell.closest('tr'))
-      $target_cell = switch event.keyCode
+      $focus  = focussed_cell()
+      column  = $focus.closest('tr').children('td').index($focus)
+      row     = $focus.closest('tbody').children('tr').index($focus.closest('tr'))
+      $target = switch event.keyCode
         when 37 # arrow left
-          $active_cell.closest('tr').children('td').eq(column_index-1)
+          $focus.closest('tr').children('td').eq(column-1)
         when 38 # arrow up
-          if row_index - 1 < 0
-            row_index = rows_count - 1
+          if row - 1 < 0
+            row = rows_count - 1
           else
-            row_index = row_index - 1
-          $active_cell.closest('tbody').children('tr').eq(row_index).children('td').eq(column_index)
+            row = row - 1
+          $focus.closest('tbody').children('tr').eq(row).children('td').eq(column)
         when 39 # arrow right
-          $active_cell.closest('tr').children('td').eq((column_index+1)%columns_count)
+          $focus.closest('tr').children('td').eq( (column+1) % columns_count )
         when 40 # arrow down
-          $active_cell.closest('tbody').children('tr').eq((row_index+1)%rows_count).children('td').eq(column_index)
+          $focus.closest('tbody').children('tr').eq( (row+1) % rows_count ).children('td').eq(column)
 
-      if $target_cell
-        $active_cell.removeClass('active')
-        $target_cell.addClass('active')
-        if(must_scroll($target_cell))
-          $('#calendar-container').scrollTo($target_cell, offset: -100)
-
-    must_scroll = (target_cell) ->
-      target_cell_position = target_cell.position().left + target_cell.width()
-      target_cell_position > $('#calendar-container').width() || target_cell_position < $('#calendar-container').scrollLeft()
+      if $target
+        $calendar.trigger 'calendar.cell_focus', $target

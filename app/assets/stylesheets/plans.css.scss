@@ -14,7 +14,7 @@ table#calendar {
       background-color: lighten($cell_border, 10%);
     }
   }
-  tbody td.active {
+  tbody td.focus {
     outline: 0.1em solid blue;
   }
   tbody td {
@@ -29,7 +29,7 @@ table#calendar {
   }
 }
 
-div#calendar-container {
+div.scroller {
   width: 100%;
   overflow: auto;
 }
