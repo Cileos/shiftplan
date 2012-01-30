@@ -24,7 +24,9 @@ de:
       confirmed: 'Sie haben erfolgreich Ihren Accout bestätigt und sind nun eingeloggt.'
       updated: 'Deine eMailadresse wurde erfolgreich geändert - Du bist nun angemeldet.'
     registrations:
-      inactive_signed_up: 'Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen.'
+      signed_up_but_unconfirmed: 'Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen.'
+      signed_up_but_inactive: 'Du hast Dich erfolgreich registriert. Jemand muss Dich noch aktivieren.'
+      signed_up_but_locked: 'Du hast Dich erfolgreich registriert, bist aber vorerst gesperrt.'
       updated: 'Profil erfolgreich geändert.'
       destroyed: 'Auf wiedersehen! Dein Konto wurde vollständig gelöscht.'
     unlocks:
