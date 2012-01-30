@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
     roles.include?(role.to_s)
   end
 
+  def label
+    email
+  end
+
   Roles.each do |role|
     define_method :"is_#{role}?" do
       role?(role)
@@ -28,6 +32,12 @@ class User < ActiveRecord::Base
   # planner
   has_many :organizations, :foreign_key => 'planner_id'
   def organization
-    organizations.first
+    organizations.first || create_default_organization!
   end
+
+  private
+  def create_default_organization!
+    organizations.create! :name => "Organization for #{label}"
+  end
+
 end
