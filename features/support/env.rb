@@ -43,18 +43,6 @@ Spork.prefork do
     Rack::Handler::WEBrick.run(app, :Port => port, :AccessLog => [], :Logger => WEBrick::Log::new(Rails.root.join("log/capybara_test.log").to_s))
   end
 
-  require 'database_cleaner'
-  DatabaseCleaner.strategy = :transaction
-  DatabaseCleaner.clean_with :truncation
-
-  Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
-    DatabaseCleaner.strategy = :truncation, {:except => %w[widgets]}
-  end
-
-  Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
-    DatabaseCleaner.strategy = :transaction
-  end
-
   # some people have slow computers, 2s are not enough. CI is slow also
   Capybara.default_wait_time = 23
 
