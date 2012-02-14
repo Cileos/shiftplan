@@ -13,9 +13,8 @@
   %body
 
     - if show_title?
-      - for_header do
-        %h1#title= yield(:title)
+      %h1#title= yield(:title)
+    = render 'session'
+    = render 'flash'
 
-    - page_options.merge! 'data-add-back-btn' => true
-
-    = mobile_page
+    = yield
