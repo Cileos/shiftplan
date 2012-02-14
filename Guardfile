@@ -24,7 +24,7 @@ group :test, :halt_on_fail => true do
     # Rails example
     watch(%r{^spec/.+_spec\.rb$})
     watch(%r{^app/(?:models|helpers)(.+)\.rb$})         { |m| "spec/#{m[1]}_spec.rb" }
-    watch(%r{^app/(.+)\.treetop$})                      { |m| "spec/#{m[1]}_parser_spec.rb" }
+    watch(%r{^lib/(.+)\.treetop$})                      { |m| "spec/lib/#{m[1]}_parser_spec.rb" }
     watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
     # we (will) use cucumber extensivly
     # watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}_spec.rb"] }

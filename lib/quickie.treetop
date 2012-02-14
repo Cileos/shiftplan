@@ -1,0 +1,13 @@
+grammar Quickie
+  rule expression
+    hour_range
+  end
+
+  rule hour_range
+    start_hour:hour '-' end_hour:hour
+  end
+
+  rule hour
+    '2' [0-4] / '1' [0-9] / [0-9]
+  end
+end

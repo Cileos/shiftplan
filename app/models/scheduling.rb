@@ -1,3 +1,4 @@
+require 'quickie'
 class Scheduling < ActiveRecord::Base
   belongs_to :plan
   belongs_to :employee
@@ -13,7 +14,7 @@ class Scheduling < ActiveRecord::Base
 
   def parse_quicky
     if quicky.present?
-      if parsed = Quicky.parse(quicky)
+      if parsed = QuickieParser.new.parse(quicky)
         self.starts_at = plan.day_at(day) + parsed.start_hours
         self.ends_at = plan.day_at(day) + parsed.end_hours
         self.quicky = parsed.to_s # clean the entered quicky
