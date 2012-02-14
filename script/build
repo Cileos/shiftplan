@@ -4,7 +4,7 @@
 unset RAILS_RELATIVE_URL_ROOT
 unset RACK_BASE_URI
 
-NEEDED_RUBY='1.9.2-p290@shiftplan-ci'
+NEEDED_RUBY='1.9.3-p0@shiftplan-ci'
 DATABASE='shiftplan_test'
 RAILS_ENV=test
 export RAILS_ENV
