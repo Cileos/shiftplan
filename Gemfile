@@ -66,3 +66,4 @@ gem 'inherited_resources'
 gem 'draper'
 gem 'factory_girl_rails' # we use this for seeds, too
 gem 'treetop' # parse quickies
+gem 'polyglot' # load treetop grammars with #require
