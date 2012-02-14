@@ -5,6 +5,15 @@ GIT
     kopflos (0.0.1)
       open4
 
+GIT
+  remote: https://github.com/plataformatec/simple_form.git
+  revision: ae60671f71b8a34b2a5d15229aa5793f3e41a612
+  ref: v2.0.0.rc
+  specs:
+    simple_form (2.0.0.rc)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -211,9 +220,6 @@ GEM
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
-    simple_form (1.5.2)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
     slop (2.4.3)
     spoon (0.0.1)
     spork (0.9.0)
@@ -270,7 +276,7 @@ DEPENDENCIES
   rails (= 3.2.1)
   rspec-rails (~> 2.8.1)
   sass-rails (~> 3.2.4)
-  simple_form
+  simple_form!
   spork (~> 0.9.0.rc2)
   therubyracer
   timecop

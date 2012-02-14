@@ -62,7 +62,7 @@ end
 
 gem 'coffee-rails', '~> 3.2.2'
 gem 'devise'
-gem 'simple_form'
+gem 'simple_form', git: "https://github.com/plataformatec/simple_form.git", ref: "v2.0.0.rc"
 gem 'haml-rails'
 gem 'inherited_resources'
 gem 'draper'
