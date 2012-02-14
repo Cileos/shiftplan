@@ -6,7 +6,7 @@ GIT
       open4
 
 GIT
-  remote: https://github.com/plataformatec/simple_form.git
+  remote: git://github.com/plataformatec/simple_form.git
   revision: ae60671f71b8a34b2a5d15229aa5793f3e41a612
   ref: v2.0.0.rc
   specs:
