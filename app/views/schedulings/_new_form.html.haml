@@ -4,7 +4,7 @@
   - else
     = f.hidden_field :employee_id
   - unless scheduling.day.present?
-    = f.input :day, :collection => scheduling.plan.days, :include_blank => false
+    = f.input :day, :collection => days_for_select(scheduling.plan), :include_blank => false
   - else
     = f.hidden_field :day
   = f.input :quicky

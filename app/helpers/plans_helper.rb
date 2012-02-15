@@ -17,6 +17,13 @@ module PlansHelper
     end
   end
 
+  def days_for_select(plan, format=:week_day)
+    plan.days.map do |day|
+      [l(day, :format => format), day.cwday]
+    end
+
+  end
+
   def durations_for_select(plan)
     Plan::Durations.map do |duration|
       [translate(duration, :scope => 'activerecord.values.plans.durations'), duration]

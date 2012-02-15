@@ -28,14 +28,10 @@ class Plan < ActiveRecord::Base
     first_day.beginning_of_month
   end
 
-  def each_day
-    days.each do |d|
-      yield(first_day + (d-1).days)
-    end
-  end
-
   def days
-    (1..duration_in_days).to_a
+    (1..duration_in_days).to_a.map do |number|
+      first_day + (number-1).days
+    end
   end
 
   def duration_in_days

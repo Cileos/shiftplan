@@ -2,12 +2,12 @@
   %thead
     %tr
       %th= translate_action '.employees'
-      - plan.model.each_day do |day|
+      - plan.model.days.each do |day|
         %th= l day, :format => :week_day
   %tbody
     - plan.employees.each do |employee|
       %tr
         %th.employee= employee.name
-        - plan.model.each_day do |column|
+        - plan.model.days.each do |column|
           %td{data: {employee_id: employee.id, day: column.day}}= plan.quicky_list(employee, column.day)
 
