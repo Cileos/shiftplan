@@ -44,11 +44,11 @@ describe Plan do
   context "day_at" do
     it "should calculate the nth day of the plan" do
       plan = Factory.build :plan, first_day: Date.parse("2011-02-01")
-      plan.day_at(1).should be_a(ActiveSupport::TimeWithZone)
-      plan.day_at(1).should  == Time.zone.parse("2011-02-01")
-      plan.day_at(3).should  == Time.zone.parse("2011-02-03")
-      plan.day_at(7).should  == Time.zone.parse("2011-02-07")
-      plan.day_at(23).should == Time.zone.parse("2011-02-23")
+      plan.day_at(1).should be_a(Date)
+      plan.day_at(1).should  == Time.zone.parse("2011-02-01").to_date
+      plan.day_at(3).should  == Time.zone.parse("2011-02-03").to_date
+      plan.day_at(7).should  == Time.zone.parse("2011-02-07").to_date
+      plan.day_at(23).should == Time.zone.parse("2011-02-23").to_date
     end
   end
 end

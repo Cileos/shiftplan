@@ -30,16 +30,16 @@ class Plan < ActiveRecord::Base
 
   def days
     (1..duration_in_days).to_a.map do |number|
-      first_day + (number-1).days
+      day_at(number)
     end
   end
 
   def duration_in_days
-    (last_day - first_day).to_i / 1.day + 1
+    (last_day.to_date - first_day.to_date).to_i + 1
   end
 
   def day_at(offset)
-    (first_day + (offset.to_i - 1 ).days).to_time_in_current_zone
+    first_day + (offset.to_i - 1 ).days
   end
 
   def employees_available?
@@ -50,7 +50,7 @@ class Plan < ActiveRecord::Base
   before_validation :set_last_day
   def set_last_day
     if last_day.blank? && first_day.present?
-      self.last_day = first_day + 1.week - 1.day
+      self.last_day = first_day + (1.week - 1.day)
     end
   end
 end
