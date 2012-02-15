@@ -13,6 +13,9 @@ class Plan < ActiveRecord::Base
     @duration ||= Durations.first
   end
 
+  validates_with FirstDayIsAMonday
+  validates_with LastDayIsASunday
+
   # #week is is identified by the  #first_day
   def week
     first_day

@@ -11,7 +11,7 @@ Feature: create a scheduling
         | Homer      | S         |
         | Lenny      | L         |
         | Carl       | C         |
-      And a plan exists with organization: the organization, first_day: "2011-02-01", name: "Der Plan"
+      And a plan exists with organization: the organization, first_day: "2011-02-07", name: "Der Plan"
       And I am signed in as the planner
 
 
