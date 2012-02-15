@@ -7,18 +7,22 @@ class Plan < ActiveRecord::Base
   validates_presence_of :month
 
   # for now, durations are hardcoded, not saved
-  Durations = %w(1_month)
+  Durations = %w(1_week)
   attr_writer :duration
   def duration
     @duration ||= Durations.first
   end
 
-  # as long we have no gliding plan, #first_day will be shown as #month.
-  def month
+  # #week is is identified by the  #first_day
+  def week
     first_day
   end
-  def month=(new_month)
-    self.first_day = new_month
+  def week=(new_week)
+    self.first_day = new_week
+  end
+
+  def month
+    first_day.beginning_of_month
   end
 
   def each_day
@@ -47,7 +51,7 @@ class Plan < ActiveRecord::Base
   before_validation :set_last_day
   def set_last_day
     if last_day.blank? && first_day.present?
-      self.last_day = first_day.end_of_month
+      self.last_day = first_day + 1.week - 1.day
     end
   end
 end

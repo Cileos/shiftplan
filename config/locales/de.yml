@@ -11,6 +11,9 @@ de:
       long: "%e. %B %Y"
       long_without_day: "%B %Y"
       only_day: "%e"
+      week: "KW %V"
+      week_with_first_day: "KW %V %d.%m.%Y"
+      week_day: "%A"
 
     day_names:
       - Sonntag

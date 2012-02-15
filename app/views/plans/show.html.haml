@@ -1,22 +1,17 @@
 - title @plan.name
 
-= decorate @plan do |p|
+= decorate @plan do |plan|
   %div.scroller
-    %table#calendar
-      %thead
-        %tr
-          %th= translate_action '.employees'
-          - p.model.each_day do |day|
-            %th= day.day
-      %tbody
-        - p.employees.each do |employee|
-          %tr
-            %th.employee= employee.name
-            - p.model.each_day do |column|
-              %td{data: {employee_id: employee.id, day: column.day}}= p.quicky_list(employee, column.day)
+    - case plan.model.duration
+    - when '1_month'
+      = render 'plans/month', plan: plan
+    - when '1_week'
+      = render 'plans/week', plan: plan
+    - else
+      unknown duration #{plan.model.duration}
 
   - if @plan.employees_available?
-    = link_to '.new_scheduling', "##{p.new_scheduling_dom_id}", :class => 'new_scheduling', 'data-toggle' => 'modal'
+    = link_to '.new_scheduling', "##{plan.new_scheduling_dom_id}", :class => 'new_scheduling', 'data-toggle' => 'modal'
 
-  %div{id:  p.new_scheduling_dom_id}
-    = render 'schedulings/new_form', :scheduling => p.schedulings.new
+  %div{id:  plan.new_scheduling_dom_id}
+    = render 'schedulings/new_form', :scheduling => plan.schedulings.new
