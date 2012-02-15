@@ -1,10 +1,10 @@
 grammar Quickie
-  rule expression
-    hour_range
-  end
-
+#  rule message
+#    hour_range <Quickie::MessageNode>
+#  end
+#
   rule hour_range
-    start_hour:hour '-' end_hour:hour
+    start_hour:hour '-' end_hour:hour <Quickie::HourRangeNode>
   end
 
   rule hour
