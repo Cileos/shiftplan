@@ -35,7 +35,7 @@ class Plan < ActiveRecord::Base
   end
 
   def duration_in_days
-    (last_day - first_day).to_i + 1
+    (last_day - first_day).to_i / 1.day + 1
   end
 
   def day_at(offset)

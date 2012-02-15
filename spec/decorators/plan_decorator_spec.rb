@@ -12,7 +12,7 @@ describe PlanDecorator do
       employee   = mock 'Employee'
 
       starts_at  = mock 'starts_at', day: day
-      scheduling = mock 'Scheduling', employee: employee, starts_at: starts_at
+      scheduling = mock 'Scheduling', employee: employee, week_day: day
 
       decorator.should_receive(:fnord).with( employee, day ).and_return("the fnord")
       decorator.fnord_for_scheduling(scheduling)
