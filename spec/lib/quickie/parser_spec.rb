@@ -45,8 +45,6 @@ describe 'Quickie::Parser' do
     it { should fill_in(:start_hour, 9) }
     it { should fill_in(:end_hour, 17) }
     it { should serialize_to('9-17') }
-    it "should interpret start_hours"
-    it "should interpret end_hours"
   end
 
   [
