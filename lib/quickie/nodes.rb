@@ -12,6 +12,9 @@ module Quickie
   end
 
   class BaseNode < Treetop::Runtime::SyntaxNode
+    def to_s
+      text_value.strip
+    end
   end
 
   class HourRangeNode < BaseNode

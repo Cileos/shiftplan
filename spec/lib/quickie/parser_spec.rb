@@ -27,10 +27,24 @@ describe 'Quickie::Parser' do
     end
   end
 
+  RSpec::Matchers.define :serialize_to do |serialized|
+    def parse_and_serialize(string)
+      Quickie::Parser.new.parse(string).to_s
+    end
+    match do |source|
+      parse_and_serialize(source) == serialized
+    end
+
+    failure_message_for_should do |actual|
+      "expected #{actual.inspect} to re-serialize to #{serialized.inspect}, but did to #{parse_and_serialize(actual).inspect}"
+    end
+  end
+
   describe '9-17' do
     it { should parse_successfully }
     it { should fill_in(:start_hour, 9) }
     it { should fill_in(:end_hour, 17) }
+    it { should serialize_to('9-17') }
     it "should interpret start_hours"
     it "should interpret end_hours"
   end
