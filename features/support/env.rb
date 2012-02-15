@@ -6,7 +6,7 @@ Spork.prefork do
   require File.dirname(__FILE__) + "/../../config/spork_prefork"
 
   require 'rspec'
-  require 'rspec/rails'
+  #require 'rspec/rails'
   require 'fileutils'
 
   require 'capybara/rails'

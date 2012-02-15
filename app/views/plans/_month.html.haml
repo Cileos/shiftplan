@@ -1,0 +1,13 @@
+%table#calendar.month
+  %thead
+    %tr
+      %th= translate_action '.employees'
+      - plan.model.days.each do |day|
+        %th= day.day
+  %tbody
+    - plan.employees.each do |employee|
+      %tr
+        %th.employee= employee.name
+        - plan.model.days.each do |column|
+          %td{data: {employee_id: employee.id, day: column.day}}= plan.quicky_list(employee, column.day)
+

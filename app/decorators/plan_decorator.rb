@@ -33,7 +33,7 @@ class PlanDecorator < ApplicationDecorator
   def method_missing(name, *args, &block)
     if name =~ /^(.*)_for_scheduling$/
       scheduling = args.first
-      send($1, scheduling.employee, scheduling.starts_at.day)
+      send($1, scheduling.employee, scheduling.week_day)
     else
       super
     end
@@ -92,6 +92,6 @@ class Array
 
   # give a day number (?)
   def for_day(day)
-    select {|i| i.starts_at.day == day }
+    select {|i| i.week_day == day }
   end
 end

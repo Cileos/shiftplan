@@ -5,5 +5,5 @@
     = f.button :submit, translate_action('.next')
   - else
     = f.input :name
-    = f.input :month, :collection => months_for_select(@plan)
+    = f.input :week, :collection => weeks_for_select(@plan)
     = f.button :submit, translate_action('.create')

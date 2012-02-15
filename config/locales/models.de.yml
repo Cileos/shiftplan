@@ -18,6 +18,7 @@ de:
         avatar: "Profilbild"
       plan:
         name: Name
+        week: Woche
         month: Monat
       scheduling:
         employee: Mitarbeiter
@@ -26,5 +27,6 @@ de:
     values:
       plan:
         durations:
+          1_week: wöchentlich
           1_month: ganzer Monat
 

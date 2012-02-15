@@ -1,0 +1,14 @@
+%table#calendar.week
+  %thead
+    %tr
+      %th= translate_action '.employees'
+      - plan.model.days.each do |day|
+        %th= l day, :format => :week_day
+  %tbody
+    - plan.employees.each do |employee|
+      %tr
+        %th.employee= employee.name
+        - plan.model.days.each do |column|
+          - week_day = column.to_date.cwday
+          %td{data: {employee_id: employee.id, day: week_day}}= plan.quicky_list(employee, week_day)
+

@@ -10,6 +10,7 @@ guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAIL
   watch('spec/spec_helper.rb')
   watch('test/test_helper.rb')
   watch('features/support/env.rb')
+  watch('config/spork_prefork.rb')
 end unless ENV['NO_SPORK']
 
 group :test, :halt_on_fail => true do

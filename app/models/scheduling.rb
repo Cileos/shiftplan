@@ -17,6 +17,10 @@ class Scheduling < ActiveRecord::Base
     self.ends_at = day_in_plan + hour.hours
   end
 
+  def week_day
+    starts_at.to_date.cwday
+  end
+
 
   private
   before_validation :parse_quicky
