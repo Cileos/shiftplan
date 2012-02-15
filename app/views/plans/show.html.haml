@@ -13,5 +13,5 @@
   - if @plan.employees_available?
     = link_to '.new_scheduling', "##{plan.new_scheduling_dom_id}", :class => 'new_scheduling', 'data-toggle' => 'modal'
 
-  %div{id:  plan.new_scheduling_dom_id}
+  %div.modal.hide.fade.in{id:  plan.new_scheduling_dom_id}
     = render 'schedulings/new_form', :scheduling => plan.schedulings.new

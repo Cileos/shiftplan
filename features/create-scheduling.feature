@@ -19,7 +19,6 @@ Feature: create a scheduling
      When I follow "Der Plan"
       And I follow "Neue Terminierung"
       And I select "Homer S" from "Mitarbeiter"
-      And show me the page
       And I select "Mittwoch" from "Tag"
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
@@ -39,6 +38,7 @@ Feature: create a scheduling
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
+      And I wait for the new scheduling form to disappear
      Then I should be on the page of the plan
       And I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
