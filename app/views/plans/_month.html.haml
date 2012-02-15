@@ -9,5 +9,5 @@
       %tr
         %th.employee= employee.name
         - plan.model.days.each do |column|
-          %td{data: {employee_id: employee.id, day: column.day}}= plan.quicky_list(employee, column.day)
+          %td{data: {employee_id: employee.id, day: column.day}}= plan.quickie_list(employee, column.day)
 

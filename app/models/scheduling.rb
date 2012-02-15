@@ -7,7 +7,7 @@ class Scheduling < ActiveRecord::Base
   validates :starts_at, :ends_at, :plan, :employee, :presence => true
 
   attr_accessor :day
-  attr_accessor :quicky
+  attr_accessor :quickie
 
   def start_hour=(hour)
     self.starts_at = day_in_plan + hour.hours
@@ -23,13 +23,13 @@ class Scheduling < ActiveRecord::Base
 
 
   private
-  before_validation :parse_quicky
+  before_validation :parse_quickie
 
-  def parse_quicky
-    if quicky.present?
-      if parsed = Quickie.parse(quicky)
+  def parse_quickie
+    if quickie.present?
+      if parsed = Quickie.parse(quickie)
         parsed.fill(self)
-        self.quicky = parsed.to_s # clean the entered quicky
+        self.quickie = parsed.to_s # clean the entered quickie
       end
     end
   end

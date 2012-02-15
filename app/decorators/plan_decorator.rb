@@ -2,18 +2,18 @@ class PlanDecorator < ApplicationDecorator
   decorates :plan
 
   def quickies_for(employee, day)
-    schedulings_for(employee, day).map { |s| quicky_for s }
+    schedulings_for(employee, day).map { |s| quickie_for s }
   end
 
-  def quicky_list(employee, day)
-    h.render :partial => 'plans/quicky_list', :locals => { :quicky_list =>  quickies_for(employee, day) }
+  def quickie_list(employee, day)
+    h.render :partial => 'plans/quickie_list', :locals => { :quickie_list =>  quickies_for(employee, day) }
   end
 
   def schedulings
     @schedulings ||= model.schedulings
   end
 
-  def quicky_for(s)
+  def quickie_for(s)
     "#{s.starts_at.hour}-#{s.ends_at.hour}"
   end
 

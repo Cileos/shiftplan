@@ -10,5 +10,5 @@
         %th.employee= employee.name
         - plan.model.days.each do |column|
           - week_day = column.to_date.cwday
-          %td{data: {employee_id: employee.id, day: week_day}}= plan.quicky_list(employee, week_day)
+          %td{data: {employee_id: employee.id, day: week_day}}= plan.quickie_list(employee, week_day)
 
