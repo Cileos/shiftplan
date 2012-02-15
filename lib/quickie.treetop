@@ -1,0 +1,13 @@
+grammar Quickie
+#  rule message
+#    hour_range <Quickie::MessageNode>
+#  end
+#
+  rule hour_range
+    start_hour:hour '-' end_hour:hour <Quickie::HourRangeNode>
+  end
+
+  rule hour
+    '2' [0-4] / '1' [0-9] / [0-9]
+  end
+end

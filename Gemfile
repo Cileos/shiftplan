@@ -36,13 +36,11 @@ group :test do
   gem 'database_cleaner'
   gem "email_spec"
 
-  gem "spork", "~> 0.9.0.rc2"
-  gem "guard", "~> 0.8.4"
-  gem "guard-rspec", "~> 0.5.0"
-  gem "guard-cucumber", "~> 0.7.3"
-  gem "guard-spork", "~> 0.3.0"
+  gem "spork", "1.0.0rc2"
+  gem "guard-rspec", "~> 0.6.0"
+  gem "guard-cucumber", "~> 0.7.5"
+  gem "guard-spork", "~> 0.5.2"
   gem "guard-bundler", "~> 0.1.3"
-  gem "guard-process"
   gem "libnotify"
 
   gem 'pry'
@@ -67,3 +65,5 @@ gem 'haml-rails'
 gem 'inherited_resources'
 gem 'draper'
 gem 'factory_girl_rails' # we use this for seeds, too
+gem 'treetop' # parse quickies
+gem 'polyglot' # load treetop grammars with #require

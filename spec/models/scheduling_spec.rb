@@ -6,12 +6,6 @@ describe Scheduling do
       input = '9-17'
       the_day = Time.zone.parse('2011-01-02').to_date
 
-      quicky = mock 'Quickie',
-        :to_s => input,
-        :start_hours => 9.hours,
-        :end_hours => 17.hours
-      Quicky.should_receive(:parse).with(input).and_return(quicky)
-
       plan = mock_model('Plan')
       plan.stub!(:day_at).with(23).and_return(the_day)
 
