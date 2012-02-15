@@ -10,6 +10,15 @@ Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
 # Prevent main application to eager_load in the prefork block (do not load files in autoload_paths)
 # see http://my.rails-royce.org/2012/01/14/reloading-models-in-rails-3-1-when-usign-spork-and-cache_classes-true/
 Spork.trap_method(Rails::Application, :eager_load!)
+
 require File.dirname(__FILE__) + "/environment"
-Rails.application.railties.all { |r| r.eager_load! }
+
+# preload all engines and railties we want
+Rails.application.railties.all do |r|
+  # Devise controllers inherit from _our_ ApplicationController
+  # so does InheritedResources::Base
+  unless r.is_a?(Devise::Engine) or r.is_a?(InheritedResources::Railtie)
+    r.eager_load!
+  end
+end
 
