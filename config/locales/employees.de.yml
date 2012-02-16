@@ -13,3 +13,12 @@ de:
       employee:
         first_name: Vorname
         last_name: Nachname
+  employees:
+    edit:
+      edit_employee: Mitarbeiter bearbeiten
+    new:
+      new_employee: Neuen Mitarbeiter anlegen
+    index:
+      employees: Mitarbeiter
+      first_name: Vorname
+      last_name: Nachname

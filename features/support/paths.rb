@@ -16,6 +16,8 @@ module NavigationHelpers
       when Plan
         # TODO we may have to scope this under its organization laater
         plan_path(model)
+      when Employee
+        employee_path(model)
       else
         raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
       end
@@ -28,6 +30,9 @@ module NavigationHelpers
     #
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
+
+    when /^employees page$/
+      employees_page
 
     else
       begin

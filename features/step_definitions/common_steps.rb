@@ -15,3 +15,7 @@ When /^I wait for (.+) to disappear$/ do |name|
   selector = selector_for name
   wait_until { page.has_no_css?(selector, :visible => true) }
 end
+
+Then /^try pry$/ do
+  binding.pry
+end

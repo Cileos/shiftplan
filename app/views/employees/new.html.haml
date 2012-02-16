@@ -1,5 +1,5 @@
-- title :new_employee
-= simple_form_for resource, html: { class: 'well' } do |f|
-  = f.input :first_name
-  = f.input :last_name
-  = f.button :submit, translate_action('.add')
+%h1= t('.new_employee')
+
+= render 'form'
+
+= link_to :back, employees_path

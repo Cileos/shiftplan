@@ -26,7 +26,7 @@ Spork.prefork do
   # prefer to use XPath just remove this line and adjust any selectors in your
   # steps to use the XPath syntax.
   Capybara.default_selector = :css
-   
+
   if ENV['CAPYBARA_CHROME'] == 'yes'
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :chrome)
