@@ -21,6 +21,10 @@ class Scheduling < ActiveRecord::Base
     starts_at.to_date.cwday
   end
 
+  def length_in_hours
+    (ends_at - starts_at) / 1.hour
+  end
+
 
   private
   before_validation :parse_quickie

@@ -27,26 +27,29 @@ jQuery(document).ready ->
     # focus first calendar data cell
     $calendar.trigger 'calendar.cell_focus', $body.find('tr:nth-child(1) td:nth-child(2)')
 
-    columns_count = focussed_cell().closest('tr').children('td').size()
+    # which tds do we want to navigate
+    tds = 'td:not(.hours)'
+
+    columns_count = focussed_cell().closest('tr').children(tds).size()
     rows_count = focussed_cell().closest('tbody').children('tr').size()
 
     $('body').bind 'keydown', (event) ->
       $focus  = focussed_cell()
-      column  = $focus.closest('tr').children('td').index($focus)
+      column  = $focus.closest('tr').children(tds).index($focus)
       row     = $focus.closest('tbody').children('tr').index($focus.closest('tr'))
       $target = switch event.keyCode
         when 37 # arrow left
-          $focus.closest('tr').children('td').eq(column-1)
+          $focus.closest('tr').children(tds).eq(column-1)
         when 38 # arrow up
           if row - 1 < 0
             row = rows_count - 1
           else
             row = row - 1
-          $focus.closest('tbody').children('tr').eq(row).children('td').eq(column)
+          $focus.closest('tbody').children('tr').eq(row).children(tds).eq(column)
         when 39 # arrow right
-          $focus.closest('tr').children('td').eq( (column+1) % columns_count )
+          $focus.closest('tr').children(tds).eq( (column+1) % columns_count )
         when 40 # arrow down
-          $focus.closest('tbody').children('tr').eq( (row+1) % rows_count ).children('td').eq(column)
+          $focus.closest('tbody').children('tr').eq( (row+1) % rows_count ).children(tds).eq(column)
 
       if $target
         $calendar.trigger 'calendar.cell_focus', $target

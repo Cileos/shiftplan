@@ -25,6 +25,10 @@ class PlanDecorator < ApplicationDecorator
     %Q~#calendar tbody td[data-day=#{day}][data-employee_id=#{employee.id}]~
   end
 
+  def hours_selector_for_employee(employee)
+    %Q~#calendar tbody td.hours[data-employee_id=#{employee.id}]~
+  end
+
   def respond_to_missing?(name)
     name =~ /^(.*)_for_scheduling$/ || super
   end
@@ -45,6 +49,11 @@ class PlanDecorator < ApplicationDecorator
 
   def new_scheduling_dom_id
     h.dom_id(model, 'new_scheduling')
+  end
+
+  # Planned in hours for given employee
+  def hours_for(employee)
+    schedulings.for_employee(employee).sum(&:length_in_hours).to_i
   end
 
   private

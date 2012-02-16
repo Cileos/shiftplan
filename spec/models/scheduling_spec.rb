@@ -14,6 +14,7 @@ describe Scheduling do
 
       s.starts_at.should == Time.zone.parse('2011-01-02 09:00')
       s.ends_at.should == Time.zone.parse('2011-01-02 17:00')
+      s.length_in_hours.should == 8
     end
   end
 end

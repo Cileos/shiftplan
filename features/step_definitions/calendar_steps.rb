@@ -41,3 +41,21 @@ def row_index_for(row_label)
   rows.index(row_label)
 end
 
+When /^I schedule #{capture_quoted} on #{capture_quoted} for #{capture_quoted}$/ do |employee, day, quickie|
+  steps <<-EOSTEPS
+     When I click on cell "#{day}"/"#{employee}"
+      And I wait for the new scheduling form to appear
+      And I fill in "Quickie" with "#{quickie}"
+      And I press "Anlegen"
+      And I wait for the new scheduling form to disappear
+  EOSTEPS
+end
+
+# FIXME can only match the whole calendar
+Then /^I should see the following calendar:$/ do |expected|
+  actual = find("#calendar").all("tr").map do |tr|
+    tr.all('th, td').map(&:text).map(&:strip)
+  end
+  expected.diff! actual
+end
+
