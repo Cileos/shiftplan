@@ -3,7 +3,6 @@ jQuery(document).ready ->
   $('table#calendar').each ->
     $calendar = $(this)
     $body     = $calendar.find('tbody:first')
-    $scroller = $calendar.closest('.scroller')
     $new_link = $('a.new_scheduling')
     $new_form = $('form#new_scheduling')
 
@@ -20,17 +19,10 @@ jQuery(document).ready ->
       $new_form.find('select#scheduling_employee_id').val($cell.data('employee_id')).change()
       $new_form.find('select#scheduling_day').val($cell.data('day')).change()
 
-    must_scroll = ($cell) ->
-      target_cell_position = $cell.position().left + $cell.width()
-      target_cell_position > $scroller.width() || target_cell_position < $scroller.scrollLeft()
-
     $calendar.bind 'calendar.cell_focus', (event, cell) =>
       $cell = $(cell)
       focussed_cell().removeClass('focus')
       $cell.addClass('focus')
-      if(must_scroll($cell))
-        $scroller.scrollTo($cell, offset: -100)
-
 
     # focus first calendar data cell
     $calendar.trigger 'calendar.cell_focus', $body.find('tr:nth-child(1) td:nth-child(2)')
