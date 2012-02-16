@@ -20,12 +20,12 @@ Feature: Sum of hours in plan
   Scenario: work 9 to 5 every weekday
     Given an employee exists with first_name: "Homer", last_name: "Simpson", organization: the organization
       And the employee was scheduled in the plan as following:
-        | day | quickie |
-        | 1   | 9-17    |
-        | 2   | 9-17    |
-        | 3   | 9-17    |
-        | 4   | 9-17    |
-        | 5   | 9-17    |
+        | cwday | quickie |
+        | 1     | 9-17    |
+        | 2     | 9-17    |
+        | 3     | 9-17    |
+        | 4     | 9-17    |
+        | 5     | 9-17    |
      When I go to the page of the plan
      Then I should see the following calendar:
         | Mitarbeiter   | Stunden |
@@ -35,12 +35,12 @@ Feature: Sum of hours in plan
    Scenario: yeah Peter, whats happening? I'll need you go ahead and come in on saturday and sunday as well
     Given an employee exists with first_name: "Peter", last_name: "Gibbons", organization: the organization
       And the employee was scheduled in the plan as following:
-        | day | quickie |
-        | 1   | 9-17    |
-        | 2   | 9-17    |
-        | 3   | 9-17    |
-        | 4   | 9-17    |
-        | 5   | 9-17    |
+        | cwday | quickie |
+        | 1     | 9-17    |
+        | 2     | 9-17    |
+        | 3     | 9-17    |
+        | 4     | 9-17    |
+        | 5     | 9-17    |
       And I am on the page of the plan
      When I schedule "Peter Gibbons" on "Samstag" for "10-17"
       And I schedule "Peter Gibbons" on "Sonntag" for "12-17"

@@ -4,30 +4,57 @@ class Scheduling < ActiveRecord::Base
   belongs_to :plan
   belongs_to :employee
 
-  validates :starts_at, :ends_at, :plan, :employee, :presence => true
+  before_validation :parse_quickie
+  validates :starts_at, :ends_at, :plan, :employee,
+    :year, :week, :presence => true
 
-  attr_accessor :day
   attr_accessor :quickie
+  attr_writer   :cwday
 
   def start_hour=(hour)
-    self.starts_at = day_in_plan + hour.hours
+    self.starts_at = date + hour.hours
   end
 
   def end_hour=(hour)
-    self.ends_at = day_in_plan + hour.hours
+    self.ends_at = date + hour.hours
   end
 
-  def week_day
-    starts_at.to_date.cwday
+  # date of the day the Scheduling starts
+  def date
+    @date || starts_at_or(:to_date) { date_from_human_date_attributes }
+  end
+
+  def date=(new_date)
+    if new_date
+      @date = Date.parse(new_date)
+    end
+  end
+
+  # the year, defaults to current
+  def year
+    super || starts_at_or(:year) { Date.today.year }
+  end
+
+  # calendar week, defaults to current
+  # be aware: 1 is not always the week containing Jan 1st
+  def week
+    super || starts_at_or(:cweek) { Date.today.cweek }
+  end
+
+  # calendar week day, monday is 1, Sunday is 7, defaults to current day
+  def cwday
+    @cwday || starts_at_or(:wday) { Date.today.cwday }
   end
 
   def length_in_hours
     (ends_at - starts_at) / 1.hour
   end
 
+  def self.filter(params={})
+    SchedulingFilter.new params.merge(:base => self)
+  end
 
   private
-  before_validation :parse_quickie
 
   def parse_quickie
     if quickie.present?
@@ -38,8 +65,22 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
-  def day_in_plan
-    plan.day_at(day)
+
+  # calculates the date manually from #year, #week and #cwday
+  def date_from_human_date_attributes
+    if @cwday
+      ( Date.new(year) + week.weeks ).beginning_of_week + (@cwday.to_i - 1).days
+    end
   end
 
+  def starts_at_or(attr, &fallback)
+    starts_at.present?? starts_at.public_send(attr) : fallback.call
+  end
+
+end
+
+class ActiveSupport::TimeWithZone
+  def cweek
+    to_date.cweek
+  end
 end
