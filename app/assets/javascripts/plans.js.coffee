@@ -3,7 +3,6 @@ jQuery(document).ready ->
   $('table#calendar').each ->
     $calendar = $(this)
     $body     = $calendar.find('tbody:first')
-    $scroller = $calendar.closest('.scroller')
     $new_link = $('a.new_scheduling')
     $new_form = $('form#new_scheduling')
 
@@ -20,41 +19,37 @@ jQuery(document).ready ->
       $new_form.find('select#scheduling_employee_id').val($cell.data('employee_id')).change()
       $new_form.find('select#scheduling_day').val($cell.data('day')).change()
 
-    must_scroll = ($cell) ->
-      target_cell_position = $cell.position().left + $cell.width()
-      target_cell_position > $scroller.width() || target_cell_position < $scroller.scrollLeft()
-
     $calendar.bind 'calendar.cell_focus', (event, cell) =>
       $cell = $(cell)
       focussed_cell().removeClass('focus')
       $cell.addClass('focus')
-      if(must_scroll($cell))
-        $scroller.scrollTo($cell, offset: -100)
-
 
     # focus first calendar data cell
     $calendar.trigger 'calendar.cell_focus', $body.find('tr:nth-child(1) td:nth-child(2)')
 
-    columns_count = focussed_cell().closest('tr').children('td').size()
+    # which tds do we want to navigate
+    tds = 'td:not(.hours)'
+
+    columns_count = focussed_cell().closest('tr').children(tds).size()
     rows_count = focussed_cell().closest('tbody').children('tr').size()
 
     $('body').bind 'keydown', (event) ->
       $focus  = focussed_cell()
-      column  = $focus.closest('tr').children('td').index($focus)
+      column  = $focus.closest('tr').children(tds).index($focus)
       row     = $focus.closest('tbody').children('tr').index($focus.closest('tr'))
       $target = switch event.keyCode
         when 37 # arrow left
-          $focus.closest('tr').children('td').eq(column-1)
+          $focus.closest('tr').children(tds).eq(column-1)
         when 38 # arrow up
           if row - 1 < 0
             row = rows_count - 1
           else
             row = row - 1
-          $focus.closest('tbody').children('tr').eq(row).children('td').eq(column)
+          $focus.closest('tbody').children('tr').eq(row).children(tds).eq(column)
         when 39 # arrow right
-          $focus.closest('tr').children('td').eq( (column+1) % columns_count )
+          $focus.closest('tr').children(tds).eq( (column+1) % columns_count )
         when 40 # arrow down
-          $focus.closest('tbody').children('tr').eq( (row+1) % rows_count ).children('td').eq(column)
+          $focus.closest('tbody').children('tr').eq( (row+1) % rows_count ).children(tds).eq(column)
 
       if $target
         $calendar.trigger 'calendar.cell_focus', $target

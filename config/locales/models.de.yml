@@ -23,7 +23,7 @@ de:
       scheduling:
         employee: Mitarbeiter
         day: Tag
-        quicky: Quickie
+        quickie: Quickie
     values:
       plan:
         durations:

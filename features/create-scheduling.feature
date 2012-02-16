@@ -34,11 +34,7 @@ Feature: create a scheduling
   Scenario: just entering time span with javascript
      When I follow "Der Plan"
       And I wait for the calendar to appear
-      And I click on cell "Donnerstag"/"Homer S"
-      And I wait for the new scheduling form to appear
-      And I fill in "Quickie" with "9-17"
-      And I press "Anlegen"
-      And I wait for the new scheduling form to disappear
+      And I schedule "Homer S" on "Donnerstag" for "9-17"
      Then I should be on the page of the plan
       And I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |

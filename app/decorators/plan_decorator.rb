@@ -2,18 +2,18 @@ class PlanDecorator < ApplicationDecorator
   decorates :plan
 
   def quickies_for(employee, day)
-    schedulings_for(employee, day).map { |s| quicky_for s }
+    schedulings_for(employee, day).map { |s| quickie_for s }
   end
 
-  def quicky_list(employee, day)
-    h.render :partial => 'plans/quicky_list', :locals => { :quicky_list =>  quickies_for(employee, day) }
+  def quickie_list(employee, day)
+    h.render :partial => 'plans/quickie_list', :locals => { :quickie_list =>  quickies_for(employee, day) }
   end
 
   def schedulings
     @schedulings ||= model.schedulings
   end
 
-  def quicky_for(s)
+  def quickie_for(s)
     "#{s.starts_at.hour}-#{s.ends_at.hour}"
   end
 
@@ -23,6 +23,10 @@ class PlanDecorator < ApplicationDecorator
 
   def cell_selector(employee, day)
     %Q~#calendar tbody td[data-day=#{day}][data-employee_id=#{employee.id}]~
+  end
+
+  def hours_selector_for_employee(employee)
+    %Q~#calendar tbody td.hours[data-employee_id=#{employee.id}]~
   end
 
   def respond_to_missing?(name)
@@ -45,6 +49,11 @@ class PlanDecorator < ApplicationDecorator
 
   def new_scheduling_dom_id
     h.dom_id(model, 'new_scheduling')
+  end
+
+  # Planned in hours for given employee
+  def hours_for(employee)
+    schedulings.for_employee(employee).sum(&:length_in_hours).to_i
   end
 
   private

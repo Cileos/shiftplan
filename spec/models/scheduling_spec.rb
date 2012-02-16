@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Scheduling do
-  context "setting quicky" do
+  context "setting quickie" do
     it "sets start and ends date" do
       input = '9-17'
       the_day = Time.zone.parse('2011-01-02').to_date
@@ -9,11 +9,12 @@ describe Scheduling do
       plan = mock_model('Plan')
       plan.stub!(:day_at).with(23).and_return(the_day)
 
-      s = Factory.build :scheduling, :plan => plan, :quicky => input, :day => 23
-      s.valid? # enforce parsing of quicky
+      s = Factory.build :scheduling, :plan => plan, :quickie => input, :day => 23
+      s.valid? # enforce parsing of quickie
 
       s.starts_at.should == Time.zone.parse('2011-01-02 09:00')
       s.ends_at.should == Time.zone.parse('2011-01-02 17:00')
+      s.length_in_hours.should == 8
     end
   end
 end
