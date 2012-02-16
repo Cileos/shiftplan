@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :plan do
     sequence(:name) { |i| "Egon's #{i.ordinalize} Plan" }
-    sequence(:first_day) { |i| Time.zone.parse('1968-01-01').beginning_of_week + i.weeks }
     organization
   end
 

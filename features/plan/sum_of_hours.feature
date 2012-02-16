@@ -6,7 +6,8 @@ Feature: Sum of hours in plan
   Background:
     Given a planner exists
       And an organization exists with planner: the planner
-      And a plan exists with organization: the organization, first_day: "2011-02-07"
+      And a plan exists with organization: the organization
+      And today is 2011-02-07
       And I am signed in as the planner
 
   Scenario: nothing planned
