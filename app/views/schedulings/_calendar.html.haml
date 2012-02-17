@@ -21,5 +21,4 @@
           - f.days.each do |day|
             %td{data: f.cell_metadata(day, employee)}
               = f.cell_content(day, employee)
-              - Rails.logger.debug "calendar cell: #{f.cell_metadata(day, employee).inspect}"
           = f.hours_tag_for(employee)
