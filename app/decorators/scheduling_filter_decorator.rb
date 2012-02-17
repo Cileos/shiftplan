@@ -24,8 +24,11 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def cell_content(day, employee)
-    h.render "schedulings/list_in_#{range || 'unknown'}",
-      schedulings: schedulings_for(day, employee)
+    schedulings = schedulings_for(day, employee)
+    unless schedulings.empty?
+      h.render "schedulings/list_in_#{range || 'unknown'}",
+        schedulings: schedulings
+    end
   end
 
   def schedulings_for(day, employee)

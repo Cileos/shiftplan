@@ -4,7 +4,12 @@ jQuery(document).ready ->
     $calendar = $(this)
     $body     = $calendar.find('tbody:first')
     $new_link = $('a.new_scheduling')
-    $new_form = $('form#new_scheduling')
+    $modal    = $("#{$new_link.data('href')}")
+    $form     = $modal.find('form').clone()
+    $body     = $modal.find('.modal-body')
+
+    # we do not want duplicate ids on the page
+    $form.removeAttr('id').find('[id]').removeAttr('id')
 
     focussed_cell = ->
       $body.find('td.focus')
@@ -13,10 +18,48 @@ jQuery(document).ready ->
       $calendar.trigger 'calendar.cell_focus', this
       $calendar.trigger 'calendar.cell_activate', this
 
+    # uses the new_scheduling_form provided by rails and HACKs it
+    append_form = (employee, date, scheduling) ->
+      $f = $form.clone().appendTo($body)
+             .find('.btn')
+               .hide()
+             .end()
+             .find(':input[name="scheduling[employee_id]"]')
+               .val(employee).change()
+             .end()
+             .find(':input[name="scheduling[date]"]')
+               .val(date).change()
+             .end()
+             .find(':input[name="scheduling[quickie]"]')
+               .val( if scheduling? then scheduling.data('quickie') else '').change()
+             .end()
+             .find(".btn.#{if scheduling? then 'update' else 'create'}")
+               .show()
+             .end()
+      if scheduling?
+        id = scheduling.data('id')
+        $f
+          .attr('id', "edit_scheduling_#{id}")
+          .attr('action', "#{$f.attr('action')}/#{id}")
+          .append( $('<input name="_method" type="hidden" value="put">') )
+      else
+        $f.attr('id', 'new_scheduling')
+
+      $f
+      
+
     $calendar.bind 'calendar.cell_activate', (event, cell) =>
-      $cell = $(cell)
-      $new_form.find('select#scheduling_employee_id').val($cell.data('employee_id')).change()
-      $new_form.find('select#scheduling_date').val($cell.data('date')).change()
+      $cell    = $(cell)
+      date     = $cell.data('date')
+      employee = $cell.data('employee_id')
+      $items   = $cell.find('li')
+      $body.html('') # clear
+
+      if $items.length > 0
+        $items.each ->
+          append_form(employee, date, $(this))
+
+      append_form(employee, date)
       $new_link.click()
 
     $calendar.bind 'calendar.cell_focus', (event, cell) =>

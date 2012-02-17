@@ -41,6 +41,10 @@ Feature: create a scheduling
         | Lenny L     |        |          |          |            |         |         |         |
         | Homer S     |        |          |          | 8-18       |         |         |         |
 
+
+  @todo
+  Scenario: display validation errors
+
   @javascript
   Scenario: navigating through the plan with keystrokes
      When I follow "Der Plan"

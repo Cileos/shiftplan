@@ -2,7 +2,7 @@
 - when :week
   = render 'calendar', filter: collection
   = decorate collection.plan do |plan|
-    = plan.new_scheduling
+    = plan.scheduling_form_template
 - else
   %p= Scheduling.model_name.pluralize :count => collection.count
 

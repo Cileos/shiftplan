@@ -1,16 +1,19 @@
 class ApplicationDecorator < Draper::Base
 
-  # wraps the given block in a modal div. Must give `id`, &block behaves like in content_tag helper
-  def modal(id, &block)
-    h.content_tag :div, class: "modal hide fade in", id: id, &block
+  # wraps the given block in modal divs. Must give at least :body
+  def modal(options = {})
+    body    = options.delete(:body) || raise(ArgumentError, 'no :body given for modal')
+    classes = options.delete(:class)
+    content = h.content_tag :div, body, class: 'modal-body'
+    h.content_tag :div, content, options.merge(class: "modal hide fade in #{classes}")
   end
 
   def dom_id
     h.dom_id(model)
   end
 
-  def new_scheduling_dom_id
-    'new_scheduling'
+  def scheduling_form_id
+    'scheduling_modal'
   end
 
   # Lazy Helpers

@@ -25,8 +25,6 @@ Feature: Edit Schedulings of a Plan
 
      When I click on cell "Freitag"/"Santa C"
       And I wait for the modal box to appear
-     Then the selected "Mitarbeiter" should be "Santa C"
-      And the selected "Wochentag" should be "Freitag"
       And the "Quickie" field should contain "7-23"
 
      When I fill in "Quickie" with "1-23"
