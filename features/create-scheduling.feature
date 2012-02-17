@@ -19,7 +19,7 @@ Feature: create a scheduling
      When I follow "Der Plan"
       And I follow "Neue Terminierung"
       And I select "Homer S" from "Mitarbeiter"
-      And I select "Mittwoch" from "Tag"
+      And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
      Then I should be on the page of the plan

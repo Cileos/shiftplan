@@ -45,6 +45,10 @@ class Scheduling < ActiveRecord::Base
   end
   attr_writer :cwday
 
+  def cwday?
+    @cwday.present?
+  end
+
   def quickie
     @quickie ||= to_quickie
   end
