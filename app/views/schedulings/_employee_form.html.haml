@@ -1,6 +1,0 @@
-= simple_form_for scheduling, url: plan_schedulings_path(scheduling.plan), wrapper: :inline, remote: true, html: { class: 'form-inline well' } do |f|
-  = f.hidden_field :employee_id
-  = f.hidden_field :date
-  = f.input :quickie
-  = f.button :submit, ta(:create), class: 'create'
-  = f.button :submit, ta(:update), class: 'update'

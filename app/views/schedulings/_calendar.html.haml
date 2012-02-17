@@ -22,3 +22,7 @@
             %td{data: f.cell_metadata(day, employee)}
               = f.cell_content(day, employee)
           = f.hours_tag_for(employee)
+
+  #actions
+    = decorate f.plan do |plan|
+      = plan.new_scheduling_form_with_link

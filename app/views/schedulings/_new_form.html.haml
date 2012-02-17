@@ -1,11 +1,9 @@
-= simple_form_for scheduling, url: plan_schedulings_path(scheduling.plan), remote: true do |f|
-  .modal-body
-    - unless scheduling.employee.present?
-      = f.association :employee, :as => :select, :include_blank => false
-    - else
-      = f.hidden_field :employee_id
-    = f.input :date, :collection => cwdays_for_select(scheduling.plan), :include_blank => false
-    = f.input :quickie
-  .modal-footer
-    = f.button :submit, ta(:create)
+= simple_form_for scheduling, url: plan_schedulings_path(scheduling.plan), remote: true, html: { class: 'form-horizontal well' } do |f|
+  - unless scheduling.employee.present?
+    = f.association :employee, :as => :select, :include_blank => false
+  - else
+    = f.hidden_field :employee_id
+  = f.input :date, :collection => cwdays_for_select(scheduling.plan), :include_blank => false
+  = f.input :quickie
+  %button.btn.btn-info{type: 'submit'}=ta :create
 

@@ -1,9 +1,9 @@
 class PlanDecorator < ApplicationDecorator
   decorates :plan
 
-  def scheduling_form_template
+  def new_scheduling_form_with_link
     if employees_available?
-      link_to_new_scheduling_form + employee_form
+      link_to_new_scheduling_form + new_scheduling_form
     end
   end
 
@@ -14,10 +14,10 @@ class PlanDecorator < ApplicationDecorator
   end
 
 
-  # A form for a scheduling where neither the date nor the employee can be modified (hidden fields)
-  def employee_form
+  # A form for a new scheduling
+  def new_scheduling_form
     modal id: scheduling_form_id,
-      body: h.render('schedulings/employee_form', :scheduling => plan.schedulings.new)
+      body: h.render('schedulings/new_form', :scheduling => plan.schedulings.new)
   end
 
   def plan
