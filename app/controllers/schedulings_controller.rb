@@ -14,7 +14,7 @@ class SchedulingsController < InheritedResources::Base
   private
     def collection
       return @schedulings if @schedulings
-      @schedulings = end_of_association_chain.filter( filter_params )
+      @schedulings = Scheduling.filter( filter_params )
     end
 
     def filter_params

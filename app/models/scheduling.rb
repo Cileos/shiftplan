@@ -59,7 +59,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def self.filter(params={})
-    SchedulingFilter.new params.merge(:base => self)
+    SchedulingFilter.new params.reverse_merge(:base => self)
   end
 
   def concurrent

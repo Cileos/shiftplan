@@ -52,8 +52,10 @@ class SchedulingFilter
 
   # These _are_ the Schedulings you are looking for
   def records
-    base.where attributes.slice(:week, :year)
+    @records ||= fetch_records
   end
+
+  delegate :all, to: :records
 
   # looks up the index, savely
   def indexed(day, employee)
@@ -81,6 +83,18 @@ class SchedulingFilter
       records.group_by(&:iso8601).map do |day, concurrent|
         { day => concurrent.group_by(&:employee) }
       end.inject(&:merge) || {}
+    end
+
+    def fetch_records
+      base.where(conditions).includes(:employee)
+    end
+
+    def conditions
+      attributes.symbolize_keys.slice(:week, :year).tap do |c|
+        if plan?
+          c.merge!(:plan_id => plan.id)
+        end
+      end
     end
 
 

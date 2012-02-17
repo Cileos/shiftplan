@@ -22,33 +22,33 @@ Feature: Plan a week
      Then I should be on the page of the plan for week: 49
       And I should see a calendar titled "Dull Work - KW 49 03.12.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag |
-        | Jack T      |        | 10-16    |          |            |         |
+        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden |
+        | Jack T      |        | 10-16    |          |            |         | 6       |
 
      When I follow "<<" within the calendar navigation
      Then I should be on the page of the plan for week: 48, year: 2012
       And I should see a calendar titled "Dull Work - KW 48 26.11.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag |
-        | Jack T      | 9-17   |          |          |            |         |
+        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden |
+        | Jack T      | 9-17   |          |          |            |         | 8       |
      
      When I follow ">>" within the calendar navigation
      Then I should be on the page of the plan for week: 49, year: 2012
       And I should see a calendar titled "Dull Work - KW 49 03.12.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag |
-        | Jack T      |        | 10-16    |          |            |         |
+        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden |
+        | Jack T      |        | 10-16    |          |            |         | 6       |
 
      When I follow ">>" within the calendar navigation
      Then I should be on the page of the plan for week: 50, year: 2012
       And I should see a calendar titled "Dull Work - KW 50 10.12.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag |
-        | Jack T      |        |          | 11-15    |            |         |
+        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden |
+        | Jack T      |        |          | 11-15    |            |         | 4       |
 
      When I follow ">>" within the calendar navigation
      Then I should be on the page of the plan for week: 51, year: 2012
       And I should see a calendar titled "Dull Work - KW 51 17.12.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag |
-        | Jack T      |        |          |          | 12-14      |         |
+        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden |
+        | Jack T      |        |          |          | 12-14      |         | 2       |
