@@ -1,4 +1,5 @@
-<%= decorate @scheduling.plan do |p| %>
-$("<%= p.cell_selector_for_scheduling(@scheduling) %>").html("<%= j p.quicky_list_for_scheduling(@scheduling) %>")
-$("#<%= p.new_scheduling_dom_id %>.ui-dialog").dialog('close')
+<%= decorate @scheduling.concurrent do |filter| %>
+$("<%= filter.cell_selector_for_scheduling(@scheduling) %>").html("<%= j filter.cell_content_for_scheduling(@scheduling) %>")
+$("<%= filter.hours_selector_for(@scheduling.employee) %>").html("<%= filter.hours_for(@scheduling.employee) %>")
+$("#<%= filter.new_scheduling_dom_id %>").modal('hide')
 <% end %>

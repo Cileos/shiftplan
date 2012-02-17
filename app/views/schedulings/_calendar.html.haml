@@ -1,0 +1,24 @@
+= decorate filter do |f|
+  - title f.caption, false
+
+  #calendar-navigation.pager
+    %ul
+      %li.previous= f.link_to_previous_week
+      %li.next= f.link_to_next_week
+
+  %table#calendar.table.table-striped.table-bordered{class: f.range}
+    %caption= f.caption
+    %thead
+      %tr
+        %th= translate_action :employees
+        - f.formatted_days.each do |day|
+          %th= day
+        = f.hours_header
+    %tbody
+      - f.employees.each do |employee|
+        %tr
+          %th.employee= employee.name
+          - f.days.each do |day|
+            %td{data: f.cell_metadata(day, employee)}
+              = f.cell_content(day, employee)
+          = f.hours_tag_for(employee)

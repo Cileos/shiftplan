@@ -11,7 +11,8 @@ Feature: create a scheduling
         | Homer      | S         |
         | Lenny      | L         |
         | Carl       | C         |
-      And a plan exists with organization: the organization, first_day: "2011-02-01", name: "Der Plan"
+      And a plan exists with organization: the organization, name: "Der Plan"
+      And today is 2012-02-13
       And I am signed in as the planner
 
 
@@ -19,51 +20,46 @@ Feature: create a scheduling
      When I follow "Der Plan"
       And I follow "Neue Terminierung"
       And I select "Homer S" from "Mitarbeiter"
-      And I select "11" from "Tag"
+      And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
-     Then I should be on the page of the plan
-      And I should see the following calendar:
-        | Mitarbeiter | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 |
-        | Carl C      |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
-        | Lenny L     |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
-        | Homer S     |   |   |   |   |   |   |   |   |   |    | 9-17 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+     Then I should see the following calendar:
+        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Carl C      |        |          |          |            |         |         |         |
+        | Lenny L     |        |          |          |            |         |         |         |
+        | Homer S     |        |          | 9-17     |            |         |         |         |
 
 
   @javascript
   Scenario: just entering time span with javascript
      When I follow "Der Plan"
       And I wait for the calendar to appear
-      And I click on cell "11"/"Homer S"
-      And I wait for the new scheduling form to appear
-      And I fill in "Quickie" with "9-17"
-      And I press "Anlegen"
-     Then I should be on the page of the plan
-      And I should see the following calendar:
-        | Mitarbeiter | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 |
-        | Carl C      |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
-        | Lenny L     |   |   |   |   |   |   |   |   |   |    |      |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
-        | Homer S     |   |   |   |   |   |   |   |   |   |    | 9-17 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+      And I schedule "Homer S" on "Donnerstag" for "8-18"
+     Then I should see the following calendar:
+        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Carl C      |        |          |          |            |         |         |         |
+        | Lenny L     |        |          |          |            |         |         |         |
+        | Homer S     |        |          |          | 8-18       |         |         |         |
 
   @javascript
   Scenario: navigating through the plan with keystrokes
      When I follow "Der Plan"
       And I wait for the calendar to appear
-    Then the cell "1"/"Carl C" should be active
+    Then the cell "Montag"/"Carl C" should be focus
     When I press arrow up
-    Then the cell "1"/"Homer S" should be active
+    Then the cell "Montag"/"Homer S" should be focus
     When I press arrow left
-    Then the cell "28"/"Homer S" should be active
+    Then the cell "Sonntag"/"Homer S" should be focus
     When I press arrow down
-    Then the cell "28"/"Carl C" should be active
+    Then the cell "Sonntag"/"Carl C" should be focus
     When I press arrow right
-    Then the cell "1"/"Carl C" should be active
+    Then the cell "Montag"/"Carl C" should be focus
     When I press arrow right
-    Then the cell "2"/"Carl C" should be active
+    Then the cell "Dienstag"/"Carl C" should be focus
     When I press arrow down
-    Then the cell "2"/"Lenny L" should be active
+    Then the cell "Dienstag"/"Lenny L" should be focus
     When I press arrow left
-    Then the cell "1"/"Lenny L" should be active
+    Then the cell "Montag"/"Lenny L" should be focus
     When I press arrow up
-    Then the cell "1"/"Carl C" should be active
+    Then the cell "Montag"/"Carl C" should be focus
 

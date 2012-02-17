@@ -1,25 +1,146 @@
 require 'spec_helper'
 
 describe Scheduling do
-  context "setting quicky" do
-    it "sets start and ends date" do
-      input = '9-17'
-      the_day = Time.zone.parse('2011-01-02').to_date
 
-      quicky = mock 'Quickie',
-        :to_s => input,
-        :start_hours => 9.hours,
-        :end_hours => 17.hours
-      Quicky.should_receive(:parse).with(input).and_return(quicky)
+  context "time range" do
+    # must define "today" here to travel before building anything
+    before(:each) { Timecop.travel Time.parse('1988-02-03 23:42') }
+    after(:each)  { Timecop.return }
 
-      plan = mock_model('Plan')
-      plan.stub!(:day_at).with(23).and_return(the_day)
+    let(:starts_at)      { '1988-05-05 09:00' }
+    let(:ends_at)        { '1988-05-05 17:00' }
+    let(:the_date)       { '1988-05-05' }
+    let(:starts_at_date) { Time.zone.parse(starts_at) }
+    let(:ends_at_date)   { Time.zone.parse(ends_at) }
+    before(:each)        { scheduling.valid? }
 
-      s = Factory.build :scheduling, :plan => plan, :quicky => input, :day => 23
-      s.valid? # enforce parsing of quicky
 
-      s.starts_at.should == Time.zone.parse('2011-01-02 09:00')
-      s.ends_at.should == Time.zone.parse('2011-01-02 17:00')
+    shared_examples "completely defined" do
+      it do
+        scheduling.should be_valid
+      end
+
+      it "has start time set" do
+        scheduling.starts_at.should == starts_at_date
+      end
+
+      it "has end time set" do
+        scheduling.ends_at.should == ends_at_date
+      end
+
+      it "has week set" do
+        scheduling.week.should == 18
+      end
+
+      it "has cwday set" do
+        scheduling.cwday.should == 4 # thursday
+      end
+
+      it "has year set" do
+        scheduling.year.should == 1988
+      end
+
+      it "has date set" do
+        scheduling.date.should == starts_at_date.to_date
+      end
+
+      it "calculates length" do
+        scheduling.length_in_hours.should == 8
+      end
+
+      it "regenerates quickie" do
+        scheduling.quickie.should == '9-17'
+      end
+
+      context "saved and reloaded" do
+        let(:reloaded) do
+          scheduling.save!
+          Scheduling.find scheduling.id
+        end
+
+        it "has week saved" do
+          scheduling.read_attribute(:week).should == 18
+        end
+
+        it "has year saved" do
+          scheduling.read_attribute(:year).should == 1988
+        end
+      end
     end
+
+    # use factory except for the time range related attributes, so the
+    # validity of the Scheduling is not compromised
+    def build(attrs={})
+      Factory.build :scheduling, attrs.reverse_merge({
+        starts_at: nil,
+        ends_at:   nil,
+        week:      nil,
+        year:      nil,
+        date:      nil
+      })
+    end
+
+    describe "explictly given" do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          build({
+            starts_at: starts_at,
+            ends_at:   ends_at
+          })
+        end
+      end
+    end
+
+    describe "given as week, cwday and quicky (current year implied)" do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          build({
+            week:       18,
+            cwday:      4,
+            quickie:    '9-17'
+          })
+        end
+      end
+
+    end
+
+    describe "given as date and hours" do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          build({
+            date:       the_date,
+            start_hour: 9,
+            end_hour:   17
+          })
+        end
+      end
+    end
+
+    describe "given as date and quickie" do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          build({
+            date:      the_date,
+            quickie:   '9-17'
+          })
+        end
+      end
+    end
+
+    describe "old scheduling without week or year, synced" do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          s = build({
+            date:      the_date,
+            quickie:   '9-17'
+          })
+          s.save!
+          Scheduling.update_all({week: nil, year: nil}, {id: s.id})
+          Scheduling.sync!
+          s
+        end
+      end
+    end
+
   end
 end

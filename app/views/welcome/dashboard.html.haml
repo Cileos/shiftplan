@@ -1,13 +1,10 @@
 - title :dashboard
 
-- for_header do
-  = link_to '.employees', employees_path
-  = link_to '.new_plan', new_plan_path
+= link_to '.employees', employees_path
+= link_to '.new_plan', new_plan_path
 
-= collapsible :collapsed => false do
-  %h3= ta :plans
-  = linked_list_of current_user.organization.plans, :class => 'plans' do |plan|
-    %li= link_to plan.name, plan, 'data-ajax' => false
+%h3= ta :plans
+%ul.plans
+  - current_user.organization.plans.each do |plan|
+    %li= link_to plan.name, plan
 
-- for_footer :class => 'ui-bar' do
-  = render 'session'

@@ -4,9 +4,10 @@
 unset RAILS_RELATIVE_URL_ROOT
 unset RACK_BASE_URI
 
-NEEDED_RUBY='1.9.2-p290@shiftplan-ci'
+NEEDED_RUBY='1.9.3-p0@shiftplan-ci'
 DATABASE='shiftplan_test'
 RAILS_ENV=test
+export LC_ALL='en_US.UTF-8'
 export RAILS_ENV
 
 APP_DIR=`pwd`
@@ -24,6 +25,11 @@ test -f "$HOME/.rvm/scripts/rvm" ||
 source "$HOME/.rvm/scripts/rvm" || exit 512
 
 rvm use $NEEDED_RUBY --create
+
+echo "truncate log files"
+
+echo > log/test.log
+echo > log/capybara_test.log
 
 which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 25
 

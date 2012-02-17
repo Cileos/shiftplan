@@ -1,7 +1,7 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' }, :test_unit => false, :wait => 90 do
+guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' }, :test_unit => false, :wait => 120 do
   watch('config/application.rb')
   watch('config/environment.rb')
   watch(%r{^config/environments/.+\.rb$})
@@ -10,43 +10,44 @@ guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAIL
   watch('spec/spec_helper.rb')
   watch('test/test_helper.rb')
   watch('features/support/env.rb')
+  watch('config/spork_prefork.rb')
 end unless ENV['NO_SPORK']
 
-guard 'rspec', :cli => '--drb --color', :version => 2 do
-  watch(%r{^spec/.+_spec\.rb$})
-  watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
-  watch('spec/spec_helper.rb')  { "spec" }
-  watch(%r{^spec/factories/.+$}) { 'spec' }
-  watch(%r{^factories/+$})       { "spec" }
+group :test, :halt_on_fail => true do
 
-  # Rails example
-  watch(%r{^spec/.+_spec\.rb$})
-  watch(%r{^app/(?:models|helpers)(.+)\.rb$})         { |m| "spec/#{m[1]}_spec.rb" }
-  watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
-  # we (will) use cucumber extensivly
-  # watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}_spec.rb"] }
-  watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
-  watch('spec/spec_helper.rb')                        { "spec" }
-  watch('config/routes.rb')                           { "spec/routing" }
-  # Capybara request specs
-  watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
+  guard 'rspec', :cli => '--drb --color', :version => 2, :run_all => { :cli => "--color" }, :all_on_start => false do
+    watch(%r{^spec/.+_spec\.rb$})
+    watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
+    watch('spec/spec_helper.rb')  { "spec" }
+    watch(%r{^spec/factories/.+$}) { 'spec' }
+    watch(%r{^factories/+$})       { "spec" }
+
+    # Rails example
+    watch(%r{^spec/.+_spec\.rb$})
+    watch(%r{^app/(?:models|helpers)(.+)\.rb$})         { |m| "spec/#{m[1]}_spec.rb" }
+    watch(%r{^lib/(.+)\.treetop$})                      { |m| "spec/lib/#{m[1]}_parser_spec.rb" }
+    watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
+    # we (will) use cucumber extensivly
+    # watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}_spec.rb"] }
+    watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
+    watch('spec/spec_helper.rb')                        { "spec" }
+    watch('config/routes.rb')                           { "spec/routing" }
+    # Capybara request specs
+    watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
+  end
+
+#                                                         V --no-drb skip spork to run simplecov 
+  guard 'cucumber', :cli => "--drb", :run_all => { :cli => "--format progress" }, :all_on_start => false do 
+    watch(%r{^features/.+\.feature$})
+    watch(%r{^app/(views|controllers).+$})    { "features" }
+    watch(%r{^factories/.+$})                 { "features" }
+    watch(%r{^spec/factories/.+$})            { 'features' }
+    watch(%r{^features/support/.+$})          { 'features' }
+    watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
+    watch('app/decorators/scheduling_filter_decorator.rb') { 'features/plan/week.feature' }
+  end
+
 end
-
-
-guard 'cucumber', :cli => "--drb" do
-  watch(%r{^config/locales/.+\.yml$})
-  watch(%r{^features/.+\.feature$})
-  watch(%r{^app/.+$})                       { "features" }
-  watch(%r{^factories/.+$})                 { "features" }
-  watch(%r{^spec/factories/.+$})            { 'features' }
-  watch(%r{^features/support/.+$})          { 'features' }
-  watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
-end
-
-# what to watch? what indicates a bored developer?
-#guard 'process', :name => 'Notes', :command => 'bundle exec rake notes' do
-#  watch('.git/HEAD')
-#end
 
 guard 'bundler' do
   watch('Gemfile')

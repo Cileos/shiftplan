@@ -3,7 +3,7 @@ Feature: Creating a plan
   As a planner
   I want to create a plan
 
-  Scenario: creating a plan for the current plan
+  Scenario: creating a weekly plan for the current organization
     Given a planner exists
       And an organization exists with planner: the planner
       And the organization has the following employees:
@@ -11,22 +11,23 @@ Feature: Creating a plan
         | Homer      | S         |
         | Lenny      | L         |
         | Carl       | C         |
-      And today is 2011-10-01
+      # monday
+      And today is 2012-02-01
       And I am signed in as the planner
 
      When I follow "neuer Plan"
       # duration of plan is fixed for now
-      #And I choose "ganzer Monat"
+      #And I choose "Woche"
       #And I press "Weiter"
       And I fill in "Name" with "Halloween im Atomkraftwerk"
-      And I select "Oktober 2011" from "Monat"
       And I press "Anlegen"
 
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
-      And I should be on the page for the plan
+     And I should be on the page for the plan for week: 5
       And the page should be titled "Halloween im Atomkraftwerk"
+      And I should see a calendar titled "Halloween im Atomkraftwerk - KW 05 30.01.2012"
       And I should see the following calendar:
-        | Mitarbeiter | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 |
-        | Carl C      |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
-        | Lenny L     |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
-        | Homer S     |   |   |   |   |   |   |   |   |   |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Carl C      |        |          |          |            |         |         |         |
+        | Lenny L     |        |          |          |            |         |         |         |
+        | Homer S     |        |          |          |            |         |         |         |

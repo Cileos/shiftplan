@@ -14,4 +14,7 @@ de:
       new_scheduling: Neue Terminierung
       next: Weiter
       create: Anlegen
+      hours: Stunden
+      previous_week: '<<'
+      next_week: '>>'
 

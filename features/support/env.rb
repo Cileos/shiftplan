@@ -3,15 +3,10 @@ require 'rubygems'
 require 'spork'
 
 Spork.prefork do
-  # keep devise from preloading User model, see https://gist.github.com/1344547
-  require 'rails/application'
-  Spork.trap_method(Rails::Application, :reload_routes!)
-  Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
-
-  require File.expand_path('../../../config/environment', __FILE__)
+  require File.dirname(__FILE__) + "/../../config/spork_prefork"
 
   require 'rspec'
-  require 'rspec/rails'
+  #require 'rspec/rails'
   require 'fileutils'
 
   require 'capybara/rails'
@@ -33,26 +28,17 @@ Spork.prefork do
   Capybara.default_selector = :css
    
   if ENV['CAPYBARA_CHROME'] == 'yes'
+    STDERR.puts "will run @javascript tests in chrome"
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :chrome)
     end
+  else
+    STDERR.puts "will run @javascript tests in default browser (probably firefox)"
   end
 
   Capybara.server do |app, port|
     require 'rack/handler/webrick'
     Rack::Handler::WEBrick.run(app, :Port => port, :AccessLog => [], :Logger => WEBrick::Log::new(Rails.root.join("log/capybara_test.log").to_s))
-  end
-
-  require 'database_cleaner'
-  DatabaseCleaner.strategy = :transaction
-  DatabaseCleaner.clean_with :truncation
-
-  Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
-    DatabaseCleaner.strategy = :truncation, {:except => %w[widgets]}
-  end
-
-  Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
-    DatabaseCleaner.strategy = :transaction
   end
 
   # some people have slow computers, 2s are not enough. CI is slow also
