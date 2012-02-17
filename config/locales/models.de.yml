@@ -23,6 +23,7 @@ de:
       scheduling:
         employee: Mitarbeiter
         day: Tag
+        date: Wochentag
         quickie: Quickie
     values:
       plan:

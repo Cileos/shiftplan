@@ -17,7 +17,7 @@ jQuery(document).ready ->
       $cell = $(cell)
       $new_link.click()
       $new_form.find('select#scheduling_employee_id').val($cell.data('employee_id')).change()
-      $new_form.find('select#scheduling_day').val($cell.data('day')).change()
+      $new_form.find('select#scheduling_date').val($cell.data('date')).change()
 
     $calendar.bind 'calendar.cell_focus', (event, cell) =>
       $cell = $(cell)

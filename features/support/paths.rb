@@ -11,11 +11,20 @@ module NavigationHelpers
     when /^the (?:home|landing)\s?page$/
       '/'
 
-    when /^the page (?:of|for) #{capture_model}$/
+    when /^the page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
+      params = parse_fields($2).symbolize_keys
       case model = model!($1)
       when Plan
         # TODO we may have to scope this under its organization laater
-        plan_path(model)
+        if params[:week]
+          if params[:year]
+            plan_year_week_path(model, params[:year], params[:week])
+          else
+            plan_week_path(model, params[:week])
+          end
+        else
+          plan_path(model, params)
+        end
       else
         raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
       end
