@@ -48,17 +48,20 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   # Planned in hours for given employee
-  def hours_for(employee)
+  def hours_tag_for(employee)
     if week?
-      hours = records.select {|s| s.employee == employee }.sum(&:length_in_hours).to_i
-      h.content_tag :td, hours,
+      h.content_tag :td, hours_for(employee),
         :class => 'hours',
-        :data  => { employee_id: employee.id }
+        'data-employee_id' => employee.id
     end
   end
 
   def hours_selector_for(employee)
     %Q~#calendar tbody td.hours[data-employee_id=#{employee.id}]~
+  end
+
+  def hours_for(employee)
+    records.select {|s| s.employee == employee }.sum(&:length_in_hours).to_i
   end
 
 

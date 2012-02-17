@@ -15,4 +15,4 @@
           - f.days.each do |day|
             %td{data: f.cell_metadata(day, employee)}
               = f.cell_content(day, employee)
-          = f.hours_for(employee)
+          = f.hours_tag_for(employee)
