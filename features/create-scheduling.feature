@@ -22,8 +22,7 @@ Feature: create a scheduling
       And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
-     Then I should be on the page of the plan
-      And I should see the following calendar:
+     Then I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
         | Carl C      |        |          |          |            |         |         |         |
         | Lenny L     |        |          |          |            |         |         |         |
@@ -35,8 +34,7 @@ Feature: create a scheduling
      When I follow "Der Plan"
       And I wait for the calendar to appear
       And I schedule "Homer S" on "Donnerstag" for "9-17"
-     Then I should be on the page of the plan
-      And I should see the following calendar:
+     Then I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
         | Carl C      |        |          |          |            |         |         |         |
         | Lenny L     |        |          |          |            |         |         |         |
