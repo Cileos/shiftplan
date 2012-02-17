@@ -19,7 +19,7 @@ class SchedulingFilter
     if week?
       :week
     else
-      :wtf
+      nil
     end
   end
 

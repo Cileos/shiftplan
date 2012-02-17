@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe SchedulingFilter do
 
+  let(:bad_day) { mock('Date', cwday: 8) }
+
   it "converts stringy week to integer" do
     filter = SchedulingFilter.new(week: '23')
     filter.week.should == 23
@@ -65,7 +67,7 @@ describe SchedulingFilter do
     context "scheduled nothing" do
       context "index accessor" do
         it "should return empty array" do
-          filter.indexed(23,42).should == []
+          filter.indexed(bad_day, 42).should == []
         end
       end
     end
@@ -119,15 +121,15 @@ describe SchedulingFilter do
 
       context "index accessor" do
         it "find the records" do
-          filter.indexed(@eating1.cwday, @eating1.employee).should == [@eating1]
+          filter.indexed(@eating1.date, @eating1.employee).should == [@eating1]
         end
 
         it "does not break if nothing found" do
-          expect { filter.indexed(23, 42) }.not_to raise_error
+          expect { filter.indexed(bad_day, 42) }.not_to raise_error
         end
 
         it "returns empty array when nothing found" do
-          filter.indexed(23, 42).should == []
+          filter.indexed(bad_day, 42).should == []
         end
       end
 
