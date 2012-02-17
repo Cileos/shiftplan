@@ -86,5 +86,15 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  def link_to_previous_week
+    week = first_day.prev_week
+    h.link_to :previous_week, h.plan_year_week_path(plan, week.year, week.cweek)
+  end
+
+  def link_to_next_week
+    week = first_day.next_week
+    h.link_to :next_week, h.plan_year_week_path(plan, week.year, week.cweek)
+  end
+
 
 end

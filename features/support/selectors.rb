@@ -19,6 +19,9 @@ module HtmlSelectorsHelpers
     when "the calendar"
       'table#calendar'
 
+    when "the calendar navigation"
+      'div#calendar-navigation'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

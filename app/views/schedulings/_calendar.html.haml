@@ -1,5 +1,11 @@
 = decorate filter do |f|
   - title f.caption, false
+
+  #calendar-navigation.pager
+    %ul
+      %li.previous= f.link_to_previous_week
+      %li.next= f.link_to_next_week
+
   %table#calendar.table.table-striped.table-bordered{class: f.range}
     %caption= f.caption
     %thead

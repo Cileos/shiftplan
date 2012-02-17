@@ -26,28 +26,28 @@ Feature: Plan a week
         | Jack T      |        | 10-16    |          |            |         |
 
      When I follow "<<" within the calendar navigation
-     Then I should be on the page of the plan for week: 48
+     Then I should be on the page of the plan for week: 48, year: 2012
       And I should see a calendar titled "Dull Work - KW 48 26.11.2012"
       And I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag |
         | Jack T      | 9-17   |          |          |            |         |
      
-     When I follow "49" within the calendar navigation
-     Then I should be on the page of the plan for week: 49
+     When I follow ">>" within the calendar navigation
+     Then I should be on the page of the plan for week: 49, year: 2012
       And I should see a calendar titled "Dull Work - KW 49 03.12.2012"
       And I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag |
         | Jack T      |        | 10-16    |          |            |         |
 
      When I follow ">>" within the calendar navigation
-     Then I should be on the page of the plan for week: 50
+     Then I should be on the page of the plan for week: 50, year: 2012
       And I should see a calendar titled "Dull Work - KW 50 10.12.2012"
       And I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag |
         | Jack T      |        |          | 11-15    |            |         |
 
      When I follow ">>" within the calendar navigation
-     Then I should be on the page of the plan for week: 51
+     Then I should be on the page of the plan for week: 51, year: 2012
       And I should see a calendar titled "Dull Work - KW 51 17.12.2012"
       And I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag |
