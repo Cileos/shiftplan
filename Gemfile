@@ -46,7 +46,7 @@ group :test do
   gem 'pry'
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
-  gem 'plymouth'
+  gem 'plymouth', :require => false
 end
 
 group :development do
@@ -67,6 +67,5 @@ gem 'inherited_resources'
 gem 'draper'
 gem 'factory_girl_rails' # we use this for seeds, too
 gem 'treetop' # parse quickies
-gem 'polyglot' # load treetop grammars with #require
 
 gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults

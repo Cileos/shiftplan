@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'spork'
-require 'plymouth'
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
@@ -25,6 +24,7 @@ Spork.prefork do
 
     config.mock_with(:rspec)
   end
+  require 'plymouth'
 end
 
 Spork.each_run do

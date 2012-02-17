@@ -278,7 +278,6 @@ DEPENDENCIES
   libnotify
   pg
   pickle
-  polyglot
   plymouth
   pry
   rails (= 3.2.1)
