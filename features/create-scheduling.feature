@@ -33,12 +33,12 @@ Feature: create a scheduling
   Scenario: just entering time span with javascript
      When I follow "Der Plan"
       And I wait for the calendar to appear
-      And I schedule "Homer S" on "Donnerstag" for "9-17"
+      And I schedule "Homer S" on "Donnerstag" for "8-18"
      Then I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
         | Carl C      |        |          |          |            |         |         |         |
         | Lenny L     |        |          |          |            |         |         |         |
-        | Homer S     |        |          |          | 9-17       |         |         |         |
+        | Homer S     |        |          |          | 8-18       |         |         |         |
 
   @javascript
   Scenario: navigating through the plan with keystrokes
