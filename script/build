@@ -26,6 +26,11 @@ source "$HOME/.rvm/scripts/rvm" || exit 512
 
 rvm use $NEEDED_RUBY --create
 
+echo "truncate log files"
+
+echo > log/test.log
+echo > log/capybara_test.log
+
 which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 25
 
 
