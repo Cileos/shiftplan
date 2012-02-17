@@ -1,4 +1,5 @@
 = decorate filter do |f|
+  - title f.caption, false
   %table#calendar.table.table-striped.table-bordered{class: f.range}
     %caption= f.caption
     %thead
