@@ -5,6 +5,7 @@ class Scheduling < ActiveRecord::Base
   belongs_to :employee
 
   before_validation :parse_quickie
+  after_validation :set_human_date_attributes
   validates :starts_at, :ends_at, :plan, :employee,
     :year, :week, :presence => true
 
@@ -94,6 +95,11 @@ class Scheduling < ActiveRecord::Base
 
   def starts_at_or(attr, &fallback)
     starts_at.present?? starts_at.public_send(attr) : fallback.call
+  end
+
+  def set_human_date_attributes
+    write_attribute(:week, week)
+    write_attribute(:year, year)
   end
 
 end

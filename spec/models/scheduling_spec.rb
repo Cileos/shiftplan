@@ -51,6 +51,21 @@ describe Scheduling do
       it "regenerates quickie" do
         scheduling.quickie.should == '9-17'
       end
+
+      context "saved and reloaded" do
+        let(:reloaded) do
+          scheduling.save!
+          Scheduling.find scheduling.id
+        end
+
+        it "has week saved" do
+          scheduling.read_attribute(:week).should == 18
+        end
+
+        it "has year saved" do
+          scheduling.read_attribute(:year).should == 1988
+        end
+      end
     end
 
     # use factory except for the time range related attributes, so the
