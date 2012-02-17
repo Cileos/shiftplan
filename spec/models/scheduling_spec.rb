@@ -127,11 +127,20 @@ describe Scheduling do
       end
     end
 
-  end
+    describe "old scheduling without week or year, synced" do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          s = build({
+            date:      the_date,
+            quickie:   '9-17'
+          })
+          s.save!
+          Scheduling.update_all({week: nil, year: nil}, {id: s.id})
+          Scheduling.sync!
+          s
+        end
+      end
+    end
 
-  # or fasterererer access
-  context "syncing" do
-    it "should set week"
-    it "should set year"
   end
 end

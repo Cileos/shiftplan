@@ -66,6 +66,19 @@ class Scheduling < ActiveRecord::Base
     SchedulingFilter.new week: week, employee: employee, year: year, plan: plan
   end
 
+  # repairs all the missing attributes
+  def self.sync!
+    transaction do
+      without_timestamps do
+        [ where(week: nil), where(year: nil) ].each do |collection|
+          collection.each do |scheduling|
+            scheduling.save!
+          end
+        end
+      end
+    end
+  end
+
   private
 
   def parse_quickie
