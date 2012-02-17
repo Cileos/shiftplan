@@ -34,6 +34,5 @@ end
 
 Then /^the page should be titled "([^"]*)"$/ do |title|
   step %Q~I should see "#{title}" within "html head title"~
-  step %Q~I should see "#{title}" within "html body #title"~
 end
 
