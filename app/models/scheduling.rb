@@ -63,6 +63,10 @@ class Scheduling < ActiveRecord::Base
     SchedulingFilter.new params.merge(:base => self)
   end
 
+  def concurrent
+    SchedulingFilter.new week: week, employee: employee, year: year, plan: plan
+  end
+
   private
 
   def parse_quickie

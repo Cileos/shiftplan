@@ -36,6 +36,11 @@ class SchedulingFilterDecorator < ApplicationDecorator
     { employee_id: employee.id, day: day.cwday }
   end
 
+  def cell_selector(day, employee)
+    %Q~#calendar tbody td[data-day=#{day}][data-employee_id=#{employee.id}]~
+  end
+
+
   def hours_header
     if week?
       h.content_tag :th, h.translate_action(:hours)
@@ -45,22 +50,38 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # Planned in hours for given employee
   def hours_for(employee)
     if week?
-      h.content_tag :td,
-        records.select {|s| s.employee == employee }
-               .sum(&:length_in_hours).to_i,
-        class: 'hours',
-        data: { employee_id: employee.id }
+      hours = records.select {|s| s.employee == employee }.sum(&:length_in_hours).to_i
+      h.content_tag :td, hours,
+        :class => 'hours',
+        :data  => { employee_id: employee.id }
     end
+  end
+
+  def hours_selector_for(employee)
+    %Q~#calendar tbody td.hours[data-employee_id=#{employee.id}]~
+  end
+
+
+  def employees
+    organization.employees.order_by_name
   end
 
   delegate :plan,         to: :filter
   delegate :organization, to: :plan
-  delegate :employees,    to: :organization
 
- #           - week_day = column.to_date.cwday
- #           %td{data: {employee_id: employee.id, day: week_day}}= plan.quickie_list(employee, week_day)
- #         %td.hours{data: {employee_id: employee.id}}= plan.hours_for(employee)
+  def respond_to_missing?(name)
+    name =~ /^(.*)_for_scheduling$/ || super
+  end
 
+  # you can call a method anding in _for_scheduling
+  def method_missing(name, *args, &block)
+    if name =~ /^(.*)_for_scheduling$/
+      scheduling = args.first
+      send($1, scheduling.date, scheduling.employee)
+    else
+      super
+    end
+  end
 
 
 end
