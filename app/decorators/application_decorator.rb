@@ -5,7 +5,7 @@ class ApplicationDecorator < Draper::Base
     body    = options.delete(:body) || raise(ArgumentError, 'no :body given for modal')
     classes = options.delete(:class)
     content = h.content_tag :div, body, class: 'modal-body'
-    h.content_tag :div, content, options.merge(class: "modal hide fade in #{classes}")
+    h.content_tag :div, content, options.merge(class: "modal container-fluid hide fade in #{classes}")
   end
 
   def dom_id
