@@ -22,6 +22,9 @@ module HtmlSelectorsHelpers
     when "the calendar navigation"
       'div#calendar-navigation'
 
+    when 'the modal box'
+      'div.modal'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
