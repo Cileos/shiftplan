@@ -12,6 +12,7 @@ Feature: create a scheduling
         | Lenny      | L         |
         | Carl       | C         |
       And a plan exists with organization: the organization, name: "Der Plan"
+      And today is 2012-02-13
       And I am signed in as the planner
 
 
