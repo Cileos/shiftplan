@@ -1,4 +1,14 @@
 class ApplicationDecorator < Draper::Base
+
+  # wraps the given block in a modal div. Must give `id`, &block behaves like in content_tag helper
+  def modal(id, &block)
+    h.content_tag :div, class: "modal hide fade in", id: id, &block
+  end
+
+  def dom_id
+    h.dom_id(model)
+  end
+
   # Lazy Helpers
   #   PRO: Call Rails helpers without the h. proxy
   #        ex: number_to_currency(model.price)
