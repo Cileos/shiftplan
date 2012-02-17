@@ -23,7 +23,7 @@ de:
       scheduling:
         employee: Mitarbeiter
         day: Tag
-        cwday: Wochentag
+        date: Wochentag
         quickie: Quickie
     values:
       plan:

@@ -57,7 +57,7 @@ class SchedulingFilter
 
   # looks up the index, savely
   def indexed(day, employee)
-    if at_day = index[day.cwday]
+    if at_day = index[day.iso8601]
       if at_day.key?(employee)
         at_day[employee]
       else
@@ -70,7 +70,7 @@ class SchedulingFilter
 
   # Returns a Hash of Hashes of Arrays
   #
-  #   scheduling.cwday => scheduling.employee => []
+  #   scheduling.day(iso8601) => scheduling.employee => []
   #
   def index
     @index ||= index_records
@@ -78,7 +78,7 @@ class SchedulingFilter
 
   private
     def index_records
-      records.group_by(&:cwday).map do |day, concurrent|
+      records.group_by(&:iso8601).map do |day, concurrent|
         { day => concurrent.group_by(&:employee) }
       end.inject(&:merge) || {}
     end

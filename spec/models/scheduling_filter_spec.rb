@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SchedulingFilter do
 
-  let(:bad_day) { mock('Date', cwday: 8) }
+  let(:bad_day) { mock('Date', iso8601: '2011-sometimes') }
 
   it "converts stringy week to integer" do
     filter = SchedulingFilter.new(week: '23')
@@ -97,24 +97,24 @@ describe SchedulingFilter do
       context "index" do
         let(:i) { filter.index }
 
-        it "should index the records by cwday" do
-          i.keys.should include(@waiting.cwday)
-          i.keys.should include(@opening.cwday)
-          i.keys.should include(@eating1.cwday)
-          i.keys.should include(@eating2.cwday)
+        it "should index the records by their date" do
+          i.keys.should include(@waiting.iso8601)
+          i.keys.should include(@opening.iso8601)
+          i.keys.should include(@eating1.iso8601)
+          i.keys.should include(@eating2.iso8601)
         end
 
-        it "should index by cwday and employee" do
-          i[@waiting.cwday].keys.should have(1).record
-          i[@waiting.cwday].keys.should include(@waiting.employee)
-          i[@waiting.cwday][@waiting.employee].should == [@waiting]
+        it "should index by iso8601 and employee" do
+          i[@waiting.iso8601].keys.should have(1).record
+          i[@waiting.iso8601].keys.should include(@waiting.employee)
+          i[@waiting.iso8601][@waiting.employee].should == [@waiting]
 
-          i[@opening.cwday][@opening.employee].should == [@opening]
+          i[@opening.iso8601][@opening.employee].should == [@opening]
         end
 
-        it "should group to scheduling on the same cwday" do
-          i[@eating1.cwday][@eating1.employee].should == [@eating1]
-          i[@eating1.cwday][@eating2.employee].should == [@eating2]
+        it "should group to scheduling on the same day" do
+          i[@eating1.iso8601][@eating1.employee].should == [@eating1]
+          i[@eating1.iso8601][@eating2.employee].should == [@eating2]
           #       ^^^ grouped on 
         end
       end

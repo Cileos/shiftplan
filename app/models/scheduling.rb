@@ -45,14 +45,12 @@ class Scheduling < ActiveRecord::Base
   end
   attr_writer :cwday
 
-  def cwday?
-    @cwday.present?
-  end
-
   def quickie
     @quickie ||= to_quickie
   end
   attr_writer :quickie
+
+  delegate :iso8601, to: :date
 
 
   def length_in_hours

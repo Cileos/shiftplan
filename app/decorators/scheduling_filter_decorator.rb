@@ -33,11 +33,11 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def cell_metadata(day, employee)
-    { employee_id: employee.id, day: day.cwday }
+    { employee_id: employee.id, date: day.iso8601 }
   end
 
   def cell_selector(day, employee)
-    %Q~#calendar tbody td[data-day=#{day}][data-employee_id=#{employee.id}]~
+    %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee.id}]~
   end
 
 

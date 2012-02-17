@@ -21,7 +21,7 @@ module PlansHelper
     start = Date.today.beginning_of_week
     (0..6).to_a.map do |more|
       day = start + more.days
-      [l(day, :format => format), day.cwday]
+      [l(day, :format => format), day.iso8601]
     end
 
   end
