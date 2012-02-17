@@ -19,7 +19,7 @@ class SchedulingFilter
     if week?
       :week
     else
-      nil
+      :wtf
     end
   end
 
@@ -57,7 +57,7 @@ class SchedulingFilter
 
   # looks up the index, savely
   def indexed(day, employee)
-    if at_day = index[day]
+    if at_day = index[day.cwday]
       if at_day.key?(employee)
         at_day[employee]
       else

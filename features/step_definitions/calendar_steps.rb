@@ -51,9 +51,14 @@ When /^I schedule #{capture_quoted} on #{capture_quoted} for #{capture_quoted}$/
   EOSTEPS
 end
 
+
+Then /^I should see a calendar (?:titled|captioned) #{capture_quoted}$/ do |caption|
+  step %Q~I should see "#{caption}" within "caption" within the calendar~
+end
+
 # FIXME can only match the whole calendar
 Then /^I should see the following calendar:$/ do |expected|
-  actual = find("#calendar").all("tr").map do |tr|
+  actual = find(selector_for('the calendar')).all("tr").map do |tr|
     tr.all('th, td').map(&:text).map(&:strip)
   end
   expected.diff! actual

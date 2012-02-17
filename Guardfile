@@ -44,6 +44,7 @@ group :test, :halt_on_fail => true do
     watch(%r{^spec/factories/.+$})            { 'features' }
     watch(%r{^features/support/.+$})          { 'features' }
     watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
+    watch('app/decorators/scheduling_filter_decorator.rb') { 'features/plan/week.feature' }
   end
 
 end
