@@ -8,9 +8,7 @@ class Scheduling < ActiveRecord::Base
   validates :starts_at, :ends_at, :plan, :employee,
     :year, :week, :presence => true
 
-  attr_accessor :quickie
-  attr_writer   :cwday
-
+  # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
   def start_hour=(hour)
     self.starts_at = date + hour.hours
   end
@@ -45,6 +43,13 @@ class Scheduling < ActiveRecord::Base
   def cwday
     @cwday || starts_at_or(:wday) { Date.today.cwday }
   end
+  attr_writer :cwday
+
+  def quickie
+    @quickie ||= to_quickie
+  end
+  attr_writer :quickie
+
 
   def length_in_hours
     (ends_at - starts_at) / 1.hour
@@ -57,11 +62,19 @@ class Scheduling < ActiveRecord::Base
   private
 
   def parse_quickie
-    if quickie.present?
-      if parsed = Quickie.parse(quickie)
+    if @quickie.present?
+      if parsed = Quickie.parse(@quickie)
         parsed.fill(self)
-        self.quickie = parsed.to_s # clean the entered quickie
+        @quickie = parsed.to_s # clean the entered quickie
       end
+    end
+  end
+
+  def to_quickie
+    if starts_at.present? && ends_at.present?
+      "#{starts_at.hour}-#{ends_at.hour}"
+    else
+      '' # default
     end
   end
 
