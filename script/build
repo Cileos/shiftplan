@@ -50,8 +50,6 @@ bundle exec rspec --color ./spec     || ret=$(($ret+1))
 echo ">>> Cucumber"
 bundle exec cucumber features        || ret=$(($ret+2))
 
-script/todo                          || ret=$(($ret+4))
-
 echo
 echo "fin. (exit code: $ret)"
 exit $ret
