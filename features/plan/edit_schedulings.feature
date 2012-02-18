@@ -25,10 +25,10 @@ Feature: Edit Schedulings of a Plan
 
      When I click on cell "Freitag"/"Santa C"
       And I wait for the modal box to appear
-      And the "Quickie" field should contain "7-23"
+      And the "Quickie" field should contain "7-23" within the first form within the modal box
 
-     When I fill in "Quickie" with "1-23"
-      And I press "Speichern"
+     When I fill in "Quickie" with "1-23" within the first form within the modal box
+      And I press "Speichern" within the first form
       And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Mitarbeiter | Freitag | Stunden |

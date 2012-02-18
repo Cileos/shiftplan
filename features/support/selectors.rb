@@ -25,6 +25,13 @@ module HtmlSelectorsHelpers
     when 'the modal box'
       'div.modal'
 
+    when 'the first form'
+      'form:first'
+    when 'the second form'
+      'form:nth-child(2)'
+    when 'the third form'
+      'form:nth-child(3)'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
