@@ -29,7 +29,7 @@ Feature: Edit Schedulings of a Plan
 
      When I fill in "Quickie" with "1-23"
       And I press "Speichern"
-      And I wait for the model box to disappear
+      And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Mitarbeiter | Freitag | Stunden |
         | Santa C     | 1-23    | 22      |

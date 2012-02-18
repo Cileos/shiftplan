@@ -32,5 +32,16 @@ div.scroller {
     list-style: none;
     padding-left: 0.5em;
   }
+  form {
+    .control-group.quickie {
+      margin-bottom: 0;
+    }
+    position: relative;
+    button[type=submit] {
+      position: absolute;
+      right: 4%;
+      top: 19px;
+    }
+  }
 }
 
