@@ -14,6 +14,13 @@ GIT
       actionpack (~> 3.0)
       activemodel (~> 3.0)
 
+GIT
+  remote: git://github.com/v0n/notes.git
+  revision: 870d0de36a9bbc55b5cfcda21d102b01c7a56968
+  specs:
+    notes (0.1.0.pre)
+      paint (>= 0.8.4)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -162,6 +169,7 @@ GEM
     nokogiri (1.5.0)
     open4 (1.3.0)
     orm_adapter (0.0.6)
+    paint (0.8.4)
     pg (0.13.1)
     pickle (0.4.10)
       cucumber (>= 0.8)
@@ -276,6 +284,7 @@ DEPENDENCIES
   kopflos!
   launchy
   libnotify
+  notes!
   pg
   pickle
   plymouth

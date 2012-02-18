@@ -31,12 +31,12 @@ echo "truncate log files"
 echo > log/test.log
 echo > log/capybara_test.log
 
-which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 25
+which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 256
 
 
 # run bundle install only if bundle check misses something
 # taking out the --relock as we don't change the Gemfile.lock
-bundle check || bundle install || exit 27
+bundle check || bundle install || exit 128
 
 # prepare test db
 bundle exec rake db:drop db:create db:migrate
@@ -49,6 +49,8 @@ echo ">>> rSpec"
 bundle exec rspec --color ./spec     || ret=$(($ret+1))
 echo ">>> Cucumber"
 bundle exec cucumber features        || ret=$(($ret+2))
+
+script/todo                          || ret=$(($ret+4))
 
 echo
 echo "fin. (exit code: $ret)"

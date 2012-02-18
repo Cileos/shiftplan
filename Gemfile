@@ -53,6 +53,7 @@ group :development do
   gem 'pry'
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem 'capistrano'
+  gem 'notes', :require => false, :git => 'git://github.com/v0n/notes.git'
 end
 
 group :production do
