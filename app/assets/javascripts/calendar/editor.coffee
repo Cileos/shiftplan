@@ -1,13 +1,17 @@
-# TODO I18n
+# TODO test _calendar.html
 class SchedulingEditor extends View
   @content: ($scheduling) ->
-    id = $scheduling.data('id') || 'new'
+    id = $scheduling.data('id') || throw('scheduling without id given, needed to edit')
     name = "scheduling_#{id}"
-    @form class: 'form-horizontal well', 'data-remote': true, id: "edit_#{name}", =>
+    plan = $scheduling.closest('table').data('plan_id')
+    # TODO routes for js
+    @form class: 'form-horizontal well', 'data-remote': true, id: "edit_#{name}", method: "POST", action: "/plans/#{plan}/schedulings/#{id}", =>
+      @input type: 'hidden', name: '_method', value: 'PUT'
       @div class: 'control-group quickie', =>
         @label "Quickie", for: "#{name}_quickie"
         @div class: 'controls', =>
-          @input type: 'text', value: $scheduling.text(), id: "#{name}_quickie"
+          @input type: 'text', value: $scheduling.text(), id: "#{name}_quickie", name: 'scheduling[quickie]'
+      # TODO I18n js
       @button 'Speichern', type: 'submit', class: 'btn btn-info'
 
 
