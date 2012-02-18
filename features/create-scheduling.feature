@@ -44,26 +44,3 @@ Feature: create a scheduling
 
   @todo
   Scenario: display validation errors
-
-  @javascript
-  Scenario: navigating through the plan with keystrokes
-     When I follow "Der Plan"
-      And I wait for the calendar to appear
-    Then the cell "Montag"/"Carl C" should be focus
-    When I press arrow up
-    Then the cell "Montag"/"Homer S" should be focus
-    When I press arrow left
-    Then the cell "Sonntag"/"Homer S" should be focus
-    When I press arrow down
-    Then the cell "Sonntag"/"Carl C" should be focus
-    When I press arrow right
-    Then the cell "Montag"/"Carl C" should be focus
-    When I press arrow right
-    Then the cell "Dienstag"/"Carl C" should be focus
-    When I press arrow down
-    Then the cell "Dienstag"/"Lenny L" should be focus
-    When I press arrow left
-    Then the cell "Montag"/"Lenny L" should be focus
-    When I press arrow up
-    Then the cell "Montag"/"Carl C" should be focus
-
