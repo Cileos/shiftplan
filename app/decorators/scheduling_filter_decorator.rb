@@ -9,7 +9,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   def formatted_range
     case range
     when :week
-      I18n.localize filter.first_day, format: :week_with_first_day
+      I18n.localize monday, format: :week_with_first_day
     else
       '???'
     end
@@ -24,8 +24,11 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def cell_content(day, employee)
-    h.render "schedulings/list_in_#{range || 'unknown'}",
-      schedulings: schedulings_for(day, employee)
+    schedulings = schedulings_for(day, employee)
+    unless schedulings.empty?
+      h.render "schedulings/list_in_#{range || 'unknown'}",
+        schedulings: schedulings
+    end
   end
 
   def schedulings_for(day, employee)
@@ -87,14 +90,32 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def link_to_previous_week
-    week = first_day.prev_week
+    week = monday.prev_week
     h.link_to :previous_week, h.plan_year_week_path(plan, week.year, week.cweek)
   end
 
   def link_to_next_week
-    week = first_day.next_week
+    week = monday.next_week
     h.link_to :next_week, h.plan_year_week_path(plan, week.year, week.cweek)
   end
 
+  def new_scheduling_form_with_link
+    if plan.employees_available?
+      link_to_new_scheduling_form + new_scheduling_form
+    end
+  end
+
+  private
+
+  def link_to_new_scheduling_form
+    h.link_to '.new_scheduling', "##{scheduling_form_id}", :class => 'new_scheduling', 'data-toggle' => 'modal', 'data-href' => "##{scheduling_form_id}"
+  end
+
+
+  # A form for a new scheduling
+  def new_scheduling_form
+    modal id: scheduling_form_id,
+      body: h.render('schedulings/new_form', scheduling: plan.schedulings.new, filter: self)
+  end
 
 end

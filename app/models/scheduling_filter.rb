@@ -24,7 +24,7 @@ class SchedulingFilter
   end
 
   # OPTIMIZE is this always right? NiklasOffByOne?
-  def first_day
+  def monday
     ( Date.new(year) + week.weeks ).beginning_of_week
   end
 
@@ -45,9 +45,9 @@ class SchedulingFilter
     end
   end
 
-  # the Date `offset` days from #first_day. 1-based
+  # the Date `offset` days from #monday. 1-based
   def day_at(offset)
-    first_day + (offset.to_i - 1 ).days
+    monday + (offset.to_i - 1 ).days
   end
 
   # These _are_ the Schedulings you are looking for

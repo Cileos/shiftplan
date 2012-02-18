@@ -1,8 +1,6 @@
 - case collection.range
 - when :week
   = render 'calendar', filter: collection
-  = decorate collection.plan do |plan|
-    = plan.new_scheduling
 - else
   %p= Scheduling.model_name.pluralize :count => collection.count
 
