@@ -12,6 +12,12 @@ export RAILS_ENV
 
 APP_DIR=`pwd`
 
+function header () {
+  echo
+  echo "=== $1 ==="
+  echo
+}
+
 # Setup rvm. If needed, we install rvm fresh from source
 rvmrc="$HOME/.rvmrc"
 cat >> $rvmrc <<-EORC
@@ -26,17 +32,16 @@ source "$HOME/.rvm/scripts/rvm" || exit 512
 
 rvm use $NEEDED_RUBY --create
 
-echo "truncating log files and artefacts"
+header "truncating log files and artefacts"
 
 echo > log/test.log
 echo > log/capybara_test.log
 rm -rf tmp/capybara
 
-echo "updating submodules"
+header "updating submodules"
 git submodule init && git submodule update
 
-echo "bundling"
-
+header "bundling"
 which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 256
 
 
@@ -51,11 +56,11 @@ bundle exec rake db:drop db:create db:migrate
 # so we toggle one bit of the exit/return value if a test component fails
 ret=$((0))
 
-echo ">>> rSpec"
+header "rSpec"
 bundle exec rspec --color ./spec     || ret=$(($ret+1))
-echo ">>> Cucumber"
+header "Cucumber"
 bundle exec cucumber features        || ret=$(($ret+2))
 
-echo
+header "Done"
 echo "fin. (exit code: $ret)"
 exit $ret
