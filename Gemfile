@@ -43,14 +43,18 @@ group :test do
   gem "guard-bundler", "~> 0.1.3"
   gem "libnotify"
 
-  gem 'pry'
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
   gem 'plymouth', :require => false
 end
 
-group :development do
+group :development, :test do
   gem 'pry'
+  gem "guard-jasmine"
+  gem "jasminerice"
+end
+
+group :development do
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem 'capistrano'
   gem 'notes', :require => false, :git => 'git://github.com/v0n/notes.git'
