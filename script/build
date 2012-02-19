@@ -50,7 +50,15 @@ which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 256
 bundle check || bundle install || exit 128
 
 # prepare test db
-bundle exec rake db:drop db:create db:migrate
+DBSTAMP=tmp/fully_migrated_at
+if [ "$(find -ctime -24 -name $DBSTAMP)" = "" ]; then # no stamp or older than 24 hours
+  header "rebuilding the database (every 24h)"
+  bundle exec rake db:drop db:create db:migrate
+  date > $DBSTAMP
+else
+  header "migrate the database"
+  bundle exec rake db:migrate
+fi
 
 # we want all tests to run, even if other test components fail before, 
 # so we toggle one bit of the exit/return value if a test component fails
