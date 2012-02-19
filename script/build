@@ -8,6 +8,7 @@ NEEDED_RUBY='1.9.3-p0@shiftplan-ci'
 DATABASE='shiftplan_test'
 RAILS_ENV=test
 export PATH="$PATH:/usr/local/bin:/usr/games"
+export COWPATH="$COWPATH:script"
 export LC_ALL='en_US.UTF-8'
 export RAILS_ENV
 
