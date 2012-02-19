@@ -6,6 +6,13 @@ GIT
       open4
 
 GIT
+  remote: git://github.com/niklas/versatile_rjs.git
+  revision: 86a4e6c6a62b66cb7fcaa5998340da31e9704190
+  specs:
+    versatile_rjs (0.1.2)
+      rails (>= 3.1.0)
+
+GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: ae60671f71b8a34b2a5d15229aa5793f3e41a612
   ref: v2.0.0.rc
@@ -307,3 +314,4 @@ DEPENDENCIES
   timecop
   treetop
   uglifier (>= 1.2.3)
+  versatile_rjs!
