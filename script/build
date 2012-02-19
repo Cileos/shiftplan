@@ -49,6 +49,8 @@ echo ">>> rSpec"
 bundle exec rspec --color ./spec     || ret=$(($ret+1))
 echo ">>> Cucumber"
 bundle exec cucumber features        || ret=$(($ret+2))
+echo ">>> Jasmine"
+xvfb-run bundle exec guard-jasmin    || ret=$(($ret+4))
 
 echo
 echo "fin. (exit code: $ret)"
