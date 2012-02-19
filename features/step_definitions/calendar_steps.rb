@@ -3,7 +3,7 @@ When /^I click on cell "([^"]+)"\/"([^"]+)"$/ do |column_label, row_label|
   row    = row_index_for(row_label)
 
   page.execute_script <<-EOJS
-    jQuery("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})").click()
+    $("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})").click()
   EOJS
 end
 
