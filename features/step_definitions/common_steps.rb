@@ -8,10 +8,21 @@ end
 
 When /^I wait for (.+) to appear$/ do |name|
   selector = selector_for name
-  wait_until { page.has_css?(selector, :visible => true) }
+  begin
+    wait_until { page.has_css?(selector, :visible => true) }
+    wait_until { page.has_css?('#lol', :visible => true) }
+  rescue Capybara::TimeoutError => timeout
+    STDERR.puts "saved page: #{save_page}"
+    raise timeout
+  end
 end
 
 When /^I wait for (.+) to disappear$/ do |name|
   selector = selector_for name
-  wait_until { page.has_no_css?(selector, :visible => true) }
+  begin
+    wait_until { page.has_no_css?(selector, :visible => true) }
+  rescue Capybara::TimeoutError => timeout
+    STDERR.puts "saved page: #{save_page}"
+    raise timeout
+  end
 end
