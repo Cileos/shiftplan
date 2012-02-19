@@ -16,6 +16,38 @@ class ApplicationDecorator < Draper::Base
     'scheduling_modal'
   end
 
+  def selector_for(name, resource=nil, *more)
+    case name
+    when :scheduling_form
+      '#' + scheduling_form_id
+    else
+      raise ArgumentError, "cannot find selector for #{name}"
+    end
+  end
+
+  # select a specific element on the page. You may implement #selector_for in your subclass
+  def select(*a)
+    page.select selector_for(*a)
+  end
+
+  def hide_modal(*a)
+    if a.empty?
+      page.select('.modal')
+    else
+      select(*a)
+    end.modal('hide')
+  end
+
+  # append validation errors for given `resource` to its form
+  def insert_errors_for(resource)
+    select(:errors_for, resource).remove()
+    select(:form_for, resource).append errors_for(resource)
+  end
+
+  def errors_for(resource)
+    h.content_tag :div, resource.errors.full_messages.to_sentence, class: 'alert alert-error errors'
+  end
+
   # Lazy Helpers
   #   PRO: Call Rails helpers without the h. proxy
   #        ex: number_to_currency(model.price)
