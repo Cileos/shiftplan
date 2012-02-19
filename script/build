@@ -32,6 +32,11 @@ echo > log/test.log
 echo > log/capybara_test.log
 rm -rf tmp/capybara
 
+echo "updating submodules"
+git submodule init && git submodule update
+
+echo "bundling"
+
 which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 256
 
 
