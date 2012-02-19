@@ -13,9 +13,13 @@ export RAILS_ENV
 APP_DIR=`pwd`
 
 function header () {
-  echo
-  echo "=== $1 ==="
-  echo
+  if hash cowsay 2>&-; then
+    cowsay -f unipony-smaller $1
+  else
+    echo
+    echo "=== $1 ==="
+    echo
+  fi
 }
 
 header "setup ruby"
