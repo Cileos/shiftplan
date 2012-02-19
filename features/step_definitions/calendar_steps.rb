@@ -2,8 +2,9 @@ When /^I click on cell "([^"]+)"\/"([^"]+)"$/ do |column_label, row_label|
   column = column_index_for(column_label)
   row    = row_index_for(row_label)
 
-  cell = page.find("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})")
-  cell.click
+  page.execute_script <<-EOJS
+    jQuery("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})").click()
+  EOJS
 end
 
 Then /^the cell "([^"]+)"\/"([^"]+)" should be (focus)$/ do |column_label, row_label, predicate|
