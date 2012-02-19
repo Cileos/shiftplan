@@ -45,4 +45,4 @@ Feature: create a scheduling
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "13-"
       And I press "Anlegen"
-     Then I should see "Endzeit muss ausgefüllt werden" within the new scheduling form
+     Then I should see "Quickie ist nicht gültig" within errors within the new scheduling form
