@@ -74,3 +74,6 @@ gem 'factory_girl_rails' # we use this for seeds, too
 gem 'treetop' # parse quickies
 
 gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults
+
+# we will try to gernerate js the old-fashioned way
+gem 'versatile_rjs', :git => 'git://github.com/niklas/versatile_rjs.git'

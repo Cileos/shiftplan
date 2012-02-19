@@ -86,6 +86,8 @@ class Scheduling < ActiveRecord::Base
       if parsed = Quickie.parse(@quickie)
         parsed.fill(self)
         @quickie = parsed.to_s # clean the entered quickie
+      else
+        errors.add :quickie, :invalid
       end
     end
   end

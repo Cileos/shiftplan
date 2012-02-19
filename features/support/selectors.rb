@@ -25,6 +25,9 @@ module HtmlSelectorsHelpers
     when 'the modal box'
       'div.modal'
 
+    when 'errors'
+      '.errors.alert.alert-error'
+
     when 'the first form'
       'form:first'
     when 'the second form'

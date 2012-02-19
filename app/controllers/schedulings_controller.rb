@@ -4,17 +4,14 @@ class SchedulingsController < InheritedResources::Base
 
   respond_to :html, :js
 
-  def create
-    create! do |success, failure|
-      success.html { redirect_to plan_year_week_path(parent, resource.year, resource.week) }
-      failure.html { render :text => 'TODO redisplay form' }
-    end
-  end
-
   private
     def collection
       return @schedulings if @schedulings
       @schedulings = Scheduling.filter( filter_params )
+    end
+
+    def smart_resource_url
+      plan_year_week_path(parent, resource.year, resource.week)
     end
 
     def filter_params

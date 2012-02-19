@@ -39,10 +39,29 @@ class SchedulingFilterDecorator < ApplicationDecorator
     { employee_id: employee.id, date: day.iso8601 }
   end
 
-  def cell_selector(day, employee)
-    %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee.id}]~
+  def selector_for(name, resource=nil, extra=nil)
+    case name
+    when :cell
+      if resource.is_a?(Scheduling)
+        %Q~#calendar tbody td[data-date=#{resource.date.iso8601}][data-employee_id=#{resource.employee_id}]~
+      else
+        day, employee_id = scheduling, extra
+        %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
+      end
+    when :hours
+      %Q~#calendar tbody td.hours[data-employee_id=#{resource.id}]~
+    when :errors_for
+      %Q~#{selector_for(:form_for, resource)} .errors~
+    when :form_for
+      if resource.persisted?
+        %Q~form#edit_#{h.dom_id resource}~
+      else
+        %Q~form#new_scheduling~
+      end
+    else
+      super
+    end
   end
-
 
   def hours_header
     if week?
@@ -59,14 +78,9 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def hours_selector_for(employee)
-    %Q~#calendar tbody td.hours[data-employee_id=#{employee.id}]~
-  end
-
   def hours_for(employee)
     records.select {|s| s.employee == employee }.sum(&:length_in_hours).to_i
   end
-
 
   def employees
     organization.employees.order_by_name
@@ -103,6 +117,14 @@ class SchedulingFilterDecorator < ApplicationDecorator
     if plan.employees_available?
       link_to_new_scheduling_form + new_scheduling_form
     end
+  end
+
+  def update_cell_for(scheduling)
+    select(:cell, scheduling).html cell_content_for_scheduling(scheduling)
+  end
+
+  def update_hours_for(employee)
+    select(:hours, employee).html hours_for(employee)
   end
 
   private
