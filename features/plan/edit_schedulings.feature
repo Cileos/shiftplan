@@ -33,3 +33,6 @@ Feature: Edit Schedulings of a Plan
      Then I should see the following calendar:
         | Mitarbeiter | Freitag | Stunden |
         | Santa C     | 1-23    | 22      |
+
+  @todo
+  Scenario: Edit a single scheduling, inducing an error

@@ -25,6 +25,8 @@ de:
         day: Tag
         date: Wochentag
         quickie: Quickie
+        starts_at: Startzeit
+        ends_at: Endzeit
     values:
       plan:
         durations:
