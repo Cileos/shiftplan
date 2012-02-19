@@ -6,3 +6,5 @@ tmp/
 config/database.yml
 log/TODO
 chromedriver.log
+screenshots/
+screencasts/
