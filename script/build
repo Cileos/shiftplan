@@ -18,6 +18,10 @@ function header () {
   echo
 }
 
+header "setup ruby"
+
+echo "PATH: $PATH"
+
 # Setup rvm. If needed, we install rvm fresh from source
 rvmrc="$HOME/.rvmrc"
 cat >> $rvmrc <<-EORC
