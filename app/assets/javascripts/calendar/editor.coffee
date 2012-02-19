@@ -4,16 +4,22 @@ class SchedulingEditor extends View
     id = $scheduling.data('id') || throw('scheduling without id given, needed to edit')
     name = "scheduling_#{id}"
     plan = $scheduling.closest('table').data('plan_id')
+    url  = "/plans/#{plan}/schedulings/#{id}"
     # TODO routes for js
-    @form class: 'form-horizontal well', 'data-remote': true, id: "edit_#{name}", method: "POST", action: "/plans/#{plan}/schedulings/#{id}", =>
+    @form class: 'form-horizontal well edit_scheduling', 'data-remote': true, id: "edit_#{name}", method: "POST", action: url, =>
       @input type: 'hidden', name: '_method', value: 'PUT'
+      @a outlet: 'delete_button', class: 'btn btn-danger delete', href: url, 'data-remote': true, 'data-method': 'DELETE', =>
+        @i class: 'icon-trash icon-white'
+        # TODO I18n js
+        @text ' Löschen'
       @div class: 'control-group quickie', =>
         @label "Quickie", for: "#{name}_quickie"
         @div class: 'controls', =>
           @input type: 'text', value: $scheduling.text(), id: "#{name}_quickie", name: 'scheduling[quickie]'
-      # TODO I18n js
-      @button 'Speichern', type: 'submit', class: 'btn btn-info'
-
+      @button type: 'submit', class: 'btn btn-info', =>
+        @i class: 'icon-ok-circle icon-white'
+        # TODO I18n js
+        @text ' Speichern'
 
 class CalendarEditor extends View
   @content: ->

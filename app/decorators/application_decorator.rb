@@ -20,6 +20,14 @@ class ApplicationDecorator < Draper::Base
     case name
     when :scheduling_form
       '#' + scheduling_form_id
+    when :errors_for
+      %Q~#{selector_for(:form_for, resource)} .errors~
+    when :form_for
+      if resource.to_key
+        %Q~form##{h.dom_id resource, :edit}~
+      else
+        %Q~form##{h.dom_id resource}~
+      end
     else
       raise ArgumentError, "cannot find selector for #{name}"
     end
@@ -28,6 +36,10 @@ class ApplicationDecorator < Draper::Base
   # select a specific element on the page. You may implement #selector_for in your subclass
   def select(*a)
     page.select selector_for(*a)
+  end
+
+  def remove(*a)
+    select(*a).remove()
   end
 
   def hide_modal(*a)

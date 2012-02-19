@@ -50,14 +50,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
       end
     when :hours
       %Q~#calendar tbody td.hours[data-employee_id=#{resource.id}]~
-    when :errors_for
-      %Q~#{selector_for(:form_for, resource)} .errors~
-    when :form_for
-      if resource.persisted?
-        %Q~form#edit_#{h.dom_id resource}~
-      else
-        %Q~form#new_scheduling~
-      end
     else
       super
     end
@@ -120,7 +112,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def update_cell_for(scheduling)
-    select(:cell, scheduling).html cell_content_for_scheduling(scheduling)
+    select(:cell, scheduling).html cell_content_for_scheduling(scheduling) || ''
   end
 
   def update_hours_for(employee)

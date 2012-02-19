@@ -16,6 +16,9 @@ module HtmlSelectorsHelpers
     when /^the new (.+) form$/
       "form#new_#{$1}"
 
+    when /^(?:an|the) edit (.+) form$/
+      "form.edit_#{$1}"
+
     when "the calendar"
       'table#calendar'
 
