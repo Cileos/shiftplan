@@ -63,7 +63,7 @@ bundle check || bundle install || exit 128
 DBSTAMP=tmp/fully_migrated_at
 FILEAGE=$(($(date +%s) - $(stat -c '%Y' "$DBSTAMP")))
 MAXAGE=$(bc <<< '24*60*60')
-if [[ $FILEAGE -gt $MAXAGE]]; then # no stamp or older than 24 hours
+if [ $FILEAGE -gt $MAXAGE ] ; then # no stamp or older than 24 hours
   header "rebuilding the database (every 24h)"
   bundle exec rake db:drop db:create db:migrate
   date > $DBSTAMP
