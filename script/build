@@ -60,7 +60,7 @@ header "rSpec"
 bundle exec rspec --color ./spec     || ret=$(($ret+1))
 header "Cucumber"
 bundle exec cucumber features        || ret=$(($ret+2))
-echo ">>> Jasmine"
+header "Jasmine"
 xvfb-run bundle exec guard-jasmin    || ret=$(($ret+4))
 
 header "Done"
