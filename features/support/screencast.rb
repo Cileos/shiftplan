@@ -35,9 +35,9 @@ module Cucumber::Screencast
 
   private
   def next_screenshot_path
-    @current_screenshot ||= 0
-    @current_screenshot += 1
-    screenshots_path.join sprintf("screenshot_%04d.png", @current_screenshot)
+    $current_screenshot ||= 0
+    $current_screenshot += 1
+    screenshots_path.join sprintf("screenshot_%04d.png", $current_screenshot)
   end
 
   def save_screenshot(path)
