@@ -72,6 +72,12 @@ namespace :deploy do
     end
   end
 
+  task :notify do
+    run "cd #{current_release} && ruby script/capistrano-done"
+  end
+
+  after 'deploy:restart', 'deploy:notify'
+
 end
 
 namespace :setup do
