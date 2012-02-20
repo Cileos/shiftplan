@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   end
 
   Roles.each do |role|
-    define_method :"is_#{role}?" do
+    define_method :"#{role}?" do
       role?(role)
     end
   end
