@@ -11,7 +11,7 @@ Feature: Create Employees
         | Vorname  | Homer   |
         | Nachname | Simpson |
       And I press "Hinzufügen"
-     Then I should see message "Mitarbeiter erfolgreich angelegt."
+     Then I should see flash info "Mitarbeiter erfolgreich angelegt."
       And I should see a list of the following employees:
         | name          |
         | Homer Simpson |

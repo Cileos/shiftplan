@@ -19,6 +19,9 @@ module HtmlSelectorsHelpers
     when /^(?:an|the) edit (.+) form$/
       "form.edit_#{$1}"
 
+    when 'the navigation'
+      '.navbar:first'
+
     when "the calendar"
       'table#calendar'
 

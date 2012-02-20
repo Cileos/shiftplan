@@ -1,4 +1,6 @@
 class SchedulingsController < InheritedResources::Base
+  load_and_authorize_resource
+
   nested_belongs_to :plan
   actions :all, :except => [:show]
 
@@ -6,9 +8,13 @@ class SchedulingsController < InheritedResources::Base
 
   private
     def collection
-      return @schedulings if @schedulings
-      @schedulings = Scheduling.filter( filter_params )
+      @schedulings ||= filter.records
     end
+
+    def filter
+      @filter ||= Scheduling.filter( filter_params )
+    end
+    helper_method :filter
 
     def smart_resource_url
       plan_year_week_path(parent, resource.year, resource.week)

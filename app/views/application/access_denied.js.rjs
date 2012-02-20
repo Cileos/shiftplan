@@ -1,0 +1,2 @@
+page['flash'].remove()
+page['title'].after render('flash')
