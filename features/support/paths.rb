@@ -11,6 +11,9 @@ module NavigationHelpers
     when /^the (?:home|landing)\s?page$/
       '/'
 
+    when 'the signin page'
+      new_user_session_path
+
     when /^the page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       params = parse_fields($2).symbolize_keys
       case model = model!($1)
@@ -29,7 +32,7 @@ module NavigationHelpers
         raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
       end
 
-    when /^my dashboard$/
+    when /^(?:my|the) dashboard$/
       dashboard_path
 
     # Add more mappings here.
