@@ -36,6 +36,12 @@ group :test, :halt_on_fail => true do
     watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
   end
 
+  guard 'jasmine', :all_on_start => false do
+    watch(%r{app/assets/javascripts/(.+)\.(js\.coffee|js|coffee)$}) { |m| "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
+    watch(%r{spec/javascripts/(.+)_spec\.(js\.coffee|js|coffee)$})  { |m| puts m.inspect; "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
+    watch(%r{spec/javascripts/spec\.(js\.coffee|js|coffee)$})       { "spec/javascripts" }
+  end
+
 #                                                         V --no-drb skip spork to run simplecov 
   guard 'cucumber', :cli => "--drb", :run_all => { :cli => "--format progress" }, :all_on_start => false do 
     watch(%r{^features/.+\.feature$})
@@ -56,10 +62,4 @@ end
 
 guard 'bundler' do
   watch('Gemfile')
-end
-
-guard 'jasmine' do
-  watch(%r{app/assets/javascripts/(.+)\.(js\.coffee|js|coffee)$}) { |m| "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
-  watch(%r{spec/javascripts/(.+)_spec\.(js\.coffee|js|coffee)$})  { |m| puts m.inspect; "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
-  watch(%r{spec/javascripts/spec\.(js\.coffee|js|coffee)$})       { "spec/javascripts" }
 end
