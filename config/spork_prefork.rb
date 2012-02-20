@@ -2,6 +2,9 @@
 
 raise "where the fuck is spork?" unless defined?(Spork)
 
+# must load simplecov before all application code
+require 'simplecov'
+
 require 'rails/application'
 
 # keep devise from preloading User model, see https://gist.github.com/1344547

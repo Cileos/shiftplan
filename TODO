@@ -11,4 +11,4 @@
 [35m./features/step_definitions/web_steps.rb[0m[36m:[0m[32m76[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m# TODO: Add support for checkbox, select og option
 [35m./features/support/paths.rb[0m[36m:[0m[32m21[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m        # TODO we may have to scope this under its organization laater
 [35m./features/support/screencast.rb[0m[36m:[0m[32m20[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m    # TODO create animation
-[35m./spec/spec_helper.rb[0m[36m:[0m[32m31[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  # TODO move this to #prefork when the test suite is stable
+[35m./spec/spec_helper.rb[0m[36m:[0m[32m32[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  # TODO move this to #prefork when the test suite is stable
