@@ -46,6 +46,8 @@ group :test do
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
   gem 'plymouth', :require => false
+
+  gem 'simplecov', :require => false
 end
 
 group :development, :test do
