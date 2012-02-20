@@ -68,3 +68,4 @@ gem 'draper'
 gem 'factory_girl_rails' # we use this for seeds, too
 gem 'treetop' # parse quickies
 gem 'polyglot' # load treetop grammars with #require
+gem 'i18n-missing_translations', :git => 'git://github.com/svenfuchs/i18n-missing_translations.git'

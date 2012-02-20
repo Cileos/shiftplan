@@ -2,6 +2,9 @@ ENV["RAILS_ENV"] = "test"
 require 'rubygems'
 require 'spork'
 
+require 'i18n/missing_translations'
+at_exit { I18n.missing_translations.dump }
+
 Spork.prefork do
   require File.dirname(__FILE__) + "/../../config/spork_prefork"
 
@@ -40,7 +43,6 @@ Spork.prefork do
 
   # some people have slow computers, 2s are not enough. CI is slow also
   Capybara.default_wait_time = 23
-
 end
 
 Spork.each_run do
