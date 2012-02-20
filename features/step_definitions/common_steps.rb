@@ -5,6 +5,14 @@ Given /^today is (.+)$/ do |timey|
   Timecop.travel Time.parse(timey)
 end
 
-Then /^try pry$/ do
-  binding.pry
+After do
+  Timecop.return
+end
+
+Given /^the situation of ([\w ]+)$/ do |situation|
+  file = situation.downcase.underscore
+  path = Rails.root/"features"/"situations"/"#{situation}.steps"
+
+  path.should be_exist
+  steps File.read(path)
 end
