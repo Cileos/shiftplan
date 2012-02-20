@@ -22,18 +22,18 @@ GIT
       activemodel (~> 3.0)
 
 GIT
-  remote: git://github.com/v0n/notes.git
-  revision: 870d0de36a9bbc55b5cfcda21d102b01c7a56968
-  specs:
-    notes (0.1.0.pre)
-      paint (>= 0.8.4)
-
-GIT
   remote: git://github.com/svenfuchs/i18n-missing_translations.git
   revision: 5622f868a5594523cfc3f9c4cae45069bce3f8aa
   specs:
     i18n-missing_translations (0.0.1)
       i18n (~> 0.6.0)
+
+GIT
+  remote: git://github.com/v0n/notes.git
+  revision: 870d0de36a9bbc55b5cfcda21d102b01c7a56968
+  specs:
+    notes (0.1.0.pre)
+      paint (>= 0.8.4)
 
 GEM
   remote: http://rubygems.org/
