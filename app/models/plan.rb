@@ -4,7 +4,6 @@ class Plan < ActiveRecord::Base
   has_many :schedulings
 
   validates_presence_of :name
-  validates_presence_of :month
 
   # for now, durations are hardcoded, not saved
   Durations = %w(1_week)
@@ -13,44 +12,8 @@ class Plan < ActiveRecord::Base
     @duration ||= Durations.first
   end
 
-  validates_with FirstDayIsAMonday
-  validates_with LastDayIsASunday
-
-  # #week is is identified by the  #first_day
-  def week
-    first_day
-  end
-  def week=(new_week)
-    self.first_day = new_week
-  end
-
-  def month
-    first_day.beginning_of_month
-  end
-
-  def days
-    (1..duration_in_days).to_a.map do |number|
-      day_at(number)
-    end
-  end
-
-  def duration_in_days
-    (last_day.to_date - first_day.to_date).to_i + 1
-  end
-
-  def day_at(offset)
-    first_day + (offset.to_i - 1 ).days
-  end
-
   def employees_available?
     !organization.employees.empty?
   end
 
-  private
-  before_validation :set_last_day
-  def set_last_day
-    if last_day.blank? && first_day.present?
-      self.last_day = first_day + (1.week - 1.day)
-    end
-  end
 end

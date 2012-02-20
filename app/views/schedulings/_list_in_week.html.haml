@@ -1,0 +1,4 @@
+- unless schedulings.empty?
+  %ul
+    - schedulings.each do |s|
+      %li{data: { quickie: s.quickie, id: s.id }}= s.quickie

@@ -16,8 +16,30 @@ module HtmlSelectorsHelpers
     when /^the new (.+) form$/
       "form#new_#{$1}"
 
+    when /^(?:an|the) edit (.+) form$/
+      "form.edit_#{$1}"
+
+    when 'the navigation'
+      '.navbar:first'
+
     when "the calendar"
       'table#calendar'
+
+    when "the calendar navigation"
+      'div#calendar-navigation'
+
+    when 'the modal box'
+      'div.modal'
+
+    when 'errors'
+      '.errors.alert.alert-error'
+
+    when 'the first form'
+      'form:first'
+    when 'the second form'
+      'form:nth-child(2)'
+    when 'the third form'
+      'form:nth-child(3)'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

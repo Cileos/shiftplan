@@ -64,6 +64,20 @@ namespace :deploy do
 
   before "deploy:assets:precompile", "deploy:symlink_static_directories"
 
+  task :rake_task do
+    if task = ENV['TASK']
+      run "cd #{current_release} && RAILS_ENV=production bundle exec rake #{task}"
+    else
+      STDERR.puts "please specify the task you want to run with TASK="
+    end
+  end
+
+  task :notify do
+    run "cd #{current_release} && ruby script/capistrano-done"
+  end
+
+  after 'deploy:restart', 'deploy:notify'
+
 end
 
 namespace :setup do

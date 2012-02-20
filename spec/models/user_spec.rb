@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe User do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe 'having role planner' do
+    let(:user) { Factory.build :planner }
+
+    it { user.should be_a_planner }
+    it { user.should be_role('planner') }
+  end
 end

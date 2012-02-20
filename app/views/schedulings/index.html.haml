@@ -1,0 +1,7 @@
+- case filter.range
+- when :week
+  = render 'calendar', filter: filter
+- else
+  %p= Scheduling.model_name.pluralize :count => collection.count
+
+

@@ -41,18 +41,25 @@ group :test do
   gem "guard-cucumber", "~> 0.7.5"
   gem "guard-spork", "~> 0.5.2"
   gem "guard-bundler", "~> 0.1.3"
-  gem "libnotify"
+  gem "libnotify", :require => false
 
-  gem 'pry'
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
-  gem 'plymouth'
+  gem 'plymouth', :require => false
+
+  gem 'simplecov', :require => false
+end
+
+group :development, :test do
+  gem 'pry'
+  gem "guard-jasmine"
+  gem "jasminerice"
 end
 
 group :development do
-  gem 'pry'
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem 'capistrano'
+  gem 'notes', :require => false, :git => 'git://github.com/v0n/notes.git'
 end
 
 group :production do
@@ -61,10 +68,15 @@ end
 
 gem 'coffee-rails', '~> 3.2.2'
 gem 'devise'
+gem 'cancan'
 gem 'simple_form', git: "git://github.com/plataformatec/simple_form.git", ref: "v2.0.0.rc"
 gem 'haml-rails'
 gem 'inherited_resources'
 gem 'draper'
 gem 'factory_girl_rails' # we use this for seeds, too
 gem 'treetop' # parse quickies
-gem 'polyglot' # load treetop grammars with #require
+
+gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults
+
+# we will try to gernerate js the old-fashioned way
+gem 'versatile_rjs', :git => 'git://github.com/niklas/versatile_rjs.git'

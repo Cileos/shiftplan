@@ -1,6 +1,7 @@
 !!!5
 %html
   %head
+    %meta{'http-equiv' => "Content-Type", 'content' => "text/html;charset=utf-8"}
     %title
       - if content_for?(:title)
         = yield(:title)
@@ -17,6 +18,7 @@
         .navbar-inner
           .container-fluid
             = link_to 'Shiftplan', root_path, class: 'brand'
+            = render 'navigation'
             = render 'session'
       - if show_title?
         %h1#title= yield(:title)
