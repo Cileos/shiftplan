@@ -1,9 +1,16 @@
 GIT
   remote: git://github.com/niklas/kopflos.git
-  revision: 68c74d862fec241923605d062bf7b129410dd658
+  revision: f4f3e3872922249942c0b8d2ad13ebdfc8d5ed21
   specs:
     kopflos (0.0.1)
       open4
+
+GIT
+  remote: git://github.com/niklas/versatile_rjs.git
+  revision: 86a4e6c6a62b66cb7fcaa5998340da31e9704190
+  specs:
+    versatile_rjs (0.1.2)
+      rails (>= 3.1.0)
 
 GIT
   remote: git://github.com/plataformatec/simple_form.git
@@ -13,6 +20,13 @@ GIT
     simple_form (2.0.0.rc)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
+
+GIT
+  remote: git://github.com/v0n/notes.git
+  revision: 870d0de36a9bbc55b5cfcda21d102b01c7a56968
+  specs:
+    notes (0.1.0.pre)
+      paint (>= 0.8.4)
 
 GEM
   remote: http://rubygems.org/
@@ -53,6 +67,7 @@ GEM
     binding_of_caller (0.6.2)
     bootstrap-sass (2.0.0)
     builder (3.0.0)
+    cancan (1.6.7)
     capistrano (2.9.0)
       highline
       net-scp (>= 1.0.0)
@@ -118,6 +133,11 @@ GEM
     guard-cucumber (0.7.5)
       cucumber (>= 0.10)
       guard (>= 0.8.3)
+    guard-jasmine (0.9.10)
+      childprocess
+      guard (>= 0.8.3)
+      multi_json
+      thor
     guard-rspec (0.6.0)
       guard (>= 0.10.0)
     guard-spork (0.5.2)
@@ -136,6 +156,8 @@ GEM
     inherited_resources (1.3.0)
       has_scope (~> 0.5.0)
       responders (~> 0.6.0)
+    jasminerice (0.0.8)
+      haml
     journey (1.0.1)
     jquery-rails (2.0.0)
       railties (>= 3.2.0.beta, < 5.0)
@@ -162,6 +184,7 @@ GEM
     nokogiri (1.5.0)
     open4 (1.3.0)
     orm_adapter (0.0.6)
+    paint (0.8.4)
     pg (0.13.1)
     pickle (0.4.10)
       cucumber (>= 0.8)
@@ -258,6 +281,7 @@ PLATFORMS
 DEPENDENCIES
   active_attr (~> 0.5.0.alpha2)
   bootstrap-sass (~> 2.0.0)
+  cancan
   capistrano
   coffee-rails (~> 3.2.2)
   cucumber-rails (~> 1.2.1)
@@ -268,14 +292,17 @@ DEPENDENCIES
   factory_girl_rails
   guard-bundler (~> 0.1.3)
   guard-cucumber (~> 0.7.5)
+  guard-jasmine
   guard-rspec (~> 0.6.0)
   guard-spork (~> 0.5.2)
   haml-rails
   inherited_resources
+  jasminerice
   jquery-rails
   kopflos!
   launchy
   libnotify
+  notes!
   pg
   pickle
   plymouth
@@ -289,3 +316,4 @@ DEPENDENCIES
   timecop
   treetop
   uglifier (>= 1.2.3)
+  versatile_rjs!

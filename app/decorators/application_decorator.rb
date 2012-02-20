@@ -1,16 +1,63 @@
 class ApplicationDecorator < Draper::Base
 
-  # wraps the given block in a modal div. Must give `id`, &block behaves like in content_tag helper
-  def modal(id, &block)
-    h.content_tag :div, class: "modal hide fade in", id: id, &block
+  # wraps the given block in modal divs. Must give at least :body
+  def modal(options = {})
+    body    = options.delete(:body) || raise(ArgumentError, 'no :body given for modal')
+    classes = options.delete(:class)
+    content = h.content_tag :div, body, class: 'modal-body'
+    h.content_tag :div, content, options.merge(class: "modal container-fluid hide fade in #{classes}")
   end
 
   def dom_id
     h.dom_id(model)
   end
 
-  def new_scheduling_dom_id
-    'new_scheduling'
+  def scheduling_form_id
+    'scheduling_modal'
+  end
+
+  def selector_for(name, resource=nil, *more)
+    case name
+    when :scheduling_form
+      '#' + scheduling_form_id
+    when :errors_for
+      %Q~#{selector_for(:form_for, resource)} .errors~
+    when :form_for
+      if resource.to_key
+        %Q~form##{h.dom_id resource, :edit}~
+      else
+        %Q~form##{h.dom_id resource}~
+      end
+    else
+      raise ArgumentError, "cannot find selector for #{name}"
+    end
+  end
+
+  # select a specific element on the page. You may implement #selector_for in your subclass
+  def select(*a)
+    page.select selector_for(*a)
+  end
+
+  def remove(*a)
+    select(*a).remove()
+  end
+
+  def hide_modal(*a)
+    if a.empty?
+      page.select('.modal')
+    else
+      select(*a)
+    end.modal('hide')
+  end
+
+  # append validation errors for given `resource` to its form
+  def insert_errors_for(resource)
+    select(:errors_for, resource).remove()
+    select(:form_for, resource).append errors_for(resource)
+  end
+
+  def errors_for(resource)
+    h.content_tag :div, resource.errors.full_messages.to_sentence, class: 'alert alert-error errors'
   end
 
   # Lazy Helpers

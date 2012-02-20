@@ -11,14 +11,14 @@ Feature: create a scheduling
         | Homer      | S         |
         | Lenny      | L         |
         | Carl       | C         |
-      And a plan exists with organization: the organization, name: "Der Plan"
+      And a plan exists with organization: the organization
       And today is 2012-02-13
       And I am signed in as the planner
+      And I am on the page of the plan
 
 
   Scenario: just entering time span
-     When I follow "Der Plan"
-      And I follow "Neue Terminierung"
+     When I follow "Neue Terminierung"
       And I select "Homer S" from "Mitarbeiter"
       And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9-17"
@@ -32,9 +32,7 @@ Feature: create a scheduling
 
   @javascript
   Scenario: just entering time span with javascript
-     When I follow "Der Plan"
-      And I wait for the calendar to appear
-      And I schedule "Homer S" on "Donnerstag" for "8-18"
+     When I schedule "Homer S" on "Donnerstag" for "8-18"
      Then I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
         | Carl C      |        |          |          |            |         |         |         |
@@ -42,24 +40,9 @@ Feature: create a scheduling
         | Homer S     |        |          |          | 8-18       |         |         |         |
 
   @javascript
-  Scenario: navigating through the plan with keystrokes
-     When I follow "Der Plan"
-      And I wait for the calendar to appear
-    Then the cell "Montag"/"Carl C" should be focus
-    When I press arrow up
-    Then the cell "Montag"/"Homer S" should be focus
-    When I press arrow left
-    Then the cell "Sonntag"/"Homer S" should be focus
-    When I press arrow down
-    Then the cell "Sonntag"/"Carl C" should be focus
-    When I press arrow right
-    Then the cell "Montag"/"Carl C" should be focus
-    When I press arrow right
-    Then the cell "Dienstag"/"Carl C" should be focus
-    When I press arrow down
-    Then the cell "Dienstag"/"Lenny L" should be focus
-    When I press arrow left
-    Then the cell "Montag"/"Lenny L" should be focus
-    When I press arrow up
-    Then the cell "Montag"/"Carl C" should be focus
-
+  Scenario: Entering the time span wrong
+     When I click on cell "Dienstag"/"Carl C"
+      And I wait for the new scheduling form to appear
+      And I fill in "Quickie" with "13-"
+      And I press "Anlegen"
+     Then I should see "Quickie ist nicht gültig" within errors within the new scheduling form

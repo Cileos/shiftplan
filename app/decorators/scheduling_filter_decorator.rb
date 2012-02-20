@@ -9,7 +9,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   def formatted_range
     case range
     when :week
-      I18n.localize filter.first_day, format: :week_with_first_day
+      I18n.localize monday, format: :week_with_first_day
     else
       '???'
     end
@@ -24,8 +24,11 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def cell_content(day, employee)
-    h.render "schedulings/list_in_#{range || 'unknown'}",
-      schedulings: schedulings_for(day, employee)
+    schedulings = schedulings_for(day, employee)
+    unless schedulings.empty?
+      h.render "schedulings/list_in_#{range || 'unknown'}",
+        schedulings: schedulings
+    end
   end
 
   def schedulings_for(day, employee)
@@ -36,10 +39,21 @@ class SchedulingFilterDecorator < ApplicationDecorator
     { employee_id: employee.id, date: day.iso8601 }
   end
 
-  def cell_selector(day, employee)
-    %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee.id}]~
+  def selector_for(name, resource=nil, extra=nil)
+    case name
+    when :cell
+      if resource.is_a?(Scheduling)
+        %Q~#calendar tbody td[data-date=#{resource.date.iso8601}][data-employee_id=#{resource.employee_id}]~
+      else
+        day, employee_id = scheduling, extra
+        %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
+      end
+    when :hours
+      %Q~#calendar tbody td.hours[data-employee_id=#{resource.id}]~
+    else
+      super
+    end
   end
-
 
   def hours_header
     if week?
@@ -56,14 +70,9 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def hours_selector_for(employee)
-    %Q~#calendar tbody td.hours[data-employee_id=#{employee.id}]~
-  end
-
   def hours_for(employee)
     records.select {|s| s.employee == employee }.sum(&:length_in_hours).to_i
   end
-
 
   def employees
     organization.employees.order_by_name
@@ -87,14 +96,40 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def link_to_previous_week
-    week = first_day.prev_week
+    week = monday.prev_week
     h.link_to :previous_week, h.plan_year_week_path(plan, week.year, week.cweek)
   end
 
   def link_to_next_week
-    week = first_day.next_week
+    week = monday.next_week
     h.link_to :next_week, h.plan_year_week_path(plan, week.year, week.cweek)
   end
 
+  def new_scheduling_form_with_link
+    if plan.employees_available?
+      link_to_new_scheduling_form + new_scheduling_form
+    end
+  end
+
+  def update_cell_for(scheduling)
+    select(:cell, scheduling).html cell_content_for_scheduling(scheduling) || ''
+  end
+
+  def update_hours_for(employee)
+    select(:hours, employee).html hours_for(employee)
+  end
+
+  private
+
+  def link_to_new_scheduling_form
+    h.link_to '.new_scheduling', "##{scheduling_form_id}", :class => 'new_scheduling', 'data-toggle' => 'modal', 'data-href' => "##{scheduling_form_id}"
+  end
+
+
+  # A form for a new scheduling
+  def new_scheduling_form
+    modal id: scheduling_form_id,
+      body: h.render('schedulings/new_form', scheduling: plan.schedulings.new, filter: self)
+  end
 
 end

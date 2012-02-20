@@ -40,8 +40,8 @@ describe SchedulingFilter do
   describe "for a week and year" do
     let(:filter) { SchedulingFilter.new week: 52, year: 2012 }
 
-    it "should know the first day" do
-      filter.first_day.should == Date.new(2012, 12, 24) # third day of lofwyr
+    it "should know the monday" do
+      filter.monday.should == Date.new(2012, 12, 24) # third day of lofwyr
     end
 
     it "should calculate the nth day of the plan" do

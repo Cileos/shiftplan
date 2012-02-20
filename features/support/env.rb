@@ -30,7 +30,7 @@ Spork.prefork do
   if ENV['CAPYBARA_CHROME'] == 'yes'
     STDERR.puts "will run @javascript tests in chrome"
     Capybara.register_driver :selenium do |app|
-      Capybara::Selenium::Driver.new(app, :browser => :chrome)
+      Capybara::Selenium::Driver.new(app, :browser => :chrome, :switches => %w[--ignore-certificate-errors --disable-popup-blocking --disable-translate])
     end
   else
     STDERR.puts "will run @javascript tests in default browser (probably firefox)"

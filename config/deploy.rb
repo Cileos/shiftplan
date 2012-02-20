@@ -64,6 +64,14 @@ namespace :deploy do
 
   before "deploy:assets:precompile", "deploy:symlink_static_directories"
 
+  task :rake do
+    if task = ENV['TASK']
+      run "cd #{current_release} && RAILS_ENV=production bundle exec rake #{task}"
+    else
+      STDERR.puts "please specify the task you want to run with TASK="
+    end
+  end
+
 end
 
 namespace :setup do

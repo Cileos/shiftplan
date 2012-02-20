@@ -36,6 +36,12 @@ group :test, :halt_on_fail => true do
     watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
   end
 
+  guard 'jasmine', :all_on_start => false do
+    watch(%r{app/assets/javascripts/(.+)\.(js\.coffee|js|coffee)$}) { |m| "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
+    watch(%r{spec/javascripts/(.+)_spec\.(js\.coffee|js|coffee)$})  { |m| puts m.inspect; "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
+    watch(%r{spec/javascripts/spec\.(js\.coffee|js|coffee)$})       { "spec/javascripts" }
+  end
+
 #                                                         V --no-drb skip spork to run simplecov 
   guard 'cucumber', :cli => "--drb", :run_all => { :cli => "--format progress" }, :all_on_start => false do 
     watch(%r{^features/.+\.feature$})
@@ -45,6 +51,11 @@ group :test, :halt_on_fail => true do
     watch(%r{^features/support/.+$})          { 'features' }
     watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
     watch('app/decorators/scheduling_filter_decorator.rb') { 'features/plan/week.feature' }
+
+    callback(:run_all_end) do
+      # update todo file
+      system 'script/todo'
+    end
   end
 
 end

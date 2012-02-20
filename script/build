@@ -7,10 +7,26 @@ unset RACK_BASE_URI
 NEEDED_RUBY='1.9.3-p0@shiftplan-ci'
 DATABASE='shiftplan_test'
 RAILS_ENV=test
+export PATH="$PATH:/usr/local/bin:/usr/games"
+export COWPATH="$COWPATH:script"
 export LC_ALL='en_US.UTF-8'
 export RAILS_ENV
 
 APP_DIR=`pwd`
+
+function header () {
+  if hash cowsay 2>&-; then
+    cowsay -f unipony-smaller $1
+  else
+    echo
+    echo "=== $1 ==="
+    echo
+  fi
+}
+
+header "setup ruby"
+
+echo "PATH: $PATH"
 
 # Setup rvm. If needed, we install rvm fresh from source
 rvmrc="$HOME/.rvmrc"
@@ -26,30 +42,47 @@ source "$HOME/.rvm/scripts/rvm" || exit 512
 
 rvm use $NEEDED_RUBY --create
 
-echo "truncate log files"
+header "truncating log files and artefacts"
 
 echo > log/test.log
 echo > log/capybara_test.log
+rm -rf tmp/capybara
 
-which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 25
+header "updating submodules"
+git submodule init && git submodule update
+
+header "bundling"
+which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 256
 
 
 # run bundle install only if bundle check misses something
 # taking out the --relock as we don't change the Gemfile.lock
-bundle check || bundle install || exit 27
+bundle check || bundle install || exit 128
 
 # prepare test db
-bundle exec rake db:drop db:create db:migrate
+DBSTAMP=tmp/fully_migrated_at
+FILEAGE=$(($(date +%s) - $(stat -c '%Y' "$DBSTAMP")))
+MAXAGE=$(bc <<< '24*60*60')
+if [ $FILEAGE -gt $MAXAGE ] ; then # no stamp or older than 24 hours
+  header "rebuilding the database (every 24h)"
+  bundle exec rake db:drop db:create db:migrate
+  date > $DBSTAMP
+else
+  header "migrate the database"
+  bundle exec rake db:migrate
+fi
 
 # we want all tests to run, even if other test components fail before, 
 # so we toggle one bit of the exit/return value if a test component fails
 ret=$((0))
 
-echo ">>> rSpec"
+header "rSpec"
 bundle exec rspec --color ./spec     || ret=$(($ret+1))
-echo ">>> Cucumber"
-bundle exec cucumber features        || ret=$(($ret+2))
+header "Jasmine"
+xvfb-run bundle exec guard-jasmine   || ret=$(($ret+2))
+header "Cucumber"
+bundle exec cucumber features        || ret=$(($ret+4))
 
-echo
+header "Done"
 echo "fin. (exit code: $ret)"
 exit $ret

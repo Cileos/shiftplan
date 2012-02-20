@@ -15,6 +15,11 @@ table#calendar {
       display: none;
     }
   }
+
+  ul {
+    list-style: none;
+    padding-left: 0.5em;
+  }
 }
 
 div.scroller {
@@ -22,7 +27,31 @@ div.scroller {
   overflow: auto;
 }
 
-ul.quickies {
-  list-style: none;
-  padding-left: 0.5em;
+#scheduling_modal {
+  ul.calendar_editor {
+    list-style: none;
+    padding-left: 0.5em;
+  }
+  form {
+    .control-group.quickie {
+      margin-bottom: 0;
+    }
+    position: relative;
+    button[type=submit] {
+      position: absolute;
+      right: 4%;
+      top: 19px;
+    }
+    a.delete {
+      position: absolute;
+      left: 4%;
+      top: 19px;
+    }
+
+    .errors {
+      margin-top: 9px;
+      margin-bottom: 9px;
+    }
+  }
 }
+

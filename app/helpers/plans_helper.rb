@@ -17,10 +17,10 @@ module PlansHelper
     end
   end
 
-  def cwdays_for_select(plan, format=:week_day)
-    start = Date.today.beginning_of_week
+  # needs monday (Date)
+  def cwdays_for_select(monday, format=:week_day)
     (0..6).to_a.map do |more|
-      day = start + more.days
+      day = monday + more.days
       [l(day, :format => format), day.iso8601]
     end
 

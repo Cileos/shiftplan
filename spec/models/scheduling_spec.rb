@@ -142,5 +142,34 @@ describe Scheduling do
       end
     end
 
+    describe "only start hour given as quickie" do
+      shared_examples "having invalid quickie" do
+        it { scheduling.should_not be_valid }
+
+        it "has an error on quickie" do
+          scheduling.valid?
+          scheduling.should have_at_least(1).errors_on(:quickie)
+        end
+      end
+      context "on creation" do
+        let :scheduling do
+          build({
+            date:      the_date,
+            quickie:   '9-'
+          })
+        end
+        it_behaves_like 'having invalid quickie'
+      end
+      context "on update" do
+        let :scheduling do
+          Factory(:scheduling).tap do |s|
+            s.quickie = '9-'
+          end
+        end
+
+        it_behaves_like 'having invalid quickie'
+      end
+    end
+
   end
 end
