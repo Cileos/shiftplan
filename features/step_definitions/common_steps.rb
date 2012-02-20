@@ -4,3 +4,7 @@
 Given /^today is (.+)$/ do |timey|
   Timecop.travel Time.parse(timey)
 end
+
+Then /^try pry$/ do
+  binding.pry
+end

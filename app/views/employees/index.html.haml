@@ -1,7 +1,19 @@
-- title :employees
+%h1= t('.employees')
 
-%ul.employees
+%table#employees.table.table-striped.table-bordered.table-condensed
+  %tr.employee
+    %th= t('.first_name')
+    %th= t('.last_name')
+    %th
+    %th
+
   - collection.each do |employee|
-    %li
-      %span.name= employee.name
+    %tr
+      %td= link_to employee.first_name, employee
+      %td= link_to employee.last_name, employee
+      %td= link_to :edit, edit_employee_path(employee)
+      %td= link_to :destroy, employee, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
 = link_to :new_employee, new_employee_path

@@ -80,3 +80,7 @@ gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults
 
 # we will try to gernerate js the old-fashioned way
 gem 'versatile_rjs', :git => 'git://github.com/niklas/versatile_rjs.git'
+gem 'polyglot' # load treetop grammars with #require
+gem 'i18n-missing_translations', :git => 'git://github.com/svenfuchs/i18n-missing_translations.git'
+gem 'pry-nav'
+gem 'pry-stack_explorer'
