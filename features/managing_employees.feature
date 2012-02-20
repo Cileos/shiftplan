@@ -11,7 +11,7 @@ Feature: Create Employees
         | Vorname  | Homer   |
         | Nachname | Simpson |
       And I press "Mitarbeiter erstellen"
-     Then I should see message "Mitarbeiter erfolgreich angelegt."
+     Then I should see flash info "Mitarbeiter erfolgreich angelegt."
       And I should see "Homer"
 
   Scenario: Visiting the details page of an employee
