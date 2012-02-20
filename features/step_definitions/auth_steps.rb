@@ -25,7 +25,7 @@ When /^I sign in$/ do
   step %~I am signed in~
 end
 
-When /^I sign out/ do
+When /^I sign out$/ do
   step %~I follow "signout"~
   step %~I should see "Signed out successfully."~
 end
