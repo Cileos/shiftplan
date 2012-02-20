@@ -15,8 +15,10 @@ Feature: Create Employees
       And I should see "Homer"
 
   Scenario: Visiting the details page of an employee
-    Given I am signed in as planner
-      And an employee exists with first_name: "Homer", last_name: "Simpson"
+    Given a planner "me" exists
+      And an organization "nukular" exists with planner: planner "me"
+      And an employee exists with organization: organization "nukular", first_name: "Homer"
+     When I sign in as the planner "me"
      When I follow "Mitarbeiter"
      When I follow "Homer"
      Then I should be on the page for the employee
@@ -25,8 +27,10 @@ Feature: Create Employees
      Then I should be on the employees page
 
   Scenario: Editing an employee
-    Given I am signed in as planner
-      And an employee exists with first_name: "Homer", last_name: "Simpson"
+    Given a planner "me" exists
+      And an organization "nukular" exists with planner: planner "me"
+      And an employee exists with organization: organization "nukular", first_name: "Homer"
+     When I sign in as the planner "me"
     When I follow "Mitarbeiter"
      When I follow "Bearbeiten"
       And I fill in the following:
@@ -38,8 +42,10 @@ Feature: Create Employees
      And I should see "Biene Maja"
 
   Scenario: Deleting an employee
-    Given I am signed in as planner
-      And an employee exists with first_name: "Homer", last_name: "Simpson"
+    Given a planner "me" exists
+      And an organization "nukular" exists with planner: planner "me"
+      And an employee exists with organization: organization "nukular", first_name: "Homer"
+     When I sign in as the planner "me"
      When I follow "Mitarbeiter"
      Then I should see "Homer"
      When I follow "Löschen"
