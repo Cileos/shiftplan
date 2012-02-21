@@ -1,10 +1,10 @@
 Given a planner exists
-  And an organization exists with planner: the planner
-  And the organization has the following employees:
-    | employee | first_name | last_name |
-    | Homer    | Homer      | S         |
-    | Lenny    | Lenny      | L         |
-    | Carl     | Carl       | C         |
+  And an organization "Reactor" exists with planner: the planner
+  And the following employees exist:
+    | organization           | employee | first_name | last_name |
+    | organization "Reactor" | Homer    | Homer      | S         |
+    | organization "Reactor" | Lenny    | Lenny      | L         |
+    | organization "Reactor" | Carl     | Carl       | C         |
   And a plan exists with organization: the organization
   And I am signed in as the planner
   And I am on the page of the plan

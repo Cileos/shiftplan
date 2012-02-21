@@ -12,6 +12,8 @@ Feature: Sum of hours in plan
      When I go to the page of the plan
      Then I should see the following calendar:
         | Mitarbeiter | Stunden |
+        | Carl C      | 0       |
+        | Lenny L     | 0       |
         | Homer S     | 0       |
 
   Scenario: work 9 to 5 every weekday
@@ -25,6 +27,8 @@ Feature: Sum of hours in plan
      When I go to the page of the plan
      Then I should see the following calendar:
         | Mitarbeiter | Stunden |
+        | Carl C      | 0       |
+        | Lenny L     | 0       |
         | Homer S     | 40      |
 
    @javascript
@@ -37,9 +41,11 @@ Feature: Sum of hours in plan
         | 4     | 9-17    |
         | 5     | 9-17    |
       And I am on the page of the plan
-     When I schedule "Peter Gibbons" on "Samstag" for "10-17"
-      And I schedule "Peter Gibbons" on "Sonntag" for "12-17"
+     When I schedule "Homer S" on "Samstag" for "10-17"
+      And I schedule "Homer S" on "Sonntag" for "12-17"
      Then I should see the following calendar:
         | Mitarbeiter | Stunden |
+        | Carl C      | 0       |
+        | Lenny L     | 0       |
         | Homer S     | 52      |
 
