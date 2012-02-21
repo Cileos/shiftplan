@@ -4,17 +4,8 @@ Feature: create a scheduling
   I want to create a scheduling for my employees
 
   Background:
-    Given a planner exists
-      And an organization exists with planner: the planner
-      And the organization has the following employees:
-        | first_name | last_name |
-        | Homer      | S         |
-        | Lenny      | L         |
-        | Carl       | C         |
-      And a plan exists with organization: the organization
+    Given the situation of a nuclear reactor
       And today is 2012-02-13
-      And I am signed in as the planner
-      And I am on the page of the plan
 
 
   Scenario: just entering time span
