@@ -9,3 +9,4 @@ chromedriver.log
 screenshots/
 screencasts/
 coverage
+features/support/stepdefs.txt
