@@ -11,7 +11,7 @@ class SchedulingDecorator < ApplicationDecorator
 
   def team_class
     if team
-      h.dom_id(team)
+      dom_id(team)
     else
       'no-team'
     end

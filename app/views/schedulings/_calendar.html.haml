@@ -27,5 +27,4 @@
     = f.new_scheduling_form_with_link
 
   #legend
-    :css
-      #{  f.teams.map {|t| %Q~.#{dom_id(t)} { background-color: #{t.color} !important}~}.join  }
+    = f.legend

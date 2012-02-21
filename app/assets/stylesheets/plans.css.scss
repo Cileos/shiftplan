@@ -8,6 +8,26 @@
 $cell_width: 3.3em;
 $cell_border: #ccc;
 
+@mixin pibble-outer {
+  padding: 2px;
+  @include border-radius(3px);
+  @include box-shadow($gray 1px 1px 6px);
+  float: left;
+  clear: left;
+  margin: 0.6em;
+}
+
+@mixin pibble-inner {
+  border: none;
+  background-color: $white;
+  @include border-radius(2px);
+  @include box-shadow($grayLight 1px 1px 2px 1px inset);
+  padding: 1px 6px;
+  margin-left: 1em;
+  display: block; /* do not break if too long */
+  text-transform: none; /* instead of uppercase */
+}
+
 table#calendar {
   tbody td.focus {
     @include border-radius(3px);
@@ -25,21 +45,9 @@ table#calendar {
     padding: 0.1em;
     margin: 0;
     li {
-      background-color: $grayLighter;
-      padding: 2px;
-      @include border-radius(3px);
-      @include box-shadow($gray 1px 1px 6px);
-      float: left;
-      margin: 0.6em;
+      @include pibble-outer();
       abbr {
-        border: none;
-        background-color: $white;
-        @include border-radius(2px);
-        @include box-shadow($grayLight 1px 1px 2px 1px inset);
-        padding: 1px 6px;
-        margin-left: 1em;
-        display: block; /* do not break if too long */
-        text-transform: none; /* instead of uppercase */
+        @include pibble-inner();
       }
     }
   }
@@ -74,6 +82,25 @@ div.scroller {
     .errors {
       margin-top: 9px;
       margin-bottom: 9px;
+    }
+  }
+}
+
+#legend {
+  dl {
+    di {
+      display: block;
+      dt.shortcut {
+        @include pibble-outer();
+        span {
+          @include pibble-inner();
+        }
+      }
+      dd {
+        padding: 2px;
+        margin: 0.6em;
+        float: left;
+      }
     }
   }
 }

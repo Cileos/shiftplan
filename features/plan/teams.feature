@@ -13,6 +13,8 @@ Feature: Teams in plans
         | Carl C      |            |
         | Lenny L     |            |
         | Homer S     | 9-17 Rp    |
+      And I should see the following defined items within the legend:
+        | Rp       | Reaktor putzen |
       And a scheduling should exist
       And a team should exist with name: "Reaktor putzen"
       And the team should be the scheduling's team

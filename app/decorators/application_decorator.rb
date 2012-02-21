@@ -8,8 +8,8 @@ class ApplicationDecorator < Draper::Base
     h.content_tag :div, content, options.merge(class: "modal container-fluid hide fade in #{classes}")
   end
 
-  def dom_id
-    h.dom_id(model)
+  def dom_id(m=model)
+    h.dom_id(m)
   end
 
   def scheduling_form_id

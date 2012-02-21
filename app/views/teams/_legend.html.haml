@@ -1,0 +1,6 @@
+%dl
+  - teams.each do |team|
+    %di
+      %dt.shortcut{class: dom_id(team)}
+        %span= team.shortcut
+      %dd.name= team.name
