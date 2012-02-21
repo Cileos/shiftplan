@@ -3,16 +3,14 @@
 #   tds:       which tds do we want to navigate
 class CalendarCursor
   constructor: (@$calendar, @tds = 'td:not(.hours)') ->
-    
+
     @$body     = @$calendar.find('tbody:first')
 
     # TODO better trigger the event on the cell and let it bubble up?
-
     @$calendar.bind 'calendar.cell_focus', (event, cell) =>
       $cell = $(cell)
       @focussed_cell().removeClass('focus')
       $cell.addClass('focus')
-
 
     $calendar = @$calendar
     @$calendar.on 'click', 'tbody td', ->
@@ -23,6 +21,13 @@ class CalendarCursor
     @$calendar.trigger 'calendar.cell_focus', @$body.find('tr:nth-child(1) td:nth-child(2)')
 
     @enable()
+
+    # The keydown event handler 'CalendarCursor#keydown' gets disabled when the modal window for creating 
+    # schedulings opens so that the user should can press the "return" key to submit the form.
+    # Therefore we must reenable the keydown event handler when the modal window was hidden:
+    $curser = this
+    $('#scheduling_modal').on 'hidden', ->
+      $curser.enable()
 
   focussed_cell: ->
     @$body.find('td.focus')
@@ -36,6 +41,9 @@ class CalendarCursor
   keydown: (event) =>
     $focus  = @focussed_cell()
     if event.keyCode == 13 # enter
+      # Disable keydown event handler as we want to press enter in the opening modal window to submit the form.
+      @disable()
+      # Trigger 'calendar.cell_activate' event. The handler will open the modal window for creating a new scheduling.
       @$calendar.trigger 'calendar.cell_activate', $focus
       return
     column  = $focus.closest('tr').children(@tds).index($focus)
@@ -62,7 +70,6 @@ class CalendarCursor
 
   disable: ->
     $('body').unbind 'keydown', @keydown
-
 
 
 window.CalendarCursor = CalendarCursor
