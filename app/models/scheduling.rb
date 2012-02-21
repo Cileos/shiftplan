@@ -47,8 +47,10 @@ class Scheduling < ActiveRecord::Base
   end
   attr_writer :cwday
 
+  # we have two ways to clean and re-generate the quickie, parsed#to_s or
+  # the attributes based self#to_quickie. We use the latter here
   def quickie
-    @quickie ||= to_quickie
+    to_quickie
   end
   attr_writer :quickie
 
@@ -97,7 +99,6 @@ class Scheduling < ActiveRecord::Base
     if @quickie.present?
       if parsed = Quickie.parse(@quickie)
         parsed.fill(self)
-        @quickie = parsed.to_s # clean the entered quickie
       else
         errors.add :quickie, :invalid
       end
@@ -105,10 +106,12 @@ class Scheduling < ActiveRecord::Base
   end
 
   def to_quickie
+    [ hour_range_quickie, team.try(:to_quickie) ].compact.join(' ')
+  end
+
+  def hour_range_quickie
     if starts_at.present? && ends_at.present?
       "#{starts_at.hour}-#{ends_at.hour}"
-    else
-      '' # default
     end
   end
 

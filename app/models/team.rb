@@ -1,3 +1,6 @@
+# you may call this Working Place, Task, Department or Team
+#
+# Used to classify Schedulings
 class Team < ActiveRecord::Base
   validates_presence_of :name
 
@@ -12,5 +15,9 @@ class Team < ActiveRecord::Base
 
   def self.find_or_build_by_name(name)
     where(:name => name).first || new(:name => name)
+  end
+
+  def to_quickie
+    name
   end
 end

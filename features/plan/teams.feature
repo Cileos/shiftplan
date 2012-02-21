@@ -13,7 +13,7 @@ Feature: Teams in plans
         | Carl C      |                    |
         | Lenny L     |                    |
         | Homer S     | 9-17 Reaktorputzen |
-      And a team should exist with name: "Reaktorputzen"
       And a scheduling should exist
-      And the team should be the schedulings' team
+      And a team should exist with name: "Reaktorputzen"
+      And the team should be the scheduling's team
 

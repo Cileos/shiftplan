@@ -22,6 +22,8 @@ describe 'Quickie::parser' do
     end
 
     [
+      '1-',
+      '-23',
       '9-25',
       '1-88'
     ].each do |in_valid_hour_range|

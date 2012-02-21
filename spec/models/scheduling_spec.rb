@@ -174,7 +174,7 @@ describe Scheduling do
 
   context "team" do
     let(:team)        { Factory :team, :name => 'The A Team' }
-    let(:scheduling)  { Factory.build :scheduling }
+    let(:scheduling)  { Factory.build :scheduling, :start_hour => 1, :end_hour => 23 }
 
     context 'assignment by name' do
       it "can happen through quickie" do
@@ -183,18 +183,21 @@ describe Scheduling do
         scheduling.valid?
         scheduling.team.should == team
         scheduling.team_name.should == team.name
+        scheduling.quickie.should == '1-23 The A Team'
       end
 
       it "can be assigned by name" do
         scheduling.team_name = team.name
         scheduling.team.should == team
         scheduling.team_name.should == team.name
+        scheduling.quickie.should == '1-23 The A Team'
       end
 
       it "build team if none exists yet" do
         scheduling.team_name = 'The B Team'
         scheduling.team.should_not be_nil
         scheduling.team.should_not be_persisted
+        scheduling.quickie.should == '1-23 The B Team'
       end
 
       it "may not use teams from other organizations"
