@@ -4,8 +4,8 @@ Feature: Sum of hours in plan
   I want to see the sum of their planned working ours in the week view
 
   Background:
-    Given the situation of a nuclear reactor
-      And today is 2011-02-07
+    Given today is 2011-02-07
+      And the situation of a nuclear reactor
 
   Scenario: nothing planned
     # I did not plan any schedules for Homer

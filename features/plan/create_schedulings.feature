@@ -4,8 +4,8 @@ Feature: create a scheduling
   I want to create a scheduling for my employees
 
   Background:
-    Given the situation of a nuclear reactor
-      And today is 2012-02-13
+    Given today is 2012-02-13
+      And the situation of a nuclear reactor
 
 
   Scenario: just entering time span
