@@ -30,6 +30,13 @@ class CalendarEditor extends View
     for scheduling in params.cell.find('li')
       @addScheduling($(scheduling))
     @addNewForm params.form, params.cell
+    @addTabIndices()
+
+  addTabIndices: ->
+    tabIndex = 1
+    for input in @list.find('input[type=text],select,button')
+      $(input).attr('tabIndex', tabIndex)
+      tabIndex++
 
   addScheduling: ($scheduling) ->
     @list.append new SchedulingEditor($scheduling)
