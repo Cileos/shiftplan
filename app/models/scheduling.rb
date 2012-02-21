@@ -67,6 +67,17 @@ class Scheduling < ActiveRecord::Base
     SchedulingFilter.new week: week, employee: employee, year: year, plan: plan
   end
 
+  def team_name
+    if team
+      team.name
+    end
+  end
+
+  # FIXME can assign teams from other organizations
+  def team_name=(new_name)
+    self.team = Team.find_or_build_by_name(new_name)
+  end
+
   # repairs all the missing attributes
   def self.sync!
     transaction do

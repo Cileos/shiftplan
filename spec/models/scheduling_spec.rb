@@ -173,6 +173,32 @@ describe Scheduling do
   end
 
   context "team" do
-    it "can be assigned through quickie by name"
+    let(:team)        { Factory :team, :name => 'The A Team' }
+    let(:scheduling)  { Factory.build :scheduling }
+
+    context 'assignment by name' do
+      it "can happen through quickie" do
+        team # just mentioning it, because we love the word "team". And it must exist
+        scheduling.quickie = '1-23 The A Team'
+        scheduling.valid?
+        scheduling.team.should == team
+        scheduling.team_name.should == team.name
+      end
+
+      it "can be assigned by name" do
+        scheduling.team_name = team.name
+        scheduling.team.should == team
+        scheduling.team_name.should == team.name
+      end
+
+      it "build team if none exists yet" do
+        scheduling.team_name = 'The B Team'
+        scheduling.team.should_not be_nil
+        scheduling.team.should_not be_persisted
+      end
+
+      it "may not use teams from other organizations"
+
+    end
   end
 end
