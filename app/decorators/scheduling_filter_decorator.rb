@@ -125,8 +125,9 @@ class SchedulingFilterDecorator < ApplicationDecorator
     select(:hours, employee).html hours_for(employee)
   end
 
+  # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
   def legend
-    h.content_tag(:style) { h.cdata_section(team_styles) } +
+    h.content_tag(:style) { team_styles } +
       h.render('teams/legend', teams: teams)
   end
 
@@ -136,8 +137,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def team_styles
     teams.map do |team|
-      %Q~.#{dom_id(team)} { background-color: #{team.color} !important}~
-    end.join
+      %Q~.#{dom_id(team)} { background-color: #{team.color} !important;}~
+    end.join(' ')
   end
 
   private
