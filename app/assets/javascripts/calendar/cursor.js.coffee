@@ -35,6 +35,9 @@ class CalendarCursor
 
   keydown: (event) =>
     $focus  = @focussed_cell()
+    if event.keyCode == 13 # enter
+      @$calendar.trigger 'calendar.cell_activate', $focus
+      return
     column  = $focus.closest('tr').children(@tds).index($focus)
     row     = $focus.closest('tbody').children('tr').index($focus.closest('tr'))
     $target = switch event.keyCode

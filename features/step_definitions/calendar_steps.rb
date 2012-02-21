@@ -16,16 +16,17 @@ Then /^the cell "([^"]+)"\/"([^"]+)" should be (focus)$/ do |column_label, row_l
 end
 
 def directions
-  "up|down|right|left"
+  ['arrow up','arrow down','arrow right','arrow left','return'].join('|')
 end
 
-When /^I press arrow (#{directions})$/ do |direction|
-  step %{I send arrow_#{direction} to "body"}
+When /^I press (#{directions})$/ do |direction|
+  direction.gsub!(' ', '_')
+  step %{I send #{direction} to "body"}
 end
 
-When /^I press arrow (#{directions}) (\d{1,2}) times$/ do |direction, times|
+When /^I press (#{directions}) (\d{1,2}) times$/ do |direction, times|
   times.to_i.times do
-    step %{I send arrow_#{direction} to "body"}
+    step %{I press #{direction}}
   end
 end
 
