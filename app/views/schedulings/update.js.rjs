@@ -3,8 +3,8 @@ page.decorate resource.concurrent do |filter|
     filter.update_cell_for(resource)
     filter.update_hours_for(resource.employee)
     filter.hide_modal :scheduling_form, resource
+    filter.update_legend
   else
     filter.insert_errors_for(resource)
   end
 end
-

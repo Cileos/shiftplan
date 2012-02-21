@@ -37,8 +37,8 @@ When /^(.*) within (.*[^:])$/ do |inner, parent|
 end
 
 # Multi-line step scoper
-When /^(.*) within (.*[^:]):$/ do |step, parent, table_or_string|
-  with_scope(parent) { When "#{step}:", table_or_string }
+When /^(.*) within (.*[^:]):$/ do |inner_step, parent, table_or_string|
+  with_scope(parent) { step "#{inner_step}:", table_or_string }
 end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|

@@ -25,6 +25,9 @@ module HtmlSelectorsHelpers
     when "the calendar"
       'table#calendar'
 
+    when "the legend"
+      '#legend'
+
     when "the calendar navigation"
       'div#calendar-navigation'
 
