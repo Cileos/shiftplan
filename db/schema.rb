@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120216164242) do
+ActiveRecord::Schema.define(:version => 20120221082120) do
 
   create_table "employees", :force => true do |t|
     t.string   "first_name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20120216164242) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "organization_id"
+    t.decimal  "weekly_working_time"
   end
 
   add_index "employees", ["organization_id"], :name => "index_employees_on_organization_id"

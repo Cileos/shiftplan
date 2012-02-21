@@ -3,6 +3,10 @@
 #employee
   %h2= resource.name
 
+  %p
+    %b= t('.weekly_working_time')
+    = number_with_precision(resource.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true) || t('.no_weekly_working_time')
+
 = link_to :edit, edit_employee_path(resource)
 \|
 = link_to :back, employees_path

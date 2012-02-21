@@ -1,6 +1,6 @@
 class Employee < ActiveRecord::Base
+  attr_accessible :first_name, :last_name, :weekly_working_time
   validates_presence_of :first_name, :last_name
-  attr_accessible :first_name, :last_name
 
   def name
     %Q~#{first_name} #{last_name}~
