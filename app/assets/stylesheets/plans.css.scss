@@ -46,7 +46,7 @@ table#calendar {
     margin: 0;
     li {
       @include pibble-outer();
-      abbr {
+      abbr, span {
         @include pibble-inner();
       }
     }

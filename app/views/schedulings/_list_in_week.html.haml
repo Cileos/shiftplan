@@ -2,4 +2,7 @@
   %ul
     - schedulings.map(&:decorate).each do |s|
       %li{class: s.team_class, data: s.metadata}
-        %abbr{title: s.long}= s.short
+        - if s.team
+          %abbr{title: s.long}= s.short
+        - else
+          %span= s.short
