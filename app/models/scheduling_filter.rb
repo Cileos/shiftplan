@@ -86,7 +86,7 @@ class SchedulingFilter
     end
 
     def fetch_records
-      base.where(conditions).includes(:employee)
+      base.where(conditions).includes(:employee, :team)
     end
 
     def conditions

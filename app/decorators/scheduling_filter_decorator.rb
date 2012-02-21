@@ -70,6 +70,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  def teams
+    records.map(&:team).compact.uniq
+  end
+
   def hours_for(employee)
     records.select {|s| s.employee == employee }.sum(&:length_in_hours).to_i
   end

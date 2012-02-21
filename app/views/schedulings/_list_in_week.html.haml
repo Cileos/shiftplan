@@ -1,4 +1,5 @@
 - unless schedulings.empty?
   %ul
-    - schedulings.each do |s|
-      %li{data: { quickie: s.quickie, id: s.id }}= s.quickie
+    - schedulings.map(&:decorate).each do |s|
+      %li{class: s.team_class, data: s.metadata}
+        %abbr{title: s.long}= s.short

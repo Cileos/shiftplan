@@ -6,5 +6,11 @@ describe Team do
     Factory.build(:team, :name => '').should be_invalid
     Factory.build(:team, :name => ' ').should be_invalid
   end
-  it "should have a color"
+
+  context 'color' do
+    let(:team) { Factory.build(:team) }
+
+    it { team.color.should_not be_blank }
+    it { team.color.should =~ /^#[0-9a-f]{6}$/ }
+  end
 end

@@ -56,6 +56,12 @@ class Scheduling < ActiveRecord::Base
   end
   attr_writer :quickie
 
+  def hour_range_quickie
+    if starts_at.present? && ends_at.present?
+      "#{starts_at.hour}-#{ends_at.hour}"
+    end
+  end
+
   delegate :iso8601, to: :date
 
 
@@ -110,12 +116,6 @@ class Scheduling < ActiveRecord::Base
     [ hour_range_quickie, team.try(:to_quickie) ].compact.join(' ')
   end
 
-  def hour_range_quickie
-    if starts_at.present? && ends_at.present?
-      "#{starts_at.hour}-#{ends_at.hour}"
-    end
-  end
-
 
   # calculates the date manually from #year, #week and #cwday
   def date_from_human_date_attributes
@@ -140,3 +140,5 @@ class ActiveSupport::TimeWithZone
     to_date.cweek
   end
 end
+
+SchedulingDecorator
