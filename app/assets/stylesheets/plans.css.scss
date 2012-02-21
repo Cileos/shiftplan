@@ -10,7 +10,8 @@ $cell_border: #ccc;
 
 table#calendar {
   tbody td.focus {
-    outline: 0.1em solid blue;
+    @include border-radius(3px);
+    @include box-shadow($grayLight 1px 1px 4px 1px inset);
   }
   tbody td {
     cursor: pointer;
