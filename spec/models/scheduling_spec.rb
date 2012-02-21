@@ -170,6 +170,9 @@ describe Scheduling do
         it_behaves_like 'having invalid quickie'
       end
     end
+  end
 
+  context "team" do
+    it "can be assigned through quickie by name"
   end
 end

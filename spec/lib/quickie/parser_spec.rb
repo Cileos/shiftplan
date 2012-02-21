@@ -67,6 +67,9 @@ describe 'Quickie::Parser' do
     end
   end
 
+  it "should detect team name"
+  it "should detect team name with spaces"
+
   # reload Grammar manually, because the constant QuickieParser are created
   # automatically on Treetop.load, else spork does not recognize changes
   before(:all) do

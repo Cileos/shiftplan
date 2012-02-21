@@ -3,6 +3,7 @@ require_dependency 'quickie'
 class Scheduling < ActiveRecord::Base
   belongs_to :plan
   belongs_to :employee
+  belongs_to :team
 
   before_validation :parse_quickie
   after_validation :set_human_date_attributes
