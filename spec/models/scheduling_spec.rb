@@ -174,11 +174,16 @@ describe Scheduling do
 
   context "team" do
     let(:team)        { Factory :team, :name => 'The A Team' }
-    let(:scheduling)  { Factory.build :scheduling, :start_hour => 1, :end_hour => 23 }
+    let(:plan)        { Factory :plan, :organization => team.organization }
+    let(:scheduling) do
+      Factory.build :scheduling,
+        :start_hour   => 1,
+        :end_hour     => 23,
+        :plan         => plan
+    end
 
     context 'assignment by name' do
       it "can happen through quickie" do
-        team # just mentioning it, because we love the word "team". And it must exist
         scheduling.quickie = '1-23 The A Team'
         scheduling.valid?
         scheduling.team.should == team
@@ -200,7 +205,13 @@ describe Scheduling do
         scheduling.quickie.should == '1-23 The B Team'
       end
 
-      it "may not use teams from other organizations"
+      it "may not use teams from other organizations, instead build its own" do
+        other_team = Factory :team, :name => 'The Bad Guys'
+        scheduling.team_name = other_team.name
+        scheduling.team.should be_present
+        scheduling.team.should_not == other_team
+        scheduling.team.organization.should == team.organization
+      end
 
     end
   end

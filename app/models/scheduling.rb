@@ -5,6 +5,8 @@ class Scheduling < ActiveRecord::Base
   belongs_to :employee
   belongs_to :team
 
+  delegate :organization, to: :plan
+
   before_validation :parse_quickie
   after_validation :set_human_date_attributes
   validates :starts_at, :ends_at, :plan, :employee,
@@ -75,9 +77,8 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
-  # FIXME can assign teams from other organizations
   def team_name=(new_name)
-    self.team = Team.find_or_build_by_name(new_name)
+    self.team = organization.teams.find_or_initialize_by_name(new_name)
   end
 
   # repairs all the missing attributes
