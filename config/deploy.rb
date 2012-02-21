@@ -19,7 +19,9 @@ set :use_sudo, false
 set :application, "shiftplan"
 set :repository,  "git@github.com:fritzek/shiftplan.git"
 set :local_repository, "."
-set :branch, 'master'
+set :branch do
+  ENV['BRANCH'] || 'master'
+end
 set :deploy_to, "/home/staging/www/#{application}"
 set :git_enable_submodules, 1
 
