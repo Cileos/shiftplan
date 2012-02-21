@@ -26,4 +26,8 @@ class Team < ActiveRecord::Base
   def color
     '#' + Digest::MD5.hexdigest(name).first(6)
   end
+
+  def shortcut
+    name.split.map(&:first).join
+  end
 end

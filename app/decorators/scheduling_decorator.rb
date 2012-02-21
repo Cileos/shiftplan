@@ -6,7 +6,7 @@ class SchedulingDecorator < ApplicationDecorator
   end
 
   def short
-    concat hour_range_quickie # , team_shortcut
+    concat hour_range_quickie, team_shortcut
   end
 
   def team_class
@@ -14,6 +14,12 @@ class SchedulingDecorator < ApplicationDecorator
       h.dom_id(team)
     else
       'no-team'
+    end
+  end
+
+  def team_shortcut
+    if team
+      team.shortcut
     end
   end
 

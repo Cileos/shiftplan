@@ -13,4 +13,11 @@ describe Team do
     it { team.color.should_not be_blank }
     it { team.color.should =~ /^#[0-9a-f]{6}$/ }
   end
+
+  context 'shortcut' do
+    let(:team) { Factory.build(:team, name: "Reaktor putzen" ) }
+
+    it { team.shortcut.should_not be_blank }
+    it { team.shortcut.should == 'Rp' }
+  end
 end

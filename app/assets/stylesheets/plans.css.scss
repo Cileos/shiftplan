@@ -38,6 +38,7 @@ table#calendar {
         padding: 1px 6px;
         margin-left: 1em;
         display: block; /* do not break if too long */
+        text-transform: none; /* instead of uppercase */
       }
     }
   }
