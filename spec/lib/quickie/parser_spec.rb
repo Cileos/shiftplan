@@ -67,22 +67,6 @@ describe 'Quickie::Parser' do
     end
   end
 
-  it "should detect team name"
-  it "should detect team name with spaces"
-
-  # reload Grammar manually, because the constant QuickieParser are created
-  # automatically on Treetop.load, else spork does not recognize changes
-  before(:all) do
-    require_dependency 'quickie'
-  end
-  after(:all) do
-    if defined?(QuickieParser)
-      Object.send :remove_const, :QuickieParser
-    end
-    if defined?(Quickie::Parser)
-      Quickie.send :remove_const, :Parser
-      Object.send :remove_const, :Quickie
-    end
   end
 
 end

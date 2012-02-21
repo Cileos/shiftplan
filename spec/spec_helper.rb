@@ -23,6 +23,13 @@ Spork.prefork do
     end
 
     config.mock_with(:rspec)
+
+    # reload Grammar manually, because the constant QuickieParser is created
+    # automatically on Treetop.load, else spork does not detect modifications
+    config.before(:all) do
+      Quickie.reload_parser!
+    end
+
   end
   require 'plymouth'
 end
