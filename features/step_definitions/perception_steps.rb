@@ -32,6 +32,18 @@ Then /^I should see a list of the following (.+):$/ do |plural, expected|
   expected.diff! actual
 end
 
+Then /^I should see the following list of links:$/ do |expected|
+  expected.column_names.should == %w(link active)
+  actual = all('ul li:has(a)').map do |li|
+    [
+      li.first('a').text,
+      (li[:class] || '').split.include?('active').to_s
+    ]
+  end
+  actual.unshift expected.column_names
+  expected.diff! actual
+end
+
 Then /^the page should be titled "([^"]*)"$/ do |title|
   step %Q~I should see "#{title}" within "html head title"~
 end

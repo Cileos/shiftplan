@@ -4,10 +4,12 @@
 [35m./app/assets/javascripts/calendar/editor.coffee[0m[36m:[0m[32m13[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m        # TODO I18n js
 [35m./app/assets/javascripts/calendar/editor.coffee[0m[36m:[0m[32m21[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m        # TODO I18n js
 [35m./app/controllers/employees_controller.rb[0m[36m:[0m[32m14[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  # TODO more than one organization per planner
+[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m128[0m[36m:[0m[38;5;226;1mFIXME[0m[36m:[0m  # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
+[35m./app/helpers/navigation_helper.rb[0m[36m:[0m[32m6[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  #   b) the given regex (TODO)
 [35m./app/models/scheduling_filter.rb[0m[36m:[0m[32m44[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m      length_of_month # TODO month
 [35m./app/models/scheduling.rb[0m[36m:[0m[32m15[0m[36m:[0m[38;5;226;1mFIXME[0m[36m:[0m  # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
-[35m./features/step_definitions/calendar_steps.rb[0m[36m:[0m[32m32[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m# TODO move this to selectors.rb
-[35m./features/step_definitions/calendar_steps.rb[0m[36m:[0m[32m62[0m[36m:[0m[38;5;226;1mFIXME[0m[36m:[0m# FIXME can only match the whole calendar
+[35m./features/step_definitions/calendar_steps.rb[0m[36m:[0m[32m33[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m# TODO move this to selectors.rb
+[35m./features/step_definitions/calendar_steps.rb[0m[36m:[0m[32m63[0m[36m:[0m[38;5;226;1mFIXME[0m[36m:[0m# FIXME can only match the whole calendar
 [35m./features/step_definitions/web_steps.rb[0m[36m:[0m[32m76[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m# TODO: Add support for checkbox, select og option
 [35m./features/support/paths.rb[0m[36m:[0m[32m21[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m        # TODO we may have to scope this under its organization laater
 [35m./features/support/screencast.rb[0m[36m:[0m[32m20[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m    # TODO create animation
