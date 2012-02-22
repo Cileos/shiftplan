@@ -10,3 +10,4 @@ screenshots/
 screencasts/
 coverage
 features/support/stepdefs.txt
+config/missing_translations.yml
