@@ -1,0 +1,11 @@
+de:
+  activerecord:
+    models:
+      team:
+        one: "Team"
+        others: "%{count} Teams"
+    attributes:
+      team:
+        name: Name
+        shortcut: Kürzel
+

@@ -33,11 +33,11 @@ Feature: Navigation
        | Teams       | false  |
        | Ausloggen   | false  |
 
-       #When I follow "Teams"
-       #Then I should see the following list of links within the navigation:
-       #  | link        | active |
-       #  | Dashboard   | false  |
-       #  | Pläne       | false  |
-       #  | Mitarbeiter | false  |
-       #  | Teams       | true   |
-       #  | Ausloggen   | false  |
+     When I follow "Teams"
+     Then I should see the following list of links within the navigation:
+       | link        | active |
+       | Dashboard   | false  |
+       | Pläne       | false  |
+       | Mitarbeiter | false  |
+       | Teams       | true   |
+       | Ausloggen   | false  |
