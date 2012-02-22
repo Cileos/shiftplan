@@ -6,10 +6,9 @@ Feature: Plan cursor
 
   Background:
     Given the situation of a nuclear reactor
+      And I wait for the calendar to appear
 
   Scenario: navigating through the plan with keystrokes
-    Given I am on the page for the plan
-      And I wait for the calendar to appear
      Then the cell "Montag"/"Carl C" should be focus
      When I press arrow up
      Then the cell "Montag"/"Homer S" should be focus
@@ -27,4 +26,22 @@ Feature: Plan cursor
     Then the cell "Montag"/"Lenny L" should be focus
     When I press arrow up
     Then the cell "Montag"/"Carl C" should be focus
+
+  Scenario: opening the modal window by pressing enter
+    When I press return
+     And I wait for the modal box to appear
+     And I press escape
+     And I wait for the modal box to disappear
+    Then the cell "Montag"/"Carl C" should be focus
+    When I press arrow right
+    Then the cell "Dienstag"/"Carl C" should be focus
+
+  Scenario: opening the modal window by clicking on a ell
+    When I click on cell "Mittwoch"/"Carl C"
+     And I wait for the modal box to appear
+     And I press escape
+     And I wait for the modal box to disappear
+    Then the cell "Mittwoch"/"Carl C" should be focus
+    When I press arrow right
+    Then the cell "Donnerstag"/"Carl C" should be focus
 

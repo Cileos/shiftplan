@@ -16,7 +16,7 @@ Then /^the cell "([^"]+)"\/"([^"]+)" should be (focus)$/ do |column_label, row_l
 end
 
 def directions
-  ['arrow up','arrow down','arrow right','arrow left','return'].join('|')
+  ['arrow up','arrow down','arrow right','arrow left','return','escape'].join('|')
 end
 
 When /^I press (#{directions})$/ do |direction|

@@ -22,12 +22,13 @@ class CalendarCursor
 
     @enable()
 
+    # Disable keydown event handler as we want to press enter in the opening modal window to submit the form.
+    $('body').on 'shown', => @disable
+
     # The keydown event handler 'CalendarCursor#keydown' gets disabled when the modal window for creating 
     # schedulings opens so that the user should can press the "return" key to submit the form.
     # Therefore we must reenable the keydown event handler when the modal window was hidden:
-    $curser = this
-    $('#scheduling_modal').on 'hidden', ->
-      $curser.enable()
+    $('body').on 'hidden', => @enable
 
   focussed_cell: ->
     @$body.find('td.focus')
@@ -41,8 +42,6 @@ class CalendarCursor
   keydown: (event) =>
     $focus  = @focussed_cell()
     if event.keyCode == 13 # enter
-      # Disable keydown event handler as we want to press enter in the opening modal window to submit the form.
-      @disable()
       # Trigger 'calendar.cell_activate' event. The handler will open the modal window for creating a new scheduling.
       @$calendar.trigger 'calendar.cell_activate', $focus
       return
