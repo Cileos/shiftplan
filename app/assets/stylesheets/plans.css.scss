@@ -11,7 +11,8 @@ $cell_border: #ccc;
 
 @mixin pibble-outer {
   padding: 2px;
-  @include border-radius(3px);
+  @include border-left-radius(8px);
+  @include border-right-radius(3px);
   @include box-shadow($gray 1px 1px 6px);
   float: left;
   clear: left;
