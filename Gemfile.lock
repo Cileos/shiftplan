@@ -22,13 +22,6 @@ GIT
       activemodel (~> 3.0)
 
 GIT
-  remote: git://github.com/svenfuchs/i18n-missing_translations.git
-  revision: 5622f868a5594523cfc3f9c4cae45069bce3f8aa
-  specs:
-    i18n-missing_translations (0.0.1)
-      i18n (~> 0.6.0)
-
-GIT
   remote: git://github.com/v0n/notes.git
   revision: 5f2d86b7cf0b4f430c283f8d246af19a5641821d
   specs:
@@ -318,7 +311,6 @@ DEPENDENCIES
   guard-rspec (~> 0.6.0)
   guard-spork (~> 0.5.2)
   haml-rails
-  i18n-missing_translations!
   inherited_resources
   jasminerice
   jquery-rails
