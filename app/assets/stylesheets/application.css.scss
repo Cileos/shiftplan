@@ -5,9 +5,15 @@
 /* get all of Bootstrap's styles, mixins and variables! Don't use Sproket's
  * `require` directives for SASS files, because they're horrible and will kill
  * your cat. */
+
+/* overwrite boostrap variables heer */
+
 @import "bootstrap";
 
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
 
-/* we actually want to re-use bootstrap variables */
+
+/* from here on, we can re-use bootstrap variables */
 @import "plans"
 
