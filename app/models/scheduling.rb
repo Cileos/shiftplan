@@ -3,6 +3,9 @@ require_dependency 'quickie'
 class Scheduling < ActiveRecord::Base
   belongs_to :plan
   belongs_to :employee
+  belongs_to :team
+
+  delegate :organization, to: :plan
 
   before_validation :parse_quickie
   after_validation :set_human_date_attributes
@@ -46,10 +49,18 @@ class Scheduling < ActiveRecord::Base
   end
   attr_writer :cwday
 
+  # we have two ways to clean and re-generate the quickie, parsed#to_s or
+  # the attributes based self#to_quickie. We use the latter here
   def quickie
-    @quickie ||= to_quickie
+    to_quickie
   end
   attr_writer :quickie
+
+  def hour_range_quickie
+    if starts_at.present? && ends_at.present?
+      "#{starts_at.hour}-#{ends_at.hour}"
+    end
+  end
 
   delegate :iso8601, to: :date
 
@@ -64,6 +75,16 @@ class Scheduling < ActiveRecord::Base
 
   def concurrent
     SchedulingFilter.new week: week, employee: employee, year: year, plan: plan
+  end
+
+  def team_name
+    if team
+      team.name
+    end
+  end
+
+  def team_name=(new_name)
+    self.team = organization.teams.find_or_initialize_by_name(new_name)
   end
 
   # repairs all the missing attributes
@@ -85,7 +106,6 @@ class Scheduling < ActiveRecord::Base
     if @quickie.present?
       if parsed = Quickie.parse(@quickie)
         parsed.fill(self)
-        @quickie = parsed.to_s # clean the entered quickie
       else
         errors.add :quickie, :invalid
       end
@@ -93,11 +113,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def to_quickie
-    if starts_at.present? && ends_at.present?
-      "#{starts_at.hour}-#{ends_at.hour}"
-    else
-      '' # default
-    end
+    [ hour_range_quickie, team.try(:to_quickie) ].compact.join(' ')
   end
 
 
@@ -124,3 +140,5 @@ class ActiveSupport::TimeWithZone
     to_date.cweek
   end
 end
+
+SchedulingDecorator

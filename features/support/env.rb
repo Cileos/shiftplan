@@ -2,6 +2,9 @@ ENV["RAILS_ENV"] = "test"
 require 'rubygems'
 require 'spork'
 
+require 'i18n/missing_translations'
+at_exit { I18n.missing_translations.dump }
+
 Spork.prefork do
   require File.dirname(__FILE__) + "/../../config/spork_prefork"
 
@@ -26,7 +29,7 @@ Spork.prefork do
   # prefer to use XPath just remove this line and adjust any selectors in your
   # steps to use the XPath syntax.
   Capybara.default_selector = :css
-   
+
   if ENV['CAPYBARA_CHROME'] == 'yes'
     STDERR.puts "will run @javascript tests in chrome"
     Capybara.register_driver :selenium do |app|
@@ -43,7 +46,6 @@ Spork.prefork do
 
   # some people have slow computers, 2s are not enough. CI is slow also
   Capybara.default_wait_time = 23
-
 end
 
 Spork.each_run do

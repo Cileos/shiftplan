@@ -8,8 +8,22 @@ de:
         first_name: Vorname
         last_name: Nachname
         full_name: Name
+        weekly_working_time: Wochenarbeitszeit
   simple_form:
     placeholders:
       employee:
         first_name: Vorname
         last_name: Nachname
+  employees:
+    show:
+      weekly_working_time: Wochenarbeitszeit
+      no_weekly_working_time: keine
+    edit:
+      edit_employee: Mitarbeiter bearbeiten
+    new:
+      new_employee: Neuen Mitarbeiter anlegen
+    index:
+      employees: Mitarbeiter
+      first_name: Vorname
+      last_name: Nachname
+      weekly_working_time: Wochenarbeitszeit

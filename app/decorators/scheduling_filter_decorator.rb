@@ -50,6 +50,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
       end
     when :hours
       %Q~#calendar tbody td.hours[data-employee_id=#{resource.id}]~
+    when :legend
+      '#legend'
     else
       super
     end
@@ -68,6 +70,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
         :class => 'hours',
         'data-employee_id' => employee.id
     end
+  end
+
+  def teams
+    records.map(&:team).compact.uniq
   end
 
   def hours_for(employee)
@@ -117,6 +123,22 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def update_hours_for(employee)
     select(:hours, employee).html hours_for(employee)
+  end
+
+  # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
+  def legend
+    h.content_tag(:style) { team_styles } +
+      h.render('teams/legend', teams: teams)
+  end
+
+  def update_legend
+    select(:legend).html legend
+  end
+
+  def team_styles
+    teams.map do |team|
+      %Q~.#{dom_id(team)} { background-color: #{team.color} !important;}~
+    end.join(' ')
   end
 
   private

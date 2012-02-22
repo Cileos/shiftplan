@@ -18,4 +18,8 @@ de:
       hours: Stunden
       previous_week: '<<'
       next_week: '>>'
+      edit: Bearbeiten
+      back: Zurück
+      show: Anzeigen
+      destroy: Löschen
 

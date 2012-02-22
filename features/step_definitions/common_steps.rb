@@ -4,3 +4,16 @@
 Given /^today is (.+)$/ do |timey|
   Timecop.travel Time.parse(timey)
 end
+
+After do
+  Timecop.return
+end
+
+# experiment: shared backgrounds. Put loose steps into
+# features/situations/a_perfect_world.steps, so you can say
+#   Given the situation of a perfect world
+Given /^the situation of ([\w ]+)$/ do |situation|
+  file = situation.downcase.gsub(/\s+/,'_')
+  path = Rails.root/"features"/"situations"/"#{file}.steps"
+  steps File.read(path)
+end

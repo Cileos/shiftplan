@@ -46,6 +46,11 @@ group :test do
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
   gem 'plymouth', :require => false
+
+  gem 'simplecov', :require => false
+  gem 'i18n-missing_translations', :git => 'git://github.com/svenfuchs/i18n-missing_translations.git'
+  gem 'pry-nav'
+  gem 'pry-stack_explorer'
 end
 
 group :development, :test do
@@ -65,6 +70,7 @@ group :production do
 end
 
 gem 'coffee-rails', '~> 3.2.2'
+gem 'compass-rails'
 gem 'devise'
 gem 'cancan'
 gem 'simple_form', git: "git://github.com/plataformatec/simple_form.git", ref: "v2.0.0.rc"
@@ -78,3 +84,4 @@ gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults
 
 # we will try to gernerate js the old-fashioned way
 gem 'versatile_rjs', :git => 'git://github.com/niklas/versatile_rjs.git'
+gem 'polyglot' # load treetop grammars with #require

@@ -4,16 +4,10 @@ Feature: Creating a plan
   I want to create a plan
 
   Scenario: creating a weekly plan for the current organization
-    Given a planner exists
-      And an organization exists with planner: the planner
-      And the organization has the following employees:
-        | first_name | last_name |
-        | Homer      | S         |
-        | Lenny      | L         |
-        | Carl       | C         |
+    Given today is 2012-02-01
       # monday
-      And today is 2012-02-01
-      And I am signed in as the planner
+      And the situation of a nuclear reactor
+      And I am on my dashboard
 
      When I follow "neuer Plan"
       # duration of plan is fixed for now

@@ -170,6 +170,49 @@ describe Scheduling do
         it_behaves_like 'having invalid quickie'
       end
     end
+  end
 
+  context "team" do
+    let(:team)        { Factory :team, :name => 'The A Team' }
+    let(:plan)        { Factory :plan, :organization => team.organization }
+    let(:scheduling) do
+      Factory.build :scheduling,
+        :start_hour   => 1,
+        :end_hour     => 23,
+        :plan         => plan
+    end
+
+    context 'assignment by name' do
+      it "can happen through quickie" do
+        scheduling.quickie = '1-23 The A Team'
+        scheduling.valid?
+        scheduling.team.should == team
+        scheduling.team_name.should == team.name
+        scheduling.quickie.should == '1-23 The A Team'
+      end
+
+      it "can be assigned by name" do
+        scheduling.team_name = team.name
+        scheduling.team.should == team
+        scheduling.team_name.should == team.name
+        scheduling.quickie.should == '1-23 The A Team'
+      end
+
+      it "build team if none exists yet" do
+        scheduling.team_name = 'The B Team'
+        scheduling.team.should_not be_nil
+        scheduling.team.should_not be_persisted
+        scheduling.quickie.should == '1-23 The B Team'
+      end
+
+      it "may not use teams from other organizations, instead build its own" do
+        other_team = Factory :team, :name => 'The Bad Guys'
+        scheduling.team_name = other_team.name
+        scheduling.team.should be_present
+        scheduling.team.should_not == other_team
+        scheduling.team.organization.should == team.organization
+      end
+
+    end
   end
 end

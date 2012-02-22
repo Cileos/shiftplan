@@ -33,3 +33,9 @@ end
 Then /^(.+) should disappear$/ do |name|
   step %Q~I wait for #{name} to disappear~
 end
+
+Then /^I should see the following defined items:$/ do |expected|
+  found = page.all('dl di').map { |di| di.all('dt,dd').map(&:text).map(&:strip) }
+  expected.diff! found
+end
+

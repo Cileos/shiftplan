@@ -1,0 +1,103 @@
+// Place all the styles related to the Plans controller here.
+// They will automatically be included in application.css.
+$cell_width: 3.3em;
+$cell_border: #ccc;
+
+@mixin pibble-outer {
+  padding: 2px;
+  @include border-left-radius(8px);
+  @include border-right-radius(3px);
+  @include box-shadow($gray 1px 1px 6px);
+  float: left;
+  clear: left;
+  margin: 0.6em;
+}
+
+@mixin pibble-inner {
+  border: none;
+  background-color: $white;
+  @include border-radius(2px);
+  @include box-shadow($grayLight 1px 1px 2px 1px inset);
+  padding: 1px 6px;
+  margin-left: 1em;
+  display: block; /* do not break if too long */
+  text-transform: none; /* instead of uppercase */
+}
+
+table#calendar {
+  tbody td.focus {
+    @include border-radius(3px);
+    @include box-shadow($grayLight 1px 1px 4px 1px inset);
+  }
+  tbody td {
+    cursor: pointer;
+    label[for=scheduling_quicky] {
+      display: none;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0.1em;
+    margin: 0;
+    li {
+      @include pibble-outer();
+      abbr, span {
+        @include pibble-inner();
+      }
+    }
+  }
+}
+
+div.scroller {
+  width: 100%;
+  overflow: auto;
+}
+
+#scheduling_modal {
+  ul.calendar_editor {
+    list-style: none;
+    padding-left: 0.5em;
+  }
+  form {
+    .control-group.quickie {
+      margin-bottom: 0;
+    }
+    position: relative;
+    button[type=submit] {
+      position: absolute;
+      right: 4%;
+      top: 19px;
+    }
+    a.delete {
+      position: absolute;
+      left: 4%;
+      top: 19px;
+    }
+
+    .errors {
+      margin-top: 9px;
+      margin-bottom: 9px;
+    }
+  }
+}
+
+#legend {
+  dl {
+    di {
+      display: block;
+      dt.shortcut {
+        @include pibble-outer();
+        span {
+          @include pibble-inner();
+        }
+      }
+      dd {
+        padding: 2px;
+        margin: 0.6em;
+        float: left;
+      }
+    }
+  }
+}
+

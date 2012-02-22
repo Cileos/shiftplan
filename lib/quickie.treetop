@@ -1,13 +1,26 @@
 grammar Quickie
-#  rule message
-#    hour_range <Quickie::MessageNode>
-#  end
-#
+  rule message
+    hour_range? optional_space team? <Quickie::MessageNode>
+  end
+
   rule hour_range
     start_hour:hour '-' end_hour:hour <Quickie::HourRangeNode>
   end
 
+  # at least two characters, first is not a number, multiple words
+  rule team
+    [A-Za-z] [A-Za-z0-9 ]+ <Quickie::TeamNode>
+  end
+
   rule hour
     '2' [0-4] / '1' [0-9] / [0-9]
+  end
+
+  rule space
+    ' '+
+  end
+
+  rule optional_space
+    ' '*
   end
 end

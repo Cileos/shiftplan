@@ -4,23 +4,20 @@ Feature: Sum of hours in plan
   I want to see the sum of their planned working ours in the week view
 
   Background:
-    Given a planner exists
-      And an organization exists with planner: the planner
-      And a plan exists with organization: the organization
-      And today is 2011-02-07
-      And I am signed in as the planner
+    Given today is 2011-02-07
+      And the situation of a nuclear reactor
 
   Scenario: nothing planned
-    Given an employee exists with first_name: "Homer", last_name: "Simpson", organization: the organization
-    # And I did not plan any schedules for him
+    # I did not plan any schedules for Homer
      When I go to the page of the plan
      Then I should see the following calendar:
-        | Mitarbeiter   | Stunden |
-        | Homer Simpson | 0       |
+        | Mitarbeiter | Stunden |
+        | Carl C      | 0       |
+        | Lenny L     | 0       |
+        | Homer S     | 0       |
 
   Scenario: work 9 to 5 every weekday
-    Given an employee exists with first_name: "Homer", last_name: "Simpson", organization: the organization
-      And the employee was scheduled in the plan as following:
+    Given the employee "Homer" was scheduled in the plan as following:
         | cwday | quickie |
         | 1     | 9-17    |
         | 2     | 9-17    |
@@ -29,13 +26,14 @@ Feature: Sum of hours in plan
         | 5     | 9-17    |
      When I go to the page of the plan
      Then I should see the following calendar:
-        | Mitarbeiter   | Stunden |
-        | Homer Simpson | 40      |
+        | Mitarbeiter | Stunden |
+        | Carl C      | 0       |
+        | Lenny L     | 0       |
+        | Homer S     | 40      |
 
    @javascript
-   Scenario: yeah Peter, whats happening? I'll need you go ahead and come in on saturday and sunday as well
-    Given an employee exists with first_name: "Peter", last_name: "Gibbons", organization: the organization
-      And the employee was scheduled in the plan as following:
+   Scenario: yeah Homer, whats happening? I'll need you go ahead and come in on saturday and sunday as well
+    Given the employee "Homer" was scheduled in the plan as following:
         | cwday | quickie |
         | 1     | 9-17    |
         | 2     | 9-17    |
@@ -43,9 +41,11 @@ Feature: Sum of hours in plan
         | 4     | 9-17    |
         | 5     | 9-17    |
       And I am on the page of the plan
-     When I schedule "Peter Gibbons" on "Samstag" for "10-17"
-      And I schedule "Peter Gibbons" on "Sonntag" for "12-17"
+     When I schedule "Homer S" on "Samstag" for "10-17"
+      And I schedule "Homer S" on "Sonntag" for "12-17"
      Then I should see the following calendar:
-        | Mitarbeiter   | Stunden |
-        | Peter Gibbons | 52      |
+        | Mitarbeiter | Stunden |
+        | Carl C      | 0       |
+        | Lenny L     | 0       |
+        | Homer S     | 52      |
 

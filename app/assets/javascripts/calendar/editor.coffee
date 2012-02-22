@@ -15,7 +15,7 @@ class SchedulingEditor extends View
       @div class: 'control-group quickie', =>
         @label "Quickie", for: "#{name}_quickie"
         @div class: 'controls', =>
-          @input type: 'text', value: $scheduling.text(), id: "#{name}_quickie", name: 'scheduling[quickie]'
+          @input type: 'text', value: $scheduling.data('quickie'), id: "#{name}_quickie", name: 'scheduling[quickie]'
       @button type: 'submit', class: 'btn btn-info', =>
         @i class: 'icon-ok-circle icon-white'
         # TODO I18n js
@@ -30,6 +30,13 @@ class CalendarEditor extends View
     for scheduling in params.cell.find('li')
       @addScheduling($(scheduling))
     @addNewForm params.form, params.cell
+    @addTabIndices()
+
+  addTabIndices: ->
+    tabIndex = 1
+    for input in @list.find('input[type=text],select,button')
+      $(input).attr('tabIndex', tabIndex)
+      tabIndex++
 
   addScheduling: ($scheduling) ->
     @list.append new SchedulingEditor($scheduling)
