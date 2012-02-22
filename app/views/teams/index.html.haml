@@ -1,0 +1,13 @@
+- title :teams
+
+%table#teams.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr.employee
+      %th= Team.human_attribute_name(:name)
+      %th= Team.human_attribute_name(:shortcut)
+
+  %tbody
+    - collection.each do |team|
+      %tr
+        %td= team.name
+        %td= team.shortcut

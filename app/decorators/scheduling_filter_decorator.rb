@@ -135,6 +135,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     select(:legend).html legend
   end
 
+  # TODO move into own view to fetch as an organization-specific asset
   def team_styles
     teams.map do |team|
       %Q~.#{dom_id(team)} { background-color: #{team.color} !important;}~

@@ -1,10 +1,13 @@
 [35m./app/assets/javascripts/calendar/cursor.js.coffee[0m[36m:[0m[32m9[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m    # TODO better trigger the event on the cell and let it bubble up?
+[35m./app/assets/javascripts/calendar/cursor.js.coffee[0m[36m:[0m[32m32[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m    # TODO
 [35m./app/assets/javascripts/calendar/editor.coffee[0m[36m:[0m[32m1[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m# TODO test _calendar.html
 [35m./app/assets/javascripts/calendar/editor.coffee[0m[36m:[0m[32m8[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m    # TODO routes for js
 [35m./app/assets/javascripts/calendar/editor.coffee[0m[36m:[0m[32m13[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m        # TODO I18n js
 [35m./app/assets/javascripts/calendar/editor.coffee[0m[36m:[0m[32m21[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m        # TODO I18n js
 [35m./app/controllers/employees_controller.rb[0m[36m:[0m[32m14[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  # TODO more than one organization per planner
+[35m./app/controllers/teams_controller.rb[0m[36m:[0m[32m6[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  # TODO more than one organization per planner
 [35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m128[0m[36m:[0m[38;5;226;1mFIXME[0m[36m:[0m  # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
+[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m138[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  # TODO move into own view to fetch as an organization-specific asset
 [35m./app/helpers/navigation_helper.rb[0m[36m:[0m[32m6[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  #   b) the given regex (TODO)
 [35m./app/models/scheduling_filter.rb[0m[36m:[0m[32m44[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m      length_of_month # TODO month
 [35m./app/models/scheduling.rb[0m[36m:[0m[32m15[0m[36m:[0m[38;5;226;1mFIXME[0m[36m:[0m  # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
