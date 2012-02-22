@@ -48,7 +48,6 @@ group :test do
   gem 'plymouth', :require => false
 
   gem 'simplecov', :require => false
-  gem 'i18n-missing_translations', :git => 'git://github.com/svenfuchs/i18n-missing_translations.git'
   gem 'pry-nav'
   gem 'pry-stack_explorer'
 end
