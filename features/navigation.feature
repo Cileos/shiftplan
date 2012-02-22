@@ -8,6 +8,36 @@ Feature: Navigation
      
      When I am on the dashboard
      Then I should see the following list of links within the navigation:
-       | link      | active |
-       | Dashboard | true   |
-       | Ausloggen | false  |
+       | link        | active |
+       | Dashboard   | true   |
+       | Pläne       | false  |
+       | Mitarbeiter | false  |
+       | Teams       | false  |
+       | Ausloggen   | false  |
+
+     When I follow "Pläne"
+     Then I should see the following list of links within the navigation:
+       | link        | active |
+       | Dashboard   | false  |
+       | Pläne       | true   |
+       | Mitarbeiter | false  |
+       | Teams       | false  |
+       | Ausloggen   | false  |
+
+     When I follow "Mitarbeiter"
+     Then I should see the following list of links within the navigation:
+       | link        | active |
+       | Dashboard   | false  |
+       | Pläne       | false  |
+       | Mitarbeiter | true   |
+       | Teams       | false  |
+       | Ausloggen   | false  |
+
+       #When I follow "Teams"
+       #Then I should see the following list of links within the navigation:
+       #  | link        | active |
+       #  | Dashboard   | false  |
+       #  | Pläne       | false  |
+       #  | Mitarbeiter | false  |
+       #  | Teams       | true   |
+       #  | Ausloggen   | false  |

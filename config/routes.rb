@@ -7,6 +7,7 @@ Shiftplan::Application.routes.draw do
   end
 
   resources :employees
+  resources :teams
 
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
   get "dashboard" => 'welcome#dashboard', :as => 'user_root'

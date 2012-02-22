@@ -1,3 +1,6 @@
 %ul.nav
   = li_link '.dashboard', dashboard_path,              can: [:dashboard, current_user]
+  = li_link '.plans',     plans_path,                  can: [:index, Plan]
+  = li_link '.employees', employees_path,              can: [:index, Employee]
+  = li_link '.teams',     teams_path,                  can: [:index, Team]
   = li_link '.profile',   edit_user_registration_path, can: [:edit, current_user]
