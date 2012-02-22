@@ -1,0 +1,9 @@
+%p= "Hallo #{@resource.email}!"
+
+%p= "Jemand hat Sie zu #{root_url} eingeladen. Sie können die Einladung akzeptieren, indem Sie auf den folgenden Link klicken."
+
+%p= link_to 'Einladung akzeptieren', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token)
+
+%p Falls Sie die Einladung nicht bestätigen wollen, ignorieren Sie diese E-Mail bitte. Ihr Account wird nicht angelegt solange Sie nicht auf den 'Einladung akzeptieren' Link geklickt haben und Ihr Passwort gesetzt haben.
+
+%p Ihr Shiftplan Team

@@ -1,0 +1,13 @@
+%h2= t('.send_invitation')
+
+= simple_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f|
+  = devise_error_messages!
+
+  .inputs
+    = f.input :employee_id, :as => :hidden
+    = f.input :email
+
+  .actions
+    = f.button :submit, t('.send_an_invitation')
+
+= link_to :back, after_sign_in_path_for(resource_name)

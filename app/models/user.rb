@@ -3,10 +3,12 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :timeoutable, :lockable, :token_authenticatable
+         :confirmable, :timeoutable, :lockable, :token_authenticatable, :invitable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :employee_id
+
+  attr_accessor :employee_id
 
   Roles = %w(owner planner)
   serialize :roles, Array

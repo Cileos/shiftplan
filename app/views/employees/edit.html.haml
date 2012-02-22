@@ -2,6 +2,8 @@
 
 = render 'form'
 
-= link_to :show, @employee
-\|
 = link_to :back, employees_path
+\|
+= link_to :show, resource
+\|
+= link_to :invite, new_user_invitation_path( user: { employee_id: resource.id } )

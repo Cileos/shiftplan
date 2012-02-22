@@ -39,3 +39,12 @@ de:
         subject: 'Passwort zurücksetzen'
       unlock_instructions:
         subject: 'Konto entsperren'
+      invitation_instructions:
+        subject: 'Sie wurden zu Shiftplan eingeladen'
+    invitations:
+      send_instructions: 'Die Einladung wurde erfolgreich verschickt.'
+      new:
+        send_invitation: 'Mitarbeiter einladen'
+        send_an_invitation: 'Einladung verschicken'
+      edit:
+        set_password: Passwort setzen

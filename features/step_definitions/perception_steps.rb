@@ -1,7 +1,7 @@
 # steps where the user sees things
 
 
-Then /^I should (see|not see) (?:flash )?(flash|info|alert) "([^"]*)"$/ do |see_or_not, severity, message|
+Then /^I should (see|not see) (?:flash )?(flash|info|alert|notice) "([^"]*)"$/ do |see_or_not, severity, message|
   if see_or_not =~ /not/
     step %Q{I should #{see_or_not} "#{message}"}
   else
