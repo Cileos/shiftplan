@@ -26,11 +26,23 @@ class SchedulingEditor extends View
     @quickie
       .addClass('typeahead')
       .typeahead
-        source: params.quickies
+        source: params.quickies,
+        sorter: @sorter
     @.closest('.modal').on 'hidden', => @quickie.unbind()
 
-  matcher: (item) ->
-    ~item.toLowerCase().indexOf(@query.toLowerCase())
+  sorter: (items) ->
+    [timeRange, shortCuts, beginsWith, rest] = [ [],[],[],[] ]
+    for item in items
+      list = if ~item.indexOf("#{@query}-") or ~item.indexOf("-#{@query}") # pre/suffixed by a dash
+               timeRange
+             else if ~item.indexOf("[#{@query}]") # case sensitive match on team [shortcut]
+               shortCuts
+             else if !item.toLowerCase().indexOf(@query.toLowerCase()) # we know it's included, check for index==0
+               beginsWith
+             else
+               rest
+      list.push(item)
+    timeRange.concat(shortCuts, beginsWith, rest)
 
 window.SchedulingEditor = SchedulingEditor
 
