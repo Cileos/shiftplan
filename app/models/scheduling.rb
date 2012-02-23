@@ -102,12 +102,11 @@ class Scheduling < ActiveRecord::Base
 
   # TODO save start_hour and end_hour or even cache the whole quickie
   def self.quickies
-    includes(:team)
-      .select('starts_at, ends_at, team_id') # dates never douple
-      .group('starts_at, ends_at, team_id')
-      .all
+    # select the maximal dates because psql wants aggregations and we are just interested in the hours anyway
+    includes(:team) 
+      .select(%q~max(starts_at) AS starts_at, max(ends_at) AS ends_at, team_id~)
+      .group(%q~date_part('hour', starts_at), date_part('hour', ends_at), team_id~)
       .map(&:quickie)
-      .uniq # can be removed when grouping by hours
   end
 
   private
