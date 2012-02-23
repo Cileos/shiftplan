@@ -6,6 +6,8 @@ class SchedulingsController < InheritedResources::Base
 
   respond_to :html, :js
 
+  before_filter :set_completions
+
   private
     def collection
       @schedulings ||= filter.records
@@ -25,5 +27,11 @@ class SchedulingsController < InheritedResources::Base
         .slice(:week, :year)
         .reverse_merge(:year => Date.today.year)
         .merge(:plan => parent)
+    end
+
+    # pushes quickie completion data to JS
+    # OPTIMIZE put this into a decorator to make it updatable
+    def set_completions
+      gon.quickie_completions = parent.schedulings.quickies
     end
 end

@@ -27,10 +27,20 @@ class CalendarEditor extends View
       @div class: 'schedulings', outlet: 'list'
 
   initialize: (params) ->
+    @setupAutocomplete()
     for scheduling in params.cell.find('li')
       @addScheduling($(scheduling))
     @addNewForm params.form, params.cell
     @addTabIndices()
+
+  setupAutocomplete: ->
+    # All quickie fields will be autocompleted, keybindings removed on modal box close
+    @on 'attach', ->
+      $(@).find(":input[name='scheduling[quickie]']:not(.typeahead)")
+        .addClass('typeahead')
+        .typeahead
+          source: gon.quickie_completions
+    @.closest('.modal').on 'hidden', => $(@).find(":input.typeahead").unbind()
 
   addTabIndices: ->
     tabIndex = 1

@@ -100,6 +100,16 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
+  # TODO save start_hour and end_hour or even cache the whole quickie
+  def self.quickies
+    includes(:team)
+      .select('starts_at, ends_at, team_id') # dates never douple
+      .group('starts_at, ends_at, team_id')
+      .all
+      .map(&:quickie)
+      .uniq # can be removed when grouping by hours
+  end
+
   private
 
   def parse_quickie
