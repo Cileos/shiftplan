@@ -72,10 +72,6 @@ else
   bundle exec rake db:migrate
 fi
 
-# we want all tests to run, even if other test components fail before, 
-# so we toggle one bit of the exit/return value if a test component fails
-ret=$((0))
-
 header "rSpec"
 bundle exec rspec --color ./spec
 
