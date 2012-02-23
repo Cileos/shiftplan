@@ -1,9 +1,9 @@
 # TODO test _calendar.html
 class SchedulingEditor extends View
-  @content: ($scheduling) ->
-    id = $scheduling.data('id') || throw('scheduling without id given, needed to edit')
+  @content: (params) ->
+    id = params.scheduling.data('id') || throw('scheduling without id given, needed to edit')
     name = "scheduling_#{id}"
-    plan = $scheduling.closest('table').data('plan_id')
+    plan = params.scheduling.closest('table').data('plan_id')
     url  = "/plans/#{plan}/schedulings/#{id}"
     # TODO routes for js
     @form class: 'form-horizontal well edit_scheduling', 'data-remote': true, id: "edit_#{name}", method: "POST", action: url, =>
@@ -15,11 +15,24 @@ class SchedulingEditor extends View
       @div class: 'control-group quickie', =>
         @label "Quickie", for: "#{name}_quickie"
         @div class: 'controls', =>
-          @input type: 'text', value: $scheduling.data('quickie'), id: "#{name}_quickie", name: 'scheduling[quickie]'
+          @input type: 'text', value: params.scheduling.data('quickie'), id: "#{name}_quickie", name: 'scheduling[quickie]', outlet: 'quickie'
       @button type: 'submit', class: 'btn btn-info', =>
         @i class: 'icon-ok-circle icon-white'
         # TODO I18n js
         @text ' Speichern'
+
+  initialize: (params) ->
+    # All quickie fields will be autocompleted, keybindings removed on modal box close
+    @quickie
+      .addClass('typeahead')
+      .typeahead
+        source: params.quickies
+    @.closest('.modal').on 'hidden', => @quickie.unbind()
+
+  matcher: (item) ->
+    ~item.toLowerCase().indexOf(@query.toLowerCase())
+
+window.SchedulingEditor = SchedulingEditor
 
 class CalendarEditor extends View
   @content: ->
@@ -27,20 +40,12 @@ class CalendarEditor extends View
       @div class: 'schedulings', outlet: 'list'
 
   initialize: (params) ->
-    @setupAutocomplete()
     for scheduling in params.cell.find('li')
       @addScheduling($(scheduling))
     @addNewForm params.form, params.cell
     @addTabIndices()
 
   setupAutocomplete: ->
-    # All quickie fields will be autocompleted, keybindings removed on modal box close
-    @on 'attach', ->
-      $(@).find(":input[name='scheduling[quickie]']:not(.typeahead)")
-        .addClass('typeahead')
-        .typeahead
-          source: gon.quickie_completions
-    @.closest('.modal').on 'hidden', => $(@).find(":input.typeahead").unbind()
 
   addTabIndices: ->
     tabIndex = 1
@@ -49,7 +54,7 @@ class CalendarEditor extends View
       tabIndex++
 
   addScheduling: ($scheduling) ->
-    @list.append new SchedulingEditor($scheduling)
+    @list.append new SchedulingEditor scheduling: $scheduling, quickies: gon.quickie_completions
 
   addNewForm: ($form, $cell) ->
     $form.find(':input#scheduling_employee_id').val($cell.data('employee_id')).change()
