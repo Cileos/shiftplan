@@ -76,11 +76,9 @@ Feature: create a scheduling
      When I press return
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7"
-      And I press tab
+      And I press return in the "Quickie" field
      Then the "Quickie" field should contain "7-17"
-     # the return is cought by typeahead and tabbing is ignored
-     # And I press return
-     When I press "Anlegen"
+     When I press enter in the "Quickie" field
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
