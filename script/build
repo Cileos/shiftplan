@@ -77,12 +77,15 @@ fi
 ret=$((0))
 
 header "rSpec"
-bundle exec rspec --color ./spec     || ret=$(($ret+1))
+bundle exec rspec --color ./spec
+
 header "Jasmine"
-xvfb-run bundle exec guard-jasmine   || ret=$(($ret+2))
-header "Cucumber"
-bundle exec cucumber features        || ret=$(($ret+4))
+xvfb-run bundle exec guard-jasmine
+
+header "Cucumber with firefox"
+bundle exec cucumber features
+
+header "Cucumber with chrome"
+CAPYBARA_CHROME=yes bundle exec cucumber features -t @javascript
 
 header "Done"
-echo "fin. (exit code: $ret)"
-exit $ret
