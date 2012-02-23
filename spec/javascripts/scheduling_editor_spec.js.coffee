@@ -42,3 +42,13 @@ describe 'SchedulingEditor', ->
 
     it 'should complete suffix of words in team name', ->
       expect('17-23 laut Hacken').toBeCompletedBy('ken', @editor)
+
+    it 'should complete prefix of words in team name', ->
+      expect('17-23 laut Hacken').toBeCompletedBy('Hack', @editor)
+
+    it 'should ignore case', ->
+      expect('17-23 laut HacKen').toBeCompletedBy('hAck', @editor)
+
+    it 'should complete shortcut in square brackets', ->
+      expect('17-23 laut Hacken [lH]').toBeCompletedBy('lh', @editor)
+      expect('17-23 laut Hacken [lH]').toBeCompletedBy('[lh', @editor)
