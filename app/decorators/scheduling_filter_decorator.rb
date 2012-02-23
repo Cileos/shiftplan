@@ -135,6 +135,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
     select(:legend).html legend
   end
 
+  def update_quickie_completions
+    page << "window.gon.quickie_completions=" + plan.schedulings.quickies.to_json
+  end
+
   # TODO move into own view to fetch as an organization-specific asset
   def team_styles
     teams.map do |team|

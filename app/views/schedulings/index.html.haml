@@ -1,6 +1,7 @@
 - case filter.range
 - when :week
   = render 'calendar', filter: filter
+  - controller.gon.quickie_completions = parent.schedulings.quickies
 - else
   %p= Scheduling.model_name.pluralize :count => collection.count
 
