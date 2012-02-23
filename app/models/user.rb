@@ -10,6 +10,16 @@ class User < ActiveRecord::Base
 
   attr_accessor :employee_id
 
+  has_many :employees
+
+  def associate_with_employees
+    if employee_id && employee = Employee.find_by_id(employee_id)
+      employee.user = self
+      employee.save
+    end
+  end
+  after_create :associate_with_employees
+
   Roles = %w(owner planner)
   serialize :roles, Array
 
@@ -34,12 +44,15 @@ class User < ActiveRecord::Base
   # planner
   has_many :organizations, :foreign_key => 'planner_id'
   def organization
-    organizations.first || create_default_organization!
+    organizations.first ||
+      employees.try(:first).try(:organization) ||
+      create_default_organization!
   end
 
   private
   def create_default_organization!
+    roles << 'planner'
+    save
     organizations.create! :name => "Organization for #{label}"
   end
-
 end

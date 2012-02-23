@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 $cell_width: 3.3em;
 $cell_border: #ccc;
+$white: #fff;
 
 @mixin pibble-outer {
   padding: 2px;
@@ -144,6 +145,14 @@ div.scroller {
         margin: 0.6em;
         float: left;
       }
+    }
+  }
+}
+
+ul.nav {
+  li {
+    span {
+      color: $white;
     }
   }
 }

@@ -7,6 +7,7 @@ class Ability
     user.roles.each do |role|
       public_send "authorize_#{role}", user
     end
+    can :dashboard, User if user.persisted?
   end
 
   def authorize_employee(employee)

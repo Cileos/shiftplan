@@ -4,10 +4,12 @@ Feature: Inviting Employees
   So that they can see when they have to work and can comment on plans and shifts
 
   Scenario: Inviting an employee
-    Given a planner "me" exists
-      And an organization "nukular" exists with planner: planner "me"
-      And an employee exists with organization: organization "nukular", first_name: "Homer"
+    Given a planner "me" exists with email: "planner@fukushima.jp"
+    And an organization "fukushima" exists with name: "Fukushima", planner: planner "me"
+      And an employee exists with organization: organization "fukushima", first_name: "Homer"
+      And a plan exists with organization: the organization, name: "Schicht im Schacht"
      When I sign in as the planner "me"
+     Then I should be signed in as "planner@fukushima.jp" for the organization
      When I follow "Mitarbeiter"
      When I follow "Homer"
       And I follow "Bearbeiten"
@@ -23,7 +25,7 @@ Feature: Inviting Employees
       And I fill in "Passwort" with "secret!"
       And I fill in "Passwort bestätigen" with "secret!"
       And I press "Passwort setzen"
-     Then I should be signed in as "homer@thesimpsons.com"
-      And I should be on the home page
-      And I should be signed in as "homer@thesimpsons.com"
+     Then I should be signed in as "homer@thesimpsons.com" for the organization
+      And I should be on the dashboard page
+      And I should see "Schicht im Schacht"
 

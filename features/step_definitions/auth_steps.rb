@@ -2,6 +2,11 @@ Then /^I should be signed in as "([^"]*)"$/ do |email|
   step %Q~I should see "#{email}" within "#session"~
 end
 
+Then /^I should be signed in as "([^"]*)" for #{capture_model}$/ do |email, organisation|
+  step %Q~I should see "#{email}" within "#session"~
+  step %Q~I should see "#{model!(organisation).name}" within "#session"~
+end
+
 Given /^I am signed in as #{capture_model}$/ do |user|
   unless user.include?('the') || user.include?('"')
     step %{#{user} exists}

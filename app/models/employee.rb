@@ -11,5 +11,6 @@ class Employee < ActiveRecord::Base
   end
 
   belongs_to :organization
+  belongs_to :user
   has_many :schedulings
 end

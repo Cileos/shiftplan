@@ -20,9 +20,11 @@ ActiveRecord::Schema.define(:version => 20120314145221) do
     t.datetime "updated_at"
     t.integer  "organization_id"
     t.decimal  "weekly_working_time"
+    t.integer  "user_id"
   end
 
   add_index "employees", ["organization_id"], :name => "index_employees_on_organization_id"
+  add_index "employees", ["user_id"], :name => "index_employees_on_user_id"
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
