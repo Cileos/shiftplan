@@ -39,12 +39,13 @@ Feature: create a scheduling
      Then I should see "Quickie ist nicht gültig" within errors within the new scheduling form
 
   @javascript
-  Scenario: after pressing 'enter' the scheduling form should appear
+  Scenario: schedule only using the keyboard
      Then the cell "Montag"/"Carl C" should be focus
      When I press return
       And I wait for the new scheduling form to appear
-     When I fill in "Quickie" with "8-18"
+      And I fill in "Quickie" with "8-18"
       And I press "Anlegen"
+      And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
         | Carl C      | 8-18   |          |          |            |         |         |         |
@@ -58,11 +59,32 @@ Feature: create a scheduling
      Then the cell "Dienstag"/"Lenny L" should be focus
      When I press return
       And I wait for the new scheduling form to appear
-     When I fill in "Quickie" with "7-17"
+      And I fill in "Quickie" with "7-17"
       And I press "Anlegen"
+      And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
         | Carl C      | 8-18   |          |          |            |         |         |         |
         | Lenny L     |        | 7-17     |          |            |         |         |         |
         | Homer S     |        |          |          |            |         |         |         |
       And the cell "Dienstag"/"Lenny L" should be focus
+
+      # navigate further and use the typeahead
+     When I press arrow down
+      And I press arrow right
+     Then the cell "Mittwoch"/"Homer S" should be focus
+     When I press return
+      And I wait for the new scheduling form to appear
+      And I fill in "Quickie" with "7"
+      And I press tab
+     Then the "Quickie" field should contain "7-17"
+     # the return is cought by typeahead and tabbing is ignored
+     # And I press return
+     When I press "Anlegen"
+      And I wait for the new scheduling form to disappear
+     Then I should see the following calendar:
+        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Carl C      | 8-18   |          |          |            |         |         |         |
+        | Lenny L     |        | 7-17     |          |            |         |         |         |
+        | Homer S     |        |          | 7-17     |            |         |         |         |
+      And the cell "Mittwoch"/"Homer S" should be focus

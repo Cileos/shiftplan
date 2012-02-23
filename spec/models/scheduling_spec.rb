@@ -215,4 +215,26 @@ describe Scheduling do
 
     end
   end
+
+  describe 'quickie completion' do
+    let(:plan) { Factory :plan }
+    before do
+      Factory :scheduling, date: '2011-11-01', plan: plan, quickie: '9-17 Schuften'
+      Factory :scheduling, date: '2011-11-02', plan: plan, quickie: '9-17 Schuften'
+      Factory :scheduling, date: '2011-11-02', plan: plan, quickie: '11-19 Schuften'
+      Factory :scheduling, date: '2011-11-02', plan: plan, quickie: '20-23 Glotzen'
+    end
+
+    let(:completions) { plan.schedulings.quickies }
+
+    it "should contain all quickies being of unique time range and team" do
+      completions.should include('9-17 Schuften')
+      completions.should include('11-19 Schuften')
+      completions.should include('20-23 Glotzen')
+    end
+
+    it "should not include doubles" do
+      completions.should have(3).records
+    end
+  end
 end
