@@ -48,3 +48,5 @@ de:
         send_an_invitation: 'Einladung verschicken'
       edit:
         set_password: Passwort setzen
+      user:
+        updated: 'Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben.'

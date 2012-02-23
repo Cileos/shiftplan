@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
       employee.save
     end
   end
-  after_create :associate_with_employees
+  after_save :associate_with_employees
 
   Roles = %w(owner planner)
   serialize :roles, Array
