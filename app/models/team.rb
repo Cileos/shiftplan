@@ -20,7 +20,7 @@ class Team < ActiveRecord::Base
   end
 
   def to_quickie
-    name
+    %Q~#{name} [#{shortcut}]~
   end
 
   def color
@@ -28,6 +28,10 @@ class Team < ActiveRecord::Base
   end
 
   def shortcut
+    super || shortcut_from_name
+  end
+
+  def shortcut_from_name
     name.split.map(&:first).join
   end
 end

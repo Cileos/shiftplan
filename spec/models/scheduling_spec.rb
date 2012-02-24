@@ -182,27 +182,39 @@ describe Scheduling do
         :plan         => plan
     end
 
+    it "can be assigned through quickie" do
+      scheduling.quickie = '1-23 The A Team'
+      scheduling.valid?
+      scheduling.team.should == team
+      scheduling.team_name.should == team.name
+    end
+
     context 'assignment by name' do
-      it "can happen through quickie" do
-        scheduling.quickie = '1-23 The A Team'
-        scheduling.valid?
-        scheduling.team.should == team
-        scheduling.team_name.should == team.name
-        scheduling.quickie.should == '1-23 The A Team'
-      end
 
       it "can be assigned by name" do
         scheduling.team_name = team.name
         scheduling.team.should == team
         scheduling.team_name.should == team.name
-        scheduling.quickie.should == '1-23 The A Team'
       end
 
       it "build team if none exists yet" do
         scheduling.team_name = 'The B Team'
         scheduling.team.should_not be_nil
         scheduling.team.should_not be_persisted
-        scheduling.quickie.should == '1-23 The B Team'
+      end
+
+      it "applies wanted shortcut to fresh team" do
+        scheduling.team_name = 'The B Team'
+        scheduling.team_shortcut = 'B'
+        scheduling.team.should_not be_nil
+        scheduling.team.should_not be_persisted
+        scheduling.team.shortcut.should == 'B'
+      end
+
+      it "ignores given shortcut when team already exists" do
+        scheduling.team_name = team.name
+        scheduling.team_shortcut = 'B'
+        scheduling.team.shortcut.should_not == 'B'
       end
 
       it "may not use teams from other organizations, instead build its own" do
@@ -211,6 +223,12 @@ describe Scheduling do
         scheduling.team.should be_present
         scheduling.team.should_not == other_team
         scheduling.team.organization.should == team.organization
+      end
+
+      it "should be included in the quickie" do
+        scheduling.team = team
+        scheduling.team.stub(:to_quickie).and_return('<team quickie part>')
+        scheduling.quickie.should == '1-23 <team quickie part>'
       end
 
     end
@@ -228,9 +246,9 @@ describe Scheduling do
     let(:completions) { plan.schedulings.quickies }
 
     it "should contain all quickies being of unique time range and team" do
-      completions.should include('9-17 Schuften')
-      completions.should include('11-19 Schuften')
-      completions.should include('20-23 Glotzen')
+      completions.should include('9-17 Schuften [S]')
+      completions.should include('11-19 Schuften [S]')
+      completions.should include('20-23 Glotzen [G]')
     end
 
     it "should not include doubles" do

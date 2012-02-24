@@ -87,6 +87,12 @@ class Scheduling < ActiveRecord::Base
     self.team = organization.teams.find_or_initialize_by_name(new_name)
   end
 
+  def team_shortcut=(shortcut)
+    if team && team.new_record?
+      team.shortcut = shortcut
+    end
+  end
+
   # repairs all the missing attributes
   def self.sync!
     transaction do
