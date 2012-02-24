@@ -76,5 +76,12 @@ Feature: Inviting Employees
   #
   # TODO: If user logging in (either as planner or normal employee) is assigned/was invited to more than
   # one organisation let him select on dashboard first for which organization he wants to log in.
+  #
+  # TODO: On employee/show -/edit page show email address of the associated user?
+  #
+  # TODO: changing the email address of the employee. Should change email of assoc user. But this would affect
+  # the employee email addresses of other accounts if same user is assoc to more than one employee.
+  # Maybe only user should be allowed to change own email address. Think so.
+  # Planner should only be allowed to change email of not yet invited employee.
 
 
