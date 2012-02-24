@@ -9,3 +9,18 @@ de:
         name: Name
         shortcut: Kürzel
 
+  teams:
+    index:
+      instructions: |
+        Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
+        oder Aufgaben unterschieden werden.
+
+        Um ein neues Team anzulegen, kann dessen Name beim Anlegen eines
+        Termines im Plan benutzt werden, zum Beispiel @9-17 Abwaschen@.
+
+        Zusätzlich können _Kürzel_ verwendet werden, um das Ausfüllen der Pläne
+        einfacher zu gestalten. Diese werden automatisch aus den
+        Anfangsbuchstaben des Teamnamens erstellt, aber können auch bei der
+        ersten Erwähnung des Teams im Plan verwendet werden: @9-17 Abwaschen
+        [A1]@.
+

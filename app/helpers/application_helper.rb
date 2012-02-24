@@ -8,8 +8,14 @@ module ApplicationHelper
       key
     end
   end
+
   alias ta translate_action
   def link_to(text, *args, &block)
     super translate_action(text), *args, &block
+  end
+
+  # translate with textilize
+  def tt(*a)
+    textilize( translate(*a) ).html_safe
   end
 end

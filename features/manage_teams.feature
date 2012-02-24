@@ -22,6 +22,8 @@ Feature: Manage Teams
        | Uran rangieren | Ur     |
       But I should not see "Entsorgung"
 
+      And I should see "Um ein neues Team anzulegen"
+
 
   @todo
   Scenario: Modify the color of a team

@@ -22,7 +22,8 @@
             = render 'navigation'
             = render 'session'
       - if show_title?
-        %h1#title= yield(:title)
+        .page-header
+          %h1#title= yield(:title)
       = render 'flash'
 
       = yield
