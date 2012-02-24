@@ -1,3 +1,6 @@
 [submodule "vendor/assets/javascripts/space-pen"]
 	path = vendor/assets/javascripts/space-pen
 	url = git://github.com/nathansobo/space-pen.git
+[submodule "vendor/assets/mixed/jquery-miniColors"]
+	path = vendor/assets/mixed/jquery-miniColors
+	url = git://github.com/claviska/jquery-miniColors.git
