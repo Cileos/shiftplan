@@ -4,6 +4,9 @@ describe 'CalendarEditor', ->
       id: 'scheduling'
       'data-id': 23
       'data-quickie': '9-17 Ackern'
+    window.gon = {}
+    window.gon.quickie_completions = []
+
   it 'is defined', ->
     expect(CalendarEditor).not.toBeNull()
 
@@ -30,8 +33,33 @@ describe 'CalendarEditor', ->
   it 'focusses the first field'
   it 'adds tabindices'
 
-  xdescribe 'form for new scheduling', ->
-    it 'is reused from dom/rails', -> expect('done').toEqual('pending')
-    it 'is always appended', -> expect('done').toEqual('pending')
-    it 'is enriched with quickie completion', -> expect('done').toEqual('pending')
-    it 'is prefilled with values of given scheduling', -> expect('done').toEqual('pending')
+  describe 'form for new scheduling', ->
+    beforeEach ->
+      setFixtures sandbox
+        id: 'cell'
+        'data-employee_id': 42
+        'data-date': '2012-12-21'
+      # :input#scheduling_date actually a select, but this should work (TM)
+      form = """
+               <form id="new_form">
+                   <div class="control-group">
+                     <div class="controls">
+                       <input id="scheduling_quickie" name="scheduling[quickie]" />
+                     </div>
+                   </div>
+                   <input id="scheduling_employee_id" />
+                   <input id="scheduling_date" />
+               </form>
+             """
+      @form = $(form)
+      @calendar = new CalendarEditor cell: $('#cell'), form: @form
+
+    it 'is reused from dom/rails', ->
+      expect( @calendar ).toContain('form#new_form')
+
+    it 'is prefilled with values of given scheduling', ->
+      expect( @form.find('#scheduling_employee_id') ).toHaveValue(42)
+      expect( @form.find('#scheduling_date') ).toHaveValue('2012-12-21')
+
+    it 'is enriched with quickie completion', ->
+      expect( @form ).toContain('div.quickie input[type=text].typeahead')

@@ -1,3 +1,11 @@
+# Encapsulates the editing of a Scheduling's Quickie
+#
+# needed params:
+#   id:    database ID of the scheduling being edited
+#   value: the current quickie
+#
+# optional
+#   competions: quickies to complete for
 class QuickieEditor extends View
   @content: (params) ->
     name = "scheduling_#{params.id || 'new'}"

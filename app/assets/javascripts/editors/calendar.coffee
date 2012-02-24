@@ -8,7 +8,7 @@ class CalendarEditor extends View
   initialize: (params) ->
     for scheduling in params.cell.find('li')
       @addScheduling($(scheduling))
-    @addNewForm params.form, params.cell
+    @addNewForm params
     @addTabIndices()
 
   addTabIndices: ->
@@ -20,10 +20,11 @@ class CalendarEditor extends View
   addScheduling: ($scheduling) ->
     @list.append new SchedulingEditor scheduling: $scheduling, quickies: gon.quickie_completions
 
-  addNewForm: ($form, $cell) ->
-    $form.find(':input#scheduling_employee_id').val($cell.data('employee_id')).change()
-    $form.find(':input#scheduling_date').val($cell.data('date')).change()
-    @list.append $form
+  addNewForm: (params) ->
+    params.form.find(':input#scheduling_employee_id').val(params.cell.data('employee_id')).change()
+    params.form.find(':input#scheduling_date').val(params.cell.data('date')).change()
+    params.form.find(':input#scheduling_quickie').closest('.control-group').replaceWith new QuickieEditor id: 'new', value: ''
+    @list.append params.form
 
 
 window.CalendarEditor = CalendarEditor
