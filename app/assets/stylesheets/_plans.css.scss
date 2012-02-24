@@ -24,6 +24,13 @@ $cell_border: #ccc;
   text-transform: none; /* instead of uppercase */
 }
 
+span.pibble.shortcut {
+  @include pibble-outer();
+  span {
+    @include pibble-inner();
+  }
+}
+
 table#calendar {
   tbody td.focus {
     @include border-radius(3px);

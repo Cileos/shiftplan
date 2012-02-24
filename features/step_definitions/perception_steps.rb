@@ -72,3 +72,7 @@ Then /^I (should|should not) see link #{capture_quoted}$/ do |or_not, link|
     page.should have_css('a', :text => link)
   end
 end
+
+Then /^the shortcut should be colored "([^"]*)"$/ do |color|
+  first('.shortcut')['style'].should include("background-color: #{color}")
+end

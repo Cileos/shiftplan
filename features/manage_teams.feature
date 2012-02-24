@@ -25,8 +25,14 @@ Feature: Manage Teams
       And I should see "Um ein neues Team anzulegen"
 
 
-  @todo
   Scenario: Modify the color of a team
+    Given a team exists with organization: organization: "Reactor"
+     When I follow "Teams"
+      And I follow "Bearbeiten"
+     Then the "Farbe" field should contain "#"
+     When I fill in "Farbe" with "#C83BB4"
+      And I press "Team aktualisieren"
+     Then the shortcut should be colored "#C83BB4"
 
   Scenario: Modify the shortcut of a team
     Given a team exists with name: "Uran rangieren", organization: organization: "Reactor"
