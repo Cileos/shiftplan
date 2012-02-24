@@ -86,3 +86,5 @@ gem 'versatile_rjs', :git => 'git://github.com/niklas/versatile_rjs.git'
 gem 'polyglot' # load treetop grammars with #require
 
 gem 'gon' # push variables from rails to js
+
+gem 'RedCloth' # textilize instructions and other texts from locales

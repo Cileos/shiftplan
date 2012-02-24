@@ -21,8 +21,6 @@ When /^I wait for (.+) to disappear$/ do |name|
     STDERR.puts "saved page: #{save_page}"
     STDERR.puts "saved screenshot: #{screenshot}"
     raise timeout
-  rescue Selenium::WebDriver::Error::StaleElementReferenceError => gone
-    # Element does not exist in cache => OK
   end
 end
 

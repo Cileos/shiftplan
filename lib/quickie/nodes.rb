@@ -27,9 +27,15 @@ module Quickie
     end
   end
 
-  class TeamNode < BaseNode
+  class TeamNameNode < BaseNode
     def fill(scheduling)
       scheduling.team_name = to_s
+    end
+  end
+
+  class TeamShortcutNode < BaseNode
+    def fill(scheduling)
+      scheduling.team_shortcut = shortcut.text_value
     end
   end
 end

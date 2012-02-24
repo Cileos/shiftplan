@@ -17,7 +17,15 @@ describe Team do
   context 'shortcut' do
     let(:team) { Factory.build(:team, name: "Reaktor putzen" ) }
 
-    it { team.shortcut.should_not be_blank }
-    it { team.shortcut.should == 'Rp' }
+    it "should be set automatically" do
+      team.shortcut.should_not be_blank
+    end
+    it "should be generated automatically" do
+      team.shortcut.should == 'Rp'
+    end
+    it "should be put in quickie in square brackets" do
+      team.stub(:shortcut).and_return('TT')
+      team.to_quickie.should == 'Reaktor putzen [TT]'
+    end
   end
 end
