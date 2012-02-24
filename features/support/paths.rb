@@ -14,8 +14,11 @@ module NavigationHelpers
     when 'the signin page'
       new_user_session_path
 
-    when /^the edit page for #{capture_model}$/
-      edit_employee_path(model!($1))
+    when /^the edit page (?:of|for) #{capture_model}$/
+      case model = model!($1)
+      when Employee
+        edit_employee_path(model!($1))
+      end
 
     when /^the page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       params = parse_fields($2).symbolize_keys

@@ -2,8 +2,14 @@
 
 = render 'form'
 
-= link_to :back, employees_path
-\|
-= link_to :show, resource
-\|
-= link_to :invite, new_user_invitation_path( user: { employee_id: resource.id } )
+%p
+  =link_to :back, employees_path
+  \|
+  = link_to :show, resource
+
+%p= invitation_status(resource)
+
+-if resource.invited? && !resource.invitation_accepted?
+  = link_to :reinvite, new_user_invitation_path( user: { employee_id: resource.id } )
+-else
+  = link_to :invite, new_user_invitation_path( user: { employee_id: resource.id } )

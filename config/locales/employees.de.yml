@@ -15,6 +15,10 @@ de:
         first_name: Vorname
         last_name: Nachname
   employees:
+    invitation_status:
+      not_invited: 'Sie haben diesen Mitarbeiter noch nicht eingeladen.'
+      invited_not_accepted: "Sie haben diesen Mitarbeiter am %{invitation_sent_at} eingeladen. Die Einladung wurde noch nicht akzeptiert."
+      invited_and_accepted: "Sie haben diesen Mitarbeiter am %{invitation_sent_at} eingeladen. Die Einladung wurde am %{invitation_accepted_at} akzeptiert."
     show:
       weekly_working_time: Wochenarbeitszeit
       no_weekly_working_time: keine

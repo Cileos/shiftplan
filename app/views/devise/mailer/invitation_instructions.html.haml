@@ -1,6 +1,6 @@
 %p= "Hallo #{@resource.email}!"
 
-%p= "Jemand hat Sie zu #{root_url} eingeladen. Sie können die Einladung akzeptieren, indem Sie auf den folgenden Link klicken."
+%p= "Jemand hat Sie zu #{root_url} eingeladen. Sie können die Einladung bestätigen, indem Sie auf den folgenden Link klicken."
 
 %p= link_to 'Einladung akzeptieren', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token)
 
