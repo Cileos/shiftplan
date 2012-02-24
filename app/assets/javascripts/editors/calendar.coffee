@@ -11,8 +11,6 @@ class CalendarEditor extends View
     @addNewForm params.form, params.cell
     @addTabIndices()
 
-  setupAutocomplete: ->
-
   addTabIndices: ->
     tabIndex = 1
     for input in @list.find('input[type=text],select,button')

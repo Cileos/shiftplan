@@ -11,7 +11,7 @@ class QuickieEditor extends View
     @input
       .addClass('typeahead')
       .typeahead
-        source: params.completions || [],
+        source: params.completions || gon.quickie_completions,
         sorter: @sorter
     @.closest('.modal').on 'hidden', => @input.unbind()
 
