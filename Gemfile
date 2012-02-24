@@ -36,6 +36,9 @@ group :test do
   gem 'database_cleaner'
   gem "email_spec"
 
+  # TODO for latest chrome-webdriver remove when capybara > 1.1.2 depends on it
+  gem 'selenium-webdriver', '~> 2.19.0'
+
   gem "spork", "1.0.0rc2"
   gem "guard-rspec", "~> 0.6.0"
   gem "guard-cucumber", "~> 0.7.5"
