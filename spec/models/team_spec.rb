@@ -5,13 +5,14 @@ describe Team do
     Factory.build(:team, :name => nil).should be_invalid
     Factory.build(:team, :name => '').should be_invalid
     Factory.build(:team, :name => ' ').should be_invalid
+    Factory.build(:team, :name => 'Totlachen').should be_valid
   end
 
   context 'color' do
     let(:team) { Factory.build(:team) }
 
     it { team.color.should_not be_blank }
-    it { team.color.should =~ /^#[0-9a-f]{6}$/ }
+    it { team.color.should =~ /^#[0-9A-F]{6}$/ }
   end
 
   context 'shortcut' do

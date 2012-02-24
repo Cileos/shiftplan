@@ -15,7 +15,7 @@
         - collection.each do |team|
           %tr
             %td= team.name
-            %td= team.shortcut
+            %td= render 'pibble', team: team
             %td
               - if can? :edit, team
                 = link_to :edit, edit_team_path(team), class: 'btn btn-warning btn-mini'

@@ -8,6 +8,7 @@ de:
       team:
         name: Name
         shortcut: Kürzel
+        color: Farbe
 
   teams:
     index:
