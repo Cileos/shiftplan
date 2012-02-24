@@ -10,6 +10,8 @@ class Team < ActiveRecord::Base
   belongs_to :organization
   validates_presence_of :organization
 
+  attr_accessible :name, :shortcut
+
   # Remove outer and double inner spaces
   def name=(new_name)
     if new_name
@@ -29,6 +31,11 @@ class Team < ActiveRecord::Base
 
   def shortcut
     super || shortcut_from_name
+  end
+
+  # display unsaved default value in form
+  def shortcut_before_type_cast
+    shortcut
   end
 
   def shortcut_from_name

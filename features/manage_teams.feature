@@ -3,9 +3,11 @@ Feature: Manage Teams
   As a Planer
   I want to list and edit Teams
 
-  Scenario: Listing all the Teams for my organization
+  Background:
     Given the situation of a nuclear reactor
-      And a organization "Government" exists
+
+  Scenario: Listing all the Teams for my organization
+    Given a organization "Government" exists
       And the following teams exist:
         | organization              | name           |
         | organization "Reactor"    | Reaktor putzen |
@@ -24,5 +26,16 @@ Feature: Manage Teams
   @todo
   Scenario: Modify the color of a team
 
-  @todo
   Scenario: Modify the shortcut of a team
+    Given a team exists with name: "Uran rangieren", organization: organization: "Reactor"
+     When I follow "Teams"
+      And I follow "Bearbeiten"
+     Then the "Kürzel" field should contain "Ur"
+     When I fill in "Kürzel" with "OK"
+      And I press "Team aktualisieren"
+     Then I should the following table of teams:
+       | Name           | Kürzel |
+       | Uran rangieren | OK     |
+
+     When I follow "Bearbeiten"
+     Then the "Kürzel" field should contain "OK"

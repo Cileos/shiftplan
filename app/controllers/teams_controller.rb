@@ -1,6 +1,10 @@
 class TeamsController < InheritedResources::Base
   load_and_authorize_resource
 
+  def update
+    update! { collection_url }
+  end
+
   private
 
   # TODO more than one organization per planner
