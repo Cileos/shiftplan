@@ -1,23 +1,20 @@
-describe 'SchedulingEditor', ->
-  beforeEach ->
-    setFixtures sandbox
-      id: 'scheduling'
-      'data-id': 23
-      'data-quickie': '9-17 Ackern'
-
-    @editor = new SchedulingEditor scheduling: $('#scheduling'), quickies: []
-
+describe 'QuickieEditor', ->
   it 'is defined', ->
-    expect(SchedulingEditor).not.toBeNull
+    expect(QuickieEditor).not.toBeNull
 
-  it 'has provides typeahead for quickie field', ->
-    expect(@editor.quickie).toExist()
-    expect(@editor.quickie).toHaveClass('typeahead')
-    expect(@editor.quickie.data('typeahead')).toBeDefined()
+  beforeEach ->
+    @editor = new QuickieEditor id: 23, value: '', completions: []
 
-  describe 'quickie typeahead', ->
+  it 'proviedes outlet for input', ->
+    expect(@editor.input).toExist()
+
+  it 'provides typeahead for input field', ->
+    expect(@editor.input).toHaveClass('typeahead')
+    expect(@editor.input.data('typeahead')).toBeDefined()
+
+  describe 'typeahead', ->
     beforeEach ->
-      completer = @editor.quickie.data('typeahead')
+      completer = @editor.input.data('typeahead')
 
       @addMatchers
         toBeCompletedBy: (input) ->
@@ -80,3 +77,4 @@ describe 'SchedulingEditor', ->
       quickies = [aalen, zzschlafen] = ['Aalen [Zz]', 'Zzschlafen [Aa]']
       expect(quickies).toBeSortedBy('aA', [aalen,zzschlafen])
       expect(quickies).toBeSortedBy('zz', [zzschlafen,aalen])
+

@@ -2,4 +2,4 @@
 //= require employees
 //= require plans
 //= require 'calendar/cursor'
-//= require 'calendar/editor'
+//= require_tree './editors'
