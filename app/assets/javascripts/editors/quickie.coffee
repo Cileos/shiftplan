@@ -10,7 +10,7 @@ class QuickieEditor extends View
   @content: (params) ->
     name = "scheduling_#{params.id || 'new'}"
     @div class: 'control-group quickie', =>
-      @label "Quickie", for: "#{name}_quickie"
+      @label "Quickie", for: "#{name}_quickie", class: 'control-label'
       @div class: 'controls', =>
         @input type: 'text', value: params.value, id: "#{name}_quickie", name: 'scheduling[quickie]', outlet: 'input'
 

@@ -13,15 +13,6 @@ GIT
       rails (>= 3.1.0)
 
 GIT
-  remote: git://github.com/plataformatec/simple_form.git
-  revision: ae60671f71b8a34b2a5d15229aa5793f3e41a612
-  ref: v2.0.0.rc
-  specs:
-    simple_form (2.0.0.rc)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
-
-GIT
   remote: git://github.com/v0n/notes.git
   revision: 5f2d86b7cf0b4f430c283f8d246af19a5641821d
   specs:
@@ -265,6 +256,9 @@ GEM
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
+    simple_form (2.0.0)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     simplecov (0.6.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
@@ -335,7 +329,7 @@ DEPENDENCIES
   rspec-rails (~> 2.8.1)
   sass-rails (~> 3.2.4)
   selenium-webdriver (~> 2.19.0)
-  simple_form!
+  simple_form (~> 2.0.0)
   simplecov
   spork (= 1.0.0rc2)
   therubyracer

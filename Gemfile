@@ -75,7 +75,7 @@ gem 'coffee-rails', '~> 3.2.2'
 gem 'compass-rails'
 gem 'devise'
 gem 'cancan'
-gem 'simple_form', git: "git://github.com/plataformatec/simple_form.git", ref: "v2.0.0.rc"
+gem 'simple_form', '~> 2.0.0'
 gem 'haml-rails'
 gem 'inherited_resources'
 gem 'draper'

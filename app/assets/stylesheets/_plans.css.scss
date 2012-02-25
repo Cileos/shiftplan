@@ -67,14 +67,25 @@ div.scroller {
     padding-left: 0.5em;
   }
   form {
-    .control-group.quickie {
-      margin-bottom: 0;
-    }
     position: relative;
+    .errors {
+      margin-top: 9px;
+      margin-bottom: 9px;
+    }
     button[type=submit] {
       position: absolute;
       right: 4%;
       top: 19px;
+    }
+  }
+  form.edit_scheduling {
+    div.quickie {
+      label {
+        display: none;
+      }
+    }
+    .control-group.quickie {
+      margin-bottom: 0;
     }
     a.delete {
       position: absolute;
@@ -82,10 +93,6 @@ div.scroller {
       top: 19px;
     }
 
-    .errors {
-      margin-top: 9px;
-      margin-bottom: 9px;
-    }
   }
 }
 
