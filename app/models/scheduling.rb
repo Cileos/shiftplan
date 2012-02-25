@@ -87,6 +87,12 @@ class Scheduling < ActiveRecord::Base
     self.team = organization.teams.find_or_initialize_by_name(new_name)
   end
 
+  def team_shortcut=(shortcut)
+    if team && team.new_record?
+      team.shortcut = shortcut
+    end
+  end
+
   # repairs all the missing attributes
   def self.sync!
     transaction do
@@ -98,6 +104,15 @@ class Scheduling < ActiveRecord::Base
         end
       end
     end
+  end
+
+  # TODO save start_hour and end_hour or even cache the whole quickie
+  def self.quickies
+    # select the maximal dates because psql wants aggregations and we are just interested in the hours anyway
+    includes(:team) 
+      .select(%q~max(starts_at) AS starts_at, max(ends_at) AS ends_at, team_id~)
+      .group(%q~date_part('hour', starts_at), date_part('hour', ends_at), team_id~)
+      .map(&:quickie)
   end
 
   private

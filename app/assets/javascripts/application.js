@@ -1,5 +1,6 @@
 // Please include all needed application specific JS files manually
 //= require employees
 //= require plans
+//= require teams
 //= require 'calendar/cursor'
-//= require 'calendar/editor'
+//= require_tree './editors'

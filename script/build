@@ -63,26 +63,25 @@ bundle check || bundle install || exit 128
 DBSTAMP=tmp/fully_migrated_at
 FILEAGE=$(($(date +%s) - $(stat -c '%Y' "$DBSTAMP")))
 MAXAGE=$(bc <<< '24*60*60')
-if [ $FILEAGE -gt $MAXAGE ] ; then # no stamp or older than 24 hours
+if [ "$FILEAGE" -gt "$MAXAGE" ] ; then # no stamp or older than 24 hours
   header "rebuilding the database (every 24h)"
-  bundle exec rake db:drop db:create db:migrate
+  bundle exec rake db:drop db:create db:migrate || exit 64
   date > $DBSTAMP
 else
   header "migrate the database"
-  bundle exec rake db:migrate
+  bundle exec rake db:migrate || exit 64
 fi
 
-# we want all tests to run, even if other test components fail before, 
-# so we toggle one bit of the exit/return value if a test component fails
-ret=$((0))
-
 header "rSpec"
-bundle exec rspec --color ./spec     || ret=$(($ret+1))
+bundle exec rspec --color ./spec                                 || exit 8
+
 header "Jasmine"
-xvfb-run bundle exec guard-jasmine   || ret=$(($ret+2))
-header "Cucumber"
-bundle exec cucumber features        || ret=$(($ret+4))
+xvfb-run bundle exec guard-jasmine                               || exit 4
+
+header "Cucumber with firefox"
+bundle exec cucumber features                                    || exit 2
+
+header "Cucumber with chrome"
+CAPYBARA_CHROME=yes bundle exec cucumber features -t @javascript || exit 1
 
 header "Done"
-echo "fin. (exit code: $ret)"
-exit $ret

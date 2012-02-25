@@ -1,0 +1,6 @@
+= link_to '.new_plan', new_plan_path
+
+%ul.plans
+  - plans.each do |plan|
+    %li= link_to plan.name, plan
+

@@ -5,19 +5,28 @@ describe Team do
     Factory.build(:team, :name => nil).should be_invalid
     Factory.build(:team, :name => '').should be_invalid
     Factory.build(:team, :name => ' ').should be_invalid
+    Factory.build(:team, :name => 'Totlachen').should be_valid
   end
 
   context 'color' do
     let(:team) { Factory.build(:team) }
 
     it { team.color.should_not be_blank }
-    it { team.color.should =~ /^#[0-9a-f]{6}$/ }
+    it { team.color.should =~ /^#[0-9A-F]{6}$/ }
   end
 
   context 'shortcut' do
     let(:team) { Factory.build(:team, name: "Reaktor putzen" ) }
 
-    it { team.shortcut.should_not be_blank }
-    it { team.shortcut.should == 'Rp' }
+    it "should be set automatically" do
+      team.shortcut.should_not be_blank
+    end
+    it "should be generated automatically" do
+      team.shortcut.should == 'Rp'
+    end
+    it "should be put in quickie in square brackets" do
+      team.stub(:shortcut).and_return('TT')
+      team.to_quickie.should == 'Reaktor putzen [TT]'
+    end
   end
 end

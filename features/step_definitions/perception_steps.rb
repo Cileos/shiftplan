@@ -32,6 +32,26 @@ Then /^I should see a list of the following (.+):$/ do |plural, expected|
   expected.diff! actual
 end
 
+Then /^I should see the following list of links:$/ do |expected|
+  expected.column_names.should == %w(link active)
+  actual = all('ul li:has(a)').map do |li|
+    [
+      li.first('a').text,
+      (li[:class] || '').split.include?('active').to_s
+    ]
+  end
+  actual.unshift expected.column_names
+  expected.diff! actual
+end
+
+Then /^I should the following table of (.+):$/ do |plural, expected|
+  # table is a Cucumber::Ast::Table
+  actual = find("table##{plural}").all('tr').map do |tr|
+    tr.all('th,td').map(&:text).map(&:strip)
+  end
+  expected.diff! actual
+end
+
 Then /^the page should be titled "([^"]*)"$/ do |title|
   step %Q~I should see "#{title}" within "html head title"~
 end
@@ -51,4 +71,8 @@ Then /^I (should|should not) see link #{capture_quoted}$/ do |or_not, link|
   else
     page.should have_css('a', :text => link)
   end
+end
+
+Then /^the shortcut should be colored "([^"]*)"$/ do |color|
+  first('.shortcut')['style'].should include("background-color: #{color}")
 end

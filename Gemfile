@@ -36,6 +36,9 @@ group :test do
   gem 'database_cleaner'
   gem "email_spec"
 
+  # TODO for latest chrome-webdriver remove when capybara > 1.1.2 depends on it
+  gem 'selenium-webdriver', '~> 2.19.0'
+
   gem "spork", "1.0.0rc2"
   gem "guard-rspec", "~> 0.6.0"
   gem "guard-cucumber", "~> 0.7.5"
@@ -72,7 +75,7 @@ gem 'coffee-rails', '~> 3.2.2'
 gem 'compass-rails'
 gem 'devise'
 gem 'cancan'
-gem 'simple_form', git: "git://github.com/plataformatec/simple_form.git", ref: "v2.0.0.rc"
+gem 'simple_form', '~> 2.0.0'
 gem 'haml-rails'
 gem 'inherited_resources'
 gem 'draper'
@@ -84,3 +87,7 @@ gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults
 # we will try to gernerate js the old-fashioned way
 gem 'versatile_rjs', :git => 'git://github.com/niklas/versatile_rjs.git'
 gem 'polyglot' # load treetop grammars with #require
+
+gem 'gon' # push variables from rails to js
+
+gem 'RedCloth' # textilize instructions and other texts from locales

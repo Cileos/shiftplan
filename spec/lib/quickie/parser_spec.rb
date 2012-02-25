@@ -56,5 +56,16 @@ describe 'Quickie::parser' do
 
   end
 
+  describe 'team names with shortcuts' do
+
+    describe 'Abwaschen [MEH]' do
+      it { should parse_successfully }
+      it { should fill_in(:team_name, 'Abwaschen') }
+      it { should fill_in(:team_shortcut, 'MEH') }
+      it { should serialize_to('Abwaschen [MEH]') }
+    end
+
+  end
+
 end
 

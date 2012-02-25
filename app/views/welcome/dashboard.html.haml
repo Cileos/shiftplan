@@ -1,10 +1,7 @@
 - title :dashboard
 
-= link_to '.employees', employees_path
 = link_to '.new_plan', new_plan_path
 
 %h3= ta :plans
-%ul.plans
-  - current_user.organization.plans.each do |plan|
-    %li= link_to plan.name, plan
+= render 'plans/list', plans: current_user.organization.plans
 

@@ -24,6 +24,3 @@ de:
       new_employee: Neuen Mitarbeiter anlegen
     index:
       employees: Mitarbeiter
-      first_name: Vorname
-      last_name: Nachname
-      weekly_working_time: Wochenarbeitszeit

@@ -1,0 +1,21 @@
+- title :teams
+
+.row
+  .span4
+    = tt '.instructions'
+  .span6
+    %table#teams.table.table-striped.table-condensed
+      %thead
+        %tr.employee
+          %th= Team.human_attribute_name(:name)
+          %th= Team.human_attribute_name(:shortcut)
+          %th
+
+      %tbody
+        - collection.each do |team|
+          %tr
+            %td= link_to team.name, team_path(team)
+            %td= render 'pibble', team: team
+            %td
+              - if can? :edit, team
+                = link_to :edit, edit_team_path(team), class: 'btn btn-warning btn-mini'

@@ -3,10 +3,11 @@ Feature: Teams in plans
   Als Planer
   Möchte ich im Plan Teamnamen/Beschreibungen verwenden, 
 
+  Background:
+    Given the situation of a nuclear reactor
 
   @javascript
-  Scenario:
-    Given the situation of a nuclear reactor
+  Scenario: Using just the full name
      When I schedule "Homer S" on "Donnerstag" for "9-17 Reaktor putzen"
      Then I should see the following calendar:
         | Mitarbeiter | Donnerstag |
@@ -15,7 +16,15 @@ Feature: Teams in plans
         | Homer S     | 9-17 Rp    |
       And I should see the following defined items within the legend:
         | Rp       | Reaktor putzen |
-      And a scheduling should exist
-      And a team should exist with name: "Reaktor putzen"
-      And the team should be the scheduling's team
+
+  @javascript
+  Scenario: additionally specifying a shortcut for the team
+     When I schedule "Homer S" on "Donnerstag" for "9-17 Reaktor putzen [OK]"
+     Then I should see the following calendar:
+        | Mitarbeiter | Donnerstag |
+        | Carl C      |            |
+        | Lenny L     |            |
+        | Homer S     | 9-17 OK    |
+      And I should see the following defined items within the legend:
+        | OK       | Reaktor putzen |
 

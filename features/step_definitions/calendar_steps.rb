@@ -16,12 +16,17 @@ Then /^the cell "([^"]+)"\/"([^"]+)" should be (focus)$/ do |column_label, row_l
 end
 
 def directions
-  ['arrow up','arrow down','arrow right','arrow left','return','escape'].join('|')
+  ['arrow up','arrow down','arrow right','arrow left','return','escape', 'tab', 'enter'].join('|')
 end
 
 When /^I press (#{directions})$/ do |direction|
   direction.gsub!(' ', '_')
   step %{I send #{direction} to "body"}
+end
+
+When /^I press (#{directions}) in the #{capture_quoted} field$/ do |key, field|
+  key.gsub!(' ', '_')
+  find_field(field).send_string_of_keys(key)
 end
 
 When /^I press (#{directions}) (\d{1,2}) times$/ do |direction, times|
