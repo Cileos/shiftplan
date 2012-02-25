@@ -9,6 +9,7 @@ class Team < ActiveRecord::Base
 
   belongs_to :organization
   validates_presence_of :organization
+  has_many :schedulings
 
   validates_format_of :color, with: /\A#[0-9A-F]{6}\z/
 
@@ -50,5 +51,9 @@ class Team < ActiveRecord::Base
 
   def color_from_name
     '#' + Digest::MD5.hexdigest(name || Time.now.to_s).first(6).upcase
+  end
+
+  def build_team_merge(attrs={})
+    TeamMerge.new attrs.merge(:team => self)
   end
 end

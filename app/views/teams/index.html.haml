@@ -14,7 +14,7 @@
       %tbody
         - collection.each do |team|
           %tr
-            %td= team.name
+            %td= link_to team.name, team_path(team)
             %td= render 'pibble', team: team
             %td
               - if can? :edit, team

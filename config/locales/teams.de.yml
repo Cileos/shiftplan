@@ -9,6 +9,10 @@ de:
         name: Name
         shortcut: Kürzel
         color: Farbe
+  activemodel:
+    attributes:
+      team_merge:
+        other_team_id: anderes Team
 
   teams:
     index:
@@ -29,4 +33,11 @@ de:
         ersten Erwähnung des Teams im Plan verwendet werden.
        
         Beispiel: @9-17 Teller Abwaschen [A1]@
+    show:
+      merge_motivation: >
+        Falls durch Tippfehler ein zweites Team angelegt wurde, kann es mit
+        diesem zusammengelegt werden.
 
+  helpers:
+    actions:
+      merge: "Zusammenlegen"
