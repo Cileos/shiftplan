@@ -32,15 +32,16 @@ span.pibble.shortcut {
 }
 
 table#calendar {
-  tbody td.focus {
-    @include border-radius(3px);
-    @include box-shadow($grayLight 1px 1px 4px 1px inset);
-  }
   tbody td {
+    padding: 3px;
     cursor: pointer;
     &.hours {
       cursor: auto;
     }
+  }
+  tbody td.focus {
+    @include border-radius(3px);
+    @include box-shadow($grayLight 1px 1px 4px 1px inset);
   }
 
   ul {
@@ -49,8 +50,37 @@ table#calendar {
     margin: 0;
     li {
       @include pibble-outer();
+      margin: 6px;
       abbr, span {
         @include pibble-inner();
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  @media (max-width: 767px) {
+    td {
+      padding: 2px;
+    }
+    ul li {
+      @include border-left-radius(5px);
+      margin: 3px;
+      abbr, span {
+        font-size: 80%;
+        margin-left: 0.3em;
+      }
+    }
+  }
+  @media (max-width: 480px) {
+    td {
+      padding: 1px;
+    }
+    ul li {
+      @include border-left-radius(3px);
+      margin: 0;
+      abbr, span {
+        padding: 1px 3px;
+        margin-left: 0px;
       }
     }
   }
@@ -114,4 +144,3 @@ div.scroller {
     }
   }
 }
-
