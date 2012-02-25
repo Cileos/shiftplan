@@ -23,7 +23,8 @@ Feature: Merge Teams
       And I follow "Zusammenlegen"
       And I select "Reaktorputzen" from "anderes Team"
       And I press "Zusammenlegen"
-     Then I should the following table of teams:
+     Then I should see info "Teams erfolgreich zusammengeführt."
+      And I should the following table of teams:
        | Name           | Kürzel |
        | Reaktor putzen | Rp     |
       But I should not see "Reaktorputzen"

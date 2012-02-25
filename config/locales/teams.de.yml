@@ -13,6 +13,10 @@ de:
     attributes:
       team_merge:
         other_team_id: anderes Team
+  flash:
+    team_merge:
+      create:
+        info: "Teams erfolgreich zusammengeführt."
 
   teams:
     index:
