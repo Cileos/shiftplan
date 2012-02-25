@@ -13,7 +13,7 @@ class CalendarCursor
       $cell.addClass('focus')
 
     $calendar = @$calendar
-    @$calendar.on 'click', 'tbody td', ->
+    @$calendar.on 'click', @tds, ->
       $calendar.trigger 'calendar.cell_focus', this
       $calendar.trigger 'calendar.cell_activate', this
 
