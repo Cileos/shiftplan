@@ -38,8 +38,8 @@ table#calendar {
   }
   tbody td {
     cursor: pointer;
-    label[for=scheduling_quicky] {
-      display: none;
+    &.hours {
+      cursor: auto;
     }
   }
 
