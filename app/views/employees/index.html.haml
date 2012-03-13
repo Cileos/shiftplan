@@ -5,16 +5,12 @@
     %tr.employee
       %th= t('.full_name')
       %th= t('.weekly_working_time')
-      %th
-      %th
- 
+
   %tbody
     - collection.each do |employee|
       %tr
         %td= link_to employee.name, edit_employee_path(employee)
         %td= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
-        %td= link_to :edit, edit_employee_path(employee)
-        %td= link_to :destroy, employee, :confirm => 'Are you sure?', :method => :delete
 
 %br
 

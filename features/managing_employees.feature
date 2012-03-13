@@ -37,13 +37,6 @@ Feature: Create Employees
      And I should see "Carl Carlson"
      But I should not see "Homer Simpson"
 
-  Scenario: Deleting an employee
-     When I follow "Mitarbeiter"
-     Then I should see "Homer Simpson"
-     When I follow "Löschen"
-     Then I should be on the employees page
-      And I should not see "Homer"
-
   Scenario: Can only see employees of own organization
       And a planner "Burns" exists
       And another organization "Chefs" exists with planner: planner "Burns"
