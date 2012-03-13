@@ -1,17 +1,16 @@
 %h1= t('.employees')
+%br
 
 %table#employees.table.table-striped.table-bordered.table-condensed
   %thead
     %tr.employee
       %th= t('.full_name')
       %th= t('.weekly_working_time')
-
+  
   %tbody
     - collection.each do |employee|
       %tr
-        %td= link_to employee.name, edit_employee_path(employee)
+        %td= link_to employee.name, edit_employee_path(employee), remote: true
         %td= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
 
-%br
-
-= link_to :new_employee, new_employee_path
+= link_to ti(:add), new_employee_path, class: 'btn btn-inverse', remote: true

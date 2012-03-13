@@ -14,6 +14,16 @@ module ApplicationHelper
     super translate_action(text), *args, &block
   end
 
+  def translate_icon(key, opts={})
+    content_tag(:i, '', class: "icon-#{Icons[key] || 'glass'} icon-white") + ' ' + translate_action(key, opts)
+  end
+  alias ti translate_icon
+
+  Icons = {
+    add: 'plus',
+    update: 'ok-circle'
+  }
+
   # translate with textilize
   def tt(*a)
     textilize( translate(*a) ).html_safe

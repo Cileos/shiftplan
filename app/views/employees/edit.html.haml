@@ -1,6 +1,6 @@
 %h1= t('.edit_employee')
 
-= render 'form'
+= render 'form', employee: @employee
 
 %p
   =link_to :back, employees_path

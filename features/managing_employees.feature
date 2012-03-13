@@ -9,29 +9,32 @@ Feature: Create Employees
       And an employee exists with organization: the organization, first_name: "Homer", last_name: "Simpson"
      When I sign in as the planner
 
+  @javascript
   Scenario: Creating an employee
      When I follow "Mitarbeiter"
-      And I follow "Mitarbeiter hinzufügen"
+      And I follow "Hinzufügen"
+      And I wait for the modal box to appear
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30.5    |
-      And I press "Mitarbeiter erstellen"
+      And I press "Speichern"
      Then I should see flash info "Mitarbeiter erfolgreich angelegt."
       And I should be on the employees page
-      # TODO: use table step
       And I should see "Carl Carlson"
       And I should see "30,5"
 
+  @javascript
   Scenario: Editing an employee
      When I follow "Mitarbeiter"
      And I should be on the employees page
      Then I should not see "Carl Carlson"
      When I follow "Homer Simpson"
+     And I wait for the modal box to appear
       And I fill in the following:
         | Vorname  | Carl    |
         | Nachname | Carlson |
-     And I press "Mitarbeiter aktualisieren"
+     And I press "Speichern"
     Then I should see "Mitarbeiter erfolgreich geändert."
      And I should be on the employees page
      And I should see "Carl Carlson"
