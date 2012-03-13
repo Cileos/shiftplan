@@ -16,13 +16,13 @@ class Ability
 
   def authorize_planner(planner)
     authorize_employee(planner)
-    can :dashboard , User
-    can :manage    , Organization , user_id: planner.id
-    can :manage    , Employee     , organization: { planner_id: planner.id }
-    can :manage    , Team         , organization: { planner_id: planner.id }
-    can :manage    , TeamMerge    , team: { organization: { planner_id: planner.id }}
-    can :manage    , Plan         , organization: { planner_id: planner.id }
-    can :manage    , Scheduling   , plan: { organization: { planner_id: planner.id }}
+    can :dashboard,                User
+    can :manage,                   Organization, user_id: planner.id
+    can [:read, :create, :update], Employee,     organization: { planner_id: planner.id }
+    can :manage, 				   Team,         organization: { planner_id: planner.id }
+    can :manage,                   TeamMerge,    team: { organization: { planner_id: planner.id }}
+    can :manage,                   Plan,         organization: { planner_id: planner.id }
+    can :manage,                   Scheduling,   plan: { organization: { planner_id: planner.id }}
   end
 
   def authorize_owner(owner)
