@@ -6,7 +6,7 @@ Given an organization "Reactor" exists with name: "Reactor"
     | organization "Reactor" | Homer    | Homer      | S         |
     | organization "Reactor" | Lenny    | Lenny      | L         |
     | organization "Reactor" | Carl     | Carl       | C         |
-  And a plan exists with organization: the organization
+  And a plan "clean reactor" exists with organization: organization "Reactor"
   And I am signed in as the confirmed user
-  And I am on the page of the plan
+  And I am on the page of the plan "clean reactor"
 
