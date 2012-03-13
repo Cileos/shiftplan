@@ -1,7 +1,6 @@
 Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)"$/ do |invite_or_reinvite, employee, email|
   step %{I go to the employees page}
-  step %{I follow "#{model!(employee).first_name}"}
-  step %{I follow "Bearbeiten"}
+  step %{I follow "#{model!(employee).name}"}
   if invite_or_reinvite == 'invite'
     step %{I should not see "Sie haben den Mitarbeiter noch nicht eingeladen"}
     step %{I follow "Mitarbeiter einladen"}
