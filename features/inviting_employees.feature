@@ -65,23 +65,9 @@ Feature: Inviting Employees
 
   # TODO: Invitation status so anpassen, dass dieser von der Organisation abhängig ist.
   # Bsp: Employee "homer" ist für Organisation "nuklear" bereits eingeladen worden. Jedoch nicht für
-  # Organisation "fukushima". Dann sollte der Invitation status für Organistation "fukishima" auch
+  # Organisation "fukushima". Dann sollte der Invitation status für Organisation "fukishima" auch
   # "Sie haben diesen Mitarbeiter noch nicht eingeladen lauten."
-  #
-  # TODO for later: What if invited and already confirmed user logs in without having accepted the invitation?
-  # What should happen? Should she be allowed to access the organization's plans for which she has been
-  # invited? Maybe show an info after logging in that shows her unaccepted invitations?
-  #
-  # TODO: Show invitation status on show and index view, too???
-  #
-  # TODO: If user logging in (either as planner or normal employee) is assigned/was invited to more than
-  # one organisation let him select on dashboard first for which organization he wants to log in.
-  #
-  # TODO: On employee/show -/edit page show email address of the associated user?
-  #
-  # TODO: changing the email address of the employee. Should change email of assoc user. But this would affect
-  # the employee email addresses of other accounts if same user is assoc to more than one employee.
-  # Maybe only user should be allowed to change own email address. Think so.
-  # Planner should only be allowed to change email of not yet invited employee.
+
+  # remember for which account an user has accepted an invitation? brauchen wir nicht, aber mal prüfen
 
 
