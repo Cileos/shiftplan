@@ -56,7 +56,6 @@ GEM
     addressable (2.2.7)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    binding_of_caller (0.6.2)
     bootstrap-sass (2.0.1)
     builder (3.0.0)
     cancan (1.6.7)
@@ -195,20 +194,11 @@ GEM
     pickle (0.4.10)
       cucumber (>= 0.8)
       rake
-    plymouth (0.3.2)
-      pry-exception_explorer (>= 0.1.7)
     polyglot (0.3.3)
     pry (0.9.8.2)
       coderay (~> 1.0.5)
       method_source (~> 0.7)
       slop (>= 2.4.4, < 3)
-    pry-exception_explorer (0.1.9)
-      pry-stack_explorer (>= 0.3.9)
-    pry-nav (0.1.0)
-      pry (~> 0.9.8.1)
-    pry-stack_explorer (0.4.0)
-      binding_of_caller (~> 0.6.2)
-      pry (~> 0.9.8.2)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -326,11 +316,8 @@ DEPENDENCIES
   notes!
   pg
   pickle
-  plymouth
   polyglot
   pry
-  pry-nav
-  pry-stack_explorer
   rails (= 3.2.2)
   rspec-rails (~> 2.8.1)
   sass-rails (~> 3.2.4)

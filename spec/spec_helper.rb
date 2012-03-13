@@ -31,7 +31,6 @@ Spork.prefork do
     end
 
   end
-  require 'plymouth'
 end
 
 Spork.each_run do
