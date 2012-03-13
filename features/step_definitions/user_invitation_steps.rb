@@ -23,7 +23,7 @@ end
 When /^#{capture_model} accepts the invitation (with|without) setting a password$/ do |employee, with_or_without|
   step %{I open the email with subject "Sie wurden zu Shiftplan eingeladen"}
   if with_or_without == 'with'
-    step %{I should see "Ihr Account wird nicht angelegt solange Sie nicht" in the email body}
+    step %{I should see "Ihr Account wird nicht angelegt, solange Sie nicht" in the email body}
     step %{I should see "und Ihr Passwort gesetzt haben" in the email body}
   else
     # Email should not include account and password instructions as account already exists and
