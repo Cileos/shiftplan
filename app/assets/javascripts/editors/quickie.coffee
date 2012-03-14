@@ -21,7 +21,9 @@ class QuickieEditor extends View
       .typeahead
         source: params.completions || gon.quickie_completions,
         sorter: @sorter
-    @.closest('.modal').on 'hidden', => @input.unbind()
+    @one 'attach', =>
+      @.closest('.modal').one 'hidden', =>
+        @input.unbind().data('typeahead').$menu.remove()
 
   sorter: (items) ->
     [timeRange, shortCuts, beginsWith, rest] = [ [],[],[],[] ]
