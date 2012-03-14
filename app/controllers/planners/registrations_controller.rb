@@ -5,7 +5,7 @@ class Planners::RegistrationsController < Devise::RegistrationsController
 
   def assign_planner_role
     unless resource.new_record?
-      resource.roles << 'planner'
+      resource.roles << 'owner'
       resource.save!
     end
   end

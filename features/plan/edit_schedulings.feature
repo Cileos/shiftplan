@@ -1,6 +1,6 @@
 Feature: Edit Schedulings of a Plan
   In order to fix typing errors or adapt to new circumstances
-  As a planer
+  As a planner
   I want to edit schedulings in my plan
 
   Background:

@@ -14,7 +14,7 @@ Feature: Signing up
      Then I should see "Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen."
       And "me@example.com" should receive an email
       And a user should exist with email: "me@example.com"
-      And the user should have the role "planner"
+      And the user should have the role "owner"
 
      When I open the email
       And I click the first link in the email
