@@ -1,10 +1,11 @@
+@javascript
 Feature: Inviting Employees
   As a planner
   I want to invite my employees
   So that they can see when they have to work and can comment on plans and shifts
 
   Background:
-    Given today is "2012-01-01 12:00"
+    Given today is "2012-05-23 12:00"
       And a planner "me" exists with email: "planner@fukushima.jp"
       And an organization "fukushima" exists with name: "Fukushima", planner: planner "me"
       And an employee "homer" exists with organization: organization "fukushima", first_name: "Homer"
@@ -14,54 +15,53 @@ Feature: Inviting Employees
 
   Scenario: Inviting an employee with an email address that does not exist yet
      When I invite the employee "homer" with the email address "homer@thesimpsons.com"
-
-      And the employee "homer" accepts the invitation with setting a password
-     Then I should be signed in as "homer@thesimpsons.com" for the organization
-      And I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."
-      And I should be on the dashboard page
-      And I should see "Schicht im Schacht"
-
-     When I follow "Ausloggen"
-      And I sign in as the planner "me"
-      And go to the edit page of the employee
-     Then I should see "Sie haben diesen Mitarbeiter am 01. Januar, 12:00 Uhr eingeladen."
-      And I should see "Die Einladung wurde am 01. Januar, 12:00 Uhr akzeptiert."
+     And the employee "homer" accepts the invitation with setting a password
 
   Scenario: Inviting an employee with an email address of a confirmed user which has not been invited yet
     Given a confirmed user "homer" exists with email: "homer@thesimpsons.com"
       And a clear email queue
-
-     When I invite the employee "homer" with the email address "homer@thesimpsons.com"
-
+      When I invite the employee "homer" with the email address "homer@thesimpsons.com"
       And the employee "homer" accepts the invitation without setting a password
-     Then I should be signed in as "homer@thesimpsons.com" for the organization
-      And I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."
-      And I should be on the dashboard page
-      And I should see "Schicht im Schacht"
 
   Scenario: Inviting an employee with an email address of an unconfirmed user which has not been invited yet
     Given a user "homer" exists with email: "homer@thesimpsons.com"
      Then the user "homer" should not be confirmed
       And a clear email queue
-
      When I invite the employee "homer" with the email address "homer@thesimpsons.com"
-
       And the employee "homer" accepts the invitation with setting a password
      Then the user "homer" should be confirmed
-      And I should be signed in as "homer@thesimpsons.com" for the organization
-      And I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."
-      And I should be on the dashboard page
-      And I should see "Schicht im Schacht"
 
   Scenario: Reinviting an employee which has not accepted the invitation yet
     When I invite the employee "homer" with the email address "homer@thesimpsons.com"
+    And I reinvite the employee "homer" with the email address "homer@thesimpsons.com"
+    And the employee "homer" accepts the invitation with setting a password
 
+  Scenario: Displaying the e-mail address or the invitation status on the employees page
+    When I go to the employees page
+    Then I should see the following table of employees:
+      | Name          | E-Mail   |
+      | Homer Simpson | Einladen |
+
+    When I invite the employee "homer" with the email address "homer@thesimpsons.com"
+    Then I should see the following table of employees:
+      | Name          | E-Mail                                         |
+      | Homer Simpson | Eingeladen am 23.05.2012 12:00 Erneut einladen |
+
+    Given today is "2012-05-24 12:00"
+    # need to sign in again because the session has expired
+    And I sign in as the planner "me"
     When I reinvite the employee "homer" with the email address "homer@thesimpsons.com"
-      And the employee "homer" accepts the invitation with setting a password
-     Then I should be signed in as "homer@thesimpsons.com" for the organization
-      And I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."
-      And I should be on the dashboard page
-      And I should see "Schicht im Schacht"
+    Then I should see the following table of employees:
+      | Name          | E-Mail                                         |
+      | Homer Simpson | Eingeladen am 24.05.2012 12:00 Erneut einladen |
+
+    When the employee accepts the invitation with setting a password
+    And I sign out
+    And I sign in as the planner "me"
+    When I go to the employees page
+    Then I should see the following table of employees:
+      | Name          | E-Mail                |
+      | Homer Simpson | homer@thesimpsons.com |
 
   # TODO: Invitation status so anpassen, dass dieser von der Organisation abhängig ist.
   # Bsp: Employee "homer" ist für Organisation "nuklear" bereits eingeladen worden. Jedoch nicht für

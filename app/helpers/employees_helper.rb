@@ -1,14 +1,18 @@
 module EmployeesHelper
   def invitation_status(employee)
     if employee.invitation_accepted?
-      t(:'employees.invitation_status.invited_and_accepted',
-        invitation_sent_at: l(employee.invitation_sent_at, format: :short),
-        invitation_accepted_at: l(employee.invitation_accepted_at, format: :short))
+      employee.user.email
     elsif employee.invited?
-      t(:'employees.invitation_status.invited_not_accepted',
-        invitation_sent_at: l(employee.invitation_sent_at, format: :short))
+        (t(:'employees.invitation_status.invited', invited_at: l(employee.invitation_sent_at, format: :tiny)) + ' ' +
+          invitation_link(:reinvite, employee)
+        ).html_safe
     else
-      t(:'employees.invitation_status.not_invited')
+      invitation_link(:invite, employee)
     end
+  end
+
+  def invitation_link(text, employee)
+    link_to ti(text.to_sym, :'non-white' => true), new_user_invitation_path( user: { employee_id: employee.id } ),
+      class: 'btn btn-mini', :remote => true
   end
 end

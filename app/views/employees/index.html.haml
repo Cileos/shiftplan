@@ -4,13 +4,15 @@
 %table#employees.table.table-striped.table-bordered.table-condensed
   %thead
     %tr.employee
-      %th= t('.full_name')
-      %th= t('.weekly_working_time')
-  
+      %th= t('activerecord.attributes.employee.full_name')
+      %th= t('activerecord.attributes.employee.email')
+      %th= t('activerecord.attributes.employee.weekly_working_time')
+
   %tbody
     - collection.each do |employee|
       %tr
         %td= link_to employee.name, edit_employee_path(employee), remote: true
+        %td= invitation_status(employee)
         %td= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
 
 = link_to ti(:add), new_employee_path, class: 'btn btn-inverse', remote: true

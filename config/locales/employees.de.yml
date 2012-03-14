@@ -9,6 +9,7 @@ de:
         last_name: Nachname
         full_name: Name
         weekly_working_time: Wochenarbeitszeit
+        email: E-Mail
   simple_form:
     placeholders:
       employee:
@@ -16,15 +17,6 @@ de:
         last_name: Nachname
   employees:
     invitation_status:
-      not_invited: 'Sie haben diesen Mitarbeiter noch nicht eingeladen.'
-      invited_not_accepted: "Sie haben diesen Mitarbeiter am %{invitation_sent_at} eingeladen. Die Einladung wurde noch nicht akzeptiert."
-      invited_and_accepted: "Sie haben diesen Mitarbeiter am %{invitation_sent_at} eingeladen. Die Einladung wurde am %{invitation_accepted_at} akzeptiert."
-    show:
-      weekly_working_time: Wochenarbeitszeit
-      no_weekly_working_time: keine
-    edit:
-      edit_employee: Mitarbeiter bearbeiten
-    new:
-      new_employee: Neuen Mitarbeiter anlegen
+      invited: "Eingeladen am %{invited_at}"
     index:
       employees: Mitarbeiter

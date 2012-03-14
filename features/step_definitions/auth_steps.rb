@@ -31,8 +31,8 @@ When /^I sign in$/ do
 end
 
 When /^I sign out$/ do
-  step %~I follow "signout"~
-  step %~I should see "Signed out successfully."~
+  step %~I follow "Ausloggen"~
+  step %~I should see "Erfolgreich ausgeloggt."~
 end
 
 When /^I sign in as #{capture_model}$/ do |model|

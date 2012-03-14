@@ -49,6 +49,10 @@ class User < ActiveRecord::Base
       create_default_organization!
   end
 
+  def employee
+    Employee.find_by_id(employee_id)
+  end
+
   private
   def create_default_organization!
     roles << 'planner'
@@ -56,3 +60,5 @@ class User < ActiveRecord::Base
     organizations.create! :name => "Organization for #{label}"
   end
 end
+
+UserDecorator

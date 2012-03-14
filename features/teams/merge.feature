@@ -15,7 +15,7 @@ Feature: Merge Teams
         | 2012-12-21 | 2-3 Reaktor schrubben |
         | 2012-12-22 | 3-4 Reaktor putzen    |
       And I follow "Teams"
-      And I should the following table of teams:
+      And I should see the following table of teams:
        | Name              | Kürzel |
        | Reaktor putzen    | Rp     |
        | Reaktor schrubben | Rs     |
@@ -24,7 +24,7 @@ Feature: Merge Teams
       And I select "Reaktor schrubben" from "anderes Team"
       And I press "Zusammenlegen"
      Then I should see info "Teams erfolgreich zusammengeführt."
-      And I should the following table of teams:
+      And I should see the following table of teams:
        | Name           | Kürzel |
        | Reaktor putzen | Rp     |
       But I should not see "Reaktor schrubben"

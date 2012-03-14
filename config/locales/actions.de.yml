@@ -23,5 +23,6 @@ de:
       back: Zurück
       show: Anzeigen
       destroy: Löschen
-      invite: Mitarbeiter einladen
-      reinvite: Mitarbeiter erneut einladen
+      invite: Einladen
+      reinvite: Erneut einladen
+      send_invitation: 'Einladung verschicken'

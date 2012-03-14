@@ -15,7 +15,7 @@ Feature: Manage Teams
         | organization "Reactor"    | Jodausschank   |
         | organization "Government" | Entsorgung     |
      When I follow "Teams"
-     Then I should the following table of teams:
+     Then I should see the following table of teams:
        | Name           | Kürzel |
        | Jodausschank   | J      |
        | Reaktor putzen | Rp     |
@@ -41,7 +41,7 @@ Feature: Manage Teams
      Then the "Kürzel" field should contain "Ur"
      When I fill in "Kürzel" with "OK"
       And I press "Team aktualisieren"
-     Then I should the following table of teams:
+     Then I should see the following table of teams:
        | Name           | Kürzel |
        | Uran rangieren | OK     |
 

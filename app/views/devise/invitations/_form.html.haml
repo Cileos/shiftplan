@@ -1,0 +1,10 @@
+- resource.email = resource.employee.try(:user).try(:email)
+= simple_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f|
+  = devise_error_messages!
+
+  .inputs
+    = f.input :employee_id, as: :hidden
+    = f.input :email, autofocus: true
+
+  .actions
+    %button.btn.btn-primary= ti(:send_invitation)

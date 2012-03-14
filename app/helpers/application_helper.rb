@@ -10,18 +10,22 @@ module ApplicationHelper
   end
 
   alias ta translate_action
+
   def link_to(text, *args, &block)
     super translate_action(text), *args, &block
   end
 
   def translate_icon(key, opts={})
-    content_tag(:i, '', class: "icon-#{Icons[key] || 'glass'} icon-white") + ' ' + translate_action(key, opts)
+    content_tag(:i, '', class: "icon-#{Icons[key] || 'glass'} #{'icon-white' unless opts[:'non-white']}") + ' ' + translate_action(key, opts)
   end
   alias ti translate_icon
 
   Icons = {
     add: 'plus',
-    update: 'ok-circle'
+    update: 'ok-circle',
+    invite: 'user',
+    reinvite: 'user',
+    send_invitation: 'envelope'
   }
 
   # translate with textilize
