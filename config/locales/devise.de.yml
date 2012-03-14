@@ -48,3 +48,5 @@ de:
         set_password: Passwort setzen
       user:
         updated: 'Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben.'
+      new:
+        invite_employee: "%{employee_name} einladen"

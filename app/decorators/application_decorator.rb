@@ -3,8 +3,15 @@ class ApplicationDecorator < Draper::Base
   # wraps the given block in modal divs. Must give at least :body
   def modal(options = {})
     body    = options.delete(:body) || raise(ArgumentError, 'no :body given for modal')
+    header  = options.delete(:header)
     classes = options.delete(:class)
-    content = h.content_tag :div, body, class: 'modal-body'
+    content_body = h.content_tag :div, body, class: 'modal-body'
+    if header
+      content = h.content_tag(:div, header, class: 'modal-header')
+      content += content_body
+    else
+      content = content_body
+    end
     h.content_tag :div, content, options.merge(class: "modal container-fluid hide fade in #{classes}")
   end
 
