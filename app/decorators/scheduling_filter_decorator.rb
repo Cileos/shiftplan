@@ -32,7 +32,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def schedulings_for(day, employee)
-    filter.indexed(day, employee)
+    filter.indexed(day, employee).sort_by(&:start_hour)
   end
 
   def cell_metadata(day, employee)

@@ -17,8 +17,16 @@ class Scheduling < ActiveRecord::Base
     self.starts_at = date + hour.hours
   end
 
+  def start_hour
+    starts_at.hour
+  end
+
   def end_hour=(hour)
     self.ends_at = date + hour.hours
+  end
+
+  def end_hour
+    ends_at.hour
   end
 
   # date of the day the Scheduling starts
