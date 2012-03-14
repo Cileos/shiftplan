@@ -14,3 +14,7 @@ ActionMailer::Base.delivery_method = :test
 unless planner = User.find_by_email('planner@dev.shiftplan.de')
   planner = Factory :planner, :email => 'planner@dev.shiftplan.de'
 end
+
+unless owner = User.find_by_email('owner@dev.shiftplan.de')
+  planner = Factory :owner, :email => 'owner@dev.shiftplan.de'
+end

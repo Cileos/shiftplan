@@ -14,6 +14,10 @@ FactoryGirl.define do
       factory :planner do
         roles %w(planner)
       end
+
+      factory :owner do
+        roles %w(owner)
+      end
     end
   end
 end

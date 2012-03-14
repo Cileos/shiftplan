@@ -9,7 +9,12 @@ class Ability
     end
   end
 
+  def authorize_employee(employee)
+    # nuffin yet
+  end
+
   def authorize_planner(planner)
+    authorize_employee(planner)
     can :dashboard , User
     can :manage    , Organization , user_id: planner.id
     can :manage    , Employee     , organization: { planner_id: planner.id }
@@ -18,4 +23,9 @@ class Ability
     can :manage    , Plan         , organization: { planner_id: planner.id }
     can :manage    , Scheduling   , plan: { organization: { planner_id: planner.id }}
   end
+
+  def authorize_owner(owner)
+    authorize_planner(owner)
+  end
+
 end
