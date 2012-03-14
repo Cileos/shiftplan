@@ -80,8 +80,18 @@ Feature: Inviting Employees
     When I invite the employee "bart" with the email address "bart@thesimpsons.com"
     Then I should see that the invitation for "bart@thesimpsons.com" was successful
 
-  @todo
   Scenario: Inviting with an email that's already assigned to an employee of a different organization
+    Given a planner "mr. burns" exists with email: "burns@tschernobyl.com"
+    And an organization "tschernobyl" exists with name: "Tschernobyl", planner: planner "mr. burns"
+    And an employee "ray atom" exists with organization: organization "tschernobyl", first_name: "Ray", last_name: "Atom"
+
+    When I invite the employee "homer" with the email address "homer@thesimpsons.com"
+    Then I should see that the invitation for "homer@thesimpsons.com" was successful
+    When I sign out
+
+    When I sign in as the planner "mr. burns"
+    When I invite the employee "ray atom" with the email address "homer@thesimpsons.com"
+    Then I should see that the invitation for "homer@thesimpsons.com" was successful
 
   # TODO: Invitation status so anpassen, dass dieser von der Organisation abhängig ist.
   # Bsp: Employee "homer" ist für Organisation "nuklear" bereits eingeladen worden. Jedoch nicht für
