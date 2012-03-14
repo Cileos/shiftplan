@@ -23,7 +23,7 @@ Then /^I should see that the invitation for "([^"]*)" was successful$/ do |email
   step %{"#{email}" should receive an email with subject "Sie wurden zu Shiftplan eingeladen"}
 end
 
-When /^#{capture_model} accepts the invitation (with|without) setting a password$/ do |employee, with_or_without|
+When /^#{capture_model} accepts the invitation for the organization "([^"]*)" (with|without) setting a password$/ do |employee, organization_name, with_or_without|
   employee = model!(employee)
   step %{I open the email with subject "Sie wurden zu Shiftplan eingeladen"}
   if with_or_without == 'with'
@@ -42,7 +42,7 @@ When /^#{capture_model} accepts the invitation (with|without) setting a password
     step %{I press "Passwort setzen"}
   end
 
-  step %{I should be signed in as "#{employee.user.email}" for the organization}
+  step %{I should be signed in as "#{employee.user.email}" for the organization "#{organization_name}"}
   step %{I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."}
   step %{I should be on the dashboard page}
 end

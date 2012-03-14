@@ -14,11 +14,9 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     if resource
       # Do not create a new user but reinvite her if she has not accepted an invitation, yet.
-      if !resource.invitation_accepted_at?
-        # Associate the employee with the invited user.
-        resource.employee_id = params[resource_name][:employee_id]
-        resource.invite!
-      end
+      # Associate the employee with the invited user.
+      resource.employee_id = params[resource_name][:employee_id]
+      resource.invite!
     else
       # Create new user and invite her/him
       self.resource = resource_class.invite!(params[resource_name], current_inviter)
