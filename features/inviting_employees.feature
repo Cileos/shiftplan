@@ -93,11 +93,4 @@ Feature: Inviting Employees
     When I invite the employee "ray atom" with the email address "homer@thesimpsons.com"
     Then I should see that the invitation for "homer@thesimpsons.com" was successful
 
-  # TODO: Invitation status so anpassen, dass dieser von der Organisation abhängig ist.
-  # Bsp: Employee "homer" ist für Organisation "nuklear" bereits eingeladen worden. Jedoch nicht für
-  # Organisation "fukushima". Dann sollte der Invitation status für Organisation "fukishima" auch
-  # "Sie haben diesen Mitarbeiter noch nicht eingeladen lauten."
-
-  # remember for which account an user has accepted an invitation? brauchen wir nicht, aber mal prüfen
-
 
