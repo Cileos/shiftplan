@@ -5,12 +5,23 @@ describe 'QuickieEditor', ->
   beforeEach ->
     @editor = new QuickieEditor id: 23, value: '', completions: []
 
-  it 'proviedes outlet for input', ->
+  it 'provides outlet for input', ->
     expect(@editor.input).toExist()
 
   it 'provides typeahead for input field', ->
     expect(@editor.input).toHaveClass('typeahead')
     expect(@editor.input.data('typeahead')).toBeDefined()
+
+  it 'cleans up typeahead menu when closing modal window', ->
+    setFixtures sandbox
+      id: 'some-modal',
+      class: 'modal'
+    $('#some-modal').append @editor
+    typeahead = @editor.input.data('typeahead')
+    expect( typeahead.$menu.closest('body') ).toExist()
+    $('#some-modal').trigger 'hidden'
+    expect( typeahead.$menu.closest('body') ).not.toExist()
+
 
   describe 'typeahead', ->
     beforeEach ->
