@@ -45,7 +45,7 @@ Feature: Inviting Employees
     When I invite the employee "homer" with the email address "homer@thesimpsons.com"
     Then I should see the following table of employees:
       | Name          | E-Mail                                         |
-      | Homer Simpson | Eingeladen am 23.05.2012 12:00 Erneut einladen |
+      | Homer Simpson | Erneut einladen\nEingeladen am 23.05.2012 12:00 |
 
     Given today is "2012-05-24 12:00"
     # need to sign in again because the session has expired
@@ -53,7 +53,7 @@ Feature: Inviting Employees
     When I reinvite the employee "homer" with the email address "homer@thesimpsons.com"
     Then I should see the following table of employees:
       | Name          | E-Mail                                         |
-      | Homer Simpson | Eingeladen am 24.05.2012 12:00 Erneut einladen |
+      | Homer Simpson | Erneut einladen\nEingeladen am 24.05.2012 12:00 |
 
     When the employee accepts the invitation with setting a password
     And I sign out
