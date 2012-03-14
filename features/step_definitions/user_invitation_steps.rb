@@ -3,9 +3,9 @@ Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)"$/ 
   step %{a clear email queue}
   step %{I go to the employees page}
   if invite_or_reinvite == 'invite'
-    step %{I follow "Einladen"}
+    step %{I follow "Einladen" in the cell "E-Mail"\/"#{employee.name}"}
   else
-    step %{I follow "Erneut einladen"}
+    step %{I follow "Erneut einladen" in the cell "E-Mail"\/"#{employee.name}"}
   end
   step %{I wait for the modal box to appear}
   if invite_or_reinvite == 'reinvite'
@@ -13,6 +13,9 @@ Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)"$/ 
   end
   step %{I fill in "E-Mail" with "#{email}"}
   step %{I press "Einladung verschicken"}
+end
+
+Then /^I should see that the invitation for "([^"]*)" was successful$/ do |email|
   step %{I should see flash notice "Die Einladung wurde erfolgreich verschickt."}
   step %{I should be on the employees page}
   # Do not send an extra account confirmation mail, invitation mail is enough
@@ -42,4 +45,10 @@ When /^#{capture_model} accepts the invitation (with|without) setting a password
   step %{I should be signed in as "#{employee.user.email}" for the organization}
   step %{I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."}
   step %{I should be on the dashboard page}
+end
+
+When /^I (follow|press) "([^"]+)" in the cell "([^"]+)"\/"([^"]+)"$/ do |follow_or_press, label, column_label, row_label|
+  column = column_index_for(column_label)
+  row    = row_index_for(row_label)
+  step %{I #{follow_or_press == 'follow' ? 'follow' : 'press'} "#{label}" within "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"}
 end

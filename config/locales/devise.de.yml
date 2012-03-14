@@ -43,6 +43,7 @@ de:
         subject: 'Sie wurden zu Shiftplan eingeladen'
     invitations:
       send_instructions: 'Die Einladung wurde erfolgreich verschickt.'
+      another_employee_already_exists_with_email: "Sie haben bereits den Mitarbeiter %{employee_name} mit der E-Mail Adresse %{email} eingeladen"
       edit:
         set_password: Passwort setzen
       user:
