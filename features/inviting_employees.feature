@@ -9,7 +9,6 @@ Feature: Inviting Employees
       And a planner "me" exists with email: "planner@fukushima.jp"
       And an organization "fukushima" exists with name: "Fukushima", planner: planner "me"
       And an employee "homer" exists with organization: organization "fukushima", first_name: "Homer"
-      And a plan exists with organization: the organization, name: "Schicht im Schacht"
      When I sign in as the planner "me"
      Then I should be signed in as "planner@fukushima.jp" for the organization
 
