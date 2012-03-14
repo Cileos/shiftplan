@@ -11,7 +11,7 @@
   %tbody
     - collection.each do |employee|
       %tr
-        %td= link_to employee.name, edit_employee_path(employee), remote: true
+        %th= link_to employee.name, edit_employee_path(employee), remote: true
         %td= invitation_status(employee)
         %td= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
 

@@ -35,19 +35,6 @@ When /^I press (#{directions}) (\d{1,2}) times$/ do |direction, times|
   end
 end
 
-# TODO move this to selectors.rb
-def column_index_for(column_label)
-  columns = page.all('thead tr th').map(&:text)
-  columns.should include(column_label)
-  columns.index(column_label)
-end
-
-def row_index_for(row_label)
-  rows = page.all('tbody th').map(&:text)
-  rows.should include(row_label)
-  rows.index(row_label)
-end
-
 When /^I schedule #{capture_quoted} on #{capture_quoted} for #{capture_quoted}$/ do |employee, day, quickie|
   steps <<-EOSTEPS
      When I click on cell "#{day}"/"#{employee}"
@@ -59,7 +46,6 @@ When /^I schedule #{capture_quoted} on #{capture_quoted} for #{capture_quoted}$/
       And I wait for the modal box to disappear
   EOSTEPS
 end
-
 
 Then /^I should see a calendar (?:titled|captioned) #{capture_quoted}$/ do |caption|
   step %Q~I should see "#{caption}" within "caption" within the calendar~
