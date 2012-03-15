@@ -117,6 +117,18 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  def respond(resource)
+    if resource.errors.empty?
+      update_cell_for(resource)
+      update_hours_for(resource.employee)
+      hide_modal :scheduling_form, resource
+      update_legend
+      update_quickie_completions
+    else
+      append_errors_for(resource)
+    end
+  end
+
   def update_cell_for(scheduling)
     select(:cell, scheduling).html cell_content_for_scheduling(scheduling) || ''
   end
