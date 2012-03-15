@@ -6,9 +6,9 @@ Feature: Nightshift
   @javascript
   Scenario: entering time span for the nightshift
     Given the situation of a nuclear reactor
-     When I schedule "Homer S" on "Donnerstag" for "18-6 Daumen drehen"
+     When I schedule "Homer S" on "Donnerstag" for "19-6 Daumen drehen"
      Then I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Carl C      |        |          |          |            |         |         |         |
-        | Lenny L     |        |          |          |            |         |         |         |
-        | Homer S     |        |          |          | 18-24 Dd   | 0-6 Dd  |         |         |
+        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag | Stunden |
+        | Carl C      |        |          |          |            |         |         |         | 0       |
+        | Lenny L     |        |          |          |            |         |         |         | 0       |
+        | Homer S     |        |          |          | 19-24 Dd   | 0-6 Dd  |         |         | 11      |

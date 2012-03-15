@@ -91,7 +91,7 @@ class Scheduling < ActiveRecord::Base
 
 
   def length_in_hours
-    (ends_at - starts_at) / 1.hour
+    end_hour - start_hour
   end
 
   def self.filter(params={})

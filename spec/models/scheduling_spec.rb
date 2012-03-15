@@ -189,12 +189,18 @@ describe Scheduling do
   end
 
   describe "ranging over midnight" do
-    let(:nightwatch) { Factory.build :scheduling, quickie: '20-6' }
+    let(:nightwatch) { Factory.build :scheduling, quickie: '19-6' }
 
     it "should have hours set" do
       nightwatch.valid?
-      nightwatch.start_hour.should == 20
+      nightwatch.start_hour.should == 19
       nightwatch.end_hour.should == 24
+    end
+
+    it "should split the length in hours correctly" do
+      nightwatch.save!
+      nightwatch.length_in_hours.should == 5
+      nightwatch.next_day.length_in_hours.should == 6
     end
 
     it "should create 2 scheduling, ripped apart at midnight" do
