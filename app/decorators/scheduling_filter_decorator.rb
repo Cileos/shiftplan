@@ -45,7 +45,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
       if resource.is_a?(Scheduling)
         %Q~#calendar tbody td[data-date=#{resource.date.iso8601}][data-employee_id=#{resource.employee_id}]~
       else
-        day, employee_id = scheduling, extra
+        day, employee_id = resource, extra
         %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
       end
     when :hours
@@ -120,6 +120,9 @@ class SchedulingFilterDecorator < ApplicationDecorator
   def respond(resource)
     if resource.errors.empty?
       update_cell_for(resource)
+      if resource.next_day
+        filter.update_cell_for(resource.next_day)
+      end
       update_hours_for(resource.employee)
       hide_modal :scheduling_form, resource
       update_legend

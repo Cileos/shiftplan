@@ -14,7 +14,8 @@ describe 'Quickie::parser' do
       '9-23',
       '0-5',
       '1-2',
-      '12-24'
+      '12-24',
+      '20-8'
     ].each do |valid_hour_range|
       describe valid_hour_range do
         it { should parse_successfully }

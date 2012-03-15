@@ -12,6 +12,9 @@ class Scheduling < ActiveRecord::Base
   validates :starts_at, :ends_at, :plan, :employee,
     :year, :week, :presence => true
 
+  after_create :create_next_day
+  attr_accessor :next_day
+
   # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
   def start_hour=(hour)
     self.starts_at = date + hour.hours
@@ -21,12 +24,22 @@ class Scheduling < ActiveRecord::Base
     starts_at.hour
   end
 
+  # must be set after start_hour= to ensure proper behaviour
   def end_hour=(hour)
-    self.ends_at = date + hour.hours
+    if hour.to_i > start_hour # normal range
+      self.ends_at = date + hour.hours
+    else # nightwatch
+      self.ends_at = date.end_of_day
+      @next_day_end_hour = hour
+    end
   end
 
   def end_hour
-    ends_at.hour
+    if ends_at.min >= 55 # end of the day is 24, beginning of next day 0
+      ends_at.hour + 1
+    else
+      ends_at.hour
+    end
   end
 
   # date of the day the Scheduling starts
@@ -36,7 +49,11 @@ class Scheduling < ActiveRecord::Base
 
   def date=(new_date)
     if new_date
-      @date = Date.parse(new_date)
+      if new_date.respond_to?(:to_date)
+        @date = new_date.to_date
+      else
+        @date = Date.parse(new_date)
+      end
     end
   end
 
@@ -66,7 +83,7 @@ class Scheduling < ActiveRecord::Base
 
   def hour_range_quickie
     if starts_at.present? && ends_at.present?
-      "#{starts_at.hour}-#{ends_at.hour}"
+      "#{start_hour}-#{end_hour}"
     end
   end
 
@@ -74,7 +91,7 @@ class Scheduling < ActiveRecord::Base
 
 
   def length_in_hours
-    (ends_at - starts_at) / 1.hour
+    end_hour - start_hour
   end
 
   def self.filter(params={})
@@ -156,6 +173,20 @@ class Scheduling < ActiveRecord::Base
     write_attribute(:year, year)
   end
 
+  # if an hour range spanning over midnight is given, we split the scheduling. the second part is created here
+  def create_next_day
+    if @next_day_end_hour.present?
+      next_day_end_hour = @next_day_end_hour
+      @next_day_end_hour = nil # must be cleared to protect it from dupping
+      self.next_day = dup.tap do |next_day|
+        next_day.quickie = nil
+        next_day.date = date + 1.day
+        next_day.start_hour = 0
+        next_day.end_hour = next_day_end_hour
+        next_day.save!
+      end
+    end
+  end
 end
 
 class ActiveSupport::TimeWithZone
