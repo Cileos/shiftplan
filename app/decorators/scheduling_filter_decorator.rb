@@ -45,7 +45,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
       if resource.is_a?(Scheduling)
         %Q~#calendar tbody td[data-date=#{resource.date.iso8601}][data-employee_id=#{resource.employee_id}]~
       else
-        day, employee_id = scheduling, extra
+        day, employee_id = resource, extra
         %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
       end
     when :hours

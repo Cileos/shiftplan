@@ -2,7 +2,23 @@ require 'spec_helper'
 
 describe Scheduling do
 
-  context "time range" do
+  context "hour accessor" do
+    let(:scheduling) { Scheduling.new(date: Date.today) }
+
+    context "for start" do
+      it "accepts normal numbers" do
+        scheduling.start_hour = 8
+        scheduling.start_hour.should == 8
+      end
+
+      it "accepts zero as startof day" do
+        scheduling.start_hour = 0
+        scheduling.start_hour.should == 0
+      end
+    end
+  end
+
+  context "normal time range" do
     # must define "today" here to travel before building anything
     before(:each) { Timecop.travel Time.parse('1988-02-03 23:42') }
     after(:each)  { Timecop.return }
@@ -169,6 +185,20 @@ describe Scheduling do
 
         it_behaves_like 'having invalid quickie'
       end
+    end
+  end
+
+  describe "ranging over midnight" do
+    let(:nightwatch) { Factory.build :scheduling, quickie: '20-6' }
+
+    it "should have hours set" do
+      nightwatch.valid?
+      nightwatch.start_hour.should == 20
+      nightwatch.end_hour.should == 24
+    end
+
+    it "should create 2 scheduling, ripped apart at midnight" do
+      expect { nightwatch.save! }.to change(Scheduling, :count).by(2)
     end
   end
 
