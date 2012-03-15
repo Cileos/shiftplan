@@ -14,15 +14,30 @@ Feature: Create Employees
      When I follow "Mitarbeiter"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
+     Then the "Wochenarbeitszeit" field should contain "40"
+      And I fill in the following:
+        | Vorname           | Carl    |
+        | Nachname          | Carlson |
+        | Wochenarbeitszeit | 30      |
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see flash info "Mitarbeiter erfolgreich angelegt."
+      And I should be on the employees page
+      And I should see "Carl Carlson"
+      And I should see "30"
+
+  @javascript
+  Scenario: Creating an employee, inducing an error by entering a non-integer waz
+     When I follow "Mitarbeiter"
+      And I follow "Hinzufügen"
+      And I wait for the modal box to appear
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30.5    |
       And I press "Speichern"
-     Then I should see flash info "Mitarbeiter erfolgreich angelegt."
-      And I should be on the employees page
-      And I should see "Carl Carlson"
-      And I should see "30,5"
+     Then I should see "muss ganzzahlig sein" within the modal box
+
 
   @javascript
   Scenario: Editing an employee
@@ -35,7 +50,8 @@ Feature: Create Employees
         | Vorname  | Carl    |
         | Nachname | Carlson |
      And I press "Speichern"
-    Then I should see "Mitarbeiter erfolgreich geändert."
+     And I wait for the modal box to disappear
+    Then I should see flash info "Mitarbeiter erfolgreich geändert."
      And I should be on the employees page
      And I should see "Carl Carlson"
      But I should not see "Homer Simpson"

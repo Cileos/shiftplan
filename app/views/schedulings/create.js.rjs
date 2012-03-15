@@ -6,6 +6,6 @@ page.decorate resource.concurrent do |filter|
     filter.update_legend
     filter.update_quickie_completions
   else
-    filter.insert_errors_for(resource)
+    filter.append_errors_for(resource)
   end
 end

@@ -1,0 +1,3 @@
+page.decorate @employee do |employee|
+  employee.respond
+end

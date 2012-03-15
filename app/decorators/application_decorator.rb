@@ -64,8 +64,14 @@ class ApplicationDecorator < Draper::Base
     end.modal('hide')
   end
 
+  # prepend validation errors for given `resource` to its form
+  def prepend_errors_for(resource)
+    select(:errors_for, resource).remove()
+    select(:form_for, resource).prepend errors_for(resource)
+  end
+
   # append validation errors for given `resource` to its form
-  def insert_errors_for(resource)
+  def append_errors_for(resource)
     select(:errors_for, resource).remove()
     select(:form_for, resource).append errors_for(resource)
   end
