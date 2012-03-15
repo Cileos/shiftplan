@@ -3,9 +3,9 @@ Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)"$/ 
   step %{a clear email queue}
   step %{I go to the employees page}
   if invite_or_reinvite == 'invite'
-    step %{I follow "Einladen" in the cell "E-Mail"\/"#{employee.name}"}
+    step %{I follow "Einladen" in the cell "Status"\/"#{employee.name}"}
   else
-    step %{I follow "Erneut einladen" in the cell "E-Mail"\/"#{employee.name}"}
+    step %{I follow "Erneut einladen" in the cell "Status"\/"#{employee.name}"}
   end
   step %{I wait for the modal box to appear}
   if invite_or_reinvite == 'reinvite'

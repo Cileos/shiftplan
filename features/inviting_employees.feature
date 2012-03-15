@@ -42,30 +42,30 @@ Feature: Inviting Employees
   Scenario: Displaying the e-mail address or the invitation status on the employees page
     When I go to the employees page
     Then I should see the following table of employees:
-      | Name          | E-Mail   |
-      | Homer Simpson | Einladen |
+      | Name          | E-Mail | Status   |
+      | Homer Simpson |        | Einladen |
 
     When I invite the employee "homer" with the email address "homer@thesimpsons.com"
     Then I should see that the invitation for "homer@thesimpsons.com" was successful
     Then I should see the following table of employees:
-      | Name          | E-Mail                                         |
-      | Homer Simpson | Erneut einladen\nEingeladen am 23.05.2012 12:00 |
+      | Name          | E-Mail                | Status                                          |
+      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 23.05.2012 12:00 |
 
     Given today is "2012-05-24 12:00"
     # need to sign in again because the session has expired
     And I sign in as the planner "me"
     When I reinvite the employee "homer" with the email address "homer@thesimpsons.com"
     Then I should see the following table of employees:
-      | Name          | E-Mail                                         |
-      | Homer Simpson | Erneut einladen\nEingeladen am 24.05.2012 12:00 |
+      | Name          | E-Mail                | Status                                          |
+      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 24.05.2012 12:00 |
 
     When the employee accepts the invitation for the organization "fukushima" with setting a password
     And I sign out
     And I sign in as the planner "me"
     When I go to the employees page
     Then I should see the following table of employees:
-      | Name          | E-Mail                |
-      | Homer Simpson | homer@thesimpsons.com |
+      | Name          | E-Mail                | Status |
+      | Homer Simpson | homer@thesimpsons.com | Aktiv  |
 
   Scenario: Inviting with an email that's already assigned to an employee of the same organization
     Given an employee "bart" exists with organization: organization "fukushima", first_name: "Bart"

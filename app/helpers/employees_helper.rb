@@ -1,11 +1,11 @@
 module EmployeesHelper
   def invitation_status(employee)
     if employee.invitation_accepted?
-      employee.user.email
+      t(:'employees.invitation_status.active')
     elsif employee.invited?
-        (invitation_link(:reinvite, employee) + ' ' +
-          t(:'employees.invitation_status.invited', invited_at: l(employee.invitation_sent_at, format: :tiny))
-        ).html_safe
+      (invitation_link(:reinvite, employee) + ' ' +
+        t(:'employees.invitation_status.invited', invited_at: l(employee.invitation_sent_at, format: :tiny))
+      ).html_safe
     else
       invitation_link(:invite, employee)
     end

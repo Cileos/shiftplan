@@ -6,12 +6,14 @@
     %tr.employee
       %th= t('activerecord.attributes.employee.full_name')
       %th= t('activerecord.attributes.employee.email')
+      %th= t('.status')
       %th= t('activerecord.attributes.employee.weekly_working_time')
 
   %tbody
     - collection.each do |employee|
       %tr
         %th= link_to employee.name, edit_employee_path(employee), remote: true
+        %td= employee.try(:user).try(:email)
         %td= invitation_status(employee)
         %td= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
 
