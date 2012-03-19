@@ -1,0 +1,15 @@
+de:
+  activerecord:
+    attributes:
+      scheduling:
+        employee: Mitarbeiter
+        day: Tag
+        date: Wochentag
+        quickie: Quickie
+        starts_at: Startzeit
+        ends_at: Endzeit
+  simple_form:
+    hints:
+      scheduling:
+        quickie: "9-17 wichtige Arbeit [wA]"
+

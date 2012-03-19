@@ -8,8 +8,10 @@ Feature: create a scheduling
       And the situation of a nuclear reactor
 
 
+  @javascript
   Scenario: just entering time span
      When I follow "Neue Terminierung"
+     Then I should see "9-17 wichtige Arbeit [wA]" within a hint
       And I select "Homer S" from "Mitarbeiter"
       And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9-17"

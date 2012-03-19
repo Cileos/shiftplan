@@ -1,5 +1,5 @@
 = simple_form_for scheduling, url: plan_schedulings_path(scheduling.plan), remote: true, html: { class: 'form-horizontal well' } do |f|
-  = f.input :quickie
+  = f.input :quickie, hint: true
   %button.btn.btn-success{type: 'submit'}
     %i.icon-ok-circle.icon-white
     = ta :create
