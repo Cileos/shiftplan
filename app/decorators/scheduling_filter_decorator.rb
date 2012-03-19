@@ -121,7 +121,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     if resource.errors.empty?
       update_cell_for(resource)
       if resource.next_day
-        filter.update_cell_for(resource.next_day)
+        update_cell_for(resource.next_day)
       end
       update_hours_for(resource.employee)
       hide_modal :scheduling_form, resource
