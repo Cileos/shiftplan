@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20120314145221) do
   create_table "employees", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.integer  "organization_id"
     t.decimal  "weekly_working_time"
     t.integer  "user_id"
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20120314145221) do
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "planner_id"
   end
 
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(:version => 20120314145221) do
   create_table "plans", :force => true do |t|
     t.integer  "organization_id"
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "plans", ["organization_id"], :name => "index_plans_on_organization_id"
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(:version => 20120314145221) do
     t.integer  "employee_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.integer  "week",        :limit => 2
     t.integer  "year"
     t.integer  "team_id"
@@ -86,8 +86,8 @@ ActiveRecord::Schema.define(:version => 20120314145221) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.string   "roles",                  :limit => 1024
     t.string   "invitation_token"
     t.datetime "invitation_sent_at"
