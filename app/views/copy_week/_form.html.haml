@@ -1,0 +1,5 @@
+= simple_form_for copy_week, url: [copy_week.plan, :copy_week] do |f|
+  = f.input :source, collection: copy_week.previous_weeks_for_select, include_blank: false
+  = f.hidden_field :target_year
+  = f.hidden_field :target_week
+  %button.btn.btn-warning{type: 'submit'}= ta :copy

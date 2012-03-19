@@ -1,3 +1,4 @@
+@javascript
 Feature: Plan a week
 
   Background:
@@ -8,7 +9,6 @@ Feature: Plan a week
       And a plan exists with organization: the organization, name: "Dull Work"
       And a employee exists with first_name: "Jack", organization: the organization, last_name: "T"
       And I am signed in as the planner
-
 
   Scenario: Navigation weekly back and forth
     Given the employee was scheduled in the plan as following:
@@ -52,3 +52,22 @@ Feature: Plan a week
       And I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden |
         | Jack T      |        |          |          | 12-14      |         | 2       |
+
+  # TODO do not copy schedulings of deactivated employee
+  Scenario: copy from last week
+    Given the employee was scheduled in the plan as following:
+        | week | cwday | quickie |
+        | 48   | 1     | 5-7     |
+        | 49   | 2     | 10-11   |
+        | 49   | 3     | 11-12   |
+        | 49   | 4     | 12-13   |
+      And I am on the page of the plan for week: 50
+     When I follow "Übernahme aus der letzten Woche"
+      And I wait for the modal box to appear
+      And I select "KW 49 03.12.2012" from "Von"
+      And I press "Übernehmen"
+     Then I should be on the page of the plan for year: 2012, week: 50
+      And I should see a calendar titled "Dull Work - KW 50 10.12.2012"
+      And I should see the following calendar:
+        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden |
+        | Jack T      |        | 10-11    | 11-12    | 12-13      |         | 3       |

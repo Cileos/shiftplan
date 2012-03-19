@@ -47,6 +47,15 @@ class Scheduling < ActiveRecord::Base
     @date || starts_at_or(:to_date) { date_from_human_date_attributes }
   end
 
+  # Because Date and Times are immutable, we have to situps to just change the week and year.
+  # must be used on a valid record.
+  def move_to_week_and_year(week, year)
+    *saved = cwday, start_hour, end_hour
+    self.starts_at = self.ends_at = @date = nil
+    self.week, self.year = week, year
+    self.cwday, self.start_hour, self.end_hour = *saved
+  end
+
   def date=(new_date)
     if new_date
       if new_date.respond_to?(:to_date)

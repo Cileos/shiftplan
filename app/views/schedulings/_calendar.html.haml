@@ -24,6 +24,7 @@
           = f.hours_tag_for(employee)
 
   #actions
+    = link_to :copy_week, new_plan_copy_week_path(f.plan, copy_week: { target_week: f.week, target_year: f.year }), remote: true
     = f.new_scheduling_form_with_link
 
   #legend

@@ -9,6 +9,9 @@ de:
         starts_at: Startzeit
         ends_at: Endzeit
   simple_form:
+    labels:
+      defaults:
+        source: Von
     hints:
       scheduling:
         quickie: "9-17 wichtige Arbeit [wA]"
