@@ -4,6 +4,7 @@ de:
       profile: Profil
       dashboard: Dashboard
       signin: Einloggen
+      signin_with: "Einloggen mit %{provider}"
       signout: Ausloggen
       signup: Registrieren
       employees: Mitarbeiter
