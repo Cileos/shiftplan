@@ -20,5 +20,6 @@ class Plan < ActiveRecord::Base
   def build_copy_week(attrs={})
     CopyWeek.new attrs.merge(plan: self)
   end
-
 end
+
+PlanDecorator

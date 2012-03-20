@@ -1,6 +1,8 @@
 class PlansController < InheritedResources::Base
   load_and_authorize_resource
 
+  respond_to :html, :js
+
   def begin_of_association_chain
     authorize! :index, Plan
     current_organization

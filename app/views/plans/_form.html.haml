@@ -1,0 +1,7 @@
+= simple_form_for [current_organization, plan] do |f|
+  - unless plan.duration.present?
+    = f.input :duration, :collection => durations_for_select(plan), :as => :radio
+    = f.button :submit, translate_action('.next')
+  - else
+    = f.input :name
+    = f.button :submit, translate_action('.create')

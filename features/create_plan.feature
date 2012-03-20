@@ -3,6 +3,7 @@ Feature: Creating a plan
   As a planner
   I want to create a plan
 
+  @javascript
   Scenario: creating a weekly plan for the current organization
     Given today is 2012-02-01
       # monday
@@ -11,6 +12,7 @@ Feature: Creating a plan
 
       When I follow "Reactor"
       And I follow "Hinzufügen"
+      And I wait for the modal box to appear
       # duration of plan is fixed for now
       #And I choose "Woche"
       #And I press "Weiter"
