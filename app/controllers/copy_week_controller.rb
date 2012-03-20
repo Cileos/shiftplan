@@ -4,6 +4,12 @@ class CopyWeekController < InheritedResources::Base
   respond_to :js
 
   def create
-    create! { plan_year_week_path parent, resource.target_year, resource.target_week }
+    create! { current_week_path }
+  end
+
+  protected
+
+  def current_week_path
+    organization_plan_year_week_path current_organization, parent, resource.target_year, resource.target_week
   end
 end
