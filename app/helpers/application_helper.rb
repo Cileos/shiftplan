@@ -22,6 +22,8 @@ module ApplicationHelper
 
   Icons = {
     add: 'plus',
+    new_scheduling: 'plus',
+    copy_week: 'retweet',
     update: 'ok-circle',
     invite: 'user',
     reinvite: 'user',

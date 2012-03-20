@@ -164,7 +164,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   private
 
   def link_to_new_scheduling_form
-    h.link_to '.new_scheduling', "##{scheduling_form_id}", :class => 'new_scheduling', 'data-toggle' => 'modal', 'data-href' => "##{scheduling_form_id}"
+    h.link_to h.ti(:new_scheduling), "##{scheduling_form_id}", :class => 'new_scheduling btn btn-inverse', 'data-toggle' => 'modal', 'data-href' => "##{scheduling_form_id}"
   end
 
 
