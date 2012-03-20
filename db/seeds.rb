@@ -15,11 +15,17 @@ organization = Organization.find_or_create_by_name 'Cileos'
 
 unless planner = User.find_by_email('planner@dev.shiftplan.de')
   planner = Factory :confirmed_user, email: 'planner@dev.shiftplan.de'
+end
+
+if planner.employees.empty?
   Factory :employee, organization: organization, user: planner, role: 'planner'
 end
 
 unless owner = User.find_by_email('owner@dev.shiftplan.de')
   owner = Factory :confirmed_user, email: 'owner@dev.shiftplan.de'
+end
+
+if owner.employees.empty?
   Factory :employee, organization: organization, user: owner, role: 'owner'
 end
 

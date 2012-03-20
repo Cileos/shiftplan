@@ -36,7 +36,7 @@ Then /^I should see the following list of links:$/ do |expected|
   expected.column_names.should == %w(link active)
   actual = all('ul li:has(a)').map do |li|
     [
-      li.first('a').text,
+      li.first('a').text.strip,
       (li[:class] || '').split.include?('active').to_s
     ]
   end

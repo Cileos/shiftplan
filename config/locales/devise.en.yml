@@ -25,11 +25,13 @@ en:
       signed_in: 'Signed in successfully.'
       signed_out: 'Signed out successfully.'
     passwords:
+      forgotten: "Forgot your password?"
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
       updated: 'Your password was changed successfully. You are now signed in.'
       updated_not_active: 'Your password was changed successfully.'
       send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
     confirmations:
+      not_received: "Didn't receive confirmation instructions?"
       send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
       send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
       confirmed: 'Your account was successfully confirmed. You are now signed in.'
@@ -43,6 +45,7 @@ en:
         unconfirmed: 'unconfirmed'
         locked: 'locked'
     unlocks:
+      not_received: "Didn't receive unlock instructions?"
       send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
       unlocked: 'Your account was successfully unlocked. You are now signed in.'
       send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'

@@ -21,11 +21,13 @@ module ApplicationHelper
   alias ti translate_icon
 
   Icons = {
-    add: 'plus',
-    update: 'ok-circle',
-    invite: 'user',
-    reinvite: 'user',
-    send_invitation: 'envelope'
+    add:               'plus',
+    new_scheduling:    'plus',
+    copy_week:         'retweet',
+    update:            'ok-circle',
+    invite:            'user',
+    reinvite:          'user',
+    send_invitation:   'envelope'
   }
 
   # translate with textilize
