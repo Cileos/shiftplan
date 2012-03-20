@@ -1,0 +1,5 @@
+And an organization "fukushima" exists with name: "AKW Fukushima GmbH"
+And a confirmed user "mr. burns" exists
+And an planner "Burns" exists with first_name: "Planner", last_name: "Burns", organization: organization "fukushima", user: the confirmed user "mr. burns"
+And a plan "reaktor putzen" exists with organization: organization "fukushima", name: "Reaktor putzen in Fukushima"
+And an employee exists with organization: organization "fukushima", first_name: "Homer", user: user "homer"

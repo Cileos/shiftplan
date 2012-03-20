@@ -10,21 +10,23 @@ Feature: Teams in plans
   Scenario: Using just the full name
      When I schedule "Homer S" on "Donnerstag" for "9-17 Reaktor putzen"
      Then I should see the following calendar:
-        | Mitarbeiter | Donnerstag |
-        | Carl C      |            |
-        | Lenny L     |            |
-        | Homer S     | 9-17 Rp    |
+        | Mitarbeiter   | Donnerstag |
+        | Planner Burns |            |
+        | Carl C        |            |
+        | Lenny L       |            |
+        | Homer S       | 9-17 Rp    |
       And I should see the following defined items within the legend:
-        | Rp       | Reaktor putzen |
+        | Rp | Reaktor putzen |
 
   @javascript
   Scenario: additionally specifying a shortcut for the team
      When I schedule "Homer S" on "Donnerstag" for "9-17 Reaktor putzen [OK]"
      Then I should see the following calendar:
-        | Mitarbeiter | Donnerstag |
-        | Carl C      |            |
-        | Lenny L     |            |
-        | Homer S     | 9-17 OK    |
+        | Mitarbeiter   | Donnerstag |
+        | Planner Burns |            |
+        | Carl C        |            |
+        | Lenny L       |            |
+        | Homer S       | 9-17 OK    |
       And I should see the following defined items within the legend:
-        | OK       | Reaktor putzen |
+        | OK | Reaktor putzen |
 

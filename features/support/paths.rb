@@ -24,15 +24,14 @@ module NavigationHelpers
       params = parse_fields($2).symbolize_keys
       case model = model!($1)
       when Plan
-        # TODO we may have to scope this under its organization laater
         if params[:week]
           if params[:year]
-            plan_year_week_path(model, params[:year], params[:week])
+            organization_plan_year_week_path(model.organization, model, params[:year], params[:week])
           else
-            plan_week_path(model, params[:week])
+            organization_plan_week_path(model.organization, model, params[:week])
           end
         else
-          plan_path(model, params)
+          organization_plan_path(model.organization, model, params)
         end
       when Employee
         employee_path(model)
@@ -49,8 +48,9 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
 
-    when /^employees page$/
-      employees_page
+    when /^the employees page for #{capture_model}$/
+      org = model!($1)
+      organization_employees_path(org)
 
     else
       begin

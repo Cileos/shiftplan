@@ -24,7 +24,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
     if resource.errors.empty?
       set_flash_message :notice, :send_instructions, :email => self.resource.email
-      redirect_to employees_path
+      redirect_to organization_employees_path(employee.organization)
     else
       respond_with_navigational(resource) { render :new }
     end
@@ -55,7 +55,9 @@ class Users::InvitationsController < Devise::InvitationsController
   protected
 
   def employee
-    @employee ||= current_user.organization.employees.find_by_user_id(resource.id)
+    employee = Employee.find_by_id(params[:user][:employee_id])
+    organization = Organization.find_by_id(employee.organization_id)
+    @employee ||= organization.employees.find_by_user_id(resource.id)
   end
 
   def employee_exists?
@@ -63,7 +65,7 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def after_invite_path_for(resource)
-    employees_path
+    organization_employees_path(current_organization)
   end
 
   def set_resource
@@ -81,7 +83,7 @@ class Users::InvitationsController < Devise::InvitationsController
     if resource && employee_exists?
       set_flash_message :error, :another_employee_already_exists_with_email,
         :email => self.resource.email, :employee_name => employee.name
-      redirect_to employees_path
+      redirect_to organization_employees_path(employee.organization)
     end
   end
 

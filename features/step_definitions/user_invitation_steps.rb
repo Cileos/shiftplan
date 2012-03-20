@@ -1,7 +1,7 @@
-Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)"$/ do |invite_or_reinvite, employee, email|
+Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)" for the organization "([^"]*)"$/ do |invite_or_reinvite, employee, email, organization|
   employee = model!(employee)
   step %{a clear email queue}
-  step %{I go to the employees page}
+  step %{I go to the employees page for the organization "#{organization}"}
   if invite_or_reinvite == 'invite'
     step %{I follow "Einladen" in the cell "Status"\/"#{employee.name}"}
   else
@@ -15,9 +15,9 @@ Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)"$/ 
   step %{I press "Einladung verschicken"}
 end
 
-Then /^I should see that the invitation for "([^"]*)" was successful$/ do |email|
+Then /^I should see that the invitation for "([^"]*)" and organization "([^"]*)" was successful$/ do |email,organization|
   step %{I should see flash notice "Die Einladung wurde erfolgreich verschickt."}
-  step %{I should be on the employees page}
+  step %{I should be on the employees page for the organization "#{organization}"}
   # Do not send an extra account confirmation mail, invitation mail is enough
   step %{"#{email}" should receive 1 email}
   step %{"#{email}" should receive an email with subject "Sie wurden zu Shiftplan eingeladen"}
@@ -42,7 +42,7 @@ When /^#{capture_model} accepts the invitation for the organization "([^"]*)" (w
     step %{I press "Passwort setzen"}
   end
 
-  step %{I should be signed in as "#{employee.user.email}" for the organization "#{organization_name}"}
+  step %{I should be signed in as "#{employee.user.email}"}
   step %{I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."}
   step %{I should be on the dashboard page}
 end

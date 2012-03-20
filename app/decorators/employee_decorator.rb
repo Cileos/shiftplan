@@ -15,7 +15,7 @@ class EmployeeDecorator < ApplicationDecorator
   end
 
   def employees_table
-    h.render('employees/table', employees: h.current_user.organization.employees(true))
+    h.render('employees/table', employees: h.current_organization.employees(true))
   end
 
   def update_flash

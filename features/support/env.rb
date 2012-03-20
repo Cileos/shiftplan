@@ -48,6 +48,7 @@ Spork.prefork do
 end
 
 Spork.each_run do
+  DatabaseCleaner.clean_with :truncation
   I18n.backend.reload!
   FactoryGirl.reload
 end

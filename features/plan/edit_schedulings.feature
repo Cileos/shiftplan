@@ -4,13 +4,13 @@ Feature: Edit Schedulings of a Plan
   I want to edit schedulings in my plan
 
   Background:
-    Given a planner exists
+    Given an organization exists
+      And a confirmed user exists
+      And a planner exists with first_name: "Santa", last_name: "C", user: the confirmed user, organization: the organization
       # week 49
       And today is 2012-12-18
-      And an organization exists with planner: the planner
       And a plan exists with organization: the organization
-      And a employee exists with first_name: "Santa", organization: the organization, last_name: "C"
-      And I am signed in as the planner
+      And I am signed in as the confirmed user
 
       And the employee was scheduled in the plan as following:
         | date       | quickie |

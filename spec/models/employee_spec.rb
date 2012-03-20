@@ -31,5 +31,12 @@ describe Employee do
       Factory.build(:employee, :weekly_working_time => 40).should  be_valid
       Factory.build(:employee, :weekly_working_time => nil).should be_valid
     end
+
+    context "roles" do
+      it { Factory.build(:employee, role: 'planner').should be_valid }
+      it { Factory.build(:employee, role: 'owner').should be_valid }
+      it { Factory.build(:employee, role: 'planer').should be_invalid }
+      it { Factory.build(:employee, role: 'weihnachtsmann').should be_invalid }
+    end
   end
 end

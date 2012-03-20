@@ -11,10 +11,11 @@ Feature: Sum of hours in plan
     # I did not plan any schedules for Homer
      When I go to the page of the plan
      Then I should see the following calendar:
-        | Mitarbeiter | Stunden |
-        | Carl C      | 0       |
-        | Lenny L     | 0       |
-        | Homer S     | 0       |
+        | Mitarbeiter   | Stunden |
+        | Planner Burns | 0       |
+        | Carl C        | 0       |
+        | Lenny L       | 0       |
+        | Homer S       | 0       |
 
   Scenario: work 9 to 5 every weekday
     Given the employee "Homer" was scheduled in the plan as following:
@@ -26,10 +27,11 @@ Feature: Sum of hours in plan
         | 5     | 9-17    |
      When I go to the page of the plan
      Then I should see the following calendar:
-        | Mitarbeiter | Stunden |
-        | Carl C      | 0       |
-        | Lenny L     | 0       |
-        | Homer S     | 40      |
+        | Mitarbeiter   | Stunden |
+        | Planner Burns | 0       |
+        | Carl C        | 0       |
+        | Lenny L       | 0       |
+        | Homer S       | 40      |
 
    @javascript
    Scenario: yeah Homer, whats happening? I'll need you go ahead and come in on saturday and sunday as well
@@ -44,8 +46,9 @@ Feature: Sum of hours in plan
      When I schedule "Homer S" on "Samstag" for "10-17"
       And I schedule "Homer S" on "Sonntag" for "12-17"
      Then I should see the following calendar:
-        | Mitarbeiter | Stunden |
-        | Carl C      | 0       |
-        | Lenny L     | 0       |
-        | Homer S     | 52      |
+        | Mitarbeiter   | Stunden |
+        | Planner Burns | 0       |
+        | Carl C        | 0       |
+        | Lenny L       | 0       |
+        | Homer S       | 52      |
 

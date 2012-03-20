@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :set_current_employee, if: :user_signed_in?
+
   rescue_from CanCan::AccessDenied do |exception|
     flash[:alert] = translate('message.access_denied')
     respond_to do |denied|
@@ -10,4 +12,27 @@ class ApplicationController < ActionController::Base
   end
 
   check_authorization :unless => :devise_controller?
+
+  protected
+
+  def organization_param; params[:organization_id] end
+
+  def set_current_employee
+    if organization_param
+      current_user.current_employee = current_user.employees.find_by_organization_id!(organization_param)
+    end
+  end
+
+  class NoOrganizationError < RuntimeError; end
+  def current_organization
+    @current_organization ||= organization_param && current_user.organizations.find(organization_param) || raise(NoOrganizationError)
+  end
+  helper_method :current_organization
+
+  def current_organization?
+    current_organization.present?
+  rescue NoOrganizationError
+    return false
+  end
+  helper_method :current_organization?
 end

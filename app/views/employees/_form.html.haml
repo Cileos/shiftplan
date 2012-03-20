@@ -1,4 +1,4 @@
-= simple_form_for(employee, remote: true) do |f|
+= simple_form_for([current_organization, employee], remote: true) do |f|
   = f.error_notification
 
   .inputs

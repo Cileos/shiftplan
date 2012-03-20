@@ -103,12 +103,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def link_to_previous_week
     week = monday.prev_week
-    h.link_to :previous_week, h.plan_year_week_path(plan, week.year, week.cweek)
+    h.link_to :previous_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
   end
 
   def link_to_next_week
     week = monday.next_week
-    h.link_to :next_week, h.plan_year_week_path(plan, week.year, week.cweek)
+    h.link_to :next_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
   end
 
   def new_scheduling_form_with_link

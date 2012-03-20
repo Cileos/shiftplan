@@ -9,7 +9,8 @@ Feature: Creating a plan
       And the situation of a nuclear reactor
       And I am on my dashboard
 
-     When I follow "neuer Plan"
+      When I follow "Reactor"
+      And I follow "Hinzufügen"
       # duration of plan is fixed for now
       #And I choose "Woche"
       #And I press "Weiter"
@@ -21,7 +22,8 @@ Feature: Creating a plan
       And the page should be titled "Halloween im Atomkraftwerk"
       And I should see a calendar titled "Halloween im Atomkraftwerk - KW 05 30.01.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Carl C      |        |          |          |            |         |         |         |
-        | Lenny L     |        |          |          |            |         |         |         |
-        | Homer S     |        |          |          |            |         |         |         |
+        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Planner Burns |        |          |          |            |         |         |         |
+        | Carl C        |        |          |          |            |         |         |         |
+        | Lenny L       |        |          |          |            |         |         |         |
+        | Homer S       |        |          |          |            |         |         |         |

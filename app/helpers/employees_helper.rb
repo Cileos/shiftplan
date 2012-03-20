@@ -1,6 +1,6 @@
 module EmployeesHelper
   def invitation_status(employee)
-    if employee.invitation_accepted?
+    if employee.invitation_accepted? || employee.planner? || employee.owner?
       t(:'employees.invitation_status.active')
     elsif employee.invited?
       (invitation_link(:reinvite, employee) + ' ' +

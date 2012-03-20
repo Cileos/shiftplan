@@ -7,10 +7,10 @@ Feature: Authorization
   # considered in other features
 
   Background:
-    Given a planner exists
-      And an organization exists with planner: the planner
+    Given an organization exists with name: "Fukushima GmbH"
+      And a confirmed user exists
+      And a planner exists with user: the confirmed user, organization: the organization
       And a plan exists with organization: the organization
-      And a employee exists with first_name: "Milton", organization: the organization, last_name: "G"
 
 
   Scenario: anonymous user
@@ -32,10 +32,8 @@ Feature: Authorization
      When I go to the page of the plan
      Then I should not be authorized to access the page
 
-
-
   Scenario: planner
-    Given I am signed in as the planner
+    Given I am signed in as the confirmed user
 
      When I go to the home page
      Then I should be authorized to access the page
@@ -47,8 +45,8 @@ Feature: Authorization
      Then I should be authorized to access the page
       And I should see link "Ausloggen" within the navigation
       And I should see link "Dashboard" within the navigation
-      #  And I should see link "Mitarbeiter" within the navigation
-      And I should see link "neuer Plan"
+     When I follow "Fukushima GmbH"
+      And I should see link "Hinzufügen"
 
      When I go to the page of the plan
      Then I should be authorized to access the page

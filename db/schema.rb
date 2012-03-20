@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20120314145221) do
     t.integer  "organization_id"
     t.decimal  "weekly_working_time"
     t.integer  "user_id"
+    t.string   "role"
   end
 
   add_index "employees", ["organization_id"], :name => "index_employees_on_organization_id"
@@ -30,10 +31,7 @@ ActiveRecord::Schema.define(:version => 20120314145221) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "planner_id"
   end
-
-  add_index "organizations", ["planner_id"], :name => "index_organizations_on_planer_id"
 
   create_table "plans", :force => true do |t|
     t.integer  "organization_id"

@@ -1,0 +1,4 @@
+%h3= ta :plans
+= render 'plans/list', plans: current_organization.plans
+
+= link_to :add, [:new, current_organization, :plan]

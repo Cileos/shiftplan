@@ -30,7 +30,8 @@ Feature: Merge Teams
       But I should not see "Reaktor schrubben"
      When I go to the page of the plan
      Then I should see the following calendar:
-        | Mitarbeiter | Freitag | Samstag |
-        | Carl C      |         |         |
-        | Lenny L     | 2-3 Rp  | 3-4 Rp  |
-        | Homer S     | 1-2 Rp  | 2-3 Rp  |
+        | Mitarbeiter   | Freitag | Samstag |
+        | Planner Burns |         |         |
+        | Carl C        |         |         |
+        | Lenny L       | 2-3 Rp  | 3-4 Rp  |
+        | Homer S       | 1-2 Rp  | 2-3 Rp  |

@@ -1,1 +1,6 @@
-= render 'list', plans: collection
+- unless collection.empty?
+  = render 'list', plans: collection
+- else
+  %p= t(:'.no_plans')
+
+= link_to :add, [:new, current_organization, :plan]

@@ -2,13 +2,13 @@
 Feature: Plan a week
 
   Background:
-    Given a planner exists
+    Given an organization exists
+      And a confirmed user exists
+      And a planner exists with first_name: "Jack", last_name: "T", user: the confirmed user, organization: the organization
       # week 49
       And today is 2012-12-04
-      And an organization exists with planner: the planner
       And a plan exists with organization: the organization, name: "Dull Work"
-      And a employee exists with first_name: "Jack", organization: the organization, last_name: "T"
-      And I am signed in as the planner
+      And I am signed in as the confirmed user
 
   Scenario: Navigation weekly back and forth
     Given the employee was scheduled in the plan as following:
@@ -31,7 +31,7 @@ Feature: Plan a week
       And I should see the following calendar:
         | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden |
         | Jack T      | 9-17   |          |          |            |         | 8       |
-     
+
      When I follow ">>" within the calendar navigation
      Then I should be on the page of the plan for week: 49, year: 2012
       And I should see a calendar titled "Dull Work - KW 49 03.12.2012"
