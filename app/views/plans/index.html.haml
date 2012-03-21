@@ -4,4 +4,5 @@
 - else
   %p= t(:'.no_plans')
 
-= link_to ti(:add), [:new, current_organization, :plan], class: 'btn btn-inverse', remote: true
+- if can? :create, Plan
+  = link_to ti(:add), [:new, current_organization, :plan], class: 'btn btn-inverse', remote: true

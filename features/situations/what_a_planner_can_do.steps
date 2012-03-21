@@ -1,0 +1,36 @@
+ When I go to the home page
+ Then I should be authorized to access the page
+  And I should see link "Ausloggen" within the navigation
+  And I should see link "Dashboard" within the navigation
+  But I should not see link "Einloggen"
+
+ When I follow "Dashboard"
+ Then I should be authorized to access the page
+  And I should see link "Ausloggen" within the navigation
+  And I should see link "Dashboard" within the navigation
+
+ When I follow "Fukushima GmbH"
+ Then I should be authorized to access the page
+  And I should see link "Hinzufügen"
+  And I should see link "Ausloggen" within the navigation
+  And I should see link "Dashboard" within the navigation
+  And I should see link "Pläne" within the navigation
+  And I should see link "Mitarbeiter" within the navigation
+  And I should see link "Teams" within the navigation
+
+ When I follow "Brennstäbe wechseln"
+ Then I should be authorized to access the page
+  And I should see link "Neue Terminierung"
+  And I should see link "Übernahme aus der letzten Woche"
+
+ When I follow "Mitarbeiter"
+ Then I should be authorized to access the page
+  And I should see link "Hinzufügen"
+
+ When I follow "Teams"
+ Then I should be authorized to access the page
+  And I should see link "Bearbeiten"
+
+ When I follow "Kühlwasser tauschen"
+ Then I should be authorized to access the page
+  And I should see link "Zusammenlegen"

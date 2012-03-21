@@ -19,6 +19,7 @@ de:
     invitation_status:
       invited: "Eingeladen am %{invited_at}"
       active: Aktiv
+      not_invited_yet: Noch nicht eingeladen
     index:
       employees: Mitarbeiter
       status: Status

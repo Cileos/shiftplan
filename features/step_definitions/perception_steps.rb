@@ -23,8 +23,8 @@ end
 
 Then /^I should see a list of the following (.+):$/ do |plural, expected|
   selectors = expected.column_names.map(&:underscore).map {|s| ".#{s}" }
-  actual = find("ul.#{plural}").all('li').map do |li| 
-    selectors.map do |column| 
+  actual = find("ul.#{plural}").all('li').map do |li|
+    selectors.map do |column|
       li.find(column).try(:text).try(:strip)
     end
   end
@@ -59,6 +59,7 @@ end
 Then /^I (should|should not) be authorized to access the page$/ do |or_not|
   message = "Sie sind nicht berechtigt, auf diese Seite zuzugreifen."
   if or_not.include?('not')
+    step %~I should be on the homepage~
     step %Q~I should see flash alert "#{message}"~
   else
     step %Q~I should not see flash "#{message}"~
