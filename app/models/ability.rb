@@ -11,14 +11,11 @@ class Ability
       else
         authorize_employee employee
       end
-    else
-      # no employee => nuffin allowed
     end
 
     unless user.new_record?
       authorize_signed_in
     end
-
   end
 
   def authorize_signed_in
@@ -36,7 +33,6 @@ class Ability
   def authorize_planner(planner)
     authorize_employee(planner)
     is_planner_of = { id: planner.organization_id }
-    can :dashboard,                 User
     can [:read, :create, :update],  Employee,     organization: is_planner_of
     can :manage, 				            Team,         organization: is_planner_of
     can :manage,                    TeamMerge,    team: { organization: is_planner_of }
