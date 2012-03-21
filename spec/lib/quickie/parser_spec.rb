@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe 'Quickie::parser' do
@@ -55,6 +56,12 @@ describe 'Quickie::parser' do
       it { should serialize_to('The Space Rangerz') }
     end
 
+    describe 'Brennstäbe wechseln' do
+      it { should parse_successfully }
+      it { should fill_in(:team_name, 'Brennstäbe wechseln') }
+      it { should serialize_to('Brennstäbe wechseln') }
+    end
+
   end
 
   describe 'team names with shortcuts' do
@@ -64,6 +71,13 @@ describe 'Quickie::parser' do
       it { should fill_in(:team_name, 'Abwaschen') }
       it { should fill_in(:team_shortcut, 'MEH') }
       it { should serialize_to('Abwaschen [MEH]') }
+    end
+
+    describe 'Öl wechseln [Öl]' do
+      it { should parse_successfully }
+      it { should fill_in(:team_name, 'Öl wechseln') }
+      it { should fill_in(:team_shortcut, 'Öl') }
+      it { should serialize_to('Öl wechseln [Öl]') }
     end
 
   end
