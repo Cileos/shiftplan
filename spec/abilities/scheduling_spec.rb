@@ -99,7 +99,7 @@ describe "Scheduling permissions:" do
     let(:employee) { nil }
 
     it "should not be able to read schedulings" do
-      should_not be_able_to(:read, Factory(:scheduling, plan: another_plan))
+      should_not be_able_to(:read, Factory(:scheduling, plan: plan))
     end
 
     it "should not be able to destroy schedulings" do

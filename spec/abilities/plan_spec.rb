@@ -97,7 +97,7 @@ describe "Plan permissions:" do
     let(:employee) { nil }
 
     it "should not be able to read plans" do
-      should_not be_able_to(:read, Factory(:plan, organization: another_organization))
+      should_not be_able_to(:read, Factory(:plan, organization: organization))
     end
 
     it "should not be able to destroy plans" do

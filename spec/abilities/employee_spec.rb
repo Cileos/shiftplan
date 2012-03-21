@@ -109,7 +109,7 @@ describe "Employee permissions:" do
     let(:employee) { nil }
 
     it "should not be able to read employees" do
-      should_not be_able_to(:read, Factory(:employee, organization: another_organization))
+      should_not be_able_to(:read, Factory(:employee, organization: organization))
     end
 
     it "should not be able to destroy employees" do
