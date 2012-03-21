@@ -3,7 +3,7 @@ module EmployeesHelper
     if employee.invitation_accepted? || employee.planner? || employee.owner?
       t(:'employees.invitation_status.active')
     elsif employee.invited?
-      if can? :edit, Employee
+      if can? :update, Employee
         (invitation_link(:reinvite, employee) + ' ' +
           t(:'employees.invitation_status.invited', invited_at: l(employee.invitation_sent_at, format: :tiny))
         ).html_safe
@@ -11,7 +11,7 @@ module EmployeesHelper
         t(:'employees.invitation_status.invited', invited_at: l(employee.invitation_sent_at, format: :tiny))
       end
     else
-      can?(:edit, Employee) ? invitation_link(:invite, employee) : t(:'employees.invitation_status.not_invited_yet')
+      can?(:update, Employee) ? invitation_link(:invite, employee) : t(:'employees.invitation_status.not_invited_yet')
     end
   end
 

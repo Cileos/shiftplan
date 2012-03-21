@@ -4,7 +4,7 @@ class PlansController < InheritedResources::Base
   respond_to :html, :js
 
   def begin_of_association_chain
-    authorize! :index, Plan
+    authorize! :read, Plan
     current_organization
   end
 

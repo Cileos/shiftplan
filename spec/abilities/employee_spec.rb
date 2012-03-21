@@ -23,8 +23,8 @@ describe "Employee permissions:" do
     end
 
     context "for other organizations" do
-      it "should not be able to index employees" do
-        should_not be_able_to(:index, Factory(:employee, organization: another_organization))
+      it "should not be able to read employees" do
+        should_not be_able_to(:read, Factory(:employee, organization: another_organization))
       end
 
       it "should not be able to update employees" do
@@ -35,7 +35,7 @@ describe "Employee permissions:" do
         should_not be_able_to(:create, Factory.build(:employee, organization: another_organization))
       end
 
-      it "should not be able to destroy employees for other organizations" do
+      it "should not be able to destroy employees" do
         should_not be_able_to(:destroy, Factory(:employee, organization: another_organization))
       end
     end
@@ -51,8 +51,8 @@ describe "Employee permissions:" do
     end
 
     context "for other organizations" do
-      it "should not be able to index employees" do
-        should_not be_able_to(:index, Factory(:employee, organization: another_organization))
+      it "should not be able to read employees" do
+        should_not be_able_to(:read, Factory(:employee, organization: another_organization))
       end
 
       it "should not be able to update employees" do
@@ -63,7 +63,7 @@ describe "Employee permissions:" do
         should_not be_able_to(:create, Factory.build(:employee, organization: another_organization))
       end
 
-      it "should not be able to destroy employees for other organizations" do
+      it "should not be able to destroy employees" do
         should_not be_able_to(:destroy, Factory(:employee, organization: another_organization))
       end
     end
@@ -87,8 +87,8 @@ describe "Employee permissions:" do
     end
 
     context "for other organizations" do
-      it "should not be able to index employees" do
-        should_not be_able_to(:index, Factory(:employee, organization: another_organization))
+      it "should not be able to read employees" do
+        should_not be_able_to(:read, Factory(:employee, organization: another_organization))
       end
 
       it "should not be able to update employees" do
@@ -99,7 +99,7 @@ describe "Employee permissions:" do
         should_not be_able_to(:create, Factory.build(:employee, organization: another_organization))
       end
 
-      it "should not be able to destroy employees for other organizations" do
+      it "should not be able to destroy employees" do
         should_not be_able_to(:destroy, Factory(:employee, organization: another_organization))
       end
     end
@@ -108,8 +108,8 @@ describe "Employee permissions:" do
   context "As an user without employee(not possible but for the case)" do
     let(:employee) { nil }
 
-    it "should not be able to index employees" do
-      should_not be_able_to(:index, Factory(:employee, organization: another_organization))
+    it "should not be able to read employees" do
+      should_not be_able_to(:read, Factory(:employee, organization: another_organization))
     end
 
     it "should not be able to destroy employees" do
