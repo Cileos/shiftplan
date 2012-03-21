@@ -36,14 +36,14 @@ class Ability
   def authorize_planner(planner)
     authorize_employee(planner)
     is_planner_of = { id: planner.organization_id }
-    can :dashboard,                User
-    can [:read, :create, :update], Employee,     organization: is_planner_of
-    can :manage, 				           Team,         organization: is_planner_of
-    can :manage,                   TeamMerge,    team: { organization: is_planner_of }
-    can :manage,                   Plan,         organization: is_planner_of
-    can :manage,                   Scheduling,   plan: { organization: is_planner_of }
-    can :manage,                   Organization, is_planner_of
-    can :manage,                   CopyWeek,     plan: { organization: is_planner_of }
+    can :dashboard,                 User
+    can [:index, :create, :update], Employee,     organization: is_planner_of
+    can :manage, 				            Team,         organization: is_planner_of
+    can :manage,                    TeamMerge,    team: { organization: is_planner_of }
+    can :manage,                    Plan,         organization: is_planner_of
+    can :manage,                    Scheduling,   plan: { organization: is_planner_of }
+    can :manage,                    Organization, is_planner_of
+    can :manage,                    CopyWeek,     plan: { organization: is_planner_of }
   end
 
   def authorize_owner(owner)
