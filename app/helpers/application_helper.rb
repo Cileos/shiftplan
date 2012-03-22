@@ -35,4 +35,8 @@ module ApplicationHelper
   def tt(*a)
     textilize( translate(*a) ).html_safe
   end
+
+  def tabs_for(*a)
+    Bootstrap::Tabs.for(self, *a)
+  end
 end

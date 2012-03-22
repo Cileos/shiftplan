@@ -1,5 +1,8 @@
 page.decorate filter do |f|
-  f.records.each do |record|
-    page.select('.modal .modal-body .schedulings').prepend render('modal', scheduling: record)
+  f.records.each do |scheduling|
+    tabs = tabs_for scheduling, :edit, :comments, well: true do |tab|
+      tab == :edit
+    end
+    page.select('.modal .modal-body .schedulings').prepend tabs
   end
 end
