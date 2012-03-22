@@ -13,7 +13,7 @@
         %th= translate_action :employees
         - f.formatted_days.each do |day|
           %th= day
-        = f.hours_header
+        = f.weekly_working_time_difference_header
     %tbody
       - f.employees.each do |employee|
         %tr
@@ -21,7 +21,7 @@
           - f.days.each do |day|
             %td{data: f.cell_metadata(day, employee)}
               = f.cell_content(day, employee)
-          = f.hours_tag_for(employee)
+          = f.weekly_working_time_difference_tag_for(employee)
 
   - if can? :create, Scheduling
     #actions

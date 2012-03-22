@@ -18,6 +18,7 @@ de:
       create: Anlegen
       update: Speichern
       hours: Stunden
+      weekly_working_time_difference: Stunden/WAZ
       previous_week: '<<'
       next_week: '>>'
       edit: Bearbeiten
