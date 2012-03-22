@@ -1,0 +1,6 @@
+- url = organization_plan_scheduling_path(current_organization, scheduling.plan, scheduling)
+= simple_form_for scheduling, url: url, remote: true, html: { class: 'form-horizontal well edit_scheduling' } do |f|
+  = link_to ti(:destroy), url, remote: true, method: :delete, class: 'btn btn-danger delete'
+  = f.input :quickie, hint: false
+  %button.btn.btn-info{type: 'submit'}
+    = ti(:update)

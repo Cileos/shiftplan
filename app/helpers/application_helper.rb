@@ -22,6 +22,7 @@ module ApplicationHelper
 
   Icons = {
     add:               'plus',
+    destroy:           'trash',
     new_scheduling:    'plus',
     copy_week:         'retweet',
     update:            'ok-circle',

@@ -6,7 +6,7 @@
       %li.previous= f.link_to_previous_week
       %li.next= f.link_to_next_week
 
-  %table#calendar.table.table-striped.table-bordered.table-condensed{class: f.range, data: { organization_id: current_organization.id, plan_id: f.plan.id }}
+  %table#calendar.table.table-striped.table-bordered.table-condensed{class: f.range, data: { organization_id: current_organization.id, plan_id: f.plan.id, edit_url: multiple_organization_plan_schedulings_path(current_organization, f.plan) }}
     %caption= f.caption
     %thead
       %tr

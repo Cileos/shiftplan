@@ -10,16 +10,14 @@ describe 'CalendarEditor', ->
   it 'is defined', ->
     expect(CalendarEditor).not.toBeNull()
 
-  it 'creates form to edit every scheduling', ->
-    addScheduling = spyOn(CalendarEditor.prototype, 'addScheduling')
-    new CalendarEditor cell: $('<td><ul>  <li>first</li> <li>second</li> <li>third</li> </ul></td>'), form: $('<form></form>')
-    expect(addScheduling).toHaveBeenCalled()
-    expect(addScheduling.callCount).toEqual(3)
-    expect(addScheduling.argsForCall[0][0].text()).toEqual( 'first' )
-    expect(addScheduling.argsForCall[1][0].text()).toEqual( 'second' )
-    expect(addScheduling.argsForCall[2][0].text()).toEqual( 'third' )
+  it 'fetches multi-edit form from server to edit every scheduling', ->
+    ajax = spyOn($, 'ajax')
+    new CalendarEditor cell: $('<td><ul>  <li data-id=4>first</li> <li data-id=8>second</li> <li data-id=15>third</li> </ul></td>'), form: $('<form></form>')
+    expect(ajax).toHaveBeenCalled()
+    expect(ajax.callCount).toEqual(1)
+    expect(ajax.argsForCall[0][0].data.ids).toEqual( [4, 8, 15] )
 
-  it 'creates an editor when adding an existing scheduling', ->
+  xit 'creates an editor when adding an existing scheduling', ->
     calendar = new CalendarEditor cell: $('<td><ul>  </ul></td>'), form: $('<form></form>')
     editor = spyOn(SchedulingEditor, 'content')
     scheduling = 'scheduling'
