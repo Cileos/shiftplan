@@ -20,6 +20,8 @@ de:
         name: Name
         week: Woche
         month: Monat
+      comment:
+        body: Kommentar
     values:
       plan:
         durations:

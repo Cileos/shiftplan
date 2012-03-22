@@ -1,4 +1,11 @@
 class Ability
+  #
+  # WARNING
+  #
+  # If your defined abilities are not applied, make sure an :organization_id is
+  # included in the URL of the current action, else User#current_employee is
+  # not set and we cannot determine permissions
+  #
   include CanCan::Ability
 
   def initialize(current_user)
@@ -31,6 +38,7 @@ class Ability
     can :index, Employee,   organization: is_employee_of
     can :index, Team,      organization: is_employee_of
     can :read,  Scheduling, plan: { organization: is_employee_of }
+    can :create, Comment, commentable: { plan: { organization: is_employee_of } }
   end
 
   def authorize_planner(planner)

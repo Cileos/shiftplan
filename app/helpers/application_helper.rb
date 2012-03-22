@@ -28,6 +28,7 @@ module ApplicationHelper
     update:            'ok-circle',
     invite:            'user',
     reinvite:          'user',
+    comment:           'comment',
     send_invitation:   'envelope'
   }
 

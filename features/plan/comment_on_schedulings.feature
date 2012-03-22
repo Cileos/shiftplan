@@ -14,7 +14,8 @@ Feature: Comment on Schedulings
         | 2012-12-21 | 7-23    |
       And I am on the page for the plan
      When I click on cell "Freitag"/"Homer S"
+      And I wait for the modal box to appear
       And I follow "Kommentare" within the modal box
       And I fill in "Kommentar" with "Excellent!"
-      And I press "Abschicken"
+      And I press "Kommentieren"
      Then I should see "Excellent!" within the modal box
