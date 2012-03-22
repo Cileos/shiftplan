@@ -59,7 +59,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def weekly_working_time_difference_header
     if week?
-      h.content_tag :th, h.translate_action(:weekly_working_time_difference)
+      h.content_tag :th do
+        (h.translate_action(:hours) + '/' +
+        h.content_tag(:abbr, title: h.translate_action(:wwt_long)) do
+          h.translate_action(:wwt_short)
+        end).html_safe
+      end
     end
   end
 
