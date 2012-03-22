@@ -37,11 +37,8 @@ class Ability
     can :manage, 				            Team,         organization: is_planner_of
     can :manage,                    TeamMerge do |team_merge|
       planner.organization.teams.include?(team_merge.team) &&
-      if team_merge.other_team_id.present?
-        planner.organization.teams.find_by_id(team_merge.other_team_id).present?
-      else
-        true
-      end
+        (!team_merge.other_team_id.present? ||
+            planner.organization.teams.find_by_id(team_merge.other_team_id).present?)
     end
     can :manage,                    Plan,         organization: is_planner_of
     can :manage,                    Scheduling,   plan: { organization: is_planner_of }
