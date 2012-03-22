@@ -1,5 +1,5 @@
 page.decorate filter do |f|
   f.records.each do |record|
-    page.select('.modal .modal-body .schedulings').prepend render('edit_form', scheduling: record)
+    page.select('.modal .modal-body .schedulings').prepend render('modal', scheduling: record)
   end
 end

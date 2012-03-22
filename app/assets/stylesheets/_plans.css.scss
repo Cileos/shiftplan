@@ -118,22 +118,15 @@ div.scroller {
   overflow: auto;
 }
 
+
 #scheduling_modal {
   ul.calendar_editor {
     list-style: none;
     padding-left: 0.5em;
   }
   form {
-    @include box-shadow($grayLight 1px 1px 6px);
-    position: relative;
-    .errors {
-      margin-top: 9px;
-      margin-bottom: 9px;
-    }
     button[type=submit] {
-      position: absolute;
-      right: 4%;
-      top: 19px;
+      @include align-top(right);
     }
   }
   form.edit_scheduling {
@@ -146,13 +139,12 @@ div.scroller {
       margin-bottom: 0;
     }
     a.delete {
-      position: absolute;
-      left: 4%;
-      top: 19px;
+      @include align-top(left);
     }
   }
   form#new_scheduling {
     @include box-shadow($green 0px 0px 8px);
+    padding: $modal_spacing;
   }
 }
 
