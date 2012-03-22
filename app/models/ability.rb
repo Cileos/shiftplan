@@ -35,7 +35,10 @@ class Ability
     is_planner_of = { id: planner.organization_id }
     can [:read, :create, :update],  Employee,     organization: is_planner_of
     can :manage, 				            Team,         organization: is_planner_of
-    can :manage,                    TeamMerge,    team: { organization: is_planner_of }
+    can :manage,                    TeamMerge do |team_merge|
+      planner.organization.teams.include?(team_merge.team) &&
+      planner.organization.teams.find_by_id(team_merge.other_team_id).present?
+    end
     can :manage,                    Plan,         organization: is_planner_of
     can :manage,                    Scheduling,   plan: { organization: is_planner_of }
     can :manage,                    Organization, is_planner_of
