@@ -1,7 +1,7 @@
 require 'spec_helper'
 require "cancan/matchers"
 
-describe "Scheduling permissions:" do
+describe "TeamMerge permissions:" do
   subject { ability }
   let(:ability) { Ability.new(user) }
   let(:user) { Factory(:user) }
