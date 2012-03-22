@@ -21,6 +21,7 @@ Feature: Merge Teams
        | Reaktor schrubben | Rs     |
      When I follow "Reaktor putzen"
       And I follow "Zusammenlegen"
+      Then show me the page
       And I select "Reaktor schrubben" from "anderes Team"
       And I press "Zusammenlegen"
      Then I should see info "Teams erfolgreich zusammengeführt."
