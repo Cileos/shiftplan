@@ -9,6 +9,6 @@ class CommentsController < InheritedResources::Base
   private
 
   def build_resource
-    @comment = Comment.build_from( parent, current_user, params[:comment] )
+    @comment = Comment.build_from( parent, current_user.try(:current_employee), params[:comment] )
   end
 end

@@ -1,2 +1,4 @@
 - comment ||= item
-%li= comment.body
+%li
+  %span.employee= comment.employee.name
+  %p= comment.body

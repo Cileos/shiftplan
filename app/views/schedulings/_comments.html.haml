@@ -3,6 +3,4 @@
 %ul.comments
   = render partial: 'comments/item', collection: scheduling.comments
 
-= simple_form_for Comment.new, url: organization_plan_scheduling_comments_path(current_organization, scheduling.plan, scheduling), remote: true do |f|
-  = f.input :body, input_html: { rows: 2 }
-  %button.btn.btn-info.btn-mini{type: 'submit'}= ti(:comment)
+= render 'comments/new', url: organization_plan_scheduling_comments_path(current_organization, scheduling.plan, scheduling)

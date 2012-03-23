@@ -124,12 +124,8 @@ div.scroller {
     list-style: none;
     padding-left: 0.5em;
   }
-  form {
-    button[type=submit] {
-      @include align-top(right);
-    }
-  }
   form.edit_scheduling {
+    padding-top: $modal_spacing;
     div.quickie {
       label {
         display: none;
@@ -141,10 +137,16 @@ div.scroller {
     a.delete {
       @include align-top(left);
     }
+    button[type=submit] {
+      @include align-top(right, 0);
+    }
   }
   form#new_scheduling {
     @include box-shadow($green 0px 0px 8px);
     padding: $modal_spacing;
+    button[type=submit] {
+      @include align-top(right);
+    }
   }
 }
 

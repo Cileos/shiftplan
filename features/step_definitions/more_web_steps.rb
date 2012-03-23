@@ -40,3 +40,8 @@ Then /^I should see the following defined items:$/ do |expected|
   expected.diff! found
 end
 
+Then /^the #{capture_quoted} field should be empty$/ do |field|
+  field = find_field(field)
+  field_value = (field.tag_name == 'textarea') ? field.text : field.value
+  field_value.should be_empty
+end

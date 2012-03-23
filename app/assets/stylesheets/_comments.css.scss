@@ -1,0 +1,27 @@
+ul.comments {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  li {
+    .employee {
+      font-weight: bold;
+      float: left;
+      margin-right: 0.5em;
+      &:after {
+        content: ':';
+      }
+    }
+  }
+}
+
+form.new_comment {
+  label[for=comment_body] {
+    display: none;
+  }
+  div.controls {
+    float: left;
+  }
+  button[type=submit] {
+    float: right;
+  }
+}

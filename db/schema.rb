@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20120322181540) do
     t.integer  "commentable_id",   :default => 0
     t.string   "commentable_type", :default => ""
     t.text     "body",             :default => ""
-    t.integer  "user_id",          :default => 0,  :null => false
+    t.integer  "employee_id",      :default => 0,  :null => false
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20120322181540) do
   end
 
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
-  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+  add_index "comments", ["employee_id"], :name => "index_comments_on_employee_id"
 
   create_table "employees", :force => true do |t|
     t.string   "first_name"

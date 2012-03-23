@@ -18,4 +18,6 @@ Feature: Comment on Schedulings
       And I follow "Kommentare" within the modal box
       And I fill in "Kommentar" with "Excellent!"
       And I press "Kommentieren"
-     Then I should see "Excellent!" within the modal box
+     Then the "Kommentar" field should be empty
+      And I should see "Excellent!" within comments within the modal box
+      And I should see "Planner Burns" within comments within the modal box
