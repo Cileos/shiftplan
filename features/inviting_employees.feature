@@ -72,7 +72,6 @@ Feature: Inviting Employees
       | Planner Burns | planner@fukushima.jp  | Aktiv  |
       | Homer Simpson | homer@thesimpsons.com | Aktiv  |
 
-  @wip
   Scenario: Inviting with an email that's already assigned to an employee of the same organization
     Given an employee "bart" exists with organization: organization "fukushima", first_name: "Bart"
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"

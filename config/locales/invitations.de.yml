@@ -9,7 +9,7 @@ de:
   invitations:
     sent_successfully: 'Die Einladung wurde erfolgreich verschickt.'
     token_invalid: 'Der Einladungstoken ist nicht gültig. Ihre Einladung konnte nicht akzeptiert werden.'
-    another_employee_already_exists_with_email: "Sie haben bereits den Mitarbeiter %{employee_name} mit der E-Mail Adresse %{email} eingeladen"
+    another_employee_already_exists_with_email: "Sie haben bereits den Mitarbeiter %{employee_name} mit der E-Mail Adresse %{email} eingeladen."
     accepted: 'Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben.'
     new:
       invite_employee: "%{employee_name} einladen"
