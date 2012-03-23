@@ -1,2 +1,0 @@
-page['flash'].remove()
-page.select('.navbar:first').after render('flash')

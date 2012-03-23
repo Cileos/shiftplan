@@ -1,1 +1,2 @@
-page << %Q~alert("#{j flash[:alert]}")~
+page['flash'].remove()
+page.select('.navbar:first').after render('flash')
