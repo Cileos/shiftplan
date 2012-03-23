@@ -13,7 +13,6 @@ class CalendarEditor extends View
           ids: ($(sch).data('id') for sch in params.cell.find('li'))
         complete: =>
           @addTabIndices()
-    @addNewForm params
 
   addTabIndices: ->
     tabIndex = 1
@@ -22,10 +21,12 @@ class CalendarEditor extends View
       tabIndex++
 
   addNewForm: (params) ->
-    params.form.find(':input#scheduling_employee_id').val(params.cell.data('employee_id')).change()
-    params.form.find(':input#scheduling_date').val(params.cell.data('date')).change()
-    params.form.find(':input#scheduling_quickie').closest('.control-group').replaceWith new QuickieEditor id: 'new', value: ''
-    @list.append params.form
+    if params.form
+      form = params.form.clone()
+      form.find(':input#scheduling_employee_id').val(params.cell.data('employee_id')).change()
+      form.find(':input#scheduling_date').val(params.cell.data('date')).change()
+      form.find(':input#scheduling_quickie').closest('.control-group').replaceWith new QuickieEditor id: 'new', value: ''
+      @list.append form
 
 
 window.CalendarEditor = CalendarEditor

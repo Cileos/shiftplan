@@ -11,6 +11,8 @@ class Ability
   def initialize(current_user)
     user = current_user || User.new # guest user (not logged in)
 
+    alias_action :multiple, to: :read
+
     # the role is bound to Employee, so we carry the employee around
     if employee = user.current_employee
       if employee.role.present?

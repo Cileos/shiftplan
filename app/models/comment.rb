@@ -3,6 +3,8 @@ class Comment < ActiveRecord::Base
   
   validates_presence_of :body
   validates_presence_of :employee
+
+  # TODO check for valid parent_id
   
   # NOTE: install the acts_as_votable plugin if you 
   # want user to vote on the quality of comments.
@@ -12,9 +14,8 @@ class Comment < ActiveRecord::Base
 
   belongs_to :commentable, polymorphic: true
   
-  # Helper class method that allows you to build a comment
-  # by passing a commentable object, a user_id, and comment text
-  # example in readme
+  # builds a comment by passing a commentable object, a user_id, and comment
+  # text. 
   def self.build_from(obj, employee, attributes)
     new.tap do |comment|
       comment.attributes       = attributes
@@ -29,3 +30,5 @@ class Comment < ActiveRecord::Base
     self.children.size > 0 
   end
 end
+
+CommentDecorator

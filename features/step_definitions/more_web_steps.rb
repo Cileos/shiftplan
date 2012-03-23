@@ -35,11 +35,23 @@ Then /^(.+) should disappear$/ do |name|
   step %Q~I wait for #{name} to disappear~
 end
 
+When /^I close the modal box$/ do
+  page.first('.modal-backdrop').click
+  page.should have_no_css('.modal-backdrop') # implies waiting
+end
+
 Then /^I should see the following defined items:$/ do |expected|
   found = page.all('dl di').map { |di| di.all('dt,dd').map(&:text).map(&:strip) }
   expected.diff! found
 end
 
 Then /^the #{capture_quoted} field should be empty$/ do |field|
+  wait_until do
+    find_field(field).value.empty?
+  end
   find_field(field).value.should be_empty
+end
+
+Then /^the #{capture_quoted} tab should be active$/ do |tab_name|
+  page.should have_css('.nav-tabs li.active', text: tab_name)
 end

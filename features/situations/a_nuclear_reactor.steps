@@ -1,12 +1,13 @@
 Given an organization "Reactor" exists with name: "Reactor"
-  And a confirmed user exists
-  And a planner "Burns" exists with first_name: "Planner", last_name: "Burns", organization: organization "Reactor", user: the confirmed user
+  And a confirmed user "Burns" exists
+  And a confirmed user "Homer" exists
   And the following employees exist:
-    | organization           | employee | first_name | last_name |
-    | organization "Reactor" | Homer    | Homer      | S         |
-    | organization "Reactor" | Lenny    | Lenny      | L         |
-    | organization "Reactor" | Carl     | Carl       | C         |
+    | organization           | employee | role    | first_name | last_name | user                       |
+    | organization "Reactor" | Burns    | planner | Planner    | Burns     | the confirmed user "Burns" |
+    | organization "Reactor" | Homer    |         | Homer      | S         | the confirmed user "Homer" |
+    | organization "Reactor" | Lenny    |         | Lenny      | L         |                            |
+    | organization "Reactor" | Carl     |         | Carl       | C         |                            |
   And a plan "clean reactor" exists with organization: organization "Reactor"
-  And I am signed in as the confirmed user
+  And I am signed in as the confirmed user "Burns"
   And I am on the page of the plan "clean reactor"
 

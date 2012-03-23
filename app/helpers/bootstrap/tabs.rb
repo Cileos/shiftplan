@@ -28,8 +28,8 @@
 
 module Bootstrap
   class Tabs
-    def self.for(*a)
-      new(*a).to_html
+    def self.for(*a, &block)
+      new(*a, &block).to_html
     end
 
     def tag(*a, &block)

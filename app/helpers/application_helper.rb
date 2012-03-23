@@ -29,6 +29,7 @@ module ApplicationHelper
     invite:            'user',
     reinvite:          'user',
     comment:           'comment',
+    reply:             'chevron-left',
     send_invitation:   'envelope'
   }
 
@@ -37,7 +38,7 @@ module ApplicationHelper
     textilize( translate(*a) ).html_safe
   end
 
-  def tabs_for(*a)
-    Bootstrap::Tabs.for(self, *a)
+  def tabs_for(*a, &block)
+    Bootstrap::Tabs.for(self, *a, &block)
   end
 end

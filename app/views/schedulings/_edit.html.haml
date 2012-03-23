@@ -1,6 +1,9 @@
 - scheduling ||= record
 - url = organization_plan_scheduling_path(current_organization, scheduling.plan, scheduling)
-= simple_form_for scheduling, url: url, remote: true, html: { class: 'form-horizontal edit_scheduling' } do |f|
-  = link_to ti(:destroy), url, remote: true, method: :delete, class: 'btn btn-danger delete'
-  = f.input :quickie, hint: false, wrapper_html: { class: 'quickie' }
-  %button.btn.btn-info{type: 'submit'}= ti(:update)
+- if can? :edit, scheduling
+  = simple_form_for scheduling, url: url, remote: true, html: { class: 'form-horizontal edit_scheduling' } do |f|
+    = link_to ti(:destroy), url, remote: true, method: :delete, class: 'btn btn-danger delete'
+    = f.input :quickie, hint: false, wrapper_html: { class: 'quickie' }
+    %button.btn.btn-info{type: 'submit'}= ti(:update)
+- else
+  %p= scheduling.quickie

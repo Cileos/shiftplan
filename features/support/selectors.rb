@@ -49,6 +49,8 @@ module HtmlSelectorsHelpers
 
     when 'comments'
       "ul.comments"
+    when 'replies'
+      '.replies'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

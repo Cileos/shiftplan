@@ -1,6 +1,6 @@
 - scheduling ||= record
 
 %ul.comments
-  = render partial: 'comments/item', collection: scheduling.comments
+  = render partial: 'comments/item', collection: scheduling.comments.roots
 
 = render 'comments/new', url: organization_plan_scheduling_comments_path(current_organization, scheduling.plan, scheduling)

@@ -1,4 +1,7 @@
 - comment ||= item
-%li
+%li{id: dom_id(comment)}
+  = link_to ti(:reply), '#' + dom_id(comment), class: 'reply btn btn-mini btn-info'
   %span.employee= comment.employee.name
   %p= comment.body
+  - if comment.has_children?
+    %ul.replies= render partial: 'comments/item', collection: comment.children

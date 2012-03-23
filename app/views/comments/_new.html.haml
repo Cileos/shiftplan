@@ -1,4 +1,5 @@
 - comment ||= Comment.new
 = simple_form_for comment, url: url, remote: true, html: { class: 'new_comment form-inline', id: nil} do |f|
-  = f.input :body, input_html: { rows: 2 }
+  = f.hidden_field :parent_id
+  = f.input :body, input_html: { rows: 1 }
   %button.btn.btn-info.btn-mini{type: 'submit'}= ti(:comment)
