@@ -13,6 +13,7 @@ Shiftplan::Application.routes.draw do
     end
     resources :invitations do
       get :accept, :on => :member
+      put :confirm, :on => :member
     end
   end
 

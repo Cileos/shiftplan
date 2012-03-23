@@ -18,12 +18,14 @@ Feature: Inviting Employees
      Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
      And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
 
+  @wip
   Scenario: Inviting an employee with an email address of a confirmed user which has not been invited yet
     Given a confirmed user "homer" exists with email: "homer@thesimpsons.com"
       When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
      Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
       And the employee "homer" accepts the invitation for the organization "fukushima" without setting a password
 
+  @wip
   Scenario: Inviting an employee with an email address of an unconfirmed user which has not been invited yet
     Given a user "homer" exists with email: "homer@thesimpsons.com"
      Then the user "homer" should not be confirmed
@@ -32,6 +34,7 @@ Feature: Inviting Employees
       And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
      Then the user "homer" should be confirmed
 
+  @wip
   Scenario: Reinviting an employee which has not accepted the invitation yet
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
@@ -40,6 +43,7 @@ Feature: Inviting Employees
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
 
+  @wip
   Scenario: Displaying the e-mail address or the invitation status on the employees page
     When I go to the employees page for the organization "fukushima"
     Then I should see the following table of employees:
@@ -72,6 +76,7 @@ Feature: Inviting Employees
       | Planner Burns | planner@fukushima.jp  | Aktiv  |
       | Homer Simpson | homer@thesimpsons.com | Aktiv  |
 
+  @wip
   Scenario: Inviting with an email that's already assigned to an employee of the same organization
     Given an employee "bart" exists with organization: organization "fukushima", first_name: "Bart"
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
@@ -83,6 +88,7 @@ Feature: Inviting Employees
     When I invite the employee "bart" with the email address "bart@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "bart@thesimpsons.com" and organization "fukushima" was successful
 
+  @wip
   Scenario: Inviting with an email that's already assigned to an employee of a different organization
     Given an organization "tschernobyl" exists with name: "Tschernobyl"
       And a confirmed user "mr. burns" exists
@@ -97,6 +103,5 @@ Feature: Inviting Employees
      When I sign in as the confirmed user "mr. burns"
      When I invite the employee "ray atom" with the email address "homer@thesimpsons.com" for the organization "tschernobyl"
      Then I should see that the invitation for "homer@thesimpsons.com" and organization "tschernobyl" was successful
+
       And the employee "ray atom" accepts the invitation for the organization "tschernobyl" without setting a password
-
-

@@ -14,8 +14,6 @@ class User < ActiveRecord::Base
   has_many :invitations
   has_many :organizations, :through => :employees
 
-  after_save :associate_with_employees
-
   def label
     email
   end
@@ -29,15 +27,6 @@ class User < ActiveRecord::Base
       @current_employee = wanted_employee
     else
       raise ArgumentError, "given employee #{wanted_employee} does not belong to #{self}"
-    end
-  end
-
-  protected
-
-  def associate_with_employees
-    if employee_id && employee = Employee.find_by_id(employee_id)
-      employee.user = self
-      employee.save!
     end
   end
 end

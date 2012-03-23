@@ -6,11 +6,14 @@ class Invitation < ActiveRecord::Base
 
   validates_presence_of :token, :sent_at, :organization_id, :employee_id, :user_id
 
-  attr_accessor :email
+  attr_accessor :email, :password, :password_confirmation
 
   before_validation :set_token, :set_sent_at, on: :create
-  before_validation :set_user
+  before_validation :set_user, on: :create
   after_create :send_invitation_email
+  after_create :associate_employee_with_user
+
+  accepts_nested_attributes_for :user
 
   #validates_uniqueness_of :user_id, scope: [:organization_id]
 
@@ -44,6 +47,11 @@ class Invitation < ActiveRecord::Base
 
   def send_invitation_email
     InvitationMailer.invitation(self).deliver
+  end
+
+  def associate_employee_with_user
+    employee.user = self.user
+    employee.save!
   end
 end
 
