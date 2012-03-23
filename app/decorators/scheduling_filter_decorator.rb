@@ -39,6 +39,15 @@ class SchedulingFilterDecorator < ApplicationDecorator
     { employee_id: employee.id, date: day.iso8601 }
   end
 
+  def table_metadata
+    {
+      organization_id: h.current_organization.id,
+      plan_id:         plan.id,
+      edit_url:        h.multiple_organization_plan_schedulings_path(h.current_organization, plan),
+      new_url:         h.new_organization_plan_scheduling_path(h.current_organization, plan)
+    }
+  end
+
   def selector_for(name, resource=nil, extra=nil)
     case name
     when :cell
@@ -111,12 +120,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
     h.link_to :next_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
   end
 
-  def new_scheduling_form_with_link
-    if plan.employees_available?
-      link_to_new_scheduling_form + new_scheduling_form
-    end
-  end
-
   def respond(resource)
     if resource.errors.empty?
       update_cell_for(resource)
@@ -160,18 +163,4 @@ class SchedulingFilterDecorator < ApplicationDecorator
       %Q~.#{dom_id(team)} { background-color: #{team.color} !important;}~
     end.join(' ')
   end
-
-  private
-
-  def link_to_new_scheduling_form
-    h.link_to h.ti(:new_scheduling), "##{scheduling_form_id}", :class => 'new_scheduling btn btn-inverse', 'data-toggle' => 'modal', 'data-href' => "##{scheduling_form_id}"
-  end
-
-
-  # A form for a new scheduling
-  def new_scheduling_form
-    modal id: scheduling_form_id,
-      body: h.render('schedulings/new_form', scheduling: plan.schedulings.new, filter: self)
-  end
-
 end

@@ -1,6 +1,6 @@
 module PlansHelper
   # needs monday (Date)
-  def cwdays_for_select(monday, format=:week_day)
+  def cwdays_for_select(monday=Date.new(2012,1,2), format=:week_day)
     (0..6).to_a.map do |more|
       day = monday + more.days
       [l(day, :format => format), day.iso8601]
