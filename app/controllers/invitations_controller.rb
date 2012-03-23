@@ -12,7 +12,12 @@ class InvitationsController < InheritedResources::Base
 
   def accept
     if params[:token] && @invitation = Invitation.find_by_token(params[:token])
-      render :accept
+      if @invitation.user.confirmed? && @invitation.user.encrypted_password?
+        @invitation.update_attributes!(accepted_at: Time.now)
+        respond_with_successful_confirmation
+      else
+        render :accept
+      end
     else
       flash[:alert] = t(:'invitations.token_invalid')
       redirect_to root_url
@@ -22,9 +27,7 @@ class InvitationsController < InheritedResources::Base
   def confirm
     if @invitation = Invitation.find_by_token(params[:invitation][:token])
       if @invitation.update_attributes(params[:invitation].except(:token))
-        flash[:notice] = t(:'invitations.accepted')
-        sign_in(User, @invitation.user)
-        redirect_to dashboard_path
+        respond_with_successful_confirmation
       else
         render :accept
       end
@@ -32,6 +35,12 @@ class InvitationsController < InheritedResources::Base
   end
 
   private
+
+  def respond_with_successful_confirmation
+    flash[:notice] = t(:'invitations.accepted')
+    sign_in(User, @invitation.user)
+    redirect_to dashboard_path
+  end
 
   def begin_of_association_chain
     current_organization
