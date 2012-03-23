@@ -11,12 +11,15 @@ Shiftplan::Application.routes.draw do
     resources :teams do
       resource :merge, :only => [:new, :create], :controller => 'team_merge'
     end
+    resources :invitations do
+      get :accept, :on => :member
+    end
   end
 
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
   get "dashboard" => 'welcome#dashboard', :as => 'user_root'
 
-  devise_for :users, :controllers => { :registrations => "planners/registrations", :invitations => 'users/invitations' }
+  devise_for :users, :controllers => { :registrations => "planners/registrations" }
 
   root :to => "welcome#landing"
 end

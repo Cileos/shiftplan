@@ -42,14 +42,3 @@ de:
         subject: 'Passwort zurücksetzen'
       unlock_instructions:
         subject: 'Konto entsperren'
-      invitation_instructions:
-        subject: 'Sie wurden zu Shiftplan eingeladen'
-    invitations:
-      send_instructions: 'Die Einladung wurde erfolgreich verschickt.'
-      another_employee_already_exists_with_email: "Sie haben bereits den Mitarbeiter %{employee_name} mit der E-Mail Adresse %{email} eingeladen"
-      edit:
-        set_password: Passwort setzen
-      user:
-        updated: 'Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben.'
-      new:
-        invite_employee: "%{employee_name} einladen"

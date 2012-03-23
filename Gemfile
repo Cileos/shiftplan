@@ -91,4 +91,3 @@ gem 'RedCloth' # textilize instructions and other texts from locales
 
 
 gem 'sprockets-urlrewriter'
-gem 'devise_invitable'
