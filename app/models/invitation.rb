@@ -10,7 +10,6 @@ class Invitation < ActiveRecord::Base
 
   before_validation :set_token, :set_sent_at, on: :create
   before_validation :set_user, on: :create
-  after_create :send_invitation_email
   after_create :associate_employee_with_user
 
   accepts_nested_attributes_for :user
@@ -19,6 +18,12 @@ class Invitation < ActiveRecord::Base
 
   def accepted?
     accepted_at.present?
+  end
+
+  def send_email
+    InvitationMailer.invitation(self).deliver
+    self.sent_at = Time.now
+    save!
   end
 
   protected
@@ -43,10 +48,6 @@ class Invitation < ActiveRecord::Base
       user.save(validate: false)
       self.user = user.reload
     end
-  end
-
-  def send_invitation_email
-    InvitationMailer.invitation(self).deliver
   end
 
   def associate_employee_with_user

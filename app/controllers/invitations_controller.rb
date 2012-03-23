@@ -3,10 +3,17 @@ class InvitationsController < InheritedResources::Base
 
   respond_to :html, :js
 
+  before_filter :set_inviter, only: [:create, :update]
+
   def create
-    resource.inviter = current_user.current_employee
     create!(:notice => t(:'invitations.sent_successfully')) do
-      organization_employees_path(current_organization)
+      respond_with_successful_invitation
+    end
+  end
+
+  def update
+    update!(:notice => t(:'invitations.sent_successfully')) do
+      respond_with_successful_invitation
     end
   end
 
@@ -36,10 +43,19 @@ class InvitationsController < InheritedResources::Base
 
   private
 
+  def set_inviter
+    resource.inviter = current_user.current_employee
+  end
+
   def respond_with_successful_confirmation
     flash[:notice] = t(:'invitations.accepted')
     sign_in(User, @invitation.user)
     redirect_to dashboard_path
+  end
+
+  def respond_with_successful_invitation
+    resource.send_email
+    organization_employees_path(current_organization)
   end
 
   def begin_of_association_chain
