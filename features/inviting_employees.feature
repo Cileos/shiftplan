@@ -83,7 +83,6 @@ Feature: Inviting Employees
     When I invite the employee "bart" with the email address "bart@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "bart@thesimpsons.com" and organization "fukushima" was successful
 
-  @wip
   Scenario: Inviting with an email that's already assigned to an employee of a different organization
     Given an organization "tschernobyl" exists with name: "Tschernobyl"
       And a confirmed user "mr. burns" exists
