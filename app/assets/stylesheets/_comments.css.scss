@@ -21,6 +21,9 @@ form.new_comment {
   div.controls {
     float: left;
   }
+  textarea {
+    width: auto;
+  }
   button[type=submit] {
     float: right;
   }

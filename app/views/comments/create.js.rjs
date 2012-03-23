@@ -1,5 +1,7 @@
 if @comment.errors.empty?
   page.select("#tab_comments_#{parent.id} ul.comments").append render('comments/item', comment: @comment)
+  page['comment_body'].val ''
+  page['comment_parent_id'].val ''
 else
   page << %Q~alert("no comment.")~
 end
