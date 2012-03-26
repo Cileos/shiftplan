@@ -35,19 +35,6 @@ When /^I press (#{directions}) (\d{1,2}) times$/ do |direction, times|
   end
 end
 
-# TODO move this to selectors.rb
-def column_index_for(column_label)
-  columns = page.all('thead tr th').map(&:text)
-  columns.should include(column_label)
-  columns.index(column_label)
-end
-
-def row_index_for(row_label)
-  rows = page.all('tbody th').map(&:text)
-  rows.should include(row_label)
-  rows.index(row_label)
-end
-
 When /^I schedule #{capture_quoted} on #{capture_quoted} for #{capture_quoted}$/ do |employee, day, quickie|
   steps <<-EOSTEPS
      When I click on cell "#{day}"/"#{employee}"
@@ -60,7 +47,6 @@ When /^I schedule #{capture_quoted} on #{capture_quoted} for #{capture_quoted}$/
   EOSTEPS
 end
 
-
 Then /^I should see a calendar (?:titled|captioned) #{capture_quoted}$/ do |caption|
   step %Q~I should see "#{caption}" within "caption" within the calendar~
 end
@@ -71,5 +57,21 @@ Then /^I should see the following calendar:$/ do |expected|
     tr.all('th, td').map(&:text).map(&:strip)
   end
   expected.diff! actual
+end
+
+Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value of "(\d+ von \d+|\d+)"$/ do |employee, color, text|
+  employee = model!(employee)
+  column = column_index_for("Stunden/WAZ")
+  row    = row_index_for(employee.name)
+
+  color_class_mapping = {
+    'yellow' => 'label-warning',
+    'green'  => 'label-success',
+    'red'    => 'label-important',
+    'grey'    => ''
+  }
+
+  cell = find("#{selector_for('the calendar')} tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1}) span[class='label #{color_class_mapping[color]}']")
+  assert_equal text, cell.text
 end
 

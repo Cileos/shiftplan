@@ -4,6 +4,6 @@ class TeamMergeController < InheritedResources::Base
   load_and_authorize_resource
 
   def create
-    create! { teams_url }
+    create! { organization_teams_url(current_organization) }
   end
 end

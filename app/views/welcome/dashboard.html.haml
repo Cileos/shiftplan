@@ -1,7 +1,9 @@
 - title :dashboard
 
-= link_to '.new_plan', new_plan_path
+%h3= t(:'.organizations')
+%ul#organizations
+- current_user.organizations.each do |org|
+  %li= link_to org.name, organization_plans_path(org)
+  = render 'plans/list', plans: org.plans
 
-%h3= ta :plans
-= render 'plans/list', plans: current_user.organization.plans
 

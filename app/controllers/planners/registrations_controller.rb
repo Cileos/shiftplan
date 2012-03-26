@@ -1,12 +1,17 @@
 class Planners::RegistrationsController < Devise::RegistrationsController
-  after_filter :assign_planner_role, :only => :create
+  after_filter :create_employee_and_organization, :only => :create
 
   protected
 
-  def assign_planner_role
+  def create_employee_and_organization
     unless resource.new_record?
-      resource.roles << 'planner'
-      resource.save!
+      organization = Organization.create! :name => "Organization for #{resource.label}"
+      resource.employees.create! do |e|
+        e.first_name = resource.email
+        e.last_name  = resource.email
+        e.organization = organization
+        e.role = 'owner'
+      end
     end
   end
 end

@@ -1,11 +1,3 @@
 page.decorate resource.concurrent do |filter|
-  if resource.errors.empty?
-    filter.update_cell_for(resource)
-    filter.update_hours_for(resource.employee)
-    filter.hide_modal :scheduling_form, resource
-    filter.update_legend
-    filter.update_quickie_completions
-  else
-    filter.insert_errors_for(resource)
-  end
+  filter.respond(resource)
 end

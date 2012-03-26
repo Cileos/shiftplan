@@ -4,6 +4,7 @@ de:
       profile: Profil
       dashboard: Dashboard
       signin: Einloggen
+      signin_with: "Einloggen mit %{provider}"
       signout: Ausloggen
       signup: Registrieren
       employees: Mitarbeiter
@@ -11,16 +12,22 @@ de:
       add: Hinzufügen
       new_employee: Mitarbeiter hinzufügen
       plans: Pläne
-      new_plan: neuer Plan
+      new_plan: Neuer Plan
       new_scheduling: Neue Terminierung
       next: Weiter
       create: Anlegen
       update: Speichern
       hours: Stunden
+      wwt_short: WAZ
+      wwt_long: Wochenarbeitszeit
       previous_week: '<<'
       next_week: '>>'
       edit: Bearbeiten
       back: Zurück
       show: Anzeigen
       destroy: Löschen
-
+      invite: Einladen
+      reinvite: Erneut einladen
+      send_invitation: 'Einladung verschicken'
+      copy: "Übernehmen"
+      copy_week: "Übernahme aus der letzten Woche"

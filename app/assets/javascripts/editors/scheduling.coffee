@@ -3,7 +3,8 @@ class SchedulingEditor extends View
     id = params.scheduling.data('id') || throw('scheduling without id given, needed to edit')
     name = "scheduling_#{id}"
     plan = params.scheduling.closest('table').data('plan_id')
-    url  = "/plans/#{plan}/schedulings/#{id}"
+    organization = params.scheduling.closest('table').data('organization_id')
+    url  = "/organizations/#{organization}/plans/#{plan}/schedulings/#{id}"
     # TODO routes for js
     @form class: 'form-horizontal well edit_scheduling', 'data-remote': true, id: "edit_#{name}", method: "POST", action: url, =>
       @input type: 'hidden', name: '_method', value: 'PUT'

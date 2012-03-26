@@ -1,6 +1,7 @@
 %ul.nav
   = li_link '.dashboard', dashboard_path,              can: [:dashboard, current_user]
-  = li_link '.plans',     plans_path,                  can: [:index, Plan]
-  = li_link '.employees', employees_path,              can: [:index, Employee]
-  = li_link '.teams',     teams_path,                  can: [:index, Team]
-  = li_link '.profile',   edit_user_registration_path, can: [:edit, current_user]
+  - if current_organization?
+    = li_link '.plans',     organization_plans_path(current_organization),                  can: [:show, Plan]
+    = li_link '.employees', organization_employees_path(current_organization),              can: [:show, Employee]
+    = li_link '.teams',     organization_teams_path(current_organization),                  can: [:show, Team]
+  = li_link '.profile',   edit_user_registration_path, can: [:update, current_user]

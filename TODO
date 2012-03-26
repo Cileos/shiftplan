@@ -1,20 +1,20 @@
-[35m./app/assets/javascripts/calendar/cursor.js.coffee[0m[36m:[0m[32m9[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m    # TODO better trigger the event on the cell and let it bubble up?
-[35m./app/assets/javascripts/calendar/cursor.js.coffee[0m[36m:[0m[32m32[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m    # TODO
-[35m./app/assets/javascripts/editors/calendar.coffee[0m[36m:[0m[32m1[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m# TODO test _calendar.html
-[35m./app/assets/javascripts/editors/scheduling.coffee[0m[36m:[0m[32m7[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m    # TODO routes for js
-[35m./app/assets/javascripts/editors/scheduling.coffee[0m[36m:[0m[32m12[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m        # TODO I18n js
-[35m./app/assets/javascripts/editors/scheduling.coffee[0m[36m:[0m[32m17[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m        # TODO I18n js
-[35m./app/controllers/employees_controller.rb[0m[36m:[0m[32m14[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  # TODO more than one organization per planner
-[35m./app/controllers/teams_controller.rb[0m[36m:[0m[32m10[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  # TODO more than one organization per planner
-[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m128[0m[36m:[0m[38;5;226;1mFIXME[0m[36m:[0m  # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
-[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m142[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  # TODO move into own view to fetch as an organization-specific asset
-[35m./app/helpers/navigation_helper.rb[0m[36m:[0m[32m6[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  #   b) the given regex (TODO)
-[35m./app/models/scheduling_filter.rb[0m[36m:[0m[32m44[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m      length_of_month # TODO month
-[35m./app/models/scheduling.rb[0m[36m:[0m[32m15[0m[36m:[0m[38;5;226;1mFIXME[0m[36m:[0m  # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
-[35m./app/models/scheduling.rb[0m[36m:[0m[32m109[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  # TODO save start_hour and end_hour or even cache the whole quickie
-[35m./features/step_definitions/calendar_steps.rb[0m[36m:[0m[32m38[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m# TODO move this to selectors.rb
-[35m./features/step_definitions/calendar_steps.rb[0m[36m:[0m[32m68[0m[36m:[0m[38;5;226;1mFIXME[0m[36m:[0m# FIXME can only match the whole calendar
-[35m./features/step_definitions/web_steps.rb[0m[36m:[0m[32m76[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m# TODO: Add support for checkbox, select og option
-[35m./features/support/paths.rb[0m[36m:[0m[32m21[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m        # TODO we may have to scope this under its organization laater
-[35m./features/support/screencast.rb[0m[36m:[0m[32m20[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m    # TODO create animation
-[35m./spec/spec_helper.rb[0m[36m:[0m[32m38[0m[36m:[0m[38;5;46;1mTODO[0m[36m:[0m  # TODO move this to #prefork when the test suite is stable
+[35m./app/assets/javascripts/calendar/cursor.js.coffee[0m[36m:[0m[32m9[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m    # TODO better trigger the event on the cell and let it bubble up?
+[35m./app/assets/javascripts/calendar/cursor.js.coffee[0m[36m:[0m[32m32[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m    # TODO
+[35m./app/assets/javascripts/editors/calendar.coffee[0m[36m:[0m[32m1[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m# TODO test _calendar.html
+[35m./app/assets/javascripts/editors/scheduling.coffee[0m[36m:[0m[32m8[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m    # TODO routes for js
+[35m./app/assets/javascripts/editors/scheduling.coffee[0m[36m:[0m[32m13[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m        # TODO I18n js
+[35m./app/assets/javascripts/editors/scheduling.coffee[0m[36m:[0m[32m18[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m        # TODO I18n js
+[35m./app/controllers/employees_controller.rb[0m[36m:[0m[32m16[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO more than one organization per planner
+[35m./app/controllers/teams_controller.rb[0m[36m:[0m[32m10[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO more than one organization per planner
+[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m168[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
+[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m182[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO move into own view to fetch as an organization-specific asset
+[35m./app/helpers/navigation_helper.rb[0m[36m:[0m[32m6[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  #   b) the given regex (TODO)
+[35m./app/models/copy_week.rb[0m[36m:[0m[32m28[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO actually copy
+[35m./app/models/scheduling.rb[0m[36m:[0m[32m18[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
+[35m./app/models/scheduling.rb[0m[36m:[0m[32m143[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO save start_hour and end_hour or even cache the whole quickie
+[35m./app/models/scheduling_filter.rb[0m[36m:[0m[32m49[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m      length_of_month # TODO month
+[35m./features/step_definitions/calendar_steps.rb[0m[36m:[0m[32m54[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m# FIXME can only match the whole calendar
+[35m./features/step_definitions/web_steps.rb[0m[36m:[0m[32m76[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m# TODO: Add support for checkbox, select og option
+[35m./features/support/screencast.rb[0m[36m:[0m[32m20[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m    # TODO create animation
+[35m./features/support/table_helpers.rb[0m[36m:[0m[32m1[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m# TODO move this to selectors.rb
+[35m./spec/spec_helper.rb[0m[36m:[0m[32m37[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO move this to #prefork when the test suite is stable

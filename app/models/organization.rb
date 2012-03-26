@@ -3,4 +3,6 @@ class Organization < ActiveRecord::Base
   has_many :employees, :order => 'last_name ASC, first_name ASC'
   has_many :plans
   has_many :teams, :order => 'name ASC'
+
+  validates_presence_of :name
 end

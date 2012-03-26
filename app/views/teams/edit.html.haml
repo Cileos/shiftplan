@@ -1,6 +1,6 @@
 - title resource.name
 
-= simple_form_for resource do |f|
+= simple_form_for [current_organization, resource] do |f|
   = f.input :name
   = f.input :shortcut
   = f.input :color

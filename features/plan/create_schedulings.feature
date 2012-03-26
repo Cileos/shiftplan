@@ -8,17 +8,32 @@ Feature: create a scheduling
       And the situation of a nuclear reactor
 
 
+  @javascript
   Scenario: just entering time span
      When I follow "Neue Terminierung"
+     Then I should see "9-17 wichtige Arbeit [wA]" within a hint
       And I select "Homer S" from "Mitarbeiter"
       And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
      Then I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Carl C      |        |          |          |            |         |         |         |
-        | Lenny L     |        |          |          |            |         |         |         |
-        | Homer S     |        |          | 9-17     |            |         |         |         |
+        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Planner Burns |        |          |          |            |         |         |         |
+        | Carl C        |        |          |          |            |         |         |         |
+        | Lenny L       |        |          |          |            |         |         |         |
+        | Homer S       |        |          | 9-17     |            |         |         |         |
+
+  # TODO: currently it is assumend that a user can only have one organization
+  Scenario: can only select employees from same planner (and organization)
+    Given an organization "Jungle" exists
+      And an employee exists with first_name: "Tarzan", organization: organization "Jungle"
+    #  And an organization "Home" exists with planner: the planner
+    #  And an employee exists with first_name: "Bart", organization: organization "Home"
+     When I go to the page of the plan "clean reactor"
+     Then I should see "Homer S"
+     #  But I should not see "Bart"
+      But I should not see "Tarzan" within the first form
+      And I should not see "Tarzan" within the calendar
 
   # TODO: currently it is assumend that a user can only have one organization
   Scenario: can only select employees from same planner (and organization)
@@ -37,10 +52,11 @@ Feature: create a scheduling
   Scenario: just entering time span with javascript
      When I schedule "Homer S" on "Donnerstag" for "8-18"
      Then I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Carl C      |        |          |          |            |         |         |         |
-        | Lenny L     |        |          |          |            |         |         |         |
-        | Homer S     |        |          |          | 8-18       |         |         |         |
+        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Planner Burns |        |          |          |            |         |         |         |
+        | Carl C        |        |          |          |            |         |         |         |
+        | Lenny L       |        |          |          |            |         |         |         |
+        | Homer S       |        |          |          | 8-18       |         |         |         |
 
   @javascript
   Scenario: Entering the time span wrong
@@ -52,39 +68,41 @@ Feature: create a scheduling
 
   @javascript
   Scenario: schedule only using the keyboard
-     Then the cell "Montag"/"Carl C" should be focus
+     Then the cell "Montag"/"Planner Burns" should be focus
      When I press return
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "8-18"
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Carl C      | 8-18   |          |          |            |         |         |         |
-        | Lenny L     |        |          |          |            |         |         |         |
-        | Homer S     |        |          |          |            |         |         |         |
-      And the cell "Montag"/"Carl C" should be focus
+        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Planner Burns | 8-18   |          |          |            |         |         |         |
+        | Carl C        |        |          |          |            |         |         |         |
+        | Lenny L       |        |          |          |            |         |         |         |
+        | Homer S       |        |          |          |            |         |         |         |
+      And the cell "Montag"/"Planner Burns" should be focus
 
     # navigate to another cell and press enter again
      When I press arrow down
       And I press arrow right
-     Then the cell "Dienstag"/"Lenny L" should be focus
+     Then the cell "Dienstag"/"Carl C" should be focus
      When I press return
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7-17"
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Carl C      | 8-18   |          |          |            |         |         |         |
-        | Lenny L     |        | 7-17     |          |            |         |         |         |
-        | Homer S     |        |          |          |            |         |         |         |
-      And the cell "Dienstag"/"Lenny L" should be focus
+        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Planner Burns | 8-18   |          |          |            |         |         |         |
+        | Carl C        |        | 7-17     |          |            |         |         |         |
+        | Lenny L       |        |          |          |            |         |         |         |
+        | Homer S       |        |          |          |            |         |         |         |
+      And the cell "Dienstag"/"Carl C" should be focus
 
       # navigate further and use the typeahead
      When I press arrow down
       And I press arrow right
-     Then the cell "Mittwoch"/"Homer S" should be focus
+     Then the cell "Mittwoch"/"Lenny L" should be focus
      When I press return
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7"
@@ -93,8 +111,9 @@ Feature: create a scheduling
      When I press enter in the "Quickie" field
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Carl C      | 8-18   |          |          |            |         |         |         |
-        | Lenny L     |        | 7-17     |          |            |         |         |         |
-        | Homer S     |        |          | 7-17     |            |         |         |         |
-      And the cell "Mittwoch"/"Homer S" should be focus
+        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Planner Burns | 8-18   |          |          |            |         |         |         |
+        | Carl C        |        | 7-17     |          |            |         |         |         |
+        | Lenny L       |        |          | 7-17     |            |         |         |         |
+        | Homer S       |        |          |          |            |         |         |         |
+      And the cell "Mittwoch"/"Lenny L" should be focus

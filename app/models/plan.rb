@@ -16,4 +16,10 @@ class Plan < ActiveRecord::Base
     !organization.employees.empty?
   end
 
+
+  def build_copy_week(attrs={})
+    CopyWeek.new attrs.merge(plan: self)
+  end
 end
+
+PlanDecorator

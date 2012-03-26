@@ -2,7 +2,7 @@
 # other steps files
 
 Given /^today is (.+)$/ do |timey|
-  Timecop.travel Time.parse(timey)
+  Timecop.travel Time.zone.parse(timey)
 end
 
 After do

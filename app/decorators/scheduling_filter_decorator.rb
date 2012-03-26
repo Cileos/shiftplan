@@ -32,7 +32,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def schedulings_for(day, employee)
-    filter.indexed(day, employee)
+    filter.indexed(day, employee).sort_by(&:start_hour)
   end
 
   def cell_metadata(day, employee)
@@ -45,11 +45,11 @@ class SchedulingFilterDecorator < ApplicationDecorator
       if resource.is_a?(Scheduling)
         %Q~#calendar tbody td[data-date=#{resource.date.iso8601}][data-employee_id=#{resource.employee_id}]~
       else
-        day, employee_id = scheduling, extra
+        day, employee_id = resource, extra
         %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
       end
-    when :hours
-      %Q~#calendar tbody td.hours[data-employee_id=#{resource.id}]~
+    when :wwt_diff
+      %Q~#calendar tbody td.wwt_diff[data-employee_id=#{resource.id}]~
     when :legend
       '#legend'
     else
@@ -57,18 +57,47 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def hours_header
+  def weekly_working_time_difference_header
     if week?
-      h.content_tag :th, h.translate_action(:hours)
+      h.content_tag :th do
+        (h.translate_action(:hours) + '/' +
+        h.content_tag(:abbr, title: h.translate_action(:wwt_long)) do
+          h.translate_action(:wwt_short)
+        end).html_safe
+      end
     end
   end
 
-  # Planned in hours for given employee
-  def hours_tag_for(employee)
+  def weekly_working_time_difference_tag_for(employee)
     if week?
-      h.content_tag :td, hours_for(employee),
-        :class => 'hours',
-        'data-employee_id' => employee.id
+      h.content_tag :td, :class => 'wwt_diff', 'data-employee_id' => employee.id do
+        wwt_diff_for(employee)
+      end
+    end
+  end
+
+  def wwt_diff_for(employee)
+    h.content_tag :span, wwt_diff_label_text_for(employee),
+      class: "label #{wwt_diff_label_class_for(employee)}"
+  end
+
+  def wwt_diff_label_text_for(employee)
+    if employee.weekly_working_time.present?
+      "#{hours_for(employee)} von #{employee.weekly_working_time.to_i}"
+    else
+      "#{hours_for(employee)}"
+    end
+  end
+
+  def wwt_diff_label_class_for(employee)
+    return '' unless employee.weekly_working_time.present?
+    difference = employee.weekly_working_time - hours_for(employee)
+    if difference > 0
+      'label-warning'
+    elsif difference < 0
+      'label-important'
+    else
+      'label-success'
     end
   end
 
@@ -103,12 +132,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def link_to_previous_week
     week = monday.prev_week
-    h.link_to :previous_week, h.plan_year_week_path(plan, week.year, week.cweek)
+    h.link_to :previous_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
   end
 
   def link_to_next_week
     week = monday.next_week
-    h.link_to :next_week, h.plan_year_week_path(plan, week.year, week.cweek)
+    h.link_to :next_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
   end
 
   def new_scheduling_form_with_link
@@ -117,13 +146,29 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  def respond(resource)
+    if resource.errors.empty?
+      update_cell_for(resource)
+      if resource.next_day
+        update_cell_for(resource.next_day)
+      end
+      update_wwt_diff_for(resource.employee)
+      hide_modal :scheduling_form, resource
+      update_legend
+      update_quickie_completions
+    else
+      append_errors_for(resource)
+    end
+  end
+
   def update_cell_for(scheduling)
     select(:cell, scheduling).html cell_content_for_scheduling(scheduling) || ''
   end
 
-  def update_hours_for(employee)
-    select(:hours, employee).html hours_for(employee)
+  def update_wwt_diff_for(employee)
+    select(:wwt_diff, employee).html wwt_diff_for(employee)
   end
+
 
   # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
   def legend
@@ -149,7 +194,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   private
 
   def link_to_new_scheduling_form
-    h.link_to '.new_scheduling', "##{scheduling_form_id}", :class => 'new_scheduling', 'data-toggle' => 'modal', 'data-href' => "##{scheduling_form_id}"
+    h.link_to h.ti(:new_scheduling), "##{scheduling_form_id}", :class => 'new_scheduling btn btn-inverse', 'data-toggle' => 'modal', 'data-href' => "##{scheduling_form_id}"
   end
 
 

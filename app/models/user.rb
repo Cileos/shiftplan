@@ -3,41 +3,40 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :timeoutable, :lockable, :token_authenticatable
+         :confirmable, :timeoutable, :lockable, :token_authenticatable, :invitable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :employee_id
+  attr_accessor :employee_id
+  attr_reader :current_employee
 
-  Roles = %w(planner)
-  serialize :roles, Array
+  has_many :employees
+  has_many :organizations, :through => :employees
 
-  def roles
-    read_attribute(:roles) || []
-  end
+  after_save :associate_with_employees
 
-  def role?(role)
-    roles.include?(role.to_s)
+  def associate_with_employees
+    if employee_id && employee = Employee.find_by_id(employee_id)
+      employee.user = self
+      employee.save!
+    end
   end
 
   def label
     email
   end
 
-  Roles.each do |role|
-    define_method :"#{role}?" do
-      role?(role)
+  def employee
+    Employee.find_by_id(employee_id)
+  end
+
+  def current_employee=(wanted_employee)
+    if wanted_employee.user == self
+      @current_employee = wanted_employee
+    else
+      raise ArgumentError, "given employee #{wanted_employee} does not belong to #{self}"
     end
   end
-
-  # planner
-  has_many :organizations, :foreign_key => 'planner_id'
-  def organization
-    organizations.first || create_default_organization!
-  end
-
-  private
-  def create_default_organization!
-    organizations.create! :name => "Organization for #{label}"
-  end
-
 end
+
+UserDecorator

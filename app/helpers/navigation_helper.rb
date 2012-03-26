@@ -1,7 +1,7 @@
 module NavigationHelper
   # renders a link (a) within a list item (li),
   # uses cancan to optionally hide it and
-  # activates it if the current path matches 
+  # activates it if the current path matches
   #   a) the provided path or
   #   b) the given regex (TODO)
   #

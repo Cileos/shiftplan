@@ -3,71 +3,63 @@ Feature: Create Employees
   As a planner
   I want to manage employees
 
+  Background:
+    Given an organization exists with name: "Fukushima GmbH"
+      And a confirmed user exists
+      And a planner exists with first_name: "Homer", last_name: "Simpson", user: the confirmed user, organization: the organization
+     When I sign in as the confirmed user
+      And I follow "Fukushima GmbH"
+      And I follow "Mitarbeiter"
+
+
+  @javascript
   Scenario: Creating an employee
-    Given I am signed in as planner
-     When I follow "Mitarbeiter"
-      And I follow "Mitarbeiter hinzufügen"
+      And I follow "Hinzufügen"
+      And I wait for the modal box to appear
+     Then the "Wochenarbeitszeit" field should contain "40"
       And I fill in the following:
-        | Vorname           | Homer   |
-        | Nachname          | Simpson |
-        | Wochenarbeitszeit | 30.5    |
-      And I press "Mitarbeiter erstellen"
+        | Vorname           | Carl    |
+        | Nachname          | Carlson |
+        | Wochenarbeitszeit | 30      |
+      And I press "Speichern"
+      And I wait for the modal box to disappear
      Then I should see flash info "Mitarbeiter erfolgreich angelegt."
-      And I should be on the employees page
-      And I should see "Homer"
-      And I should see "30,5"
+      And I should be on the employees page for the organization
+      And I should see "Carl Carlson"
+      And I should see "30"
 
-  Scenario: Visiting the details page of an employee
-    Given a planner "me" exists
-      And an organization "nukular" exists with planner: planner "me"
-      And an employee exists with organization: organization "nukular", first_name: "Homer", weekly_working_time: "38.5"
-     When I sign in as the planner "me"
-     When I follow "Mitarbeiter"
-     When I follow "Homer"
-     Then I should be on the page for the employee
-     Then I should see "Homer Simpson"
-      And I should see "38,5"
-     When I follow "Zurück"
-     Then I should be on the employees page
-
-  Scenario: Editing an employee
-    Given a planner "me" exists
-      And an organization "nukular" exists with planner: planner "me"
-      And an employee exists with organization: organization "nukular", first_name: "Homer"
-     When I sign in as the planner "me"
-     When I follow "Mitarbeiter"
-     Then I should not see "Biene"
-     When I follow "Bearbeiten"
+  @javascript
+  Scenario: Creating an employee, inducing an error by entering a non-integer waz
+      And I follow "Hinzufügen"
+      And I wait for the modal box to appear
       And I fill in the following:
-        | Vorname | Biene |
-        | Nachname| Maja  |
-     And I press "Mitarbeiter aktualisieren"
-    Then I should see "Mitarbeiter erfolgreich geändert."
-     And I should be on the employees page
-     And I should see "Biene"
+        | Vorname           | Carl    |
+        | Nachname          | Carlson |
+        | Wochenarbeitszeit | 30.5    |
+      And I press "Speichern"
+     Then I should see "muss ganzzahlig sein" within the modal box
 
-  Scenario: Deleting an employee
-    Given a planner "me" exists
-      And an organization "nukular" exists with planner: planner "me"
-      And an employee exists with organization: organization "nukular", first_name: "Homer"
-     When I sign in as the planner "me"
-     When I follow "Mitarbeiter"
-     Then I should see "Homer"
-     When I follow "Löschen"
-     Then I should be on the employees page
-      And I should not see "Homer"
+  @javascript
+  Scenario: Editing an employee
+      And I should be on the employees page for the organization
+     Then I should not see "Carl Carlson"
+     When I follow "Homer Simpson"
+      And I wait for the modal box to appear
+      And I fill in the following:
+        | Vorname  | Carl    |
+        | Nachname | Carlson |
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see flash info "Mitarbeiter erfolgreich geändert."
+      And I should be on the employees page for the organization
+      And I should see "Carl Carlson"
+      But I should not see "Homer Simpson"
 
   Scenario: Can only see employees of own organization
-    Given a planner "me" exists
-      And an organization "nukular" exists with planner: planner "me"
-      And an employee exists with organization: organization "nukular", first_name: "Homer"
-
-      And a planner "Burns" exists
-      And another organization "Chefs" exists with planner: planner "Burns"
+    Given another organization "Chefs" exists
       And an employee exists with organization: organization "Chefs", first_name: "Smithers"
 
-     When I sign in as the planner "me"
       And I follow "Mitarbeiter"
-     Then I should see "Homer"
+     Then I should see "Homer Simpson"
       But I should not see "Smithers"
 

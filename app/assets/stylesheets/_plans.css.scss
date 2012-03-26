@@ -1,7 +1,7 @@
 // Place all the styles related to the Plans controller here.
 // They will automatically be included in application.css.
 $cell_width: 3.3em;
-$cell_border: #ccc;
+$cell_border: $grayDark;
 
 @mixin pibble-outer {
   padding: 2px;
@@ -31,9 +31,12 @@ span.pibble.shortcut {
   }
 }
 
+$table_padding: 3px;
+$table_inner_border: 1px; /* hardcoded in bootstrap */
+
 table#calendar {
   tbody td {
-    padding: 3px;
+    padding: $table_padding;
     cursor: pointer;
     &.hours {
       cursor: auto;
@@ -46,7 +49,7 @@ table#calendar {
 
   ul {
     list-style: none;
-    padding: 0.1em;
+    padding: 0;
     margin: 0;
     li {
       @include pibble-outer();
@@ -55,6 +58,30 @@ table#calendar {
         @include pibble-inner();
         white-space: nowrap;
         text-overflow: ellipsis;
+      }
+      &.early {
+        margin-left: 0;
+        padding-left: 0;
+        position: relative;
+        left: -($table_padding + $table_inner_border);
+        @include border-left-radius(0px);
+        abbr, span {
+          margin-left: 0;
+          @include border-left-radius(0px);
+        }
+      }
+      &.late {
+        margin-right: 0;
+        float: right;
+        clear: right;
+        position: relative;
+        right: -$table_padding;
+        padding-right: 0;
+        @include border-right-radius(0px);
+        abbr, span {
+          margin-right: 0;
+          @include border-right-radius(0px);
+        }
       }
     }
   }
@@ -97,6 +124,7 @@ div.scroller {
     padding-left: 0.5em;
   }
   form {
+    @include box-shadow($grayLight 1px 1px 6px);
     position: relative;
     .errors {
       margin-top: 9px;
@@ -122,7 +150,9 @@ div.scroller {
       left: 4%;
       top: 19px;
     }
-
+  }
+  form#new_scheduling {
+    @include box-shadow($green 0px 0px 8px);
   }
 }
 
@@ -141,6 +171,14 @@ div.scroller {
         margin: 0.6em;
         float: left;
       }
+    }
+  }
+}
+
+ul.nav {
+  li {
+    span {
+      color: $white;
     }
   }
 }

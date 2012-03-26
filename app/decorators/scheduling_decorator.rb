@@ -17,6 +17,18 @@ class SchedulingDecorator < ApplicationDecorator
     end
   end
 
+  def nightshift_class
+    if start_hour == 0
+      'early'
+    elsif end_hour == 24
+      'late'
+    end
+  end
+
+  def css_class
+    concat nightshift_class, team_class
+  end
+
   def team_shortcut
     if team
       team.shortcut

@@ -4,13 +4,13 @@ Feature: Delete schedulings from plan
   I want to delete a single scheduling
 
   Background:
-    Given a planner exists
+    Given an organization exists
+      And a confirmed user exists
+      And a planner exists with first_name: "Santa", last_name: "C", user: the confirmed user, organization: the organization
       # week 49
       And today is 2012-12-18
-      And an organization exists with planner: the planner
       And a plan exists with organization: the organization
-      And a employee exists with first_name: "Santa", organization: the organization, last_name: "C"
-      And I am signed in as the planner
+      And I am signed in as the confirmed user
 
       And the employee was scheduled in the plan as following:
         | date       | quickie |
@@ -19,8 +19,8 @@ Feature: Delete schedulings from plan
       And I am on the page for the plan
 
       And I should see the following calendar:
-        | Mitarbeiter | Donnerstag | Freitag | Stunden |
-        | Santa C     | 7-17       | 5-23    | 28      |
+        | Mitarbeiter | Donnerstag | Freitag | Stunden/WAZ |
+        | Santa C     | 7-17       | 5-23    | 28          |
 
   @javascript
   Scenario: Delete a single scheduling
@@ -32,13 +32,13 @@ Feature: Delete schedulings from plan
       And I should not see "Löschen" within the first form within the modal box
       And the "Quickie" field should contain "5-23" within the new scheduling form within the modal box
       And I should see the following calendar:
-        | Mitarbeiter | Donnerstag | Freitag | Stunden |
-        | Santa C     | 7-17       |         | 10      |
+        | Mitarbeiter | Donnerstag | Freitag | Stunden/WAZ |
+        | Santa C     | 7-17       |         | 10          |
 
       # Undo / Move
      When I select "Samstag" from "Wochentag"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Mitarbeiter | Donnerstag | Freitag | Samstag | Stunden |
-        | Santa C     | 7-17       |         | 5-23    | 28      |
+        | Mitarbeiter | Donnerstag | Freitag | Samstag | Stunden/WAZ |
+        | Santa C     | 7-17       |         | 5-23    | 28          |

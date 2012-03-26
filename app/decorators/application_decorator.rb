@@ -3,9 +3,23 @@ class ApplicationDecorator < Draper::Base
   # wraps the given block in modal divs. Must give at least :body
   def modal(options = {})
     body    = options.delete(:body) || raise(ArgumentError, 'no :body given for modal')
+    header  = options.delete(:header)
     classes = options.delete(:class)
-    content = h.content_tag :div, body, class: 'modal-body'
+    content_body = h.content_tag :div, body, class: 'modal-body'
+    if header
+      content = h.content_tag(:div, header, class: 'modal-header')
+      content += content_body
+    else
+      content = content_body
+    end
     h.content_tag :div, content, options.merge(class: "modal container-fluid hide fade in #{classes}")
+  end
+
+  # removes all modal boxes first, appends a new one to the body and opens it
+  def append_modal(options = {})
+    page.select('.modal').remove()
+    page.select('body').append(modal(options))
+    page.select('.modal').modal('show')
   end
 
   def dom_id(m=model)
@@ -50,8 +64,14 @@ class ApplicationDecorator < Draper::Base
     end.modal('hide')
   end
 
+  # prepend validation errors for given `resource` to its form
+  def prepend_errors_for(resource)
+    select(:errors_for, resource).remove()
+    select(:form_for, resource).prepend errors_for(resource)
+  end
+
   # append validation errors for given `resource` to its form
-  def insert_errors_for(resource)
+  def append_errors_for(resource)
     select(:errors_for, resource).remove()
     select(:form_for, resource).append errors_for(resource)
   end
@@ -65,24 +85,24 @@ class ApplicationDecorator < Draper::Base
   #        ex: number_to_currency(model.price)
   #   CON: Add a bazillion methods into your decorator's namespace
   #        and probably sacrifice performance/memory
-  #  
+  #
   #   Enable them by uncommenting this line:
   #   lazy_helpers
 
   # Shared Decorations
   #   Consider defining shared methods common to all your models.
-  #   
+  #
   #   Example: standardize the formatting of timestamps
   #
   #   def formatted_timestamp(time)
-  #     h.content_tag :span, time.strftime("%a %m/%d/%y"), 
-  #                   :class => 'timestamp' 
+  #     h.content_tag :span, time.strftime("%a %m/%d/%y"),
+  #                   :class => 'timestamp'
   #   end
-  # 
+  #
   #   def created_at
   #     formatted_timestamp(model.created_at)
   #   end
-  # 
+  #
   #   def updated_at
   #     formatted_timestamp(model.updated_at)
   #   end

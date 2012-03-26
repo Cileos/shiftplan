@@ -1,1 +1,8 @@
-= render 'list', plans: collection
+%h3= ta :plans
+- unless collection.empty?
+  = render 'list', plans: collection
+- else
+  %p= t(:'.no_plans')
+
+- if can? :create, Plan
+  = link_to ti(:add), [:new, current_organization, :plan], class: 'btn btn-inverse', remote: true

@@ -43,9 +43,12 @@ Spork.prefork do
 
   # some people have slow computers, 2s are not enough. CI is slow also
   Capybara.default_wait_time = 23
+
+  DatabaseCleaner.clean_with :truncation
 end
 
 Spork.each_run do
+  DatabaseCleaner.clean_with :truncation
   I18n.backend.reload!
   FactoryGirl.reload
 end

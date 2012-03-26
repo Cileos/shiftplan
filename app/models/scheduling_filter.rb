@@ -28,6 +28,11 @@ class SchedulingFilter
     ( Date.new(year) + week.weeks ).beginning_of_week
   end
 
+  def previous_week
+    prev = monday.prev_week
+    self.class.new attributes.merge(week: prev.cweek, year: prev.year)
+  end
+
   # list of Dates over wich the SchedulingFilter spans
   def days
     (1..duration_in_days).to_a.map do |number|

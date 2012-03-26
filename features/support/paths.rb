@@ -14,21 +14,26 @@ module NavigationHelpers
     when 'the signin page'
       new_user_session_path
 
+    when /^the edit page (?:of|for) #{capture_model}$/
+      case model = model!($1)
+      when Employee
+        edit_employee_path(model!($1))
+      end
+
     when /^the page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       params = parse_fields($2).symbolize_keys
       case model = model!($1)
       when Plan
-        # TODO we may have to scope this under its organization laater
         if params[:week]
           if params[:year]
-            plan_year_week_path(model, params[:year], params[:week])
+            organization_plan_year_week_path(model.organization, model, params[:year], params[:week])
           else
-            plan_week_path(model, params[:week])
+            organization_plan_week_path(model.organization, model, params[:week])
           end
         else
-          plan_path(model, params)
+          organization_plan_path(model.organization, model, params)
         end
-	  when Employee
+      when Employee
         employee_path(model)
       else
         raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
@@ -43,8 +48,9 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
 
-    when /^employees page$/
-      employees_page
+    when /^the employees page for #{capture_model}$/
+      org = model!($1)
+      organization_employees_path(org)
 
     else
       begin

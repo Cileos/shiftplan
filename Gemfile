@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.2'
 gem 'pg'
 
 
@@ -48,11 +48,8 @@ group :test do
 
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
-  gem 'plymouth', :require => false
 
   gem 'simplecov', :require => false
-  gem 'pry-nav'
-  gem 'pry-stack_explorer'
 end
 
 group :development, :test do
@@ -91,3 +88,7 @@ gem 'polyglot' # load treetop grammars with #require
 gem 'gon' # push variables from rails to js
 
 gem 'RedCloth' # textilize instructions and other texts from locales
+
+
+gem 'sprockets-urlrewriter'
+gem 'devise_invitable'

@@ -2,6 +2,11 @@ Then /^I should be signed in as "([^"]*)"$/ do |email|
   step %Q~I should see "#{email}" within "#session"~
 end
 
+Then /^I should be signed in as "([^"]*)" for #{capture_model}$/ do |email, organisation|
+  step %Q~I should see "#{email}" within "#session"~
+  step %Q~I should see "#{model!(organisation).name}" within "#session"~
+end
+
 Given /^I am signed in as #{capture_model}$/ do |user|
   unless user.include?('the') || user.include?('"')
     step %{#{user} exists}
@@ -26,8 +31,11 @@ When /^I sign in$/ do
 end
 
 When /^I sign out$/ do
-  step %~I follow "signout"~
-  step %~I should see "Signed out successfully."~
+  with_scope 'the navigation' do
+    page.first('li.dropdown a.dropdown-toggle').click
+  end
+  step %~I follow "Ausloggen"~
+  step %~I should see "Erfolgreich ausgeloggt."~
 end
 
 When /^I sign in as #{capture_model}$/ do |model|

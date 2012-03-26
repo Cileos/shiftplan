@@ -7,30 +7,31 @@ Feature: Merge Teams
     Given today is 2012-12-18
     Given the situation of a nuclear reactor
       And the employee "Homer" was scheduled in the plan as following:
-        | date       | quickie            |
-        | 2012-12-21 | 1-2 Reaktor putzen |
-        | 2012-12-22 | 2-3 Reaktorputzen  |
+        | date       | quickie               |
+        | 2012-12-21 | 1-2 Reaktor putzen    |
+        | 2012-12-22 | 2-3 Reaktor schrubben |
       And the employee "Lenny" was scheduled in the plan as following:
-        | date       | quickie            |
-        | 2012-12-21 | 2-3 Reaktorputzen  |
-        | 2012-12-22 | 3-4 Reaktor putzen |
+        | date       | quickie               |
+        | 2012-12-21 | 2-3 Reaktor schrubben |
+        | 2012-12-22 | 3-4 Reaktor putzen    |
       And I follow "Teams"
-      And I should the following table of teams:
-       | Name           | Kürzel |
-       | Reaktorputzen  | R      |
-       | Reaktor putzen | Rp     |
+      And I should see the following table of teams:
+       | Name              | Kürzel |
+       | Reaktor putzen    | Rp     |
+       | Reaktor schrubben | Rs     |
      When I follow "Reaktor putzen"
       And I follow "Zusammenlegen"
-      And I select "Reaktorputzen" from "anderes Team"
+      And I select "Reaktor schrubben" from "anderes Team"
       And I press "Zusammenlegen"
      Then I should see info "Teams erfolgreich zusammengeführt."
-      And I should the following table of teams:
+      And I should see the following table of teams:
        | Name           | Kürzel |
        | Reaktor putzen | Rp     |
-      But I should not see "Reaktorputzen"
+      But I should not see "Reaktor schrubben"
      When I go to the page of the plan
      Then I should see the following calendar:
-        | Mitarbeiter | Freitag | Samstag |
-        | Carl C      |         |         |
-        | Lenny L     | 2-3 Rp  | 3-4 Rp  |
-        | Homer S     | 1-2 Rp  | 2-3 Rp  |
+        | Mitarbeiter   | Freitag | Samstag |
+        | Planner Burns |         |         |
+        | Carl C        |         |         |
+        | Lenny L       | 2-3 Rp  | 3-4 Rp  |
+        | Homer S       | 1-2 Rp  | 2-3 Rp  |

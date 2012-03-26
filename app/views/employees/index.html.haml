@@ -1,23 +1,7 @@
-- title :employees
-
-%table#employees.table.table-striped.table-bordered.table-condensed
-  %thead
-    %tr.employee
-      %th= Employee.human_attribute_name(:first_name)
-      %th= Employee.human_attribute_name(:last_name)
-      %th= Employee.human_attribute_name(:weekly_working_time)
-      %th
-      %th
-
-  %tbody
-    - collection.each do |employee|
-      %tr
-        %td= link_to employee.first_name, employee
-        %td= link_to employee.last_name, employee
-        %td= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
-        %td= link_to :edit, edit_employee_path(employee)
-        %td= link_to :destroy, employee, :confirm => 'Are you sure?', :method => :delete
-
+%h1= t('.employees')
 %br
 
-= link_to :new_employee, new_employee_path
+= render 'table', employees: collection
+
+- if can? :create, Employee
+  = link_to ti(:add), new_organization_employee_path(current_organization), class: 'btn btn-inverse', remote: true

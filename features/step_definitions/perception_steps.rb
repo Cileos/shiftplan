@@ -1,7 +1,7 @@
 # steps where the user sees things
 
 
-Then /^I should (see|not see) (?:flash )?(flash|info|alert) "([^"]*)"$/ do |see_or_not, severity, message|
+Then /^I should (see|not see) (?:flash )?(flash|info|alert|notice) "([^"]*)"$/ do |see_or_not, severity, message|
   if see_or_not =~ /not/
     step %Q{I should #{see_or_not} "#{message}"}
   else
@@ -23,8 +23,8 @@ end
 
 Then /^I should see a list of the following (.+):$/ do |plural, expected|
   selectors = expected.column_names.map(&:underscore).map {|s| ".#{s}" }
-  actual = find("ul.#{plural}").all('li').map do |li| 
-    selectors.map do |column| 
+  actual = find("ul.#{plural}").all('li').map do |li|
+    selectors.map do |column|
       li.find(column).try(:text).try(:strip)
     end
   end
@@ -36,7 +36,7 @@ Then /^I should see the following list of links:$/ do |expected|
   expected.column_names.should == %w(link active)
   actual = all('ul li:has(a)').map do |li|
     [
-      li.first('a').text,
+      li.first('a').text.strip,
       (li[:class] || '').split.include?('active').to_s
     ]
   end
@@ -44,7 +44,7 @@ Then /^I should see the following list of links:$/ do |expected|
   expected.diff! actual
 end
 
-Then /^I should the following table of (.+):$/ do |plural, expected|
+Then /^I should see the following table of (.+):$/ do |plural, expected|
   # table is a Cucumber::Ast::Table
   actual = find("table##{plural}").all('tr').map do |tr|
     tr.all('th,td').map(&:text).map(&:strip)
@@ -59,6 +59,7 @@ end
 Then /^I (should|should not) be authorized to access the page$/ do |or_not|
   message = "Sie sind nicht berechtigt, auf diese Seite zuzugreifen."
   if or_not.include?('not')
+    step %~I should be on the homepage~
     step %Q~I should see flash alert "#{message}"~
   else
     step %Q~I should not see flash "#{message}"~

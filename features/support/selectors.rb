@@ -44,6 +44,9 @@ module HtmlSelectorsHelpers
     when 'the third form'
       'form:nth-child(3)'
 
+    when 'a hint'
+      ".help-block"
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
