@@ -37,6 +37,7 @@ describe Employee do
       it { Factory.build(:employee, role: 'owner').should be_valid }
       it { Factory.build(:employee, role: 'planer').should be_invalid }
       it { Factory.build(:employee, role: 'weihnachtsmann').should be_invalid }
+      it { Factory(:employee, role: 'planner').reload.role.should == 'planner' }
     end
   end
 end
