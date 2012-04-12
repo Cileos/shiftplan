@@ -1,9 +1,9 @@
 Shiftplan::Application.routes.draw do
 
-  resources :organizations do
-    match 'invitation/accept'  => 'invitations#accept', :as => :accept_invitation
-    match 'invitation/confirm' => 'invitations#confirm', :as => :confirm_invitation
+  match 'invitation/accept'  => 'accept_invitations#accept', :as => :accept_invitation
+  match 'invitation/confirm' => 'accept_invitations#confirm', :as => :confirm_invitation
 
+  resources :organizations do
     resources :plans do
       resources :schedulings
       get 'week/:week' => 'schedulings#index', :as => 'week', :constraints => { :week => /\d{1,2}/ }

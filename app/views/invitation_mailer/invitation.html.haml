@@ -2,7 +2,7 @@
 
 %p= "#{@invitation.inviter.name} hat Sie zu #{root_url} eingeladen. Sie können die Einladung bestätigen, indem Sie auf den folgenden Link klicken."
 
-%p= link_to 'Einladung akzeptieren', organization_accept_invitation_url(@invitation.organization, token: @invitation.token)
+%p= link_to 'Einladung akzeptieren', accept_invitation_url(token: @invitation.token)
 
 - user = User.find_by_email(@invitation.email)
 - unless user.present? && user.confirmed?
