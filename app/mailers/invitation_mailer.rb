@@ -5,7 +5,7 @@ class InvitationMailer < ActionMailer::Base
 
   def invitation(invitation)
     @invitation = invitation
-    mail :to => invitation.user.email, :subject => t(:'mailer.invitation.subject')
+    mail :to => invitation.email, :subject => t(:'mailer.invitation.subject')
   end
 
   def salutation(order)

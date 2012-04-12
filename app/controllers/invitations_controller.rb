@@ -19,25 +19,27 @@ class InvitationsController < InheritedResources::Base
   end
 
   def accept
-    if params[:token] && @invitation = Invitation.find_by_token(params[:token])
-      if @invitation.user.confirmed? && @invitation.user.encrypted_password?
-        @invitation.update_attributes!(accepted_at: Time.now)
-        respond_with_successful_confirmation
+    if request.get?
+      if params[:token] && @invitation = Invitation.find_by_token(params[:token])
+        user = User.find_by_email(@invitation.email)
+        if user.present? && user.confirmed?
+          @invitation.update_attributes!(user: user, accepted_at: Time.now)
+          respond_with_successful_confirmation
+        else
+          @invitation.build_user(confirmed_at: Time.now, email: @invitation.email)
+          render :accept
+        end
       else
-        render :accept
+        flash[:alert] = t(:'invitations.token_invalid')
+        redirect_to root_url
       end
-    else
-      flash[:alert] = t(:'invitations.token_invalid')
-      redirect_to root_url
-    end
-  end
-
-  def confirm
-    if @invitation = Invitation.find_by_token(params[:invitation][:token])
-      if @invitation.update_attributes(params[:invitation].except(:token))
-        respond_with_successful_confirmation
-      else
-        render :accept
+    elsif request.put?
+      if @invitation = Invitation.find_by_token(params[:invitation][:token])
+        if @invitation.update_attributes(params[:invitation].except(:token))
+          respond_with_successful_confirmation
+        else
+          render :accept
+        end
       end
     end
   end
@@ -45,9 +47,8 @@ class InvitationsController < InheritedResources::Base
   private
 
   def ensure_no_duplicates
-    if user = User.find_by_email(resource.email)
-      invitation = current_organization.invitations.find_by_user_id(user.id)
-      if invitation && invitation.employee != resource.employee
+    if invitation = current_organization.invitations.find_by_email(resource.email)
+      if invitation.employee != resource.employee
         flash[:error] = t(:'invitations.another_employee_already_exists_with_email',
           employee_name: invitation.employee.name, email: resource.email)
         redirect_to organization_employees_path(current_organization)

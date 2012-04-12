@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323114043) do
+ActiveRecord::Schema.define(:version => 20120401164302) do
 
   create_table "employees", :force => true do |t|
     t.string   "first_name"
@@ -37,8 +37,10 @@ ActiveRecord::Schema.define(:version => 20120323114043) do
     t.integer  "user_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "email"
   end
 
+  add_index "invitations", ["email"], :name => "index_invitations_on_email"
   add_index "invitations", ["employee_id"], :name => "index_invitations_on_employee_id"
   add_index "invitations", ["inviter_id"], :name => "index_invitations_on_inviter_id"
   add_index "invitations", ["organization_id"], :name => "index_invitations_on_organization_id"

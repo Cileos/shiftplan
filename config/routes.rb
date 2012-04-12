@@ -1,6 +1,8 @@
 Shiftplan::Application.routes.draw do
 
   resources :organizations do
+    match 'invitation/accept'  => 'invitations#accept', :as => :accept_invitation
+
     resources :plans do
       resources :schedulings
       get 'week/:week' => 'schedulings#index', :as => 'week', :constraints => { :week => /\d{1,2}/ }
@@ -11,10 +13,7 @@ Shiftplan::Application.routes.draw do
     resources :teams do
       resource :merge, :only => [:new, :create], :controller => 'team_merge'
     end
-    resources :invitations do
-      get :accept, :on => :member
-      put :confirm, :on => :member
-    end
+    resources :invitations
   end
 
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
