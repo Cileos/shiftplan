@@ -40,7 +40,6 @@ Feature: Inviting Employees
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
 
-  @wip
   Scenario: Displaying the e-mail address or the invitation status on the employees page
     When I go to the employees page for the organization "fukushima"
     Then I should see the following table of employees:
