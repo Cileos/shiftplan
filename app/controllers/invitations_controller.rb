@@ -22,11 +22,15 @@ class InvitationsController < InheritedResources::Base
     if request.get?
       if params[:token] && @invitation = Invitation.find_by_token(params[:token])
         user = User.find_by_email(@invitation.email)
-        if user.present? && user.confirmed?
+        if user.present?
           @invitation.update_attributes!(user: user, accepted_at: Time.now)
-          respond_with_successful_confirmation
+          if user.confirmed?
+            respond_with_successful_confirmation
+          else
+            render :accept
+          end
         else
-          @invitation.build_user(confirmed_at: Time.now, email: @invitation.email)
+          @invitation.build_user(email: @invitation.email)
           render :accept
         end
       else

@@ -4,6 +4,7 @@
   = devise_error_messages!
   = f.input :token, as: :hidden
 
+  - @invitation.user.skip_confirmation!
   = f.simple_fields_for :user do |user_form|
     = user_form.input :confirmed_at, as: :hidden
     = user_form.input :email, as: :hidden

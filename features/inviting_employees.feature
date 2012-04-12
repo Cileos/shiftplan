@@ -24,7 +24,6 @@ Feature: Inviting Employees
      Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
       And the employee "homer" accepts the invitation for the organization "fukushima" without setting a password
 
-  @wip
   Scenario: Inviting an employee with an email address of an unconfirmed user which has not been invited yet
     Given a user "homer" exists with email: "homer@thesimpsons.com"
      Then the user "homer" should not be confirmed
