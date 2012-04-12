@@ -9,6 +9,9 @@
 require 'factory_girl'
 FactoryGirl.reload
 
+require 'database_cleaner'
+DatabaseCleaner.clean_with :truncation
+
 ActionMailer::Base.delivery_method = :test
 
 #########################
@@ -19,16 +22,12 @@ organization = Factory :organization, name: 'Cileos'
 organization.plans.create! name: "Softwareentwicklung"
 
 owner = Factory :confirmed_user, email: 'owner@dev.shiftplan.de'
-owner_employee = Factory :employee, organization: organization, user: owner, role: 'owner', first_name: 'Owner', last_name: 'Carlson'
+Factory :employee, organization: organization, user: owner, role: 'owner', first_name: 'Owner', last_name: 'Carlson'
 
 planner = Factory :confirmed_user, email: 'planner@dev.shiftplan.de'
 Factory :employee, organization: organization, user: planner, role: 'planner', first_name: 'Planner', last_name: 'Burns'
 
-employee_cileos_user = Factory :confirmed_user, email: 'employee@dev.shiftplan.de'
-employee_cileos = Factory :employee, organization: organization, user: employee_cileos_user, first_name: 'Employee', last_name: 'Hofer', weekly_working_time: 40
-Factory(:invitation, organization: organization, employee: employee_cileos, inviter: owner_employee, email: 'employee@dev.shiftplan.de')
-
-# employee_without_user(not yet invited)
+Factory :employee, organization: organization, first_name: 'Employee', last_name: 'Hofer', weekly_working_time: 40
 Factory :employee, organization: organization, first_name: 'Employee', last_name: 'Wrede', weekly_working_time: 38
 
 
@@ -40,17 +39,11 @@ apple = Factory :organization, name: 'Apple'
 apple.plans.create! name: "Produktdesign"
 
 owner_apple = Factory :confirmed_user, email: 'owner@dev.apple.de'
-owner_apple_employee = Factory :employee, organization: apple, user: owner_apple, role: 'owner', first_name: 'Owner', last_name: 'Jobs'
+Factory :employee, organization: apple, user: owner_apple, role: 'owner', first_name: 'Owner', last_name: 'Jobs'
 
 planner_apple = Factory :confirmed_user, email: 'planner@dev.apple.de'
 Factory :employee, organization: apple, user: planner_apple, role: 'planner', first_name: 'Planner', last_name: 'Cook'
 
-employee_apple_user = Factory :confirmed_user, email: 'employee@dev.apple.de'
-employee_apple = Factory :employee, organization: apple, user: employee_apple, first_name: 'Employee', last_name: 'Meyer', weekly_working_time: 42
-Factory(:invitation, organization: apple, employee: employee_apple, inviter: owner_apple_employee, email: 'employee@dev.apple.de')
+Factory :employee, organization: apple, first_name: 'Employee', last_name: 'Meyer', weekly_working_time: 42
 
-# employee_without_user(not yet invited)
 Factory :employee, organization: apple, first_name: 'Employee', last_name: 'Carlson', weekly_working_time: 40
-
-# The user 'employee_cileos_user' gets associated with another employee of org 'apple' and should see both orgs on the dashboard
-Factory :employee, organization: apple, user: employee_cileos_user, first_name: 'Employee', last_name: 'Thielemann', weekly_working_time: 38
