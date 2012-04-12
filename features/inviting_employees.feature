@@ -32,6 +32,24 @@ Feature: Inviting Employees
      And I should see "Sie haben diese Einladung bereits akzeptiert."
      And I should see "Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein."
 
+   Scenario: Accepting an invitation by providing an invalid password confirmation
+      When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
+      Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+      When I sign out
+
+      When I open the email with subject "Sie wurden zu Shiftplan eingeladen"
+       And I follow "Einladung akzeptieren" in the email
+       And I fill in "Passwort" with "secret!"
+       And I fill in "invitation_user_attributes_password_confirmation" with "wrong confirmation"
+       And I press "Passwort setzen"
+      Then I should see "stimmt nicht mit der Bestätigung überein"
+
+      When I fill in "Passwort" with "secret!"
+      When I fill in "invitation_user_attributes_password_confirmation" with "secret!"
+       And I press "Passwort setzen"
+      Then I should be signed in as "homer@thesimpsons.com"
+       And I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."
+
   Scenario: Inviting an employee with an email address of a confirmed user which has not been invited yet
     Given a confirmed user "homer" exists with email: "homer@thesimpsons.com"
       When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
