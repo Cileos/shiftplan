@@ -16,7 +16,7 @@ Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)" fo
 end
 
 Then /^I should see that the invitation for "([^"]*)" and organization "([^"]*)" was successful$/ do |email,organization|
-  step %{I should see flash notice "Die Einladung wurde erfolgreich verschickt."}
+  step %{I should see flash info "Die Einladung wurde erfolgreich verschickt."}
   step %{I should be on the employees page for the organization "#{organization}"}
   # Do not send an extra account confirmation mail, invitation mail is enough
   step %{"#{email}" should receive 1 email}

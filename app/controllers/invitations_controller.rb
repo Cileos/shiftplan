@@ -7,13 +7,13 @@ class InvitationsController < InheritedResources::Base
   before_filter :ensure_no_duplicates, only: [:create, :update]
 
   def create
-    create!(:notice => t(:'invitations.sent_successfully')) do
+    create! do
       respond_with_successful_invitation
     end
   end
 
   def update
-    update!(:notice => t(:'invitations.sent_successfully')) do
+    update! do
       respond_with_successful_invitation
     end
   end
@@ -36,6 +36,7 @@ class InvitationsController < InheritedResources::Base
 
   def respond_with_successful_invitation
     resource.send_email
+    flash[:info] = t(:'invitations.sent_successfully')
     organization_employees_path(current_organization)
   end
 
