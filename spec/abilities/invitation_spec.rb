@@ -20,7 +20,7 @@ describe "Invitation permissions:" do
 
     context "for other organizations" do
       it "should not be able to manage employees" do
-        should_not be_able_to(:manage, Factory(:invitation, organization: another_organization, employee: another_employee))
+        should_not be_able_to(:manage, Factory(:invitation, organization: another_organization, employee: another_employee, inviter: employee))
       end
     end
   end
@@ -30,7 +30,7 @@ describe "Invitation permissions:" do
 
     context "for other organizations" do
       it "should not be able to manage employees" do
-        should_not be_able_to(:manage, Factory(:invitation, organization: another_organization, employee: another_employee))
+        should_not be_able_to(:manage, Factory(:invitation, organization: another_organization, employee: another_employee, inviter: employee))
       end
     end
   end
@@ -40,13 +40,13 @@ describe "Invitation permissions:" do
 
     context "for own organization" do
       it "should not be able to manage employees" do
-        should_not be_able_to(:manage, Factory(:invitation, organization: organization, employee: own_employee))
+        should_not be_able_to(:manage, Factory(:invitation, organization: organization, employee: own_employee, inviter: employee))
       end
     end
 
     context "for other organization" do
       it "should not be able to manage employees" do
-        should_not be_able_to(:manage, Factory(:invitation, organization: another_organization, employee: another_employee))
+        should_not be_able_to(:manage, Factory(:invitation, organization: another_organization, employee: another_employee, inviter: employee))
       end
     end
   end
@@ -55,7 +55,7 @@ describe "Invitation permissions:" do
     let(:employee) { nil }
 
     it "should not be able to manage employees" do
-      should_not be_able_to(:manage, Factory(:invitation, organization: organization, employee: own_employee))
+      should_not be_able_to(:manage, Factory(:invitation, organization: organization, employee: own_employee, inviter: employee))
     end
   end
 end
