@@ -9,7 +9,7 @@ Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)" fo
   end
   step %{I wait for the modal box to appear}
   if invite_or_reinvite == 'reinvite'
-    step %{the "E-Mail" field should contain "#{employee.user.email}"}
+    step %{the "E-Mail" field should contain "#{employee.invitation.email}"}
   end
   step %{I fill in "E-Mail" with "#{email}"}
   step %{I press "Einladung verschicken"}

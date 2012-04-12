@@ -32,7 +32,6 @@ Feature: Inviting Employees
       And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
      Then the user "homer" should be confirmed
 
-  @wip
   Scenario: Reinviting an employee which has not accepted the invitation yet
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
