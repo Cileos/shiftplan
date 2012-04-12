@@ -2,6 +2,7 @@ Shiftplan::Application.routes.draw do
 
   resources :organizations do
     match 'invitation/accept'  => 'invitations#accept', :as => :accept_invitation
+    match 'invitation/confirm' => 'invitations#confirm', :as => :confirm_invitation
 
     resources :plans do
       resources :schedulings

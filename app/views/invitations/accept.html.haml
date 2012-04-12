@@ -1,7 +1,7 @@
 %h2= t('.set_your_password')
 
 - @invitation.accepted_at = Time.now
-= simple_form_for @invitation, :url => organization_accept_invitation_path(@invitation.organization, :token => @invitation.token), :html => { :method => :put } do |f|
+= simple_form_for @invitation, :url => organization_confirm_invitation_path(@invitation.organization, :token => @invitation.token), :html => { :method => :put } do |f|
   = devise_error_messages!
   = f.input :accepted_at, as: :hidden
 

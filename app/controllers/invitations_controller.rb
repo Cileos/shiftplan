@@ -5,7 +5,7 @@ class InvitationsController < InheritedResources::Base
 
   before_filter :set_inviter, only: [:create, :update]
   before_filter :ensure_no_duplicates, only: [:create, :update]
-  before_filter :set_invitation, only: :accept
+  before_filter :set_invitation, only: [:accept, :confirm]
 
   def create
     create!(:notice => t(:'invitations.sent_successfully')) do
@@ -20,31 +20,31 @@ class InvitationsController < InheritedResources::Base
   end
 
   def accept
-    if request.get?
-      if @invitation
-        user = User.find_by_email(@invitation.email)
-        if user.present?
-          @invitation.update_attributes!(user: user)
-          if user.confirmed?
-            @invitation.update_attributes!(accepted_at: Time.now)
-            respond_with_successful_confirmation
-          else
-            render :accept
-          end
+    if @invitation
+      user = User.find_by_email(@invitation.email)
+      if user.present?
+        @invitation.update_attributes!(user: user)
+        if user.confirmed?
+          @invitation.update_attributes!(accepted_at: Time.now)
+          respond_with_successful_confirmation
         else
-          @invitation.build_user(email: @invitation.email)
           render :accept
         end
       else
-        flash[:alert] = t(:'invitations.token_invalid')
-        redirect_to root_url
-      end
-    elsif request.put?
-      if @invitation.update_attributes(params[:invitation])
-        respond_with_successful_confirmation
-      else
+        @invitation.build_user(email: @invitation.email)
         render :accept
       end
+    else
+      flash[:alert] = t(:'invitations.token_invalid')
+      redirect_to root_url
+    end
+  end
+
+  def confirm
+    if @invitation.update_attributes(params[:invitation])
+      respond_with_successful_confirmation
+    else
+      render :accept
     end
   end
 
