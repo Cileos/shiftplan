@@ -5,6 +5,7 @@ class InvitationsController < InheritedResources::Base
 
   before_filter :set_inviter, only: [:create, :update]
   before_filter :ensure_no_duplicates, only: [:create, :update]
+  before_filter :set_invitation, only: :accept
 
   def create
     create!(:notice => t(:'invitations.sent_successfully')) do
@@ -20,7 +21,7 @@ class InvitationsController < InheritedResources::Base
 
   def accept
     if request.get?
-      if params[:token] && @invitation = Invitation.find_by_token(params[:token])
+      if @invitation
         user = User.find_by_email(@invitation.email)
         if user.present?
           @invitation.update_attributes!(user: user)
@@ -39,12 +40,10 @@ class InvitationsController < InheritedResources::Base
         redirect_to root_url
       end
     elsif request.put?
-      if @invitation = Invitation.find_by_token(params[:invitation][:token])
-        if @invitation.update_attributes(params[:invitation].except(:token))
-          respond_with_successful_confirmation
-        else
-          render :accept
-        end
+      if @invitation.update_attributes(params[:invitation])
+        respond_with_successful_confirmation
+      else
+        render :accept
       end
     end
   end
@@ -63,6 +62,10 @@ class InvitationsController < InheritedResources::Base
 
   def set_inviter
     resource.inviter = current_user.current_employee
+  end
+
+  def set_invitation
+    @invitation = Invitation.find_by_token(params[:token])
   end
 
   def respond_with_successful_confirmation
