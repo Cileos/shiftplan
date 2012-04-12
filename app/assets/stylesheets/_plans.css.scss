@@ -38,7 +38,7 @@ table#calendar {
   tbody td {
     padding: $table_padding;
     cursor: pointer;
-    &.hours {
+    &.hours, &.wwt_diff {
       cursor: auto;
     }
   }
