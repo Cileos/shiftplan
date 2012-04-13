@@ -21,6 +21,7 @@ class InvitationsController < InheritedResources::Base
 
   def respond_with_successful_invitation
     flash[:info] = t(:'invitations.sent_successfully')
+    resource.send_email if resource.errors.empty?
     organization_employees_path(current_organization)
   end
 
