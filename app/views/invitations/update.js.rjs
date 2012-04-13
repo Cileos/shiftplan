@@ -1,0 +1,3 @@
+page.decorate resource do |invitation|
+  invitation.respond
+end

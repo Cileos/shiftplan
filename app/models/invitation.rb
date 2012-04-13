@@ -4,9 +4,10 @@ class Invitation < ActiveRecord::Base
   belongs_to :user
   belongs_to :inviter, class_name: 'Employee'
 
-  validates_presence_of :token, :sent_at, :organization_id, :employee_id, :email
+  validates_presence_of :token, :organization_id, :employee_id, :email
+  validates_uniqueness_of :email, scope: :organization_id
 
-  before_validation :set_token, :set_sent_at, on: :create
+  before_validation :set_token, on: :create
   after_save :associate_employee_with_user
 
   accepts_nested_attributes_for :user
@@ -25,10 +26,6 @@ class Invitation < ActiveRecord::Base
 
   def set_token
     self.token = Devise.friendly_token
-  end
-
-  def set_sent_at
-    self.sent_at = Time.now
   end
 
   def associate_employee_with_user
