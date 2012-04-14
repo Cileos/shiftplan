@@ -23,36 +23,49 @@ Feature: Inviting Employees
     When I invite the employee "homer" with the email address "" for the organization "fukushima"
     Then I should see "muss ausgefüllt werden"
 
-  Scenario: Accepting the same invitation two times
+  Scenario: Accepting the same invitation a second time
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     When I sign out
      And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
+
+   # accept invitation again, still being logged in
+   When I open the email with subject "Sie wurden zu Shiftplan eingeladen"
+    And I follow "Einladung akzeptieren" in the email
+   Then I should be on the dashboard page
+    And I should see "Sie haben diese Einladung bereits akzeptiert."
+    And I should not see "Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein."
+
     When I sign out
-    # accept invitation again
+    # accept invitation again, when being logged out
     When I open the email with subject "Sie wurden zu Shiftplan eingeladen"
      And I follow "Einladung akzeptieren" in the email
     Then I should be on the signin page
      And I should see "Sie haben diese Einladung bereits akzeptiert."
      And I should see "Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein."
 
-   Scenario: Accepting an invitation by providing an invalid password confirmation
-      When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-      Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
-      When I sign out
+  Scenario: Accepting an invitation with an invalid invitation token
+    When I try to accept an invitation with an invalid token
+    Then I should be on the home page
+     And I should see "Der Einladungstoken ist nicht gültig. Ihre Einladung konnte nicht akzeptiert werden."
 
-      When I open the email with subject "Sie wurden zu Shiftplan eingeladen"
-       And I follow "Einladung akzeptieren" in the email
-       And I fill in "Passwort" with "secret!"
-       And I fill in "invitation_user_attributes_password_confirmation" with "wrong confirmation"
-       And I press "Passwort setzen"
-      Then I should see "stimmt nicht mit der Bestätigung überein"
+  Scenario: Accepting an invitation by providing an invalid password confirmation
+    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
+    Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+    When I sign out
 
-      When I fill in "Passwort" with "secret!"
-      When I fill in "invitation_user_attributes_password_confirmation" with "secret!"
-       And I press "Passwort setzen"
-      Then I should be signed in as "homer@thesimpsons.com"
-       And I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."
+    When I open the email with subject "Sie wurden zu Shiftplan eingeladen"
+     And I follow "Einladung akzeptieren" in the email
+     And I fill in "Passwort" with "secret!"
+     And I fill in "invitation_user_attributes_password_confirmation" with "wrong confirmation"
+     And I press "Passwort setzen"
+    Then I should see "stimmt nicht mit der Bestätigung überein"
+
+    When I fill in "Passwort" with "secret!"
+    When I fill in "invitation_user_attributes_password_confirmation" with "secret!"
+     And I press "Passwort setzen"
+    Then I should be signed in as "homer@thesimpsons.com"
+     And I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."
 
   Scenario: Inviting an employee with an email address of a confirmed user which has not been invited yet
     Given a confirmed user "homer" exists with email: "homer@thesimpsons.com"

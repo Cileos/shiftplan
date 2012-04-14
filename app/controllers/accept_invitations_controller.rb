@@ -4,23 +4,18 @@ class AcceptInvitationsController < InheritedResources::Base
   before_filter :ensure_not_yet_accepted, only: [:accept, :confirm]
 
   def accept
-    if @invitation
-      user = User.find_by_email(@invitation.email)
-      if user.present?
-        @invitation.update_attributes!(user: user)
-        if user.confirmed?
-          @invitation.update_attributes!(accepted_at: Time.now)
-          respond_with_successful_confirmation
-        else
-          render :accept
-        end
+    user = User.find_by_email(@invitation.email)
+    if user.present?
+      @invitation.update_attributes!(user: user)
+      if user.confirmed?
+        @invitation.update_attributes!(accepted_at: Time.now)
+        respond_with_successful_confirmation
       else
-        @invitation.build_user(email: @invitation.email)
         render :accept
       end
     else
-      flash[:alert] = t(:'invitations.token_invalid')
-      redirect_to root_url
+      @invitation.build_user(email: @invitation.email)
+      render :accept
     end
   end
 
@@ -35,13 +30,21 @@ class AcceptInvitationsController < InheritedResources::Base
   private
 
   def set_invitation
-    @invitation = Invitation.find_by_token(params[:token])
+    unless @invitation = Invitation.find_by_token(params[:token])
+      flash[:alert] = t(:'invitations.token_invalid')
+      redirect_to root_url
+    end
   end
 
   def ensure_not_yet_accepted
     if @invitation.accepted?
-      flash[:notice] = t(:'invitations.already_accepted')
-      redirect_to new_user_session_path
+      if current_user
+        flash[:notice] = t(:'invitations.already_accepted')
+        redirect_to dashboard_path
+      else
+        flash[:notice] = t(:'invitations.already_accepted_log_in')
+        redirect_to new_user_session_path
+      end
     end
   end
 

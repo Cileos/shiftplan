@@ -54,3 +54,7 @@ When /^I (follow|press) "([^"]+)" in the cell "([^"]+)"\/"([^"]+)"$/ do |follow_
   row    = row_index_for(row_label)
   step %{I #{follow_or_press == 'follow' ? 'follow' : 'press'} "#{label}" within "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"}
 end
+
+When /^I try to accept an invitation with an invalid token$/ do
+  visit '/invitation/accept?token=someinvalidtoken'
+end
