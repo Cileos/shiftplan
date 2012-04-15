@@ -1,3 +1,5 @@
+#encoding: UTF-8
+
 Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)" for the organization "([^"]*)"$/ do |invite_or_reinvite, employee, email, organization|
   employee = model!(employee)
   step %{a clear email queue}
@@ -39,6 +41,7 @@ When /^#{capture_model} accepts the invitation for the organization "([^"]*)" (w
 
   step %{I follow "Einladung akzeptieren" in the email}
   if with_or_without == 'with'
+    step %{I should see a flash notice "Vielen Dank, dass Sie Ihre Einladung bestätigen wollen. Sie müssen lediglich noch ein Passwort festlegen, um die Einladungsbestätigung erfolgreich abzuschließen."}
     step %{I fill in "Passwort" with "secret!"}
     step %{I fill in "invitation_user_attributes_password_confirmation" with "secret!"}
     step %{I press "Passwort setzen"}

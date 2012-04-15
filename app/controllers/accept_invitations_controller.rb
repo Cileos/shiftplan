@@ -2,21 +2,14 @@ class AcceptInvitationsController < InheritedResources::Base
   skip_authorization_check
   before_filter :set_invitation, only: [:accept, :confirm]
   before_filter :ensure_not_yet_accepted, only: [:accept, :confirm]
+  before_filter :save_or_build_user_on_invition, only: [:accept]
 
   def accept
-    user = User.find_by_email(@invitation.email)
-    if user.present?
-      @invitation.update_attributes!(user: user)
-      if user.confirmed?
-        @invitation.update_attributes!(accepted_at: Time.now)
-        respond_with_successful_confirmation
-      else
-        render :accept
-      end
+    if @invitation.user.confirmed?
+      @invitation.update_attributes!(accepted_at: Time.now)
+      respond_with_successful_confirmation
     else
-      flash[:notice] = t(:'invitations.accept_by_setting_a_password')
-      @invitation.build_user(email: @invitation.email)
-      render :accept
+      respond_with_accept_by_setting_a_password
     end
   end
 
@@ -49,9 +42,22 @@ class AcceptInvitationsController < InheritedResources::Base
     end
   end
 
+  def save_or_build_user_on_invition
+    if user = User.find_by_email(@invitation.email)
+      @invitation.update_attributes!(user: user)
+    else
+      @invitation.build_user(email: @invitation.email)
+    end
+  end
+
   def respond_with_successful_confirmation
     flash[:notice] = t(:'invitations.accepted')
     sign_in(User, @invitation.user)
     redirect_to dashboard_path
+  end
+
+  def respond_with_accept_by_setting_a_password
+    flash[:notice] = t(:'invitations.accept_by_setting_a_password')
+    render :accept
   end
 end
