@@ -6,8 +6,9 @@
 [35m./app/assets/javascripts/editors/scheduling.coffee[0m[36m:[0m[32m18[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m        # TODO I18n js
 [35m./app/controllers/employees_controller.rb[0m[36m:[0m[32m16[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO more than one organization per planner
 [35m./app/controllers/teams_controller.rb[0m[36m:[0m[32m10[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO more than one organization per planner
-[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m168[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
-[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m182[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO move into own view to fetch as an organization-specific asset
+[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m173[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
+[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m187[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO move into own view to fetch as an organization-specific asset
+[35m./app/helpers/employees_helper.rb[0m[36m:[0m[32m24[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO: let rails guess the urls by providing the persisted invitation of an employee or a new record
 [35m./app/helpers/navigation_helper.rb[0m[36m:[0m[32m6[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  #   b) the given regex (TODO)
 [35m./app/models/copy_week.rb[0m[36m:[0m[32m28[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO actually copy
 [35m./app/models/scheduling.rb[0m[36m:[0m[32m18[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME #date must be set before setting start_hour and end_hour (hashes beware)

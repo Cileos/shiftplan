@@ -2,6 +2,7 @@
 db/*.sqlite3
 log/*.log
 tmp/
+.DS_Store
 .sass-cache/
 config/database.yml
 log/TODO

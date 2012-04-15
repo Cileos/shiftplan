@@ -3,31 +3,18 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :timeoutable, :lockable, :token_authenticatable, :invitable
+         :confirmable, :timeoutable, :lockable, :token_authenticatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :employee_id
-  attr_accessor :employee_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :employee_id, :confirmed_at
   attr_reader :current_employee
 
   has_many :employees
+  has_many :invitations
   has_many :organizations, :through => :employees
-
-  after_save :associate_with_employees
-
-  def associate_with_employees
-    if employee_id && employee = Employee.find_by_id(employee_id)
-      employee.user = self
-      employee.save!
-    end
-  end
 
   def label
     email
-  end
-
-  def employee
-    Employee.find_by_id(employee_id)
   end
 
   def current_employee=(wanted_employee)
@@ -38,5 +25,3 @@ class User < ActiveRecord::Base
     end
   end
 end
-
-UserDecorator
