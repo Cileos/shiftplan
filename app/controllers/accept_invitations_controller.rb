@@ -14,6 +14,7 @@ class AcceptInvitationsController < InheritedResources::Base
         render :accept
       end
     else
+      flash[:notice] = t(:'invitations.accept_by_setting_a_password')
       @invitation.build_user(email: @invitation.email)
       render :accept
     end
