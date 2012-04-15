@@ -30,18 +30,6 @@ class Employee < ActiveRecord::Base
     invitation.present?
   end
 
-  def invitation_accepted?
-    user.present? && user.invitation_accepted_at?
-  end
-
-  def invitation_sent_at
-    user.present? ? user.invitation_sent_at : nil
-  end
-
-  def invitation_accepted_at
-    user.present? ? user.invitation_accepted_at : nil
-  end
-
   def name
     %Q~#{first_name} #{last_name}~
   end
