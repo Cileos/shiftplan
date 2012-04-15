@@ -23,9 +23,9 @@ describe Employee do
       Factory.build(:employee, :last_name => 'Simpson').should be_valid
     end
 
-    it "should have a non-negative integer value or nil value for weekly_working_time" do
+    it "should have a value or nil value for weekly_working_time" do
       Factory.build(:employee, :weekly_working_time => -1).should  be_invalid
-      Factory.build(:employee, :weekly_working_time => 1.2).should be_invalid
+      Factory.build(:employee, :weekly_working_time => 1.2).should be_valid
 
       Factory.build(:employee, :weekly_working_time => 0).should   be_valid
       Factory.build(:employee, :weekly_working_time => 40).should  be_valid

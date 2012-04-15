@@ -29,15 +29,16 @@ Feature: Create Employees
       And I should see "30"
 
   @javascript
-  Scenario: Creating an employee, inducing an error by entering a non-integer waz
+  Scenario: Creating an employee without a weekly working time
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
-        | Wochenarbeitszeit | 30.5    |
+        | Wochenarbeitszeit |         |
       And I press "Speichern"
-     Then I should see "muss ganzzahlig sein" within the modal box
+      And I wait for the modal box to disappear
+     Then I should see flash info "Mitarbeiter erfolgreich angelegt."
 
   @javascript
   Scenario: Editing an employee
