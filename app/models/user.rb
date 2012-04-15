@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :employee_id, :confirmed_at
-  attr_accessor :employee_id
   attr_reader :current_employee
 
   has_many :employees
@@ -16,10 +15,6 @@ class User < ActiveRecord::Base
 
   def label
     email
-  end
-
-  def employee
-    Employee.find_by_id(employee_id)
   end
 
   def current_employee=(wanted_employee)
