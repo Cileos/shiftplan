@@ -4,6 +4,7 @@ class Organization < ActiveRecord::Base
   has_many :plans
   has_many :teams, :order => 'name ASC'
   has_many :invitations
+  has_many :blogs
 
   validates_presence_of :name
 end
