@@ -10,11 +10,12 @@
       Shiftplan
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'lib'
+    %script{src:'http://www.jotform.com/min/?g=feedback2', type:'text/javascript'}
     = javascript_include_tag 'application'
     = csrf_meta_tags
     = include_gon
-  %body
 
+  %body
     .container-fluid
       .navbar
         .navbar-inner
@@ -25,6 +26,7 @@
       = render 'flash'
       - if show_title?
         .page-header
+          %h1{style: "color:red;"} Hallo
           %h1#title= yield(:title)
 
       = yield

@@ -4,3 +4,4 @@
 //= require teams
 //= require 'calendar/cursor'
 //= require_tree './editors'
+//= require feedback
