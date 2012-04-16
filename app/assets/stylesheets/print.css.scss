@@ -1,0 +1,38 @@
+/* --------------------------------------------------------------------- */
+/*  print.scss                                                           */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+@import "bootstrap";
+
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "compass/css3/transform";
+
+/* import custom library */
+@import "library/*";
+
+/* from here on, we can re-use bootstrap variables */
+// @import "plans";
+
+
+body {
+    @include _reset-outline-values();
+    background: white;
+    font-size: 12pt;
+}
+
+/* hide stuff not interesting on prints */
+.navbar,
+.pager,
+#actions {
+    display: none;
+}
+
+/* reset interactive stuff */
+abbr {
+    border-bottom: none;
+    background: white;
+    font-size: 100%;
+}
