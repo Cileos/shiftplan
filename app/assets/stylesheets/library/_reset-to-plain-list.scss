@@ -5,8 +5,15 @@
 /* --------------------------------------------------------------------- */
 
 
-@mixin _reset-to-plain-list() {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+@mixin _reset-to-plain-list($imp: false) {
+    @if $imp {
+        margin: 0 unquote($imp);
+        padding: 0 unquote($imp);
+        list-style-type: none unquote($imp);
+    }
+    @else {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
 }
