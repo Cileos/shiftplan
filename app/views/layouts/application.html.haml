@@ -26,7 +26,6 @@
       = render 'flash'
       - if show_title?
         .page-header
-          %h1{style: "color:red;"} Hallo
           %h1#title= yield(:title)
 
       = yield
