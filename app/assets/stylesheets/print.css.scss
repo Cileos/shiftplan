@@ -36,3 +36,111 @@ abbr {
     background: white;
     font-size: 100%;
 }
+
+[class^="team_"] {
+    border: 1px solid grey;
+    white-space: nowrap;
+    abbr {
+        font-size: 13px;
+    }
+}
+
+table#calendar {
+    thead {
+        th {
+            text-align: center;
+            &:first-child, &:last-child {
+                text-align: left;
+            }
+        }
+    }
+    tbody {
+        th {
+            font-weight: normal;
+        }
+    }
+}
+
+
+/* --------------------------------------------------------------------- */
+/* --------------------------------------------------------------------- */
+
+
+/* copy from _plans.css.scss */
+/* FIXME just for test purposes! */
+
+
+@mixin pibble-outer {
+    padding: 2px;
+    @include border-left-radius(8px);
+    @include border-right-radius(3px);
+    float: left;
+    clear: left;
+    margin: 0.6em;
+}
+
+@mixin pibble-inner {
+    border: 1px solid grey;
+    background-color: $white;
+    @include border-radius(2px);
+    padding: 1px 6px;
+    margin-left: 5px;
+    display: block; /* do not break if too long */
+    text-transform: none; /* instead of uppercase */
+}
+
+
+$table_padding: 3px;
+$table_inner_border: 1px; /* hardcoded in bootstrap */
+
+table#calendar {
+    tbody td {
+        padding: $table_padding;
+        cursor: pointer;
+        &.hours, &.wwt_diff {
+            cursor: auto;
+        }
+    }
+    tbody td.focus {
+        @include border-radius(3px);
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+            @include pibble-outer();
+            margin: 6px;
+            abbr, span {
+                @include pibble-inner();
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            &.early {
+                margin-left: 0;
+                padding-left: 0;
+                position: relative;
+                left: -($table_padding + $table_inner_border);
+                @include border-left-radius(0px);
+                abbr, span {
+                    margin-left: 0;
+                    @include border-left-radius(0px);
+                }
+            }
+            &.late {
+                margin-right: 0;
+                float: right;
+                clear: right;
+                position: relative;
+                right: -$table_padding;
+                padding-right: 0;
+                @include border-right-radius(0px);
+                abbr, span {
+                    margin-right: 0;
+                    @include border-right-radius(0px);
+                }
+            }
+        }
+    }
+}
