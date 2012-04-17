@@ -31,6 +31,10 @@ span.pibble.shortcut {
     }
 }
 
+.pager {
+    margin-bottom: 0; /* override bootstrap */
+}
+
 $table_padding: 3px;
 $table_inner_border: 1px; /* hardcoded in bootstrap */
 
@@ -41,6 +45,11 @@ $table_inner_border: 1px; /* hardcoded in bootstrap */
 }
 
 table#calendar {
+    caption {
+        margin-bottom: 1.5em;
+        font-size: 15px;
+        font-weight: bold;
+    }
     tbody td {
         padding: $table_padding;
         cursor: pointer;
