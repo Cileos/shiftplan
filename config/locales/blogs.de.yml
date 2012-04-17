@@ -6,6 +6,7 @@ de:
     new: 'Neuen Blogpost erstellen'
     headers:
       new: 'Neuen Blogpost erstellen'
+      edit: 'Blogpost bearbeiten'
   activerecord:
     attributes:
       post:

@@ -1,3 +1,4 @@
+@javascript
 Feature: As a user
 I want to create blog posts
 In order to keep my colleagues informed about important news
@@ -5,11 +6,11 @@ In order to keep my colleagues informed about important news
   Background:
     Given today is "2012-05-24 12:00"
       And the situation of a just registered user
+     Then 0 posts should exist
      When I sign in as the confirmed user "mr. burns"
-      And I follow "AKW Fukushima GmbH"
 
-  @javascript
   Scenario: Creating a first blog post
+      And I follow "AKW Fukushima GmbH"
      Then I should see "Es wurden noch keine Blogposts erstellt."
      When I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
@@ -17,8 +18,44 @@ In order to keep my colleagues informed about important news
       And I fill in "Text" with "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I press "Speichern"
       And I wait for the modal box to disappear
-     Then I should see "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
+     Then I should see a flash info "Post erfolgreich angelegt."
+      And I should see "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I should see "24.05.2012 12:00"
       And I should see "Owner Burns"
       And I should not see "Es wurden noch keine Blogposts erstellt."
+
+  Scenario: Creating a blog post without entering a title
+      And I follow "AKW Fukushima GmbH"
+     When I follow "Neuen Blogpost erstellen"
+      And I wait for the modal box to appear
+      And I fill in "Text" with "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
+      And I press "Speichern"
+     Then I should see "Titel muss ausgefüllt werden"
+      And 0 posts should exist
+
+  Scenario: Creating a blog post without entering a text
+      And I follow "AKW Fukushima GmbH"
+     When I follow "Neuen Blogpost erstellen"
+      And I wait for the modal box to appear
+      And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
+      And I press "Speichern"
+     Then I should see "Text muss ausgefüllt werden"
+      And 0 posts should exist
+
+  Scenario: Editing a blog post
+    Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+     When I follow "AKW Fukushima GmbH"
+     Then I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+     When I follow "Bearbeiten"
+      And I wait for the modal box to appear
+     Then the "Titel" field should contain "Umweltminister zu Besuch"
+      And the "Text" field should contain "Bitte putzen"
+     When I fill in "Titel" with "Besuch des Umweltministers"
+     When I fill in "Text" with "Bitte Kontrollräume aufräumen"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see a flash info "Post erfolgreich geändert."
+      And I should see "Besuch des Umweltministers"
+      And I should see "Bitte Kontrollräume aufräumen"

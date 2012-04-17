@@ -24,6 +24,7 @@ module ApplicationHelper
 
   Icons = {
     add:               'plus',
+    edit:              'edit',
     new_scheduling:    'plus',
     copy_week:         'retweet',
     update:            'ok-circle',
