@@ -71,6 +71,9 @@ In order to keep my colleagues informed about important news
       And I should see "Bitte putzen"
      When I press "Löschen"
      Then 0 posts should exist
+      And I should be on the page of the organization
+      And I should see a flash info "Post erfolgreich gelöscht."
+      And I should see "Es wurden noch keine Blogposts erstellt."
 
   Scenario: Employees can only edit their own blog posts
     Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"

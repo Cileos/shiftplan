@@ -1,10 +1,10 @@
 - if company_blog.present?
   .blog
-    %h2= company_blog.title
+    %h2= t(:'blogs.company_news')
     .posts
       - if company_blog.posts.empty?
         %p= t(:'blogs.no_posts_present')
       - else
         = render('posts/list', posts: company_blog.posts)
     - if can? :create, Post
-      %p= link_to ti(:add, translation_key: 'posts.new'), new_organization_blog_post_path(current_organization, company_blog), class: 'btn btn-inverse', remote: true
+      %p= link_to ti(:add, translation_key: 'posts.new'), new_organization_blog_post_path(current_organization, company_blog), class: 'btn btn-primary btn-mini', remote: true

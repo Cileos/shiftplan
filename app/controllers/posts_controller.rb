@@ -9,4 +9,8 @@ class PostsController < InheritedResources::Base
       success.html { organization_path(current_organization) }
     end
   end
+
+  def destroy
+    destroy! { organization_path(current_organization) }
+  end
 end

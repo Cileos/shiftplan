@@ -35,6 +35,8 @@ module NavigationHelpers
         end
       when Employee
         employee_path(model)
+      when Organization
+        organization_path(model)
       else
         raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
       end
