@@ -1,0 +1,7 @@
+%ul#posts
+  - posts.each do |post|
+    %li{class: 'post', id: "post_#{post.id}"}
+      .meta= t(:'posts.meta_data', author: post.author.name, published_at: l(post.published_at, format: :tiny))
+      %h3= post.title
+      .body= truncate(post.body, :length => 500, :omission => ' …')
+      %p.further_reading_and_comment= link_to(:'further_reading_and_comment', organization_blog_post_path(current_organization, post.blog, post))

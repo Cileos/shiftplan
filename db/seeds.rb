@@ -20,6 +20,7 @@ ActionMailer::Base.delivery_method = :test
 
 organization = Factory :organization, name: 'Cileos'
 organization.plans.create! name: "Softwareentwicklung"
+organization.blogs.create! title: "Cileos Blog"
 
 owner = Factory :confirmed_user, email: 'owner@dev.shiftplan.de'
 Factory :employee, organization: organization, user: owner, role: 'owner', first_name: 'Owner', last_name: 'Carlson'
@@ -37,6 +38,7 @@ Factory :employee, organization: organization, first_name: 'Employee', last_name
 
 apple = Factory :organization, name: 'Apple'
 apple.plans.create! name: "Produktdesign"
+apple.blogs.create! title: "Apple Blog"
 
 owner_apple = Factory :confirmed_user, email: 'owner@dev.apple.de'
 Factory :employee, organization: apple, user: owner_apple, role: 'owner', first_name: 'Owner', last_name: 'Jobs'

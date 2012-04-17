@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(:version => 20120416134629) do
   create_table "posts", :force => true do |t|
     t.integer  "blog_id"
     t.string   "title"
-    t.text     "content"
+    t.text     "body"
     t.integer  "author_id"
     t.datetime "published_at"
     t.datetime "created_at",   :null => false

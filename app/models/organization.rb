@@ -7,4 +7,8 @@ class Organization < ActiveRecord::Base
   has_many :blogs
 
   validates_presence_of :name
+
+  def company_blog
+    blogs.first
+  end
 end

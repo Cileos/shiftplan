@@ -50,32 +50,33 @@ Feature: Authorization
       And I should see link "Dashboard" within the navigation
 
      When I follow "Fukushima GmbH"
-      Then I should be authorized to access the page
-       But I should not see link "Hinzufügen"
-       And I should see link "Ausloggen" within the navigation
-       And I should see link "Dashboard" within the navigation
-       And I should see link "Pläne" within the navigation
-       And I should see link "Mitarbeiter" within the navigation
-       And I should see link "Teams" within the navigation
+      And I follow "Pläne"
+     Then I should be authorized to access the page
+      But I should not see link "Hinzufügen"
+      And I should see link "Ausloggen" within the navigation
+      And I should see link "Dashboard" within the navigation
+      And I should see link "Pläne" within the navigation
+      And I should see link "Mitarbeiter" within the navigation
+      And I should see link "Teams" within the navigation
 
-      When I follow "Brennstäbe wechseln"
-      Then I should be authorized to access the page
+     When I follow "Brennstäbe wechseln"
+     Then I should be authorized to access the page
       But I should not see link "Neue Terminierung"
       And I should not see link "Übernahme aus der letzten Woche"
 
-      When I follow "Mitarbeiter"
-      Then I should be authorized to access the page
-       And I should see "Homer Simpson"
-       But I should not see link "Homer Simpson"
-       But I should not see link "Hinzufügen"
-       And I should not see link "Einladen"
-       But I should see "Noch nicht eingeladen"
+     When I follow "Mitarbeiter"
+     Then I should be authorized to access the page
+      And I should see "Homer Simpson"
+      But I should not see link "Homer Simpson"
+      But I should not see link "Hinzufügen"
+      And I should not see link "Einladen"
+      But I should see "Noch nicht eingeladen"
 
-      When I follow "Teams"
-      Then I should be authorized to access the page
-       And I should see "Kühlwasser tauschen"
-       But I should not see link "Kühlwasser tauschen"
-       And I should not see link "Bearbeiten"
+     When I follow "Teams"
+     Then I should be authorized to access the page
+      And I should see "Kühlwasser tauschen"
+      But I should not see link "Kühlwasser tauschen"
+      And I should not see link "Bearbeiten"
 
   Scenario: planner
     Given a confirmed user "planner" exists

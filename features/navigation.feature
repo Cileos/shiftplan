@@ -20,7 +20,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link            | active |
        | Dashboard       | false  |
-       | Pläne           | true   |
+       | Pläne           | false  |
        | Mitarbeiter     | false  |
        | Teams           | false  |
        | me@shiftplan.de | false  |

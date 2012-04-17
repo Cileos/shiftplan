@@ -15,6 +15,9 @@ Shiftplan::Application.routes.draw do
       resource :merge, :only => [:new, :create], :controller => 'team_merge'
     end
     resources :invitations
+    resources :blogs do
+      resources :posts
+    end
   end
 
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'

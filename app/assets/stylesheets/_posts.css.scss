@@ -1,0 +1,21 @@
+textarea#post_body {
+  width: 515px;
+}
+ul#posts {
+  padding-top: 10px;
+  margin-left: 20px;
+  list-style-type: none;
+}
+.post {
+  padding-bottom: 20px;
+}
+.meta {
+  color: #999;
+}
+.body {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+.further_reading_and_comment:after {
+  content: " \2192";
+}
