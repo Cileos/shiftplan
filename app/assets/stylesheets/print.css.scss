@@ -37,15 +37,24 @@ abbr {
     font-size: 100%;
 }
 
-[class^="team_"] {
+[class^="team_"], dt.shortcut {
     border: 1px solid grey;
     white-space: nowrap;
     abbr {
         font-size: 13px;
     }
 }
+#legend di dt.shortcut { /* inc specifity */
+    margin-top: 0.4em;
+    margin-left: 2em;
+}
 
 table#calendar {
+    caption {
+        margin-bottom: 1.5em;
+        font-size: 15px;
+        font-weight: bold;
+    }
     thead {
         th {
             text-align: center;
@@ -143,4 +152,22 @@ table#calendar {
             }
         }
     }
+}
+
+#legend {
+    di {
+        display: block;
+        float: left;
+    }
+}
+dt.shortcut {
+    @include pibble-outer();
+    span {
+        @include pibble-inner();
+    }
+}
+dd {
+    padding: 2px;
+    margin: 0.6em;
+    float: left;
 }
