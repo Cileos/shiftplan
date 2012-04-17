@@ -6,5 +6,5 @@
         %p= t(:'blogs.no_posts_present')
       - else
         = render('posts/list', posts: company_blog.posts)
-    - if can? :manage, Post
+    - if can? :create, Post
       %p= link_to ti(:add, translation_key: 'posts.new'), new_organization_blog_post_path(current_organization, company_blog), class: 'btn btn-inverse', remote: true

@@ -7,9 +7,9 @@ In order to keep my colleagues informed about important news
     Given today is "2012-05-24 12:00"
       And the situation of a just registered user
      Then 0 posts should exist
-     When I sign in as the confirmed user "mr. burns"
 
   Scenario: Creating a first blog post
+     When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
      Then I should see "Es wurden noch keine Blogposts erstellt."
      When I follow "Neuen Blogpost erstellen"
@@ -26,6 +26,7 @@ In order to keep my colleagues informed about important news
       And I should not see "Es wurden noch keine Blogposts erstellt."
 
   Scenario: Creating a blog post without entering a title
+     When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
      When I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
@@ -35,6 +36,7 @@ In order to keep my colleagues informed about important news
       And 0 posts should exist
 
   Scenario: Creating a blog post without entering a text
+     When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
      When I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
@@ -44,6 +46,7 @@ In order to keep my colleagues informed about important news
       And 0 posts should exist
 
   Scenario: Editing a blog post
+     When I sign in as the confirmed user "mr. burns"
     Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I follow "AKW Fukushima GmbH"
      Then I should see "Umweltminister zu Besuch"
@@ -59,3 +62,13 @@ In order to keep my colleagues informed about important news
      Then I should see a flash info "Post erfolgreich geändert."
       And I should see "Besuch des Umweltministers"
       And I should see "Bitte Kontrollräume aufräumen"
+
+  Scenario: Employees can only edit their own blog posts
+    Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And a confirmed user "bart" exists
+      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+     When I sign in as the confirmed user "bart"
+      And I follow "AKW Fukushima GmbH"
+     Then I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+      But I should not see "Bearbeiten"
