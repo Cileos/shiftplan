@@ -24,13 +24,13 @@ class Ability
 
   def authorize_employee(employee)
     is_employee_of = { id: employee.organization_id }
-    can :read,            Plan,         organization: is_employee_of
-    can [:read, :create], Post,         blog: { organization: is_employee_of }
-    can [:update],        Post,         { author_id: employee.id }
-    can :read,            Employee,     organization: is_employee_of
-    can :read,            Team,         organization: is_employee_of
-    can :read,            Scheduling,   plan: { organization: is_employee_of }
-    can :read,            Organization, is_employee_of
+    can :read,               Plan,         organization: is_employee_of
+    can [:read, :create],    Post,         blog: { organization: is_employee_of }
+    can [:update, :destroy], Post,         { author_id: employee.id }
+    can :read,               Employee,     organization: is_employee_of
+    can :read,               Team,         organization: is_employee_of
+    can :read,               Scheduling,   plan: { organization: is_employee_of }
+    can :read,               Organization, is_employee_of
   end
 
   def authorize_planner(planner)

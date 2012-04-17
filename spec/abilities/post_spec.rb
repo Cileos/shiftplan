@@ -7,11 +7,11 @@ describe "Post permissions:" do
   let(:user) { Factory(:user) }
   let(:organization) { Factory(:organization) }
   let(:blog) { Factory(:blog, organization: organization) }
-  let(:some_employee) { Factory(:employee, organization: organization) }  
+  let(:some_employee) { Factory(:employee, organization: organization) }
 
   let(:another_organization) { Factory(:organization) }
   let(:another_blog) { Factory(:blog, organization: another_organization) }
-  let(:another_employee) { Factory(:employee, organization: another_organization) }  
+  let(:another_employee) { Factory(:employee, organization: another_organization) }
 
   before(:each) do
     # simulate before_filter :set_current_employee
@@ -20,10 +20,14 @@ describe "Post permissions:" do
 
   context "As an owner" do
     let(:employee) { Factory(:owner, organization: organization, user: user) }
-    
+
     context "for my own organization" do
       it "I should not be able to update posts having an author different than me" do
         should_not be_able_to(:update, Factory(:post, blog: blog, author: some_employee))
+      end
+
+      it "I should not be able to destroy posts having an author different than me" do
+        should_not be_able_to(:destroy, Factory(:post, blog: blog, author: some_employee))
       end
     end
 
@@ -36,11 +40,11 @@ describe "Post permissions:" do
         should_not be_able_to(:update, Factory(:post, blog: another_blog, author: another_employee))
       end
 
-      it "should not be able to create schedulings" do
+      it "should not be able to create posts" do
         should_not be_able_to(:create, Factory.build(:post, blog: another_blog, author: another_employee))
       end
 
-      it "should not be able to destroy schedulings" do
+      it "should not be able to destroy posts" do
         should_not be_able_to(:destroy, Factory(:post, blog: another_blog, author: another_employee))
       end
     end
@@ -48,10 +52,14 @@ describe "Post permissions:" do
 
   context "As a planner" do
     let(:employee) { Factory(:employee, organization: organization, user: user) }
-    
+
     context "for my own organization" do
       it "I should not be able to update posts having an author different than me" do
         should_not be_able_to(:update, Factory(:post, blog: blog, author: some_employee))
+      end
+
+      it "I should not be able to destroy posts having an author different than me" do
+        should_not be_able_to(:destroy, Factory(:post, blog: blog, author: some_employee))
       end
     end
 
@@ -64,11 +72,11 @@ describe "Post permissions:" do
         should_not be_able_to(:update, Factory(:post, blog: another_blog, author: another_employee))
       end
 
-      it "should not be able to create schedulings" do
+      it "should not be able to create posts" do
         should_not be_able_to(:create, Factory.build(:post, blog: another_blog, author: another_employee))
       end
 
-      it "should not be able to destroy schedulings" do
+      it "should not be able to destroy posts" do
         should_not be_able_to(:destroy, Factory(:post, blog: another_blog, author: another_employee))
       end
     end
@@ -76,10 +84,14 @@ describe "Post permissions:" do
 
   context "As an employee" do
     let(:employee) { Factory(:employee, organization: organization, user: user) }
-    
+
     context "for my own organization" do
       it "I should not be able to update posts having an author different than me" do
         should_not be_able_to(:update, Factory(:post, blog: blog, author: some_employee))
+      end
+
+      it "I should not be able to destroy posts having an author different than me" do
+        should_not be_able_to(:destroy, Factory(:post, blog: blog, author: some_employee))
       end
     end
 
@@ -92,11 +104,11 @@ describe "Post permissions:" do
         should_not be_able_to(:update, Factory(:post, blog: another_blog, author: another_employee))
       end
 
-      it "should not be able to create schedulings" do
+      it "should not be able to create posts" do
         should_not be_able_to(:create, Factory.build(:post, blog: another_blog, author: another_employee))
       end
 
-      it "should not be able to destroy schedulings" do
+      it "should not be able to destroy posts" do
         should_not be_able_to(:destroy, Factory(:post, blog: another_blog, author: another_employee))
       end
     end
@@ -113,11 +125,11 @@ describe "Post permissions:" do
       should_not be_able_to(:update, Factory(:post, blog: blog, author: some_employee))
     end
 
-    it "should not be able to create schedulings" do
+    it "should not be able to create posts" do
       should_not be_able_to(:create, Factory.build(:post, blog: blog, author: some_employee))
     end
 
-    it "should not be able to destroy schedulings" do
+    it "should not be able to destroy posts" do
       should_not be_able_to(:destroy, Factory(:post, blog: blog, author: some_employee))
     end
   end

@@ -46,9 +46,9 @@ In order to keep my colleagues informed about important news
       And 0 posts should exist
 
   Scenario: Editing a blog post
-     When I sign in as the confirmed user "mr. burns"
     Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
-     When I follow "AKW Fukushima GmbH"
+     When I sign in as the confirmed user "mr. burns"
+      And I follow "AKW Fukushima GmbH"
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
      When I follow "Bearbeiten"
@@ -63,6 +63,15 @@ In order to keep my colleagues informed about important news
       And I should see "Besuch des Umweltministers"
       And I should see "Bitte Kontrollräume aufräumen"
 
+  Scenario: Deleting a blog post
+    Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+     When I sign in as the confirmed user "mr. burns"
+      And I follow "AKW Fukushima GmbH"
+     Then I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+     When I press "Löschen"
+     Then 0 posts should exist
+
   Scenario: Employees can only edit their own blog posts
     Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And a confirmed user "bart" exists
@@ -72,3 +81,13 @@ In order to keep my colleagues informed about important news
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
       But I should not see "Bearbeiten"
+
+  Scenario: Employees can only destroy their own blog posts
+    Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And a confirmed user "bart" exists
+      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+     When I sign in as the confirmed user "bart"
+      And I follow "AKW Fukushima GmbH"
+     Then I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+      But I should not see "Löschen"
