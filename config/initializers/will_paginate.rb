@@ -19,11 +19,14 @@ module WillPaginate
         add_current_page_param(url_params, page)
 
         if custom_link_url = @options[:custom_link_url]
-          link_params = (url_params.map {|k,v| "#{k}=#{v}"}).join('&')
-          custom_link_url = [custom_link_url, link_params].join('?')
+          custom_link_url = [custom_link_url, page_params(url_params)].join('?')
         else
           @template.url_for(url_params)
         end
+      end
+
+      def page_params(params)
+        params.select {|k,v| [:page, :per_page].include?(k) }.map {|k,v| "#{k}=#{v}"}.join('&')
       end
 
 

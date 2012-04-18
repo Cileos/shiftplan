@@ -15,4 +15,4 @@ de:
         body: Text
   helpers:
     actions:
-      further_reading_and_comment: 'Weiterlesen und Kommentieren'
+      more: 'Mehr'

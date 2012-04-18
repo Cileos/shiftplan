@@ -25,7 +25,7 @@ class PostDecorator < ApplicationDecorator
   end
 
   def post_details(post)
-    h.render('posts/post', post: post, truncation: false)
+    h.render('posts/post_details', post: post, truncation: false)
   end
 
   def respond

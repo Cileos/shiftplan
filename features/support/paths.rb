@@ -24,7 +24,7 @@ module NavigationHelpers
       params = parse_fields($2).symbolize_keys
       case model = model!($1)
       when Post
-        organization_blog_post_path(model.blog.organization, model.blog, model)
+        organization_blog_post_path(model.organization, model.blog, model)
       when Plan
         if params[:week]
           if params[:year]

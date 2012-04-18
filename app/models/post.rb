@@ -6,6 +6,10 @@ class Post < ActiveRecord::Base
 
   before_validation :set_published_at, on: :create
 
+  def organization
+    blog.organization
+  end
+
   protected
 
   def set_published_at

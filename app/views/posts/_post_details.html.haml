@@ -1,0 +1,9 @@
+= render('posts/post', post: post, truncation: false)
+- if can?(:edit, post) || can?(:destroy, post)
+  %p.actions
+    - if can? :edit, post
+      = link_to(ti(:edit), [:edit, current_organization, post.blog, post], class: 'btn btn-inverse btn-mini', remote: true)
+    - if can? :destroy, post
+      = button_to(ta(:destroy), [current_organization, post.blog, post], method: :delete, class: 'btn btn-danger btn-mini')
+%p
+  = link_to(:back, [current_organization], class: 'btn btn-inverse btn-mini')
