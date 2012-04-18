@@ -1,9 +1,9 @@
 .meta= t(:'posts.meta_data', author: post.author.name, published_at: l(post.published_at, format: :tiny))
 %h3= post.title
-- if params[:action] == 'show'
-  .body= post.body
+- if truncation
+  .body= truncate(post.body, :length => 300, :omission => ' …')
 - else
-  .body= truncate(post.body, :length => 500, :omission => ' …')
+  .body= post.body
 - if can?(:edit, post) || can?(:destroy, post)
   %p.actions
     - if can? :edit, post

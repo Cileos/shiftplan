@@ -1,4 +1,4 @@
 %div{class: 'post', id: "post_#{@post.id}"}
-  = render('posts/post', post: @post)
+  = render('posts/post', post: @post, truncation: false)
 %p
   = link_to(:back, [current_organization], class: 'btn btn-inverse btn-mini')
