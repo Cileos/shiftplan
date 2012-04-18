@@ -31,7 +31,8 @@ module ApplicationHelper
     invite:            'user',
     reinvite:          'user',
     send_invitation:   'envelope',
-    comment:           'comment'
+    comment:           'comment',
+    back:              'arrow-left'
   }
 
   # translate with textilize

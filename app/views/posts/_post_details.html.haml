@@ -2,8 +2,8 @@
 - if can?(:edit, post) || can?(:destroy, post)
   %p.actions
     - if can? :edit, post
-      = link_to(ti(:edit), [:edit, current_organization, post.blog, post], class: 'btn btn-inverse btn-mini', remote: true)
-    - if can? :destroy, post
-      = button_to(ta(:destroy), [current_organization, post.blog, post], method: :delete, class: 'btn btn-danger btn-mini')
+      = link_to(ti(:edit), [:edit, current_organization, post.blog, post], class: 'btn btn-primary btn-mini', remote: true)
+  - if can? :destroy, post
+    = button_to(ta(:destroy), [current_organization, post.blog, post], method: :delete, class: 'btn btn-danger btn-mini', id: 'destroy-post')
 %p
-  = link_to(:back, [current_organization], class: 'btn btn-inverse btn-mini')
+  = link_to(ti(:back), [current_organization], class: 'btn btn-inverse btn-mini', id: 'back')

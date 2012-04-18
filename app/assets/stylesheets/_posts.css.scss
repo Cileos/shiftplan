@@ -9,12 +9,29 @@ div.blog {
 .post {
   p.actions {
     margin-top: 10px;
+    a {
+      float: left;
+      clear: both;
+    }
+  }
+  input#destroy-post {
+    float: right;
+  }
+  a#back {
+    float: left;
+    clear: both;
+    margin-top: 20px;
   }
 }
 ul#posts {
   margin-top: 20px;
   margin-left: 20px;
   list-style-type: none;
+}
+div.post > div {
+  float: left;
+  clear: both;
+  padding-bottom: 20px;
 }
 div.post {
   margin-left: 40px;
