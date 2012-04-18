@@ -46,7 +46,7 @@ In order to keep my colleagues informed about important news
       And 0 posts should exist
 
   Scenario: Editing a blog post
-    Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
      Then I should see "Umweltminister zu Besuch"
@@ -64,7 +64,7 @@ In order to keep my colleagues informed about important news
       And I should see "Bitte Kontrollräume aufräumen"
 
   Scenario: Deleting a blog post
-    Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
      Then I should see "Umweltminister zu Besuch"
@@ -76,7 +76,7 @@ In order to keep my colleagues informed about important news
       And I should see "Es wurden noch keine Blogposts erstellt."
 
   Scenario: Employees can only edit their own blog posts
-    Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And a confirmed user "bart" exists
       And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
      When I sign in as the confirmed user "bart"
@@ -86,7 +86,7 @@ In order to keep my colleagues informed about important news
       But I should not see "Bearbeiten"
 
   Scenario: Employees can only destroy their own blog posts
-    Given a post exists with blog: the blog, author: the owner "Burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And a confirmed user "bart" exists
       And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
      When I sign in as the confirmed user "bart"
@@ -94,3 +94,62 @@ In order to keep my colleagues informed about important news
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
       But I should not see "Löschen"
+
+  Scenario: User paginates through blog posts
+    Given the following posts exist:
+      | title  | blog     | author                |
+      | Post 1 | the blog | the owner "mr. burns" |
+      | Post 2 | the blog | the owner "mr. burns" |
+      | Post 3 | the blog | the owner "mr. burns" |
+     When I sign in as the confirmed user "mr. burns"
+      And I follow "AKW Fukushima GmbH"
+      And I follow "Neuen Blogpost erstellen"
+      And I wait for the modal box to appear
+      And I fill in "Titel" with "Post 4"
+      And I fill in "Text" with "Text von Post 4"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see "Post 4"
+      And I should see "Post 3"
+      And I should see "Post 2"
+      But I should not see "Post 1"
+     When I follow ">>" within the pagination
+     Then I should see "Post 1"
+      But I should not see "Post 4"
+      And I should not see "Post 3"
+      And I should not see "Post 2"
+
+  Scenario: User paginates through blog posts
+    Given the following posts exist:
+      | title  | blog     | author                |
+      | Post 1 | the blog | the owner "mr. burns" |
+      | Post 2 | the blog | the owner "mr. burns" |
+      | Post 3 | the blog | the owner "mr. burns" |
+      | Post 4 | the blog | the owner "mr. burns" |
+     When I sign in as the confirmed user "mr. burns"
+      And I follow "AKW Fukushima GmbH"
+     Then I should see "Post 4"
+      And I should see "Post 3"
+      And I should see "Post 2"
+      But I should not see "Post 1"
+     When I follow ">>" within the pagination
+     Then I should see "Post 1"
+      But I should not see "Post 4"
+      And I should not see "Post 3"
+      And I should not see "Post 2"
+     When I follow "<<" within the pagination
+     Then I should see "Post 4"
+      And I should see "Post 3"
+      And I should see "Post 2"
+      But I should not see "Post 1"
+     When I follow "2" within the pagination
+     Then I should see "Post 1"
+      But I should not see "Post 4"
+      And I should not see "Post 3"
+      And I should not see "Post 2"
+     When I follow "1" within the pagination
+     Then I should see "Post 4"
+      And I should see "Post 3"
+      And I should see "Post 2"
+      But I should not see "Post 1"
+

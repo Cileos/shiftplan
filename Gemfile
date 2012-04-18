@@ -91,3 +91,4 @@ gem 'RedCloth' # textilize instructions and other texts from locales
 
 gem 'sprockets-urlrewriter'
 gem 'database_cleaner'
+gem 'will_paginate', '~> 3.0'

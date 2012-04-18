@@ -11,3 +11,5 @@
           - if can? :destroy, post
             = button_to(ta(:destroy), [current_organization, post.blog, post], method: :delete, class: 'btn btn-danger btn-mini')
       %p.further_reading_and_comment= link_to(:'further_reading_and_comment', [current_organization, post.blog, post])
+
+  = will_paginate(posts, custom_link_url: organization_path(current_organization) )

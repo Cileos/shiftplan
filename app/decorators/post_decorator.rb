@@ -15,11 +15,7 @@ class PostDecorator < ApplicationDecorator
   end
 
   def posts_list
-    h.render('posts/list', posts: posts)
-  end
-
-  def posts
-    post.blog.posts
+    h.render('posts/list', posts: h.company_blog_posts)
   end
 
   def respond
