@@ -1,0 +1,11 @@
+- @post.author = current_user.current_employee
+= simple_form_for([@organization, @blog, @post], remote: true) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :title, autofocus: true
+    = f.input :author_id, as: :hidden
+    = f.input :body, as: :text, input_html: { rows: 10, cols: 20 }
+
+  .actions
+    %button.btn.btn-primary= ti(:update)

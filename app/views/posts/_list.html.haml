@@ -1,0 +1,7 @@
+%ul#posts
+  - posts.each do |post|
+    %li{class: 'post', id: "post_#{post.id}"}
+      = render('posts/post', post: post, truncation: true)
+      %p.more= link_to(:'more', [current_organization, post.blog, post])
+
+  = will_paginate(posts, custom_link_url: organization_path(current_organization) )

@@ -3,7 +3,7 @@
 %h3= t(:'.organizations')
 %ul#organizations
 - current_user.organizations.each do |org|
-  %li= link_to org.name, organization_plans_path(org)
+  %li= link_to org.name, organization_path(org)
   = render 'plans/list', plans: org.plans
 
 

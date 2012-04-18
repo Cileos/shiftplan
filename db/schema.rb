@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120401164302) do
+ActiveRecord::Schema.define(:version => 20120416134629) do
+
+  create_table "blogs", :force => true do |t|
+    t.integer  "organization_id"
+    t.string   "title"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "blogs", ["organization_id"], :name => "index_blogs_on_organization_id"
 
   create_table "employees", :force => true do |t|
     t.string   "first_name"
@@ -60,6 +69,19 @@ ActiveRecord::Schema.define(:version => 20120401164302) do
   end
 
   add_index "plans", ["organization_id"], :name => "index_plans_on_organization_id"
+
+  create_table "posts", :force => true do |t|
+    t.integer  "blog_id"
+    t.string   "title"
+    t.text     "body"
+    t.integer  "author_id"
+    t.datetime "published_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "posts", ["author_id"], :name => "index_posts_on_author_id"
+  add_index "posts", ["blog_id"], :name => "index_posts_on_blog_id"
 
   create_table "schedulings", :force => true do |t|
     t.integer  "plan_id"

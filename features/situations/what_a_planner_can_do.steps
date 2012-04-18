@@ -10,6 +10,7 @@
   And I should see link "Dashboard" within the navigation
 
  When I follow "Fukushima GmbH"
+  And I follow "Pläne"
  Then I should be authorized to access the page
   And I should see link "Hinzufügen"
   And I should see link "Ausloggen" within the navigation

@@ -1,6 +1,8 @@
 module ApplicationHelper
   def translate_action(key,opts={})
-    if key.is_a?(Symbol)
+    if opts[:translation_key].present?
+      t(opts.delete(:translation_key), opts)
+    elsif key.is_a?(Symbol)
       t("helpers.actions.#{key}", opts)
     elsif key.present? && key.first == '.'
       t("helpers.actions#{key}", opts)
@@ -22,6 +24,7 @@ module ApplicationHelper
 
   Icons = {
     add:               'plus',
+    edit:              'edit',
     new_scheduling:    'plus',
     copy_week:         'retweet',
     update:            'ok-circle',

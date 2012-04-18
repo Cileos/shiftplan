@@ -1,0 +1,18 @@
+de:
+  blogs:
+    no_posts_present: 'Es wurden noch keine Blogposts erstellt.'
+    company_news: 'Neuigkeiten'
+  posts:
+    meta_data: "%{author} schrieb am %{published_at}:"
+    new: 'Neuen Blogpost erstellen'
+    headers:
+      new: 'Neuen Blogpost erstellen'
+      edit: 'Blogpost bearbeiten'
+  activerecord:
+    attributes:
+      post:
+        title: Titel
+        body: Text
+  helpers:
+    actions:
+      more: 'Mehr'

@@ -23,6 +23,8 @@ module NavigationHelpers
     when /^the page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       params = parse_fields($2).symbolize_keys
       case model = model!($1)
+      when Post
+        organization_blog_post_path(model.organization, model.blog, model)
       when Plan
         if params[:week]
           if params[:year]
@@ -35,6 +37,8 @@ module NavigationHelpers
         end
       when Employee
         employee_path(model)
+      when Organization
+        organization_path(model)
       else
         raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
       end
