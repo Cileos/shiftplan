@@ -1,6 +1,7 @@
 de:
   blogs:
     meta_data: "%{author} schrieb am %{published_at}:"
+    own_meta_data: "Sie haben am %{published_at} geschrieben:"
     no_posts_present: 'Es wurden noch keine Blogposts erstellt.'
     company_news: 'Neuigkeiten'
   posts:

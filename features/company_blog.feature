@@ -21,7 +21,7 @@ In order to keep my colleagues informed about important news
      Then I should see a flash info "Post erfolgreich angelegt."
       And I should see "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
-      And I should see "Owner Burns schrieb am 24.05.2012 12:00" within the posts
+      And I should see "Sie haben am 24.05.2012 12:00 geschrieben" within the posts
       And I should not see "Es wurden noch keine Blogposts erstellt."
 
   Scenario: Creating a blog post without entering a title
@@ -132,7 +132,7 @@ In order to keep my colleagues informed about important news
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
      Then I should not see "Es wurden noch keine Kommentare erstellt"
-      But I should see "Owner Burns schrieb am 24.05.2012 12:00" within the comments
+      But I should see "Sie haben am 24.05.2012 12:00 geschrieben:" within the comments
       And I should see "Ich backe einen Kuchen für den Umweltminister"
       And the "Kommentar" field should contain ""
 
@@ -142,9 +142,16 @@ In order to keep my colleagues informed about important news
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see "Besuch des Umweltministers"
-      And I should see "Owner Burns schrieb am 24.05.2012 12:00" within the comments
+      And I should see "Sie haben am 24.05.2012 12:00 geschrieben:" within the comments
       And I should see "Ich backe einen Kuchen für den Umweltminister"
+      And I sign out
 
+    Given a confirmed user "bart" exists
+      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+     When I sign in as the confirmed user "bart"
+     When I follow "AKW Fukushima GmbH"
+      And I follow "Mehr"
+     Then I should see "Owner Burns schrieb am 24.05.2012 12:00:" within the comments
 
   Scenario: User paginates through blog posts
     Given the following posts exist:

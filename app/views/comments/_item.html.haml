@@ -1,4 +1,7 @@
 %li{class: 'comment', id: "comment_#{comment.id}"}
-  .meta= t(:'blogs.meta_data', author: comment.employee.name, published_at: l(comment.created_at, format: :tiny))
+  - if comment.employee == current_user.current_employee
+    .own-meta= t(:'blogs.own_meta_data', published_at: l(comment.created_at, format: :tiny))
+  - else
+    .meta= t(:'blogs.meta_data', author: comment.employee.name, published_at: l(comment.created_at, format: :tiny))
   %p= comment.body
 
