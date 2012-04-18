@@ -21,8 +21,7 @@ In order to keep my colleagues informed about important news
      Then I should see a flash info "Post erfolgreich angelegt."
       And I should see "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
-      And I should see "24.05.2012 12:00"
-      And I should see "Owner Burns"
+      And I should see "Owner Burns schrieb am 24.05.2012 12:00" within the posts
       And I should not see "Es wurden noch keine Blogposts erstellt."
 
   Scenario: Creating a blog post without entering a title
@@ -133,8 +132,19 @@ In order to keep my colleagues informed about important news
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
      Then I should not see "Es wurden noch keine Kommentare erstellt"
-      But I should see "Ich backe einen Kuchen für den Umweltminister"
+      But I should see "Owner Burns schrieb am 24.05.2012 12:00" within the comments
+      And I should see "Ich backe einen Kuchen für den Umweltminister"
       And the "Kommentar" field should contain ""
+
+     When I follow "Bearbeiten"
+      And I wait for the modal box to appear
+      And I fill in "Titel" with "Besuch des Umweltministers"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see "Besuch des Umweltministers"
+      And I should see "Owner Burns schrieb am 24.05.2012 12:00" within the comments
+      And I should see "Ich backe einen Kuchen für den Umweltminister"
+
 
   Scenario: User paginates through blog posts
     Given the following posts exist:
