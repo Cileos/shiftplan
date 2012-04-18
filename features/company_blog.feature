@@ -95,6 +95,31 @@ In order to keep my colleagues informed about important news
       And I should see "Bitte putzen"
       But I should not see "Löschen"
 
+  Scenario: User visits detail view of a post
+    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+     When I sign in as the confirmed user "mr. burns"
+      And I follow "AKW Fukushima GmbH"
+     Then I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+     When I follow "Weiterlesen und Kommentieren"
+     Then I should be on the page of the post
+      And I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+
+     When I follow "Bearbeiten"
+      And I wait for the modal box to appear
+      And I fill in "Titel" with "Besuch des Umweltministers"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should be on the page of the post
+      And I should see "Post erfolgreich geändert"
+      And I should see "Besuch des Umweltministers"
+
+     When I follow "Zurück"
+     Then I should be on the page of the organization
+      And I should see "Besuch des Umweltministers"
+      And I should see "Bitte putzen"
+
   Scenario: User paginates through blog posts
     Given the following posts exist:
       | title  | blog     | author                |

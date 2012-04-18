@@ -5,6 +5,8 @@ class PostDecorator < ApplicationDecorator
     case name
     when :posts
       'div.posts'
+    when :post
+      "div#post_#{resource.id}"
     else
       super
     end
@@ -14,8 +16,16 @@ class PostDecorator < ApplicationDecorator
     select(:posts).html posts_list
   end
 
+  def update_post(post)
+    select(:post, post).html post_details(post)
+  end
+
   def posts_list
     h.render('posts/list', posts: h.company_blog_posts)
+  end
+
+  def post_details(post)
+    h.render('posts/post', post: post)
   end
 
   def respond
@@ -24,6 +34,7 @@ class PostDecorator < ApplicationDecorator
     else
       hide_modal
       update_posts
+      update_post(post)
       update_flash
     end
   end

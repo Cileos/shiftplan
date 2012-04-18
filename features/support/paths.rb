@@ -23,6 +23,8 @@ module NavigationHelpers
     when /^the page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       params = parse_fields($2).symbolize_keys
       case model = model!($1)
+      when Post
+        organization_blog_post_path(model.blog.organization, model.blog, model)
       when Plan
         if params[:week]
           if params[:year]

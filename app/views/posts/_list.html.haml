@@ -1,15 +1,7 @@
 %ul#posts
   - posts.each do |post|
     %li{class: 'post', id: "post_#{post.id}"}
-      .meta= t(:'posts.meta_data', author: post.author.name, published_at: l(post.published_at, format: :tiny))
-      %h3= post.title
-      .body= truncate(post.body, :length => 500, :omission => ' …')
-      - if can?(:edit, post) || can?(:destroy, post)
-        %p.actions
-          - if can? :edit, post
-            = link_to(ti(:edit), [:edit, current_organization, post.blog, post], class: 'btn btn-inverse btn-mini', remote: true)
-          - if can? :destroy, post
-            = button_to(ta(:destroy), [current_organization, post.blog, post], method: :delete, class: 'btn btn-danger btn-mini')
+      = render('posts/post', :post => post)
       %p.further_reading_and_comment= link_to(:'further_reading_and_comment', [current_organization, post.blog, post])
 
   = will_paginate(posts, custom_link_url: organization_path(current_organization) )
