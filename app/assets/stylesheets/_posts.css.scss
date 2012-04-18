@@ -19,6 +19,24 @@ ul#posts {
 div.post {
   margin-left: 40px;
   margin-top: 7px;
+  div.comments {
+    margin-top: 20px;
+    margin-left: 20px;
+    h4 {
+      margin-bottom: 20px;
+    }
+    ul#comments {
+      list-style-type: none;
+      li {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+    textarea {
+      width: 400px;
+      height: 100px;
+    }
+  }
 }
 .post {
   padding-bottom: 20px;

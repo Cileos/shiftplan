@@ -1,0 +1,8 @@
+if @comment.errors.empty?
+  page.select('li#no-comments').remove()
+  page.select("ul#comments").prepend render('comments/item', comment: @comment)
+  page.select('textarea#comment_body').val('')
+else
+  page << %Q~alert("no comment.")~
+end
+

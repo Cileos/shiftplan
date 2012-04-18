@@ -1,4 +1,6 @@
 class Post < ActiveRecord::Base
+  acts_as_commentable
+
   belongs_to :blog
   belongs_to :author, class_name: Employee
 

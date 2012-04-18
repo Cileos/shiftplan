@@ -16,3 +16,6 @@ de:
   helpers:
     actions:
       more: 'Mehr'
+  comments:
+    comments: Kommentare
+    no_comments_present: 'Es wurden noch keine Kommentare erstellt.'
