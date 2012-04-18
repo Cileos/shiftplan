@@ -12,7 +12,8 @@ In order to keep my colleagues informed about important news
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
      Then I should see "Es wurden noch keine Blogposts erstellt."
-     When I follow "Neuen Blogpost erstellen"
+     When I follow "Alle Neuigkeiten anzeigen"
+      And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
       And I fill in "Text" with "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
@@ -27,6 +28,7 @@ In order to keep my colleagues informed about important news
   Scenario: Creating a blog post without entering a title
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
+      And I follow "Alle Neuigkeiten anzeigen"
      When I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Text" with "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
@@ -37,6 +39,7 @@ In order to keep my colleagues informed about important news
   Scenario: Creating a blog post without entering a text
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
+      And I follow "Alle Neuigkeiten anzeigen"
      When I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
@@ -72,7 +75,6 @@ In order to keep my colleagues informed about important news
       And I should see "Bitte putzen"
      When I press "Löschen"
      Then 0 posts should exist
-      And I should be on the page of the organization
       And I should see a flash info "Post erfolgreich gelöscht."
       And I should see "Es wurden noch keine Blogposts erstellt."
 
@@ -119,7 +121,6 @@ In order to keep my colleagues informed about important news
       And I should see "Besuch des Umweltministers"
 
      When I follow "Zurück"
-     Then I should be on the page of the organization
       And I should see "Besuch des Umweltministers"
       And I should see "Bitte putzen"
 
@@ -155,59 +156,124 @@ In order to keep my colleagues informed about important news
 
   Scenario: User paginates through blog posts
     Given the following posts exist:
-      | title  | blog     | author                |
-      | Post 1 | the blog | the owner "mr. burns" |
-      | Post 2 | the blog | the owner "mr. burns" |
-      | Post 3 | the blog | the owner "mr. burns" |
+      | title   | blog     | author                |
+      | Post 0  | the blog | the owner "mr. burns" |
+      | Post 1  | the blog | the owner "mr. burns" |
+      | Post 2  | the blog | the owner "mr. burns" |
+      | Post 3  | the blog | the owner "mr. burns" |
+      | Post 4  | the blog | the owner "mr. burns" |
+      | Post 5  | the blog | the owner "mr. burns" |
+      | Post 6  | the blog | the owner "mr. burns" |
+      | Post 7  | the blog | the owner "mr. burns" |
+      | Post 8  | the blog | the owner "mr. burns" |
+      | Post 9  | the blog | the owner "mr. burns" |
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
+      And I follow "Alle Neuigkeiten anzeigen"
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
-      And I fill in "Titel" with "Post 4"
+      And I fill in "Titel" with "Post 10"
       And I fill in "Text" with "Text von Post 4"
       And I press "Speichern"
       And I wait for the modal box to disappear
-     Then I should see "Post 4"
+     Then I should see "Post 10"
+      And I should see "Post 9"
+      And I should see "Post 8"
+      And I should see "Post 7"
+      And I should see "Post 6"
+      And I should see "Post 5"
+      And I should see "Post 4"
       And I should see "Post 3"
       And I should see "Post 2"
-      But I should not see "Post 1"
+      And I should see "Post 1"
+      But I should not see "Post 0"
      When I follow ">>" within the pagination
-     Then I should see "Post 1"
-      But I should not see "Post 4"
+     Then I should see "Post 0"
+      But I should not see "Post 10"
+      And I should not see "Post 9"
+      And I should not see "Post 8"
+      And I should not see "Post 7"
+      And I should not see "Post 6"
+      And I should not see "Post 5"
+      And I should not see "Post 4"
       And I should not see "Post 3"
       And I should not see "Post 2"
+      And I should not see "Post 1"
 
   Scenario: User paginates through blog posts
     Given the following posts exist:
       | title  | blog     | author                |
-      | Post 1 | the blog | the owner "mr. burns" |
-      | Post 2 | the blog | the owner "mr. burns" |
-      | Post 3 | the blog | the owner "mr. burns" |
-      | Post 4 | the blog | the owner "mr. burns" |
+      | Post 0  | the blog | the owner "mr. burns" |
+      | Post 1  | the blog | the owner "mr. burns" |
+      | Post 2  | the blog | the owner "mr. burns" |
+      | Post 3  | the blog | the owner "mr. burns" |
+      | Post 4  | the blog | the owner "mr. burns" |
+      | Post 5  | the blog | the owner "mr. burns" |
+      | Post 6  | the blog | the owner "mr. burns" |
+      | Post 7  | the blog | the owner "mr. burns" |
+      | Post 8  | the blog | the owner "mr. burns" |
+      | Post 9  | the blog | the owner "mr. burns" |
+      | Post 10 | the blog | the owner "mr. burns" |
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
-     Then I should see "Post 4"
+      And I follow "Alle Neuigkeiten anzeigen"
+     Then I should see "Post 10"
+      And I should see "Post 9"
+      And I should see "Post 8"
+      And I should see "Post 7"
+      And I should see "Post 6"
+      And I should see "Post 5"
+      And I should see "Post 4"
       And I should see "Post 3"
       And I should see "Post 2"
-      But I should not see "Post 1"
+      And I should see "Post 1"
+      But I should not see "Post 0"
      When I follow ">>" within the pagination
-     Then I should see "Post 1"
-      But I should not see "Post 4"
+     Then I should see "Post 0"
+      But I should not see "Post 10"
+      And I should not see "Post 9"
+      And I should not see "Post 8"
+      And I should not see "Post 7"
+      And I should not see "Post 6"
+      And I should not see "Post 5"
+      And I should not see "Post 4"
       And I should not see "Post 3"
       And I should not see "Post 2"
+      And I should not see "Post 1"
      When I follow "<<" within the pagination
-     Then I should see "Post 4"
+     Then I should see "Post 10"
+      And I should see "Post 9"
+      And I should see "Post 8"
+      And I should see "Post 7"
+      And I should see "Post 6"
+      And I should see "Post 5"
+      And I should see "Post 4"
       And I should see "Post 3"
       And I should see "Post 2"
-      But I should not see "Post 1"
+      And I should see "Post 1"
+      But I should not see "Post 0"
      When I follow "2" within the pagination
-     Then I should see "Post 1"
-      But I should not see "Post 4"
+     Then I should see "Post 0"
+      But I should not see "Post 10"
+      And I should not see "Post 9"
+      And I should not see "Post 8"
+      And I should not see "Post 7"
+      And I should not see "Post 6"
+      And I should not see "Post 5"
+      And I should not see "Post 4"
       And I should not see "Post 3"
       And I should not see "Post 2"
+      And I should not see "Post 1"
      When I follow "1" within the pagination
-     Then I should see "Post 4"
+     Then I should see "Post 10"
+      And I should see "Post 9"
+      And I should see "Post 8"
+      And I should see "Post 7"
+      And I should see "Post 6"
+      And I should see "Post 5"
+      And I should see "Post 4"
       And I should see "Post 3"
       And I should see "Post 2"
-      But I should not see "Post 1"
+      And I should see "Post 1"
+      But I should not see "Post 0"
 

@@ -6,4 +6,4 @@
   - if can? :destroy, post
     = button_to(ta(:destroy), [current_organization, post.blog, post], method: :delete, class: 'btn btn-danger btn-mini', id: 'destroy-post')
 %p
-  = link_to(ti(:back), [current_organization], class: 'btn btn-inverse btn-mini', id: 'back')
+  = link_to(ti(:back), [current_organization, post.blog, :posts], class: 'btn btn-inverse btn-mini', id: 'back')
