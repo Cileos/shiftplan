@@ -1,11 +1,18 @@
 textarea#post_body {
   width: 515px;
 }
-div.blog p.new {
-  margin-left: 20px;
+div.blog {
+  p.new {
+    margin-left: 20px;
+  }
+}
+.post {
+  p.actions {
+    margin-top: 10px;
+  }
 }
 ul#posts {
-  padding-top: 10px;
+  margin-top: 20px;
   margin-left: 20px;
   list-style-type: none;
 }
