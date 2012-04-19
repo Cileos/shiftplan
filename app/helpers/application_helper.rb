@@ -32,6 +32,7 @@ module ApplicationHelper
     reinvite:          'user',
     send_invitation:   'envelope',
     comment:           'comment',
+    comments_count:    'comment',
     back:              'arrow-left'
   }
 

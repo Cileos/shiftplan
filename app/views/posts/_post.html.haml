@@ -3,6 +3,7 @@
 - else
   .meta= t(:'blogs.meta_data', author: post.author.name, published_at: l(post.published_at, format: :tiny))
 %h3= post.title
+= render('posts/comments_count', post: post)
 - if truncation
   .body= truncate(post.body, :length => 300, :omission => ' …')
 - else

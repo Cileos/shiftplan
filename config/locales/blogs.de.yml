@@ -17,6 +17,9 @@ de:
   helpers:
     actions:
       more: 'Mehr'
+      comments_count:
+        one: '1 Kommentar'
+        other: "%{count} Kommentare"
   comments:
     comments: Kommentare
     no_comments_present: 'Es wurden noch keine Kommentare erstellt.'
