@@ -1,8 +1,9 @@
 .row
   .span6
-    .blog
-      %h2= t(:'blogs.company_news')
-      = render('posts/posts', posts: company_blog_posts)
-    %p#all-news
-      = link_to 'Alle Neuigkeiten anzeigen', [current_organization, company_blog, :posts], id: 'all-news'
+    - if company_blog.present?
+      .blog
+        %h2= t(:'blogs.company_news')
+        = render('posts/posts', posts: company_blog_posts)
+      %p#all-news
+        = link_to 'Alle Neuigkeiten anzeigen', [current_organization, company_blog, :posts], id: 'all-news'
   .span6
