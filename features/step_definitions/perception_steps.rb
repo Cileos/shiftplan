@@ -77,3 +77,11 @@ end
 Then /^the shortcut should be colored "([^"]*)"$/ do |color|
   first('.shortcut')['style'].should include("background-color: #{color}")
 end
+
+Then /^I (should|should not) see a delete button$/ do |should_or_should_not|
+  if should_or_should_not.include?('not')
+    page.should have_no_css('input[name="_method"][value="delete"]')
+  else
+    page.should have_css('input[name="_method"][value="delete"]')
+  end
+end

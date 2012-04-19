@@ -1,0 +1,3 @@
+page.decorate @post do |post|
+  post.append_modal body: render('form'), header: content_tag(:h3, t(:'posts.headers.new'))
+end

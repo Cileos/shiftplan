@@ -9,6 +9,7 @@ Feature: Signing up
   Scenario: Signup with email address
     Given I am on the home page
       And 0 organizations should exist
+      And 0 blogs should exist
      When I follow "Registrieren"
       And I fill in the following:
         | E-Mail              | me@example.com |
@@ -26,6 +27,9 @@ Feature: Signing up
       And an organization should exist
       And the organization should be in the user's organizations
       And the organization should be the employee's organization
+      # auto-creation of blog
+      And a blog should exist
+      And the organization should be the blog's organization
 
      When I open the email
       And I click the first link in the email

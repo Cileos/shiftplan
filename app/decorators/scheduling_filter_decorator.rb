@@ -187,7 +187,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # TODO move into own view to fetch as an organization-specific asset
   def team_styles
     teams.map do |team|
-      %Q~.#{dom_id(team)} { background-color: #{team.color} !important;}~
+      %Q~.#{dom_id(team)} { background-color: #{team.color};}~
     end.join(' ')
   end
 

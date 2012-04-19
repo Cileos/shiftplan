@@ -1,7 +1,23 @@
 %ul.nav
-  = li_link '.dashboard', dashboard_path,              can: [:dashboard, current_user]
-  - if current_organization?
-    = li_link '.plans',     organization_plans_path(current_organization),                  can: [:show, Plan]
-    = li_link '.employees', organization_employees_path(current_organization),              can: [:show, Employee]
-    = li_link '.teams',     organization_teams_path(current_organization),                  can: [:show, Team]
-  = li_link '.profile',   edit_user_registration_path, can: [:update, current_user]
+  - if current_user
+    - if current_user.organizations.count > 1
+      = li_link '.dashboard', dashboard_path,              can: [:dashboard, current_user]
+    - if current_organization?
+      = li_link "#{current_organization.name} >>", organization_path(current_organization), can: [:read, current_organization]
+      - if company_blog.present?
+        = li_link '.news',      organization_blog_posts_path(current_organization, company_blog), can: [:read, current_organization]
+      - active_or_not = dropdown_class(organization_plans_path(current_organization))
+      %li{class: "dropdown #{active_or_not}"}
+        %a.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'}
+          %span{class: "name #{active_or_not}"}= t(:'helpers.actions.plans')
+          %b.caret
+        %ul.dropdown-menu
+          %li= link_to :all_plans, organization_plans_path(current_organization)
+          - current_organization.plans.each do |plan|
+            %li= link_to plan.name, organization_plan_path(current_organization, plan)
+      = li_link '.employees', organization_employees_path(current_organization),        can: [:show, Employee]
+      = li_link '.teams',     organization_teams_path(current_organization),            can: [:show, Team]
+    - elsif current_user.organizations.count == 1
+      - organization = current_user.organizations.first
+      = li_link "#{organization.name} >>", organization_path(organization)
+    = li_link '.profile',     edit_user_registration_path, can: [:update, current_user]

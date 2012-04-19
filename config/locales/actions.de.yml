@@ -3,6 +3,7 @@ de:
     actions:
       profile: Profil
       dashboard: Dashboard
+      news: Neuigkeiten
       signin: Einloggen
       signin_with: "Einloggen mit %{provider}"
       signout: Ausloggen
@@ -12,6 +13,7 @@ de:
       add: Hinzufügen
       new_employee: Mitarbeiter hinzufügen
       plans: Pläne
+      all_plans: Alle Pläne
       new_plan: Neuer Plan
       new_scheduling: Neue Terminierung
       next: Weiter
@@ -32,3 +34,4 @@ de:
       copy: "Übernehmen"
       copy_week: "Übernahme aus der letzten Woche"
       set_password: 'Passwort setzen'
+      comment: Kommentieren

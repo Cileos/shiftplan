@@ -45,7 +45,13 @@ module HtmlSelectorsHelpers
       'form:nth-child(3)'
 
     when 'a hint'
-      ".help-block"
+      '.help-block'
+    when 'the pagination'
+      '.pagination'
+    when 'the posts'
+      'ul#posts'
+    when 'the comments'
+      'ul#comments'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -49,7 +49,11 @@ When /^#{capture_model} accepts the invitation for the organization "([^"]*)" (w
 
   step %{I should be signed in as "#{employee.reload.user.email}"}
   step %{I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."}
-  step %{I should be on the dashboard page}
+  if employee.user.organizations.count > 1
+    step %{I should be on the dashboard page}
+  else
+    step %{I should be on the page of the organization "#{organization_name}"}
+  end
 end
 
 When /^I (follow|press) "([^"]+)" in the cell "([^"]+)"\/"([^"]+)"$/ do |follow_or_press, label, column_label, row_label|
