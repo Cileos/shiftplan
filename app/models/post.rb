@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
 
   belongs_to :blog
   belongs_to :author, class_name: Employee
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, order: :created_at
 
   validates_presence_of :title, :blog, :body, :author, :published_at
 
