@@ -12,6 +12,7 @@ class Employee < ActiveRecord::Base
   has_many :schedulings
   has_one :invitation
   has_many :posts, foreign_key: :author_id
+  has_many :comments
 
   def role?(asked)
     role == asked
