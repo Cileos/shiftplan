@@ -1,0 +1,11 @@
+.row
+  .span6
+    .blog
+      %h2= t(:'blogs.company_news')
+      .posts
+        = render('posts/posts_with_pagination', posts: @posts)
+
+      - if can? :create, Post
+        %p.new= link_to ti(:add, translation_key: 'posts.new'), [:new, current_organization, company_blog, :post], |
+        class: 'btn btn-primary btn-mini', remote: true
+  .span6

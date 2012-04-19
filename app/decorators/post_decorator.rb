@@ -12,16 +12,16 @@ class PostDecorator < ApplicationDecorator
     end
   end
 
-  def update_posts
-    select(:posts).html posts_list
+  def update_posts(post)
+    select(:posts).html posts_list(post)
   end
 
   def update_post(post)
     select(:post, post).html post_details(post)
   end
 
-  def posts_list
-    h.render('posts/list', posts: h.company_blog_posts)
+  def posts_list(post)
+    h.render('posts/posts_with_pagination', posts: h.paginated_posts(post.blog.posts))
   end
 
   def post_details(post)
@@ -33,7 +33,7 @@ class PostDecorator < ApplicationDecorator
       prepend_errors_for(post)
     else
       hide_modal
-      update_posts
+      update_posts(post)
       update_post(post)
       update_flash
     end

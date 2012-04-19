@@ -1,9 +1,10 @@
 de:
   blogs:
+    meta_data: "%{author} schrieb am %{published_at}:"
+    own_meta_data: "Sie haben am %{published_at} geschrieben:"
     no_posts_present: 'Es wurden noch keine Blogposts erstellt.'
     company_news: 'Neuigkeiten'
   posts:
-    meta_data: "%{author} schrieb am %{published_at}:"
     new: 'Neuen Blogpost erstellen'
     headers:
       new: 'Neuen Blogpost erstellen'
@@ -16,3 +17,10 @@ de:
   helpers:
     actions:
       more: 'Mehr'
+      comments_count:
+        one: '1 Kommentar'
+        other: "%{count} Kommentare"
+      destroy_comment: 'x'
+  comments:
+    comments: Kommentare
+    no_comments_present: 'Es wurden noch keine Kommentare erstellt.'

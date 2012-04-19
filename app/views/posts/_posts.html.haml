@@ -1,0 +1,5 @@
+.posts
+  - if posts.empty?
+    %p= t(:'blogs.no_posts_present')
+  - else
+    = render('posts/list', posts: posts)

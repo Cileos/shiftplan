@@ -1,6 +1,9 @@
 class Post < ActiveRecord::Base
+  acts_as_commentable
+
   belongs_to :blog
   belongs_to :author, class_name: Employee
+  has_many :comments, as: :commentable, order: :created_at
 
   validates_presence_of :title, :blog, :body, :author, :published_at
 

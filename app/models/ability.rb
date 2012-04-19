@@ -31,6 +31,8 @@ class Ability
     can :read,               Team,         organization: is_employee_of
     can :read,               Scheduling,   plan: { organization: is_employee_of }
     can :read,               Organization, is_employee_of
+    can [:read, :create],    Comment,      commentable: { blog: { organization: is_employee_of } }
+    can [:destroy],          Comment,      { employee_id: employee.id }
   end
 
   def authorize_planner(planner)

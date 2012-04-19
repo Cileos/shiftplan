@@ -3,12 +3,7 @@
     - if company_blog.present?
       .blog
         %h2= t(:'blogs.company_news')
-        .posts
-          - if company_blog_posts.empty?
-            %p= t(:'blogs.no_posts_present')
-          - else
-            = render('posts/list', posts: company_blog_posts)
-        - if can? :create, Post
-          %p.new= link_to ti(:add, translation_key: 'posts.new'), [:new, current_organization, company_blog, :post], |
-          class: 'btn btn-primary btn-mini', remote: true
+        = render('posts/posts', posts: company_blog_posts)
+      %p#all-news
+        = link_to 'Alle Neuigkeiten anzeigen', [current_organization, company_blog, :posts], id: 'all-news'
   .span6

@@ -1,0 +1,9 @@
+if @comment.errors.empty?
+  page.select('li#no-comments').remove()
+  page.select("ul#comments").append render('comments/item', comment: @comment)
+  page.select('textarea#comment_body').val('')
+  page.select('p.comments-count').replace_with render('posts/comments_count', post: @comment.commentable)
+else
+  page << %Q~alert("no comment.")~
+end
+
