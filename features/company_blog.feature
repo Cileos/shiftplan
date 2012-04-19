@@ -133,7 +133,7 @@ In order to keep my colleagues informed about important news
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
      Then I should not see "Es wurden noch keine Kommentare erstellt"
-      But I should see "Sie haben am 24.05.2012 12:00 geschrieben:" within the comments
+      And I should see "Sie haben am 24.05.2012 12:00 geschrieben:" within the comments
       And I should see "Ich backe einen Kuchen für den Umweltminister"
       And I should see "1 Kommentar"
       And the "Kommentar" field should contain ""
@@ -159,6 +159,42 @@ In order to keep my colleagues informed about important news
      When I fill in "Kommentar" with "Ich werde einen Blumenstrauß mitbringen"
       And I press "Kommentieren"
      Then I should see "2 Kommentare"
+
+  Scenario: Deleting comments on posts
+    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+     When I sign in as the confirmed user "mr. burns"
+      And I follow "AKW Fukushima GmbH"
+      And I follow "Mehr"
+     When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
+      And I press "Kommentieren"
+      And I should see "Sie haben am 24.05.2012 12:00 geschrieben:" within the comments
+      And I should see "Ich backe einen Kuchen für den Umweltminister"
+      And I should see "1 Kommentar"
+
+     When I press "x"
+     Then I should not see "Ich backe einen Kuchen für den Umweltminister"
+      And I should see "0 Kommentare"
+      And I should see "Es wurden noch keine Kommentare erstellt"
+      And I should be on the page of the post
+
+  Scenario: Users can only delete their own comments on posts
+    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+     When I sign in as the confirmed user "mr. burns"
+      And I follow "AKW Fukushima GmbH"
+      And I follow "Mehr"
+     When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
+      And I press "Kommentieren"
+     Then I should see "Sie haben am 24.05.2012 12:00 geschrieben:" within the comments
+      And I should see a delete button
+      And I sign out
+
+    Given a confirmed user "bart" exists
+      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+     When I sign in as the confirmed user "bart"
+     When I follow "AKW Fukushima GmbH"
+      And I follow "Mehr"
+     Then I should see "Owner Burns schrieb am 24.05.2012 12:00:" within the comments
+      But I should not see a delete button
 
   Scenario: User paginates through blog posts
     Given the following posts exist:

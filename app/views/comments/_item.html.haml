@@ -1,4 +1,7 @@
 %li{class: 'comment', id: "comment_#{comment.id}"}
+  - if can? :destroy, comment
+    = button_to(ta(:destroy_comment), [comment.commentable.blog.organization, comment.commentable.blog, comment.commentable, comment], |
+      method: :delete, remote: true, class: 'btn btn-danger btn-mini', id: 'destroy-post')
   - if comment.employee == current_user.current_employee
     .own-meta= t(:'blogs.own_meta_data', published_at: l(comment.created_at, format: :tiny))
   - else

@@ -2,7 +2,7 @@ class CommentsController < InheritedResources::Base
   belongs_to :post # , polymorphic: true, optional: false
   load_and_authorize_resource
 
-  actions :create
+  actions :create, :destroy
   respond_to :js
 
   private

@@ -17,7 +17,7 @@ Shiftplan::Application.routes.draw do
     resources :invitations
     resources :blogs do
       resources :posts do
-        resource :comments, only: [:create]
+        resources :comments, only: [:create, :destroy]
       end
     end
   end
