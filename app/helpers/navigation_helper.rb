@@ -15,4 +15,12 @@ module NavigationHelper
       end
     end
   end
+
+  def dropdown_class(path)
+    if request.path.starts_with?( path )
+      'active'
+    else
+      'not_active'
+    end
+  end
 end

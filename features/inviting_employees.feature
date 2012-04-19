@@ -32,7 +32,7 @@ Feature: Inviting Employees
    # accept invitation again, still being logged in
    When I open the email with subject "Sie wurden zu Shiftplan eingeladen"
     And I follow "Einladung akzeptieren" in the email
-   Then I should be on the dashboard page
+   Then I should be on the page of the organization "fukushima"
     And I should see "Sie haben diese Einladung bereits akzeptiert."
     And I should not see "Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein."
 

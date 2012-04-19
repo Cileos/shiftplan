@@ -11,7 +11,7 @@ Feature: Creating a plan
       And I am on my dashboard
 
       When I follow "Reactor"
-      And I follow "Pläne"
+      And I choose "Alle Pläne" from the drop down "Pläne"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
       # duration of plan is fixed for now
