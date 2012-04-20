@@ -25,7 +25,7 @@ class Feedback
   end
 
   def user_name
-    name || email || employee.try(:name)
+    name || user.try(:email) || employee.try(:name)
   end
 
   def user_email
