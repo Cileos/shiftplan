@@ -1,0 +1,3 @@
+page.decorate @feedback do |feedback|
+  feedback.append_modal body: render('form'), header: content_tag(:h3, t(:'feedback.your_feedback'))
+end

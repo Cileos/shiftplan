@@ -27,7 +27,9 @@ module ApplicationHelper
     update:            'ok-circle',
     invite:            'user',
     reinvite:          'user',
-    send_invitation:   'envelope'
+    send_invitation:   'envelope',
+    feedback_without_screenshot: 'envelope',
+    send:                        'envelope'
   }
 
   # translate with textilize

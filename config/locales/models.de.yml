@@ -25,4 +25,8 @@ de:
         durations:
           1_week: wöchentlich
           1_month: ganzer Monat
+  activemodel:
+    attributes:
+      feedback:
+        body: 'Problembeschreibung oder Verbesserungsvorschlag'
 

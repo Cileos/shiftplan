@@ -16,6 +16,7 @@ class Ability
     unless user.new_record?
       authorize_signed_in
     end
+    can :create, Feedback
   end
 
   def authorize_signed_in
