@@ -29,4 +29,6 @@ de:
     attributes:
       feedback:
         body: 'Problembeschreibung oder Verbesserungsvorschlag'
+        email: 'E-Mail'
+        name: Name
 

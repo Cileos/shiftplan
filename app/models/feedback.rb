@@ -25,7 +25,8 @@ class Feedback
   end
 
   def user_name
-    name || user.try(:email) || employee.try(:name)
+    return name if name.present?
+    email || user.try(:email) || employee.try(:name)
   end
 
   def user_email
