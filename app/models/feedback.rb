@@ -2,8 +2,9 @@ class Feedback
   include ActiveAttr::Model
   include Draper::ModelSupport
 
-  attribute :email, type: String
   attribute :name, type: String
+  attribute :email, type: String
+  attribute :browser, type: String
   attribute :body, type: String
 
   validates_presence_of :body, :email

@@ -24,7 +24,9 @@ Feature: Feedback without Screenshot
       And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von Planner Burns"
      When I open the email
      Then I should see the email delivered from "planner@fukushima.jp"
-      And I should see "Planner Burns schrieb:" in the email body
+      And I should see "Name: Planner Burns" in the email body
+      And I should see "E-Mail: planner@fukushima.jp" in the email body
+      And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Logged in user (not in the scope of an organization) sends feedback without providing a name
@@ -42,7 +44,9 @@ Feature: Feedback without Screenshot
       And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von planner@fukushima.jp"
      When I open the email
      Then I should see the email delivered from "planner@fukushima.jp"
-      And I should see "planner@fukushima.jp schrieb:" in the email body
+      And I should see "Name: " in the email body
+      And I should see "E-Mail: planner@fukushima.jp" in the email body
+      And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Logged in user (not in the scope of an organization) sends feedback with providing a name
@@ -61,7 +65,9 @@ Feature: Feedback without Screenshot
       And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
      When I open the email
      Then I should see the email delivered from "planner@fukushima.jp"
-      And I should see "Hein Blöd schrieb:" in the email body
+      And I should see "Name: Hein Blöd" in the email body
+      And I should see "E-Mail: planner@fukushima.jp" in the email body
+      And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Guest sends feedback by providing his name and email
@@ -79,7 +85,9 @@ Feature: Feedback without Screenshot
       And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
      When I open the email
      Then I should see the email delivered from "guest@example.xyz"
-      And I should see "Hein Blöd schrieb:" in the email body
+      And I should see "Name: Hein Blöd" in the email body
+      And I should see "E-Mail: guest@example.xyz" in the email body
+      And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Guest sends feedback by providing his email address but no name
@@ -96,7 +104,9 @@ Feature: Feedback without Screenshot
       And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
      When I open the email
      Then I should see the email delivered from "guest@example.xyz"
-      And I should see "guest@example.xyz schrieb:" in the email body
+      And I should see "Name: " in the email body
+      And I should see "E-Mail: guest@example.xyz" in the email body
+      And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Guest sends feedback without providing a text and his email
@@ -121,5 +131,7 @@ Feature: Feedback without Screenshot
       And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
      When I open the email
      Then I should see the email delivered from "guest@example.xyz"
-      And I should see "guest@example.xyz schrieb:" in the email body
+      And I should see "Name: " in the email body
+      And I should see "E-Mail: guest@example.xyz" in the email body
+      And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body

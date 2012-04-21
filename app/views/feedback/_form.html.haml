@@ -14,6 +14,7 @@
     - else
       = f.input :name
       = f.input :email
+    = f.input :browser, as: :hidden
     = f.input :body, as: :text, input_html: { class: 'input-fullwidth', rows: 10 }, autofocus: true
 
   .actions
