@@ -1,6 +1,6 @@
 class FeedbackMailer < ActionMailer::Base
   default charset: 'UTF-8'
-  default to:      'rw@cileos.com'
+  default to:      ['rw@cileos.com', 'nh@cileos.com', 'ft@cileos.com', 'mdz@emtrax.net']
 
   def notification(feedback)
     @feedback = feedback
