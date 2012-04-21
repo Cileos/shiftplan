@@ -35,3 +35,5 @@ de:
       copy_week: "Übernahme aus der letzten Woche"
       set_password: 'Passwort setzen'
       comment: Kommentieren
+      feedback_without_screenshot: 'Feedback ohne Bildschirmfoto'
+      send: Abschicken

@@ -12,7 +12,7 @@ Shiftplan::Application.routes.draw do
     end
     resources :employees
     resources :teams do
-      resource :merge, :only => [:new, :create], :controller => 'team_merge'
+      resource :merge, only: [:new, :create], :controller => 'team_merge'
     end
     resources :invitations
     resources :blogs do
@@ -21,6 +21,8 @@ Shiftplan::Application.routes.draw do
       end
     end
   end
+
+  resource :feedback, only: [:new, :create], :controller => 'feedback'
 
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
   get "dashboard" => 'welcome#dashboard', :as => 'user_root'

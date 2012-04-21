@@ -33,7 +33,9 @@ module ApplicationHelper
     send_invitation:   'envelope',
     comment:           'comment',
     comments_count:    'comment',
-    back:              'arrow-left'
+    back:              'arrow-left',
+    feedback_without_screenshot: 'envelope',
+    send:                        'envelope'
   }
 
   # translate with textilize
