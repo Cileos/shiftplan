@@ -4,6 +4,6 @@ class FeedbackMailer < ActionMailer::Base
 
   def notification(feedback)
     @feedback = feedback
-    mail :from => @feedback.user_email, :subject => t(:'feedback.mailer.subject', name: @feedback.user_name)
+    mail :from => @feedback.email, :subject => t(:'feedback.mailer.subject', name: @feedback.name_or_email)
   end
 end

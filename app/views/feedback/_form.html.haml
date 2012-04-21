@@ -3,11 +3,14 @@
 
   .inputs
     - if current_employee
-      - @feedback.employee_id = current_employee.id
-      = f.input :employee_id, as: :hidden
+      - @feedback.email = current_employee.user.email
+      - @feedback.name = current_employee.name
+      = f.input :email, as: :hidden
+      = f.input :name, as: :hidden
     - elsif current_user
-      - @feedback.user_id = current_user.id
-      = f.input :user_id, as: :hidden
+      = f.input :name
+      - @feedback.email = current_user.email
+      = f.input :email, as: :hidden
     - else
       = f.input :name
       = f.input :email
