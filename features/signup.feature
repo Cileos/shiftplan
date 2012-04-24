@@ -6,7 +6,34 @@ Feature: Signing up
   And the organization should be automatically created
   Because I do not want to deal with the concept of organizations yet
 
-  Scenario: Signup with email address
+  Scenario: Signup by filling in information for all signup fields
+    Given I am on the home page
+      And 0 organizations should exist
+      And 0 blogs should exist
+     When I follow "Registrieren"
+      And I fill in the following:
+        | Organisationsname   | Fukushima GmbH |
+        | Vorname             | Homer          |
+        | Nachname            | Simpson        |
+        | E-Mail              | me@example.com |
+        | Passwort            | secret         |
+        | Passwort bestätigen | secret         |
+      And I press "Registrieren"
+     Then I should see "Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen."
+      And "me@example.com" should receive an email
+
+      # auto-creation of organization, employee and blog
+      And an organization should exist with name: "Fukushima GmbH"
+      And a user should exist with email: "me@example.com"
+      And an employee should exist with role: "owner", first_name: "Homer", last_name: "Simpson", user: the user, organization: the organization
+      And a blog should exist with organization: the organization
+
+     When I open the email
+      And I click the first link in the email
+     Then I should see "bestätigt"
+      And I should be signed in as "me@example.com"
+
+  Scenario: Signup by filling in information only for email and password
     Given I am on the home page
       And 0 organizations should exist
       And 0 blogs should exist
@@ -18,21 +45,11 @@ Feature: Signing up
       And I press "Registrieren"
      Then I should see "Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen."
       And "me@example.com" should receive an email
+
+      # the organization gets a default value for name as the user did not fill in a value
+      And an organization should exist with name: "Organization for me@example.com"
       And a user should exist with email: "me@example.com"
-
-      # auto-creation of organization and own employee with role "owner"
-      And an employee should exist
-      And the employee's role should be "owner"
-      And the user should be the employee's user
-      And an organization should exist
-      And the organization should be in the user's organizations
-      And the organization should be the employee's organization
-      # auto-creation of blog
-      And a blog should exist
-      And the organization should be the blog's organization
-
-     When I open the email
-      And I click the first link in the email
-     Then I should see "bestätigt"
-      And I should be signed in as "me@example.com"
+      # the employee gets a default value for first name (the user's email) as the user did not fill in a value
+      And an employee should exist with role: "owner", first_name: "me@example.com", user: the user, organization: the organization
+      And a blog should exist with organization: the organization
 

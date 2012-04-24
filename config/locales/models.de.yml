@@ -7,6 +7,9 @@ de:
     attributes:
       user:
         email: "E-Mail"
+        first_name: Vorname
+        last_name: Nachname
+        organization_name: Organisationsname
         name: "Name"
         locale: "Sprache"
         password: "Passwort"
