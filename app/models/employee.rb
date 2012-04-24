@@ -3,7 +3,7 @@ class Employee < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :weekly_working_time
 
-  validates_presence_of :first_name
+  validates_presence_of :first_name, :last_name
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
   validates_inclusion_of :role, in: Roles, allow_blank: true
 

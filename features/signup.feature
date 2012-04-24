@@ -33,23 +33,3 @@ Feature: Signing up
      Then I should see "bestätigt"
       And I should be signed in as "me@example.com"
 
-  Scenario: Signup by filling in information only for email and password
-    Given I am on the home page
-      And 0 organizations should exist
-      And 0 blogs should exist
-     When I follow "Registrieren"
-      And I fill in the following:
-        | E-Mail              | me@example.com |
-        | Passwort            | secret         |
-        | Passwort bestätigen | secret         |
-      And I press "Registrieren"
-     Then I should see "Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen."
-      And "me@example.com" should receive an email
-
-      # the organization gets a default value for name as the user did not fill in a value
-      And an organization should exist with name: "Organization for me@example.com"
-      And a user should exist with email: "me@example.com"
-      # the employee gets a default value for first name (the user's email) as the user did not fill in a value
-      And an employee should exist with role: "owner", first_name: "me@example.com", user: the user, organization: the organization
-      And a blog should exist with organization: the organization
-
