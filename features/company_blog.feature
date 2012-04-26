@@ -6,7 +6,12 @@ In order to keep my colleagues informed about important news
   Background:
     Given today is "2012-05-24 12:00"
       And the situation of a just registered user
+      And a confirmed user "heinz" exists with email: "heinz@example.com"
+      And an employee "heinz" exists with first_name: "Heinz", last_name: "Müller", organization: organization "fukushima", user: the confirmed user "heinz"
+      And a confirmed user "kurt" exists with email: "kurt@example.com"
+      And an employee "kurt" exists with first_name: "Kurt", last_name: "Meyer", organization: organization "fukushima", user: the confirmed user "kurt"
      Then 0 posts should exist
+      And a clear email queue
 
   Scenario: Creating a first blog post
      When I sign in as the confirmed user "mr. burns"
@@ -24,6 +29,13 @@ In order to keep my colleagues informed about important news
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I should see "Sie haben am 24.05.2012 12:00 geschrieben" within the posts
       And I should not see "Es wurden noch keine Blogposts erstellt."
+      # notifications
+      And "heinz@example.com" should receive an email with subject "Es gibt Neuigkeiten"
+      And "kurt@example.com" should receive an email with subject "Es gibt Neuigkeiten"
+      But "owner@burns.com" should receive no email
+     When "heinz@example.com" opens the email with subject "Es gibt Neuigkeiten"
+     # Then I should see "Owner Burns hat am 24.05.2012 12:00 einen neuen Blogpost geschrieben." in the email body
+
 
   Scenario: Creating a blog post without entering a title
      When I sign in as the confirmed user "mr. burns"
