@@ -1,0 +1,2 @@
+%th.employee{id: "employee-header-#{employee.id}"}
+  = can?(:update, employee) ? link_to(employee.name, [:edit, current_organization, employee], remote: true) : employee.name

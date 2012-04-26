@@ -3,6 +3,8 @@ module EmployeeBaseDecorator
     case name
     when :employees
       'table#employees'
+    when :employee_header
+      "table#calendar th#employee-header-#{resource.id}"
     else
       super
     end

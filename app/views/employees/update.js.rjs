@@ -1,3 +1,4 @@
 page.decorate @employee do |employee|
   employee.respond
+  employee.update_employee_in_calendar_view
 end
