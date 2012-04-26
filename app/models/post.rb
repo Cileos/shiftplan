@@ -14,6 +14,10 @@ class Post < ActiveRecord::Base
     blog.organization
   end
 
+  def commenters
+    comments.map &:employee
+  end
+
   protected
 
   def set_published_at

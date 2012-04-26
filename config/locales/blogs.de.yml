@@ -28,3 +28,6 @@ de:
   post_notification_mailer:
     new_post:
       subject: 'Es gibt Neuigkeiten'
+    new_comment:
+      subject_for_post_author: 'Neuer Kommentar zu Ihrem Blogpost'
+      subject_for_commenter: 'Neuer Kommentar zu einem Blogpost'
