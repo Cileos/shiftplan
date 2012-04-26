@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  authentication_required
   before_filter :set_current_employee, if: :user_signed_in?
 
   rescue_from CanCan::AccessDenied do |exception|

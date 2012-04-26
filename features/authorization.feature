@@ -31,7 +31,7 @@ Feature: Authorization
      Then I should not be authorized to access the page
 
      When I go to the page of the plan
-     Then I should not be authorized to access the page
+     Then I should be on the signin page
 
   Scenario: employee
     Given a confirmed user "employee" exists

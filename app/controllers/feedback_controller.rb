@@ -1,5 +1,7 @@
 class FeedbackController < InheritedResources::Base
+  no_authentication_required
   load_and_authorize_resource
+
   respond_to :js
 
   def create
