@@ -179,7 +179,7 @@ When /^(?:I|they) follow "([^"]*?)" in the email$/ do |link|
   visit_in_email(link)
 end
 
-When /^(?:I|they) (?:click|follow) (?:on )the first link in the email$/ do
+When /^(?:I|they) (?:click|follow) (?:on )?the first link in the email$/ do
   click_first_link_in_email
 end
 
