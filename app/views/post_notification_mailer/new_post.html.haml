@@ -1,3 +1,2 @@
 %p= "Hallo #{@employee.name}!"
-
-%p= "#{@post.author.name} hat am #{@post.published_at} einen neuen Blogpost geschrieben."
+%p= "#{@post.author.name} hat am #{l(@post.published_at, format: :tiny)} einen neuen Blogpost geschrieben."

@@ -34,7 +34,7 @@ In order to keep my colleagues informed about important news
       And "kurt@example.com" should receive an email with subject "Es gibt Neuigkeiten"
       But "owner@burns.com" should receive no email
      When "heinz@example.com" opens the email with subject "Es gibt Neuigkeiten"
-     # Then I should see "Owner Burns hat am 24.05.2012 12:00 einen neuen Blogpost geschrieben." in the email body
+     Then I should see "Owner Burns hat am 24.05.2012 12:00 einen neuen Blogpost geschrieben." in the email body
 
 
   Scenario: Creating a blog post without entering a title
