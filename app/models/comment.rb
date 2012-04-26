@@ -9,8 +9,9 @@ class Comment < ActiveRecord::Base
   #acts_as_voteable
 
   belongs_to :commentable, :polymorphic => true
-
   belongs_to :employee
+
+  after_create :send_notifications
 
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a employee_id, and comment text
@@ -46,5 +47,21 @@ class Comment < ActiveRecord::Base
   # given the commentable class name and id
   def self.find_commentable(commentable_str, commentable_id)
     commentable_str.constantize.find(commentable_id)
+  end
+
+  protected
+
+  def send_notifications
+    return true unless commentable_type == 'Post'
+    notification_recipients.each do |e|
+      PostNotificationMailer.new_comment(self, e).deliver
+    end
+  end
+
+  def notification_recipients
+    post = commentable
+    post.organization.employees.select do |e|
+      e.user.present? && employee != e && (post.author == e || post.commenters.include?(e))
+    end
   end
 end

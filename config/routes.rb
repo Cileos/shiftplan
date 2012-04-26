@@ -27,7 +27,7 @@ Shiftplan::Application.routes.draw do
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
   get "dashboard" => 'welcome#dashboard', :as => 'user_root'
 
-  devise_for :users, :controllers => { :registrations => "planners/registrations" }
+  devise_for :users, :controllers => { registrations: 'planners/registrations', sessions: 'sessions'}
 
   root :to => "welcome#landing"
 end

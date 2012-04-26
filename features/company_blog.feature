@@ -9,6 +9,11 @@ In order to keep my colleagues informed about important news
      Then 0 posts should exist
 
   Scenario: Creating a first blog post
+    Given a confirmed user "heinz" exists with email: "heinz@example.com"
+      And an employee "heinz" exists with first_name: "Heinz", last_name: "Müller", organization: organization "fukushima", user: the confirmed user "heinz"
+      And a confirmed user "kurt" exists with email: "kurt@example.com"
+      And an employee "kurt" exists with first_name: "Kurt", last_name: "Meyer", organization: organization "fukushima", user: the confirmed user "kurt"
+      And a clear email queue
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
      Then I should see "Es wurden noch keine Blogposts erstellt."
@@ -24,6 +29,31 @@ In order to keep my colleagues informed about important news
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I should see "Sie haben am 24.05.2012 12:00 geschrieben" within the posts
       And I should not see "Es wurden noch keine Blogposts erstellt."
+      And I sign out
+
+      # notifications
+      And "heinz@example.com" should receive an email with subject "Es gibt Neuigkeiten"
+      And "kurt@example.com" should receive an email with subject "Es gibt Neuigkeiten"
+      But "owner@burns.com" should receive no email
+     When "heinz@example.com" opens the email with subject "Es gibt Neuigkeiten"
+     Then I should see "Owner Burns hat am 24.05.2012 12:00 einen neuen Blogpost geschrieben" in the email body
+      And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern." in the email body
+     When I click on the first link in the email
+      And I fill in "E-Mail" with "heinz@example.com"
+      And I fill in "Passwort" with "secret"
+      And I press "Einloggen"
+     Then I should see "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
+
+     # the blog post gets deleted
+     When the post with title: "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch" is deleted
+
+      # click on blog post link again
+      And I click on the first link in the email
+     # show message and redirect to the posts index page
+     Then I should see "Der Blogpost wurde inzwischen gelöscht."
+      And I should see "Neuigkeiten"
+      And I should see "Es wurden noch keine Blogposts erstellt"
+
 
   Scenario: Creating a blog post without entering a title
      When I sign in as the confirmed user "mr. burns"
@@ -125,10 +155,18 @@ In order to keep my colleagues informed about important news
       And I should see "Bitte putzen"
 
   Scenario: Commenting blog posts
+    # a post of mr. burns
     Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
-     When I sign in as the confirmed user "mr. burns"
-      And I follow "AKW Fukushima GmbH"
-      And I follow "Mehr"
+
+      And a confirmed user "lisa" exists with email: "lisa@thesimpsons.com"
+      And an employee "lisa" exists with first_name: "Lisa", organization: organization "fukushima", user: the confirmed user "lisa"
+      And a confirmed user "bart" exists with email: "bart@thesimpsons.com"
+      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+
+      # lisa comments on mr. burns' blog post
+      And a clear email queue
+     When I sign in as the confirmed user "lisa"
+      And I go to the page of the post
      Then I should see "Es wurden noch keine Kommentare erstellt"
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
@@ -137,28 +175,60 @@ In order to keep my colleagues informed about important news
       And I should see "Ich backe einen Kuchen für den Umweltminister"
       And I should see "1 Kommentar"
       And the "Kommentar" field should contain ""
+      And I sign out
 
-     When I follow "Bearbeiten"
-      And I wait for the modal box to appear
-      And I fill in "Titel" with "Besuch des Umweltministers"
-      And I press "Speichern"
-      And I wait for the modal box to disappear
-     Then I should see "Besuch des Umweltministers"
-      And I should see "Sie haben am 24.05.2012 12:00 geschrieben:" within the comments
+     # notification for author of blog post(mr. burns)
+     Then "owner@burns.com" should receive an email with subject "Neuer Kommentar zu Ihrem Blogpost"
+      But "lisa@thesimpsons.com" should receive no email
+      And "bart@thesimpsons.com" should receive no email
+     When "owner@burns.com" opens the email
+     Then I should see "Lisa Simpson hat Ihren Blogpost 'Umweltminister zu Besuch' am 24.05.2012 12:00 kommentiert" in the email body
+      And I should see "Ich backe einen Kuchen für den Umweltminister" in the email body
+     When I click on the first link in the email
+      And I fill in "E-Mail" with "owner@burns.com"
+      And I fill in "Passwort" with "secret"
+      And I press "Einloggen"
+     Then I should be on the page of the post
       And I should see "Ich backe einen Kuchen für den Umweltminister"
       And I sign out
 
-    Given a confirmed user "bart" exists
-      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+    # bart comments on mr. burns' blog post
+      And a clear email queue
      When I sign in as the confirmed user "bart"
      When I follow "AKW Fukushima GmbH"
      Then I should see "1 Kommentar"
       And I follow "1 Kommentar"
      Then I should be on the page of the post
-      And I should see "Owner Burns schrieb am 24.05.2012 12:00:" within the comments
      When I fill in "Kommentar" with "Ich werde einen Blumenstrauß mitbringen"
       And I press "Kommentieren"
      Then I should see "2 Kommentare"
+      And I sign out
+
+     # notifications for author of blog post(mr. burns) and for the commenter "lisa"
+     Then "owner@burns.com" should receive an email with subject "Neuer Kommentar zu Ihrem Blogpost"
+      And "lisa@thesimpsons.com" should receive an email with subject "Neuer Kommentar zu einem Blogpost"
+      But "bart@thesimpsons.com" should receive no email
+     # blog post author mr. burns opens the email
+     When "owner@burns.com" opens the email
+     Then I should see "Bart Simpson hat Ihren Blogpost 'Umweltminister zu Besuch' am 24.05.2012 12:00 kommentiert" in the email body
+      And I should see "Ich werde einen Blumenstrauß mitbringen" in the email body
+     When I click on the first link in the email
+      And I fill in "E-Mail" with "owner@burns.com"
+      And I fill in "Passwort" with "secret"
+      And I press "Einloggen"
+     Then I should be on the page of the post
+      And I should see "Ich werde einen Blumenstrauß mitbringen"
+      And I sign out
+     # commenter lisa opens the email
+     When "lisa@thesimpsons.com" opens the email
+     Then I should see "Bart Simpson hat den Blogpost 'Umweltminister zu Besuch' am 24.05.2012 12:00 ebenfalls kommentiert" in the email body
+      And I should see "Ich werde einen Blumenstrauß mitbringen" in the email body
+     When I click on the first link in the email
+      And I fill in "E-Mail" with "lisa@thesimpsons.com"
+      And I fill in "Passwort" with "secret"
+      And I press "Einloggen"
+     Then I should be on the page of the post
+      And I should see "Ich werde einen Blumenstrauß mitbringen"
 
   Scenario: Deleting comments on posts
     Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"

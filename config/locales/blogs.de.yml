@@ -9,6 +9,7 @@ de:
     headers:
       new: 'Neuen Blogpost erstellen'
       edit: 'Blogpost bearbeiten'
+    post_deleted: 'Der Blogpost wurde inzwischen gelöscht.'
   activerecord:
     attributes:
       post:
@@ -24,3 +25,9 @@ de:
   comments:
     comments: Kommentare
     no_comments_present: 'Es wurden noch keine Kommentare erstellt.'
+  post_notification_mailer:
+    new_post:
+      subject: 'Es gibt Neuigkeiten'
+    new_comment:
+      subject_for_post_author: 'Neuer Kommentar zu Ihrem Blogpost'
+      subject_for_commenter: 'Neuer Kommentar zu einem Blogpost'
