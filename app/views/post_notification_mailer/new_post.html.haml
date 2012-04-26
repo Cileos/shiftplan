@@ -1,2 +1,8 @@
 %p= "Hallo #{@employee.name}!"
+
 %p= "#{@post.author.name} hat am #{l(@post.published_at, format: :tiny)} einen neuen Blogpost geschrieben."
+
+%p Klicken Sie auf den folgenden Link um den Blogpost zu lesen:
+
+%p= link_to "Zum Blogpost", organization_blog_post_url(@post.organization, @post.blog, @post)
+

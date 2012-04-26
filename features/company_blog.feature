@@ -29,12 +29,29 @@ In order to keep my colleagues informed about important news
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I should see "Sie haben am 24.05.2012 12:00 geschrieben" within the posts
       And I should not see "Es wurden noch keine Blogposts erstellt."
+      And I sign out
+
       # notifications
       And "heinz@example.com" should receive an email with subject "Es gibt Neuigkeiten"
       And "kurt@example.com" should receive an email with subject "Es gibt Neuigkeiten"
       But "owner@burns.com" should receive no email
      When "heinz@example.com" opens the email with subject "Es gibt Neuigkeiten"
      Then I should see "Owner Burns hat am 24.05.2012 12:00 einen neuen Blogpost geschrieben." in the email body
+     When I click on the first link in the email
+      And I fill in "E-Mail" with "heinz@example.com"
+      And I fill in "Passwort" with "secret"
+      And I press "Einloggen"
+     Then I should see "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
+
+     # the blog post gets deleted
+     When the post with title: "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch" is deleted
+
+      # click on blog post link again
+      And I click on the first link in the email
+     # show message and redirect to the posts index page
+     Then I should see "Der Blogpost wurde inzwischen gelöscht."
+      And I should see "Neuigkeiten"
+      And I should see "Es wurden noch keine Blogposts erstellt"
 
 
   Scenario: Creating a blog post without entering a title

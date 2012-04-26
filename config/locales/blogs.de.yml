@@ -9,6 +9,7 @@ de:
     headers:
       new: 'Neuen Blogpost erstellen'
       edit: 'Blogpost bearbeiten'
+    post_deleted: 'Der Blogpost wurde inzwischen gelöscht.'
   activerecord:
     attributes:
       post:
