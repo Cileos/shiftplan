@@ -18,7 +18,7 @@ module EmployeeBaseDecorator
 
   def respond
     unless errors.empty?
-      prepend_errors_for(invitation)
+      prepend_errors_for(resource)
     else
       hide_modal
       update_employees

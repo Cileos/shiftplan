@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120418153043) do
+ActiveRecord::Schema.define(:version => 20120427095934) do
 
   create_table "blogs", :force => true do |t|
     t.integer  "organization_id"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20120418153043) do
     t.decimal  "weekly_working_time"
     t.integer  "user_id"
     t.string   "role"
+    t.string   "avatar"
   end
 
   add_index "employees", ["organization_id"], :name => "index_employees_on_organization_id"
