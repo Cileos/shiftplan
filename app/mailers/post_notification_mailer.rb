@@ -1,10 +1,11 @@
 class PostNotificationMailer < ActionMailer::Base
   default charset: 'UTF-8'
+  default from: 'Shiftplan <no-reply@shiftplan.de>'
 
   def new_post(post, employee)
     @post = post
     @employee = employee
-    mail from: 'no-reply@shiftplan.com', to: employee.user.email, subject: t(:'post_notification_mailer.new_post.subject')
+    mail to: employee.user.email, subject: t(:'post_notification_mailer.new_post.subject')
   end
 
   def new_comment(comment, employee)
@@ -15,6 +16,6 @@ class PostNotificationMailer < ActionMailer::Base
     else
       t(:'post_notification_mailer.new_comment.subject_for_commenter')
     end
-    mail from: 'no-reply@shiftplan.com', to: employee.user.email, subject: subject
+    mail to: employee.user.email, subject: subject
   end
 end
