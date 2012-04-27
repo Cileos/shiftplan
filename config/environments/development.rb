@@ -28,5 +28,17 @@ Shiftplan::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  ###### comment the sendmail settings in, if you need to test mail deliveries locally #####
+  #
+  # config.action_mailer.delivery_method = :sendmail
+  # # Defaults to:
+  # config.action_mailer.sendmail_settings = {
+  #   :location => '/usr/sbin/sendmail',
+  #   :arguments => '-i -t'
+  # }
+  # config.action_mailer.perform_deliveries = true
+  #
+  ######
+
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end
