@@ -27,7 +27,7 @@ In order to keep my colleagues informed about important news
      Then I should see a flash info "Post erfolgreich angelegt."
       And I should see "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
-      And I should see "Sie haben am 24.05.2012 12:00 geschrieben" within the posts
+      And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben" within the posts
       And I should not see "Es wurden noch keine Blogposts erstellt."
       And I sign out
 
@@ -36,7 +36,7 @@ In order to keep my colleagues informed about important news
       And "kurt@example.com" should receive an email with subject "Es gibt Neuigkeiten"
       But "owner@burns.com" should receive no email
      When "heinz@example.com" opens the email with subject "Es gibt Neuigkeiten"
-     Then I should see "Owner Burns hat am 24.05.2012 12:00 einen neuen Blogpost geschrieben" in the email body
+     Then I should see "Owner Burns hat am 24.05.2012 um 12:00 Uhr einen neuen Blogpost geschrieben" in the email body
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern." in the email body
      When I click on the first link in the email
       And I fill in "E-Mail" with "heinz@example.com"
@@ -171,7 +171,7 @@ In order to keep my colleagues informed about important news
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
      Then I should not see "Es wurden noch keine Kommentare erstellt"
-      And I should see "Sie haben am 24.05.2012 12:00 geschrieben:" within the comments
+      And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
       And I should see "Ich backe einen Kuchen für den Umweltminister"
       And I should see "1 Kommentar"
       And the "Kommentar" field should contain ""
@@ -182,7 +182,7 @@ In order to keep my colleagues informed about important news
       But "lisa@thesimpsons.com" should receive no email
       And "bart@thesimpsons.com" should receive no email
      When "owner@burns.com" opens the email
-     Then I should see "Lisa Simpson hat Ihren Blogpost 'Umweltminister zu Besuch' am 24.05.2012 12:00 kommentiert" in the email body
+     Then I should see "Lisa Simpson hat Ihren Blogpost 'Umweltminister zu Besuch' am 24.05.2012 um 12:00 Uhr kommentiert" in the email body
       And I should see "Ich backe einen Kuchen für den Umweltminister" in the email body
      When I click on the first link in the email
       And I fill in "E-Mail" with "owner@burns.com"
@@ -210,7 +210,7 @@ In order to keep my colleagues informed about important news
       But "bart@thesimpsons.com" should receive no email
      # blog post author mr. burns opens the email
      When "owner@burns.com" opens the email
-     Then I should see "Bart Simpson hat Ihren Blogpost 'Umweltminister zu Besuch' am 24.05.2012 12:00 kommentiert" in the email body
+     Then I should see "Bart Simpson hat Ihren Blogpost 'Umweltminister zu Besuch' am 24.05.2012 um 12:00 Uhr kommentiert" in the email body
       And I should see "Ich werde einen Blumenstrauß mitbringen" in the email body
      When I click on the first link in the email
       And I fill in "E-Mail" with "owner@burns.com"
@@ -221,7 +221,7 @@ In order to keep my colleagues informed about important news
       And I sign out
      # commenter lisa opens the email
      When "lisa@thesimpsons.com" opens the email
-     Then I should see "Bart Simpson hat den Blogpost 'Umweltminister zu Besuch' am 24.05.2012 12:00 ebenfalls kommentiert" in the email body
+     Then I should see "Bart Simpson hat den Blogpost 'Umweltminister zu Besuch' am 24.05.2012 um 12:00 Uhr ebenfalls kommentiert" in the email body
       And I should see "Ich werde einen Blumenstrauß mitbringen" in the email body
      When I click on the first link in the email
       And I fill in "E-Mail" with "lisa@thesimpsons.com"
@@ -237,7 +237,7 @@ In order to keep my colleagues informed about important news
       And I follow "Mehr"
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
-      And I should see "Sie haben am 24.05.2012 12:00 geschrieben:" within the comments
+      And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
       And I should see "Ich backe einen Kuchen für den Umweltminister"
       And I should see "1 Kommentar"
 
@@ -254,7 +254,7 @@ In order to keep my colleagues informed about important news
       And I follow "Mehr"
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
-     Then I should see "Sie haben am 24.05.2012 12:00 geschrieben:" within the comments
+     Then I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
       And I should see a delete button
       And I sign out
 
@@ -263,7 +263,7 @@ In order to keep my colleagues informed about important news
      When I sign in as the confirmed user "bart"
      When I follow "AKW Fukushima GmbH"
       And I follow "Mehr"
-     Then I should see "Owner Burns schrieb am 24.05.2012 12:00:" within the comments
+     Then I should see "Owner Burns schrieb am 24.05.2012 um 12:00 Uhr:" within the comments
       But I should not see a delete button
 
   Scenario: User paginates through blog posts

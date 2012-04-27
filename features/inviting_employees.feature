@@ -102,9 +102,9 @@ Feature: Inviting Employees
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     Then I should see the following table of employees:
-      | Name          | E-Mail                | Status                                          |
-      | Planner Burns | planner@fukushima.jp  | Aktiv                                           |
-      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 23.05.2012 12:00 |
+      | Name          | E-Mail                | Status                                                 |
+      | Planner Burns | planner@fukushima.jp  | Aktiv                                                  |
+      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 23.05.2012 um 12:00 Uhr |
 
     Given today is "2012-05-24 12:00"
     # need to sign in again because the session has expired
@@ -112,9 +112,9 @@ Feature: Inviting Employees
     When I reinvite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     Then I should see the following table of employees:
-      | Name          | E-Mail                | Status                                          |
-      | Planner Burns | planner@fukushima.jp  | Aktiv                                           |
-      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 24.05.2012 12:00 |
+      | Name          | E-Mail                | Status                                                 |
+      | Planner Burns | planner@fukushima.jp  | Aktiv                                                  |
+      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 24.05.2012 um 12:00 Uhr |
     And I sign out
 
     When the employee accepts the invitation for the organization "fukushima" with setting a password
