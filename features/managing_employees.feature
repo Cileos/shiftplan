@@ -11,8 +11,8 @@ Feature: Create Employees
       And I follow "Fukushima GmbH"
       And I follow "Mitarbeiter"
 
-
   @javascript
+  @fileupload
   Scenario: Creating an employee
      When I follow "Hinzufügen"
       And I wait for the modal box to appear
@@ -40,6 +40,7 @@ Feature: Create Employees
   # We should see error messages in the modal box which are prepended through the
   # javascript response.
   @javascript
+  @fileupload
   Scenario: Creating an employee with avatar upload through ajax
      When I follow "Hinzufügen"
       And I wait for the modal box to appear

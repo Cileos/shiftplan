@@ -17,7 +17,16 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    # Store files that were uploaded in tests under a different path and not under
+    # the public directory. This way we can easily remove all these generated files
+    # after each test run without having to fear deleting production files,
+    # accidentally.
+    if Rails.env.test?
+      "#{Rails.root}/features/support/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    else
+      # production files are stored in 'uploads' under the Rails public path
+      "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    end
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
