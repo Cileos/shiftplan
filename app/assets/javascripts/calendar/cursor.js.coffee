@@ -28,18 +28,7 @@ class CalendarCursor
     # The keydown event handler 'CalendarCursor#keydown' gets disabled when the modal window for creating 
     # schedulings opens so that the user should can press the "return" key to submit the form.
     # Therefore we must reenable the keydown event handler when the modal window was hidden:
-
-    # TODO
-    # Don't know why the following line
-    #
-    # $('#scheduling_modal').on 'hidden', @enable
-    #
-    # does not work. @enable gets called when modal closes, yet keydown events are not triggered.
-    # Only difference: When @enable gets called, 'this' is the #scheduling dom element in the @enable function while
-    # 'this' is the curser in the current implementation.
-    $curser = this
-    $('#scheduling_modal').on 'hidden', ->
-      $curser.enable()
+    $('body').on 'hidden', @enable
 
 
   focussed_cell: ->
@@ -76,10 +65,10 @@ class CalendarCursor
     if $target
       @$calendar.trigger 'calendar.cell_focus', $target
 
-  enable: ->
+  enable: =>
     $('body').bind 'keydown', @keydown
 
-  disable: ->
+  disable: =>
     $('body').unbind 'keydown', @keydown
 
 
