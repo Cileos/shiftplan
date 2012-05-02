@@ -79,14 +79,14 @@ Feature: Authorization
 
   Scenario: planner
     Given a confirmed user "planner" exists
-      And a planner exists with user: the confirmed user "planner", organization: the organization
+      And an employee planner exists with user: the confirmed user "planner", organization: the organization
       And I am signed in as the confirmed user "planner"
 
       And the situation of what a planner can do
 
   Scenario: owner
     Given a confirmed user "owner" exists
-      And an owner exists with user: the confirmed user "owner", organization: the organization
+      And an employee owner exists with user: the confirmed user "owner", organization: the organization
       And I am signed in as the confirmed user "owner"
 
     # an owner can do everything a planner can do and maybe more some time

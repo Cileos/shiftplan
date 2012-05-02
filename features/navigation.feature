@@ -6,7 +6,7 @@ Feature: Navigation
   Scenario: as a planner
     Given an organization exists with name: "Fukushima GmbH"
       And a confirmed user exists with email: "me@shiftplan.de"
-      And a planner exists with user: the confirmed user, organization: the organization
+      And an employee planner exists with user: the confirmed user, organization: the organization
       And I am signed in as the confirmed user
 
      When I am on the dashboard

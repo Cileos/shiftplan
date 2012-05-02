@@ -1,5 +1,5 @@
 And an organization "tschernobyl" exists with name: "AKW Tschernobyl GmbH"
 And a confirmed user "mr. carlson" exists
-And an planner "Carlson" exists with first_name: "Planner", last_name: "Carlson", organization: organization "tschernobyl", user: the confirmed user "mr. carlson"
+And an employee planner "Carlson" exists with first_name: "Planner", last_name: "Carlson", organization: organization "tschernobyl", user: the confirmed user "mr. carlson"
 And a plan "brennstäbe wechseln" exists with organization: organization "tschernobyl", name: "Brennstäbe wechseln in Tschernobyl"
 And an employee exists with organization: organization "tschernobyl", first_name: "Homer", user: user "homer"
