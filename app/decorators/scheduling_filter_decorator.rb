@@ -127,7 +127,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
         update_cell_for(resource.next_day)
       end
       update_hours_for(resource.employee)
-      hide_modal :scheduling_form, resource
+      hide_modal
       update_legend
       update_quickie_completions
     else

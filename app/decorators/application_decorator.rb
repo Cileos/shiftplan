@@ -5,14 +5,8 @@ class ApplicationDecorator < Draper::Base
     h.dom_id(m)
   end
 
-  def scheduling_form_id
-    'scheduling_modal'
-  end
-
   def selector_for(name, resource=nil, *more)
     case name
-    when :scheduling_form
-      '#' + scheduling_form_id
     when :errors_for
       %Q~#{selector_for(:form_for, resource)} .errors~
     when :form_for

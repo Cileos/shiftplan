@@ -24,6 +24,7 @@ Feature: create a scheduling
         | Homer S       |        |          | 9-17     |            |         |         |         |
 
   # TODO: currently it is assumend that a user can only have one organization
+  @javascript
   Scenario: can only select employees from same planner (and organization)
     Given an organization "Jungle" exists
       And an employee exists with first_name: "Tarzan", organization: organization "Jungle"
@@ -31,9 +32,10 @@ Feature: create a scheduling
     #  And an employee exists with first_name: "Bart", organization: organization "Home"
      When I go to the page of the plan "clean reactor"
      Then I should see "Homer S"
-     #  But I should not see "Bart"
-      But I should not see "Tarzan" within the first form
       And I should not see "Tarzan" within the calendar
+     When I follow "Neue Terminierung"
+      And I wait for the new scheduling form to appear
+     Then I should not see "Tarzan" within the first form
 
 
   @javascript
