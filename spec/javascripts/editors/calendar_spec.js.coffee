@@ -51,13 +51,3 @@ describe 'CalendarEditor', ->
              """
       @form = $(form)
       @calendar = new CalendarEditor cell: $('#cell'), form: @form
-
-    it 'is reused from dom/rails', ->
-      expect( @calendar ).toContain('form#new_form')
-
-    it 'is prefilled with values of given scheduling', ->
-      expect( @form.find('#scheduling_employee_id') ).toHaveValue(42)
-      expect( @form.find('#scheduling_date') ).toHaveValue('2012-12-21')
-
-    it 'is enriched with quickie completion', ->
-      expect( @form ).toContain('div.quickie input[type=text].typeahead')
