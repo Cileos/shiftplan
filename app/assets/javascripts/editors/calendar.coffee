@@ -11,6 +11,7 @@ class CalendarEditor extends View
           ids: ($(sch).data('id') for sch in params.cell.find('li'))
         complete: =>
           @addTabIndices()
+          @setupForm()
     else
       $.ajax
         url: params.cell.closest('table').data('new_url')
@@ -20,14 +21,16 @@ class CalendarEditor extends View
             date:        params.cell.data('date')
         complete: =>
           @addTabIndices()
+          @setupForm()
 
   modal: ->
-    $('#scheduling_modal')
+    $('body.modal-open div.modal')
 
   # TODO make QuickieEditor less intrusive
-  setupFormsInModal: ->
+  setupForm: ->
     for quickie in @modal().find('input[name="scheduling[quickie]"]')
-      $(quickie).closest('.control-group').replaceWith new QuickieEditor
+      editor = new QuickieEditor value: $(quickie).val()
+      $(quickie).closest('.control-group').replaceWith editor
 
   addTabIndices: ->
     tabIndex = 1
