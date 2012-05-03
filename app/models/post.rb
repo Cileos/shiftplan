@@ -10,9 +10,7 @@ class Post < ActiveRecord::Base
   before_validation :set_published_at, on: :create
   after_create :send_notifications
 
-  def organization
-    blog.organization
-  end
+  delegate :organization, to: :blog
 
   def commenters
     comments.map &:employee
