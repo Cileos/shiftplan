@@ -1,5 +1,5 @@
 And an organization "fukushima" exists with name: "AKW Fukushima GmbH"
 And a confirmed user "mr. burns" exists with email: "owner@burns.com"
-And an owner "mr. burns" exists with first_name: "Owner", last_name: "Burns", organization: organization "fukushima", user: the confirmed user "mr. burns"
+And an employee_owner "mr. burns" exists with first_name: "Owner", last_name: "Burns", organization: organization "fukushima", user: the confirmed user "mr. burns"
 And a plan "reaktor putzen" exists with organization: organization "fukushima", name: "Reaktor putzen in Fukushima"
 And a blog exists with title: "Company Blog", organization: organization "fukushima"

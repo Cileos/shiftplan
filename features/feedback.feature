@@ -7,7 +7,7 @@ Feature: Feedback without Screenshot
   Background:
     Given an organization "fukushima" exists with name: "Fukushima"
       And a confirmed user exists with email: "planner@fukushima.jp"
-      And a planner exists with first_name: "Planner", last_name: "Burns", user: the confirmed user, organization: the organization
+      And a employee planner exists with first_name: "Planner", last_name: "Burns", user: the confirmed user, organization: the organization
       And a clear email queue
 
   Scenario: Employee sends feedback
