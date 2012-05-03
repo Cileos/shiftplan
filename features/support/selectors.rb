@@ -57,7 +57,13 @@ module HtmlSelectorsHelpers
       "form#{Numerals[$1]}"
 
     when 'a hint'
-      ".help-block"
+      '.help-block'
+    when 'the pagination'
+      '.pagination'
+    when 'the posts'
+      'ul#posts'
+    when 'the comments'
+      'ul#comments'
 
     when 'comments'
       "ul.comments"

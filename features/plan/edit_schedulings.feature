@@ -17,8 +17,8 @@ Feature: Edit Schedulings of a Plan
         | 2012-12-21 | 7-23    |
       And I am on the page for the plan
       And I should see the following calendar:
-        | Mitarbeiter | Freitag | Stunden |
-        | Santa C     | 7-23    | 16      |
+        | Mitarbeiter | Freitag | Stunden/WAZ |
+        | Santa C     | 7-23    | 16          |
 
 
   @javascript
@@ -31,8 +31,8 @@ Feature: Edit Schedulings of a Plan
       And I press "Speichern" within the first form
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Mitarbeiter | Freitag | Stunden |
-        | Santa C     | 1-23    | 22      |
+        | Mitarbeiter | Freitag | Stunden/WAZ |
+        | Santa C     | 1-23    | 22          |
 
   @javascript
   Scenario: Edit a single scheduling, inducing an error

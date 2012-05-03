@@ -22,6 +22,7 @@ module ActionHelper
 
   Icons = {
     add:               'plus',
+    edit:              'edit',
     destroy:           'trash',
     new_scheduling:    'plus',
     copy_week:         'retweet',
@@ -29,8 +30,12 @@ module ActionHelper
     invite:            'user',
     reinvite:          'user',
     comment:           'comment',
+    comments_count:    'comment',
     reply:             'chevron-left',
+    back:              'arrow-left',
     send_invitation:   'envelope'
+    feedback_without_screenshot: 'envelope',
+    send:                        'envelope'
   }
 
   # translate with textilize

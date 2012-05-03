@@ -1,9 +1,9 @@
 class CommentsController < InheritedResources::Base
   # TODO fails in polymorphic mode
-  belongs_to :scheduling # , polymorphic: true, optional: false
+  belongs_to :scheduling, :post, polymorphic: true, optional: false
   load_and_authorize_resource
 
-  actions :create
+  actions :create, :destroy
   respond_to :js
 
   private

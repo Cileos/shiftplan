@@ -43,7 +43,7 @@ Shiftplan::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( lib.js )
+  config.assets.precompile += %w( lib.js print.css )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
@@ -58,9 +58,11 @@ Shiftplan::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => 'shiftplan.de' }
+  config.action_mailer.default_url_options = { :host => 'staging.shiftplan.de' }
 
   config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "You May Not Pass") do |u, p|
     [u, p] == ['timtest', 'mug6Ue7i']
   end
+
+  config.action_mailer.delivery_method = :sendmail
 end

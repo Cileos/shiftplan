@@ -59,3 +59,19 @@ Then /^I should see the following calendar:$/ do |expected|
   expected.diff! actual
 end
 
+Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value of "(\d+ von \d+|\d+)"$/ do |employee, color, text|
+  employee = model!(employee)
+  column = column_index_for("Stunden/WAZ")
+  row    = row_index_for(employee.name)
+
+  color_class_mapping = {
+    'yellow' => 'label-warning',
+    'green'  => 'label-success',
+    'red'    => 'label-important',
+    'grey'    => ''
+  }
+
+  cell = find("#{selector_for('the calendar')} tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1}) span[class='label #{color_class_mapping[color]}']")
+  assert_equal text, cell.text
+end
+

@@ -56,6 +56,18 @@ Feature: create a scheduling
       And I wait for the new scheduling form to appear
      Then I should not see "Tarzan" within the first form
 
+  # TODO: currently it is assumend that a user can only have one organization
+  Scenario: can only select employees from same planner (and organization)
+    Given an organization "Jungle" exists
+      And an employee exists with first_name: "Tarzan", organization: organization "Jungle"
+    #  And an organization "Home" exists with planner: the planner
+    #  And an employee exists with first_name: "Bart", organization: organization "Home"
+     When I go to the page of the plan "clean reactor"
+     Then I should see "Homer S"
+     #  But I should not see "Bart"
+      But I should not see "Tarzan" within the first form
+      And I should not see "Tarzan" within the calendar
+
 
   @javascript
   Scenario: just entering time span with javascript

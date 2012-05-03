@@ -1,0 +1,5 @@
+.row
+  .post.span6
+    %div{id: "post_#{@post.id}"}
+      = render('posts/post_details', post: @post, truncation: false)
+    = render('posts/comments', comments: @post.comments)

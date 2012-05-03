@@ -57,8 +57,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
         day, employee_id = resource, extra
         %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
       end
-    when :hours
-      %Q~#calendar tbody td.hours[data-employee_id=#{resource.id}]~
+    when :wwt_diff
+      %Q~#calendar tbody td.wwt_diff[data-employee_id=#{resource.id}]~
     when :legend
       '#legend'
     else
@@ -66,18 +66,47 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def hours_header
+  def weekly_working_time_difference_header
     if week?
-      h.content_tag :th, h.translate_action(:hours)
+      h.content_tag :th do
+        (h.translate_action(:hours) + '/' +
+        h.content_tag(:abbr, title: h.translate_action(:wwt_long)) do
+          h.translate_action(:wwt_short)
+        end).html_safe
+      end
     end
   end
 
-  # Planned in hours for given employee
-  def hours_tag_for(employee)
+  def weekly_working_time_difference_tag_for(employee)
     if week?
-      h.content_tag :td, hours_for(employee),
-        :class => 'hours',
-        'data-employee_id' => employee.id
+      h.content_tag :td, :class => 'wwt_diff', 'data-employee_id' => employee.id do
+        wwt_diff_for(employee)
+      end
+    end
+  end
+
+  def wwt_diff_for(employee)
+    h.content_tag :span, wwt_diff_label_text_for(employee),
+      class: "label #{wwt_diff_label_class_for(employee)}"
+  end
+
+  def wwt_diff_label_text_for(employee)
+    if employee.weekly_working_time.present?
+      "#{hours_for(employee)} von #{employee.weekly_working_time.to_i}"
+    else
+      "#{hours_for(employee)}"
+    end
+  end
+
+  def wwt_diff_label_class_for(employee)
+    return '' unless employee.weekly_working_time.present?
+    difference = employee.weekly_working_time - hours_for(employee)
+    if difference > 0
+      'label-warning'
+    elsif difference < 0
+      'label-important'
+    else
+      'label-success'
     end
   end
 
@@ -126,7 +155,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
       if resource.next_day
         update_cell_for(resource.next_day)
       end
-      update_hours_for(resource.employee)
+      update_wwt_diff_for(resource.employee)
       hide_modal
       update_legend
       update_quickie_completions
@@ -139,9 +168,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
     select(:cell, scheduling).html cell_content_for_scheduling(scheduling) || ''
   end
 
-  def update_hours_for(employee)
-    select(:hours, employee).html hours_for(employee)
+  def update_wwt_diff_for(employee)
+    select(:wwt_diff, employee).html wwt_diff_for(employee)
   end
+
 
   # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
   def legend
@@ -160,7 +190,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # TODO move into own view to fetch as an organization-specific asset
   def team_styles
     teams.map do |team|
-      %Q~.#{dom_id(team)} { background-color: #{team.color} !important;}~
+      %Q~.#{dom_id(team)} { background-color: #{team.color};}~
     end.join(' ')
   end
 end

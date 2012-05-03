@@ -2,7 +2,7 @@
 #   $calendar: a jquery object pointing to the calendar table
 #   tds:       which tds do we want to navigate
 class CalendarCursor
-  constructor: (@$calendar, @tds = 'td:not(.hours)') ->
+  constructor: (@$calendar, @tds = 'td:not(.wwt_diff)') ->
 
     @$body     = @$calendar.find('tbody:first')
 
@@ -25,7 +25,7 @@ class CalendarCursor
     # Disable keydown event handler as we want to press enter in the opening modal window to submit the form.
     $('body').on 'show', @disable
 
-    # The keydown event handler 'CalendarCursor#keydown' gets disabled when the modal window for creating 
+    # The keydown event handler 'CalendarCursor#keydown' gets disabled when the modal window for creating
     # schedulings opens so that the user should can press the "return" key to submit the form.
     # Therefore we must reenable the keydown event handler when the modal window was hidden:
     $('body').on 'hidden', @enable

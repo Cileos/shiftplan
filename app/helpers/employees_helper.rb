@@ -1,22 +1,32 @@
 module EmployeesHelper
   def invitation_status(employee)
-    if employee.invitation_accepted? || employee.planner? || employee.owner?
+    if employee.active?
       t(:'employees.invitation_status.active')
     elsif employee.invited?
-      if can? :edit, Employee
+      if can? :manage, employee.invitation
         (invitation_link(:reinvite, employee) + ' ' +
-          t(:'employees.invitation_status.invited', invited_at: l(employee.invitation_sent_at, format: :tiny))
+          t(:'employees.invitation_status.invited', invited_at: l(employee.invitation.sent_at, format: :tiny))
         ).html_safe
       else
-        t(:'employees.invitation_status.invited', invited_at: l(employee.invitation_sent_at, format: :tiny))
+        t(:'employees.invitation_status.invited', invited_at: l(employee.invitation.sent_at, format: :tiny))
       end
     else
-      can?(:edit, Employee) ? invitation_link(:invite, employee) : t(:'employees.invitation_status.not_invited_yet')
+      can?(:manage, Invitation) ? invitation_link(:invite, employee) : t(:'employees.invitation_status.not_invited_yet')
     end
   end
 
-  def invitation_link(text, employee)
-    link_to ti(text.to_sym, :'non-white' => true), new_user_invitation_path( user: { employee_id: employee.id } ),
+  def invitation_link(type, employee)
+    link_to ti(type, :'non-white' => true),
+      invitation_url(type, employee),
       class: 'btn btn-mini pull-right', :remote => true
+  end
+
+  # TODO: let rails guess the urls by providing the persisted invitation of an employee or a new record
+  def invitation_url(type, employee)
+    if type == :invite
+      new_organization_invitation_path(current_organization, invitation: { employee_id: employee.id })
+    else
+      edit_organization_invitation_path(current_organization, employee.invitation)
+    end
   end
 end

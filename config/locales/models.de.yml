@@ -7,6 +7,9 @@ de:
     attributes:
       user:
         email: "E-Mail"
+        first_name: Vorname
+        last_name: Nachname
+        organization_name: Organisationsname
         name: "Name"
         locale: "Sprache"
         password: "Passwort"
@@ -27,4 +30,10 @@ de:
         durations:
           1_week: wöchentlich
           1_month: ganzer Monat
+  activemodel:
+    attributes:
+      feedback:
+        body: 'Problembeschreibung oder Verbesserungsvorschlag'
+        email: 'E-Mail'
+        name: Name
 

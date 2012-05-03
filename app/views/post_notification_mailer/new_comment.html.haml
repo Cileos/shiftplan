@@ -1,0 +1,15 @@
+%p= "Hallo #{@employee.name}!"
+
+- post = @comment.commentable
+- if post.author == @employee
+  %p= "#{@comment.employee.name} hat Ihren Blogpost '#{post.title}' am #{l(@comment.created_at, format: :tiny)} kommentiert:"
+- else
+  %p= "#{@comment.employee.name} hat den Blogpost '#{post.title}' am #{l(@comment.created_at, format: :tiny)} ebenfalls kommentiert:"
+
+%p= '"' + @comment.body + '"'
+
+%p Klicken Sie auf den folgenden Link, um den Kommentar zu lesen oder einen weiteren Kommentar zu verfassen:
+
+%p= link_to "Kommentar lesen >>", organization_blog_post_url(post.organization, post.blog, post) + '#comments'
+
+%p Ihr Shiftplan Team

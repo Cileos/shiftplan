@@ -1,7 +1,7 @@
 # steps where the user sees things
 
 
-Then /^I should (see|not see) (?:flash )?(flash|info|alert|notice) "([^"]*)"$/ do |see_or_not, severity, message|
+Then /^I should (see|not see) (?:an? )?(?:flash )?(flash|info|alert|notice) "([^"]*)"$/ do |see_or_not, severity, message|
   if see_or_not =~ /not/
     step %Q{I should #{see_or_not} "#{message}"}
   else
@@ -76,4 +76,12 @@ end
 
 Then /^the shortcut should be colored "([^"]*)"$/ do |color|
   first('.shortcut')['style'].should include("background-color: #{color}")
+end
+
+Then /^I (should|should not) see a delete button$/ do |should_or_should_not|
+  if should_or_should_not.include?('not')
+    page.should have_no_css('input[name="_method"][value="delete"]')
+  else
+    page.should have_css('input[name="_method"][value="delete"]')
+  end
 end

@@ -1,0 +1,9 @@
+= simple_form_for resource, url: [current_organization, resource], remote: true do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :employee_id, as: :hidden
+    = f.input :email, autofocus: true
+
+  .actions
+    %button.btn.btn-primary= ti(:send_invitation)

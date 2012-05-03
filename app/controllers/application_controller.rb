@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  authentication_required
   before_filter :set_current_employee, if: :user_signed_in?
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -23,16 +24,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  class NoOrganizationError < RuntimeError; end
   def current_organization
-    @current_organization ||= organization_param && current_user.organizations.find(organization_param) || raise(NoOrganizationError)
+    @current_organization ||= organization_param && current_user.organizations.find(organization_param)
   end
   helper_method :current_organization
 
+  def current_employee
+    current_user.try :current_employee
+  end
+  helper_method :current_employee
+
   def current_organization?
     current_organization.present?
-  rescue NoOrganizationError
-    return false
   end
   helper_method :current_organization?
 end

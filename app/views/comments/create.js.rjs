@@ -1,11 +1,24 @@
-page.decorate @comment do |comment|
-  if comment.errors.empty?
-    if comment.parent_id
-      comment.update_parent
+case @comment.commentable
+when Scheduling
+  page.decorate @comment do |comment|
+    if comment.errors.empty?
+      if comment.parent_id
+        comment.update_parent
+      else
+        comment.append_to_comments_tab(parent)
+        comment.reset_form
+      end
     else
-      comment.append_to_comments_tab(parent)
-      comment.reset_form
+      page << %Q~alert("no comment.")~
     end
+  end
+when Post
+  # TODO clean up these page.selects y using CommentDecorator
+  if @comment.errors.empty?
+    page.select('li#no-comments').remove()
+    page.select("ul#comments").append render('comments/item', comment: @comment)
+    page.select('textarea#comment_body').val('')
+    page.select('p.comments-count').replace_with render('posts/comments_count', post: @comment.commentable)
   else
     page << %Q~alert("no comment.")~
   end

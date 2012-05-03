@@ -1,6 +1,6 @@
 page.decorate resource.concurrent do |filter|
+  filter.update_wwt_diff_for(resource.employee)
   filter.update_cell_for(resource)
-  filter.update_hours_for(resource.employee)
   filter.remove :tabs_for, resource
 
   # we reuse the just deleted resource for the new form, #dom_id helper get's confused if this has an id

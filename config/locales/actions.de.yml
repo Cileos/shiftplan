@@ -3,6 +3,7 @@ de:
     actions:
       profile: Profil
       dashboard: Dashboard
+      news: Neuigkeiten
       signin: Einloggen
       signin_with: "Einloggen mit %{provider}"
       signout: Ausloggen
@@ -12,12 +13,15 @@ de:
       add: Hinzufügen
       new_employee: Mitarbeiter hinzufügen
       plans: Pläne
+      all_plans: Alle Pläne
       new_plan: Neuer Plan
       new_scheduling: Neue Terminierung
       next: Weiter
       create: Anlegen
       update: Speichern
       hours: Stunden
+      wwt_short: WAZ
+      wwt_long: Wochenarbeitszeit
       previous_week: '<<'
       next_week: '>>'
       edit: Bearbeiten
@@ -32,3 +36,7 @@ de:
       comment: Kommentieren
       comments: Kommentare
       reply: 'Antworten'
+      set_password: 'Passwort setzen'
+      feedback_without_screenshot: 'Feedback ohne Bildschirmfoto'
+      send: Abschicken
+

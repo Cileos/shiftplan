@@ -1,0 +1,11 @@
+Feedback
+
+= "Name: #{@feedback.name}" if @feedback.name
+
+= "E-Mail: #{@feedback.email}"
+
+= "Browser: #{@feedback.browser}" if @feedback.browser
+
+Problembeschreibung oder Verbesserungsvorschlag:
+
+= @feedback.body

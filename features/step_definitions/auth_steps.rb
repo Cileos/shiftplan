@@ -32,7 +32,7 @@ end
 
 When /^I sign out$/ do
   with_scope 'the navigation' do
-    page.first('li.dropdown a.dropdown-toggle').click
+    page.first('ul#session li.dropdown a.dropdown-toggle').click
   end
   step %~I follow "Ausloggen"~
   step %~I should see "Erfolgreich ausgeloggt."~

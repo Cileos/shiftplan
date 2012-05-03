@@ -33,7 +33,6 @@ group :test do
   gem 'launchy'
   gem "pickle"
   gem "timecop"
-  gem 'database_cleaner'
   gem "email_spec"
 
   # TODO for latest chrome-webdriver remove when capybara > 1.1.2 depends on it
@@ -91,6 +90,6 @@ gem 'RedCloth' # textilize instructions and other texts from locales
 
 
 gem 'sprockets-urlrewriter'
-gem 'devise_invitable'
-
-gem 'acts_as_commentable_with_threading', git: 'git://github.com/elight/acts_as_commentable_with_threading.git'
+gem 'database_cleaner'
+gem 'will_paginate', '~> 3.0'
+gem 'acts_as_commentable_with_threading', '~> 1.1.2'

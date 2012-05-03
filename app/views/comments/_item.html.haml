@@ -1,7 +1,14 @@
 - comment ||= item
-%li{id: dom_id(comment)}
-  = link_to ti(:reply), '#' + dom_id(comment), class: 'reply btn btn-mini btn-info'
-  %span.employee= comment.employee.name
+%li.comment{id: dom_id(comment)}
+  - if comment.commentable.is_a?(Scheduling)
+    = link_to ti(:reply), '#' + dom_id(comment), class: 'reply btn btn-mini btn-info'
+  - if can? :destroy, comment
+    = button_to(ta(:destroy_comment), [comment.commentable.blog.organization, comment.commentable.blog, comment.commentable, comment], |
+      method: :delete, remote: true, class: 'btn btn-danger btn-mini', id: 'destroy-post')
+  - if comment.employee == current_user.current_employee
+    .own-meta= t(:'blogs.own_meta_data', published_at: l(comment.created_at, format: :tiny))
+  - else
+    .meta= t(:'blogs.meta_data', author: comment.employee.name, published_at: l(comment.created_at, format: :tiny))
   %p= comment.body
   - if comment.has_children?
     %ul.replies= render partial: 'comments/item', collection: comment.children

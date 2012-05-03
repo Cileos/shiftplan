@@ -3,11 +3,6 @@ class PlansController < InheritedResources::Base
 
   respond_to :html, :js
 
-  def begin_of_association_chain
-    authorize! :index, Plan
-    current_organization
-  end
-
   def create
     create! do |success, failure|
       success.html { redirect_to_current_week }
@@ -19,6 +14,11 @@ class PlansController < InheritedResources::Base
   end
 
   private
+
+  def begin_of_association_chain
+    authorize! :read, Plan
+    current_organization
+  end
 
   def redirect_to_current_week
     redirect_to current_week_path
