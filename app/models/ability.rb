@@ -34,7 +34,6 @@ class Ability
 
   def authorize_employee(employee)
     is_employee_of = { id: employee.organization_id }
-<<<<<<< HEAD
     can :create, Comment, commentable: { plan: { organization: is_employee_of } }
     can :read,               Plan,         organization: is_employee_of
     can [:read, :create],    Post,         blog: { organization: is_employee_of }
