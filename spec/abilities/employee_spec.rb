@@ -14,7 +14,7 @@ describe "Employee permissions:" do
   end
 
   context "As an owner" do
-    let(:employee) { Factory(:owner, organization: organization, user: user) }
+    let(:employee) { Factory(:employee_owner, organization: organization, user: user) }
 
     context "for own organization" do
       it "should not be able to destroy employees" do
@@ -42,7 +42,7 @@ describe "Employee permissions:" do
   end
 
   context "As a planner" do
-    let(:employee) { Factory(:planner, organization: organization, user: user) }
+    let(:employee) { Factory(:employee_planner, organization: organization, user: user) }
 
     context "for own organization" do
       it "should not be able to destroy employees" do
