@@ -2,6 +2,8 @@ page.decorate resource.concurrent do |filter|
   filter.update_cell_for(resource)
   filter.update_hours_for(resource.employee)
   filter.remove :form_for, resource
-  page['scheduling_new_quickie'].val(resource.quickie)
+end
+page.decorate @scheduling do |scheduling|
+  scheduling.insert_new_form
 end
 

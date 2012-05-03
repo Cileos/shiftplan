@@ -30,7 +30,7 @@ Feature: Delete schedulings from plan
      Then the edit scheduling form should disappear
       But the modal box should be visible
       And I should not see "Löschen" within the first form within the modal box
-      And the "Quickie" field should contain "5-23" within the first form within the modal box
+      And the "Quickie" field should contain "5-23" within the modal box
       And I should see the following calendar:
         | Mitarbeiter | Donnerstag | Freitag | Stunden |
         | Santa C     | 7-17       |         | 10      |
