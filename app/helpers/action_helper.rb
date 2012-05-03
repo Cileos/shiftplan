@@ -33,7 +33,7 @@ module ActionHelper
     comments_count:    'comment',
     reply:             'chevron-left',
     back:              'arrow-left',
-    send_invitation:   'envelope'
+    send_invitation:   'envelope',
     feedback_without_screenshot: 'envelope',
     send:                        'envelope'
   }
