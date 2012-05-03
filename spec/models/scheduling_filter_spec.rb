@@ -85,7 +85,7 @@ describe SchedulingFilter do
       end
 
       context "records" do
-        let(:r) { filter.records.all }
+        let(:r) { filter.records }
 
         it "should include all records in that week for that plan" do
           r.should include(@waiting)
@@ -158,7 +158,7 @@ describe SchedulingFilter do
       let(:you_eating ) { Factory :manual_scheduling, plan: plan }
       let(:me_eating  ) { Factory :manual_scheduling, plan: plan }
       let(:filter)  { SchedulingFilter.new ids: [you_eating.id.to_s], plan: plan }
-      let(:results) { filter.records.all }
+      let(:results) { filter.records }
 
       before :each do
         [you_waiting, you_eating, me_eating ].each { :enjoy } # just mention them to create the records
