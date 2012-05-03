@@ -20,8 +20,8 @@ Feature: Delete schedulings from plan
       And I am on the page for the plan
 
       And I should see the following calendar:
-        | Mitarbeiter | Donnerstag | Freitag   | Stunden |
-        | Santa C     | 7-17       | 2-4\n5-23 | 30      |
+        | Mitarbeiter | Donnerstag | Freitag  | Stunden |
+        | Santa C     | 7-17       | 2-4 5-23 | 30      |
 
   @javascript
   Scenario: Delete a single scheduling

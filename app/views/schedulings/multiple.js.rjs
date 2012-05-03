@@ -6,7 +6,6 @@ page.decorate filter do |f|
     f.append_to_modal render('tabs', scheduling: scheduling)
   end
 
-
-  # TODO append the new form
-  #filter.append_to_modal render('new_form', scheduling: Scheduling.new)
+  fresh = f.records.first.dup
+  f.append_to_modal render('new_form', scheduling: fresh)
 end
