@@ -92,7 +92,7 @@ class SchedulingFilter
     end
 
     def fetch_records
-      base.where(conditions).includes(:employee, :team)
+      base.where(conditions).includes(:employee, :team).sort_by(&:start_hour)
     end
 
     def conditions

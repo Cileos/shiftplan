@@ -3,15 +3,10 @@ page.decorate filter do |f|
   f.append_modal body: ''
 
   f.records.each do |scheduling|
-    tabs = tabs_for scheduling, :edit, :comments, well: true do |tab|
-      if can? :edit, scheduling
-        tab == :edit
-      else
-        tab == :comments
-      end
-    end
-    f.append_to_modal tabs
+    f.append_to_modal render('tabs', scheduling: scheduling)
   end
 
+
   # TODO append the new form
+  #filter.append_to_modal render('new_form', scheduling: Scheduling.new)
 end

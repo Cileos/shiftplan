@@ -15,6 +15,8 @@ class ApplicationDecorator < Draper::Base
       else
         %Q~form##{h.dom_id resource}~
       end
+    when :tabs_for
+      %Q~##{h.dom_id(resource, 'tabs')}~
     else
       begin
         super

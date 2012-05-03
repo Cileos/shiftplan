@@ -23,13 +23,19 @@ module ModalDecoratorHelper
   end
 
   def append_to_modal(html)
-    select(:modal).append html
+    select(:modal_body).append html
+  end
+
+  def prepend_to_modal(html)
+    select(:modal_body).prepend html
   end
 
   def selector_for(name, *more)
     case name
     when :modal
       '.modal'
+    when :modal_body
+      '.modal .modal-body'
     else
       super
     end

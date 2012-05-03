@@ -23,6 +23,9 @@ Feature: create a scheduling
         | Lenny L       |        |          |          |            |         |         |         |
         | Homer S       |        |          | 9-17     |            |         |         |         |
 
+  @todo
+  Scenario: scheduling the same employee twice per day
+
   # TODO: currently it is assumend that a user can only have one organization
   @javascript
   Scenario: can only select employees from same planner (and organization)

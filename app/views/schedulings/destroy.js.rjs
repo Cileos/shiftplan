@@ -1,9 +1,10 @@
 page.decorate resource.concurrent do |filter|
   filter.update_cell_for(resource)
   filter.update_hours_for(resource.employee)
-  filter.remove :form_for, resource
-end
-page.decorate @scheduling do |scheduling|
-  scheduling.insert_new_form
+  filter.remove :tabs_for, resource
+  # we reuse the just deleted resource for the new form, #dom_id helper get's confused if this has an id
+  fresh = resource.dup
+  fresh.id = nil
+  filter.append_to_modal render('new_form', scheduling: fresh)
 end
 

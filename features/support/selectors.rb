@@ -1,4 +1,14 @@
 module HtmlSelectorsHelpers
+  Numerals = {
+    'first'  => ':first',
+    'second' => ':nth-child(2)',
+    'third'  => ':nth-child(3)',
+    'forth'  => ':nth-child(4)'
+  }
+
+  def capture_nth
+    /(#{Numerals.keys.join('|')})/
+  end
   # Maps a name to a selector. Used primarily by the
   #
   #   When /^(.+) within (.+)$/ do |step, scope|
@@ -31,18 +41,20 @@ module HtmlSelectorsHelpers
     when "the calendar navigation"
       'div#calendar-navigation'
 
+    when 'the modal box body'
+      'div.modal div.modal-body'
+
     when 'the modal box'
       'div.modal'
 
     when 'errors'
       '.errors.alert.alert-error'
 
-    when 'the first form'
-      'form:first'
-    when 'the second form'
-      'form:nth-child(2)'
-    when 'the third form'
-      'form:nth-child(3)'
+    when /^the #{capture_nth} active tab$/
+      ".tabbable#{Numerals[$1]} .tab-pane.active"
+
+    when /^the #{capture_nth} form$/
+      "form#{Numerals[$1]}"
 
     when 'a hint'
       ".help-block"

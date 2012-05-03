@@ -48,7 +48,7 @@ module Bootstrap
     end
 
     def to_html
-      tag :div, class: "tabbable #{options[:well] && 'well'}" do
+      tag :div, class: "tabbable #{options[:well] && 'well'}", id: view.dom_id(record, 'tabs') do
         nav + content
       end
     end
