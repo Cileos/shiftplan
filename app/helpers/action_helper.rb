@@ -15,6 +15,10 @@ module ActionHelper
     super translate_action(text), *args, &block
   end
 
+  def button_to(text, *args, &block)
+    super translate_action(text), *args, &block
+  end
+
   def translate_icon(key, opts={})
     content_tag(:i, '', class: "icon-#{Icons[key] || 'glass'} #{'icon-white' unless opts[:'non-white']}") + ' ' + translate_action(key, opts)
   end

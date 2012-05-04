@@ -1,10 +1,17 @@
+# Inherit from here for each new commentable model.
+#
+# Inherited Resources fails to find the parent in polymorpic mode
 class CommentsController < InheritedResources::Base
-  # TODO fails in polymorphic mode
-  belongs_to :scheduling, :post, polymorphic: true, optional: false
-  load_and_authorize_resource
+  def self.inherited(child)
+    super
+    child.class_eval do
+      actions :create, :destroy
+      defaults :resource_class => Comment, :collection_name => 'comments', :instance_name => 'comment'
+      load_and_authorize_resource
 
-  actions :create, :destroy
-  respond_to :js
+      respond_to :js
+    end
+  end
 
   private
 

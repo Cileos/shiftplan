@@ -19,8 +19,8 @@ Feature: Comment on Schedulings
       And I fill in "Kommentar" with "Excellent!"
       And I press "Kommentieren"
      Then the "Kommentar" field should be empty
+      And I should see "Sie haben am 18.12.2012 um 00:00 Uhr geschrieben:" within comments within the modal box
       And I should see "Excellent!" within comments within the modal box
-      And I should see "Planner Burns" within comments within the modal box
 
   Scenario: employee answers
     Given a scheduling should exist
@@ -39,5 +39,5 @@ Feature: Comment on Schedulings
       And I press "Antworten"
      Then the "Kommentar" field should be empty
       And I should see "D'ooh!" within replies within comments within the modal box
-      And I should see "Homer S" within replies within comments within the modal box
+      And I should see "Sie haben am 18.12.2012 um 00:00 Uhr geschrieben:" within comments within the modal box
       But I should not see "Antworten" within "button"

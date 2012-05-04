@@ -9,7 +9,7 @@ Shiftplan::Application.routes.draw do
         collection do
           get 'multiple', as: 'multiple'
         end
-        resource :comments, only: [:create]
+        resource :comments, only: [:create], controller: 'scheduling_comments'
       end
       get 'week/:week' => 'schedulings#index', :as => 'week', :constraints => { :week => /\d{1,2}/ }
       get ':year/week/:week' => 'schedulings#index', :as => 'year_week', :constraints => { :year => /\d{4}/, :week => /\d{1,2}/ }
@@ -22,7 +22,7 @@ Shiftplan::Application.routes.draw do
     resources :invitations
     resources :blogs do
       resources :posts do
-        resources :comments, only: [:create, :destroy]
+        resources :comments, only: [:create, :destroy], controller: 'post_comments'
       end
     end
   end
