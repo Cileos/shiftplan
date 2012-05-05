@@ -1,6 +1,5 @@
 //= require jquery-miniColors/jquery.miniColors
 //= require _posts
-//= require _navigation
 //= require _common
 //= require _feedback
 
@@ -23,7 +22,7 @@
 /* import custom library */
 @import "library/*";
 
-@import "layout/header";
+@import "layout/*";
 
 /* from here on, we can re-use bootstrap variables */
 @import "plans";
