@@ -1,5 +1,5 @@
 /* --------------------------------------------------------------------- */
-/*  print.scss                                                           */
+/*  print.css.scss                                                       */
 /*  compass version: 0.12.rc.1                                           */
 /* --------------------------------------------------------------------- */
 
@@ -26,7 +26,8 @@ body {
 /* hide stuff not interesting on prints */
 .navbar,
 .pager,
-#actions {
+#actions,
+.footer {
     display: none;
 }
 
