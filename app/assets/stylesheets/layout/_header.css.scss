@@ -5,6 +5,7 @@
 
 
 .navbar-inner {
+    @include _set-gradient-background($color: #222, $percentage: 15%);
     .container-fluid {
         position: relative;
     }
