@@ -22,7 +22,9 @@
 /* import custom library */
 @import "library/*";
 
-@import "layout/*";
+@import "layout/_page";
+@import "layout/_header";
+@import "layout/_navigation";
 
 /* from here on, we can re-use bootstrap variables */
 @import "plans";
