@@ -45,6 +45,11 @@ $table_inner_border: 1px; /* hardcoded in bootstrap */
 }
 
 table#calendar {
+    // TODO: remove this by adding the page links to the table heading;
+    position: relative;
+    top: -25px;
+    z-index: 1;
+    // end todo
     caption {
         margin-bottom: 1.5em;
         font-size: 15px;
