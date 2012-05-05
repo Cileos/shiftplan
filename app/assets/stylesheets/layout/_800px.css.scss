@@ -1,0 +1,26 @@
+/* --------------------------------------------------------------------- */
+/*  _800px.css.scss                                                      */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+@media screen and (max-width: 800px) {
+    body > .container-fluid {
+        padding-left: 10px;
+        padding-right: 10px;
+        @include single-transition(all, 0.5s, ease);
+    }
+    #logo {
+        position: relative;
+        float: left;
+        margin-left: 0;
+    }
+    .navbar .nav {
+        margin-left: 0px;
+    }
+    .navbar-inner .container-fluid {
+        padding: 0;
+        margin-left: -20px;
+    }
+}
+

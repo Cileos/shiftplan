@@ -18,6 +18,8 @@
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
 @import "compass/css3/gradient";
+@import "compass/css3/transition";
+
 
 /* import custom library */
 @import "library/*";
@@ -28,3 +30,8 @@
 
 /* from here on, we can re-use bootstrap variables */
 @import "plans";
+
+/* specific layouts for different viewports (*not* iPad/iPhone) */
+@import "layout/1000px";
+@import "layout/800px";
+@import "layout/600px";
