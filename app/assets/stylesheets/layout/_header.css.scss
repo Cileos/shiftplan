@@ -1,0 +1,23 @@
+/* --------------------------------------------------------------------- */
+/*  header.css.scss                                                      */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+.navbar-inner {
+    .container-fluid {
+        position: relative;
+    }
+}
+#logo {
+    position: absolute;
+    @include _image-block('logo.png');
+    padding: 5px 0 0 0;
+    margin-left: -20px;
+    text-indent: -9999px;
+}
+.navbar {
+    .nav {
+        margin-left: 200px;
+    }
+}
