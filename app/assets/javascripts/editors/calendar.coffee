@@ -10,8 +10,8 @@ class CalendarEditor extends View
         data:
           ids: ($(sch).data('id') for sch in params.cell.find('li'))
         complete: =>
-          @addTabIndices()
           @setupForm()
+          @addTabIndices()
     else
       $.ajax
         url: params.cell.closest('table').data('new_url')
@@ -20,8 +20,8 @@ class CalendarEditor extends View
             employee_id: params.cell.data('employee_id')
             date:        params.cell.data('date')
         complete: =>
-          @addTabIndices()
           @setupForm()
+          @addTabIndices()
 
   modal: ->
     $('body.modal-open div.modal')
