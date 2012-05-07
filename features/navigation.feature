@@ -7,11 +7,11 @@ Feature: Navigation
     Given an organization "fukushima" exists with name: "Fukushima GmbH"
       And a blog exists with organization: the organization "fukushima"
       And a confirmed user exists with email: "me@shiftplan.de"
-      And a planner exists with user: the confirmed user, organization: the organization "fukushima"
+      And a planner exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Homer", last_name: "Simpson"
 
   Scenario: as a planner with multiple organizations
     Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And a planner exists with user: the confirmed user, organization: the organization "fukushima"
+      And a planner exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Bart", last_name: "Simpson"
       And I am signed in as the confirmed user
 
      Then I should be on the dashboard page
@@ -31,7 +31,7 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | me@shiftplan.de   | false  |
+       | Bart Simpson      | false  |
        | Ausloggen         | false  |
 
      When I follow "Neuigkeiten"
@@ -44,7 +44,7 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | me@shiftplan.de   | false  |
+       | Bart Simpson      | false  |
        | Ausloggen         | false  |
 
      When I choose "Alle Pläne" from the drop down "Pläne"
@@ -57,7 +57,7 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | me@shiftplan.de   | false  |
+       | Bart Simpson      | false  |
        | Ausloggen         | false  |
 
      When I follow "Mitarbeiter"
@@ -70,7 +70,7 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | true   |
        | Teams             | false  |
-       | me@shiftplan.de   | false  |
+       | Bart Simpson      | false  |
        | Ausloggen         | false  |
 
      When I follow "Teams"
@@ -83,7 +83,7 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | true   |
-       | me@shiftplan.de   | false  |
+       | Bart Simpson      | false  |
        | Ausloggen         | false  |
 
      When I follow "Shiftplan"
@@ -106,7 +106,7 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | me@shiftplan.de   | false  |
+       | Homer Simpson     | false  |
        | Ausloggen         | false  |
 
      When I follow "Neuigkeiten"
@@ -118,7 +118,7 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | me@shiftplan.de   | false  |
+       | Homer Simpson     | false  |
        | Ausloggen         | false  |
 
      When I choose "Alle Pläne" from the drop down "Pläne"
@@ -130,7 +130,7 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | me@shiftplan.de   | false  |
+       | Homer Simpson     | false  |
        | Ausloggen         | false  |
 
      When I follow "Mitarbeiter"
@@ -142,7 +142,7 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | true   |
        | Teams             | false  |
-       | me@shiftplan.de   | false  |
+       | Homer Simpson     | false  |
        | Ausloggen         | false  |
 
      When I follow "Teams"
@@ -154,7 +154,7 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | true   |
-       | me@shiftplan.de   | false  |
+       | Homer Simpson     | false  |
        | Ausloggen         | false  |
 
      When I follow "Shiftplan"

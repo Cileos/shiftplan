@@ -64,7 +64,7 @@ Feature: Inviting Employees
     When I fill in "Passwort" with "secret!"
     When I fill in "invitation_user_attributes_password_confirmation" with "secret!"
      And I press "Passwort setzen"
-    Then I should be signed in as "homer@thesimpsons.com"
+    Then I should be signed in as "Homer Simpson"
      And I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."
 
   Scenario: Inviting an employee with an email address of a confirmed user which has not been invited yet
