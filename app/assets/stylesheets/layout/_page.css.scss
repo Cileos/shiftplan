@@ -4,9 +4,7 @@
 /* --------------------------------------------------------------------- */
 
 
-body {
-    & > .container-fluid {
-        margin: 0 auto;
-        min-width: 480px;
-    }
+#page {
+    margin: 0 auto;
+    min-width: 480px;
 }

@@ -6,7 +6,7 @@
 
 /* For general iPhone layouts */
 @media only screen and (max-device-width: 480px) {
-    body > .container-fluid {
+    #page {
         padding-left: 5px;
         padding-right: 5px;
     }
@@ -23,14 +23,14 @@
     }
 
     /* hide feedback */
-    .footer, .jotform-feedback-link {
+    #footer, .jotform-feedback-link {
         display: none;
     }
 }
 
 /* For portrait layouts only */
 @media only screen and (max-device-width: 480px) and (orientation:portrait) {
-    body > .container-fluid {
+    #page {
         min-width: 310px;
         max-width: 310px;
         width: 310px;
@@ -39,7 +39,7 @@
 
 /* For landscape layouts only */
 @media only screen and (max-device-width: 480px) and (orientation:landscape) {
-    body > .container-fluid {
+    #page {
         min-width: 470px;
         max-width: 470px;
         width: 470px;
