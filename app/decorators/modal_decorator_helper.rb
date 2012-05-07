@@ -40,7 +40,7 @@ module ModalDecoratorHelper
 
   def clear_modal
     hide_modal
-    select(:modal).remove()
+    select(:modal_body).html ''
   end
 
   def selector_for(name, *more)

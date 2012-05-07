@@ -66,6 +66,7 @@ class CalendarCursor
       @$calendar.trigger 'calendar.cell_focus', $target
 
   enable: =>
+    @disable()
     $('body').bind 'keydown', @keydown
 
   disable: =>
