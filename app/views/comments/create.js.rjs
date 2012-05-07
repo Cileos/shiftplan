@@ -6,8 +6,8 @@ when Scheduling
         comment.update_parent
       else
         comment.append_to_comments_tab(parent)
-        comment.reset_form
       end
+        comment.reset_form
     else
       page << %Q~alert("no comment.")~
     end
