@@ -24,10 +24,11 @@
 /* import custom library */
 @import "library/*";
 
-@import "layout/_buttons";
-@import "layout/_page";
-@import "layout/_header";
-@import "layout/_navigation";
+@import "layout/buttons";
+@import "layout/page";
+@import "layout/header";
+@import "layout/navigation";
+@import "layout/content";
 
 /* from here on, we can re-use bootstrap variables */
 @import "plans";
