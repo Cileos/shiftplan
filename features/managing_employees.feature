@@ -28,9 +28,11 @@ Feature: Create Employees
       And I should be on the employees page for the organization
       And I should see "Carl Carlson"
       And I should see "30"
+      And I should see the avatar "rails.png" for the employee "Carl Carlson"
      When I follow "Carl Carlson"
       And I wait for the modal box to appear
      Then I should see the avatar "rails.png" for the employee "Carl Carlson"
+      But I should see the avatar "default_avatar.png" for the employee "Homer Simpson"
 
   # The following scenario tests if the ajax multipart form really works.
   # Because ajax file uploads are not supported normally because of security reasons,
@@ -45,18 +47,17 @@ Feature: Create Employees
      When I follow "Hinzufügen"
       And I wait for the modal box to appear
      Then the "Wochenarbeitszeit" field should contain "40"
-      And I fill in the following:
-        | Nachname          | Carlson |
+      And I fill in "Nachname" with "Carlson"
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
      Then I should see "Vorname muss ausgefüllt werden"
-     When I fill in the following:
-        | Vorname          | Carl |
+     When I fill in "Vorname" with "Carl"
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see flash info "Mitarbeiter erfolgreich angelegt."
       And I should be on the employees page for the organization
       And I should see "Carl Carlson"
+      And I should see the avatar "rails.png" for the employee "Carl Carlson"
      When I follow "Carl Carlson"
       And I wait for the modal box to appear
      Then I should see the avatar "rails.png" for the employee "Carl Carlson"

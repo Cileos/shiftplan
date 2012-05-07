@@ -29,4 +29,14 @@ module EmployeesHelper
       edit_organization_invitation_path(current_organization, employee.invitation)
     end
   end
+
+  def avatar(employee, version)
+    html_options = { class: "avatar #{version}" }
+    html_options.merge!(id: "avatar_#{employee.id}") if employee.persisted?
+    if employee.avatar?
+      image_tag(employee.avatar.send(version).url, html_options)
+    else
+      image_tag(asset_path("#{version}_default_avatar.png"), html_options)
+    end
+  end
 end

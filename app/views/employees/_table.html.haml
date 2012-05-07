@@ -9,7 +9,13 @@
   %tbody
     - employees.each do |employee|
       %tr
-        %th= can?(:update, employee) ? link_to(employee.name, [:edit, current_organization, employee], remote: true) : employee.name
+        %th
+          - if can?(:update, employee)
+            = link_to(avatar(employee, :thumb), [:edit, current_organization, employee], remote: true)
+            = link_to(employee.name, [:edit, current_organization, employee], remote: true)
+          - else
+            = avatar(employee, :thumb)
+            = employee.name
         %td= employee.try(:user).try(:email) || employee.try(:invitation).try(:email)
         %td= invitation_status(employee)
         %td= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
