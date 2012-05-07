@@ -68,7 +68,7 @@ de:
     formats:
       default: "%A, %d. %B %Y, %H:%M Uhr"
       short: "%d. %B, %H:%M Uhr"
-      tiny: "%d.%m.%Y %H:%M"
+      tiny: "%d.%m.%Y um %H:%M Uhr"
       long: "%A, %d. %B %Y, %H:%M Uhr"
       time: "%H:%M"
 
@@ -213,7 +213,7 @@ de:
       odd: "muss ungerade sein"
       even: "muss gerade sein"
       not_an_integer: "muss ganzzahlig sein"
-      not_saved: 
+      not_saved:
         one:    "Speichern nicht möglich: ein Fehler."
         other:  "Speichern nicht möglich: %{count} Fehler."
     template: &errors_template

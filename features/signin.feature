@@ -6,7 +6,7 @@ Feature: Signing in
   Scenario: Signing in and signing out successfully
     Given I am on the home page
       And a confirmed user exists with email: "me@example.com"
-      And a planner exists with user: the confirmed user
+      And an employee planner exists with user: the confirmed user
      When I follow "Einloggen"
       And I fill in "E-Mail" with "me@example.com"
       And I fill in "Passwort" with "secret"

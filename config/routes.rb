@@ -5,27 +5,34 @@ Shiftplan::Application.routes.draw do
 
   resources :organizations do
     resources :plans do
-      resources :schedulings
+      resources :schedulings do
+        collection do
+          get 'multiple', as: 'multiple'
+        end
+        resource :comments, only: [:create], controller: 'scheduling_comments'
+      end
       get 'week/:week' => 'schedulings#index', :as => 'week', :constraints => { :week => /\d{1,2}/ }
       get ':year/week/:week' => 'schedulings#index', :as => 'year_week', :constraints => { :year => /\d{4}/, :week => /\d{1,2}/ }
       resource :copy_week, only: [:new, :create], controller: :copy_week
     end
     resources :employees
     resources :teams do
-      resource :merge, :only => [:new, :create], :controller => 'team_merge'
+      resource :merge, only: [:new, :create], :controller => 'team_merge'
     end
     resources :invitations
     resources :blogs do
       resources :posts do
-        resources :comments, only: [:create, :destroy]
+        resources :comments, only: [:create, :destroy], controller: 'post_comments'
       end
     end
   end
 
+  resource :feedback, only: [:new, :create], :controller => 'feedback'
+
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
   get "dashboard" => 'welcome#dashboard', :as => 'user_root'
 
-  devise_for :users, :controllers => { :registrations => "planners/registrations" }
+  devise_for :users, :controllers => { registrations: 'planners/registrations', sessions: 'sessions'}
 
   root :to => "welcome#landing"
 end

@@ -43,6 +43,10 @@ class SchedulingDecorator < ApplicationDecorator
     args.compact.join(' ')
   end
 
+  def insert_new_form
+    append_modal body: h.render('new_form', scheduling: model)
+  end
+
 
   private
     def scheduling

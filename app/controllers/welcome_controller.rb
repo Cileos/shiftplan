@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
   skip_authorization_check only: :landing
+  no_authentication_required only: :landing
   before_filter :authorize_user, only: :dashboard
   before_filter :check_for_multiple_organizations, only: :dashboard
 

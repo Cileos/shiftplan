@@ -7,11 +7,11 @@ Feature: Navigation
     Given an organization "fukushima" exists with name: "Fukushima GmbH"
       And a blog exists with organization: the organization "fukushima"
       And a confirmed user exists with email: "me@shiftplan.de"
-      And a planner exists with user: the confirmed user, organization: the organization "fukushima"
+      And a employee planner exists with user: the confirmed user, organization: the organization "fukushima"
 
   Scenario: as a planner with multiple organizations
     Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And a planner exists with user: the confirmed user, organization: the organization "fukushima"
+      And a employee planner exists with user: the confirmed user, organization: the organization "fukushima"
       And I am signed in as the confirmed user
 
      Then I should be on the dashboard page

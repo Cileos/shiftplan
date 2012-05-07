@@ -1,0 +1,25 @@
+$modal_spacing: 9px;
+
+div.modal {
+  form {
+    position: relative;
+    .errors {
+      margin-top: 9px;
+      margin-bottom: 9px;
+    }
+  }
+  div.tabbable {
+    @include box-shadow($grayLight 1px 1px 6px);
+    margin: 2*$modal_spacing 0;
+    padding: $modal_spacing;
+    ul.nav-tabs {
+      margin-bottom: $modal_spacing;
+    }
+  }
+}
+
+@mixin align-top($direction: left, $spacing: $modal_spacing) {
+  position: absolute;
+  #{$direction}: $spacing;
+  top: $modal_spacing;
+}

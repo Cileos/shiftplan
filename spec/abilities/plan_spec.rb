@@ -14,7 +14,7 @@ describe "Plan permissions:" do
   end
 
   context "As an owner" do
-    let(:employee) { Factory(:owner, organization: organization, user: user) }
+    let(:employee) { Factory(:employee_owner, organization: organization, user: user) }
 
     context "for other organizations" do
       it "should not be able to read plans" do

@@ -54,7 +54,7 @@ end
 # FIXME can only match the whole calendar
 Then /^I should see the following calendar:$/ do |expected|
   actual = find(selector_for('the calendar')).all("tr").map do |tr|
-    tr.all('th, td').map(&:text).map(&:strip)
+    tr.all('th, td').map(&:text).map {|text| text.strip.gsub(/\s+/, ' ') }
   end
   expected.diff! actual
 end

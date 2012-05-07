@@ -23,19 +23,27 @@ Feature: create a scheduling
         | Lenny L       |        |          |          |            |         |         |         |
         | Homer S       |        |          | 9-17     |            |         |         |         |
 
-  # TODO: currently it is assumend that a user can only have one organization
-  Scenario: can only select employees from same planner (and organization)
-    Given an organization "Jungle" exists
-      And an employee exists with first_name: "Tarzan", organization: organization "Jungle"
-    #  And an organization "Home" exists with planner: the planner
-    #  And an employee exists with first_name: "Bart", organization: organization "Home"
-     When I go to the page of the plan "clean reactor"
-     Then I should see "Homer S"
-     #  But I should not see "Bart"
-      But I should not see "Tarzan" within the first form
-      And I should not see "Tarzan" within the calendar
+  @javascript
+  Scenario: scheduling the same employee twice per day
+    Given the employee "Homer" was scheduled in the plan as following:
+        | date       | quickie |
+        | 2012-02-15 | 9-17    |
+      And I am on the page of the plan
+     When I follow "Neue Terminierung"
+      And I select "Homer S" from "Mitarbeiter"
+      And I select "Mittwoch" from "Wochentag"
+      And I fill in "Quickie" with "18-23"
+      And I press "Anlegen"
+     Then I should see the following calendar:
+        | Mitarbeiter   | Montag | Dienstag | Mittwoch   | Donnerstag | Freitag | Samstag | Sonntag |
+        | Planner Burns |        |          |            |            |         |         |         |
+        | Carl C        |        |          |            |            |         |         |         |
+        | Lenny L       |        |          |            |            |         |         |         |
+        | Homer S       |        |          | 9-17 18-23 |            |         |         |         |
+
 
   # TODO: currently it is assumend that a user can only have one organization
+  @javascript
   Scenario: can only select employees from same planner (and organization)
     Given an organization "Jungle" exists
       And an employee exists with first_name: "Tarzan", organization: organization "Jungle"
@@ -43,6 +51,20 @@ Feature: create a scheduling
     #  And an employee exists with first_name: "Bart", organization: organization "Home"
      When I go to the page of the plan "clean reactor"
      Then I should see "Homer S"
+      And I should not see "Tarzan" within the calendar
+     When I follow "Neue Terminierung"
+      And I wait for the new scheduling form to appear
+     Then I should not see "Tarzan" within the first form
+
+  # TODO: currently it is assumend that a user can only have one organization
+  @javascript
+  Scenario: can only select employees from same planner (and organization)
+    Given an organization "Jungle" exists
+      And an employee exists with first_name: "Tarzan", organization: organization "Jungle"
+    #  And an organization "Home" exists with planner: the planner
+    #  And an employee exists with first_name: "Bart", organization: organization "Home"
+     When I go to the page of the plan "clean reactor"
+     When I follow "Neue Terminierung"
      #  But I should not see "Bart"
       But I should not see "Tarzan" within the first form
       And I should not see "Tarzan" within the calendar

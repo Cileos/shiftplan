@@ -1,0 +1,6 @@
+= tabs_for scheduling, :edit, :comments, well: true do |tab|
+  - if can? :edit, scheduling
+    - tab == :edit
+  - else
+    - tab == :comments
+

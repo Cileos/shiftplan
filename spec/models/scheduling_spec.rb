@@ -120,6 +120,15 @@ describe Scheduling do
 
     end
 
+    describe "given as date only" do
+      let :scheduling do
+        build( date: the_date)
+      end
+      it "should accept date to fill selectbox" do
+        scheduling.date.should == Time.zone.parse(the_date).to_date
+      end
+    end
+
     describe "given as date and hours" do
       it_behaves_like 'completely defined' do
         let :scheduling do

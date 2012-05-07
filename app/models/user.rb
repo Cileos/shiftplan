@@ -6,8 +6,14 @@ class User < ActiveRecord::Base
          :confirmable, :timeoutable, :lockable, :token_authenticatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :employee_id, :confirmed_at
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :employee_id, :confirmed_at,
+    :first_name, :last_name, :organization_name, :on_signup
   attr_reader :current_employee
+  # Virtual attributes for registration purposes. On registration the auto-created organization
+  # and employee get useful values.
+  attr_accessor :first_name, :last_name, :organization_name, :on_signup
+
+  validates_presence_of :first_name, :last_name, :organization_name, if: Proc.new { |u| u.on_signup }
 
   has_many :employees
   has_many :invitations

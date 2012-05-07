@@ -1,7 +1,11 @@
 page.decorate resource.concurrent do |filter|
   filter.update_wwt_diff_for(resource.employee)
   filter.update_cell_for(resource)
-  filter.remove :form_for, resource
-  page['scheduling_new_quickie'].val(resource.quickie)
+  filter.remove :tabs_for, resource
+
+  # we reuse the just deleted resource for the new form, #dom_id helper get's confused if this has an id
+  fresh = resource.dup
+  filter.remove :form_for, fresh
+  filter.append_to_modal render('new_form', scheduling: fresh)
 end
 
