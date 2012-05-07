@@ -17,7 +17,7 @@ module ModalDecoratorHelper
 
   # removes all modal boxes first, appends a new one to the body and opens it
   def append_modal(options = {})
-    select(:modal).remove()
+    clear_modal
     page.select('body').append(modal(options))
     select(:modal).modal('show')
   end
@@ -28,6 +28,19 @@ module ModalDecoratorHelper
 
   def prepend_to_modal(html)
     select(:modal_body).prepend html
+  end
+
+  def hide_modal(*a)
+    if a.empty?
+      page.select('.modal')
+    else
+      select(*a)
+    end.modal('hide')
+  end
+
+  def clear_modal
+    hide_modal
+    select(:modal).remove()
   end
 
   def selector_for(name, *more)

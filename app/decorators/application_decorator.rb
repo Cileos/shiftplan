@@ -35,14 +35,6 @@ class ApplicationDecorator < Draper::Base
     select(*a).remove()
   end
 
-  def hide_modal(*a)
-    if a.empty?
-      page.select('.modal')
-    else
-      select(*a)
-    end.modal('hide')
-  end
-
   # prepend validation errors for given `resource` to its form
   def prepend_errors_for(resource)
     select(:errors_for, resource).remove()

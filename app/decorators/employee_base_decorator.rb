@@ -20,7 +20,7 @@ module EmployeeBaseDecorator
     unless errors.empty?
       prepend_errors_for(invitation)
     else
-      hide_modal
+      clear_modal
       update_employees
       update_flash
     end
