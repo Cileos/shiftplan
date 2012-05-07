@@ -8,7 +8,7 @@
 
   %tbody
     - employees.each do |employee|
-      %tr
+      %tr{ id: "employee_#{employee.id}" }
         %th
           - if can?(:update, employee)
             = link_to(avatar(employee, :thumb), [:edit, current_organization, employee], remote: true)

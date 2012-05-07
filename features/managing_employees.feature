@@ -21,6 +21,7 @@ Feature: Create Employees
         | Vorname           | Carl    |
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30      |
+      And I should see the avatar "default_avatar.png" within the new employee form
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
       And I wait for the modal box to disappear
@@ -28,11 +29,11 @@ Feature: Create Employees
       And I should be on the employees page for the organization
       And I should see "Carl Carlson"
       And I should see "30"
-      And I should see the avatar "rails.png" for the employee "Carl Carlson"
+     Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
+      But I should see the avatar "default_avatar.png" within the row for employee "Homer Simpson"
      When I follow "Carl Carlson"
       And I wait for the modal box to appear
-     Then I should see the avatar "rails.png" for the employee "Carl Carlson"
-      But I should see the avatar "default_avatar.png" for the employee "Homer Simpson"
+     Then I should see the avatar "rails.png" within the edit employee form
 
   # The following scenario tests if the ajax multipart form really works.
   # Because ajax file uploads are not supported normally because of security reasons,
@@ -48,6 +49,7 @@ Feature: Create Employees
       And I wait for the modal box to appear
      Then the "Wochenarbeitszeit" field should contain "40"
       And I fill in "Nachname" with "Carlson"
+      And I should see the avatar "default_avatar.png" within the new employee form
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
      Then I should see "Vorname muss ausgefüllt werden"
@@ -57,10 +59,11 @@ Feature: Create Employees
      Then I should see flash info "Mitarbeiter erfolgreich angelegt."
       And I should be on the employees page for the organization
       And I should see "Carl Carlson"
-      And I should see the avatar "rails.png" for the employee "Carl Carlson"
+     Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
+      But I should see the avatar "default_avatar.png" within the row for employee "Homer Simpson"
      When I follow "Carl Carlson"
       And I wait for the modal box to appear
-     Then I should see the avatar "rails.png" for the employee "Carl Carlson"
+     Then I should see the avatar "rails.png" within the edit employee form
 
   @javascript
   Scenario: Trying to create an employee without a first name

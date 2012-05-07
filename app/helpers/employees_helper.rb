@@ -32,7 +32,6 @@ module EmployeesHelper
 
   def avatar(employee, version)
     html_options = { class: "avatar #{version}" }
-    html_options.merge!(id: "avatar_#{employee.id}") if employee.persisted?
     if employee.avatar?
       image_tag(employee.avatar.send(version).url, html_options)
     else

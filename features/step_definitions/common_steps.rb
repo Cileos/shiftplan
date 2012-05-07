@@ -18,9 +18,8 @@ Given /^the situation of ([\w ]+)$/ do |situation|
   steps File.read(path)
 end
 
-Then /^I should see the avatar "([^"]*)" for the employee "([^"]*)"$/ do |file_name, employee_name|
-  employee = Employee.find_by_first_name_and_last_name(employee_name.split[0], employee_name.split[1])
-  image_tag = page.find("img#avatar_#{employee.id}")
+Then /^I should see the avatar "([^"]*)"$/ do |file_name|
+  image_tag = page.find("img.avatar")
   assert image_tag['src'].split('/').last.include?(file_name), "No image tag with src including '#{file_name}' found"
   path = [Rails.root, 'features', image_tag['src'].split('/features/')[1]].join('/')
   assert File.exists?(path), "File '#{path}' does not exist."
