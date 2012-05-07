@@ -23,6 +23,9 @@ module HtmlSelectorsHelpers
       employee = Employee.find_by_first_name_and_last_name($1.split[0], $1.split[1])
       "table#employees tr#employee_#{employee.id}"
 
+    when /^the employees table$/
+      "table#employees"
+
     when 'the navigation'
       '.navbar:first'
 

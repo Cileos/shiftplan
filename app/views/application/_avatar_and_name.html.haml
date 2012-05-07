@@ -1,0 +1,6 @@
+%span#avatar_and_name
+  - if current_employee.present?
+    %span.name= current_employee.name
+    %span.avatar= avatar(current_employee, :thumb)
+  - else
+    %span.name= current_user.email

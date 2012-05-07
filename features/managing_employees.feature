@@ -31,7 +31,7 @@ Feature: Create Employees
       And I should see "30"
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
       But I should see the avatar "default_avatar.png" within the row for employee "Homer Simpson"
-     When I follow "Carl Carlson"
+     When I follow "Carl Carlson" within the employees table
       And I wait for the modal box to appear
      Then I should see the avatar "rails.png" within the edit employee form
 
@@ -61,9 +61,22 @@ Feature: Create Employees
       And I should see "Carl Carlson"
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
       But I should see the avatar "default_avatar.png" within the row for employee "Homer Simpson"
-     When I follow "Carl Carlson"
+     When I follow "Carl Carlson" within the employees table
       And I wait for the modal box to appear
      Then I should see the avatar "rails.png" within the edit employee form
+
+  @javascript
+  @fileupload
+  Scenario: Uploading an avatar for myself on employee page
+     Then I should see the avatar "default_avatar.png" within the row for employee "Homer Simpson"
+      And I should see the avatar "default_avatar.png" within the navigation
+     When I follow "Homer Simpson" within the employees table
+      And I wait for the modal box to appear
+      And I attach the file "app/assets/images/rails.png" to "employee_avatar"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see the avatar "rails.png" within the row for employee "Homer Simpson"
+      And I should see the avatar "rails.png" within the navigation
 
   @javascript
   Scenario: Trying to create an employee without a first name
@@ -101,7 +114,7 @@ Feature: Create Employees
   Scenario: Editing an employee
       And I should be on the employees page for the organization
      Then I should not see "Carl Carlson"
-     When I follow "Homer Simpson"
+     When I follow "Homer Simpson" within the employees table
       And I wait for the modal box to appear
       And I fill in the following:
         | Vorname  | Carl    |
