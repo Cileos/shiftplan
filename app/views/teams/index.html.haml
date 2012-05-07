@@ -1,9 +1,7 @@
 - title :teams
 
 .row
-  .span4
-    = tt '.instructions'
-  .span6
+  .span7
     %table#teams.table.table-striped.table-condensed
       %thead
         %tr.employee
@@ -19,3 +17,5 @@
             %td
               - if can? :edit, team
                 = link_to :edit, edit_organization_team_path(current_organization, team), class: 'btn btn-warning btn-mini'
+  .span5.instructions
+    = tt '.instructions'
