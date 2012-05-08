@@ -389,3 +389,16 @@ In order to keep my colleagues informed about important news
       And I should see "Post 1"
       But I should not see "Post 0"
 
+  @fileupload
+  Scenario: Avatars of authors of posts and comments
+    Given a confirmed user "bart" exists
+      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+      And the employee "bart" has the avatar "app/assets/images/rails.png"
+      And a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
+     When I sign in as the confirmed user "bart"
+      And I follow "AKW Fukushima GmbH"
+     Then I should see the avatar "default_avatar.png" within the post
+      And I follow "Mehr"
+     Then I should see the avatar "default_avatar.png" within the post
+      And I should see the avatar "rails.png" within the comment

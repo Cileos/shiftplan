@@ -78,6 +78,17 @@ module HtmlSelectorsHelpers
     when /^"(.+)"$/
       $1
 
+    when /^#{capture_model}$/
+      model = model!($1)
+      case model
+      when Post
+        "#post_#{model.id}"
+      when Comment
+        "#comment_#{model.id}"
+      else
+        raise ArgumentError, "cannot find selector for \"#{$1}\", please add it in #{__FILE__}:#{__LINE__}"
+      end
+
     else
       raise "Can't find mapping from \"#{locator}\" to a selector.\n" +
         "Now, go and add a mapping in #{__FILE__}"

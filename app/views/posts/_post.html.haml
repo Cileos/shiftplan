@@ -1,3 +1,4 @@
+= avatar(post.author, :thumb)
 - if post.author == current_user.current_employee
   .own-meta= t(:'blogs.own_meta_data', published_at: l(post.published_at, format: :tiny))
 - else
