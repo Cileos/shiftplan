@@ -1,0 +1,21 @@
+= simple_form_for(@feedback, url: feedback_path, remote: true) do |f|
+  = f.error_notification
+
+  .inputs
+    - if current_employee
+      - @feedback.email = current_employee.user.email
+      - @feedback.name = current_employee.name
+      = f.input :email, as: :hidden
+      = f.input :name, as: :hidden
+    - elsif current_user
+      = f.input :name
+      - @feedback.email = current_user.email
+      = f.input :email, as: :hidden
+    - else
+      = f.input :name
+      = f.input :email
+    = f.input :browser, as: :hidden
+    = f.input :body, as: :text, input_html: { class: 'input-fullwidth', rows: 10 }, autofocus: true
+
+  .actions
+    %button.btn.btn-primary= ti(:send)

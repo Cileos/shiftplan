@@ -1,6 +1,8 @@
 //= require jquery-miniColors/jquery.miniColors
 //= require _posts
 //= require _navigation
+//= require _common
+//= require _feedback
 
 /*
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
@@ -17,8 +19,9 @@
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
 
-/* import custom library */
-@import "library/*";
-
 /* from here on, we can re-use bootstrap variables */
+@import "library/*";
+@import "modal";
 @import "plans";
+@import "comments";
+

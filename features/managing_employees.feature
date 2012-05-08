@@ -6,7 +6,7 @@ Feature: Create Employees
   Background:
     Given an organization exists with name: "Fukushima GmbH"
       And a confirmed user exists
-      And a planner exists with first_name: "Homer", last_name: "Simpson", user: the confirmed user, organization: the organization
+      And an employee planner exists with first_name: "Homer", last_name: "Simpson", user: the confirmed user, organization: the organization
      When I sign in as the confirmed user
       And I follow "Fukushima GmbH"
       And I follow "Mitarbeiter"

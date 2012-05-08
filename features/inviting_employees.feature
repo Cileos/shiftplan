@@ -8,7 +8,7 @@ Feature: Inviting Employees
     Given today is "2012-05-23 12:00"
       And an organization "fukushima" exists with name: "Fukushima"
       And a confirmed user exists with email: "planner@fukushima.jp"
-      And a planner exists with first_name: "Planner", last_name: "Burns", user: the confirmed user, organization: the organization
+      And an employee planner exists with first_name: "Planner", last_name: "Burns", user: the confirmed user, organization: the organization
 
       And an employee "homer" exists with organization: organization "fukushima", first_name: "Homer"
      When I sign in as the confirmed user
@@ -102,9 +102,9 @@ Feature: Inviting Employees
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     Then I should see the following table of employees:
-      | Name          | E-Mail                | Status                                          |
-      | Planner Burns | planner@fukushima.jp  | Aktiv                                           |
-      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 23.05.2012 12:00 |
+      | Name          | E-Mail                | Status                                                 |
+      | Planner Burns | planner@fukushima.jp  | Aktiv                                                  |
+      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 23.05.2012 um 12:00 Uhr |
 
     Given today is "2012-05-24 12:00"
     # need to sign in again because the session has expired
@@ -112,9 +112,9 @@ Feature: Inviting Employees
     When I reinvite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     Then I should see the following table of employees:
-      | Name          | E-Mail                | Status                                          |
-      | Planner Burns | planner@fukushima.jp  | Aktiv                                           |
-      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 24.05.2012 12:00 |
+      | Name          | E-Mail                | Status                                                 |
+      | Planner Burns | planner@fukushima.jp  | Aktiv                                                  |
+      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 24.05.2012 um 12:00 Uhr |
     And I sign out
 
     When the employee accepts the invitation for the organization "fukushima" with setting a password
@@ -142,7 +142,7 @@ Feature: Inviting Employees
   Scenario: Inviting with an email that's already assigned to an employee of a different organization
     Given an organization "tschernobyl" exists with name: "Tschernobyl"
       And a confirmed user "mr. burns" exists
-      And a planner "mr. burns" exists with user: the confirmed user "mr. burns", organization: the organization "tschernobyl"
+      And an employee planner "mr. burns" exists with user: the confirmed user "mr. burns", organization: the organization "tschernobyl"
       And an employee "ray atom" exists with organization: organization "tschernobyl", first_name: "Ray", last_name: "Atom"
 
      When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"

@@ -1,0 +1,3 @@
+page.decorate @scheduling do |f|
+  f.insert_new_form
+end

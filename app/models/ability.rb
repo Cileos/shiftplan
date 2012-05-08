@@ -1,8 +1,17 @@
 class Ability
+  #
+  # WARNING
+  #
+  # If your defined abilities are not applied, make sure an :organization_id is
+  # included in the URL of the current action, else User#current_employee is
+  # not set and we cannot determine permissions
+  #
   include CanCan::Ability
 
   def initialize(current_user)
     user = current_user || User.new # guest user (not logged in)
+
+    alias_action :multiple, to: :read
 
     # the role is bound to Employee, so we carry the employee around
     if employee = user.current_employee
@@ -16,6 +25,7 @@ class Ability
     unless user.new_record?
       authorize_signed_in
     end
+    can :create, Feedback
   end
 
   def authorize_signed_in
@@ -31,7 +41,7 @@ class Ability
     can :read,               Team,         organization: is_employee_of
     can :read,               Scheduling,   plan: { organization: is_employee_of }
     can :read,               Organization, is_employee_of
-    can [:read, :create],    Comment,      commentable: { blog: { organization: is_employee_of } }
+    can [:read, :create],    Comment,      commentable: { organization: is_employee_of }
     can [:destroy],          Comment,      { employee_id: employee.id }
   end
 

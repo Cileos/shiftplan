@@ -19,7 +19,7 @@ describe "Post permissions:" do
   end
 
   context "As an owner" do
-    let(:employee) { Factory(:owner, organization: organization, user: user) }
+    let(:employee) { Factory(:employee_owner, organization: organization, user: user) }
 
     context "for my own organization" do
       it "I should not be able to update posts having an author different than me" do

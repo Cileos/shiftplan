@@ -32,7 +32,7 @@ class PostDecorator < ApplicationDecorator
     unless errors.empty?
       prepend_errors_for(post)
     else
-      hide_modal
+      clear_modal
       update_posts(post)
       update_post(post)
       update_flash
