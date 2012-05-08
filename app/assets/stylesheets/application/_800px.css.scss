@@ -22,5 +22,18 @@
         padding: 0;
         margin-left: -20px;
     }
+    table#calendar {
+        td {
+            padding: 2px;
+        }
+        ul li {
+            @include border-left-radius(5px);
+            margin: 3px;
+            abbr, span {
+                font-size: 80%;
+                margin-left: 0.3em;
+            }
+        }
+    }
 }
 
