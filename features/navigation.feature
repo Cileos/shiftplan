@@ -86,7 +86,7 @@ Feature: Navigation
        | me@shiftplan.de   | false  |
        | Ausloggen         | false  |
 
-     When I follow "Shiftplan"
+     When I follow "shiftplan"
      Then I should be on the landing page
      Then I should see the following list of links within the navigation:
        | link            | active |
@@ -157,7 +157,7 @@ Feature: Navigation
        | me@shiftplan.de   | false  |
        | Ausloggen         | false  |
 
-     When I follow "Shiftplan"
+     When I follow "shiftplan"
      Then I should be on the landing page
      Then I should see the following list of links within the navigation:
        | link              | active |
