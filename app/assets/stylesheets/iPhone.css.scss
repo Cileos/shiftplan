@@ -6,6 +6,9 @@
 
 /* For general iPhone layouts */
 @media only screen and (max-device-width: 480px) {
+    body {
+        -webkit-text-size-adjust: none; /* dont fk around with my prefs */
+    }
     #page {
         padding-left: 5px;
         padding-right: 5px;

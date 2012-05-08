@@ -6,6 +6,9 @@
 
 /* For general iPad layouts */
 @media only screen and (device-width: 768px) {
+    body {
+        -webkit-text-size-adjust: none; /* dont fk around with my prefs */
+    }
     /* hide screenshot-feedback */
     .jotform-feedback-link {
         display: none;
