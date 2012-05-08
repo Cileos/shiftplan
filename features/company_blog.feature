@@ -78,7 +78,7 @@ In order to keep my colleagues informed about important news
       And 0 posts should exist
 
   Scenario: Editing a blog post
-    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
      Then I should see "Umweltminister zu Besuch"
@@ -97,7 +97,7 @@ In order to keep my colleagues informed about important news
       And I should see "Bitte Kontrollräume aufräumen"
 
   Scenario: Deleting a blog post
-    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
      When I follow "Mehr"
@@ -109,7 +109,7 @@ In order to keep my colleagues informed about important news
       And I should see "Es wurden noch keine Blogposts erstellt."
 
   Scenario: Employees can only edit their own blog posts
-    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And a confirmed user "bart" exists
       And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
      When I sign in as the confirmed user "bart"
@@ -120,7 +120,7 @@ In order to keep my colleagues informed about important news
       But I should not see "Bearbeiten"
 
   Scenario: Employees can only destroy their own blog posts
-    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And a confirmed user "bart" exists
       And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
      When I sign in as the confirmed user "bart"
@@ -131,7 +131,7 @@ In order to keep my colleagues informed about important news
       But I should not see "Löschen"
 
   Scenario: User visits detail view of a post
-    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
      Then I should see "Umweltminister zu Besuch"
@@ -156,7 +156,7 @@ In order to keep my colleagues informed about important news
 
   Scenario: Commenting blog posts
     # a post of mr. burns
-    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
 
       And a confirmed user "lisa" exists with email: "lisa@thesimpsons.com"
       And an employee "lisa" exists with first_name: "Lisa", organization: organization "fukushima", user: the confirmed user "lisa"
@@ -231,7 +231,7 @@ In order to keep my colleagues informed about important news
       And I should see "Ich werde einen Blumenstrauß mitbringen"
 
   Scenario: Deleting comments on posts
-    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
       And I follow "Mehr"
@@ -248,7 +248,7 @@ In order to keep my colleagues informed about important news
       And I should be on the page of the post
 
   Scenario: Users can only delete their own comments on posts
-    Given a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
       And I follow "Mehr"
@@ -268,17 +268,17 @@ In order to keep my colleagues informed about important news
 
   Scenario: User paginates through blog posts
     Given the following posts exist:
-      | title   | blog     | author                |
-      | Post 0  | the blog | the owner "mr. burns" |
-      | Post 1  | the blog | the owner "mr. burns" |
-      | Post 2  | the blog | the owner "mr. burns" |
-      | Post 3  | the blog | the owner "mr. burns" |
-      | Post 4  | the blog | the owner "mr. burns" |
-      | Post 5  | the blog | the owner "mr. burns" |
-      | Post 6  | the blog | the owner "mr. burns" |
-      | Post 7  | the blog | the owner "mr. burns" |
-      | Post 8  | the blog | the owner "mr. burns" |
-      | Post 9  | the blog | the owner "mr. burns" |
+      | title  | blog     | author                         |
+      | Post 0 | the blog | the employee owner "mr. burns" |
+      | Post 1 | the blog | the employee owner "mr. burns" |
+      | Post 2 | the blog | the employee owner "mr. burns" |
+      | Post 3 | the blog | the employee owner "mr. burns" |
+      | Post 4 | the blog | the employee owner "mr. burns" |
+      | Post 5 | the blog | the employee owner "mr. burns" |
+      | Post 6 | the blog | the employee owner "mr. burns" |
+      | Post 7 | the blog | the employee owner "mr. burns" |
+      | Post 8 | the blog | the employee owner "mr. burns" |
+      | Post 9 | the blog | the employee owner "mr. burns" |
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
       And I follow "Alle Neuigkeiten anzeigen"
@@ -314,18 +314,18 @@ In order to keep my colleagues informed about important news
 
   Scenario: User paginates through blog posts
     Given the following posts exist:
-      | title  | blog     | author                |
-      | Post 0  | the blog | the owner "mr. burns" |
-      | Post 1  | the blog | the owner "mr. burns" |
-      | Post 2  | the blog | the owner "mr. burns" |
-      | Post 3  | the blog | the owner "mr. burns" |
-      | Post 4  | the blog | the owner "mr. burns" |
-      | Post 5  | the blog | the owner "mr. burns" |
-      | Post 6  | the blog | the owner "mr. burns" |
-      | Post 7  | the blog | the owner "mr. burns" |
-      | Post 8  | the blog | the owner "mr. burns" |
-      | Post 9  | the blog | the owner "mr. burns" |
-      | Post 10 | the blog | the owner "mr. burns" |
+      | title   | blog     | author                         |
+      | Post 0  | the blog | the employee owner "mr. burns" |
+      | Post 1  | the blog | the employee owner "mr. burns" |
+      | Post 2  | the blog | the employee owner "mr. burns" |
+      | Post 3  | the blog | the employee owner "mr. burns" |
+      | Post 4  | the blog | the employee owner "mr. burns" |
+      | Post 5  | the blog | the employee owner "mr. burns" |
+      | Post 6  | the blog | the employee owner "mr. burns" |
+      | Post 7  | the blog | the employee owner "mr. burns" |
+      | Post 8  | the blog | the employee owner "mr. burns" |
+      | Post 9  | the blog | the employee owner "mr. burns" |
+      | Post 10 | the blog | the employee owner "mr. burns" |
      When I sign in as the confirmed user "mr. burns"
       And I follow "AKW Fukushima GmbH"
       And I follow "Alle Neuigkeiten anzeigen"

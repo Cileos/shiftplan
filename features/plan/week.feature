@@ -4,7 +4,7 @@ Feature: Plan a week
   Background:
     Given an organization exists
       And a confirmed user exists
-      And a planner exists with first_name: "Jack", last_name: "T", user: the confirmed user, organization: the organization
+      And an employee planner exists with first_name: "Jack", last_name: "T", user: the confirmed user, organization: the organization
       # week 49
       And today is 2012-12-04
       And a plan exists with organization: the organization, name: "Dull Work"

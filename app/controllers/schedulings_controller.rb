@@ -3,6 +3,7 @@ class SchedulingsController < InheritedResources::Base
 
   nested_belongs_to :plan
   actions :all, :except => [:show]
+  custom_actions collection: :multiple
 
   respond_to :html, :js
 
@@ -22,7 +23,7 @@ class SchedulingsController < InheritedResources::Base
 
     def filter_params
       params
-        .slice(:week, :year)
+        .slice(:week, :year, :ids)
         .reverse_merge(:year => Date.today.year)
         .merge(:plan => parent)
     end

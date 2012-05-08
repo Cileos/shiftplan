@@ -6,7 +6,7 @@ Feature: Edit Schedulings of a Plan
   Background:
     Given an organization exists
       And a confirmed user exists
-      And a planner exists with first_name: "Santa", last_name: "C", user: the confirmed user, organization: the organization
+      And an employee planner exists with first_name: "Santa", last_name: "C", user: the confirmed user, organization: the organization
       # week 49
       And today is 2012-12-18
       And a plan exists with organization: the organization

@@ -11,7 +11,8 @@ class SchedulingFilter
   attribute :plan
   attribute :base, default: Scheduling
   attribute :week, type: Integer
-  attribute :year, type: Integer, default: proc { Date.today.year }
+  attribute :year, type: Integer
+  attribute :ids #, type: Array # TODO Array cannot be typecasted yet by AA
 
   delegate :count, to: :base
 
@@ -91,13 +92,16 @@ class SchedulingFilter
     end
 
     def fetch_records
-      base.where(conditions).includes(:employee, :team)
+      base.where(conditions).includes(:employee, :team).sort_by(&:start_hour)
     end
 
     def conditions
-      attributes.symbolize_keys.slice(:week, :year).tap do |c|
+      attributes.symbolize_keys.slice(:week, :year).reject {|_,v| v.nil? }.tap do |c|
         if plan?
           c.merge!(:plan_id => plan.id)
+        end
+        if ids? && !ids.empty?
+          c.merge!(:id => ids)
         end
       end
     end

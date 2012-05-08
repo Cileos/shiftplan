@@ -5,7 +5,7 @@ class FeedbackDecorator < ApplicationDecorator
     unless errors.empty?
       prepend_errors_for(feedback)
     else
-      hide_modal
+      clear_modal
       update_flash
     end
   end

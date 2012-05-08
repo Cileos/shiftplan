@@ -1,14 +1,21 @@
+# Inherit from here for each new commentable model.
+#
+# Inherited Resources fails to find the parent in polymorpic mode
 class CommentsController < InheritedResources::Base
-  belongs_to :post # , polymorphic: true, optional: false
-  load_and_authorize_resource
+  def self.inherited(child)
+    super
+    child.class_eval do
+      actions :create, :destroy
+      defaults :resource_class => Comment, :collection_name => 'comments', :instance_name => 'comment'
+      load_and_authorize_resource
 
-  actions :create, :destroy
-  respond_to :js
+      respond_to :js
+    end
+  end
 
   private
 
   def build_resource
-    @comment = Comment.build_from( parent, current_user.current_employee, params[:comment] )
+    @comment = Comment.build_from( parent, current_user.try(:current_employee), params[:comment] )
   end
 end
-
