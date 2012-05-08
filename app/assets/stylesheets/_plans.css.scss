@@ -66,15 +66,6 @@ table#calendar {
         @include border-radius(3px);
         @include box-shadow($grayLight 1px 1px 4px 1px inset);
     }
-    .label-success:hover {
-        background-color: #468847;
-      }
-    .label-warning:hover {
-        background-color: #F89406;
-      }
-    .label-important:hover {
-      background-color: #B94A48;
-    }
     ul {
         list-style: none;
         padding: 0;
