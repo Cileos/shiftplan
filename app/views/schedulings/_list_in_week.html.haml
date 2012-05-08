@@ -3,6 +3,6 @@
     - schedulings.map(&:decorate).each do |s|
       %li{class: s.css_class, data: s.metadata}
         - if s.team
-          %abbr{title: s.long}= s.short
+          %abbr{title: s.long, rel: "tooltip"}= s.short
         - else
           %span= s.short
