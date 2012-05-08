@@ -3,7 +3,10 @@
     %span.name= current_employee.name
     %span.avatar= avatar(current_employee, :tiny)
   - else
-    %span.name= current_user.email
+    - if current_user.employees.count == 1
+      %span.name= current_user.employees.first.name
+    - else
+      %span.name= current_user.email
     - employee_with_avatar = current_user.find_employee_with_avatar
     - if employee_with_avatar.present?
       %span.avatar= avatar(employee_with_avatar, :tiny)

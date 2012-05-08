@@ -162,7 +162,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Fukushima GmbH >> | false  |
-       | me@shiftplan.de   | false  |
+       | Homer Simpson     | false  |
        | Ausloggen         | false  |
 
   Scenario: Default avatar is shown if no employee with an avatar exists for the logged in user
@@ -224,3 +224,10 @@ Feature: Navigation
       And I follow "Tschernobyl GmbH"
      Then I should see the avatar "barts_avatar.jpg" within the navigation
       And I should see "Bart Simpson" within the navigation
+
+  Scenario: Show the name and avatar of the only employee of an logged in user on the landing page
+    When I am signed in as the confirmed user
+     And I follow "Shiftplan"
+
+    Then I should see the avatar "default_avatar.png" within the navigation
+     And I should see "Homer Simpson" within the navigation
