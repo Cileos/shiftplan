@@ -11,10 +11,10 @@
       %tr{ id: "employee_#{employee.id}" }
         %th
           - if can?(:update, employee)
-            = link_to(avatar(employee, :thumb), [:edit, current_organization, employee], remote: true)
+            = link_to(avatar(employee, :tiny), [:edit, current_organization, employee], remote: true)
             = link_to(employee.name, [:edit, current_organization, employee], remote: true)
           - else
-            = avatar(employee, :thumb)
+            = avatar(employee, :tiny)
             = employee.name
         %td= employee.try(:user).try(:email) || employee.try(:invitation).try(:email)
         %td= invitation_status(employee)

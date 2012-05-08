@@ -1,11 +1,11 @@
 %span#avatar_and_name
   - if current_employee.present?
     %span.name= current_employee.name
-    %span.avatar= avatar(current_employee, :thumb)
+    %span.avatar= avatar(current_employee, :tiny)
   - else
     %span.name= current_user.email
     - employee_with_avatar = current_user.find_employee_with_avatar
     - if employee_with_avatar.present?
-      %span.avatar= avatar(employee_with_avatar, :thumb)
+      %span.avatar= avatar(employee_with_avatar, :tiny)
     - else
-      %span.avatar= default_avatar(:thumb)
+      %span.avatar= default_avatar(:tiny)
