@@ -6,6 +6,7 @@ jQuery(document).ready ->
 
     $new_link = $('a.new_scheduling')
     $modal    = $("#{$new_link.data('href')}")
+    $tooltips = $('#calendar abbr')
 
     $form     = $modal.find('form').clone()
     $body     = $modal.find('.modal-body')
@@ -14,3 +15,4 @@ jQuery(document).ready ->
       editor = new CalendarEditor cell: $(cell), form: $form.clone()
       $body.html(editor)
       $new_link.click()
+      $tooltips.tooltip('hide')
