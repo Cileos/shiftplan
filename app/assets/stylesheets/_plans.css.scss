@@ -170,9 +170,6 @@ div.scroller {
             top: 19px;
         }
     }
-    form#new_scheduling {
-        @include box-shadow($green 0px 0px 8px);
-    }
 }
 
 #legend {
