@@ -11,12 +11,12 @@
         cursor: auto;
     }
 }
-.badge-success:hover {
+.badge-success, .badge-success:hover {
     background-color: #468847;
   }
-.badge-warning:hover {
+.badge-warning, .badge-warning:hover {
     background-color: #F89406;
   }
-.badge-important:hover {
+.badge-important, .badge-important:hover {
   background-color: #B94A48;
 }
