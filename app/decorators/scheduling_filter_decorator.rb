@@ -87,7 +87,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def wwt_diff_for(employee)
     h.content_tag :span, wwt_diff_label_text_for(employee),
-      class: "label #{wwt_diff_label_class_for(employee)}"
+      class: "badge #{wwt_diff_label_class_for(employee)}"
   end
 
   def wwt_diff_label_text_for(employee)
@@ -102,11 +102,11 @@ class SchedulingFilterDecorator < ApplicationDecorator
     return '' unless employee.weekly_working_time.present?
     difference = employee.weekly_working_time - hours_for(employee)
     if difference > 0
-      'label-warning'
+      'badge-warning'
     elsif difference < 0
-      'label-important'
+      'badge-important'
     else
-      'label-success'
+      'badge-success'
     end
   end
 

@@ -1,0 +1,33 @@
+/* --------------------------------------------------------------------- */
+/*  _600px.css.scss                                                      */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+@media screen and (max-width: 600px) {
+    #content {
+        padding-left: 5px;
+        padding-right: 5px;
+        @include single-transition(all, 0.5s, ease);
+    }
+    // #session.nav.pull-right {
+    //     float: none;
+    //     position: absolute;
+    //     left: auto;
+    //     right: 0;
+    // }
+    table#calendar {
+        td {
+            padding: 1px;
+        }
+        ul li {
+            @include border-left-radius(3px);
+            margin: 0;
+            abbr, span {
+                padding: 1px 3px;
+                margin-left: 0px;
+            }
+        }
+    }
+}
+

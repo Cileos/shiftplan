@@ -1,0 +1,22 @@
+/* --------------------------------------------------------------------- */
+/*  _modal.css.scss                                                      */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+.modal {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.modal-body {
+    form:last-child {
+        margin-bottom: 0;
+    }
+    .input-fullwidth {
+        width: 522px;
+    }
+}
+.modal-backdrop {
+    @include transition(250ms opacity);
+    @include background(radial-gradient(rgba(127, 127, 127, 0.75), rgba(127, 127, 127, 0.75) 35%, rgba(0, 0, 0, 0.6)));
+}

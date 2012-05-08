@@ -1,0 +1,50 @@
+/* --------------------------------------------------------------------- */
+/*  iPhone.css.scss                                                      */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+/* For general iPhone layouts */
+@media only screen and (max-device-width: 480px) {
+    body {
+        -webkit-text-size-adjust: none; /* dont fk around with my prefs */
+    }
+    #page {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    #logo {
+        position: relative;
+        float: left;
+    }
+    #session.nav.pull-right {
+        float: none;
+        position: absolute;
+        left: auto;
+        right: 0;
+        top: 25px;
+    }
+
+    /* hide feedback */
+    #footer, .jotform-feedback-link {
+        display: none;
+    }
+}
+
+/* For portrait layouts only */
+@media only screen and (max-device-width: 480px) and (orientation:portrait) {
+    #page {
+        min-width: 310px;
+        max-width: 310px;
+        width: 310px;
+    }
+}
+
+/* For landscape layouts only */
+@media only screen and (max-device-width: 480px) and (orientation:landscape) {
+    #page {
+        min-width: 470px;
+        max-width: 470px;
+        width: 470px;
+    }
+}

@@ -1,0 +1,14 @@
+/* --------------------------------------------------------------------- */
+/*  _navigation.css.scss                                                 */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+.navbar .nav li.active {
+    color: white;
+    text-decoration: none;
+    background-color: #222222;
+}
+.navbar .nav span.not_active {
+    color: #999;
+}

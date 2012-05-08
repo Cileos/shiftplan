@@ -45,10 +45,15 @@ $table_inner_border: 1px; /* hardcoded in bootstrap */
 }
 
 table#calendar {
+    // TODO: remove this by adding the page links to the table heading;
+    position: relative;
+    top: -25px;
+    z-index: 1;
+    // end todo
     caption {
         margin-bottom: 1.5em;
-        font-size: 15px;
-        font-weight: bold;
+        font-size: 22px;
+        font-weight: normal;
     }
     tbody td {
         padding: $table_padding;
@@ -60,15 +65,6 @@ table#calendar {
     tbody td.focus {
         @include border-radius(3px);
         @include box-shadow($grayLight 1px 1px 4px 1px inset);
-    }
-    .label-success:hover {
-        background-color: #468847;
-      }
-    .label-warning:hover {
-        background-color: #F89406;
-      }
-    .label-important:hover {
-      background-color: #B94A48;
     }
     ul {
         list-style: none;
@@ -105,32 +101,6 @@ table#calendar {
                     margin-right: 0;
                     @include border-right-radius(0px);
                 }
-            }
-        }
-    }
-    @media (max-width: 767px) {
-        td {
-            padding: 2px;
-        }
-        ul li {
-            @include border-left-radius(5px);
-            margin: 3px;
-            abbr, span {
-                font-size: 80%;
-                margin-left: 0.3em;
-            }
-        }
-    }
-    @media (max-width: 480px) {
-        td {
-            padding: 1px;
-        }
-        ul li {
-            @include border-left-radius(3px);
-            margin: 0;
-            abbr, span {
-                padding: 1px 3px;
-                margin-left: 0px;
             }
         }
     }
@@ -174,13 +144,6 @@ div.scroller {
         }
         button[type=submit] {
             @include align-top(right, 0);
-        }
-    }
-    form#new_scheduling {
-        @include box-shadow($green 0px 0px 8px);
-        padding: $modal_spacing;
-        button[type=submit] {
-          @include align-top(right);
         }
     }
 }
