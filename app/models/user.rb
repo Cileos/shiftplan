@@ -30,4 +30,8 @@ class User < ActiveRecord::Base
       raise ArgumentError, "given employee #{wanted_employee} does not belong to #{self}"
     end
   end
+
+  def find_employee_with_avatar
+    employees.order(:created_at).detect { |employee| employee.avatar? }
+  end
 end

@@ -35,7 +35,12 @@ module EmployeesHelper
     if employee.avatar?
       image_tag(employee.avatar.send(version).url, html_options)
     else
-      image_tag(asset_path("#{version}_default_avatar.png"), html_options)
+      default_avatar(version)
     end
+  end
+
+  def default_avatar(version)
+    html_options = { class: "avatar #{version}" }
+    image_tag(asset_path("#{version}_default_avatar.png"), html_options)
   end
 end
