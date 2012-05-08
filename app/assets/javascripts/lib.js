@@ -5,3 +5,4 @@
 //= require space-pen/space-pen
 //= require jquery.miniColors
 //= require_tree './lib'
+//= require spinner
