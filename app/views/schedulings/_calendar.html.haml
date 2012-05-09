@@ -17,7 +17,9 @@
     %tbody
       - f.employees.each do |employee|
         %tr
-          %th.employee= employee.name
+          %th.employee
+            = avatar(employee.user, employee, :tiny)
+            = employee.name
           - f.days.each do |day|
             %td{data: f.cell_metadata(day, employee)}
               = f.cell_content(day, employee)

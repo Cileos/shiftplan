@@ -85,3 +85,24 @@ Then /^I (should|should not) see a delete button$/ do |should_or_should_not|
     page.should have_css('input[name="_method"][value="delete"]')
   end
 end
+
+Then /^I should see the avatar "([^"]*)"$/ do |file_name|
+  image_tag = page.find("img.avatar")
+  assert image_tag['src'].split('/').last.include?(file_name), "No image tag with src including '#{file_name}' found"
+  path = [Rails.root, 'features', image_tag['src'].split('/features/')[1]].join('/')
+  assert File.exists?(path), "File '#{path}' does not exist."
+end
+
+Then /^I should see a (tiny|thumb) (gravatar|default gravatar)$/ do |version, gravatar_or_default_gravatar|
+  image_tag = page.find("img.avatar.#{version}")
+  url, params = image_tag['src'].split('?')
+
+  url.should match(%r~https://secure.gravatar.com/avatar/[0-9abcdef]{32}\.png~)
+
+  size = AvatarUploader.const_get("#{version.to_s.camelize}Size")
+  if gravatar_or_default_gravatar == 'gravatar'
+    params.should == "d=mm&r=PG&s=#{size}"
+  else
+    params.should == "d=mm&forcedefault=y&r=PG&s=#{size}"
+  end
+end

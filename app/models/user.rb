@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include Gravtastic
+  gravtastic
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -29,5 +32,9 @@ class User < ActiveRecord::Base
     else
       raise ArgumentError, "given employee #{wanted_employee} does not belong to #{self}"
     end
+  end
+
+  def find_employee_with_avatar
+    employees.order(:created_at).detect { |employee| employee.avatar? }
   end
 end

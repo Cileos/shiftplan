@@ -2,7 +2,7 @@
   - if user_signed_in?
     %li.dropdown
       %a.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'}
-        %span.name= current_user.email
+        = render 'avatar_and_name'
         %b.caret
       %ul.dropdown-menu
         - if can? :edit, current_user

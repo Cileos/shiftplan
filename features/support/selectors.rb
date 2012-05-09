@@ -29,6 +29,13 @@ module HtmlSelectorsHelpers
     when /^(?:an|the) edit (.+) form$/
       "form.edit_#{$1}"
 
+    when /^the row for employee "([^"]*)"$/
+      employee = Employee.find_by_first_name_and_last_name($1.split[0], $1.split[1])
+      "table#employees tr#employee_#{employee.id}"
+
+    when /^the employees table$/
+      "table#employees"
+
     when 'the navigation'
       '.navbar:first'
 
@@ -87,6 +94,17 @@ module HtmlSelectorsHelpers
     # web steps:
     when /^"(.+)"$/
       $1
+
+    when /^#{capture_model}$/
+      model = model!($1)
+      case model
+      when Post
+        "#post_#{model.id}"
+      when Comment
+        "#comment_#{model.id}"
+      else
+        raise ArgumentError, "cannot find selector for \"#{$1}\", please add it in #{__FILE__}:#{__LINE__}"
+      end
 
     else
       raise "Can't find mapping from \"#{locator}\" to a selector.\n" +

@@ -29,4 +29,24 @@ module EmployeesHelper
       edit_organization_invitation_path(current_organization, employee.invitation)
     end
   end
+
+  def avatar(user, employee, version)
+    html_options = { class: "avatar #{version}" }
+    employee = user.find_employee_with_avatar if user && employee.nil?
+    if employee && employee.avatar?
+      image_tag(employee.avatar.send(version).url, html_options)
+    else
+      gravatar(user, version, html_options)
+    end
+  end
+
+  def gravatar(user, version, html_options)
+    size = AvatarUploader.const_get("#{version.to_s.camelize}Size")
+    gravatar_options = { default: 'mm', size: size }
+    if user.present?
+      image_tag user.gravatar_url(gravatar_options), html_options
+    else
+      image_tag User.new.gravatar_url(gravatar_options.merge(forcedefault: 'y')), html_options
+    end
+  end
 end

@@ -11,22 +11,92 @@ Feature: Create Employees
       And I follow "Fukushima GmbH"
       And I follow "Mitarbeiter"
 
-
   @javascript
+  @fileupload
   Scenario: Creating an employee
-      And I follow "Hinzufügen"
+     When I follow "Hinzufügen"
       And I wait for the modal box to appear
      Then the "Wochenarbeitszeit" field should contain "40"
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30      |
+      And I should see a tiny default gravatar within the new employee form
+      And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see flash info "Mitarbeiter erfolgreich angelegt."
       And I should be on the employees page for the organization
       And I should see "Carl Carlson"
       And I should see "30"
+     Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
+      And I should see a tiny gravatar within the row for employee "Homer Simpson"
+     When I follow "Carl Carlson" within the employees table
+      And I wait for the modal box to appear
+     Then I should see the avatar "rails.png" within the edit employee form
+
+  # The following scenario tests if the ajax multipart form really works.
+  # Because ajax file uploads are not supported normally because of security reasons,
+  # the 'remotipart' gem is used to tweak the handling of such forms.
+  # We can test if it works by submitting the form with validation errors, e.g., leave
+  # first name blank.
+  # We should see error messages in the modal box which are prepended through the
+  # javascript response.
+  @javascript
+  @fileupload
+  Scenario: Creating an employee with avatar upload through ajax
+     When I follow "Hinzufügen"
+      And I wait for the modal box to appear
+     Then the "Wochenarbeitszeit" field should contain "40"
+      And I fill in "Nachname" with "Carlson"
+      And I should see a tiny default gravatar within the new employee form
+      And I attach the file "app/assets/images/rails.png" to "employee_avatar"
+      And I press "Speichern"
+     Then I should see "Vorname muss ausgefüllt werden"
+     When I fill in "Vorname" with "Carl"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see flash info "Mitarbeiter erfolgreich angelegt."
+      And I should be on the employees page for the organization
+      And I should see "Carl Carlson"
+     Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
+      And I should see a tiny gravatar within the row for employee "Homer Simpson"
+     When I follow "Carl Carlson" within the employees table
+      And I wait for the modal box to appear
+     Then I should see the avatar "rails.png" within the edit employee form
+
+  @javascript
+  @fileupload
+  Scenario: Uploading an avatar for myself on employee page
+     Then I should see a tiny gravatar within the row for employee "Homer Simpson"
+      And I should see a tiny gravatar within the navigation
+     When I follow "Homer Simpson" within the employees table
+      And I wait for the modal box to appear
+      And I attach the file "app/assets/images/rails.png" to "employee_avatar"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see the avatar "rails.png" within the row for employee "Homer Simpson"
+      And I should see the avatar "rails.png" within the navigation
+
+  @javascript
+  Scenario: Trying to create an employee without a first name
+     When I follow "Hinzufügen"
+      And I wait for the modal box to appear
+     Then the "Wochenarbeitszeit" field should contain "40"
+      And I fill in the following:
+        | Nachname          | Carlson |
+      And I press "Speichern"
+     Then I should see "Vorname muss ausgefüllt werden"
+
+  @javascript
+  Scenario: Trying to create an employee without a last name
+     When I follow "Hinzufügen"
+      And I wait for the modal box to appear
+     Then the "Wochenarbeitszeit" field should contain "40"
+      And I fill in the following:
+        | Vorname           | Carl    |
+      And I press "Speichern"
+     Then I should see "Nachname muss ausgefüllt werden"
 
   @javascript
   Scenario: Creating an employee without a weekly working time
@@ -44,7 +114,7 @@ Feature: Create Employees
   Scenario: Editing an employee
       And I should be on the employees page for the organization
      Then I should not see "Carl Carlson"
-     When I follow "Homer Simpson"
+     When I follow "Homer Simpson" within the employees table
       And I wait for the modal box to appear
       And I fill in the following:
         | Vorname  | Carl    |

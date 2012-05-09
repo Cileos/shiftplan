@@ -31,5 +31,5 @@ Feature: Signing up
      When I open the email
       And I click the first link in the email
      Then I should see "bestätigt"
-      And I should be signed in as "me@example.com"
+      And I should be signed in as "Homer Simpson"
 

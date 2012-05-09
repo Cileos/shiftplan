@@ -10,6 +10,7 @@ de:
         full_name: Name
         weekly_working_time: Wochenarbeitszeit
         email: E-Mail
+        avatar: Mitarbeiterfoto
   simple_form:
     placeholders:
       employee:
