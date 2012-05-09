@@ -1,6 +1,5 @@
 page.decorate filter do |f|
 
-  f.remove_modal
   f.append_modal body: ''
 
   f.records.each do |scheduling|
