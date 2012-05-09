@@ -1,0 +1,40 @@
+/* --------------------------------------------------------------------- */
+//  _js_buttons.scss
+//  compass version: 0.11.5
+/* --------------------------------------------------------------------- */
+
+
+.js_button {
+    display: block;
+    text-indent: -9999px;
+    border: 1px solid #c0c0c0;
+    @include border-radius(3px);
+    &:hover {
+        cursor: pointer;
+    }
+    &.close {
+        width: 18px;
+        height: 18px;
+        // background: sprite($button_sprite, close) no-repeat;
+    }
+    &.expandable {
+        width: 15px;
+        height: 15px;
+        padding: 5px;
+    }
+    &.expandable {
+        background: #e2e2e2 image-url('glyphicons-halflings.png') no-repeat;
+        background-position: -355px -91px;
+    }
+    &.expandable.expanded {
+        background-position: -379px -91px;
+    }
+}
+
+#max_min_calendar {
+    float: right;
+    position: relative;
+    top: 36px;
+    left: 16px;
+    z-index: 30;
+}
