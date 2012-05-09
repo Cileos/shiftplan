@@ -156,7 +156,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
         update_cell_for(resource.next_day)
       end
       update_wwt_diff_for(resource.employee)
-      clear_modal
+      remove_modal
       update_legend
       update_quickie_completions
     else
