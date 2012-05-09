@@ -10,7 +10,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.4'
   gem 'uglifier', '>= 1.2.3'
   gem 'jquery-rails'
-  gem 'bootstrap-sass', '~> 2.0.0'
+  gem 'bootstrap-sass', '~> 2.0.2'
 end
 
 
@@ -88,8 +88,6 @@ gem 'gon' # push variables from rails to js
 
 gem 'RedCloth' # textilize instructions and other texts from locales
 
-
-gem 'sprockets-urlrewriter'
 gem 'database_cleaner'
 gem 'will_paginate', '~> 3.0'
 gem 'acts_as_commentable_with_threading', '~> 1.1.2'

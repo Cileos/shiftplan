@@ -32,7 +32,7 @@ Feature: Feedback without Screenshot
   Scenario: Logged in user (not in the scope of an organization) sends feedback without providing a name
      When I sign in as the confirmed user
 
-      And I follow "Shiftplan"
+      And I follow "shiftplan"
      Then I should be on the home page
       And I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
@@ -52,7 +52,7 @@ Feature: Feedback without Screenshot
   Scenario: Logged in user (not in the scope of an organization) sends feedback with providing a name
      When I sign in as the confirmed user
 
-      And I follow "Shiftplan"
+      And I follow "shiftplan"
      Then I should be on the home page
       And I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear

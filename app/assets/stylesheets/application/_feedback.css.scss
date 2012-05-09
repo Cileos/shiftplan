@@ -1,0 +1,42 @@
+/* --------------------------------------------------------------------- */
+/*  _feedback.css.scss                                                   */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+
+/*
+ * Styles copied from jotforms.com's wishbox link.
+ * Makes our own feedback link look the same.
+*/
+a.feedback-without-screenshot {
+    position: fixed;
+    bottom: 0px;
+    right: 250px;
+    z-index: 999;
+    @include border-radius(5px 5px 0 0);
+    @include box-shadow(rgba(0, 0, 0, 0.296875) 0px 0px 5px);
+    cursor: pointer;
+    font-family: verdana;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+a.feedback-without-screenshot:hover {
+    text-decoration: none;
+    color: white;
+}
+
+/* override some of jotform's styles */
+.jotform-feedback-link, .feedback-without-screenshot {
+    padding: 5px 10px 10px 10px !important;
+    font-size: 11px !important;
+    background: #49afcd !important;
+    bottom: -7px !important;
+    @include transition(0.25s);
+    &:hover {
+        bottom: 0px !important;
+        background: #5C5C5C !important;
+    }
+}

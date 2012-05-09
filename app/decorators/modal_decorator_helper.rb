@@ -12,12 +12,13 @@ module ModalDecoratorHelper
     else
       content = content_body
     end
-    h.content_tag :div, content, options.merge(class: "modal container-fluid hide fade in #{classes}")
+    h.content_tag :div, content, options.merge(class: "modal container-fluid hide  #{classes}")
   end
 
   # removes all modal boxes first, appends a new one to the body and opens it
   def append_modal(options = {})
-    clear_modal
+    hide_modal
+    remove_modal
     page.select('body').append(modal(options))
     select(:modal).modal('show')
   end
@@ -41,6 +42,10 @@ module ModalDecoratorHelper
   def clear_modal
     hide_modal
     select(:modal_body).html ''
+  end
+
+  def remove_modal
+    select(:modal).remove()
   end
 
   def selector_for(name, *more)

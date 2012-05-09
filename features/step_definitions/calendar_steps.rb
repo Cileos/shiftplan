@@ -65,13 +65,16 @@ Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value o
   row    = row_index_for(employee.name)
 
   color_class_mapping = {
-    'yellow' => 'label-warning',
-    'green'  => 'label-success',
-    'red'    => 'label-important',
-    'grey'    => ''
+    'yellow' => 'badge-warning',
+    'green'  => 'badge-success',
+    'red'    => 'badge-important',
+    'grey'    => nil
   }
 
-  cell = find("#{selector_for('the calendar')} tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1}) span[class='label #{color_class_mapping[color]}']")
+  classes = %w(badge)
+  classes << color_class_mapping[color]
+  classes.compact!
+  cell = find("#{selector_for('the calendar')} tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1}) span.#{classes.join('.')}")
   assert_equal text, cell.text
 end
 
