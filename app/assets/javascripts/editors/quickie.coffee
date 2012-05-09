@@ -23,7 +23,7 @@ class QuickieEditor extends View
         sorter: @sorter
         matcher: @matcher
     @one 'attach', =>
-      @.closest('.modal').one 'hidden', =>
+      $('.modal').addClass('watched').one 'hide', =>
         @input.unbind().data('typeahead').$menu.remove()
 
   matcher: (item) ->
