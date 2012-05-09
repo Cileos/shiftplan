@@ -1,3 +1,4 @@
+require 'term/ansicolor'
 
 class ScenarioTodo < Set
   include Term::ANSIColor

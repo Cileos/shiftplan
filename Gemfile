@@ -49,6 +49,7 @@ group :test do
   gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
 
   gem 'simplecov', :require => false
+  gem 'term-ansicolor' # for ScenarioTodo
 end
 
 group :development, :test do
