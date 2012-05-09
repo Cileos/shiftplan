@@ -21,16 +21,25 @@ class QuickieEditor extends View
       .typeahead
         source: params.completions || gon.quickie_completions,
         sorter: @sorter
+        matcher: @matcher
     @one 'attach', =>
       @.closest('.modal').one 'hidden', =>
         @input.unbind().data('typeahead').$menu.remove()
 
+  matcher: (item) ->
+    return true for term in @query.split(/\s/) when ~item.indexOf(term)
+    return false
+
   sorter: (items) ->
     [timeRange, shortCuts, beginsWith, rest] = [ [],[],[],[] ]
+    if m = @query.match(/\b(\S{1,3})$/) # 1..3 characters alone at the end
+      unless m[1].match(/-\d/)        # but no time range please
+        shortCutMatcher = "[#{m[1]}]"
     for item in items
       list = if ~item.indexOf("#{@query}-") or ~item.indexOf("-#{@query}") # pre/suffixed by a dash
                timeRange
-             else if ~item.indexOf("[#{@query}]") # case sensitive match on team [shortcut]
+             else if shortCutMatcher and ~item.indexOf(shortCutMatcher)
+               # case sensitive match on team [shortcut], must be at end of input
                shortCuts
              else if !item.toLowerCase().indexOf(@query.toLowerCase()) # we know it's included, check for index==0
                beginsWith
