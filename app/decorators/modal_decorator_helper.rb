@@ -43,6 +43,10 @@ module ModalDecoratorHelper
     select(:modal_body).html ''
   end
 
+  def remove_modal
+    select(:modal).remove()
+  end
+
   def selector_for(name, *more)
     case name
     when :modal
