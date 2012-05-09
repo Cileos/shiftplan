@@ -21,7 +21,7 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von Planner Burns"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von Planner Burns"
      When I open the email
      Then I should see the email delivered from "planner@fukushima.jp"
       And I should see "Name: Planner Burns" in the email body
@@ -41,7 +41,7 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von planner@fukushima.jp"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von planner@fukushima.jp"
      When I open the email
      Then I should see the email delivered from "planner@fukushima.jp"
       And I should see "Name: " in the email body
@@ -62,7 +62,7 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
      When I open the email
      Then I should see the email delivered from "planner@fukushima.jp"
       And I should see "Name: Hein Blöd" in the email body
@@ -82,7 +82,7 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
      When I open the email
      Then I should see the email delivered from "guest@example.xyz"
       And I should see "Name: Hein Blöd" in the email body
@@ -101,7 +101,7 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
      When I open the email
      Then I should see the email delivered from "guest@example.xyz"
       And I should see "Name: " in the email body
@@ -128,7 +128,7 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
      When I open the email
      Then I should see the email delivered from "guest@example.xyz"
       And I should see "Name: " in the email body
