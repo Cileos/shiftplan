@@ -66,6 +66,7 @@ end
 
 group :production do
   gem 'therubyracer' # to compile our coffeescript
+  gem 'exception_notification'
 end
 
 gem 'coffee-rails', '~> 3.2.2'
