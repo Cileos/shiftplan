@@ -17,13 +17,15 @@ Feature: Navigation
      Then I should be on the dashboard page
      Then I should see the following list of links within the navigation:
        | link            | active |
-       | Dashboard       | true   |
        | me@shiftplan.de | false  |
        | Ausloggen       | false  |
+       | Dashboard       | true   |
 
      When I follow "Fukushima GmbH"
      Then I should see the following list of links within the navigation:
        | link              | active |
+       | Bart Simpson      | false  |
+       | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -31,12 +33,12 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | Bart Simpson      | false  |
-       | Ausloggen         | false  |
 
      When I follow "Neuigkeiten"
      Then I should see the following list of links within the navigation:
        | link              | active |
+       | Bart Simpson      | false  |
+       | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | true   |
@@ -44,12 +46,12 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | Bart Simpson      | false  |
-       | Ausloggen         | false  |
 
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
        | link              | active |
+       | Bart Simpson      | false  |
+       | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -57,12 +59,12 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | Bart Simpson      | false  |
-       | Ausloggen         | false  |
 
      When I follow "Mitarbeiter"
      Then I should see the following list of links within the navigation:
        | link              | active |
+       | Bart Simpson      | false  |
+       | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -70,12 +72,12 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | true   |
        | Teams             | false  |
-       | Bart Simpson      | false  |
-       | Ausloggen         | false  |
 
      When I follow "Teams"
      Then I should see the following list of links within the navigation:
        | link              | active |
+       | Bart Simpson      | false  |
+       | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -83,16 +85,14 @@ Feature: Navigation
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | true   |
-       | Bart Simpson      | false  |
-       | Ausloggen         | false  |
 
      When I follow "shiftplan"
      Then I should be on the landing page
      Then I should see the following list of links within the navigation:
        | link            | active |
-       | Dashboard       | false  |
        | me@shiftplan.de | false  |
        | Ausloggen       | false  |
+       | Dashboard       | false  |
 
   Scenario: as a planner with one organization
      When I am signed in as the confirmed user
@@ -100,70 +100,70 @@ Feature: Navigation
      Then I should be on the page of the organization "fukushima"
       And I should see the following list of links within the navigation:
        | link              | active |
+       | Homer Simpson     | false  |
+       | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
        | Pläne             | false  |
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | Homer Simpson     | false  |
-       | Ausloggen         | false  |
 
      When I follow "Neuigkeiten"
      Then I should see the following list of links within the navigation:
        | link              | active |
+       | Homer Simpson     | false  |
+       | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | true   |
        | Pläne             | false  |
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | Homer Simpson     | false  |
-       | Ausloggen         | false  |
 
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
        | link              | active |
+       | Homer Simpson     | false  |
+       | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
        | Pläne             | true   |
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | false  |
-       | Homer Simpson     | false  |
-       | Ausloggen         | false  |
 
      When I follow "Mitarbeiter"
      Then I should see the following list of links within the navigation:
        | link              | active |
+       | Homer Simpson     | false  |
+       | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
        | Pläne             | false  |
        | Alle Pläne        | false  |
        | Mitarbeiter       | true   |
        | Teams             | false  |
-       | Homer Simpson     | false  |
-       | Ausloggen         | false  |
 
      When I follow "Teams"
      Then I should see the following list of links within the navigation:
        | link              | active |
+       | Homer Simpson     | false  |
+       | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
        | Pläne             | false  |
        | Alle Pläne        | false  |
        | Mitarbeiter       | false  |
        | Teams             | true   |
-       | Homer Simpson     | false  |
-       | Ausloggen         | false  |
 
      When I follow "shiftplan"
      Then I should be on the landing page
      Then I should see the following list of links within the navigation:
        | link              | active |
-       | Fukushima GmbH >> | false  |
        | Homer Simpson     | false  |
        | Ausloggen         | false  |
+       | Fukushima GmbH >> | false  |
 
   @fileupload
   Scenario: Bart's avatar is shown in the navigation as only employee "bart" of logged in user has an avatar
