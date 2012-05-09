@@ -7,11 +7,11 @@ Feature: Navigation
     Given an organization "fukushima" exists with name: "Fukushima GmbH"
       And a blog exists with organization: the organization "fukushima"
       And a confirmed user exists with email: "me@shiftplan.de"
-      And a employee planner exists with user: the confirmed user, organization: the organization "fukushima"
+      And a employee planner exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Homer", last_name: "Simpson"
 
   Scenario: as a planner with multiple organizations
     Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And a employee planner exists with user: the confirmed user, organization: the organization "fukushima"
+    And a employee planner exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Bart", last_name: "Simpson"
       And I am signed in as the confirmed user
 
      Then I should be on the dashboard page
@@ -168,8 +168,8 @@ Feature: Navigation
   @fileupload
   Scenario: Bart's avatar is shown in the navigation as only employee "bart" of logged in user has an avatar
     Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And a planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
-      And the planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
+      And a employee planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
+      And the employee planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
       And I am signed in as the confirmed user
 
      Then I should be on the dashboard page
@@ -178,9 +178,9 @@ Feature: Navigation
 
   @fileupload
   Scenario: Homer's avatar is shown in the navigation as only employee "homer" of logged in user has an avatar
-    Given the planner has the avatar "app/assets/images/rails.png"
+    Given the employee planner has the avatar "app/assets/images/rails.png"
       And an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And a planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
+      And a employee planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
       And I am signed in as the confirmed user
 
      Then I should be on the dashboard page
@@ -189,10 +189,10 @@ Feature: Navigation
 
   @fileupload
   Scenario: Homer's avatar is shown in the navigation as he is the first employee of the logged in user having an avatar
-    Given the planner has the avatar "app/assets/images/rails.png"
+    Given the employee planner has the avatar "app/assets/images/rails.png"
       And an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And a planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
-      And the planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
+      And a employee planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
+      And the employee planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
       And I am signed in as the confirmed user
 
      Then I should be on the dashboard page
@@ -201,10 +201,10 @@ Feature: Navigation
 
   @fileupload
   Scenario: Avatar and name of the current employee is shown in the navigation when beeing in the scope of an organization
-    Given the planner has the avatar "app/assets/images/rails.png"
+    Given the employee planner has the avatar "app/assets/images/rails.png"
       And an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And a planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
-      And the planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
+      And a employee planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
+      And the employee planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
       And I am signed in as the confirmed user
 
      When I follow "Fukushima GmbH"
