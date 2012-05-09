@@ -394,7 +394,7 @@ In order to keep my colleagues informed about important news
     Given a confirmed user "bart" exists
       And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
       And the employee "bart" has the avatar "app/assets/images/rails.png"
-      And a post exists with blog: the blog, author: the owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
      When I sign in as the confirmed user "bart"
       And I follow "AKW Fukushima GmbH"
