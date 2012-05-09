@@ -24,8 +24,8 @@
         .navbar-inner
           .container-fluid
             = link_to 'shiftplan', root_path, class: 'brand', id: 'logo'
-            = render 'navigation'
             = render 'session'
+            = render 'navigation'
       #content
         = render 'flash'
         - if show_title?
