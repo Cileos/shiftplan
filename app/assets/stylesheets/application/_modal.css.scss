@@ -7,13 +7,43 @@
 .modal {
     padding-top: 15px;
     padding-bottom: 15px;
+    width: 600px;
 }
 .modal-body {
-    form:last-child {
-        margin-bottom: 0;
+    form {
+        position: relative;
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
     .input-fullwidth {
         width: 522px;
+    }
+    .form-horizontal {
+        .control-group {
+            margin-top: 5px;
+        }
+        .control-label {
+            width: 160px;
+        }
+        .controls {
+            margin-left: 170px;
+        }
+    }
+    .edit_scheduling .control-group {
+        margin-top: 10px;
+    }
+    form[class$="_scheduling"] {
+        button[type="submit"], a.delete {
+            position: absolute;
+            top: 0;
+        }
+        button[type="submit"] {
+            left: 9px;
+        }
+        a.delete {
+            right: 9px;
+        }
     }
 }
 .modal-backdrop {

@@ -13,6 +13,8 @@ form#new_scheduling {
     @include box-shadow($green 0px 0px 8px);
     padding: $modal_spacing;
     button[type=submit] {
-        @include align-top(right);
+        position: absolute;
+        top: 15px;
+        right: 17px;
     }
 }
