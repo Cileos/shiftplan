@@ -8,7 +8,7 @@ describe TeamMerge do
     let(:other_team) { Factory :team, organization: organization }
 
     def merge(t, ot)
-      TeamMerge.new(team: t, other_team_id: ot.id).save
+      TeamMerge.new(team_id: t.id, other_team_id: ot.id).save
     end
 
     it "should delete other team" do

@@ -54,6 +54,6 @@ class Team < ActiveRecord::Base
   end
 
   def build_team_merge(attrs={})
-    TeamMerge.new attrs.merge(:team => self)
+    TeamMerge.new attrs.merge(:team_id => id)
   end
 end

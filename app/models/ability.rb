@@ -52,7 +52,7 @@ class Ability
     can :manage, 				            Team,         organization: is_planner_of
     can :manage,                    TeamMerge do |team_merge|
       planner.organization.teams.include?(team_merge.team) &&
-        (!team_merge.other_team_id.present? ||
+        (team_merge.other_team_id.blank? ||
             planner.organization.teams.find_by_id(team_merge.other_team_id).present?)
     end
     can :manage,                    Plan,         organization: is_planner_of

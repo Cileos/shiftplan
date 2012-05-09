@@ -1,13 +1,18 @@
 class TeamMerge
   include ActiveAttr::Model
-  attribute :team, type: Team
+  attribute :team_id, type: Integer
   attribute :other_team_id, type: Integer
 
-  validates_presence_of :team
+  # TODO validate the both teams differ
+  validates_presence_of :team_id
   validates_presence_of :other_team_id
 
   def other_team
-    @other_team ||= team.organization.teams.find other_team_id
+    @other_team ||= other_team_id? && team.organization.teams.find(other_team_id)
+  end
+
+  def team
+    @team ||= team_id? && Team.find(team_id)
   end
 
   def save
