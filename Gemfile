@@ -96,3 +96,4 @@ gem 'acts_as_commentable_with_threading', git: 'git://github.com/elight/acts_as_
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart'
+gem 'gravtastic'

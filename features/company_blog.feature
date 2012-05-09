@@ -398,7 +398,7 @@ In order to keep my colleagues informed about important news
       And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
      When I sign in as the confirmed user "bart"
       And I follow "AKW Fukushima GmbH"
-     Then I should see the avatar "default_avatar.png" within the post
+     Then I should see a tiny gravatar within the post
       And I follow "Mehr"
-     Then I should see the avatar "default_avatar.png" within the post
+     Then I should see a tiny gravatar within the post
       And I should see the avatar "rails.png" within the comment

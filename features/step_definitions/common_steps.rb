@@ -17,11 +17,3 @@ Given /^the situation of ([\w ]+)$/ do |situation|
   path = Rails.root/"features"/"situations"/"#{file}.steps"
   steps File.read(path)
 end
-
-Then /^I should see the avatar "([^"]*)"$/ do |file_name|
-  image_tag = page.find("img.avatar")
-  assert image_tag['src'].split('/').last.include?(file_name), "No image tag with src including '#{file_name}' found"
-  path = [Rails.root, 'features', image_tag['src'].split('/features/')[1]].join('/')
-  assert File.exists?(path), "File '#{path}' does not exist."
-end
-

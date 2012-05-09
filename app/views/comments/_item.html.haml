@@ -2,7 +2,7 @@
   - if can? :destroy, comment
     = button_to(ta(:destroy_comment), [comment.commentable.blog.organization, comment.commentable.blog, comment.commentable, comment], |
       method: :delete, remote: true, class: 'btn btn-danger btn-mini', id: 'destroy-post')
-  = avatar(comment.employee, :tiny)
+  = avatar(comment.employee.user, comment.employee, :tiny)
   - if comment.employee == current_user.current_employee
     .own-meta= t(:'blogs.own_meta_data', published_at: l(comment.created_at, format: :tiny))
   - else

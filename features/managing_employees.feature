@@ -21,7 +21,7 @@ Feature: Create Employees
         | Vorname           | Carl    |
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30      |
-      And I should see the avatar "default_avatar.png" within the new employee form
+      And I should see a tiny default gravatar within the new employee form
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
       And I wait for the modal box to disappear
@@ -30,7 +30,7 @@ Feature: Create Employees
       And I should see "Carl Carlson"
       And I should see "30"
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
-      But I should see the avatar "default_avatar.png" within the row for employee "Homer Simpson"
+      And I should see a tiny gravatar within the row for employee "Homer Simpson"
      When I follow "Carl Carlson" within the employees table
       And I wait for the modal box to appear
      Then I should see the avatar "rails.png" within the edit employee form
@@ -49,7 +49,7 @@ Feature: Create Employees
       And I wait for the modal box to appear
      Then the "Wochenarbeitszeit" field should contain "40"
       And I fill in "Nachname" with "Carlson"
-      And I should see the avatar "default_avatar.png" within the new employee form
+      And I should see a tiny default gravatar within the new employee form
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
      Then I should see "Vorname muss ausgefüllt werden"
@@ -60,7 +60,7 @@ Feature: Create Employees
       And I should be on the employees page for the organization
       And I should see "Carl Carlson"
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
-      But I should see the avatar "default_avatar.png" within the row for employee "Homer Simpson"
+      And I should see a tiny gravatar within the row for employee "Homer Simpson"
      When I follow "Carl Carlson" within the employees table
       And I wait for the modal box to appear
      Then I should see the avatar "rails.png" within the edit employee form
@@ -68,8 +68,8 @@ Feature: Create Employees
   @javascript
   @fileupload
   Scenario: Uploading an avatar for myself on employee page
-     Then I should see the avatar "default_avatar.png" within the row for employee "Homer Simpson"
-      And I should see the avatar "default_avatar.png" within the navigation
+     Then I should see a tiny gravatar within the row for employee "Homer Simpson"
+      And I should see a tiny gravatar within the navigation
      When I follow "Homer Simpson" within the employees table
       And I wait for the modal box to appear
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
