@@ -1,18 +1,11 @@
-When /^I click on cell "([^"]+)"\/"([^"]+)"$/ do |column_label, row_label|
-  column = column_index_for(column_label)
-  row    = row_index_for(row_label)
-
+When /^I click on #{capture_cell}$/ do |cell|
   page.execute_script <<-EOJS
-    $("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})").click()
+    $("#{selector_for(cell)}").click()
   EOJS
 end
 
-Then /^the cell "([^"]+)"\/"([^"]+)" should be (focus)$/ do |column_label, row_label, predicate|
-  column = column_index_for(column_label)
-  row    = row_index_for(row_label)
-
-  cell = page.find("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})")
-  cell[:class].split.should include(predicate)
+Then /^the #{capture_cell} should be (focus)$/ do |cell, predicate|
+  page.find(selector_for(cell))[:class].split.should include(predicate)
 end
 
 def directions
@@ -65,9 +58,6 @@ end
 
 Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value of "(\d+ von \d+|\d+)"$/ do |employee, color, text|
   employee = model!(employee)
-  column = column_index_for("Stunden/WAZ")
-  row    = row_index_for(employee.name)
-
   color_class_mapping = {
     'yellow' => 'badge-warning',
     'green'  => 'badge-success',
@@ -78,7 +68,7 @@ Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value o
   classes = %w(badge)
   classes << color_class_mapping[color]
   classes.compact!
-  cell = find("#{selector_for('the calendar')} tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1}) span.#{classes.join('.')}")
+  cell = find("#{selector_for('the calendar')} #{selector_for(%Q~cell "Stunden/WAZ"/"#{employee.name}"~)}")
   assert_equal text, cell.text
 end
 
