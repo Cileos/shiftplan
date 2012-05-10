@@ -89,7 +89,7 @@ Feature: create a scheduling
      Then I should see "Quickie ist nicht gültig" within errors within the new scheduling form
 
   @javascript
-  Scenario: schedule only using the keyboard
+  Scenario: schedule only using the keyboard (Enter, n or a)
      Then the cell "Montag"/"Planner Burns" should be focus
      When I press return
       And I wait for the new scheduling form to appear
@@ -108,7 +108,7 @@ Feature: create a scheduling
      When I press arrow down
       And I press arrow right
      Then the cell "Dienstag"/"Carl C" should be focus
-     When I press return
+     When I press key "n"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7-17"
       And I press "Anlegen"
@@ -125,7 +125,7 @@ Feature: create a scheduling
      When I press arrow down
       And I press arrow right
      Then the cell "Mittwoch"/"Lenny L" should be focus
-     When I press return
+     When I press key "a"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7"
       And I press return in the "Quickie" field

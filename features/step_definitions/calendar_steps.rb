@@ -29,6 +29,10 @@ When /^I press (#{directions}) in the #{capture_quoted} field$/ do |key, field|
   find_field(field).send_string_of_keys(key)
 end
 
+When /^I press key #{capture_quoted}$/ do |key|
+  find('body').send_string_of_keys(key)
+end
+
 When /^I press (#{directions}) (\d{1,2}) times$/ do |direction, times|
   times.to_i.times do
     step %{I press #{direction}}

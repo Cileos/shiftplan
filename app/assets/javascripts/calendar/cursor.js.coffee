@@ -40,30 +40,30 @@ class CalendarCursor
   rows_count: ->
     @focussed_cell().closest('tbody').children('tr').size()
 
+  focus: ($target) ->
+    @$calendar.trigger 'calendar.cell_focus', $target
+
   keydown: (event) =>
     $focus  = @focussed_cell()
-    if event.keyCode == 13 # enter
-      # Trigger 'calendar.cell_activate' event. The handler will open the modal window for creating a new scheduling.
-      @$calendar.trigger 'calendar.cell_activate', $focus
-      return
     column  = $focus.closest('tr').children(@tds).index($focus)
     row     = $focus.closest('tbody').children('tr').index($focus.closest('tr'))
-    $target = switch event.keyCode
+    switch event.keyCode
+      when 13, 65, 78 # Enter, _a_dd, _n_ew
+        # Trigger 'calendar.cell_activate' event. The handler will open the modal window for creating a new scheduling.
+        @$calendar.trigger 'calendar.cell_activate', $focus
+        return
       when 37 # arrow left
-        $focus.closest('tr').children(@tds).eq(column-1)
+        @focus $focus.closest('tr').children(@tds).eq(column-1)
       when 38 # arrow up
         if row - 1 < 0
           row = @rows_count() - 1
         else
           row = row - 1
-        $focus.closest('tbody').children('tr').eq(row).children(@tds).eq(column)
+        @focus $focus.closest('tbody').children('tr').eq(row).children(@tds).eq(column)
       when 39 # arrow right
-        $focus.closest('tr').children(@tds).eq( (column+1) % @columns_count() )
+        @focus $focus.closest('tr').children(@tds).eq( (column+1) % @columns_count() )
       when 40 # arrow down
-        $focus.closest('tbody').children('tr').eq( (row+1) % @rows_count() ).children(@tds).eq(column)
-
-    if $target
-      @$calendar.trigger 'calendar.cell_focus', $target
+        @focus $focus.closest('tbody').children('tr').eq( (row+1) % @rows_count() ).children(@tds).eq(column)
 
   enable: =>
     @disable()
