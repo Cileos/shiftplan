@@ -1,4 +1,4 @@
-class SchedulingDecorator < ApplicationDecorator
+class SchedulingDecorator < RecordDecorator
   decorates :scheduling
 
   def long
@@ -41,10 +41,6 @@ class SchedulingDecorator < ApplicationDecorator
 
   def concat(*args)
     args.compact.join(' ')
-  end
-
-  def insert_new_form
-    append_modal body: h.render('new_form', scheduling: model)
   end
 
 

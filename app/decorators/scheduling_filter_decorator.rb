@@ -151,17 +151,21 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def respond(resource)
     if resource.errors.empty?
-      update_cell_for(resource)
-      if resource.next_day
-        update_cell_for(resource.next_day)
-      end
-      update_wwt_diff_for(resource.employee)
+      update(resource)
       remove_modal
       update_legend
       update_quickie_completions
     else
       append_errors_for(resource)
     end
+  end
+
+  def update(resource)
+    update_cell_for(resource)
+    if resource.next_day
+      update_cell_for(resource.next_day)
+    end
+    update_wwt_diff_for(resource.employee)
   end
 
   def update_cell_for(scheduling)

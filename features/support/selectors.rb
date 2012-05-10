@@ -57,8 +57,14 @@ module HtmlSelectorsHelpers
     when 'errors'
       '.errors.alert.alert-error'
 
+    when 'the spinner'
+      '#spinner'
+
     when /^the #{capture_nth} active tab$/
       ".tabbable#{Numerals[$1]} .tab-pane.active"
+
+    when /^the comment link$/
+      'a.comments'
 
     when /^the #{capture_nth} form$/
       "form#{Numerals[$1]}"
