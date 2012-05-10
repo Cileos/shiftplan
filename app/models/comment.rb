@@ -52,10 +52,10 @@ class Comment < ActiveRecord::Base
     (
       organization.owners +
       organization.planners +
-      [scheduling.employee] +
-      scheduling.commenters -
-      [employee]
-    ).select { |e| e.user.present? }.uniq
+      [scheduling.employee] + # sent mail to the employee of the scheduling
+      scheduling.commenters - # sent mail to employees who commented the scheduling before
+      [employee] # do not sent mail to commenter
+    ).select { |e| e.user.present? }.uniq # do not try to sent mails to employees without a user/a mail address
   end
 
   def notification_recipients_for_comment_on_post
