@@ -45,6 +45,7 @@ module ModalDecoratorHelper
   end
 
   def remove_modal
+    hide_modal
     select(:modal).remove()
   end
 
