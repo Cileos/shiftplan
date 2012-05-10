@@ -31,7 +31,9 @@ class ApplicationDecorator < Draper::Base
     page.select selector_for(*a)
   end
 
+  # OPTIMIZE trigger is not chainable
   def remove(*a)
+    select(*a).trigger('remove')
     select(*a).remove()
   end
 
