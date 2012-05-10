@@ -78,6 +78,32 @@ describe SchedulingNotificationMailer do
       owners_mails.should be_empty
     end
 
+    it 'should have appropriate subject' do
+      barts_comment = Comment.build_from(@scheduling_for_homer, @employee_bart,
+        body: 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen').save!
+
+      ActionMailer::Base.deliveries = []
+
+      owners_comment = Comment.build_from(@scheduling_for_homer, @employee_owner,
+        body: 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen').save!
+
+      ActionMailer::Base.deliveries.count.should == 4
+
+      # as bart commented before, he receives a notification
+      barts_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['bart.simpson@shiftplan.local'] }
+      barts_mails.first.subject.should == "Owner Simpson hat eine Schicht kommentiert, die Sie auch kommentiert haben"
+
+      # it's homer's scheduling that was commented
+      homers_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['homer.simpson@shiftplan.local'] }
+      homers_mails.first.subject.should == "Owner Simpson hat eine Ihrer Schichten kommentiert"
+
+      planners_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['planner@shiftplan.local'] }
+      planners_mails.first.subject.should == "Owner Simpson hat eine Schicht kommentiert"
+
+      owner_2_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['owner_2@shiftplan.local'] }
+      owner_2_mails.first.subject.should == "Owner Simpson hat eine Schicht kommentiert"
+    end
+
     it 'should not try to send a notification to the employee of the scheduling if she has no user/email' do
       owners_comment = Comment.build_from(@scheduling_for_lisa_without_user, @employee_owner,
           body: 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen').save!
