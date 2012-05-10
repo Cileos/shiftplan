@@ -31,7 +31,7 @@ class QuickieEditor extends View
     true
 
   matcher: (item) ->
-    return true for term in @query.split(/\s/) when ~item.indexOf(term)
+    return true for term in @query.split(/\s/) when ~item.toLowerCase().indexOf(term.toLowerCase())
     return false
 
   sorter: (items) ->
