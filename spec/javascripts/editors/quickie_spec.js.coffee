@@ -19,7 +19,7 @@ describe 'QuickieEditor', ->
     $('#some-modal').append @editor
     typeahead = @editor.input.data('typeahead')
     expect( typeahead.$menu.closest('body') ).toExist()
-    $('#some-modal').trigger 'hidden'
+    $('#some-modal').trigger 'hide'
     expect( typeahead.$menu.closest('body') ).not.toExist()
 
 
