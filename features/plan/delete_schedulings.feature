@@ -23,6 +23,7 @@ Feature: Delete schedulings from plan
         | Mitarbeiter | Donnerstag | Freitag  | Stunden/WAZ |
         | Santa C     | 7-17       | 2-4 5-23 | 30          |
 
+  @wip
   @javascript
   Scenario: Delete a single scheduling
     Given I click on cell "Freitag"/"Santa C"
