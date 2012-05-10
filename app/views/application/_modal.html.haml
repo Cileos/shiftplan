@@ -1,0 +1,9 @@
+.modal.hide.container-fluid{class: classes}
+  .modal-header
+    %button.close{data: { dismiss: 'modal' }}= ta :close
+    - if header.present?
+      %h3= header
+  .modal-body= body
+  - if footer.present?
+    .modal-footer= footer
+
