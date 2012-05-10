@@ -48,7 +48,10 @@ class Comment < ActiveRecord::Base
 
   def notification_recipients_for_comment_on_scheduling
     scheduling = commentable
-    scheduling.plan.organization.planners - [employee]
+    organization = scheduling.organization
+    (organization.owners + organization.planners + [scheduling.employee] - [employee]).select do |e|
+      e.user.present?
+    end.uniq
   end
 
   def notification_recipients_for_comment_on_post

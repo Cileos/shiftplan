@@ -15,4 +15,8 @@ class Organization < ActiveRecord::Base
   def planners
     employees.where(role: 'planner')
   end
+
+  def owners
+    employees.where(role: 'owner')
+  end
 end

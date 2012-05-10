@@ -19,4 +19,7 @@ de:
     new_comment:
       subject_for_answer_on_comment_for_author: "%{name} hat auf Ihren Kommentar zu einer Schicht geantwortet"
       subject_for_answer_on_comment: "%{name} hat auf einen Kommentar zu einer Schicht geantwortet"
+      subject_for_comment_on_scheduling_of_employee: "%{name} hat eine Ihrer Schichten kommentiert"
+      subject_for_comment_for_commenter: "%{name} hat eine Schicht kommentiert, die Sie auch kommentiert haben"
+      subject_for_comment: "%{name} hat eine Schicht kommentiert"
 
