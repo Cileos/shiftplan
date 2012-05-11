@@ -134,6 +134,30 @@ describe SchedulingNotificationMailer do
         owner_2_mails.first.subject.should == "Owner Simpson hat eine Schicht kommentiert"
       end
 
+      it 'should always make clear that it is my scheduling that was commented or that I have commented before' do
+        barts_comment = Comment.build_from(@scheduling_for_homer, @employee_bart,
+          body: 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
+        barts_comment.save!
+
+        homers_comment = Comment.build_from(@scheduling_for_homer, @employee_bart,
+          body: 'Owner, bitte stell mir den Besen in die Putzkammer')
+        barts_comment.save!
+
+        ActionMailer::Base.deliveries = []
+
+        owners_comment = Comment.build_from(@scheduling_for_homer, @employee_owner,
+          body: 'Homer, denk bitte daran, bei Feierabend die Fenster zu schliessen')
+        owners_comment.save!
+
+        # as bart commented before, he receives a notification
+        barts_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['bart.simpson@shiftplan.local'] }
+        barts_mails.first.subject.should == "Owner Simpson hat eine Schicht kommentiert, die Sie auch kommentiert haben"
+
+        # it's homer's scheduling that was commented
+        homers_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['homer.simpson@shiftplan.local'] }
+        homers_mails.first.subject.should == "Owner Simpson hat eine Ihrer Schichten kommentiert"
+      end
+
       it 'should have appropriate subjects for answers on comments' do
         barts_comment = Comment.build_from(@scheduling_for_homer, @employee_bart,
           body: 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
