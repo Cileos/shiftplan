@@ -135,27 +135,54 @@ describe SchedulingNotificationMailer do
       end
 
       it 'should always make clear that it is my scheduling that was commented or that I have commented before' do
+        # bart comments on homers scheduling
         barts_comment = Comment.build_from(@scheduling_for_homer, @employee_bart,
           body: 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
         barts_comment.save!
 
-        homers_comment = Comment.build_from(@scheduling_for_homer, @employee_bart,
+        # homer comments on own scheduling
+        homers_comment = Comment.build_from(@scheduling_for_homer, @employee_homer,
           body: 'Owner, bitte stell mir den Besen in die Putzkammer')
-        barts_comment.save!
+        homers_comment.save!
 
-        ActionMailer::Base.deliveries = []
-
+        # owner comments on homers scheduling
         owners_comment = Comment.build_from(@scheduling_for_homer, @employee_owner,
           body: 'Homer, denk bitte daran, bei Feierabend die Fenster zu schliessen')
         owners_comment.save!
 
         # as bart commented before, he receives a notification
         barts_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['bart.simpson@shiftplan.local'] }
-        barts_mails.first.subject.should == "Owner Simpson hat eine Schicht kommentiert, die Sie auch kommentiert haben"
+        barts_mails.last.subject.should == "Owner Simpson hat eine Schicht kommentiert, die Sie auch kommentiert haben"
 
         # it's homer's scheduling that was commented
         homers_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['homer.simpson@shiftplan.local'] }
-        homers_mails.first.subject.should == "Owner Simpson hat eine Ihrer Schichten kommentiert"
+        homers_mails.last.subject.should == "Owner Simpson hat eine Ihrer Schichten kommentiert"
+      end
+
+      it 'should always make clear that it is my scheduling for which a comment was anwered or that I have commented before' do
+        # bart comments on homers scheduling
+        barts_comment = Comment.build_from(@scheduling_for_homer, @employee_bart,
+          body: 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
+        barts_comment.save!
+
+        # homer comments on own scheduling
+        homers_comment = Comment.build_from(@scheduling_for_homer, @employee_homer,
+          body: 'Owner, bitte stell mir den Besen in die Putzkammer')
+        homers_comment.save!
+
+        # owner answers homer's comment
+        owners_comment = Comment.build_from(@scheduling_for_homer, @employee_owner,
+          body: 'Homer, denk bitte daran, bei Feierabend die Fenster zu schliessen',
+          parent: homers_comment)
+        owners_comment.save!
+
+        # as bart commented before, he receives a notification
+        barts_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['bart.simpson@shiftplan.local'] }
+        barts_mails.last.subject.should == "Owner Simpson hat auf einen Kommentar zu einer Schicht geantwortet, die Sie auch kommentiert haben"
+
+        # it's homer's scheduling that was commented
+        homers_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['homer.simpson@shiftplan.local'] }
+        homers_mails.last.subject.should == "Owner Simpson hat auf Ihren Kommentar zu einer Ihrer Schichten geantwortet"
       end
 
       it 'should have appropriate subjects for answers on comments' do
@@ -178,7 +205,7 @@ describe SchedulingNotificationMailer do
 
         # it's homer's scheduling that was commented
         homers_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['homer.simpson@shiftplan.local'] }
-        homers_mails.first.subject.should == "Owner Simpson hat auf einen Kommentar einer Ihrer Schichten geantwortet"
+        homers_mails.first.subject.should == "Owner Simpson hat auf einen Kommentar zu einer Ihrer Schichten geantwortet"
 
         planners_mails = ActionMailer::Base.deliveries.select { |mail| mail.to == ['planner@shiftplan.local'] }
         planners_mails.first.subject.should == "Owner Simpson hat auf einen Kommentar zu einer Schicht geantwortet"
@@ -256,7 +283,7 @@ describe SchedulingNotificationMailer do
         # homer comments his own shift
         homers_comment = Comment.build_from(@scheduling_for_homer, @employee_homer,
           body: 'Owner Simpson, bitte stell mir den Besen in die Putzkammer')
-        barts_comment.save!
+        homers_comment.save!
 
         # owner writes answer for homers comment
         owners_comment = Comment.build_from(@scheduling_for_homer, @employee_owner,

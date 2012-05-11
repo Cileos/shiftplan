@@ -8,11 +8,18 @@ class SchedulingNotificationMailer < ActionMailer::Base
     @scheduling = comment.commentable
     @is_answer = comment.parent.present? ? true : false
     subject = if @is_answer
-      if comment.parent.employee == employee
-        t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment_for_author', name: comment.employee.name)
-      elsif @scheduling.employee == employee
+      if @scheduling.employee == employee
         # It is the employee's scheduling that was commented on
-        t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment_on_scheduling_of_employee', name: comment.employee.name)
+        if comment.parent.employee == employee
+          # it is also the comment of the employee that was answered
+          t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment_of_employee_on_scheduling_of_employee', name: comment.employee.name)
+        else
+          t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment_on_scheduling_of_employee', name: comment.employee.name)
+        end
+      elsif comment.parent.employee == employee
+        t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment_for_author', name: comment.employee.name)
+      elsif @scheduling.commenters.include? employee
+        t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment_for_commenter', name: comment.employee.name)
       else
         t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment', name: comment.employee.name)
       end
