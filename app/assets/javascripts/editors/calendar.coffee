@@ -4,19 +4,18 @@ class CalendarEditor extends View
       @div class: 'schedulings', outlet: 'list'
 
   initialize: (params) ->
-    if params.cell.find('li').length > 0
+    @element = params.element
+    if @element.is('li') # single scheduling given => edit it
       $.ajax
-        url: params.cell.closest('table').data('edit_url')
-        data:
-          ids: ($(sch).data('id') for sch in params.cell.find('li'))
+        url: @element.data('edit_url')
         complete: @setupInputs
-    else
+    else # cell given, assuming it is empty, => create new
       $.ajax
-        url: params.cell.closest('table').data('new_url')
+        url: @element.closest('table').data('new_url')
         data:
           scheduling:
-            employee_id: params.cell.data('employee_id')
-            date:        params.cell.data('date')
+            employee_id: @element.data('employee_id')
+            date:        @element.data('date')
         complete: @setupInputs
 
   modal: ->

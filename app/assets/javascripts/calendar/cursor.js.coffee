@@ -2,25 +2,25 @@
 #   $calendar: a jquery object pointing to the calendar table
 #   tds:       which tds do we want to navigate
 class CalendarCursor
-  constructor: (@$calendar, @tds = 'td:not(.wwt_diff)') ->
+  constructor: (@$calendar, @tds = 'td:not(.wwt_diff)', @lis = 'li') ->
 
     @$body     = @$calendar.find('tbody:first')
 
-    # TODO better trigger the event on the cell and let it bubble up?
-    @$calendar.bind 'calendar.cell_focus', (event, cell) =>
-      $cell = $(cell)
-      @$calendar.find('.focus').removeClass('focus')
-      $cell.addClass('focus')
-      unless $cell.is('td')
-        $cell.closest('td').addClass('focus')
-
     $calendar = @$calendar
-    @$calendar.on 'click', @tds, ->
-      $calendar.trigger 'calendar.cell_focus', this
-      $calendar.trigger 'calendar.cell_activate', this
+    @$calendar.on 'click', @tds, (event) =>
+      @focus $(event.target).closest(@tds)
+      @activate()
+      false
+
+    @$calendar.on 'click', "#{@tds} #{@lis}", =>
+      @focus $(event.target).closest(@lis), null
+      @activate()
+      false
+
+    @$calendar.on 'update', => @refocus()
 
     # focus first calendar data cell
-    @$calendar.trigger 'calendar.cell_focus', @$body.find('tr:nth-child(1) td:nth-child(2)')
+    @focus @$body.find('tr:nth-child(1) td:nth-child(2)')
 
     @enable()
 
@@ -36,17 +36,27 @@ class CalendarCursor
   focussed_cell: ->
     @$body.find('td.focus')
 
-  focus: ($target, item_select = 'first') ->
-    if $target.has('li').length > 0
-      $target = $target.find('li')[item_select]()
-    @$calendar.trigger 'calendar.cell_focus', $target
+  focus: ($target, item_select) ->
+    if item_select? and $target.has(@lis).length > 0
+      $target = $target.find(@lis)[item_select]()
+    @$calendar.find('.focus').removeClass('focus')
+    $target.closest('td').addClass('focus') unless $target.is('td')
+    $target.addClass('focus')
+
+  refocus: ->
+    if @$focussed_item? and @$focussed_item.length > 0
+      @focus @$calendar.find('tbody').children('tr').eq(@current_row).children(@tds).eq(@current_column).find(@lis).eq(@current_item_index)
+    else
+      @focus @$calendar.find('tbody').children('tr').eq(@current_row).children(@tds).eq(@current_column), 'first'
+
 
   keydown: (event) =>
     switch event.keyCode
-      when 13, 65, 78 # Enter, _a_dd, _n_ew
-        # Trigger 'calendar.cell_activate' event. The handler will open the modal window for creating a new scheduling.
-        @$calendar.trigger 'calendar.cell_activate', @focussed_cell()
-        return
+      when 65, 78 # _a_dd, _n_ew
+        @orientate()
+        @create()
+      when 13 # Enter, _a_dd, _n_ew
+        @activate()
       when 37 # arrow left
         @left()
       when 39 # arrow right
@@ -63,22 +73,34 @@ class CalendarCursor
     @current_row     = @$focussed_cell.closest('tbody').children('tr').index(@$focussed_cell.closest('tr'))
     @rows_count      = @$focussed_cell.closest('tbody').children('tr').size()
     @columns_count   = @$focussed_cell.closest('tr').children(@tds).size()
-    @$items          = @$focussed_cell.find('li')
+    @$items          = @$focussed_cell.find(@lis)
     if @$items.length > 0
       @$focussed_item = @$items.filter('.focus')
       @current_item_index = @$items.index(@$focussed_item)
     else
-      @$focussed_item = null
+      @$focussed_item = $()
       @current_item_index = null
 
+  activate: ->
+    @orientate()
+    if @$focussed_item.length > 0
+      @edit()
+    else
+      @create()
+
+  edit: ->
+    new CalendarEditor element: @$focussed_item
+
+  create: ->
+    new CalendarEditor element: @$focussed_cell
 
   left: ->
     @orientate()
-    @focus @$focussed_cell.closest('tr').children(@tds).eq(@current_column-1)
+    @focus @$focussed_cell.closest('tr').children(@tds).eq(@current_column-1), 'first'
 
   right: ->
     @orientate()
-    @focus @$focussed_cell.closest('tr').children(@tds).eq( (@current_column+1) % @columns_count )
+    @focus @$focussed_cell.closest('tr').children(@tds).eq( (@current_column+1) % @columns_count ), 'first'
 
   up: ->
     @orientate()
@@ -110,7 +132,7 @@ class CalendarCursor
       @row_down()
 
   row_down: ->
-    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column)
+    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column), 'first'
 
   enable: =>
     @disable()

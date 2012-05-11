@@ -139,3 +139,17 @@ Feature: create a scheduling
         | Lenny L       |        |          | 7-17     |            |         |         |         |
         | Homer S       |        |          |          |            |         |         |         |
       And the cell "Mittwoch"/"Lenny L" should be focus
+
+     When I press arrow right
+      And I press arrow left
+      And I press key "n"
+      And I fill in "Quickie" with "1-3"
+     When I press enter in the "Quickie" field
+      And I wait for the new scheduling form to disappear
+     Then I should see the following calendar:
+        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Planner Burns | 8-18   |          |          |            |         |         |         |
+        | Carl C        |        | 7-17     |          |            |         |         |         |
+        | Lenny L       |        |          | 1-3 7-17 |            |         |         |         |
+        | Homer S       |        |          |          |            |         |         |         |
+      And the cell "Mittwoch"/"Lenny L" should be focus

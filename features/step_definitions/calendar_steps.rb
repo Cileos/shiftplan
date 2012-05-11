@@ -4,6 +4,10 @@ When /^I click on #{capture_cell}$/ do |cell|
   EOJS
 end
 
+When /^I click on (?:the )?scheduling #{capture_quoted}$/ do |quickie|
+  page.find("li", text: quickie).click()
+end
+
 Then /^the #{capture_cell} should be (focus)$/ do |cell, predicate|
   page.find(selector_for(cell))[:class].split.should include(predicate)
 end

@@ -27,7 +27,7 @@ class QuickieEditor extends View
       $('.modal').bind 'hide', @destroy
 
   destroy: =>
-    @input.unbind().data('typeahead').$menu.remove()
+    @input?.unbind().data('typeahead')?.$menu?.remove()
     true
 
   matcher: (item) ->
