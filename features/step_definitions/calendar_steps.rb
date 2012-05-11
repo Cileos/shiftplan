@@ -8,6 +8,10 @@ Then /^the #{capture_cell} should be (focus)$/ do |cell, predicate|
   page.find(selector_for(cell))[:class].split.should include(predicate)
 end
 
+Then /^the scheduling #{capture_quoted} should be (focus)$/ do |quickie, predicate|
+  page.find("li", text: quickie)[:class].split.should include(predicate)
+end
+
 def directions
   ['arrow up','arrow down','arrow right','arrow left','return','escape', 'tab', 'enter'].join('|')
 end
