@@ -9,8 +9,10 @@ class CalendarCursor
     # TODO better trigger the event on the cell and let it bubble up?
     @$calendar.bind 'calendar.cell_focus', (event, cell) =>
       $cell = $(cell)
-      @focussed_cell().removeClass('focus')
+      @$calendar.find('.focus').removeClass('focus')
       $cell.addClass('focus')
+      unless $cell.is('td')
+        $cell.closest('td').addClass('focus')
 
     $calendar = @$calendar
     @$calendar.on 'click', @tds, ->
@@ -59,6 +61,13 @@ class CalendarCursor
     @current_row     = @$focussed_cell.closest('tbody').children('tr').index(@$focussed_cell.closest('tr'))
     @rows_count      = @$focussed_cell.closest('tbody').children('tr').size()
     @columns_count   = @$focussed_cell.closest('tr').children(@tds).size()
+    @$items          = @$focussed_cell.find('li')
+    if @$items.length > 0
+      @$focussed_item = @$items.filter('.focus')
+      @current_item_index = @$items.index(@$focussed_item)
+    else
+      @$focussed_item = null
+      @current_item_index = null
 
 
   left: ->
@@ -71,11 +80,43 @@ class CalendarCursor
 
   up: ->
     @orientate()
-    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row-1) % @rows_count ).children(@tds).eq(@current_column)
+    if @$items.length > 1 # there are items to navigate
+      if @$focussed_item.length > 0 # some item focussed
+        if @current_item_index == 0 # at the top
+          @row_up()
+        else
+          @focus @$items.eq( @current_item_index - 1)
+      else # none focussed yet
+        @focus @$items.last()
+    else
+      @row_up()
+
+  row_up: ->
+    $prev = @$focussed_cell.closest('tbody').children('tr').eq( (@current_row-1) % @rows_count ).children(@tds).eq(@current_column)
+    if $prev.has('li').length > 0
+      @focus $prev.find('li:last')
+    else
+      @focus $prev
 
   down: ->
     @orientate()
-    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column)
+    if @$items.length > 1 # there are items to navigate
+      if @$focussed_item.length > 0 # some item focussed
+        if @current_item_index >= @$items.length-1 # at the end
+          @row_down()
+        else
+          @focus @$items.eq( @current_item_index + 1)
+      else # none focussed yet
+        @focus @$items.first()
+    else
+      @row_down()
+
+  row_down: ->
+    $next = @$focussed_cell.closest('tbody').children('tr').eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column)
+    if $next.has('li').length > 0
+      @focus $next.find('li:first')
+    else
+      @focus $next
 
   enable: =>
     @disable()
