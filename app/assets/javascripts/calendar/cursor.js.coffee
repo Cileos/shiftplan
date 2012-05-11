@@ -36,7 +36,9 @@ class CalendarCursor
   focussed_cell: ->
     @$body.find('td.focus')
 
-  focus: ($target) ->
+  focus: ($target, item_select = 'first') ->
+    if $target.has('li').length > 0
+      $target = $target.find('li')[item_select]()
     @$calendar.trigger 'calendar.cell_focus', $target
 
   keydown: (event) =>
@@ -92,11 +94,7 @@ class CalendarCursor
       @row_up()
 
   row_up: ->
-    $prev = @$focussed_cell.closest('tbody').children('tr').eq( (@current_row-1) % @rows_count ).children(@tds).eq(@current_column)
-    if $prev.has('li').length > 0
-      @focus $prev.find('li:last')
-    else
-      @focus $prev
+    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row-1) % @rows_count ).children(@tds).eq(@current_column), 'last'
 
   down: ->
     @orientate()
@@ -112,11 +110,7 @@ class CalendarCursor
       @row_down()
 
   row_down: ->
-    $next = @$focussed_cell.closest('tbody').children('tr').eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column)
-    if $next.has('li').length > 0
-      @focus $next.find('li:first')
-    else
-      @focus $next
+    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column)
 
   enable: =>
     @disable()

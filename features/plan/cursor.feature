@@ -69,6 +69,23 @@ Feature: Plan cursor
      When I press arrow down
      Then the cell "Freitag"/"Planner Burns" should be focus
 
+     # navigate horizontally
+     When I press arrow right
+      And I press arrow down 3 times
+      And I press arrow left
+     Then the cell "Freitag"/"Homer S" should be focus
+      And the scheduling "7-19" should be focus within the cell "Freitag"/"Homer S"
+      And I press arrow left
+     Then the cell "Donnerstag"/"Homer S" should be focus
+      And the scheduling "7-11" should be focus within the cell "Donnerstag"/"Homer S"
+     When I press arrow down
+      And I press arrow left
+      And I press arrow right
+     # BUG vs FEATURE does not remember last active item
+     Then the cell "Donnerstag"/"Homer S" should be focus
+      And the scheduling "7-11" should be focus within the cell "Donnerstag"/"Homer S"
+
+
   Scenario: opening the modal window by pressing enter
     When I press return
      And I wait for the modal box to appear
