@@ -34,36 +34,48 @@ class CalendarCursor
   focussed_cell: ->
     @$body.find('td.focus')
 
-  columns_count: ->
-    @focussed_cell().closest('tr').children(@tds).size()
-
-  rows_count: ->
-    @focussed_cell().closest('tbody').children('tr').size()
-
   focus: ($target) ->
     @$calendar.trigger 'calendar.cell_focus', $target
 
   keydown: (event) =>
-    $focus  = @focussed_cell()
-    column  = $focus.closest('tr').children(@tds).index($focus)
-    row     = $focus.closest('tbody').children('tr').index($focus.closest('tr'))
     switch event.keyCode
       when 13, 65, 78 # Enter, _a_dd, _n_ew
         # Trigger 'calendar.cell_activate' event. The handler will open the modal window for creating a new scheduling.
-        @$calendar.trigger 'calendar.cell_activate', $focus
+        @$calendar.trigger 'calendar.cell_activate', @focussed_cell()
         return
       when 37 # arrow left
-        @focus $focus.closest('tr').children(@tds).eq(column-1)
-      when 38 # arrow up
-        if row - 1 < 0
-          row = @rows_count() - 1
-        else
-          row = row - 1
-        @focus $focus.closest('tbody').children('tr').eq(row).children(@tds).eq(column)
+        @left()
       when 39 # arrow right
-        @focus $focus.closest('tr').children(@tds).eq( (column+1) % @columns_count() )
+        @right()
+      when 38 # arrow up
+        @up()
       when 40 # arrow down
-        @focus $focus.closest('tbody').children('tr').eq( (row+1) % @rows_count() ).children(@tds).eq(column)
+        @down()
+
+  # sets all the instance vars needed for navigation
+  orientate: ->
+    @$focussed_cell  = @focussed_cell()
+    @current_column  = @$focussed_cell.closest('tr').children(@tds).index(@$focussed_cell)
+    @current_row     = @$focussed_cell.closest('tbody').children('tr').index(@$focussed_cell.closest('tr'))
+    @rows_count      = @$focussed_cell.closest('tbody').children('tr').size()
+    @columns_count   = @$focussed_cell.closest('tr').children(@tds).size()
+
+
+  left: ->
+    @orientate()
+    @focus @$focussed_cell.closest('tr').children(@tds).eq(@current_column-1)
+
+  right: ->
+    @orientate()
+    @focus @$focussed_cell.closest('tr').children(@tds).eq( (@current_column+1) % @columns_count )
+
+  up: ->
+    @orientate()
+    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row-1) % @rows_count ).children(@tds).eq(@current_column)
+
+  down: ->
+    @orientate()
+    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column)
 
   enable: =>
     @disable()
