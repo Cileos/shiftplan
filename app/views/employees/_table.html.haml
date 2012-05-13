@@ -17,5 +17,5 @@
             = avatar(employee.user, employee, :tiny)
             = employee.name
         %td= employee.try(:user).try(:email) || employee.try(:invitation).try(:email)
-        %td= invitation_status(employee)
-        %td= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
+        %td.status= invitation_status(employee)
+        %td.waz.numeric= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
