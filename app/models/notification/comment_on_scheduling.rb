@@ -1,4 +1,4 @@
-class CommentOnSchedulingNotification < CommentNotification
+class Notification::CommentOnScheduling < Notification::Comment
   after_create :send!
 
   def subject
@@ -24,7 +24,7 @@ class CommentOnSchedulingNotification < CommentNotification
   end
 end
 
-class CommentOnSchedulingOfEmployeeNotification < CommentOnSchedulingNotification
+class Notification::CommentOnSchedulingOfEmployee < Notification::CommentOnScheduling
   def subject
     I18n.t(:'scheduling_notification_mailer.new_comment.subject_for_comment_on_scheduling_of_employee', name: comment.author_name)
   end
@@ -34,7 +34,7 @@ class CommentOnSchedulingOfEmployeeNotification < CommentOnSchedulingNotificatio
   end
 end
 
-class CommentOnSchedulingForCommenterNotification < CommentOnSchedulingNotification
+class Notification::CommentOnSchedulingForCommenter < Notification::CommentOnScheduling
   def subject
     I18n.t(:'scheduling_notification_mailer.new_comment.subject_for_comment_for_commenter', name: comment.author_name)
   end
@@ -44,7 +44,7 @@ class CommentOnSchedulingForCommenterNotification < CommentOnSchedulingNotificat
   end
 end
 
-class AnswerOnCommentOnSchedulingNotification < CommentOnSchedulingNotification
+class Notification::AnswerOnCommentOnScheduling < Notification::CommentOnScheduling
   def subject
     I18n.t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment', name: comment.author_name)
   end
@@ -54,7 +54,7 @@ class AnswerOnCommentOnSchedulingNotification < CommentOnSchedulingNotification
   end
 end
 
-class AnswerOnCommentOfEmployeeOnSchedulingOfEmployeeNotification < CommentOnSchedulingNotification
+class Notification::AnswerOnCommentOfEmployeeOnSchedulingOfEmployee < Notification::CommentOnScheduling
   def subject
     I18n.t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment_of_employee_on_scheduling_of_employee', name: comment.author_name)
   end
@@ -64,7 +64,7 @@ class AnswerOnCommentOfEmployeeOnSchedulingOfEmployeeNotification < CommentOnSch
   end
 end
 
-class AnswerOnCommentOfEmployeeOnSchedulingNotification < CommentOnSchedulingNotification
+class Notification::AnswerOnCommentOfEmployeeOnScheduling < Notification::CommentOnScheduling
   def subject
     I18n.t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment_of_employee', name: comment.author_name)
   end
@@ -74,7 +74,7 @@ class AnswerOnCommentOfEmployeeOnSchedulingNotification < CommentOnSchedulingNot
   end
 end
 
-class AnswerOnCommentOnSchedulingOfEmployeeNotification < CommentOnSchedulingNotification
+class Notification::AnswerOnCommentOnSchedulingOfEmployee < Notification::CommentOnScheduling
   def subject
     I18n.t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment_on_scheduling_of_employee', name: comment.author_name)
   end
@@ -84,7 +84,7 @@ class AnswerOnCommentOnSchedulingOfEmployeeNotification < CommentOnSchedulingNot
   end
 end
 
-class AnswerOnCommentOnSchedulingForCommenterNotification < CommentOnSchedulingNotification
+class Notification::AnswerOnCommentOnSchedulingForCommenter < Notification::CommentOnScheduling
   def subject
     I18n.t(:'scheduling_notification_mailer.new_comment.subject_for_answer_on_comment_for_commenter', name: comment.author_name)
   end
