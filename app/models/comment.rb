@@ -70,7 +70,6 @@ class Comment < ActiveRecord::Base
     end
   end
 
-
   def notification_recipients_for_comment_on_post
     post = commentable
     post.organization.employees.select do |e|

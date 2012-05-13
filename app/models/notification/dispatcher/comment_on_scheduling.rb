@@ -18,17 +18,6 @@ class Notification::Dispatcher::CommentOnScheduling < Notification::Dispatcher::
     Notification::Dispatcher::AnswerOnCommentOnScheduling
   end
 
-  def self.notification_class_for(comment, employee)
-    scheduling = comment.commentable
-    if scheduling.employee == employee # is it a scheduling of the employee?
-      Notification::CommentOnSchedulingOfEmployee
-    elsif scheduling.commenters.include? employee # has the employee commented on the same scheduling before
-      Notification::CommentOnSchedulingForCommenter
-    else
-      Notification::CommentOnScheduling
-    end
-  end
-
   def self.notification_recipients_for(comment)
     scheduling = comment.commentable
     organization = scheduling.organization
@@ -39,6 +28,17 @@ class Notification::Dispatcher::CommentOnScheduling < Notification::Dispatcher::
       scheduling.commenters - # sent mail to all employees who commented the scheduling before
       [comment.employee] # do not sent mail to the commenter itself
     ).select { |e| e.user.present? }.uniq # do not try to sent mails to employees without a user/a mail address
+  end
+
+  def self.notification_class_for(comment, employee)
+    scheduling = comment.commentable
+    if scheduling.employee == employee # is it a scheduling of the employee?
+      Notification::CommentOnSchedulingOfEmployee
+    elsif scheduling.commenters.include? employee # has the employee commented on the same scheduling before
+      Notification::CommentOnSchedulingForCommenter
+    else
+      Notification::CommentOnScheduling
+    end
   end
 
   class Notification::Dispatcher::AnswerOnCommentOnScheduling < Notification::Dispatcher::CommentOnScheduling
