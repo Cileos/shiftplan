@@ -17,7 +17,7 @@ de:
         quickie: "9-17 wichtige Arbeit [wA]"
   scheduling_notification_mailer:
     new_comment:
-      subject_for_answer_on_comment_for_author: "%{name} hat auf Ihren Kommentar zu einer Schicht geantwortet"
+      subject_for_answer_on_comment_of_employee: "%{name} hat auf Ihren Kommentar zu einer Schicht geantwortet"
       subject_for_answer_on_comment: "%{name} hat auf einen Kommentar zu einer Schicht geantwortet"
       subject_for_answer_on_comment_on_scheduling_of_employee: "%{name} hat auf einen Kommentar zu einer Ihrer Schichten geantwortet"
       subject_for_answer_on_comment_of_employee_on_scheduling_of_employee: "%{name} hat auf Ihren Kommentar zu einer Ihrer Schichten geantwortet"

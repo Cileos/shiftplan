@@ -35,6 +35,14 @@ class Comment < ActiveRecord::Base
     parent.present?
   end
 
+  def author
+    employee
+  end
+
+  def author_name
+    author.name
+  end
+
   protected
 
   # def send_notifications

@@ -34,7 +34,7 @@ describe SchedulingNotificationMailer do
         body: 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
       owners_comment.save!
 
-      mail = SchedulingNotificationMailer.new_comment(owners_comment, @employee_planner)
+      mail = SchedulingNotificationMailer.new_comment(Notification.last)
       mail.from.should == ['no-reply@shiftplan.de']
     end
 
