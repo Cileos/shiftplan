@@ -4,7 +4,8 @@ class SchedulingNotificationMailer < ActionMailer::Base
 
   def new_comment(notification)
     @notification = notification
-    binding.pry
+    @comment      = notification.notifiable_object
+    @scheduling   = @comment.commentable
     mail to: notification.employee.user.email, subject: notification.subject
   end
 

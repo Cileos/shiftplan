@@ -1,26 +1,6 @@
-%p= "Hallo #{@employee.name}!"
+%p= "Hallo #{@notification.employee.name}!"
 
-- if @is_answer
-  - if @scheduling.employee == @employee
-    - if @comment.parent.employee == @employee
-      %p= "#{@comment.employee.name} hat auf Ihren Kommentar zu einer Ihrer Schichten am #{l(@scheduling.starts_at.to_date, format: :default_with_week_day)} (#{@scheduling.quickie}) geantwortet:"
-    - else
-      %p= "#{@comment.employee.name} hat auf einen Kommentar zu einer Ihrer Schichten am #{l(@scheduling.starts_at.to_date, format: :default_with_week_day)} (#{@scheduling.quickie}) geantwortet:"
-  - else
-    - if @scheduling.commenters.include? @employee
-      - if @comment.parent.employee == @employee
-        %p= "#{@comment.employee.name} hat auf Ihren Kommentar zu einer Schicht von #{@scheduling.employee.name} am #{l(@scheduling.starts_at.to_date, format: :default_with_week_day)} (#{@scheduling.quickie}) geantwortet:"
-      - else
-        %p= "#{@comment.employee.name} hat auf einen Kommentar zu einer Schicht von #{@scheduling.employee.name} am #{l(@scheduling.starts_at.to_date, format: :default_with_week_day)} (#{@scheduling.quickie}) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:"
-    - else
-      %p= "#{@comment.employee.name} hat auf einen Kommentar zu einer Schicht von #{@scheduling.employee.name} am #{l(@scheduling.starts_at.to_date, format: :default_with_week_day)} (#{@scheduling.quickie}) geantwortet:"
-- else
-  - if @scheduling.employee == @employee
-    %p= "#{@comment.employee.name} hat eine Ihrer Schichten am #{l(@scheduling.starts_at.to_date, format: :default_with_week_day)} (#{@scheduling.quickie}) kommentiert:"
-  - elsif @scheduling.commenters.include? @employee
-    %p= "#{@comment.employee.name} hat eine Schicht von #{@scheduling.employee.name} am #{l(@scheduling.starts_at.to_date, format: :default_with_week_day)} (#{@scheduling.quickie}) kommentiert, die Sie auch kommentiert haben:"
-  - else
-    %p= "#{@comment.employee.name} hat eine Schicht von #{@scheduling.employee.name} am #{l(@scheduling.starts_at.to_date, format: :default_with_week_day)} (#{@scheduling.quickie}) kommentiert:"
+%p= @notification.introductory_text
 
 %p= '"' + @comment.body + '"'
 
