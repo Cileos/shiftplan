@@ -12,7 +12,7 @@
         %th
           - if can?(:update, employee)
             = link_to(avatar(employee.user, employee, :tiny), [:edit, current_organization, employee], remote: true)
-            = link_to(employee.name, [:edit, current_organization, employee], remote: true)
+            = link_to(employee.name, [:edit, current_organization, employee], remote: true, :class => 'name')
           - else
             = avatar(employee.user, employee, :tiny)
             = employee.name

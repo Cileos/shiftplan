@@ -1,0 +1,21 @@
+/* --------------------------------------------------------------------- */
+/*  _avatar.css.scss                                                     */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+#avatar_and_name,
+#employees {
+    .name {
+        line-height: 22px;
+    }
+}
+.avatar {
+    margin: 1px 5px 0 0;
+    float: left;
+    @include border-radius(3px);
+    &.tiny {
+        height: 20px;
+        width: 20px;
+    }
+}
