@@ -13,7 +13,7 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, polymorphic: true
   belongs_to :employee
 
-  after_create :send_notifications
+  after_create :create_notifications
 
   # builds a comment by passing a commentable object, a user_id, and comment
   # text.
@@ -31,32 +31,37 @@ class Comment < ActiveRecord::Base
     self.children.size > 0
   end
 
+  def is_answer?
+    parent.present?
+  end
 
   protected
 
-  def send_notifications
+  # def send_notifications
+  #   if commentable_type == 'Post'
+  #     notification_recipients_for_comment_on_post.each do |e|
+  #       PostNotificationMailer.new_comment(self, e).deliver
+  #     end
+  #   elsif commentable_type == 'Scheduling'
+  #     notification_recipients_for_comment_on_scheduling.each do |e|
+  #       CommentNotification.create!(comment: self, employee: e)
+  #       #SchedulingNotificationMailer.new_comment(self, e).deliver
+  #     end
+  #   end
+  # end
+
+  def create_notifications
+    NotificationDispatcher.create_notifications_for(self)
+  end
+
+  def notification_recipients
     if commentable_type == 'Post'
-      notification_recipients_for_comment_on_post.each do |e|
-        PostNotificationMailer.new_comment(self, e).deliver
-      end
-    elsif commentable_type == 'Scheduling'
-      notification_recipients_for_comment_on_scheduling.each do |e|
-        SchedulingNotificationMailer.new_comment(self, e).deliver
-      end
+      notification_recipients_for_comment_on_post
+    else
+      notification_recipients_for_comment_on_scheduling
     end
   end
 
-  def notification_recipients_for_comment_on_scheduling
-    scheduling = commentable
-    organization = scheduling.organization
-    (
-      organization.owners +
-      organization.planners +
-      [scheduling.employee] + # sent mail to the employee of the scheduling
-      scheduling.commenters - # sent mail to employees who commented the scheduling before
-      [employee] # do not sent mail to commenter
-    ).select { |e| e.user.present? }.uniq # do not try to sent mails to employees without a user/a mail address
-  end
 
   def notification_recipients_for_comment_on_post
     post = commentable

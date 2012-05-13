@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120427095934) do
+ActiveRecord::Schema.define(:version => 20120513144755) do
 
   create_table "blogs", :force => true do |t|
     t.integer  "organization_id"
@@ -70,6 +70,18 @@ ActiveRecord::Schema.define(:version => 20120427095934) do
   add_index "invitations", ["inviter_id"], :name => "index_invitations_on_inviter_id"
   add_index "invitations", ["organization_id"], :name => "index_invitations_on_organization_id"
   add_index "invitations", ["user_id"], :name => "index_invitations_on_user_id"
+
+  create_table "notifications", :force => true do |t|
+    t.string   "type"
+    t.string   "notifiable_object_type"
+    t.integer  "notifiable_object_id"
+    t.integer  "employee_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  add_index "notifications", ["employee_id"], :name => "index_notifications_on_employee_id"
+  add_index "notifications", ["notifiable_object_id"], :name => "index_notifications_on_notifiable_object_id"
 
   create_table "organizations", :force => true do |t|
     t.string   "name"

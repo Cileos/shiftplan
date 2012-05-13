@@ -47,7 +47,7 @@ Feature: Comment on Schedulings
       # notification for all planners
       And "burns@shiftplan.local" should receive an email with subject "Homer S hat auf Ihren Kommentar zu einer Schicht geantwortet"
      When I open the email with subject "Homer S hat auf Ihren Kommentar zu einer Schicht geantwortet"
-     Then I should see "Homer S hat auf Ihren Kommentar zu der Schicht am Freitag, den 21.12.2012 (7-23 Reaktor putzen [Rp]) geantwortet:" in the email body
+     Then I should see "Homer S hat auf Ihren Kommentar zu einer Schicht von Homer S am Freitag, den 21.12.2012 (7-23 Reaktor putzen [Rp]) geantwortet:" in the email body
       And I should see "D'ooh!" in the email body
      When I follow the first link in the email
      Then I fill in "E-Mail" with "burns@shiftplan.local"
