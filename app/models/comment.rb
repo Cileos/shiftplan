@@ -59,7 +59,7 @@ class Comment < ActiveRecord::Base
   # end
 
   def create_notifications
-    Notification::Dispatcher::Base.create_notifications_for(self)
+    Notification.create_for(self)
   end
 
   def notification_recipients
