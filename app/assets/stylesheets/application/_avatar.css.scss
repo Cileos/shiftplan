@@ -7,12 +7,13 @@
 #avatar_and_name,
 #employees {
     .name {
-        line-height: 22px;
+        line-height: 24px;
     }
 }
 .avatar {
     margin: 1px 5px 0 0;
     float: left;
+    border: 1px solid #ccc;
     @include border-radius(3px);
     &.tiny {
         height: 20px;
