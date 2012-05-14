@@ -2,7 +2,7 @@
 #   $calendar: a jquery object pointing to the calendar table
 #   tds:       which tds do we want to navigate
 class CalendarCursor
-  constructor: (@$calendar, @tds = 'td:not(.wwt_diff)', @lis = 'li') ->
+  constructor: (@$calendar, @tds = 'td:not(.wwt_diff)', @lis = 'li.scheduling') ->
 
     @$body     = @$calendar.find('tbody:first')
 
