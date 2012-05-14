@@ -1,10 +1,12 @@
+- if employee.new_record?
+  - employee.weekly_working_time = 40
 = simple_form_for([current_organization, employee], remote: true) do |f|
   = f.error_notification
 
   .inputs
     = f.input :first_name, autofocus: true
     = f.input :last_name
-    = f.input :weekly_working_time, input_html: { value: 40, step: 1, min: 0 }
+    = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
     = avatar(employee.user, employee, :tiny)
     = f.input :avatar, as: :file
     = f.input :avatar_cache, as: :hidden
