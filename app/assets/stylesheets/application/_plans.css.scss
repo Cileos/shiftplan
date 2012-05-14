@@ -105,6 +105,10 @@ table#calendar {
             &.focus {
               color: red; /* TODO schøn machen */
             }
+
+            ul.comments { /* we will use this as a popover */
+              display: none;
+            }
         }
     }
 }

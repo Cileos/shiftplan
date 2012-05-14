@@ -6,5 +6,7 @@
           %abbr{title: s.long, rel: "tooltip"}= s.short
         - else
           %span= s.short
-        - if can? :create, s.comments.new
+        - if can? :create, Comment, commentable: s
           = link_to icon(:comment) + s.comments_count.to_s, [s.organization, s.plan, s, :comments], title: ta(:comments), remote: true, class: 'comments'
+        - if s.comments_count > 0
+          = render 'comments/truncated_list', comments: s.comments
