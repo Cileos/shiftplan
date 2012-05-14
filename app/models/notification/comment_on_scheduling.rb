@@ -21,7 +21,8 @@ class Notification::CommentOnScheduling < Notification::Comment
   end
 
   def introductory_text
-    "#{comment.employee.name} hat eine Schicht von #{scheduling.employee.name} am #{I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day)} (#{scheduling.quickie}) kommentiert:"
+    I18n.t(:'scheduling_notification_mailer.new_comment.introductory_texts.comment', author_name: comment.author_name, employee_name: scheduling.employee.name,
+      date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day), quickie: scheduling.quickie)
   end
 end
 
@@ -31,7 +32,8 @@ class Notification::CommentOnSchedulingOfEmployee < Notification::CommentOnSched
   end
 
   def introductory_text
-    "#{comment.employee.name} hat eine Ihrer Schichten am #{I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day)} (#{scheduling.quickie}) kommentiert:"
+    I18n.t(:'scheduling_notification_mailer.new_comment.introductory_texts.comment_on_scheduling_of_employee', author_name: comment.author_name,
+      date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day), quickie: scheduling.quickie)
   end
 end
 
@@ -41,7 +43,8 @@ class Notification::CommentOnSchedulingForCommenter < Notification::CommentOnSch
   end
 
   def introductory_text
-    "#{comment.employee.name} hat eine Schicht von #{scheduling.employee.name} am #{I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day)} (#{scheduling.quickie}) kommentiert, die Sie auch kommentiert haben:"
+    I18n.t(:'scheduling_notification_mailer.new_comment.introductory_texts.comment_for_commenter', author_name: comment.author_name, employee_name: scheduling.employee.name,
+      date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day), quickie: scheduling.quickie)
   end
 end
 
@@ -51,7 +54,8 @@ class Notification::AnswerOnCommentOnScheduling < Notification::CommentOnSchedul
   end
 
   def introductory_text
-    "#{comment.employee.name} hat auf einen Kommentar zu einer Schicht von #{scheduling.employee.name} am #{I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day)} (#{scheduling.quickie}) geantwortet:"
+    I18n.t(:'scheduling_notification_mailer.new_comment.introductory_texts.answer_on_comment', author_name: comment.author_name, employee_name: scheduling.employee.name,
+      date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day), quickie: scheduling.quickie)
   end
 end
 
@@ -61,7 +65,8 @@ class Notification::AnswerOnCommentOfEmployeeOnSchedulingOfEmployee < Notificati
   end
 
   def introductory_text
-    "#{comment.employee.name} hat auf Ihren Kommentar zu einer Ihrer Schichten am #{I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day)} (#{scheduling.quickie}) geantwortet:"
+    I18n.t(:'scheduling_notification_mailer.new_comment.introductory_texts.answer_on_comment_of_employee_on_scheduling_of_employee', author_name: comment.author_name,
+      date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day), quickie: scheduling.quickie)
   end
 end
 
@@ -71,7 +76,8 @@ class Notification::AnswerOnCommentOfEmployeeOnScheduling < Notification::Commen
   end
 
   def introductory_text
-    "#{comment.employee.name} hat auf Ihren Kommentar zu einer Schicht von #{scheduling.employee.name} am #{I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day)} (#{scheduling.quickie}) geantwortet:"
+    I18n.t(:'scheduling_notification_mailer.new_comment.introductory_texts.answer_on_comment_of_employee', author_name: comment.author_name, employee_name: scheduling.employee.name,
+      date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day), quickie: scheduling.quickie)
   end
 end
 
@@ -81,7 +87,8 @@ class Notification::AnswerOnCommentOnSchedulingOfEmployee < Notification::Commen
   end
 
   def introductory_text
-    "#{comment.employee.name} hat auf einen Kommentar zu einer Ihrer Schichten am #{I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day)} (#{scheduling.quickie}) geantwortet:"
+    I18n.t(:'scheduling_notification_mailer.new_comment.introductory_texts.answer_on_comment_on_scheduling_of_employee', author_name: comment.author_name,
+      date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day), quickie: scheduling.quickie)
   end
 end
 
@@ -91,6 +98,7 @@ class Notification::AnswerOnCommentOnSchedulingForCommenter < Notification::Comm
   end
 
   def introductory_text
-    "#{comment.employee.name} hat auf einen Kommentar zu einer Schicht von #{scheduling.employee.name} am #{I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day)} (#{scheduling.quickie}) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:"
+    I18n.t(:'scheduling_notification_mailer.new_comment.introductory_texts.answer_on_comment_for_commenter', author_name: comment.author_name, employee_name: scheduling.employee.name,
+      date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day), quickie: scheduling.quickie)
   end
 end

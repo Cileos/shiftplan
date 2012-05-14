@@ -26,4 +26,14 @@ de:
         comment_on_scheduling_of_employee: "%{name} hat eine Ihrer Schichten kommentiert"
         comment_for_commenter: "%{name} hat eine Schicht kommentiert, die Sie auch kommentiert haben"
         comment: "%{name} hat eine Schicht kommentiert"
+      introductory_texts:
+        comment: "%{author_name} hat eine Schicht von %{employee_name} am %{date} (%{quickie}) kommentiert:"
+        comment_on_scheduling_of_employee: "%{author_name} hat eine Ihrer Schichten am %{date} (%{quickie}) kommentiert:"
+        comment_for_commenter: "%{author_name} hat eine Schicht von %{employee_name} am %{date} (%{quickie}) kommentiert, die Sie auch kommentiert haben:"
+        answer_on_comment: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet:"
+        answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
+        answer_on_comment_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet:"
+        answer_on_comment_on_scheduling_of_employee: "%{author_name} hat auf einen Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
+        answer_on_comment_for_commenter: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:"
+
 
