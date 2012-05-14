@@ -24,6 +24,19 @@ Feature: Comment on Schedulings
      When I close the modal box
      Then I should see "1" within the comment link within cell "Freitag"/"Homer S"
 
+  Scenario: planner writes the first comment using the keyboard
+    Given I am on the page for the plan
+     When I press arrow right 4 times
+      And I press arrow down 3 times
+      And I press key "c"
+      And I wait for the modal box to appear
+      And I fill in "Kommentar" with "Excellent!"
+      And I press "Kommentieren"
+      And I wait for the spinner to disappear
+     Then I should see "Excellent!" within comments within the modal box
+     When I close the modal box
+     Then I should see "1" within the comment link within cell "Freitag"/"Homer S"
+
   Scenario: employee answers
     Given a scheduling should exist
       And employee "Burns" has commented the scheduling with "Excellent!"

@@ -59,8 +59,11 @@ class CalendarCursor
       when 65, 78 # _a_dd, _n_ew
         @orientate()
         @create()
-      when 13 # Enter, _a_dd, _n_ew
+      when 13, 69 # Enter, _e_dit
         @activate()
+      when 67 # _c_omments
+        @orientate()
+        @$focussed_item.find('a.comments').trigger('click.rails')
       when 37 # arrow left
         @left()
       when 39 # arrow right
