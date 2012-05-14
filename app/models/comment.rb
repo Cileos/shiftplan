@@ -45,36 +45,8 @@ class Comment < ActiveRecord::Base
 
   protected
 
-  # def send_notifications
-  #   if commentable_type == 'Post'
-  #     notification_recipients_for_comment_on_post.each do |e|
-  #       PostNotificationMailer.new_comment(self, e).deliver
-  #     end
-  #   elsif commentable_type == 'Scheduling'
-  #     notification_recipients_for_comment_on_scheduling.each do |e|
-  #       CommentNotification.create!(comment: self, employee: e)
-  #       #SchedulingNotificationMailer.new_comment(self, e).deliver
-  #     end
-  #   end
-  # end
-
   def create_notifications
     Notification.create_for(self)
-  end
-
-  def notification_recipients
-    if commentable_type == 'Post'
-      notification_recipients_for_comment_on_post
-    else
-      notification_recipients_for_comment_on_scheduling
-    end
-  end
-
-  def notification_recipients_for_comment_on_post
-    post = commentable
-    post.organization.employees.select do |e|
-      e.user.present? && employee != e && (post.author == e || post.commenters.include?(e))
-    end
   end
 end
 

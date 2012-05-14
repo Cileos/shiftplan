@@ -8,14 +8,9 @@ class PostNotificationMailer < ActionMailer::Base
     mail to: employee.user.email, subject: t(:'post_notification_mailer.new_post.subject')
   end
 
-  def new_comment(comment, employee)
-    @comment = comment
-    @employee = employee
-    subject = if comment.commentable.author == employee
-      t(:'post_notification_mailer.new_comment.subject_for_post_author')
-    else
-      t(:'post_notification_mailer.new_comment.subject_for_commenter')
-    end
-    mail to: employee.user.email, subject: subject
+  def new_comment(notification)
+    @notification = notification
+    @post = notification.post
+    mail to: notification.employee.user.email, subject: notification.subject
   end
 end

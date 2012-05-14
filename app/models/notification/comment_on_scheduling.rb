@@ -9,19 +9,15 @@ class Notification::CommentOnScheduling < Notification::Comment
   end
 
   def subject
-    I18n.t(:'scheduling_notification_mailer.new_comment.subjects.comment', name: comment.author_name)
+    I18n.t(:'scheduling_notification_mailer.new_comment.subjects.comment_on_scheduling', name: comment.author_name)
   end
 
   def scheduling
     comment.commentable
   end
 
-  def comment
-    notifiable
-  end
-
   def introductory_text
-    I18n.t(:'scheduling_notification_mailer.new_comment.introductory_texts.comment', author_name: comment.author_name, employee_name: scheduling.employee.name,
+    I18n.t(:'scheduling_notification_mailer.new_comment.introductory_texts.comment_on_scheduling', author_name: comment.author_name, employee_name: scheduling.employee.name,
       date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day), quickie: scheduling.quickie)
   end
 end

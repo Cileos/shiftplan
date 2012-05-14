@@ -178,7 +178,7 @@ In order to keep my colleagues informed about important news
       And I sign out
 
      # notification for author of blog post(mr. burns)
-     Then "owner@burns.com" should receive an email with subject "Neuer Kommentar zu Ihrem Blogpost"
+     Then "owner@burns.com" should receive an email with subject "Lisa Simpson hat einen Ihrer Blogposts kommentiert"
       But "lisa@thesimpsons.com" should receive no email
       And "bart@thesimpsons.com" should receive no email
      When "owner@burns.com" opens the email
@@ -205,8 +205,8 @@ In order to keep my colleagues informed about important news
       And I sign out
 
      # notifications for author of blog post(mr. burns) and for the commenter "lisa"
-     Then "owner@burns.com" should receive an email with subject "Neuer Kommentar zu Ihrem Blogpost"
-      And "lisa@thesimpsons.com" should receive an email with subject "Neuer Kommentar zu einem Blogpost"
+     Then "owner@burns.com" should receive an email with subject "Bart Simpson hat einen Ihrer Blogposts kommentiert"
+      And "lisa@thesimpsons.com" should receive an email with subject "Bart Simpson hat einen Blogpost ebenfalls kommentiert"
       But "bart@thesimpsons.com" should receive no email
      # blog post author mr. burns opens the email
      When "owner@burns.com" opens the email
