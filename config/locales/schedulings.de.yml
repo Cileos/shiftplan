@@ -17,12 +17,13 @@ de:
         quickie: "9-17 wichtige Arbeit [wA]"
   scheduling_notification_mailer:
     new_comment:
-      subject_for_answer_on_comment_of_employee: "%{name} hat auf Ihren Kommentar zu einer Schicht geantwortet"
-      subject_for_answer_on_comment: "%{name} hat auf einen Kommentar zu einer Schicht geantwortet"
-      subject_for_answer_on_comment_on_scheduling_of_employee: "%{name} hat auf einen Kommentar zu einer Ihrer Schichten geantwortet"
-      subject_for_answer_on_comment_of_employee_on_scheduling_of_employee: "%{name} hat auf Ihren Kommentar zu einer Ihrer Schichten geantwortet"
-      subject_for_answer_on_comment_for_commenter: "%{name} hat auf einen Kommentar zu einer Schicht geantwortet, die Sie auch kommentiert haben"
-      subject_for_comment_on_scheduling_of_employee: "%{name} hat eine Ihrer Schichten kommentiert"
-      subject_for_comment_for_commenter: "%{name} hat eine Schicht kommentiert, die Sie auch kommentiert haben"
-      subject_for_comment: "%{name} hat eine Schicht kommentiert"
+      subjects:
+        answer_on_comment_of_employee: "%{name} hat auf Ihren Kommentar zu einer Schicht geantwortet"
+        answer_on_comment: "%{name} hat auf einen Kommentar zu einer Schicht geantwortet"
+        answer_on_comment_on_scheduling_of_employee: "%{name} hat auf einen Kommentar zu einer Ihrer Schichten geantwortet"
+        answer_on_comment_of_employee_on_scheduling_of_employee: "%{name} hat auf Ihren Kommentar zu einer Ihrer Schichten geantwortet"
+        answer_on_comment_for_commenter: "%{name} hat auf einen Kommentar zu einer Schicht geantwortet, die Sie auch kommentiert haben"
+        comment_on_scheduling_of_employee: "%{name} hat eine Ihrer Schichten kommentiert"
+        comment_for_commenter: "%{name} hat eine Schicht kommentiert, die Sie auch kommentiert haben"
+        comment: "%{name} hat eine Schicht kommentiert"
 
