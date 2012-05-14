@@ -6,4 +6,5 @@
           %abbr{title: s.long, rel: "tooltip"}= s.short
         - else
           %span= s.short
-        = link_to icon(:comment) + s.comments_count.to_s, [s.organization, s.plan, s, :comments], title: ta(:comments), remote: true, class: 'comments'
+        - if can? :create, s.comments.new
+          = link_to icon(:comment) + s.comments_count.to_s, [s.organization, s.plan, s, :comments], title: ta(:comments), remote: true, class: 'comments'

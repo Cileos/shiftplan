@@ -42,7 +42,7 @@ class Ability
     can :read,               Scheduling,   plan: { organization: is_employee_of }
     can :read,               Organization, is_employee_of
     can [:read, :create],    Comment       do |comment|
-      comment.commentable.organization.id == employee.organization_id
+      comment.commentable.organization == employee.organization
     end
     can [:destroy],          Comment,      { employee_id: employee.id }
   end
