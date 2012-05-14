@@ -27,7 +27,10 @@ de:
     no_comments_present: 'Es wurden noch keine Kommentare erstellt.'
   post_notification_mailer:
     new_post:
-      subject: 'Es gibt Neuigkeiten'
+      subjects:
+        post: '%{name} hat einen neuen Blogpost geschrieben'
+      introductory_texts:
+        post: "%{name} hat am %{date} einen neuen Blogpost geschrieben:"
     new_comment:
       subjects:
         comment_on_post: '%{name} hat einen Blogpost kommentiert'
