@@ -10,7 +10,7 @@ class Notification::CommentOnScheduling < Notification::Comment
   end
 
   def comment
-    notifiable_object
+    notifiable
   end
 
   def introductory_text

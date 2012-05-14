@@ -4,12 +4,12 @@ class Notification::Dispatcher::CommentOnScheduling < Notification::Dispatcher::
     if comment.is_answer? # is the comment an answer on a comment?
       notification_recipients_for(comment).each do |employee|
         notification_class = answer_dispatcher.notification_class_for(comment, employee)
-        notification_class.create!(notifiable_object: comment, employee: employee)
+        notification_class.create!(notifiable: comment, employee: employee)
       end
     else
       notification_recipients_for(comment).each do |employee|
         notification_class = self.notification_class_for(comment, employee)
-        notification_class.create!(notifiable_object: comment, employee: employee)
+        notification_class.create!(notifiable: comment, employee: employee)
       end
     end
   end
