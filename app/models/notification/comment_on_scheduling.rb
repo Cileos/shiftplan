@@ -1,5 +1,5 @@
 class Notification::CommentOnScheduling < Notification::Comment
-  after_create :send!
+  after_create :deliver!
 
   def subject
     I18n.t(:'scheduling_notification_mailer.new_comment.subject_for_comment', name: comment.author_name)
@@ -19,7 +19,7 @@ class Notification::CommentOnScheduling < Notification::Comment
 
   protected
 
-  def send!
+  def deliver!
     SchedulingNotificationMailer.new_comment(self).deliver
   end
 end
