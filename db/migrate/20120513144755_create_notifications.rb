@@ -5,6 +5,7 @@ class CreateNotifications < ActiveRecord::Migration
       t.string   :notifiable_type
       t.integer  :notifiable_id
       t.integer  :employee_id,     null: false
+      t.datetime :sent_at
 
       t.timestamps
     end

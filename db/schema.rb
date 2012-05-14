@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20120513144755) do
     t.string   "notifiable_type"
     t.integer  "notifiable_id"
     t.integer  "employee_id",     :null => false
+    t.datetime "sent_at"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end

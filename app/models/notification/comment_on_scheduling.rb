@@ -1,5 +1,12 @@
 class Notification::CommentOnScheduling < Notification::Comment
-  after_create :deliver!
+
+  def self.mailer_class
+    SchedulingNotificationMailer
+  end
+
+  def self.mailer_action
+    'new_comment'
+  end
 
   def subject
     I18n.t(:'scheduling_notification_mailer.new_comment.subject_for_comment', name: comment.author_name)
@@ -15,12 +22,6 @@ class Notification::CommentOnScheduling < Notification::Comment
 
   def introductory_text
     "#{comment.employee.name} hat eine Schicht von #{scheduling.employee.name} am #{I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day)} (#{scheduling.quickie}) kommentiert:"
-  end
-
-  protected
-
-  def deliver!
-    SchedulingNotificationMailer.new_comment(self).deliver
   end
 end
 
