@@ -5,25 +5,25 @@ describe SchedulingNotificationMailer do
   describe 'new_comment' do
 
     before :each do
-      @organization =                     Factory :organization
+      @organization =                     create :organization
 
-      @user_owner =                       Factory :user, email: 'owner@shiftplan.local'
-      @user_owner_2 =                     Factory :user, email: 'owner_2@shiftplan.local'
-      @user_planner =                     Factory :user, email: 'planner@shiftplan.local'
-      @user_employee_homer =              Factory :user, email: 'homer.simpson@shiftplan.local'
-      @user_employee_bart =               Factory :user, email: 'bart.simpson@shiftplan.local'
+      @user_owner =                       create :user, email: 'owner@shiftplan.local'
+      @user_owner_2 =                     create :user, email: 'owner_2@shiftplan.local'
+      @user_planner =                     create :user, email: 'planner@shiftplan.local'
+      @user_employee_homer =              create :user, email: 'homer.simpson@shiftplan.local'
+      @user_employee_bart =               create :user, email: 'bart.simpson@shiftplan.local'
 
-      @employee_owner =                   Factory :employee_owner, organization: @organization, user: @user_owner, first_name: 'Owner'
-      @employee_owner_2 =                 Factory :employee_owner, organization: @organization, user: @user_owner_2, first_name: 'Owner 2'
-      @employee_planner =                 Factory :employee_planner, organization: @organization, user: @user_planner, first_name: 'Planner'
-      @employee_homer =                   Factory :employee, organization: @organization, user: @user_employee_homer, first_name: 'Homer'
-      @employee_bart =                    Factory :employee, organization: @organization, user: @user_employee_bart, first_name: 'Bart'
-      @employee_lisa_without_user =       Factory :employee, organization: @organization, first_name: 'Lisa'
+      @employee_owner =                   create :employee_owner, organization: @organization, user: @user_owner, first_name: 'Owner'
+      @employee_owner_2 =                 create :employee_owner, organization: @organization, user: @user_owner_2, first_name: 'Owner 2'
+      @employee_planner =                 create :employee_planner, organization: @organization, user: @user_planner, first_name: 'Planner'
+      @employee_homer =                   create :employee, organization: @organization, user: @user_employee_homer, first_name: 'Homer'
+      @employee_bart =                    create :employee, organization: @organization, user: @user_employee_bart, first_name: 'Bart'
+      @employee_lisa_without_user =       create :employee, organization: @organization, first_name: 'Lisa'
 
-      @plan =                             Factory :plan, organization: @organization, name: 'AKW Springfield'
-      @scheduling_for_homer =             Factory :scheduling, quickie: '3-5 Reaktor putzen', starts_at: DateTime.parse('2012-12-21'),
+      @plan =                             create :plan, organization: @organization, name: 'AKW Springfield'
+      @scheduling_for_homer =             create :scheduling, quickie: '3-5 Reaktor putzen', starts_at: DateTime.parse('2012-12-21'),
                                             employee: @employee_homer, plan: @plan
-      @scheduling_for_lisa_without_user = Factory :scheduling, quickie: '3-5 Reaktor putzen', starts_at: DateTime.parse('2012-12-21'),
+      @scheduling_for_lisa_without_user = create :scheduling, quickie: '3-5 Reaktor putzen', starts_at: DateTime.parse('2012-12-21'),
                                             employee: @employee_lisa_without_user, plan: @plan
 
       ActionMailer::Base.deliveries = []
