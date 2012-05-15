@@ -170,6 +170,7 @@ In order to keep my colleagues informed about important news
      Then I should see "Es wurden noch keine Kommentare erstellt"
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
+      And I wait for the spinner to disappear
      Then I should not see "Es wurden noch keine Kommentare erstellt"
       And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
       And I should see "Ich backe einen Kuchen für den Umweltminister"

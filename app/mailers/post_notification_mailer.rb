@@ -9,5 +9,5 @@ class PostNotificationMailer < ActionMailer::Base
   end
 
   alias_method :new_post, :new_notification
-  alias_method :new_icomment, :new_notification
+  alias_method :new_comment, :new_notification
 end
