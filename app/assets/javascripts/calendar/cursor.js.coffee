@@ -14,7 +14,7 @@ class CalendarCursor
       @activate()
       false
 
-    @$calendar.on 'click', "#{@tds} #{@lis}", =>
+    @$calendar.on 'click', "#{@tds} #{@lis}", (event) =>
       $target = $(event.target)
       return true if $target.is('a,i') # keep rails' remote links working
       @focus $target.closest(@lis), null
