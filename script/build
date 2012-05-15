@@ -78,9 +78,8 @@ bundle exec rspec --color ./spec                                 || exit 8
 header "Jasmine"
 xvfb-run bundle exec guard-jasmine                               || exit 4
 
-# disabled because firefox frags up key events somehow (only in tests..)
-#header "Cucumber with firefox"
-#bundle exec cucumber features                                    || exit 2
+header "Cucumber with firefox"
+bundle exec cucumber features                                    || exit 2
 
 header "Cucumber with chrome"
 CAPYBARA_CHROME=yes bundle exec cucumber features -t @javascript || exit 1
