@@ -5,7 +5,7 @@ class Notification::Post < Notification::Base
   end
 
   def self.mailer_action
-    'new_post'
+    :new_post
   end
 
   def post
@@ -13,10 +13,10 @@ class Notification::Post < Notification::Base
   end
 
   def subject
-    I18n.t(:'post_notification_mailer.new_post.subjects.post', name: post.author.name)
+    t(:'subjects.post', name: post.author.name)
   end
 
   def introductory_text
-    I18n.t(:'post_notification_mailer.new_post.introductory_texts.post', name: post.author.name, date: I18n.l(post.published_at, format: :tiny))
+    t(:'introductory_texts.post', name: post.author.name, date: I18n.l(post.published_at, format: :tiny))
   end
 end
