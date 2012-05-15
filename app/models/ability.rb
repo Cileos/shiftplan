@@ -41,7 +41,9 @@ class Ability
     can :read,               Team,         organization: is_employee_of
     can :read,               Scheduling,   plan: { organization: is_employee_of }
     can :read,               Organization, is_employee_of
-    can [:read, :create],    Comment,      commentable: { organization: is_employee_of }
+    can [:read, :create],    Comment       do |comment|
+      comment.commentable.organization == employee.organization
+    end
     can [:destroy],          Comment,      { employee_id: employee.id }
   end
 

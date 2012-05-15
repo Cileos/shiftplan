@@ -6,8 +6,8 @@ class CommentDecorator < ApplicationDecorator
     select(parent).replace_with item(parent)
   end
 
-  def append_to_comments_tab(commentable)
-    page.select("#tab_comments_#{commentable.id} ul.comments").append item
+  def append_to_comments_list(commentable)
+    page.select("ul.comments##{h.dom_id(commentable, :comments)}").append item
   end
 
   def selector_for(comment, *a)

@@ -2,23 +2,29 @@
 #   $calendar: a jquery object pointing to the calendar table
 #   tds:       which tds do we want to navigate
 class CalendarCursor
-  constructor: (@$calendar, @tds = 'td:not(.wwt_diff)') ->
+  constructor: (@$calendar, @tds = 'td:not(.wwt_diff)', @lis = 'li.scheduling') ->
 
     @$body     = @$calendar.find('tbody:first')
 
-    # TODO better trigger the event on the cell and let it bubble up?
-    @$calendar.bind 'calendar.cell_focus', (event, cell) =>
-      $cell = $(cell)
-      @focussed_cell().removeClass('focus')
-      $cell.addClass('focus')
-
     $calendar = @$calendar
-    @$calendar.on 'click', @tds, ->
-      $calendar.trigger 'calendar.cell_focus', this
-      $calendar.trigger 'calendar.cell_activate', this
+    @$calendar.on 'click', @tds, (event) =>
+      $target = $(event.target)
+      return true if $target.is('a,i') # keep rails' remote links working
+      @focus $target.closest(@tds)
+      @activate()
+      false
+
+    @$calendar.on 'click', "#{@tds} #{@lis}", =>
+      $target = $(event.target)
+      return true if $target.is('a,i') # keep rails' remote links working
+      @focus $target.closest(@lis), null
+      @activate()
+      false
+
+    @$calendar.on 'update', => @refocus()
 
     # focus first calendar data cell
-    @$calendar.trigger 'calendar.cell_focus', @$body.find('tr:nth-child(1) td:nth-child(2)')
+    @focus @$body.find('tr:nth-child(1) td:nth-child(2)')
 
     @enable()
 
@@ -34,36 +40,106 @@ class CalendarCursor
   focussed_cell: ->
     @$body.find('td.focus')
 
-  columns_count: ->
-    @focussed_cell().closest('tr').children(@tds).size()
+  focus: ($target, item_select) ->
+    if item_select? and $target.has(@lis).length > 0
+      $target = $target.find(@lis)[item_select]()
+    @$calendar.find('.focus').removeClass('focus')
+    $target.closest('td').addClass('focus') unless $target.is('td')
+    $target.addClass('focus')
 
-  rows_count: ->
-    @focussed_cell().closest('tbody').children('tr').size()
+  refocus: ->
+    if @$focussed_item? and @$focussed_item.length > 0
+      @focus @$calendar.find('tbody').children('tr').eq(@current_row).children(@tds).eq(@current_column).find(@lis).eq(@current_item_index)
+    else
+      @focus @$calendar.find('tbody').children('tr').eq(@current_row).children(@tds).eq(@current_column), 'first'
+
 
   keydown: (event) =>
-    $focus  = @focussed_cell()
-    if event.keyCode == 13 # enter
-      # Trigger 'calendar.cell_activate' event. The handler will open the modal window for creating a new scheduling.
-      @$calendar.trigger 'calendar.cell_activate', $focus
-      return
-    column  = $focus.closest('tr').children(@tds).index($focus)
-    row     = $focus.closest('tbody').children('tr').index($focus.closest('tr'))
-    $target = switch event.keyCode
+    switch event.keyCode
+      when 65, 78 # _a_dd, _n_ew
+        @orientate()
+        @create()
+      when 13, 69 # Enter, _e_dit
+        @activate()
+      when 67 # _c_omments
+        @orientate()
+        @$focussed_item.find('a.comments').trigger('click.rails')
       when 37 # arrow left
-        $focus.closest('tr').children(@tds).eq(column-1)
-      when 38 # arrow up
-        if row - 1 < 0
-          row = @rows_count() - 1
-        else
-          row = row - 1
-        $focus.closest('tbody').children('tr').eq(row).children(@tds).eq(column)
+        @left()
       when 39 # arrow right
-        $focus.closest('tr').children(@tds).eq( (column+1) % @columns_count() )
+        @right()
+      when 38 # arrow up
+        @up()
       when 40 # arrow down
-        $focus.closest('tbody').children('tr').eq( (row+1) % @rows_count() ).children(@tds).eq(column)
+        @down()
 
-    if $target
-      @$calendar.trigger 'calendar.cell_focus', $target
+  # sets all the instance vars needed for navigation
+  orientate: ->
+    @$focussed_cell  = @focussed_cell()
+    @current_column  = @$focussed_cell.closest('tr').children(@tds).index(@$focussed_cell)
+    @current_row     = @$focussed_cell.closest('tbody').children('tr').index(@$focussed_cell.closest('tr'))
+    @rows_count      = @$focussed_cell.closest('tbody').children('tr').size()
+    @columns_count   = @$focussed_cell.closest('tr').children(@tds).size()
+    @$items          = @$focussed_cell.find(@lis)
+    if @$items.length > 0
+      @$focussed_item = @$items.filter('.focus')
+      @current_item_index = @$items.index(@$focussed_item)
+    else
+      @$focussed_item = $()
+      @current_item_index = null
+
+  activate: ->
+    @orientate()
+    if @$focussed_item.length > 0
+      @edit()
+    else
+      @create()
+
+  edit: ->
+    new CalendarEditor element: @$focussed_item
+
+  create: ->
+    new CalendarEditor element: @$focussed_cell
+
+  left: ->
+    @orientate()
+    @focus @$focussed_cell.closest('tr').children(@tds).eq(@current_column-1), 'first'
+
+  right: ->
+    @orientate()
+    @focus @$focussed_cell.closest('tr').children(@tds).eq( (@current_column+1) % @columns_count ), 'first'
+
+  up: ->
+    @orientate()
+    if @$items.length > 1 # there are items to navigate
+      if @$focussed_item.length > 0 # some item focussed
+        if @current_item_index == 0 # at the top
+          @row_up()
+        else
+          @focus @$items.eq( @current_item_index - 1)
+      else # none focussed yet
+        @focus @$items.last()
+    else
+      @row_up()
+
+  row_up: ->
+    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row-1) % @rows_count ).children(@tds).eq(@current_column), 'last'
+
+  down: ->
+    @orientate()
+    if @$items.length > 1 # there are items to navigate
+      if @$focussed_item.length > 0 # some item focussed
+        if @current_item_index >= @$items.length-1 # at the end
+          @row_down()
+        else
+          @focus @$items.eq( @current_item_index + 1)
+      else # none focussed yet
+        @focus @$items.first()
+    else
+      @row_down()
+
+  row_down: ->
+    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column), 'first'
 
   enable: =>
     @disable()

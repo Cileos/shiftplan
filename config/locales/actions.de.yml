@@ -24,6 +24,7 @@ de:
       wwt_long: Wochenarbeitszeit
       previous_week: '<<'
       next_week: '>>'
+      close: '×'
       edit: Bearbeiten
       back: Zurück
       show: Anzeigen

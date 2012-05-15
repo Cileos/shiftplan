@@ -43,7 +43,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
     {
       organization_id: h.current_organization.id,
       plan_id:         plan.id,
-      edit_url:        h.multiple_organization_plan_schedulings_path(h.current_organization, plan),
       new_url:         h.new_organization_plan_scheduling_path(h.current_organization, plan)
     }
   end
@@ -151,11 +150,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def respond(resource)
     if resource.errors.empty?
-      update_cell_for(resource)
-      if resource.next_day
-        update_cell_for(resource.next_day)
-      end
-      update_wwt_diff_for(resource.employee)
+      update(resource)
       remove_modal
       update_legend
       update_quickie_completions
@@ -164,8 +159,17 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  def update(resource)
+    update_cell_for(resource)
+    if resource.next_day
+      update_cell_for(resource.next_day)
+    end
+    update_wwt_diff_for(resource.employee)
+  end
+
   def update_cell_for(scheduling)
     select(:cell, scheduling).html cell_content_for_scheduling(scheduling) || ''
+    select(:cell, scheduling).trigger 'update'
   end
 
   def update_wwt_diff_for(employee)

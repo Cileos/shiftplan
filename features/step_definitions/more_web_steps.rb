@@ -35,8 +35,8 @@ Then /^(.+) should disappear$/ do |name|
   step %Q~I wait for #{name} to disappear~
 end
 
-When /^I close the modal box$/ do
-  page.first('.modal-backdrop').click
+When /^I close (the modal box)$/ do |target|
+  with_scope(target) { page.first('button.close').click }
   page.should have_no_css('.modal-backdrop') # implies waiting
 end
 

@@ -23,11 +23,15 @@ class QuickieEditor extends View
         sorter: @sorter
         matcher: @matcher
     @one 'attach', =>
-      $('.modal').addClass('watched').one 'hide', =>
-        @input.unbind().data('typeahead').$menu.remove()
+      $(@).closest('form').bind 'remove', @destroy
+      $('.modal').bind 'hide', @destroy
+
+  destroy: =>
+    @input?.unbind().data('typeahead')?.$menu?.remove()
+    true
 
   matcher: (item) ->
-    return true for term in @query.split(/\s/) when ~item.indexOf(term)
+    return true for term in @query.split(/\s/) when ~item.toLowerCase().indexOf(term.toLowerCase())
     return false
 
   sorter: (items) ->
