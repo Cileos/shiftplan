@@ -53,7 +53,7 @@ Then /^I should see the following table of (.+):$/ do |plural, expected|
       cell.text
     else # remove the text of all included buttons and links, they gonna be clicked anyway
       text = cell.text
-      cell.all('a,button').each do |e|
+      cell.all('a.btn,a.comments,button').each do |e|
         text = text.sub(e.text, '')
       end
       text
