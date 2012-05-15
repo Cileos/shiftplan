@@ -1,0 +1,3 @@
+page.decorate @scheduling do |scheduling|
+  scheduling.append_modal header: scheduling.quickie, body: render('edit_form', scheduling: scheduling)
+end

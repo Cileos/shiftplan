@@ -7,7 +7,7 @@ class CommentsController < InheritedResources::Base
     child.class_eval do
       actions :create, :destroy
       defaults :resource_class => Comment, :collection_name => 'comments', :instance_name => 'comment'
-      load_and_authorize_resource
+      load_and_authorize_resource class: Comment
 
       respond_to :js
     end

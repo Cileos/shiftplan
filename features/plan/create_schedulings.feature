@@ -89,7 +89,7 @@ Feature: create a scheduling
      Then I should see "Quickie ist nicht gültig" within errors within the new scheduling form
 
   @javascript
-  Scenario: schedule only using the keyboard
+  Scenario: schedule only using the keyboard (Enter, n or a)
      Then the cell "Montag"/"Planner Burns" should be focus
      When I press return
       And I wait for the new scheduling form to appear
@@ -108,7 +108,7 @@ Feature: create a scheduling
      When I press arrow down
       And I press arrow right
      Then the cell "Dienstag"/"Carl C" should be focus
-     When I press return
+     When I press key "n"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7-17"
       And I press "Anlegen"
@@ -125,7 +125,7 @@ Feature: create a scheduling
      When I press arrow down
       And I press arrow right
      Then the cell "Mittwoch"/"Lenny L" should be focus
-     When I press return
+     When I press key "a"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7"
       And I press return in the "Quickie" field
@@ -137,5 +137,19 @@ Feature: create a scheduling
         | Planner Burns | 8-18   |          |          |            |         |         |         |
         | Carl C        |        | 7-17     |          |            |         |         |         |
         | Lenny L       |        |          | 7-17     |            |         |         |         |
+        | Homer S       |        |          |          |            |         |         |         |
+      And the cell "Mittwoch"/"Lenny L" should be focus
+
+     When I press arrow right
+      And I press arrow left
+      And I press key "n"
+      And I fill in "Quickie" with "1-3"
+     When I press enter in the "Quickie" field
+      And I wait for the new scheduling form to disappear
+     Then I should see the following calendar:
+        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
+        | Planner Burns | 8-18   |          |          |            |         |         |         |
+        | Carl C        |        | 7-17     |          |            |         |         |         |
+        | Lenny L       |        |          | 1-3 7-17 |            |         |         |         |
         | Homer S       |        |          |          |            |         |         |         |
       And the cell "Mittwoch"/"Lenny L" should be focus

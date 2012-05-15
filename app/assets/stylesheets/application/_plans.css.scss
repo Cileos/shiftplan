@@ -102,6 +102,13 @@ table#calendar {
                     @include border-right-radius(0px);
                 }
             }
+            &.focus {
+              color: red; /* TODO schøn machen */
+            }
+
+            ul.comments { /* we will use this as a popover */
+              display: none;
+            }
         }
     }
 }

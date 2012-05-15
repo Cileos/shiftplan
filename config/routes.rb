@@ -6,10 +6,7 @@ Shiftplan::Application.routes.draw do
   resources :organizations do
     resources :plans do
       resources :schedulings do
-        collection do
-          get 'multiple', as: 'multiple'
-        end
-        resource :comments, only: [:create], controller: 'scheduling_comments'
+        resources :comments, only: [:index, :create, :destroy], controller: 'scheduling_comments'
       end
       get 'week/:week' => 'schedulings#index', :as => 'week', :constraints => { :week => /\d{1,2}/ }
       get ':year/week/:week' => 'schedulings#index', :as => 'year_week', :constraints => { :year => /\d{4}/, :week => /\d{1,2}/ }

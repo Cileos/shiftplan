@@ -3,7 +3,6 @@ class SchedulingsController < InheritedResources::Base
 
   nested_belongs_to :plan
   actions :all, :except => [:show]
-  custom_actions collection: :multiple
 
   respond_to :html, :js
 

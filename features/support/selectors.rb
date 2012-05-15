@@ -57,11 +57,22 @@ module HtmlSelectorsHelpers
     when 'errors'
       '.errors.alert.alert-error'
 
+    when 'the spinner'
+      '#spinner'
+
     when /^the #{capture_nth} active tab$/
       ".tabbable#{Numerals[$1]} .tab-pane.active"
 
+    when /^the comment link$/
+      'a.comments'
+
     when /^the #{capture_nth} form$/
       "form#{Numerals[$1]}"
+
+    when %r~^(?:the )?cell "([^"]+)"/"([^"]+)"$~
+      column = column_index_for($1)
+      row    = row_index_for($2)
+      "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
 
     when 'a hint'
       '.help-block'
@@ -111,6 +122,21 @@ module HtmlSelectorsHelpers
         "Now, go and add a mapping in #{__FILE__}"
     end
   end
+
+  private
+
+  def column_index_for(column_label)
+    columns = page.all('thead tr th').map(&:text).map(&:strip)
+    columns.should include(column_label)
+    columns.index(column_label)
+  end
+
+  def row_index_for(row_label)
+    rows = page.all("tbody th").map(&:text).map(&:strip)
+    rows.should include(row_label)
+    rows.index(row_label)
+  end
+
 end
 
 World(HtmlSelectorsHelpers)

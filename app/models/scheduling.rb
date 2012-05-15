@@ -156,6 +156,10 @@ class Scheduling < ActiveRecord::Base
       .map(&:quickie)
   end
 
+  def comments_count
+    comments.count
+  end
+
   private
 
   def parse_quickie

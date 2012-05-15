@@ -10,22 +10,6 @@ describe 'CalendarEditor', ->
   it 'is defined', ->
     expect(CalendarEditor).not.toBeNull()
 
-  it 'fetches multi-edit form from server to edit every scheduling', ->
-    ajax = spyOn($, 'ajax')
-    new CalendarEditor cell: $('<td><ul>  <li data-id=4>first</li> <li data-id=8>second</li> <li data-id=15>third</li> </ul></td>'), form: $('<form></form>')
-    expect(ajax).toHaveBeenCalled()
-    expect(ajax.callCount).toEqual(1)
-    expect(ajax.argsForCall[0][0].data.ids).toEqual( [4, 8, 15] )
-
-  xit 'creates an editor when adding an existing scheduling', ->
-    calendar = new CalendarEditor cell: $('<td><ul>  </ul></td>'), form: $('<form></form>')
-    editor = spyOn(SchedulingEditor, 'content')
-    scheduling = 'scheduling'
-    window.gon = {}
-    window.gon.quickie_completions = ['q1', 'q2']
-    calendar.addScheduling scheduling
-    expect(editor.mostRecentCall.args[0]).toEqual(scheduling: scheduling, quickies: ['q1','q2'])
-    
 
   # no clue how to test this (yet)
   it 'focusses the first field'

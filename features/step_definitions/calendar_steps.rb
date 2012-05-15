@@ -1,18 +1,19 @@
-When /^I click on cell "([^"]+)"\/"([^"]+)"$/ do |column_label, row_label|
-  column = column_index_for(column_label)
-  row    = row_index_for(row_label)
-
+When /^I click on #{capture_cell}$/ do |cell|
   page.execute_script <<-EOJS
-    $("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})").click()
+    $("#{selector_for(cell)}").click()
   EOJS
 end
 
-Then /^the cell "([^"]+)"\/"([^"]+)" should be (focus)$/ do |column_label, row_label, predicate|
-  column = column_index_for(column_label)
-  row    = row_index_for(row_label)
+When /^I click on (?:the )?scheduling #{capture_quoted}$/ do |quickie|
+  page.find("li", text: quickie).click()
+end
 
-  cell = page.find("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})")
-  cell[:class].split.should include(predicate)
+Then /^the #{capture_cell} should be (focus)$/ do |cell, predicate|
+  page.find(selector_for(cell))[:class].split.should include(predicate)
+end
+
+Then /^the scheduling #{capture_quoted} should be (focus)$/ do |quickie, predicate|
+  page.find("li", text: quickie)[:class].split.should include(predicate)
 end
 
 def directions
@@ -27,6 +28,10 @@ end
 When /^I press (#{directions}) in the #{capture_quoted} field$/ do |key, field|
   key.gsub!(' ', '_')
   find_field(field).send_string_of_keys(key)
+end
+
+When /^I press key #{capture_quoted}$/ do |key|
+  find('body').send_string_of_keys(key)
 end
 
 When /^I press (#{directions}) (\d{1,2}) times$/ do |direction, times|
@@ -54,16 +59,20 @@ end
 # FIXME can only match the whole calendar
 Then /^I should see the following calendar:$/ do |expected|
   actual = find(selector_for('the calendar')).all("tr").map do |tr|
-    tr.all('th, td').map(&:text).map {|text| text.strip.gsub(/\s+/, ' ') }
+    tr.all('th, td').map do |cell|
+      if cell.tag_name == 'th' or cell.all('*').empty? # a text-only cell or header
+        cell.text
+      else
+        # ignore the other elements, for example the comment links or avatars
+        cell.all('abbr,span').map(&:text).join(' ')
+      end.strip.gsub(/\s+/, ' ')
+    end
   end
   expected.diff! actual
 end
 
 Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value of "(\d+ von \d+|\d+)"$/ do |employee, color, text|
   employee = model!(employee)
-  column = column_index_for("Stunden/WAZ")
-  row    = row_index_for(employee.name)
-
   color_class_mapping = {
     'yellow' => 'badge-warning',
     'green'  => 'badge-success',
@@ -74,7 +83,7 @@ Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value o
   classes = %w(badge)
   classes << color_class_mapping[color]
   classes.compact!
-  cell = find("#{selector_for('the calendar')} tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1}) span.#{classes.join('.')}")
+  cell = find("#{selector_for('the calendar')} #{selector_for(%Q~cell "Stunden/WAZ"/"#{employee.name}"~)}")
   assert_equal text, cell.text
 end
 
