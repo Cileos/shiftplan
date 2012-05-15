@@ -55,6 +55,7 @@ class CalendarCursor
 
 
   keydown: (event) =>
+    captured = true
     switch event.keyCode
       when 65, 78 # _a_dd, _n_ew
         @orientate()
@@ -72,6 +73,14 @@ class CalendarCursor
         @up()
       when 40 # arrow down
         @down()
+      else
+        captured = false
+    if captured
+      event.stopPropagation()
+      event.preventDefault()
+      false
+    else
+      true
 
   # sets all the instance vars needed for navigation
   orientate: ->
