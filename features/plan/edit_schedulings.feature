@@ -48,7 +48,7 @@ Feature: Edit Schedulings of a Plan
       And I press arrow down
      Then the scheduling "4-10" should be focus within the cell "Freitag"/"Santa C"
 
-     When I press enter
+     When I press return
       And I wait for the modal box to appear
      Then the "Quickie" field should contain "4-10" within the modal box
 
