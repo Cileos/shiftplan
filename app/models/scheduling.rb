@@ -18,6 +18,10 @@ class Scheduling < ActiveRecord::Base
   acts_as_commentable
   has_many :comments, as: :commentable # FIXME WTF
 
+  def commenters
+    comments.map &:employee
+  end
+
   # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
   def start_hour=(hour)
     self.starts_at = date + hour.hours
