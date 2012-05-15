@@ -8,8 +8,8 @@ Feature: Comment on Schedulings
     Given today is 2012-12-18
       And the situation of a nuclear reactor
       And the employee "Homer" was scheduled in the plan as following:
-        | date       | quickie |
-        | 2012-12-21 | 7-23    |
+        | date       | quickie             |
+        | 2012-12-21 | 7-23 Reaktor putzen |
 
   Scenario: planner writes the first comment
     Given I am on the page for the plan
@@ -41,3 +41,18 @@ Feature: Comment on Schedulings
       And I should see "D'ooh!" within replies within comments within the modal box
       And I should see "Sie haben am 18.12.2012 um 00:00 Uhr geschrieben:" within comments within the modal box
       But I should not see "Antworten" within "button"
+     When I go to the page for the plan
+      And I sign out
+
+      # notification for all planners
+      And "burns@shiftplan.local" should receive an email with subject "Homer S hat auf Ihren Kommentar zu einer Schicht geantwortet"
+     When I open the email with subject "Homer S hat auf Ihren Kommentar zu einer Schicht geantwortet"
+     Then I should see "Homer S hat auf Ihren Kommentar zu einer Schicht von Homer S am Freitag, den 21.12.2012 (7-23 Reaktor putzen [Rp]) geantwortet:" in the email body
+      And I should see "D'ooh!" in the email body
+     When I follow the first link in the email
+     Then I fill in "E-Mail" with "burns@shiftplan.local"
+      And I fill in "Passwort" with "secret"
+      And I press "Einloggen"
+     Then I should be on the page of the plan for week: 51, year: 2012
+      And I should see "7-23 Rp"
+

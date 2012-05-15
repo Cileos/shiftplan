@@ -32,10 +32,10 @@ In order to keep my colleagues informed about important news
       And I sign out
 
       # notifications
-      And "heinz@example.com" should receive an email with subject "Es gibt Neuigkeiten"
-      And "kurt@example.com" should receive an email with subject "Es gibt Neuigkeiten"
+      And "heinz@example.com" should receive an email with subject "Owner Burns hat einen neuen Blogpost geschrieben"
+      And "kurt@example.com" should receive an email with subject "Owner Burns hat einen neuen Blogpost geschrieben"
       But "owner@burns.com" should receive no email
-     When "heinz@example.com" opens the email with subject "Es gibt Neuigkeiten"
+     When "heinz@example.com" opens the email with subject "Owner Burns hat einen neuen Blogpost geschrieben"
      Then I should see "Owner Burns hat am 24.05.2012 um 12:00 Uhr einen neuen Blogpost geschrieben" in the email body
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern." in the email body
      When I click on the first link in the email
@@ -178,7 +178,7 @@ In order to keep my colleagues informed about important news
       And I sign out
 
      # notification for author of blog post(mr. burns)
-     Then "owner@burns.com" should receive an email with subject "Neuer Kommentar zu Ihrem Blogpost"
+     Then "owner@burns.com" should receive an email with subject "Lisa Simpson hat einen Ihrer Blogposts kommentiert"
       But "lisa@thesimpsons.com" should receive no email
       And "bart@thesimpsons.com" should receive no email
      When "owner@burns.com" opens the email
@@ -205,8 +205,8 @@ In order to keep my colleagues informed about important news
       And I sign out
 
      # notifications for author of blog post(mr. burns) and for the commenter "lisa"
-     Then "owner@burns.com" should receive an email with subject "Neuer Kommentar zu Ihrem Blogpost"
-      And "lisa@thesimpsons.com" should receive an email with subject "Neuer Kommentar zu einem Blogpost"
+     Then "owner@burns.com" should receive an email with subject "Bart Simpson hat einen Ihrer Blogposts kommentiert"
+      And "lisa@thesimpsons.com" should receive an email with subject "Bart Simpson hat einen Blogpost ebenfalls kommentiert"
       But "bart@thesimpsons.com" should receive no email
      # blog post author mr. burns opens the email
      When "owner@burns.com" opens the email

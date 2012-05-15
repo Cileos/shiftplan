@@ -11,4 +11,12 @@ class Organization < ActiveRecord::Base
   def company_blog
     blogs.first
   end
+
+  def planners
+    employees.where(role: 'planner')
+  end
+
+  def owners
+    employees.where(role: 'owner')
+  end
 end

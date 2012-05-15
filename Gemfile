@@ -29,7 +29,7 @@ end
 
 group :test do
   gem 'cucumber-rails', "~> 1.2.1", :require => false
-  gem 'rspec-rails', "~> 2.8.1"
+  gem 'rspec-rails', "~> 2.10.1"
   gem 'launchy'
   gem "pickle"
   gem "timecop"

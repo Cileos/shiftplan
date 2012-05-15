@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   validates_presence_of :title, :blog, :body, :author, :published_at
 
   before_validation :set_published_at, on: :create
-  after_create :send_notifications
+  after_create :create_notifications
 
   delegate :organization, to: :blog
 
@@ -22,10 +22,8 @@ class Post < ActiveRecord::Base
     self.published_at = Time.now
   end
 
-  def send_notifications
-    organization.employees.select {|e| e.user.present? && self.author != e }.each do |employee|
-      PostNotificationMailer.new_post(self, employee).deliver
-    end
+  def create_notifications
+    Notification.create_for(self)
   end
 end
 

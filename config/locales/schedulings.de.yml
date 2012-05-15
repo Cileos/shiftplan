@@ -15,4 +15,25 @@ de:
     hints:
       scheduling:
         quickie: "9-17 wichtige Arbeit [wA]"
+  scheduling_notification_mailer:
+    new_comment:
+      subjects:
+        comment_on_scheduling: "%{name} hat eine Schicht kommentiert"
+        comment_on_scheduling_of_employee: "%{name} hat eine Ihrer Schichten kommentiert"
+        comment_for_commenter: "%{name} hat eine Schicht kommentiert, die Sie auch kommentiert haben"
+        answer_on_comment: "%{name} hat auf einen Kommentar zu einer Schicht geantwortet"
+        answer_on_comment_of_employee: "%{name} hat auf Ihren Kommentar zu einer Schicht geantwortet"
+        answer_on_comment_on_scheduling_of_employee: "%{name} hat auf einen Kommentar zu einer Ihrer Schichten geantwortet"
+        answer_on_comment_of_employee_on_scheduling_of_employee: "%{name} hat auf Ihren Kommentar zu einer Ihrer Schichten geantwortet"
+        answer_on_comment_for_commenter: "%{name} hat auf einen Kommentar zu einer Schicht geantwortet, die Sie auch kommentiert haben"
+      introductory_texts:
+        comment_on_scheduling: "%{author_name} hat eine Schicht von %{employee_name} am %{date} (%{quickie}) kommentiert:"
+        comment_on_scheduling_of_employee: "%{author_name} hat eine Ihrer Schichten am %{date} (%{quickie}) kommentiert:"
+        comment_for_commenter: "%{author_name} hat eine Schicht von %{employee_name} am %{date} (%{quickie}) kommentiert, die Sie auch kommentiert haben:"
+        answer_on_comment: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet:"
+        answer_on_comment_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet:"
+        answer_on_comment_on_scheduling_of_employee: "%{author_name} hat auf einen Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
+        answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
+        answer_on_comment_for_commenter: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:"
+
 

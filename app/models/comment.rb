@@ -13,10 +13,10 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, polymorphic: true
   belongs_to :employee
 
-  after_create :send_notifications
+  after_create :create_notifications
 
   # builds a comment by passing a commentable object, a user_id, and comment
-  # text. 
+  # text.
   def self.build_from(obj, employee, attributes)
     new.tap do |comment|
       comment.attributes       = attributes
@@ -25,27 +25,28 @@ class Comment < ActiveRecord::Base
       comment.employee         = employee
     end
   end
-  
+
   #helper method to check if a comment has children
   def has_children?
-    self.children.size > 0 
+    self.children.size > 0
   end
 
+  def is_answer?
+    parent.present?
+  end
+
+  def author
+    employee
+  end
+
+  def author_name
+    author.name
+  end
 
   protected
 
-  def send_notifications
-    return true unless commentable_type == 'Post'
-    notification_recipients.each do |e|
-      PostNotificationMailer.new_comment(self, e).deliver
-    end
-  end
-
-  def notification_recipients
-    post = commentable
-    post.organization.employees.select do |e|
-      e.user.present? && employee != e && (post.author == e || post.commenters.include?(e))
-    end
+  def create_notifications
+    Notification.create_for(self)
   end
 end
 
