@@ -1,0 +1,15 @@
+/* --------------------------------------------------------------------- */
+/*  _hidden.css.scss                                                     */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+@mixin _hidden() {
+    display: none;
+    visibility: hidden;
+}
+
+@mixin _unhidden() {
+    display: initial;
+    visibility: visible;
+}
