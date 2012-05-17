@@ -1,0 +1,27 @@
+/* --------------------------------------------------------------------- */
+/*  _calendar.css.scss                                                   */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+#calendar {
+    thead {
+        th:not(.employees) {
+            text-align: center;
+            abbr {
+                @include _hidden();
+            }
+        }
+    }
+    tbody {
+        th {
+            width: 13%;
+        }
+        td {
+            width: 10%; // == 70%
+            &.wwt_diff {
+                width: 7%;
+            }
+        }
+    }
+}
