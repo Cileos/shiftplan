@@ -17,7 +17,7 @@ Spork.prefork do
 
   require 'factory_girl'
 
-#  require 'kopflos/cucumber'
+  require 'kopflos/cucumber'
 
   World(RSpec::Matchers)
 
