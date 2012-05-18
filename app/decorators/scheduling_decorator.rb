@@ -9,6 +9,10 @@ class SchedulingDecorator < RecordDecorator
     concat hour_range_quickie, team_shortcut
   end
 
+  def hour_range_with_duration
+    hour_range_quickie + ' (' + length_in_hours.to_s + 'h)'
+  end
+
   def team_class
     if team
       dom_id(team)
