@@ -15,4 +15,10 @@ module PlansHelper
       [translate(duration, :scope => 'activerecord.values.plans.durations'), duration]
     end
   end
+
+  def show_with_abbr(content_full, content_abbr, clss=nil, opts={})
+    ret = content_tag :span, content_full, class: clss
+    ret += content_tag :abbr, content_abbr, {class: clss, title: content_full}
+    ret
+  end
 end

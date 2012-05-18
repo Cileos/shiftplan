@@ -13,8 +13,7 @@
         %th.employees= translate_action :employees
         - f.formatted_days.each do |day|
           %th
-            %span= day
-            %abbr= truncate(day, :length => 2, :omission => '')
+            =show_with_abbr(day, truncate(day, :length => 2, :omission => ''), 'day_name')
         = f.weekly_working_time_difference_header
     %tbody
       - f.employees.each do |employee|
