@@ -3,25 +3,107 @@
 /*  compass version: 0.12.rc.1                                           */
 /* --------------------------------------------------------------------- */
 
+$ci_blue: #5eaacb;
 
 #calendar {
+    color: #333;
+    // tbody tr:nth-child(odd) td, tbody tr:nth-child(odd) th {
+    //     background: none;
+    // }
+    abbr {
+        &.day_name, &.weekly_working_time,
+        &.team_name, &.work_time {
+            @include _hidden();
+        }
+    }
+
     thead {
         th:not(.employees) {
             text-align: center;
-            abbr {
-                @include _hidden();
-            }
         }
     }
     tbody {
         th {
             width: 13%;
+            padding: 2px;
         }
         td {
             width: 10%; // == 70%
+            padding: 2px;
             &.wwt_diff {
                 width: 7%;
             }
+            &.focus {
+                @include box-shadow(black 0px 0px 2px 0px inset);
+            }
+            // &.focus, &:focus, &:hover {
+            //     background: image-url('actions-add-big-1.png') center bottom no-repeat;
+            // }
         }
+    }
+    ul {
+        list-style: none;
+        margin: 0 0 20px 0;
+        padding: 0;
+        font-size: 11px;
+        li {
+            margin-bottom: 5px;
+            padding: 0px 0px 0px 0px;
+            @include _set_gradient_background($direction: top, $percentage: 8%);
+            // background: #f0f0f0;
+            border-width: 1px;
+            border-top-width: 3px;
+            border-bottom-width: 2px;
+            border-style: solid;
+            border-left-color: #c8c8c8;
+            border-right-color: #c8c8c8;
+            // border-bottom-color: #d0d0d0;
+            @include border-radius(2px);
+            span {
+                &.team_name, &.work_time {
+                    display: block;
+                    padding: 0 3px;
+                }
+                &.team_name {
+                    background: #fbfbfb;
+                    // @include _set_gradient_background($direction: bottom, $percentage: 8%, $color: #f0f0f0);
+                    border-top: 1px solid #c8c8c8;
+            // border-top-width: 1px;
+            // border-top-width: 1px;
+            // border-top-style: solid;
+
+                    // border-left: 1px solid #d0d0d0;
+                    border-bottom: 1px solid #d0d0d0;
+                    @include box-shadow(#e8e8e8 0px 1px 5px 0px inset);
+                    padding: 2px 4px 3px 4px;
+                    line-height: 14px;
+                }
+            }
+            &.focus, &:focus, &:hover {
+                background: #d8d8d8;
+                @include _set_gradient_background($color: #bfbfbf, $direction: bottom, $percentage: 7%);
+                border-left-color: black;
+                border-right-color: black;
+                span.work_time {
+                    // color: white;
+                }
+                span.team_name {
+                    background: #f0f0f0;
+                    border-top-color:    #666;
+                    border-bottom-color: #666;
+                }
+            }
+            .gimmicks {
+                padding: 0 5px;
+                text-align: right;
+                a.comments {
+                    padding-left: 15px;
+                    background: image-url('discussions-comment-2.png') 0 bottom no-repeat;
+                }
+            }
+        }
+    }
+    ul.comments {
+        display: none;
     }
 }
