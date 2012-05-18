@@ -68,9 +68,11 @@ class SchedulingFilterDecorator < ApplicationDecorator
   def weekly_working_time_difference_header
     if week?
       h.content_tag :th do
-        (h.translate_action(:hours) + '/' +
-        h.content_tag(:abbr, title: h.translate_action(:wwt_long)) do
-          h.translate_action(:wwt_short)
+        (h.content_tag(:span, (h.translate_action(:hours) + '/').html_safe +
+                               h.content_tag(:abbr, h.translate_action(:wwt_short), {title: h.translate_action(:wwt_long)}).html_safe,
+                              class: 'weekly_working_time') +
+        h.content_tag(:abbr, title: h.translate_action(:hours) + '/' +h.translate_action(:wwt_long), class: 'weekly_working_time') do
+          'h/' + h.translate_action(:wwt_short)
         end).html_safe
       end
     end
@@ -194,7 +196,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # TODO move into own view to fetch as an organization-specific asset
   def team_styles
     teams.map do |team|
-      %Q~.#{dom_id(team)} { background-color: #{team.color};}~
+      %Q~.#{dom_id(team)} { border-color: #{team.color};}~
     end.join(' ')
   end
 end
