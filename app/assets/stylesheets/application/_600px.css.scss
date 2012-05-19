@@ -16,8 +16,11 @@
     //     left: auto;
     //     right: 0;
     // }
-    table#calendar {
-        font-size: 80%;
+    table#calendar, table#calendar ul {
+        font-size: 10px;
+    }
+    table#calendar .badge {
+        font-size: 9px;
     }
 }
 

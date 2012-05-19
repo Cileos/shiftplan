@@ -81,19 +81,26 @@ class SchedulingFilterDecorator < ApplicationDecorator
   def weekly_working_time_difference_tag_for(employee)
     if week?
       h.content_tag :td, :class => 'wwt_diff', 'data-employee_id' => employee.id do
-        wwt_diff_for(employee)
+        wwt_diff_for(employee) +
+        wwt_diff_for_as_abbr(employee)
       end
     end
   end
 
   def wwt_diff_for(employee)
-    h.content_tag :span, wwt_diff_label_text_for(employee),
-      class: "badge #{wwt_diff_label_class_for(employee)}"
+    h.content_tag :span, wwt_diff_label_text_for(employee), class: "weekly_working_time badge #{wwt_diff_label_class_for(employee)}"
   end
 
-  def wwt_diff_label_text_for(employee)
+  def wwt_diff_for_as_abbr(employee)
+    h.content_tag(:abbr, title: wwt_diff_label_text_for(employee), class: "weekly_working_time badge #{wwt_diff_label_class_for(employee)}") do
+      wwt_diff_label_text_for(employee, opts={short: true})
+    end
+  end
+
+  def wwt_diff_label_text_for(employee, opts={})
     if employee.weekly_working_time.present?
-      "#{hours_for(employee)} von #{employee.weekly_working_time.to_i}"
+      opts[:short].present? ? txt = '/' : txt = 'von'
+      "#{hours_for(employee)} #{txt} #{employee.weekly_working_time.to_i}"
     else
       "#{hours_for(employee)}"
     end
