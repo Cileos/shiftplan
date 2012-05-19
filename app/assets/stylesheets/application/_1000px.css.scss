@@ -11,15 +11,21 @@
         @include single-transition(all, 0.5s, ease);
     }
     table#calendar {
-        span {
-            &.day_name, &.weekly_working_time {
-                @include _hidden();
+        abbr {
+            &.day_name, &.badge, &.weekly_working_time {
+                &:before {
+                    content: '';
+                }
+                span {
+                    @include _unhidden();
+                }
             }
         }
-        abbr {
-            &.day_name, &.weekly_working_time {
-                @include _unhidden();
-            }
+        abbr.weekly_working_time {
+            @include _unhidden();
+        }
+        span.weekly_working_time {
+            @include _hidden();
         }
     }
 }
