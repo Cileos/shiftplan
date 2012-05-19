@@ -22,8 +22,17 @@
         padding: 0;
         margin-left: -20px;
     }
-    table#calendar {
-        font-size: 90%;
+    table#calendar ul li {
+        span {
+            &.team_name, &.work_time {
+                @include _hidden();
+            }
+        }
+        abbr {
+            &.team_name, &.work_time {
+                @include _unhidden('block');
+            }
+        }
     }
 }
 

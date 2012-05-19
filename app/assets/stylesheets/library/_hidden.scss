@@ -9,7 +9,7 @@
     visibility: hidden;
 }
 
-@mixin _unhidden() {
-    display: initial;
+@mixin _unhidden($display: 'initial') {
+    display: unquote($display);
     visibility: visible;
 }

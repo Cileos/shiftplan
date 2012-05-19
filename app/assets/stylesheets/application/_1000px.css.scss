@@ -10,16 +10,14 @@
         padding-right: 20px;
         @include single-transition(all, 0.5s, ease);
     }
-    table#calendar {
+    table#calendar thead {
         span {
-            &.day_name, &.weekly_working_time,
-            &.team_name, &.work_time {
+            &.day_name, &.weekly_working_time {
                 @include _hidden();
             }
         }
         abbr {
-            &.day_name, &.weekly_working_time,
-            &.team_name, &.work_time {
+            &.day_name, &.weekly_working_time {
                 @include _unhidden();
             }
         }
