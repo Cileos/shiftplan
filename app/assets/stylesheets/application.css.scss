@@ -41,6 +41,8 @@
 @import "application/posts";
 // @import "application/plans";
 
+@import "application/detail_condensed";
+
 /* specific layouts for different viewports (*not* iPad/iPhone) */
 @import "application/1000px";
 @import "application/800px";
