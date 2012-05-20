@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $('#page:has("#calendar")').addClass('calendar');
-  $('#calendar').before('<div id="max_min_calendar" class="js_button expandable" title="Maximieren/Minimieren"></div>');
+  $('#actions').append('<div class="btn-group pull-right"><div id="calendar_detail_level" class="js_button btn btn-inverse detail_level" title="Detail Level umstellen"><i class="icon-th-large icon-white"></i></div><div id="max_min_calendar" class="js_button btn btn-inverse expandable" title="Maximieren/Minimieren"><i class="icon-resize-full icon-white"></i></div></div>');
   $('#max_min_calendar.js_button.expandable').click(function(){
     var page = $('#page');
     var page_min_width = page.css('min-width');
@@ -18,3 +18,7 @@ $(document).ready(function() {
     $(this).toggleClass('expanded');
   });
 });
+
+
+// icon-th-large
+// icon-th-list
