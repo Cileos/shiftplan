@@ -30,11 +30,14 @@ $ci_blue: #5eaacb;
             content: '';
         }
     }
+    th {
+        color: #555;
+    }
     thead {
         border-bottom: 1px solid #ccc;
         th {
             padding: 8px 5px;
-            @include _set_gradient_background();
+            @include _set_gradient_background($color: #ececec, $percentage: 5%);
             &:not(.employees) {
                 text-align: center;
             }
@@ -46,11 +49,12 @@ $ci_blue: #5eaacb;
         }
         th.employee, td.wwt_diff {
             padding: 8px 5px;
+            line-height: 22px;
         }
         th {
             width: 13%;
             padding: 2px;
-            @include _set_gradient_background($direction: left);
+            @include _set_gradient_background($color: #ececec, $percentage: 5%, $direction: left);
         }
         td {
             width: 10%; // == 70%
