@@ -91,7 +91,7 @@ $ci_blue: #00a7c9;
             padding: 2px;
             position: relative;
             &.focus {
-                @include box-shadow(grey 0px 0px 30px 0px);
+                @include box-shadow(#aaa 0px 0px 30px 0px);
                 @include border-radius(5px);
                 z-index: 30;
             }
@@ -145,12 +145,12 @@ $ci_blue: #00a7c9;
             &.focus, &:focus, &:hover {
                 background: #d8d8d8;
                 @include _set_gradient_background($color: #bfbfbf, $direction: bottom, $percentage: 7%);
-                border-left-color: black;
-                border-right-color: black;
+                border-left-color:  #666;
+                border-right-color: #666;
                 .team_name {
                     background: #f0f0f0;
-                    border-top-color:    #666;
-                    border-bottom-color: #666;
+                    border-top-color:    #999;
+                    border-bottom-color: #999;
                 }
             }
             .gimmicks {
