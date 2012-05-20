@@ -4,7 +4,7 @@
 /* --------------------------------------------------------------------- */
 
 
-$ci_blue: #5eaacb;
+$ci_blue: #00a7c9;
 
 #calendar-navigation {
     .caption {
@@ -19,6 +19,8 @@ $ci_blue: #5eaacb;
 
 #calendar {
     color: #333;
+    // border-color: #bbb;
+    @include box-shadow(#e0e0e0 0px 0px 10px 0px);
     // tbody tr:nth-child(odd) td, tbody tr:nth-child(odd) th {
     //     background: none;
     // }
@@ -42,6 +44,16 @@ $ci_blue: #5eaacb;
             content: '';
         }
     }
+    tbody tr {
+        &:nth-child(odd) {
+            th, td {
+                background: lighten(#F0F4F8, 1.5%);
+            }
+        }
+        &:hover th.employee, &:hover td {
+            background: #f5f5f5;
+        }
+    }
     th {
         color: #555;
     }
@@ -63,13 +75,25 @@ $ci_blue: #5eaacb;
         th {
             width: 15%;
             padding: 2px;
-            @include _set_gradient_background($color: #ececec, $percentage: 5%, $direction: left);
+            @include _set_gradient_background($color: #ececec, $percentage: 5%, $direction: right);
+        }
+        tr:nth-child(odd) th {
+            @include _set_gradient_background($color: #F0F4F8, $percentage: 5%, $direction: left);
+        }
+        tr {
+            @include box-shadow(#CCC 0px 1px 2px 0px inset);
+        }
+        th, td {
+            border-top-color: #bbb;
         }
         td {
             width: 12%; // == 84%
             padding: 2px;
+            position: relative;
             &.focus {
-                @include box-shadow(black 0px 0px 2px 0px inset);
+                @include box-shadow(grey 0px 0px 30px 0px);
+                @include border-radius(5px);
+                z-index: 30;
             }
             // &.focus, &:focus, &:hover {
             //     background: image-url('actions-add-big-1.png') center bottom no-repeat;
@@ -91,7 +115,7 @@ $ci_blue: #5eaacb;
     }
     ul {
         list-style: none;
-        margin: 2px 0 20px 0;
+        margin: 5px 0 20px 0;
         padding: 0;
         font-size: 11px;
         li {
