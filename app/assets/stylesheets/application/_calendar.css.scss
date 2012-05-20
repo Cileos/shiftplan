@@ -3,7 +3,19 @@
 /*  compass version: 0.12.rc.1                                           */
 /* --------------------------------------------------------------------- */
 
+
 $ci_blue: #5eaacb;
+
+#calendar-navigation {
+    .caption {
+        margin-bottom: 1em;
+        font-size: 22px;
+        font-weight: normal;
+    }
+    .btn-toolbar {
+        margin-bottom: 15px;
+    }
+}
 
 #calendar {
     color: #333;
