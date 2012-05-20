@@ -31,20 +31,34 @@ $ci_blue: #5eaacb;
         }
     }
     thead {
-        th:not(.employees) {
-            text-align: center;
+        border-bottom: 1px solid #ccc;
+        th {
+            padding: 8px 5px;
+            @include _set_gradient_background();
+            &:not(.employees) {
+                text-align: center;
+            }
         }
     }
     tbody {
+        tr {
+            height: 85px;
+        }
+        th.employee, td.wwt_diff {
+            padding: 8px 5px;
+        }
         th {
             width: 13%;
             padding: 2px;
+            @include _set_gradient_background($direction: left);
         }
         td {
             width: 10%; // == 70%
             padding: 2px;
             &.wwt_diff {
                 width: 7%;
+                text-align: center;
+                background: #f2f2f2;
             }
             &.focus {
                 @include box-shadow(black 0px 0px 2px 0px inset);
@@ -56,7 +70,7 @@ $ci_blue: #5eaacb;
     }
     ul {
         list-style: none;
-        margin: 0 0 20px 0;
+        margin: 2px 0 20px 0;
         padding: 0;
         font-size: 11px;
         li {
