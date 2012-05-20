@@ -77,7 +77,7 @@ $ci_blue: #00a7c9;
         th {
             width: 15%;
             padding: 2px;
-            @include _set_gradient_background($color: #ececec, $percentage: 5%, $direction: right);
+            @include _set_gradient_background($color: #ececec, $percentage: 7%, $direction: right);
         }
         tr:nth-child(odd) th {
             @include _set_gradient_background($color: #F0F4F8, $percentage: 5%, $direction: left);
