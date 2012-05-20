@@ -52,24 +52,32 @@ $ci_blue: #5eaacb;
             line-height: 22px;
         }
         th {
-            width: 13%;
+            width: 15%;
             padding: 2px;
             @include _set_gradient_background($color: #ececec, $percentage: 5%, $direction: left);
         }
         td {
-            width: 10%; // == 70%
+            width: 12%; // == 84%
             padding: 2px;
-            &.wwt_diff {
-                width: 7%;
-                text-align: center;
-                background: #f2f2f2;
-            }
             &.focus {
                 @include box-shadow(black 0px 0px 2px 0px inset);
             }
             // &.focus, &:focus, &:hover {
             //     background: image-url('actions-add-big-1.png') center bottom no-repeat;
             // }
+        }
+        .wwt_diff {
+            padding-top: 5px;
+            margin-top: 5px;
+            border-top: 1px solid #ccc;
+            font-weight: normal;
+            font-size: 10px;
+            line-height: 13px;
+        }
+        .badge {
+            float: right;
+            padding: 0px 6px 1px;
+            font-size: 10px;
         }
     }
     ul {

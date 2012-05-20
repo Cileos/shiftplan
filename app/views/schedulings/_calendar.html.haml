@@ -14,17 +14,24 @@
         - f.formatted_days.each do |day|
           %th
             =show_with_abbr(day, truncate(day, :length => 2, :omission => ''), 'day_name')
-        = f.weekly_working_time_difference_header
     %tbody
       - f.employees.each do |employee|
         %tr
           %th.employee
             = avatar(employee.user, employee, :tiny)
             %span.name= employee.name
+            / .wwt_diff= f.wwt_diff_for_as_abbr(employee)
+            .wwt_diff
+              %span.weekly_working_time
+                = translate_action(:hours) + '/'
+                %abbr{title: translate_action(:wwt_long)}
+                  = translate_action(:wwt_short)
+              %abbr.weekly_working_time{title: translate_action(:hours) + '/' + translate_action(:wwt_long)}
+                ='h/' + translate_action(:wwt_short)
+              = f.wwt_diff_for_as_abbr(employee)
           - f.days.each do |day|
             %td{data: f.cell_metadata(day, employee)}
               = f.cell_content(day, employee)
-          = f.weekly_working_time_difference_tag_for(employee)
 
   - if can? :create, Scheduling
     #actions

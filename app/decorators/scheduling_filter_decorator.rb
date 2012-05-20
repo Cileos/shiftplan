@@ -65,6 +65,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  # TODO deprecated atm
   def weekly_working_time_difference_header
     if week?
       h.content_tag :th do
@@ -78,6 +79,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  # TODO deprecated atm
   def weekly_working_time_difference_tag_for(employee)
     if week?
       h.content_tag :td, :class => 'wwt_diff', 'data-employee_id' => employee.id do
