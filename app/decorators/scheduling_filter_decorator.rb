@@ -148,14 +148,19 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def link_to_previous_week
+  def link_to_previous_week(clss=nil, opts={})
     week = monday.prev_week
-    h.link_to :previous_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
+    h.link_to :previous_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek), class: clss
   end
 
-  def link_to_next_week
+  def link_to_todays_week(clss=nil, opts={})
+    week = Date.today
+    h.link_to :this_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek), class: clss
+  end
+
+  def link_to_next_week(clss=nil, opts={})
     week = monday.next_week
-    h.link_to :next_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
+    h.link_to :next_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek), class: clss
   end
 
   def respond(resource)

@@ -22,8 +22,9 @@ de:
       hours: Stunden
       wwt_short: WAZ
       wwt_long: Wochenarbeitszeit
-      previous_week: '<<'
-      next_week: '>>'
+      previous_week: '<'
+      this_week: 'Heute'
+      next_week: '>'
       close: '×'
       edit: Bearbeiten
       back: Zurück
