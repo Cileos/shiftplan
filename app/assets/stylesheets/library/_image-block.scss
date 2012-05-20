@@ -8,5 +8,5 @@
 @mixin _image-block($filename, $position: top left, $display_type: block) {
     display: $display_type;
     @include _dimensions_from_image($filename);
-    background: image-url($filename) $position no-repeat;
+    background: image-url($filename) unquote($position) no-repeat;
 }

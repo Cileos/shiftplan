@@ -61,6 +61,8 @@ $ci_blue: #00a7c9;
         border-bottom: 1px solid #ccc;
         th {
             padding: 8px 5px;
+            position: relative;
+            z-index: 40;
             @include _set_gradient_background($color: #ececec, $percentage: 5%);
             &:not(.employees) {
                 text-align: center;
@@ -89,10 +91,10 @@ $ci_blue: #00a7c9;
         td {
             width: 12%; // == 84%
             padding: 2px;
-            position: relative;
             &.focus {
                 @include box-shadow(#aaa 0px 0px 30px 0px);
                 @include border-radius(5px);
+                position: relative;
                 z-index: 30;
             }
             // &.focus, &:focus, &:hover {
