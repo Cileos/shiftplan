@@ -39,6 +39,10 @@ jQuery(document).ready ->
   btn_detail.click ->
     page.toggleClass('detail_condensed')
     $(this).toggleClass('active condensed')
+    if $.cookie('cal_condensed') == 'true'
+      $.cookie('cal_condensed', 'false')
+    else
+      $.cookie('cal_condensed', 'true')
 
   # maximize calendar
   btn_max.click ->
@@ -53,6 +57,10 @@ jQuery(document).ready ->
 
 
   page.addClass('calendar')
+
+  if $.cookie('cal_condensed') == 'true'
+    page.addClass('detail_condensed')
+    btn_detail.addClass('active condensed')
 
   if $.cookie('cal_width_max') == 'true'
     setWidth(page, 'max')
