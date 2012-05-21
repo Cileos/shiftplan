@@ -7,19 +7,28 @@ jQuery(document).ready ->
   btn_max = $('#max_min_calendar.js_button.expandable')
   btn_detail = $('#calendar_detail_level.js_button.detail_level')
 
+  setWidth = (obj, swtch) ->
+    switch swtch
+      when 'max'
+        obj.css('min-width', page.width())
+           .css('max-width', $(window).width())
+      when 'initial'
+        obj.css('min-width', '')
+           .css('max-width', '')
+      else
+        false
+
   checkPageWidth = ->
     w = $(window).width()
     if w < '1110'
       btn_max.addClass('disabled')
       page.removeClass('expanded')
-          .css('min-width', '')
-          .css('max-width', '')
+      setWidth(page, 'initial')
     else
       btn_max.removeClass('disabled')
       if btn_max.hasClass('active')
         page.addClass('expanded')
-            .css('min-width', page.width())
-            .css('max-width', $(window).width())
+        setWidth(page, 'max')
     if w < '800'
       btn_detail.addClass('disabled')
     else
@@ -35,15 +44,10 @@ jQuery(document).ready ->
   # maximize calendar
   btn_max.click ->
     page.addClass('effect')
-    page_min_width = page.css('min-width')
-    page_max_width = page.css('max-width')
-
     if $(this).hasClass('expanded')
-      page.css('min-width', '')
-          .css('max-width', '')
+      setWidth(page, 'initial')
     else
-      page.css('min-width', page.width())
-          .css('max-width', $(window).width())
+      setWidth(page, 'max')
     page.toggleClass('expanded')
     $(this).toggleClass('active expanded')
 
