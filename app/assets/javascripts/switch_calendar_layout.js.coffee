@@ -12,6 +12,7 @@ jQuery(document).ready ->
       when 'max'
         obj.css('min-width', page.width())
            .css('max-width', $(window).width())
+        $.cookie('cal_width_max', 'true')
       when 'initial'
         obj.css('min-width', '')
            .css('max-width', '')
@@ -34,18 +35,17 @@ jQuery(document).ready ->
     else
       btn_detail.removeClass('disabled')
 
-
   # toggle calendar layout (normal/condensed)
   btn_detail.click ->
     page.toggleClass('detail_condensed')
     $(this).toggleClass('active condensed')
-
 
   # maximize calendar
   btn_max.click ->
     page.addClass('effect')
     if $(this).hasClass('expanded')
       setWidth(page, 'initial')
+      $.cookie('cal_width_max', 'false')
     else
       setWidth(page, 'max')
     page.toggleClass('expanded')
@@ -53,7 +53,14 @@ jQuery(document).ready ->
 
 
   page.addClass('calendar')
+
+  if $.cookie('cal_width_max') == 'true'
+    setWidth(page, 'max')
+    page.addClass('expanded')
+    btn_max.addClass('active expanded')
+
   checkPageWidth()
+
   $(window).resize ->
     page.removeClass('effect')
     checkPageWidth()
