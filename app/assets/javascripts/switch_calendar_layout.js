@@ -39,8 +39,8 @@ $(document).ready(function() {
 
   // toggle calendar layout (normal/condensed)
   var btn_detail = $('#calendar_detail_level.js_button.detail_level');
-  btn_detail.click(function(){
-    $('#page').toggleClass('detail_condensed')
+  btn_detail.click(function() {
+    $('#page').toggleClass('detail_condensed');
     $(this).toggleClass('active condensed');
   });
 
