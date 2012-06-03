@@ -3,6 +3,8 @@ jQuery(document).ready ->
 
   $('#actions').append('<div class="btn-group pull-right"><div id="calendar_detail_level" class="js_button btn btn-inverse detail_level" title="Detail Level umstellen"><i class="icon-th-list icon-white"></i></div><div id="max_min_calendar" class="js_button btn btn-inverse expandable" title="Maximieren/Minimieren"><i class="icon-resize-full icon-white"></i></div></div>')
 
+# TODO add button for legend toggle
+
   page = $('#page')
   btn_max = $('#max_min_calendar.js_button.expandable')
   btn_detail = $('#calendar_detail_level.js_button.detail_level')
@@ -10,7 +12,9 @@ jQuery(document).ready ->
   setWidth = (obj, swtch) ->
     switch swtch
       when 'max'
-        obj.css('min-width', page.width())
+        # min-width has to be resetted to enable resize for shrinking viewport
+        obj.css('min-width', '')
+           .css('min-width', page.width())
            .css('max-width', $(window).width())
         $.cookie('cal_width_max', 'true')
       when 'initial'
