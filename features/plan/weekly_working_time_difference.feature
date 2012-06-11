@@ -7,21 +7,21 @@ Feature: Weekly working time difference
     And the situation of a nuclear reactor
 
   Scenario: Employee without weekly working time
-    And the employee "Lenny" was scheduled in the plan as following:
+    Given the employee "Lenny" was scheduled in the plan as following:
       | date       | quickie             |
       | 2012-12-17 | 8-16 Reaktor putzen |
     When I go to the page of the plan "clean reactor"
-    Then the employee "Lenny" should have a grey hours/waz value of "8"
+    Then the employee "Lenny L" should have a grey hours/waz value of "8"
 
   Scenario: Underscheduled employee
-    And the employee "Homer" was scheduled in the plan as following:
+    Given the employee "Homer" was scheduled in the plan as following:
       | date       | quickie             |
       | 2012-12-17 | 8-16 Reaktor putzen |
     When I go to the page of the plan "clean reactor"
-    Then the employee "Homer" should have a yellow hours/waz value of "8 / 40"
+    Then the employee "Homer S" should have a yellow hours/waz value of "8 / 40"
 
   Scenario: Exactly scheduled employee
-    And the employee "Homer" was scheduled in the plan as following:
+    Given the employee "Homer" was scheduled in the plan as following:
       | date       | quickie             |
       | 2012-12-17 | 8-16 Reaktor putzen |
       | 2012-12-18 | 8-16 Reaktor putzen |
@@ -29,10 +29,10 @@ Feature: Weekly working time difference
       | 2012-12-20 | 8-16 Reaktor putzen |
       | 2012-12-21 | 8-16 Reaktor putzen |
     When I go to the page of the plan "clean reactor"
-    Then the employee "Homer" should have a green hours/waz value of "40 / 40"
+    Then the employee "Homer S" should have a green hours/waz value of "40 / 40"
 
   Scenario: Overscheduled employee
-    And the employee "Homer" was scheduled in the plan as following:
+    Given the employee "Homer" was scheduled in the plan as following:
       | date       | quickie              |
       | 2012-12-17 | 8-16 Reaktor putzen  |
       | 2012-12-18 | 8-16 Reaktor putzen  |
@@ -41,4 +41,4 @@ Feature: Weekly working time difference
       | 2012-12-21 | 8-16 Reaktor putzen  |
       | 2012-12-21 | 17-18 Reaktor putzen |
     When I go to the page of the plan "clean reactor"
-    Then the employee "Homer" should have a red hours/waz value of "41 / 40"
+    Then the employee "Homer S" should have a red hours/waz value of "41 / 40"

@@ -69,13 +69,12 @@ end
 Then /^I should see the following WAZ:$/ do |expected|
   calendar = find(selector_for('the calendar'))
   actual = calendar.all("tbody tr").map do |tr|
-    tr.all('th:first span.name, th:first span.wwt_diff').map(&:text)
+    tr.all('th:first span.name, th:first .wwt_diff .badge').map(&:text)
   end
   expected.diff! actual
 end
 
-Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value of "(\d+ \/ \d+|\d+)"$/ do |employee, color, text|
-  employee = model!(employee)
+Then /^the employee #{capture_quoted} should have a (yellow|green|red|grey) hours\/waz value of "(\d+ \/ \d+|\d+)"$/ do |employee_name, color, text|
   color_class_mapping = {
     'yellow' => 'badge-warning',
     'green'  => 'badge-success',
@@ -87,7 +86,7 @@ Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value o
   classes << color_class_mapping[color]
   classes.compact!
   with_scope 'the calendar' do
-    row = row_index_for employee.name
+    row = row_index_for employee_name
     within "tr:nth-child(#{row+1}) th" do
       page.first(".wwt_diff .#{classes.join('.')}").text.should == text
     end
