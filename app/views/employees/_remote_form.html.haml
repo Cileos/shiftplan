@@ -1,0 +1,11 @@
+- if employee.new_record?
+  - employee.weekly_working_time = 40
+= simple_form_for([current_organization, employee], remote: true) do |f|
+  = f.error_notification
+
+  .inputs
+    = render 'form_fields', { f: f, employee: employee }
+    = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
+
+  .actions
+    %button.btn.btn-primary= ti(:update)
