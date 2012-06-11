@@ -8,7 +8,7 @@ Feature: Teams in plans
 
   @javascript
   Scenario: Using just the full name
-     When I schedule "Homer S" on "Donnerstag" for "9-17 Reaktor putzen"
+     When I schedule "Homer S" on "Do" for "9-17 Reaktor putzen"
      Then I should see the following calendar:
         | Mitarbeiter   | Do      |
         | Planner Burns |         |
@@ -20,7 +20,7 @@ Feature: Teams in plans
 
   @javascript
   Scenario: additionally specifying a shortcut for the team
-     When I schedule "Homer S" on "Donnerstag" for "9-17 Reaktor putzen [OK]"
+     When I schedule "Homer S" on "Do" for "9-17 Reaktor putzen [OK]"
      Then I should see the following calendar:
         | Mitarbeiter   | Do      |
         | Planner Burns |         |

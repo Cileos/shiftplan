@@ -72,7 +72,7 @@ Feature: create a scheduling
 
   @javascript
   Scenario: just entering time span with javascript
-     When I schedule "Homer S" on "Donnerstag" for "8-18"
+     When I schedule "Homer S" on "Do" for "8-18"
      Then I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi | Do   | Fr | Sa | So |
         | Planner Burns |    |    |    |      |    |    |    |

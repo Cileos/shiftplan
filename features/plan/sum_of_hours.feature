@@ -43,8 +43,8 @@ Feature: Sum of hours in plan
         | 4     | 9-17    |
         | 5     | 9-17    |
       And I am on the page of the plan
-     When I schedule "Homer S" on "Samstag" for "10-17"
-      And I schedule "Homer S" on "Sonntag" for "12-17"
+     When I schedule "Homer S" on "Sa" for "10-17"
+      And I schedule "Homer S" on "So" for "12-17"
      Then I should see the following calendar:
         | Mitarbeiter   | Stunden/WAZ |
         | Planner Burns | 0           |
