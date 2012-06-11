@@ -60,13 +60,13 @@ end
 Then /^I should see the following calendar:$/ do |expected|
   actual = find(selector_for('the calendar')).all("tr").map do |tr|
     tr.all('th, td').map do |cell|
-      extract_text_from_cell(cell)
+      extract_text_from_cell(cell) || ''
     end
   end
   expected.diff! actual
 end
 
-Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value of "(\d+ von \d+|\d+)"$/ do |employee, color, text|
+Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value of "(\d+ \/ \d+|\d+)"$/ do |employee, color, text|
   employee = model!(employee)
   color_class_mapping = {
     'yellow' => 'badge-warning',
@@ -78,7 +78,11 @@ Then /^#{capture_model} should have a (yellow|green|red|grey) hours\/waz value o
   classes = %w(badge)
   classes << color_class_mapping[color]
   classes.compact!
-  cell = find("#{selector_for('the calendar')} #{selector_for(%Q~cell "Stunden/WAZ"/"#{employee.name}"~)}")
-  assert_equal text, cell.text
+  with_scope 'the calendar' do
+    row = row_index_for employee.name
+    within "tr:nth-child(#{row+1}) th" do
+      page.first(".wwt_diff .#{classes.join('.')}").text.should == text
+    end
+  end
 end
 
