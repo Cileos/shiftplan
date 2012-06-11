@@ -22,37 +22,36 @@ Feature: Plan a week
      Then I should be on the page of the plan for week: 49
       And I should see a calendar titled "Dull Work - KW 49 03.12.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden/WAZ |
-        | Jack T      |        | 10-16    |          |            |         | 6           |
+        | Mitarbeiter | Mo | Di    | Mi | Do | Fr | Stunden/WAZ |
+        | Jack T      |    | 10-16 |    |    |    | 6           |
 
      When I follow "<<" within the calendar navigation
      Then I should be on the page of the plan for week: 48, year: 2012
       And I should see a calendar titled "Dull Work - KW 48 26.11.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden/WAZ |
-        | Jack T      | 9-17   |          |          |            |         | 8           |
+        | Mitarbeiter | Mo   | Di | Mi | Do | Fr | Stunden/WAZ |
+        | Jack T      | 9-17 |    |    |    |    | 8           |
 
      When I follow ">>" within the calendar navigation
      Then I should be on the page of the plan for week: 49, year: 2012
       And I should see a calendar titled "Dull Work - KW 49 03.12.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden/WAZ |
-        | Jack T      |        | 10-16    |          |            |         | 6           |
+        | Mitarbeiter | Mo | Di    | Mi | Do | Fr | Stunden/WAZ |
+        | Jack T      |    | 10-16 |    |    |    | 6           |
 
      When I follow ">>" within the calendar navigation
      Then I should be on the page of the plan for week: 50, year: 2012
       And I should see a calendar titled "Dull Work - KW 50 10.12.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden/WAZ |
-        | Jack T      |        |          | 11-15    |            |         | 4           |
+        | Mitarbeiter | Mo | Di | Mi    | Do | Fr | Stunden/WAZ |
+        | Jack T      |    |    | 11-15 |    |    | 4           |
 
      When I follow ">>" within the calendar navigation
      Then I should be on the page of the plan for week: 51, year: 2012
       And I should see a calendar titled "Dull Work - KW 51 17.12.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden/WAZ |
-
-        | Jack T      |        |          |          | 12-14      |         | 2       |
+        | Mitarbeiter | Mo | Di | Mi | Do    | Fr | Stunden/WAZ |
+        | Jack T      |    |    |    | 12-14 |    | 2           |
 
   # TODO do not copy schedulings of deactivated employee
   Scenario: copy from last week
@@ -70,5 +69,5 @@ Feature: Plan a week
      Then I should be on the page of the plan for year: 2012, week: 50
       And I should see a calendar titled "Dull Work - KW 50 10.12.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Stunden/WAZ |
-        | Jack T      |        | 10-11    | 11-12    | 12-13      |         | 3           |
+        | Mitarbeiter | Mo | Di    | Mi    | Do    | Fr | Stunden/WAZ |
+        | Jack T      |    | 10-11 | 11-12 | 12-13 |    | 3           |

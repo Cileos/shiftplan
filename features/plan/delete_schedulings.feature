@@ -20,8 +20,8 @@ Feature: Delete schedulings from plan
       And I am on the page for the plan
 
       And I should see the following calendar:
-        | Mitarbeiter | Donnerstag | Freitag  | Stunden/WAZ |
-        | Santa C     | 7-17       | 2-4 5-23 | 30          |
+        | Mitarbeiter | Do   | Fr       | Stunden/WAZ |
+        | Santa C     | 7-17 | 2-4 5-23 | 30          |
 
   @javascript
   Scenario: Delete a single scheduling
@@ -31,13 +31,13 @@ Feature: Delete schedulings from plan
      When I follow "Löschen" within the modal box
      Then the "Quickie" field should contain "5-23" within the new scheduling form within the modal box body
       And I should see the following calendar:
-        | Mitarbeiter | Donnerstag | Freitag | Stunden/WAZ |
-        | Santa C     | 7-17       | 2-4     | 12         |
+        | Mitarbeiter | Do   | Fr  | Stunden/WAZ |
+        | Santa C     | 7-17 | 2-4 | 12          |
 
       # Undo / Move
      When I select "Samstag" from "Wochentag" within the new scheduling form within the modal box body
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Mitarbeiter | Donnerstag | Freitag | Samstag | Stunden/WAZ |
-        | Santa C     | 7-17       | 2-4     | 5-23    | 30          |
+        | Mitarbeiter | Do   | Fr  | Sa   | Stunden/WAZ |
+        | Santa C     | 7-17 | 2-4 | 5-23 | 30          |

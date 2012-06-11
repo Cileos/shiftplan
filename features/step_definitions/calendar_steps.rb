@@ -58,14 +58,14 @@ end
 
 # FIXME can only match the whole calendar
 Then /^I should see the following calendar:$/ do |expected|
+  selectors = ['span.name', 'abbr span']
   actual = find(selector_for('the calendar')).all("tr").map do |tr|
     tr.all('th, td').map do |cell|
-      if cell.tag_name == 'th' or cell.all('*').empty? # a text-only cell or header
-        cell.text
+      if found = selectors.find { |s| cell.all(s).count > 0 }
+        cell.all(s).map(&:text).join(' ')
       else
-        # ignore the other elements, for example the comment links or avatars
-        cell.all('abbr,span').map(&:text).join(' ')
-      end.strip.gsub(/\s+/, ' ')
+        raise "please add a selector you expect in a calendar cell"
+      end
     end
   end
   expected.diff! actual

@@ -34,8 +34,8 @@ Feature: Edit Schedulings of a Plan
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Mitarbeiter | Freitag | Stunden/WAZ |
-        | Santa C     | 1-23    | 22          |
+        | Mitarbeiter | Fr   | Stunden/WAZ |
+        | Santa C     | 1-23 | 22          |
 
   Scenario: Edit a scheduling in a cell with multiple schedulings
     Given the employee was scheduled in the plan as following:
@@ -62,6 +62,6 @@ Feature: Edit Schedulings of a Plan
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Mitarbeiter | Freitag        |
+        | Mitarbeiter | Fr             |
         | Santa C     | 1-3 4-11 12-23 |
       And the scheduling "4-11" should be focus within the cell "Freitag"/"Santa C"

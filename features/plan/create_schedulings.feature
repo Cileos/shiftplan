@@ -17,11 +17,11 @@ Feature: create a scheduling
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
      Then I should see the following calendar:
-        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Planner Burns |        |          |          |            |         |         |         |
-        | Carl C        |        |          |          |            |         |         |         |
-        | Lenny L       |        |          |          |            |         |         |         |
-        | Homer S       |        |          | 9-17     |            |         |         |         |
+        | Mitarbeiter   | Mo | Di | Mi   | Do | Fr | Sa | So |
+        | Planner Burns |    |    |      |    |    |    |    |
+        | Carl C        |    |    |      |    |    |    |    |
+        | Lenny L       |    |    |      |    |    |    |    |
+        | Homer S       |    |    | 9-17 |    |    |    |    |
 
   @javascript
   Scenario: scheduling the same employee twice per day
@@ -35,11 +35,11 @@ Feature: create a scheduling
       And I fill in "Quickie" with "18-23"
       And I press "Anlegen"
      Then I should see the following calendar:
-        | Mitarbeiter   | Montag | Dienstag | Mittwoch   | Donnerstag | Freitag | Samstag | Sonntag |
-        | Planner Burns |        |          |            |            |         |         |         |
-        | Carl C        |        |          |            |            |         |         |         |
-        | Lenny L       |        |          |            |            |         |         |         |
-        | Homer S       |        |          | 9-17 18-23 |            |         |         |         |
+        | Mitarbeiter   | Mo | Di | Mi         | Do | Fr | Sa | So |
+        | Planner Burns |    |    |            |    |    |    |    |
+        | Carl C        |    |    |            |    |    |    |    |
+        | Lenny L       |    |    |            |    |    |    |    |
+        | Homer S       |    |    | 9-17 18-23 |    |    |    |    |
 
 
   # TODO: currently it is assumend that a user can only have one organization
@@ -74,11 +74,11 @@ Feature: create a scheduling
   Scenario: just entering time span with javascript
      When I schedule "Homer S" on "Donnerstag" for "8-18"
      Then I should see the following calendar:
-        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Planner Burns |        |          |          |            |         |         |         |
-        | Carl C        |        |          |          |            |         |         |         |
-        | Lenny L       |        |          |          |            |         |         |         |
-        | Homer S       |        |          |          | 8-18       |         |         |         |
+        | Mitarbeiter   | Mo | Di | Mi | Do   | Fr | Sa | So |
+        | Planner Burns |    |    |    |      |    |    |    |
+        | Carl C        |    |    |    |      |    |    |    |
+        | Lenny L       |    |    |    |      |    |    |    |
+        | Homer S       |    |    |    | 8-18 |    |    |    |
 
   @javascript
   Scenario: Entering the time span wrong
@@ -97,11 +97,11 @@ Feature: create a scheduling
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
-        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Planner Burns | 8-18   |          |          |            |         |         |         |
-        | Carl C        |        |          |          |            |         |         |         |
-        | Lenny L       |        |          |          |            |         |         |         |
-        | Homer S       |        |          |          |            |         |         |         |
+        | Mitarbeiter   | Mo   | Di | Mi | Do | Fr | Sa | So |
+        | Planner Burns | 8-18 |    |    |    |    |    |    |
+        | Carl C        |      |    |    |    |    |    |    |
+        | Lenny L       |      |    |    |    |    |    |    |
+        | Homer S       |      |    |    |    |    |    |    |
       And the cell "Montag"/"Planner Burns" should be focus
 
     # navigate to another cell and press enter again
@@ -114,11 +114,11 @@ Feature: create a scheduling
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
-        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Planner Burns | 8-18   |          |          |            |         |         |         |
-        | Carl C        |        | 7-17     |          |            |         |         |         |
-        | Lenny L       |        |          |          |            |         |         |         |
-        | Homer S       |        |          |          |            |         |         |         |
+        | Mitarbeiter   | Mo   | Di   | Mi | Do | Fr | Sa | So |
+        | Planner Burns | 8-18 |      |    |    |    |    |    |
+        | Carl C        |      | 7-17 |    |    |    |    |    |
+        | Lenny L       |      |      |    |    |    |    |    |
+        | Homer S       |      |      |    |    |    |    |    |
       And the cell "Dienstag"/"Carl C" should be focus
 
       # navigate further and use the typeahead
@@ -133,11 +133,11 @@ Feature: create a scheduling
      When I press enter in the "Quickie" field
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
-        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Planner Burns | 8-18   |          |          |            |         |         |         |
-        | Carl C        |        | 7-17     |          |            |         |         |         |
-        | Lenny L       |        |          | 7-17     |            |         |         |         |
-        | Homer S       |        |          |          |            |         |         |         |
+        | Mitarbeiter   | Mo   | Di   | Mi   | Do | Fr | Sa | So |
+        | Planner Burns | 8-18 |      |      |    |    |    |    |
+        | Carl C        |      | 7-17 |      |    |    |    |    |
+        | Lenny L       |      |      | 7-17 |    |    |    |    |
+        | Homer S       |      |      |      |    |    |    |    |
       And the cell "Mittwoch"/"Lenny L" should be focus
 
      When I press arrow right
@@ -147,9 +147,9 @@ Feature: create a scheduling
      When I press enter in the "Quickie" field
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
-        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Planner Burns | 8-18   |          |          |            |         |         |         |
-        | Carl C        |        | 7-17     |          |            |         |         |         |
-        | Lenny L       |        |          | 1-3 7-17 |            |         |         |         |
-        | Homer S       |        |          |          |            |         |         |         |
+        | Mitarbeiter   | Mo   | Di   | Mi       | Do | Fr | Sa | So |
+        | Planner Burns | 8-18 |      |          |    |    |    |    |
+        | Carl C        |      | 7-17 |          |    |    |    |    |
+        | Lenny L       |      |      | 1-3 7-17 |    |    |    |    |
+        | Homer S       |      |      |          |    |    |    |    |
       And the cell "Mittwoch"/"Lenny L" should be focus

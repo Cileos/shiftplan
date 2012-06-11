@@ -19,11 +19,11 @@ Feature: Plan cursor
       And I am signed in as the confirmed user "Burns"
       And I am on the page for the plan
       And I should see the following calendar:
-       | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag       | Freitag | Samstag | Sonntag |
-       | Planner Burns |        |          |          |                  |         |         |         |
-       | Carl C        |        |          |          |                  |         |         |         |
-       | Lenny L       |        |          |          |                  |         |         |         |
-       | Homer S       |        |          |          | 7-11 12-18 19-23 | 7-19    |         |         |
+       | Mitarbeiter   | Mo | Di | Mi | Do               | Fr   | Sa | So |
+       | Planner Burns |    |    |    |                  |      |    |    |
+       | Carl C        |    |    |    |                  |      |    |    |
+       | Lenny L       |    |    |    |                  |      |    |    |
+       | Homer S       |    |    |    | 7-11 12-18 19-23 | 7-19 |    |    |
      Then the cell "Montag"/"Planner Burns" should be focus
 
      When I press arrow up
