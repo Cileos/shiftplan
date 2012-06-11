@@ -1,11 +1,11 @@
-en: 
+﻿en: 
   flash: 
     create: 
-	  info: "%{resource_name} successfully applied."
-	  alert: "%{resource_name} could not be applied." 
-	update: 
-	  info: "%{resource_name} successfully changed." 
+      info: "%{resource_name} successfully applied."
+      alert: "%{resource_name} could not be applied." 
+    update: 
+      info: "%{resource_name} successfully changed." 
       alert: "%{resource_name} could not be changed." 
     destroy: 
-      info: "%{resource_name} successfully deleted." 	
-	  alert: "%{resource_name} could not be deleted."
+      info: "%{resource_name} successfully deleted."     
+      alert: "%{resource_name} could not be deleted."
