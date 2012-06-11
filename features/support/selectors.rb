@@ -142,9 +142,7 @@ module HtmlSelectorsHelpers
     if found = SelectorsForTextExtraction.find { |s| cell.all(s).count > 0 }
       cell.all(found).map(&:text).join(' ')
     else
-      if cell.text.present?
-        raise "please add a selector to HtmlSelectorsHelpers::SelectorsForTextExtraction you expect in the calendar cell containing #{cell.text.inspect}"
-      end
+      cell.text.strip
     end
   end
 
