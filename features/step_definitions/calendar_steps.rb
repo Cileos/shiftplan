@@ -53,7 +53,7 @@ When /^I schedule #{capture_quoted} on #{capture_quoted} for #{capture_quoted}$/
 end
 
 Then /^I should see a calendar (?:titled|captioned) #{capture_quoted}$/ do |caption|
-  step %Q~I should see "#{caption}" within "caption" within the calendar~
+  step %Q~I should see "#{caption}" within ".caption" within the calendar navigation~
 end
 
 # FIXME can only match the whole calendar
