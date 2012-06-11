@@ -8,8 +8,7 @@ Feature: Create Employees
       And a confirmed user exists
       And an employee planner exists with first_name: "Homer", last_name: "Simpson", user: the confirmed user, organization: the organization
      When I sign in as the confirmed user
-      And I follow "Fukushima GmbH"
-      And I follow "Mitarbeiter"
+      And I am on the employees page for the organization
 
   @javascript
   @fileupload
@@ -112,8 +111,7 @@ Feature: Create Employees
 
   @javascript
   Scenario: Editing an employee
-      And I should be on the employees page for the organization
-     Then I should not see "Carl Carlson"
+    Given I should not see "Carl Carlson"
      When I follow "Homer Simpson" within the employees table
       And I wait for the modal box to appear
       And I fill in the following:
