@@ -51,12 +51,12 @@ end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
-  And 'I wait for the spinner to disappear'
+  step 'I wait for the spinner to disappear'
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
-  And 'I wait for the spinner to disappear'
+  step 'I wait for the spinner to disappear'
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
