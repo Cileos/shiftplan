@@ -58,7 +58,8 @@ end
 
 # FIXME can only match the whole calendar
 Then /^I should see the following calendar:$/ do |expected|
-  actual = find(selector_for('the calendar')).all("tr").map do |tr|
+  calendar = find(selector_for('the calendar'))
+  actual = calendar.all("thead:first tr, tbody tr").map do |tr|
     tr.all('th, td').map do |cell|
       extract_text_from_cell(cell) || ''
     end
