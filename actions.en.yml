@@ -1,8 +1,0 @@
-en:
-  helpers:
-    actions:
-      signin: Sign in
-      signin_with: "Sign in with %{provider}"
-      signout: Sign out
-      signup: Sign up
-
