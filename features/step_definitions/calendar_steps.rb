@@ -56,13 +56,20 @@ Then /^I should see a calendar (?:titled|captioned) #{capture_quoted}$/ do |capt
   step %Q~I should see "#{caption}" within ".caption" within the calendar navigation~
 end
 
-# FIXME can only match the whole calendar
 Then /^I should see the following calendar:$/ do |expected|
   calendar = find(selector_for('the calendar'))
   actual = calendar.all("thead:first tr, tbody tr").map do |tr|
     tr.all('th, td').map do |cell|
       extract_text_from_cell(cell) || ''
     end
+  end
+  expected.diff! actual
+end
+
+Then /^I should see the following WAZ:$/ do |expected|
+  calendar = find(selector_for('the calendar'))
+  actual = calendar.all("tbody tr").map do |tr|
+    tr.all('th:first span.name, th:first span.wwt_diff').map(&:text)
   end
   expected.diff! actual
 end

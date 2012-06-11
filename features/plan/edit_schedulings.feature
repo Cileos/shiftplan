@@ -34,8 +34,9 @@ Feature: Edit Schedulings of a Plan
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Mitarbeiter | Fr   | Stunden/WAZ |
-        | Santa C     | 1-23 | 22          |
+        | Mitarbeiter | Fr   |
+        | Santa C     | 1-23 |
+      And the employee "Santa C" should have a green hours/waz value of "22 / 40"
 
   Scenario: Edit a scheduling in a cell with multiple schedulings
     Given the employee was scheduled in the plan as following:
