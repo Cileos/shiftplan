@@ -58,13 +58,13 @@ end
 
 # FIXME can only match the whole calendar
 Then /^I should see the following calendar:$/ do |expected|
-  selectors = ['span.name', 'abbr span']
+  selectors = ['span.name', 'abbr span', 'span.employees']
   actual = find(selector_for('the calendar')).all("tr").map do |tr|
     tr.all('th, td').map do |cell|
       if found = selectors.find { |s| cell.all(s).count > 0 }
         cell.all(s).map(&:text).join(' ')
       else
-        raise "please add a selector you expect in a calendar cell"
+        raise "please add a selector you expect in the calendar cell containing #{cell.text.inspect}"
       end
     end
   end

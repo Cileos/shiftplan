@@ -16,7 +16,8 @@
   %table#calendar.table.table-striped.table-bordered.table-condensed{class: f.range, data: f.table_metadata}
     %thead
       %tr
-        %th.employees= translate_action :employees
+        %th
+          %span.employees= translate_action :employees
         - f.formatted_days.each do |day|
           %th
             =show_with_abbr(day, truncate(day, :length => 2, :omission => ''), 'day_name')
