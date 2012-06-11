@@ -46,7 +46,7 @@ Feature: Edit Schedulings of a Plan
       And I am on the page for the plan
      When I press arrow right 4 times
       And I press arrow down
-     Then the scheduling "4-10" should be focus within the cell "Freitag"/"Santa C"
+     Then the scheduling "4-10" should be focus within the cell "Fr"/"Santa C"
 
      When I press return
       And I wait for the modal box to appear
@@ -64,4 +64,4 @@ Feature: Edit Schedulings of a Plan
      Then I should see the following calendar:
         | Mitarbeiter | Fr             |
         | Santa C     | 1-3 4-11 12-23 |
-      And the scheduling "4-11" should be focus within the cell "Freitag"/"Santa C"
+      And the scheduling "4-11" should be focus within the cell "Fr"/"Santa C"
