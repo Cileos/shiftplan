@@ -22,7 +22,7 @@ Feature: Delete schedulings from plan
       And I should see the following calendar:
         | Mitarbeiter | Do   | Fr       |
         | Santa C     | 7-17 | 2-4 5-23 |
-      And the employee "Santa C" should have a green hours/waz value of "30 / 40"
+      And the employee "Santa C" should have a grey hours/waz value of "30"
 
   @javascript
   Scenario: Delete a single scheduling
@@ -34,7 +34,7 @@ Feature: Delete schedulings from plan
       And I should see the following calendar:
         | Mitarbeiter | Do   | Fr  |
         | Santa C     | 7-17 | 2-4 |
-      And the employee "Santa C" should have a green hours/waz value of "12 / 40"
+      And the employee "Santa C" should have a grey hours/waz value of "12"
 
       # Undo / Move
      When I select "Samstag" from "Wochentag" within the new scheduling form within the modal box body
@@ -43,4 +43,4 @@ Feature: Delete schedulings from plan
      Then I should see the following calendar:
         | Mitarbeiter | Do   | Fr  | Sa   |
         | Santa C     | 7-17 | 2-4 | 5-23 |
-      And the employee "Santa C" should have a green hours/waz value of "30 / 40"
+      And the employee "Santa C" should have a grey hours/waz value of "30"

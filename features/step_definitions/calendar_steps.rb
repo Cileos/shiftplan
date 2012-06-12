@@ -82,13 +82,13 @@ Then /^the employee #{capture_quoted} should have a (yellow|green|red|grey) hour
     'grey'    => nil
   }
 
-  classes = %w(badge)
-  classes << color_class_mapping[color]
-  classes.compact!
+  classes = [ 'badge', color_class_mapping[color]].compact
   with_scope 'the calendar' do
     row = row_index_for employee_name
-    within "tr:nth-child(#{row+1}) th" do
-      page.first(".wwt_diff .#{classes.join('.')}").text.should == text
+    within "tbody tr:nth-child(#{row+1}) th" do
+      badge = ".wwt_diff .#{classes.join('.')}"
+      page.should have_css(badge)
+      page.first(badge).text.should == text
     end
   end
 end

@@ -125,12 +125,14 @@ module HtmlSelectorsHelpers
 
   private
 
+  # 0-based index of column headed by given label
   def column_index_for(column_label)
     columns = page.all('thead tr th').map { |c| extract_text_from_cell c }
     columns.should include(column_label)
     columns.index(column_label)
   end
 
+  # 0-based index of row (in tbody) headed by given label
   def row_index_for(row_label)
     rows = page.all("tbody th").map { |c| extract_text_from_cell c }
     rows.should include(row_label)
