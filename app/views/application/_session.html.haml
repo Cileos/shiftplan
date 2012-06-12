@@ -5,8 +5,10 @@
         = render 'avatar_and_name'
         %b.caret
       %ul.dropdown-menu
-        - if current_employee
-          %li= link_to :profile, [:edit, current_organization, current_employee]
+        - if current_user.employees.count == 1
+          %li= link_to :profile, [:edit, current_user.organizations.first, current_user.employees.first]
+        - else
+          %li= link_to :profile, list_employees_path(current_user)
         %li= link_to :signout, destroy_user_session_path, :method => :delete
   - else
     %li= link_to :signup, new_user_registration_path

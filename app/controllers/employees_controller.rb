@@ -1,4 +1,6 @@
 class EmployeesController < InheritedResources::Base
+  skip_authorize_resource :only => :list
+  skip_authorization_check :only => :list
   load_and_authorize_resource
 
   respond_to :html, :js
@@ -9,6 +11,12 @@ class EmployeesController < InheritedResources::Base
 
   def update
     update! { edit_organization_employee_url(current_employee) }
+  end
+
+  def list
+    @user = User.find(params[:user_id])
+    raise CanCan::AccessDenied.new("Not authorized!", :list, User) unless current_user == @user
+    @employees = @user.employees
   end
 
   private
