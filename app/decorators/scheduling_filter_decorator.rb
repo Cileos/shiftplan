@@ -57,7 +57,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
         %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
       end
     when :wwt_diff
-      %Q~#calendar tbody td.wwt_diff[data-employee_id=#{resource.id}]~
+      %Q~#calendar tbody tr[data-employee_id=#{resource.id}] th .wwt_diff~
     when :legend
       '#legend'
     else
@@ -79,20 +79,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  # TODO deprecated atm
-  def weekly_working_time_difference_tag_for(employee)
-    if week?
-      h.content_tag :td, :class => 'wwt_diff', 'data-employee_id' => employee.id do
-        wwt_diff_for_as_abbr(employee)
-      end
-    end
-  end
-
   def wwt_diff_for(employee)
-    h.content_tag :span, wwt_diff_label_text_for(employee), class: "badge #{wwt_diff_label_class_for(employee)}"
-  end
-
-  def wwt_diff_for_as_abbr(employee)
     h.show_with_abbr(wwt_diff_label_text_for(employee),
                      wwt_diff_label_text_for(employee, opts={short: true}),
                      "badge #{wwt_diff_label_class_for(employee)}")
