@@ -30,8 +30,8 @@ en:
 
 
         Abbreviations will be additionally used to make plans easier to design.  
-        Abbreviations will be automatically generated from the beginning letter of the team name, 
-        but can also be used by the first mention of the teams in the plan. 
+        Abbreviations are then automatically generated from the beginning letter of the team name, 
+        but can also be generated from the first mention of the teams in the plan. 
        
         Example: @9-5 clean plates [A1]@
     show:
