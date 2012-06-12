@@ -17,8 +17,17 @@ module NavigationHelpers
     when /^the edit page (?:of|for) #{capture_model}$/
       case model = model!($1)
       when Employee
-        edit_employee_path(model!($1))
+        edit_employee_path(model)
       end
+
+    when /^the profile page of #{capture_model}$/
+      case model = model!($1)
+      when Employee
+        edit_profile_employee_path(model)
+      end
+
+    when /^the profile page of my employees$/
+      profile_employees_path
 
     when /^the page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       params = parse_fields($2).symbolize_keys

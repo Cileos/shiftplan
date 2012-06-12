@@ -11,6 +11,7 @@ de:
         weekly_working_time: Wochenarbeitszeit
         email: E-Mail
         avatar: Mitarbeiterfoto
+        organization: Organisation
   simple_form:
     placeholders:
       employee:

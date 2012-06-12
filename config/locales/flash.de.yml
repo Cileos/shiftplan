@@ -10,3 +10,6 @@ de:
       destroy:
         info: "%{resource_name} erfolgreich gelöscht."
         alert: "%{resource_name} konnte nicht gelöscht werden."
+    profile_employees:
+      update:
+        info: "Profil gespeichert."
