@@ -46,5 +46,20 @@ git submodule init && git submodule update
 header "bundling"
 which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 256
 
+# prepare test db
+DBSTAMP=tmp/fully_migrated_at
+FILEAGE=$(($(date +%s) - $(stat -c '%Y' "$DBSTAMP")))
+MAXAGE=$(bc <<< '24*60*60')
+if [ "$FILEAGE" -gt "$MAXAGE" ] ; then # no stamp or older than 24 hours
+  header "rebuilding the database (every 24h)"
+  bundle exec rake db:drop db:create db:migrate || exit 64
+  date > $DBSTAMP
+else
+  header "migrate the database"
+  bundle exec rake db:migrate || exit 64
+fi
+
+
+
 script/build
 
