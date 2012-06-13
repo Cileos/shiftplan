@@ -9,7 +9,7 @@
 # override script if you have a special script to run (default is bundle exec rake)
 before_script:
   - createdb shiftplan
-  - sudo aptitude install chromium-browser
+  - sudo aptitude -y install chromium-browser
 script: script/travis
 language: ruby
 rvm:
