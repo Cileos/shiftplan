@@ -8,6 +8,9 @@
 #
 # override script if you have a special script to run (default is bundle exec rake)
 script: script/build
+language: ruby
+rvm:
+  - 1.9.3
 #
 # want campfire notifications?
 # notifications:

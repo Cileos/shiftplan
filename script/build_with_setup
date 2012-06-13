@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# this solved *some* problems with cijoe (sorry)
+unset RAILS_RELATIVE_URL_ROOT
+unset RACK_BASE_URI
+
+NEEDED_RUBY='1.9.3-p194@shiftplan-ci'
+DATABASE='shiftplan_test'
+RAILS_ENV=test
+export PATH="$PATH:/usr/local/bin:/usr/games"
+export COWPATH="$COWPATH:script"
+export LC_ALL='en_US.UTF-8'
+export RAILS_ENV
+
+APP_DIR=`pwd`
+
+. script/_lib
+
+header "setup ruby"
+
+echo "PATH: $PATH"
+
+# Setup rvm. If needed, we install rvm fresh from source
+rvmrc="$HOME/.rvmrc"
+cat >> $rvmrc <<-EORC
+rvm_install_on_use_flag=1
+EORC
+sort -u -o $rvmrc $rvmrc
+
+test -f "$HOME/.rvm/scripts/rvm" ||
+  ( bash < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer) )  || exit 1024
+
+source "$HOME/.rvm/scripts/rvm" || exit 512
+
+rvm use $NEEDED_RUBY --create
+
+header "truncating log files and artefacts"
+
+echo > log/test.log
+echo > log/capybara_test.log
+rm -rf tmp/capybara
+
+header "updating submodules"
+git submodule init && git submodule update
+
+header "bundling"
+which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 256
+
+script/build
+
