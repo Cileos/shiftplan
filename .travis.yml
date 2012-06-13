@@ -7,7 +7,9 @@
 # before_script: mysql -e 'create database myapp_test;'
 #
 # override script if you have a special script to run (default is bundle exec rake)
-script: script/build
+before_script:
+  - createdb shiftplan
+script: script/travis
 language: ruby
 rvm:
   - 1.9.3

@@ -1,0 +1,7 @@
+test: &test
+  adapter: postgresql
+  database: shiftplan
+  pool: 5
+
+cucumber:
+  <<: *test

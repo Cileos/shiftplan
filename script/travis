@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. script/_lib
+
+header "configuring Travis"
+
+cp config/database.yml{.travis,}
+
+script/build
+
