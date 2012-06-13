@@ -18,4 +18,7 @@ xvfb-run bundle exec guard-jasmine                               || exit 4
 header "Cucumber with chrome"
 CAPYBARA_CHROME=yes bundle exec cucumber features -t @javascript || exit 1
 
+header "Cucumber with chrome (second time)"
+CAPYBARA_CHROME=yes bundle exec cucumber features -t @javascript || exit 1
+
 header "Done"
