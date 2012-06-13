@@ -17,57 +17,6 @@ Example:
       = f.input :quicky
 
 
-=== Segmentation faults on Mac Systems ===
-
-ruby version: ruby 1.8.7 (2011-06-30 patchlevel 352) [i686-darwin10.8.0]
-nokogiri version: 1.8
-nokogiri linked against libxml2 version 2.7.7 (try nokogiri -v)
-
-If found this issue on github: https://github.com/tenderlove/nokogiri/issues/541
-
-The following steps solved my problem:
-
-If you are getting undeterministic Segmentations faults on your MacOs System, especially in
-/Library/Ruby/Gems/1.8/gems/nokogiri-1.5.0/lib/nokogiri/xml/node.rb:821, you should try to update 
-your libxml2 version to a version >= 2.7.8 with homebrew and then tell nokogiri to link against 
-this updated libxml2 version as follows:
-
-$ brew install libxml2
-
-$ brew link libxml2
-
-# explicitly tell nokogiri to use you homebrew libxml2 (in my case version 2.7.8) rather than the system's libxml2 by 
-# either updating the bundle config and bundle after that:
-
-$ bundle config build.nokogiri --with-xml2-include=/usr/local/Cellar/libxml2/2.7.8/include/libxml2 --with-xml2-lib=/usr/local/Cellar/libxml2/2.7.8/lib
-$ bundle install
-
-# or:
-
-$ gem install nokogiri -- --with-xml2-include=/usr/local/Cellar/libxml2/2.7.8/include/libxml2 --with-xml2-lib=/usr/local/Cellar/libxml2/2.7.8/lib
-
-If everything worked, try
-
-$ nokogiri -v
-
-The output should look like the following and it should show the updated libxml version (in my case 2.7.8):
-
-# Nokogiri (1.5.0)
-    ---
-    warnings: []
-
-    ruby:
-      engine: mri
-      version: 1.8.7
-      description: ruby 1.8.7 (2011-06-30 patchlevel 352) [i686-darwin10.8.0]
-      platform: i686-darwin10.8.0
-    libxml:
-      loaded: 2.7.8
-      binding: extension
-      compiled: 2.7.8
-    nokogiri: 1.5.0
-
-
 === Cucumber stepfinder ===
 
 Usage examples for stepfinder thor task:
