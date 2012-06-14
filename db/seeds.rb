@@ -28,7 +28,9 @@ Factory :employee, organization: organization, user: owner, role: 'owner', first
 planner = Factory :confirmed_user, email: 'planner@dev.shiftplan.de'
 Factory :employee, organization: organization, user: planner, role: 'planner', first_name: 'Planner', last_name: 'Burns'
 
-Factory :employee, organization: organization, first_name: 'Employee', last_name: 'Hofer', weekly_working_time: 40
+user_with_multiple_employees = Factory :confirmed_user, email: 'poweruser@dev.shiftplan.de'
+Factory :employee, organization: organization, user: user_with_multiple_employees, first_name: 'Niklas', last_name: 'Hofer', weekly_working_time: 40
+
 Factory :employee, organization: organization, first_name: 'Employee', last_name: 'Wrede', weekly_working_time: 38
 
 
@@ -46,6 +48,6 @@ Factory :employee, organization: apple, user: owner_apple, role: 'owner', first_
 planner_apple = Factory :confirmed_user, email: 'planner@dev.apple.de'
 Factory :employee, organization: apple, user: planner_apple, role: 'planner', first_name: 'Planner', last_name: 'Cook'
 
-Factory :employee, organization: apple, first_name: 'Employee', last_name: 'Meyer', weekly_working_time: 42
+Factory :employee, organization: apple, user: user_with_multiple_employees, first_name: 'N.', last_name: 'Hofer', weekly_working_time: 42
 
 Factory :employee, organization: apple, first_name: 'Employee', last_name: 'Carlson', weekly_working_time: 40
