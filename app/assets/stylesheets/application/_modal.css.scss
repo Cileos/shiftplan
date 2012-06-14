@@ -4,12 +4,10 @@
 /* --------------------------------------------------------------------- */
 
 
-.modal {
+#modalbox {
     padding-top: 15px;
     padding-bottom: 15px;
-    width: 600px;
-}
-.modal-body {
+
     form {
         position: relative;
         &:last-child {
@@ -46,7 +44,7 @@
         }
     }
 }
-.modal-backdrop {
+.ui-widget-overlay {
     @include transition(250ms opacity);
     @include background(radial-gradient(rgba(127, 127, 127, 0.75), rgba(127, 127, 127, 0.75) 35%, rgba(0, 0, 0, 0.6)));
 }

@@ -24,7 +24,7 @@ class QuickieEditor extends View
         matcher: @matcher
     @one 'attach', =>
       $(@).closest('form').bind 'remove', @destroy
-      $('.modal').bind 'hide', @destroy
+      $('#modalbox').bind 'dialogclose', @destroy
 
   destroy: =>
     @input?.unbind().data('typeahead')?.$menu?.remove()

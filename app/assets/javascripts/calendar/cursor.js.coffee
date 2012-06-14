@@ -29,12 +29,12 @@ class CalendarCursor
     @enable()
 
     # Disable keydown event handler as we want to press enter in the opening modal window to submit the form.
-    $('body').on 'show', @disable
+    $('body').on 'dialogopen', @disable
 
     # The keydown event handler 'CalendarCursor#keydown' gets disabled when the modal window for creating
     # schedulings opens so that the user should can press the "return" key to submit the form.
     # Therefore we must reenable the keydown event handler when the modal window was hidden:
-    $('body').on 'hidden', @enable
+    $('body').on 'dialogclose', @enable
 
 
   focussed_cell: ->
