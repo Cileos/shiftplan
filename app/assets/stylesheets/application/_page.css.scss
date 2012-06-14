@@ -9,7 +9,7 @@
     max-width: 1110px;
     min-width: 480px;
     padding: 0 5px;
-    &.calendar {
+    &.calendar.effect {
         @include transition(all 1s);
     }
 }

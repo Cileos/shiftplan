@@ -18,11 +18,11 @@
 @import "library/*";
 
 @import "application/common";
-@import "spinner";
 @import "comments";
 @import "modal";
 @import "application/buttons";
 @import "application/js_buttons";
+@import "application/spinner";
 @import "application/avatar";
 @import "application/employees";
 @import "application/badge";
@@ -32,13 +32,16 @@
 @import "application/header";
 @import "application/navigation";
 @import "application/content";
+@import "application/calendar";
 @import "application/instructions";
 @import "application/modal";
 @import "application/feedback";
 
 /* from here on, we can re-use bootstrap variables */
 @import "application/posts";
-@import "application/plans";
+// @import "application/plans";
+
+@import "application/detail_condensed";
 
 /* specific layouts for different viewports (*not* iPad/iPhone) */
 @import "application/1000px";

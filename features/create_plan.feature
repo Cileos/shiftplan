@@ -25,8 +25,8 @@ Feature: Creating a plan
       And the page should be titled "Halloween im Atomkraftwerk"
       And I should see a calendar titled "Halloween im Atomkraftwerk - KW 05 30.01.2012"
       And I should see the following calendar:
-        | Mitarbeiter   | Montag | Dienstag | Mittwoch | Donnerstag | Freitag | Samstag | Sonntag |
-        | Planner Burns |        |          |          |            |         |         |         |
-        | Carl C        |        |          |          |            |         |         |         |
-        | Lenny L       |        |          |          |            |         |         |         |
-        | Homer S       |        |          |          |            |         |         |         |
+        | Mitarbeiter   | Mo | Di | Mi | Do | Fr | Sa | So |
+        | Planner Burns |    |    |    |    |    |    |    |
+        | Carl C        |    |    |    |    |    |    |    |
+        | Lenny L       |    |    |    |    |    |    |    |
+        | Homer S       |    |    |    |    |    |    |    |

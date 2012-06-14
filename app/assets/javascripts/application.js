@@ -7,4 +7,4 @@
 //= require 'calendar/cursor'
 //= require_tree './editors'
 //= require feedback
-//= require maximize_calendar
+//= require switch_calendar_layout

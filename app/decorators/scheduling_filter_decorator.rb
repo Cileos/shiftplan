@@ -57,7 +57,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
         %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
       end
     when :wwt_diff
-      %Q~#calendar tbody td.wwt_diff[data-employee_id=#{resource.id}]~
+      %Q~#calendar tbody tr[data-employee_id=#{resource.id}] th .wwt_diff~
     when :legend
       '#legend'
     else
@@ -65,33 +65,30 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  # TODO deprecated atm
   def weekly_working_time_difference_header
     if week?
       h.content_tag :th do
-        (h.translate_action(:hours) + '/' +
-        h.content_tag(:abbr, title: h.translate_action(:wwt_long)) do
-          h.translate_action(:wwt_short)
+        (h.content_tag(:span, (h.translate_action(:hours) + '/').html_safe +
+                               h.content_tag(:abbr, h.translate_action(:wwt_short), {title: h.translate_action(:wwt_long)}).html_safe,
+                              class: 'weekly_working_time') +
+        h.content_tag(:abbr, title: h.translate_action(:hours) + '/' +h.translate_action(:wwt_long), class: 'weekly_working_time') do
+          'h/' + h.translate_action(:wwt_short)
         end).html_safe
       end
     end
   end
 
-  def weekly_working_time_difference_tag_for(employee)
-    if week?
-      h.content_tag :td, :class => 'wwt_diff', 'data-employee_id' => employee.id do
-        wwt_diff_for(employee)
-      end
-    end
-  end
-
   def wwt_diff_for(employee)
-    h.content_tag :span, wwt_diff_label_text_for(employee),
-      class: "badge #{wwt_diff_label_class_for(employee)}"
+    h.show_with_abbr(wwt_diff_label_text_for(employee),
+                     wwt_diff_label_text_for(employee, opts={short: true}),
+                     "badge #{wwt_diff_label_class_for(employee)}")
   end
 
-  def wwt_diff_label_text_for(employee)
+  def wwt_diff_label_text_for(employee, opts={})
     if employee.weekly_working_time.present?
-      "#{hours_for(employee)} von #{employee.weekly_working_time.to_i}"
+      opts[:short].present? ? txt = '/' : txt = 'von'
+      "#{hours_for(employee)} #{txt} #{employee.weekly_working_time.to_i}"
     else
       "#{hours_for(employee)}"
     end
@@ -138,14 +135,19 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def link_to_previous_week
+  def link_to_previous_week(clss=nil, opts={})
     week = monday.prev_week
-    h.link_to :previous_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
+    h.link_to :previous_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek), class: clss
   end
 
-  def link_to_next_week
+  def link_to_todays_week(clss=nil, opts={})
+    week = Date.today
+    h.link_to :this_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek), class: clss
+  end
+
+  def link_to_next_week(clss=nil, opts={})
     week = monday.next_week
-    h.link_to :next_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
+    h.link_to :next_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek), class: clss
   end
 
   def respond(resource)
@@ -194,7 +196,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # TODO move into own view to fetch as an organization-specific asset
   def team_styles
     teams.map do |team|
-      %Q~.#{dom_id(team)} { background-color: #{team.color};}~
+      %Q~.#{dom_id(team)} { border-color: #{team.color};}~
     end.join(' ')
   end
 end

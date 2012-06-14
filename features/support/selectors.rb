@@ -125,16 +125,27 @@ module HtmlSelectorsHelpers
 
   private
 
+  # 0-based index of column headed by given label
   def column_index_for(column_label)
-    columns = page.all('thead tr th').map(&:text).map(&:strip)
+    columns = page.all('thead tr th').map { |c| extract_text_from_cell c }
     columns.should include(column_label)
     columns.index(column_label)
   end
 
+  # 0-based index of row (in tbody) headed by given label
   def row_index_for(row_label)
-    rows = page.all("tbody th").map(&:text).map(&:strip)
+    rows = page.all("tbody th").map { |c| extract_text_from_cell c }
     rows.should include(row_label)
     rows.index(row_label)
+  end
+
+  SelectorsForTextExtraction = ['span.name', 'abbr span', 'span.employees']
+  def extract_text_from_cell(cell)
+    if found = SelectorsForTextExtraction.find { |s| cell.all(s).count > 0 }
+      cell.all(found).map(&:text).join(' ')
+    else
+      cell.text.strip
+    end
   end
 
 end

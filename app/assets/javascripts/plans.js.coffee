@@ -2,6 +2,7 @@ jQuery(document).ready ->
 
   $('table#calendar').each ->
     $calendar = $(this)
+    $calendar.find('abbr').tooltip()
     cursor = new CalendarCursor $calendar
 
     refresh_behaviour_of_cell = ->

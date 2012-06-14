@@ -3,10 +3,13 @@
     - schedulings.map(&:decorate).each do |s|
       %li.scheduling{class: s.css_class, data: s.metadata}
         - if s.team
-          %abbr{title: s.long, rel: "tooltip"}= s.short
+          =show_with_abbr(s.hour_range_with_duration, s.hour_range_quickie, 'work_time')
+          =show_with_abbr(s.team_name, s.team_shortcut, 'team_name')
         - else
-          %span= s.short
-        - if can? :create, Comment, commentable: s
-          = link_to icon(:comment) + s.comments_count.to_s, [s.organization, s.plan, s, :comments], title: ta(:comments), remote: true, class: 'comments'
-        - if s.comments_count > 0
-          = render 'comments/truncated_list', comments: s.comments
+          =show_with_abbr(s.hour_range_with_duration, s.hour_range_quickie, 'work_time')
+
+        .gimmicks
+          - if can? :create, Comment, commentable: s
+            = link_to s.comments_count.to_s, [s.organization, s.plan, s, :comments], title: ta(:comments), remote: true, class: 'comments'
+          - if s.comments_count > 0
+            = render 'comments/truncated_list', comments: s.comments

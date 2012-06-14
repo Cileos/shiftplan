@@ -1,34 +1,43 @@
 = decorate filter do |f|
   - title f.caption, false
 
-  #calendar-navigation.pager
-    %ul
-      %li.previous= f.link_to_previous_week
-      %li.next= f.link_to_next_week
+  #calendar-navigation
+    .caption= f.caption
+    #actions.btn-toolbar
+      .btn-group
+        = f.link_to_previous_week('btn btn-inverse')
+        = f.link_to_todays_week('btn   btn-inverse')
+        = f.link_to_next_week('btn     btn-inverse')
+      - if can? :create, Scheduling
+        .btn-group
+          = link_to ti(:copy_week), new_organization_plan_copy_week_path(current_organization, f.plan, copy_week: { target_week: f.week, target_year: f.year }), remote: true, class: 'btn btn-inverse'
+          = link_to ti(:new_scheduling), new_organization_plan_scheduling_path(current_organization, f.plan, scheduling: { date: f.monday}), class: 'new_scheduling btn btn-primary', remote: true
 
   %table#calendar.table.table-striped.table-bordered.table-condensed{class: f.range, data: f.table_metadata}
-    %caption= f.caption
     %thead
       %tr
-        %th= translate_action :employees
+        %th
+          %span.employees= translate_action :employees
         - f.formatted_days.each do |day|
-          %th= day
-        = f.weekly_working_time_difference_header
+          %th
+            =show_with_abbr(day, truncate(day, :length => 2, :omission => ''), 'day_name')
     %tbody
       - f.employees.each do |employee|
-        %tr
+        %tr{data: { employee_id: employee.id }}
           %th.employee
             = avatar(employee.user, employee, :tiny)
             %span.name= employee.name
+            .wwt_diff
+              %span.weekly_working_time
+                = translate_action(:hours) + '/'
+                %abbr{title: translate_action(:wwt_long)}
+                  = translate_action(:wwt_short)
+              %abbr.weekly_working_time{title: translate_action(:hours) + '/' + translate_action(:wwt_long)}
+                ='h/' + translate_action(:wwt_short)
+              = f.wwt_diff_for(employee)
           - f.days.each do |day|
             %td{data: f.cell_metadata(day, employee)}
               = f.cell_content(day, employee)
-          = f.weekly_working_time_difference_tag_for(employee)
-
-  - if can? :create, Scheduling
-    #actions
-      = link_to ti(:copy_week), new_organization_plan_copy_week_path(current_organization, f.plan, copy_week: { target_week: f.week, target_year: f.year }), remote: true, class: 'btn btn-info'
-      = link_to ti(:new_scheduling), new_organization_plan_scheduling_path(current_organization, f.plan, scheduling: { date: f.monday}), class: 'new_scheduling btn btn-inverse', remote: true
 
   #legend
     = f.legend

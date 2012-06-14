@@ -10,12 +10,11 @@ Feature: Sum of hours in plan
   Scenario: nothing planned
     # I did not plan any schedules for Homer
      When I go to the page of the plan
-     Then I should see the following calendar:
-        | Mitarbeiter   | Stunden/WAZ |
-        | Planner Burns | 0           |
-        | Carl C        | 0           |
-        | Lenny L       | 0           |
-        | Homer S       | 0 von 40    |
+     Then I should see the following WAZ:
+        | Planner Burns | 0      |
+        | Carl C        | 0      |
+        | Lenny L       | 0      |
+        | Homer S       | 0 / 40 |
 
   Scenario: work 9 to 5 every weekday
     Given the employee "Homer" was scheduled in the plan as following:
@@ -26,12 +25,11 @@ Feature: Sum of hours in plan
         | 4     | 9-17    |
         | 5     | 9-17    |
      When I go to the page of the plan
-     Then I should see the following calendar:
-        | Mitarbeiter   | Stunden/WAZ |
-        | Planner Burns | 0           |
-        | Carl C        | 0           |
-        | Lenny L       | 0           |
-        | Homer S       | 40 von 40   |
+     Then I should see the following WAZ:
+        | Planner Burns | 0       |
+        | Carl C        | 0       |
+        | Lenny L       | 0       |
+        | Homer S       | 40 / 40 |
 
    @javascript
    Scenario: yeah Homer, whats happening? I'll need you go ahead and come in on saturday and sunday as well
@@ -43,12 +41,11 @@ Feature: Sum of hours in plan
         | 4     | 9-17    |
         | 5     | 9-17    |
       And I am on the page of the plan
-     When I schedule "Homer S" on "Samstag" for "10-17"
-      And I schedule "Homer S" on "Sonntag" for "12-17"
-     Then I should see the following calendar:
-        | Mitarbeiter   | Stunden/WAZ |
-        | Planner Burns | 0           |
-        | Carl C        | 0           |
-        | Lenny L       | 0           |
-        | Homer S       | 52 von 40   |
+     When I schedule "Homer S" on "Sa" for "10-17"
+      And I schedule "Homer S" on "So" for "12-17"
+     Then I should see the following WAZ:
+        | Planner Burns | 0       |
+        | Carl C        | 0       |
+        | Lenny L       | 0       |
+        | Homer S       | 52 / 40 |
 

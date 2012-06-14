@@ -27,16 +27,14 @@ Spork.prefork do
   # steps to use the XPath syntax.
   Capybara.default_selector = :css
 
+
+  require File.dirname(__FILE__) + "/browsers"
   if ENV['CAPYBARA_CHROME'] == 'yes'
     STDERR.puts "will run @javascript tests in chrome"
-    Capybara.register_driver :selenium do |app|
-      if chrome = [`which chromium-browser`, `which google-chrome`].map(&:chomp).reject(&:blank?).first
-        Selenium::WebDriver::Chrome.path = chrome
-      end
-      Capybara::Selenium::Driver.new(app, :browser => :chrome, :switches => %w[--ignore-certificate-errors --disable-popup-blocking --disable-translate])
-    end
+    BrowserSupport.setup_chrome
   else
-    STDERR.puts "will run @javascript tests in default browser (probably firefox)"
+    STDERR.puts "will run @javascript tests in firefox"
+    BrowserSupport.setup_firefox
   end
 
   Capybara.server do |app, port|
