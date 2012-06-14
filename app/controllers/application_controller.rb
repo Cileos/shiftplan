@@ -38,8 +38,4 @@ class ApplicationController < ActionController::Base
     current_organization.present?
   end
   helper_method :current_organization?
-
-  def test
-
-  end
 end
