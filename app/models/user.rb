@@ -37,4 +37,8 @@ class User < ActiveRecord::Base
   def find_employee_with_avatar
     employees.order(:created_at).detect { |employee| employee.avatar? }
   end
+
+  def has_multiple_employees?
+    employees.count > 1
+  end
 end
