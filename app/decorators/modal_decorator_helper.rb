@@ -3,6 +3,7 @@ module ModalDecoratorHelper
   # wraps the given block in modal divs. Must give at least :body
   def modal(options = {})
     body = options.delete(:body) || raise(ArgumentError, 'no :body given for modal')
+    raise(ArgumentError, 'blank body given for modal') if body.blank?
     h.content_tag :div, body, options.merge(id: 'modalbox')
   end
 
