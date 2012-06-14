@@ -1,7 +1,7 @@
 de:
   helpers:
     actions:
-      profile: 'Mein Profil'
+      profile: Profil
       dashboard: Dashboard
       news: Neuigkeiten
       signin: Einloggen
