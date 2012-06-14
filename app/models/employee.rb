@@ -16,6 +16,10 @@ class Employee < ActiveRecord::Base
   has_many :posts, foreign_key: :author_id
   has_many :comments
 
+  def self.order_by_names
+    order('last_name, first_name')
+  end
+
   def role?(asked)
     role == asked
   end

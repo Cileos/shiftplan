@@ -43,8 +43,8 @@ I want to edit my profile
      Then I should be on the profile page of my employees
      Then I should see the following table of employees:
        | Name             | Organisation     |
-       | Margeret Bouvier | Tschernobyl GmbH |
        | Marge Bouvier    | Fukushima GmbH   |
+       | Margeret Bouvier | Tschernobyl GmbH |
      When I follow "Margeret Bouvier"
      Then I should be on the profile page of the employee "margeret"
       # Margeret Bouvier just married Homer Simpson and needs to change her last name
@@ -58,6 +58,6 @@ I want to edit my profile
      Then I should be on the profile page of my employees
      Then I should see the following table of employees:
        | Name             | Organisation     |
-       | Margeret Simpson | Tschernobyl GmbH |
        | Marge Bouvier    | Fukushima GmbH   |
+       | Margeret Simpson | Tschernobyl GmbH |
 
