@@ -17,6 +17,7 @@ class QuickieEditor extends View
   initialize: (params) ->
     # input will be autocompleted, keybindings removed on modal box close
     @input
+      .attr('autocomplete', 'off')
       .addClass('typeahead')
       .typeahead
         source: params.completions || gon.quickie_completions,
