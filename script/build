@@ -13,9 +13,9 @@ header "Jasmine"
 xvfb-run bundle exec guard-jasmine                               || exit 4
 
 header "Cucumber with chrome"
-CAPYBARA_CHROME=yes bundle exec cucumber features -t @javascript || exit 2
+CAPYBARA_CHROME=yes bundle exec cucumber --profile ci features -t @javascript || exit 2
 
 header "Cucumber with firefox"
-bundle exec cucumber features                                    || exit 1
+bundle exec cucumber --profile ci features                                    || exit 1
 
 header "Done"
