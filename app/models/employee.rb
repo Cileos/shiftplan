@@ -50,10 +50,6 @@ class Employee < ActiveRecord::Base
   def weekly_working_time_before_type_cast
     read_attribute(:weekly_working_time).to_i
   end
-
-  def self.order_by_name
-    order('last_name ASC, first_name ASC')
-  end
 end
 
 EmployeeDecorator

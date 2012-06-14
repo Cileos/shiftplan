@@ -12,10 +12,10 @@
         %th
           - if can?(:update, employee)
             = link_to(avatar(employee.user, employee, :tiny), [:edit, current_organization, employee], remote: true)
-            = link_to(employee.name, [:edit, current_organization, employee], remote: true, :class => 'name')
+            = link_to(employee.last_and_first_name, [:edit, current_organization, employee], remote: true, :class => 'name')
           - else
             = avatar(employee.user, employee, :tiny)
-            = employee.name
+            = employee.last_and_first_name
         %td= employee.try(:user).try(:email) || employee.try(:invitation).try(:email)
         %td.status= invitation_status(employee)
         %td.waz.numeric= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)

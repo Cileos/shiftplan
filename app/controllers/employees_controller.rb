@@ -17,4 +17,8 @@ class EmployeesController < InheritedResources::Base
   def begin_of_association_chain
     current_organization
   end
+
+  def end_of_association_chain
+    super.order_by_names
+  end
 end
