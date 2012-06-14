@@ -47,10 +47,10 @@ When /^#{capture_model} accepts the invitation for the organization "([^"]*)" (w
     step %{I press "Passwort setzen"}
   end
 
-  name_or_email = if employee.reload.user.employees.count == 1
-    employee.name
-  else
+  name_or_email = if employee.reload.user.has_multiple_employees?
     employee.user.email
+  else
+    employee.name
   end
   step %{I should be signed in as "#{name_or_email}"}
   step %{I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."}
