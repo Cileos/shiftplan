@@ -42,10 +42,10 @@ I want to edit my profile
      When I choose "Mein Profil" from the drop down "marge@thebouviers.com"
      Then I should be on the profile page of my employees
      Then I should see the following table of employees:
-       | Name             | Organisation     |
-       | Marge Bouvier    | Fukushima GmbH   |
-       | Margeret Bouvier | Tschernobyl GmbH |
-     When I follow "Margeret Bouvier"
+       | Name              | Organisation     |
+       | Bouvier, Marge    | Fukushima GmbH   |
+       | Bouvier, Margeret | Tschernobyl GmbH |
+     When I follow "Bouvier, Margeret"
      Then I should be on the profile page of the employee "margeret"
       # Margeret Bouvier just married Homer Simpson and needs to change her last name
      When I fill in "Nachname" with "Simpson"
@@ -57,7 +57,7 @@ I want to edit my profile
      When I follow "Zurück"
      Then I should be on the profile page of my employees
      Then I should see the following table of employees:
-       | Name             | Organisation     |
-       | Marge Bouvier    | Fukushima GmbH   |
-       | Margeret Simpson | Tschernobyl GmbH |
+       | Name              | Organisation     |
+       | Bouvier, Marge    | Fukushima GmbH   |
+       | Simpson, Margeret | Tschernobyl GmbH |
 

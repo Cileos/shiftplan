@@ -42,6 +42,10 @@ class Employee < ActiveRecord::Base
     %Q~#{first_name} #{last_name}~
   end
 
+  def last_and_first_name
+    %Q~#{last_name}, #{first_name}~
+  end
+
   # TODO remove when we want fractioned working time
   def weekly_working_time_before_type_cast
     read_attribute(:weekly_working_time).to_i

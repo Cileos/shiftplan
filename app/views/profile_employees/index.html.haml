@@ -13,5 +13,5 @@
       %tr{ id: "employee_#{employee.id}" }
         %th
           = avatar(employee.user, employee, :tiny)
-          = link_to employee.name, edit_profile_employee_path(employee)
+          = link_to employee.last_and_first_name, edit_profile_employee_path(employee)
         %td.organization= employee.organization.name
