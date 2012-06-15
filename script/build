@@ -7,15 +7,18 @@
 bundle check || bundle install || exit 128
 
 header "rSpec"
-bundle exec rspec --color ./spec                                 || exit 8
+bundle exec rspec --color ./spec                                 || exit 16
 
 header "Jasmine"
-xvfb-run bundle exec guard-jasmine                               || exit 4
+xvfb-run bundle exec guard-jasmine                               || exit 8
+
+header "Cucumber (non-javascript)"
+bundle exec cucumber --profile ci -t ~@javascript features       || exit 4
 
 header "Cucumber with chrome"
-CAPYBARA_CHROME=yes bundle exec cucumber --profile ci features -t @javascript || exit 2
+CAPYBARA_CHROME=yes bundle exec cucumber --profile ci -t @javascript features || exit 2
 
 header "Cucumber with firefox"
-bundle exec cucumber --profile ci features                                    || exit 1
+bundle exec cucumber --profile ci -t @javascript features                                    || exit 1
 
 header "Done"
