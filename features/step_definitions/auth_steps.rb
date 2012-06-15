@@ -18,10 +18,10 @@ Given /^I am signed in as #{capture_model}$/ do |user|
   step %{I fill in "Passwort" with "secret"}
   step %{I press "Einloggen"}
   step %{I should see "Erfolgreich eingeloggt."}
-  if user.employees.count == 1
-    step %{I should be signed in as "#{user.employees.first.name}"}
-  else
+  if user.has_multiple_employees?
     step %{I should be signed in as "#{user.email}"}
+  else
+    step %{I should be signed in as "#{user.employees.first.name}"}
   end
 end
 

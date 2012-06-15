@@ -18,6 +18,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link            | active |
        | me@shiftplan.de | false  |
+       | Mein Profil     | false  |
        | Ausloggen       | false  |
        | Dashboard       | true   |
 
@@ -25,6 +26,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Bart Simpson      | false  |
+       | Mein Profil       | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -38,6 +40,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Bart Simpson      | false  |
+       | Mein Profil       | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -51,6 +54,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Bart Simpson      | false  |
+       | Mein Profil       | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -64,6 +68,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Bart Simpson      | false  |
+       | Mein Profil       | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -77,6 +82,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Bart Simpson      | false  |
+       | Mein Profil       | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -91,6 +97,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link            | active |
        | me@shiftplan.de | false  |
+       | Mein Profil     | false  |
        | Ausloggen       | false  |
        | Dashboard       | false  |
 
@@ -101,6 +108,7 @@ Feature: Navigation
       And I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
+       | Mein Profil       | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -113,6 +121,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
+       | Mein Profil       | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | true   |
@@ -125,6 +134,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
+       | Mein Profil       | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -137,6 +147,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
+       | Mein Profil       | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -149,6 +160,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
+       | Mein Profil       | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -162,6 +174,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
+       | Mein Profil       | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | false  |
 

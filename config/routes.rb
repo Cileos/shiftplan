@@ -25,9 +25,14 @@ Shiftplan::Application.routes.draw do
   end
 
   resource :feedback, only: [:new, :create], :controller => 'feedback'
+  scope 'profile', as: 'profile' do
+    resources :employees, only: [:edit, :update, :index], controller: 'profile_employees'
+  end
 
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
   get "dashboard" => 'welcome#dashboard', :as => 'user_root'
+
+  get "user/:user_id/employees" => 'employees#list', :as => 'list_employees'
 
   devise_for :users, :controllers => { registrations: 'planners/registrations', sessions: 'sessions'}
 

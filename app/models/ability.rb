@@ -23,16 +23,20 @@ class Ability
     end
 
     unless user.new_record?
-      authorize_signed_in
+      authorize_signed_in(user)
     end
     can :create, Feedback
   end
 
-  def authorize_signed_in
+  def authorize_signed_in(user)
     can :dashboard, User
+    can [:edit, :update, :read], Employee do |employee|
+      employee.user == user
+    end
   end
 
   def authorize_employee(employee)
+    authorize_signed_in(employee.user)
     is_employee_of = { id: employee.organization_id }
     can :read,               Plan,         organization: is_employee_of
     can [:read, :create],    Post,         blog: { organization: is_employee_of }

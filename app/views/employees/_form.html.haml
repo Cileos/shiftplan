@@ -4,12 +4,12 @@
   = f.error_notification
 
   .inputs
-    = f.input :first_name, autofocus: true
-    = f.input :last_name
-    = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
     = avatar(employee.user, employee, :tiny)
     = f.input :avatar, as: :file
     = f.input :avatar_cache, as: :hidden
+    = f.input :first_name, autofocus: true
+    = f.input :last_name
+    = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
 
   .actions
     %button.btn.btn-primary= ti(:update)

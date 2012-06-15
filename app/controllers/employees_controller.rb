@@ -8,7 +8,7 @@ class EmployeesController < InheritedResources::Base
   end
 
   def update
-    update! { organization_employees_url(current_organization) }
+    update! { edit_organization_employee_url(current_employee) }
   end
 
   private
@@ -16,5 +16,9 @@ class EmployeesController < InheritedResources::Base
   # TODO more than one organization per planner
   def begin_of_association_chain
     current_organization
+  end
+
+  def end_of_association_chain
+    super.order_by_names
   end
 end

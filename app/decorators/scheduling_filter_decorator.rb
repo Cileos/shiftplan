@@ -115,7 +115,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def employees
-    organization.employees.order_by_name
+    organization.employees.order_by_names
   end
 
   delegate :plan,         to: :filter
