@@ -12,17 +12,8 @@ Given /^I am signed in as #{capture_model}$/ do |user|
     step %{#{user} exists}
   end
   user = model!(user)
-  step %{I am on the home page}
-  step %{I follow "Einloggen"}
-  step %{I fill in "E-Mail" with "#{user.email}"}
-  step %{I fill in "Passwort" with "secret"}
-  step %{I press "Einloggen"}
-  step %{I should see "Erfolgreich eingeloggt."}
-  if user.has_multiple_employees?
-    step %{I should be signed in as "#{user.email}"}
-  else
-    step %{I should be signed in as "#{user.employees.first.name}"}
-  end
+  visit fast_sign_in_path(email: user.email)
+  page.should have_content('success')
 end
 
 Given /^I am signed in$/ do

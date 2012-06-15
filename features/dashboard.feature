@@ -12,8 +12,8 @@ Feature: Dashboard
 
       And the situation of an atomic power plant tschernobyl
 
-    When I sign in as the user "homer"
-    Then I should be on the dashboard
+     And I am signed in as the user "homer"
+    When I go to the dashboard
      And I should see "AKW Fukushima GmbH"
      And I should see "Reaktor putzen in Fukushima"
      And I should see "AKW Tschernobyl GmbH"
