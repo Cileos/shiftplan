@@ -24,7 +24,7 @@ class QuickieEditor extends View
         sorter: @sorter
         matcher: @matcher
     @one 'attach', =>
-      $(@).closest('form').bind 'remove', @destroy
+      $(@).closest('form').bind 'shiftplan.remove', @destroy
       $('#modalbox').bind 'dialogclose', @destroy
 
   destroy: =>
