@@ -137,9 +137,9 @@ In order to keep my colleagues informed about important news
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
      When I follow "Mehr"
-     Then I should be on the page of the post
-      And I should see "Umweltminister zu Besuch"
+     Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
+      And I should be on the page of the post
 
      When I follow "Bearbeiten"
       And I wait for the modal box to appear
@@ -199,7 +199,6 @@ In order to keep my colleagues informed about important news
      When I follow "AKW Fukushima GmbH"
      Then I should see "1 Kommentar"
       And I follow "1 Kommentar"
-     Then I should be on the page of the post
      When I fill in "Kommentar" with "Ich werde einen Blumenstrauß mitbringen"
       And I press "Kommentieren"
      Then I should see "2 Kommentare"
