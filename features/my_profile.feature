@@ -1,4 +1,3 @@
-@javascript
 Feature: As a user
 I want to edit my profile
 
