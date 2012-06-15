@@ -119,42 +119,6 @@ div.scroller {
 }
 
 
-#scheduling_modal {
-    ul.calendar_editor {
-        list-style: none;
-        padding-left: 0.5em;
-    }
-    form {
-        @include box-shadow($grayLight 1px 1px 6px);
-        position: relative;
-        .errors {
-            margin-top: 9px;
-            margin-bottom: 9px;
-        }
-        button[type=submit] {
-            position: absolute;
-            right: 4%;
-          top: 19px;
-        }
-    }
-    form.edit_scheduling {
-        div.quickie {
-            label {
-                display: none;
-            }
-        }
-        .control-group.quickie {
-            margin-bottom: 0;
-        }
-        a.delete {
-            @include align-top(left);
-        }
-        button[type=submit] {
-            @include align-top(right, 0);
-        }
-    }
-}
-
 #legend {
     dl {
         di {

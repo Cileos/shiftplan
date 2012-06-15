@@ -1,4 +1,3 @@
 page.decorate parent do |f|
-  f.append_modal body: '', header: ta(:comments)
-  f.append_to_modal render("#{f.partial_name}/comments", record: f)
+  f.append_modal header: ta(:comments), body: render("#{f.partial_name}/comments", record: f)
 end

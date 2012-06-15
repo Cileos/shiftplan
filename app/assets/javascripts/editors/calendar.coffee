@@ -19,7 +19,7 @@ class CalendarEditor extends View
         complete: @setupInputs
 
   modal: ->
-    $('body.modal-open div.modal')
+    $('#modalbox')
 
   setupInputs: =>
     @setupForm()

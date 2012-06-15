@@ -36,8 +36,8 @@ Then /^(.+) should disappear$/ do |name|
 end
 
 When /^I close (the modal box)$/ do |target|
-  with_scope(target) { page.first('button.close').click }
-  page.should have_no_css('.modal-backdrop') # implies waiting
+  page.first('a[role=button].ui-dialog-titlebar-close').click
+  page.should have_no_css('.ui-widget-overlay') # implies waiting
 end
 
 Then /^I should see the following defined items:$/ do |expected|
