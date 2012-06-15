@@ -26,11 +26,11 @@ Feature: Create Employees
       And I wait for the modal box to disappear
      Then I should see flash info "Mitarbeiter erfolgreich angelegt."
       And I should be on the employees page for the organization
-      And I should see "Carl Carlson"
+      And I should see "Carlson, Carl"
       And I should see "30"
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
       And I should see a tiny gravatar within the row for employee "Homer Simpson"
-     When I follow "Carl Carlson" within the employees table
+     When I follow "Carlson, Carl" within the employees table
       And I wait for the modal box to appear
      Then I should see the avatar "rails.png" within the edit employee form
 
@@ -57,10 +57,10 @@ Feature: Create Employees
       And I wait for the modal box to disappear
      Then I should see flash info "Mitarbeiter erfolgreich angelegt."
       And I should be on the employees page for the organization
-      And I should see "Carl Carlson"
+      And I should see "Carlson, Carl"
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
       And I should see a tiny gravatar within the row for employee "Homer Simpson"
-     When I follow "Carl Carlson" within the employees table
+     When I follow "Carlson, Carl" within the employees table
       And I wait for the modal box to appear
      Then I should see the avatar "rails.png" within the edit employee form
 
@@ -69,7 +69,7 @@ Feature: Create Employees
   Scenario: Uploading an avatar for myself on employee page
      Then I should see a tiny gravatar within the row for employee "Homer Simpson"
       And I should see a tiny gravatar within the navigation
-     When I follow "Homer Simpson" within the employees table
+     When I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
@@ -111,8 +111,8 @@ Feature: Create Employees
 
   @javascript
   Scenario: Editing an employee
-    Given I should not see "Carl Carlson"
-     When I follow "Homer Simpson" within the employees table
+    Given I should not see "Carlson, Carl"
+     When I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
       And I fill in the following:
         | Vorname  | Carl    |
@@ -121,14 +121,14 @@ Feature: Create Employees
       And I wait for the modal box to disappear
      Then I should see flash info "Mitarbeiter erfolgreich geändert."
       And I should be on the employees page for the organization
-      And I should see "Carl Carlson"
-      But I should not see "Homer Simpson"
+      And I should see "Carlson, Carl"
+      But I should not see "Simpson, Homer"
 
   Scenario: Can only see employees of own organization
     Given another organization "Chefs" exists
       And an employee exists with organization: organization "Chefs", first_name: "Smithers"
 
       And I follow "Mitarbeiter"
-     Then I should see "Homer Simpson"
+     Then I should see "Simpson, Homer"
       But I should not see "Smithers"
 
