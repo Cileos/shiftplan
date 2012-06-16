@@ -185,9 +185,8 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
 end
 
 Then /^(?:|I )should be on (.+)$/ do |page_name|
-  current_path = URI.parse(current_url).path
   expected = path_to(page_name)
-  wait_until { current_path == expected }
+  wait_until { URI.parse(current_url).path == expected }
 end
 
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
