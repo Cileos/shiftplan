@@ -8,3 +8,4 @@
 //= require_tree './lib'
 //= require spinner
 //= require jquery.remotipart
+//= require jquery.mailcheck.min
