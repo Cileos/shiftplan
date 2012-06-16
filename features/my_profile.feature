@@ -9,6 +9,7 @@ I want to edit my profile
 
   Scenario: Editing the lastname on the my profile page
     Given I am signed in as the confirmed user
+      And I am on the page for the organization "fukushima"
      Then I should see "Marge Bouvier" within the navigation
 
      When I choose "Profil" from the drop down "Marge Bouvier"
@@ -24,6 +25,7 @@ I want to edit my profile
   @fileupload
   Scenario: Editing the avatar on the my profile page
     Given I am signed in as the confirmed user
+      And I am on the page for the organization "fukushima"
      Then I should see a tiny gravatar within the navigation
 
      When I choose "Profil" from the drop down "Marge Bouvier"
@@ -38,6 +40,7 @@ I want to edit my profile
     Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
       And an employee "margeret" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Margeret", last_name: "Bouvier"
       And I am signed in as the confirmed user
+      And I am on the dashboard page
 
      When I choose "Profil" from the drop down "marge@thebouviers.com"
      Then I should be on the profile page of my employees
