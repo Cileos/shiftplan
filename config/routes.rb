@@ -24,6 +24,8 @@ Shiftplan::Application.routes.draw do
     end
   end
 
+  resource :user, only: [:edit, :update], controller: 'user'
+
   resource :feedback, only: [:new, :create], :controller => 'feedback'
   scope 'profile', as: 'profile' do
     resources :employees, only: [:edit, :update, :index], controller: 'profile_employees'

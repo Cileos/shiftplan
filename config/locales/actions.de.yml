@@ -2,6 +2,7 @@ de:
   helpers:
     actions:
       profile: Profil
+      settings: Einstellungen
       dashboard: Dashboard
       news: Neuigkeiten
       signin: Einloggen

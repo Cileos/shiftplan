@@ -18,6 +18,8 @@ module NavigationHelpers
       case model = model!($1)
       when Employee
         edit_employee_path(model)
+      when User
+        edit_user_path
       end
 
     when /^the profile page of #{capture_model}$/

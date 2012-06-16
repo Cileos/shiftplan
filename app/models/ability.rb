@@ -33,6 +33,9 @@ class Ability
     can [:edit, :update, :read], Employee do |employee|
       employee.user == user
     end
+    can [:edit, :update], User do |u|
+      u == user
+    end
   end
 
   def authorize_employee(employee)

@@ -1,0 +1,11 @@
+- title :settings
+
+= simple_form_for @user, url: user_path do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :email
+    = f.input :current_password
+
+  .actions
+    %button.btn.btn-primary= ti(:update)

@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :employees
   has_many :invitations
   has_many :organizations, :through => :employees
+  has_one  :email_change
 
   def label
     email
@@ -41,4 +42,13 @@ class User < ActiveRecord::Base
   def has_multiple_employees?
     employees.count > 1
   end
+
+  def create_email_change
+    if email_was.present? and email_changed?
+      email_change.destroy if email_change
+      create_email_change!(email: email)
+      email = email_was
+    end
+  end
+  before_save :create_email_change
 end
