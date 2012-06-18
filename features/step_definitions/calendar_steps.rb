@@ -66,6 +66,17 @@ Then /^I should see the following calendar:$/ do |expected|
   expected.diff! actual
 end
 
+# TODO multiple entries per "cell"/column
+Then /^I should see the following calendar with (?:hours in week):$/ do |expected|
+  calendar = find(selector_for('the calendar'))
+  actual = calendar.all("thead:first tr, tbody tr").map do |tr|
+    tr.all('th, td').map do |cell|
+      extract_text_from_cell(cell) || ''
+    end
+  end
+  expected.diff! actual
+end
+
 Then /^I should see the following WAZ:$/ do |expected|
   calendar = find(selector_for('the calendar'))
   actual = calendar.all("tbody tr").map do |tr|

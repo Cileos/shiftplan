@@ -11,8 +11,12 @@ class SchedulingsController < InheritedResources::Base
       @schedulings ||= filter.records
     end
 
+    def pure_filter
+      @pure_filter ||= Scheduling.filter( filter_params )
+    end
+
     def filter
-      @filter ||= Scheduling.filter( filter_params )
+      @filter ||= pure_filter.decorate
     end
     helper_method :filter
 
