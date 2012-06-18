@@ -1,7 +1,9 @@
 Shiftplan::Application.routes.draw do
 
-  match 'invitation/accept'  => 'accept_invitations#accept', :as => :accept_invitation
-  match 'invitation/confirm' => 'accept_invitations#confirm', :as => :confirm_invitation
+  match 'invitation/accept'    => 'accept_invitations#accept',  :as => :accept_invitation
+  match 'invitation/confirm'   => 'accept_invitations#confirm', :as => :confirm_invitation
+  match 'email_change/accept'  => 'email_change#accept',        :as => :accept_email_change
+  match 'email_change/confirm' => 'email_change#confirm',       :as => :confirm_email_change
 
   resources :organizations do
     resources :plans do

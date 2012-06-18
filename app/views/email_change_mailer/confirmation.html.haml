@@ -1,0 +1,12 @@
+%p= "Hallo #{@email_change.email}!"
+
+%p Sie wollen Ihre E-Mail Adresse ändern?
+
+%p Bitte bestätigen Sie die Änderung Ihrer E-Mail Adresse durch Klicken auf den folgenden Link:
+
+%p= link_to 'Änderung meiner E-Mail Addresse bestätigen', accept_email_change_url(token: @email_change.token)
+
+%p Bitte beachten Sie: Sie bekommen diese E-Mail, weil sich jemand mit Ihrer E-Mail Adresse auf Shiftplan angemeldet hat. Falls die Anmeldung nicht von Ihnen selbst ist und Sie kein Interesse haben, brauchen Sie gar nichts weiter zu tun - wir werden Sie nicht wieder kontaktieren.
+
+%p Ihr Shiftplan Team
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120615174830) do
+ActiveRecord::Schema.define(:version => 20120618111519) do
 
   create_table "blogs", :force => true do |t|
     t.integer  "organization_id"
@@ -41,8 +41,10 @@ ActiveRecord::Schema.define(:version => 20120615174830) do
     t.integer  "user_id"
     t.string   "email"
     t.string   "token"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at"
   end
 
   add_index "email_changes", ["token"], :name => "index_email_changes_on_token"

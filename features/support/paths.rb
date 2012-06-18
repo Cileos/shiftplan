@@ -67,6 +67,9 @@ module NavigationHelpers
       org = model!($1)
       organization_employees_path(org)
 
+    when /^the email change confirmation page$/
+      accept_email_change_path
+
     else
       begin
         page_name =~ /^the (.*) page$/
