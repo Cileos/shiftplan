@@ -1,31 +1,9 @@
 !!!5
 %html
-  %head
-    %meta{'http-equiv' => "Content-Type", 'content' => "text/html;charset=utf-8"}
-    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.4"}
-    %title
-      - if content_for?(:title)
-        = yield(:title)
-        \-
-      Shiftplan
-    = stylesheet_link_tag 'application'
-    = stylesheet_link_tag 'iPad'
-    = stylesheet_link_tag 'iPhone'
-    = stylesheet_link_tag 'print', :media => "print"
-    = javascript_include_tag 'lib'
-    %script{src:'http://www.jotform.com/min/?g=feedback2', type:'text/javascript'}
-    = javascript_include_tag 'application'
-    = csrf_meta_tags
-    = include_gon
-
+  = render 'layouts/head'
   %body
     #page.container-fluid
-      %nav.navbar
-        .navbar-inner
-          .container-fluid
-            = link_to 'shiftplan', root_path, class: 'brand', id: 'logo'
-            = render 'session'
-            = render 'navigation'
+      = render 'layouts/top'
       #content
         = render 'flash'
         - if show_title?
@@ -33,8 +11,4 @@
             %h1#title= yield(:title)
 
         = yield
-      %footer
-        .feedback
-          - feedback_params = current_organization ? { organization_id: current_organization.id } : {}
-          = link_to ti(:feedback_without_screenshot), new_feedback_path(feedback_params), |
-              class: 'feedback-without-screenshot', remote: true
+      = render 'layouts/footer'
