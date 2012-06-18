@@ -39,6 +39,10 @@ Feature: As a logged in user
       And I press "Einloggen"
       And I should see "Erfolgreich eingeloggt."
 
+
+
+      # Filling in wrong passwords:
+
   Scenario: User tries to change the email address but fills in a wrong password
     Given I am on the edit page of the confirmed user
 
@@ -57,6 +61,10 @@ Feature: As a logged in user
       And I press "Bestätigen"
      Then I should see a flash alert "Ihre E-Mail Adresse konnte nicht geändert werden."
       And I should see "ist nicht gültig"
+
+
+
+      # Reconfirming email changes:
 
   Scenario: Logged in user reconfirms an email change
     Given an email change exists with user: the confirmed user, email: "marge@thesimpsons.com"
