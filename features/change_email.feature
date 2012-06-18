@@ -47,3 +47,13 @@ Feature: As a logged in user
       And I press "Speichern"
      Then I should see "Ihre E-Mail Adresse konnte nicht geändert werden."
       And I should see "ist nicht gültig"
+
+  Scenario: User tries to confirm requested email change but fills in a wrong password on confirmation page
+    Given an email change exists with user: the confirmed user, email: "marge@thesimpsons.com"
+
+     When "marge@thesimpsons.com" opens the email with subject "E-Mail Adresse ändern"
+      And I click the first link in the email
+      And I fill in "Aktuelles Passwort" with "wrongpass"
+      And I press "Bestätigen"
+     Then I should see a flash alert "Ihre E-Mail Adresse konnte nicht geändert werden."
+      And I should see "ist nicht gültig"

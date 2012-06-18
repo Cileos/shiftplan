@@ -4,37 +4,34 @@ class EmailChangeController < InheritedResources::Base
   no_authentication_required
   skip_authorization_check
   before_filter :set_email_change
+  before_filter :set_user
   before_filter :ensure_not_yet_confirmed
-  before_filter :check_current_password, only: :confirm
 
   def accept
-
   end
 
   def confirm
-    if @email_change.update_attributes(params[:email_change])
-      flash[:notice] = t('email_change.confirm.accepted', email: @email_change.user.email)
-      sign_in(User, @email_change.user)
+    if @user.update_with_password(params[:user])
+      flash[:notice] = t('email_change.confirm.accepted', email: @user.email)
+      sign_in(User, @user)
       redirect_to dashboard_path
     else
+      flash[:alert] = t('email_change.confirm.rejected', email: @user.email)
       render :accept
     end
   end
 
   private
 
-  def check_current_password
-    current_password = params[:email_change][:user_attributes][:current_password]
-    unless @email_change.user.valid_password?(current_password)
-      @email_change.user.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
-    end
-  end
-
   def set_email_change
     unless @email_change = EmailChange.find_by_token(params[:token])
       flash[:alert] = t('email_change.accept.token_invalid')
       redirect_to root_url
     end
+  end
+
+  def set_user
+    @user = @email_change.user
   end
 
   def ensure_not_yet_confirmed

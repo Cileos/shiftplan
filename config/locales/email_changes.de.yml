@@ -7,3 +7,4 @@ de:
       enter_password_to_confirm: "Um die Änderung Ihrer E-Mail Adresse in %{email} zu bestätigen, geben Sie bitte Ihr aktuelles Passwort ein."
     confirm:
       accepted: "Sie haben Ihre E-Mail Adresse erfolgreich geändert. Bitte loggen Sie sich zukünftig mit der E-Mail Adresse %{email} bei uns ein."
+      rejected: "Ihre E-Mail Adresse konnte nicht geändert werden."

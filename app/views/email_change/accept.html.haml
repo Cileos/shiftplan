@@ -1,14 +1,14 @@
 - title :confirm_email_change
 
-%p= t('.enter_password_to_confirm', email: @email_change.email)
+%p= t('.enter_password_to_confirm', email: @user.email)
 
-- @email_change.confirmed_at = Time.now
-= simple_form_for @email_change, :url => confirm_email_change_path(:token => @email_change.token), :html => { :method => :put } do |f|
-  = f.input :confirmed_at, as: :hidden
+- @user.email = @email_change.email
+= simple_form_for @user, :url => confirm_email_change_path(:token => @email_change.token), :html => { :method => :put } do |f|
+  = f.input :email, as: :hidden
+  = f.input :current_password
 
-  - @email_change.user.email = @email_change.email
-  = f.simple_fields_for :user do |user_form|
-    = user_form.input :email, as: :hidden
-    = user_form.input :current_password
+  - @user.email_change.confirmed_at = Time.now
+  = f.simple_fields_for :email_change do |email_change_form|
+    = email_change_form.input :confirmed_at, as: :hidden
 
   %button.btn.btn-primary= ti(:confirm)
