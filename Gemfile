@@ -10,6 +10,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.4'
   gem 'uglifier', '>= 1.2.3'
   gem 'jquery-rails'
+  gem 'jquery-ui-rails'
   gem 'bootstrap-sass', '~> 2.0.2'
 end
 

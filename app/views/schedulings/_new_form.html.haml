@@ -1,4 +1,4 @@
-= simple_form_for scheduling, url: organization_plan_schedulings_path(current_organization, scheduling.plan), remote: true, html: { class: 'form-horizontal well' } do |f|
+= simple_form_for scheduling, url: organization_plan_schedulings_path(current_organization, scheduling.plan), remote: true, html: { class: 'form-horizontal' } do |f|
   = f.input :quickie, hint: true
   %button.btn.btn-success{type: 'submit'}
     %i.icon-ok-circle.icon-white

@@ -40,5 +40,11 @@ Shiftplan::Application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'planners/registrations', sessions: 'sessions'}
 
+  if Rails.env.test?
+    scope 'test' do
+      get 'sign_in' => 'test_acceleration#sign_in', as: 'fast_sign_in'
+    end
+  end
+
   root :to => "welcome#landing"
 end

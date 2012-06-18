@@ -66,6 +66,13 @@ namespace :deploy do
 
   before "deploy:assets:precompile", "deploy:symlink_static_directories"
 
+  desc "Delete the code we use to accelerate testing"
+  task :delete_test_code do
+    run "rm -f #{current_release}/app/controllers/test_acceleration_controller.rb"
+  end
+
+  before "deploy:assets:precompile", "deploy:delete_test_code"
+
   task :rake_task do
     if task = ENV['TASK']
       run "cd #{current_release} && RAILS_ENV=production bundle exec rake #{task}"

@@ -6,7 +6,7 @@ header "configuring Travis"
 
 cp config/database.yml{.travis,}
 
-bundle exec rake db:migrate || exit 64
+bundle exec rake db:migrate || exit 64 > /dev/null
 
 script/build
 

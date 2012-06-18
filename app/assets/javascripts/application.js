@@ -8,3 +8,4 @@
 //= require_tree './editors'
 //= require feedback
 //= require switch_calendar_layout
+//= require mailcheck

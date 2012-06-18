@@ -11,10 +11,10 @@ Feature: Feedback without Screenshot
       And a clear email queue
 
   Scenario: Employee sends feedback
-     When I sign in as the confirmed user
+    Given I am signed in as the confirmed user
+      And I am on the page of the organization "fukushima"
 
-      And I follow "Fukushima"
-      And I follow "Feedback ohne Bildschirmfoto"
+     When I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
@@ -30,11 +30,10 @@ Feature: Feedback without Screenshot
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Logged in user (not in the scope of an organization) sends feedback without providing a name
-     When I sign in as the confirmed user
+    Given I am signed in as the confirmed user
+      And I am on the home page
 
-      And I follow "shiftplan"
-     Then I should be on the home page
-      And I follow "Feedback ohne Bildschirmfoto"
+     When I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
@@ -50,11 +49,10 @@ Feature: Feedback without Screenshot
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Logged in user (not in the scope of an organization) sends feedback with providing a name
-     When I sign in as the confirmed user
+    Given I am signed in as the confirmed user
+      And I am on the home page
 
-      And I follow "shiftplan"
-     Then I should be on the home page
-      And I follow "Feedback ohne Bildschirmfoto"
+     When I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
       And I fill in "Name" with "Hein Blöd"
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"

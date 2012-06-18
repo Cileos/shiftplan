@@ -14,6 +14,9 @@ module NavigationHelpers
     when 'the signin page'
       new_user_session_path
 
+    when 'the signup page'
+      new_user_registration_path
+
     when /^the edit page (?:of|for) #{capture_model}$/
       case model = model!($1)
       when Employee

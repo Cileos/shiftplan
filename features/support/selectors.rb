@@ -48,11 +48,8 @@ module HtmlSelectorsHelpers
     when "the calendar navigation"
       'div#calendar-navigation'
 
-    when 'the modal box body'
-      'div.modal div.modal-body'
-
     when 'the modal box'
-      'div.modal'
+      'div#modalbox'
 
     when 'errors'
       '.errors.alert.alert-error'

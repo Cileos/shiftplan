@@ -17,14 +17,15 @@ class QuickieEditor extends View
   initialize: (params) ->
     # input will be autocompleted, keybindings removed on modal box close
     @input
+      .attr('autocomplete', 'off')
       .addClass('typeahead')
       .typeahead
         source: params.completions || gon.quickie_completions,
         sorter: @sorter
         matcher: @matcher
     @one 'attach', =>
-      $(@).closest('form').bind 'remove', @destroy
-      $('.modal').bind 'hide', @destroy
+      $(@).closest('form').bind 'shiftplan.remove', @destroy
+      $('#modalbox').bind 'dialogclose', @destroy
 
   destroy: =>
     @input?.unbind().data('typeahead')?.$menu?.remove()

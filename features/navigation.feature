@@ -11,14 +11,14 @@ Feature: Navigation
 
   Scenario: as a planner with multiple organizations
     Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-    And a employee planner exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Bart", last_name: "Simpson"
+      And a employee planner exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Bart", last_name: "Simpson"
       And I am signed in as the confirmed user
 
-     Then I should be on the dashboard page
+     When I go to the dashboard page
      Then I should see the following list of links within the navigation:
        | link            | active |
        | me@shiftplan.de | false  |
-       | Mein Profil     | false  |
+       | Profil          | false  |
        | Ausloggen       | false  |
        | Dashboard       | true   |
 
@@ -26,7 +26,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Bart Simpson      | false  |
-       | Mein Profil       | false  |
+       | Profil            | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -40,7 +40,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Bart Simpson      | false  |
-       | Mein Profil       | false  |
+       | Profil            | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -54,7 +54,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Bart Simpson      | false  |
-       | Mein Profil       | false  |
+       | Profil            | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -68,7 +68,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Bart Simpson      | false  |
-       | Mein Profil       | false  |
+       | Profil            | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -82,7 +82,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Bart Simpson      | false  |
-       | Mein Profil       | false  |
+       | Profil            | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -97,18 +97,18 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link            | active |
        | me@shiftplan.de | false  |
-       | Mein Profil     | false  |
+       | Profil          | false  |
        | Ausloggen       | false  |
        | Dashboard       | false  |
 
   Scenario: as a planner with one organization
-     When I am signed in as the confirmed user
+    Given I am signed in as the confirmed user
 
-     Then I should be on the page of the organization "fukushima"
-      And I should see the following list of links within the navigation:
+     When I go to the page of the organization "fukushima"
+     Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
-       | Mein Profil       | false  |
+       | Profil            | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -121,7 +121,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
-       | Mein Profil       | false  |
+       | Profil            | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | true   |
@@ -134,7 +134,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
-       | Mein Profil       | false  |
+       | Profil            | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -147,7 +147,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
-       | Mein Profil       | false  |
+       | Profil            | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -160,7 +160,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
-       | Mein Profil       | false  |
+       | Profil            | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -174,7 +174,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |
-       | Mein Profil       | false  |
+       | Profil            | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | false  |
 
@@ -185,8 +185,8 @@ Feature: Navigation
       And the employee planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
       And I am signed in as the confirmed user
 
-     Then I should be on the dashboard page
-      And I should see "me@shiftplan.de" within the navigation
+     When I go to the dashboard page
+     Then I should see "me@shiftplan.de" within the navigation
       And I should see the avatar "barts_avatar.jpg" within the navigation
 
   @fileupload
@@ -196,8 +196,8 @@ Feature: Navigation
       And a employee planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
       And I am signed in as the confirmed user
 
-     Then I should be on the dashboard page
-      And I should see "me@shiftplan.de" within the navigation
+     When I go to the dashboard page
+     Then I should see "me@shiftplan.de" within the navigation
       And I should see the avatar "rails.png" within the navigation
 
   @fileupload
@@ -208,8 +208,8 @@ Feature: Navigation
       And the employee planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
       And I am signed in as the confirmed user
 
-     Then I should be on the dashboard page
-      And I should see "me@shiftplan.de" within the navigation
+     When I go to the dashboard page
+     Then I should see "me@shiftplan.de" within the navigation
       And I should see the avatar "rails.png" within the navigation
 
   @fileupload
@@ -219,6 +219,7 @@ Feature: Navigation
       And a employee planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
       And the employee planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
       And I am signed in as the confirmed user
+      And I am on the dashboard page
 
      When I follow "Fukushima GmbH"
      Then I should see the avatar "rails.png" within the navigation
@@ -234,6 +235,7 @@ Feature: Navigation
     Given a confirmed user "raphaela without avatar" exists with email: "rw@cileos.com"
       And an employee "raphaela without avatar" exists with user: the confirmed user "raphaela without avatar", organization: the organization "fukushima", first_name: "Raphaela", last_name: "Wrede"
       And I am signed in as the confirmed user "raphaela without avatar"
+      And I am on the dashboard
 
      Then I should see "Raphaela Wrede" within the navigation
       And I should see a tiny gravatar within the navigation
