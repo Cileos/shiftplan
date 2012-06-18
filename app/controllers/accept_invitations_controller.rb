@@ -1,4 +1,4 @@
-class AcceptInvitationsController < InheritedResources::Base
+class AcceptInvitationsController < ApplicationController
   no_authentication_required
   skip_authorization_check
   before_filter :set_invitation, only: [:accept, :confirm]
