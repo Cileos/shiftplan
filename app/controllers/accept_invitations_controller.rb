@@ -35,7 +35,7 @@ class AcceptInvitationsController < InheritedResources::Base
     if @invitation.accepted?
       if current_user
         flash[:notice] = t(:'invitations.already_accepted')
-        redirect_to_dashboard_or_organization
+        redirect_to dashboard_path
       else
         flash[:notice] = t(:'invitations.already_accepted_log_in')
         redirect_to new_user_session_path
@@ -54,15 +54,7 @@ class AcceptInvitationsController < InheritedResources::Base
   def respond_with_successful_confirmation
     flash[:notice] = t(:'invitations.accepted')
     sign_in(User, @invitation.user)
-    redirect_to_dashboard_or_organization
-  end
-
-  def redirect_to_dashboard_or_organization
-    if @invitation.user.organizations.count > 1
-      redirect_to dashboard_path
-    else
-      redirect_to [@invitation.user.organizations.first]
-    end
+    redirect_to dashboard_path
   end
 
   def respond_with_accept_by_setting_a_password
