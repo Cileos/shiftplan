@@ -1,8 +1,8 @@
 class EmailChange < ActiveRecord::Base
   belongs_to :user
-  accepts_nested_attributes_for :user
-
   validates_presence_of :email, :user_id, :token
+
+  attr_accessible :confirmed_at, :email
 
   before_validation :set_token, on: :create
   after_create :send_confirmation_mail

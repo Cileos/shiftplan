@@ -11,10 +11,10 @@ module NavigationHelpers
     when /^the (?:home|landing)\s?page$/
       '/'
 
-    when 'the signin page'
+    when /the (?:signin|sign in) page/
       new_user_session_path
 
-    when 'the signup page'
+    when /the (?:signup|sign up) page/
       new_user_registration_path
 
     when /^the edit page (?:of|for) #{capture_model}$/
