@@ -5,12 +5,11 @@ Feature: As a logged in user
     Given an organization "fukushima" exists with name: "Fukushima GmbH"
       And a confirmed user exists with email: "marge@thebouviers.com"
       And an employee exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Marge", last_name: "Bouvier"
-
-  Scenario: Changing the email address
-    Given I am signed in as the confirmed user
+      And I am signed in as the confirmed user
       And I am on my dashboard
 
-    When I choose "Einstellungen" from the drop down "Marge Bouvier"
+  Scenario: Changing the email address
+     Given I choose "Einstellungen" from the drop down "Marge Bouvier"
      Then I should be on the edit page of the confirmed user
      When I fill in "E-Mail" with "marge@thesimpsons.com"
       And I fill in "Aktuelles Passwort" with "secret"
@@ -39,3 +38,12 @@ Feature: As a logged in user
       And I fill in "Passwort" with "secret"
       And I press "Einloggen"
       And I should see "Erfolgreich eingeloggt."
+
+  Scenario: User tries to change the email address but fills in a wrong password
+    Given I am on the edit page of the confirmed user
+
+     When I fill in "E-Mail" with "marge@thesimpsons.com"
+      And I fill in "Aktuelles Passwort" with "wrongpass"
+      And I press "Speichern"
+     Then I should see "Ihre E-Mail Adresse konnte nicht geändert werden."
+      And I should see "ist nicht gültig"
