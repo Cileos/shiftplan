@@ -1,8 +1,7 @@
-class EmailChangeController < InheritedResources::Base
-  #custom_actions resource: [:accept, :confirm]
-
-  no_authentication_required
+class EmailChangeController < ApplicationController
   skip_authorization_check
+  no_authentication_required
+
   before_filter :set_email_change
   before_filter :set_user
   before_filter :ensure_not_yet_confirmed
