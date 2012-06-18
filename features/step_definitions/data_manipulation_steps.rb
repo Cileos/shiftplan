@@ -10,4 +10,16 @@ Given /^#{capture_model} has the avatar "([^"]*)"$/ do |model_name, avatar_path|
   model.save!
 end
 
+Given /^the ([_\w]+)(?: attribute)? of #{capture_model} (?:are|is) changed to #{capture_value}$/ do |attribute, model, value|
+  model = model!(model)
 
+  value = case value
+    when /^[+-]?[0-9_]+(\.\d+)?$/
+      value.to_f
+    else
+      eval(value)
+    end
+
+  model.send("#{attribute}=", value)
+  model.save!
+end

@@ -94,3 +94,16 @@ Feature: As a logged in user
       And I should see "Sie haben die Änderung Ihrer E-Mail Adresse bereits bestätigt."
       And I should see "Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein"
 
+
+
+      # Confirming with a wrong email change token
+      # E.g. user copies the confirmation link in the email but misses some characters at the end of the token
+
+  Scenario: User confirms email change with wrong token
+    Given an email change exists with user: the confirmed user, email: "marge@thesimpsons.com"
+      And the token of the email change is changed to "somewrongtoken"
+
+     When "marge@thesimpsons.com" opens the email with subject "E-Mail Adresse ändern"
+      And I click the first link in the email
+     Then I should be on the homepage
+      And I should see "Der Bestätigungstoken ist nicht gültig. Die Änderung Ihrer E-Mail Adresse konnte nicht akzeptiert werden."
