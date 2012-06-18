@@ -9,7 +9,7 @@ Feature: As a logged in user
       And I am on my dashboard
 
   Scenario: Changing the email address
-     Given I choose "Einstellungen" from the drop down "Marge Bouvier"
+    Given I choose "Einstellungen" from the drop down "Marge Bouvier"
      Then I should be on the edit page of the confirmed user
      When I fill in "E-Mail" with "marge@thesimpsons.com"
       And I fill in "Aktuelles Passwort" with "secret"
@@ -49,7 +49,7 @@ Feature: As a logged in user
      When I fill in "E-Mail" with "marge@thesimpsons.com"
       And I fill in "Aktuelles Passwort" with "wrongpass"
       And I press "Speichern"
-     Then I should see "Ihre E-Mail Adresse konnte nicht geändert werden."
+     Then I should see a flash alert "Ihre E-Mail Adresse konnte nicht geändert werden."
       And I should see "ist nicht gültig"
 
   Scenario: User tries to confirm requested email change but fills in a wrong password on confirmation page
@@ -107,3 +107,16 @@ Feature: As a logged in user
       And I click the first link in the email
      Then I should be on the homepage
       And I should see "Der Bestätigungstoken ist nicht gültig. Die Änderung Ihrer E-Mail Adresse konnte nicht akzeptiert werden."
+
+  Scenario: Trying to change the email address to an address that already exists
+    Given a confirmed user exists with email: "marge@thesimpsons.com"
+      And a clear email queue
+
+      And I choose "Einstellungen" from the drop down "Marge Bouvier"
+      # entered email already exists
+     When I fill in "E-Mail" with "marge@thesimpsons.com"
+      And I fill in "Aktuelles Passwort" with "secret"
+      And I press "Speichern"
+     Then I should see a flash alert "Ihre E-Mail Adresse konnte nicht geändert werden."
+      And I should see "ist bereits vergeben"
+      And "marge@thesimpsons.com" should receive no email
