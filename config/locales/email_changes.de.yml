@@ -8,3 +8,5 @@ de:
     confirm:
       accepted: "Sie haben Ihre E-Mail Adresse erfolgreich geändert. Bitte loggen Sie sich zukünftig mit der E-Mail Adresse %{email} bei uns ein."
       rejected: "Ihre E-Mail Adresse konnte nicht geändert werden."
+    messages:
+      enter_new_email_and_current_password: 'Um Ihre E-Mail Adresse zu ändern, geben Sie bitte Ihre neue E-Mail Adresse und Ihr aktuelles Passwort ein.'
