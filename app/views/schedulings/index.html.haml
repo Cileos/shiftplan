@@ -1,12 +1,6 @@
 - title filter.caption, false
 
-= render 'schedulings/calendar_navigation', filter: filter
+= render 'calendar_navigation', filter: filter
 
-- case filter.range
-- when :week
-  = render 'calendar', filter: filter
-  - controller.gon.quickie_completions = parent.schedulings.quickies
-- else
-  %p= Scheduling.model_name.pluralize :count => collection.count
-
+%p= Scheduling.model_name.pluralize :count => collection.count
 

@@ -4,6 +4,13 @@
 /* --------------------------------------------------------------------- */
 
 
+// TODO make ALL colors reusable by putting them into variables. Call them
+// border1 'til 23 or fridolin, but please no distributed hash values
+// started in vertical_bars
+
+// TODO re-order, so developers AND designers know their way
+@import 'calendar/vertical_bars';
+
 $ci_blue: #00a7c9;
 
 #calendar-navigation {
@@ -47,7 +54,7 @@ $ci_blue: #00a7c9;
     tbody tr {
         &:nth-child(odd) {
             th, td {
-                background: lighten(#F0F4F8, 1.5%);
+                background: lighten($gradient_2, 1.5%);
             }
         }
         &:hover th.employee, &:hover td {
@@ -63,7 +70,7 @@ $ci_blue: #00a7c9;
             padding: 8px 5px;
             position: relative;
             z-index: 40;
-            @include _set_gradient_background($color: #ececec, $percentage: 5%);
+            @include _set_gradient_background($color: $gradient_1, $percentage: 5%);
             &:not(.employees) {
                 text-align: center;
             }
@@ -77,10 +84,10 @@ $ci_blue: #00a7c9;
         th {
             width: 15%;
             padding: 2px;
-            @include _set_gradient_background($color: #ececec, $percentage: 7%, $direction: right);
+            @include _set_gradient_background($color: $gradient_1, $percentage: 7%, $direction: right);
         }
         tr:nth-child(odd) th {
-            @include _set_gradient_background($color: #F0F4F8, $percentage: 5%, $direction: left);
+            @include _set_gradient_background($color: $gradient_2, $percentage: 5%, $direction: left);
         }
         tr {
             @include box-shadow(#CCC 0px 1px 2px 0px inset);
@@ -169,3 +176,4 @@ $ci_blue: #00a7c9;
         display: none;
     }
 }
+

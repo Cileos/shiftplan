@@ -1,0 +1,18 @@
+!!!5
+%html
+  = render 'layouts/head'
+  %body
+    #page.container-fluid
+      = render 'layouts/top'
+      #content
+        = render 'flash'
+        - if show_title?
+          .page-header
+            %h1#title= yield(:title)
+
+        = render 'calendar_navigation', filter: filter
+        = yield
+        - if parent.respond_to?(:schedulings)
+          - controller.gon.quickie_completions = parent.schedulings.quickies
+      = render 'layouts/footer'
+

@@ -41,4 +41,8 @@ de:
       set_password: 'Passwort setzen'
       feedback_without_screenshot: 'Feedback ohne Bildschirmfoto'
       send: Abschicken
+  schedulings:
+    week_switch:
+      employees_in_week: "Mitarbeiter"
+      hours_in_week: "Stunden"
 
