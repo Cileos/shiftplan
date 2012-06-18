@@ -120,3 +120,15 @@ Feature: As a logged in user
      Then I should see a flash alert "Ihre E-Mail Adresse konnte nicht geändert werden."
       And I should see "ist bereits vergeben"
       And "marge@thesimpsons.com" should receive no email
+
+  @javascript
+  Scenario: Show mail address suggestion if typo in email address
+    Given I am on the edit page of the confirmed user
+
+     When I fill in "E-Mail" with "marge@yaho.com"
+      And I fill in "Aktuelles Passwort" with "secret"
+     Then I should see "Meinten Sie marge@yahoo.com?"
+
+     When I follow "marge@yahoo.com"
+     Then the "E-Mail" field should contain "marge@yahoo.com"
+      And I should not see "Meinten Sie marge@yahoo.com?"
