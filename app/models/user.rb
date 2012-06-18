@@ -49,6 +49,14 @@ class User < ActiveRecord::Base
     confirming_email_change
   end
 
+  def name_or_email
+    if has_multiple_employees?
+      email
+    else
+      employees.first.name
+    end
+  end
+
   def create_email_change
     # If the user is just confirming his/her email change we do not want to create a new email change
     return true if confirming_email_change?
