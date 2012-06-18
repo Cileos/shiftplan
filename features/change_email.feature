@@ -8,6 +8,7 @@ Feature: As a logged in user
 
   Scenario: Changing the email address
     Given I am signed in as the confirmed user
+      And I am on my dashboard
 
     When I choose "Einstellungen" from the drop down "Marge Bouvier"
      Then I should be on the edit page of the confirmed user
