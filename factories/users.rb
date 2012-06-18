@@ -10,6 +10,10 @@ FactoryGirl.define do
 
     factory :confirmed_user do
       after_create { |u| u.confirm! }
+
+      factory :confirmed_user_with_employee do
+        after_create { |u| Factory :employee, user: u }
+      end
     end
   end
 end
