@@ -1,0 +1,14 @@
+- title :settings
+
+%h3= ta :change_email
+
+%p= t('.instructions.email')
+
+= simple_form_for @user, url: user_path do |f|
+
+  .inputs
+    = f.input :email, input_html: { class: 'mailcheck' }, required: true, autofocus: true
+    = f.input :current_password, required: true
+
+  .actions
+    %button.btn.btn-primary= ti(:update)

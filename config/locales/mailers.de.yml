@@ -1,0 +1,5 @@
+de:
+  mailer:
+    email_change:
+      confirmation:
+        subject: 'E-Mail Adresse ändern'

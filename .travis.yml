@@ -15,11 +15,12 @@ language: ruby
 rvm:
   - 1.9.3
 notifications:
-  irc: 
+  irc:
     channels:
       - "irc.freenode.org#shiftplan"
     # TODO  commit_message is missing in lib/travis/task/irc.rb
-    template: "%{repository}#%{build_number} | %{author} | %{branch} %{commit} | %{message}"
+    template:
+      - "%{repository}#%{build_number} | %{author} | %{branch} %{commit} | %{message} | %{build_url}"
   email:
     on_success: never
     on_failure: never
