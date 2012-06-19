@@ -14,7 +14,14 @@ class SchedulingFilterDecorator < ApplicationDecorator
     self.class.name.scan(/SchedulingFilter(.*)Decorator/).first.first.underscore
   end
 
-  def self.decorate_with_mode(input, mode, opts={})
+  def self.decorate(input, opts={})
+    mode = opts.delete(:mode) || opts.delete('mode')
+    if page = opts[:page]
+      mode ||= page.view.current_plan_mode
+    end
+    unless mode
+      raise ArgumentError, 'must give :mode in options'
+    end
     unless mode.in?( Modes.map(&:to_s) )
       raise ArgumentError, "mode is not supported: #{mode}"
     end
@@ -39,7 +46,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
     {
       organization_id: h.current_organization.id,
       plan_id:         plan.id,
-      new_url:         h.new_organization_plan_scheduling_path(h.current_organization, plan)
+      new_url:         h.new_organization_plan_scheduling_path(h.current_organization, plan),
+      mode:            mode
     }
   end
 
