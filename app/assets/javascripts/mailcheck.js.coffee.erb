@@ -11,6 +11,6 @@ jQuery(document).ready ->
 
   $('span.mailcheck-suggestion a').live 'click', (event) ->
     event.preventDefault()
-    $("#user_email").val $(this).html()
+    $("#user_email").val $(this).text()
     $('span.mailcheck-suggestion').remove()
 
