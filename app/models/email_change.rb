@@ -15,8 +15,7 @@ class EmailChange < ActiveRecord::Base
 
   def send_confirmation_mail
     EmailChangeMailer.confirmation(self).deliver
-    self.confirmation_sent_at = Time.now
-    save!
+    touch(:confirmation_sent_at)
   end
 
   def set_token
