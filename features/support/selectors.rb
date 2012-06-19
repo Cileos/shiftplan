@@ -1,9 +1,9 @@
 module HtmlSelectorsHelpers
   Numerals = {
     'first'  => ':first',
-    'second' => ':nth-child(2)',
-    'third'  => ':nth-child(3)',
-    'forth'  => ':nth-child(4)'
+    'second' => ':nth-of-type(2)',
+    'third'  => ':nth-of-type(3)',
+    'forth'  => ':nth-of-type(4)'
   }
 
   def capture_nth

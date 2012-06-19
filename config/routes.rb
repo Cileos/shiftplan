@@ -26,7 +26,12 @@ Shiftplan::Application.routes.draw do
     end
   end
 
-  resource :user, only: [:edit, :update], controller: 'user'
+  resource :user, only: [:edit], controller: 'user' do
+    member do
+      put 'update_email'
+      put 'update_password'
+    end
+  end
 
   resource :feedback, only: [:new, :create], :controller => 'feedback'
   scope 'profile', as: 'profile' do
