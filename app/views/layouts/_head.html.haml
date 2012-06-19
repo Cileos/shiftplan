@@ -14,4 +14,6 @@
   %script{src:'http://www.jotform.com/min/?g=feedback2', type:'text/javascript'}
   = javascript_include_tag 'application'
   = csrf_meta_tags
+  -# just set something so gon is always present
+  - controller.gon.controller_name = controller.controller_name
   = include_gon
