@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_employee, if: :user_signed_in?
 
   rescue_from CanCan::AccessDenied do |exception|
+    logger.debug('Access denied')
     flash[:alert] = translate('message.access_denied')
     respond_to do |denied|
       denied.html { redirect_to root_url }
