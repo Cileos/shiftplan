@@ -1,8 +1,8 @@
 - title :settings
 
-%h3= t('helpers.actions.change_email')
+%h3= ta :change_email
 
-%p= t('email_change.messages.enter_new_email_and_current_password')
+%p= t('.instructions.email')
 
 = simple_form_for @user, url: user_path do |f|
 

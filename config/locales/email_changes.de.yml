@@ -11,3 +11,7 @@ de:
   email_change:
     accept:
       instructions: "Um die Änderung Ihrer E-Mail Adresse in %{email} zu bestätigen, geben Sie bitte Ihr aktuelles Passwort ein."
+  user:
+    edit:
+      instructions:
+        email: 'Um Ihre E-Mail Adresse zu ändern, geben Sie bitte Ihre neue E-Mail Adresse und Ihr aktuelles Passwort ein.'
