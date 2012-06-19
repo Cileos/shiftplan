@@ -58,7 +58,9 @@ class User < ActiveRecord::Base
   end
 
   def create_email_change
-    # If the user is just confirming his/her email change we do not want to create a new email change
+    # If the user is just confirming his/her email change by clicking on the
+    # confirmation link in the received email we do not want to create a new
+    # email change.
     return true if confirming_email_change?
     if email_was.present? and email_changed?
       email_change.destroy if email_change
