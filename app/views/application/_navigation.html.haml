@@ -1,7 +1,7 @@
 %ul.nav
   - if current_user
-    - if current_user.organizations.count > 1
-      = li_link '.dashboard', dashboard_path,              can: [:dashboard, current_user]
+    - if current_user.has_multiple_employees?
+      = li_link '.dashboard', dashboard_path, can: [:dashboard, current_user]
     - if current_organization?
       = li_link "#{current_organization.name} >>", organization_path(current_organization), can: [:read, current_organization]
       - if company_blog.present?
@@ -17,7 +17,6 @@
             %li= link_to plan.name, organization_plan_path(current_organization, plan)
       = li_link '.employees', organization_employees_path(current_organization),        can: [:show, Employee]
       = li_link '.teams',     organization_teams_path(current_organization),            can: [:show, Team]
-    - elsif current_user.organizations.count == 1
+    - elsif !current_user.has_multiple_employees?
       - organization = current_user.organizations.first
       = li_link "#{organization.name} >>", organization_path(organization)
-    = li_link '.profile',     edit_user_registration_path, can: [:update, current_user]

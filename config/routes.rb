@@ -1,7 +1,9 @@
 Shiftplan::Application.routes.draw do
 
-  match 'invitation/accept'  => 'accept_invitations#accept', :as => :accept_invitation
-  match 'invitation/confirm' => 'accept_invitations#confirm', :as => :confirm_invitation
+  get 'invitation/accept'    => 'accept_invitations#accept',  :as => :accept_invitation
+  put 'invitation/confirm'   => 'accept_invitations#confirm', :as => :confirm_invitation
+  get 'email_change/accept'  => 'email_change#accept',        :as => :accept_email_change
+  put 'email_change/confirm' => 'email_change#confirm',       :as => :confirm_email_change
 
   resources :organizations do
     resources :plans do
@@ -23,6 +25,8 @@ Shiftplan::Application.routes.draw do
       end
     end
   end
+
+  resource :user, only: [:edit, :update], controller: 'user'
 
   resource :feedback, only: [:new, :create], :controller => 'feedback'
   scope 'profile', as: 'profile' do

@@ -19,6 +19,7 @@ Feature: Navigation
        | link            | active |
        | me@shiftplan.de | false  |
        | Profil          | false  |
+       | Einstellungen   | false  |
        | Ausloggen       | false  |
        | Dashboard       | true   |
 
@@ -27,6 +28,7 @@ Feature: Navigation
        | link              | active |
        | Bart Simpson      | false  |
        | Profil            | false  |
+       | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -41,6 +43,7 @@ Feature: Navigation
        | link              | active |
        | Bart Simpson      | false  |
        | Profil            | false  |
+       | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -55,6 +58,7 @@ Feature: Navigation
        | link              | active |
        | Bart Simpson      | false  |
        | Profil            | false  |
+       | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -69,6 +73,7 @@ Feature: Navigation
        | link              | active |
        | Bart Simpson      | false  |
        | Profil            | false  |
+       | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -83,6 +88,7 @@ Feature: Navigation
        | link              | active |
        | Bart Simpson      | false  |
        | Profil            | false  |
+       | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
        | Fukushima GmbH >> | true   |
@@ -98,6 +104,7 @@ Feature: Navigation
        | link            | active |
        | me@shiftplan.de | false  |
        | Profil          | false  |
+       | Einstellungen   | false  |
        | Ausloggen       | false  |
        | Dashboard       | false  |
 
@@ -109,6 +116,7 @@ Feature: Navigation
        | link              | active |
        | Homer Simpson     | false  |
        | Profil            | false  |
+       | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -122,6 +130,7 @@ Feature: Navigation
        | link              | active |
        | Homer Simpson     | false  |
        | Profil            | false  |
+       | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | true   |
@@ -135,6 +144,7 @@ Feature: Navigation
        | link              | active |
        | Homer Simpson     | false  |
        | Profil            | false  |
+       | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -148,6 +158,7 @@ Feature: Navigation
        | link              | active |
        | Homer Simpson     | false  |
        | Profil            | false  |
+       | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -161,6 +172,7 @@ Feature: Navigation
        | link              | active |
        | Homer Simpson     | false  |
        | Profil            | false  |
+       | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | true   |
        | Neuigkeiten       | false  |
@@ -175,6 +187,7 @@ Feature: Navigation
        | link              | active |
        | Homer Simpson     | false  |
        | Profil            | false  |
+       | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Fukushima GmbH >> | false  |
 

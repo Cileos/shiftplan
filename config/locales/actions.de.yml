@@ -2,6 +2,7 @@ de:
   helpers:
     actions:
       profile: Profil
+      settings: Einstellungen
       dashboard: Dashboard
       news: Neuigkeiten
       signin: Einloggen
@@ -41,4 +42,7 @@ de:
       set_password: 'Passwort setzen'
       feedback_without_screenshot: 'Feedback ohne Bildschirmfoto'
       send: Abschicken
+      confirm_email_change: 'Änderung Ihrer E-Mail Adresse bestätigen'
+      confirm: 'Bestätigen'
+      change_email: 'E-Mail Adresse ändern'
 

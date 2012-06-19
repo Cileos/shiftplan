@@ -11,16 +11,18 @@ module NavigationHelpers
     when /^the (?:home|landing)\s?page$/
       '/'
 
-    when 'the signin page'
+    when /the (?:signin|sign in) page/
       new_user_session_path
 
-    when 'the signup page'
+    when /the (?:signup|sign up) page/
       new_user_registration_path
 
     when /^the edit page (?:of|for) #{capture_model}$/
       case model = model!($1)
       when Employee
         edit_employee_path(model)
+      when User
+        edit_user_path
       end
 
     when /^the profile page of #{capture_model}$/
@@ -67,6 +69,9 @@ module NavigationHelpers
     when /^the employees page for #{capture_model}$/
       org = model!($1)
       organization_employees_path(org)
+
+    when /^the email change confirmation page$/
+      accept_email_change_path
 
     else
       begin

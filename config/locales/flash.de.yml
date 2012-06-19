@@ -13,3 +13,7 @@ de:
     profile_employees:
       update:
         info: "Profil gespeichert."
+    user:
+      update:
+        info: "Um die Änderung Ihrer E-Mail Adresse zu bestätigen, schauen Sie bitte in das Postfach Ihrer neuen E-Mail Adresse."
+        alert: "Ihre E-Mail Adresse konnte nicht geändert werden."
