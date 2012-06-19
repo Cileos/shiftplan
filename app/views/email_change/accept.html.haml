@@ -1,6 +1,6 @@
 - title :confirm_email_change
 
-%p= t('.enter_password_to_confirm', email: @user.email)
+%p= t('.instructions', email: @user.email)
 
 - @user.email = @email_change.email
 - @user.confirming_email_change = true
