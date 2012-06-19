@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :employee_id, :confirmed_at,
-    :first_name, :last_name, :organization_name, :on_signup, :email_change_attributes, :confirming_email_change
+    :first_name, :last_name, :organization_name, :on_signup, :confirming_email_change
   attr_reader :current_employee
   # Virtual attributes for registration purposes. On registration the auto-created organization
   # and employee get useful values.
@@ -22,8 +22,6 @@ class User < ActiveRecord::Base
   has_many :invitations
   has_many :organizations, :through => :employees
   has_one  :email_change
-
-  accepts_nested_attributes_for :email_change
 
   def label
     email
@@ -46,7 +44,7 @@ class User < ActiveRecord::Base
   end
 
   def confirming_email_change?
-    confirming_email_change
+    email_change and confirming_email_change
   end
 
   def name_or_email
@@ -55,6 +53,15 @@ class User < ActiveRecord::Base
     else
       employees.first.name
     end
+  end
+
+  def apply_email_change
+    self.email = email_change.email
+  end
+  before_validation :apply_email_change, if: :confirming_email_change?
+
+  after_save if: :confirming_email_change? do |user|
+    user.email_change.touch(:confirmed_at)
   end
 
   def create_email_change

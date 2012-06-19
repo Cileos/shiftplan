@@ -2,15 +2,9 @@
 
 %p= t('.instructions', email: @user.email)
 
-- @user.email = @email_change.email
 - @user.confirming_email_change = true
 = simple_form_for @user, :url => confirm_email_change_path(:token => @email_change.token), :html => { :method => :put } do |f|
-  = f.input :email, as: :hidden
   = f.input :confirming_email_change, as: :hidden
   = f.input :current_password
-
-  - @user.email_change.confirmed_at = Time.now
-  = f.simple_fields_for :email_change do |email_change_form|
-    = email_change_form.input :confirmed_at, as: :hidden
 
   %button.btn.btn-primary= ti(:confirm)
