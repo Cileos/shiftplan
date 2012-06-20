@@ -27,7 +27,7 @@ class SchedulingFilterEmployeesInWeekDecorator < SchedulingFilterWeekDecorator
     end.join(' ')
   end
 
-  def selector_for(*a)
+  def selector_for(name, *a)
     case name
     when :legend
       '#legend'
