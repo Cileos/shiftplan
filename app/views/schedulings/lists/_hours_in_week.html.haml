@@ -1,5 +1,5 @@
-- schedulings.each_with_index do |scheduling, index|
-  %div.scheduling.vertical{class: scheduling.css_class, data: scheduling.metadata.merge(shift: index)}
+- schedulings.each do |scheduling|
+  %div.scheduling.vertical{class: scheduling.css_class, data: scheduling.metadata.merge(stack: scheduling.stack)}
     = abbr_tag scheduling.hour_range_with_duration, scheduling.hour_range_quickie, class: 'work_time'
     = avatar(scheduling.employee.user, scheduling.employee, :tiny)
     - if scheduling.team

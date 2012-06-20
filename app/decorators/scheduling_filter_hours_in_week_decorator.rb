@@ -6,7 +6,26 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def schedulings_for(day)
-    records.select {|r| r.date == day}.sort_by(&:start_hour)
+    pack_in_stacks records.select {|r| r.date == day}
+  end
+
+
+  # TODO update content: only modify data-stack, do not replace ALL the divs
+
+
+  # Given an Array of Schedulings, it will arrange them in a way that no 2
+  # schedulings overlapping in their runtime are on the same layer,
+  def pack_in_stacks(records)
+    records.each { |r| r.stack = 0 }
+    records.sort_by!(&:length_in_hours)
+    [].tap do |stacked|
+      records.reverse.each do |current|
+        until stacked.select { |s| s.overlap?(current) }.empty?
+          current.stack += 1
+        end
+        stacked << current
+      end
+    end
   end
 
 end

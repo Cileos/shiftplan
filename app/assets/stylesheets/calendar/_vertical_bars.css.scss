@@ -34,13 +34,19 @@ table#calendar {
         &[data-start="#{$hour}"] {
           top: $row_height * $hour;
         }
+        &[data-start="#{$hour}.5"] {
+          top: $row_height * ($hour + 0.5);
+        }
         &[data-length="#{$hour}"] {
           height: $row_height * $hour;
+        }
+        &[data-length="#{$hour}.5"] {
+          height: $row_height * ($hour + 0.5);
         }
       }
 
       @for $index from 1 to 10 {
-        &[data-shift="#{$index}"] {
+        &[data-stack="#{$index}"] {
           left: $bar_shift * $index;
         }
       }
