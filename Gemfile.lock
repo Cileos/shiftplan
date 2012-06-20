@@ -1,6 +1,15 @@
 GIT
+  remote: git://github.com/iain/fuubar-cucumber.git
+  revision: c30656c344d356e2a3f9cacbe2b82f5d8926a1c4
+  branch: cucumber-1-2-api
+  specs:
+    fuubar-cucumber (0.0.15)
+      cucumber (~> 1.2.0)
+      ruby-progressbar (~> 0.0.10)
+
+GIT
   remote: git://github.com/niklas/kopflos.git
-  revision: f4f3e3872922249942c0b8d2ad13ebdfc8d5ed21
+  revision: 81edd0fb01be9855f3062331b595d572ef8dd0cd
   specs:
     kopflos (0.0.1)
       open4
@@ -133,9 +142,6 @@ GEM
       railties (>= 3.0.0)
     ffi (1.0.11)
     fssm (0.2.9)
-    fuubar-cucumber (0.0.15)
-      cucumber (>= 1.0.2)
-      ruby-progressbar (~> 0.0.10)
     gherkin (2.11.0)
       json (>= 1.4.6)
     gon (3.0.4)
@@ -336,7 +342,7 @@ DEPENDENCIES
   email_spec
   exception_notification
   factory_girl_rails (~> 1.7.0)
-  fuubar-cucumber
+  fuubar-cucumber!
   gon
   gravtastic
   guard-bundler (~> 0.1.3)

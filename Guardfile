@@ -42,6 +42,7 @@ group :test, :halt_on_fail => true do
     watch(%r{spec/javascripts/spec\.(js\.coffee|js|coffee)$})       { "spec/javascripts" }
   end
 
+  ENV['CUCUMBER_FORMAT'] = 'fuubar'
 #                                                         V --no-drb skip spork to run simplecov 
   guard 'cucumber', :cli => "--drb --no-source", :run_all => { :cli => "--format fuubar" }, :all_on_start => false, :all_after_pass => false do
     watch(%r{^features/.+\.feature$})
