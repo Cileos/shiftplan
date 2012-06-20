@@ -2,6 +2,6 @@ de:
   simple_form:
     labels:
       user:
-        edit:
+        show:
           password: 'Neues Passwort'
           password_confirmation: 'Neues Passwort bestätigen'
