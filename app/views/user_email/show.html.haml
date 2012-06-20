@@ -1,14 +1,17 @@
 - title :settings
+.row
+  .span3
+    = render 'user/settings_menu'
+  .span9
+    %h3= ta :change_email
 
-%h3= ta :change_email
+    %p= t('.instructions')
 
-%p= t('.instructions')
+    = simple_form_for @user, url: user_email_path do |f|
 
-= simple_form_for @user, url: user_email_path do |f|
+      .inputs
+        = f.input :email, input_html: { class: 'mailcheck' }, required: true, autofocus: true
+        = f.input :current_password, required: true
 
-  .inputs
-    = f.input :email, input_html: { class: 'mailcheck' }, required: true, autofocus: true
-    = f.input :current_password, required: true
-
-  .actions
-    %button.btn.btn-primary= ti(:update)
+      .actions
+        %button.btn.btn-primary= ti(:update)

@@ -1,15 +1,18 @@
 - title :settings
+.row
+  .span3
+    = render 'user/settings_menu'
+  .span9
+    %h3= ta :change_password
 
-%h3= ta :change_password
+    %p= t('.instructions')
 
-%p= t('.instructions')
+    = simple_form_for @user, url: user_password_path do |f|
 
-= simple_form_for @user, url: user_password_path do |f|
+      .inputs
+        = f.input :current_password, required: true, autofocus: true
+        = f.input :password, required: true
+        = f.input :password_confirmation, required: true
 
-  .inputs
-    = f.input :current_password, required: true, autofocus: true
-    = f.input :password, required: true
-    = f.input :password_confirmation, required: true
-
-  .actions
-    %button.btn.btn-primary= ti(:update)
+      .actions
+        %button.btn.btn-primary= ti(:update)

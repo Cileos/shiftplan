@@ -10,8 +10,8 @@ Feature: As a logged in user
 
   Scenario: Changing the email address
     Given I choose "Einstellungen" from the drop down "Marge Bouvier"
-     Then I should be on the page of the confirmed user
      When I follow "E-Mail Adresse ändern"
+     Then I should be on the email page of the confirmed user
      When I fill in "E-Mail" with "marge@thesimpsons.com"
       And I fill in "Aktuelles Passwort" with "secret"
       And I press "Speichern"

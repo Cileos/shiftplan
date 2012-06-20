@@ -11,7 +11,7 @@ I want to edit my profile
       And I am on the page for the organization "fukushima"
      Then I should see "Marge Bouvier" within the navigation
 
-     When I choose "Profil" from the drop down "Marge Bouvier"
+     When I choose "Einstellungen" from the drop down "Marge Bouvier"
      Then I should be on the profile page of the employee
       # Marge Bouvier just married Homer Simpson and needs to change her last name
      When I fill in "Nachname" with "Simpson"
@@ -27,7 +27,7 @@ I want to edit my profile
       And I am on the page for the organization "fukushima"
      Then I should see a tiny gravatar within the navigation
 
-     When I choose "Profil" from the drop down "Marge Bouvier"
+     When I choose "Einstellungen" from the drop down "Marge Bouvier"
      Then I should be on the profile page of the employee
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
@@ -41,7 +41,7 @@ I want to edit my profile
       And I am signed in as the confirmed user
       And I am on the dashboard page
 
-     When I choose "Profil" from the drop down "marge@thebouviers.com"
+     When I choose "Einstellungen" from the drop down "marge@thebouviers.com"
      Then I should be on the profile page of my employees
      Then I should see the following table of employees:
        | Name              | Organisation     |
