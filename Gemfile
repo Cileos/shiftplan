@@ -52,6 +52,8 @@ group :test do
 
   gem 'simplecov', :require => false
   gem 'term-ansicolor' # for ScenarioTodo
+
+  gem 'fuubar-cucumber' # the ETA progress bar
 end
 
 group :development, :test do

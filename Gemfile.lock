@@ -133,6 +133,9 @@ GEM
       railties (>= 3.0.0)
     ffi (1.0.11)
     fssm (0.2.9)
+    fuubar-cucumber (0.0.15)
+      cucumber (>= 1.0.2)
+      ruby-progressbar (~> 0.0.10)
     gherkin (2.11.0)
       json (>= 1.4.6)
     gon (3.0.4)
@@ -266,6 +269,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.10.0)
+    ruby-progressbar (0.0.10)
     rubyzip (0.9.8)
     sass (3.1.19)
     sass-rails (3.2.5)
@@ -332,6 +336,7 @@ DEPENDENCIES
   email_spec
   exception_notification
   factory_girl_rails (~> 1.7.0)
+  fuubar-cucumber
   gon
   gravtastic
   guard-bundler (~> 0.1.3)
