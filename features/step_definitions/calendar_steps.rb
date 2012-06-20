@@ -71,7 +71,7 @@ Then /^I should see the following calendar with (?:hours in week):$/ do |expecte
   calendar = find(selector_for('the calendar'))
   actual = calendar.all("thead:first tr, tbody tr").map do |tr|
     tr.all('th, td').map do |cell|
-      extract_text_from_cell(cell) || ''
+      cell.all('.name, .work_time, .day_name').map(&:text).map(&:strip).join(' ')
     end
   end
   expected.diff! actual

@@ -136,7 +136,7 @@ module HtmlSelectorsHelpers
     rows.index(row_label)
   end
 
-  SelectorsForTextExtraction = ['span.name', 'abbr span', 'a.btn.active']
+  SelectorsForTextExtraction = ['span.name', 'abbr span', 'a.btn.active', '.day_name']
   def extract_text_from_cell(cell)
     if found = SelectorsForTextExtraction.find { |s| cell.all(s).count > 0 }
       cell.all(found).map(&:text).map(&:strip).join(' ')
