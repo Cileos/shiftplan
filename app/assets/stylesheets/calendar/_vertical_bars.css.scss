@@ -12,6 +12,7 @@ $row_height: 42px;
 $bar_shift: $row_height * 2/3;
 $gradient_1: #ececec;
 $gradient_2: #F0F4F8;
+$burning_bear: #FF7200;
 
 table#calendar {
   th.hours {
@@ -27,6 +28,7 @@ table#calendar {
   td.day {
     position: relative;
     div.vertical {
+      border: 1px solid $burning_bear;
       @include _set_gradient_background($direction: right, $percentage: 8%);
       position: absolute;
       left: 0; top: 0;
@@ -46,8 +48,14 @@ table#calendar {
       }
 
       @for $index from 1 to 10 {
-        &[data-stack="#{$index}"] {
-          left: $bar_shift * $index;
+        //&[data-stack="#{$index}"] {
+        //  left: 7% * $index;
+        //}
+        &[data-remaining="#{$index}"] {
+          margin-right: $bar_shift * $index;
+        }
+        &[data-total="#{$index}"] {
+          width: 99% / $index;
         }
       }
     }

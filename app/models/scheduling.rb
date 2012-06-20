@@ -22,8 +22,36 @@ class Scheduling < ActiveRecord::Base
     comments.map &:employee
   end
 
-  # layer/stack/column for bar views
-  attr_accessor :stack
+  module Stackable
+    def bump_remaining_stack
+      self.remaining_stack ||= 0
+      self.remaining_stack += 1
+      stacked_parents.each(&:bump_remaining_stack)
+    end
+
+    def self.included(base)
+      base.class_eval do
+        attr_accessor :stack
+        attr_accessor :remaining_stack
+        attr_accessor :stacked_parents
+      end
+    end
+
+    def total_stack
+      stack + remaining_stack + 1 # except myself
+    end
+
+    # ignores real date, just checks hours
+    def overlap?(other)
+      other.stack == stack && overlap_ignoring_stack?(other)
+    end
+
+    def overlap_ignoring_stack?(other)
+      hour_range.cover?(other.start_hour) || other.hour_range.cover?(start_hour)
+    end
+  end
+
+  include Stackable
 
   # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
   def start_hour=(hour)
@@ -59,11 +87,6 @@ class Scheduling < ActiveRecord::Base
   # date of the day the Scheduling starts
   def date
     @date || starts_at_or(:to_date) { date_from_human_date_attributes }
-  end
-
-  # ignores real date, just checks hours
-  def overlap?(other)
-    other.stack == stack && (hour_range.cover?(other.start_hour) || other.hour_range.cover?(start_hour))
   end
 
   # Because Date and Times are immutable, we have to situps to just change the week and year.
@@ -118,8 +141,13 @@ class Scheduling < ActiveRecord::Base
   delegate :iso8601, to: :date
 
 
+  # FIXME nightshift
   def length_in_hours
-    end_hour - start_hour
+    if start_hour < end_hour
+      end_hour - start_hour
+    else
+      24-start_hour
+    end
   end
 
   def self.filter(params={})

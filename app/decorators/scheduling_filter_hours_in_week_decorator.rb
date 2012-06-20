@@ -25,6 +25,9 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
         end
         stacked << current
       end
+      stacked.each do |s|
+        s.remaining_stack = records.select { |o| o.overlap_ignoring_stack?(s) }.group_by(&:stack).count - s.stack - 1
+      end
     end
   end
 
