@@ -3,8 +3,15 @@ class UserEmailController < InheritedResources::Base
   load_and_authorize_resource class: User
 
   def update
-    update! do
-      edit_user_email_path
+    update! do |success, failure|
+      success.html do
+        set_flash :info
+        redirect_to user_email_path
+      end
+      failure.html do
+        set_flash :alert
+        render :show
+      end
     end
   end
 

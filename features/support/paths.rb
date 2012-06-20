@@ -25,9 +25,9 @@ module NavigationHelpers
         raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
       end
 
-    when /^the edit (email|password) page of #{capture_model}$/
+    when /^the (email|password) page of #{capture_model}$/
       email_or_password = $1
-      send("edit_user_#{email_or_password}_path")
+      send("user_#{email_or_password}_path")
 
     when /^the profile page of #{capture_model}$/
       case model = model!($1)

@@ -33,11 +33,6 @@ class EmailChangeController < ApplicationController
     @user = @email_change.user
   end
 
-  def set_flash(severity, key, opts={})
-    action = opts.delete(:action) || params[:action]
-    flash[severity] = t("flash.email_change.#{action}.#{key}", opts)
-  end
-
   def ensure_not_yet_confirmed
     if @email_change.confirmed?
       if current_user
