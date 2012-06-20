@@ -17,6 +17,13 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def set_flash(severity, key=nil, opts={})
+    key ||= severity
+    action = opts.delete(:action) || params[:action]
+    controller = opts.delete(:controller) || params[:controller]
+    flash[severity] = t("flash.#{controller}.#{action}.#{key}", opts)
+  end
+
   def organization_param; params[:organization_id] end
 
   def set_current_employee

@@ -21,9 +21,13 @@ module NavigationHelpers
       case model = model!($1)
       when Employee
         edit_employee_path(model)
-      when User
-        edit_user_path
+      else
+        raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
       end
+
+    when /^the (email|password) page of #{capture_model}$/
+      email_or_password = $1
+      send("user_#{email_or_password}_path")
 
     when /^the profile page of #{capture_model}$/
       case model = model!($1)
@@ -53,6 +57,8 @@ module NavigationHelpers
         employee_path(model)
       when Organization
         organization_path(model)
+      when User
+        user_path
       else
         raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
       end
