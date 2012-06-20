@@ -2,6 +2,8 @@ class UserEmailController < InheritedResources::Base
   defaults :resource_class => User, :instance_name => 'user'
   load_and_authorize_resource class: User
 
+  before_filter :check_for_same_email, only: :update
+
   def update
     update! do |success, failure|
       success.html do
@@ -28,5 +30,14 @@ class UserEmailController < InheritedResources::Base
   # current_password.
   def update_resource(object, attrs)
     object.update_with_password(*attrs)
+  end
+
+  private
+
+  def check_for_same_email
+    if params[:user][:email] == resource.email
+      set_flash :alert, :same_email, email: params[:user][:email]
+      redirect_to user_email_path
+    end
   end
 end

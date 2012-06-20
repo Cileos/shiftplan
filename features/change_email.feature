@@ -40,7 +40,15 @@ Feature: As a logged in user
       And I press "Einloggen"
       And I should see "Erfolgreich eingeloggt."
 
+  Scenario: Changing the email address with providing the same email address
+    Given I am on the email page of the confirmed user
+      And a clear email queue
 
+     When I fill in "E-Mail" with "marge@thebouviers.com"
+      And I fill in "Aktuelles Passwort" with "secret"
+      And I press "Speichern"
+     Then I should see a flash alert "marge@thebouviers.com ist bereits Ihre aktuelle E-Mail Adresse."
+      And "marge@thebouviers.com" should receive no email
 
       # Filling in wrong passwords:
 
