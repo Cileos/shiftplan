@@ -33,7 +33,7 @@ class Ability
     can [:edit, :update, :read], Employee do |employee|
       employee.user == user
     end
-    can [:edit, :update_email, :update_password], User do |u|
+    can [:show, :update], User do |u|
       u == user
     end
   end
