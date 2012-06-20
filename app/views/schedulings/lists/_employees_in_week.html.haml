@@ -1,8 +1,8 @@
 %ul
   - schedulings.each do |scheduling|
     %li.scheduling{class: scheduling.css_class, data: scheduling.metadata}
-      = abbr_tag scheduling.hour_range_with_duration, scheduling.hour_range_quickie, class: 'work_time'
+      = abbr_tag scheduling.hour_range_quickie, scheduling.hour_range_with_duration, class: 'work_time'
       - if scheduling.team
-        = abbr_tag scheduling.team_name, scheduling.team_shortcut, class: 'team_name'
+        = abbr_tag scheduling.team_shortcut, scheduling.team_name, class: 'team_name'
 
       = render 'gimmicks', scheduling: scheduling

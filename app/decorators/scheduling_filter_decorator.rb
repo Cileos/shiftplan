@@ -80,8 +80,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def wwt_diff_for(employee)
-    h.abbr_tag(wwt_diff_label_text_for(employee),
-               wwt_diff_label_text_for(employee, short: true),
+    h.abbr_tag(wwt_diff_label_text_for(employee, short: true),
+               wwt_diff_label_text_for(employee),
                class: "badge #{wwt_diff_label_class_for(employee)}")
   end
 
