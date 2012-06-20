@@ -139,7 +139,7 @@ module HtmlSelectorsHelpers
   SelectorsForTextExtraction = ['span.name', 'abbr span', 'a.btn.active']
   def extract_text_from_cell(cell)
     if found = SelectorsForTextExtraction.find { |s| cell.all(s).count > 0 }
-      cell.all(found).map(&:text).join(' ')
+      cell.all(found).map(&:text).map(&:strip).join(' ')
     else
       cell.text.strip
     end
