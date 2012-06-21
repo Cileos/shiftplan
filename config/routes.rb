@@ -17,6 +17,7 @@ Shiftplan::Application.routes.draw do
         get 'week/:year/:week' => 'schedulings#employees_in_week', :as => 'year_week'
 
         get 'week/employees/:year/:week' => 'schedulings#employees_in_week', :as => 'employees_in_week'
+        get 'week/teams/:year/:week' => 'schedulings#teams_in_week', :as => 'teams_in_week'
         get 'week/hours/:year/:week' => 'schedulings#hours_in_week', :as => 'hours_in_week'
       end
 

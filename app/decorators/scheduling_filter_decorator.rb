@@ -8,7 +8,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     "#{plan.name} - #{formatted_range}"
   end
 
-  Modes = [:employees_in_week, :hours_in_week]
+  Modes = [:employees_in_week, :teams_in_week, :hours_in_week]
 
   def mode
     self.class.name.scan(/SchedulingFilter(.*)Decorator/).first.first.underscore
@@ -107,7 +107,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def teams
-    records.map(&:team).compact.uniq
+    records.map(&:team).compact.uniq.sort_by(&:name)
   end
 
   def hours_for(employee)
@@ -153,11 +153,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   end
 
+  # TODO hooks?
   def respond(resource)
     if resource.errors.empty?
       update(resource)
       remove_modal
-      update_legend
+      update_legend if respond_to?(:update_legend)
       update_quickie_completions
     else
       append_errors_for(resource)

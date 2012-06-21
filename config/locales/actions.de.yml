@@ -49,5 +49,6 @@ de:
   schedulings:
     week_switch:
       employees_in_week: "Mitarbeiter"
+      teams_in_week: "Teams"
       hours_in_week: "Stunden"
 

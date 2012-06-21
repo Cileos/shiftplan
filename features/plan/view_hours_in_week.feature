@@ -14,7 +14,7 @@ Feature: View hours over weekdays in plan
         | 49   | 3     | 11-15   |
         | 49   | 4     | 12-14   |
       And I am on the page of the plan
-     When I choose "Stunden" from the drop down "Mitarbeiter"
+     When I choose "Stunden" from the drop down "Mitarbeiter" within the calendar
      Then I should see the following calendar with hours in week:
        | Mo           | Di            | Mi            | Do            | Fr |
        | 9-17 Homer S | 10-16 Homer S | 11-15 Homer S | 12-14 Homer S |    |
