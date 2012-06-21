@@ -1,0 +1,3 @@
+- schedulings.each do |scheduling|
+  %div.horizontal{data: filter.metadata_for(scheduling)}
+    =scheduling.employee.name

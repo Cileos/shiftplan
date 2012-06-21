@@ -101,4 +101,22 @@ describe SchedulingFilter do
 
   end
 
+  describe "for exactly one day" do
+    let(:filter) { SchedulingFilter.new year: 2012, month: 12, day: 23 }
+    it "should know its date" do
+      filter.date.should == Date.new(2012,12,23)
+    end
+
+    it "should find record on that day" do
+      scheduling = create :manual_scheduling, starts_at: filter.date
+      filter.records.should include(scheduling)
+    end
+
+    it "should not find record on other day" do
+      scheduling = create :scheduling, date: filter.date - 5.days
+      filter.records.should_not include(scheduling)
+    end
+
+  end
+
 end

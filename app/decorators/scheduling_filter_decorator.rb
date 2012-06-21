@@ -8,7 +8,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     "#{plan.name} - #{formatted_range}"
   end
 
-  Modes = [:employees_in_week, :teams_in_week, :hours_in_week]
+  Modes = [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
 
   def mode
     self.class.name.scan(/SchedulingFilter(.*)Decorator/).first.first.underscore
@@ -150,7 +150,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
     else
       '#' # TODO
     end
+  end
 
+  def path_to_day(day=monday)
+    h.organization_plan_teams_in_day_path(h.current_organization, plan, day.year, day.month, day.day)
   end
 
   # TODO hooks?

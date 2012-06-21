@@ -11,6 +11,8 @@ class SchedulingFilter
   attribute :plan
   attribute :base, default: Scheduling
   attribute :week, type: Integer
+  attribute :day, type: Integer
+  attribute :month, type: Integer
   attribute :year, type: Integer
   attribute :ids #, type: Array # TODO Array cannot be typecasted yet by AA
 
@@ -19,6 +21,8 @@ class SchedulingFilter
   def range
     if week?
       :week
+    elsif date?
+      :day
     else
       nil
     end
@@ -56,6 +60,14 @@ class SchedulingFilter
     monday + (offset.to_i - 1 ).days
   end
 
+  def date?
+    day? and month? and year?
+  end
+
+  def date
+    DateTime.civil_from_format(:utc, year, month, day)
+  end
+
   # These _are_ the Schedulings you are looking for
   def records
     @records ||= fetch_records
@@ -70,13 +82,19 @@ class SchedulingFilter
     end
 
     def conditions
-      attributes.symbolize_keys.slice(:week, :year).reject {|_,v| v.nil? }.tap do |c|
-        if plan?
-          c.merge!(:plan_id => plan.id)
+      case range
+      when :week
+        attributes.symbolize_keys.slice(:week, :year).reject {|_,v| v.nil? }.tap do |c|
+          if plan?
+            c.merge!(:plan_id => plan.id)
+          end
+          if ids? && !ids.empty?
+            c.merge!(:id => ids)
+          end
         end
-        if ids? && !ids.empty?
-          c.merge!(:id => ids)
-        end
+      when :day
+        raise ArgumentError, "not enough data to build date" unless date?
+        ["starts_at::date = ?::date", date]
       end
     end
 

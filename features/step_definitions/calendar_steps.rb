@@ -77,6 +77,32 @@ Then /^I should see the following calendar with (?:hours in week):$/ do |expecte
   expected.diff! actual
 end
 
+Then /^I should see the following time bars:$/ do |raw|
+  team_name = nil
+
+  with_scope 'the calendar' do
+    raw.lines.each do |line|
+      if line =~ /^\s*#{capture_quoted}/
+        team_name = $1
+      end
+
+      line.scan(/\|[^|]+\|/).each do |bar|     # |9-"Homer S"-17|
+        if team_name.blank?
+          raise ArgumentError, "no team name found yet"
+        end
+        if bar =~ /^\|(\d+)-#{capture_quoted}-(\d+)\|$/
+          start_hour, employee, end_hour = $1.to_i, $2, $3.to_i
+          row = row_index_for(team_name)
+          selector = %Q~tbody tr:nth-child(#{row+1}) td.bars div[data-start="#{start_hour}"][data-length="#{end_hour - start_hour}"]~
+          page.should have_css(selector, text: employee)
+        else
+          raise ArgumentError, "bad time bar given: #{bar.inspect}"
+        end
+      end
+    end
+  end
+end
+
 Then /^I should see the following WAZ:$/ do |expected|
   calendar = find(selector_for('the calendar'))
   actual = calendar.all("tbody tr").map do |tr|
