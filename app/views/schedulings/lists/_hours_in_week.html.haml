@@ -1,0 +1,10 @@
+- schedulings.each do |scheduling|
+  %div.scheduling.vertical{class: scheduling.css_class, data: scheduling.metadata.merge(stack: scheduling.stack, remaining: scheduling.remaining_stack, total: scheduling.total_stack)}
+    = abbr_tag scheduling.hour_range_quickie, scheduling.hour_range_with_duration, class: 'work_time'
+    %span.name= scheduling.employee.name
+    = avatar(scheduling.employee.user, scheduling.employee, :tiny)
+    - if scheduling.team
+      = abbr_tag scheduling.team_name, scheduling.team_shortcut, class: 'team_name'
+
+    = render 'schedulings/gimmicks', scheduling: scheduling
+

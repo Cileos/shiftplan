@@ -3,6 +3,10 @@ class SchedulingsController < InheritedResources::Base
 
   nested_belongs_to :plan
   actions :all, :except => [:show]
+  # same as SchedulingFilter::Modes - naming explicitly here because of
+  # decoupling and we don't want eagler preloading here
+  custom_actions collection: [:employees_in_week, :hours_in_week] 
+  layout 'calendar'
 
   respond_to :html, :js
 
@@ -11,8 +15,12 @@ class SchedulingsController < InheritedResources::Base
       @schedulings ||= filter.records
     end
 
+    def pure_filter
+      @pure_filter ||= Scheduling.filter( filter_params )
+    end
+
     def filter
-      @filter ||= Scheduling.filter( filter_params )
+      @filter ||= SchedulingFilterDecorator.decorate(pure_filter, mode: params[:action])
     end
     helper_method :filter
 

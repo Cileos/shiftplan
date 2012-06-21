@@ -2,21 +2,26 @@
 [35m./app/assets/javascripts/switch_calendar_layout.js.coffee[0m[36m:[0m[32m6[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m# TODO add button for legend toggle
 [35m./app/controllers/employees_controller.rb[0m[36m:[0m[32m16[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO more than one organization per planner
 [35m./app/controllers/teams_controller.rb[0m[36m:[0m[32m10[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO more than one organization per planner
-[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m68[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO deprecated atm
-[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m182[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
-[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m196[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO move into own view to fetch as an organization-specific asset
+[35m./app/decorators/scheduling_filter_decorator.rb[0m[36m:[0m[32m151[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m      '#' # TODO
+[35m./app/decorators/scheduling_filter_employees_in_week_decorator.rb[0m[36m:[0m[32m11[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME WTF should use cdata_section to wrap team_styles, but it break the styles
+[35m./app/decorators/scheduling_filter_employees_in_week_decorator.rb[0m[36m:[0m[32m12[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO put this into the template
+[35m./app/decorators/scheduling_filter_employees_in_week_decorator.rb[0m[36m:[0m[32m22[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO move into own view to fetch as an organization-specific asset
+[35m./app/decorators/scheduling_filter_employees_in_week_decorator.rb[0m[36m:[0m[32m23[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME this is deprecated, isn't it?
+[35m./app/decorators/scheduling_filter_hours_in_week_decorator.rb[0m[36m:[0m[32m3[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO make configurable
+[35m./app/decorators/scheduling_filter_hours_in_week_decorator.rb[0m[36m:[0m[32m13[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO update content: only modify data-stack, do not replace ALL the divs
 [35m./app/helpers/employees_helper.rb[0m[36m:[0m[32m24[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO: let rails guess the urls by providing the persisted invitation of an employee or a new record
 [35m./app/helpers/navigation_helper.rb[0m[36m:[0m[32m6[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  #   b) the given regex (TODO)
-[35m./app/helpers/plans_helper.rb[0m[36m:[0m[32m19[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME unify with abbr_tag
 [35m./app/models/comment.rb[0m[36m:[0m[32m7[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO check for valid parent_id
 [35m./app/models/copy_week.rb[0m[36m:[0m[32m28[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO actually copy
-[35m./app/models/employee.rb[0m[36m:[0m[32m41[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO remove when we want fractioned working time
+[35m./app/models/employee.rb[0m[36m:[0m[32m49[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO remove when we want fractioned working time
 [35m./app/models/scheduling_filter.rb[0m[36m:[0m[32m15[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  attribute :ids #, type: Array # TODO Array cannot be typecasted yet by AA
 [35m./app/models/scheduling_filter.rb[0m[36m:[0m[32m50[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m      length_of_month # TODO month
 [35m./app/models/scheduling.rb[0m[36m:[0m[32m19[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  has_many :comments, as: :commentable # FIXME WTF
-[35m./app/models/scheduling.rb[0m[36m:[0m[32m25[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
-[35m./app/models/scheduling.rb[0m[36m:[0m[32m150[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO save start_hour and end_hour or even cache the whole quickie
+[35m./app/models/scheduling.rb[0m[36m:[0m[32m56[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
+[35m./app/models/scheduling.rb[0m[36m:[0m[32m144[0m[36m:[0m[33;1;1mFIXME[0m[36m:[0m  # FIXME nightshift
+[35m./app/models/scheduling.rb[0m[36m:[0m[32m190[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO save start_hour and end_hour or even cache the whole quickie
 [35m./app/models/team_merge.rb[0m[36m:[0m[32m6[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO validate the both teams differ
+[35m./features/step_definitions/calendar_steps.rb[0m[36m:[0m[32m69[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m# TODO multiple entries per "cell"/column
 [35m./features/step_definitions/web_steps.rb[0m[36m:[0m[32m76[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m# TODO: Add support for checkbox, select og option
 [35m./features/support/screencast.rb[0m[36m:[0m[32m20[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m    # TODO create animation
 [35m./spec/spec_helper.rb[0m[36m:[0m[32m38[0m[36m:[0m[32;1;1mTODO[0m[36m:[0m  # TODO move this to #prefork when the test suite is stable

@@ -12,6 +12,9 @@ class Ability
     user = current_user || User.new # guest user (not logged in)
 
     alias_action :multiple, to: :read
+    SchedulingFilterDecorator::Modes.each do |mode|
+      alias_action mode, to: :read
+    end
 
     # the role is bound to Employee, so we carry the employee around
     if employee = user.current_employee

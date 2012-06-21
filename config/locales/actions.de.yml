@@ -46,4 +46,8 @@ de:
       confirm: 'Bestätigen'
       change_email: 'E-Mail Adresse ändern'
       change_password: 'Passwort ändern'
+  schedulings:
+    week_switch:
+      employees_in_week: "Mitarbeiter"
+      hours_in_week: "Stunden"
 

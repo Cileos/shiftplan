@@ -1,5 +1,12 @@
 jQuery(document).ready ->
 
+  # HACK the server side of the application has to know which mode the current
+  # plan is in to update the cell accordingly. Yes, this validates the same
+  # origin policy.
+  $('table#calendar').ajaxSend (e, jqxhr, settings) ->
+    jqxhr.setRequestHeader('X-Shiftplan-Mode', $(this).data('mode'))
+    true
+
   $('table#calendar').each ->
     $calendar = $(this)
     $calendar.find('abbr').tooltip()

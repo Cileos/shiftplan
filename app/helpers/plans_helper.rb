@@ -15,9 +15,4 @@ module PlansHelper
       [translate(duration, :scope => 'activerecord.values.plans.durations'), duration]
     end
   end
-
-  # FIXME unify with abbr_tag
-  def show_with_abbr(content_full, content_abbr, clss=nil, opts={})
-    content_tag(:abbr, content_tag(:span, content_abbr), class: clss, title: content_full)
-  end
 end

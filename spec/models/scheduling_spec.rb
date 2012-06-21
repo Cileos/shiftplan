@@ -300,4 +300,25 @@ describe Scheduling do
       completions.should have(3).records
     end
   end
+
+  describe "overlapping" do
+    it "does happen with at least one common hour" do
+      one = create :scheduling, quickie: '9-12'
+      two = create :scheduling, quickie: '11-17'
+      one.should be_overlap(two)
+      two.should be_overlap(one)
+    end
+    it "does not happen without common hours" do
+      one = create :scheduling, quickie: '9-11'
+      two = create :scheduling, quickie: '11-17'
+      one.should_not be_overlap(two)
+      two.should_not be_overlap(one)
+    end
+    it "does not happen on different stacks" do
+      one = create :scheduling, quickie: '9-17', stack: 0
+      two = create :scheduling, quickie: '9-17', stack: 1
+      one.should_not be_overlap(two)
+      two.should_not be_overlap(one)
+    end
+  end
 end

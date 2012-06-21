@@ -14,7 +14,7 @@ class CopyWeekDecorator < ApplicationDecorator
     (1..num).to_a.collect do |back|
       prev = span.previous_week
       span = prev.dup
-      prev.decorate
+      prev.decorate(options)
     end
   end
 

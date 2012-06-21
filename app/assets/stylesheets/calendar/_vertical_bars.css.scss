@@ -1,0 +1,63 @@
+/*
+  We try to copy google calendar's layout: Basically, they use a table for the
+  columns, but only one row for the content itself, because schedulings can span
+  over multiple hours. 
+
+  Downside: we have to set the height of "rows" and schedulings per css
+
+  see hours_in_week.html.haml
+*/
+
+$row_height: 42px;
+$bar_shift: $row_height * 2/3;
+$gradient_1: #ececec;
+$gradient_2: #F0F4F8;
+$burning_bear: #FF7200;
+
+table#calendar {
+  th.hours {
+    div {
+      height: $row_height;
+      text-align: right;
+      @include _set_gradient_background($color: $gradient_1, $percentage: 7%, $direction: right);
+      &:nth-child(odd) {
+        @include _set_gradient_background($color: $gradient_2, $percentage: 5%, $direction: left);
+      }
+    }
+  }
+  td.day {
+    position: relative;
+    div.vertical {
+      border: 1px solid $burning_bear;
+      @include _set_gradient_background($direction: right, $percentage: 8%);
+      position: absolute;
+      left: 0; top: 0;
+      @for $hour from 1 to 23 {
+        &[data-start="#{$hour}"] {
+          top: $row_height * $hour;
+        }
+        &[data-start="#{$hour}.5"] {
+          top: $row_height * ($hour + 0.5);
+        }
+        &[data-length="#{$hour}"] {
+          height: $row_height * $hour;
+        }
+        &[data-length="#{$hour}.5"] {
+          height: $row_height * ($hour + 0.5);
+        }
+      }
+
+      @for $index from 1 to 10 {
+        //&[data-stack="#{$index}"] {
+        //  left: 7% * $index;
+        //}
+        &[data-remaining="#{$index}"] {
+          margin-right: $bar_shift * $index;
+        }
+        &[data-total="#{$index}"] {
+          width: 99% / $index;
+        }
+      }
+    }
+  }
+}

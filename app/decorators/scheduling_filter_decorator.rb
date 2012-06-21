@@ -1,3 +1,5 @@
+# This decorator has multiple `modes` to act in. These correspond to the
+# different actions and views of the SchedulingsController.
 class SchedulingFilterDecorator < ApplicationDecorator
   decorates :scheduling_filter
 
@@ -6,46 +8,60 @@ class SchedulingFilterDecorator < ApplicationDecorator
     "#{plan.name} - #{formatted_range}"
   end
 
-  def formatted_range
-    case range
-    when :week
-      I18n.localize monday, format: :week_with_first_day
-    else
-      '???'
-    end
+  Modes = [:employees_in_week, :hours_in_week]
+
+  def mode
+    self.class.name.scan(/SchedulingFilter(.*)Decorator/).first.first.underscore
   end
 
+  def self.decorate(input, opts={})
+    mode = opts.delete(:mode) || opts.delete('mode')
+    if page = opts[:page]
+      mode ||= page.view.current_plan_mode
+    end
+    unless mode
+      raise ArgumentError, 'must give :mode in options'
+    end
+    unless mode.in?( Modes.map(&:to_s) )
+      raise ArgumentError, "mode is not supported: #{mode}"
+    end
+    "SchedulingFilter#{mode.classify}Decorator".constantize.new(input, opts)
+  end
+
+
   def formatted_days
-    days.map { |day| I18n.localize(day, format: :week_day) }
+    days.map do |day|
+      [
+        I18n.localize(day, format: :week_day),
+        I18n.localize(day, format: :abbr_week_day)
+      ]
+    end
   end
 
   def filter
     model
   end
 
-  def cell_content(day, employee)
-    schedulings = schedulings_for(day, employee)
-    unless schedulings.empty?
-      h.render "schedulings/list_in_#{range || 'unknown'}",
-        schedulings: schedulings
-    end
-  end
-
-  def schedulings_for(day, employee)
-    filter.indexed(day, employee).sort_by(&:start_hour)
-  end
-
-  def cell_metadata(day, employee)
-    { employee_id: employee.id, date: day.iso8601 }
-  end
-
   def table_metadata
     {
       organization_id: h.current_organization.id,
       plan_id:         plan.id,
-      new_url:         h.new_organization_plan_scheduling_path(h.current_organization, plan)
+      new_url:         h.new_organization_plan_scheduling_path(h.current_organization, plan),
+      mode:            mode
     }
   end
+
+  def cell_metadata(*a)
+    { }
+  end
+
+  def cell_content(*a)
+    schedulings = schedulings_for(*a)
+    unless schedulings.empty?
+      h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate)
+    end
+  end
+
 
   def selector_for(name, resource=nil, extra=nil)
     case name
@@ -58,17 +74,15 @@ class SchedulingFilterDecorator < ApplicationDecorator
       end
     when :wwt_diff
       %Q~#calendar tbody tr[data-employee_id=#{resource.id}] th .wwt_diff~
-    when :legend
-      '#legend'
     else
       super
     end
   end
 
   def wwt_diff_for(employee)
-    h.show_with_abbr(wwt_diff_label_text_for(employee),
-                     wwt_diff_label_text_for(employee, opts={short: true}),
-                     "badge #{wwt_diff_label_class_for(employee)}")
+    h.abbr_tag(wwt_diff_label_text_for(employee, short: true),
+               wwt_diff_label_text_for(employee),
+               class: "badge #{wwt_diff_label_class_for(employee)}")
   end
 
   def wwt_diff_label_text_for(employee, opts={})
@@ -111,7 +125,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     name =~ /^(.*)_for_scheduling$/ || super
   end
 
-  # you can call a method anding in _for_scheduling
+  # you can call a method ending in _for_scheduling
   def method_missing(name, *args, &block)
     if name =~ /^(.*)_for_scheduling$/
       scheduling = args.first
@@ -121,19 +135,22 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def link_to_previous_week(clss=nil, opts={})
-    week = monday.prev_week
-    h.link_to :previous_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek), class: clss
+  # URI-Path to another week
+  def path_to_week(week)
+    raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
+    h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
   end
 
-  def link_to_todays_week(clss=nil, opts={})
-    week = Date.today
-    h.link_to :this_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek), class: clss
-  end
+  # URI-Path to another mode
+  def path_to_mode(mode)
+    raise(ArgumentError, "unknown mode: #{mode}") unless mode.in?(Modes)
+    if mode =~ /week/
+      # Array notation breaks on week-Fixnums
+      h.send("organization_plan_#{mode}_path", h.current_organization, plan, monday.year, monday.cweek)
+    else
+      '#' # TODO
+    end
 
-  def link_to_next_week(clss=nil, opts={})
-    week = monday.next_week
-    h.link_to :next_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek), class: clss
   end
 
   def respond(resource)
@@ -165,24 +182,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
 
-  # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
-  def legend
-    h.content_tag(:style) { team_styles } +
-      h.render('teams/legend', teams: teams)
-  end
-
-  def update_legend
-    select(:legend).html legend
-  end
-
   def update_quickie_completions
     page << "window.gon.quickie_completions=" + plan.schedulings.quickies.to_json
-  end
-
-  # TODO move into own view to fetch as an organization-specific asset
-  def team_styles
-    teams.map do |team|
-      %Q~.#{dom_id(team)} { border-color: #{team.color};}~
-    end.join(' ')
   end
 end

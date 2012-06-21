@@ -150,34 +150,4 @@ describe SchedulingFilter do
 
   end
 
-  describe "for a list of schedulings by their IDs (multi edit)" do
-
-    context "scheduled a lot" do
-      let(:plan)    { Factory :plan }
-      let(:you_waiting) { Factory :manual_scheduling, plan: plan }
-      let(:you_eating ) { Factory :manual_scheduling, plan: plan }
-      let(:me_eating  ) { Factory :manual_scheduling, plan: plan }
-      let(:filter)  { SchedulingFilter.new ids: [you_eating.id.to_s], plan: plan }
-      let(:results) { filter.records }
-
-      before :each do
-        [you_waiting, you_eating, me_eating ].each { :enjoy } # just mention them to create the records
-      end
-
-      it "should accept array attribute" do
-        filter.ids.should_not be_nil
-        filter.ids.should_not be_empty
-      end
-
-      it "should find the record matching the ID" do
-        results.should include(you_eating)
-      end
-
-      it "should ignore record having other IDs" do
-        results.should_not include(me_eating)
-        results.should_not include(you_waiting)
-      end
-    end
-  end
-
 end
