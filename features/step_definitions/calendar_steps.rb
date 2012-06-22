@@ -71,7 +71,7 @@ Then /^I should see the following calendar with (?:hours in week):$/ do |expecte
   calendar = find(selector_for('the calendar'))
   actual = calendar.all("thead:first tr, tbody tr").map do |tr|
     tr.all('th, td').map do |cell|
-      cell.all('.name, .work_time, .day_name').map(&:text).map(&:strip).join(' ')
+      cell.all('.employee_name, .work_time, .day_name').map(&:text).map(&:strip).join(' ')
     end
   end
   expected.diff! actual
@@ -106,7 +106,7 @@ end
 Then /^I should see the following WAZ:$/ do |expected|
   calendar = find(selector_for('the calendar'))
   actual = calendar.all("tbody tr").map do |tr|
-    tr.all('th:first span.name, th:first .wwt_diff .badge').map(&:text)
+    tr.all('th:first span.employee_name, th:first .wwt_diff .badge').map(&:text)
   end
   expected.diff! actual
 end

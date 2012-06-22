@@ -16,6 +16,6 @@ Feature: View Teams over weekdays in plan
      When I choose "Teams" from the drop down "Mitarbeiter" within the calendar
      Then I should see the following calendar:
        | Teams             | Mo           | Di            | Mi            | Do            | Fr |
-       | Lampen betrachten |              | 10-16 Homer S |               | 12-14 Homer S |    |
-       | Reaktor putzen    | 9-17 Homer S |               | 11-15 Homer S |               |    |
+       | Lampen betrachten |              | Homer S 10-16 |               | Homer S 12-14 |    |
+       | Reaktor putzen    | Homer S 9-17 |               | Homer S 11-15 |               |    |
 
