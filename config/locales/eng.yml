@@ -127,7 +127,7 @@ en:
       strip_insignificant_zeros: false
     currency:
       format:
-        unit: '€'
+        unit: 'ï¿½'
         format: '%n %u'
         separator: ","
         delimiter: "."
@@ -231,4 +231,4 @@ en:
         <<: *errors_template
 
       full_messages:
-        format: "%{attribute} %{message}"
+        format: "%{attribute} %{message}" 
