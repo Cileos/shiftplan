@@ -80,7 +80,7 @@ gem 'cancan'
 gem 'simple_form', '~> 2.0.0'
 gem 'haml-rails'
 gem 'inherited_resources'
-gem 'draper', '~> 0.10.0'
+gem 'draper', '~> 0.14.0'
 gem 'factory_girl_rails', '~>1.7.0' # we use this for seeds, too
 gem 'treetop' # parse quickies
 
