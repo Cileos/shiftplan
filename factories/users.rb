@@ -12,7 +12,7 @@ FactoryGirl.define do
       after(:create) { |u| u.confirm! }
 
       factory :confirmed_user_with_employee do
-        after(:create) { |u| Factory :employee, user: u }
+        after(:create) { |u| FactoryGirl.create :employee, user: u }
       end
     end
   end

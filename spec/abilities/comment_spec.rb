@@ -4,16 +4,16 @@ require "cancan/matchers"
 describe "Scheduling permissions:" do
   subject { ability }
   let(:ability) { Ability.new(user) }
-  let(:user) { Factory(:user) }
-  let(:organization) { Factory(:organization) }
-  let(:blog) { Factory(:blog, organization: organization) }
-  let(:post) { Factory(:post, blog: blog) }
-  let(:some_employee) { Factory(:employee, organization: organization) }
+  let(:user) { create(:user) }
+  let(:organization) { create(:organization) }
+  let(:blog) { create(:blog, organization: organization) }
+  let(:post) { create(:post, blog: blog) }
+  let(:some_employee) { create(:employee, organization: organization) }
 
-  let(:another_organization) { Factory(:organization) }
-  let(:another_blog) { Factory(:blog, organization: another_organization) }
-  let(:another_post) { Factory(:post, blog: another_blog) }
-  let(:other_employee) { Factory(:employee, organization: another_organization) }
+  let(:another_organization) { create(:organization) }
+  let(:another_blog) { create(:blog, organization: another_organization) }
+  let(:another_post) { create(:post, blog: another_blog) }
+  let(:other_employee) { create(:employee, organization: another_organization) }
 
   before(:each) do
     # simulate before_filter :set_current_employee
@@ -21,7 +21,7 @@ describe "Scheduling permissions:" do
   end
 
   context "As an owner" do
-    let(:employee) { Factory(:employee_owner, organization: organization, user: user) }
+    let(:employee) { create(:employee_owner, organization: organization, user: user) }
 
     context "for my own organization" do
       it "I should not be able to destroy comments having an author different than me" do
@@ -58,7 +58,7 @@ describe "Scheduling permissions:" do
   end
 
   context "As a planner" do
-    let(:employee) { Factory(:employee, organization: organization, user: user) }
+    let(:employee) { create(:employee, organization: organization, user: user) }
 
     context "for my own organization" do
       it "I should not be able to destroy comments having an author different than me" do
@@ -95,7 +95,7 @@ describe "Scheduling permissions:" do
   end
 
   context "As an employee" do
-    let(:employee) { Factory(:employee, organization: organization, user: user) }
+    let(:employee) { create(:employee, organization: organization, user: user) }
 
     context "for my own organization" do
       it "I should not be able to destroy comments having an author different than me" do

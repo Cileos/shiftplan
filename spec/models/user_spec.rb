@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
 
   describe 'having role planner' do
-    let(:planner) { Factory(:employee_planner, user: Factory(:user)) }
+    let(:planner) { create(:employee_planner, user: create(:user)) }
 
     it { planner.should be_a_planner }
     it { planner.should be_role('planner') }

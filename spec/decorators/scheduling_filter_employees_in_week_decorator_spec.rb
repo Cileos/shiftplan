@@ -20,11 +20,11 @@ describe SchedulingFilterEmployeesInWeekDecorator do
   end
 
   it "sorts schedulings by start hour" do
-    employee = Factory :employee
+    employee = create :employee
     schedulings = [
-      Factory(:scheduling, start_hour: 23),
-      Factory(:scheduling, start_hour: 6),
-      Factory(:scheduling, start_hour: 17)
+      create(:scheduling, start_hour: 23),
+      create(:scheduling, start_hour: 6),
+      create(:scheduling, start_hour: 17)
     ]
     filter.should_receive(:indexed).with(3, employee).and_return( schedulings )
     decorator.schedulings_for(3, employee).map(&:start_hour).should == [6,17,23]

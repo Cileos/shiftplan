@@ -73,15 +73,15 @@ describe SchedulingFilter do
     end
 
     context "scheduled a lot" do
-      let(:plan)   { Factory :plan }
+      let(:plan)   { create :plan }
       let(:filter) { SchedulingFilter.new week: 52, year: 2012, plan: plan }
-      let(:me)     { Factory :employee }
-      let(:you)    { Factory :employee }
+      let(:me)     { create :employee }
+      let(:you)    { create :employee }
       before :each do
-        @waiting = Factory :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 1, employee: you
-        @opening = Factory :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 2, employee: you
-        @eating1 = Factory :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: you
-        @eating2 = Factory :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: me
+        @waiting = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 1, employee: you
+        @opening = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 2, employee: you
+        @eating1 = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: you
+        @eating2 = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: me
       end
 
       context "records" do
@@ -95,12 +95,12 @@ describe SchedulingFilter do
         end
 
         it "should not include records in another week" do
-          drinking = Factory :manual_scheduling, plan: plan, year: 2012, week: 53, cwday: 2
+          drinking = create :manual_scheduling, plan: plan, year: 2012, week: 53, cwday: 2
           r.should_not include(drinking)
         end
 
         it "should not include records from another plan" do
-          snowing = Factory :manual_scheduling, year: 2012, week: 52, cwday: 2
+          snowing = create :manual_scheduling, year: 2012, week: 52, cwday: 2
           r.should_not include(snowing)
         end
 
