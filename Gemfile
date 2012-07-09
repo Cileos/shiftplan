@@ -41,10 +41,10 @@ group :test do
   gem 'chromedriver-helper'
 
   gem "spork", "1.0.0rc2"
-  gem "guard-rspec", "~> 0.6.0"
-  gem "guard-cucumber", "~> 0.8.0"
-  gem "guard-spork", "~> 0.5.2"
-  gem "guard-bundler", "~> 0.1.3"
+  gem "guard-rspec", "~> 1.1.0"
+  gem "guard-cucumber", "~> 1.2.0"
+  gem "guard-spork", "~> 1.1.0"
+  gem "guard-bundler", "~> 1.0.0"
   gem "libnotify", :require => false
 
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
