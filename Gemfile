@@ -81,7 +81,7 @@ gem 'simple_form', '~> 2.0.0'
 gem 'haml-rails'
 gem 'inherited_resources'
 gem 'draper', '~> 0.14.0'
-gem 'factory_girl_rails', '~>1.7.0' # we use this for seeds, too
+gem 'factory_girl_rails', '~>3.5.0' # we use this for seeds, too
 gem 'treetop' # parse quickies
 
 gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults
