@@ -31,9 +31,7 @@ Feature: View Teams over weekdays in plan
      Then the "Quickie" field should be empty
      When I fill in "Quickie" with "9-17"
       And I select "Homer S" from "Mitarbeiter"
-      And I pause
       And I press "Anlegen"
-      And I pause
       And I wait for the new scheduling form to disappear
      Then I should be on the teams in week page of the plan for year: 2012, week: 49
       And I should see the following calendar:
