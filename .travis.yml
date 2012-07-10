@@ -21,6 +21,8 @@ notifications:
     # TODO  commit_message is missing in lib/travis/task/irc.rb
     template:
       - "%{repository}#%{build_number} | %{author} | %{branch} %{commit} | %{message} | %{build_url}"
+    skip_join: true
+    use_notice: true
   email:
     on_success: never
     on_failure: never

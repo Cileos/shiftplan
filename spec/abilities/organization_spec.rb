@@ -4,9 +4,9 @@ require "cancan/matchers"
 describe "Organization permissions:" do
   subject { ability }
   let(:ability) { Ability.new(user) }
-  let(:user) { Factory(:user) }
-  let(:organization) { Factory(:organization) }
-  let(:another_organization) { Factory(:organization) }
+  let(:user) { create(:user) }
+  let(:organization) { create(:organization) }
+  let(:another_organization) { create(:organization) }
 
   before(:each) do
     # simulate before_filter :set_current_employee
@@ -14,7 +14,7 @@ describe "Organization permissions:" do
   end
 
   context "As an owner" do
-    let(:employee) { Factory(:employee_owner, organization: organization, user: user) }
+    let(:employee) { create(:employee_owner, organization: organization, user: user) }
 
     context "for other organizations" do
       it "should not be able to read organizations" do
@@ -32,7 +32,7 @@ describe "Organization permissions:" do
   end
 
   context "As a planner" do
-    let(:employee) { Factory(:employee, organization: organization, user: user) }
+    let(:employee) { create(:employee, organization: organization, user: user) }
 
     context "for other organizations" do
       it "should not be able to read organizations" do
@@ -50,7 +50,7 @@ describe "Organization permissions:" do
   end
 
   context "As an employee" do
-    let(:employee) { Factory(:employee, organization: organization, user: user) }
+    let(:employee) { create(:employee, organization: organization, user: user) }
 
     context "for own organization" do
       it "should not be able to destroy organizations" do

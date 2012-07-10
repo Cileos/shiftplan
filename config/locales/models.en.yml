@@ -1,0 +1,38 @@
+en:
+  activerecord:
+    models:
+      user:
+        one: "user"
+        other: "%{count} users"
+    attributes:
+      user:
+        email: "email"
+        first_name: first name
+        last_name: surname
+        organization_name: Name of Organisation
+        name: "name"
+        locale: "language"
+        password: "password"
+        password_confirmation: "confirm password"
+        current_password: "current password"
+        full_name: "full name"
+        mobile_number: "mobile number"
+        remember_me: "stay signed in"
+        avatar: "profile picture"
+      plan:
+        name: name
+        week: week
+        month: month
+      comment:
+        body: comment
+    values:
+      plan:
+        durations:
+          1_week: weekly
+          1_month: whole month
+  activemodel:
+    attributes:
+      feedback:
+        body: 'problem description or suggest an improvement'
+        email: 'email'
+        name: name

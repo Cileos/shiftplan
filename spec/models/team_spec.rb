@@ -2,21 +2,21 @@ require 'spec_helper'
 
 describe Team do
   it "should need a name" do
-    Factory.build(:team, :name => nil).should be_invalid
-    Factory.build(:team, :name => '').should be_invalid
-    Factory.build(:team, :name => ' ').should be_invalid
-    Factory.build(:team, :name => 'Totlachen').should be_valid
+    build(:team, :name => nil).should be_invalid
+    build(:team, :name => '').should be_invalid
+    build(:team, :name => ' ').should be_invalid
+    build(:team, :name => 'Totlachen').should be_valid
   end
 
   context 'color' do
-    let(:team) { Factory.build(:team) }
+    let(:team) { build(:team) }
 
     it { team.color.should_not be_blank }
     it { team.color.should =~ /^#[0-9A-F]{6}$/ }
   end
 
   context 'shortcut' do
-    let(:team) { Factory.build(:team, name: "Reaktor putzen" ) }
+    let(:team) { build(:team, name: "Reaktor putzen" ) }
 
     it "should be set automatically" do
       team.shortcut.should_not be_blank

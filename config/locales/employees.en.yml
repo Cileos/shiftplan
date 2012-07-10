@@ -1,0 +1,26 @@
+en:
+  activerecord:
+    models:
+      employee:
+        one: "employee"
+    attributes:
+      employee:
+        first_name: First Name
+        last_name: Surname
+        full_name: Full Name
+        weekly_working_time: weekly working time
+        email: email
+        avatar: employee photo
+  simple_form:
+    placeholders:
+      employee:
+        first_name: First Name
+        last_name: Surname
+  employees:
+    invitation_status:
+      invited: "invited on the %{invited_at}"
+      active: active
+      not_invited_yet: not yet invited
+    index:
+      employees: employees
+      status: status

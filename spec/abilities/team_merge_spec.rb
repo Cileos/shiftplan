@@ -4,15 +4,15 @@ require "cancan/matchers"
 describe "TeamMerge permissions:" do
   subject { ability }
   let(:ability) { Ability.new(user) }
-  let(:user) { Factory(:user) }
+  let(:user) { create(:user) }
 
-  let(:organization) { Factory(:organization) }
-  let(:team_1) { Factory(:team, organization: organization) }
-  let(:team_2) { Factory(:team, organization: organization) }
+  let(:organization) { create(:organization) }
+  let(:team_1) { create(:team, organization: organization) }
+  let(:team_2) { create(:team, organization: organization) }
 
-  let(:another_organization) { Factory(:organization) }
-  let(:another_team_1) { Factory(:team, organization: another_organization) }
-  let(:another_team_2) { Factory(:team, organization: another_organization) }
+  let(:another_organization) { create(:organization) }
+  let(:another_team_1) { create(:team, organization: another_organization) }
+  let(:another_team_2) { create(:team, organization: another_organization) }
 
   def merge(t, ot)
     TeamMerge.new(team_id: t.id, other_team_id: ot.id)
@@ -24,7 +24,7 @@ describe "TeamMerge permissions:" do
   end
 
   context "As an owner" do
-    let(:employee) { Factory(:employee_owner, organization: organization, user: user) }
+    let(:employee) { create(:employee_owner, organization: organization, user: user) }
 
     context "for own organization" do
       it "should be able to manage team merges" do
@@ -41,7 +41,7 @@ describe "TeamMerge permissions:" do
   end
 
   context "As a planner" do
-    let(:employee) { Factory(:employee_planner, organization: organization, user: user) }
+    let(:employee) { create(:employee_planner, organization: organization, user: user) }
 
     context "for own organization" do
       it "should be able to manage team merges" do
@@ -58,7 +58,7 @@ describe "TeamMerge permissions:" do
   end
 
   context "As an employee" do
-    let(:employee) { Factory(:employee, organization: organization, user: user) }
+    let(:employee) { create(:employee, organization: organization, user: user) }
 
     context "for own organization" do
       it "should not be able to manage team merges" do

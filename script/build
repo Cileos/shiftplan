@@ -2,23 +2,26 @@
 
 . script/_lib
 
+ret=$((0))
+
 # run bundle install only if bundle check misses something
 # taking out the --relock as we don't change the Gemfile.lock
-bundle check || bundle install || exit 128
+bundle check || bundle install || ret=$(($ret+1))
 
 header "rSpec"
-bundle exec rspec --color ./spec                                 || exit 16
+bundle exec rspec --color ./spec                                 || ret=$(($ret+2))
 
 header "Jasmine"
-xvfb-run bundle exec guard-jasmine                               || exit 8
+xvfb-run bundle exec guard-jasmine                               || ret=$(($ret+4))
 
 header "Cucumber (non-javascript)"
-bundle exec cucumber --profile ci -t ~@javascript features       || exit 4
+bundle exec cucumber --profile ci -t ~@javascript features       || ret=$(($ret+8))
 
 header "Cucumber with chrome"
-CAPYBARA_CHROME=yes bundle exec cucumber --profile ci -t @javascript features || exit 2
+CAPYBARA_CHROME=yes bundle exec cucumber --profile ci -t @javascript features || ret=$(($ret+16))
 
 header "Cucumber with firefox"
-bundle exec cucumber --profile ci -t @javascript features                                    || exit 1
+bundle exec cucumber --profile ci -t @javascript features                     || ret=$(($ret+32))
 
-header "Done"
+header "Done (exit code: $ret)"
+exit $ret

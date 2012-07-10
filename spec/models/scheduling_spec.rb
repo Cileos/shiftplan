@@ -86,8 +86,8 @@ describe Scheduling do
 
     # use factory except for the time range related attributes, so the
     # validity of the Scheduling is not compromised
-    def build(attrs={})
-      Factory.build :scheduling, attrs.reverse_merge({
+    def build_without_dates(attrs={})
+      build :scheduling, attrs.reverse_merge({
         starts_at: nil,
         ends_at:   nil,
         week:      nil,
@@ -99,7 +99,7 @@ describe Scheduling do
     describe "explictly given" do
       it_behaves_like 'completely defined' do
         let :scheduling do
-          build({
+          build_without_dates({
             starts_at: starts_at,
             ends_at:   ends_at
           })
@@ -110,7 +110,7 @@ describe Scheduling do
     describe "given as week, cwday and quicky (current year implied)" do
       it_behaves_like 'completely defined' do
         let :scheduling do
-          build({
+          build_without_dates({
             week:       18,
             cwday:      4,
             quickie:    '9-17'
@@ -122,7 +122,7 @@ describe Scheduling do
 
     describe "given as date only" do
       let :scheduling do
-        build( date: the_date)
+        build_without_dates( date: the_date)
       end
       it "should accept date to fill selectbox" do
         scheduling.date.should == Time.zone.parse(the_date).to_date
@@ -132,7 +132,7 @@ describe Scheduling do
     describe "given as date and hours" do
       it_behaves_like 'completely defined' do
         let :scheduling do
-          build({
+          build_without_dates({
             date:       the_date,
             start_hour: 9,
             end_hour:   17
@@ -144,7 +144,7 @@ describe Scheduling do
     describe "given as date and quickie" do
       it_behaves_like 'completely defined' do
         let :scheduling do
-          build({
+          build_without_dates({
             date:      the_date,
             quickie:   '9-17'
           })
@@ -155,7 +155,7 @@ describe Scheduling do
     describe "old scheduling without week or year, synced" do
       it_behaves_like 'completely defined' do
         let :scheduling do
-          s = build({
+          s = build_without_dates({
             date:      the_date,
             quickie:   '9-17'
           })
@@ -178,7 +178,7 @@ describe Scheduling do
       end
       context "on creation" do
         let :scheduling do
-          build({
+          build_without_dates({
             date:      the_date,
             quickie:   '9-'
           })
@@ -187,7 +187,7 @@ describe Scheduling do
       end
       context "on update" do
         let :scheduling do
-          Factory(:scheduling).tap do |s|
+          create(:scheduling).tap do |s|
             s.quickie = '9-'
           end
         end
@@ -198,7 +198,7 @@ describe Scheduling do
   end
 
   describe "ranging over midnight" do
-    let(:nightwatch) { Factory.build :scheduling, quickie: '19-6' }
+    let(:nightwatch) { build :scheduling, quickie: '19-6' }
 
     it "should have hours set" do
       nightwatch.valid?
@@ -218,10 +218,10 @@ describe Scheduling do
   end
 
   context "team" do
-    let(:team)        { Factory :team, :name => 'The A Team' }
-    let(:plan)        { Factory :plan, :organization => team.organization }
+    let(:team)        { create :team, :name => 'The A Team' }
+    let(:plan)        { create :plan, :organization => team.organization }
     let(:scheduling) do
-      Factory.build :scheduling,
+      build :scheduling,
         :start_hour   => 1,
         :end_hour     => 23,
         :plan         => plan
@@ -263,7 +263,7 @@ describe Scheduling do
       end
 
       it "may not use teams from other organizations, instead build its own" do
-        other_team = Factory :team, :name => 'The Bad Guys'
+        other_team = create :team, :name => 'The Bad Guys'
         scheduling.team_name = other_team.name
         scheduling.team.should be_present
         scheduling.team.should_not == other_team
@@ -280,12 +280,12 @@ describe Scheduling do
   end
 
   describe 'quickie completion' do
-    let(:plan) { Factory :plan }
+    let(:plan) { create :plan }
     before do
-      Factory :scheduling, date: '2011-11-01', plan: plan, quickie: '9-17 Schuften'
-      Factory :scheduling, date: '2011-11-02', plan: plan, quickie: '9-17 Schuften'
-      Factory :scheduling, date: '2011-11-02', plan: plan, quickie: '11-19 Schuften'
-      Factory :scheduling, date: '2011-11-02', plan: plan, quickie: '20-23 Glotzen'
+      create :scheduling, date: '2011-11-01', plan: plan, quickie: '9-17 Schuften'
+      create :scheduling, date: '2011-11-02', plan: plan, quickie: '9-17 Schuften'
+      create :scheduling, date: '2011-11-02', plan: plan, quickie: '11-19 Schuften'
+      create :scheduling, date: '2011-11-02', plan: plan, quickie: '20-23 Glotzen'
     end
 
     let(:completions) { plan.schedulings.quickies }

@@ -41,10 +41,10 @@ group :test do
   gem 'chromedriver-helper'
 
   gem "spork", "1.0.0rc2"
-  gem "guard-rspec", "~> 0.6.0"
-  gem "guard-cucumber", "~> 0.8.0"
-  gem "guard-spork", "~> 0.5.2"
-  gem "guard-bundler", "~> 0.1.3"
+  gem "guard-rspec", "~> 1.1.0"
+  gem "guard-cucumber", "~> 1.2.0"
+  gem "guard-spork", "~> 1.1.0"
+  gem "guard-bundler", "~> 1.0.0"
   gem "libnotify", :require => false
 
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
@@ -80,8 +80,8 @@ gem 'cancan'
 gem 'simple_form', '~> 2.0.0'
 gem 'haml-rails'
 gem 'inherited_resources'
-gem 'draper', '~> 0.10.0'
-gem 'factory_girl_rails', '~>1.7.0' # we use this for seeds, too
+gem 'draper', '~> 0.14.0'
+gem 'factory_girl_rails', '~>3.5.0' # we use this for seeds, too
 gem 'treetop' # parse quickies
 
 gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults

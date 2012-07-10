@@ -7,11 +7,11 @@ describe SchedulingFilterEmployeesInWeekDecorator do
   let(:decorator) { described_class.new(filter) }
 
   it "sorts schedulings by start hour" do
-    employee = Factory :employee
+    employee = create :employee
     schedulings = [
-      Factory(:scheduling, start_hour: 23),
-      Factory(:scheduling, start_hour: 6),
-      Factory(:scheduling, start_hour: 17)
+      create(:scheduling, start_hour: 23),
+      create(:scheduling, start_hour: 6),
+      create(:scheduling, start_hour: 17)
     ]
     day = mock('day')
     decorator.should_receive(:indexed).with(day, employee).and_return( schedulings )

@@ -4,13 +4,13 @@ require "cancan/matchers"
 describe "CopyWeek permissions:" do
   subject { ability }
   let(:ability) { Ability.new(user) }
-  let(:user) { Factory(:user) }
+  let(:user) { create(:user) }
 
-  let(:organization) { Factory(:organization) }
-  let(:plan) { Factory(:plan, organization: organization) }
+  let(:organization) { create(:organization) }
+  let(:plan) { create(:plan, organization: organization) }
 
-  let(:another_organization) { Factory(:organization) }
-  let(:another_plan) { Factory(:plan, organization: another_organization) }
+  let(:another_organization) { create(:organization) }
+  let(:another_plan) { create(:plan, organization: another_organization) }
 
   before(:each) do
     # simulate before_filter :set_current_employee
@@ -18,7 +18,7 @@ describe "CopyWeek permissions:" do
   end
 
   context "As an owner" do
-    let(:employee) { Factory(:employee_owner, organization: organization, user: user) }
+    let(:employee) { create(:employee_owner, organization: organization, user: user) }
 
     context "for own organization" do
       it "should be able copy weeks" do
@@ -34,7 +34,7 @@ describe "CopyWeek permissions:" do
   end
 
   context "As a planner" do
-    let(:employee) { Factory(:employee_planner, organization: organization, user: user) }
+    let(:employee) { create(:employee_planner, organization: organization, user: user) }
 
     context "for own organization" do
       it "should be able copy weeks" do
@@ -50,7 +50,7 @@ describe "CopyWeek permissions:" do
   end
 
   context "As an employee" do
-    let(:employee) { Factory(:employee, organization: organization, user: user) }
+    let(:employee) { create(:employee, organization: organization, user: user) }
 
     context "for own organization" do
       it "should not be able copy weeks" do
