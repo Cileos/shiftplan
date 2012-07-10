@@ -154,6 +154,7 @@ class Scheduling < ActiveRecord::Base
     SchedulingFilter.new params.reverse_merge(:base => self)
   end
 
+  # FIXME going to fail on month/day view
   def concurrent
     SchedulingFilter.new week: week, employee: employee, year: year, plan: plan
   end

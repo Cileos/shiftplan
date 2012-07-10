@@ -38,6 +38,31 @@ Feature: View Teams over weekdays in plan
        | Teams          | Mo | Di           | Mi | Do | Fr |
        | Reaktor putzen |    | Homer S 9-17 |    |    |    |
 
+  Scenario: editing a single scheduling by clicking in cell and filling out form in modal
+    Given the employee "Homer" was scheduled in the plan as following:
+        | week | cwday | quickie                 |
+        | 49   | 2     | 9-17 Reaktor putzen     |
+      And I am on the teams in week page of the plan for year: 2012, week: 49
+
+     When I click on the scheduling "9-17"
+      And I wait for the modal box to appear
+     Then the "Quickie" field should contain "9-17" within the modal box
+
+     # invalid Quickie produces error
+     When I fill in "Quickie" with "1-" within the modal box
+      And I press "Speichern"
+     Then I should see "Quickie ist nicht gültig" within errors within the modal box
+
+     When I fill in "Quickie" with "1-23" within the modal box
+      And I select "Lenny L" from "Mitarbeiter"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see the following calendar:
+       | Teams          | Mo | Di           | Mi | Do | Fr |
+       | Reaktor putzen |    | Lenny L 1-23 |    |    |    |
+
+  @todo
+  Scenario: change team?
 
   @todo
   Scenario: clicking in row A, but entering Team B in quickie
