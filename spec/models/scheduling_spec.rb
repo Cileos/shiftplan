@@ -321,4 +321,15 @@ describe Scheduling do
       two.should_not be_overlap(one)
     end
   end
+
+  context "with a deeply nested comments" do
+    it "should be destroyable"
+    # currently tries to fetch comments which are already deleted. Almost minimal version:
+    # comment
+    # comment
+    #   answer
+    #   answer
+    #     superanswer
+    # comment
+  end
 end
