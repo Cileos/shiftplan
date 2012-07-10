@@ -1,3 +1,4 @@
+@javascript
 Feature: View Teams over weekdays in plan
   In order to drop employees into their teams
   As a planer
@@ -22,7 +23,6 @@ Feature: View Teams over weekdays in plan
        | Lampen betrachten |              | Homer S 10-16 |               | Homer S 12-14 |    |
        | Reaktor putzen    | Homer S 9-17 |               | Homer S 11-15 |               |    |
 
-  @javascript
   Scenario: create a scheduling by clicking in cell and filling out form in modal
     Given a team exists with name: "Reaktor putzen", organization: the organization
       And I am on the teams in week page of the plan for year: 2012, week: 49
@@ -42,3 +42,19 @@ Feature: View Teams over weekdays in plan
   @todo
   Scenario: clicking in row A, but entering Team B in quickie
 
+
+  Scenario: commenting an existing scheduling
+    Given the employee "Homer" was scheduled in the plan as following:
+        | week | cwday | quickie                 |
+        | 49   | 2     | 9-17 Reaktor putzen     |
+      And I am on the teams in week page of the plan for year: 2012, week: 49
+     When I follow "Kommentare" within cell "Di"/"Reaktor putzen"
+      And I wait for the modal box to appear
+      And I fill in "Kommentar" with "Excellent!"
+      And I press "Kommentieren"
+      And I wait for the spinner to disappear
+     Then the "Kommentar" field should be empty
+      And I should see "Sie haben am 04.12.2012 um 00:00 Uhr geschrieben:" within comments within the modal box
+      And I should see "Excellent!" within comments within the modal box
+     When I close the modal box
+     Then I should see "1" within the comment link within cell "Di"/"Reaktor putzen"
