@@ -1,5 +1,7 @@
 Then /^the selected "([^"]*)" should be "([^"]*)"$/ do |field, value|
-  field_labeled(field).native.xpath(".//option[@selected = 'selected']").inner_html.should =~ /#{value}/
+  selected = field_labeled(field).all('option').find {|f| f['selected'] }
+  selected.should be_present
+  selected.text.should =~ /#{value}/
 end
 
 When /^I wait for (.+) to appear$/ do |name|

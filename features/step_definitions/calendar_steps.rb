@@ -4,6 +4,13 @@ When /^I click on #{capture_cell}$/ do |cell|
   EOJS
 end
 
+When /^I click on the #{capture_quoted} column$/ do |column_name|
+  column = column_index_for(column_name)
+  page.execute_script <<-EOJS
+    $("tbody tr:first td:nth-child(#{column +1})").click()
+  EOJS
+end
+
 When /^I click on (?:the )?scheduling #{capture_quoted}$/ do |quickie|
   page.find("li", text: quickie).click()
 end
@@ -61,17 +68,6 @@ Then /^I should see the following calendar:$/ do |expected|
   actual = calendar.all("thead:first tr, tbody tr").map do |tr|
     tr.all('th, td').map do |cell|
       extract_text_from_cell(cell) || ''
-    end
-  end
-  expected.diff! actual
-end
-
-# TODO multiple entries per "cell"/column
-Then /^I should see the following calendar with (?:hours in week):$/ do |expected|
-  calendar = find(selector_for('the calendar'))
-  actual = calendar.all("thead:first tr, tbody tr").map do |tr|
-    tr.all('th, td').map do |cell|
-      cell.all('.employee_name, .work_time, .day_name').map(&:text).map(&:strip).join(' ')
     end
   end
   expected.diff! actual
