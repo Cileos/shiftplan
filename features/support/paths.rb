@@ -63,6 +63,12 @@ module NavigationHelpers
         raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
       end
 
+    when /^the (teams in week) page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
+      scope, model, params = $1, model!($2), parse_fields($3).symbolize_keys
+      raise ArgumentError, "only plans can be scoped as #{scope}" unless model.is_a?(Plan)
+
+      send "organization_plan_#{scope.strip.gsub(/\s+/,'_')}_path", model.organization, model, params
+
     when /^(?:my|the) dashboard$/
       dashboard_path
 

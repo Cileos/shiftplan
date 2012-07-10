@@ -10,4 +10,15 @@ class SchedulingFilterTeamsInWeekDecorator < SchedulingFilterWeekDecorator
   def update_legend
   end
 
+  def teams
+    organization.teams
+  end
+
+  def cell_selector(scheduling)
+   %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-team_id=#{scheduling.team_id}]~
+  end
+
+  def coordinates_for_scheduling(scheduling)
+    [ scheduling.date, scheduling.team ]
+  end
 end

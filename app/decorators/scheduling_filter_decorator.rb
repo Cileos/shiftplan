@@ -56,9 +56,20 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def cell_content(*a)
-    schedulings = schedulings_for(*a)
+    schedulings = find_schedulings(*a)
     unless schedulings.empty?
       h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate)
+    end
+  end
+
+  # can give
+  # 1) a Scheduling to find its cell mates
+  # 2) coordinates to find all the scheudlings in cell (needs schedulings_for implemented)
+  def find_schedulings(*criteria)
+    if criteria.first.is_a?(Scheduling)
+      schedulings_for( *coordinates_for_scheduling( criteria.first) )
+    else
+      schedulings_for( *criteria )
     end
   end
 
@@ -67,7 +78,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     case name
     when :cell
       if resource.is_a?(Scheduling)
-        %Q~#calendar tbody td[data-date=#{resource.date.iso8601}][data-employee_id=#{resource.employee_id}]~
+        cell_selector(resource)
       else
         day, employee_id = resource, extra
         %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
@@ -77,6 +88,11 @@ class SchedulingFilterDecorator < ApplicationDecorator
     else
       super
     end
+  end
+
+  # selector for the cell of the geiven schedulung
+  def cell_selector(scheduling)
+     %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee_id=#{scheduling.employee_id}]~
   end
 
   def wwt_diff_for(employee)
@@ -121,18 +137,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
   delegate :plan,         to: :filter
   delegate :organization, to: :plan
 
-  def respond_to_missing?(name)
-    name =~ /^(.*)_for_scheduling$/ || super
-  end
-
-  # you can call a method ending in _for_scheduling
-  def method_missing(name, *args, &block)
-    if name =~ /^(.*)_for_scheduling$/
-      scheduling = args.first
-      send($1, scheduling.date, scheduling.employee)
-    else
-      super
-    end
+  def coordinates_for_scheduling(scheduling)
+    [ scheduling.date, scheduling.employee ]
   end
 
   # URI-Path to another week
@@ -177,7 +183,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def update_cell_for(scheduling)
-    select(:cell, scheduling).html cell_content_for_scheduling(scheduling) || ''
+    select(:cell, scheduling).html cell_content(scheduling) || ''
     select(:cell, scheduling).trigger 'update'
   end
 
