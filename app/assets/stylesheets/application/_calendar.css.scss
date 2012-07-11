@@ -82,7 +82,7 @@ $ci_blue: #00a7c9;
             line-height: 22px;
         }
         th {
-            width: 15%;
+            width: 16%;
             padding: 2px;
             @include _set_gradient_background($color: $gradient_1, $percentage: 7%, $direction: right);
         }
