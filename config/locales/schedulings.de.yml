@@ -14,7 +14,7 @@ de:
         source: Von
     hints:
       scheduling:
-        quickie: "9-17 wichtige Arbeit [wA]"
+        quickie: "z. B.: 9-17 wichtige Arbeit [wA]"
   scheduling_notification_mailer:
     new_comment:
       subjects:
