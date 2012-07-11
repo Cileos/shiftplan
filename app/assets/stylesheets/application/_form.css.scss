@@ -7,12 +7,3 @@
 .well {
     border: 1px solid lighten($grayLight, 10%);
 }
-
-form#new_scheduling {
-    padding: $modal_spacing;
-    button[type=submit] {
-        position: absolute;
-        top: 15px;
-        right: 17px;
-    }
-}

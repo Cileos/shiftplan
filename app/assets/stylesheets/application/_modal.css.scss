@@ -5,9 +5,7 @@
 
 
 #modalbox {
-    padding-top: 15px;
-    padding-bottom: 15px;
-
+    padding: 15px 30px;
     form {
         position: relative;
         &:last-child {
@@ -22,26 +20,23 @@
             margin-top: 5px;
         }
         .control-label {
-            width: 160px;
+            width: 120px;
         }
         .controls {
-            margin-left: 170px;
+            margin-left: 130px;
+            input, textarea {
+                width: 200px;
+            }
         }
     }
     .edit_scheduling .control-group {
         margin-top: 10px;
     }
-    form[class$="_scheduling"] {
-        button[type="submit"], a.delete {
-            position: absolute;
-            top: 0;
-        }
-        button[type="submit"] {
-            right: 9px;
-        }
-        a.delete {
-            left: 9px;
-        }
+    .buttons {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #ccc;
+        text-align: center;
     }
 }
 .ui-dialog {

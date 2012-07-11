@@ -1,8 +1,8 @@
 = simple_form_for scheduling, url: organization_plan_schedulings_path(current_organization, scheduling.plan), remote: true, html: { class: 'form-horizontal' } do |f|
   = f.input :quickie, hint: true
-  %button.btn.btn-success{type: 'submit'}
-    %i.icon-ok-circle.icon-white
-    = ta :create
   = f.input :date, :collection => cwdays_for_select(scheduling.date), :include_blank => false
   = f.association :employee, as: :select, include_blank: false, collection: scheduling.plan.organization.employees
-
+  .buttons
+    %button.btn.btn-success{type: 'submit'}
+      %i.icon-ok-circle.icon-white
+      = ta :create
