@@ -64,12 +64,5 @@ Feature: View Teams over weekdays in plan
         | 49   | 2     | 9-17 Reaktor putzen     |
       And I am on the teams in week page of the plan for year: 2012, week: 49
      When I follow "Kommentare" within cell "Di"/"Reaktor putzen"
-      And I wait for the modal box to appear
-      And I fill in "Kommentar" with "Excellent!"
-      And I press "Kommentieren"
-      And I wait for the spinner to disappear
-     Then the "Kommentar" field should be empty
-      And I should see "Sie haben am 04.12.2012 um 00:00 Uhr geschrieben:" within comments within the modal box
-      And I should see "Excellent!" within comments within the modal box
-     When I close the modal box
+      And I comment "Excellent!"
      Then I should see "1" within the comment link within cell "Di"/"Reaktor putzen"

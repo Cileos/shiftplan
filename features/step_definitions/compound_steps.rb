@@ -2,8 +2,7 @@
 #
 # Assuming we just clicked on a scheduling in one of the views, a modal box should open..
 Then /^I should be able to change the #{capture_quoted} from #{capture_quoted} to #{capture_quoted} and select #{capture_quoted} as #{capture_quoted}$/ do |quickie_field, old_quickie, quickie, employee, employee_field|
-  step %Q~I wait for the modal box to appear~
-  with_scope 'the modal box' do
+  within_modal_box do
     find_field(quickie_field).value.should == old_quickie
     fill_in quickie_field, with: '1-'
     click_button "Speichern"
@@ -14,6 +13,35 @@ Then /^I should be able to change the #{capture_quoted} from #{capture_quoted} t
     select employee, from: employee_field
     click_button "Speichern"
   end
-  step %Q~I wait for the modal box to disappear~
 end
 
+When /^I comment #{capture_quoted}$/ do |comment|
+  field = "Kommentar"
+  within_modal_box(true) do
+    find_field(field).text.should be_empty
+    fill_in field, with: comment
+    click_button 'Kommentieren'
+    step %Q~I wait for the spinner to disappear~
+    find_field(field).text.should be_empty
+    page.should have_content(comment)
+    with_scope 'comments' do
+      all('div.own-meta').map(&:text).join(' ').should =~ /Sie haben am #{match_date_with_time} geschrieben:/
+    end
+  end
+end
+
+
+module ModalBoxHelper
+  def within_modal_box(close=false)
+    step %Q~I wait for the modal box to appear~
+    with_scope 'the modal box' do
+      yield
+    end
+    if close
+      step %Q~I close the modal box~
+    end
+    step %Q~I wait for the modal box to disappear~
+  end
+end
+
+World(ModalBoxHelper)

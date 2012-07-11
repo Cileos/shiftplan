@@ -14,14 +14,7 @@ Feature: Comment on Schedulings
   Scenario: planner writes the first comment
     Given I am on the page for the plan
      When I follow "Kommentare" within cell "Fr"/"Homer S"
-      And I wait for the modal box to appear
-      And I fill in "Kommentar" with "Excellent!"
-      And I press "Kommentieren"
-      And I wait for the spinner to disappear
-     Then the "Kommentar" field should be empty
-      And I should see "Sie haben am 18.12.2012 um 00:00 Uhr geschrieben:" within comments within the modal box
-      And I should see "Excellent!" within comments within the modal box
-     When I close the modal box
+      And I comment "Excellent!"
      Then I should see "1" within the comment link within cell "Fr"/"Homer S"
 
   Scenario: planner writes the first comment using the keyboard
@@ -29,12 +22,7 @@ Feature: Comment on Schedulings
      When I press arrow right 4 times
       And I press arrow down 3 times
       And I press key "c"
-      And I wait for the modal box to appear
-      And I fill in "Kommentar" with "Excellent!"
-      And I press "Kommentieren"
-      And I wait for the spinner to disappear
-     Then I should see "Excellent!" within comments within the modal box
-     When I close the modal box
+      And I comment "Excellent!"
      Then I should see "1" within the comment link within cell "Fr"/"Homer S"
 
   Scenario: employee answers

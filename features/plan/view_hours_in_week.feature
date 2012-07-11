@@ -47,3 +47,12 @@ Feature: View hours over weekdays in plan
       And I should see the following calendar:
        | Mo | Di              | Mi | Do | Fr |
        |    | Lenny L 1-23 Rp |    |    |    |
+
+  Scenario: commenting an existing scheduling by clicking on bar in column and filling out form in modal
+    Given the employee "Homer" was scheduled in the plan as following:
+        | week | cwday | quickie                 |
+        | 49   | 2     | 9-17 Reaktor putzen     |
+      And I am on the hours in week page of the plan for year: 2012, week: 49
+     When I follow "Kommentare" within the calendar
+      And I comment "Excellent!"
+     Then I should see "1" within the comment link within the calendar
