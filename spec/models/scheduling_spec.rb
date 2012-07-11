@@ -276,6 +276,10 @@ describe Scheduling do
         scheduling.quickie.should == '1-23 <team quickie part>'
       end
 
+      context "with team" do
+        it "should not clear association if assigned quickie does not contain (same) team name"
+      end
+
     end
   end
 

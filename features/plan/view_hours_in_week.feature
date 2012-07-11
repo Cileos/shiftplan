@@ -36,3 +36,14 @@ Feature: View hours over weekdays in plan
        | Mo | Di              | Mi | Do | Fr |
        |    | Lenny L 9-17 Rp |    |    |    |
 
+  Scenario: editing a single scheduling by clicking on bar in column and filling out form in modal
+    Given the employee "Homer" was scheduled in the plan as following:
+        | week | cwday | quickie                 |
+        | 49   | 2     | 9-17 Reaktor putzen     |
+      And I am on the hours in week page of the plan for year: 2012, week: 49
+
+     When I click on the scheduling "9-17"
+     Then I should be able to change the "Quickie" from "9-17 Reaktor putzen [Rp]" to "1-23" and select "Lenny L" as "Mitarbeiter"
+      And I should see the following calendar:
+       | Mo | Di              | Mi | Do | Fr |
+       |    | Lenny L 1-23 Rp |    |    |    |

@@ -23,17 +23,8 @@ Feature: Edit Schedulings of a Plan
 
      When I click on the scheduling "7-23"
       And I wait for the modal box to appear
-     Then the "Quickie" field should contain "7-23" within the modal box
-
-     # invalid Quickie produces error
-     When I fill in "Quickie" with "1-" within the modal box
-      And I press "Speichern"
-     Then I should see "Quickie ist nicht gültig" within errors within the modal box
-
-     When I fill in "Quickie" with "1-23" within the modal box
-      And I press "Speichern"
-      And I wait for the modal box to disappear
-     Then I should see the following calendar:
+     Then I should be able to change the "Quickie" from "7-23" to "1-23" and select "Santa C" as "Mitarbeiter"
+      And I should see the following calendar:
         | Mitarbeiter | Fr   |
         | Santa C     | 1-23 |
       And the employee "Santa C" should have a grey hours/waz value of "22"
@@ -56,13 +47,8 @@ Feature: Edit Schedulings of a Plan
      When I press escape
       And I wait for the modal box to disappear
       And I press key "e"
-        And I wait for the modal box to appear
-     Then the "Quickie" field should contain "4-10" within the modal box
-
-     When I fill in "Quickie" with "4-11" within the modal box
-      And I press "Speichern"
-      And I wait for the modal box to disappear
-     Then I should see the following calendar:
+     Then I should be able to change the "Quickie" from "4-10" to "4-11" and select "Santa C" as "Mitarbeiter"
+      And I should see the following calendar:
         | Mitarbeiter | Fr             |
         | Santa C     | 1-3 4-11 12-23 |
       And the scheduling "4-11" should be focus within the cell "Fr"/"Santa C"

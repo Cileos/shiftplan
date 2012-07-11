@@ -45,19 +45,9 @@ Feature: View Teams over weekdays in plan
       And I am on the teams in week page of the plan for year: 2012, week: 49
 
      When I click on the scheduling "9-17"
-      And I wait for the modal box to appear
-     Then the "Quickie" field should contain "9-17" within the modal box
-
-     # invalid Quickie produces error
-     When I fill in "Quickie" with "1-" within the modal box
-      And I press "Speichern"
-     Then I should see "Quickie ist nicht gültig" within errors within the modal box
-
-     When I fill in "Quickie" with "1-23" within the modal box
-      And I select "Lenny L" from "Mitarbeiter"
-      And I press "Speichern"
-      And I wait for the modal box to disappear
-     Then I should see the following calendar:
+     # TODO should not show team in quickie?
+     Then I should be able to change the "Quickie" from "9-17 Reaktor putzen [Rp]" to "1-23" and select "Lenny L" as "Mitarbeiter"
+      And I should see the following calendar:
        | Teams          | Mo | Di           | Mi | Do | Fr |
        | Reaktor putzen |    | Lenny L 1-23 |    |    |    |
 

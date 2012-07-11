@@ -5,7 +5,7 @@ class CalendarEditor extends View
 
   initialize: (params) ->
     @element = params.element
-    if @element.is('li') # single scheduling given => edit it
+    if @element.is('.scheduling') # single scheduling given => edit it
       $.ajax
         url: @element.data('edit_url')
         complete: @setupInputs

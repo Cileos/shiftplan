@@ -1,8 +1,9 @@
 # Two arguments for new:
 #   $calendar: a jquery object pointing to the calendar table
 #   tds:       which tds do we want to navigate
+#   items:     items within the tds
 class CalendarCursor
-  constructor: (@$calendar, @tds = 'td:not(.wwt_diff)', @lis = 'li.scheduling') ->
+  constructor: (@$calendar, @tds = 'td:not(.wwt_diff)', @items = '.scheduling') ->
 
     @$body     = @$calendar.find('tbody:first')
 
@@ -14,10 +15,10 @@ class CalendarCursor
       @activate()
       false
 
-    @$calendar.on 'click', "#{@tds} #{@lis}", (event) =>
+    @$calendar.on 'click', "#{@tds} #{@items}", (event) =>
       $target = $(event.target)
       return true if $target.is('a,i') # keep rails' remote links working
-      @focus $target.closest(@lis), null
+      @focus $target.closest(@items), null
       @activate()
       false
 
@@ -41,15 +42,16 @@ class CalendarCursor
     @$body.find('td.focus')
 
   focus: ($target, item_select) ->
-    if item_select? and $target.has(@lis).length > 0
-      $target = $target.find(@lis)[item_select]()
+    if item_select? and $target.has(@items).length > 0
+      $target = $target.find(@items)[item_select]()
     @$calendar.find('.focus').removeClass('focus')
     $target.closest('td').addClass('focus') unless $target.is('td')
     $target.addClass('focus')
+    # TODO scroll to the $target
 
   refocus: ->
     if @$focussed_item? and @$focussed_item.length > 0
-      @focus @$calendar.find('tbody').children('tr').eq(@current_row).children(@tds).eq(@current_column).find(@lis).eq(@current_item_index)
+      @focus @$calendar.find('tbody').children('tr').eq(@current_row).children(@tds).eq(@current_column).find(@items).eq(@current_item_index)
     else
       @focus @$calendar.find('tbody').children('tr').eq(@current_row).children(@tds).eq(@current_column), 'first'
 
@@ -89,7 +91,7 @@ class CalendarCursor
     @current_row     = @$focussed_cell.closest('tbody').children('tr').index(@$focussed_cell.closest('tr'))
     @rows_count      = @$focussed_cell.closest('tbody').children('tr').size()
     @columns_count   = @$focussed_cell.closest('tr').children(@tds).size()
-    @$items          = @$focussed_cell.find(@lis)
+    @$items          = @$focussed_cell.find(@items)
     if @$items.length > 0
       @$focussed_item = @$items.filter('.focus')
       @current_item_index = @$items.index(@$focussed_item)

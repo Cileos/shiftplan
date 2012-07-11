@@ -12,7 +12,7 @@ When /^I click on the #{capture_quoted} column$/ do |column_name|
 end
 
 When /^I click on (?:the )?scheduling #{capture_quoted}$/ do |quickie|
-  page.find("li", text: quickie).click()
+  page.find(".scheduling", text: quickie).click()
 end
 
 Then /^the #{capture_cell} should be (focus)$/ do |cell, predicate|
