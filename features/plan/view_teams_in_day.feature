@@ -44,6 +44,20 @@ Feature: View teams over hours of a day in plan
       "Brennstäbe wechseln"
       """
 
+  Scenario: editing a single scheduling by clicking in cell and filling out form in modal
+    Given the employee "Homer" was scheduled in the plan as following:
+        | week | cwday | quickie                 |
+        | 49   | 2     | 9-17 Reaktor putzen     |
+      And I am on the teams in day page of the plan for year: 2012, month: 12, day: 04
+
+     When I click on the scheduling "9-17"
+     # TODO should not show team in quickie?
+     Then I should be able to change the "Quickie" from "9-17 Reaktor putzen [Rp]" to "1-23" and select "Lenny L" as "Mitarbeiter"
+      And I should see the following time bars:
+      """
+      "Reaktor putzen"        |1-"Lenny L"-23|
+      """
+
   Scenario: commenting an existing scheduling
     Given the employee "Homer" was scheduled in the plan as following:
         | week | cwday | quickie                 |
