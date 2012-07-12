@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 # Assuming we just clicked on a scheduling in one of the views, a modal box should open..
-Then /^I should be able to change the #{capture_quoted} from #{capture_quoted} to #{capture_quoted} and select #{capture_quoted} as #{capture_quoted}$/ do |quickie_field, old_quickie, quickie, employee, employee_field|
+Then /^I (?:should be able to change|change) the #{capture_quoted} from #{capture_quoted} to #{capture_quoted} and select #{capture_quoted} as #{capture_quoted}$/ do |quickie_field, old_quickie, quickie, employee, employee_field|
   within_modal_box do
     find_field(quickie_field).value.should == old_quickie
 

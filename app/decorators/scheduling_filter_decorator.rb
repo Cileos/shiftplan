@@ -163,9 +163,13 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   # TODO hooks?
-  def respond(resource)
+  def respond(resource, action=:update)
     if resource.errors.empty?
-      update(resource)
+      if action == :update
+        respond_for_update(resource)
+      else
+        respond_for_create(resource)
+      end
       remove_modal
       update_legend if respond_to?(:update_legend)
       update_quickie_completions
@@ -174,12 +178,17 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def update(resource)
+  def respond_for_create(resource)
     update_cell_for(resource)
     if resource.next_day
       update_cell_for(resource.next_day)
     end
     update_wwt_diff_for(resource.employee)
+  end
+
+  def respond_for_update(resource)
+    update_cell_for(resource.with_previous_changes_undone)
+    respond_for_create(resource)
   end
 
   def update_cell_for(scheduling)

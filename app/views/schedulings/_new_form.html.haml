@@ -6,7 +6,10 @@
   %button.btn.btn-success{type: 'submit'}
     %i.icon-ok-circle.icon-white
     = ta :create
-  = f.input :date, :collection => cwdays_for_select(scheduling.date), :include_blank => false
+  - if current_plan_mode.teams_in_day?
+    = f.hidden_field :date
+  - else
+    = f.input :date, :collection => cwdays_for_select(scheduling.date), :include_blank => false
   = f.association :employee, as: :select, include_blank: false, collection: scheduling.plan.organization.employees
   - if current_plan_mode.teams_in_week? or current_plan_mode.teams_in_day?
     = f.association :team, as: :select, include_blank: false, collection: scheduling.plan.organization.teams

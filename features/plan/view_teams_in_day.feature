@@ -58,6 +58,23 @@ Feature: View teams over hours of a day in plan
       "Reaktor putzen"        |1-"Lenny L"-23|
       """
 
+  Scenario: moving a scheduling to another (pre-existing) team by editing the quickie it in the modal form
+    Given the employee "Homer" was scheduled in the plan as following:
+        | week | cwday | quickie                      |
+        | 49   | 2     | 9-17 Reaktor putzen          |
+      And a team exists with name: "Brennstäbe wechseln", organization: the organization
+      And I am on the teams in day page of the plan for year: 2012, month: 12, day: 04
+     When I click on the scheduling "9-17"
+      And I change the "Quickie" from "9-17 Reaktor putzen [Rp]" to "10-18 Brennstäbe wechseln" and select "Homer S" as "Mitarbeiter"
+     Then I should see the following time bars:
+      """
+      "Reaktor putzen"
+      "Brennstäbe wechseln"  |10-"Homer S"-18|
+      """
+
+  @todo
+  Scenario: moving a scheduling to a new team by editing the quickie it in the modal form, creating a new row in the table
+
   Scenario: commenting an existing scheduling
     Given the employee "Homer" was scheduled in the plan as following:
         | week | cwday | quickie                 |

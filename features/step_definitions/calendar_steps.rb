@@ -89,18 +89,24 @@ Then /^I should see the following time bars:$/ do |raw|
         team_name = $1
       end
 
-      line.scan(/\|[^|]+\|/).each do |bar|     # |9-"Homer S"-17|
+      row = row_index_for(team_name)
+      expected_bars = line.scan(/\|[^|]+\|/)
+
+      expected_bars.each do |bar|     # |9-"Homer S"-17|
         if team_name.blank?
           raise ArgumentError, "no team name found yet"
         end
         if bar =~ /^\|(\d+)-#{capture_quoted}-(\d+)\|$/
           start_hour, employee, end_hour = $1.to_i, $2, $3.to_i
-          row = row_index_for(team_name)
-          selector = %Q~tbody tr:nth-child(#{row+1}) td.bars div[data-start="#{start_hour}"][data-length="#{end_hour - start_hour}"]~
+          selector = %Q~tbody tr:nth-child(#{row+1}) td.bars div.scheduling[data-start="#{start_hour}"][data-length="#{end_hour - start_hour}"]~
           page.should have_css(selector, text: employee)
         else
           raise ArgumentError, "bad time bar given: #{bar.inspect}"
         end
+      end
+
+      if expected_bars.empty?
+        page.should have_no_css( %Q~tbody tr:nth-child(#{row+1}) td.bars div.scheduling~ )
       end
     end
   end
