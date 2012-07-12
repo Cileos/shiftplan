@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 require 'factory_girl'
-FactoryGirl.createGirl.reload
+FactoryGirl.reload
 
 require 'database_cleaner'
 DatabaseCleaner.clean_with :truncation
