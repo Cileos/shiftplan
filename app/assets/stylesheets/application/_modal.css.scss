@@ -58,6 +58,21 @@
             @include _hidden();
         }
     }
+    .new_post, .edit_post {
+        /* title */
+        .control-group.string {
+            .control-label {
+                width: 50px;
+                text-align: left;
+            }
+            .controls {
+                margin-left: 70px;
+                input {
+                    width: 445px;
+                }
+            }
+        }
+    }
     .actions {
         margin-top: 20px;
         padding-top: 20px;
