@@ -1,4 +1,6 @@
 class SchedulingFilterTeamsInDayDecorator < SchedulingFilterDecorator
+  include StackDecoratorHelper
+
   def formatted_range
     I18n.localize date.to_date, format: :default_with_week_day
   end
@@ -9,14 +11,7 @@ class SchedulingFilterTeamsInDayDecorator < SchedulingFilterDecorator
   end
 
   def schedulings_for(team)
-    records.select { |r| r.team_id == team.id }.sort_by(&:employee_id)
-  end
-
-  def metadata_for(scheduling)
-    {
-      start: scheduling.start_hour,
-      length: scheduling.length_in_hours
-    }
+    pack_in_stacks records.select { |r| r.team_id == team.id }.sort_by(&:employee_id)
   end
 
   def cell_metadata(team)

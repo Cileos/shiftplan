@@ -58,7 +58,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   def cell_content(*a)
     schedulings = find_schedulings(*a)
     unless schedulings.empty?
-      h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate)
+      h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate), filter: self
     end
   end
 

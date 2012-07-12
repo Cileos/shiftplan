@@ -43,3 +43,12 @@ Feature: View teams over hours of a day in plan
       "Reaktor putzen"        |9-"Homer S"-17|
       "Brennstäbe wechseln"
       """
+
+  Scenario: commenting an existing scheduling
+    Given the employee "Homer" was scheduled in the plan as following:
+        | week | cwday | quickie                 |
+        | 49   | 2     | 9-17 Reaktor putzen     |
+      And I am on the teams in day page of the plan for year: 2012, month: 12, day: 04
+     When I follow "Kommentare" within the calendar
+      And I comment "Excellent!"
+     Then I should see "1" within the comment link within the calendar
