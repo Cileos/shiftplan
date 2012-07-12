@@ -4,14 +4,32 @@
 Then /^I should be able to change the #{capture_quoted} from #{capture_quoted} to #{capture_quoted} and select #{capture_quoted} as #{capture_quoted}$/ do |quickie_field, old_quickie, quickie, employee, employee_field|
   within_modal_box do
     find_field(quickie_field).value.should == old_quickie
+
     fill_in quickie_field, with: '1-'
     click_button "Speichern"
     with_scope 'errors' do
       page.should have_content("#{quickie_field} ist nicht gültig")
     end
+
     fill_in quickie_field, with: quickie
     select employee, from: employee_field
     click_button "Speichern"
+  end
+end
+
+When /^I fill in the empty #{capture_quoted} with #{capture_quoted} and select #{capture_quoted} as #{capture_quoted}$/ do |quickie_field, quickie, employee, employee_field|
+  within_modal_box do
+    find_field(quickie_field).value.should be_empty
+
+    fill_in quickie_field, with: '1-'
+    click_button "Anlegen"
+    with_scope 'errors' do
+      page.should have_content("#{quickie_field} ist nicht gültig")
+    end
+
+    fill_in quickie_field, with: quickie
+    select employee, from: employee_field
+    click_button "Anlegen"
   end
 end
 

@@ -18,4 +18,20 @@ class SchedulingFilterTeamsInDayDecorator < SchedulingFilterDecorator
       length: scheduling.length_in_hours
     }
   end
+
+  def cell_metadata(team)
+    { team_id: team.id, date: date.iso8601 }
+  end
+
+  def cell_selector(scheduling)
+   %Q~#calendar tbody td[data-team_id=#{scheduling.team_id}]~
+  end
+
+  def coordinates_for_scheduling(scheduling)
+    [ scheduling.team ]
+  end
+
+  def teams
+    plan.organization.teams
+  end
 end

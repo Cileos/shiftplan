@@ -1,12 +1,15 @@
+@javascript
 Feature: View teams over hours of a day in plan
   In order to finely schedule my employees by teams
   As a planer
   I want specify work times by dragging time bars for a single day
 
-  Scenario: just looking at the view with one scheduled employee
-    Given today is 2012-12-04
+  Background:
+    Given today is Tuesday, the 2012-12-04
       And the situation of a nuclear reactor
-      And the employee "Homer" was scheduled in the plan as following:
+
+  Scenario: just looking at the view with one scheduled employee
+    Given the employee "Homer" was scheduled in the plan as following:
         | week | cwday | quickie                      |
         | 49   | 1     | 9-17 Reaktor putzen          |
         | 49   | 1     | 17-20 Lampen betrachten      |
@@ -16,10 +19,27 @@ Feature: View teams over hours of a day in plan
         | 49   | 1     | 12-19 Reaktor putzen |
       And I am on the page of the plan
      When I follow "Tag"
-     Then I should see the following time bars:
+     Then I should be on the teams in day page of the plan for year: 2012, month: 12, day: 03
+      And I should see the following time bars:
       """
       "Reaktor putzen"        |9-"Homer S"-17|    
                                  |12-"Lenny L"-19|
       "Lampen betrachten"                    |17-"Homer S"-20|
+      "Abklingbecken trocknen"
       """
-      But I should not see "Abklingbecken trocknen"
+
+  @todo
+  Scenario: looking at schedulings without assigned teams
+
+  Scenario: create a scheduling by clicking in free space and filling out form in modal
+    Given a team exists with name: "Reaktor putzen", organization: the organization
+      And a team exists with name: "Brennstäbe wechseln", organization: the organization
+      And I am on the teams in day page of the plan for year: 2012, month: 12, day: 04
+     When I click on the "Reaktor putzen" row
+      And I fill in the empty "Quickie" with "9-17" and select "Homer S" as "Mitarbeiter"
+     Then I should be on the teams in day page of the plan for year: 2012, month: 12, day: 04
+      And I should see the following time bars:
+      """
+      "Reaktor putzen"        |9-"Homer S"-17|
+      "Brennstäbe wechseln"
+      """

@@ -11,6 +11,13 @@ When /^I click on the #{capture_quoted} column$/ do |column_name|
   EOJS
 end
 
+When /^I click on the #{capture_quoted} row$/ do |row_name|
+  row = row_index_for(row_name)
+  page.execute_script <<-EOJS
+    $("tbody tr:nth-child(#{row +1}) td:last").click()
+  EOJS
+end
+
 When /^I click on (?:the )?scheduling #{capture_quoted}$/ do |quickie|
   page.find(".scheduling", text: quickie).click()
 end

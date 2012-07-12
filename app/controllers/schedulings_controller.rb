@@ -21,7 +21,7 @@ class SchedulingsController < InheritedResources::Base
     end
 
     def filter
-      @filter ||= SchedulingFilterDecorator.decorate(pure_filter, mode: params[:action])
+      @filter ||= SchedulingFilterDecorator.decorate(pure_filter, mode: current_plan_mode || params[:action])
     end
     helper_method :filter
 

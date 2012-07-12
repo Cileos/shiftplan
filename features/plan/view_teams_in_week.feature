@@ -27,12 +27,8 @@ Feature: View Teams over weekdays in plan
     Given a team exists with name: "Reaktor putzen", organization: the organization
       And I am on the teams in week page of the plan for year: 2012, week: 49
      When I click on cell "Di"/"Reaktor putzen"
-      And I wait for the new scheduling form to appear
-     Then the "Quickie" field should be empty
-     When I fill in "Quickie" with "9-17"
-      And I select "Homer S" from "Mitarbeiter"
-      And I press "Anlegen"
-      And I wait for the new scheduling form to disappear
+      And I fill in the empty "Quickie" with "9-17" and select "Homer S" as "Mitarbeiter"
+
      Then I should be on the teams in week page of the plan for year: 2012, week: 49
       And I should see the following calendar:
        | Teams          | Mo | Di           | Mi | Do | Fr |
