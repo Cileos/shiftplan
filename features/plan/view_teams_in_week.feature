@@ -52,7 +52,7 @@ Feature: View Teams over weekdays in plan
        | Reaktor putzen |    | Lenny L 1-23 |    |    |    |
 
   @todo
-  Scenario: change team?
+  Scenario: change team? How? clear it by just entering "1-23" as quickie?
 
   @todo
   Scenario: clicking in row A, but entering Team B in quickie
