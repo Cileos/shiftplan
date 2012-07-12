@@ -43,6 +43,21 @@
             visibility: hidden;
         }
     }
+    #new_employee, form[id^="edit_employee_"] {
+        img.avatar {
+            position: absolute;
+            left: 130px;
+        }
+        #employee_avatar {
+            position: relative;
+            left: 40px;
+            width: 260px;
+            font-size: 11px;
+        }
+        .hidden {
+            @include _hidden();
+        }
+    }
     .actions {
         margin-top: 20px;
         padding-top: 20px;
