@@ -1,9 +1,4 @@
 class SchedulingFilterEmployeesInWeekDecorator < SchedulingFilterWeekDecorator
-
-  def schedulings_for(day, employee)
-    filter.indexed(day, employee).sort_by(&:start_hour)
-  end
-
   def cell_metadata(day, employee)
     { employee_id: employee.id, date: day.iso8601 }
   end
@@ -25,6 +20,10 @@ class SchedulingFilterEmployeesInWeekDecorator < SchedulingFilterWeekDecorator
     teams.map do |team|
       %Q~.#{dom_id(team)} { border-color: #{team.color};}~
     end.join(' ')
+  end
+
+  def y_attribute
+    :employee
   end
 
   def selector_for(name, *a)

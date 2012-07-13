@@ -154,8 +154,19 @@ class Scheduling < ActiveRecord::Base
     SchedulingFilter.new params.reverse_merge(:base => self)
   end
 
+  # FIXME going to fail on month/day view
   def concurrent
     SchedulingFilter.new week: week, employee: employee, year: year, plan: plan
+  end
+
+  def with_previous_changes_undone
+    dup.tap do |copy|
+      copy.attributes = attributes_for_undo
+    end
+  end
+
+  def attributes_for_undo
+    previous_changes.map { |k,(o,n)| { k => o }}.inject(&:merge)
   end
 
   def team_name

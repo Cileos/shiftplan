@@ -47,7 +47,10 @@ de:
       change_email: 'E-Mail Adresse ändern'
       change_password: 'Passwort ändern'
   schedulings:
+    calendar_navigation:
+      day: "Tag"
     week_switch:
       employees_in_week: "Mitarbeiter"
+      teams_in_week: "Teams"
       hours_in_week: "Stunden"
 

@@ -6,6 +6,7 @@ class SchedulingsController < InheritedResources::Base
   # same as SchedulingFilter::Modes - naming explicitly here because of
   # decoupling and we don't want eagler preloading here
   custom_actions collection: [:employees_in_week, :hours_in_week] 
+  # FIXME obviously the custom actions are not neccessary if a view with the name exists
   layout 'calendar'
 
   respond_to :html, :js
@@ -20,7 +21,7 @@ class SchedulingsController < InheritedResources::Base
     end
 
     def filter
-      @filter ||= SchedulingFilterDecorator.decorate(pure_filter, mode: params[:action])
+      @filter ||= SchedulingFilterDecorator.decorate(pure_filter, mode: current_plan_mode || params[:action])
     end
     helper_method :filter
 
@@ -30,7 +31,7 @@ class SchedulingsController < InheritedResources::Base
 
     def filter_params
       params
-        .slice(:week, :year, :ids)
+        .slice(:week, :year, :ids, :day, :month)
         .reverse_merge(:year => Date.today.year)
         .merge(:plan => parent)
     end

@@ -30,7 +30,7 @@ end
 
 group :test do
   gem 'cucumber-rails', "~> 1.2.1", :require => false
-  gem 'rspec-rails', "~> 2.10.1"
+  gem 'rspec-rails', "~> 2.11.o"
   gem 'launchy'
   gem "pickle"
   gem "timecop"
@@ -54,6 +54,8 @@ group :test do
   gem 'term-ansicolor' # for ScenarioTodo
 
   gem 'fuubar-cucumber', git: 'git://github.com/iain/fuubar-cucumber.git', branch: 'cucumber-1-2-api' # the ETA progress bar
+
+  gem 'diff_matcher'
 end
 
 group :development, :test do

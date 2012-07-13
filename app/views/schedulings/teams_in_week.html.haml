@@ -1,0 +1,17 @@
+- title filter.caption, false
+
+%table#calendar.table.table-striped.table-bordered.table-condensed{class: filter.range, data: filter.table_metadata}
+  %thead
+    %tr
+      %th
+        = render 'week_switch', filter: filter
+      - filter.formatted_days.each do |full, abbr|
+        %th= abbr_tag(abbr, full, class: 'day_name')
+  %tbody
+    - filter.teams.each do |team|
+      %tr{data: { team_id: team.id }}
+        %th.team
+          %span.team_name= team.name
+        - filter.days.each do |day|
+          %td{data: filter.cell_metadata(day, team)}
+            = filter.cell_content(day, team)

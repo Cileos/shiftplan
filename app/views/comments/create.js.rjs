@@ -10,7 +10,7 @@ when Scheduling
       comment.reset_form
     end
     page.decorate @comment.commentable.concurrent do |filter|
-      filter.update @comment.commentable
+      filter.respond_for_update @comment.commentable
     end
   else
     page << %Q~alert("no comment.")~

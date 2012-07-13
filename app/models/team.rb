@@ -14,6 +14,7 @@ class Team < ActiveRecord::Base
   validates_format_of :color, with: /\A#[0-9A-F]{6}\z/
 
   attr_accessible :name, :shortcut, :color
+  validates_uniqueness_of :name, scope: :organization_id
 
   # Remove outer and double inner spaces
   def name=(new_name)

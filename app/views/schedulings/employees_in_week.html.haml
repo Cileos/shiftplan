@@ -12,7 +12,7 @@
       %tr{data: { employee_id: employee.id }}
         %th.employee
           = avatar(employee.user, employee, :tiny)
-          %span.name= employee.name
+          %span.employee_name= employee.name
           .wwt_diff
             %span.weekly_working_time
               = translate_action(:hours) + '/'

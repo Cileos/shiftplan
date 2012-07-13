@@ -276,6 +276,10 @@ describe Scheduling do
         scheduling.quickie.should == '1-23 <team quickie part>'
       end
 
+      context "with team" do
+        it "should not clear association if assigned quickie does not contain (same) team name"
+      end
+
     end
   end
 
@@ -319,6 +323,56 @@ describe Scheduling do
       two = create :scheduling, quickie: '9-17', stack: 1
       one.should_not be_overlap(two)
       two.should_not be_overlap(one)
+    end
+  end
+
+  context "with a deeply nested comments" do
+    it "should be destroyable"
+    # currently tries to fetch comments which are already deleted. Almost minimal version:
+    # comment
+    # comment
+    #   answer
+    #   answer
+    #     superanswer
+    # comment
+  end
+
+  context "undoing changes" do
+    let(:team)     { create :team, name: 'Original' }
+    let(:plan)     { create :plan, organization: team.organization }
+    let(:record)   { create :scheduling, quickie: "1-15", team: team, plan: plan }
+    let(:new_team) { create :team, name: 'New', organization: record.team.organization }
+    let(:actual_updates)  { { team_id: new_team.id } }
+    let(:updates)  { { quickie: "1-18 #{new_team.to_quickie}" } }
+    let(:undone)   { record.with_previous_changes_undone }
+
+    before :each do
+      record.update_attributes!(updates)
+    end
+
+    it "should have hash to work on" do
+      record.attributes_for_undo.should be_a(Hash)
+      record.attributes_for_undo.should be_hash_matching({'team_id'=> team.id}, ignore_additional: true)
+      record.attributes_for_undo.should_not have_key('starts_at')
+      record.attributes_for_undo.should have_key('ends_at')
+    end
+
+    it "should be present" do
+      undone.should be_present
+      undone.should be_a(Scheduling)
+    end
+
+    it "should revert to the old values" do
+      undone.team.should == team
+    end
+
+    it "should accept new team" do
+      record.team.should == new_team
+    end
+
+    it "should not touch the original record iself" do
+      undone
+      record.team.should == new_team
     end
   end
 end

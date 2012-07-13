@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe SchedulingFilter do
 
-  let(:bad_day) { mock('Date', iso8601: '2011-sometimes') }
-
   it "converts stringy week to integer" do
     filter = SchedulingFilter.new(week: '23')
     filter.week.should == 23
@@ -64,14 +62,6 @@ describe SchedulingFilter do
       filter.duration_in_days.should == 7
     end
 
-    context "scheduled nothing" do
-      context "index accessor" do
-        it "should return empty array" do
-          filter.indexed(bad_day, 42).should == []
-        end
-      end
-    end
-
     context "scheduled a lot" do
       let(:plan)   { create :plan }
       let(:filter) { SchedulingFilter.new week: 52, year: 2012, plan: plan }
@@ -107,45 +97,24 @@ describe SchedulingFilter do
 
       end
 
-      context "index" do
-        let(:i) { filter.index }
+    end
 
-        it "should index the records by their date" do
-          i.keys.should include(@waiting.iso8601)
-          i.keys.should include(@opening.iso8601)
-          i.keys.should include(@eating1.iso8601)
-          i.keys.should include(@eating2.iso8601)
-        end
+  end
 
-        it "should index by iso8601 and employee" do
-          i[@waiting.iso8601].keys.should have(1).record
-          i[@waiting.iso8601].keys.should include(@waiting.employee)
-          i[@waiting.iso8601][@waiting.employee].should == [@waiting]
+  describe "for exactly one day" do
+    let(:filter) { SchedulingFilter.new year: 2012, month: 12, day: 23 }
+    it "should know its date" do
+      filter.date.should == Date.new(2012,12,23)
+    end
 
-          i[@opening.iso8601][@opening.employee].should == [@opening]
-        end
+    it "should find record on that day" do
+      scheduling = create :manual_scheduling, starts_at: filter.date
+      filter.records.should include(scheduling)
+    end
 
-        it "should group to scheduling on the same day" do
-          i[@eating1.iso8601][@eating1.employee].should == [@eating1]
-          i[@eating1.iso8601][@eating2.employee].should == [@eating2]
-          #       ^^^ grouped on 
-        end
-      end
-
-      context "index accessor" do
-        it "find the records" do
-          filter.indexed(@eating1.date, @eating1.employee).should == [@eating1]
-        end
-
-        it "does not break if nothing found" do
-          expect { filter.indexed(bad_day, 42) }.not_to raise_error
-        end
-
-        it "returns empty array when nothing found" do
-          filter.indexed(bad_day, 42).should == []
-        end
-      end
-
+    it "should not find record on other day" do
+      scheduling = create :scheduling, date: filter.date - 5.days
+      filter.records.should_not include(scheduling)
     end
 
   end

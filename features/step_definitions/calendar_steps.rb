@@ -4,8 +4,22 @@ When /^I click on #{capture_cell}$/ do |cell|
   EOJS
 end
 
+When /^I click on the #{capture_quoted} column$/ do |column_name|
+  column = column_index_for(column_name)
+  page.execute_script <<-EOJS
+    $("tbody tr:first td:nth-child(#{column +1})").click()
+  EOJS
+end
+
+When /^I click on the #{capture_quoted} row$/ do |row_name|
+  row = row_index_for(row_name)
+  page.execute_script <<-EOJS
+    $("tbody tr:nth-child(#{row +1}) td:last").click()
+  EOJS
+end
+
 When /^I click on (?:the )?scheduling #{capture_quoted}$/ do |quickie|
-  page.find("li", text: quickie).click()
+  page.find(".scheduling", text: quickie).click()
 end
 
 Then /^the #{capture_cell} should be (focus)$/ do |cell, predicate|
@@ -40,18 +54,6 @@ When /^I press (#{directions}) (\d{1,2}) times$/ do |direction, times|
   end
 end
 
-When /^I schedule #{capture_quoted} on #{capture_quoted} for #{capture_quoted}$/ do |employee, day, quickie|
-  steps <<-EOSTEPS
-     When I click on cell "#{day}"/"#{employee}"
-      And I wait for the modal box to appear
-      And I wait for the new scheduling form to appear
-      And I fill in "Quickie" with "#{quickie}"
-      And I press "Anlegen"
-      And I wait for the new scheduling form to disappear
-      And I wait for the modal box to disappear
-  EOSTEPS
-end
-
 Then /^I should see a calendar (?:titled|captioned) #{capture_quoted}$/ do |caption|
   step %Q~I should see "#{caption}" within ".caption" within the calendar navigation~
 end
@@ -66,21 +68,42 @@ Then /^I should see the following calendar:$/ do |expected|
   expected.diff! actual
 end
 
-# TODO multiple entries per "cell"/column
-Then /^I should see the following calendar with (?:hours in week):$/ do |expected|
-  calendar = find(selector_for('the calendar'))
-  actual = calendar.all("thead:first tr, tbody tr").map do |tr|
-    tr.all('th, td').map do |cell|
-      cell.all('.name, .work_time, .day_name').map(&:text).map(&:strip).join(' ')
+Then /^I should see the following time bars:$/ do |raw|
+  team_name = nil
+
+  with_scope 'the calendar' do
+    raw.lines.each do |line|
+      if line =~ /^\s*#{capture_quoted}/
+        team_name = $1
+      end
+
+      row = row_index_for(team_name)
+      expected_bars = line.scan(/\|[^|]+\|/)
+
+      expected_bars.each do |bar|     # |9-"Homer S"-17|
+        if team_name.blank?
+          raise ArgumentError, "no team name found yet"
+        end
+        if bar =~ /^\|(\d+)-#{capture_quoted}-(\d+)\|$/
+          start_hour, employee, end_hour = $1.to_i, $2, $3.to_i
+          selector = %Q~tbody tr:nth-child(#{row+1}) td.bars div.scheduling[data-start="#{start_hour}"][data-length="#{end_hour - start_hour}"]~
+          page.should have_css(selector, text: employee)
+        else
+          raise ArgumentError, "bad time bar given: #{bar.inspect}"
+        end
+      end
+
+      if expected_bars.empty?
+        page.should have_no_css( %Q~tbody tr:nth-child(#{row+1}) td.bars div.scheduling~ )
+      end
     end
   end
-  expected.diff! actual
 end
 
 Then /^I should see the following WAZ:$/ do |expected|
   calendar = find(selector_for('the calendar'))
   actual = calendar.all("tbody tr").map do |tr|
-    tr.all('th:first span.name, th:first .wwt_diff .badge').map(&:text)
+    tr.all('th:first span.employee_name, th:first .wwt_diff .badge').map(&:text)
   end
   expected.diff! actual
 end
