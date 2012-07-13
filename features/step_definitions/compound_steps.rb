@@ -33,6 +33,16 @@ When /^I fill in the empty #{capture_quoted} with #{capture_quoted} and select #
   end
 end
 
+# TODO same as "I fill in the empty" ?
+When /^I schedule #{capture_quoted} on #{capture_quoted} for #{capture_quoted}$/ do |employee, day, quickie|
+  step %Q~I click on cell "#{day}"/"#{employee}"~
+  within_modal_box do
+    fill_in 'Quickie', with: quickie
+    click_button "Anlegen"
+  end
+end
+
+
 When /^I comment #{capture_quoted}$/ do |comment|
   field = "Kommentar"
   within_modal_box(true) do
