@@ -43,6 +43,16 @@ Feature: Plan cursor
      When I press arrow up
      Then the cell "Mo"/"Planner Burns" should be focus
 
+     # vim controls
+     When I press key "j"
+     Then the cell "Mo"/"Carl C" should be focus
+     When I press key "l"
+     Then the cell "Di"/"Carl C" should be focus
+     When I press key "k"
+     Then the cell "Di"/"Planner Burns" should be focus
+     When I press key "h"
+     Then the cell "Mo"/"Planner Burns" should be focus
+
      # navigate vertically through multiple schedulings per cell
      When I press arrow right 3 times
      Then the cell "Do"/"Planner Burns" should be focus
