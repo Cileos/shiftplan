@@ -11,7 +11,7 @@ class SchedulingFilterEmployeesInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def update_legend
-    select(:legend).html legend
+    select(:legend).refresh_html legend
   end
 
   # TODO move into own view to fetch as an organization-specific asset

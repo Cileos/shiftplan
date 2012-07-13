@@ -110,8 +110,9 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  # the 'badge-normal' class is not actually used by bootstrap, but we cannot test for absent class
   def wwt_diff_label_class_for(employee)
-    return '' unless employee.weekly_working_time.present?
+    return 'badge-normal' unless employee.weekly_working_time.present?
     difference = employee.weekly_working_time - hours_for(employee)
     if difference > 0
       'badge-warning'
@@ -183,7 +184,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
     if resource.next_day
       update_cell_for(resource.next_day)
     end
-    update_wwt_diff_for(resource.employee)
   end
 
   def respond_for_update(resource)
@@ -192,12 +192,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def update_cell_for(scheduling)
-    select(:cell, scheduling).html cell_content(scheduling) || ''
-    select(:cell, scheduling).trigger 'update'
+    update_wwt_diff_for(scheduling.employee)
+    select(:cell, scheduling).refresh_html cell_content(scheduling) || ''
   end
 
   def update_wwt_diff_for(employee)
-    select(:wwt_diff, employee).html wwt_diff_for(employee)
+    select(:wwt_diff, employee).refresh_html wwt_diff_for(employee)
   end
 
 

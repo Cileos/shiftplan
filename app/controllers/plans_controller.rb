@@ -25,6 +25,6 @@ class PlansController < InheritedResources::Base
   end
 
   def current_week_path
-    organization_plan_week_path(current_organization, resource, Date.today.cweek)
+    organization_plan_employees_in_week_path(current_organization, resource, Date.today.year, Date.today.cweek)
   end
 end

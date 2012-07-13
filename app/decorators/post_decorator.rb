@@ -13,11 +13,11 @@ class PostDecorator < ApplicationDecorator
   end
 
   def update_posts(post)
-    select(:posts).html posts_list(post)
+    select(:posts).refresh_html posts_list(post)
   end
 
   def update_post(post)
-    select(:post, post).html post_details(post)
+    select(:post, post).refresh_html post_details(post)
   end
 
   def posts_list(post)

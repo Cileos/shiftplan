@@ -113,7 +113,7 @@ Then /^the employee #{capture_quoted} should have a (yellow|green|red|grey) hour
     'yellow' => 'badge-warning',
     'green'  => 'badge-success',
     'red'    => 'badge-important',
-    'grey'    => nil
+    'grey'   => 'badge-normal'
   }
 
   classes = [ 'badge', color_class_mapping[color]].compact

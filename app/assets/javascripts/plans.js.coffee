@@ -1,5 +1,8 @@
 jQuery(document).ready ->
 
+  $.fn.refreshHtml = (content) ->
+    $(this).html(content).trigger('update')
+
   # HACK the server side of the application has to know which mode the current
   # plan is in to update the cell accordingly. Yes, this validates the same
   # origin policy.
@@ -9,8 +12,14 @@ jQuery(document).ready ->
 
   $('table#calendar').each ->
     $calendar = $(this)
-    $calendar.find('abbr').tooltip()
     cursor = new CalendarCursor $calendar
+
+    refresh_behaviour_of_header = ->
+      $cell = $(this)
+      $cell.find('abbr').tooltip()
+
+    $calendar.on 'update', 'th', refresh_behaviour_of_header
+    $calendar.find('th').each refresh_behaviour_of_cell
 
     refresh_behaviour_of_cell = ->
       $cell = $(this)

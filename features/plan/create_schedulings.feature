@@ -22,6 +22,7 @@ Feature: create a scheduling
         | Carl C        |    |    |      |    |    |    |    |
         | Lenny L       |    |    |      |    |    |    |    |
         | Homer S       |    |    | 9-17 |    |    |    |    |
+     And the employee "Homer S" should have a yellow hours/waz value of "8 / 40"
 
   @javascript
   Scenario: scheduling the same employee twice per day
