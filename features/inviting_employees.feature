@@ -95,9 +95,9 @@ Feature: Inviting Employees
   Scenario: Displaying the e-mail address or the invitation status on the employees page
     When I go to the employees page for the organization "fukushima"
     Then I should see the following table of employees:
-      | Name           | E-Mail               | Status |
-      | Burns, Planner | planner@fukushima.jp | Aktiv  |
-      | Simpson, Homer |                      |        |
+      | Name           | E-Mail               | Status                |
+      | Burns, Planner | planner@fukushima.jp | Aktiv                 |
+      | Simpson, Homer |                      | Noch nicht eingeladen |
 
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful

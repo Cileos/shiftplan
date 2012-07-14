@@ -5,9 +5,9 @@ Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)" fo
   step %{a clear email queue}
   step %{I go to the employees page for the organization "#{organization}"}
   if invite_or_reinvite == 'invite'
-    step %{I follow "Einladen" within the cell "Status"\/"#{employee.last_and_first_name}"}
+    step %{I follow "Einladen" within the cell "Aktion"\/"#{employee.last_and_first_name}"}
   else
-    step %{I follow "Erneut einladen" within the cell "Status"\/"#{employee.last_and_first_name}"}
+    step %{I follow "Erneut einladen" within the cell "Aktion"\/"#{employee.last_and_first_name}"}
   end
   step %{I wait for the modal box to appear}
   if invite_or_reinvite == 'reinvite'
