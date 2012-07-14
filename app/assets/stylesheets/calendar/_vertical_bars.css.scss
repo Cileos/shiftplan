@@ -1,7 +1,7 @@
 /*
   We try to copy google calendar's layout: Basically, they use a table for the
   columns, but only one row for the content itself, because schedulings can span
-  over multiple hours. 
+  over multiple hours.
 
   Downside: we have to set the height of "rows" and schedulings per css
 
@@ -10,8 +10,6 @@
 
 $row_height: 42px;
 $bar_shift: $row_height * 2/3;
-$gradient_1: #ececec;
-$gradient_2: #F0F4F8;
 $burning_bear: #FF7200;
 
 table#calendar {
