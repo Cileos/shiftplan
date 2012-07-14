@@ -34,7 +34,7 @@ $ci_blue: #00a7c9;
     abbr {
         // show full description
         &:before {
-            content: attr(data-original-title);
+            content: attr(title);
         }
         // hide the shortened stuff (will be shown wenn width < 1000px or < 800px )
         span {
