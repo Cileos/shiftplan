@@ -4,4 +4,5 @@
     = link_to ti(:add, translation_key: 'posts.new'), [:new, current_organization, company_blog, :post], |
       class: 'btn btn-primary', remote: true
 
-= render('posts/posts_with_pagination', posts: @posts)
+.posts
+  = render('posts/posts_with_pagination', posts: @posts)
