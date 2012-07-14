@@ -5,7 +5,18 @@
 
 
 table {
+    border-collapse: separate;
     .numeric {
         text-align: right;
     }
+    thead {
+        border-bottom: 1px solid #ccc;
+        th {
+            padding: 8px 5px;
+            position: relative;
+            z-index: 40;
+            @include _set_gradient_background($color: $gradient_1, $percentage: 5%);
+        }
+    }
+}
 }

@@ -65,12 +65,7 @@ $ci_blue: #00a7c9;
         color: #555;
     }
     thead {
-        border-bottom: 1px solid #ccc;
         th {
-            padding: 8px 5px;
-            position: relative;
-            z-index: 40;
-            @include _set_gradient_background($color: $gradient_1, $percentage: 5%);
             &:not(.employees) {
                 text-align: center;
             }
