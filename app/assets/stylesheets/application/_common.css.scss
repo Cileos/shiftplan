@@ -6,6 +6,9 @@
 
 table {
     border-collapse: separate;
+    border: 1px solid #DDD;
+    @include box-shadow(#e0e0e0 0px 0px 10px 0px);
+    @include border-radius(5px);
     .numeric {
         text-align: right;
     }
@@ -16,6 +19,14 @@ table {
             position: relative;
             z-index: 40;
             @include _set_gradient_background($color: $gradient_1, $percentage: 5%);
+            /* override bootstrap ... again */
+            border-top: 1px solid #DDD !important;
+            &:first-child {
+                @include border-radius(5px 0 0 0);
+            }
+            &:last-child {
+                @include border-radius(0 5px 0 0);
+            }
         }
     }
 }
