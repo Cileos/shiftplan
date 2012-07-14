@@ -6,4 +6,10 @@
 
 #teams {
     @extend #employees;
+    td {
+        line-height: 13px;
+    }
+    .pibble.team-color {
+        margin-top: 1px;
+    }
 }

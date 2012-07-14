@@ -40,3 +40,11 @@ table {
 .btn-toolbar {
    margin-bottom: 15px;
 }
+
+.pibble.team-color {
+    display: inline-block;
+    border: 1px solid #666;
+    @include border-radius(3px);
+    height: 13px;
+    width: 13px;
+}
