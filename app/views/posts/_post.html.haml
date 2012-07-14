@@ -6,6 +6,6 @@
 %h3= post.title
 - if truncation
   .body= truncate(post.body, :length => 300, :omission => ' …')
+  = render('posts/comments_count', post: post)
 - else
   .body= post.body
-= render('posts/comments_count', post: post)
