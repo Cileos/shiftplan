@@ -2,6 +2,6 @@
 
 #actions.btn-toolbar
   - if can? :create, Employee
-    = link_to ti(:add), new_organization_employee_path(current_organization), class: 'btn btn-inverse', remote: true
+    = link_to ti(:add), new_organization_employee_path(current_organization), class: 'btn btn-primary', remote: true
 
 = render 'table', employees: collection
