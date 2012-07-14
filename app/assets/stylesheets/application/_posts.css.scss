@@ -1,79 +1,47 @@
-textarea#post_body {
-  width: 515px;
-}
-div.blog {
-  p.new {
-    margin-left: 20px;
-  }
-  .pagination {
-    margin-left: 20px;
-  }
-}
-p#all-news {
-  margin-top: 10px;
-}
-.post {
-  p.actions {
-    margin-top: 10px;
-    a {
-      float: left;
-      clear: both;
-    }
-  }
-  input#destroy-post {
-    float: right;
-  }
-  a#back {
-    float: left;
-    clear: both;
-    margin-top: 20px;
-  }
-}
+/* --------------------------------------------------------------------- */
+/*  _posts.css.scss                                                      */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
 ul#posts {
-  margin-top: 20px;
-  margin-left: 20px;
-  list-style-type: none;
-}
-div.post > div {
-  float: left;
-  clear: both;
-  padding-bottom: 20px;
-}
-div.post {
-  margin-left: 40px;
-  margin-top: 7px;
-  div.comments {
-    margin-top: 20px;
-    margin-left: 20px;
-    h4 {
-      margin-bottom: 20px;
-    }
-    ul#comments {
-      list-style-type: none;
-      li {
-        margin-top: 20px;
-        margin-bottom: 20px;
-      }
-    }
-    textarea {
-      width: 400px;
-      height: 100px;
-    }
-  }
+    margin: 0;
+    list-style-type: none;
 }
 .post {
-  padding-bottom: 20px;
-}
-.meta {
-  color: #999;
-}
-.own-meta {
-  color: #D14;
-}
-.body {
-  padding-top: 10px;
-  padding-bottom: 5px;
-}
-.more:after {
-  content: " \2192";
+    display: block;
+    margin: 50px 0 20px 25px;
+    padding: 10px 30px 0px 50px;
+    position: relative;
+    border: 1px solid #ccc;
+    @include border-radius(5px);
+    @include box-shadow(#ccc 0 0 10px 0px inset);
+    .avatar {
+        position: absolute;
+        left: -15px;
+        top: -18px;
+        width: 45px;
+    }
+    .meta, .own-meta {
+        position: absolute;
+        top: -18px;
+        left: 42px;
+        font-size: 12px;
+    }
+    h3 {
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 0.5em;
+        color: #666;
+    }
+    .body {
+        margin-bottom: 10px;
+    }
+    /* add arrow after 'Mehr' */
+    .more:after {
+        content: " \2192";
+    }
+    .comments-count {
+        float: right;
+    }
 }

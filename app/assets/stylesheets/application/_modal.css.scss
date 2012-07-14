@@ -60,14 +60,14 @@
     }
     .new_post, .edit_post {
         /* title */
-        .control-group.string {
+        .control-group {
             .control-label {
                 width: 50px;
                 text-align: left;
             }
             .controls {
                 margin-left: 70px;
-                input {
+                input, textarea {
                     width: 445px;
                 }
             }
