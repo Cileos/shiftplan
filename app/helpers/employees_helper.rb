@@ -3,22 +3,26 @@ module EmployeesHelper
     if employee.active?
       t(:'employees.invitation_status.active')
     elsif employee.invited?
-      if can? :manage, employee.invitation
-        (invitation_link(:reinvite, employee) + ' ' +
-          t(:'employees.invitation_status.invited', invited_at: l(employee.invitation.sent_at, format: :tiny))
-        ).html_safe
-      else
-        t(:'employees.invitation_status.invited', invited_at: l(employee.invitation.sent_at, format: :tiny))
-      end
+      t(:'employees.invitation_status.invited', invited_at: l(employee.invitation.sent_at, format: :tiny))
     else
-      can?(:manage, Invitation) ? invitation_link(:invite, employee) : t(:'employees.invitation_status.not_invited_yet')
+      t(:'employees.invitation_status.not_invited_yet')
+    end
+  end
+
+  def invitation_status_link(employee)
+    if !employee.active? && can?(:manage, Invitation)
+      if can? :manage, employee.invitation
+        invitation_link(:reinvite, employee)
+      else
+        invitation_link(:invite, employee)
+      end
     end
   end
 
   def invitation_link(type, employee)
     link_to ti(type, :'non-white' => true),
       invitation_url(type, employee),
-      class: 'btn btn-mini pull-right', :remote => true
+      class: 'btn btn-mini', :remote => true
   end
 
   # TODO: let rails guess the urls by providing the persisted invitation of an employee or a new record

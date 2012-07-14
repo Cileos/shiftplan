@@ -17,6 +17,8 @@ en:
         first_name: First Name
         last_name: Surname
   employees:
+    table:
+      action: Action
     invitation_status:
       invited: "invited on the %{invited_at}"
       active: active

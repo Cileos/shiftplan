@@ -5,8 +5,28 @@
 
 
 #employees {
+    width: auto;
     margin-top: 15px;
-    td {
+    thead th {
+        // border-top: 1px solid #DDD;
+        &:first-child {
+            // border-left: 1px solid #ddd;
+            @include border-radius(5px 0 0 0);
+        }
+        &:last-child {
+            // border-right: 1px solid #ddd;
+            @include border-radius(0 5px 0 0);
+        }
+    }
+    /* override bootstrap, put to common as soon as bootstrap is gone */
+    th, td {
+        padding: 7px 15px;
         vertical-align: middle;
+    }
+    td.waz {
+        width: 30px;
+    }
+    td.action {
+        // text-align: center;
     }
 }
