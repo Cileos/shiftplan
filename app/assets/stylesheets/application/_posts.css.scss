@@ -41,7 +41,7 @@ ul#posts {
     h3 {
         font-size: 16px;
         line-height: 20px;
-        margin-bottom: 0.5em;
+        margin-bottom: 0.75em;
         color: #666;
     }
     .body {
@@ -53,6 +53,13 @@ ul#posts {
     }
     .comments-count {
         float: right;
+    }
+    .actions {
+        float: right;
+        a, form {
+            float: left;
+            margin: 0 0 0 10px;
+        }
     }
 }
 
