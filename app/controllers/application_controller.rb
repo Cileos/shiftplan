@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
   # HACK on every AJAX request, we deliver the mode of the plan in a header, so
   # the RJS responses can figure out the correct decorators
   def current_plan_mode
-    if mode = request.headers['HTTP_X_SHIFTPLAN_MODE']
+    if mode = request.headers['HTTP_X_SHIFTPLAN_MODE'] || params['_shiftplan_mode']
       mode.inquiry
     else
       nil
