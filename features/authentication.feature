@@ -4,7 +4,7 @@ Feature: Authentication
 
   Scenario: Redirect to log in form with return to
     # week 49
-    Given today is 2012-12-04
+    Given today is 2011-12-04
       And the situation of a just registered user
      # redirected to sign in page
      When I go to the page of the plan
@@ -13,4 +13,4 @@ Feature: Authentication
       And I fill in "Passwort" with "secret"
       And I press "Einloggen"
      # redirected to initially requested page
-     Then I should be on the page of the plan for week: 49
+     Then I should be on the employees in week page of the plan for year: 2011, week: 48
