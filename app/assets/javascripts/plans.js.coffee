@@ -19,7 +19,7 @@ jQuery(document).ready ->
       $cell.find('abbr').tooltip()
 
     $calendar.on 'update', 'th', refresh_behaviour_of_header
-    $calendar.find('th').each refresh_behaviour_of_cell
+    $calendar.find('th').each refresh_behaviour_of_header
 
     refresh_behaviour_of_cell = ->
       $cell = $(this)
