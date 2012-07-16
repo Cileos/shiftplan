@@ -12,6 +12,7 @@
 
         = render 'calendar_navigation', filter: filter
         = yield
+        = help_tag 'calendar.keyboard'
         - if parent.respond_to?(:schedulings)
           - controller.gon.quickie_completions = parent.schedulings.quickies
       = render 'layouts/footer'

@@ -7,7 +7,7 @@
 
 %p Klicken Sie auf den folgenden Link, um zur Wochenansicht für diese Schicht zu gelangen. Kommentare und Antworten können Sie lesen und schreiben, indem Sie auf die entsprechende Schicht klicken.
 
-%p= link_to "Zur Wochenansicht >>", organization_plan_year_week_url(@scheduling.organization, @scheduling.plan, @scheduling.year, @scheduling.week)
+%p= link_to "Zur Wochenansicht >>",  organization_plan_employees_in_week_url(@scheduling.organization, @scheduling.plan, year: @scheduling.year, week: @scheduling.week)
 
 
 %p Ihr Shiftplan Team

@@ -11,7 +11,11 @@ class SchedulingFilterDecorator < ApplicationDecorator
   Modes = [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
 
   def mode
-    self.class.name.scan(/SchedulingFilter(.*)Decorator/).first.first.underscore
+    @mode ||= self.class.name.scan(/SchedulingFilter(.*)Decorator/).first.first.underscore
+  end
+
+  def mode?(query)
+    mode.include?(query)
   end
 
   def self.decorate(input, opts={})
@@ -145,7 +149,13 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # URI-Path to another week
   def path_to_week(week)
     raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
-    h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
+    h.send(:"organization_plan_#{mode}_path", h.current_organization, plan, year: week.year, week: week.cweek)
+  end
+
+  def path_to_day(day)
+    raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
+    raise(ArgumentError, "can only link to day in day view") unless mode?('day')
+    h.send(:"organization_plan_#{mode}_path", h.current_organization, plan, year: day.year, month: day.month, day: day.day)
   end
 
   # URI-Path to another mode
@@ -153,7 +163,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     raise(ArgumentError, "unknown mode: #{mode}") unless mode.in?(Modes)
     if mode =~ /week/
       # Array notation breaks on week-Fixnums
-      h.send("organization_plan_#{mode}_path", h.current_organization, plan, monday.year, monday.cweek)
+      h.plan_week_mode_path(plan, mode, monday)
     else
       '#' # TODO
     end

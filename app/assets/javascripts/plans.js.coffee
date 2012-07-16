@@ -3,15 +3,21 @@ jQuery(document).ready ->
   $.fn.refreshHtml = (content) ->
     $(this).html(content).trigger('update')
 
-  # HACK the server side of the application has to know which mode the current
-  # plan is in to update the cell accordingly. Yes, this validates the same
-  # origin policy.
-  $('table#calendar').ajaxSend (e, jqxhr, settings) ->
-    jqxhr.setRequestHeader('X-Shiftplan-Mode', $(this).data('mode'))
-    true
 
   $('table#calendar').each ->
     $calendar = $(this)
+
+    # HACK the server side of the application has to know which mode the current
+    # plan is in to update the cell accordingly. Yes, this validates the same
+    # origin policy.
+    $calendar.ajaxSend (e, jqxhr, settings) ->
+      jqxhr.setRequestHeader('X-Shiftplan-Mode', $calendar.data('mode'))
+
+    $hidden_mode = $("<input type='hidden' name='_shiftplan_mode' value='#{$calendar.data('mode')}' />").addClass('_shiftplan_mode')
+
+    $('body').bind 'dialogopen', (event, ui) ->
+      $(event.target).find('form:not([data-remote]):not(:has(input._shiftplan_mode))').append($hidden_mode)
+
     cursor = new CalendarCursor $calendar
 
     refresh_behaviour_of_header = ->

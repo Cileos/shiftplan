@@ -25,6 +25,10 @@ class CopyWeek
     end
   end
 
+  def target_day
+    (Date.new(target_year.to_i) + target_week.to_i.weeks).beginning_of_week
+  end
+
   # TODO actually copy
   def save
     Plan.transaction do
@@ -37,7 +41,11 @@ class CopyWeek
   end
 
   def source_schedulings
-    plan.schedulings.filter(week: source_week, year: source_year).records
+    source_filter.records
+  end
+
+  def source_filter
+    plan.schedulings.filter(week: source_week, year: source_year)
   end
   
 end

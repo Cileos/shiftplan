@@ -21,7 +21,7 @@ Feature: Creating a plan
       And I press "Anlegen"
 
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
-     And I should be on the page for the plan for week: 5
+      And I should be on the employees in week page for the plan for week: 5, year: 2012
       And the page should be titled "Halloween im Atomkraftwerk"
       And I should see a calendar titled "Halloween im Atomkraftwerk - KW 05 30.01.2012"
       And I should see the following calendar:

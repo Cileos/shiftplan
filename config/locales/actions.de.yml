@@ -23,9 +23,6 @@ de:
       hours: Stunden
       wwt_short: WAZ
       wwt_long: Wochenarbeitszeit
-      previous_week: '<'
-      this_week: 'Heute'
-      next_week: '>'
       close: '×'
       edit: Bearbeiten
       back: Zurück
@@ -49,6 +46,9 @@ de:
   schedulings:
     calendar_navigation:
       day: "Tag"
+      previous: '<'
+      today: 'Heute'
+      next: '>'
     week_switch:
       employees_in_week: "Mitarbeiter"
       teams_in_week: "Teams"
