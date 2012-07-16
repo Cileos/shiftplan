@@ -44,15 +44,7 @@ module NavigationHelpers
       when Post
         organization_blog_post_path(model.organization, model.blog, model)
       when Plan
-        if params[:week]
-          if params[:year]
-            organization_plan_year_week_path(model.organization, model, params[:year], params[:week])
-          else
-            organization_plan_week_path(model.organization, model, params[:week])
-          end
-        else
-          organization_plan_path(model.organization, model, params)
-        end
+        organization_plan_path(model.organization, model, params)
       when Employee
         employee_path(model)
       when Organization
