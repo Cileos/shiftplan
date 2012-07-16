@@ -4,9 +4,9 @@
     .btn-group
       = link_to t('.day'), filter.path_to_day, class: 'btn btn-inverse'
     .btn-group
-      = link_to :previous_week, filter.path_to_week(filter.monday.prev_week), class: 'btn btn-inverse'
-      = link_to :this_week, filter.path_to_week(Date.today), class: 'btn btn-inverse'
-      = link_to :next_week, filter.path_to_week(filter.monday.next_week), class: 'btn btn-inverse'
+      = link_to t('.previous'), filter.previous_path, class: 'btn btn-inverse'
+      = link_to t('.today'), filter.today_path, class: 'btn btn-inverse'
+      = link_to t('.next'), filter.next_path, class: 'btn btn-inverse'
     - if can? :create, Scheduling
       .btn-group
         = link_to ti(:copy_week), new_organization_plan_copy_week_path(current_organization, filter.plan, copy_week: { target_week: filter.week, target_year: filter.year }), remote: true, class: 'btn btn-inverse'

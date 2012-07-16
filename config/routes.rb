@@ -13,9 +13,6 @@ Shiftplan::Application.routes.draw do
 
       # The names should correspond with the controller actions and modes of the SchedulingFilter
       scope constraints: { week: /\d{1,2}/, year: /\d{4}/ } do
-        get 'week/:week'       => 'schedulings#employees_in_week', :as => 'week'
-        get 'week/:year/:week' => 'schedulings#employees_in_week', :as => 'year_week'
-
         get 'week/employees/:year/:week' => 'schedulings#employees_in_week', :as => 'employees_in_week'
         get 'week/teams/:year/:week' => 'schedulings#teams_in_week', :as => 'teams_in_week'
         get 'week/hours/:year/:week' => 'schedulings#hours_in_week', :as => 'hours_in_week'
