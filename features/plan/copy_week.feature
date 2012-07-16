@@ -22,5 +22,8 @@ Feature: Plan a week
      Then I should be on the employees in week page of the plan for year: 2012, week: 50
       And I should see a calendar titled "Cleaning the Reactor - KW 50 10.12.2012"
       And I should see the following calendar:
-        | Mitarbeiter | Mo | Di    | Mi    | Do    | Fr |
-        | Homer S     |    | 10-11 | 11-12 | 12-13 |    |
+        | Mitarbeiter   | Mo | Di    | Mi    | Do    | Fr |
+        | Planner Burns |    |       |       |       |    |
+        | Carl C        |    |       |       |       |    |
+        | Lenny L       |    |       |       |       |    |
+        | Homer S       |    | 10-11 | 11-12 | 12-13 |    |

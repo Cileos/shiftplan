@@ -9,6 +9,7 @@
       = link_to t('.next'), filter.next_path, class: 'btn btn-inverse'
     - if can? :create, Scheduling
       .btn-group
-        = link_to ti(:copy_week), new_organization_plan_copy_week_path(current_organization, filter.plan, copy_week: { target_week: filter.week, target_year: filter.year }), remote: true, class: 'btn btn-inverse'
+        - if filter.mode?('week')
+          = link_to ti(:copy_week), new_organization_plan_copy_week_path(current_organization, filter.plan, copy_week: { target_week: filter.week, target_year: filter.year }), remote: true, class: 'btn btn-inverse'
         = link_to ti(:new_scheduling), new_organization_plan_scheduling_path(current_organization, filter.plan, scheduling: { date: filter.monday}), class: 'new_scheduling btn btn-primary', remote: true
 
