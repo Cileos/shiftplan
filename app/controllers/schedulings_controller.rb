@@ -25,8 +25,9 @@ class SchedulingsController < InheritedResources::Base
     end
     helper_method :filter
 
+    # InheritedResources
     def smart_resource_url
-      organization_plan_year_week_path(current_organization, parent, resource.year, resource.week)
+      filter.path_to_day(resource.date)
     end
 
     def filter_params
