@@ -1,41 +1,72 @@
-ul.comments {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  li {
-    display: block;
-    @include clearfix;
-    .employee {
-      font-weight: bold;
-      float: left;
-      margin-right: 0.5em;
-      &:after {
-        content: ':';
+#modalbox {
+  ul.comments {
+    @extend ul#posts;
+    width: 600px;
+    li {
+      .employee {
+        font-weight: bold;
+        float: left;
+        margin-right: 0.5em;
+        &:after {
+          content: ':';
+        }
+      }
+      a.reply {
+        float: right;
+        color: white;
+      }
+      ul.replies {
+        // margin-right: 1em;
+        & > .comment {
+          border-right: none;
+        }
       }
     }
-    a.reply {
-      float: right;
-    }
-    ul.replies {
-      margin-right: 1em;
+    & + form.new_comment {
+      @extend form#new_comment;
     }
   }
-}
-
-form.new_comment {
-  @include clearfix;
-  margin-bottom: 1em;
-  label[for=comment_body] {
-    display: none;
+  ul.comments, ul.replies {
+    margin-left: 15px;
+    li {
+      border-bottom: none;
+    }
   }
-  div.controls {
-    float: left;
+  .comment {
+    margin-top: 25px;
+    margin-bottom: 30px;
+    padding: 5px 0 0 15px;
+    form {
+      float: none;
+      margin-left: 0;
+      .controls {
+        float: left;
+        textarea {
+        }
+      }
+      button {
+        position: relative;
+        top: -9px;
+      }
+    }
   }
-  textarea {
-    width: auto;
+  .meta, .own-meta {
+    left: 15px;
+    font-size: 11px;
   }
-  button[type=submit] {
-    margin-left: 1em;
-    float: left;
+  form.new_comment {
+    @include clearfix;
+    margin-bottom: 1em;
+    label[for=comment_body] {
+      display: none;
+    }
+    div.controls {
+    }
+    textarea {
+      width: auto;
+    }
+    button[type=submit] {
+      margin-left: 1em;
+    }
   }
 }
