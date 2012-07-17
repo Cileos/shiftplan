@@ -1,4 +1,4 @@
-%h1= t(:'blogs.company_news')
+- title t(:'blogs.company_news')
 - if can? :create, company_blog.posts.new
   #actions.btn-toolbar
     = link_to ti(:add, translation_key: 'posts.new'), [:new, current_organization, company_blog, :post], |
