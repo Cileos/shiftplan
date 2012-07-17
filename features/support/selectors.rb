@@ -85,6 +85,9 @@ module HtmlSelectorsHelpers
     when 'replies'
       '.replies'
 
+    when /^(?: a |the )?(\w+) list$/
+      "ul.#{$1}"
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
