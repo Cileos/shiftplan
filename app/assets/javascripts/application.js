@@ -5,6 +5,6 @@
 //= require comments
 //= require teams
 //= require 'calendar/cursor'
+//= require 'calendar/switch_calendar_layout'
 //= require_tree './editors'
-//= require switch_calendar_layout
 //= require mailcheck
