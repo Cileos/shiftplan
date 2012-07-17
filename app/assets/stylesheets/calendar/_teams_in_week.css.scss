@@ -1,0 +1,21 @@
+/* --------------------------------------------------------------------- */
+/*  _teams_in_week.css.scss                                              */
+/*  compass version: 0.12.1                                              */
+/* --------------------------------------------------------------------- */
+
+
+#calendar.teams-in-week {
+    tbody {
+        th {
+            padding: 10px 5px;
+            min-height: 65px;
+        }
+    }
+    .pibble {
+        float: left;
+        margin-top: 2px;
+    }
+    .team_name {
+        padding-left: 20px;
+    }
+}
