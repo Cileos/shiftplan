@@ -45,11 +45,7 @@ Feature: Typeahead autocompletion for Quickies
         | 9-17 Reaktor einschalten [Re] |        |
         | 9-17 Reaktor fegen [Rf]       |        |
      When I press arrow down in the "Quickie" field
-     Then I should see the following typeahead items:
-        | 9-17 Reaktor ausschalten [Ra] |        |
-        | 9-17 Reaktor einschalten [Re] | active |
-        | 9-17 Reaktor fegen [Rf]       |        |
-     When I press arrow down in the "Quickie" field
+      And I press arrow down in the "Quickie" field
       And I press tab in the "Quickie" field
      Then the "Quickie" field should contain "9-17 Reaktor fegen \[Rf\]"
 
