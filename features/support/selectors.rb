@@ -85,6 +85,10 @@ module HtmlSelectorsHelpers
     when 'replies'
       '.replies'
 
+    when 'the cursor'
+      '.with_cursor .focus'
+
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

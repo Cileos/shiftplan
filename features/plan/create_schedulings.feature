@@ -91,6 +91,7 @@ Feature: create a scheduling
 
   @javascript
   Scenario: schedule only using the keyboard (Enter, n or a)
+    Given I wait for the cursor to appear
      Then the cell "Mo"/"Planner Burns" should be focus
      When I press return
       And I wait for the new scheduling form to appear
