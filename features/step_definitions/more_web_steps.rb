@@ -64,8 +64,9 @@ end
 
 
 Then /^I should see the following typeahead items:$/ do |expected|
-  list = page.first selector_for('the typeahead list')
-  found = list.all('li').map do |li|
+  list = selector_for('the typeahead list')
+  page.should have_css(list)
+  found = page.first(list).all('li').map do |li|
     [li.text, li[:class].split.sort.join(' ')]
   end
   expected.diff! found
