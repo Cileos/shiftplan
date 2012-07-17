@@ -16,22 +16,32 @@
         color: white;
       }
       ul.replies {
-        margin-right: 1em;
+        // margin-right: 1em;
+        & > .comment {
+          border-right: none;
+        }
       }
     }
     & + form.new_comment {
       @extend form#new_comment;
     }
   }
+  ul.comments, ul.replies {
+    margin-left: 15px;
+    li {
+      border-bottom: none;
+    }
+  }
   .comment {
-    margin-bottom: 20px;
-    padding-left: 20px;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    padding: 5px 0 0 15px;
     form {
       float: none;
+      margin-left: 0;
       .controls {
         float: left;
         textarea {
-          min-width: 400px;
         }
       }
       button {
@@ -42,6 +52,7 @@
   }
   .meta, .own-meta {
     left: 15px;
+    font-size: 11px;
   }
   form.new_comment {
     @include clearfix;
