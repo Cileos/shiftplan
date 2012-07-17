@@ -11,8 +11,6 @@
   = stylesheet_link_tag 'iPhone'
   = stylesheet_link_tag 'print', :media => "print"
   = javascript_include_tag 'lib'
-  - unless Rails.env.test?
-    %script{src:'http://www.jotform.com/min/?g=feedback2', type:'text/javascript'}
   = javascript_include_tag 'application'
   = csrf_meta_tags
   -# just set something so gon is always present
