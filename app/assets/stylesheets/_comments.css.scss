@@ -1,41 +1,41 @@
-ul.comments {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  li {
-    display: block;
-    @include clearfix;
-    .employee {
-      font-weight: bold;
-      float: left;
-      margin-right: 0.5em;
-      &:after {
-        content: ':';
+#calendar {
+  ul.comments {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: block;
+      @include clearfix;
+      .employee {
+        font-weight: bold;
+        float: left;
+        margin-right: 0.5em;
+        &:after {
+          content: ':';
+        }
+      }
+      a.reply {
+        float: right;
+      }
+      ul.replies {
+        margin-right: 1em;
       }
     }
-    a.reply {
-      float: right;
-    }
-    ul.replies {
-      margin-right: 1em;
-    }
   }
-}
 
-form.new_comment {
-  @include clearfix;
-  margin-bottom: 1em;
-  label[for=comment_body] {
-    display: none;
-  }
-  div.controls {
-    float: left;
-  }
-  textarea {
-    width: auto;
-  }
-  button[type=submit] {
-    margin-left: 1em;
-    float: left;
+  form.new_comment {
+    @include clearfix;
+    margin-bottom: 1em;
+    label[for=comment_body] {
+      display: none;
+    }
+    div.controls {
+    }
+    textarea {
+      width: auto;
+    }
+    button[type=submit] {
+      margin-left: 1em;
+    }
   }
 }
