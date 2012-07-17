@@ -63,3 +63,8 @@ ul#posts {
     }
 }
 
+div[id^="post_"] {
+    .comments-count {
+        @include _hidden();
+    }
+}

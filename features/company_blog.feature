@@ -403,7 +403,7 @@ In order to keep my colleagues informed about important news
       And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     Then I should see a tiny gravatar within the post
+     Then I should see a thumb gravatar within the post
      When I follow "Mehr"
-     Then I should see a tiny gravatar within the post
+     Then I should see a thumb gravatar within the post
       And I should see the avatar "rails.png" within the comment
