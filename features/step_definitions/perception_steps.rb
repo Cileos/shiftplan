@@ -85,8 +85,10 @@ Then /^I (should|should not) see link #{capture_quoted}$/ do |or_not, link|
   end
 end
 
-Then /^the shortcut should be colored "([^"]*)"$/ do |color|
-  first('.shortcut')['style'].should include("background-color: #{color}")
+Then /^the team color should be "([^"]*)"$/ do |color|
+  selector = '.pibble.team-color'
+  page.should have_css(selector)
+  first(selector)['style'].should include("background-color: #{color}")
 end
 
 Then /^I (should|should not) see a delete button$/ do |should_or_should_not|
