@@ -51,10 +51,12 @@ end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
+  wait_for_the_page_to_be_loaded
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
+  wait_for_the_page_to_be_loaded
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
