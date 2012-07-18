@@ -50,8 +50,8 @@ Feature: View hours over weekdays in plan
 
   Scenario: commenting an existing scheduling by clicking on bar in column and filling out form in modal
     Given the employee "Homer" was scheduled in the plan as following:
-        | week | cwday | quickie                 |
-        | 49   | 2     | 1-2 Reaktor putzen     |
+        | week | cwday | quickie            |
+        | 49   | 2     | 1-8 Reaktor putzen |
       And I am on the hours in week page of the plan for year: 2012, week: 49
      When I follow "Kommentare" within the calendar
       And I comment "Excellently short!"
