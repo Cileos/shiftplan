@@ -77,7 +77,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-
   def selector_for(name, resource=nil, extra=nil)
     case name
     when :cell
@@ -89,6 +88,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
       end
     when :wwt_diff
       %Q~#calendar tbody tr[data-employee_id=#{resource.id}] th .wwt_diff~
+    when :legend
+      '#legend'
+    when :team_colors
+      '#team_colors'
     else
       super
     end
@@ -182,7 +185,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
         respond_for_create(resource)
       end
       remove_modal
-      update_legend if respond_to?(:update_legend)
+      update_legend
+      update_team_colors
       update_quickie_completions
     else
       append_errors_for(resource)
@@ -213,5 +217,21 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def update_quickie_completions
     page << "window.gon.quickie_completions=" + plan.schedulings.quickies.to_json
+  end
+
+  def legend
+    h.render('teams/legend', teams: teams)
+  end
+
+  def update_legend
+    select(:legend).refresh_html legend
+  end
+
+  def team_colors
+    h.render 'teams/colors', teams: teams
+  end
+
+  def update_team_colors
+    select(:team_colors).refresh_html team_colors
   end
 end
