@@ -30,30 +30,6 @@ Then /^the scheduling #{capture_quoted} should be (focus)$/ do |quickie, predica
   page.find("li", text: quickie)[:class].split.should include(predicate)
 end
 
-def directions
-  ['arrow up','arrow down','arrow right','arrow left','return','escape', 'tab', 'enter'].join('|')
-end
-
-When /^I press (#{directions})$/ do |direction|
-  direction.gsub!(' ', '_')
-  step %{I send #{direction} to "body"}
-end
-
-When /^I press (#{directions}) in the #{capture_quoted} field$/ do |key, field|
-  key.gsub!(' ', '_')
-  find_field(field).send_string_of_keys(key)
-end
-
-When /^I press key #{capture_quoted}$/ do |key|
-  find('body').send_string_of_keys(key)
-end
-
-When /^I press (#{directions}) (\d{1,2}) times$/ do |direction, times|
-  times.to_i.times do
-    step %{I press #{direction}}
-  end
-end
-
 Then /^I should see a calendar (?:titled|captioned) #{capture_quoted}$/ do |caption|
   step %Q~I should see "#{caption}" within ".caption" within the calendar navigation~
 end

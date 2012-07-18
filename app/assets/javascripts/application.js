@@ -11,3 +11,5 @@
 //= require mailcheck
 //= require help
 //= require legend
+// always last!
+//= require lib/loaded_page

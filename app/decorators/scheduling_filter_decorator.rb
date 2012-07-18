@@ -55,6 +55,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
     }
   end
 
+  def quickies_for_completion
+    plan.schedulings.quickies
+  end
+
   def cell_metadata(*a)
     { }
   end

@@ -100,17 +100,30 @@ In order to keep my colleagues informed about important news
       And I should see "Besuch des Umweltministers"
       And I should see "Bitte Kontrollräume aufräumen"
 
-  Scenario: Deleting a blog post
+  # TODO: Open the confirm dialog in our own modal box.
+  @wip
+  Scenario: Deleting a blog post by pressing confirm in the dialog box
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
+     When I go to the page of the post
      Then I should see "Umweltminister zu Besuch"
-      And I should see "Bitte putzen"
      When I press "Löschen"
-     Then 0 posts should exist
-      And I should see a flash info "Post erfolgreich gelöscht."
+     Then I should see "Wollen Sie den Blogpost 'Umweltminister zu Besuch' mit allen Kommentaren wirklich löschen?" in the alert box
+     When I accept the popup
+     Then I should see a flash info "Post erfolgreich gelöscht."
       And I should see "Es wurden noch keine Blogposts erstellt."
+
+  # TODO: Open the confirm dialog in our own modal box.
+  @wip
+  Scenario: Aborting the deletion of a blog post by pressing cancel in the dialog box
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And I am signed in as the confirmed user "mr. burns"
+     When I go to the page of the post
+     Then I should see "Umweltminister zu Besuch"
+     When I press "Löschen"
+     Then I should see "Wollen Sie den Blogpost 'Umweltminister zu Besuch' mit allen Kommentaren wirklich löschen?" in the alert box
+     When I dismiss the popup
+     Then I should see "Umweltminister zu Besuch"
 
   Scenario: Employees can only edit their own blog posts
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
