@@ -2,14 +2,14 @@
 .row
   .span3
     = render 'user/settings_menu'
-  .span9
+  .span7.user-edit-form
     %h3= ta :profile
 
     = simple_form_for @employee, url: profile_employee_path(@employee) do |f|
       = f.error_notification
 
       .inputs
-        = avatar(@employee.user, @employee, :tiny)
+        = avatar(@employee.user, @employee, :thumb)
         = f.input :avatar, as: :file
         = f.input :avatar_cache, as: :hidden
         = f.input :first_name, autofocus: true

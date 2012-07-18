@@ -1,4 +1,4 @@
-%ul.nav.nav-tabs.nav-stacked
+%ul.user-settings.nav.nav-pills.nav-stacked
   - if current_user.has_multiple_employees?
     = li_link :profile, profile_employees_path
   - else
