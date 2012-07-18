@@ -1,4 +1,5 @@
 !!!5
+- controller.gon.quickie_completions = filter.quickies_for_completion
 %html
   = render 'layouts/head'
   %body
@@ -7,13 +8,10 @@
       #content
         = render 'flash'
         - if show_title?
-          .page-header
-            %h1#title= yield(:title)
+          %h1#title= yield(:title)
 
         = render 'calendar_navigation', filter: filter
         = yield
         = help_tag 'calendar.keyboard'
-        - if parent.respond_to?(:schedulings)
-          - controller.gon.quickie_completions = parent.schedulings.quickies
       = render 'layouts/footer'
 

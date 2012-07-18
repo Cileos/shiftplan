@@ -40,6 +40,7 @@ class QuickieEditor extends View
     if m = @query.match(/\b(\S{1,3})$/) # 1..3 characters alone at the end
       unless m[1].match(/-\d/)        # but no time range please
         shortCutMatcher = "[#{m[1]}]"
+    items.sort() # presort lexically
     for item in items
       list = if ~item.indexOf("#{@query}-") or ~item.indexOf("-#{@query}") # pre/suffixed by a dash
                timeRange

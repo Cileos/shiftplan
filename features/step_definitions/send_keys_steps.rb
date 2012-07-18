@@ -10,3 +10,28 @@
 And /^I send (.*) to "(.*)"$/ do |key, element|
   find(element).send_string_of_keys(key)
 end
+
+def directions
+  ['arrow up','arrow down','arrow right','arrow left','return','escape', 'tab', 'enter'].join('|')
+end
+
+When /^I press (#{directions})$/ do |direction|
+  direction.gsub!(' ', '_')
+  step %{I send #{direction} to "body"}
+end
+
+When /^I press (#{directions}) in the #{capture_quoted} field$/ do |key, field|
+  key.gsub!(' ', '_')
+  find_field(field).send_string_of_keys(key)
+end
+
+When /^I press key #{capture_quoted}$/ do |key|
+  find('body').send_string_of_keys(key)
+end
+
+When /^I press (#{directions}) (\d{1,2}) times$/ do |direction, times|
+  times.to_i.times do
+    step %{I press #{direction}}
+  end
+end
+

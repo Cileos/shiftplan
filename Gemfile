@@ -11,7 +11,8 @@ group :assets do
   gem 'uglifier', '>= 1.2.3'
   gem 'jquery-rails'
   gem 'jquery-ui-rails'
-  gem 'bootstrap-sass', '~> 2.0.2'
+  # until merge of https://github.com/thomas-mcdonald/bootstrap-sass/pull/170
+  gem 'bootstrap-sass', '~> 2.0.4', git: "git://github.com/niklas/bootstrap-sass.git"
 end
 
 

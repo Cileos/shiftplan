@@ -7,8 +7,7 @@
       #content
         = render 'flash'
         - if show_title?
-          .page-header
-            %h1#title= yield(:title)
+          %h1#title= yield(:title)
 
         = yield
       = render 'layouts/footer'

@@ -20,7 +20,7 @@ notifications:
       - "irc.freenode.org#shiftplan"
     # TODO  commit_message is missing in lib/travis/task/irc.rb
     template:
-      - "%{repository}#%{build_number} | %{author} | %{branch} %{commit} | %{message} | %{build_url}"
+      - "%{repository}#%{build_number} | %{author} | %{branch} %{commit} | %{commit_message} | %{message} | %{build_url}"
     skip_join: true
     use_notice: true
   email:

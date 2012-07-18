@@ -57,3 +57,17 @@ end
 Then /^the #{capture_quoted} tab should be active$/ do |tab_name|
   page.should have_css('.nav-tabs li.active', text: tab_name)
 end
+
+Then /^(.*) should be removed from the dom$/ do |name|
+  page.should have_no_css( selector_for(name) )
+end
+
+
+Then /^I should see the following typeahead items:$/ do |expected|
+  list = selector_for('the typeahead list')
+  page.should have_css(list)
+  found = page.first(list).all('li').map do |li|
+    [li.text, li[:class].split.sort.join(' ')]
+  end
+  expected.diff! found
+end

@@ -60,15 +60,19 @@ end
 
 
 module ModalBoxHelper
-  def within_modal_box(close=false)
-    step %Q~I wait for the modal box to appear~
-    with_scope 'the modal box' do
+  def within_appearing(name, close=false)
+    step %Q~I wait for #{name} to appear~
+    with_scope name do
       yield
     end
     if close
-      step %Q~I close the modal box~
+      step %Q~I close #{name}~
     end
-    step %Q~I wait for the modal box to disappear~
+    step %Q~I wait for #{name} to disappear~
+
+  end
+  def within_modal_box(close=false, &block)
+    within_appearing 'the modal box', close, &block
   end
 end
 
