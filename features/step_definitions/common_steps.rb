@@ -11,6 +11,12 @@ Given /^today is (\w+day), the (.+)$/i do |day, timey|
   Timecop.travel time
 end
 
+# When 2 weeks pass
+# When 1 hour passes
+When /^(\d+) (second|minute|hour|day|week)s? pass(?:es)?$/ do |count, unit|
+  Timecop.travel count.to_i.send(unit).from_now
+end
+
 After do
   Timecop.return
 end
