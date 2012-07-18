@@ -8,3 +8,9 @@
 //= require_tree './editors'
 //= require switch_calendar_layout
 //= require mailcheck
+
+
+
+
+// always last!
+//= require lib/loaded_page
