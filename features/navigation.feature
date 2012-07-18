@@ -11,7 +11,7 @@ Feature: Navigation
 
   Scenario: as a planner with multiple organizations
     Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And a employee planner exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Bart", last_name: "Simpson"
+      And a employee planner exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
       And I am signed in as the confirmed user
 
      When I go to the dashboard page
@@ -25,7 +25,7 @@ Feature: Navigation
      When I follow "Fukushima GmbH"
      Then I should see the following list of links within the navigation:
        | link              | active |
-       | Bart Simpson      | false  |
+       | Homer Simpson     | false  |
        | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
@@ -39,7 +39,7 @@ Feature: Navigation
      When I follow "Neuigkeiten"
      Then I should see the following list of links within the navigation:
        | link              | active |
-       | Bart Simpson      | false  |
+       | Homer Simpson     | false  |
        | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
@@ -53,7 +53,7 @@ Feature: Navigation
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
        | link              | active |
-       | Bart Simpson      | false  |
+       | Homer Simpson     | false  |
        | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
@@ -67,7 +67,7 @@ Feature: Navigation
      When I follow "Mitarbeiter"
      Then I should see the following list of links within the navigation:
        | link              | active |
-       | Bart Simpson      | false  |
+       | Homer Simpson     | false  |
        | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
@@ -81,7 +81,7 @@ Feature: Navigation
      When I follow "Teams"
      Then I should see the following list of links within the navigation:
        | link              | active |
-       | Bart Simpson      | false  |
+       | Homer Simpson     | false  |
        | Einstellungen     | false  |
        | Ausloggen         | false  |
        | Dashboard         | false  |
@@ -100,6 +100,20 @@ Feature: Navigation
        | Einstellungen   | false  |
        | Ausloggen       | false  |
        | Dashboard       | false  |
+
+     When I follow "Dashboard"
+      And I follow "Tschernobyl GmbH"
+     Then I should see the following list of links within the navigation:
+       | link                | active |
+       | Bart Simpson        | false  |
+       | Einstellungen       | false  |
+       | Ausloggen           | false  |
+       | Dashboard           | false  |
+       | Tschernobyl GmbH >> | true   |
+       | Pläne               | false  |
+       | Alle Pläne          | false  |
+       | Mitarbeiter         | false  |
+       | Teams               | false  |
 
   Scenario: as a planner with one organization
     Given I am signed in as the confirmed user
