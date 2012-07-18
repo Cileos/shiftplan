@@ -47,10 +47,11 @@ class CalendarCursor
   focus: ($target, item_select) ->
     if item_select? and $target.has(@items).length > 0
       $target = $target.find(@items)[item_select]()
-    @$calendar.find('.focus').removeClass('focus')
-    $target.closest('td').addClass('focus') unless $target.is('td')
-    $target.addClass('focus')
-    scroll_to($target)
+    if $target.length > 0
+      @$calendar.find('.focus').removeClass('focus')
+      $target.closest('td').addClass('focus') unless $target.is('td')
+      $target.addClass('focus')
+      scroll_to($target)
 
 
   refocus: ->
