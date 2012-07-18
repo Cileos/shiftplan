@@ -86,6 +86,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
         day, employee_id = resource, extra
         %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
       end
+    when :scheduling
+      %Q~#calendar tbody .scheduling[data-edit_url="#{resource.decorate.edit_url}"]~
     when :wwt_diff
       %Q~#calendar tbody tr[data-employee_id=#{resource.id}] th .wwt_diff~
     when :legend
@@ -97,7 +99,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  # selector for the cell of the geiven schedulung
+  # selector for the cell of the given scheduling
   def cell_selector(scheduling)
      %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee_id=#{scheduling.employee_id}]~
   end
@@ -198,6 +200,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     if resource.next_day
       update_cell_for(resource.next_day)
     end
+    focus_element_for(resource)
   end
 
   def respond_for_update(resource)
@@ -208,6 +211,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
   def update_cell_for(scheduling)
     update_wwt_diff_for(scheduling.employee)
     select(:cell, scheduling).refresh_html cell_content(scheduling) || ''
+  end
+
+  def focus_element_for(scheduling)
+    select(:scheduling, scheduling).trigger('focus')
   end
 
   def update_wwt_diff_for(employee)

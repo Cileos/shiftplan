@@ -24,6 +24,9 @@ class CalendarCursor
 
     @$calendar.on 'update', => @refocus()
 
+    # call .trigger('focus') on a .scheduling to focus it externally
+    @$calendar.on 'focus', '.scheduling', (event) => @focus $(event.target)
+
     # focus first calendar data cell
     @focus @$body.find('tr:nth-child(1) td:nth-child(2)')
 

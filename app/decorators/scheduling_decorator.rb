@@ -41,10 +41,14 @@ class SchedulingDecorator < RecordDecorator
 
   def metadata
     {
-      edit_url: h.url_for([:edit, scheduling.organization, scheduling.plan, scheduling]),
+      edit_url: edit_url,
       start: start_hour,
       length: length_in_hours
     }
+  end
+
+  def edit_url
+    h.url_for([:edit, scheduling.organization, scheduling.plan, scheduling])
   end
 
   def concat(*args)
