@@ -6,6 +6,8 @@ de:
     company_news: 'Neuigkeiten'
   posts:
     new: 'Neuen Blogpost erstellen'
+    show:
+      confirm_to_delete: "Wollen Sie den Blogpost '%{post}' mit allen Kommentaren wirklich löschen?"
     headers:
       new: 'Neuen Blogpost erstellen'
       edit: 'Blogpost bearbeiten'
