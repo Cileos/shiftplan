@@ -47,7 +47,8 @@ class CalendarCursor
     @$calendar.find('.focus').removeClass('focus')
     $target.closest('td').addClass('focus') unless $target.is('td')
     $target.addClass('focus')
-    # TODO scroll to the $target
+    scroll_to($target)
+
 
   refocus: ->
     if @$focussed_item? and @$focussed_item.length > 0
@@ -77,7 +78,6 @@ class CalendarCursor
         @down()
       else
         captured = false
-    scroll_to($("#calendar .focus"))
     if captured
       event.stopPropagation()
       event.preventDefault()
