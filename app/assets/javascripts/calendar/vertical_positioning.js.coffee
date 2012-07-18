@@ -1,16 +1,24 @@
 jQuery(document).ready ->
   return if $('#page #calendar.hours-in-week').length == 0
 
-  # $('#page').addClass('detail_condensed')
+  layout_stacks = ->
+    $(this).find('.scheduling').each ->
+      $scheduling = $(this)
 
-  $('#calendar td.day .scheduling').each ->
-    stack = parseInt($(this).attr('data-stack'))
-    total = parseInt($(this).attr('data-total'))
+      stack = $scheduling.data('stack')
+      total = $scheduling.data('total')
 
-    entry_width = 100 / total
+      entry_width = 100 / total
 
-    $(this).css('width', 2*entry_width-4 + '%')
-           .css('left', stack * entry_width + 2 + '%')
-           .css('z-index', 100 - total + stack)
-    if $(this).attr('data-remaining') == "0"
-        $(this).css('width', entry_width-4 + '%')
+      $scheduling.css
+        width:   2*entry_width-4 + '%'
+        left:    stack * entry_width + 2 + '%'
+        zIndex:  100 - total + stack
+
+      if $scheduling.data('remaining') == 0
+        $scheduling.css 'width', entry_width-4 + '%'
+
+  $('#calendar.hours-in-week').each ->
+    $calendar = $(this)
+    $calendar.on 'update', 'td.day', layout_stacks
+    $calendar.find('td.day').each layout_stacks
