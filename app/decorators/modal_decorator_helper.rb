@@ -1,6 +1,7 @@
 module ModalDecoratorHelper
 
-  # wraps the given block in modal divs. Must give at least :body
+  # Renders a modal box, must give at least :body
+  # title must be given as title and will be added to the dialog source element (see http://jqueryui.com/demos/dialog/#option-title)
   def modal(options = {})
     body = options.delete(:body) || raise(ArgumentError, 'no :body given for modal')
     raise(ArgumentError, 'blank body given for modal') if body.blank?
@@ -8,11 +9,15 @@ module ModalDecoratorHelper
   end
 
   # removes all modal boxes first, appends a new one to the body and opens it
+  # title can be given as :header or :title
   def append_modal(options = {})
     hide_modal
     remove_modal
+    dialog_options = {
+      title: options.delete(:header)
+    }
     page.select('body').append(modal(options))
-    select(:modal).dialog( options.reverse_merge(modal_default_options) )
+    select(:modal).dialog( options.reverse_merge(modal_default_options).merge(dialog_options) )
   end
 
   # see http://jqueryui.com/demos/dialog/#modal
