@@ -101,6 +101,7 @@ In order to keep my colleagues informed about important news
       And I should see "Bitte Kontrollräume aufräumen"
 
   # TODO: Open the confirm dialog in our own modal box.
+  @wip
   Scenario: Deleting a blog post by pressing confirm in the dialog box
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
@@ -113,6 +114,7 @@ In order to keep my colleagues informed about important news
       And I should see "Es wurden noch keine Blogposts erstellt."
 
   # TODO: Open the confirm dialog in our own modal box.
+  @wip
   Scenario: Aborting the deletion of a blog post by pressing cancel in the dialog box
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
