@@ -3,8 +3,6 @@ jQuery(document).ready ->
 
   $('#actions').append('<div class="btn-group pull-right"><div id="calendar_detail_level" class="js_button btn btn-inverse detail_level" title="Detail Level umstellen"><i class="icon-th-list icon-white"></i></div><div id="max_min_calendar" class="js_button btn btn-inverse expandable" title="Maximieren/Minimieren"><i class="icon-resize-full icon-white"></i></div></div>')
 
-# TODO add button for legend toggle
-
   page = $('#page')
   btn_max = $('#max_min_calendar.js_button.expandable')
   btn_detail = $('#calendar_detail_level.js_button.detail_level')
@@ -16,7 +14,7 @@ jQuery(document).ready ->
         obj.css('min-width', '')
            .css('min-width', page.width())
            .css('max-width', $(window).width())
-        $.cookie('cal_width_max', 'true')
+        $.cookie('cal_width_max', 'true', { path: '/' })
       when 'initial'
         obj.css('min-width', '')
            .css('max-width', '')
@@ -44,16 +42,16 @@ jQuery(document).ready ->
     page.toggleClass('detail_condensed')
     $(this).toggleClass('active condensed')
     if $.cookie('cal_condensed') == 'true'
-      $.cookie('cal_condensed', 'false')
+      $.cookie('cal_condensed', 'false', { path: '/' })
     else
-      $.cookie('cal_condensed', 'true')
+      $.cookie('cal_condensed', 'true', { path: '/' })
 
   # maximize calendar
   btn_max.click ->
     page.addClass('effect')
     if $(this).hasClass('expanded')
       setWidth(page, 'initial')
-      $.cookie('cal_width_max', 'false')
+      $.cookie('cal_width_max', 'false', { path: '/' })
     else
       setWidth(page, 'max')
     page.toggleClass('expanded')
