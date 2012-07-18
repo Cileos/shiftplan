@@ -5,9 +5,9 @@ de:
       keyboard: |
         h3. Tastatursteuerung für alle Planansichten
 
-        - *⇦*, *⇩*, *⇧*, *⇨* := Navigation
-        - *ENTER*  := anlegen / editieren (kontextsensitiv)
-        - *n*, *a* := [*n*]euer Termin / Termin [*a*]nlegen
-        - *e*      := Termin [*e*]ditieren
-        - *c*      := kommentieren (eng. [*c*]omment)
-        - *h*, *j*, *k*, *l* := alternative Navigation (Vim)
+        - ⇦, ⇩, ⇧, ⇨ := Navigation
+        - ENTER  := anlegen / editieren (kontextsensitiv)
+        - n, a := [*n*]euer Termin / Termin [*a*]nlegen
+        - e      := Termin [*e*]ditieren
+        - c      := kommentieren (eng. [*c*]omment)
+        - h, j, k, l := alternative Navigation (Vim)
