@@ -77,12 +77,19 @@ class CalendarCursor
         @down()
       else
         captured = false
+    scroll_to($("#calendar .focus"))
     if captured
       event.stopPropagation()
       event.preventDefault()
       false
     else
       true
+
+  scroll_to = (elem)->
+    h = $(window).height() / 3
+    $('html, body').animate({
+        scrollTop: elem.offset().top - h
+    },200)
 
   # sets all the instance vars needed for navigation
   orientate: ->
