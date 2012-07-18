@@ -10,3 +10,4 @@
 //= require_tree './editors'
 //= require mailcheck
 //= require help
+//= require legend

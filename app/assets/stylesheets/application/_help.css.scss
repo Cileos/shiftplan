@@ -3,7 +3,7 @@
 /*  compass version: 0.12.rc.1                                           */
 /* --------------------------------------------------------------------- */
 
-.help {
+.help, #legend {
     dt, dd {
         display: block;
     }
@@ -12,5 +12,9 @@
         width: 100px;
         text-align: right;
         padding-right: 30px;
+    }
+    .pibble.team-color {
+      float: right;
+      margin-left: 2em;
     }
 }
