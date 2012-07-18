@@ -9,11 +9,8 @@ jQuery(document).ready ->
 
     entry_width = 100 / total
 
-    # if $(this).attr('data-remaining') == "0"
-    #     $(this).css('width', entry_width + '%')
-    #            .css('right', '0')
-    #            .css('z-index', 1000)
-    # else
-    $(this).css('width', entry_width + '%')
-           .css('left', stack * entry_width + '%')
+    $(this).css('width', 2*entry_width-4 + '%')
+           .css('left', stack * entry_width + 2 + '%')
            .css('z-index', 100 - total + stack)
+    if $(this).attr('data-remaining') == "0"
+        $(this).css('width', entry_width-4 + '%')

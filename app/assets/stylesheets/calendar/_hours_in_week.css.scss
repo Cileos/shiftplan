@@ -32,6 +32,7 @@ $row_height: 41px;
     td.day {
         background: none !important;
         position: relative;
+        @include box-shadow(none);
         div.vertical {
             position: absolute;
             overflow: hidden;
@@ -63,6 +64,13 @@ $row_height: 41px;
                 @include _set_gradient_background($color: #bfbfbf, $direction: bottom, $percentage: 7%);
                 border-left-color:  #666;
                 border-right-color: #666;
+                width: 100% !important;
+                left: 0 !important;
+                @include box-shadow(#aaa 0px 0px 30px 0px);
+                color: black;
+                z-index: 1000 !important;
+                opacity: 0.9;
+                @include single-transition(all, 0.5s, ease);
                 .team_name {
                     background: #f0f0f0;
                     border-top-color:    #999;
