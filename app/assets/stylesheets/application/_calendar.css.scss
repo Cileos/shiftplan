@@ -66,7 +66,9 @@ $ci_blue: #00a7c9;
         color: #555;
     }
     thead {
+        z-index: 1000;
         th {
+            vertical-align: middle;
             &:not(.employees) {
                 text-align: center;
             }

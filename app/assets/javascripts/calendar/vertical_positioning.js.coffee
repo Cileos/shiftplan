@@ -4,8 +4,8 @@ jQuery(document).ready ->
   # $('#page').addClass('detail_condensed')
 
   $('#calendar td.day .scheduling').each ->
-    stack = $(this).attr('data-stack')
-    total = $(this).attr('data-total')
+    stack = parseInt($(this).attr('data-stack'))
+    total = parseInt($(this).attr('data-total'))
 
     entry_width = 100 / total
 
@@ -16,4 +16,4 @@ jQuery(document).ready ->
     # else
     $(this).css('width', entry_width + '%')
            .css('left', stack * entry_width + '%')
-           .css('z-index', 1000 - total + stack)
+           .css('z-index', 100 - total + stack)
