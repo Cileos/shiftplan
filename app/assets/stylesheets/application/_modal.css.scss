@@ -101,3 +101,6 @@
     @include transition(250ms opacity);
     @include background(rgba(0, 0, 0, 0.4));
 }
+ul.typeahead.dropdown-menu {
+    z-index: 2342 !important;
+}

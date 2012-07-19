@@ -24,6 +24,9 @@ class CalendarCursor
 
     @$calendar.on 'update', => @refocus()
 
+    # call .trigger('focus') on a .scheduling to focus it externally
+    @$calendar.on 'focus', '.scheduling', (event) => @focus $(event.target)
+
     # focus first calendar data cell
     @focus @$body.find('tr:nth-child(1) td:nth-child(2)')
 
@@ -44,10 +47,12 @@ class CalendarCursor
   focus: ($target, item_select) ->
     if item_select? and $target.has(@items).length > 0
       $target = $target.find(@items)[item_select]()
-    @$calendar.find('.focus').removeClass('focus')
-    $target.closest('td').addClass('focus') unless $target.is('td')
-    $target.addClass('focus')
-    # TODO scroll to the $target
+    if $target.length > 0
+      @$calendar.find('.focus').removeClass('focus')
+      $target.closest('td').addClass('focus') unless $target.is('td')
+      $target.addClass('focus')
+      scroll_to($target)
+
 
   refocus: ->
     if @$focussed_item? and @$focussed_item.length > 0
@@ -83,6 +88,12 @@ class CalendarCursor
       false
     else
       true
+
+  scroll_to = (elem)->
+    h = $(window).height() / 3
+    $('html, body').animate({
+        scrollTop: elem.offset().top - h
+    },200)
 
   # sets all the instance vars needed for navigation
   orientate: ->

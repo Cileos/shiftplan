@@ -43,6 +43,10 @@ de:
       confirm: 'Bestätigen'
       change_email: 'E-Mail Adresse ändern'
       change_password: 'Passwort ändern'
+      show_legend: "Legende"
+      show_legend_long: "Legende anzeigen"
+      show_help: "Hilfe"
+      show_help_long: "Hilfe anzeigen"
   schedulings:
     calendar_navigation:
       day: "Tag"

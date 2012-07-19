@@ -81,7 +81,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-
   def selector_for(name, resource=nil, extra=nil)
     case name
     when :cell
@@ -91,14 +90,20 @@ class SchedulingFilterDecorator < ApplicationDecorator
         day, employee_id = resource, extra
         %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
       end
+    when :scheduling
+      %Q~#calendar tbody .scheduling[data-edit_url="#{resource.decorate.edit_url}"]~
     when :wwt_diff
       %Q~#calendar tbody tr[data-employee_id=#{resource.id}] th .wwt_diff~
+    when :legend
+      '#legend'
+    when :team_colors
+      '#team_colors'
     else
       super
     end
   end
 
-  # selector for the cell of the geiven schedulung
+  # selector for the cell of the given scheduling
   def cell_selector(scheduling)
      %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee_id=#{scheduling.employee_id}]~
   end
@@ -186,7 +191,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
         respond_for_create(resource)
       end
       remove_modal
-      update_legend if respond_to?(:update_legend)
+      update_legend
+      update_team_colors
       update_quickie_completions
     else
       append_errors_for(resource)
@@ -198,6 +204,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     if resource.next_day
       update_cell_for(resource.next_day)
     end
+    focus_element_for(resource)
   end
 
   def respond_for_update(resource)
@@ -210,6 +217,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
     select(:cell, scheduling).refresh_html cell_content(scheduling) || ''
   end
 
+  def focus_element_for(scheduling)
+    select(:scheduling, scheduling).trigger('focus')
+  end
+
   def update_wwt_diff_for(employee)
     select(:wwt_diff, employee).refresh_html wwt_diff_for(employee)
   end
@@ -217,5 +228,21 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def update_quickie_completions
     page << "window.gon.quickie_completions=" + plan.schedulings.quickies.to_json
+  end
+
+  def legend
+    h.render('teams/legend', teams: teams)
+  end
+
+  def update_legend
+    select(:legend).refresh_html legend
+  end
+
+  def team_colors
+    h.render 'teams/colors', teams: teams
+  end
+
+  def update_team_colors
+    select(:team_colors).refresh_html team_colors
   end
 end

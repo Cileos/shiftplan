@@ -1,0 +1,3 @@
+%style#team_colors
+  - teams.each do |team|
+    = %Q~.#{dom_id(team)} { border-color: #{team.color};}~

@@ -1,3 +1,4 @@
+@wip
 @javascript
 Feature: View teams over hours of a day in plan
   In order to finely schedule my employees by teams
@@ -22,7 +23,7 @@ Feature: View teams over hours of a day in plan
      Then I should be on the teams in day page of the plan for year: 2012, month: 12, day: 03
       And I should see the following time bars:
       """
-      "Reaktor putzen"        |9-"Homer S"-17|    
+      "Reaktor putzen"        |9-"Homer S"-17|
                                  |12-"Lenny L"-19|
       "Lampen betrachten"                    |17-"Homer S"-20|
       "Abklingbecken trocknen"

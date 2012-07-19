@@ -9,7 +9,8 @@
 // started in vertical_bars
 
 // TODO re-order, so developers AND designers know their way
-@import 'calendar/vertical_bars';
+@import 'calendar/teams_in_week';
+@import 'calendar/hours_in_week';
 
 $ci_blue: #00a7c9;
 
@@ -65,7 +66,9 @@ $ci_blue: #00a7c9;
         color: #555;
     }
     thead {
+        z-index: 1000;
         th {
+            vertical-align: middle;
             &:not(.employees) {
                 text-align: center;
             }

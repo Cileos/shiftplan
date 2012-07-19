@@ -2,12 +2,12 @@
 
 -# We try to copy google calendar's layout: Basically, they use a table for the
 -# columns, but only one row for the content itself, because schedulings can span
--# over multiple hours. 
+-# over multiple hours.
 -#
 -# Downside: we have to set the height of "rows" and schedulings per css
 -#      see _vertical_bars.css.scss
 
-%table#calendar.table.table-striped.table-bordered.table-condensed{class: filter.range, data: filter.table_metadata}
+%table#calendar.hours-in-week.table.table-striped.table-bordered.table-condensed{class: filter.range, data: filter.table_metadata}
   %thead
     %tr
       %th
@@ -23,3 +23,5 @@
         %td.day{data: filter.cell_metadata(day)}
           = filter.cell_content(day)
 
+#legend
+  = filter.legend
