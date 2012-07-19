@@ -1,0 +1,18 @@
+- title :settings
+.row
+  .span3
+    = render 'user/settings_menu'
+  .span7.user-edit-form
+    %h3= ta :change_password
+
+    %p= t('.instructions')
+
+    = simple_form_for @user, url: user_password_path do |f|
+
+      .inputs
+        = f.input :current_password, required: true, autofocus: true
+        = f.input :password, required: true
+        = f.input :password_confirmation, required: true
+
+      .actions
+        %button.btn.btn-primary= ti(:update)

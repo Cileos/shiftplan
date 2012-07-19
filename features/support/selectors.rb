@@ -1,9 +1,9 @@
 module HtmlSelectorsHelpers
   Numerals = {
     'first'  => ':first',
-    'second' => ':nth-child(2)',
-    'third'  => ':nth-child(3)',
-    'forth'  => ':nth-child(4)'
+    'second' => ':nth-of-type(2)',
+    'third'  => ':nth-of-type(3)',
+    'forth'  => ':nth-of-type(4)'
   }
 
   def capture_nth
@@ -29,6 +29,13 @@ module HtmlSelectorsHelpers
     when /^(?:an|the) edit (.+) form$/
       "form.edit_#{$1}"
 
+    when /^the row for employee "([^"]*)"$/
+      employee = Employee.find_by_first_name_and_last_name($1.split[0], $1.split[1])
+      "table#employees tr#employee_#{employee.id}"
+
+    when /^the employees table$/
+      "table#employees"
+
     when 'the navigation'
       '.navbar:first'
 
@@ -41,20 +48,28 @@ module HtmlSelectorsHelpers
     when "the calendar navigation"
       'div#calendar-navigation'
 
-    when 'the modal box body'
-      'div.modal div.modal-body'
-
     when 'the modal box'
-      'div.modal'
+      'div#modalbox'
 
     when 'errors'
       '.errors.alert.alert-error'
 
+    when 'the spinner'
+      '#spinner'
+
     when /^the #{capture_nth} active tab$/
       ".tabbable#{Numerals[$1]} .tab-pane.active"
 
+    when /^the comment link$/
+      'a.comments'
+
     when /^the #{capture_nth} form$/
       "form#{Numerals[$1]}"
+
+    when %r~^(?:the )?cell "([^"]+)"/"([^"]+)"$~
+      column = column_index_for($1)
+      row    = row_index_for($2)
+      "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
 
     when 'a hint'
       '.help-block'
@@ -69,6 +84,9 @@ module HtmlSelectorsHelpers
       "ul.comments"
     when 'replies'
       '.replies'
+
+    when /^(?: a |the )?(\w+) list$/
+      "ul.#{$1}"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
@@ -88,11 +106,49 @@ module HtmlSelectorsHelpers
     when /^"(.+)"$/
       $1
 
+    when /^#{capture_model}$/
+      model = model!($1)
+      case model
+      when Post
+        "#post_#{model.id}"
+      when Comment
+        "#comment_#{model.id}"
+      else
+        raise ArgumentError, "cannot find selector for \"#{$1}\", please add it in #{__FILE__}:#{__LINE__}"
+      end
+
     else
       raise "Can't find mapping from \"#{locator}\" to a selector.\n" +
         "Now, go and add a mapping in #{__FILE__}"
     end
   end
+
+  private
+
+  # 0-based index of column headed by given label
+  def column_index_for(column_label)
+    columns = page.all('thead tr th').map { |c| extract_text_from_cell c }
+    columns.should include(column_label)
+    columns.index(column_label)
+  end
+
+  # 0-based index of row (in tbody) headed by given label
+  def row_index_for(row_label)
+    rows = page.all("tbody th").map { |c| extract_text_from_cell c }
+    rows.should include(row_label)
+    rows.index(row_label)
+  end
+
+  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.btn.active']
+  def extract_text_from_cell(cell)
+    found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }
+    if found.present?
+      found.map { |f| cell.all(f).map(&:text).map(&:strip) }.flatten.join(' ')
+    else
+      cell.text.strip
+    end
+  end
+
 end
 
 World(HtmlSelectorsHelpers)

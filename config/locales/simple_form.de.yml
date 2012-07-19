@@ -1,0 +1,7 @@
+de:
+  simple_form:
+    labels:
+      user:
+        show:
+          password: 'Neues Passwort'
+          password_confirmation: 'Neues Passwort bestätigen'

@@ -1,0 +1,11 @@
+- available = SchedulingFilterDecorator::Modes.grep(/week/)
+- current = filter.mode.to_sym
+.btn-group
+  %a.btn.active.dropdown-toggle{data: { toggle: 'dropdown' }, href: '#'}
+    = t ".#{current}"
+    %span.caret
+  %ul.dropdown-menu
+    - (available - [current]).each do |mode|
+      %li
+        = link_to t(".#{mode}"), filter.path_to_mode(mode)
+

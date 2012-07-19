@@ -11,17 +11,17 @@ Feature: Feedback without Screenshot
       And a clear email queue
 
   Scenario: Employee sends feedback
-     When I sign in as the confirmed user
+    Given I am signed in as the confirmed user
+      And I am on the page of the organization "fukushima"
 
-      And I follow "Fukushima"
-      And I follow "Feedback ohne Bildschirmfoto"
+     When I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von Planner Burns"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von Planner Burns"
      When I open the email
      Then I should see the email delivered from "planner@fukushima.jp"
       And I should see "Name: Planner Burns" in the email body
@@ -30,18 +30,17 @@ Feature: Feedback without Screenshot
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Logged in user (not in the scope of an organization) sends feedback without providing a name
-     When I sign in as the confirmed user
+    Given I am signed in as the confirmed user
+      And I am on the home page
 
-      And I follow "Shiftplan"
-     Then I should be on the home page
-      And I follow "Feedback ohne Bildschirmfoto"
+     When I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von planner@fukushima.jp"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von planner@fukushima.jp"
      When I open the email
      Then I should see the email delivered from "planner@fukushima.jp"
       And I should see "Name: " in the email body
@@ -50,11 +49,10 @@ Feature: Feedback without Screenshot
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Logged in user (not in the scope of an organization) sends feedback with providing a name
-     When I sign in as the confirmed user
+    Given I am signed in as the confirmed user
+      And I am on the home page
 
-      And I follow "Shiftplan"
-     Then I should be on the home page
-      And I follow "Feedback ohne Bildschirmfoto"
+     When I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
       And I fill in "Name" with "Hein Blöd"
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
@@ -62,7 +60,7 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
      When I open the email
      Then I should see the email delivered from "planner@fukushima.jp"
       And I should see "Name: Hein Blöd" in the email body
@@ -82,7 +80,7 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
      When I open the email
      Then I should see the email delivered from "guest@example.xyz"
       And I should see "Name: Hein Blöd" in the email body
@@ -101,7 +99,7 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
      When I open the email
      Then I should see the email delivered from "guest@example.xyz"
       And I should see "Name: " in the email body
@@ -128,7 +126,7 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "rw@cileos.com" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
      When I open the email
      Then I should see the email delivered from "guest@example.xyz"
       And I should see "Name: " in the email body

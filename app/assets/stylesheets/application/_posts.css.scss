@@ -1,0 +1,109 @@
+/* --------------------------------------------------------------------- */
+/*  _posts.css.scss                                                      */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+.posts .pagination {
+    &:first-child {
+        position: relative;
+        top: -46px;
+    }
+    &:last-child {
+        margin-bottom: 50px;
+    }
+}
+
+/* will be extended */
+ul#posts, ul#comments {
+    margin: 0 0 30px 0;
+    list-style-type: none;
+}
+ul#comments {
+    margin-left: 50px;
+    padding-top: 20px;
+}
+// div[id^="post_"]:not(.comment) {
+.post, .comment {
+    display: block;
+    margin: 20px 0 50px 0;
+    padding: 10px 10px 0px 50px;
+    position: relative;
+    .avatar {
+        position: absolute;
+        left: -15px;
+        top: -18px;
+    }
+    .meta, .own-meta {
+        position: absolute;
+        top: -18px;
+        left: 42px;
+        font-size: 12px;
+    }
+    h3 {
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 0.75em;
+        color: #666;
+    }
+    .body {
+        margin-bottom: 10px;
+    }
+    /* add arrow after 'Mehr' */
+    .more:after {
+        content: " \2192";
+    }
+    .comments-count {
+        float: right;
+    }
+    .actions {
+        float: right;
+        a, form {
+            float: left;
+            margin: 0 0 0 10px;
+        }
+    }
+}
+.post {
+    padding: 10px 30px 0px 50px;
+    margin: 50px 0 20px 25px;
+    border: 1px solid #ccc;
+    @include border-radius(5px);
+    @include box-shadow(#ccc 0 0 10px 0px inset);
+    .avatar {
+        left: -15px;
+        top: -18px;
+        &.thumb {
+            width: 45px;
+        }
+    }
+}
+.comment {
+    border: 1px solid #ccc;
+    background: #fbfbfb;
+    form {
+        float: right;
+        margin: 0 0 10px 10px;
+    }
+}
+div[id^="post_"] {
+    .comments-count {
+        @include _hidden();
+    }
+}
+.comments {
+    padding-left: 10px;
+    margin-top: 30px;
+    h4 {
+        font-size: 16px;
+    }
+}
+form#new_comment {
+    padding: 30px;
+    background: #f6f6f6;
+    text-align: center;
+    border-top: 1px solid black;
+    textarea {
+        min-width: 50%;
+    }
+}

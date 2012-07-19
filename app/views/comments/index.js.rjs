@@ -1,0 +1,3 @@
+page.decorate parent do |f|
+  f.append_modal header: ta(:comments), body: render("#{f.partial_name}/comments", record: f)
+end

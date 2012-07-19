@@ -32,7 +32,7 @@ Feature: Manage Teams
      Then the "Farbe" field should contain "#"
      When I fill in "Farbe" with "#C83BB4"
       And I press "Team aktualisieren"
-     Then the shortcut should be colored "#C83BB4"
+     Then the team color should be "#C83BB4"
 
   Scenario: Modify the shortcut of a team
     Given a team exists with name: "Uran rangieren", organization: organization: "Reactor"

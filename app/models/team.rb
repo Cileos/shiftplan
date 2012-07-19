@@ -14,6 +14,7 @@ class Team < ActiveRecord::Base
   validates_format_of :color, with: /\A#[0-9A-F]{6}\z/
 
   attr_accessible :name, :shortcut, :color
+  validates_uniqueness_of :name, scope: :organization_id
 
   # Remove outer and double inner spaces
   def name=(new_name)
@@ -50,10 +51,10 @@ class Team < ActiveRecord::Base
   end
 
   def color_from_name
-    '#' + Digest::MD5.hexdigest(name || Time.now.to_s).first(6).upcase
+    '#' + Digest::MD5.hexdigest(name || Time.now.to_s).first(6).upcase.tr('DEF', '789')
   end
 
   def build_team_merge(attrs={})
-    TeamMerge.new attrs.merge(:team => self)
+    TeamMerge.new attrs.merge(:team_id => id)
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120416134629) do
+ActiveRecord::Schema.define(:version => 20120618111519) do
 
   create_table "blogs", :force => true do |t|
     t.integer  "organization_id"
@@ -37,6 +37,18 @@ ActiveRecord::Schema.define(:version => 20120416134629) do
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["employee_id"], :name => "index_comments_on_employee_id"
 
+  create_table "email_changes", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "email"
+    t.string   "token"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at"
+  end
+
+  add_index "email_changes", ["token"], :name => "index_email_changes_on_token"
+
   create_table "employees", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -46,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20120416134629) do
     t.decimal  "weekly_working_time"
     t.integer  "user_id"
     t.string   "role"
+    t.string   "avatar"
   end
 
   add_index "employees", ["organization_id"], :name => "index_employees_on_organization_id"
@@ -69,6 +82,19 @@ ActiveRecord::Schema.define(:version => 20120416134629) do
   add_index "invitations", ["inviter_id"], :name => "index_invitations_on_inviter_id"
   add_index "invitations", ["organization_id"], :name => "index_invitations_on_organization_id"
   add_index "invitations", ["user_id"], :name => "index_invitations_on_user_id"
+
+  create_table "notifications", :force => true do |t|
+    t.string   "type",            :null => false
+    t.string   "notifiable_type"
+    t.integer  "notifiable_id"
+    t.integer  "employee_id",     :null => false
+    t.datetime "sent_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "notifications", ["employee_id"], :name => "index_notifications_on_employee_id"
+  add_index "notifications", ["notifiable_id"], :name => "index_notifications_on_notifiable_id"
 
   create_table "organizations", :force => true do |t|
     t.string   "name"

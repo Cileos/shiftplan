@@ -1,0 +1,7 @@
+de:
+  user_email:
+    show:
+      instructions: 'Um Ihre E-Mail Adresse zu ändern, geben Sie bitte Ihre neue E-Mail Adresse und Ihr aktuelles Passwort ein.'
+  user_password:
+    show:
+      instructions: 'Um Ihr Passwort zu ändern, geben Sie bitte Ihr aktuelles Passwort und zweimal das neue Passwort ein.'

@@ -4,27 +4,27 @@ class CalendarEditor extends View
       @div class: 'schedulings', outlet: 'list'
 
   initialize: (params) ->
-    if params.cell.find('li').length > 0
+    @element = params.element
+    if @element.is('.scheduling') # single scheduling given => edit it
       $.ajax
-        url: params.cell.closest('table').data('edit_url')
-        data:
-          ids: ($(sch).data('id') for sch in params.cell.find('li'))
-        complete: =>
-          @setupForm()
-          @addTabIndices()
-    else
+        url: @element.data('edit_url')
+        complete: @setupInputs
+    else # cell given, assuming it is empty, => create new
       $.ajax
-        url: params.cell.closest('table').data('new_url')
+        url: @element.closest('table').data('new_url')
         data:
           scheduling:
-            employee_id: params.cell.data('employee_id')
-            date:        params.cell.data('date')
-        complete: =>
-          @setupForm()
-          @addTabIndices()
+            employee_id: @element.data('employee_id')
+            date:        @element.data('date')
+            team_id:     @element.data('team_id')
+        complete: @setupInputs
 
   modal: ->
-    $('body.modal-open div.modal')
+    $('#modalbox')
+
+  setupInputs: =>
+    @setupForm()
+    @addTabIndices()
 
   # TODO make QuickieEditor less intrusive
   setupForm: ->
@@ -35,6 +35,7 @@ class CalendarEditor extends View
   addTabIndices: ->
     tabIndex = 1
     for input in @modal().find('input[type=text],select,button')
+      $(input).attr('autofocus', 'true') if tabIndex == 1
       $(input).attr('tabIndex', tabIndex)
       tabIndex++
 

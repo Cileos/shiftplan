@@ -1,8 +1,20 @@
-= simple_form_for scheduling, url: organization_plan_schedulings_path(current_organization, scheduling.plan), remote: true, html: { class: 'form-horizontal well' } do |f|
-  = f.input :quickie, hint: true
-  %button.btn.btn-success{type: 'submit'}
-    %i.icon-ok-circle.icon-white
-    = ta :create
-  = f.input :date, :collection => cwdays_for_select(scheduling.date), :include_blank => false
+= simple_form_for scheduling, url: organization_plan_schedulings_path(current_organization, scheduling.plan), remote: true, html: { class: 'form-horizontal' } do |f|
+  - if current_plan_mode.teams_in_week? or current_plan_mode.teams_in_day?
+    = f.input :quickie, hint: true, input_html: { value: '' }
+  - else
+    = f.input :quickie, hint: true
+
+  - if current_plan_mode.teams_in_day?
+    = f.hidden_field :date
+  - else
+    = f.input :date, :collection => cwdays_for_select(scheduling.date), :include_blank => false
+
   = f.association :employee, as: :select, include_blank: false, collection: scheduling.plan.organization.employees
 
+  - if current_plan_mode.teams_in_week? or current_plan_mode.teams_in_day?
+    = f.association :team, as: :select, include_blank: false, collection: scheduling.plan.organization.teams
+
+  .actions
+    %button.btn.btn-success{type: 'submit'}
+      %i.icon-ok-circle.icon-white
+      = ta :create

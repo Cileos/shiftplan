@@ -1,0 +1,117 @@
+/* --------------------------------------------------------------------- */
+/*  _hours_in_week.css.scss                                              */
+/*  compass version: 0.12.1                                              */
+/* --------------------------------------------------------------------- */
+
+$row_height: 42px;
+
+/*
+  We try to copy google calendar's layout: Basically, they use a table for the
+  columns, but only one row for the content itself, because schedulings can span
+  over multiple hours.
+
+  Downside: we have to set the height of "rows" and schedulings per css
+
+  see hours_in_week.html.haml
+*/
+
+#calendar.hours-in-week {
+    background: image-url('grid.png') repeat 0px 16px;
+    th.hours {
+        width: 2%;
+        div {
+            height: $row_height;
+            padding: 0 15px 0 0;
+            text-align: right;
+            @include _set_gradient_background($color: $gradient_1, $percentage: 7%, $direction: right);
+            &:nth-child(odd) {
+                @include _set_gradient_background($color: $gradient_2, $percentage: 5%, $direction: left);
+            }
+        }
+    }
+    td.day {
+        background: none !important;
+        position: relative;
+        @include box-shadow(none);
+        div.vertical {
+            position: absolute;
+            overflow: hidden;
+            margin-bottom: 5px;
+            padding: 0px 0px 0px 0px;
+            font-size: 10px;
+            @include _set_gradient_background($direction: top, $percentage: 8%);
+            border-width: 1px;
+            border-top-width: 3px;
+            border-bottom-width: 2px;
+            border-style: solid;
+            border-left-color: #c8c8c8;
+            border-right-color: #c8c8c8;
+            @include border-radius(2px);
+            .team_name, .work_time {
+                display: block;
+                padding: 0 3px;
+            }
+            .team_name {
+                background: #fbfbfb;
+                border-top: 1px solid #c8c8c8;
+                border-bottom: 1px solid #d0d0d0;
+                @include box-shadow(#e8e8e8 0px 1px 5px 0px inset);
+                padding: 2px 4px 3px 4px;
+                line-height: 14px;
+            }
+            &.focus, &:focus, &:hover {
+                background: #d8d8d8;
+                @include _set_gradient_background($color: #bfbfbf, $direction: bottom, $percentage: 7%);
+                border-left-color:  #666;
+                border-right-color: #666;
+                @include box-shadow(#aaa 0px 0px 30px 0px);
+                width: 100% !important;
+                left: 0 !important;
+                color: black;
+                z-index: 1000 !important;
+                opacity: 0.9;
+                @include single-transition(all, 0.5s, ease);
+                .team_name {
+                    background: #f0f0f0;
+                    border-top-color:    #999;
+                    border-bottom-color: #999;
+                }
+            }
+            .gimmicks {
+                padding: 0 5px;
+                text-align: right;
+                a.comments {
+                    padding-left: 15px;
+                    background: image-url('discussions-comment-2.png') 0 bottom no-repeat;
+                }
+            }
+            @for $hour from 1 to 23 {
+                &[data-start="#{$hour}"] {
+                    top: $row_height * $hour;
+                }
+                &[data-start="#{$hour}.5"] {
+                    top: $row_height * ($hour + 0.5);
+                }
+                &[data-length="#{$hour}"] {
+                    height: $row_height * $hour;
+                }
+                &[data-length="#{$hour}.5"] {
+                    height: $row_height * ($hour + 0.5);
+                }
+            }
+
+            // @for $index from 1 to 10 {
+            //     &[data-stack="#{$index}"] {
+            //         left: 7% * $index;
+            //     }
+            //     &[data-remaining="#{$index}"] {
+            //         margin-right: $bar_shift * $index;
+            //     }
+            //     &[data-total="#{$index}"] {
+            //         width: 99% / $index;
+            //         left: 99% / $index;
+            //     }
+            // }
+        }
+    }
+}

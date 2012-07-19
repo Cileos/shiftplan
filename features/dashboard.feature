@@ -12,17 +12,17 @@ Feature: Dashboard
 
       And the situation of an atomic power plant tschernobyl
 
-    When I sign in as the user "homer"
-    Then I should be on the dashboard
+     And I am signed in as the user "homer"
+    When I go to the dashboard
      And I should see "AKW Fukushima GmbH"
      And I should see "Reaktor putzen in Fukushima"
      And I should see "AKW Tschernobyl GmbH"
      And I should see "Brennstäbe wechseln in Tschernobyl"
 
     When I follow "Reaktor putzen in Fukushima"
-    Then I should be on the page of the plan "reaktor putzen" for week: 49
+    Then I should be on the employees in week page of the plan "reaktor putzen" for week: 49, year: 2012
 
     Then I go to the dashboard
     When I follow "Brennstäbe wechseln in Tschernobyl"
-    Then I should be on the page of the plan "brennstäbe wechseln" for week: 49
+    Then I should be on the employees in week page of the plan "brennstäbe wechseln" for week: 49, year: 2012
 

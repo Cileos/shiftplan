@@ -65,6 +65,7 @@ module SendKeys
     end
 
     native.send_keys(send_key)
+    sleep 1 # try to fix timing issues on travis (suite running faster than the browser)
   end
 end
 

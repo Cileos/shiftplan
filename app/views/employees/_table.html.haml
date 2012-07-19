@@ -1,15 +1,25 @@
-%table#employees.table.table-striped.table-bordered.table-condensed
+%table#employees.table.table-striped
   %thead
     %tr.employee
       %th= t('activerecord.attributes.employee.full_name')
+      %th= abbr_tag(t('helpers.actions.wwt_short'), t('helpers.actions.wwt_long'))
       %th= t('activerecord.attributes.employee.email')
       %th= t('.status')
-      %th= t('activerecord.attributes.employee.weekly_working_time')
+      - if can?(:manage, Invitation)
+        %th= t('.action')
 
   %tbody
     - employees.each do |employee|
-      %tr
-        %th= can?(:update, employee) ? link_to(employee.name, [:edit, current_organization, employee], remote: true) : employee.name
+      %tr{ id: "employee_#{employee.id}" }
+        %th
+          - if can?(:update, employee)
+            = link_to(avatar(employee.user, employee, :tiny), [:edit, current_organization, employee], remote: true)
+            = link_to(employee.last_and_first_name, [:edit, current_organization, employee], remote: true, :class => 'name')
+          - else
+            = avatar(employee.user, employee, :tiny)
+            = employee.last_and_first_name
+        %td.waz.numeric= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
         %td= employee.try(:user).try(:email) || employee.try(:invitation).try(:email)
-        %td= invitation_status(employee)
-        %td= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
+        %td.status= invitation_status(employee)
+        - if can?(:manage, Invitation)
+          %td.action= invitation_status_link(employee)

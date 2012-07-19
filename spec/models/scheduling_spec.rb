@@ -86,8 +86,8 @@ describe Scheduling do
 
     # use factory except for the time range related attributes, so the
     # validity of the Scheduling is not compromised
-    def build(attrs={})
-      Factory.build :scheduling, attrs.reverse_merge({
+    def build_without_dates(attrs={})
+      build :scheduling, attrs.reverse_merge({
         starts_at: nil,
         ends_at:   nil,
         week:      nil,
@@ -99,7 +99,7 @@ describe Scheduling do
     describe "explictly given" do
       it_behaves_like 'completely defined' do
         let :scheduling do
-          build({
+          build_without_dates({
             starts_at: starts_at,
             ends_at:   ends_at
           })
@@ -110,7 +110,7 @@ describe Scheduling do
     describe "given as week, cwday and quicky (current year implied)" do
       it_behaves_like 'completely defined' do
         let :scheduling do
-          build({
+          build_without_dates({
             week:       18,
             cwday:      4,
             quickie:    '9-17'
@@ -122,7 +122,7 @@ describe Scheduling do
 
     describe "given as date only" do
       let :scheduling do
-        build( date: the_date)
+        build_without_dates( date: the_date)
       end
       it "should accept date to fill selectbox" do
         scheduling.date.should == Time.zone.parse(the_date).to_date
@@ -132,7 +132,7 @@ describe Scheduling do
     describe "given as date and hours" do
       it_behaves_like 'completely defined' do
         let :scheduling do
-          build({
+          build_without_dates({
             date:       the_date,
             start_hour: 9,
             end_hour:   17
@@ -144,7 +144,7 @@ describe Scheduling do
     describe "given as date and quickie" do
       it_behaves_like 'completely defined' do
         let :scheduling do
-          build({
+          build_without_dates({
             date:      the_date,
             quickie:   '9-17'
           })
@@ -155,7 +155,7 @@ describe Scheduling do
     describe "old scheduling without week or year, synced" do
       it_behaves_like 'completely defined' do
         let :scheduling do
-          s = build({
+          s = build_without_dates({
             date:      the_date,
             quickie:   '9-17'
           })
@@ -178,7 +178,7 @@ describe Scheduling do
       end
       context "on creation" do
         let :scheduling do
-          build({
+          build_without_dates({
             date:      the_date,
             quickie:   '9-'
           })
@@ -187,7 +187,7 @@ describe Scheduling do
       end
       context "on update" do
         let :scheduling do
-          Factory(:scheduling).tap do |s|
+          create(:scheduling).tap do |s|
             s.quickie = '9-'
           end
         end
@@ -198,7 +198,7 @@ describe Scheduling do
   end
 
   describe "ranging over midnight" do
-    let(:nightwatch) { Factory.build :scheduling, quickie: '19-6' }
+    let(:nightwatch) { build :scheduling, quickie: '19-6' }
 
     it "should have hours set" do
       nightwatch.valid?
@@ -218,10 +218,10 @@ describe Scheduling do
   end
 
   context "team" do
-    let(:team)        { Factory :team, :name => 'The A Team' }
-    let(:plan)        { Factory :plan, :organization => team.organization }
+    let(:team)        { create :team, :name => 'The A Team' }
+    let(:plan)        { create :plan, :organization => team.organization }
     let(:scheduling) do
-      Factory.build :scheduling,
+      build :scheduling,
         :start_hour   => 1,
         :end_hour     => 23,
         :plan         => plan
@@ -263,7 +263,7 @@ describe Scheduling do
       end
 
       it "may not use teams from other organizations, instead build its own" do
-        other_team = Factory :team, :name => 'The Bad Guys'
+        other_team = create :team, :name => 'The Bad Guys'
         scheduling.team_name = other_team.name
         scheduling.team.should be_present
         scheduling.team.should_not == other_team
@@ -276,16 +276,20 @@ describe Scheduling do
         scheduling.quickie.should == '1-23 <team quickie part>'
       end
 
+      context "with team" do
+        it "should not clear association if assigned quickie does not contain (same) team name"
+      end
+
     end
   end
 
   describe 'quickie completion' do
-    let(:plan) { Factory :plan }
+    let(:plan) { create :plan }
     before do
-      Factory :scheduling, date: '2011-11-01', plan: plan, quickie: '9-17 Schuften'
-      Factory :scheduling, date: '2011-11-02', plan: plan, quickie: '9-17 Schuften'
-      Factory :scheduling, date: '2011-11-02', plan: plan, quickie: '11-19 Schuften'
-      Factory :scheduling, date: '2011-11-02', plan: plan, quickie: '20-23 Glotzen'
+      create :scheduling, date: '2011-11-01', plan: plan, quickie: '9-17 Schuften'
+      create :scheduling, date: '2011-11-02', plan: plan, quickie: '9-17 Schuften'
+      create :scheduling, date: '2011-11-02', plan: plan, quickie: '11-19 Schuften'
+      create :scheduling, date: '2011-11-02', plan: plan, quickie: '20-23 Glotzen'
     end
 
     let(:completions) { plan.schedulings.quickies }
@@ -298,6 +302,77 @@ describe Scheduling do
 
     it "should not include doubles" do
       completions.should have(3).records
+    end
+  end
+
+  describe "overlapping" do
+    it "does happen with at least one common hour" do
+      one = create :scheduling, quickie: '9-12'
+      two = create :scheduling, quickie: '11-17'
+      one.should be_overlap(two)
+      two.should be_overlap(one)
+    end
+    it "does not happen without common hours" do
+      one = create :scheduling, quickie: '9-11'
+      two = create :scheduling, quickie: '11-17'
+      one.should_not be_overlap(two)
+      two.should_not be_overlap(one)
+    end
+    it "does not happen on different stacks" do
+      one = create :scheduling, quickie: '9-17', stack: 0
+      two = create :scheduling, quickie: '9-17', stack: 1
+      one.should_not be_overlap(two)
+      two.should_not be_overlap(one)
+    end
+  end
+
+  context "with a deeply nested comments" do
+    it "should be destroyable"
+    # currently tries to fetch comments which are already deleted. Almost minimal version:
+    # comment
+    # comment
+    #   answer
+    #   answer
+    #     superanswer
+    # comment
+  end
+
+  context "undoing changes" do
+    let(:team)     { create :team, name: 'Original' }
+    let(:plan)     { create :plan, organization: team.organization }
+    let(:record)   { create :scheduling, quickie: "1-15", team: team, plan: plan }
+    let(:new_team) { create :team, name: 'New', organization: record.team.organization }
+    let(:actual_updates)  { { team_id: new_team.id } }
+    let(:updates)  { { quickie: "1-18 #{new_team.to_quickie}" } }
+    let(:undone)   { record.with_previous_changes_undone }
+
+    before :each do
+      record.update_attributes!(updates)
+    end
+
+    it "should have hash to work on" do
+      record.attributes_for_undo.should be_a(Hash)
+      record.attributes_for_undo.should be_hash_matching({'team_id'=> team.id}, ignore_additional: true)
+      record.attributes_for_undo.should_not have_key('starts_at')
+      record.attributes_for_undo.should have_key('ends_at')
+    end
+
+    it "should be present" do
+      undone.should be_present
+      undone.should be_a(Scheduling)
+    end
+
+    it "should revert to the old values" do
+      undone.team.should == team
+    end
+
+    it "should accept new team" do
+      record.team.should == new_team
+    end
+
+    it "should not touch the original record iself" do
+      undone
+      record.team.should == new_team
     end
   end
 end

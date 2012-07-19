@@ -14,12 +14,12 @@ describe 'QuickieEditor', ->
 
   it 'cleans up typeahead menu when closing modal window', ->
     setFixtures sandbox
-      id: 'some-modal',
+      id: 'modalbox',
       class: 'modal'
-    $('#some-modal').append @editor
+    $('#modalbox').append @editor
     typeahead = @editor.input.data('typeahead')
     expect( typeahead.$menu.closest('body') ).toExist()
-    $('#some-modal').trigger 'hidden'
+    $('#modalbox').trigger 'dialogclose'
     expect( typeahead.$menu.closest('body') ).not.toExist()
 
 

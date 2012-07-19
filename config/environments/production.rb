@@ -65,4 +65,8 @@ Shiftplan::Application.configure do
   end
 
   config.action_mailer.delivery_method = :sendmail
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[Shiftplan Exception] ",
+    :sender_address => %{"Shiftplan Notifier" <notifier@staging.shiftplan.de>},
+    :exception_recipients => %w{errors@shiftplan.de}
 end

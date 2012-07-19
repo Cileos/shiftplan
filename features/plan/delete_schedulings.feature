@@ -20,29 +20,27 @@ Feature: Delete schedulings from plan
       And I am on the page for the plan
 
       And I should see the following calendar:
-        | Mitarbeiter | Donnerstag | Freitag  | Stunden/WAZ |
-        | Santa C     | 7-17       | 2-4 5-23 | 30          |
+        | Mitarbeiter | Do   | Fr       |
+        | Santa C     | 7-17 | 2-4 5-23 |
+      And the employee "Santa C" should have a grey hours/waz value of "30"
 
   @javascript
   Scenario: Delete a single scheduling
-    Given I click on cell "Freitag"/"Santa C"
+    Given I click on scheduling "5-23"
       And I wait for the modal box to appear
-     Then the "Quickie" field should contain "2-4" within the first active tab
-      And the "Quickie" field should contain "5-23" within the second active tab
-     When I follow "Löschen" within the second active tab within the modal box body
-     Then the second active tab should disappear
-      But the modal box should be visible
-      And I should see "Löschen" within the first active tab within the modal box body
-      And the "Quickie" field should contain "2-4" within the first active tab within the modal box body
-      And the "Quickie" field should contain "5-23" within the new scheduling form within the modal box body
+     Then the "Quickie" field should contain "5-23"
+     When I follow "Löschen" within the modal box
+     Then the "Quickie" field should contain "5-23" within the new scheduling form within the modal box
       And I should see the following calendar:
-        | Mitarbeiter | Donnerstag | Freitag | Stunden/WAZ |
-        | Santa C     | 7-17       | 2-4     | 12         |
+        | Mitarbeiter | Do   | Fr  |
+        | Santa C     | 7-17 | 2-4 |
+      And the employee "Santa C" should have a grey hours/waz value of "12"
 
       # Undo / Move
-     When I select "Samstag" from "Wochentag" within the new scheduling form within the modal box body
+     When I select "Samstag" from "Wochentag" within the new scheduling form within the modal box
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Mitarbeiter | Donnerstag | Freitag | Samstag | Stunden/WAZ |
-        | Santa C     | 7-17       | 2-4     | 5-23    | 30          |
+        | Mitarbeiter | Do   | Fr  | Sa   |
+        | Santa C     | 7-17 | 2-4 | 5-23 |
+      And the employee "Santa C" should have a grey hours/waz value of "30"

@@ -1,4 +1,4 @@
-class SchedulingDecorator < ApplicationDecorator
+class SchedulingDecorator < RecordDecorator
   decorates :scheduling
 
   def long
@@ -7,6 +7,10 @@ class SchedulingDecorator < ApplicationDecorator
 
   def short
     concat hour_range_quickie, team_shortcut
+  end
+
+  def hour_range_with_duration
+    hour_range_quickie + ' (' + length_in_hours.to_s + 'h)'
   end
 
   def team_class
@@ -36,15 +40,19 @@ class SchedulingDecorator < ApplicationDecorator
   end
 
   def metadata
-    { quickie: quickie, id: id }
+    {
+      edit_url: edit_url,
+      start: start_hour,
+      length: length_in_hours
+    }
+  end
+
+  def edit_url
+    h.url_for([:edit, scheduling.organization, scheduling.plan, scheduling])
   end
 
   def concat(*args)
     args.compact.join(' ')
-  end
-
-  def insert_new_form
-    append_modal body: h.render('new_form', scheduling: model)
   end
 
 

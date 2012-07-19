@@ -1,0 +1,12 @@
+#!/bin/bash
+
+. script/_lib
+
+header "configuring Travis"
+
+cp config/database.yml{.travis,}
+
+bundle exec rake db:migrate > /dev/null || exit 64
+
+script/build
+

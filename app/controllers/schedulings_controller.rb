@@ -3,7 +3,11 @@ class SchedulingsController < InheritedResources::Base
 
   nested_belongs_to :plan
   actions :all, :except => [:show]
-  custom_actions collection: :multiple
+  # same as SchedulingFilter::Modes - naming explicitly here because of
+  # decoupling and we don't want eagler preloading here
+  custom_actions collection: [:employees_in_week, :hours_in_week] 
+  # FIXME obviously the custom actions are not neccessary if a view with the name exists
+  layout 'calendar'
 
   respond_to :html, :js
 
@@ -12,18 +16,23 @@ class SchedulingsController < InheritedResources::Base
       @schedulings ||= filter.records
     end
 
+    def pure_filter
+      @pure_filter ||= Scheduling.filter( filter_params )
+    end
+
     def filter
-      @filter ||= Scheduling.filter( filter_params )
+      @filter ||= SchedulingFilterDecorator.decorate(pure_filter, mode: current_plan_mode || params[:action])
     end
     helper_method :filter
 
+    # InheritedResources
     def smart_resource_url
-      organization_plan_year_week_path(current_organization, parent, resource.year, resource.week)
+      filter.path_to_day(resource.date)
     end
 
     def filter_params
       params
-        .slice(:week, :year, :ids)
+        .slice(:week, :year, :ids, :day, :month)
         .reverse_merge(:year => Date.today.year)
         .merge(:plan => parent)
     end

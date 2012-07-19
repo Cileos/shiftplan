@@ -10,12 +10,16 @@ de:
         full_name: Name
         weekly_working_time: Wochenarbeitszeit
         email: E-Mail
+        avatar: Mitarbeiterfoto
+        organization: Organisation
   simple_form:
     placeholders:
       employee:
         first_name: Vorname
         last_name: Nachname
   employees:
+    table:
+      action: Aktion
     invitation_status:
       invited: "Eingeladen am %{invited_at}"
       active: Aktiv

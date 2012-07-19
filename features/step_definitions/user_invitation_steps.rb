@@ -5,9 +5,9 @@ Given /^I (reinvite|invite) #{capture_model} with the email address "([^"]*)" fo
   step %{a clear email queue}
   step %{I go to the employees page for the organization "#{organization}"}
   if invite_or_reinvite == 'invite'
-    step %{I follow "Einladen" in the cell "Status"\/"#{employee.name}"}
+    step %{I follow "Einladen" within the cell "Aktion"\/"#{employee.last_and_first_name}"}
   else
-    step %{I follow "Erneut einladen" in the cell "Status"\/"#{employee.name}"}
+    step %{I follow "Erneut einladen" within the cell "Aktion"\/"#{employee.last_and_first_name}"}
   end
   step %{I wait for the modal box to appear}
   if invite_or_reinvite == 'reinvite'
@@ -47,19 +47,18 @@ When /^#{capture_model} accepts the invitation for the organization "([^"]*)" (w
     step %{I press "Passwort setzen"}
   end
 
-  step %{I should be signed in as "#{employee.reload.user.email}"}
+  name_or_email = if employee.reload.user.has_multiple_employees?
+    employee.user.email
+  else
+    employee.name
+  end
+  step %{I should be signed in as "#{name_or_email}"}
   step %{I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."}
   if employee.user.organizations.count > 1
     step %{I should be on the dashboard page}
   else
     step %{I should be on the page of the organization "#{organization_name}"}
   end
-end
-
-When /^I (follow|press) "([^"]+)" in the cell "([^"]+)"\/"([^"]+)"$/ do |follow_or_press, label, column_label, row_label|
-  column = column_index_for(column_label)
-  row    = row_index_for(row_label)
-  step %{I #{follow_or_press == 'follow' ? 'follow' : 'press'} "#{label}" within "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"}
 end
 
 When /^I try to accept an invitation with an invalid token$/ do

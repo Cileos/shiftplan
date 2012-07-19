@@ -1,8 +1,6 @@
+//= require jquery.ui.resizable
+//= require jquery.ui.dialog
 //= require jquery-miniColors/jquery.miniColors
-//= require _posts
-//= require _navigation
-//= require _common
-//= require _feedback
 
 /*
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
@@ -16,12 +14,45 @@
 
 @import "bootstrap";
 
-@import "compass/css3/border-radius";
-@import "compass/css3/box-shadow";
+@import "compass/css3";
+@import "compass/utilities/lists/horizontal-list";
+
+@import "config";
+
+/* import custom library */
+@import "library/*";
+
+@import "application/common";
+@import "comments";
+@import "modal";
+@import "application/buttons";
+@import "application/js_buttons";
+@import "application/spinner";
+@import "application/avatar";
+@import "application/employees";
+@import "application/teams";
+@import "application/pagination";
+@import "application/badge";
+@import "application/tooltip";
+@import "application/form";
+@import "application/page";
+@import "application/header";
+@import "application/navigation";
+@import "application/content";
+@import "application/calendar";
+@import "application/help";
+@import "application/instructions";
+@import "application/modal";
+@import "application/feedback";
+@import "application/user_settings";
 
 /* from here on, we can re-use bootstrap variables */
-@import "library/*";
-@import "modal";
-@import "plans";
-@import "comments";
+@import "application/posts";
+// @import "application/plans";
 
+@import "application/detail_condensed";
+
+/* specific layouts for different viewports (*not* iPad/iPhone) */
+@import "application/1000px";
+@import "application/800px";
+@import "application/600px";

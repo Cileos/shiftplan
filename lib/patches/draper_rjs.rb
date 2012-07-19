@@ -18,12 +18,14 @@ module Draper::RJS
     base.class_eval do
       alias_method_chain :initialize, :rjs
       attr_accessor :page
+      attr_accessor :options
     end
   end
 
   def initialize_with_rjs(input, options={})
     initialize_without_rjs(input, options)
-    self.page = options.delete(:page)
+    self.page    = options[:page]
+    self.options = options # for re-decoration
   end
 
   def page?

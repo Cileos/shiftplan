@@ -6,10 +6,10 @@
       %li#no-comments= t(:'comments.no_comments_present')
     - else
       - comments.each do |comment|
-        = render('comments/item', comment: comment)
+        = render('comments/item', comment: comment, avatar_size: :thumb)
   = simple_form_for Comment.new(employee: current_user.current_employee), |
       url: organization_blog_post_comments_path(@post.organization, @post.blog, @post), remote: true do |f|
     = f.input :body, input_html: { rows: 2 }
     = f.input :employee_id, as: :hidden
-    %button.btn.btn-info.btn-mini{type: 'submit'}= ti(:comment)
+    %button.btn.btn-inverse{type: 'submit'}= ti(:comment)
 

@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Invitation do
   describe 'associate employee with user' do
     it 'should link the employee to the user on save if user is set' do
-      employee = Factory :employee
-      user = Factory :user
-      invitation = Factory(:invitation, employee: employee, organization: Factory(:organization))
+      employee = create :employee
+      user = create :user
+      invitation = create(:invitation, employee: employee, organization: create(:organization))
 
       employee.user.should be_nil
       user.employees.should be_empty

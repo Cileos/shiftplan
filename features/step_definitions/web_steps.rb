@@ -21,8 +21,8 @@
 
 require 'uri'
 require 'cgi'
-require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
-require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
+#require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
+#require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
 
 module WithinHelpers
   def with_scope(locator)
@@ -51,10 +51,12 @@ end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
+  wait_for_the_page_to_be_loaded
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
+  wait_for_the_page_to_be_loaded
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
@@ -183,13 +185,13 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
     end
   end
 end
- 
+
 Then /^(?:|I )should be on (.+)$/ do |page_name|
-  current_path = URI.parse(current_url).path
-  if current_path.respond_to? :should
-    current_path.should == path_to(page_name)
-  else
-    assert_equal path_to(page_name), current_path
+  expected = path_to(page_name)
+  begin
+    wait_until { URI.parse(current_url).path == expected }
+  rescue Capybara::TimeoutError => e
+    URI.parse(current_url).path.should == expected
   end
 end
 
@@ -197,8 +199,8 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   query = URI.parse(current_url).query
   actual_params = query ? CGI.parse(query) : {}
   expected_params = {}
-  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')} 
-  
+  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')}
+
   if actual_params.respond_to? :should
     actual_params.should == expected_params
   else

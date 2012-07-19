@@ -9,6 +9,7 @@ Spork.prefork do
 
 
   RSpec.configure do |config|
+    include FactoryGirl::Syntax::Default
     config.before(:all) do
       DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.clean_with(:truncation)

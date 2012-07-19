@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe SchedulingFilter do
 
-  let(:bad_day) { mock('Date', iso8601: '2011-sometimes') }
-
   it "converts stringy week to integer" do
     filter = SchedulingFilter.new(week: '23')
     filter.week.should == 23
@@ -64,24 +62,16 @@ describe SchedulingFilter do
       filter.duration_in_days.should == 7
     end
 
-    context "scheduled nothing" do
-      context "index accessor" do
-        it "should return empty array" do
-          filter.indexed(bad_day, 42).should == []
-        end
-      end
-    end
-
     context "scheduled a lot" do
-      let(:plan)   { Factory :plan }
+      let(:plan)   { create :plan }
       let(:filter) { SchedulingFilter.new week: 52, year: 2012, plan: plan }
-      let(:me)     { Factory :employee }
-      let(:you)    { Factory :employee }
+      let(:me)     { create :employee }
+      let(:you)    { create :employee }
       before :each do
-        @waiting = Factory :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 1, employee: you
-        @opening = Factory :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 2, employee: you
-        @eating1 = Factory :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: you
-        @eating2 = Factory :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: me
+        @waiting = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 1, employee: you
+        @opening = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 2, employee: you
+        @eating1 = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: you
+        @eating2 = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: me
       end
 
       context "records" do
@@ -95,89 +85,38 @@ describe SchedulingFilter do
         end
 
         it "should not include records in another week" do
-          drinking = Factory :manual_scheduling, plan: plan, year: 2012, week: 53, cwday: 2
+          drinking = create :manual_scheduling, plan: plan, year: 2012, week: 53, cwday: 2
           r.should_not include(drinking)
         end
 
         it "should not include records from another plan" do
-          snowing = Factory :manual_scheduling, year: 2012, week: 52, cwday: 2
+          snowing = create :manual_scheduling, year: 2012, week: 52, cwday: 2
           r.should_not include(snowing)
         end
 
 
       end
 
-      context "index" do
-        let(:i) { filter.index }
-
-        it "should index the records by their date" do
-          i.keys.should include(@waiting.iso8601)
-          i.keys.should include(@opening.iso8601)
-          i.keys.should include(@eating1.iso8601)
-          i.keys.should include(@eating2.iso8601)
-        end
-
-        it "should index by iso8601 and employee" do
-          i[@waiting.iso8601].keys.should have(1).record
-          i[@waiting.iso8601].keys.should include(@waiting.employee)
-          i[@waiting.iso8601][@waiting.employee].should == [@waiting]
-
-          i[@opening.iso8601][@opening.employee].should == [@opening]
-        end
-
-        it "should group to scheduling on the same day" do
-          i[@eating1.iso8601][@eating1.employee].should == [@eating1]
-          i[@eating1.iso8601][@eating2.employee].should == [@eating2]
-          #       ^^^ grouped on 
-        end
-      end
-
-      context "index accessor" do
-        it "find the records" do
-          filter.indexed(@eating1.date, @eating1.employee).should == [@eating1]
-        end
-
-        it "does not break if nothing found" do
-          expect { filter.indexed(bad_day, 42) }.not_to raise_error
-        end
-
-        it "returns empty array when nothing found" do
-          filter.indexed(bad_day, 42).should == []
-        end
-      end
-
     end
 
   end
 
-  describe "for a list of schedulings by their IDs (multi edit)" do
-
-    context "scheduled a lot" do
-      let(:plan)    { Factory :plan }
-      let(:you_waiting) { Factory :manual_scheduling, plan: plan }
-      let(:you_eating ) { Factory :manual_scheduling, plan: plan }
-      let(:me_eating  ) { Factory :manual_scheduling, plan: plan }
-      let(:filter)  { SchedulingFilter.new ids: [you_eating.id.to_s], plan: plan }
-      let(:results) { filter.records }
-
-      before :each do
-        [you_waiting, you_eating, me_eating ].each { :enjoy } # just mention them to create the records
-      end
-
-      it "should accept array attribute" do
-        filter.ids.should_not be_nil
-        filter.ids.should_not be_empty
-      end
-
-      it "should find the record matching the ID" do
-        results.should include(you_eating)
-      end
-
-      it "should ignore record having other IDs" do
-        results.should_not include(me_eating)
-        results.should_not include(you_waiting)
-      end
+  describe "for exactly one day" do
+    let(:filter) { SchedulingFilter.new year: 2012, month: 12, day: 23 }
+    it "should know its date" do
+      filter.date.should == Date.new(2012,12,23)
     end
+
+    it "should find record on that day" do
+      scheduling = create :manual_scheduling, starts_at: filter.date
+      filter.records.should include(scheduling)
+    end
+
+    it "should not find record on other day" do
+      scheduling = create :scheduling, date: filter.date - 5.days
+      filter.records.should_not include(scheduling)
+    end
+
   end
 
 end

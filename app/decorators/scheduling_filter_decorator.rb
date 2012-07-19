@@ -1,3 +1,5 @@
+# This decorator has multiple `modes` to act in. These correspond to the
+# different actions and views of the SchedulingsController.
 class SchedulingFilterDecorator < ApplicationDecorator
   decorates :scheduling_filter
 
@@ -6,112 +8,136 @@ class SchedulingFilterDecorator < ApplicationDecorator
     "#{plan.name} - #{formatted_range}"
   end
 
-  def formatted_range
-    case range
-    when :week
-      I18n.localize monday, format: :week_with_first_day
-    else
-      '???'
-    end
+  Modes = [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
+
+  def mode
+    @mode ||= self.class.name.scan(/SchedulingFilter(.*)Decorator/).first.first.underscore
   end
 
+  def mode?(query)
+    mode.include?(query)
+  end
+
+  def self.decorate(input, opts={})
+    mode = opts.delete(:mode) || opts.delete('mode')
+    if page = opts[:page]
+      mode ||= page.view.current_plan_mode
+    end
+    unless mode
+      raise ArgumentError, 'must give :mode in options'
+    end
+    unless mode.in?( Modes.map(&:to_s) )
+      raise ArgumentError, "mode is not supported: #{mode}"
+    end
+    "SchedulingFilter#{mode.classify}Decorator".constantize.new(input, opts)
+  end
+
+
   def formatted_days
-    days.map { |day| I18n.localize(day, format: :week_day) }
+    days.map do |day|
+      [
+        I18n.localize(day, format: :week_day),
+        I18n.localize(day, format: :abbr_week_day)
+      ]
+    end
   end
 
   def filter
     model
   end
 
-  def cell_content(day, employee)
-    schedulings = schedulings_for(day, employee)
-    unless schedulings.empty?
-      h.render "schedulings/list_in_#{range || 'unknown'}",
-        schedulings: schedulings
-    end
-  end
-
-  def schedulings_for(day, employee)
-    filter.indexed(day, employee).sort_by(&:start_hour)
-  end
-
-  def cell_metadata(day, employee)
-    { employee_id: employee.id, date: day.iso8601 }
-  end
-
   def table_metadata
     {
       organization_id: h.current_organization.id,
       plan_id:         plan.id,
-      edit_url:        h.multiple_organization_plan_schedulings_path(h.current_organization, plan),
-      new_url:         h.new_organization_plan_scheduling_path(h.current_organization, plan)
+      new_url:         h.new_organization_plan_scheduling_path(h.current_organization, plan),
+      mode:            mode
     }
+  end
+
+  def quickies_for_completion
+    plan.schedulings.quickies
+  end
+
+  def cell_metadata(*a)
+    { }
+  end
+
+  def cell_content(*a)
+    schedulings = find_schedulings(*a)
+    unless schedulings.empty?
+      h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate), filter: self
+    end
+  end
+
+  # can give
+  # 1) a Scheduling to find its cell mates
+  # 2) coordinates to find all the scheudlings in cell (needs schedulings_for implemented)
+  def find_schedulings(*criteria)
+    if criteria.first.is_a?(Scheduling)
+      schedulings_for( *coordinates_for_scheduling( criteria.first) )
+    else
+      schedulings_for( *criteria )
+    end
   end
 
   def selector_for(name, resource=nil, extra=nil)
     case name
     when :cell
       if resource.is_a?(Scheduling)
-        %Q~#calendar tbody td[data-date=#{resource.date.iso8601}][data-employee_id=#{resource.employee_id}]~
+        cell_selector(resource)
       else
         day, employee_id = resource, extra
         %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
       end
+    when :scheduling
+      %Q~#calendar tbody .scheduling[data-edit_url="#{resource.decorate.edit_url}"]~
     when :wwt_diff
-      %Q~#calendar tbody td.wwt_diff[data-employee_id=#{resource.id}]~
+      %Q~#calendar tbody tr[data-employee_id=#{resource.id}] th .wwt_diff~
     when :legend
       '#legend'
+    when :team_colors
+      '#team_colors'
     else
       super
     end
   end
 
-  def weekly_working_time_difference_header
-    if week?
-      h.content_tag :th do
-        (h.translate_action(:hours) + '/' +
-        h.content_tag(:abbr, title: h.translate_action(:wwt_long)) do
-          h.translate_action(:wwt_short)
-        end).html_safe
-      end
-    end
-  end
-
-  def weekly_working_time_difference_tag_for(employee)
-    if week?
-      h.content_tag :td, :class => 'wwt_diff', 'data-employee_id' => employee.id do
-        wwt_diff_for(employee)
-      end
-    end
+  # selector for the cell of the given scheduling
+  def cell_selector(scheduling)
+     %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee_id=#{scheduling.employee_id}]~
   end
 
   def wwt_diff_for(employee)
-    h.content_tag :span, wwt_diff_label_text_for(employee),
-      class: "label #{wwt_diff_label_class_for(employee)}"
+    h.abbr_tag(wwt_diff_label_text_for(employee, short: true),
+               wwt_diff_label_text_for(employee),
+               class: "badge #{wwt_diff_label_class_for(employee)}")
   end
 
-  def wwt_diff_label_text_for(employee)
+  def wwt_diff_label_text_for(employee, opts={})
     if employee.weekly_working_time.present?
-      "#{hours_for(employee)} von #{employee.weekly_working_time.to_i}"
+      opts[:short].present? ? txt = '/' : txt = 'von'
+      "#{hours_for(employee)} #{txt} #{employee.weekly_working_time.to_i}"
     else
       "#{hours_for(employee)}"
     end
   end
 
+  # the 'badge-normal' class is not actually used by bootstrap, but we cannot test for absent class
   def wwt_diff_label_class_for(employee)
-    return '' unless employee.weekly_working_time.present?
+    return 'badge-normal' unless employee.weekly_working_time.present?
     difference = employee.weekly_working_time - hours_for(employee)
     if difference > 0
-      'label-warning'
+      'badge-warning'
     elsif difference < 0
-      'label-important'
+      'badge-important'
     else
-      'label-success'
+      'badge-success'
     end
   end
 
   def teams
-    records.map(&:team).compact.uniq
+    records.map(&:team).compact.uniq.sort_by(&:name)
   end
 
   def hours_for(employee)
@@ -119,78 +145,104 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def employees
-    organization.employees.order_by_name
+    organization.employees.order_by_names
   end
 
   delegate :plan,         to: :filter
   delegate :organization, to: :plan
 
-  def respond_to_missing?(name)
-    name =~ /^(.*)_for_scheduling$/ || super
+  def coordinates_for_scheduling(scheduling)
+    [ scheduling.date, scheduling.employee ]
   end
 
-  # you can call a method anding in _for_scheduling
-  def method_missing(name, *args, &block)
-    if name =~ /^(.*)_for_scheduling$/
-      scheduling = args.first
-      send($1, scheduling.date, scheduling.employee)
+  # URI-Path to another week
+  def path_to_week(week)
+    raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
+    h.send(:"organization_plan_#{mode}_path", h.current_organization, plan, year: week.year, week: week.cweek)
+  end
+
+  def path_to_day(day)
+    raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
+    raise(ArgumentError, "can only link to day in day view") unless mode?('day')
+    h.send(:"organization_plan_#{mode}_path", h.current_organization, plan, year: day.year, month: day.month, day: day.day)
+  end
+
+  # URI-Path to another mode
+  def path_to_mode(mode)
+    raise(ArgumentError, "unknown mode: #{mode}") unless mode.in?(Modes)
+    if mode =~ /week/
+      # Array notation breaks on week-Fixnums
+      h.plan_week_mode_path(plan, mode, monday)
     else
-      super
+      '#' # TODO
     end
   end
 
-  def link_to_previous_week
-    week = monday.prev_week
-    h.link_to :previous_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
+  def path_to_day(day=monday)
+    h.organization_plan_teams_in_day_path(h.current_organization, plan, day.year, day.month, day.day)
   end
 
-  def link_to_next_week
-    week = monday.next_week
-    h.link_to :next_week, h.organization_plan_year_week_path(h.current_organization, plan, week.year, week.cweek)
-  end
-
-  def respond(resource)
+  # TODO hooks?
+  def respond(resource, action=:update)
     if resource.errors.empty?
-      update_cell_for(resource)
-      if resource.next_day
-        update_cell_for(resource.next_day)
+      if action == :update
+        respond_for_update(resource)
+      else
+        respond_for_create(resource)
       end
-      update_wwt_diff_for(resource.employee)
-      clear_modal
+      remove_modal
       update_legend
+      update_team_colors
       update_quickie_completions
     else
       append_errors_for(resource)
     end
   end
 
+  def respond_for_create(resource)
+    update_cell_for(resource)
+    if resource.next_day
+      update_cell_for(resource.next_day)
+    end
+    focus_element_for(resource)
+  end
+
+  def respond_for_update(resource)
+    update_cell_for(resource.with_previous_changes_undone)
+    respond_for_create(resource)
+  end
+
   def update_cell_for(scheduling)
-    select(:cell, scheduling).html cell_content_for_scheduling(scheduling) || ''
+    update_wwt_diff_for(scheduling.employee)
+    select(:cell, scheduling).refresh_html cell_content(scheduling) || ''
+  end
+
+  def focus_element_for(scheduling)
+    select(:scheduling, scheduling).trigger('focus')
   end
 
   def update_wwt_diff_for(employee)
-    select(:wwt_diff, employee).html wwt_diff_for(employee)
+    select(:wwt_diff, employee).refresh_html wwt_diff_for(employee)
   end
 
-
-  # FIXME WTF should use cdata_section to wrao team_styles, but it break the styles
-  def legend
-    h.content_tag(:style) { team_styles } +
-      h.render('teams/legend', teams: teams)
-  end
-
-  def update_legend
-    select(:legend).html legend
-  end
 
   def update_quickie_completions
     page << "window.gon.quickie_completions=" + plan.schedulings.quickies.to_json
   end
 
-  # TODO move into own view to fetch as an organization-specific asset
-  def team_styles
-    teams.map do |team|
-      %Q~.#{dom_id(team)} { background-color: #{team.color};}~
-    end.join(' ')
+  def legend
+    h.render('teams/legend', teams: teams)
+  end
+
+  def update_legend
+    select(:legend).refresh_html legend
+  end
+
+  def team_colors
+    h.render 'teams/colors', teams: teams
+  end
+
+  def update_team_colors
+    select(:team_colors).refresh_html team_colors
   end
 end

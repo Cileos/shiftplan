@@ -2,8 +2,8 @@ Then /^I should be signed in as "([^"]*)"$/ do |email|
   step %Q~I should see "#{email}" within "#session"~
 end
 
-Then /^I should be signed in as "([^"]*)" for #{capture_model}$/ do |email, organisation|
-  step %Q~I should see "#{email}" within "#session"~
+Then /^I should be signed in as "([^"]*)" for #{capture_model}$/ do |email_or_name, organisation|
+  step %Q~I should see "#{email_or_name}" within "#session"~
   step %Q~I should see "#{model!(organisation).name}" within "#session"~
 end
 
@@ -12,13 +12,8 @@ Given /^I am signed in as #{capture_model}$/ do |user|
     step %{#{user} exists}
   end
   user = model!(user)
-  step %{I am on the home page}
-  step %{I follow "Einloggen"}
-  step %{I fill in "E-Mail" with "#{user.email}"}
-  step %{I fill in "Passwort" with "secret"}
-  step %{I press "Einloggen"}
-  step %{I should see "Erfolgreich eingeloggt."}
-  step %{I should be signed in as "#{user.email}"}
+  visit fast_sign_in_path(email: user.email)
+  page.should have_content('success')
 end
 
 Given /^I am signed in$/ do

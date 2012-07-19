@@ -1,0 +1,8 @@
+%ul.user-settings.nav.nav-pills.nav-stacked
+  - if current_user.has_multiple_employees?
+    = li_link :profile, profile_employees_path
+  - else
+    = li_link :profile, edit_profile_employee_path(current_user.employees.first)
+  = li_link :change_email, user_email_path
+  = li_link :change_password, user_password_path
+

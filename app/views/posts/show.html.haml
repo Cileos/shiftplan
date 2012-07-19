@@ -1,5 +1,7 @@
+#actions.btn-group
+  = link_to(ti(:back), [current_organization, @post.blog, :posts], class: 'btn btn-primary', id: 'back')
 .row
-  .post.span6
+  .post
     %div{id: "post_#{@post.id}"}
       = render('posts/post_details', post: @post, truncation: false)
-    = render('posts/comments', comments: @post.comments)
+  = render('posts/comments', comments: @post.comments)

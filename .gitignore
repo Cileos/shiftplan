@@ -12,3 +12,8 @@ screencasts/
 coverage
 features/support/stepdefs.txt
 config/missing_translations.yml
+public/uploads/
+*.swp
+*.swn
+*.swo
+rerun.txt

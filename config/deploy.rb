@@ -1,7 +1,7 @@
 # RVM bootstrap
 $:.unshift(File.expand_path("~/.rvm/lib"))
 require 'rvm/capistrano'
-set :rvm_ruby_string, '1.9.3-p0@shiftplan'
+set :rvm_ruby_string, '1.9.3-p194@shiftplan'
 set :rvm_type, :user
 
 # bundler bootstrap
@@ -65,6 +65,13 @@ namespace :deploy do
   end
 
   before "deploy:assets:precompile", "deploy:symlink_static_directories"
+
+  desc "Delete the code we use to accelerate testing"
+  task :delete_test_code do
+    run "rm -f #{current_release}/app/controllers/test_acceleration_controller.rb"
+  end
+
+  before "deploy:assets:precompile", "deploy:delete_test_code"
 
   task :rake_task do
     if task = ENV['TASK']

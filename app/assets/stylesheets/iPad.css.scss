@@ -1,0 +1,40 @@
+/* --------------------------------------------------------------------- */
+/*  iPad.css.scss                                                        */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+/* For general iPad layouts */
+@media only screen and (device-width: 768px) {
+    body {
+        -webkit-text-size-adjust: none; /* dont fk around with my prefs */
+    }
+    a.feedback-without-screenshot {
+        display: none;
+    }
+    .ui-widget-overlay {
+        background: #333;
+    }
+}
+
+/* For portrait layouts only */
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+    .instructions {
+        margin: 20px;
+        padding: 0;
+        width: auto;
+        border-left: none;
+    }
+}
+
+/* For landscape layouts only */
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+    .span7 {
+        width: 55%;
+    }
+    .instructions {
+        margin-left: 20px;
+        padding-left: 20px;
+        width: 40%;
+    }
+}

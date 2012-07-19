@@ -1,5 +1,7 @@
 Then /^the selected "([^"]*)" should be "([^"]*)"$/ do |field, value|
-  field_labeled(field).native.xpath(".//option[@selected = 'selected']").inner_html.should =~ /#{value}/
+  selected = field_labeled(field).all('option').find {|f| f['selected'] }
+  selected.should be_present
+  selected.text.should =~ /#{value}/
 end
 
 When /^I wait for (.+) to appear$/ do |name|
@@ -35,9 +37,9 @@ Then /^(.+) should disappear$/ do |name|
   step %Q~I wait for #{name} to disappear~
 end
 
-When /^I close the modal box$/ do
-  page.first('.modal-backdrop').click
-  page.should have_no_css('.modal-backdrop') # implies waiting
+When /^I close (the modal box)$/ do |target|
+  page.first('a[role=button].ui-dialog-titlebar-close').click
+  page.should have_no_css('.ui-widget-overlay') # implies waiting
 end
 
 Then /^I should see the following defined items:$/ do |expected|
@@ -54,4 +56,18 @@ end
 
 Then /^the #{capture_quoted} tab should be active$/ do |tab_name|
   page.should have_css('.nav-tabs li.active', text: tab_name)
+end
+
+Then /^(.*) should be removed from the dom$/ do |name|
+  page.should have_no_css( selector_for(name) )
+end
+
+
+Then /^I should see the following typeahead items:$/ do |expected|
+  list = selector_for('the typeahead list')
+  page.should have_css(list)
+  found = page.first(list).all('li').map do |li|
+    [li.text, li[:class].split.sort.join(' ')]
+  end
+  expected.diff! found
 end

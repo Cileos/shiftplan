@@ -18,6 +18,41 @@ class Scheduling < ActiveRecord::Base
   acts_as_commentable
   has_many :comments, as: :commentable # FIXME WTF
 
+  def commenters
+    comments.map &:employee
+  end
+
+  module Stackable
+    def bump_remaining_stack
+      self.remaining_stack ||= 0
+      self.remaining_stack += 1
+      stacked_parents.each(&:bump_remaining_stack)
+    end
+
+    def self.included(base)
+      base.class_eval do
+        attr_accessor :stack
+        attr_accessor :remaining_stack
+        attr_accessor :stacked_parents
+      end
+    end
+
+    def total_stack
+      stack + remaining_stack + 1 # except myself
+    end
+
+    # ignores real date, just checks hours
+    def overlap?(other)
+      other.stack == stack && overlap_ignoring_stack?(other)
+    end
+
+    def overlap_ignoring_stack?(other)
+      hour_range.cover?(other.start_hour) || other.hour_range.cover?(start_hour)
+    end
+  end
+
+  include Stackable
+
   # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
   def start_hour=(hour)
     self.starts_at = date + hour.hours
@@ -43,6 +78,10 @@ class Scheduling < ActiveRecord::Base
     else
       ends_at.hour
     end
+  end
+
+  def hour_range
+    (start_hour...end_hour)
   end
 
   # date of the day the Scheduling starts
@@ -102,16 +141,32 @@ class Scheduling < ActiveRecord::Base
   delegate :iso8601, to: :date
 
 
+  # FIXME nightshift
   def length_in_hours
-    end_hour - start_hour
+    if start_hour < end_hour
+      end_hour - start_hour
+    else
+      24-start_hour
+    end
   end
 
   def self.filter(params={})
     SchedulingFilter.new params.reverse_merge(:base => self)
   end
 
+  # FIXME going to fail on month/day view
   def concurrent
     SchedulingFilter.new week: week, employee: employee, year: year, plan: plan
+  end
+
+  def with_previous_changes_undone
+    dup.tap do |copy|
+      copy.attributes = attributes_for_undo
+    end
+  end
+
+  def attributes_for_undo
+    previous_changes.map { |k,(o,n)| { k => o }}.inject(&:merge)
   end
 
   def team_name
@@ -150,6 +205,10 @@ class Scheduling < ActiveRecord::Base
       .select(%q~max(starts_at) AS starts_at, max(ends_at) AS ends_at, team_id~)
       .group(%q~date_part('hour', starts_at), date_part('hour', ends_at), team_id~)
       .map(&:quickie)
+  end
+
+  def comments_count
+    comments.count
   end
 
   private

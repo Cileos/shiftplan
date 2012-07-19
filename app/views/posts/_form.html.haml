@@ -3,9 +3,10 @@
   = f.error_notification
 
   .inputs
-    = f.input :title, autofocus: true
+    .form-horizontal
+      = f.input :title, autofocus: true
     = f.input :author_id, as: :hidden
     = f.input :body, as: :text, input_html: { rows: 10, cols: 20 }
 
   .actions
-    %button.btn.btn-primary= ti(:update)
+    %button.btn.btn-success= ti(:update)

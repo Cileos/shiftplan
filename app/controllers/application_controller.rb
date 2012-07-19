@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_employee, if: :user_signed_in?
 
   rescue_from CanCan::AccessDenied do |exception|
+    logger.debug('Access denied')
     flash[:alert] = translate('message.access_denied')
     respond_to do |denied|
       denied.html { redirect_to root_url }
@@ -14,7 +15,16 @@ class ApplicationController < ActionController::Base
 
   check_authorization :unless => :devise_controller?
 
+  include UrlHelper
+
   protected
+
+  def set_flash(severity, key=nil, opts={})
+    key ||= severity
+    action = opts.delete(:action) || params[:action]
+    controller = opts.delete(:controller) || params[:controller]
+    flash[severity] = t("flash.#{controller}.#{action}.#{key}", opts)
+  end
 
   def organization_param; params[:organization_id] end
 
@@ -38,4 +48,15 @@ class ApplicationController < ActionController::Base
     current_organization.present?
   end
   helper_method :current_organization?
+
+  # HACK on every AJAX request, we deliver the mode of the plan in a header, so
+  # the RJS responses can figure out the correct decorators
+  def current_plan_mode
+    if mode = request.headers['HTTP_X_SHIFTPLAN_MODE'] || params['_shiftplan_mode']
+      mode.inquiry
+    else
+      nil
+    end
+  end
+  helper_method :current_plan_mode
 end

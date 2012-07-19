@@ -4,12 +4,12 @@ class CopyWeekController < InheritedResources::Base
   respond_to :js
 
   def create
-    create! { current_week_path }
+    create! { plan_week_mode_path(plan, current_plan_mode, resource.target_day) }
   end
 
-  protected
-
-  def current_week_path
-    organization_plan_year_week_path current_organization, parent, resource.target_year, resource.target_week
-  end
+  private
+    # InheritedResources gives us #parent
+    def plan
+      parent
+    end
 end

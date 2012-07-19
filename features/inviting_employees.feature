@@ -64,7 +64,7 @@ Feature: Inviting Employees
     When I fill in "Passwort" with "secret!"
     When I fill in "invitation_user_attributes_password_confirmation" with "secret!"
      And I press "Passwort setzen"
-    Then I should be signed in as "homer@thesimpsons.com"
+    Then I should be signed in as "Homer Simpson"
      And I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."
 
   Scenario: Inviting an employee with an email address of a confirmed user which has not been invited yet
@@ -95,16 +95,16 @@ Feature: Inviting Employees
   Scenario: Displaying the e-mail address or the invitation status on the employees page
     When I go to the employees page for the organization "fukushima"
     Then I should see the following table of employees:
-      | Name          | E-Mail               | Status   |
-      | Planner Burns | planner@fukushima.jp | Aktiv    |
-      | Homer Simpson |                      | Einladen |
+      | Name           | E-Mail               | Status                |
+      | Burns, Planner | planner@fukushima.jp | Aktiv                 |
+      | Simpson, Homer |                      | Noch nicht eingeladen |
 
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     Then I should see the following table of employees:
-      | Name          | E-Mail                | Status                                                 |
-      | Planner Burns | planner@fukushima.jp  | Aktiv                                                  |
-      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 23.05.2012 um 12:00 Uhr |
+      | Name           | E-Mail                | Status                                |
+      | Burns, Planner | planner@fukushima.jp  | Aktiv                                 |
+      | Simpson, Homer | homer@thesimpsons.com | Eingeladen am 23.05.2012 um 12:00 Uhr |
 
     Given today is "2012-05-24 12:00"
     # need to sign in again because the session has expired
@@ -112,9 +112,9 @@ Feature: Inviting Employees
     When I reinvite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     Then I should see the following table of employees:
-      | Name          | E-Mail                | Status                                                 |
-      | Planner Burns | planner@fukushima.jp  | Aktiv                                                  |
-      | Homer Simpson | homer@thesimpsons.com | Erneut einladen\nEingeladen am 24.05.2012 um 12:00 Uhr |
+      | Name           | E-Mail                | Status                                |
+      | Burns, Planner | planner@fukushima.jp  | Aktiv                                 |
+      | Simpson, Homer | homer@thesimpsons.com | Eingeladen am 24.05.2012 um 12:00 Uhr |
     And I sign out
 
     When the employee accepts the invitation for the organization "fukushima" with setting a password
@@ -123,9 +123,9 @@ Feature: Inviting Employees
     And I sign in as the confirmed user
     When I go to the employees page for the organization "fukushima"
     Then I should see the following table of employees:
-      | Name          | E-Mail                | Status |
-      | Planner Burns | planner@fukushima.jp  | Aktiv  |
-      | Homer Simpson | homer@thesimpsons.com | Aktiv  |
+      | Name           | E-Mail                | Status |
+      | Burns, Planner | planner@fukushima.jp  | Aktiv  |
+      | Simpson, Homer | homer@thesimpsons.com | Aktiv  |
 
   Scenario: Inviting with an email that's already assigned to an employee of the same organization
     Given an employee "bart" exists with organization: organization "fukushima", first_name: "Bart"

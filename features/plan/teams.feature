@@ -8,25 +8,27 @@ Feature: Teams in plans
 
   @javascript
   Scenario: Using just the full name
-     When I schedule "Homer S" on "Donnerstag" for "9-17 Reaktor putzen"
+     When I schedule "Homer S" on "Do" for "9-17 Reaktor putzen"
      Then I should see the following calendar:
-        | Mitarbeiter   | Donnerstag |
-        | Planner Burns |            |
-        | Carl C        |            |
-        | Lenny L       |            |
-        | Homer S       | 9-17 Rp    |
-      And I should see the following defined items within the legend:
+        | Mitarbeiter   | Do      |
+        | Planner Burns |         |
+        | Carl C        |         |
+        | Lenny L       |         |
+        | Homer S       | 9-17 Rp |
+     When I follow "Legende"
+     Then I should see the following defined items within the legend:
         | Rp | Reaktor putzen |
 
   @javascript
   Scenario: additionally specifying a shortcut for the team
-     When I schedule "Homer S" on "Donnerstag" for "9-17 Reaktor putzen [OK]"
+     When I schedule "Homer S" on "Do" for "9-17 Reaktor putzen [OK]"
      Then I should see the following calendar:
-        | Mitarbeiter   | Donnerstag |
-        | Planner Burns |            |
-        | Carl C        |            |
-        | Lenny L       |            |
-        | Homer S       | 9-17 OK    |
-      And I should see the following defined items within the legend:
+        | Mitarbeiter   | Do      |
+        | Planner Burns |         |
+        | Carl C        |         |
+        | Lenny L       |         |
+        | Homer S       | 9-17 OK |
+     When I follow "Legende"
+     Then I should see the following defined items within the legend:
         | OK | Reaktor putzen |
 

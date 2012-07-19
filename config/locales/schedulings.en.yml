@@ -1,0 +1,38 @@
+en:
+  activerecord:
+    attributes:
+      scheduling:
+        employee: employee
+        day: day
+        date: weekday
+        quickie: quickie
+        starts_at: starts at
+        ends_at: ends at
+  simple_form:
+    labels:
+      defaults:
+        source: from
+    hints:
+      scheduling:
+        quickie: "9-5 important work [wA]"
+  scheduling_notification_mailer:
+    new_comment:
+      subjects:
+        comment_on_scheduling: "%{name} has commented on a shift"
+        comment_on_scheduling_of_employee: "%{name} has commented on one of your shifts"
+        comment_for_commenter: "%{name} has commented on a shift, that you have also commented on"
+        answer_on_comment: "%{name} has answered to a comment about a shift"
+        answer_on_comment_of_employee: "%{name} has replied to your comment about a shift"
+        answer_on_comment_on_scheduling_of_employee: "%{name} has replied to a comment about one of your shifts"
+        answer_on_comment_of_employee_on_scheduling_of_employee: "%{name} has replied to your comment about one of your shifts"
+        answer_on_comment_for_commenter: "%{name} has replied to a comment about a shift, that you have also commented on"
+      introductory_texts:
+        comment_on_scheduling: "%{author_name} has commented on a shift of %{employee_name} on the %{date} (%{quickie}):"
+        comment_on_scheduling_of_employee: "%{author_name} has commented on one of your shifts on the %{date} (%{quickie}):"
+        comment_for_commenter: "%{author_name} has also commented on a shift of %{employee_name} on the %{date} (%{quickie}), that you have also commented on:"
+        answer_on_comment: "%{author_name} has replied to a comment about a shift of %{employee_name} on the %{date} (%{quickie}):"
+        answer_on_comment_of_employee: "%{author_name} has replied to your comment about a shift of %{employee_name} on the %{date} (%{quickie}):"
+        answer_on_comment_on_scheduling_of_employee: "%{author_name} has replied to a comment about one of your shifts on the %{date} (%{quickie}):"
+        answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} has replied to a comment about one of your shifts on the %{date} (%{quickie}):"
+        answer_on_comment_for_commenter: "%{author_name} has replied to a comment about a shift of %{employee_name} on the %{date} (%{quickie}). You have likewise commented on this shift:"
+

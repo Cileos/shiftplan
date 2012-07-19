@@ -1,0 +1,14 @@
+- title filter.caption, false
+
+%table#calendar.table.table-striped.table-bordered.table-condensed{class: filter.range, data: filter.table_metadata}
+  %thead
+    %tr
+      %th
+        %span.header= ta :teams
+      %th
+  %tbody
+    - filter.teams.each do |team|
+      %tr
+        %th.team_name= team.name
+        %td.bars{data: filter.cell_metadata(team)}
+          = filter.cell_content(team)

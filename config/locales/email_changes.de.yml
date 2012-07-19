@@ -1,0 +1,13 @@
+de:
+  flash:
+    email_change:
+      accept:
+        token_invalid: 'Der Bestätigungstoken ist nicht gültig. Die Änderung Ihrer E-Mail Adresse konnte nicht akzeptiert werden.'
+        already_confirmed_sign_in: 'Sie haben die Änderung Ihrer E-Mail Adresse bereits bestätigt. Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein.'
+        already_confirmed: 'Sie haben die Änderung Ihrer E-Mail Adresse bereits bestätigt.'
+      confirm:
+        accepted: "Sie haben Ihre E-Mail Adresse erfolgreich geändert. Bitte loggen Sie sich zukünftig mit der E-Mail Adresse %{email} bei uns ein."
+        rejected: "Ihre E-Mail Adresse konnte nicht geändert werden."
+  email_change:
+    accept:
+      instructions: "Um die Änderung Ihrer E-Mail Adresse in %{email} zu bestätigen, geben Sie bitte Ihr aktuelles Passwort ein."

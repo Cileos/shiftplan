@@ -1,0 +1,9 @@
+function header () {
+  if hash cowsay 2>&-; then
+    cowsay -f unipony-smaller $1
+  else
+    echo
+    echo "=== $1 ==="
+    echo
+  fi
+}

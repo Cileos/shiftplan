@@ -1,32 +1,15 @@
 require 'spec_helper'
 
-describe SchedulingFilterDecorator do
-  before { ApplicationController.new.set_current_view_context }
-
-  let(:filter)    { Scheduling.filter }
-  let(:decorator) { described_class.new(filter) }
-
-  context "for scheduling" do
-    it "should provide wrappers" do
-      day        = mock 'day'
-      employee   = mock 'Employee'
-
-      starts_at  = mock 'starts_at', day: day
-      scheduling = mock 'Scheduling', employee: employee, date: day
-
-      decorator.should_receive(:fnord).with( day, employee ).and_return("the fnord")
-      decorator.fnord_for_scheduling(scheduling)
-    end
+describe SchedulingFilterDecorator, 'mode' do
+  let(:filter) { SchedulingFilter.new }
+  it "selects the decorator by given mode" do
+    decorator = mock('Decorator')
+    SchedulingFilterEmployeesInWeekDecorator.should_receive(:new).with(filter, {foo: 23}).and_return(decorator)
+    SchedulingFilterHoursInWeekDecorator.should_not_receive(:new)
+    SchedulingFilterDecorator.decorate(filter, {foo: 23, mode: 'employees_in_week'}).should == decorator
   end
-
-  it "sorts schedulings by start hour" do
-    employee = Factory :employee
-    schedulings = [
-      Factory(:scheduling, start_hour: 23),
-      Factory(:scheduling, start_hour: 6),
-      Factory(:scheduling, start_hour: 17)
-    ]
-    filter.should_receive(:indexed).with(3, employee).and_return( schedulings )
-    decorator.schedulings_for(3, employee).map(&:start_hour).should == [6,17,23]
+  
+  it "should deny any unknown modes" do
+    expect { SchedulingFilterDecorator.decorate(filter, mode: 'with_blackjack_and_hookers') }.to raise_error
   end
 end

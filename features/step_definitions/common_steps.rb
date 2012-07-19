@@ -1,8 +1,14 @@
 # If this file becomes to big, please consider tidying it up by splitting into
 # other steps files
 
-Given /^today is (.+)$/ do |timey|
+Given /^today is ([^,]+)$/ do |timey|
   Timecop.travel Time.zone.parse(timey)
+end
+
+Given /^today is (\w+day), the (.+)$/i do |day, timey|
+  time = Time.zone.parse(timey)
+  time.strftime('%A').downcase.should == day.downcase
+  Timecop.travel time
 end
 
 After do
