@@ -286,6 +286,8 @@ GEM
       rspec (~> 2.11.0)
     ruby-progressbar (0.0.10)
     rubyzip (0.9.9)
+    rvm-capistrano (1.2.5)
+      capistrano (>= 2.0.0)
     sass (3.1.20)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -377,6 +379,7 @@ DEPENDENCIES
   rails (= 3.2.2)
   remotipart
   rspec-rails (~> 2.11.o)
+  rvm-capistrano
   sass-rails (~> 3.2.4)
   selenium-webdriver (~> 2.22.2)
   simple_form (~> 2.0.0)

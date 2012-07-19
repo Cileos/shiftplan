@@ -1,5 +1,4 @@
 # RVM bootstrap
-$:.unshift(File.expand_path("~/.rvm/lib"))
 require 'rvm/capistrano'
 set :rvm_ruby_string, '1.9.3-p194@shiftplan'
 set :rvm_type, :user
@@ -17,7 +16,7 @@ set :use_sudo, false
 
 
 set :application, "shiftplan"
-set :repository,  "git@github.com:fritzek/shiftplan.git"
+set :repository,  "git@github.com:Cileos/shiftplan.git"
 set :local_repository, "."
 set :branch do
   ENV['BRANCH'] || 'master'
