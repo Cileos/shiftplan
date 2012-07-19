@@ -124,6 +124,17 @@ Feature: Create Employees
       And I should see "Carlson, Carl"
       But I should not see "Simpson, Homer"
 
+  @javascript
+  Scenario: removing WAZ from an employee
+     When I follow "Simpson, Homer" within the employees table
+      And I wait for the modal box to appear
+      And I fill in "Wochenarbeitszeit" with ""
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+      And I follow "Simpson, Homer" within the employees table
+      And I wait for the modal box to appear
+     Then the "Wochenarbeitszeit" field should be empty
+
   Scenario: Can only see employees of own organization
     Given another organization "Chefs" exists
       And an employee exists with organization: organization "Chefs", first_name: "Smithers"

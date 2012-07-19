@@ -48,7 +48,8 @@ class Employee < ActiveRecord::Base
 
   # TODO remove when we want fractioned working time
   def weekly_working_time_before_type_cast
-    read_attribute(:weekly_working_time).to_i
+    pure = read_attribute(:weekly_working_time)
+    pure.blank?? nil : pure.to_i
   end
 end
 
