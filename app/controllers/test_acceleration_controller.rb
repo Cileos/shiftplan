@@ -6,7 +6,7 @@
 #
 class TestAccelerationController < ApplicationController
   skip_authorization_check only: :sign_in
-  no_authentication_required only: :sign_in
+  skip_before_filter :authenticate_user!, only: :sign_in
   before_filter :only_in_test_env
 
   def sign_in

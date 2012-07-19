@@ -7,7 +7,7 @@ class SessionsController < Devise::SessionsController
     if params[:return_to].present?
       URI.parse(params[:return_to]).path
     else
-      dashboard_path
+      stored_location_for(resource) || dashboard_path
     end
   end
 end
