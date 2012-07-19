@@ -1,6 +1,6 @@
 class EmailChangeController < ApplicationController
   skip_authorization_check
-  skip_before_filter :authorize_user!
+  skip_before_filter :authenticate_user!
 
   before_filter :set_email_change
   before_filter :set_user
