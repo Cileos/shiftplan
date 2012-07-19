@@ -3,35 +3,8 @@ class SchedulingFilterEmployeesInWeekDecorator < SchedulingFilterWeekDecorator
     { employee_id: employee.id, date: day.iso8601 }
   end
 
-  # FIXME WTF should use cdata_section to wrap team_styles, but it break the styles
-  # TODO put this into the template
-  def legend
-    h.content_tag(:style) { team_styles } +
-      h.render('teams/legend', teams: teams)
-  end
-
-  def update_legend
-    select(:legend).refresh_html legend
-  end
-
-  # TODO move into own view to fetch as an organization-specific asset
-  # FIXME this is deprecated, isn't it?
-  def team_styles
-    teams.map do |team|
-      %Q~.#{dom_id(team)} { border-color: #{team.color};}~
-    end.join(' ')
-  end
 
   def y_attribute
     :employee
-  end
-
-  def selector_for(name, *a)
-    case name
-    when :legend
-      '#legend'
-    else
-      super
-    end
   end
 end

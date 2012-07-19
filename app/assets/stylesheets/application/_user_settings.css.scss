@@ -1,0 +1,39 @@
+/* --------------------------------------------------------------------- */
+/*  _user_settings.css.scss                                              */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+.user-settings {
+    border: 1px solid #ccc;
+    @include border-radius(6px);
+    li a {
+        margin: 1px;
+    }
+}
+
+.user-edit-form {
+    @extend .instructions;
+    margin-top: 0 !important;
+}
+
+form.edit_employee {
+    position: relative;
+    img.avatar {
+        position: absolute;
+        top: 24px;
+    }
+    .control-group.file {
+        height: 90px;
+    }
+    #employee_avatar {
+        position: relative;
+        left: 75px;
+        top: 15px;
+        width: 260px;
+        font-size: 11px;
+    }
+    .hidden {
+        @include _hidden();
+    }
+}

@@ -4,6 +4,13 @@
 /* --------------------------------------------------------------------- */
 
 
+#ui-dialog-title-modalbox,
+#ui-dialog-title-modalbox h3 {
+    font-size: 12px;
+    line-height: 15px;
+    color: #555;
+}
+
 #modalbox {
     padding: 15px 30px;
     form {
@@ -93,4 +100,7 @@
 .ui-widget-overlay {
     @include transition(250ms opacity);
     @include background(rgba(0, 0, 0, 0.4));
+}
+ul.typeahead.dropdown-menu {
+    z-index: 2342 !important;
 }

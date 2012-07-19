@@ -140,7 +140,7 @@ Feature: create a scheduling
         | Carl C        |      | 7-17 |      |    |    |    |    |
         | Lenny L       |      |      | 7-17 |    |    |    |    |
         | Homer S       |      |      |      |    |    |    |    |
-      And the cell "Mi"/"Lenny L" should be focus
+      And the scheduling "7-17" should be focus within the cell "Mi"/"Lenny L"
 
      When I press arrow right
       And I press arrow left

@@ -1,3 +1,4 @@
+require 'notification/comment_on_post'
 class Notification::Dispatcher::CommentOnPost < Notification::Dispatcher::Comment
 
   def self.create_notifications_for(comment)
