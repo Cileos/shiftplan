@@ -4,6 +4,7 @@
   = f.input :password, input_html: { class: 'span2' }, hint: false
   - if devise_mapping.rememberable?
     = f.input :remember_me, as: :boolean
+  = hidden_field_tag :return_to,  '', class: 'return_to'
   .form-actions
     = f.button :submit, ta(:signin), class: 'btn-primary'
 
