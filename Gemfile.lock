@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/condor/versatile_rjs.git
+  revision: 6a52e849ab113819cc8a457996d07bb87ab53ad6
+  specs:
+    versatile_rjs (0.1.4)
+      rails (>= 3.1.0)
+
+GIT
   remote: git://github.com/iain/fuubar-cucumber.git
   revision: c30656c344d356e2a3f9cacbe2b82f5d8926a1c4
   branch: cucumber-1-2-api
@@ -19,13 +26,6 @@ GIT
   specs:
     kopflos (0.0.1)
       open4
-
-GIT
-  remote: git://github.com/niklas/versatile_rjs.git
-  revision: 86a4e6c6a62b66cb7fcaa5998340da31e9704190
-  specs:
-    versatile_rjs (0.1.2)
-      rails (>= 3.1.0)
 
 GIT
   remote: git://github.com/v0n/notes.git

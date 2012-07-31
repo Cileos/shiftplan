@@ -91,7 +91,7 @@ gem 'treetop' # parse quickies
 gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults
 
 # we will try to gernerate js the old-fashioned way
-gem 'versatile_rjs', :git => 'git://github.com/niklas/versatile_rjs.git'
+gem 'versatile_rjs', :git => 'git://github.com/condor/versatile_rjs.git'
 gem 'polyglot' # load treetop grammars with #require
 
 gem 'gon' # push variables from rails to js
