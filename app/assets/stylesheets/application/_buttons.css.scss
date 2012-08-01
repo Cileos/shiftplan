@@ -7,17 +7,59 @@ input[type=submit],
 .button,
 button {
   @include border-radius($ci_border-radius);
+  @include background-image(linear-gradient(lighten($ci_blue, 7.5%), $ci_blue));
+  @include box-shadow(inset 0 1px 0 rgba(255,255,255,.25));
 
-  padding:.35em .5em;
-  background: $ci_blue;
+  padding:.4em .5em .35em;
   color: #fff;
-  border: none;
+  border: 1px solid $ci_blue;
   text-shadow: 0 -1px 0 rgba(0,0,0,.5);
   text-decoration: none;
 
   &:hover {
-    background: $ci_blue_hover;
+    @include background-image(linear-gradient(lighten($ci_blue_hover, 7.5%), $ci_blue_hover));
+    
     color: #fff;
+    border: 1px solid $ci_blue_hover;
   }
+
+  &:active {
+    @include box-shadow(inset 0 0 10px rgba(0,0,0,.5));
+  }
+}
+
+.button-group {
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+
+  li {
+    display: inline;
+    float: left;
+    margin: 0;
+  }
+
+  input[type=submit],
+  .button,
+  button {
+    @include border-radius(0);
+  }
+
+  :first-child {
+    input[type=submit],
+    .button,
+    button {
+      @include border-radius($ci_border-radius 0 0 $ci_border-radius);
+    }
+  }
+
+  :last-child {
+    input[type=submit],
+    .button,
+    button {
+      @include border-radius(0 $ci_border-radius $ci_border-radius 0);
+    }
+  }
+
 }
 
