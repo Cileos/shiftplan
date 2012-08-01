@@ -11,8 +11,10 @@ $ci_lime: #cedf14;
 $ci_green: #5fca12;
 $ci_teal: #11be65;
 $ci_border-radius: .35em;
+$ci_gray: #ccc;
 
-$ci_blue_hover: darken($ci_blue, 10%);
+$ci_blue_hover: lighten($ci_blue, 5%);
+$ci_gray_hover: lighten($ci_gray, 5%);
 
 $gradient_1: #ececec;
 $gradient_2: #F0F4F8;
