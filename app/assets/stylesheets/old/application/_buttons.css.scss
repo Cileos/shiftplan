@@ -16,8 +16,25 @@ button {
   text-decoration: none;
 
   &:hover {
-    background: $ci_blue_hover;
+    background: darken($ci_blue, 10%);
     color: #fff;
   }
 }
 
+.pager {
+    position: relative;
+    z-index: 2;
+    a {
+        @include _set-gradient-background();
+        border-color: #c0c0c0;
+        &:hover, &:focus {
+            @include _set-gradient-background($color: darken(#e2e2e2, 5%), $percentage: 15% );
+            border-color: #b0b0b0;
+        }
+        &:active { /* push button effect */
+            @include single-box-shadow(#666, 0px, 0px, 5px, 0px, inset);
+            border-color: darken(#b0b0b0, 10%);
+            text-decoration: none;
+        }
+    }
+}
