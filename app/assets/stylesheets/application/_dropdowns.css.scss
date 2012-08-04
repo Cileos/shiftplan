@@ -1,0 +1,39 @@
+[role=navigation] {
+  padding:0;
+
+  li {
+    display: inline;
+    margin-right: .5em;
+  }
+}
+
+.dropdown {
+  position: relative;
+
+  &:after {
+    font-family: FontAwesome;
+    content: '\f078';
+    margin-left: .35em;
+    font-size: .8em;
+  }
+
+  &:hover > ul {
+    @include border-radius($ci_border-radius);
+    @include box-shadow(0 2px 3px rgba(0,0,0,.25));
+
+    display: block;
+  }
+
+  > ul {
+    display: none;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    padding: 15px;
+    background: #fff;
+  }
+
+  li {
+    display:block;
+  }
+}
