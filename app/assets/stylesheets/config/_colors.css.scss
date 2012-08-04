@@ -11,10 +11,35 @@ $ci_lime: #cedf14;
 $ci_green: #5fca12;
 $ci_teal: #11be65;
 $ci_gray: #ccc;
+$ci_darkgray: #444;
 
 $ci_blue_hover: lighten($ci_blue, 5%);
 $ci_gray_hover: lighten($ci_gray, 5%);
+$ci_green_hover: lighten($ci_green, 5%);
 
 $gradient_1: #ececec;
 $gradient_2: #F0F4F8;
 
+@each $color in ci_blue, ci_darkblue, ci_darkpurple, ci_purple,
+  ci_pink, ci_darkorange, ci_orange, ci_darkyellow, ci_yellow,
+  ci_lime, ci_green, ci_teal, ci_gray {
+
+  $color_value: quote("$" + $color);
+
+  [data-color="#{$color}"] {
+    &:after {
+      content: attr(data-color);
+    }
+
+    &:before {
+      @include border-radius($ci_border-radius);
+
+      content: "";
+      display: block;
+      float: left;
+      width: 12px;
+      height: 12px;
+      background: $color_value;
+    }
+  }
+}

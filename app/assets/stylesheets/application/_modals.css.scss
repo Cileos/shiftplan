@@ -1,0 +1,58 @@
+// This is only for testing purposes
+// and is used only by element_tests.html
+#modal {
+  display: none;
+
+  &:target {
+    display: block;
+  }
+
+  .modal {
+    width: 300px;
+    height: 150px;
+    margin-top: -75px;
+    margin-left: -150px;
+  }
+}
+
+// Real modal styles start here
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.75);
+}
+
+.modal {
+  @include box-shadow(0 0 10px rgba(0,0,0,.25));
+  @include transition(opacity 1s ease);
+
+  background:#fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 15px;
+
+  .modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: $ci_darkgray;
+    text-decoration:none;
+
+    &:hover {
+      color:#000; 
+    }
+  }
+
+  h1 {
+    font-size: $ci_font-size;
+    margin: 0;
+  }
+
+  .buttons {
+    text-align:center;
+  }
+}

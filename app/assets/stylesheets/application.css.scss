@@ -12,6 +12,7 @@
  * your cat. */
 
 @import "bourbon";
+@import "config/defaults";
 @import "config/*";
 
 /* import custom library */
@@ -22,3 +23,4 @@
 @import "application/icons";
 @import "application/buttons";
 @import "application/forms";
+@import "application/modals";

@@ -44,6 +44,10 @@ button {
   }
 }
 
+.button-green {
+  @include button($ci_green, $ci_green_hover);
+}
+
 .button-group {
   list-style: none;
   padding: 0;
