@@ -3,3 +3,14 @@ html {
   font-size: $ci_font-size;
   line-height: $ci_line-height;
 }
+
+a {
+  @include transition(color .5s ease);
+
+  color: $ci_blue;
+  text-decoration: none;
+
+  &:hover {
+    color: $ci_blue_hover;
+  }
+}

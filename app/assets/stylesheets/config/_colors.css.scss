@@ -13,6 +13,9 @@ $ci_teal: #11be65;
 $ci_gray: #ccc;
 $ci_darkgray: #444;
 
+$ci_shadow: rgba(0,0,0,.5);
+$ci_glow: rgba(255,255,255,.25);
+
 $ci_blue_hover: lighten($ci_blue, 5%);
 $ci_gray_hover: lighten($ci_gray, 5%);
 $ci_green_hover: lighten($ci_green, 5%);
