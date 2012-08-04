@@ -38,6 +38,10 @@ input[type=submit],
 .button,
 button {
   @include button;
+
+  &.button-small {
+    font-size: .8em;
+  }
 }
 
 .button-group {
@@ -72,6 +76,5 @@ button {
       @include border-radius(0 $ci_border-radius $ci_border-radius 0);
     }
   }
-
 }
 

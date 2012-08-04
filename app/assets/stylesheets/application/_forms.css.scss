@@ -1,0 +1,36 @@
+fieldset {
+  padding: 0;
+  border: none;
+}
+
+input,
+button,
+label,
+textarea {
+  font-family:"proxima-nova",Helvetica,Arial,sans-serif;
+}
+
+/* CSS-Tricks: Styling Texty Inputs Only
+ * http://css-tricks.com/styling-texty-inputs-only/
+ *
+ * This will break in IE < 9.
+ */
+input:not([type=submit]):not([type=file]),
+textarea {
+  @include box-shadow(inset 0 1px 1px rgba(0,0,0,.25));
+  @include border-radius($ci_border-radius);
+
+  border: 1px solid $ci-gray;
+  padding: .25em;
+}
+
+input:not([type=checkbox]):not([type=radio]):not([type=submit]),
+textarea,
+select {
+  display: block;    
+}
+
+input[type=checkbox],
+input[type=radio] {
+  margin-right: .35em;
+}
