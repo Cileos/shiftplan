@@ -46,6 +46,22 @@ button {
 
 .button-green {
   @include button($ci_green, $ci_green_hover);
+
+  &:hover {
+    @include box-shadow(0 0 .35em $ci_green);
+
+    border-color: $ci_green;
+  }
+}
+
+.button-red {
+  @include button($ci_darkorange, $ci_darkorange_hover);
+
+  &:hover {
+    @include box-shadow(0 0 .35em $ci_darkorange);
+
+    border-color: $ci_darkorange;
+  }
 }
 
 .button-group {
