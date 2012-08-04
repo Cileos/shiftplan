@@ -28,23 +28,29 @@
 .modal {
   @include box-shadow(0 0 10px rgba(0,0,0,.25));
   @include transition(opacity 1s ease);
+  @include border-radius($ci_border-radius);
 
   background:#fff;
   position: absolute;
   top: 50%;
   left: 50%;
-  padding: 15px;
+  padding: 10px;
 
   .modal-close {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     color: $ci_darkgray;
     text-decoration:none;
 
     &:hover {
       color:#000; 
     }
+  }
+
+  header {
+    padding-bottom: .35em;
+    border-bottom: 1px solid $ci_gray;
   }
 
   h1 {
