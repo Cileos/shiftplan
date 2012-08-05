@@ -14,3 +14,67 @@ a {
     color: $ci_blue_hover;
   }
 }
+
+[role=banner] {
+  @include box-shadow(0 2px 3px $ci_shadow);
+
+  background: $ci_blue;
+  color: lighten($ci_blue, 50%);
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  h1 {
+    float: left;
+    font-size: 1em;
+  }
+
+  h1, ul, li {
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    @include transition(color, background .5s ease);
+
+    border-left: 1px solid lighten($ci_blue, 10%);
+    color: lighten($ci_blue, 50%);
+    padding: 15px;
+    display: inline-block;
+
+    &:hover {
+      color: #fff;
+      background: darken($ci_blue, 10%);
+    }
+  }
+
+  [role=navigation] {
+    float:left;
+  }
+
+  .user-navigation {
+    float: right;
+  }
+
+  .avatar {
+    height: 16px;
+    vertical-align: -4px;
+  }
+
+  .dropdown {
+    > ul {
+      top: 20px;
+    }
+
+    > ul a {
+      color: $ci_blue;
+      border-left: none;
+      padding: 5px 15px;
+
+      &:hover {
+        color: $ci_blue_hover;
+        background: transparent;
+      }
+    }
+  }
+}
