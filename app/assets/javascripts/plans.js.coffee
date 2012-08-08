@@ -40,3 +40,7 @@ jQuery(document).ready ->
 
     $calendar.find('td').each refresh_behaviour_of_cell
     $calendar.on 'update', 'td', refresh_behaviour_of_cell
+
+  $('#calendar-navigation a.new_scheduling').live 'ajax:success', ->
+    $('#modalbox input[name="scheduling[quickie]"]').edit_quickie()
+    true

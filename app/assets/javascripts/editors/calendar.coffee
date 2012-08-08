@@ -27,8 +27,7 @@ class CalendarEditor extends View
     @addTabIndices()
 
   setupForm: ->
-    for quickie in @modal().find('input[name="scheduling[quickie]"]')
-      new QuickieEditor element: $(quickie)
+    @modal().find('input[name="scheduling[quickie]"]').edit_quickie()
 
   addTabIndices: ->
     tabIndex = 1

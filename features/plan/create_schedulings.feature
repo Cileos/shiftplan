@@ -24,6 +24,15 @@ Feature: create a scheduling
         | Homer S       |    |    | 9-17 |    |    |    |    |
      And the employee "Homer S" should have a yellow hours/waz value of "8 / 40"
 
+     # completion
+     When I follow "Neue Terminierung"
+      And I select "Lenny L" from "Mitarbeiter"
+      And I select "Mittwoch" from "Wochentag"
+      And I fill in "Quickie" with "9"
+      And I press return in the "Quickie" field
+     Then the "Quickie" field should contain "9-17"
+
+
   @javascript
   Scenario: scheduling the same employee twice per day
     Given the employee "Homer" was scheduled in the plan as following:

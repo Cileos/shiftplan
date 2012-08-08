@@ -55,3 +55,7 @@ class QuickieEditor extends View
     timeRange.concat(shortCuts, beginsWith, rest)
 
 window.QuickieEditor = QuickieEditor
+
+$.fn.edit_quickie = ->
+  $(this).not('.typeahead').each ->
+    new QuickieEditor element: $(this)
