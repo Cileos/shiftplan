@@ -94,7 +94,8 @@ Feature: create a scheduling
      Then the cell "Mo"/"Planner Burns" should be focus
      When I press return
       And I wait for the new scheduling form to appear
-      And I fill in "Quickie" with "8-18"
+     Then I should see "9-17 wichtige Arbeit [wA]" within a hint
+     When I fill in "Quickie" with "8-18"
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
