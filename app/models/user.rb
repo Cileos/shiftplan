@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   end
 
   def current_employee=(wanted_employee)
-    if wanted_employee.user == self
+    if wanted_employee.nil? || wanted_employee.user == self
       @current_employee = wanted_employee
     else
       raise ArgumentError, "given employee #{wanted_employee} does not belong to #{self}"

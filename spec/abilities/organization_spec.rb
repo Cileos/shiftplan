@@ -10,7 +10,7 @@ describe "Organization permissions:" do
 
   before(:each) do
     # simulate before_filter :set_current_employee
-    user.current_employee = employee if employee
+    user.current_employee = employee
   end
 
   context "As an owner" do
