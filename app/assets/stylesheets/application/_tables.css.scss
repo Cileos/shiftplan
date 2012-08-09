@@ -1,0 +1,20 @@
+table {
+  thead {
+    border-bottom: 1px solid $ci_darkgray;
+  }
+
+  tr {
+    &:nth-child(2n) {
+      background: $ci_lightgray;
+    }
+  }
+
+  td, th {
+    padding: 5px 10px;
+    text-align: left;
+  }
+
+  img {
+    vertical-align: middle;
+  }
+}

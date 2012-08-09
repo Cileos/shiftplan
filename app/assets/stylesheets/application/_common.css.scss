@@ -4,6 +4,10 @@ html {
   line-height: $ci_line-height;
 }
 
+abbr {
+  cursor: help;
+}
+
 a {
   @include transition(color .5s ease);
 
