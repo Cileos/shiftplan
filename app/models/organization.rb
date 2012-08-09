@@ -1,4 +1,5 @@
 class Organization < ActiveRecord::Base
+  belongs_to :account
   belongs_to :planner, :class_name => 'User'
   has_many :employees, :order => 'last_name ASC, first_name ASC'
   has_many :plans
@@ -18,5 +19,11 @@ class Organization < ActiveRecord::Base
 
   def owners
     employees.where(role: 'owner')
+  end
+
+  def setup
+    if blogs.empty?
+      blogs.create! :title => 'Company Blog'
+    end
   end
 end

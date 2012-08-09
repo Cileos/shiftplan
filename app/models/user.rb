@@ -78,8 +78,6 @@ class User < ActiveRecord::Base
     true
   end
   before_save :create_email_change
-<<<<<<< HEAD
-=======
 
   def setup
     unless new_record?
@@ -103,9 +101,6 @@ class User < ActiveRecord::Base
           employee.organization.save!
         end
       end
-      organizations.where(account_id: nil).each do |organization|
-      end
     end
   end
->>>>>>> f341d1a... squash company blog
 end

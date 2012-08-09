@@ -8,6 +8,7 @@ class WelcomeController < ApplicationController
   end
 
   def dashboard
+    current_user.setup
   end
 
   protected
