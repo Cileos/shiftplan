@@ -20,13 +20,16 @@ a {
 
   background: $ci_blue;
   color: lighten($ci_blue, 50%);
-  position: fixed;
-  top: 0;
-  width: 100%;
+  display: block;
+  height: 2 * $banner_link_padding_tb + $ci_line_height * $ci_font_size;
 
   h1 {
     float: left;
     font-size: 1em;
+  }
+
+  .brand img {
+    vertical-align: middle;
   }
 
   h1, ul, li {

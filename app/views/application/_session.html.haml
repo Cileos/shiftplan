@@ -1,10 +1,9 @@
-%ul#session.nav.pull-right
+%ul
   - if user_signed_in?
     %li.dropdown
-      %a.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'}
+      %a{href: '#', 'data-toggle' => 'dropdown'}
         = render 'avatar_and_name'
-        %b.caret
-      %ul.dropdown-menu
+      %ul
         - if current_user.has_multiple_employees?
           %li= link_to :settings, profile_employees_path
         - else
