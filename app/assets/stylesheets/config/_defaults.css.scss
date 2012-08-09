@@ -1,3 +1,7 @@
 $ci_border-radius: .35em;
 $ci_font-size: 14px;
 $ci_line-height: 1.5;
+
+section dd {
+  overflow: hidden;
+}
