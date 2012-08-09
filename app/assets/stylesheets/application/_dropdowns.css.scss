@@ -5,6 +5,14 @@ nav {
     display: inline-block;
     float: left;
   }
+
+  .organization:after {
+    font-family: FontAwesome;
+    content: '\f04e';
+    margin-left: .35em;
+    font-size: .8em;
+  }
+
 }
 
 .dropdown {
@@ -25,7 +33,7 @@ nav {
     @include border-radius($ci_border-radius);
     @include box-shadow(0 2px 3px rgba(0,0,0,.25));
 
-    display: none;
+    display: block;
     position: absolute;
     top: $ci_font_size / $ci_line_height / 2;
     left: 0;
