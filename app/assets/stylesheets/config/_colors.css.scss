@@ -2,7 +2,7 @@ $ci_blue: #117bbe;
 $ci_darkblue: #112ebe;
 $ci_darkpurple: #5111be;
 $ci_purple: #be11bc;
-$ci_pink: #d11340;
+$ci_pink: #d11380;
 $ci_darkorange: #e83815;
 $ci_orange: #e87b15;
 $ci_darkyellow: #e8a515;
@@ -12,6 +12,7 @@ $ci_green: #5fca12;
 $ci_teal: #11be65;
 $ci_gray: #ccc;
 $ci_darkgray: #444;
+$ci_lightgray: #f2f2f2;
 
 $ci_shadow: rgba(0,0,0,.5);
 $ci_glow: rgba(255,255,255,.25);
@@ -60,7 +61,7 @@ $ci_color-values: $ci_blue, $ci_darkblue, $ci_darkpurple, $ci_purple,
 
 @each $color in $ci_color-names {
   [data-color=#{$color}] {
-    @if lightness(color-for($color)) < 50% {
+    @if lightness(color-for($color)) < 50 {
       color: #fff;
     } @else {
       color: $ci_darkgray;
