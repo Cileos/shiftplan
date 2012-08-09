@@ -81,3 +81,16 @@ a {
     }
   }
 }
+
+[role=content] {
+  padding: 20px 0px 30px;
+
+  .expanded & {
+    padding-left:  20px;
+    padding-right: 20px;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+}

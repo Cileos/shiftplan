@@ -1,4 +1,4 @@
-%footer
+%footer{:role => 'footer'}
   .feedback
     - feedback_params = current_organization ? { organization_id: current_organization.id } : {}
     = link_to ti(:feedback_without_screenshot), new_feedback_path(feedback_params), |
