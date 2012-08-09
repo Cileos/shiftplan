@@ -85,6 +85,9 @@ module HtmlSelectorsHelpers
     when 'replies'
       '.replies'
 
+    when 'the cursor'
+      '.with_cursor .focus'
+
     when /^(?: a |the )?(\w+) list$/
       "ul.#{$1}"
 

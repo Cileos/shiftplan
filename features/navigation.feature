@@ -101,6 +101,20 @@ Feature: Navigation
        | Ausloggen       | false  |
        | Dashboard       | false  |
 
+     When I follow "Dashboard"
+      And I follow "Tschernobyl GmbH"
+     Then I should see the following list of links within the navigation:
+       | link                | active |
+       | Bart Simpson        | false  |
+       | Einstellungen       | false  |
+       | Ausloggen           | false  |
+       | Dashboard           | false  |
+       | Tschernobyl GmbH >> | true   |
+       | Pläne               | false  |
+       | Alle Pläne          | false  |
+       | Mitarbeiter         | false  |
+       | Teams               | false  |
+
   Scenario: as a planner with one organization
     Given I am signed in as the confirmed user
 
