@@ -19,7 +19,13 @@ When /^I click on the #{capture_quoted} row$/ do |row_name|
 end
 
 When /^I click on (?:the )?scheduling #{capture_quoted}$/ do |quickie|
-  page.find(".scheduling", text: quickie).click()
+  scheduling = page.find(".scheduling", text: quickie)
+  begin
+    scheduling.click()
+  rescue Selenium::WebDriver::Error::UnknownError => e # page was maybe still moving, could not hit element
+    sleep 0.5
+    scheduling.click() # try again once
+  end
 end
 
 Then /^the #{capture_cell} should be (focus)$/ do |cell, predicate|
