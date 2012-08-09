@@ -25,6 +25,10 @@ When /^I sign in$/ do
   step %~I am signed in~
 end
 
+Given /^I am signed out$/ do
+  step 'I sign out'
+end
+
 When /^I sign out$/ do
   with_scope 'the navigation' do
     page.first('ul#session li.dropdown a.dropdown-toggle').click

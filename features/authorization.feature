@@ -28,7 +28,7 @@ Feature: Authorization
       But I should not see link "Ausloggen"
 
      When I go to the dashboard
-     Then I should not be authorized to access the page
+     Then I should be on the signin page
 
      When I go to the page of the plan
      Then I should be on the signin page
