@@ -28,10 +28,6 @@ a {
     font-size: 1em;
   }
 
-  .brand img {
-    vertical-align: middle;
-  }
-
   h1, ul, li {
     margin: 0;
     padding: 0;
@@ -55,6 +51,10 @@ a {
     float: right;
   }
 
+  .brand img {
+    vertical-align: middle;
+  }
+
   .avatar {
     height: 16px;
     vertical-align: -4px;
@@ -75,18 +75,8 @@ a {
     }
 
     > ul a {
-      @include transition(none);
-
       color: $ci_blue;
       border-left: none;
-      padding: 3px 15px;
-      display: block;
-      white-space: nowrap;
-
-      &:hover {
-        color: #fff;
-        background: $ci_blue;
-      }
     }
   }
 }
