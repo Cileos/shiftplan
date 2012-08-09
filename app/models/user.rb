@@ -81,6 +81,8 @@ class User < ActiveRecord::Base
 
   def setup
     unless new_record?
+      needs_reload = false
+
       if organizations.empty? && organization_name.present?
         Organization.create!(name: organization_name).tap do |organization|
           organization.setup
@@ -96,11 +98,13 @@ class User < ActiveRecord::Base
       account = owned_account
       employees.where(role: 'owner').each do |employee|
         if employee.organization.account.blank?
-          account ||= Account.create! owner: self
+          account ||= Account.create!(owner: self).tap { needs_reload = true }
           employee.organization.account = account
           employee.organization.save!
         end
       end
+
+      reload if needs_reload
     end
   end
 end

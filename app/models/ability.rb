@@ -23,9 +23,7 @@ class Ability
       else
         authorize_employee employee
       end
-    end
-
-    unless user.new_record?
+    elsif user.persisted?
       authorize_signed_in(user)
     end
     can :create, Feedback
@@ -38,6 +36,10 @@ class Ability
     end
     can [:show, :update], User do |u|
       u == user
+    end
+    if user.owned_account.present?
+      # organizations are build upon the current_user's account
+      can :create, Organization
     end
   end
 
@@ -69,7 +71,7 @@ class Ability
     end
     can :manage,                    Plan,         organization: is_planner_of
     can :manage,                    Scheduling,   plan: { organization: is_planner_of }
-    can :manage,                    Organization, is_planner_of
+    can [:read, :update],           Organization, is_planner_of
     can :manage,                    CopyWeek,     plan: { organization: is_planner_of }
     can :manage,                    Invitation,   employee: { organization: is_planner_of }
   end

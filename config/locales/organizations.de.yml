@@ -1,0 +1,15 @@
+de:
+  activerecord:
+    models:
+      organization:
+        one: "Organisation"
+        others: "Organisationen"
+  helpers:
+    submit:
+      organization:
+        create: "Anlegen"
+  flash:
+    organizations:
+      create:
+        info: "Organisation '%{organization}' angelegt."
+

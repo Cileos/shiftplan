@@ -8,12 +8,12 @@ class WelcomeController < ApplicationController
   end
 
   def dashboard
-    current_user.setup
   end
 
   protected
 
   def authorize_user
+    current_user.setup
     authorize! :dashboard, current_user
   end
 

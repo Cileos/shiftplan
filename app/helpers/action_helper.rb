@@ -35,6 +35,7 @@ module ActionHelper
     edit:              'edit',
     destroy:           'trash',
     new_scheduling:    'plus',
+    new_organization:  'plus',
     copy_week:         'retweet',
     update:            'ok-circle',
     invite:            'user',
