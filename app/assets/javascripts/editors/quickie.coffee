@@ -23,9 +23,8 @@ class QuickieEditor extends View
         source: params.completions || gon.quickie_completions,
         sorter: @sorter
         matcher: @matcher
-    @one 'attach', =>
-      $(@).closest('form').bind 'shiftplan.remove', @destroy
-      $('#modalbox').bind 'dialogclose', @destroy
+    @input.closest('form').bind 'shiftplan.remove', @destroy
+    $('#modalbox').bind 'dialogclose', @destroy
 
   destroy: =>
     @input?.unbind().data('typeahead')?.$menu?.remove()
