@@ -29,11 +29,12 @@ nav {
     position: absolute;
     top: $ci_font_size / $ci_line_height / 2;
     left: 0;
-    padding: 15px;
+    padding: 10px 0;
     background: #fff;
   }
 
   li {
     display: block;
+    float: none;
   }
 }

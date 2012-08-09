@@ -45,10 +45,6 @@ a {
     padding: $banner_link_padding_tb $banner_link_padding_lr;
     display: inline-block;
 
-    &:hover {
-      color: #fff;
-      background: darken($ci_blue, 10%);
-    }
   }
 
   [role=navigation] {
@@ -64,19 +60,32 @@ a {
     vertical-align: -4px;
   }
 
+  .active {
+    background: darken($ci_blue, 5%);
+  }
+
+  li:hover > a {
+    color: #fff;
+    background: darken($ci_blue, 10%);
+  }
+
   .dropdown {
     > ul {
       top: $ci_font_size * $ci_line_height + 2 * $banner_link_padding_tb;
     }
 
     > ul a {
+      @include transition(none);
+
       color: $ci_blue;
       border-left: none;
-      padding: 5px 15px;
+      padding: 3px 15px;
+      display: block;
+      white-space: nowrap;
 
       &:hover {
-        color: $ci_blue_hover;
-        background: transparent;
+        color: #fff;
+        background: $ci_blue;
       }
     }
   }
