@@ -16,6 +16,7 @@ de:
       week_with_first_day: "KW %V %d.%m.%Y"
       week_day: "%A"
       abbr_week_day: "%a"
+      week_day_with_yearless_date: "%A, %d.%m"
 
     day_names:
       - Sonntag
