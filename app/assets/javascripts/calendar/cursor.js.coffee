@@ -40,6 +40,8 @@ class CalendarCursor
     # Therefore we must reenable the keydown event handler when the modal window was hidden:
     $('body').on 'dialogclose', @enable
 
+    $calendar.addClass 'with_cursor'
+
 
   focussed_cell: ->
     @$body.find('td.focus')
