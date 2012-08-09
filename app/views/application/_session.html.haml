@@ -5,10 +5,10 @@
         = render 'avatar_and_name'
       %ul
         - if current_user.has_multiple_employees?
-          %li= link_to :settings, profile_employees_path
+          %li= link_to :settings, profile_employees_path, 'data-icon' => '&#xf007;'.html_safe
         - else
-          %li= link_to :settings, edit_profile_employee_path(current_user.employees.first)
-        %li= link_to :signout, destroy_user_session_path, :method => :delete
+          %li= link_to :settings, edit_profile_employee_path(current_user.employees.first), 'data-icon' => '&#xf013;'.html_safe
+        %li= link_to :signout, destroy_user_session_path, :method => :delete, 'data-icon' => '&#xf08b;'.html_safe
   - else
     %li= link_to :signup, new_user_registration_path
     %li= link_to :signin, new_user_session_path
