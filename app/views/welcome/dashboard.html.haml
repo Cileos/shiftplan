@@ -4,7 +4,12 @@
   %h3= t(:'.organizations')
   %ul#organizations
     - current_user.organizations.each do |org|
-      %li= link_to org.name, organization_path(org)
-      = render 'plans/list', plans: org.plans
+      %li
+        %h4= link_to org.name, organization_path(org)
+        = render 'plans/list', plans: org.plans
+        - if org.company_blog.present?
+          = render('posts/posts', posts: org.company_blog.posts.order('published_at desc').limit(2))
+  - if can? :create, Organization
+    = link_to ti(:new_organization), new_organization_path, class: 'btn'
 
 

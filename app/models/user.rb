@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :first_name, :last_name, :organization_name, if: Proc.new { |u| u.on_signup }
 
+  has_one  :owned_account, foreign_key: 'owner_id', class_name: "Account"
   has_many :employees
   has_many :invitations
   has_many :organizations, :through => :employees
@@ -77,4 +78,34 @@ class User < ActiveRecord::Base
     true
   end
   before_save :create_email_change
+<<<<<<< HEAD
+=======
+
+  def setup
+    unless new_record?
+      if organizations.empty? && organization_name.present?
+        Organization.create!(name: organization_name).tap do |organization|
+          organization.setup
+          employees.create! do |e|
+            e.first_name = first_name
+            e.last_name  = last_name
+            e.organization = organization
+            e.role = 'owner'
+          end
+        end
+      end
+
+      account = owned_account
+      employees.where(role: 'owner').each do |employee|
+        if employee.organization.account.blank?
+          account ||= Account.create! owner: self
+          employee.organization.account = account
+          employee.organization.save!
+        end
+      end
+      organizations.where(account_id: nil).each do |organization|
+      end
+    end
+  end
+>>>>>>> f341d1a... squash company blog
 end
