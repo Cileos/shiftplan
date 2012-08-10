@@ -46,7 +46,7 @@ Feature: Inviting Employees
 
   Scenario: Accepting an invitation with an invalid invitation token
     When I try to accept an invitation with an invalid token
-    Then I should be on the home page
+    Then I should be on the dashboard
      And I should see "Der Einladungstoken ist nicht gültig. Ihre Einladung konnte nicht akzeptiert werden."
 
   Scenario: Accepting an invitation by providing an invalid password confirmation

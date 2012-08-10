@@ -59,4 +59,12 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :current_plan_mode
+
+  def dynamic_dashboard_path
+    if current_user.organizations.count == 1
+      current_user.organizations.first
+    else
+      dashboard_path
+    end
+  end
 end

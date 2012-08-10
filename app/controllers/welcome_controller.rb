@@ -13,7 +13,7 @@ class WelcomeController < ApplicationController
   protected
 
   def authorize_user
-    current_user.setup
+    current_user.setup if user_signed_in?
     authorize! :dashboard, current_user
   end
 
