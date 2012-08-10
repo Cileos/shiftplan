@@ -90,7 +90,7 @@ a {
 [role=content] {
   padding: 20px 0px 30px;
 
-  .expanded & {
+  #page.expanded & {
     padding-left:  20px;
     padding-right: 20px;
   }
