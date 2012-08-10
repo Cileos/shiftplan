@@ -1,0 +1,31 @@
+/* --------------------------------------------------------------------- */
+/*  _feedback.css.scss                                                   */
+/*  compass version: 0.12.rc.1                                           */
+/* --------------------------------------------------------------------- */
+
+
+.feedback-without-screenshot {
+    @include transition(all 0.25s);
+    @include border-radius($ci_border_radius $ci_border_radius 0 0);
+    @include box-shadow(rgba(0, 0, 0, 0.296875) 0px 0px 5px);
+
+    position: fixed;
+    right: 50px;
+    bottom: -7px;
+    padding: 5px 10px 10px;
+    background: $ci_darkyellow;
+    color: white;
+
+    &:hover {
+        bottom: 0px;
+        background: $ci_orange;
+        color: white;
+    }
+
+    // no push effect here (override global a:active)
+    &:active {
+        position: fixed;
+        top: auto;
+        left: auto;
+    }
+}
