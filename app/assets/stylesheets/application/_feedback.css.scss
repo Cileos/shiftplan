@@ -21,11 +21,4 @@
         background: $ci_orange;
         color: white;
     }
-
-    // no push effect here (override global a:active)
-    &:active {
-        position: fixed;
-        top: auto;
-        left: auto;
-    }
 }
