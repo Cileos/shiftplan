@@ -25,8 +25,8 @@ a {
 
   background: $ci_blue;
   color: lighten($ci_blue, 50%);
-  display: block;
-  height: 2 * $banner_link_padding_tb + $ci_line_height * $ci_font_size;
+  display: inline-block;
+  width: 100%;
 
   h1 {
     float: left;
