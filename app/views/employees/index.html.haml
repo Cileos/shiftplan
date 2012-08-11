@@ -1,6 +1,6 @@
 - title :employees
 
-#actions.btn-toolbar
+%nav{:role => 'content-navigation'}
   - if can? :create, Employee
     = link_to ti(:add), new_organization_employee_path(current_organization), class: 'button', remote: true, 'data-icon' => '&#xf067;'.html_safe
 
