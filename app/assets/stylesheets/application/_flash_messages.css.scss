@@ -1,6 +1,7 @@
 #flash {
   @include border-radius($ci_border-radius);
   @include rounded-box-wrapper($ci_green);
+  @include box-shadow(inset 0 1px 0 $ci_glow);
 
   width: 95%;
   padding: 5px 10px;
