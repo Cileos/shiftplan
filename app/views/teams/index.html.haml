@@ -18,6 +18,6 @@
             %td= render 'pibble', team: team
             %td
               - if can? :edit, team
-                = link_to :edit, edit_organization_team_path(current_organization, team), class: 'btn btn-mini'
+                = link_to :edit, edit_organization_team_path(current_organization, team), class: 'button button-small'
   .span5.instructions
     = tt '.instructions'

@@ -22,7 +22,7 @@ module EmployeesHelper
   def invitation_link(type, employee)
     link_to ti(type, :'non-white' => true),
       invitation_url(type, employee),
-      class: 'btn btn-mini', :remote => true
+      class: 'button button-small', :remote => true
   end
 
   # TODO: let rails guess the urls by providing the persisted invitation of an employee or a new record

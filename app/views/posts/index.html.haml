@@ -2,7 +2,7 @@
 - if can? :create, company_blog.posts.new
   #actions.btn-toolbar
     = link_to ti(:add, translation_key: 'posts.new'), [:new, current_organization, company_blog, :post], |
-      class: 'btn btn-primary', remote: true
+      class: 'button', remote: true, 'data-icon' => '&#xf067;'.html_safe
 
 .posts
   = render('posts/posts_with_pagination', posts: @posts)

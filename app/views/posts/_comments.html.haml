@@ -11,5 +11,5 @@
       url: organization_blog_post_comments_path(@post.organization, @post.blog, @post), remote: true do |f|
     = f.input :body, input_html: { rows: 2 }
     = f.input :employee_id, as: :hidden
-    %button.btn.btn-inverse{type: 'submit'}= ti(:comment)
+    %button{type: 'submit'}= ti(:comment)
 
