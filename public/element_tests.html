@@ -70,11 +70,17 @@
   </header>
 
   <dl>
-    <dt><pre>.button, button, input[type=submit]</pre></dt>
+    <dt><pre>button, .button, input[type=submit]</pre></dt>
     <dd>
       <button>Button</button>
       <a class="button" href="#">Link</a>
       <input type="submit" value="Input">
+    </dd>
+    <dt><pre>button.button-red, .button.button-red, input[type=submit].button-red</pre></dt>
+    <dd>
+      <button class="button-red">Button</button>
+      <a class="button button-red" href="#">Link</a>
+      <input type="submit" value="Input" class="button-red">
     </dd>
     <dt><pre>.button-small</pre></dt>
     <dd>
@@ -165,8 +171,8 @@
             <p>Hi, I'm a modal!</p>
 
             <p class="buttons">
-              <a href="#" class="button-red button-cancel" data-icon="&#xf00d;">Nope.</a>
-              <a href="#" class="button-green button-ok" data-icon="&#xf00c;">Awesome!</a>
+              <a href="#" class="button button-red button-cancel" data-icon="&#xf00d;">Nope.</a>
+              <a href="#" class="button button-green button-ok" data-icon="&#xf00c;">Awesome!</a>
             </p>
           </div>
         </div>
@@ -216,7 +222,7 @@
           <a href="#" class="button button-small button-red">Delete</a>
         </td>
       </tr>
-  </table> 
+  </table>
 </section>
 
 <section class="flash-messages">

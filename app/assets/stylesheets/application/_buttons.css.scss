@@ -1,7 +1,7 @@
-@mixin button($color: $ci_gray, $color_hover: $ci_gray_hover) {
-  @include border-radius($ci_border-radius);
+@mixin button-colors($color: $ci_gray, $color_hover: $ci_gray_hover) {
   @include background-image(linear-gradient(lighten($color, 7.5%), $color));
-  @include box-shadow(inset 0 1px 0 $ci_glow);
+
+  border: 1px solid $color;
 
   @if lightness($color) < 50% {
     text-shadow: 0 -1px 0 $ci_shadow;
@@ -11,12 +11,26 @@
     color: $ci_darkgray;
   }
 
+  &:hover {
+    @include background-image(linear-gradient(lighten($color_hover, 7.5%), $color_hover));
+  }
+
+  &:active {
+    border-color: darken($color, 10%);
+  }
+}
+
+input[type=submit],
+.button,
+button {
+  @include button-colors;
+  @include border-radius($ci_border-radius);
+  @include box-shadow(inset 0 1px 0 $ci_glow);
+
   padding:.4em .5em .35em;
-  border: 1px solid $color;
   text-decoration: none;
 
   &:hover {
-    @include background-image(linear-gradient(lighten($color_hover, 7.5%), $color_hover));
     @include box-shadow(0 0 .35em transparentize($ci_blue, .2));
 
     border-color: $ci_blue;
@@ -25,23 +39,15 @@
 
   &:active {
     @include box-shadow(inset 0 0 .35em $ci_shadow);
-
-    border-color: darken($color, 10%);
   }
-}
-
-input[type=submit],
-.button,
-button {
-  @include button;
 
   &.button-small {
     font-size: .8em;
   }
 }
 
-.button-green {
-  @include button($ci_green, $ci_green_hover);
+.button-green, input[type=submit].button-green {
+  @include button-colors($ci_green, $ci_green_hover);
 
   &:hover {
     @include box-shadow(0 0 .35em transparentize($ci_green, .2));
@@ -51,8 +57,8 @@ button {
   }
 }
 
-.button-red {
-  @include button($ci_darkorange, $ci_darkorange_hover);
+.button-red, input[type=submit].button-red {
+  @include button-colors($ci_darkorange, $ci_darkorange_hover);
 
   &:hover {
     @include box-shadow(0 0 .35em transparentize($ci_darkorange, .2));
