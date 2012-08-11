@@ -46,7 +46,8 @@ button {
   }
 }
 
-.button-green, input[type=submit].button-green {
+.button-green, input[type=submit].button-green,
+.button-success, input[type=submit].button-success {
   @include button-colors($ci_green, $ci_green_hover);
 
   &:hover {
@@ -57,7 +58,8 @@ button {
   }
 }
 
-.button-red, input[type=submit].button-red {
+.button-red, input[type=submit].button-red,
+.button-warning, input[type=submit].button-warning {
   @include button-colors($ci_darkorange, $ci_darkorange_hover);
 
   &:hover {
