@@ -15,13 +15,11 @@
     @include rounded-box-wrapper($ci_darkorange);
   }
 
-  &.permanent {
-    a {
-      color: #fff;
-    }
+  a {
+    color: #fff;
+  }
 
-    .close {
-      float: right;
-    }
+  .close {
+    float: right;
   }
 }
