@@ -1,0 +1,18 @@
+[role=calendar-navigation] {
+
+  .button-group :last-child {
+    margin-right: 1em;
+  }
+
+  .options {
+    float: right;
+
+    :first-child {
+      margin-left: 1em;
+    }
+    :last-child {
+      margin-right: 0;
+    }
+  }
+  @include clearfix;
+}
