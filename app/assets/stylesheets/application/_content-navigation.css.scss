@@ -1,6 +1,8 @@
 [role=toolbar] {
   @include clearfix;
 
+  margin-bottom: 1.5em;
+
   .button-group :last-child {
     margin-right: 1em;
   }
