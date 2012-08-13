@@ -93,13 +93,13 @@ Feature: Navigation
        | Teams             | true   |
 
      When I follow "shiftplan"
-     Then I should be on the landing page
+     Then I should be on the dashboard
      Then I should see the following list of links within the navigation:
        | link            | active |
        | me@shiftplan.de | false  |
        | Einstellungen   | false  |
        | Ausloggen       | false  |
-       | Dashboard       | false  |
+       | Dashboard       | true   |
 
   Scenario: as a planner with one organization
     Given I am signed in as the confirmed user
@@ -170,7 +170,7 @@ Feature: Navigation
        | Teams             | true   |
 
      When I follow "shiftplan"
-     Then I should be on the landing page
+     Then I should be on the dashboard
      Then I should see the following list of links within the navigation:
        | link              | active |
        | Homer Simpson     | false  |

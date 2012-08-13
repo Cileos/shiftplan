@@ -6,14 +6,10 @@ class PostsController < InheritedResources::Base
 
   respond_to :html, :js
 
-  def paginated_posts(posts)
-  end
-  helper_method :paginated_posts
-
   protected
 
   def collection
-    @posts ||= end_of_association_chain.order('published_at desc').paginate(:page => params[:page], :per_page => 10)
+    @posts = end_of_association_chain.order('published_at desc').page(params[:page]).per(10)
   end
 
   # FIXME why not just rescue from ActiveRecord::RecordNotFound ??

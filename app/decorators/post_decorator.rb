@@ -21,7 +21,7 @@ class PostDecorator < ApplicationDecorator
   end
 
   def posts_list(post)
-    h.render('posts/posts_with_pagination', posts: h.paginated_posts(post.blog.posts))
+    h.render('posts/posts_with_pagination', posts: h.collection)
   end
 
   def post_details(post)

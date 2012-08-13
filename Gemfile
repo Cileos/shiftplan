@@ -99,7 +99,8 @@ gem 'gon' # push variables from rails to js
 gem 'RedCloth' # textilize instructions and other texts from locales
 
 gem 'database_cleaner'
-gem 'will_paginate', '~> 3.0'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 gem 'acts_as_commentable_with_threading', '~> 1.1.2'
 gem 'carrierwave'
 gem 'mini_magick'
