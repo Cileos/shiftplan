@@ -17,23 +17,25 @@ textarea {
  */
 input:not([type=submit]):not([type=file]),
 textarea {
-  @include box-shadow(inset 0 1px 1px rgba(0,0,0,.25));
+  @include box-shadow(inset 0 0 3px rgba(0,0,0,.25));
   @include border-radius($ci_border-radius);
 
   border: 1px solid $ci_gray;
-  padding: .25em;
+  padding: .45em;
 
   &:focus {
-    @include box-shadow(0 0 2px transparentize($ci_blue, .25));
+    @include box-shadow(inset 0 0 3px $ci_blue);
 
     border: 1px solid $ci_blue;
+    background: lighten($ci_yellow, 47%);
+    outline: none;  // remove grey outline shadow on webkit browsers
   }
 }
 
 input:not([type=checkbox]):not([type=radio]):not([type=submit]),
 textarea,
 select {
-  display: block;    
+  display: block;
 }
 
 input[type=checkbox],
