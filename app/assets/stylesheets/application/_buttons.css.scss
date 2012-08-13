@@ -1,5 +1,5 @@
 @mixin button-colors($color: $ci_gray, $color_hover: $ci_gray_hover) {
-  @include background-image(linear-gradient(lighten($color, 7.5%), $color));
+  @include background-image(linear-gradient(lighten($color, 12.5%) 20%, lighten($color, 7.5%) 50%, $color));
 
   border: 1px solid $color;
 
@@ -7,7 +7,7 @@
     text-shadow: 0 -1px 0 $ci_shadow;
     color: #fff;
   } @else {
-    text-shadow: 0 1px 0 $ci_glow;
+    text-shadow: 0 1px 0 $ci_blaze;
     color: $ci_darkgray;
   }
 
@@ -15,8 +15,8 @@
     @include background-image(linear-gradient(lighten($color_hover, 7.5%), $color_hover));
   }
 
-  &:active {
-    border-color: darken($color, 10%);
+  &:active:hover {
+    border-color: darken($color, 20%);
   }
 }
 
