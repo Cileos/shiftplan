@@ -4,7 +4,7 @@ module ActionHelper
       t(opts.delete(:translation_key), opts)
     elsif key.is_a?(Symbol)
       t("helpers.actions.#{key}", opts)
-    elsif key.present? && key.first == '.'
+    elsif key.present? && key.respond_to?(:first) && key.first == '.'
       t("helpers.actions#{key}", opts)
     else
       key
