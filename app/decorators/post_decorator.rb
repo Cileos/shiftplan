@@ -12,19 +12,23 @@ class PostDecorator < ApplicationDecorator
     end
   end
 
-  def update_posts(post)
-    select(:posts).refresh_html posts_list(post)
+  def blog
+    post.blog
   end
 
-  def update_post(post)
-    select(:post, post).refresh_html post_details(post)
+  def update_posts
+    select(:posts).refresh_html posts_list
   end
 
-  def posts_list(post)
+  def update_post
+    select(:post, post).refresh_html post_details
+  end
+
+  def posts_list
     h.render('posts/posts_with_pagination', posts: h.collection)
   end
 
-  def post_details(post)
+  def post_details
     h.render('posts/post_details', post: post, truncation: false)
   end
 
@@ -33,8 +37,8 @@ class PostDecorator < ApplicationDecorator
       prepend_errors_for(post)
     else
       clear_modal
-      update_posts(post)
-      update_post(post)
+      update_posts
+      update_post
       update_flash
     end
   end
