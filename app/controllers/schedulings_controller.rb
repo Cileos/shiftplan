@@ -29,7 +29,7 @@ class SchedulingsController < InheritedResources::Base
 
     # InheritedResources
     def smart_resource_url
-      filter.path_to_day(resource.date)
+      filter.path_to_date(resource.date)
     end
 
     def filter_params

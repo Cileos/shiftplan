@@ -152,12 +152,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
     h.send(:"organization_plan_#{mode}_path", h.current_organization, plan, year: week.year, week: week.cweek)
   end
 
-  def path_to_day(day=monday)
-    raise(ArgumentError, "please give a date or datetime, got #{day.inspect}") unless week.acts_like?(:date) or week.acts_like?(:time)
-    raise(ArgumentError, "can only link to day in day view") unless mode?('day')
-    h.send(:"organization_plan_#{mode}_path", h.current_organization, plan, year: day.year, month: day.month, day: day.day)
-  end
-
   # URI-Path to another mode
   def path_to_mode(mode)
     raise(ArgumentError, "unknown mode: #{mode}") unless mode.in?(Modes)
@@ -169,6 +163,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  # Path to view with given date, mus tbe implemented in subclass, for example to find the corresponding week
   def path_to_date(date)
     raise NotImplementedError, 'should return path to view including the given date'
   end
