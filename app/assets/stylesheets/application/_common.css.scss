@@ -23,32 +23,32 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
-h1.huge { 
+h1.huge {
   font-size: $ci_biggest-font;
-  line-height: 1.1236em; 
+  line-height: 1.1236em;
   padding: 0.22472em 0 0.44944em;
 }
 
-h1, h2 { 
+h1, h2 {
   font-size: $ci_bigger-font;
-  line-height: 1.17647em; 
+  line-height: 1.17647em;
   padding: 1.17647em 0 1.17647em;
 }
 
-h3 { 
+h3 {
   font-size: $ci_big-font;
-  line-height: 1.90476em; 
+  line-height: 1.90476em;
   padding: 0.9524em 0 0;
 }
 
-h4, h5, h6, p, small, 
+h4, h5, h6, p, small,
 .post .body,
 .inputs > div {
   margin: 0;
   padding: 0 0 1.5385em;
 }
 
-small { 
+small {
   color: $ci_gray;
   font-size: $ci_font-size;
 }
@@ -128,7 +128,7 @@ small {
 }
 
 [role=content] {
-  padding: 20px 0px 30px;
+  padding: 20px 0px 40px;
 
   #page.expanded & {
     padding-left:  20px;
@@ -138,6 +138,11 @@ small {
   h2 {
     margin-top: 0;
   }
+}
+
+[role=footer] {
+  clear: both;
+  text-align: right;
 }
 
 .actions {
