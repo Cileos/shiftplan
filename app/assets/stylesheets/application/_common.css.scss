@@ -71,7 +71,7 @@ a {
 
   li:hover > a {
     color: #fff;
-    background: darken($ci_blue, 10%);
+    background: $ci_blue_hover_dark;
   }
 
   .dropdown {
