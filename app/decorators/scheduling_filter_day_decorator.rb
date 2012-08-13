@@ -12,12 +12,12 @@ class SchedulingFilterDayDecorator < SchedulingFilterDecorator
     plan.organization.teams
   end
 
-  def previous_path
-    path_to_day(date.yesterday)
+  def previous_step
+    date.yesterday
   end
 
-  def next_path
-    path_to_day(date.tomorrow)
+  def next_step
+    date.tomorrow
   end
 
   def today_path
