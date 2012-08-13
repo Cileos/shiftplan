@@ -148,12 +148,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   # URI-Path to another week
   def path_to_week(week)
-    raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
+    raise(ArgumentError, "please give a date or datetime, got #{week.inspect}") unless week.acts_like?(:date) or week.acts_like?(:time)
     h.send(:"organization_plan_#{mode}_path", h.current_organization, plan, year: week.year, week: week.cweek)
   end
 
-  def path_to_day(day)
-    raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
+  def path_to_day(day=monday)
+    raise(ArgumentError, "please give a date or datetime, got #{day.inspect}") unless week.acts_like?(:date) or week.acts_like?(:time)
     raise(ArgumentError, "can only link to day in day view") unless mode?('day')
     h.send(:"organization_plan_#{mode}_path", h.current_organization, plan, year: day.year, month: day.month, day: day.day)
   end
@@ -169,8 +169,16 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def path_to_day(day=monday)
-    h.organization_plan_teams_in_day_path(h.current_organization, plan, day.year, day.month, day.day)
+  def path_to_date(date)
+    raise NotImplementedError, 'should return path to view including the given date'
+  end
+
+  def previous_path
+    path_to_date(previous_step)
+  end
+
+  def next_path
+    path_to_date(next_step)
   end
 
   # TODO hooks?
@@ -236,4 +244,13 @@ class SchedulingFilterDecorator < ApplicationDecorator
   def update_team_colors
     select(:team_colors).refresh_html team_colors
   end
+
+  def has_previous?
+    ! before_start_of_plan?(previous_step)
+  end
+
+  def has_next?
+    ! after_end_of_plan?(next_step)
+  end
+
 end

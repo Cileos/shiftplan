@@ -30,19 +30,19 @@ Feature: Creating a plan
         | Lenny L       |    |    |    |    |    |    |    |
         | Homer S       |    |    |    |    |    |    |    |
 
-  Scenario: creating a plan by name for the current organization with a specific period
+  Scenario: creating a plan by name for the current organization with a specific period locks the user in this time period frame
       # monday 4 weeks from now (10th week)
      When I fill in "Startdatum" with "2012-02-27"
       # friday a month later (14th week)
       And I fill in "Enddatum" with "2012-03-30"
       And I press "Anlegen"
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
-      And I should be on the employees in week page for the plan for week: 10, year: 2012
+      And I should be on the employees in week page for the plan for week: 9, year: 2012
       And I should not see "<" within the calendar navigation
       But I should see ">" within the calendar navigation
 
      When I go to the employees in week page for the plan for week: 23, year: 2012
-     Then I should be on the employees in week page for the plan for week: 14, year: 2012
+     Then I should be on the employees in week page for the plan for week: 13, year: 2012
       And I should not see ">" within the calendar navigation
       But I should see "<" within the calendar navigation
 
