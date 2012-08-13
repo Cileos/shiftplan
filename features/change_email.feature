@@ -114,7 +114,7 @@ Feature: As a logged in user
 
      When "marge@thesimpsons.com" opens the email with subject "E-Mail Adresse ändern"
       And I click the first link in the email
-     Then I should be on the homepage
+     Then I should be on the dashboard
       And I should see "Der Bestätigungstoken ist nicht gültig. Die Änderung Ihrer E-Mail Adresse konnte nicht akzeptiert werden."
 
   Scenario: Trying to change the email address to an address that already exists
