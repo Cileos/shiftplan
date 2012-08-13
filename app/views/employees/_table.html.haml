@@ -1,8 +1,8 @@
-%table#employees.table.table-striped
+%table#employees
   %thead
     %tr.employee
       %th= t('activerecord.attributes.employee.full_name')
-      %th= abbr_tag(t('helpers.actions.wwt_short'), t('helpers.actions.wwt_long'))
+      %th.numeric= abbr_tag(t('helpers.actions.wwt_short'), t('helpers.actions.wwt_long'))
       %th= t('activerecord.attributes.employee.email')
       %th= t('.status')
       - if can?(:manage, Invitation)

@@ -1,4 +1,6 @@
 table {
+  margin-bottom: 2em;
+
   thead {
     border-bottom: 1px solid $ci_darkgray;
   }
@@ -20,5 +22,9 @@ table {
 
   .numeric {
     text-align: right;
+  }
+
+  &:not(.table-condensed) {
+    width: 100%;
   }
 }
