@@ -4,21 +4,24 @@
 /* --------------------------------------------------------------------- */
 
 
+[role=footer] {
+    text-align: right;
+}
+
 .feedback-without-screenshot {
     @include transition(all 0.25s);
     @include border-radius($ci_border_radius $ci_border_radius 0 0);
     @include box-shadow(rgba(0, 0, 0, 0.296875) 0px 0px 5px);
 
     position: fixed;
-    right: 50px;
     bottom: -7px;
     padding: 5px 10px 10px;
-    background: $ci_darkyellow;
+    background: $ci_blue;
     color: white;
 
     &:hover {
         bottom: 0px;
-        background: $ci_orange;
+        background: $ci_blue_hover_dark;
         color: white;
     }
 }
