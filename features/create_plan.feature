@@ -15,11 +15,13 @@ Feature: Creating a plan
       And I fill in "Name" with "Halloween im Atomkraftwerk"
 
   Scenario: creating a plan by name for the current organization
-     When I press "Anlegen"
+     When I fill in "Beschreibung" with "5 eyes minimum"
+      And I press "Anlegen"
 
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
       And I should be on the employees in week page for the plan for week: 5, year: 2012
       And the page should be titled "Halloween im Atomkraftwerk"
+      And I should see "5 eyes minimum"
       And I should see a calendar titled "Halloween im Atomkraftwerk - KW 05 30.01.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi | Do | Fr | Sa | So |
@@ -30,9 +32,9 @@ Feature: Creating a plan
 
   Scenario: creating a plan by name for the current organization with a specific period
       # monday 4 weeks from now (10th week)
-     When I fill in "Startdatum" with "27.02.2012"
+     When I fill in "Startdatum" with "2012-02-27"
       # friday a month later (14th week)
-      And I fill in "Enddatum" with "30.03.2012"
+      And I fill in "Enddatum" with "2012-03-30"
       And I press "Anlegen"
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
       And I should be on the employees in week page for the plan for week: 10, year: 2012

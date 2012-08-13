@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120618111519) do
+ActiveRecord::Schema.define(:version => 20120813134550) do
+
+  create_table "accounts", :force => true do |t|
+    t.integer  "owner_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "blogs", :force => true do |t|
     t.integer  "organization_id"
@@ -100,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20120618111519) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "account_id"
   end
 
   create_table "plans", :force => true do |t|
@@ -107,6 +114,9 @@ ActiveRecord::Schema.define(:version => 20120618111519) do
     t.string   "name"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.text     "description"
   end
 
   add_index "plans", ["organization_id"], :name => "index_plans_on_organization_id"
