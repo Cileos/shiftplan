@@ -41,7 +41,9 @@ h3 {
   padding: 0.9524em 0 0;
 }
 
-h4, h5, h6, p, small, .post .body {
+h4, h5, h6, p, small, 
+.post .body,
+form > div {
   font-size: $ci_font-size;
   margin: 0 0 1.5385em;
 }
