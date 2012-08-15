@@ -1,6 +1,4 @@
-window.Shiftplan = Ember.Application.create
-  rootElement: $('#ember')
-
+#= require_self
 #= require ./store
 #= require_tree ./models
 #= require_tree ./controllers
@@ -8,7 +6,11 @@ window.Shiftplan = Ember.Application.create
 #= require_tree ./helpers
 #= require_tree ./templates
 #= require_tree ./routes
-#= require_self
+
+Shiftplan = Ember.Application.create
+  rootElement: $('#ember')
+
+window.Shiftplan = Shiftplan
 
 Shiftplan.initialize()
 
