@@ -13,6 +13,7 @@ group :assets do
   gem 'jquery-ui-rails'
   # until merge of https://github.com/thomas-mcdonald/bootstrap-sass/pull/170
   gem 'bootstrap-sass', '~> 2.0.4', git: "git://github.com/niklas/bootstrap-sass.git"
+  gem 'ember-rails'
 end
 
 

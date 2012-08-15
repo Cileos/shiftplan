@@ -53,5 +53,8 @@ module Shiftplan
       g.controller_specs false
       g.view_specs false
     end
+
+    config.ember.variant = :development
+    config.handlebars.templates_root = 'templates'
   end
 end
