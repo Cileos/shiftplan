@@ -17,8 +17,12 @@ a {
   &:hover {
     color: $ci_blue_hover;
   }
-
 }
+
+h1 { font-size: $ci_biggest-font; }
+h2, h3 { font-size: $ci_bigger-font; }
+h4, h5, h6 { font-size: $ci_big-font; }
+small { font-size: $ci_small-font; }
 
 [role=banner] {
   @include box-shadow(0 2px 3px $ci_shadow);
