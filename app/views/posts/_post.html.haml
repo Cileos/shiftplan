@@ -1,11 +1,18 @@
-= avatar(post.author.user, post.author, :thumb)
-- if post.author == current_user.current_employee
-  .own-meta= t(:'blogs.own_meta_data', published_at: l(post.published_at, format: :tiny))
-- else
-  .meta= t(:'blogs.meta_data', author: post.author.name, published_at: l(post.published_at, format: :tiny))
-%h3= post.title
-- if truncation
-  .body= truncate(post.body, :length => 300, :omission => ' …')
-- else
-  .body= post.body
-= render('posts/comments_count', post: post)
+= avatar(post.author.user, post.author, :thumb, :author)
+
+%article.post
+  %header
+    %h1= post.title
+
+    %small.meta
+      - if post.author == current_user.current_employee
+        %span.own-meta= t(:'blogs.own_meta_data', published_at: l(post.published_at, format: :tiny))
+      - else
+        %span.meta= t(:'blogs.meta_data', author: post.author.name, published_at: l(post.published_at, format: :tiny))
+
+  - if truncation
+    .body= truncate(post.body, :length => 300, :omission => ' …')
+  - else
+    .body= post.body
+  
+  = render('posts/comments_count', post: post)

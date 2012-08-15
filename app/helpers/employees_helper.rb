@@ -34,8 +34,8 @@ module EmployeesHelper
     end
   end
 
-  def avatar(user, employee, version)
-    html_options = { class: "avatar #{version}" }
+  def avatar(user, employee, version, html_classes = "")
+    html_options = { :class => "avatar #{version} #{html_classes}" }
     employee = user.find_employee_with_avatar if user && employee.nil?
     if employee && employee.avatar?
       image_tag(employee.avatar.send(version).url, html_options)

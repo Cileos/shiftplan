@@ -2,3 +2,11 @@
   list-style: none;
   padding: 0;
 }
+
+.post {
+  .author {
+    @include border-radius($ci_border-radius);
+
+    float:left;
+  }
+}
