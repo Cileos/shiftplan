@@ -1,4 +1,5 @@
-[role=content-navigation] {
+[role=toolbar] {
+  @include clearfix;
 
   .button-group :last-child {
     margin-right: 1em;
@@ -14,5 +15,4 @@
       margin-right: 0;
     }
   }
-  @include clearfix;
 }

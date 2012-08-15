@@ -1,6 +1,6 @@
 - title t(:'blogs.company_news')
 - if can? :create, company_blog.posts.new
-  %nav{:role => 'content-navigation'}
+  %nav{:role => 'toolbar'}
     = link_to ti(:add, translation_key: 'posts.new'), [:new, current_organization, company_blog, :post], |
       class: 'button', remote: true, 'data-icon' => '&#xf067;'.html_safe
 
