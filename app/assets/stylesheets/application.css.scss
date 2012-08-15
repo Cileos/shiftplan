@@ -20,7 +20,7 @@
 
 /* import application/mixins */
 @import "application/common";
-@import "application/page";
+@import "application/wrap";
 @import "application/flash_messages";
 @import "application/icons";
 @import "application/buttons";
@@ -29,7 +29,7 @@
 @import "application/dropdowns";
 @import "application/feedback";
 @import "application/tables";
-@import "application/content-navigation";
+@import "application/toolbar";
 @import "application/blog";
 
 /* import calendar specific styles */
