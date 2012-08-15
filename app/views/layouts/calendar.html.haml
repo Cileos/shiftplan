@@ -2,7 +2,6 @@
 - controller.gon.quickie_completions = filter.quickies_for_completion
 %html
   = render 'layouts/head'
-  = javascript_include_tag "templates/all"
   %body
     #page.container-fluid
       = render 'layouts/top'
@@ -16,4 +15,7 @@
         #ember Ember loading....
         = help_tag 'calendar.keyboard', id: 'help'
       = render 'layouts/footer'
+
+  = render 'layouts/foot'
+  = javascript_include_tag "templates/all"
 

@@ -1,6 +1,5 @@
-# must set rootElement later because the DOM is not loaded yet
 window.Shiftplan = Ember.Application.create
-  rootElement: '#ember'
+  rootElement: $('#ember')
 
 #= require ./store
 #= require_tree ./models
