@@ -1,5 +1,6 @@
-$banner_link_padding_tb: 10px;
-$banner_link_padding_lr: 15px;
+$table_cell_padding: 10px;
+$banner_link_padding_tb: 15px;
+$banner_link_padding_lr: $banner_link_padding_tb;
 
 $min_wrapper_width: floor(modular-scale($ci_font-size, 24, $ci_scale));
 $wrapper_width: floor(modular-scale($ci_font-size, 28, $ci_scale));

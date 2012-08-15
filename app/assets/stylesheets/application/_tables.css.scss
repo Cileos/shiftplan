@@ -10,13 +10,12 @@ table {
   }
 
   td, th {
-    padding: 5px 10px;
+    padding: $table_cell_padding;
     text-align: left;
   }
 
   img {
     vertical-align: middle;
-    width: 16px;
   }
 
   .numeric {
