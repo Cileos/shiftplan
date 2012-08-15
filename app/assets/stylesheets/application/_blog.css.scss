@@ -4,9 +4,21 @@
 }
 
 .post {
+  article {
+    padding-left: 72px;
+  }
+
+  h1 {
+    padding-top: 0;
+  }
+
+  .meta {
+    color: $ci_gray;
+  }
+
   .author {
     @include border-radius($ci_border-radius);
 
-    float:left;
+    float: left;
   }
 }

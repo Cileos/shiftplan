@@ -19,10 +19,40 @@ a {
   }
 }
 
-h1 { font-size: $ci_biggest-font; }
-h2, h3 { font-size: $ci_bigger-font; }
-h4, h5, h6 { font-size: $ci_big-font; }
-small { font-size: $ci_small-font; }
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+h1.huge { 
+  font-size: $ci_biggest-font;
+  line-height: 1.07865em; 
+  padding: 0.17978em 0 0.35955em;
+}
+
+h1, h2 { 
+  font-size: $ci_bigger-font;
+  line-height: 1.41186em; 
+  padding: 0.94118em 0 0.47059em;
+}
+
+h3 { 
+  font-size: $ci_big-font;
+  line-height: 1.23077em; 
+  padding: 0.76190em 0 0;
+}
+
+h4, h5, h6, p, small, .post .body {
+  font-size: $ci_font-size;
+  margin: 0 0 .8125em;
+}
+
+small { 
+  color: $ci_gray;
+}
+
+#title {
+  padding-top: 0;
+}
 
 [role=banner] {
   background: $ci_blue;
