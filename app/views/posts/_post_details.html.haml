@@ -6,4 +6,5 @@
     - if can? :destroy, post
       -# TODO: Open the confirm dialog in our own modal box.
       = button_to(ta(:destroy), [current_organization, post.blog, post], method: :delete, data: { confirm: t('posts.show.confirm_to_delete', post: post.title) }, class: 'button button-warning button-small', id: 'destroy-post')
+
 = render('posts/post', post: post, truncation: false)

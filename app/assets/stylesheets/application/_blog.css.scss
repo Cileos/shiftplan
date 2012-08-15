@@ -1,13 +1,13 @@
-#posts {
+.posts, .comments ul {
   list-style: none;
   padding: 0;
 }
 
-.post {
-  article {
-    padding-left: 72px;
-  }
+.post article, .comments {
+  padding-left: 64px;
+}
 
+.post, .comment {
   h1 {
     padding: 0;
   }
@@ -20,5 +20,25 @@
     @include border-radius($ci_border-radius);
 
     float: left;
+    margin-right: 10px;
   }
+
+  .button_to {
+    float: right;
+  }
+}
+
+.comment {
+  padding: 20px;
+  border-bottom: 1px solid $ci_gray;
+
+  &:nth-child(2n) {
+    background: $ci_lightgray;
+  } 
+}
+
+.no-comments {
+  padding: 20px 0;
+  color: $ci_gray;
+  text-align: center;
 }
