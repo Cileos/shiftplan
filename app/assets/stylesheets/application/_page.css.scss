@@ -1,7 +1,7 @@
-#page {
+.wrap {
     margin: 0 auto;
-    max-width: 1110px;
-    min-width: 480px;
+    max-width: $wrapper_width;
+    min-width: $min_wrapper_width;
 
     &.calendar.effect {
         @include transition(all 1s);

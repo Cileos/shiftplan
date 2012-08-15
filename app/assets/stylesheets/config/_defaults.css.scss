@@ -1,6 +1,6 @@
 $ci_border-radius: .35em;
-$ci_font-size: 14px;
-$ci_line-height: 1.5;
+$ci_font-size: 13px;
+$ci_line-height: 1.25;
 $ci_scale: 1.168; // Golden ratio
 
 $ci_small-font: floor(modular-scale($ci_font-size, -1, $ci_scale));
