@@ -52,6 +52,11 @@ small { font-size: $ci_small-font; }
 
   }
 
+  h1 a,
+  .user-navigation a {
+    border-left: 0;
+  }
+
   [role=navigation] {
     float:left;
   }
