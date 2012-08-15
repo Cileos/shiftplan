@@ -25,9 +25,9 @@ h4, h5, h6 { font-size: $ci_big-font; }
 small { font-size: $ci_small-font; }
 
 [role=banner] {
-  @include box-shadow(0 2px 3px $ci_shadow);
 
   background: $ci_blue;
+  border-bottom: 1px solid darken($ci_blue, 7.5%);
   color: lighten($ci_blue, 50%);
   display: inline-block;
   width: 100%;
@@ -45,7 +45,7 @@ small { font-size: $ci_small-font; }
   a {
     @include transition(color, background .5s ease);
 
-    border-left: 1px solid lighten($ci_blue, 10%);
+    border-left: 1px solid darken($ci_blue, 7.5%);
     color: lighten($ci_blue, 50%);
     padding: $banner_link_padding_tb $banner_link_padding_lr;
     display: inline-block;
