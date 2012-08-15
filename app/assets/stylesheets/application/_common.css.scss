@@ -130,7 +130,7 @@ small {
 [role=content] {
   padding: 20px 0px 40px;
 
-  #page.expanded & {
+  .wrap.expanded & {
     padding-left:  20px;
     padding-right: 20px;
   }
