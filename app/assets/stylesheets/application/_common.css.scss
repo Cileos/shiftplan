@@ -43,13 +43,14 @@ h3 {
 
 h4, h5, h6, p, small, 
 .post .body,
-form > div {
-  font-size: $ci_font-size;
-  margin: 0 0 1.5385em;
+.inputs > div {
+  margin: 0;
+  padding: 0 0 1.5385em;
 }
 
 small { 
   color: $ci_gray;
+  font-size: $ci_font-size;
 }
 
 #title {
