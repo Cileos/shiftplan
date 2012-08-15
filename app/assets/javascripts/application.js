@@ -15,9 +15,9 @@
 //= require shiftplan
 //= require_tree './editors'
 //= require mailcheck
-//= require ./help
+//= require help
 //= require legend
+
+
 // always last!
 //= require lib/loaded_page
-
-Shiftplan = Ember.Application.create();
