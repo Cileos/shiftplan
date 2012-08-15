@@ -25,25 +25,25 @@ h1, h2, h3, h4, h5, h6 {
 
 h1.huge { 
   font-size: $ci_biggest-font;
-  line-height: 1.07865em; 
-  padding: 0.17978em 0 0.35955em;
+  line-height: 1.1236em; 
+  padding: 0.22472em 0 0.44944em;
 }
 
 h1, h2 { 
   font-size: $ci_bigger-font;
-  line-height: 1.41186em; 
-  padding: 0.94118em 0 0.47059em;
+  line-height: 1.17647em; 
+  padding: 1.17647em 0 1.17647em;
 }
 
 h3 { 
   font-size: $ci_big-font;
-  line-height: 1.23077em; 
-  padding: 0.76190em 0 0;
+  line-height: 1.90476em; 
+  padding: 0.9524em 0 0;
 }
 
 h4, h5, h6, p, small, .post .body {
   font-size: $ci_font-size;
-  margin: 0 0 .8125em;
+  margin: 0 0 1.5385em;
 }
 
 small { 
