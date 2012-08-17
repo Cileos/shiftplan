@@ -1,15 +1,9 @@
 @mixin button-colors($color: $ci_gray, $color_hover: $ci_gray_hover) {
   @include background-image(linear-gradient(lighten($color, 12.5%) 20%, lighten($color, 7.5%) 50%, $color));
+  @include adaptive-color(color, $color);
+  @include adaptive-color(text-shadow, $color);
 
   border: 1px solid $color;
-
-  @if lightness($color) < 50% {
-    text-shadow: 0 -1px 0 $ci_shadow;
-    color: #fff;
-  } @else {
-    text-shadow: 0 1px 0 $ci_blaze;
-    color: $ci_darkgray;
-  }
 
   &:hover {
     @include background-image(linear-gradient(lighten($color_hover, 7.5%), $color_hover));

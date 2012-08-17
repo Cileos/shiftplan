@@ -1,22 +1,15 @@
 #flash {
-  @include border-radius($ci_border-radius);
-  @include rounded-box-wrapper($ci_green);
-  @include box-shadow(inset 0 1px 0 $ci_glow);
+  @include flash-message($ci_green);
 
-  width: 95%;
   padding: 5px 10px;
   margin: 20px auto;
 
   &.notice {
-    @include rounded-box-wrapper($ci_darkyellow);
+    @include flash-message($ci_darkyellow);
   }
 
   &.error {
-    @include rounded-box-wrapper($ci_darkorange);
-  }
-
-  a {
-    color: #fff;
+    @include flash-message($ci_darkorange);
   }
 
   .close {
