@@ -1,10 +1,24 @@
 // This is only for testing purposes
 // and is used only by element_tests.html
 #modal {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+
+  .modal {
+    @include transform(scale(1.5));
+    
+    opacity: 0;
+  }
 
   &:target {
-    display: block;
+    visibility: visible;
+    opacity: 1;
+
+    .modal {
+      @include transform(scale(1));
+      
+      opacity: 1;
+    }
   }
 
   .modal {
@@ -17,6 +31,8 @@
 
 // Real modal styles start here
 .modal-overlay {
+  @include transition(all .5s ease);
+
   position: fixed;
   top: 0;
   left: 0;
@@ -27,8 +43,9 @@
 
 .modal {
   @include box-shadow(0 0 10px rgba(0,0,0,.25));
-  @include transition(opacity 1s ease);
+  @include transition(all .3s ease);
   @include border-radius($ci_border-radius);
+  @include transform(scale(1.5));
 
   background:#fff;
   position: absolute;
