@@ -8,9 +8,9 @@
 #= require_tree ./routes
 
 Shiftplan = Ember.Application.create
-  rootElement: $('#ember')
+  rootElement: '#ember'
 
 window.Shiftplan = Shiftplan
 
-Shiftplan.initialize()
+jQuery -> Shiftplan.initialize()
 
