@@ -26,11 +26,8 @@ class CalendarEditor extends View
     @setupForm()
     @addTabIndices()
 
-  # TODO make QuickieEditor less intrusive
   setupForm: ->
-    for quickie in @modal().find('input[name="scheduling[quickie]"]')
-      editor = new QuickieEditor value: $(quickie).val()
-      $(quickie).closest('.control-group').replaceWith editor
+    @modal().find('input[name="scheduling[quickie]"]').edit_quickie()
 
   addTabIndices: ->
     tabIndex = 1
