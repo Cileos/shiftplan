@@ -3,7 +3,22 @@ describe 'QuickieEditor', ->
     expect(QuickieEditor).not.toBeNull
 
   beforeEach ->
-    @editor = new QuickieEditor id: 23, value: '', completions: []
+    setFixtures sandbox
+      id: 'modalbox',
+      class: 'modal'
+    @form = """
+             <form id="new_form">
+                 <div class="control-group">
+                   <div class="controls">
+                     <input id="scheduling_quickie" name="scheduling[quickie]" />
+                   </div>
+                 </div>
+                 <input id="scheduling_employee_id" />
+                 <input id="scheduling_date" />
+             </form>
+           """
+    $('#modalbox').append @form
+    @editor = new QuickieEditor element: $('#modalbox #scheduling_quickie'), completions: []
 
   it 'provides outlet for input', ->
     expect(@editor.input).toExist()
@@ -13,10 +28,6 @@ describe 'QuickieEditor', ->
     expect(@editor.input.data('typeahead')).toBeDefined()
 
   it 'cleans up typeahead menu when closing modal window', ->
-    setFixtures sandbox
-      id: 'modalbox',
-      class: 'modal'
-    $('#modalbox').append @editor
     typeahead = @editor.input.data('typeahead')
     expect( typeahead.$menu.closest('body') ).toExist()
     $('#modalbox').trigger 'dialogclose'
