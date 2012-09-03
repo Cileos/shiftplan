@@ -79,13 +79,21 @@ class User < ActiveRecord::Base
   end
   before_save :create_email_change
 
+  # This method gets called on signup(see registrations_controller) amongst
+  # others(e.g. welcome_controller).
+  #
+  # If called during signup, an organization, the account owner, an account and
+  # an organization blog get created.
   def setup
     unless new_record?
       needs_reload = false
 
+      # If organizations is not empty, then we are in signup mode. The
+      # organization_name is a virtual attribute of the user model and needs to
+      # be entered by the registering user in the signup form.
       if organizations.empty? && organization_name.present?
         Organization.create!(name: organization_name).tap do |organization|
-          organization.setup
+          organization.setup # creates the organization's blog
           employees.create! do |e|
             e.first_name = first_name
             e.last_name  = last_name
