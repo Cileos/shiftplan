@@ -1,5 +1,4 @@
 #= require_self
-#= require ./store
 #= require_tree ./models
 #= require_tree ./controllers
 #= require_tree ./views
@@ -10,7 +9,13 @@
 Shiftplan = Ember.Application.create
   rootElement: '#ember'
 
+Shiftplan.store = DS.Store.create
+  revision: 4
+  adapter: DS.RESTAdapter.create
+    bulkCommit: false
+    #plurals:
+    #  directory: 'directories'
+
 window.Shiftplan = Shiftplan
 
 jQuery -> Shiftplan.initialize()
-

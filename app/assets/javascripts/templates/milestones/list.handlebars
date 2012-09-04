@@ -1,0 +1,14 @@
+<ul id="milestones">
+  {{#each milestones}}
+    {{view Shiftplan.ShowMilestoneView milestoneBinding="this"}}
+  {{/each}}
+  {{#if isNewVisible}}
+    <li>tipp du sau</li>
+  {{/if}}
+</ul>
+
+<ul class="actions">
+  <li>
+    <a href="#" {{action "showNew"}}>neuer Meilenstein</a>
+  </li>
+</ul>
