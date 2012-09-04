@@ -1,14 +1,14 @@
 <ul id="milestones">
-  {{#each milestones}}
+  {{#each controller}}
     {{view Shiftplan.ShowMilestoneView milestoneBinding="this"}}
   {{/each}}
-  {{#if isNewVisible}}
-    <li>tipp du sau</li>
+  {{#if view.isNewVisible}}
+    <li>TODO form</li>
   {{/if}}
 </ul>
 
 <ul class="actions">
   <li>
-    <a href="#" {{action "showNew"}}>neuer Meilenstein</a>
+    <a href="#" {{action "showNew" target="view"}}>neuer Meilenstein</a>
   </li>
 </ul>

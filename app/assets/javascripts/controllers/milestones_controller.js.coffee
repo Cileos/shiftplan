@@ -1,2 +1,1 @@
-Shiftplan.MilestonesController = Ember.ArrayController.extend
-  resourceType: Shiftplan.Milestone
+Shiftplan.MilestonesController = Ember.ArrayController.extend()

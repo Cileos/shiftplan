@@ -5,4 +5,4 @@ Shiftplan.Router = Ember.Router.extend
       route: '/'
 
       connectOutlets: (router) ->
-        router.get('applicationController').connectOutlet('ListMilestones')
+        router.get('applicationController').connectOutlet 'milestones'
