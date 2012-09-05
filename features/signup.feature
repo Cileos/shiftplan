@@ -43,12 +43,10 @@ Feature: Signing up
       And I click the first link in the email
      Then I should see "bestätigt"
       And I should be signed in as "Homer Simpson"
-     # TODO
-     # Then show me the page
-     #  And I should be on the dashboard page
-     #  And I should see "Fukushima GmbH"
-     # When I follow "Reaktor A"
-     # Then show me the page
+      And I should be on the dashboard page
+      And I should see "Fukushima GmbH"
+     When I follow "Reaktor A"
+     Then I should be on the page of the organization
 
 
   @javascript

@@ -9,7 +9,7 @@
         %ul#organizations
           - current_user.organizations_for(account).each do |organization|
             %li
-              %h5= link_to organization.name, organization_path(organization)
+              %h5= link_to organization.name, [account, organization]
               = render 'plans/list', plans: organization.plans
               - if organization.company_blog.present?
                 = render('posts/posts', posts: organization.company_blog.posts.order('published_at desc').limit(2))

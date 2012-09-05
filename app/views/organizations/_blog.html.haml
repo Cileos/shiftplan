@@ -2,5 +2,5 @@
   %h2= t(:'blogs.company_news')
   = render('posts/posts', posts: blog.posts.order('published_at desc').limit(recent))
 %p.all-news
-  = link_to :all_posts, [blog.organization, blog, :posts]
+  = link_to :all_posts, [blog.organization.account, blog.organization, blog, :posts]
 

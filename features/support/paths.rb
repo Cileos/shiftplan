@@ -48,7 +48,7 @@ module NavigationHelpers
       when Employee
         employee_path(model)
       when Organization
-        organization_path(model)
+        account_organization_path(model.account, model)
       when User
         user_path
       else

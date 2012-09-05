@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   authentication_required
   before_filter :set_current_employee, if: :user_signed_in?
+  before_filter :set_current_account, if: :user_signed_in?
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.debug('Access denied')
@@ -26,16 +27,34 @@ class ApplicationController < ActionController::Base
     flash[severity] = t("flash.#{controller}.#{action}.#{key}", opts)
   end
 
+  def set_current_account
+    if params[:account_id]
+      @current_account ||= Account.find(params[:account_id])
+    end
+  end
+
+  def current_account
+    @current_account
+  end
+  helper_method :current_account
+
+  def current_account?
+    current_account.present?
+  end
+  helper_method :current_account?
+
   def organization_param; params[:organization_id] end
 
   def set_current_employee
-    if organization_param
-      current_user.current_employee = current_user.employees.find_by_organization_id!(organization_param)
+    if params[:account_id]
+      current_user.current_employee = current_user.employees.find_by_account_id!(params[:account_id])
     end
   end
 
   def current_organization
-    @current_organization ||= organization_param && current_user.organizations.find(organization_param)
+    if organization_param
+      @current_organization ||= Organization.find(organization_param)
+    end
   end
   helper_method :current_organization
 
