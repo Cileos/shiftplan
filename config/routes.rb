@@ -23,6 +23,8 @@ Shiftplan::Application.routes.draw do
       end
 
       resource :copy_week, only: [:new, :create], controller: :copy_week
+
+      resources :milestones
     end
     resources :employees
     resources :teams do

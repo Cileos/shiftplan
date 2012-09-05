@@ -72,6 +72,7 @@ class Ability
     can :manage,                    Organization, is_planner_of
     can :manage,                    CopyWeek,     plan: { organization: is_planner_of }
     can :manage,                    Invitation,   employee: { organization: is_planner_of }
+    can :manage,                    Milestone,    plan: { organization: is_planner_of }
   end
 
   def authorize_owner(owner)

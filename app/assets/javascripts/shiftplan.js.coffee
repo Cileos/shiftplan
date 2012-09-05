@@ -18,4 +18,7 @@ Shiftplan.store = DS.Store.create
 
 window.Shiftplan = Shiftplan
 
-jQuery -> Shiftplan.initialize()
+jQuery ->
+  # base all URLs on current plan
+  Shiftplan.store.get('adapter').set 'namespace', (window.location.pathname.replace(/(plans\/\d+).*$/,'$1')).slice(1)
+  Shiftplan.initialize()
