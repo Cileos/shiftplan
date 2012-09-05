@@ -14,3 +14,14 @@ Feature: Milestones and tasks for plan
      And I press return in the "Name" field
     Then I should see "World domination" within the milestones list
      And a milestone should exist with name: "World domination", plan: the plan
+
+  Scenario: Listing existing milestones
+   Given the following milestones exist:
+     | plan     | name             |
+     | the plan | World Domination |
+     | the plan | Rest             |
+    When I go to the page for the plan
+    Then I should see a list of the following milestones:
+     | name             |
+     | World Domination |
+     | Rest             |

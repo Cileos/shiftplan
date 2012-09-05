@@ -15,6 +15,13 @@ GIT
       ruby-progressbar (~> 0.0.10)
 
 GIT
+  remote: git://github.com/josevalim/active_model_serializers.git
+  revision: a21529370cb1fef30af92393ee209c53a6c86ba8
+  specs:
+    active_model_serializers (0.5.0)
+      activemodel (~> 3.0)
+
+GIT
   remote: git://github.com/niklas/acts_as_commentable_with_threading.git
   revision: 98f82fb5b4797523d5e3e4d4ba99a1be9836d4a5
   branch: 98f82fb5b4797523d5e3e4d4ba99a1be9836d4a5
@@ -64,8 +71,6 @@ GEM
     active_attr (0.5.1)
       activemodel (>= 3.0.2, < 4.1)
       activesupport (>= 3.0.2, < 4.1)
-    active_model_serializers (0.5.2)
-      activemodel (~> 3.0)
     activemodel (3.2.2)
       activesupport (= 3.2.2)
       builder (~> 3.0.0)
@@ -350,6 +355,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   active_attr (~> 0.5.0.alpha2)
+  active_model_serializers!
   acts_as_commentable_with_threading (~> 1.1.2)!
   bootstrap-sass (~> 2.0.4)!
   cancan
