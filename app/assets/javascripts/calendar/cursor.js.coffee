@@ -167,10 +167,10 @@ class CalendarCursor
 
   enable: =>
     @disable()
-    $('body').bind 'keydown', @keydown
+    @$body.bind 'keydown', @keydown
 
   disable: =>
-    $('body').unbind 'keydown', @keydown
+    @$body.unbind 'keydown', @keydown
 
 
 window.CalendarCursor = CalendarCursor
