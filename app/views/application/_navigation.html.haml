@@ -18,5 +18,6 @@
       = li_link '.employees', organization_employees_path(current_organization),        can: [:show, Employee]
       = li_link '.teams',     organization_teams_path(current_organization),            can: [:show, Team]
     - elsif !current_user.has_multiple_employees?
-      - organization = current_user.organizations.first
-      = li_link "#{organization.name} >>", organization_path(organization)
+      -# TODO: change me here after datamodel changed
+      - organization = current_user.employees.first.organizations.first
+      = li_link "#{organization.name} >>", organization_path(organization) if organization

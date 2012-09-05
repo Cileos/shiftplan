@@ -25,11 +25,6 @@ Feature: Signing up
      Then I should see "Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen."
       And "me@example.com" should receive an email
 
-     When I open the email
-      And I click the first link in the email
-     Then I should see "bestätigt"
-      And I should be signed in as "Homer Simpson"
-
       # auto-creation of account, organization, employee and blog
       And an account should exist with name: "Fukushima GmbH"
       And an organization should exist with name: "Reaktor A", account: the account
@@ -43,6 +38,18 @@ Feature: Signing up
       # should be scheduled within organizations, he can be added later on the
       # employees page of the organization.
       And 0 memberships should exist
+
+     When I open the email
+      And I click the first link in the email
+     Then I should see "bestätigt"
+      And I should be signed in as "Homer Simpson"
+     # TODO
+     # Then show me the page
+     #  And I should be on the dashboard page
+     #  And I should see "Fukushima GmbH"
+     # When I follow "Reaktor A"
+     # Then show me the page
+
 
   @javascript
   Scenario: Show mail address suggestion if typo in email address

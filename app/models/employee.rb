@@ -9,12 +9,14 @@ class Employee < ActiveRecord::Base
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
   validates_inclusion_of :role, in: Roles, allow_blank: true
 
-  belongs_to :organization
   belongs_to :user
-  has_many :schedulings
-  has_one :invitation
-  has_many :posts, foreign_key: :author_id
-  has_many :comments
+  belongs_to :account
+  has_one    :invitation
+  has_many   :posts, foreign_key: :author_id
+  has_many   :comments
+  has_many   :schedulings
+  has_many   :organizations, through: :memberships
+  has_many   :memberships
 
   def self.order_by_names
     order('last_name, first_name')

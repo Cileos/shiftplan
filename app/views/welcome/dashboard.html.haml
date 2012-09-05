@@ -1,14 +1,18 @@
 - title :dashboard
 
-.organizations
-  %h3= t(:'.organizations')
-  %ul#organizations
-    - current_user.organizations.each do |org|
+.accounts
+  %h3= t(:'.accounts')
+  %ul#accounts
+    - current_user.accounts.each do |account|
       %li
-        %h4= link_to org.name, organization_path(org)
-        = render 'plans/list', plans: org.plans
-        - if org.company_blog.present?
-          = render('posts/posts', posts: org.company_blog.posts.order('published_at desc').limit(2))
+        %h4= account.name
+        %ul#organizations
+          - current_user.organizations_for(account).each do |organization|
+            %li
+              %h5= link_to organization.name, organization_path(organization)
+              = render 'plans/list', plans: organization.plans
+              - if organization.company_blog.present?
+                = render('posts/posts', posts: organization.company_blog.posts.order('published_at desc').limit(2))
   - if can? :create, Organization
     = link_to ti(:new_organization), new_organization_path, class: 'btn'
 

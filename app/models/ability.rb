@@ -37,10 +37,6 @@ class Ability
     can [:show, :update], User do |u|
       u == user
     end
-    if user.owned_account.present?
-      # organizations are build upon the current_user's account
-      can :create, Organization
-    end
   end
 
   def authorize_employee(employee)
@@ -57,6 +53,9 @@ class Ability
       comment.commentable.organization == employee.organization
     end
     can [:destroy],          Comment,      { employee_id: employee.id }
+    if employee.owner?
+      can :create, Organization
+    end
   end
 
   def authorize_planner(planner)

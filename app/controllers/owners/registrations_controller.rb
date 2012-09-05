@@ -1,4 +1,4 @@
-class Planners::RegistrationsController < Devise::RegistrationsController
+class Owners::RegistrationsController < Devise::RegistrationsController
   after_filter :setup_user, :only => :create
 
   protected
