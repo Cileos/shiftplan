@@ -44,6 +44,10 @@ class Ability
     is_employee_of = { id: employee.organization_id }
     can :read,               Plan,         organization: is_employee_of
     can [:read, :create],    Post,         blog: { organization: is_employee_of }
+    can [:read, :create],    Post do |post|
+      organization = post.blog.organization
+      employee.owner? || employee.organizations.include?(organization)
+    end
     can [:update, :destroy], Post,         { author_id: employee.id }
     can :read,               Employee,     organization: is_employee_of
     can :read,               Team,         organization: is_employee_of

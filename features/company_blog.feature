@@ -10,12 +10,14 @@ In order to keep my colleagues informed about important news
 
   Scenario: Creating a first blog post
     Given a confirmed user "heinz" exists with email: "heinz@example.com"
-      And an employee "heinz" exists with first_name: "Heinz", last_name: "Müller", organization: organization "fukushima", user: the confirmed user "heinz"
+      And an employee "heinz" exists with first_name: "Heinz", last_name: "Müller", user: the confirmed user "heinz", account: the account
+      And a membership exists with organization: the organization, employee: the employee "heinz"
       And a confirmed user "kurt" exists with email: "kurt@example.com"
-      And an employee "kurt" exists with first_name: "Kurt", last_name: "Meyer", organization: organization "fukushima", user: the confirmed user "kurt"
+      And an employee "kurt" exists with first_name: "Kurt", last_name: "Meyer", user: the confirmed user "kurt", account: the account
+      And a membership exists with organization: the organization, employee: the employee "kurt"
       And a clear email queue
       And I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
+      And I am on the page for the organization
 
      Then I should see "Es wurden noch keine Blogposts erstellt."
      When I follow "Alle Neuigkeiten anzeigen"

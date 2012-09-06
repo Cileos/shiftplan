@@ -14,7 +14,7 @@
         %ul.dropdown-menu
           %li= link_to :all_plans, [current_account, current_organization, :plans]
           - current_organization.plans.each do |plan|
-            %li= link_to plan.name, organization_plan_path(current_organization, plan)
+            %li= link_to plan.name, [current_organization.account, current_organization, plan]
       = li_link '.employees', [current_account, current_organization, :employees], can: [:show, Employee]
       = li_link '.teams',     [current_account, current_organization, :teams],     can: [:show, Team]
     - elsif !current_user.has_multiple_employees?

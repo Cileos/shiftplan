@@ -14,6 +14,6 @@
               - if organization.company_blog.present?
                 = render('posts/posts', posts: organization.company_blog.posts.order('published_at desc').limit(2))
   - if can? :create, Organization
-    = link_to ti(:new_organization), new_organization_path, class: 'btn'
+    = link_to ti(:new_organization), new_account_organization_path(current_account), class: 'btn'
 
 

@@ -42,10 +42,13 @@ module NavigationHelpers
       params = parse_fields($2).symbolize_keys
       case model = model!($1)
       when Post
-        organization_blog_post_path(model.organization, model.blog, model)
+        organization = model.organization
+        account_organization_blog_post_path(organization.account, organization, model.blog, model)
       when Plan
-        organization_plan_path(model.organization, model, params)
+        organization = model.organization
+        organization_plan_path(organization.account, organization, model, params)
       when Employee
+        # todo
         employee_path(model)
       when Organization
         account_organization_path(model.account, model)
