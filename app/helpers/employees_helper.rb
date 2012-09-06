@@ -28,9 +28,9 @@ module EmployeesHelper
   # TODO: let rails guess the urls by providing the persisted invitation of an employee or a new record
   def invitation_url(type, employee)
     if type == :invite
-      new_organization_invitation_path(current_organization, invitation: { employee_id: employee.id })
+      new_account_organization_invitation_path(current_account, current_organization, invitation: { employee_id: employee.id })
     else
-      edit_organization_invitation_path(current_organization, employee.invitation)
+      edit_account_organization_invitation_path(current_account, current_organization, employee.invitation)
     end
   end
 

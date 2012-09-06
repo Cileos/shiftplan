@@ -17,14 +17,6 @@ module NavigationHelpers
     when /the (?:signup|sign up) page/
       new_user_registration_path
 
-    when /^the edit page (?:of|for) #{capture_model}$/
-      case model = model!($1)
-      when Employee
-        edit_employee_path(model)
-      else
-        raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
-      end
-
     when /^the (email|password) page of #{capture_model}$/
       email_or_password = $1
       send("user_#{email_or_password}_path")
@@ -47,9 +39,6 @@ module NavigationHelpers
       when Plan
         organization = model.organization
         organization_plan_path(organization.account, organization, model, params)
-      when Employee
-        # todo
-        employee_path(model)
       when Organization
         account_organization_path(model.account, model)
       when User
@@ -63,8 +52,8 @@ module NavigationHelpers
     when /^the (teams in week|hours in week|teams in day|employees in week) page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       scope, model, params = $1, model!($2), parse_fields($3).symbolize_keys
       raise ArgumentError, "only plans can be scoped as #{scope}" unless model.is_a?(Plan)
-
-      send "organization_plan_#{scope.strip.gsub(/\s+/,'_')}_path", model.organization, model, params
+      organization = model.organization
+      send "account_organization_plan_#{scope.strip.gsub(/\s+/,'_')}_path", organization.account, organization, model, params
 
     when /^(?:my|the) dashboard$/
       dashboard_path
@@ -77,7 +66,7 @@ module NavigationHelpers
 
     when /^the employees page for #{capture_model}$/
       org = model!($1)
-      organization_employees_path(org)
+      account_organization_employees_path(org.account, org)
 
     when /^the email change confirmation page$/
       accept_email_change_path
