@@ -2,13 +2,10 @@
   {{#each milestone in controller}}
     {{view Shiftplan.ShowMilestoneView}}
   {{/each}}
-  {{#if view.isNewVisible}}
-    <li>{{view Shiftplan.NewMilestoneView}}</li>
-  {{/if}}
 </ul>
 
 <ul class="actions">
   <li>
-    <a href="#" {{action "showNew" target="view"}}>neuer Meilenstein</a>
+    <a href="#" {{action "showNewMilestone"}}>neuer Meilenstein</a>
   </li>
 </ul>

@@ -8,6 +8,7 @@
 
 Shiftplan = Ember.Application.create
   rootElement: '#ember'
+  Fields: Ember.Object.extend()
 
 Shiftplan.store = DS.Store.create
   revision: 4
