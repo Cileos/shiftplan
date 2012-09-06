@@ -2,4 +2,4 @@
   - posts.each do |post|
     %li{class: 'post', id: "post_#{post.id}"}
       = render('posts/post', post: post, truncation: true)
-      %p.more= link_to(:'more', [post.blog.organization, post.blog, post])
+      %p.more= link_to(:'more', [current_account, post.blog.organization, post.blog, post])
