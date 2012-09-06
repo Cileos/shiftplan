@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :account do
-    owner
+    sequence(:name) { |i| "Account#{i} GmbH" }
   end
 end
