@@ -9,7 +9,7 @@ gem 'pg'
 group :assets do
   gem 'sass-rails',   '~> 3.2.4'
   gem 'uglifier', '>= 1.2.3'
-  gem 'jquery-rails'
+  gem 'jquery-rails', '2.0.3' # latest 1.7, ember whines about >1.7
   gem 'jquery-ui-rails'
   # until merge of https://github.com/thomas-mcdonald/bootstrap-sass/pull/170
   gem 'bootstrap-sass', '~> 2.0.4', git: "git://github.com/niklas/bootstrap-sass.git"
