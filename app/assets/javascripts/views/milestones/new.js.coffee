@@ -2,9 +2,8 @@
 Shiftplan.NewMilestoneView = Shiftplan.ModalView.extend
   templateName: 'milestones/new'
   heading: 'neuer Meilenstein' # TODO i18n
-  submit: (event) ->
-    debugger
-    #value = @get('value')
-    #if value
-    #  @get('parentView').get('controller').createMilestone(value)
-    #  @get('parentView').hideNew()
+  save: (e,x) ->
+    e.preventDefault()
+    e.stopPropagation()
+    Shiftplan.get('router.milestonesController').createMilestone @get('milestoneName.value')
+    @close()

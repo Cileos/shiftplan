@@ -2,7 +2,7 @@
 - controller.gon.quickie_completions = filter.quickies_for_completion
 %html
   = render 'layouts/head'
-  %body
+  %body#ember
     #page.container-fluid
       = render 'layouts/top'
       #content
@@ -12,7 +12,6 @@
 
         = render 'calendar_navigation', filter: filter
         = yield
-        #ember
         = help_tag 'calendar.keyboard', id: 'help'
       = render 'layouts/footer'
 

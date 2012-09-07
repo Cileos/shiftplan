@@ -7,7 +7,7 @@
 #= require_tree ./routes
 
 Shiftplan = Ember.Application.create
-  rootElement: '#ember'
+  rootElement: 'body#ember'
   Fields: Ember.Object.extend()
 
 Shiftplan.store = DS.Store.create
@@ -20,6 +20,7 @@ Shiftplan.store = DS.Store.create
 window.Shiftplan = Shiftplan
 
 jQuery ->
-  # base all URLs on current plan
-  Shiftplan.store.get('adapter').set 'namespace', (window.location.pathname.replace(/(plans\/\d+).*$/,'$1')).slice(1)
-  Shiftplan.initialize()
+  if $('body#ember').length > 0
+    # base all URLs on current plan
+    Shiftplan.store.get('adapter').set 'namespace', (window.location.pathname.replace(/(plans\/\d+).*$/,'$1')).slice(1)
+    Shiftplan.initialize()

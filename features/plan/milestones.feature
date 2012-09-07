@@ -11,7 +11,7 @@ Feature: Milestones and tasks for plan
   Scenario: create a milestone
     When I follow "neuer Meilenstein"
      And I fill in "Name" with "World domination"
-     And I press return in the "Name" field
+     And I press "Anlegen"
     Then I should see "World domination" within the milestones list
      And a milestone should exist with name: "World domination", plan: the plan
 
