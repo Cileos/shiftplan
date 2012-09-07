@@ -17,6 +17,9 @@ Shiftplan.store = DS.Store.create
     #plurals:
     #  directory: 'directories'
 
+Shiftplan.settings = Ember.Object.create
+  dateFormat: 'yy-mm-dd' # TODO globalize
+
 window.Shiftplan = Shiftplan
 
 jQuery ->

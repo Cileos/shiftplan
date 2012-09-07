@@ -1,5 +1,5 @@
 Shiftplan.MilestonesController = Ember.ArrayController.extend
   content: []
-  createMilestone: (name) ->
-    milestone = Shiftplan.Milestone.createRecord name: name
+  createMilestone: (name, due_at) ->
+    milestone = Shiftplan.Milestone.createRecord name: name, due_at: due_at
     Shiftplan.store.commit()

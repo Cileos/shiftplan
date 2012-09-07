@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120905130301) do
+ActiveRecord::Schema.define(:version => 20120907161002) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "owner_id"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20120905130301) do
     t.integer  "plan_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.datetime "due_at"
   end
 
   create_table "notifications", :force => true do |t|

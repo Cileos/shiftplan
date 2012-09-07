@@ -5,5 +5,5 @@ Shiftplan.NewMilestoneView = Shiftplan.ModalView.extend
   save: (e,x) ->
     e.preventDefault()
     e.stopPropagation()
-    Shiftplan.get('router.milestonesController').createMilestone @get('milestoneName.value')
+    Shiftplan.get('router.milestonesController').createMilestone @get('milestoneName.value'), @get('milestoneDueDate.parsedValue')
     @close()
