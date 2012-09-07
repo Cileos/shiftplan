@@ -17,5 +17,4 @@ Shiftplan.Router = Ember.Router.extend
       new: Ember.Route.extend
         route: '/new'
         connectOutlets: (router) ->
-          router.get('applicationController').connectOutlet 'modal', 'modal'
-          router.get('modalController').connectOutlet 'newMilestone'
+          router.get('applicationController').connectModal 'newMilestone'

@@ -1,5 +1,7 @@
-Shiftplan.NewMilestoneView = Ember.View.extend
+#= require views/modal
+Shiftplan.NewMilestoneView = Shiftplan.ModalView.extend
   templateName: 'milestones/new'
+  heading: 'neuer Meilenstein' # TODO i18n
   submit: (event) ->
     debugger
     #value = @get('value')
