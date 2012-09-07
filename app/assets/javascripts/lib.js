@@ -5,6 +5,10 @@
 //= require bootstrap
 //= require space-pen/space-pen
 //= require jquery.miniColors
+//= require handlebars
+//= require ember
+//= require ember-data
+
 //= require_tree './lib'
 //= require spinner
 //= require jquery.remotipart

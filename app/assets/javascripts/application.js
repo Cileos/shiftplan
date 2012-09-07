@@ -1,8 +1,4 @@
 // Please include all needed application specific JS files manually
-//= require handlebars
-//= require ember
-//= require ember-data
-
 //= require defaults
 //= require employees
 //= require plans
