@@ -66,6 +66,21 @@ button {
   }
 }
 
+input[type=submit].utility-button {
+  @include border-radius(10px);
+  @include transition(background .5s $ci_easing);
+
+  font-size: .85em;
+  background: $ci_gray;
+  color: #fff;
+  padding: 1px 4px;
+  border-width: 0;
+
+  &.button-warning:hover {
+    background: $ci_darkorange;
+  }
+}
+
 .button-cancel {
   float:left;
 }

@@ -54,7 +54,7 @@ small {
 }
 
 #title {
-  padding-top: 0;
+  padding: 10px 0;
 }
 
 [role=banner] {
@@ -147,4 +147,41 @@ small {
 
 .actions {
   float: right;
+}
+
+.pagination {
+  @include clearfix;
+  
+  text-align: center;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    @include border-radius(5px);
+
+    display: inline;
+    margin-right: 5px;
+    padding: 3px 5px;
+    border: 1px solid $ci_lightgray;
+  }
+
+  a {
+    color: $ci_gray;
+
+    &:hover {
+      color: $ci_darkgray;
+    }
+  }
+
+  .active {
+    border: 1px solid $ci_gray;
+  
+    a {
+      color: $ci_darkgray;
+    }
+  }
 }
