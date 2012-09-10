@@ -1,9 +1,9 @@
 @javascript
 @big_screen
-Feature: Milestones and tasks for plan
-  In order not to forget anything and tell my employees what to do
+Feature: Milestones are tasks for a plan
+  In order to achieve the goal of the plan
   As a planner
-  I want to manage milestones and tasks for a plan
+  I want to manage milestones for a plan, containing a list of tasks
 
   Background:
     Given today is 2012-12-18
@@ -45,3 +45,17 @@ Feature: Milestones and tasks for plan
      When I check "done" within the first item within the milestones list
       And I wait for the spinner to disappear
      Then the milestone should be done
+
+  Scenario: create sub milestones
+    Given a milestone exists with name: "World Domination", plan: the plan
+      And I am on the page for the plan
+
+     When I follow "neue Aufgabe"
+      And I fill in "Name" with "become rich"
+      And I press "Anlegen"
+     Then I should see "become rich" within the first item within the tasks within the first item within the milestone list
+
+     When I follow "neue Aufgabe"
+      And I fill in "Name" with "become famous"
+      And I press "Anlegen"
+     Then I should see "become famous" within the second item within the tasks within the first item within the milestone list

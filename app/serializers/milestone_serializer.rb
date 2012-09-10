@@ -1,4 +1,3 @@
-class MilestoneSerializer < ActiveModel::Serializer
-  attributes :id, :name, :due_at, :done?
-
+class MilestoneSerializer < DoableSerializer
+  has_many :tasks
 end

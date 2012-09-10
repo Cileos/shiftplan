@@ -1,0 +1,2 @@
+class TaskSerializer < DoableSerializer
+end
