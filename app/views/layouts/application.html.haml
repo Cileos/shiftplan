@@ -8,7 +8,8 @@
       %section{:role => 'content'}
         = render 'flash'
         - if show_title?
-          %h2#title= yield(:title)
+          %header 
+            %h2#title= yield(:title)
 
         = yield
       = render 'layouts/footer'

@@ -185,3 +185,28 @@ small {
     }
   }
 }
+
+.instructions {
+  padding: 20px;
+  background: lighten($ci_yellow, 40%);
+  color: darken($ci_yellow, 30%);
+}
+
+.masthead {
+  @include clearfix;
+
+  padding: 10px 0;
+  margin: 0 0 10px;
+  border-bottom: 1px solid darken($ci_lightgray, 5%);
+
+  h1, h2, h3,
+  #title {
+    float: left;
+    padding: 0;
+  }
+
+  nav {
+    float: right;
+    padding-top: 10px;
+  }
+}
