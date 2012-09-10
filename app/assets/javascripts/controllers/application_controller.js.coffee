@@ -1,2 +1,2 @@
 Shiftplan.ApplicationController = Ember.Controller.extend
-  connectModal: (resource) -> @connectOutlet 'modal', resource
+  connectModal: (resource, opts...) -> @connectOutlet 'modal', resource, opts...
