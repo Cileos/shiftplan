@@ -1,4 +1,3 @@
-%p.comments-count
-  = link_to ti(:'comments_count', count: post.comments.count, :'non-white' => true), 
-      (organization_blog_post_path(post.organization, post.blog, post) + '#comments'), 
-      'data-icon' => '&#xf075;'.html_safe
+= link_to ti(:'comments_count', count: post.comments.count, :'non-white' => true), 
+  (organization_blog_post_path(post.organization, post.blog, post) + '#comments'), 
+    'data-icon' => '&#xf075;'.html_safe

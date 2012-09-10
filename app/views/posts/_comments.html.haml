@@ -1,7 +1,7 @@
 .comments
   %a{name: 'comments'}
   %h3= t(:'comments.comments')
-  %ul#comments
+  %ul#comments.comments
     - if comments.empty?
       %li.no-comments= t(:'comments.no_comments_present')
     - else
@@ -9,7 +9,9 @@
         = render('comments/item', comment: comment, avatar_size: :thumb)
   = simple_form_for Comment.new(employee: current_user.current_employee), |
       url: organization_blog_post_comments_path(@post.organization, @post.blog, @post), remote: true do |f|
-    = f.input :body, input_html: { rows: 2 }
+    // TODO: add t() thingie
+    %h3 Add a comment
+    = f.input :body, input_html: { rows: 4 }
     = f.input :employee_id, as: :hidden
     %button{type: 'submit'}= ti(:comment)
 

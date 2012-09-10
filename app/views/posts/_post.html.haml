@@ -15,6 +15,8 @@
   - else
     .body= post.body
   
-  = render('posts/comments_count', post: post)
+  %footer
+    = link_to(:'more', [current_organization, post.blog, post]) 
+    &middot; 
+    = render('posts/comments_count', post: post)
 
-  %p.more= link_to(:'more', [current_organization, post.blog, post])
