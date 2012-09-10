@@ -38,3 +38,10 @@ Feature: Milestones and tasks for plan
      | name             | due_on     |
      | World Domination | 2012-12-31 |
      | Rest             |            |
+
+  Scenario: marking a milestone as done
+    Given a milestone exists with name: "World Domination", plan: the plan
+      And I am on the page for the plan
+     When I check "done" within the first item within the milestones list
+      And I wait for the spinner to disappear
+     Then the milestone should be done

@@ -11,3 +11,11 @@ Given /^#{capture_model} is one of #{capture_model}'s (\w+)/ do |subject, owner,
   owner   = model!(owner)
   owner.send(association) << subject
 end
+
+When /^I reload #{capture_model}$/ do |model|
+  model!(model).reload
+end
+
+Then /^#{capture_model} (should|should not) be done/ do |subject, should_not_not|
+  model!(subject).reload.send( should_not_not.sub(' ', '_'), be_done )
+end

@@ -66,6 +66,9 @@ module HtmlSelectorsHelpers
     when /^the #{capture_nth} form$/
       "form#{Numerals[$1]}"
 
+    when /^the #{capture_nth} item/
+      "li#{Numerals[$1]}"
+
     when %r~^(?:the )?cell "([^"]+)"/"([^"]+)"$~
       column = column_index_for($1)
       row    = row_index_for($2)
