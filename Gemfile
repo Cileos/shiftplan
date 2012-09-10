@@ -78,6 +78,8 @@ group :production do
   gem 'exception_notification'
 end
 
+gem 'thin' # webrick must die
+
 gem 'coffee-rails', '~> 3.2.2'
 gem 'compass-rails'
 gem 'devise'
