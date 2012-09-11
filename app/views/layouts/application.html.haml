@@ -3,13 +3,15 @@
   = render 'layouts/head'
   %body
     = render 'layouts/top'
-    
+
     .wrap
-      %section{:role => 'content'}
+      %section{role: 'content'}
         = render 'flash'
-        - if show_title?
-          %header 
+        %header.masthead
+          - if show_title?
             %h2#title= yield(:title)
+          - if content_for? :masthead_toolbar
+            %nav{role: 'toolbar'}= yield(:masthead_toolbar)
 
         = yield
       = render 'layouts/footer'

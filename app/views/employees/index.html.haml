@@ -1,7 +1,7 @@
 - title :employees
 
-%nav{:role => 'toolbar'}
-  - if can? :create, Employee
-    = link_to ti(:add), new_organization_employee_path(current_organization), class: 'button', remote: true, 'data-icon' => '&#xf067;'.html_safe
+- if can? :create, Employee
+  - masthead_toolbar do
+    =link_to ti(:add), new_organization_employee_path(current_organization), class: 'button', remote: true, 'data-icon' => '&#xf067;'.html_safe
 
 = render 'table', employees: collection
