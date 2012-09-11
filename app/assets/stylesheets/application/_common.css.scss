@@ -1,4 +1,6 @@
 html {
+  @include font-smoothing(antialiased);
+
   font-family: "proxima-nova",Helvetica,Arial,sans-serif;
   font-size: $ci_font-size;
   line-height: $ci_line-height;
