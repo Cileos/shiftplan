@@ -13,4 +13,5 @@ Shiftplan.ModalView = Ember.View.extend
   close: -> @$().dialog('close')
 
   dialogclose: (event, ui) ->
+    Shiftplan.store.commit()
     Shiftplan.get('router').transitionTo('root.index')

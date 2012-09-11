@@ -47,7 +47,8 @@ Feature: Milestones are tasks for a plan
       And I am on the page for the plan
       And I follow "Meilensteine"
      When I check "done" within the first item within the milestones list
-      And I wait for the spinner to disappear
+      And I close the modal box
+      And I wait for the modal box to disappear
      Then the milestone should be done
 
   Scenario: create sub milestones
