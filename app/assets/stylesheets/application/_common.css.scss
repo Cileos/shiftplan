@@ -1,5 +1,5 @@
 html {
-  @include font-smoothing(antialiased);
+  @include font-smoothing(subpixel-antialiased);
 
   font-family: "proxima-nova",Helvetica,Arial,sans-serif;
   font-size: $ci_font-size;
@@ -19,6 +19,10 @@ a {
   &:hover {
     color: $ci_blue_hover;
   }
+}
+
+h1, h2, h3, h4, h5, h6, th {
+  @include font-smoothing(antialiased);
 }
 
 h1, h2, h3, h4, h5, h6 {
