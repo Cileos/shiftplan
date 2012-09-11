@@ -18,3 +18,8 @@
   = include_gon
   - if current_organization?
     = render 'teams/colors', teams: current_organization.teams
+
+  %script{ :type => "text/javascript",  :src => "http://use.typekit.com/gye8xts.js" }
+
+  :javascript
+    try{Typekit.load();}catch(e){}
