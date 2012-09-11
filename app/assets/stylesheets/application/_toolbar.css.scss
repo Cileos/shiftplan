@@ -1,9 +1,7 @@
 [role=toolbar] {
   @include clearfix;
 
-  margin-bottom: 1.5em;
   padding: 15px 0;
-  border-bottom: 1px solid darken($ci_lightgray, 5%);
 
   .button-group :last-child {
     margin-right: 1em;
