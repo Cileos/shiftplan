@@ -5,16 +5,10 @@ Shiftplan.Router = Ember.Router.extend
 
     index: Ember.Route.extend
       route: '/'
-      connectOutlets: Ember.Router.transitionTo('milestones')
+      connectOutlets: -> # nuffin
+      openMilestones: Ember.Router.transitionTo('milestones')
 
     milestones: Ember.Route.extend
       route: '/milestones'
-      showNewMilestone: Ember.Router.transitionTo('milestones.new')
-
       connectOutlets: (router) ->
-        router.get('applicationController').connectOutlet 'milestones', Shiftplan.store.find(Shiftplan.Milestone)
-
-      new: Ember.Route.extend
-        route: '/new'
-        connectOutlets: (router) ->
-          router.get('applicationController').connectModal 'newMilestone'
+        router.get('applicationController').connectModal 'milestones', Shiftplan.store.find(Shiftplan.Milestone)
