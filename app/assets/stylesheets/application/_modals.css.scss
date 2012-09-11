@@ -27,7 +27,7 @@
 
 // Real modal styles start here
 .modal-overlay {
-  @include transition(all .3s $ci_easing);
+  @include transition(all .15s $ci_easing);
   @include transform(scale(1.5));
 
   position: fixed;

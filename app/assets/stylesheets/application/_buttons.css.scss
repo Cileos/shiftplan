@@ -79,6 +79,12 @@ input[type=submit].utility-button {
   &.button-warning:hover {
     background: $ci_darkorange;
   }
+
+  &.icon-button {
+    font-family: "FontAwesome";
+    padding: 3px 5px 0;
+    line-height: 15px;
+  }
 }
 
 .nav-pills {
