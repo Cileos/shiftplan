@@ -3,6 +3,3 @@ Shiftplan.Fields.DateField = Ember.TextField.extend
   didInsertElement: ->
     @$().datepicker
       dateFormat: @get('format')
-  parsedValue: (->
-    $.datepicker.parseDate @get('format'), @get('value')
-  ).property('value', 'format')
