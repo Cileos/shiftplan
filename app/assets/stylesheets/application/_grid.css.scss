@@ -7,7 +7,7 @@
     }
 
     .primary {
-      @include span-columns(4);
+      @include span-columns(8);
       @include omega;
     }
   }

@@ -211,3 +211,39 @@ small {
     padding-top: 10px;
   }
 }
+
+.nav-pills {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: inline;
+  }
+
+  a {
+    @include border-radius(20px);
+    @include transition(background .5s $ci_easing);
+
+    padding: 4px 10px;
+    background: $ci_gray;
+    color: #fff;
+  }
+
+  .active a,
+  a:hover {
+    background: $ci_blue; 
+  }
+}
+
+.nav-stacked {
+  li {
+    display: block;
+    float: none;
+    margin-bottom: 5px;
+  }
+
+  a {
+    display: block;
+  }
+}
