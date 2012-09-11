@@ -15,8 +15,3 @@ $ci_break-tablet-portrait: 768px;
 
 // CSS3 animation functions go here
 $ci_easing: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-
-// This is just for use in element_tests. Remove when not needed.
-section dd {
-  @include clearfix;
-}
