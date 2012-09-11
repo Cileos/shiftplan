@@ -1,0 +1,10 @@
+.avatar {
+  &.tiny {
+    max-height: 16px;
+    width: 16px;
+  }
+  &.thumb {
+    max-height: 50px;
+    width: 50px;
+  }
+}

@@ -111,7 +111,6 @@ small {
   }
 
   .avatar {
-    height: 16px;
     vertical-align: -4px;
   }
 
@@ -237,7 +236,7 @@ small {
   a:hover {
     background: $ci_blue;
     color: #fff;
-    text-shadow: 0 -1px $ci_shadow; 
+    text-shadow: 0 -1px $ci_shadow;
   }
 }
 
