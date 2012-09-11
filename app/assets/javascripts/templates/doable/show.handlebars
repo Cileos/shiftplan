@@ -1,0 +1,6 @@
+{{view Shiftplan.MilestoneDoneView checkedBinding="done"}}
+<span class="name">{{name}}</span>
+{{#if due_at}}
+<span class="due_on">{{formatted_due_on}}</span>
+{{/if}}
+

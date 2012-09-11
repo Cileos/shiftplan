@@ -1,7 +1,7 @@
 {{#with view.content}}
   {{#if isNew}}
-    {{view Shiftplan.Fields.Name valueBinding="name"}}
+    {{view Shiftplan.EditDoable contentBinding="this"}}
   {{else}}
-    <span class="name">{{name}}</span>
+    {{view Shiftplan.ShowDoable contentBinding="this"}}
   {{/if}}
 {{/with}}
