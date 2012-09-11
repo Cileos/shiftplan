@@ -1,0 +1,4 @@
+@mixin z-index($index, $position: relative) {
+  position: $position;
+  z-index: $index;
+}

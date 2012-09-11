@@ -1,0 +1,64 @@
+.calendar {
+
+  ul {
+    list-style: none;
+    margin: 5px 0 20px 0;
+    padding: 0;
+    font-size: 11px;
+
+    &.comments {
+      display: none;
+    }
+  }
+}
+.scheduling {
+  background: white;
+  overflow: hidden;
+  margin-bottom: 5px;
+  padding: 0px 0px 0px 0px;
+  // border styles have to be defined seperately for
+  // changing the colors (top and bottom) by inline css
+  border-width: 1px;
+  border-top-width: 3px;
+  border-bottom-width: 2px;
+  border-style: solid;
+  border-left-color:  $ci_grey;
+  border-right-color: $ci_grey;
+  @include border-radius(2px);
+
+  .team_name, .work_time {
+    display: block;
+    padding: 0 3px;
+  }
+
+  .team_name {
+    background: #fbfbfb;
+    border-top: 1px solid    $ci_grey;
+    border-bottom: 1px solid $ci_midgrey;
+    // @include box-shadow($ci_midgrey 0px 1px 5px 0px inset);
+    padding: 2px 4px 3px 4px;
+    line-height: 14px;
+  }
+
+  &.focus, &:focus, &:hover {
+    background: $ci_midgrey;
+    border-left-color:  #666;
+    border-right-color: #666;
+
+    .team_name {
+      background: #f0f0f0;
+      border-top-color:    #999;
+      border-bottom-color: #999;
+    }
+  }
+
+  .gimmicks {
+    padding: 0 5px;
+    text-align: right;
+
+    a.comments {
+      padding-left: 15px;
+    }
+  }
+
+}

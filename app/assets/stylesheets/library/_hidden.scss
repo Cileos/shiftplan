@@ -1,0 +1,10 @@
+@mixin _hidden() {
+    display: none;
+    visibility: hidden;
+}
+
+@mixin _unhidden() {
+    display: -moz-initial;
+    display: initial;
+    visibility: visible;
+}
