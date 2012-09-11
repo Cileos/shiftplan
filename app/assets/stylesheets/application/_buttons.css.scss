@@ -24,7 +24,7 @@ button {
   padding:.4em .5em .35em;
   text-decoration: none;
 
-  &:hover {
+  &:hover, &:focus {
     @include box-shadow(0 0 .35em transparentize($ci_blue, .2));
 
     border-color: $ci_blue;
@@ -76,7 +76,7 @@ input[type=submit].utility-button {
   padding: 1px 4px;
   border-width: 0;
 
-  &.button-warning:hover {
+  &.button-warning:hover, &.button-warning:focus {
     background: $ci_darkorange;
   }
 
