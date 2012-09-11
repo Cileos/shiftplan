@@ -2,7 +2,7 @@
 
 %article
   %header
-    %h1= link_to(post.title, [current_organization, post.blog, post])
+    %h3= link_to(post.title, [current_organization, post.blog, post])
 
     %p.meta
       - if post.author == current_user.current_employee
@@ -14,9 +14,9 @@
     .body= truncate(post.body, :length => 300, :omission => ' …')
   - else
     .body= post.body
-  
+
   %footer
-    = link_to(:'more', [current_organization, post.blog, post]) 
-    &middot; 
+    = link_to(:'more', [current_organization, post.blog, post])
+    &middot;
     = render('posts/comments_count', post: post)
 
