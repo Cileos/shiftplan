@@ -53,13 +53,14 @@ Feature: Milestones are tasks for a plan
   Scenario: create sub milestones
     Given a milestone exists with name: "World Domination", plan: the plan
       And I am on the page for the plan
+      And I follow "Meilensteine"
 
      When I follow "neue Aufgabe"
       And I fill in "Name" with "become rich"
       And I press "Anlegen"
-     Then I should see "become rich" within the first item within the tasks within the first item within the milestone list
+     Then I should see "become rich" within the first item within the tasks list within the first item within the milestones list
 
      When I follow "neue Aufgabe"
       And I fill in "Name" with "become famous"
       And I press "Anlegen"
-     Then I should see "become famous" within the second item within the tasks within the first item within the milestone list
+     Then I should see "become famous" within the second item within the tasks list within the first item within the milestones list
