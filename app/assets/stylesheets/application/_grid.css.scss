@@ -1,0 +1,28 @@
+.row {
+  @include outer-container;
+
+  &.two-columns {
+    .secondary {
+      @include span-columns(4);
+    }
+
+    .primary {
+      @include span-columns(4);
+      @include omega;
+    }
+  }
+
+  &.three-columns {
+    .primary {
+      @include span-columns(6);
+    }
+
+    .secondary, .tertiary {
+      @include span-columns(3);
+    }
+
+    .tertiary {
+      @include omega;
+    }
+  }
+}
