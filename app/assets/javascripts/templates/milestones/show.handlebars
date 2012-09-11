@@ -1,5 +1,8 @@
-{{view Shiftplan.MilestoneDoneView checkedBinding="milestone.done"}}
-<span class="name">{{milestone.name}}</span>
-{{#if milestone.due_at}}
-<span class="due_on">{{milestone.formatted_due_on}}</span>
+{{view Shiftplan.MilestoneDoneView checkedBinding="done"}}
+<span class="name">{{name}}</span>
+
+<a href='#' {{action newTask target="view"}}>neue Aufgabe</a>
+{{#if due_at}}
+<span class="due_on">{{formatted_due_on}}</span>
 {{/if}}
+{{view Shiftplan.TaskListView contentBinding="tasks"}}

@@ -1,0 +1,7 @@
+{{#with view.content}}
+  {{#if isNew}}
+    {{view Shiftplan.Fields.Name valueBinding="name"}}
+  {{else}}
+    <span class="name">{{name}}</span>
+  {{/if}}
+{{/with}}

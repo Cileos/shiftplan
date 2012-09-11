@@ -1,4 +1,3 @@
-Shiftplan.Fields.MilestoneName = Ember.TextField.extend
-  attributeBindings: ['name']
+#= require views/fields/name
+Shiftplan.Fields.MilestoneName = Shiftplan.Fields.Name.extend
   viewName: 'milestoneName'
-  name: 'Name' # TODO i18n
