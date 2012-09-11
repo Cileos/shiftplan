@@ -150,12 +150,12 @@ small {
 
 [role=footer] {
   clear: both;
-  text-align: right;
+  float: right;
 }
 
 .pagination {
   @include clearfix;
-  
+
   text-align: center;
 
   ul {
@@ -183,7 +183,7 @@ small {
 
   .active {
     border: 1px solid $ci_gray;
-  
+
     a {
       color: $ci_darkgray;
     }
