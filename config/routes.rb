@@ -25,6 +25,8 @@ Shiftplan::Application.routes.draw do
       resource :copy_week, only: [:new, :create], controller: :copy_week
 
       resources :milestones
+      # TODO nest tasks under milestones, EmberData cannot do this 2012-09-11
+      resources :tasks
     end
     resources :employees
     resources :teams do
