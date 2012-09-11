@@ -54,3 +54,20 @@ label {
     margin-top: 0.25em;
   }
 }
+
+legend {
+  display: block;
+  width: 100%;
+  margin-bottom: 1em;
+  border-bottom: 1px solid $ci_gray;
+  font-weight: bold;
+}
+
+.content-form {
+  padding: 10px 20px;
+  border-left: 1px solid $ci_midgray;
+
+  h1, h2, h3, h4 {
+    padding: 0;
+  }
+}

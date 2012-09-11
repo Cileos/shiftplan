@@ -2,16 +2,24 @@
 .row.two-columns
   %nav.secondary
     = render 'user/settings_menu'
-  .primary.user-edit-form
+  .primary.content-form.user-edit-form
     %h3= ta :profile
 
     = simple_form_for @employee, url: profile_employee_path(@employee) do |f|
       = f.error_notification
 
-      .inputs
+      // TODO: Add t() thingie.
+      %legend Your photo
+
+      .inputs 
         = avatar(@employee.user, @employee, :thumb)
-        = f.input :avatar, as: :file
+        = f.input :avatar, as: :file, :label => false
         = f.input :avatar_cache, as: :hidden
+
+      // TODO: Add t() thingie.
+      %legend Your details
+
+      .inputs
         = f.input :first_name, autofocus: true
         = f.input :last_name
 
