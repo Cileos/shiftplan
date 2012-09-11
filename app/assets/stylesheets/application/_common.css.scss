@@ -22,10 +22,6 @@ a {
   }
 }
 
-h1, h2, h3, h4, h5, h6, th {
-  @include font-smoothing(antialiased);
-}
-
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   letter-spacing: -.05em;
