@@ -7,7 +7,7 @@ table {
 
   tr {
     &:nth-child(2n) {
-      background: $ci_lightgray;
+      background: $ci_darkwhite;
     }
   }
 
@@ -25,6 +25,7 @@ table {
   }
 
   &:not(.table-condensed) {
-    width: 100%;
+    width: 98%;
+    margin-left: 1%;
   }
 }
