@@ -202,7 +202,8 @@ small {
   h1, h2, h3,
   #title {
     float: left;
-    padding: 0;
+    padding: 5px 0 0;
+    font-size: $ci_header-size;
   }
 
   nav {
