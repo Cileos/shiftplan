@@ -51,7 +51,7 @@ Feature: Milestones are tasks for a plan
       And I wait for the modal box to disappear
      Then the milestone should be done
 
-  Scenario: create sub milestones
+  Scenario: create tasks for milestone
     Given a milestone exists with name: "World Domination", plan: the plan
       And I am on the page for the plan
       And I follow "Meilensteine"
@@ -65,3 +65,13 @@ Feature: Milestones are tasks for a plan
       And I fill in "Name" with "become famous"
       And I press "Anlegen"
      Then I should see "become famous" within the second item within the tasks list within the first item within the milestones list
+
+  Scenario: mark task for milestone as done
+    Given a milestone exists with name: "World Domination", plan: the plan
+      And a task exists with name: "1 Million", milestone: the milestone
+      And I am on the page for the plan
+      And I follow "Meilensteine"
+     When I check "done" within the first item within the tasks list within the first item within the milestones list
+      And I close the modal box
+      And I wait for the modal box to disappear
+     Then the task should be done
