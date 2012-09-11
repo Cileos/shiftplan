@@ -10,6 +10,7 @@ Feature: Milestones are tasks for a plan
     Given the situation of a nuclear reactor
 
   Scenario: create a milestone with name only
+   Given I follow "Meilensteine"
     When I follow "neuer Meilenstein"
      And I fill in "Name" with "World domination"
      And I press "Anlegen"
@@ -17,6 +18,7 @@ Feature: Milestones are tasks for a plan
      And a milestone should exist with name: "World domination", plan: the plan
 
   Scenario: create a milestone with name and due date
+   Given I follow "Meilensteine"
     When I follow "neuer Meilenstein"
      And I fill in "Name" with "World domination"
      And I fill in "Fällig am" with "2012-12-31"
@@ -33,6 +35,7 @@ Feature: Milestones are tasks for a plan
      | the plan | World Domination | 2012-12-31 |
      | the plan | Rest             |            |
     When I go to the page for the plan
+     And I follow "Meilensteine"
     # TODO date should be formatted
     Then I should see a list of the following milestones:
      | name             | due_on     |
@@ -42,6 +45,7 @@ Feature: Milestones are tasks for a plan
   Scenario: marking a milestone as done
     Given a milestone exists with name: "World Domination", plan: the plan
       And I am on the page for the plan
+      And I follow "Meilensteine"
      When I check "done" within the first item within the milestones list
       And I wait for the spinner to disappear
      Then the milestone should be done
