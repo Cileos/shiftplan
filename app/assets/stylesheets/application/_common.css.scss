@@ -7,6 +7,11 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+body {
+  background: $ci_bg-color;
+  color: $ci_text-color;
+}
+
 abbr {
   cursor: help;
 }
