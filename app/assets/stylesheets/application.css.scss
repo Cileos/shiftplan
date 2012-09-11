@@ -14,6 +14,8 @@
 @import "bourbon";
 @import "config/defaults";
 @import "config/*";
+@import "neat/neat";
+
 
 /* import custom library */
 @import "library/*";
@@ -21,6 +23,7 @@
 /* import application/mixins */
 @import "application/common";
 @import "application/wrap";
+@import "application/grid";
 @import "application/flash_messages";
 @import "application/icons";
 @import "application/buttons";

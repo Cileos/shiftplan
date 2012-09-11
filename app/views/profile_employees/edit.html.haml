@@ -1,8 +1,8 @@
 - title :settings
-.row
-  .span3
+.row.two-columns
+  %nav.secondary
     = render 'user/settings_menu'
-  .span7.user-edit-form
+  .primary.user-edit-form
     %h3= ta :profile
 
     = simple_form_for @employee, url: profile_employee_path(@employee) do |f|
