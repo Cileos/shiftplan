@@ -8,7 +8,6 @@
     = simple_form_for @employee, url: profile_employee_path(@employee) do |f|
       = f.error_notification
 
-      // TODO: Add t() thingie.
       %legend= t('.your_photo')
 
       .inputs 
@@ -16,7 +15,6 @@
         = f.input :avatar, as: :file, :label => false
         = f.input :avatar_cache, as: :hidden
 
-      // TODO: Add t() thingie.
       %legend= t('.your_profile')
 
       .inputs
