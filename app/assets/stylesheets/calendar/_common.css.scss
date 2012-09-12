@@ -1,5 +1,6 @@
 .calendar {
   thead {
+    @include background(linear-gradient(#f8f8ff, #e0e0e8) left repeat);
     @include z-index(101);
 
     th:not(:first-child) {
@@ -17,7 +18,7 @@
     }
   }
 
-  tbody th {
+  .employee {
     width: 16%;
   }
 
