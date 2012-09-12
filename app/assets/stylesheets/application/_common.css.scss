@@ -72,6 +72,9 @@ small {
   color: lighten($ci_blue, 50%);
   display: inline-block;
   width: 100%;
+  position: fixed;
+  // white shadow to fade away scrolled content smoothly
+  @include box-shadow($ci_bg-color 0 1px 20px 10px);
 
   h1 {
     float: left;
