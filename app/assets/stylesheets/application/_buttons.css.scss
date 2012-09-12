@@ -66,24 +66,31 @@ button {
   }
 }
 
+.utility-button,
 input[type=submit].utility-button {
   @include border-radius(10px);
   @include transition(background .5s $ci_easing);
 
-  font-size: .85em;
   background: $ci_gray;
   color: #fff;
-  padding: 1px 4px;
+  padding: 3px 5px;
   border-width: 0;
+  text-shadow: none;
 
   &.button-warning:hover, &.button-warning:focus {
     background: $ci_darkorange;
+  }
+
+  &:hover {
+    color:#fff;
+    background: $ci_blue;
   }
 
   &.icon-button {
     font-family: "FontAwesome";
     padding: 3px 5px 0;
     line-height: 15px;
+    font-size: 10px;
   }
 }
 
