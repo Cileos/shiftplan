@@ -136,7 +136,7 @@ small {
 }
 
 [role=content] {
-  padding: 20px 0px 40px;
+  padding: 20px $banner_link_padding_lr 40px;
 
   .wrap.expanded & {
     padding-left:  20px;
