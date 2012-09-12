@@ -10,6 +10,17 @@
       @include span-columns(9);
       @include omega;
     }
+
+    &.inverted {
+      .primary {
+        @include span-columns(9);
+      }
+
+      .secondary {
+        @include span-columns(3);
+        @include omega;
+      }
+    }
   }
 
   &.three-columns {
