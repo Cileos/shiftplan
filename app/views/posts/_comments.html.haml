@@ -9,8 +9,7 @@
         = render('comments/item', comment: comment, avatar_size: :thumb)
   = simple_form_for Comment.new(employee: current_user.current_employee), |
       url: organization_blog_post_comments_path(@post.organization, @post.blog, @post), remote: true do |f|
-    // TODO: add t() thingie
-    %h3 Add a comment
+    %h3= t(:'comments.add_comment')
     = f.input :body, input_html: { rows: 4 }
     = f.input :employee_id, as: :hidden
     %button{type: 'submit'}= ti(:comment)
