@@ -1,5 +1,6 @@
 $(function(){
-    $("table#calendar").stickyTableHeaders();
+    $("#calendar").stickyTableHeaders();
+
 });
 
 
@@ -96,7 +97,12 @@ $(function(){
                 var $this = $(this);
                 var origCell = $('th', base.$originalHeader).eq(index);
                 $this.removeClass().addClass(origCell.attr('class'));
-                $this.css('width', origCell.width());
+                var newCellWidth = parseInt(origCell.width()) +
+                                   parseInt(origCell.css('padding-left')) +
+                                   parseInt(origCell.css('padding-right')) +
+                                   parseInt(origCell.css('border-left-width')) +
+                                   parseInt(origCell.css('border-right-width'));
+                $this.css('width', newCellWidth);
             });
 
             // Copy row width from whole table
@@ -108,7 +114,7 @@ $(function(){
     };
 
     $.StickyTableHeaders.defaultOptions = {
-        fixedOffset: 0
+        fixedOffset: 50
     };
 
     $.fn.stickyTableHeaders = function (options) {
