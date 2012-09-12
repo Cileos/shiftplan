@@ -214,6 +214,20 @@ small {
     float: right;
     padding: 0;
   }
+
+  ul, form, form div {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin-right: 5px;
+    float: none;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
 .nav-pills {
