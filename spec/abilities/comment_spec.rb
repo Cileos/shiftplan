@@ -72,11 +72,13 @@ shared_examples "an employee who can not read comments" do
 end
 
 shared_examples "an employee who can not create comments" do
+    # other_post belongs to other account
   it "I should not be able to create comments on posts of different accounts" do
     comment = Comment.build_from(other_post, employee, body: 'some text')
     should_not be_able_to(:create, comment)
   end
   it "I should not be able to create comments on schedulings of different accounts" do
+    # other_scheduling belongs to other account
     comment = Comment.build_from(other_scheduling, employee, body: 'some text')
     should_not be_able_to(:create, comment)
   end
