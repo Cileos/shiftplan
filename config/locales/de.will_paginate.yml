@@ -1,4 +1,4 @@
 de:
   will_paginate:
-    next_label: '>>'
-    previous_label: '<<'
+    next_label: '&raquo;'
+    previous_label: '&laquo;'
