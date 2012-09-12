@@ -168,28 +168,28 @@ small {
   }
 
   li {
-    @include border-radius(5px);
 
     display: inline;
     margin-right: 5px;
-    padding: 3px 5px;
-    border: 1px solid $ci_lightgray;
   }
 
   a {
+    @include transition(all .5s $ci_easing);
+    @include border-radius(5px);
+
     color: $ci_gray;
+    padding: 3px 5px;
+    border: 1px solid $ci_lightgray;
 
     &:hover {
       color: $ci_darkgray;
+      border: 1px solid $ci_darkgray;
     }
   }
 
-  .active {
+  .active a {
     border: 1px solid $ci_gray;
-
-    a {
-      color: $ci_darkgray;
-    }
+    color: $ci_darkgray;
   }
 }
 
