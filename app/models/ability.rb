@@ -113,7 +113,7 @@ class Ability
     end
     can :manage, Team do |team|
       account == team.organization.account
-
+    end
     can :manage, TeamMerge do |team_merge|
       account == team_merge.team.organization.account &&
         (team_merge.other_team_id.blank? || account == team_merge.other_team.organization.account)
@@ -146,5 +146,4 @@ class Ability
 
     authorize_planner(owner)
   end
-
 end
