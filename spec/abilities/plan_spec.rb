@@ -2,17 +2,8 @@ require 'spec_helper'
 require "cancan/matchers"
 
 shared_examples "a planner for own accounts" do
-  it "should be able to read plans" do
-    should be_able_to(:read, create(:plan, organization: organization))
-  end
-  it "should be able to update plans" do
-    should be_able_to(:update, create(:plan, organization: organization))
-  end
-  it "should be able to create plans" do
-    should be_able_to(:create, build(:plan, organization: organization))
-  end
-  it "should be able to destroy plans" do
-    should be_able_to(:destroy, create(:plan, organization: organization))
+  it "should be able to manage plans" do
+    should be_able_to(:manage, create(:plan, organization: organization))
   end
 end
 
