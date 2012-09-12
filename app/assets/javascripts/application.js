@@ -12,3 +12,7 @@
 //= require legend
 // always last!
 //= require lib/loaded_page
+
+$(function(){
+    $("#calendar").stickyTableHeaders({fixedOffset: 50});
+});

@@ -1,9 +1,3 @@
-$(function(){
-    $("#calendar").stickyTableHeaders();
-
-});
-
-
 /*! Copyright (c) 2011 by Jonas Mosbech - https://github.com/jmosbech/StickyTableHeaders
     MIT license info: https://github.com/jmosbech/StickyTableHeaders/blob/master/license.txt */
 
@@ -97,12 +91,7 @@ $(function(){
                 var $this = $(this);
                 var origCell = $('th', base.$originalHeader).eq(index);
                 $this.removeClass().addClass(origCell.attr('class'));
-                var newCellWidth = parseInt(origCell.width()) +
-                                   parseInt(origCell.css('padding-left')) +
-                                   parseInt(origCell.css('padding-right')) +
-                                   parseInt(origCell.css('border-left-width')) +
-                                   parseInt(origCell.css('border-right-width'));
-                $this.css('width', newCellWidth);
+                $this.css('width', origCell.outerWidth());
             });
 
             // Copy row width from whole table
@@ -114,7 +103,7 @@ $(function(){
     };
 
     $.StickyTableHeaders.defaultOptions = {
-        fixedOffset: 50
+        fixedOffset: 0
     };
 
     $.fn.stickyTableHeaders = function (options) {
