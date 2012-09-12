@@ -199,20 +199,20 @@ small {
 .masthead {
   @include clearfix;
 
-  padding: 10px 0;
+  padding: 10px;
   margin: 0 0 20px;
   border-bottom: 1px solid darken($ci_lightgray, 5%);
 
   h1, h2, h3,
   #title {
     float: left;
-    padding: 5px 0 0;
+    padding: 0;
     font-size: $ci_header-size;
   }
 
   nav {
     float: right;
-    padding-top: 10px;
+    padding: 0;
   }
 }
 
