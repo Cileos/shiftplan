@@ -28,7 +28,6 @@
     @include border-radius($ci_border-radius);
 
     float: left;
-    margin-top: 8px;
     margin-right: 10px;
   }
 
@@ -48,15 +47,15 @@
 }
 
 .comment {
-  padding: 20px 0;
+  padding: 10px;
   border-bottom: 1px solid $ci_gray;
 
   &:nth-child(2n) {
     background: $ci_lightgray;
   }
 
-  .button_to {
-    margin-right: 20px;
+  p:last-child {
+    margin-bottom: 0;
   }
 }
 
