@@ -1,4 +1,8 @@
 .calendar {
+  abbr[title] {
+    border-bottom: none;
+  }
+
   thead {
     @include background(linear-gradient(#f8f8ff, #e0e0e8) left repeat);
     @include z-index(101);
