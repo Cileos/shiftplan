@@ -9,16 +9,16 @@ end
 
 shared_examples "a planner for other accounts" do
   it "should not be able to read plans" do
-    should_not be_able_to(:read, create(:plan, organization: different_organization))
+    should_not be_able_to(:read, create(:plan, organization: other_organization))
   end
   it "should not be able to update plans" do
-    should_not be_able_to(:update, create(:plan, organization: different_organization))
+    should_not be_able_to(:update, create(:plan, organization: other_organization))
   end
   it "should not be able to create plans" do
-    should_not be_able_to(:create, build(:plan, organization: different_organization))
+    should_not be_able_to(:create, build(:plan, organization: other_organization))
   end
   it "should not be able to destroy plans" do
-    should_not be_able_to(:destroy, create(:plan, organization: different_organization))
+    should_not be_able_to(:destroy, create(:plan, organization: other_organization))
   end
 end
 
@@ -36,8 +36,8 @@ describe "Plan permissions:" do
   let(:organization) { create(:organization, account: account) }
   let(:another_organization) { create(:organization, account: account) }
 
-  let(:different_account) { create(:account) }
-  let(:different_organization) { create(:organization, account: different_account) }
+  let(:other_account) { create(:account) }
+  let(:other_organization) { create(:organization, account: other_account) }
 
   before(:each) do
     # simulate before_filter :set_current_employee
