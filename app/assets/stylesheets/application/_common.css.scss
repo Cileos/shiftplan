@@ -256,6 +256,9 @@ small {
     color: #fff;
     text-shadow: 0 -1px $ci_shadow;
   }
+  a:hover {
+    background: $ci_blue_hover;
+  }
 }
 
 .nav-stacked {
@@ -268,4 +271,8 @@ small {
   a {
     display: block;
   }
+}
+
+.user-settings {
+  margin-top: 15px;
 }
