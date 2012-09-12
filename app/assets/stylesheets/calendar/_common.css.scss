@@ -1,6 +1,6 @@
 .calendar {
   thead {
-    @include z-index(1000);
+    @include z-index(101);
 
     th:not(:first-child) {
       border-left: 1px solid $ci_midgrey;
