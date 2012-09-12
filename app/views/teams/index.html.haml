@@ -1,7 +1,12 @@
 - title :teams
 
-.row
-  .span7
+- if can? :create, Team
+  - masthead_toolbar do
+    =link_to ti(:add), '#', class: 'button', remote: true, 'data-icon' => '&#xf067;'.html_safe
+
+
+.row.two-columns.inverted
+  .primary
     %table#teams.table.table-striped.table-condensed
       %thead
         %tr.employee
@@ -19,5 +24,5 @@
             %td
               - if can? :edit, team
                 = link_to :edit, edit_organization_team_path(current_organization, team), class: 'button button-small'
-  .span5.instructions
+  .secondary.instructions
     = tt '.instructions'

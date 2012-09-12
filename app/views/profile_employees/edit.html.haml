@@ -9,7 +9,7 @@
       = f.error_notification
 
       // TODO: Add t() thingie.
-      %legend Your photo
+      %legend= t('.your_photo')
 
       .inputs 
         = avatar(@employee.user, @employee, :thumb)
@@ -17,7 +17,7 @@
         = f.input :avatar_cache, as: :hidden
 
       // TODO: Add t() thingie.
-      %legend Your details
+      %legend= t('.your_profile')
 
       .inputs
         = f.input :first_name, autofocus: true
