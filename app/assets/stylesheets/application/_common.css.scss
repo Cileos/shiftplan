@@ -73,6 +73,7 @@ small {
   display: inline-block;
   width: 100%;
   position: fixed;
+  top: 0;
   // white shadow to fade away scrolled content smoothly
   @include box-shadow($ci_bg-color 0 1px 20px 10px);
 
