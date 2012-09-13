@@ -1,103 +1,115 @@
 require 'spec_helper'
 require "cancan/matchers"
 
+shared_examples "an employee who can read and update organizations" do
+  it "should be able to read organizations" do
+    should be_able_to(:read, organization)
+  end
+  it "should be able to update organizations" do
+    should be_able_to(:update, organization)
+  end
+end
+
+shared_examples "an employee who is not able to manage organizations" do
+  it "should not be able to create organizations" do
+    should_not be_able_to(:create, other_organization)
+  end
+  it "should not be able to read organizations" do
+    should_not be_able_to(:read, other_organization)
+  end
+  it "should not be able to update organizations" do
+    should_not be_able_to(:update, other_organization)
+  end
+  it "should not be able to destroy organizations" do
+    should_not be_able_to(:destroy, other_organization)
+  end
+end
+
+shared_examples "an owner managing organizations" do
+  context "for own accounts" do
+    it "should be able to manage organizations" do
+      should be_able_to(:manage, organization)
+    end
+  end
+  context "for other accounts" do
+    it_behaves_like "an employee who is not able to manage organizations" do
+      # organization of a other_account
+      let(:other_account) { create(:account) }
+      let(:other_organization) { create(:organization, account: other_account) }
+    end
+  end
+end
+
+shared_examples "a planner managing organizations" do
+  context "for own accounts" do
+    it_behaves_like "an employee who can read and update organizations"
+  end
+end
+
 describe "Organization permissions:" do
   subject { ability }
   let(:ability) { Ability.new(user) }
   let(:user) { create(:user) }
-  let(:organization) { create(:organization) }
-  let(:another_organization) { create(:organization) }
+  let(:account) { create(:account) }
+  let(:organization) { create(:organization, account: account) }
 
   before(:each) do
     # simulate before_filter :set_current_employee
     user.current_employee = employee
   end
 
-  context "As an owner" do
-    let(:employee) { create(:employee_owner, organization: organization, user: user) }
-
-    context "for other organizations" do
-      it "should not be able to read organizations" do
-        should_not be_able_to(:read, another_organization)
-      end
-
-      it "should not be able to update organizations" do
-        should_not be_able_to(:update, another_organization)
-      end
-
-      it "should not be able to destroy organizations" do
-        should_not be_able_to(:destroy, another_organization)
-      end
+  context "An owner" do
+    it_behaves_like "an owner managing organizations" do
+      let(:employee) { create(:employee_owner, account: account, user: user) }
     end
   end
 
-  context "As a planner" do
-    let(:employee) { create(:employee, organization: organization, user: user) }
-
-    context "for other organizations" do
-      it "should not be able to read organizations" do
-        should_not be_able_to(:read, another_organization)
-      end
-
-      it "should not be able to update organizations" do
-        should_not be_able_to(:update, another_organization)
-      end
-
-      it "should not be able to destroy organizations" do
-        should_not be_able_to(:destroy, another_organization)
-      end
+  context "A planner" do
+    it_behaves_like "a planner managing organizations" do
+      let(:employee) { create(:employee_planner, account: account, user: user) }
     end
   end
 
-  context "As an employee" do
-    let(:employee) { create(:employee, organization: organization, user: user) }
+  context "An employee" do
+    let(:employee) { create(:employee, account: account, user: user) }
+    let(:membership) { create(:membership, employee: employee, organization: organization) }
+
+    before(:each) do
+      membership
+    end
 
     context "for own organization" do
-      it "should not be able to destroy organizations" do
-        should_not be_able_to(:destroy, organization)
+      it "should be able to read organizations" do
+        should be_able_to(:read, organization)
       end
-
       it "should not be able to create organizations" do
-        should_not be_able_to(:create, Organization)
+        should_not be_able_to(:create, organization)
       end
-
       it "should not be able to update organizations" do
         should_not be_able_to(:update, organization)
       end
+      it "should not be able to destroy organizations" do
+        should_not be_able_to(:destroy, organization)
+      end
     end
 
     context "for other organizations" do
-      it "should not be able to read organizations" do
-        should_not be_able_to(:read, another_organization)
-      end
-
-      it "should not be able to update organizations" do
-        should_not be_able_to(:update, another_organization)
-      end
-
-      it "should not be able to destroy organizations" do
-        should_not be_able_to(:destroy, another_organization)
+      it_behaves_like "an employee who is not able to manage organizations" do
+        # other_organization belongs to same account as organization but the
+        # employee is not member of other_organization and therefore can not
+        # even read it
+        let(:other_organization) { create(:organization, account: account) }
       end
     end
   end
 
   context "As an user without employee(not possible but for the case)" do
-    let(:employee) { nil }
-
-    it "should not be able to read organizations" do
-      should_not be_able_to(:read, organization)
-    end
-
-    it "should not be able to destroy organizations" do
-      should_not be_able_to(:destroy, organization)
-    end
-
-    it "should not be able to create organizations" do
-      should_not be_able_to(:create, Organization)
-    end
-
-    it "should not be able to update organizations" do
-      should_not be_able_to(:update, organization)
+    it_behaves_like "an employee who is not able to manage organizations" do
+      let(:employee) { nil }
+      # other_organization belongs to same account as organization but the
+      # employee is not member of other_organization and therefore can not
+      # even read it
+      let(:other_organization) { create(:organization, account: account) }
     end
   end
 end
