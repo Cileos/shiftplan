@@ -119,7 +119,7 @@ class Ability
         (team_merge.other_team_id.blank? || account == team_merge.other_team.organization.account)
     end
     can [:read, :create], Post do |post|
-      account == post.blog.account
+      account == post.blog.organization.account
     end
     can [:read, :create], Comment do |comment|
       commentable = comment.commentable
