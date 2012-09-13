@@ -44,6 +44,13 @@ shared_examples "a planner managing organizations" do
   context "for own accounts" do
     it_behaves_like "an employee who can read and update organizations"
   end
+  context "for other accounts" do
+    it_behaves_like "an employee who is not able to manage organizations" do
+      # organization of a other_account
+      let(:other_account) { create(:account) }
+      let(:other_organization) { create(:organization, account: other_account) }
+    end
+  end
 end
 
 describe "Organization permissions:" do
