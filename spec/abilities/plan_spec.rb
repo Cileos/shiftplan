@@ -45,18 +45,18 @@ describe "Plan permissions:" do
   end
 
   context "An owner" do
-    let(:employee) { create(:employee_owner, account: account, user: user) }
-
-    it_behaves_like "a planning planner"
+    it_behaves_like "a planning planner" do
+      let(:employee) { create(:employee_owner, account: account, user: user) }
+    end
   end
 
   context "As a planner" do
-    let(:employee) { create(:employee_planner, account: account, user: user) }
-
-    it_behaves_like "a planning planner"
+    it_behaves_like "a planning planner" do
+      let(:employee) { create(:employee_planner, account: account, user: user) }
+    end
   end
 
-  context "As an employee" do
+  context "An employee" do
     let(:employee)   { create(:employee, account: account, user: user) }
     # An "normal" employee needs a membership for an organization to do things.
     # This is different from planners or owners which do not need a membership but
@@ -94,9 +94,9 @@ describe "Plan permissions:" do
     end
   end
 
-  context "As an user without employee(not possible but for the case)" do
-    let(:employee) { nil }
-
-    it_behaves_like "a planner for other accounts"
+  context "An user without employee(not possible but for the case)" do
+    it_behaves_like "a planner for other accounts" do
+      let(:employee) { nil }
+    end
   end
 end

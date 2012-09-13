@@ -130,29 +130,29 @@ describe "Comment permissions:" do
   end
 
   context "An owner" do
-    let(:employee) { create(:employee_owner, account: account, user: user) }
-
-    it_behaves_like "a commenting employee"
+    it_behaves_like "a commenting employee" do
+      let(:employee) { create(:employee_owner, account: account, user: user) }
+    end
   end
 
   context "A planner" do
-    let(:employee) { create(:employee_planner, account: account, user: user) }
-
-    it_behaves_like "a commenting employee"
+    it_behaves_like "a commenting employee" do
+      let(:employee) { create(:employee_planner, account: account, user: user) }
+    end
   end
 
   context "An employee" do
-    let(:employee) { create(:employee, account: account, user: user) }
-    # An "normal" employee needs a membership for an organization to do things.
-    # This is different from planners or owners which do not need a membership but
-    # just the role "planner" or "owner" and belong to the acccount.
-    let(:membership) { create(:membership, employee: employee, organization: organization) }
-
     before(:each) do
       membership
     end
 
-    it_behaves_like "a commenting employee"
+    it_behaves_like "a commenting employee" do
+      let(:employee) { create(:employee, account: account, user: user) }
+      # An "normal" employee needs a membership for an organization to do things.
+      # This is different from planners or owners which do not need a membership but
+      # just the role "planner" or "owner" and belong to the acccount.
+      let(:membership) { create(:membership, employee: employee, organization: organization) }
+    end
   end
 end
 
