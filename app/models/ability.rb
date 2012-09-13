@@ -55,7 +55,7 @@ class Ability
     can :read, Plan do |plan|
       employee.organizations.include?(plan.organization)
     end
-    can :read, Scheduling do |schedulling|
+    can :read, Scheduling do |scheduling|
       employee.organizations.include?(scheduling.plan.organization)
     end
     can :read, Team do |team|
