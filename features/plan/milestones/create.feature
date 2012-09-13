@@ -14,6 +14,7 @@ Feature: create Milestones for a plan
   Scenario: create a milestone with name only
     When I fill in "Name" with "World domination"
      And I press "Anlegen"
+     And I wait for the spinner to disappear
     Then I should see "World domination" within the milestones list
      And a milestone should exist with name: "World domination", plan: the plan
 
@@ -32,7 +33,7 @@ Feature: create Milestones for a plan
     When I press "Anlegen"
      And I wait for the spinner to disappear
     Then 0 milestones should exist
-     And I should see flash alert "Der Meilenstein konnte nicht angelegt werden."
+     And I should see flash alert "Meilenstein konnte nicht angelegt werden."
      And I should see "muss ausgefüllt werden"
 
 

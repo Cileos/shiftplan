@@ -8,6 +8,7 @@
 //= require handlebars
 //= require ember
 //= require ember-data
+//= require ember-rails-flash
 
 //= require_tree './lib'
 //= require spinner

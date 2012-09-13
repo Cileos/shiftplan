@@ -5,7 +5,7 @@ Then /^I should (see|not see) (?:an? )?(?:flash )?(flash|info|alert|notice) "([^
   if see_or_not =~ /not/
     step %Q{I should #{see_or_not} "#{message}"}
   else
-    step %Q{I should #{see_or_not} "#{message}" within ".flash.alert.alert-#{severity}"}
+    step %Q{I should #{see_or_not} "#{message}" within ".flash.#{severity}"}
   end
 end
 

@@ -38,6 +38,13 @@ GIT
     bootstrap-sass (2.0.4.0)
 
 GIT
+  remote: git://github.com/niklas/ember-rails-flash.git
+  revision: a0ac10290289b6d446e1900c62be76af8821f7b9
+  specs:
+    ember-rails-flash (0.0.1)
+      rails (~> 3.2.0)
+
+GIT
   remote: git://github.com/niklas/kopflos.git
   revision: 81edd0fb01be9855f3062331b595d572ef8dd0cd
   specs:
@@ -90,7 +97,7 @@ GEM
     awesome_nested_set (2.1.3)
       activerecord (>= 3.0.0)
     bcrypt-ruby (3.0.1)
-    builder (3.0.0)
+    builder (3.0.3)
     cancan (1.6.8)
     capistrano (2.12.0)
       highline
@@ -377,6 +384,7 @@ DEPENDENCIES
   draper (~> 0.14.0)
   email_spec
   ember-rails
+  ember-rails-flash!
   exception_notification
   factory_girl_rails (~> 3.5.0)
   fuubar-cucumber!

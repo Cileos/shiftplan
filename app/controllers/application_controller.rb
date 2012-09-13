@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   check_authorization :unless => :devise_controller?
 
   include UrlHelper
+  include EmberRailsFlash::FlashInHeader
 
   protected
 
