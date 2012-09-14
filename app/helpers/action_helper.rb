@@ -33,13 +33,13 @@ module ActionHelper
   Icons = {
     add:               'plus',
     edit:              'edit',
-    destroy:           'trash',
+    destroy:           '&#xf00d;',
     new_scheduling:    'plus',
     copy_week:         'retweet',
     update:            'ok-circle',
     invite:            'user',
     reinvite:          'user',
-    comment:           'comment',
+    comment:           '&#xf075;',
     comments_count:    'comment',
     reply:             'chevron-left',
     back:              'arrow-left',
@@ -47,6 +47,10 @@ module ActionHelper
     feedback_without_screenshot: 'envelope',
     send:                        'envelope'
   }
+
+  def i(name)
+    (Icons[name] || 'icon-missing').html_safe
+  end
 
   # translate with textilize
   def tt(*a)
