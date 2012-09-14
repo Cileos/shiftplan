@@ -167,9 +167,6 @@ In order to keep my colleagues informed about important news
       And I should see "Post erfolgreich geändert"
       And I should see "Besuch des Umweltministers"
 
-     When I follow "Zurück"
-      And I should see "Besuch des Umweltministers"
-      And I should see "Bitte putzen"
 
   Scenario: Commenting blog posts
     # a post of mr. burns
@@ -250,16 +247,11 @@ In order to keep my colleagues informed about important news
 
   Scenario: Deleting comments on posts
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And a comment exists with commentable: the post, employee: the employee owner "mr. burns"
       And I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
-     When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
-      And I press "Kommentieren"
-      And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
-      And I should see "Ich backe einen Kuchen für den Umweltminister"
-      And I should see "1 Kommentar"
-
-     When I press "x"
+      And I am on the page for the comment
+     When I press "destroy-comment"
+      And I confirm popup
      Then I should not see "Ich backe einen Kuchen für den Umweltminister"
       And I should see "0 Kommentare"
       And I should see "Es wurden noch keine Kommentare erstellt"
@@ -317,7 +309,7 @@ In order to keep my colleagues informed about important news
       And I should see "Post 2"
       And I should see "Post 1"
       But I should not see "Post 0"
-     When I follow ">>" within the pagination
+     When I follow "»" within the pagination
      Then I should see "Post 0"
       But I should not see "Post 10"
       And I should not see "Post 9"
@@ -358,7 +350,7 @@ In order to keep my colleagues informed about important news
       And I should see "Post 2"
       And I should see "Post 1"
       But I should not see "Post 0"
-     When I follow ">>" within the pagination
+     When I follow "»" within the pagination
      Then I should see "Post 0"
       But I should not see "Post 10"
       And I should not see "Post 9"
@@ -370,7 +362,7 @@ In order to keep my colleagues informed about important news
       And I should not see "Post 3"
       And I should not see "Post 2"
       And I should not see "Post 1"
-     When I follow "<<" within the pagination
+     When I follow "«" within the pagination
      Then I should see "Post 10"
       And I should see "Post 9"
       And I should see "Post 8"

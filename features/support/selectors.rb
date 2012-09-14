@@ -79,7 +79,7 @@ module HtmlSelectorsHelpers
     when 'the pagination'
       '.pagination'
     when 'the posts'
-      'ul#posts'
+      'ul.posts'
     when 'the comments'
       'ul#comments'
 
