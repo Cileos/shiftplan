@@ -52,7 +52,7 @@ Shiftplan::Application.routes.draw do
 
   get "user/:user_id/employees" => 'employees#list', :as => 'list_employees'
 
-  devise_for :users, :controllers => { registrations: 'planners/registrations', sessions: 'devise/sessions'}
+  devise_for :users, :controllers => { registrations: 'planners/registrations', sessions: 'sessions'}
 
   if Rails.env.test?
     scope 'test' do
