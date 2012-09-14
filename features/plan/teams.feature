@@ -1,7 +1,7 @@
 Feature: Teams in plans
   Um verschiedene Tätigkeiten oder Arbeitsplätze zu unterscheiden, und diese daraus erzeugen Kürzel zu verwenden und eine Legende anzuzeigen.
   Als Planer
-  Möchte ich im Plan Teamnamen/Beschreibungen verwenden, 
+  Möchte ich im Plan Teamnamen/Beschreibungen verwenden,
 
   Background:
     Given the situation of a nuclear reactor
@@ -11,7 +11,6 @@ Feature: Teams in plans
      When I schedule "Homer S" on "Do" for "9-17 Reaktor putzen"
      Then I should see the following calendar:
         | Mitarbeiter   | Do      |
-        | Planner Burns |         |
         | Carl C        |         |
         | Lenny L       |         |
         | Homer S       | 9-17 Rp |
@@ -24,7 +23,6 @@ Feature: Teams in plans
      When I schedule "Homer S" on "Do" for "9-17 Reaktor putzen [OK]"
      Then I should see the following calendar:
         | Mitarbeiter   | Do      |
-        | Planner Burns |         |
         | Carl C        |         |
         | Lenny L       |         |
         | Homer S       | 9-17 OK |
