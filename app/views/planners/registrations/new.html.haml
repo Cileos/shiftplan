@@ -6,7 +6,7 @@
   = f.input :organization_name, autofocus: true, required: true
   = f.input :first_name, required: true
   = f.input :last_name, required: true
-  = f.input :email, required: true
+  = f.input :email, required: true, input_html: { class: 'mailcheck' }
   = f.input :password, required: true
   = f.input :password_confirmation, required: true
   .form-actions
