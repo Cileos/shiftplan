@@ -15,21 +15,25 @@ class QuickieEditor extends View
         @input type: 'text', value: params.value, id: "#{name}_quickie", name: 'scheduling[quickie]', outlet: 'input'
 
   initialize: (params) ->
+    @completions = params.completions || gon. quickie_completions
     # input will be autocompleted, keybindings removed on modal box close
     @input
       .attr('autocomplete', 'off')
-      .addClass('typeahead')
-      .typeahead
-        source: params.completions || gon.quickie_completions,
-        sorter: @sorter
-        matcher: @matcher
+      .data('autocompletion', this)
+      .autocomplete
+        source: @autocompleteSource
     @one 'attach', =>
       $(@).closest('form').bind 'shiftplan.remove', @destroy
       $('#modalbox').bind 'dialogclose', @destroy
 
   destroy: =>
-    @input?.unbind().data('typeahead')?.$menu?.remove()
+    @input?.unbind().autocomplete('destroy')
     true
+
+  autocompleteSource: (request, response) ->
+    @query = request.term
+    matched = (item for item in @completions when matcher(item))
+    response sorter(matched)
 
   matcher: (item) ->
     return true for term in @query.split(/\s/) when ~item.toLowerCase().indexOf(term.toLowerCase())
