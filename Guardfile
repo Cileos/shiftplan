@@ -44,7 +44,7 @@ group :test, :halt_on_fail => true do
 
   ENV['CUCUMBER_FORMAT'] = 'fuubar'
 #                                                         V --no-drb skip spork to run simplecov 
-  guard 'cucumber', :cli => "--drb --no-source --no-profile --strict --format pretty --format rerun --out rerun.txt", :run_all => { :cli => "--format fuubar" }, :all_on_start => false, :all_after_pass => false do
+  guard 'cucumber', :cli => "--drb --no-source --no-profile --strict --format pretty --format rerun --out rerun.txt --tags ~@wip", :run_all => { :cli => "--format fuubar" }, :all_on_start => false, :all_after_pass => false do
     watch(%r{^features/.+\.feature$})
     watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0]  }
     #watch('app/decorators/scheduling_filter_decorator.rb') { 'features/plan/*.feature' }
