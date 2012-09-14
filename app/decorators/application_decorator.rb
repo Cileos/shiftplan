@@ -56,7 +56,7 @@ class ApplicationDecorator < Draper::Base
 
   def update_flash
     page['flash'].remove()
-    page.select('.navbar:first').after h.render('application/flash')
+    page.select('section[role=content]').prepend h.render('application/flash')
   end
 
   # Lazy Helpers
