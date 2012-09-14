@@ -31,10 +31,10 @@ class Ability
 
   def authorize_signed_in(user)
     can :dashboard, User
-    can [:edit, :update, :read], Employee do |employee|
+    can [:read, :update], Employee do |employee|
       user == employee.user
     end
-    can [:show, :update], User do |u|
+    can [:read, :update], User do |u|
       user == u
     end
   end
