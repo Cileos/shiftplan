@@ -64,8 +64,8 @@ World(BrowserSupport::Cucumber)
 Before '@javascript','@big_screen' do
   switch_browser_size(:big)
 end
-Before '@javascript','~@big_screen' do
-  switch_browser_size(:mobile)
+Before '@javascript','~@mobile_screen' do
+  switch_browser_size(:big)
 end
 Before '@javascript','@mobile_screen' do
   switch_browser_size(:mobile)
