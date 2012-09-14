@@ -38,7 +38,7 @@ module NavigationHelpers
         account_organization_blog_post_path(organization.account, organization, model.blog, model)
       when Plan
         organization = model.organization
-        organization_plan_path(organization.account, organization, model, params)
+        account_organization_plan_path(organization.account, organization, model, params)
       when Organization
         account_organization_path(model.account, model)
       when User
