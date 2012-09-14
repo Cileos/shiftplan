@@ -37,6 +37,9 @@ module HtmlSelectorsHelpers
       "table#employees"
 
     when 'the navigation'
+      'nav[role=navigation]'
+
+    when 'the user navigation'
       '.user-navigation'
 
     when "the calendar"

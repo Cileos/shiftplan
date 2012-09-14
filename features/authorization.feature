@@ -17,14 +17,14 @@ Feature: Authorization
   Scenario: anonymous user
      When I go to the home page
      Then I should be authorized to access the page
-      And I should see link "Einloggen" within the navigation
+      And I should see link "Einloggen" within the user navigation
       But I should not see link "Dashboard"
       But I should not see link "Profil"
       But I should not see link "Mitarbeiter"
 
      When I go to the signin page
      Then I should be authorized to access the page
-      And I should see link "Einloggen" within the navigation
+      And I should see link "Einloggen" within the user navigation
       But I should not see link "Ausloggen"
 
      When I go to the dashboard
@@ -40,16 +40,16 @@ Feature: Authorization
 
      When I go to the home page
      Then I should be authorized to access the page
-      And I should see link "Ausloggen" within the navigation
-      And I should see link "Fukushima GmbH >>" within the navigation
+      And I should see link "Ausloggen" within the user navigation
+      And I should see link "Fukushima GmbH" within the navigation
       But I should not see link "Einloggen"
 
      When I follow "Fukushima GmbH"
       And I choose "Alle Pläne" from the drop down "Pläne"
      Then I should be authorized to access the page
       But I should not see link "Hinzufügen"
-      And I should see link "Ausloggen" within the navigation
-      And I should see link "Fukushima GmbH >>" within the navigation
+      And I should see link "Ausloggen" within the user navigation
+      And I should see link "Fukushima GmbH" within the navigation
       And I should see link "Pläne" within the navigation
       And I should see link "Mitarbeiter" within the navigation
       And I should see link "Teams" within the navigation
