@@ -65,9 +65,9 @@ Feature: View Teams over weekdays in plan
 
   Scenario: Navigating back and forth weekwise
     Given I am on the teams in week page of the plan for year: 2012, week: 49
-      When I follow ">" within the calendar navigation
+      When I follow ">" within the toolbar
       Then I should be on the teams in week page of the plan for year: 2012, week: 50
-      When I follow "Heute" within the calendar navigation
+      When I follow "Heute" within the toolbar
       Then I should be on the teams in week page of the plan for year: 2012, week: 49
-      When I follow "<" within the calendar navigation
+      When I follow "<" within the toolbar
       Then I should be on the teams in week page of the plan for year: 2012, week: 48

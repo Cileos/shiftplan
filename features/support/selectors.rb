@@ -48,8 +48,8 @@ module HtmlSelectorsHelpers
     when "the legend"
       '#legend'
 
-    when "the calendar navigation"
-      'div#calendar-navigation'
+    when 'the toolbar'
+      'nav[role=toolbar]'
 
     when 'the modal box'
       'div#modalbox'
