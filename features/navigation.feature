@@ -1,3 +1,5 @@
+# we have to discuss how to handle the dashboard
+@wip
 Feature: Navigation
   In order to access all the wonderful functionality of shiftplan
   As a user
