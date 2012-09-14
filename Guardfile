@@ -32,6 +32,7 @@ group :test, :halt_on_fail => true do
     watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
     watch('spec/spec_helper.rb')                        { "spec" }
     watch('config/routes.rb')                           { "spec/routing" }
+    watch('app/models/ability.rb')                      { "spec/abilities" }
     # Capybara request specs
     watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
   end
