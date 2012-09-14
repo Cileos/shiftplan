@@ -31,6 +31,9 @@ class Ability
 
   def authorize_signed_in(user)
     can :dashboard, User
+    can :read, Account do |account|
+      user.accounts.include?(account)
+    end
     can [:read, :update], Employee do |employee|
       user == employee.user
     end
@@ -93,9 +96,6 @@ class Ability
   def authorize_planner(planner)
     account = planner.account
 
-    can :manage, Account do |a|
-      account == a
-    end
     can [:read, :update], Organization do |organization|
       account == organization.account
     end
@@ -140,8 +140,13 @@ class Ability
   end
 
   def authorize_owner(owner)
+    account = owner.account
+
+    can [:update], Account do |a|
+      account == a
+    end
     can :manage, Organization do |organization|
-      owner.account == organization.account
+      account == organization.account
     end
 
     authorize_planner(owner)
