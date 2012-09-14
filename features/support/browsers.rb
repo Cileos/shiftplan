@@ -47,11 +47,13 @@ module BrowserSupport
 
   module Cucumber
     def switch_browser_size(size_name)
-      if size = BrowserSupport::Sizes[size_name] and @browser_size != size
-        STDERR.puts "switching browser to #{size_name}"
-        width, height = size[:width], size[:height]
-        page.execute_script("window.resizeTo(#{width}, #{height});")
-        @browser_size = size
+      if size = BrowserSupport::Sizes[size_name]
+        if @browser_size != size
+          STDERR.puts "switching browser to #{size_name}"
+          width, height = size[:width], size[:height]
+          page.execute_script("window.resizeTo(#{width}, #{height});")
+          @browser_size = size
+        end
       else
         STDERR.puts "cannot switch browser to unknown size: #{size_name}"
       end
