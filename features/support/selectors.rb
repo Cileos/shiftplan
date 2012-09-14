@@ -37,7 +37,7 @@ module HtmlSelectorsHelpers
       "table#employees"
 
     when 'the navigation'
-      '.navbar:first'
+      '.user-navigation'
 
     when "the calendar"
       'table#calendar'
