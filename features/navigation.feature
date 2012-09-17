@@ -4,99 +4,93 @@ Feature: Navigation
   I want to use a navigation
 
   Background:
-    Given an organization "fukushima" exists with name: "Fukushima GmbH"
-      And a blog exists with organization: the organization "fukushima"
-      And a confirmed user exists with email: "me@shiftplan.de"
-      And a employee planner exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Homer", last_name: "Simpson"
+    Given the situation of a nuclear reactor
 
-  Scenario: as a planner with multiple organizations
-    Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And a employee planner exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
-      And I am signed in as the confirmed user
+  Scenario: as a planner with multiple organizations in same account
+    Given an organization "tschernobyl" exists with name: "Tschernobyl", account: the account
 
-     When I go to the dashboard page
      Then I should see the following list of links within the navigation:
        | link            | active |
-       | me@shiftplan.de | false  |
+       | Planner Burns   | false  |
        | Einstellungen   | false  |
        | Ausloggen       | false  |
        | Dashboard       | true   |
 
-     When I follow "Fukushima GmbH"
+     When I follow "Reactor"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Dashboard         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | false  |
-       | Pläne             | false  |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | false  |
-       | Teams             | false  |
+       | link           | active  |
+       | Planner Burns  | false   |
+       | Einstellungen  | false   |
+       | Ausloggen      | false   |
+       | Dashboard      | false   |
+       | Reactor >>     | true    |
+       | Neuigkeiten    | false   |
+       | Pläne          | false   |
+       | Alle Pläne     | false   |
+       | Mitarbeiter    | false   |
+       | Teams          | false   |
 
      When I follow "Neuigkeiten"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Dashboard         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | true   |
-       | Pläne             | false  |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | false  |
-       | Teams             | false  |
+       | link           | active  |
+       | Planner Burns  | false   |
+       | Einstellungen  | false   |
+       | Ausloggen      | false   |
+       | Dashboard      | false   |
+       | Reactor >>     | true    |
+       | Neuigkeiten    | true    |
+       | Pläne          | false   |
+       | Alle Pläne     | false   |
+       | Mitarbeiter    | false   |
+       | Teams          | false   |
 
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Dashboard         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | false  |
-       | Pläne             | true   |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | false  |
-       | Teams             | false  |
+       | link           | active  |
+       | Planner Burns  | false   |
+       | Einstellungen  | false   |
+       | Ausloggen      | false   |
+       | Dashboard      | false   |
+       | Reactor >>     | true    |
+       | Neuigkeiten    | false   |
+       | Pläne          | true    |
+       | Alle Pläne     | false   |
+       | Mitarbeiter    | false   |
+       | Teams          | false   |
 
      When I follow "Mitarbeiter"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Dashboard         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | false  |
-       | Pläne             | false  |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | true   |
-       | Teams             | false  |
+       | link           | active  |
+       | Planner Burns  | false   |
+       | Einstellungen  | false   |
+       | Ausloggen      | false   |
+       | Dashboard      | false   |
+       | Reactor >>     | true    |
+       | Neuigkeiten    | false   |
+       | Pläne          | false   |
+       | Alle Pläne     | false   |
+       | Mitarbeiter    | true    |
+       | Teams          | false   |
 
      When I follow "Teams"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Dashboard         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | false  |
-       | Pläne             | false  |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | false  |
-       | Teams             | true   |
+       | link           | active  |
+       | Planner Burns  | false   |
+       | Einstellungen  | false   |
+       | Ausloggen      | false   |
+       | Dashboard      | false   |
+       | Reactor >>     | true    |
+       | Neuigkeiten    | false   |
+       | Pläne          | false   |
+       | Alle Pläne     | false   |
+       | Mitarbeiter    | false   |
+       | Teams          | true    |
 
      When I follow "shiftplan"
      Then I should be on the dashboard
      Then I should see the following list of links within the navigation:
        | link            | active |
-       | me@shiftplan.de | false  |
+       | Planner Burns | false  |
        | Einstellungen   | false  |
        | Ausloggen       | false  |
        | Dashboard       | true   |
@@ -106,127 +100,127 @@ Feature: Navigation
 
      When I go to the page of the organization "fukushima"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | false  |
-       | Pläne             | false  |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | false  |
-       | Teams             | false  |
+       | link           | active  |
+       | Planner Burns  | false   |
+       | Einstellungen  | false   |
+       | Ausloggen      | false   |
+       | Reactor >>     | true    |
+       | Neuigkeiten    | false   |
+       | Pläne          | false   |
+       | Alle Pläne     | false   |
+       | Mitarbeiter    | false   |
+       | Teams          | false   |
 
      When I follow "Neuigkeiten"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | true   |
-       | Pläne             | false  |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | false  |
-       | Teams             | false  |
+       | link           | active  |
+       | Planner Burns  | false   |
+       | Einstellungen  | false   |
+       | Ausloggen      | false   |
+       | Reactor >>     | true    |
+       | Neuigkeiten    | true    |
+       | Pläne          | false   |
+       | Alle Pläne     | false   |
+       | Mitarbeiter    | false   |
+       | Teams          | false   |
 
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | false  |
-       | Pläne             | true   |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | false  |
-       | Teams             | false  |
+       | link           | active  |
+       | Planner Burns  | false   |
+       | Einstellungen  | false   |
+       | Ausloggen      | false   |
+       | Reactor >>     | true    |
+       | Neuigkeiten    | false   |
+       | Pläne          | true    |
+       | Alle Pläne     | false   |
+       | Mitarbeiter    | false   |
+       | Teams          | false   |
 
      When I follow "Mitarbeiter"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | false  |
-       | Pläne             | false  |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | true   |
-       | Teams             | false  |
+       | link           | active  |
+       | Planner Burns  | false   |
+       | Einstellungen  | false   |
+       | Ausloggen      | false   |
+       | Reactor >>     | true    |
+       | Neuigkeiten    | false   |
+       | Pläne          | false   |
+       | Alle Pläne     | false   |
+       | Mitarbeiter    | true    |
+       | Teams          | false   |
 
      When I follow "Teams"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | false  |
-       | Pläne             | false  |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | false  |
-       | Teams             | true   |
+       | link           | active  |
+       | Planner Burns  | false   |
+       | Einstellungen  | false   |
+       | Ausloggen      | false   |
+       | Reactor >>     | true    |
+       | Neuigkeiten    | false   |
+       | Pläne          | false   |
+       | Alle Pläne     | false   |
+       | Mitarbeiter    | false   |
+       | Teams          | true    |
 
      When I follow "shiftplan"
      Then I should be on the dashboard
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Fukushima GmbH >> | false  |
+       | link           | active  |
+       | Planner Burns  | false   |
+       | Einstellungen  | false   |
+       | Ausloggen      | false   |
+       | Reactor >>     | false   |
 
   @fileupload
   Scenario: Bart's avatar is shown in the navigation as only employee "bart" of logged in user has an avatar
-    Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
+    Given an organization "tschernobyl" exists with name: "Tschernobyl"
       And a employee planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
-      And the employee planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
+      And the employee "Burns" "bart" has the avatar "features/support/images/barts_avatar.jpg"
       And I am signed in as the confirmed user
 
      When I go to the dashboard page
-     Then I should see "me@shiftplan.de" within the navigation
+     Then I should see "Planner Burns" within the navigation
       And I should see the avatar "barts_avatar.jpg" within the navigation
 
   @fileupload
   Scenario: Homer's avatar is shown in the navigation as only employee "homer" of logged in user has an avatar
-    Given the employee planner has the avatar "app/assets/images/rails.png"
-      And an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
+    Given the employee "Burns" has the avatar "app/assets/images/rails.png"
+      And an organization "tschernobyl" exists with name: "Tschernobyl"
       And a employee planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
       And I am signed in as the confirmed user
 
      When I go to the dashboard page
-     Then I should see "me@shiftplan.de" within the navigation
+     Then I should see "Planner Burns" within the navigation
       And I should see the avatar "rails.png" within the navigation
 
   @fileupload
   Scenario: Homer's avatar is shown in the navigation as he is the first employee of the logged in user having an avatar
-    Given the employee planner has the avatar "app/assets/images/rails.png"
-      And an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
+    Given the employee "Burns" has the avatar "app/assets/images/rails.png"
+      And an organization "tschernobyl" exists with name: "Tschernobyl"
       And a employee planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
-      And the employee planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
+      And the employee "Burns" "bart" has the avatar "features/support/images/barts_avatar.jpg"
       And I am signed in as the confirmed user
 
      When I go to the dashboard page
-     Then I should see "me@shiftplan.de" within the navigation
+     Then I should see "Planner Burns" within the navigation
       And I should see the avatar "rails.png" within the navigation
 
   @fileupload
   Scenario: Avatar and name of the current employee is shown in the navigation when beeing in the scope of an organization
-    Given the employee planner has the avatar "app/assets/images/rails.png"
-      And an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
+    Given the employee "Burns" has the avatar "app/assets/images/rails.png"
+      And an organization "tschernobyl" exists with name: "Tschernobyl"
       And a employee planner "bart" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
-      And the employee planner "bart" has the avatar "features/support/images/barts_avatar.jpg"
+      And the employee "Burns" "bart" has the avatar "features/support/images/barts_avatar.jpg"
       And I am signed in as the confirmed user
       And I am on the dashboard page
 
-     When I follow "Fukushima GmbH"
+     When I follow "Reactor"
      Then I should see the avatar "rails.png" within the navigation
-      And I should see "Homer Simpson" within the navigation
+      And I should see "Planner Burns" within the navigation
 
      When I follow "Dashboard"
-      And I follow "Tschernobyl GmbH"
+      And I follow "Tschernobyl"
      Then I should see the avatar "barts_avatar.jpg" within the navigation
       And I should see "Bart Simpson" within the navigation
 
