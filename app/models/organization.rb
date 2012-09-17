@@ -15,11 +15,15 @@ class Organization < ActiveRecord::Base
   end
 
   def planners
-    employees.where(role: 'planner')
+    account.employees.where(role: 'planner')
   end
 
   def owners
-    employees.where(role: 'owner')
+    account.employees.where(role: 'owner')
+  end
+
+  def employees_plus_owners_and_planners
+    (employees << planners << owners).uniq
   end
 
   def setup

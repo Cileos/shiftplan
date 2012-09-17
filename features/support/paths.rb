@@ -49,6 +49,10 @@ module NavigationHelpers
         raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
       end
 
+    when /^the posts page of #{capture_model}$/
+      blog = model!($1)
+      account_organization_blog_posts_path(blog.organization.account, blog.organization, blog)
+
     when /^the (teams in week|hours in week|teams in day|employees in week) page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       scope, model, params = $1, model!($2), parse_fields($3).symbolize_keys
       raise ArgumentError, "only plans can be scoped as #{scope}" unless model.is_a?(Plan)

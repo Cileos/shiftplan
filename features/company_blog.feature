@@ -58,12 +58,24 @@ In order to keep my colleagues informed about important news
       And I should see "Es wurden noch keine Blogposts erstellt"
 
 
+  Scenario: User visits details view of a post
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And I am signed in as the confirmed user "mr. burns"
+      And I am on the page for the organization "fukushima"
+     Then I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+     When I follow "Mehr"
+      And I should be on the page of the post
+     Then I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+     When I follow "Zurück"
+      And I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+
   Scenario: Creating a blog post without entering a title
     Given I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
-
-     When I follow "Alle Neuigkeiten anzeigen"
-     When I follow "Neuen Blogpost erstellen"
+      And I go to the posts page of the blog
+      When I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Text" with "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I press "Speichern"
@@ -72,9 +84,7 @@ In order to keep my colleagues informed about important news
 
   Scenario: Creating a blog post without entering a text
     Given I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
-
-     When I follow "Alle Neuigkeiten anzeigen"
+      And I go to the posts page of the blog
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
@@ -85,11 +95,7 @@ In order to keep my colleagues informed about important news
   Scenario: Editing a blog post
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
-     When I follow "AKW Fukushima GmbH"
-     Then I should see "Umweltminister zu Besuch"
-      And I should see "Bitte putzen"
-     When I follow "Mehr"
+      And I am on the page of the post
       And I follow "Bearbeiten"
       And I wait for the modal box to appear
      Then the "Titel" field should contain "Umweltminister zu Besuch"
@@ -127,60 +133,26 @@ In order to keep my colleagues informed about important news
      When I dismiss the popup
      Then I should see "Umweltminister zu Besuch"
 
-  Scenario: Employees can only edit their own blog posts
+  Scenario: Employees can only edit and destroy their own blog posts
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And a confirmed user "bart" exists
-      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+      And an employee "bart" exists with first_name: "Bart", account: the account, user: the confirmed user "bart"
+      And a membership exists with organization: the organization, employee: the employee "bart"
       And I am signed in as the confirmed user "bart"
-      And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
-     Then I should see "Umweltminister zu Besuch"
-      And I should see "Bitte putzen"
+      And I am on the page of the post
       But I should not see "Bearbeiten"
-
-  Scenario: Employees can only destroy their own blog posts
-    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
-      And a confirmed user "bart" exists
-      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
-      And I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
-     Then I should see "Umweltminister zu Besuch"
-      And I should see "Bitte putzen"
-      But I should not see "Löschen"
-
-  Scenario: User visits detail view of a post
-    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
-      And I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
-     Then I should see "Umweltminister zu Besuch"
-      And I should see "Bitte putzen"
-     When I follow "Mehr"
-      And I should be on the page of the post
-     Then I should see "Umweltminister zu Besuch"
-      And I should see "Bitte putzen"
-
-     When I follow "Bearbeiten"
-      And I wait for the modal box to appear
-      And I fill in "Titel" with "Besuch des Umweltministers"
-      And I press "Speichern"
-      And I wait for the modal box to disappear
-     Then I should be on the page of the post
-      And I should see "Post erfolgreich geändert"
-      And I should see "Besuch des Umweltministers"
-
-     When I follow "Zurück"
-      And I should see "Besuch des Umweltministers"
-      And I should see "Bitte putzen"
+      And I should not see "Löschen"
 
   Scenario: Commenting blog posts
     # a post of mr. burns
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
 
       And a confirmed user "lisa" exists with email: "lisa@thesimpsons.com"
-      And an employee "lisa" exists with first_name: "Lisa", organization: organization "fukushima", user: the confirmed user "lisa"
+      And an employee "lisa" exists with first_name: "Lisa", account: the account, user: the confirmed user "lisa"
+      And a membership exists with organization: the organization, employee: the employee "lisa"
       And a confirmed user "bart" exists with email: "bart@thesimpsons.com"
-      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+      And an employee "bart" exists with first_name: "Bart", account: the account, user: the confirmed user "bart"
+      And a membership exists with organization: the organization, employee: the employee "bart"
 
       # lisa comments on mr. burns' blog post
       And a clear email queue
@@ -253,8 +225,7 @@ In order to keep my colleagues informed about important news
   Scenario: Deleting comments on posts
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
+      And I am on the page of the post
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
       And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
@@ -279,7 +250,8 @@ In order to keep my colleagues informed about important news
       And I sign out
 
     Given a confirmed user "bart" exists
-      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+      And an employee "bart" exists with first_name: "Bart", account: the account, user: the confirmed user "bart"
+      And a membership exists with organization: the organization, employee: the employee "bart"
       And I am signed in as the confirmed user "bart"
       And I am on the page for the organization "fukushima"
      When I follow "Mehr"
@@ -412,7 +384,8 @@ In order to keep my colleagues informed about important news
   @fileupload
   Scenario: Avatars of authors of posts and comments
     Given a confirmed user "bart" exists
-      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+      And an employee "bart" exists with first_name: "Bart", account: the account, user: the confirmed user "bart"
+      And a membership exists with organization: the organization, employee: the employee "bart"
       And the employee "bart" has the avatar "app/assets/images/rails.png"
       And a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
