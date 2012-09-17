@@ -7,7 +7,6 @@ Feature: create a scheduling
     Given today is 2012-02-13
       And the situation of a nuclear reactor
 
-
   @javascript
   Scenario: just entering time span
      When I follow "Neue Terminierung"
@@ -18,7 +17,6 @@ Feature: create a scheduling
       And I press "Anlegen"
      Then I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi   | Do | Fr | Sa | So |
-        | Planner Burns |    |    |      |    |    |    |    |
         | Carl C        |    |    |      |    |    |    |    |
         | Lenny L       |    |    |      |    |    |    |    |
         | Homer S       |    |    | 9-17 |    |    |    |    |
@@ -37,19 +35,15 @@ Feature: create a scheduling
       And I press "Anlegen"
      Then I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi         | Do | Fr | Sa | So |
-        | Planner Burns |    |    |            |    |    |    |    |
         | Carl C        |    |    |            |    |    |    |    |
         | Lenny L       |    |    |            |    |    |    |    |
         | Homer S       |    |    | 9-17 18-23 |    |    |    |    |
 
-
-  # TODO: currently it is assumend that a user can only have one organization
   @javascript
-  Scenario: can only select employees from same planner (and organization)
-    Given an organization "Jungle" exists
-      And an employee exists with first_name: "Tarzan", organization: organization "Jungle"
-    #  And an organization "Home" exists with planner: the planner
-    #  And an employee exists with first_name: "Bart", organization: organization "Home"
+  Scenario: can only select employees being member of the current organization
+    Given an organization "Jungle" exists with account: the account
+      And an employee "tarzan" exists with first_name: "Tarzan", account: the account
+      And a membership exists with organization: the organization "Jungle", employee: the employee "tarzan"
      When I go to the page of the plan "clean reactor"
      Then I should see "Homer S"
       And I should not see "Tarzan" within the calendar
@@ -57,26 +51,11 @@ Feature: create a scheduling
       And I wait for the new scheduling form to appear
      Then I should not see "Tarzan" within the first form
 
-  # TODO: currently it is assumend that a user can only have one organization
-  @javascript
-  Scenario: can only select employees from same planner (and organization)
-    Given an organization "Jungle" exists
-      And an employee exists with first_name: "Tarzan", organization: organization "Jungle"
-    #  And an organization "Home" exists with planner: the planner
-    #  And an employee exists with first_name: "Bart", organization: organization "Home"
-     When I go to the page of the plan "clean reactor"
-     When I follow "Neue Terminierung"
-     #  But I should not see "Bart"
-      But I should not see "Tarzan" within the first form
-      And I should not see "Tarzan" within the calendar
-
-
   @javascript
   Scenario: just entering time span with javascript
      When I schedule "Homer S" on "Do" for "8-18"
      Then I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi | Do   | Fr | Sa | So |
-        | Planner Burns |    |    |    |      |    |    |    |
         | Carl C        |    |    |    |      |    |    |    |
         | Lenny L       |    |    |    |      |    |    |    |
         | Homer S       |    |    |    | 8-18 |    |    |    |
@@ -91,7 +70,7 @@ Feature: create a scheduling
 
   @javascript
   Scenario: schedule only using the keyboard (Enter, n or a)
-     Then the cell "Mo"/"Planner Burns" should be focus
+     Then the cell "Mo"/"Carl C" should be focus
      When I press return
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "8-18"
@@ -99,16 +78,15 @@ Feature: create a scheduling
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
         | Mitarbeiter   | Mo   | Di | Mi | Do | Fr | Sa | So |
-        | Planner Burns | 8-18 |    |    |    |    |    |    |
-        | Carl C        |      |    |    |    |    |    |    |
+        | Carl C        | 8-18 |    |    |    |    |    |    |
         | Lenny L       |      |    |    |    |    |    |    |
         | Homer S       |      |    |    |    |    |    |    |
-      And the cell "Mo"/"Planner Burns" should be focus
+      And the cell "Mo"/"Carl C" should be focus
 
     # navigate to another cell and press enter again
      When I press arrow down
       And I press arrow right
-     Then the cell "Di"/"Carl C" should be focus
+     Then the cell "Di"/"Lenny L" should be focus
      When I press key "n"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7-17"
@@ -116,16 +94,15 @@ Feature: create a scheduling
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
         | Mitarbeiter   | Mo   | Di   | Mi | Do | Fr | Sa | So |
-        | Planner Burns | 8-18 |      |    |    |    |    |    |
-        | Carl C        |      | 7-17 |    |    |    |    |    |
-        | Lenny L       |      |      |    |    |    |    |    |
+        | Carl C        | 8-18 |      |    |    |    |    |    |
+        | Lenny L       |      | 7-17 |    |    |    |    |    |
         | Homer S       |      |      |    |    |    |    |    |
-      And the cell "Di"/"Carl C" should be focus
+      And the cell "Di"/"Lenny L" should be focus
 
       # navigate further and use the typeahead
      When I press arrow down
       And I press arrow right
-     Then the cell "Mi"/"Lenny L" should be focus
+     Then the cell "Mi"/"Homer S" should be focus
      When I press key "a"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7"
@@ -134,12 +111,11 @@ Feature: create a scheduling
      When I press enter in the "Quickie" field
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
-        | Mitarbeiter   | Mo   | Di   | Mi   | Do | Fr | Sa | So |
-        | Planner Burns | 8-18 |      |      |    |    |    |    |
-        | Carl C        |      | 7-17 |      |    |    |    |    |
-        | Lenny L       |      |      | 7-17 |    |    |    |    |
-        | Homer S       |      |      |      |    |    |    |    |
-      And the scheduling "7-17" should be focus within the cell "Mi"/"Lenny L"
+        | Mitarbeiter  | Mo    | Di    | Mi    | Do  | Fr  | Sa  | So  |
+        | Carl C       | 8-18  |       |       |     |     |     |     |
+        | Lenny L      |       | 7-17  |       |     |     |     |     |
+        | Homer S      |       |       | 7-17  |     |     |     |     |
+      And the scheduling "7-17" should be focus within the cell "Mi"/"Homer S"
 
      When I press arrow right
       And I press arrow left
@@ -148,9 +124,8 @@ Feature: create a scheduling
      When I press enter in the "Quickie" field
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
-        | Mitarbeiter   | Mo   | Di   | Mi       | Do | Fr | Sa | So |
-        | Planner Burns | 8-18 |      |          |    |    |    |    |
-        | Carl C        |      | 7-17 |          |    |    |    |    |
-        | Lenny L       |      |      | 1-3 7-17 |    |    |    |    |
-        | Homer S       |      |      |          |    |    |    |    |
-      And the cell "Mi"/"Lenny L" should be focus
+        | Mitarbeiter  | Mo    | Di    | Mi        | Do  | Fr  | Sa  | So  |
+        | Carl C       | 8-18  |       |           |     |     |     |     |
+        | Lenny L      |       | 7-17  |           |     |     |     |     |
+        | Homer S      |       |       | 1-3 7-17  |     |     |     |     |
+      And the cell "Mi"/"Homer S" should be focus
