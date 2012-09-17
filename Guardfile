@@ -44,6 +44,7 @@ group :test, :halt_on_fail => true do
   end
 
   ENV['CUCUMBER_FORMAT'] = 'fuubar'
+  ENV['CAPYBARA_CHROME'] = 'yes'
 #                                                         V --no-drb skip spork to run simplecov 
   guard 'cucumber', :cli => "--drb --no-source --no-profile --strict --format pretty --format rerun --out rerun.txt", :run_all => { :cli => "--format fuubar" }, :all_on_start => false, :all_after_pass => false do
     watch(%r{^features/.+\.feature$})
