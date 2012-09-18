@@ -1,0 +1,5 @@
+Given an account "cileos" exists with name: "Cileos UG"
+  And an organization "clockwork" exists with name: "Clockwork", account: the account "cileos"
+  And a blog exists with title: "Company Blog", organization: the organization "clockwork"
+  And an employee "burns" exists with first_name: "Charles Montgomery", last_name: "Burns", user: the confirmed user "mr. burns", account: the account "cileos"
+  And a membership exists with organization: the organization "clockwork", employee: the employee "burns"
