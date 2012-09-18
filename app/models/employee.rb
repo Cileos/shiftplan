@@ -3,9 +3,10 @@ class Employee < ActiveRecord::Base
 
   Roles = %w(owner planner)
 
-  attr_accessible :first_name, :last_name, :weekly_working_time, :avatar, :avatar_cache
+  attr_accessible :first_name, :last_name, :weekly_working_time, :avatar, :avatar_cache, :organization_id, :account_id
+  attr_accessor :organization_id
 
-  validates_presence_of :first_name, :last_name
+  validates_presence_of :first_name, :last_name, :account_id
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
   validates_inclusion_of :role, in: Roles, allow_blank: true
 
@@ -17,6 +18,8 @@ class Employee < ActiveRecord::Base
   has_many   :schedulings
   has_many   :organizations, through: :memberships
   has_many   :memberships
+
+  after_create :create_membership
 
   def self.order_by_names
     order('last_name, first_name')
@@ -51,6 +54,14 @@ class Employee < ActiveRecord::Base
   # TODO remove when we want fractioned working time
   def weekly_working_time_before_type_cast
     read_attribute(:weekly_working_time).to_i
+  end
+
+  private
+
+  def create_membership
+    if organization_id
+      memberships.create!(organization_id: organization_id)
+    end
   end
 end
 

@@ -100,7 +100,8 @@ class Ability
       account == organization.account
     end
     can :manage, Employee do |employee|
-      account == employee.account
+      (employee.account.nil? || account == employee.account) &&
+        (employee.organization_id.nil? || account.organizations.map(&:id).include?(employee.organization_id.to_i))
     end
     can :manage, Plan do |plan|
       account == plan.organization.account
