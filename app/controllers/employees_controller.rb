@@ -8,7 +8,7 @@ class EmployeesController < InheritedResources::Base
   end
 
   def update
-    update! { edit_organization_employee_url(current_employee) }
+    update! { edit_account_organization_employee_url(current_account, current_organization, current_employee) }
   end
 
   private
