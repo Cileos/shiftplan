@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     # If the employee is the/an owner of the account then he should be allowed to see/do things
     # in all the organizations of the account. If the user is no owner, then only list
     # organizations for which he has a membership (has many through membership)
-    organizations = employee.owner? ? account.organizations : employee.organizations
+    organizations = employee.owner? || employee.planner? ? account.organizations : employee.organizations
   end
 
   def label
