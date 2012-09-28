@@ -26,6 +26,34 @@
 }
 
 // Real modal styles start here
+.ui-widget-overlay {
+  background: rgba(0,0,0,.75);
+  opacity: 1.0;
+}
+
+.ui-widget {
+  font-family: "proxima-nova",Helvetica,Arial,sans-serif;
+}
+
+.ui-dialog {
+  @include box-shadow(0 0 15px $ci_shadow);
+  @include transition(opacity .5s $ci_easing);
+
+  h3 {
+    padding: 0;
+  }
+
+  .ui-dialog-titlebar {
+    background: none;
+    border: 0;
+    border-bottom: 1px solid $ci_gray;
+  }
+
+  .ui-dialog-content {
+    padding: 1em;
+  }
+}
+
 .modal-overlay {
   @include transition(all .15s $ci_easing);
   @include transform(scale(1.5));
