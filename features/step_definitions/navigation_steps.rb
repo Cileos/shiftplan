@@ -4,7 +4,11 @@ When /^I choose "([^"]*)" from the drop down "([^"]*)"$/ do |item, dropdown|
 end
 
 When /^I open (?:the )?#{capture_quoted} menu$/ do |menu|
-  page.execute_script <<-EOJS
-    $('header li:contains("#{menu}")').addClass('open')
-  EOJS
+  begin
+    page.execute_script <<-EOJS
+      $('header li:contains("#{menu}")').addClass('open')
+    EOJS
+  rescue Capybara::NotSupportedByDriverError => e
+    # in rack server, menu opens you
+  end
 end
