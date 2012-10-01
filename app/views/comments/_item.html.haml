@@ -8,7 +8,7 @@
       method: :delete, remote: true, class: 'utility-button icon-button button-warning', id: 'destroy-comment', confirm: ta(:confirm_destroy_comment))
   = avatar(comment.employee.user, comment.employee, avatar_size, "author")
   - if comment.employee == current_user.current_employee
-    .meta= t(:'blogs.own_meta_data', published_at: l(comment.created_at, format: :tiny))
+    .own-meta= t(:'blogs.own_meta_data', published_at: l(comment.created_at, format: :tiny))
   - else
     .meta= t(:'blogs.meta_data', author: comment.employee.name, published_at: l(comment.created_at, format: :tiny))
   %p= comment.body
