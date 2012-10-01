@@ -45,6 +45,9 @@ module HtmlSelectorsHelpers
     when "the calendar"
       'table#calendar'
 
+    when "the calendar caption"
+      'header.calendar-caption h2'
+
     when "the legend"
       '#legend'
 
