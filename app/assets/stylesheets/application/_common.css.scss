@@ -276,3 +276,7 @@ small {
 .user-settings {
   margin-top: 15px;
 }
+
+.hidden {
+  @include _hidden;
+}
