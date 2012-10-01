@@ -23,6 +23,7 @@ textarea {
 
     border: 1px solid $ci_blue;
     background: lighten($ci_yellow, 47%);
+    color: $ci_text-color;
     outline: none;  // remove grey outline shadow on webkit browsers
   }
 }
