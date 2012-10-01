@@ -67,7 +67,7 @@
 
 .new_comment {
   padding: 20px;
-  background: lighten($ci_lightgray, 7.5%);
+  background: $ci_darkwhite;
 
   textarea {
     @include box-sizing(border-box);
