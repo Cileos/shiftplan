@@ -1,6 +1,7 @@
 @include font-face(FontAwesome, "/assets/fontawesome/font/fontawesome-webfont");
 
 [data-icon] {
+  display: inline-block;
   &:before {
     font-family: FontAwesome;
     content: attr(data-icon);
