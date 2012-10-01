@@ -1,4 +1,6 @@
 @javascript
+@todo
+@wip
 Feature: Typeahead autocompletion for Quickies
   In order to save typing and eleminate typos
   As a Planner

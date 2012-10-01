@@ -89,6 +89,8 @@ Feature: create a scheduling
       And I press "Anlegen"
      Then I should see "Quickie ist nicht gültig" within errors within the new scheduling form
 
+  @wip
+  @todo
   @javascript
   Scenario: schedule only using the keyboard (Enter, n or a)
      Then the cell "Mo"/"Planner Burns" should be focus
