@@ -1,0 +1,13 @@
+de:
+  comments:
+    comments: Kommentare
+    no_comments_present: 'Es wurden noch keine Kommentare erstellt.'
+    add_comment: 'Add a comment'
+  helpers:
+    actions:
+      comments_count:
+        one: '1 Kommentar'
+        other: "%{count} Kommentare"
+      destroy_comment: 'x'
+      confirm_destroy_comment: "Kommentar wirklich löschen"
+  

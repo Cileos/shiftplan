@@ -20,14 +20,6 @@ de:
   helpers:
     actions:
       more: 'Mehr'
-      comments_count:
-        one: '1 Kommentar'
-        other: "%{count} Kommentare"
-      destroy_comment: 'x'
-  comments:
-    comments: Kommentare
-    no_comments_present: 'Es wurden noch keine Kommentare erstellt.'
-    add_comment: 'Add a comment'
   post_notification_mailer:
     new_post:
       subjects:

@@ -11,6 +11,7 @@
       url: organization_blog_post_comments_path(@post.organization, @post.blog, @post), remote: true do |f|
     %h3= t(:'comments.add_comment')
     = f.input :body, input_html: { rows: 4 }
+    -# FIXME security. I am in our Post, commenting as YOU
     = f.input :employee_id, as: :hidden
     %button{type: 'submit'}= ti(:comment)
 

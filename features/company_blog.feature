@@ -247,9 +247,9 @@ In order to keep my colleagues informed about important news
 
   Scenario: Deleting comments on posts
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
-      And a comment exists with commentable: the post, employee: the employee owner "mr. burns"
+      And a comment exists with commentable: the post, employee: the employee owner "mr. burns", body: "Ich backe einen Kuchen für den Umweltminister"
       And I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the comment
+      And I am on the page for the post
      When I press "destroy-comment"
       And I confirm popup
      Then I should not see "Ich backe einen Kuchen für den Umweltminister"
