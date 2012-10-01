@@ -3,7 +3,7 @@
 #modal {
   visibility: hidden;
 
-  .modal-overlay {   
+  .modal-overlay {
     opacity: 0;
   }
 
@@ -12,7 +12,7 @@
 
     .modal-overlay {
       @include transform(scale(1));
-      
+
       opacity: 1;
     }
   }
@@ -31,8 +31,17 @@
   opacity: 1.0;
 }
 
-.ui-widget {
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
   font-family: "proxima-nova",Helvetica,Arial,sans-serif;
+}
+
+.ui-widget input:not(.button),
+.ui-widget select,
+.ui-widget textarea {
+    width: 100%;
 }
 
 .ui-dialog {
@@ -51,6 +60,10 @@
 
   .ui-dialog-content {
     padding: 1em;
+  }
+
+  .actions {
+    text-align: center;
   }
 }
 
@@ -85,7 +98,7 @@
     text-decoration:none;
 
     &:hover {
-      color:#000; 
+      color: #000;
     }
   }
 
