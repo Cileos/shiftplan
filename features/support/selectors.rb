@@ -78,7 +78,7 @@ module HtmlSelectorsHelpers
       "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
 
     when 'a hint'
-      '.help-block'
+      '.hint'
     when 'the pagination'
       '.pagination'
     when 'the posts'
