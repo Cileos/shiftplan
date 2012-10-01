@@ -9,5 +9,5 @@ de:
         one: '1 Kommentar'
         other: "%{count} Kommentare"
       destroy_comment: 'x'
-      confirm_destroy_comment: "Kommentar wirklich löschen"
+      confirm_destroy_comment: "Kommentar wirklich löschen?"
   

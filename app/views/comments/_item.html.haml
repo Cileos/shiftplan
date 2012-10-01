@@ -4,8 +4,7 @@
   - if comment.commentable.is_a?(Scheduling)
     = link_to ti(:reply), '#' + dom_id(comment), class: 'button button-small', 'data-icon' => '&#xf053;'.html_safe
   - if comment.commentable.is_a?(Post) && can?(:destroy, comment)
-    = button_to( i(:destroy), [comment.commentable.blog.organization, comment.commentable.blog, comment.commentable, comment], |
-      method: :delete, remote: true, class: 'utility-button icon-button button-warning', id: 'destroy-comment', confirm: ta(:confirm_destroy_comment))
+    = link_to 'kill it', [comment.commentable.blog.organization, comment.commentable.blog, comment.commentable, comment], method: :delete, remote: true, class: 'utility-button icon-button button-warning', confirm: ta(:confirm_destroy_comment), title: ta(:destroy)
   = avatar(comment.employee.user, comment.employee, avatar_size, "author")
   - if comment.employee == current_user.current_employee
     .own-meta= t(:'blogs.own_meta_data', published_at: l(comment.created_at, format: :tiny))
