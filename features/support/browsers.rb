@@ -2,6 +2,7 @@ module BrowserSupport
 
   Sizes = {
     mobile: { width: 640 + 8, height: 800 + 57 },
+    small:  { width: 990 + 8, height: 800 + 57 },
     big:    { width: 1280 + 8, height: 800 + 57 }
   }
 
@@ -63,12 +64,15 @@ end
 
 World(BrowserSupport::Cucumber)
 
-Before '@javascript','@big_screen' do
-  switch_browser_size(:big)
+Before '@javascript','~@mobile_screen', '~@big_screen' do
+  switch_browser_size(:small)
 end
-Before '@javascript','~@mobile_screen' do
+Before '@javascript','@big_screen' do
   switch_browser_size(:big)
 end
 Before '@javascript','@mobile_screen' do
   switch_browser_size(:mobile)
+end
+Before '@javascript','@small_screen' do
+  switch_browser_size(:small)
 end
