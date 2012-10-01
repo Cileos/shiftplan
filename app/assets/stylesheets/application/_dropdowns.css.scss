@@ -24,7 +24,7 @@ nav {
     font-size: .8em;
   }
 
-  &:hover > ul {
+  &:hover > ul, &.open > ul {
     display: block;
   }
 
