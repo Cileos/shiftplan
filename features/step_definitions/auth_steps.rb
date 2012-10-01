@@ -26,6 +26,11 @@ When /^I sign in$/ do
 end
 
 When /^I sign out$/ do
+  name = nil
+  with_scope 'the user navigation' do
+    name = page.first( '.name' ).text
+  end
+  step %~I open "#{name}" menu~
   step %~I follow "Ausloggen"~
   step %~I should see "Erfolgreich ausgeloggt."~
 end
