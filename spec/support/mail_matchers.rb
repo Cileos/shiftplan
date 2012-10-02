@@ -28,7 +28,7 @@ RSpec::Matchers.define :have_received_mails do |count|
       if @body.present?
         m << " with body including #{@body.inspect}"
       end
-      m << "\nreceived_mails:\n#{all_mails(address).map {|m| dump_mail(m) }.join("\n\n")}"
+      m << "\nreceived_mails:\n#{all_mails(address).map {|m| dump_mail(m) }.join("\n\n\n")}"
     end
   end
 end
@@ -54,7 +54,7 @@ module NotificationMatcher
   end
 
   def dump_mail(mail)
-    "#{mail.from.inspect} => #{mail.to.inspect} `#{mail.subject}`\n#{mail.body}"
+    "From: #{mail.from.inspect}\nTo: #{mail.to.inspect}\nSubject: #{mail.subject}\n\n#{mail.body}"
   end
 
   def resolve_email_address(address)
