@@ -7,6 +7,8 @@ RSpec::Matchers.define :have_received_mails do |count|
     end
   end
   match do |address|
+    address = address.user if address.respond_to?(:user) # can throw an employee in here
+    address = address.email if address.respond_to?(:email) # can throw a user in here
     mails = all_mails(address)
     if @subject.present?
       mails = mails.select {|m| m.subject == @subject }
@@ -14,7 +16,7 @@ RSpec::Matchers.define :have_received_mails do |count|
     if @body.present?
       mails = mails.select {|m| m.body.include? @body }
     end
-    @count = mails.count
+    @count = mails.count || 1
     @count == count
   end
 
@@ -47,4 +49,12 @@ RSpec::Matchers.define :have_received_no_mail do
     ActionMailer::Base.deliveries.select { |mail| mail.to == [address] }.empty?
   end
 end
+
+module NotificationMatcher
+  def have_been_notified(*a)
+    have_received_mails(1)
+  end
+end
+
+RSpec::Matchers.send :include, NotificationMatcher
 
