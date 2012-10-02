@@ -9,23 +9,28 @@ describe SchedulingNotificationMailer do
     ActionMailer::Base.deliveries.clear
   end
 
-  before :each do
-    @organization =                     create :organization
+  let(:account) { create :account }
+  let(:organization) { create :organization, account: account }
 
+  before :each do
     @user_owner =                       create :user, email: 'owner@shiftplan.local'
     @user_owner_2 =                     create :user, email: 'owner_2@shiftplan.local'
     @user_planner =                     create :user, email: 'planner@shiftplan.local'
     @user_employee_homer =              create :user, email: 'homer.simpson@shiftplan.local'
     @user_employee_bart =               create :user, email: 'bart.simpson@shiftplan.local'
 
-    @employee_owner =                   create :employee_owner, organizations: [@organization], user: @user_owner, first_name: 'Owner'
-    @employee_owner_2 =                 create :employee_owner, organizations: [@organization], user: @user_owner_2, first_name: 'Owner 2'
-    @employee_planner =                 create :employee_planner, organizations: [@organization], user: @user_planner, first_name: 'Planner'
-    @employee_homer =                   create :employee, organizations: [@organization], user: @user_employee_homer, first_name: 'Homer'
-    @employee_bart =                    create :employee, organizations: [@organization], user: @user_employee_bart, first_name: 'Bart'
-    @employee_lisa_without_user =       create :employee, organizations: [@organization], first_name: 'Lisa'
+    @employee_owner =                   create :employee_owner, account: account, user: @user_owner, first_name: 'Owner'
+    @employee_owner_2 =                 create :employee_owner, account: account, user: @user_owner_2, first_name: 'Owner 2'
+    @employee_planner =                 create :employee_planner, account: account, user: @user_planner, first_name: 'Planner'
+    @employee_homer =                   create :employee, account: account, user: @user_employee_homer, first_name: 'Homer'
+    @employee_bart =                    create :employee, account: account, user: @user_employee_bart, first_name: 'Bart'
+    @employee_lisa_without_user =       create :employee, account: account, first_name: 'Lisa'
 
-    @plan =                             create :plan, organization: @organization, name: 'AKW Springfield'
+    [@employee_homer, @employee_bart, @employee_lisa_without_user].each do |employee|
+      create :membership, employee: employee, organization: organization
+    end
+
+    @plan =                             create :plan, organization: organization, name: 'AKW Springfield'
     @scheduling_for_homer =             create :scheduling, quickie: '3-5 Reaktor putzen', starts_at: DateTime.parse('2012-12-21'),
                                           employee: @employee_homer, plan: @plan
     @scheduling_for_lisa_without_user = create :scheduling, quickie: '3-5 Reaktor putzen', starts_at: DateTime.parse('2012-12-21'),
