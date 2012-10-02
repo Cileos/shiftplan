@@ -20,7 +20,7 @@ group :test, :halt_on_fail => true do
     watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
     watch('spec/spec_helper.rb')  { "spec" }
     watch(%r{^spec/factories/.+$}) { 'spec' }
-    watch(%r{^factories/+$})       { "spec" }
+    watch(%r{^factories/.+$})       { "spec" }
 
     # Rails example
     watch(%r{^spec/.+_spec\.rb$})
