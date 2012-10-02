@@ -25,6 +25,8 @@ Feature: Comment on Schedulings
       And I comment "Excellent!"
      Then I should see "1" within the comment link within cell "Fr"/"Homer S"
 
+  @todo
+  @wip
   Scenario: employee answers
     Given a scheduling should exist
       And employee "Burns" has commented the scheduling with "Excellent!"

@@ -41,7 +41,7 @@ module ActionHelper
     reinvite:          'user',
     comment:           '&#xf075;',
     comments_count:    'comment',
-    reply:             'chevron-left',
+    reply:             '&#xf053;',
     back:              'arrow-left',
     send_invitation:   'envelope',
     feedback_without_screenshot: 'envelope',

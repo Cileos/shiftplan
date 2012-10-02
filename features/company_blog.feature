@@ -212,7 +212,7 @@ In order to keep my colleagues informed about important news
       And I am signed in as the confirmed user "bart"
       And I am on the page for the organization "fukushima"
      Then I should see "1 Kommentar"
-      And I follow "1 Kommentar"
+     When I follow "1 Kommentar"
      Then I should be on the page of the post
      When I fill in "Kommentar" with "Ich werde einen Blumenstrauß mitbringen"
       And I press "Kommentieren"
