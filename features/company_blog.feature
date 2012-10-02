@@ -212,7 +212,8 @@ In order to keep my colleagues informed about important news
       And I am signed in as the confirmed user "bart"
       And I am on the page for the organization "fukushima"
      Then I should see "1 Kommentar"
-     When I follow "1 Kommentar"
+     # cannot click the comments-count link in cucumber in some browsers because of the :before magic with the data-icon
+     When I follow "Mehr"
      Then I should be on the page of the post
      When I fill in "Kommentar" with "Ich werde einen Blumenstrauß mitbringen"
       And I press "Kommentieren"
