@@ -45,6 +45,7 @@ describe SchedulingNotificationMailer do
     it "should notify planner" do
       @employee_planner.should have_been_notified
         .with_subject(unpersonalized_subject)
+        .with_body(unpersonalized_body)
     end
 
     it "should not notify the authoring owner" do
@@ -54,11 +55,13 @@ describe SchedulingNotificationMailer do
     it "should notify the other owner" do
       @employee_owner_2.should have_been_notified
         .with_subject(unpersonalized_subject)
+        .with_body(unpersonalized_body)
     end
 
     it "should notify the employee of the scheduling" do
       @employee_homer.should have_been_notified
         .with_subject("Owner Simpson hat eine Ihrer Schichten kommentiert")
+        .with_body(personalized_body)
     end
   end
 
@@ -79,12 +82,15 @@ describe SchedulingNotificationMailer do
       # then owner comments on homers scheduling
       comment(@scheduling_for_homer, @employee_owner, 'Homer, denk bitte daran, bei Feierabend die Fenster zu schliessen')
     end
+    let(:unpersonalized_body) { "Owner Simpson hat eine Schicht von Homer Simpson am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) kommentiert, die Sie auch kommentiert haben:" }
+    let(:personalized_body)   { "Owner Simpson hat eine Ihrer Schichten am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) kommentiert:" }
 
     it_should_behave_like 'notifying planner, scheduled employee and other owners'
 
     it "should notify the employee who wrote the first comment" do
       @employee_bart.should have_been_notified
         .with_subject("Owner Simpson hat eine Schicht kommentiert, die Sie auch kommentiert haben")
+        .with_body(personalized_body)
     end
   end
 
@@ -100,15 +106,19 @@ describe SchedulingNotificationMailer do
       # owner answers homer's comment
       comment(@scheduling_for_homer, @employee_owner, 'Homer, denk bitte daran, bei Feierabend die Fenster zu schliessen', parent: homers_comment)
     end
+    let(:unpersonalized_body) { "Owner Simpson hat auf einen Kommentar zu einer Schicht von Homer Simpson am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) geantwortet:" }
+    let(:personalized_body)   { "Owner Simpson hat auf Ihren Kommentar zu einer Ihrer Schichten am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) geantwortet:" }
 
     it "should notify other commenters" do
       @employee_bart.should have_been_notified
         .with_subject("Owner Simpson hat auf einen Kommentar zu einer Schicht geantwortet, die Sie auch kommentiert haben")
+        .with_body(unpersonalized_body)
     end
 
     it "should notify and address scheduled employee" do
       @employee_homer.should have_been_notified
         .with_subject("Owner Simpson hat auf Ihren Kommentar zu einer Ihrer Schichten geantwortet")
+        .with_body(personalized_body)
     end
   end
 
@@ -119,19 +129,25 @@ describe SchedulingNotificationMailer do
       comment(@scheduling_for_homer, @employee_owner, 'Homer, denk bitte daran, bei Feierabend die Fenster zu schliessen', parent: barts_comment)
     end
     let(:unpersonalized_subject) { "Owner Simpson hat auf einen Kommentar zu einer Schicht geantwortet" }
+    let(:unpersonalized_body) { "Owner Simpson hat auf einen Kommentar zu einer Schicht von Homer Simpson am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) geantwortet:" }
+    let(:personalized_body)   { "Owner Simpson hat auf einen Kommentar zu einer Ihrer Schichten am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) geantwortet:" }
 
     it "should notify the bystanding employee" do
       @employee_bart.should have_been_notified
         .with_subject("Owner Simpson hat auf Ihren Kommentar zu einer Schicht geantwortet")
+        .with_body(unpersonalized_body.sub('einen Kommentar', 'Ihren Kommentar'))
     end
 
     it "should notify scheduled employee" do
       @employee_homer.should have_been_notified
         .with_subject("Owner Simpson hat auf einen Kommentar zu einer Ihrer Schichten geantwortet")
+        .with_body(personalized_body)
     end
 
     it "should notify planner" do
-      @employee_planner.should have_been_notified.with_subject(unpersonalized_subject)
+      @employee_planner.should have_been_notified
+        .with_subject(unpersonalized_subject)
+        .with_body(unpersonalized_body)
     end
 
     it "should not notify owner himself" do
@@ -139,93 +155,19 @@ describe SchedulingNotificationMailer do
     end
 
     it "should notify other owner" do
-      @employee_owner_2.should have_been_notified.with_subject(unpersonalized_subject)
+      @employee_owner_2.should have_been_notified
+        .with_subject(unpersonalized_subject)
+        .with_body(unpersonalized_body)
     end
+
   end
 
-
-  describe 'new_comment' do
-
-
-    describe 'recipients' do
-
-      it 'should not try to send a notification to the employee of the scheduling if she has no user/email' do
-        expect {
-          comment(@scheduling_for_lisa_without_user, @employee_owner, 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
-        }.to change(ActionMailer::Base.deliveries, :count).by(2)
-      end
-
+  describe 'owner comments scheduling by employee without an email address' do
+    it "should notify only other owner and planner" do
+     # FIXME brittle
+      expect {
+        comment(@scheduling_for_lisa_without_user, @employee_owner, 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
+      }.to change(ActionMailer::Base.deliveries, :count).by(2)
     end
-
-
-    describe 'body' do
-
-      context "for the second comment on scheduling" do
-        before :each do
-          comment(@scheduling_for_homer, @employee_bart, 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
-        end
-        let(:unpersonalized_body) { "Owner Simpson hat eine Schicht von Homer Simpson am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) kommentiert, die Sie auch kommentiert haben:" }
-        let(:personalized_body)   { "Owner Simpson hat eine Ihrer Schichten am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) kommentiert:" }
-
-        it "should notify author of first comment" do
-          @employee_bart.should have_been_notified.with_body(unpersonalized_body)
-        end
-
-        it "should notify author of scheduling" do
-          @employee_homer.should have_been_notified.with_body(personalized_body)
-        end
-
-        it "should notify planner" do
-          @user_planner.should have_been_notified.with_body(unpersonalized_body)
-        end
-
-        it "should notify owner" do
-          @employee_owner_2.should have_been_notified.with_body(unpersonalized_body)
-        end
-
-      end
-
-      describe "for the answer to a comment on a scheduling" do
-        before :each do
-          comment(@scheduling_for_homer, @employee_bart, 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
-        end
-        let(:unpersonalized_body) { "Owner Simpson hat auf einen Kommentar zu einer Schicht von Homer Simpson am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) geantwortet:" }
-        let(:personalized_body)   { "Owner Simpson hat auf einen Kommentar zu einer Ihrer Schichten am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) geantwortet:" }
-
-        it "should notify author of first comment" do
-          @employee_bart.should have_been_notified.with_body(unpersonalized_body.sub('einen Kommentar', 'Ihren Kommentar'))
-        end
-
-        it "should notify author of scheduling" do
-          @employee_homer.should have_been_notified.with_body(personalized_body)
-        end
-
-        it "should notify planner" do
-          @user_planner.should have_been_notified.with_body(unpersonalized_body)
-        end
-
-        it "should notify owner" do
-          @employee_owner_2.should have_been_notified.with_body(unpersonalized_body)
-        end
-      end
-
-      it 'should always should make clear that it is my own scheduling or that I commented before' do
-        comment(@scheduling_for_homer, @employee_bart, 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
-
-        # homer comments his own shift
-        homers_comment = comment(@scheduling_for_homer, @employee_homer, 'Owner Simpson, bitte stell mir den Besen in die Putzkammer')
-
-        # owner writes answer for homers comment
-        comment(@scheduling_for_homer, @employee_owner, 'Homer, habe ich gerade erledigt.', parent: homers_comment)
-
-        # as bart commented before, he receives a notification
-        'bart.simpson@shiftplan.local'.should have_received_mails(1).with_body("Owner Simpson hat auf einen Kommentar zu einer Schicht von Homer Simpson am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:")
-
-        # it's homer's scheduling that was commented
-        'homer.simpson@shiftplan.local'.should have_received_mails(1).with_body("Owner Simpson hat auf Ihren Kommentar zu einer Ihrer Schichten am Freitag, den 21.12.2012 (3-5 Reaktor putzen [Rp]) geantwortet:")
-      end
-    end
-
   end
 end
-
