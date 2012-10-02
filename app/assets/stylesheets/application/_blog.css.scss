@@ -37,7 +37,7 @@
     padding: 0.5em 0 1.5em;
   }
 
-  .button_to {
+  [data-method="delete"] {
     float: right;
   }
 }
