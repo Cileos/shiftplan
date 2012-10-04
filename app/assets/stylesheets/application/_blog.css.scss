@@ -48,14 +48,18 @@
 
 .comment {
   padding: 10px;
-  border-bottom: 1px solid $ci_gray;
+  border-bottom: 1px solid $ci_lightgray;
 
   &:nth-child(2n) {
-    background: $ci_lightgray;
+    background: $ci_darkwhite;
   }
 
   p:last-child {
     margin-bottom: 0;
+  }
+
+  .meta, .own-meta {
+    color: $ci_gray;
   }
 }
 

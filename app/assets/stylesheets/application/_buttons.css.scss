@@ -40,11 +40,15 @@ button {
     padding-top: .35em;
     padding-bottom: .3em;
   }
+
+  &[data-icon] {
+    padding:.4em .5em .35em;
+  }
 }
 
 .button-green, input[type=submit].button-green,
 .button-success, input[type=submit].button-success {
-  @include button-colors($ci_green, $ci_green_hover);
+  @include button-colors($ci_green, lighten($ci_green, 1%));
 
   &:hover {
     @include box-shadow(0 0 .35em transparentize($ci_green, .2));
