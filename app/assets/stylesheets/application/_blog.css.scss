@@ -4,7 +4,7 @@
   margin: 0;
 }
 
-.post article, .comments {
+.post article, .post .comments {
   padding-left: 64px;
 }
 
@@ -42,40 +42,4 @@
   }
 }
 
-.comments h3 {
-  padding: 0;
-}
 
-.comment {
-  padding: 10px;
-  border-bottom: 1px solid $ci_lightgray;
-
-  &:nth-child(2n) {
-    background: $ci_darkwhite;
-  }
-
-  p:last-child {
-    margin-bottom: 0;
-  }
-
-  .meta, .own-meta {
-    color: $ci_gray;
-  }
-}
-
-.no-comments {
-  padding: 20px 0;
-  color: $ci_gray;
-  text-align: center;
-}
-
-.new_comment {
-  padding: 20px;
-  background: $ci_darkwhite;
-
-  textarea {
-    @include box-sizing(border-box);
-
-    width:100%;
-  }
-}
