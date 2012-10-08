@@ -19,4 +19,6 @@
             %th
               = avatar(employee.user, employee, :tiny)
               = link_to employee.last_and_first_name, edit_profile_employee_path(employee)
-            %td.organization= employee.organization.name
+            %td.organization
+              - employee.organizations.order('name').each do |organization|
+                = organization.name

@@ -2,9 +2,11 @@ Feature: As a user
 I want to edit my profile
 
   Background:
-    Given an organization "fukushima" exists with name: "Fukushima GmbH"
+    Given an account exists
+      And an organization "fukushima" exists with name: "Fukushima GmbH", account: the account
       And a confirmed user exists with email: "marge@thebouviers.com"
-      And an employee exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Marge", last_name: "Bouvier"
+      And an employee exists with user: the confirmed user, first_name: "Marge", last_name: "Bouvier", account: the account
+      And the employee is a member of the organization "fukushima"
 
   Scenario: Editing the lastname on the my profile page
     Given I am signed in as the confirmed user
@@ -36,8 +38,9 @@ I want to edit my profile
       And I should see the avatar "rails.png" within the navigation
 
   Scenario: Editing the fullname on the my profile page when having two employees
-    Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And an employee "margeret" exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Margeret", last_name: "Bouvier"
+    Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH", account: the account
+      And an employee "margeret" exists with user: the confirmed user, first_name: "Margeret", last_name: "Bouvier", account: the account
+      And the employee "margeret" is a member of the organization "tschernobyl"
       And I am signed in as the confirmed user
       And I am on the dashboard page
 
@@ -62,4 +65,13 @@ I want to edit my profile
        | Name              | Organisation     |
        | Bouvier, Marge    | Fukushima GmbH   |
        | Simpson, Margeret | Tschernobyl GmbH |
+
+   Scenario: handle employee beeing member in multiple organizations
+     Given an organization "Tepco" exists with name: "Tepco"
+      And the employee is a member of the organization "Tepco"
+      And I am signed in as the confirmed user
+     When I go to the profile page of my employees
+     Then I should see the following table of employees:
+       | Name           | Organisation          |
+       | Bouvier, Marge | Fukushima GmbH\nTepco |
 
