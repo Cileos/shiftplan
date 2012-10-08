@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
   has_one  :email_change
   has_many :accounts, through: :employees
 
+  has_many :memberships, :through => :employees
+  # organizations the user joined (aka "has a membership in")
+  has_many :joined_organizations, :through => :memberships, source: :organization
+
   # unsure about the naming of this method.. rather call it organizations_for_account ?
   def organizations_for(account)
     # a user only has one employee per account but can have several employees across accounts

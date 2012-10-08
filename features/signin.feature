@@ -3,10 +3,17 @@ Feature: Signing in
   As a visitor
   I want to sign in
 
+  # TODO distinguish between
+  #
+  #   a) a user with one employee beeing member in 2+ organizations belonging to the same account
+  #   a) a user with one employee beeing member in 2+ organizations belonging to different accounts
+
   Background:
-    Given an organization "fukushima" exists with name: "Fukushima GmbH"
+    Given an account exists
+      And an organization "fukushima" exists with name: "Fukushima GmbH", account: the account
       And a confirmed user exists with email: "bart@thesimpsons.com"
-      And an employee exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Bart", last_name: "Simpson"
+      And an employee exists with user: the confirmed user, first_name: "Bart", last_name: "Simpson", account: the account
+      And the employee is a member in the organization "fukushima"
 
   Scenario: User with one employee signing in and signing out successfully
     Given I am on the home page
@@ -23,7 +30,8 @@ Feature: Signing in
 
   Scenario: User with two employees signing in successfully
     Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And an employee exists with user: the confirmed user, organization: the organization "tschernobyl", first_name: "Bart", last_name: "Simpson"
+      And an employee "Bart" exists with user: the confirmed user, first_name: "Bart", last_name: "Simpson"
+      And the employee "Bart" is a member in the organization "tschernobyl"
 
     Given I am on the home page
      When I follow "Einloggen"
