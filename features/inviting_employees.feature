@@ -63,8 +63,7 @@ Feature: Inviting Employees
    # accept invitation again, still being logged in
    When I open the email with subject "Sie wurden zu Shiftplan eingeladen"
     And I follow "Einladung akzeptieren" in the email
-   Then I should be on the dashboard page
-    And I should see "Sie haben diese Einladung bereits akzeptiert."
+   Then I should see "Sie haben diese Einladung bereits akzeptiert."
     And I should not see "Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein."
 
     When I sign out
@@ -77,8 +76,7 @@ Feature: Inviting Employees
 
   Scenario: Accepting an invitation with an invalid invitation token
     When I try to accept an invitation with an invalid token
-    Then I should be on the dashboard
-     And I should see "Der Einladungstoken ist nicht gültig. Ihre Einladung konnte nicht akzeptiert werden."
+    Then I should see "Der Einladungstoken ist nicht gültig. Ihre Einladung konnte nicht akzeptiert werden."
 
   Scenario: Accepting an invitation by providing an invalid password confirmation
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
