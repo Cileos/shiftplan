@@ -21,7 +21,7 @@ Feature: Create Employees
         | Vorname           | Carl    |
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30      |
-      And I should see a tiny default gravatar within the new employee form
+      And I should see a thumb default gravatar within the new employee form
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
       And I wait for the modal box to disappear
@@ -48,7 +48,7 @@ Feature: Create Employees
       And I wait for the modal box to appear
      Then the "Wochenarbeitszeit" field should contain "40"
       And I fill in "Nachname" with "Carlson"
-      And I should see a tiny default gravatar within the new employee form
+      And I should see a thumb default gravatar within the new employee form
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
      Then I should see "Vorname muss ausgefüllt werden"
