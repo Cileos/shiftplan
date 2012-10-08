@@ -5,12 +5,15 @@ Feature: Dashboard
 
   Scenario: Dashboard page with multiple organizations
     Given a confirmed user "homer" exists with email: "homer@thesimpsons.de"
+      And an account exists
       # week 49
       And today is 2012-12-04
 
-      And the situation of an atomic power plant fukushima
-
       And the situation of an atomic power plant tschernobyl
+
+      And an organization "fukushima" exists with name: "AKW Fukushima GmbH", account: the account
+      And the employee "Homer" is a member of the organization "fukushima"
+      And a plan "reaktor putzen" exists with organization: organization "fukushima", name: "Reaktor putzen in Fukushima"
 
      And I am signed in as the user "homer"
     When I go to the dashboard

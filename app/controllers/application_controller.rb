@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   authentication_required
-  before_filter :set_current_employee, if: :user_signed_in?
   before_filter :set_current_account, if: :user_signed_in?
+  before_filter :set_current_employee, if: :user_signed_in?
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.debug('Access denied')
@@ -49,9 +49,10 @@ class ApplicationController < ActionController::Base
     if current_account?
       current_user.current_employee = current_user.employees.find_by_account_id!(current_account.id)
     else
-      first_owner = current_user.employees.owners.first
-      current_user.current_employee = first_owner
-      @current_account = first_owner.account
+      if first_owner = current_user.employees.owners.first
+        current_user.current_employee = first_owner
+        @current_account = first_owner.account
+      end
     end
   end
 
