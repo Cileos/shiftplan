@@ -30,6 +30,14 @@ module NavigationHelpers
     when /^the profile page of my employees$/
       profile_employees_path
 
+    # the page for teams of the organization "Reactor"
+    when /^the page for (\w+) of #{capture_model}$/
+      sub = $1
+      case model = model!($2)
+      when Organization
+        polymorphic_path [model.account, model, sub]
+      end
+
     when /^the page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       params = parse_fields($2).symbolize_keys
       case model = model!($1)

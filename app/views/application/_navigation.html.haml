@@ -1,5 +1,5 @@
 %ul.nav
-  - if current_user
+  - if user_signed_in?
     = li_link '.dashboard', dashboard_path, can: [:dashboard, current_user]
     - if current_organization?
       = li_link "#{current_organization.name} >>", account_organization_path(current_account, current_organization), can: [:read, current_organization]
