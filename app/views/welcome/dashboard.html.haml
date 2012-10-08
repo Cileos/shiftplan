@@ -13,7 +13,7 @@
               = render 'plans/list', plans: organization.plans
               - if organization.company_blog.present?
                 = render('posts/posts', posts: organization.company_blog.posts.order('published_at desc').limit(2))
-  - if can? :create, Organization
+  - if can? :create, Organization.new(account: current_account)
     = link_to ti(:new_organization), new_account_organization_path(current_account), class: 'btn'
 
 

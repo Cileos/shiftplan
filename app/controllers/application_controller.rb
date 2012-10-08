@@ -46,8 +46,12 @@ class ApplicationController < ActionController::Base
   def organization_param; params[:organization_id] end
 
   def set_current_employee
-    if params[:account_id]
-      current_user.current_employee = current_user.employees.find_by_account_id!(params[:account_id])
+    if current_account?
+      current_user.current_employee = current_user.employees.find_by_account_id!(current_account.id)
+    else
+      first_owner = current_user.employees.owners.first
+      current_user.current_employee = first_owner
+      @current_account = first_owner.account
     end
   end
 

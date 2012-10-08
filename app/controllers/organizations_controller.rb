@@ -1,4 +1,5 @@
 class OrganizationsController < InheritedResources::Base
+  belongs_to :account
   load_and_authorize_resource
 
   def create
@@ -7,13 +8,7 @@ class OrganizationsController < InheritedResources::Base
 
   protected
 
-  def organization_param; params[:id] end
-
   def interpolation_options
     { organization: resource.name }
-  end
-
-  def build_resource
-    @organization ||= current_user.owned_account.organizations.build( resource_params.first )
   end
 end

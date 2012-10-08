@@ -33,6 +33,8 @@ class Employee < ActiveRecord::Base
     define_method :"#{given_role}?" do
       role?(given_role)
     end
+
+    scope given_role.pluralize.to_sym, where(role: given_role)
   end
 
   def active?

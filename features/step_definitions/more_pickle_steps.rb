@@ -11,3 +11,11 @@ Given /^#{capture_model} is one of #{capture_model}'s (\w+)/ do |subject, owner,
   owner   = model!(owner)
   owner.send(association) << subject
 end
+
+# Given the employee "Homer" is a member in the organization "Simpson Family"
+Given /^#{capture_model} is a member (?:of|in) #{capture_model}$/ do |employee, organization|
+  employee = model! employee
+  organization = model! organization
+
+  Membership.create! employee: employee, organization: organization
+end

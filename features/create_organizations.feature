@@ -4,11 +4,13 @@ Feature: create organizations
   I want to create another organization belonging to the same account
 
   Background:
-    Given an organization exists with name: "Reactor Springfield"
+    Given an account exists
+    Given an organization "Springfield" exists with name: "Reactor Springfield", account: the account
       And a confirmed user "Burns" exists with email: "burns@shiftplan.local"
-      And an employee exists with organization: the organization, user: the confirmed user, role: "owner"
-      # the account will be created on first visit of dashboard
-      And 0 accounts should exist
+      And an employee owner exists with user: the confirmed user, account: the account
+      And the employee is a member in the organization "Springfield"
+      # we only deal with exactly one account
+      And 1 accounts should exist
       And I am signed in as the confirmed user "Burns"
 
   Scenario: creating another organization
@@ -22,6 +24,5 @@ Feature: create organizations
        And I should see "Reactor Shelbyville" within the content
 
        And an account should exist
-       And an organization should exist with name: "Reactor Shelbyville"
-       And the account should be the organization's account
-       And the confirmed user should be the account's owner
+       And an organization "Shelbyville" should exist with name: "Reactor Shelbyville"
+       And the account should be the organization "Shelbyville"'s account
