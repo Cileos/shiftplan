@@ -1,4 +1,4 @@
-- raise ArgumentError, "must provide :organization" unless defined?(organization)
+- defined?(organization) or raise(ArgumentError, "must provide :organization")
 - if organization.present?
   - base = [organization.account, organization]
   = li_link "#{organization.name} >>", base, can: [:read, organization]
