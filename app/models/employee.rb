@@ -51,6 +51,13 @@ class Employee < ActiveRecord::Base
     %Q~#{first_name} #{last_name}~
   end
 
+  def name=(new_name)
+    if new_name =~ /^(\w+)\s+(\w.*)$/
+      self.first_name = $1
+      self.last_name = $2.strip
+    end
+  end
+
   def last_and_first_name
     %Q~#{last_name}, #{first_name}~
   end

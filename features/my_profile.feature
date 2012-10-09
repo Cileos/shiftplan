@@ -37,10 +37,8 @@ I want to edit my profile
       And I should see "Profil gespeichert."
       And I should see the avatar "rails.png" within the navigation
 
-  Scenario: Editing the fullname on the my profile page when having two employees
-    Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH", account: the account
-      And an employee "margeret" exists with user: the confirmed user, first_name: "Margeret", last_name: "Bouvier", account: the account
-      And the employee "margeret" is a member of the organization "tschernobyl"
+  Scenario: Edit my full name for one of the accounts I joined
+    Given the confirmed user has joined another account with organization_name: "Tschernobyl GmbH", as: "Margeret Bouvier"
       And I am signed in as the confirmed user
       And I am on the dashboard page
 
@@ -51,11 +49,9 @@ I want to edit my profile
        | Bouvier, Marge    | Fukushima GmbH   |
        | Bouvier, Margeret | Tschernobyl GmbH |
      When I follow "Bouvier, Margeret"
-     Then I should be on the profile page of the employee "margeret"
       # Margeret Bouvier just married Homer Simpson and needs to change her last name
-     When I fill in "Nachname" with "Simpson"
+      And I fill in "Nachname" with "Simpson"
       And I press "Speichern"
-     Then I should be on the profile page of the employee "margeret"
      Then I should see "Profil gespeichert."
       And I should see "Margeret Simpson" within the navigation
 

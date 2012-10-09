@@ -21,29 +21,38 @@ Given /^#{capture_model} is a member (?:of|in) #{capture_model}$/ do |employee, 
 end
 
 # Given the confirmed user "Homer" has joined another account
-Given /^#{capture_model} has joined another account$/ do |user|
+Given /^#{capture_model} has joined another account(?: with #{capture_fields})?$/ do |user, options|
   user = model! user
   user.should be_a(User)
 
+  options = parse_fields(options)
+
   expect(lambda {
     account      = FactoryGirl.create :account
-    organization = FactoryGirl.create :organization, account: account
-    employee     = FactoryGirl.create :employee, user: user, account: account
+    if organization_name = options['organization_name']
+      organization = FactoryGirl.create :organization, account: account, name: organization_name
+    else
+      organization = FactoryGirl.create :organization, account: account
+    end
+    if as = options['as']
+      employee     = FactoryGirl.create :employee, user: user, account: account, name: as
+    else
+      employee     = FactoryGirl.create :employee, user: user, account: account
+    end
     membership   = FactoryGirl.create :membership, employee: employee, organization: organization
   }).to change(Account, :count).by(1)
 end
 
-# Given the confirmed user "Homer" has joined another organization of the account "fukushima"
-Given /^#{capture_model} has joined another organization of #{capture_model}/ do |user, account|
-  user = model! user
-  user.should be_a(User)
+# Given the employee "Homer" has joined another organization of the account "fukushima"
+Given /^#{capture_model} has joined another organization of #{capture_model}$/ do |employee, account|
+  employee = model! employee
+  employee.should be_a(Employee)
 
   account = model! account
   account.should be_an(Account)
 
   expect(lambda {
     organization = FactoryGirl.create :organization, account: account
-    employee     = FactoryGirl.create :employee, user: user, account: account
     membership   = FactoryGirl.create :membership, employee: employee, organization: organization
   }).to change(Account, :count).by(0)
 end
