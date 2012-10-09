@@ -19,7 +19,7 @@ class Employee < ActiveRecord::Base
   has_many   :organizations, through: :memberships
   has_many   :memberships
 
-  validates_presence_of :account_id, :user_id
+  validates_presence_of :account_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
 
   after_create :create_membership
