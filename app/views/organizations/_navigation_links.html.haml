@@ -1,5 +1,5 @@
 - defined?(organization) or raise(ArgumentError, "must provide :organization")
-- if organization.present?
+- if organization.present? and organization.persisted?
   - base = [organization.account, organization]
   = li_link "#{organization.name} >>", base, can: [:read, organization]
   - if (company_blog = organization.company_blog).present?
