@@ -154,9 +154,16 @@ Feature: Navigation
        | Teams                     | false   |
 
   @fileupload
-  Scenario: Homer's avatar is shown in the navigation as he is the first employee of the logged in user having an avatar
-    Given the situation of another account with an employee for user burns
-      And the employee "burns" has the avatar "features/support/images/barts_avatar.jpg"
+  Scenario: avatar is only shown on page of organization, fallback to gravatar
+    Given the user has joined another account with organization_name: "School", as: "Bart S"
+      And a organization "school" should exist with name: "School"
+      And an employee "bart" should exist with first_name: "Bart"
+      And the employee "bart" has the avatar "features/support/images/barts_avatar.jpg"
+
+      And the user has joined another account with organization_name: "Street", as: "El Barto"
+      And a organization "street" should exist with name: "Street"
+      And an employee "elbarto" should exist with first_name: "El", last_name: "Barto"
+      And the employee "elbarto" has the avatar "app/assets/images/rails.png"
 
      When I go to the dashboard page
      # show (default) gravatar for user burns on the dashboard
@@ -167,24 +174,11 @@ Feature: Navigation
      # has been uploaded for the user's employee in organization "Fukushima"
       And I should see a tiny gravatar within the navigation
 
-     When I go to the page of the organization "clockwork"
+     When I go to the page of the organization "school"
      Then I should see the avatar "barts_avatar.jpg" within the navigation
 
-  @fileupload
-  Scenario: Avatar of the current employee is shown in the navigation when beeing in the scope of an organization
-    Given the situation of another account with an employee for user burns
-      And the employee "mr. burns" has the avatar "app/assets/images/rails.png"
-      And the employee "burns" has the avatar "features/support/images/barts_avatar.jpg"
-
-     When I go to the dashboard page
-     # show (default) gravatar for user burns on the dashboard
-      And I should see a tiny gravatar within the navigation
-
-     When I go to the page of the organization "Fukushima"
+     When I go to the page of the organization "street"
      Then I should see the avatar "rails.png" within the navigation
-
-     When I go to the page of the organization "clockwork"
-     Then I should see the avatar "barts_avatar.jpg" within the navigation
 
   @javascript
   Scenario: (Default) gravatar for the user's email is shown in the navigation if no other avatar has been uploaded
