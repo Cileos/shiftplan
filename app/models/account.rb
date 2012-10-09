@@ -7,6 +7,7 @@ class Account < ActiveRecord::Base
     owners.planners
   end
 
+  # WTF should these not be included in and  access employees?
   def self.owners
     where(:role => 'planner')
   end

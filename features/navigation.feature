@@ -174,7 +174,7 @@ Feature: Navigation
      # show (default) gravatar for user burns on the dashboard
       And I should see a tiny gravatar within the navigation
 
-     When I follow "Fukushima"
+     When I go to the page of the organization "Fukushima"
      Then I should see the avatar "rails.png" within the navigation
 
      When I go to the page of the organization "clockwork"

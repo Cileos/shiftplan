@@ -84,7 +84,7 @@ Feature: Authorization
       And the situation of what a planner can do
 
   Scenario: owner
-      And I am signed in as the confirmed user "mr. burns"
+      Given I am signed in as the confirmed user "mr. burns"
 
     # an owner can do everything a planner can do and maybe more some time
-      And the situation of what a planner can do
+      Then the situation of what a planner can do
