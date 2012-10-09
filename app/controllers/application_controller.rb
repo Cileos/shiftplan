@@ -84,13 +84,19 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_plan_mode
 
+  # TODO test
   def dynamic_dashboard_path
     # Maybe make dynamic again later.  E.g., if a user just has one account, we
     # might want to show him a "only one account" optimized dashboard.
-    #
-    # At the moment a user who logs in is always redirected to the dashboard
-    # where all accounts and organizations the user is allowed to see are
-    # listed.
-    dashboard_path
+    if user_signed_in?
+      if current_user.joined_organizations.count == 1
+        first = current_user.joined_organizations.first
+        [first.account, first]
+      else
+        dashboard_path
+      end
+    else
+      root_path
+    end
   end
 end
