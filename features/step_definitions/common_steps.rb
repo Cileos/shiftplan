@@ -48,5 +48,6 @@ def process_situation_steps(s, file, index)
     step(out = s.first.lstrip.sub(/^\w+\s+/,''))
   end
 rescue Exception => e
-  raise "#{e}\n#{file}:#{index}\n #{out}"
+  clean_backtrace = Rails.backtrace_cleaner.clean(e.backtrace).join("\n")
+  raise "#{e}\n#{clean_backtrace}\n#{file}:#{index}\n #{out}"
 end
