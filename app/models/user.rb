@@ -30,11 +30,15 @@ class User < ActiveRecord::Base
   # unsure about the naming of this method.. rather call it organizations_for_account ?
   def organizations_for(account)
     # a user only has one employee per account but can have several employees across accounts
-    employee = employees.find_by_account_id(account.id)
+    employee = employee_for_account(account)
     # If the employee is the/an owner of the account then he should be allowed to see/do things
     # in all the organizations of the account. If the user is no owner, then only list
     # organizations for which he has a membership (has many through membership)
-    organizations = employee.owner? || employee.planner? ? account.organizations : employee.organizations
+    employee.owner? || employee.planner? ? account.organizations : employee.organizations
+  end
+
+  def employee_for_account(account)
+    employees.find_by_account_id!(account.id)
   end
 
   def label

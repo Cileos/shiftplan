@@ -22,15 +22,18 @@ module Volksplaner::Currents
   # Account
   ######################################################################
 
-  # TODO load dynamically
-  def set_current_account
+  def find_current_account
     if params[:account_id]
-      @current_account ||= Account.find(params[:account_id])
+      Account.find(params[:account_id])
+    else
+      if current_user.accounts.count == 1
+        current_user.accounts.first
+      end
     end
   end
 
   def current_account
-    @current_account
+    @current_account ||= find_current_account
   end
 
   def current_account?
@@ -41,14 +44,19 @@ module Volksplaner::Currents
   # Organization
   ######################################################################
 
-  def organization_param
-    params[:organization_id]
+  def find_current_organization
+    if current_account?
+      possibilities = current_user.organizations_for(current_account)
+      if params[:organization_id]
+        possibilities.find(params[:organization_id])
+      elsif possibilities.count == 1
+        possibilities.first
+      end
+    end
   end
 
   def current_organization
-    if organization_param
-      @current_organization ||= Organization.find(organization_param)
-    end
+    @current_organization ||= find_current_organization
   end
 
   def current_organization?
@@ -61,19 +69,19 @@ module Volksplaner::Currents
   ######################################################################
 
   # TODO load dynamically
-  def set_current_employee
+  def find_current_employee
     if current_account?
-      current_user.current_employee = current_user.employees.find_by_account_id!(current_account.id)
-    else
-      if first_owner = current_user.employees.owners.first
-        current_user.current_employee = first_owner
-        @current_account = first_owner.account
-      end
+      current_user.current_employee = current_user.employee_for_account(current_account)
     end
   end
 
   def current_employee
-    current_user.try :current_employee
+    @current_employee if defined?(@current_employee)
+    current_user.current_employee = @current_employee = find_current_employee
+  end
+
+  def current_employee?
+    current_employee.present?
   end
 
   ######################################################################

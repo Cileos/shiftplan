@@ -19,6 +19,8 @@ class Employee < ActiveRecord::Base
   has_many   :organizations, through: :memberships
   has_many   :memberships
 
+  validates_uniqueness_of :account_id, scope: :user_id
+
   after_create :create_membership
 
   def self.order_by_names
