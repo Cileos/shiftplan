@@ -57,8 +57,9 @@ class User < ActiveRecord::Base
     employees.order(:created_at).detect { |employee| employee.avatar? }
   end
 
-  def has_multiple_employees?
-    employees.count > 1
+  # Works at multiple organizations or accounts
+  def is_multiple?
+    employees.count > 1 || memberships.count > 1
   end
 
   def confirming_email_change?
@@ -66,7 +67,7 @@ class User < ActiveRecord::Base
   end
 
   def name_or_email
-    if has_multiple_employees?
+    if is_multiple?
       email
     else
       employees.first.name

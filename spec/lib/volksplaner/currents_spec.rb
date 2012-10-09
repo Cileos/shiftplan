@@ -155,6 +155,7 @@ describe Volksplaner::Currents do
         let(:other_membership)   { create :membership, employee: employee, organization: other_organization }
         before(:each)            { other_membership.should be_persisted }
 
+        it_should_behave_like 'ambiguous employee'
         it_should_behave_like 'ambiguous organization'
       end
 

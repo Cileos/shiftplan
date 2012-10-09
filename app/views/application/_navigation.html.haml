@@ -3,7 +3,7 @@
     = li_link '.dashboard', dashboard_path, can: [:dashboard, current_user]
     - if organization = @organization || current_organization
       = render 'organizations/navigation_links', organization: organization
-    - elsif !current_user.has_multiple_employees?
+    - elsif !current_user.is_multiple?
       -# TODO: change me here after datamodel changed
       - organization = current_user.employees.first.organizations.first
       = li_link "#{organization.name} >>", [current_account, organization] if organization and current_account

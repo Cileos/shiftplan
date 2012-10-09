@@ -5,7 +5,7 @@
         = render 'avatar_and_name'
         %b.caret
       %ul.dropdown-menu
-        - if current_user.has_multiple_employees?
+        - if current_user.is_multiple?
           %li= link_to :settings, profile_employees_path
         - else
           %li= link_to :settings, edit_profile_employee_path(current_user.employees.first)
