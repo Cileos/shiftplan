@@ -35,8 +35,11 @@ class ApplicationController < ActionController::Base
     # might want to show him a "only one account" optimized dashboard.
     if user_signed_in?
       if not current_user.is_multiple?
-        first = current_user.joined_organizations.first
-        [first.account, first]
+        if first = current_user.joined_organizations.first
+          [first.account, first]
+        else # has one account, but no membership
+          dashboard_path
+        end
       else
         dashboard_path
       end

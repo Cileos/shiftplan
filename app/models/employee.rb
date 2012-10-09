@@ -6,7 +6,7 @@ class Employee < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :weekly_working_time, :avatar, :avatar_cache, :organization_id, :account_id
   attr_accessor :organization_id
 
-  validates_presence_of :first_name, :last_name, :account_id
+  validates_presence_of :first_name, :last_name
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
   validates_inclusion_of :role, in: Roles, allow_blank: true
 
@@ -19,6 +19,7 @@ class Employee < ActiveRecord::Base
   has_many   :organizations, through: :memberships
   has_many   :memberships
 
+  validates_presence_of :account_id, :user_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
 
   after_create :create_membership

@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
 
   # Works at multiple organizations or accounts
   def is_multiple?
-    employees.count > 1 || memberships.count > 1
+    joined_organizations.count > 1
   end
 
   def confirming_email_change?
