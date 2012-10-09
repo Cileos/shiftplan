@@ -1,21 +1,7 @@
 %ul.nav
   - if user_signed_in?
     = li_link '.dashboard', dashboard_path, can: [:dashboard, current_user]
-    - if current_organization?
-      = li_link "#{current_organization.name} >>", account_organization_path(current_organization.account, current_organization), can: [:read, current_organization]
-      - if (company_blog = current_organization.company_blog).present?
-        = li_link '.news', account_organization_blog_posts_path(current_organization.account, current_organization, company_blog), can: [:read, current_organization]
-      - active_or_not = dropdown_class(account_organization_plans_path(current_organization.account, current_organization))
-      %li{class: "dropdown #{active_or_not}"}
-        %a.dropdown-toggle{href: '#', 'data-toggle' => 'dropdown'}
-          %span{class: "name #{active_or_not}"}= t(:'helpers.actions.plans')
-          %b.caret
-        %ul.dropdown-menu
-          %li= link_to :all_plans, [current_organization.account, current_organization, :plans]
-          - current_organization.plans.each do |plan|
-            %li= link_to plan.name, [current_organization.account, current_organization, plan]
-      = li_link '.employees', account_organization_employees_path(current_organization.account, current_organization), can: [:show, Employee]
-      = li_link '.teams',     account_organization_teams_path(current_organization.account, current_organization),     can: [:show, Team]
+    = render 'organizations/navigation_links', organization: @organization || current_organization
     - elsif !current_user.has_multiple_employees?
       -# TODO: change me here after datamodel changed
       - organization = current_user.employees.first.organizations.first
