@@ -5,7 +5,7 @@ Feature: As a logged in user
     Given an account exists with name: "Tepco GmbH"
       And an organization "fukushima" exists with name: "Fukushima", account: the account
       And a confirmed user exists with email: "marge@thebouviers.com"
-      And an employee exists with user: the confirmed user, first_name: "Marge", last_name: "Bouvier"
+      And an employee exists with user: the confirmed user, first_name: "Marge", last_name: "Bouvier", account: the account
       And a membership exists with organization: the organization, employee: the employee
       And I am signed in as the confirmed user
       And I am on my dashboard
@@ -30,7 +30,6 @@ Feature: As a logged in user
      When I fill in "Aktuelles Passwort" with "secret"
       And I press "Bestätigen"
      Then I should be signed in as "Marge Bouvier"
-      And I should be on the dashboard page
       And I should see "Sie haben Ihre E-Mail Adresse erfolgreich geändert."
       And I should see "Bitte loggen Sie sich zukünftig mit der E-Mail Adresse marge@thesimpsons.com bei uns ein."
 
@@ -87,8 +86,7 @@ Feature: As a logged in user
 
       # logged in user reconfirms
      When I click the first link in the email
-     Then I should be on the dashboard page
-      And I should see "Sie haben die Änderung Ihrer E-Mail Adresse bereits bestätigt."
+     Then I should see "Sie haben die Änderung Ihrer E-Mail Adresse bereits bestätigt."
 
   Scenario: Logged out user reconfirms an email change
     Given an email change exists with user: the confirmed user, email: "marge@thesimpsons.com"
