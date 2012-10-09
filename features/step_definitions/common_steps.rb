@@ -28,18 +28,22 @@ Given /^the situation of ([\w ]+)$/ do |situation|
         last << line
         next
       else
-        begin
-          if last.lines.count > 1
-            steps last
-          else
-            step last.lstrip.sub(/^\w+\s+/,'').chomp
-          end
-        rescue Exception => e
-          raise "#{e}\n#{file}:#{index}\n #{last}"
-        end
+        process_situation_steps last, file, index
       end
     end
     last = nil
     last = line unless line.blank?
   end
+  process_situation_steps last, file, 'last'
+end
+
+def process_situation_steps(s, file, index)
+  if s.lines.count > 1
+    steps s
+  else
+    Rails.logger.debug "step: #{s}"
+    step s.lstrip.sub(/^\w+\s+/,'').chomp
+  end
+rescue Exception => e
+  raise "#{e}\n#{file}:#{index}\n #{last}"
 end
