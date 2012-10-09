@@ -1,7 +1,8 @@
 %ul.nav
   - if user_signed_in?
     = li_link '.dashboard', dashboard_path, can: [:dashboard, current_user]
-    = render 'organizations/navigation_links', organization: @organization || current_organization
+    - if organization = @organization || current_organization
+      = render 'organizations/navigation_links', organization: organization
     - elsif !current_user.has_multiple_employees?
       -# TODO: change me here after datamodel changed
       - organization = current_user.employees.first.organizations.first
