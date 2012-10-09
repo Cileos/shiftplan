@@ -8,7 +8,7 @@ Feature: Feedback without Screenshot
     Given the situation of a nuclear reactor
       And a clear email queue
 
-  Scenario: Employee sends feedback
+  Scenario: Owner sends feedback
     Given I am on the page of the organization "Reactor"
 
      When I follow "Feedback ohne Bildschirmfoto"
@@ -26,48 +26,46 @@ Feature: Feedback without Screenshot
       And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
-  Scenario: Logged in multiple account user (not yet in the scope of an account) sends feedback without providing a name
-    Given an account "fukushima" exists with name: "Fukushima GmbH"
-      And an organization "kühlungsraum" exists with name: "Kühlungsraum", account: the account "fukushima"
-      And an employee "mr. burns" exists with first_name: "Monty", last_name: "Burns", account: the account "fukushima", user: the confirmed user "Burns"
-      And a membership exists with organization: the organization "kühlungsraum", employee: the employee "mr. burns"
+  Scenario: Signed in multiple account user (not yet in the scope of an account) sends feedback without providing a name
+    Given the confirmed user "Homer" has joined another account
+      And I sign out
+      And I am signed in as confirmed user "Homer"
+      And I am on the home page
+      And I should be on the dashboard page
 
-     When I am on the home page
-      And I follow "Feedback ohne Bildschirmfoto"
+     When I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von burns@shiftplan.local"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von homer@shiftplan.local"
      When I open the email
-     Then I should see the email delivered from "burns@shiftplan.local"
+     Then I should see the email delivered from "homer@shiftplan.local"
       And I should see "Name: " in the email body
-      And I should see "E-Mail: burns@shiftplan.local" in the email body
+      And I should see "E-Mail: homer@shiftplan.local" in the email body
       And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Logged in multiple account user (not yet in the scope of an account) sends feedback with providing a name
-    Given an account "fukushima" exists with name: "Fukushima GmbH"
-      And an organization "kühlungsraum" exists with name: "Kühlungsraum", account: the account "fukushima"
-      And an employee "mr. burns" exists with first_name: "Monty", last_name: "Burns", account: the account "fukushima", user: the confirmed user "Burns"
-      And a membership exists with organization: the organization "kühlungsraum", employee: the employee "mr. burns"
-
-     When I am on the home page
-      And I follow "Feedback ohne Bildschirmfoto"
+    Given the confirmed user "Homer" has joined another account
+      And I sign out
+      And I am signed in as confirmed user "Homer"
+      And I am on the home page
+     When I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
-      And I fill in "Name" with "Charles Montgomery Burns"
+      And I fill in "Name" with "not Mr Burns"
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von Charles Montgomery Burns"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von not Mr Burns"
      When I open the email
-     Then I should see the email delivered from "burns@shiftplan.local"
-      And I should see "Name: Charles Montgomery Burns" in the email body
-      And I should see "E-Mail: burns@shiftplan.local" in the email body
+     Then I should see the email delivered from "homer@shiftplan.local"
+      And I should see "Name: not Mr Burns" in the email body
+      And I should see "E-Mail: homer@shiftplan.local" in the email body
       And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 

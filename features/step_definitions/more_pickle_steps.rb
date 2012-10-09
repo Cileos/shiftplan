@@ -19,3 +19,31 @@ Given /^#{capture_model} is a member (?:of|in) #{capture_model}$/ do |employee, 
 
   Membership.create! employee: employee, organization: organization
 end
+
+# Given the confirmed user "Homer" has joined another account
+Given /^#{capture_model} has joined another account$/ do |user|
+  user = model! user
+  user.should be_a(User)
+
+  expect(lambda {
+    account      = FactoryGirl.create :account
+    organization = FactoryGirl.create :organization, account: account
+    employee     = FactoryGirl.create :employee, user: user, account: account
+    membership   = FactoryGirl.create :membership, employee: employee, organization: organization
+  }).to change(Account, :count).by(1)
+end
+
+# Given the confirmed user "Homer" has joined another organization of the account "fukushima"
+Given /^#{capture_model} has joined another organization of #{capture_model}/ do |user, account|
+  user = model! user
+  user.should be_a(User)
+
+  account = model! account
+  account.should be_an(Account)
+
+  expect(lambda {
+    organization = FactoryGirl.create :organization, account: account
+    employee     = FactoryGirl.create :employee, user: user, account: account
+    membership   = FactoryGirl.create :membership, employee: employee, organization: organization
+  }).to change(Account, :count).by(0)
+end
