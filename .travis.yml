@@ -17,7 +17,7 @@ rvm:
 notifications:
   irc:
     channels:
-      - "irc.freenode.org#shiftplan"
+      - "irc.freenode.org#clockwork"
     # TODO  commit_message is missing in lib/travis/task/irc.rb
     template:
       - "%{repository}#%{build_number} | %{author} | %{branch} %{commit} | %{commit_message} | %{message} | %{build_url}"
