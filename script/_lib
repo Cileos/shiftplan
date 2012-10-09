@@ -31,11 +31,22 @@ function run_suite () {
       bundle exec cucumber --profile ci -t @javascript features
       ;;
     all)
-      run_suite "rspec"
-      run_suite "jasmine"
-      run_suite "cucumber"
-      run_suite "chrome"
-      header "skipping Firefox because travis kills"
-      #run_suite "firefox"
+      # skipping Firefox because travis kills (it)
+      # "firefox"
+      run_suites "rspec" "jasmine" "cucumber" "chrome"
   esac
+}
+
+function run_suites () {
+  ret=$((0))
+
+  exp=2
+  for flavor in "$@"
+  do
+    time run_suite $flavor || ret=$(($ret+$exp))
+    exp=$(($exp*2))
+  done
+
+  header "Done (exit code: $ret)"
+  exit $ret
 }

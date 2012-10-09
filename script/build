@@ -4,17 +4,7 @@
 
 if [ $# -gt 0 ]
 then
-  ret=$((0))
-
-  exp=2
-  for flavor in "$@"
-  do
-    time run_suite $flavor || ret=$(($ret+$exp))
-    exp=$(($exp*2))
-  done
-
-  header "Done (exit code: $ret)"
-  exit $ret
+  run_suites $@
 else
   run_suite "all"
 fi
