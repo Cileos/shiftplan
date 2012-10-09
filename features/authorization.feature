@@ -35,9 +35,9 @@ Feature: Authorization
   Scenario: employee
     Given a confirmed user "employee" exists
       And an employee "employee" exists with user: the confirmed user "employee", first_name: "Homer", account: the account
-      And a membership exists with organization: the organization, employee: the employee "employee"
+      And the employee "employee" is a member in the organization
       And an employee "bart" exists with first_name: "Bart", account: the account
-      And a membership exists with organization: the organization, employee: the employee "bart"
+      And the employee "bart" is a member in the organization
       And I am signed in as the confirmed user "employee"
 
      When I go to the home page
