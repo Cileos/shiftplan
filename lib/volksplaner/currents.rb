@@ -86,6 +86,10 @@ module Volksplaner::Currents
     current_employee.present?
   end
 
+  def prefetch_current_employee
+    current_employee || true
+  end
+
   ######################################################################
   # etc
   ######################################################################

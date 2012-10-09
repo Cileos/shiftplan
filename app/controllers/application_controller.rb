@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   authentication_required
   include Volksplaner::Currents
+  before_filter :prefetch_current_employee, if: :user_signed_in? # to set it on current_user
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.debug('Access denied')
