@@ -44,7 +44,7 @@ Feature: Navigation
        | Dashboard      | false   |
        | Fukushima >>   | true    |
        | Neuigkeiten    | true    |
-       | Pläne          | false   |
+       | Pläne          | true    |
        | Alle Pläne     | false   |
        | Mitarbeiter    | false   |
        | Teams          | false   |
@@ -72,7 +72,7 @@ Feature: Navigation
        | Dashboard      | false   |
        | Fukushima >>   | true    |
        | Neuigkeiten    | false   |
-       | Pläne          | false   |
+       | Pläne          | true    |
        | Alle Pläne     | false   |
        | Mitarbeiter    | true    |
        | Teams          | false   |
@@ -86,7 +86,7 @@ Feature: Navigation
        | Dashboard      | false   |
        | Fukushima >>   | true    |
        | Neuigkeiten    | false   |
-       | Pläne          | false   |
+       | Pläne          | true    |
        | Alle Pläne     | false   |
        | Mitarbeiter    | false   |
        | Teams          | true    |
@@ -104,7 +104,7 @@ Feature: Navigation
   @todo
   @wip
   Scenario: an user beeing an employee for two accounts
-    Given the situation of another account with an employee for user burns
+    Given the user has joined another account with organization_name: "Clockwork", as: "Charles Montgomery Burns"
 
      When I go to the dashboard page
      # The user "owner@burns.com" is not in the scope of an account, yet, when
@@ -130,7 +130,7 @@ Feature: Navigation
        | Dashboard      | false   |
        | Fukushima >>   | true    |
        | Neuigkeiten    | false   |
-       | Pläne          | false   |
+       | Pläne          | true    |
        | Alle Pläne     | false   |
        | Mitarbeiter    | false   |
        | Teams          | false   |
@@ -148,7 +148,7 @@ Feature: Navigation
        | Dashboard                 | false   |
        | Clockwork >>              | true    |
        | Neuigkeiten               | false   |
-       | Pläne                     | false   |
+       | Pläne                     | true    |
        | Alle Pläne                | false   |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
