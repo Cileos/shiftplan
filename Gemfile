@@ -54,7 +54,7 @@ group :test do
   gem 'simplecov', :require => false
   gem 'term-ansicolor' # for ScenarioTodo
 
-  gem 'fuubar-cucumber', git: 'git://github.com/iain/fuubar-cucumber.git', branch: 'cucumber-1-2-api' # the ETA progress bar
+  gem 'fuubar-cucumber'
 
   gem 'diff_matcher'
 end
