@@ -7,3 +7,35 @@ function header () {
     echo
   fi
 }
+
+function run_suite () {
+  case $1 in
+    rspec)
+      header "rSpec"
+      bundle exec rspec --color ./spec
+      ;;
+    jasmine)
+      header "Jasmine"
+      xvfb-run bundle exec guard-jasmine
+      ;;
+    cucumber)
+      header "Cucumber (non-javascript)"
+      bundle exec cucumber --profile ci -t ~@javascript features
+      ;;
+    chrome)
+      header "Cucumber with chrome"
+      CAPYBARA_CHROME=yes bundle exec cucumber --profile ci -t @javascript features
+      ;;
+    firefox)
+      header "Cucumber with firefox"
+      bundle exec cucumber --profile ci -t @javascript features
+      ;;
+    all)
+      run_suite "rspec"
+      run_suite "jasmine"
+      run_suite "cucumber"
+      run_suite "chrome"
+      header "skipping Firefox because travis kills"
+      #run_suite "firefox"
+  esac
+}
