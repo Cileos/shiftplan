@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
     if persisted? and on_signup
       # The account_name is a virtual attribute of the user model and needs to
       # be entered by the registering user in the signup form.
-      Account.create!(:name => account_name) do |account|
+      Account.create!(:name => account_name).tap do |account|
         # The organization_name is a virtual attribute of the user model and needs to
         # be entered by the registering user in the signup form.
         organization = Organization.create!(:name => organization_name, :account => account)
