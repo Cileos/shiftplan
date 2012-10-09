@@ -128,6 +128,15 @@ describe Volksplaner::Currents do
       let(:membership)   { create :membership, employee: employee, organization: organization }
       let(:employee)     { create role, account: account, user: user }
 
+      context "not signed in" do
+        let(:role)  { :employee }
+        before :each do
+          controller.stub(:user_signed_in? => false, current_user: nil)
+        end
+
+        it_should_behave_like 'ambiguous'
+      end
+
       context "owning one account" do
         let(:role)  { :employee_owner }
 

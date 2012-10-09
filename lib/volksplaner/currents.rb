@@ -26,7 +26,7 @@ module Volksplaner::Currents
     if params[:account_id]
       Account.find(params[:account_id])
     else
-      if current_user.accounts.count == 1
+      if user_signed_in? && current_user.accounts.count == 1
         current_user.accounts.first
       end
     end
@@ -76,8 +76,10 @@ module Volksplaner::Currents
   end
 
   def current_employee
-    @current_employee if defined?(@current_employee)
-    current_user.current_employee = @current_employee = find_current_employee
+    if user_signed_in?
+      return @current_employee if defined?(@current_employee)
+      current_user.current_employee = @current_employee = find_current_employee
+    end
   end
 
   def current_employee?
