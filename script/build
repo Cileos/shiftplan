@@ -20,8 +20,9 @@ bundle exec cucumber --profile ci -t ~@javascript features       || ret=$(($ret+
 header "Cucumber with chrome"
 CAPYBARA_CHROME=yes bundle exec cucumber --profile ci -t @javascript features || ret=$(($ret+16))
 
-header "Cucumber with firefox"
-bundle exec cucumber --profile ci -t @javascript features                     || ret=$(($ret+32))
+header "skipping Firefox because travis kills"
+#header "Cucumber with firefox"
+#bundle exec cucumber --profile ci -t @javascript features                     || ret=$(($ret+32))
 
 header "Done (exit code: $ret)"
 exit $ret
