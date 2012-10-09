@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   authentication_required
+  include Volksplaner::Currents
   before_filter :set_current_account, if: :user_signed_in?
   before_filter :set_current_employee, if: :user_signed_in?
 
@@ -27,62 +28,7 @@ class ApplicationController < ActionController::Base
     flash[severity] = t("flash.#{controller}.#{action}.#{key}", opts)
   end
 
-  def set_current_account
-    if params[:account_id]
-      @current_account ||= Account.find(params[:account_id])
-    end
-  end
 
-  def current_account
-    @current_account
-  end
-  helper_method :current_account
-
-  def current_account?
-    current_account.present?
-  end
-  helper_method :current_account?
-
-  def organization_param; params[:organization_id] end
-
-  def set_current_employee
-    if current_account?
-      current_user.current_employee = current_user.employees.find_by_account_id!(current_account.id)
-    else
-      if first_owner = current_user.employees.owners.first
-        current_user.current_employee = first_owner
-        @current_account = first_owner.account
-      end
-    end
-  end
-
-  def current_organization
-    if organization_param
-      @current_organization ||= Organization.find(organization_param)
-    end
-  end
-  helper_method :current_organization
-
-  def current_employee
-    current_user.try :current_employee
-  end
-  helper_method :current_employee
-
-  def current_organization?
-    current_organization.present?
-  end
-  helper_method :current_organization?
-
-  # HACK on every AJAX request, we deliver the mode of the plan in a header, so
-  # the RJS responses can figure out the correct decorators
-  def current_plan_mode
-    if mode = request.headers['HTTP_X_SHIFTPLAN_MODE'] || params['_shiftplan_mode']
-      mode.inquiry
-    else
-      nil
-    end
-  end
-  helper_method :current_plan_mode
 
   # TODO test
   def dynamic_dashboard_path
