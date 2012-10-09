@@ -21,13 +21,25 @@ end
 Given /^the situation of ([\w ]+)$/ do |situation|
   file = situation.downcase.gsub(/\s+/,'_')
   path = Rails.root/"features"/"situations"/"#{file}.steps"
+  last = nil
   File.read(path).lines.each_with_index do |line, index|
-    unless line.blank?
-      begin
-        step line.lstrip.sub(/^\w+\s+/,'').chomp
-      rescue RSpec::Expectations::ExpectationNotMetError => e
-        raise "#{e}\n#{file}:#{index+1} #{line}"
+    unless last.blank?
+      if line.lstrip.starts_with?('|') # a table
+        last << line
+        next
+      else
+        begin
+          if last.lines.count > 1
+            steps last
+          else
+            step last.lstrip.sub(/^\w+\s+/,'').chomp
+          end
+        rescue Exception => e
+          raise "#{e}\n#{file}:#{index}\n #{last}"
+        end
       end
     end
+    last = nil
+    last = line unless line.blank?
   end
 end
