@@ -37,7 +37,7 @@ module EmployeesHelper
   def avatar(user, employee, version)
     html_options = { class: "avatar #{version}" }
     if employee && employee.avatar?
-      image_tag(employee.avatar.send(version).url, html_options)
+      image_tag(employee.avatar.url(version), html_options)
     else
       gravatar(user, version, html_options)
     end
