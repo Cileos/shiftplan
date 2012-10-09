@@ -43,10 +43,10 @@ end
 
 def process_situation_steps(s, file, index)
   if s.size > 1
-    steps s.join("\n")
+    steps(out = s.join("\n"))
   else
-    step s.first.lstrip.sub(/^\w+\s+/,'')
+    step(out = s.first.lstrip.sub(/^\w+\s+/,''))
   end
 rescue Exception => e
-  raise "#{e}\n#{file}:#{index}\n #{s}"
+  raise "#{e}\n#{file}:#{index}\n #{out}"
 end
