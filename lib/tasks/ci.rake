@@ -1,7 +1,10 @@
+unless ARGV.any? {|a| a =~ /^gems/} # Don't load anything when running the gems:* tasks
+
+vendored_cucumber_bin = Dir["#{Rails.root}/vendor/{gems,plugins}/cucumber*/bin/cucumber"].first
+$LOAD_PATH.unshift(File.dirname(vendored_cucumber_bin) + '/../lib') unless vendored_cucumber_bin.nil?
+
 begin
   require 'cucumber/rake/task'
-  vendored_cucumber_bin = Dir["#{Rails.root}/vendor/{gems,plugins}/cucumber*/bin/cucumber"].first
-  $LOAD_PATH.unshift(File.dirname(vendored_cucumber_bin) + '/../lib') unless vendored_cucumber_bin.nil?
   namespace :cucumber do
     Cucumber::Rake::Task.new({:ci_javascripts_only => :'ci:setup:cucumber'}, 'Run all features tagged with @javascript') do |t|
       t.binary = vendored_cucumber_bin # If nil, the gem's binary is used.
@@ -28,3 +31,4 @@ begin
   end
 end
 
+end
