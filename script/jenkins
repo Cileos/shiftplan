@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# here we go
+# here we go go
 export CI=true
 
 # Prerequisites for Ubuntu:
