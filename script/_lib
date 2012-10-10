@@ -89,6 +89,7 @@ test:
   encoding: utf-8
   pool: 5
   database: $DATABASE
+  min_messages: WARNING
 EOYML
   migrate_database
 }
