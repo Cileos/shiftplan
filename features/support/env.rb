@@ -33,12 +33,14 @@ Spork.prefork do
 
 
   require File.dirname(__FILE__) + "/browsers"
-  if ENV['CAPYBARA_CHROME'] == 'yes'
-    STDERR.puts "will run @javascript tests in chrome"
-    BrowserSupport.setup_chrome
-  else
-    STDERR.puts "will run @javascript tests in firefox"
-    BrowserSupport.setup_firefox
+  unless ARGV.include?('~@javascript')
+    if ENV['CAPYBARA_CHROME'] == 'yes'
+      STDERR.puts "will run @javascript tests in chrome"
+      BrowserSupport.setup_chrome
+    else
+      STDERR.puts "will run @javascript tests in firefox"
+      BrowserSupport.setup_firefox
+    end
   end
 
   Capybara.server do |app, port|
