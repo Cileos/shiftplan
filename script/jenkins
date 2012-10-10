@@ -11,7 +11,7 @@ export CI=true
 RUBY='ruby-1.9.3-p194'
 GEMSET='clockwork'
 BRANCH=`git log -1 HEAD --format=format:%h`
-DATABASE="clockwork_test_${BRANCH}"
+DATABASE="clockwork_test_${BRANCH}_$$"
 RAILS_ENV=test
 export RAILS_ENV
 
