@@ -58,7 +58,7 @@ group :test do
 
   gem 'diff_matcher'
 
-  gem 'ci_reporter'
+  gem 'ci_reporter', "~> 1.7.3"
 end
 
 group :development, :test do
