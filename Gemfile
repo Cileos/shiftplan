@@ -57,6 +57,8 @@ group :test do
   gem 'fuubar-cucumber', git: 'git://github.com/iain/fuubar-cucumber.git', branch: 'cucumber-1-2-api' # the ETA progress bar
 
   gem 'diff_matcher'
+
+  gem 'ci_reporter'
 end
 
 group :development, :test do

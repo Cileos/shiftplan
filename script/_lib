@@ -12,7 +12,7 @@ function run_suite () {
   case $1 in
     rspec)
       header "rSpec"
-      bundle exec rspec --color ./spec
+      bundle exec rake spec:ci
       ;;
     jasmine)
       header "Jasmine"
@@ -20,15 +20,15 @@ function run_suite () {
       ;;
     cucumber)
       header "Cucumber (non-javascript)"
-      bundle exec cucumber --profile ci -t ~@javascript features
+      bundle exec rake cucumber:ci_without_javascripts
       ;;
     chrome)
       header "Cucumber with chrome"
-      CAPYBARA_CHROME=yes bundle exec cucumber --profile ci -t @javascript features
+      CAPYBARA_CHROME=yes bundle exec rake cucumber:ci_javascripts_only
       ;;
     firefox)
       header "Cucumber with firefox"
-      bundle exec cucumber --profile ci -t @javascript features
+      CAPYBARA_CHROME=no bundle exec rake cucumber:ci_javascripts_only
       ;;
     all)
       # skipping Firefox because travis kills (it)
