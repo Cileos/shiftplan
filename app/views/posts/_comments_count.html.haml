@@ -1,2 +1,2 @@
 %p.comments-count
-  = link_to ti(:'comments_count', count: post.comments.count, :'non-white' => true), (organization_blog_post_path(post.organization, post.blog, post) + '#comments')
+  = link_to ti(:'comments_count', count: post.comments.count, :'non-white' => true), (account_organization_blog_post_path(current_account, post.organization, post.blog, post) + '#comments')

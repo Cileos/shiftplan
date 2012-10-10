@@ -18,5 +18,5 @@
       .actions
         %button.btn.btn-primary= ti(:update)
 
-    - if current_user.has_multiple_employees?
+    - if current_user.is_multiple?
       = link_to :back, profile_employees_path

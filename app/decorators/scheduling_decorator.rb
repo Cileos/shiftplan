@@ -48,7 +48,8 @@ class SchedulingDecorator < RecordDecorator
   end
 
   def edit_url
-    h.url_for([:edit, scheduling.organization, scheduling.plan, scheduling])
+    organization = scheduling.organization
+    h.url_for([:edit, organization.account, organization, scheduling.plan, scheduling])
   end
 
   def concat(*args)

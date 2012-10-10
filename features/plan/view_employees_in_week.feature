@@ -18,10 +18,9 @@ Feature: View as employees in week (first one)
      Then I should be on the employees in week page for the plan for year: 2012, week: 49
       And I should see the following calendar:
         | Mitarbeiter   | Mo   | Di | Mi | Do | Fr | Sa | So |
-        | Planner Burns |      |    |    |    |    |    |    |
         | Carl C        |      |    |    |    |    |    |    |
         | Lenny L       | 9-17 |    |    |    |    |    |    |
-        | Homer S       |      |    |    |    |    |    |    | 
+        | Homer S       |      |    |    |    |    |    |    |
       And the employee "Homer S" should have a yellow hours/waz value of "0 / 40"
       And the employee "Lenny L" should have a grey hours/waz value of "8"
 
@@ -49,7 +48,6 @@ Feature: View as employees in week (first one)
       And I should see a calendar titled "Cleaning the Reactor - KW 49 03.12.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di    | Mi | Do | Fr |
-        | Planner Burns |    |       |    |    |    |
         | Carl C        |    |       |    |    |    |
         | Lenny L       |    |       |    |    |    |
         | Homer S       |    | 10-16 |    |    |    |
@@ -59,7 +57,6 @@ Feature: View as employees in week (first one)
       And I should see a calendar titled "Cleaning the Reactor - KW 48 26.11.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo   | Di | Mi | Do | Fr |
-        | Planner Burns |      |    |    |    |    |
         | Carl C        |      |    |    |    |    |
         | Lenny L       |      |    |    |    |    |
         | Homer S       | 9-17 |    |    |    |    |
@@ -69,7 +66,6 @@ Feature: View as employees in week (first one)
       And I should see a calendar titled "Cleaning the Reactor - KW 49 03.12.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di    | Mi | Do | Fr |
-        | Planner Burns |    |       |    |    |    |
         | Carl C        |    |       |    |    |    |
         | Lenny L       |    |       |    |    |    |
         | Homer S       |    | 10-16 |    |    |    |
@@ -79,7 +75,6 @@ Feature: View as employees in week (first one)
       And I should see a calendar titled "Cleaning the Reactor - KW 50 10.12.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi    | Do | Fr |
-        | Planner Burns |    |    |       |    |    |
         | Carl C        |    |    |       |    |    |
         | Lenny L       |    |    |       |    |    |
         | Homer S       |    |    | 11-15 |    |    |
@@ -89,7 +84,6 @@ Feature: View as employees in week (first one)
       And I should see a calendar titled "Cleaning the Reactor - KW 51 17.12.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi | Do    | Fr |
-        | Planner Burns |    |    |    |       |    |
         | Carl C        |    |    |    |       |    |
         | Lenny L       |    |    |    |       |    |
         | Homer S       |    |    |    | 12-14 |    |

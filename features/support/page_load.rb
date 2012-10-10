@@ -12,6 +12,10 @@ module PageLoadSupport
         wait_until { page.has_css?('html.loaded') }
       end
     end
+  rescue Selenium::WebDriver::Error::UnhandledAlertError => e
+    unless e.message =~ /An open modal dialog blocked the operation/
+      raise e
+    end
   end
 
 end

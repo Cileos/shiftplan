@@ -3,7 +3,7 @@
   - if current_employee.present?
     %span.name= current_employee.name
   - else
-    - if current_user.has_multiple_employees?
+    - if current_user.is_multiple?
       %span.name= current_user.email
     - else
       %span.name= current_user.employees.first.name

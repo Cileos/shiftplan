@@ -6,6 +6,7 @@ Feature: Authentication
     # week 49
     Given today is 2011-12-04
       And the situation of a just registered user
+      And a plan "reaktor putzen" exists with organization: the organization, name: "Reaktor putzen in Fukushima"
      # redirected to sign in page
      When I go to the page of the plan
      Then I should be on the signin page
