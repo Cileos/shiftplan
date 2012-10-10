@@ -48,7 +48,7 @@ module BrowserSupport
   module Cucumber
     def switch_browser_size(size_name)
       if size = BrowserSupport::Sizes[size_name]
-        STDERR.puts "switching browser to #{size_name}"
+        Rails.debug "switching browser to #{size_name}"
         width, height = size[:width], size[:height]
         page.execute_script("window.resizeTo(#{width}, #{height});")
       else

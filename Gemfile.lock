@@ -106,6 +106,8 @@ GEM
     chromedriver-helper (0.0.3)
       nokogiri
     chunky_png (1.2.5)
+    ci_reporter (1.7.3)
+      builder (>= 2.1.2)
     coderay (1.0.7)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -350,6 +352,7 @@ DEPENDENCIES
   capistrano
   carrierwave
   chromedriver-helper
+  ci_reporter (~> 1.7.3)
   coffee-rails (~> 3.2.2)
   compass-rails
   cucumber-rails (~> 1.2.1)
