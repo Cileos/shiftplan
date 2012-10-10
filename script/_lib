@@ -72,6 +72,10 @@ function setup_ruby () {
   bundle check || bundle install
 }
 
+function migrate_database () {
+  bundle exec rake db:migrate > /dev/null || exit 64
+}
+
 function setup_database () {
   # postgres
   echo "Dropping databases. this should result in errors, so please ignore them"
@@ -85,6 +89,7 @@ test:
   pool: 5
   database: $DATABASE
 EOYML
+  migrate_database
 }
 
 function teardown_database () {
