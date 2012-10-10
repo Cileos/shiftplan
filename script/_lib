@@ -59,3 +59,34 @@ function build () {
   fi
   return $?
 }
+
+function setup_ruby () {
+  test -f "$HOME/.rvm/scripts/rvm" ||
+    curl -L get.rvm.io | bash -s stable || exit 1024
+
+  source "$HOME/.rvm/scripts/rvm" || exit 512
+
+  rvm use $RUBY@$GEMSET --create || ( rvm install $RUBY && rvm use $RUBY@$GEMSET --create) || exit 256
+
+  which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 128
+  bundle check || bundle install
+}
+
+function setup_database () {
+  # postgres
+  echo "Dropping databases. this should result in errors, so please ignore them"
+  dropdb $DATABASE
+  createdb $DATABASE || echo "please run createuser -d -R -S $USER (as user postgres)" || exit 128
+
+  cat > config/database.yml <<-EOYML
+  test:
+    adapter: postgresql
+    encoding: utf-8
+    pool: 5
+    database: $DATABASE
+  EOYML
+}
+
+function teardown_database () {
+  dropdb $DATABASE
+}

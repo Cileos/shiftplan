@@ -2,6 +2,7 @@
 
 # here we go go
 export CI=true
+. script/_lib
 
 # Prerequisites for Ubuntu:
 #  for RVM: build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion
@@ -27,42 +28,21 @@ rvm_install_on_use_flag=1
 EORC
 sort -u -o $rvmrc $rvmrc
 
-echo "--- setting up the test-environment"
 # remove remotely removed branches
 git remote prune origin
 
 # remove files not under versioncontrol
 git clean -fdx
 
-test -f "$HOME/.rvm/scripts/rvm" ||
-  curl -L get.rvm.io | bash -s stable || exit 1024
-
-source "$HOME/.rvm/scripts/rvm" || exit 512
-
-rvm use $RUBY@$GEMSET --create || ( rvm install $RUBY && rvm use $RUBY@$GEMSET --create) || exit 256
-
-which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 128
-
-# postgres
-echo "Dropping databases. this should result in errors, so please ignore them"
-dropdb $DATABASE
-createdb $DATABASE || echo "please run createuser -d -R -S $USER (as user postgres)" || exit 128
-
-cat > config/database.yml <<-EOYML
-test:
-  adapter: postgresql
-  encoding: utf-8
-  pool: 5
-  database: $DATABASE
-EOYML
+setup_ruby
+setup_database
 
 # cp config/application.yml.example config/application.yml
 
-. script/_lib
 build "$@"
 ret=$?
 
-dropdb $DATABASE
+teardown_database
 
 echo "fin. (exit code: $ret)"
 exit $ret
