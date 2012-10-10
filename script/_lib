@@ -12,7 +12,7 @@ function run_suite () {
   case $1 in
     rspec)
       header "rSpec"
-      bundle exec rake spec:ci
+      bundle exec rake --trace  spec:ci
       ;;
     jasmine)
       header "Jasmine"
@@ -20,15 +20,15 @@ function run_suite () {
       ;;
     cucumber)
       header "Cucumber (non-javascript)"
-      bundle exec rake cucumber:ci_without_javascripts
+      bundle exec rake --trace  cucumber:ci_without_javascripts
       ;;
     chrome)
       header "Cucumber with chrome"
-      CAPYBARA_CHROME=yes bundle exec rake cucumber:ci_javascripts_only
+      CAPYBARA_CHROME=yes bundle exec rake --trace  cucumber:ci_javascripts_only
       ;;
     firefox)
       header "Cucumber with firefox"
-      CAPYBARA_CHROME=no bundle exec rake cucumber:ci_javascripts_only
+      CAPYBARA_CHROME=no bundle exec rake --trace  cucumber:ci_javascripts_only
       ;;
     all)
       # skipping Firefox because travis kills (it)
@@ -73,7 +73,7 @@ function setup_ruby () {
 }
 
 function migrate_database () {
-  bundle exec rake db:migrate > /dev/null || exit 64
+  bundle exec rake --trace  db:migrate > /dev/null || exit 64
 }
 
 function setup_database () {
