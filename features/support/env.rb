@@ -2,6 +2,10 @@ ENV["RAILS_ENV"] = "test"
 require 'rubygems'
 require 'spork'
 
+if ENV['CI'].to_s == 'true'
+  require 'ci/reporter/cucumber'
+end
+
 Spork.prefork do
   require File.dirname(__FILE__) + "/../../config/spork_prefork"
 

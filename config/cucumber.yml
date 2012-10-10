@@ -7,5 +7,3 @@ default: <%= std_opts %> features
 wip: --tags @wip:3 --wip features
 rerun: <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags ~@wip
 ci:                     --format Cucumber::Formatter::Progretty --color --tags ~@wip
-ci_javascripts_only:    --format Cucumber::Formatter::Progretty --color --tags ~@wip --tags @javascript
-ci_without_javascripts: --format Cucumber::Formatter::Progretty --color --tags ~@wip --tags ~@javascript
