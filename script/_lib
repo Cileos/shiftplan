@@ -79,12 +79,12 @@ function setup_database () {
   createdb $DATABASE || echo "please run createuser -d -R -S $USER (as user postgres)" || exit 128
 
   cat > config/database.yml <<-EOYML
-  test:
-    adapter: postgresql
-    encoding: utf-8
-    pool: 5
-    database: $DATABASE
-  EOYML
+test:
+  adapter: postgresql
+  encoding: utf-8
+  pool: 5
+  database: $DATABASE
+EOYML
 }
 
 function teardown_database () {
