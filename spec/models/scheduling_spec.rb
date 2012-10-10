@@ -327,14 +327,29 @@ describe Scheduling do
   end
 
   context "with a deeply nested comments" do
-    it "should be destroyable"
-    # currently tries to fetch comments which are already deleted. Almost minimal version:
+    let(:scheduling) { create :scheduling }
+    let(:employee)   { create :employee } # just talking to himself
+
+    def create_comment(attrs={})
+      Comment.build_from(scheduling, employee, attrs).tap(&:save!)
+    end
+    before do
+      c1   = create_comment body: "One"
+      c2   = create_comment body: "Two"
+      c21  = create_comment body: "Two-one", parent: c2
+      c211 = create_comment body: "Two-one-one", parent: c21
+      c3   = create_comment body: "Three"
+    end
+    # acts_as_commentable_with_threading 1.1.2 (pure) tries to fetch comments which are already deleted. Almost minimal version:
     # comment
     # comment
-    #   answer
     #   answer
     #     superanswer
     # comment
+    it "should be destroyable" do
+      s = Scheduling.find scheduling.id
+      expect { s.destroy }.to_not raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   context "undoing changes" do

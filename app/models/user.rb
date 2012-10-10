@@ -78,3 +78,5 @@ class User < ActiveRecord::Base
   end
   before_save :create_email_change
 end
+
+UserDecorator

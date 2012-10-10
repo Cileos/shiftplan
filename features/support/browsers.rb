@@ -1,5 +1,10 @@
 module BrowserSupport
 
+  Sizes = {
+    mobile: { width: 640 + 8, height: 800 + 57 },
+    big:    { width: 1280 + 8, height: 800 + 57 }
+  }
+
   class << self
 
     def setup_chrome
@@ -31,14 +36,36 @@ module BrowserSupport
           # http://groups.google.com/group/webdriver/browse_thread/thread/e4e987eeedfdb586
           browser = driver.browser
           handles = browser.window_handles
-          browser.execute_script("window.open('#{startpage}','_blank','width=#{width},height=#{height}');")
+          browser.execute_script("window.open('#{startpage}','_blank','width=320,height=200');")
           browser.close
           browser.switch_to.window((browser.window_handles - handles).pop)
-          browser.execute_script("window.resizeTo(#{width}, #{height}); window.moveTo(1,1);")
         end
       end
     end
 
   end
 
+  module Cucumber
+    def switch_browser_size(size_name)
+      if size = BrowserSupport::Sizes[size_name]
+        Rails.logger.debug "switching browser to #{size_name}"
+        width, height = size[:width], size[:height]
+        page.execute_script("window.resizeTo(#{width}, #{height});")
+      else
+        STDERR.puts "cannot switch browser to unknown size: #{size_name}"
+      end
+    end
+  end
+end
+
+World(BrowserSupport::Cucumber)
+
+Before '@javascript','@big_screen' do
+  switch_browser_size(:big)
+end
+Before '@javascript','~@big_screen' do
+  switch_browser_size(:mobile)
+end
+Before '@javascript','@mobile_screen' do
+  switch_browser_size(:mobile)
 end

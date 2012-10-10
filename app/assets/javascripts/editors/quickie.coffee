@@ -7,14 +7,14 @@
 # optional
 #   competions: quickies to complete for
 class QuickieEditor extends View
-  @content: (params) ->
-    name = "scheduling_#{params.id || 'new'}"
-    @div class: 'control-group quickie', =>
-      @label "Quickie", for: "#{name}_quickie", class: 'control-label'
-      @div class: 'controls', =>
-        @input type: 'text', value: params.value, id: "#{name}_quickie", name: 'scheduling[quickie]', outlet: 'input'
+  @content: (params) -> '' # FIXME still needed, but no View anymore
 
   initialize: (params) ->
+    @input = params.element
+    unless @input?
+      console?.warn('no element given to QuickieEditor')
+      return
+
     # input will be autocompleted, keybindings removed on modal box close
     @input
       .attr('autocomplete', 'off')
@@ -23,9 +23,8 @@ class QuickieEditor extends View
         source: params.completions || gon.quickie_completions,
         sorter: @sorter
         matcher: @matcher
-    @one 'attach', =>
-      $(@).closest('form').bind 'shiftplan.remove', @destroy
-      $('#modalbox').bind 'dialogclose', @destroy
+    @input.closest('form').bind 'shiftplan.remove', @destroy
+    $('#modalbox').bind 'dialogclose', @destroy
 
   destroy: =>
     @input?.unbind().data('typeahead')?.$menu?.remove()
@@ -55,3 +54,7 @@ class QuickieEditor extends View
     timeRange.concat(shortCuts, beginsWith, rest)
 
 window.QuickieEditor = QuickieEditor
+
+$.fn.edit_quickie = ->
+  $(this).not('.typeahead').each ->
+    new QuickieEditor element: $(this)

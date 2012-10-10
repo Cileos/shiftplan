@@ -23,6 +23,7 @@ Feature: Edit Schedulings of a Plan
 
      When I click on the scheduling "7-23"
       And I wait for the modal box to appear
+     Then I should see "9-17 wichtige Arbeit [wA]" within a hint
      Then I should be able to change the "Quickie" from "7-23" to "1-23" and select "Santa C" as "Mitarbeiter"
       And I should see the following calendar:
         | Mitarbeiter | Fr   |

@@ -85,6 +85,9 @@ module HtmlSelectorsHelpers
     when 'replies'
       '.replies'
 
+    when 'the cursor'
+      '.with_cursor .focus'
+
     when /^(?: a |the )?(\w+) list$/
       "ul.#{$1}"
 
@@ -141,11 +144,20 @@ module HtmlSelectorsHelpers
 
   SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.btn.active']
   def extract_text_from_cell(cell)
+    tried = 0
     found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }
     if found.present?
       found.map { |f| cell.all(f).map(&:text).map(&:strip) }.flatten.join(' ')
     else
       cell.text.strip
+    end
+  rescue Timeout::Error => e
+    # sometimes the finding takes too long and travis times out.
+    if tried < 1
+      tried += 1
+      retry
+    else
+      raise e
     end
   end
 

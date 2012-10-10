@@ -40,4 +40,14 @@ describe Employee do
       it { create(:employee, role: 'planner').reload.role.should == 'planner' }
     end
   end
+
+  context "WAZ in form" do
+    it "is an integer for the time being" do
+      create(:employee, weekly_working_time: 23.5).weekly_working_time_before_type_cast.should == 23
+    end
+
+    it "keeps beeing empty (no accidental 0)" do
+      create(:employee, weekly_working_time: nil).weekly_working_time_before_type_cast.should be_nil
+    end
+  end
 end

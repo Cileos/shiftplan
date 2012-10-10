@@ -3,6 +3,15 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
     I18n.localize monday, format: :week_with_first_day
   end
 
+  def formatted_days
+    days.map do |day|
+      [
+        I18n.localize(day, format: :week_day_with_yearless_date), # full
+        I18n.localize(day, format: :abbr_week_day)                # abbr
+      ]
+    end
+  end
+
   def schedulings_for(day, other)
     indexed(day, other).sort_by(&:start_hour)
   end

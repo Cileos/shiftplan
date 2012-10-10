@@ -1,5 +1,5 @@
 class AcceptInvitationsController < ApplicationController
-  no_authentication_required
+  skip_before_filter :authenticate_user!
   skip_authorization_check
   before_filter :set_invitation, only: [:accept, :confirm]
   before_filter :ensure_not_yet_accepted, only: [:accept, :confirm]

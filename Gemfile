@@ -57,6 +57,8 @@ group :test do
   gem 'fuubar-cucumber', git: 'git://github.com/iain/fuubar-cucumber.git', branch: 'cucumber-1-2-api' # the ETA progress bar
 
   gem 'diff_matcher'
+
+  gem 'ci_reporter', "~> 1.7.3"
 end
 
 group :development, :test do
@@ -68,6 +70,7 @@ end
 group :development do
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem 'capistrano'
+  gem 'rvm-capistrano'
   gem 'notes', :require => false, :git => 'git://github.com/v0n/notes.git'
 end
 
@@ -89,8 +92,8 @@ gem 'treetop' # parse quickies
 
 gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults
 
-# we will try to gernerate js the old-fashioned way
-gem 'versatile_rjs', :git => 'git://github.com/niklas/versatile_rjs.git'
+# we will try to gernerate js the old-fashioned way. TODO extract tas rajesh
+gem 'versatile_rjs', :git => 'git://github.com/condor/versatile_rjs.git'
 gem 'polyglot' # load treetop grammars with #require
 
 gem 'gon' # push variables from rails to js
@@ -99,7 +102,9 @@ gem 'RedCloth' # textilize instructions and other texts from locales
 
 gem 'database_cleaner'
 gem 'will_paginate', '~> 3.0'
-gem 'acts_as_commentable_with_threading', '~> 1.1.2'
+
+# until merge of https://github.com/elight/acts_as_commentable_with_threading/pull/32
+gem 'acts_as_commentable_with_threading', '~> 1.1.2', git: 'git://github.com/niklas/acts_as_commentable_with_threading.git', branch: '98f82fb5b4797523d5e3e4d4ba99a1be9836d4a5'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart'

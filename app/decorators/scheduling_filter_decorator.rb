@@ -33,15 +33,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
 
-  def formatted_days
-    days.map do |day|
-      [
-        I18n.localize(day, format: :week_day),
-        I18n.localize(day, format: :abbr_week_day)
-      ]
-    end
-  end
-
   def filter
     model
   end
