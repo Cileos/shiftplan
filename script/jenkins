@@ -58,7 +58,9 @@ EOYML
 
 # cp config/application.yml.example config/application.yml
 
-script/build
+. script/_lib
+build "$@"
+ret=$?
 
 dropdb $DATABASE
 

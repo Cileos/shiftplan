@@ -33,7 +33,7 @@ function run_suite () {
     all)
       # skipping Firefox because travis kills (it)
       # "firefox"
-      return run_suites "rspec" "jasmine" "cucumber" "chrome"
+      run_suites "rspec" "jasmine" "cucumber" "chrome"
   esac
 }
 
@@ -48,4 +48,14 @@ function run_suites () {
   done
 
   return $ret
+}
+
+function build () {
+  if [ $# -gt 0 ]
+  then
+    run_suites "$@"
+  else
+    run_suite "all"
+  fi
+  return $?
 }
