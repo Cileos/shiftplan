@@ -127,7 +127,7 @@ Feature: Navigation
        | Ausloggen           | false  |
        | Dashboard           | false  |
        | Tschernobyl GmbH >> | true   |
-       | Pläne               | false  |
+       | Pläne               | true   |
        | Alle Pläne          | false  |
        | Mitarbeiter         | false  |
        | Teams               | false  |
@@ -137,55 +137,59 @@ Feature: Navigation
 
      When I go to the page of the organization "fukushima"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | false  |
-       | Pläne             | false  |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | false  |
-       | Teams             | false  |
+       | link          | active |
+       | Owner Burns   | false  |
+       | Einstellungen | false  |
+       | Ausloggen     | false  |
+       | Dashboard     | false  |
+       | Fukushima >>  | true   |
+       | Neuigkeiten   | false  |
+       | Pläne         | true   |
+       | Alle Pläne    | false  |
+       | Mitarbeiter   | false  |
+       | Teams         | false  |
 
      When I follow "Neuigkeiten"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | true   |
-       | Pläne             | false  |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | false  |
-       | Teams             | false  |
+       | link          | active |
+       | Owner Burns   | false  |
+       | Einstellungen | false  |
+       | Ausloggen     | false  |
+       | Dashboard     | false  |
+       | Fukushima >>  | true   |
+       | Neuigkeiten   | true   |
+       | Pläne         | true   |
+       | Alle Pläne    | false  |
+       | Mitarbeiter   | false  |
+       | Teams         | false  |
 
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | false  |
-       | Pläne             | true   |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | false  |
-       | Teams             | false  |
+       | link          | active |
+       | Owner Burns   | false  |
+       | Einstellungen | false  |
+       | Ausloggen     | false  |
+       | Dashboard     | false  |
+       | Fukushima >>  | true   |
+       | Neuigkeiten   | false  |
+       | Pläne         | true   |
+       | Alle Pläne    | false  |
+       | Mitarbeiter   | false  |
+       | Teams         | false  |
 
      When I follow "Mitarbeiter"
      Then I should see the following list of links within the navigation:
-       | link              | active |
-       | Homer Simpson     | false  |
-       | Einstellungen     | false  |
-       | Ausloggen         | false  |
-       | Fukushima GmbH >> | true   |
-       | Neuigkeiten       | false  |
-       | Pläne             | false  |
-       | Alle Pläne        | false  |
-       | Mitarbeiter       | true   |
-       | Teams             | false  |
+       | link          | active |
+       | Owner Burns   | false  |
+       | Einstellungen | false  |
+       | Ausloggen     | false  |
+       | Dashboard     | false  |
+       | Fukushima >>  | true   |
+       | Neuigkeiten   | false  |
+       | Pläne         | true   |
+       | Alle Pläne    | false  |
+       | Mitarbeiter   | true   |
+       | Teams         | false  |
 
      When I follow "Fukushima"
      # The user "owner@burns.com" is now in the scope of account "tepco". So in
@@ -203,24 +207,6 @@ Feature: Navigation
        | Alle Pläne     | false   |
        | Mitarbeiter    | false   |
        | Teams          | false   |
-
-     When I go to the dashboard page
-      And I follow "Clockwork"
-     # The user "owner@burns.com" is now in the scope of account "cileos". So in
-     # the navigation we show the name of the user's employee in the cileos
-     # account which is "Charles Montgomery Burns".
-     Then I should see the following list of links within the navigation:
-       | link                      | active  |
-       | Charles Montgomery Burns  | false   |
-       | Einstellungen             | false   |
-       | Ausloggen                 | false   |
-       | Dashboard                 | false   |
-       | Clockwork >>              | true    |
-       | Neuigkeiten               | false   |
-       | Pläne                     | true    |
-       | Alle Pläne                | false   |
-       | Mitarbeiter               | false   |
-       | Teams                     | false   |
 
   @fileupload
   Scenario: avatar is only shown on page of organization, fallback to gravatar
