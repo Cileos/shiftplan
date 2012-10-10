@@ -4,8 +4,8 @@
 
 if [ $# -gt 0 ]
 then
-  run_suites $@
+  ret=run_suites $@
 else
-  run_suite "all"
+  ret=run_suite "all"
 fi
 

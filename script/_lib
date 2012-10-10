@@ -33,7 +33,7 @@ function run_suite () {
     all)
       # skipping Firefox because travis kills (it)
       # "firefox"
-      run_suites "rspec" "jasmine" "cucumber" "chrome"
+      return run_suites "rspec" "jasmine" "cucumber" "chrome"
   esac
 }
 
@@ -47,6 +47,5 @@ function run_suites () {
     exp=$(($exp*2))
   done
 
-  header "Done (exit code: $ret)"
-  exit $ret
+  return $ret
 }
