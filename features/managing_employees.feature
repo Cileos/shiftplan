@@ -8,12 +8,12 @@ Feature: Create Employees
       And a plan exists with name: "Kühlungsraum säubern", organization: the organization
      When I sign in as the confirmed user
       And I am on the employees page for the organization
-      Then I should see the following table of employees:
-        | Name | WAZ | E-Mail | Status |
 
   @javascript
   @fileupload
   Scenario: Creating an employee
+    Given I should see the following table of employees:
+      | Name | WAZ | E-Mail | Status |
      When I follow "Hinzufügen"
       And I wait for the modal box to appear
      Then the "Wochenarbeitszeit" field should contain "40"
@@ -158,6 +158,9 @@ Feature: Create Employees
 
   @javascript
   Scenario: removing WAZ from an employee
+    Given an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account
+      And the employee "homer" is a member in the organization "fukushima"
+      And I am on the employees page for the organization
      When I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
       And I fill in "Wochenarbeitszeit" with ""
