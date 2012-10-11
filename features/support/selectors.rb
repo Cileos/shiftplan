@@ -43,7 +43,7 @@ module HtmlSelectorsHelpers
       '.user-navigation'
 
     when 'the content'
-      'div#content'
+      'section[role=content]'
 
     when "the calendar"
       'table#calendar'
