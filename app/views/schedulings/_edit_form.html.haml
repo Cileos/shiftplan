@@ -4,5 +4,5 @@
   = f.input :quickie, hint: true, wrapper_html: { class: 'quickie' }
   = f.association :employee, as: :select, include_blank: false, collection: scheduling.plan.organization.employees
   .actions
-    = link_to ti(:destroy), url, remote: true, method: :delete, class: 'btn btn-danger delete'
-    %button.btn.btn-success{type: 'submit'}= ti(:update)
+    = link_to ti(:destroy), url, remote: true, method: :delete, class: 'button button-warning delete'
+    %button.button-success{type: 'submit'}= ti(:update)

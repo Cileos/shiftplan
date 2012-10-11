@@ -37,7 +37,7 @@ Then /^the scheduling #{capture_quoted} should be (focus)$/ do |quickie, predica
 end
 
 Then /^I should see a calendar (?:titled|captioned) #{capture_quoted}$/ do |caption|
-  step %Q~I should see "#{caption}" within ".caption" within the calendar navigation~
+  step %Q~I should see "#{caption}" within the calendar caption~
 end
 
 Then /^I should see the following calendar:$/ do |expected|

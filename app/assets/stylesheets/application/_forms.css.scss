@@ -1,0 +1,72 @@
+fieldset {
+  padding: 0;
+  border: none;
+}
+
+input,
+button,
+label,
+textarea {
+  font-family:"proxima-nova",Helvetica,Arial,sans-serif;
+}
+
+#{$all-text-inputs}, textarea {
+  @include box-shadow(inset 0 0 3px rgba(0,0,0,.25));
+  @include border-radius($ci_border-radius);
+  @include box-sizing(border-box);
+
+  border: 1px solid $ci_gray;
+  padding: .5em;
+
+  &:focus {
+    @include box-shadow(inset 0 0 3px $ci_blue);
+
+    border: 1px solid $ci_blue;
+    background: lighten($ci_yellow, 47%);
+    color: $ci_text-color;
+    outline: none;  // remove grey outline shadow on webkit browsers
+  }
+}
+
+#{$all-text-inputs}, textarea, select {
+  display: block;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  margin-right: .35em;
+}
+
+form div {
+  & > label {
+    margin-left: 0.25em;
+  }
+}
+
+label {
+  abbr[title] {
+    color: $ci_darkgray;
+    border-bottom: none;
+  }
+
+  + input {
+    margin-top: 0.25em;
+  }
+}
+
+legend {
+  display: block;
+  width: 100%;
+  margin-bottom: 1em;
+  border-bottom: 1px solid $ci_gray;
+  font-weight: bold;
+}
+
+.content-form {
+  padding: 10px 20px;
+  border-left: 1px solid $ci_midgray;
+
+  h1, h2, h3, h4 {
+    padding: 0;
+  }
+}

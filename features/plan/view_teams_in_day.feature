@@ -87,9 +87,9 @@ Feature: View teams over hours of a day in plan
 
   Scenario: Navigating back and forth
      Given I am on the teams in day page of the plan for year: 2012, month: 12, day: 04
-      When I follow ">" within the calendar navigation
+      When I follow ">" within the toolbar
       Then I should be on the teams in day page of the plan for year: 2012, month: 12, day: 05
-      When I follow "Heute" within the calendar navigation
+      When I follow "Heute" within the toolbar
       Then I should be on the teams in day page of the plan for year: 2012, month: 12, day: 04
-      When I follow "<" within the calendar navigation
+      When I follow "<" within the toolbar
       Then I should be on the teams in day page of the plan for year: 2012, month: 12, day: 03

@@ -65,6 +65,7 @@ group :development, :test do
   gem 'pry'
   gem "guard-jasmine"
   gem "jasminerice"
+  gem 'rb-inotify', '~> 0.8.8'
 end
 
 group :development do
@@ -80,7 +81,7 @@ group :production do
 end
 
 gem 'coffee-rails', '~> 3.2.2'
-gem 'compass-rails'
+gem 'bourbon'
 gem 'devise'
 gem 'cancan'
 gem 'simple_form', '~> 2.0.0'

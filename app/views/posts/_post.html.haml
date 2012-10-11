@@ -1,11 +1,23 @@
-= avatar(post.author.user, post.author, :thumb)
-- if post.author == current_user.current_employee
-  .own-meta= t(:'blogs.own_meta_data', published_at: l(post.published_at, format: :tiny))
-- else
-  .meta= t(:'blogs.meta_data', author: post.author.name, published_at: l(post.published_at, format: :tiny))
-%h3= post.title
-- if truncation
-  .body= truncate(post.body, :length => 300, :omission => ' …')
-- else
-  .body= post.body
-= render('posts/comments_count', post: post)
+= avatar(post.author.user, post.author, :thumb, :author)
+
+%article
+  %header
+    %h3= link_to post.title, nested_resources_for(post)
+
+    %p.meta
+      - if post.author == current_user.current_employee
+        %small.own-meta= t(:'blogs.own_meta_data', published_at: l(post.published_at, format: :tiny))
+      - else
+        %small.meta= t(:'blogs.meta_data', author: post.author.name, published_at: l(post.published_at, format: :tiny))
+
+  - if truncation
+    .body= truncate(post.body, :length => 300, :omission => ' …')
+  - else
+    .body= post.body
+
+  %footer
+    - unless @post == post
+      = link_to :more, nested_resources_for(post)
+    &middot;
+    = render('posts/comments_count', post: post)
+

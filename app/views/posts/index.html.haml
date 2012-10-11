@@ -1,8 +1,9 @@
 - title t(:'blogs.company_news')
-- if can? :create, @posts.new
-  #actions.btn-toolbar
-    = link_to ti(:add, translation_key: 'posts.new'), [:new, current_account, current_organization, current_organization.company_blog, :post], |
-      class: 'btn btn-primary', remote: true
+
+- if can? :create, parent.posts.new
+  - masthead_toolbar do
+    = link_to ti(:add, translation_key: 'posts.new'), [:new] + nested_resources_for(parent) + [:post], |
+      class: 'button', remote: true, data: { icon: i(:add) }
 
 .posts
   = render('posts/posts_with_pagination', posts: @posts)

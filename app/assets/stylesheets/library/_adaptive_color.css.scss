@@ -1,0 +1,17 @@
+@mixin adaptive-color($property, $color, $shadow: $ci_shadow, $blaze: $ci_blaze) {
+  @if ($property == box-shadow) or ($property == text-shadow) {
+    @if lightness($color) < 50 {
+      #{$property}: 0 -1px 0 $shadow;
+    } @else {
+      #{$property}: 0 1px 0 $blaze;
+    }
+
+  } @else {
+    @if lightness($color) < 50 {
+      #{$property}: lighten($color, 60%);
+    } @else {
+      #{$property}: darken($color, 60%);
+    }
+  }
+}
+

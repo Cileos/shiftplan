@@ -20,16 +20,8 @@ jQuery(document).ready ->
 
     cursor = new CalendarCursor $calendar
 
-    refresh_behaviour_of_header = ->
-      $cell = $(this)
-      $cell.find('abbr').tooltip()
-
-    $calendar.on 'update', 'th', refresh_behaviour_of_header
-    $calendar.find('th').each refresh_behaviour_of_header
-
     refresh_behaviour_of_cell = ->
       $cell = $(this)
-      $cell.find('abbr').tooltip()
       $cell.find('li').each ->
         $scheduling = $(this)
         $scheduling.find('a.comments:has(~ul.comments)').each ->
@@ -41,6 +33,6 @@ jQuery(document).ready ->
     $calendar.find('td').each refresh_behaviour_of_cell
     $calendar.on 'update', 'td', refresh_behaviour_of_cell
 
-  $('#calendar-navigation a.new_scheduling').live 'ajax:success', ->
+  $('nav a.new_scheduling').live 'ajax:success', ->
     $('#modalbox input[name="scheduling[quickie]"]').edit_quickie()
     true

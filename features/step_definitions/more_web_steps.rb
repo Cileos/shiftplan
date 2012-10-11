@@ -71,3 +71,12 @@ Then /^I should see the following typeahead items:$/ do |expected|
   end
   expected.diff! found
 end
+
+When /^I confirm popup$/ do
+  page.driver.browser.switch_to.alert.accept
+end
+
+When /^(?:|I )follow "([^"]*)" and confirm$/ do |link|
+  click_link(link)
+  step 'I confirm popup'
+end

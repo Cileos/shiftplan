@@ -31,23 +31,37 @@ module ActionHelper
   end
 
   Icons = {
-    add:               'plus',
+    add:               '&#xf067;',
     edit:              'edit',
-    destroy:           'trash',
+    destroy:           '&#xf00d;',
     new_scheduling:    'plus',
     new_organization:  'plus',
     copy_week:         'retweet',
     update:            'ok-circle',
     invite:            'user',
     reinvite:          'user',
-    comment:           'comment',
+    comment:           '&#xf075;',
     comments_count:    'comment',
-    reply:             'chevron-left',
+    reply:             '&#xf053;',
     back:              'arrow-left',
     send_invitation:   'envelope',
     feedback_without_screenshot: 'envelope',
-    send:                        'envelope'
+    send:                        'envelope',
+    news:              '&#xf015;',
+    dropdown:          '&#xf073;',
+    employees:         '&#xf007;',
+    tems:              '&#xf0e8;',
+    settings:          '&#xf007;',
+    signup:            '&#xf007;',
+    signout:           '&#xf08b;',
+    signin:            '&#xf090;',
+    edit_post:         '&#xf044;',
+
   }
+
+  def i(name)
+    (Icons[name] || 'icon-missing').html_safe
+  end
 
   # translate with textilize
   def tt(*a)
@@ -56,5 +70,19 @@ module ActionHelper
 
   def tabs_for(*a, &block)
     Bootstrap::Tabs.for(self, *a, &block)
+  end
+
+  # returns an array to be used in link_to and other helpers containing the full-defined nesting for the given resource
+  def nested_resources_for(resource)
+    case resource
+    when Comment
+      nested_resources_for(resource.commentable.blog) + [ resource.commentable, resource]
+    when Post
+      nested_resources_for(resource.blog) + [resource]
+    when Blog, Team
+      nested_resources_for(resource.organization) + [resource]
+    when Organization
+      [ resource.account, resource ]
+    end
   end
 end

@@ -6,14 +6,20 @@
   - employee.organization_id = current_organization.id
   - employee.account_id = current_account.id
   .inputs
-    = avatar(employee.user, employee, :tiny)
+    = avatar(employee.user, employee, :thumb)
     = f.input :avatar, as: :file
     = f.input :avatar_cache, as: :hidden
+
+  .inputs
     = f.input :first_name, autofocus: true
+
+  .inputs
     = f.input :last_name
+
+  .inputs
     = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
     = f.input :organization_id, as: :hidden
     = f.input :account_id, as: :hidden
 
   .actions
-    %button.btn.btn-success= ti(:update)
+    %button.button-success= ti(:update)
