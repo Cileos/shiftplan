@@ -1,4 +1,14 @@
 When /^I choose "([^"]*)" from the drop down "([^"]*)"$/ do |item, dropdown|
-  page.first('a.dropdown-toggle', :text => dropdown).click
+  step %~I open the "#{dropdown}" menu~
   step %~I follow "#{item}"~
+end
+
+When /^I open (?:the )?#{capture_quoted} menu$/ do |menu|
+  begin
+    page.execute_script <<-EOJS
+      $('header li:contains("#{menu}")').addClass('open')
+    EOJS
+  rescue Capybara::NotSupportedByDriverError => e
+    # in rack server, menu opens you
+  end
 end

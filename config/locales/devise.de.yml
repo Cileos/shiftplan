@@ -9,6 +9,7 @@ de:
     failure:
       unauthenticated: 'Du musst Dich registrieren oder anmelden, um fortfahren zu können'
       unconfirmed: 'Du musst Deine E-Mail-Adresse bestätigen um fortzufahren'
+      already_authenticated: 'Sie sind bereits authentifiziert'
       locked: 'Dein Konto ist gesperrt.'
       invalid: 'E-Mail-Adresse oder Passwort ungültig'
       invalid_token: 'ungültiges Token'

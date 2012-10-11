@@ -37,7 +37,10 @@ module HtmlSelectorsHelpers
       "table#employees"
 
     when 'the navigation'
-      '.navbar:first'
+      'nav[role=navigation]'
+
+    when 'the user navigation'
+      '.user-navigation'
 
     when 'the content'
       'div#content'
@@ -45,11 +48,14 @@ module HtmlSelectorsHelpers
     when "the calendar"
       'table#calendar'
 
+    when "the calendar caption"
+      'header.calendar-caption h2'
+
     when "the legend"
       '#legend'
 
-    when "the calendar navigation"
-      'div#calendar-navigation'
+    when 'the toolbar'
+      'nav[role=toolbar]'
 
     when 'the modal box'
       'div#modalbox'
@@ -75,11 +81,11 @@ module HtmlSelectorsHelpers
       "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
 
     when 'a hint'
-      '.help-block'
+      '.hint'
     when 'the pagination'
       '.pagination'
     when 'the posts'
-      'ul#posts'
+      'ul.posts'
     when 'the comments'
       'ul#comments'
 
@@ -145,7 +151,7 @@ module HtmlSelectorsHelpers
     rows.index(row_label)
   end
 
-  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.btn.active']
+  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.button.active']
   def extract_text_from_cell(cell)
     tried = 0
     found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }

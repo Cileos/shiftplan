@@ -1,8 +1,3 @@
-$(function(){
-    $("table#calendar").stickyTableHeaders();
-});
-
-
 /*! Copyright (c) 2011 by Jonas Mosbech - https://github.com/jmosbech/StickyTableHeaders
     MIT license info: https://github.com/jmosbech/StickyTableHeaders/blob/master/license.txt */
 
@@ -96,7 +91,7 @@ $(function(){
                 var $this = $(this);
                 var origCell = $('th', base.$originalHeader).eq(index);
                 $this.removeClass().addClass(origCell.attr('class'));
-                $this.css('width', origCell.width());
+                $this.css('width', origCell.outerWidth());
             });
 
             // Copy row width from whole table

@@ -143,6 +143,37 @@ In order to keep my colleagues informed about important news
       But I should not see "Bearbeiten"
       And I should not see "Löschen"
 
+  Scenario: Employees can only destroy their own blog posts
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And a confirmed user "bart" exists
+      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+      And I am signed in as the confirmed user "mr. burns"
+      And I am on the page for the organization "fukushima"
+     When I follow "Mehr"
+     Then I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+      But I should not see "Löschen"
+
+  Scenario: User visits detail view of a post
+    Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And I am signed in as the confirmed user "mr. burns"
+      And I am on the page for the organization "fukushima"
+     Then I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+     When I follow "Mehr"
+      And I should be on the page of the post
+     Then I should see "Umweltminister zu Besuch"
+      And I should see "Bitte putzen"
+
+     When I follow "Bearbeiten"
+      And I wait for the modal box to appear
+      And I fill in "Titel" with "Besuch des Umweltministers"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should be on the page of the post
+      And I should see "Post erfolgreich geändert"
+      And I should see "Besuch des Umweltministers"
+
   Scenario: Commenting blog posts
     # a post of mr. burns
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
@@ -189,7 +220,8 @@ In order to keep my colleagues informed about important news
       And I am signed in as the confirmed user "bart"
       And I am on the page for the organization "fukushima"
      Then I should see "1 Kommentar"
-      And I follow "1 Kommentar"
+     # cannot click the comments-count link in cucumber in some browsers because of the :before magic with the data-icon
+     When I follow "Mehr"
      Then I should be on the page of the post
      When I fill in "Kommentar" with "Ich werde einen Blumenstrauß mitbringen"
       And I press "Kommentieren"
@@ -224,15 +256,10 @@ In order to keep my colleagues informed about important news
 
   Scenario: Deleting comments on posts
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And a comment exists with commentable: the post, employee: the employee owner "mr. burns", body: "Ich backe einen Kuchen für den Umweltminister"
       And I am signed in as the confirmed user "mr. burns"
-      And I am on the page of the post
-     When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
-      And I press "Kommentieren"
-      And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
-      And I should see "Ich backe einen Kuchen für den Umweltminister"
-      And I should see "1 Kommentar"
-
-     When I press "x"
+      And I am on the page for the post
+     When I follow "Löschen" and confirm
      Then I should not see "Ich backe einen Kuchen für den Umweltminister"
       And I should see "0 Kommentare"
       And I should see "Es wurden noch keine Kommentare erstellt"
@@ -291,7 +318,7 @@ In order to keep my colleagues informed about important news
       And I should see "Post 2"
       And I should see "Post 1"
       But I should not see "Post 0"
-     When I follow ">>" within the pagination
+     When I follow "»" within the pagination
      Then I should see "Post 0"
       But I should not see "Post 10"
       And I should not see "Post 9"
@@ -332,7 +359,7 @@ In order to keep my colleagues informed about important news
       And I should see "Post 2"
       And I should see "Post 1"
       But I should not see "Post 0"
-     When I follow ">>" within the pagination
+     When I follow "»" within the pagination
      Then I should see "Post 0"
       But I should not see "Post 10"
       And I should not see "Post 9"
@@ -344,7 +371,7 @@ In order to keep my colleagues informed about important news
       And I should not see "Post 3"
       And I should not see "Post 2"
       And I should not see "Post 1"
-     When I follow "<<" within the pagination
+     When I follow "«" within the pagination
      Then I should see "Post 10"
       And I should see "Post 9"
       And I should see "Post 8"

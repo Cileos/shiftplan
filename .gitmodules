@@ -4,3 +4,12 @@
 [submodule "vendor/assets/mixed/jquery-miniColors"]
 	path = vendor/assets/mixed/jquery-miniColors
 	url = git://github.com/claviska/jquery-miniColors.git
+[submodule "vendor/assets/stylesheets/normalize.css"]
+	path = vendor/assets/stylesheets/normalize.css
+	url = git://github.com/necolas/normalize.css.git
+[submodule "vendor/assets/fonts/fontawesome"]
+	path = vendor/assets/fonts/fontawesome
+	url = https://github.com/FortAwesome/Font-Awesome.git
+[submodule "vendor/assets/stylesheets/neat"]
+	path = vendor/assets/stylesheets/neat
+	url = https://github.com/thoughtbot/neat.git

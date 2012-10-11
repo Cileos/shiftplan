@@ -3,9 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
+  <style>
+    section dd {zoom: 1}
+    section dd:before, section dd:after {content: ""; display: table;}
+    section dd:after { clear: both;}
+    .team_1 {border-color: red;}
+    .team_2 {border-color: blue;}
+    .team_3 {border-color: green;}
+  </style>
   <link rel="stylesheet" href="/assets/application.css" type="text/css" media="screen" charset="utf-8">
+  <script type="text/javascript" src="http://use.typekit.com/gye8xts.js"></script> <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body>
+
+<header role="banner">
+  <h1><a href="#"><img src="/assets/shiftplan-logo_16px.png" alt="Shiftplan"></a></h1>
+  <nav role="navigation">
+    <ul>
+      <li><a href="#" data-icon="&#xf015;">News</a></li>
+      <li class="dropdown">
+        <a href="#" data-icon="&#xf073;">Plans</a>
+        <ul>
+          <li><a href="#">Option</a></li>
+          <li><a href="#">Option</a></li>
+        </ul>
+      </li>
+      <li><a href="#" data-icon="&#xf007;">Coworkers</a></li>
+      <li><a href="#" data-icon="&#xf0e8;">Teams</a></li>
+    </ul>
+  </nav>
+
+  <nav class="user-navigation">
+    <ul>
+      <li class="dropdown">
+        <a href="#">
+          <img src="https://secure.gravatar.com/avatar/651dcfe41723207fbb0aa044a4f7c07f.png?d=mm&amp;r=PG&amp;s=27" class="avatar tiny">
+          Mariusz
+        </a>
+
+        <ul>
+          <li><a href="#" data-icon="&#xf013;">Settings</a></li>
+          <li><a href="#" data-icon="&#xf08b;">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<section role="content">
+
+<section class="colors">
+  <header>
+    <h1>Colors</h1>
+  </header>
+
+  <ul>
+    <li data-color="ci_blue"></li>
+    <li data-color="ci_darkblue"></li>
+    <li data-color="ci_purple"></li>
+    <li data-color="ci_darkpurple"></li>
+    <li data-color="ci_pink"></li>
+    <li data-color="ci_orange"></li>
+    <li data-color="ci_darkorange"></li>
+    <li data-color="ci_yellow"></li>
+    <li data-color="ci_darkyellow"></li>
+    <li data-color="ci_lime"></li>
+    <li data-color="ci_green"></li>
+    <li data-color="ci_teal"></li>
+    <li data-color="ci_gray"></li>
+  </ul>
+</section>
 
 <section class="buttons">
   <header>
@@ -13,11 +80,17 @@
   </header>
 
   <dl>
-    <dt><pre>.button, button, input[type=submit]</pre></dt>
+    <dt><pre>button, .button, input[type=submit]</pre></dt>
     <dd>
       <button>Button</button>
       <a class="button" href="#">Link</a>
       <input type="submit" value="Input">
+    </dd>
+    <dt><pre>button.button-red, .button.button-red, input[type=submit].button-red</pre></dt>
+    <dd>
+      <button class="button-red">Button</button>
+      <a class="button button-red" href="#">Link</a>
+      <input type="submit" value="Input" class="button-red">
     </dd>
     <dt><pre>.button-small</pre></dt>
     <dd>
@@ -27,25 +100,25 @@
     </dd>
     <dt><pre>.button[data-icon], button[data-icon]</pre></dt>
     <dd>
-      <button data-icon>Button</button>
-      <a class="button" data-icon href="#">Link</a>
+      <button data-icon="&#xf00c;">Button</button>
+      <a class="button" data-icon="&#xf00c;" href="#">Link</a>
     </dd>
     <dt><pre>.button-small[data-icon]</pre></dt>
     <dd>
-      <button class="button-small" data-icon>Button</button>
-      <a class="button button-small" href="#" data-icon>Link</a>
+      <button class="button-small" data-icon="&#xf00c;">Button</button>
+      <a class="button button-small" href="#" data-icon="&#xf00c;">Link</a>
     </dd>
     <dt><pre>.button-group</pre></dt>
     <dd>
-      <ul class="button-group">
-        <li><button>Button</button></li>
-        <li><button>Button</button></li>
-        <li><button>Button</button></li>
-      </ul>
+      <div class="button-group">
+        <button>Button</button>
+        <button>Button</button>
+        <button>Button</button>
+      </div>
     </dd>
     <dt><pre>.dropdown</pre></dt>
     <dd>
-      <nav>
+      <nav role="navigation">
         <ul>
           <li><a href="#">Element</a></li>
           <li class="dropdown"><a href="#">Dropdown element</a>
@@ -84,17 +157,341 @@
               <option>Option 1</option>
             </select>
           </p>
+          <p>
+            <label>Label</label>
+            <input type="file">
+          </p>
+          <p>
+            <input type="submit" value="Submit">
+          </p>
         </fieldset>
       </form>
     </dd>
     <dt><pre>.modal</pre></dt>
     <dd>
-      <div class="modal">
-      
+      <a href="#modal" class="button">Click for demo</a>
+      <div id="modal">
+        <div class="modal-overlay">
+          <div class="modal">
+            <header>
+              <h1>Modal title</h1>
+              <a href="#" class="modal-close" data-icon="&#xf00d;"></a>
+            </header>
+
+            <p>Hi, I'm a modal!</p>
+
+            <p class="buttons">
+              <a href="#" class="button button-red button-cancel" data-icon="&#xf00d;">Nope.</a>
+              <a href="#" class="button button-green button-ok" data-icon="&#xf00c;">Awesome!</a>
+            </p>
+          </div>
+        </div>
       </div>
     </dd>
   </dl>
 </section>
-  
+
+<section class="tables">
+  <header>
+    <h1>Tables</h1>
+  </header>
+
+  <table>
+    <thead>
+      <tr>
+        <th>table without class</th>
+        <th>Head</th>
+        <th>Head</th>
+        <th>Head</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Element</td>
+        <td>Element</td>
+        <td>Element</td>
+        <td>Element</td>
+      </tr>
+      <tr>
+        <td>
+          <img src="https://secure.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.png?d=mm&forcedefault=y&r=PG&s=27" alt=""> Element with image
+        </td>
+        <td>Element</td>
+        <td>Element</td>
+        <td>
+          <a href="#" class="button button-small">Button</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img src="https://secure.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.png?d=mm&forcedefault=y&r=PG&s=27" alt=""> Element with image
+        </td>
+        <td>Element</td>
+        <td>Element</td>
+        <td>
+          <a href="#" class="button button-small button-red">Delete</a>
+        </td>
+      </tr>
+  </table>
+  <table class="table-condensed">
+    <thead>
+      <tr>
+        <th>table.table-condensed</th>
+        <th>Head</th>
+        <th>Head</th>
+        <th>Head</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Element</td>
+        <td>Element</td>
+        <td>Element</td>
+        <td>Element</td>
+      </tr>
+      <tr>
+        <td>
+          <img src="https://secure.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.png?d=mm&forcedefault=y&r=PG&s=27" alt=""> Element with image
+        </td>
+        <td>Element</td>
+        <td>Element</td>
+        <td>
+          <a href="#" class="button button-small">Button</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img src="https://secure.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.png?d=mm&forcedefault=y&r=PG&s=27" alt=""> Element with image
+        </td>
+        <td>Element</td>
+        <td>Element</td>
+        <td>
+          <a href="#" class="button button-small button-red">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</section>
+
+<section class="flash-messages">
+  <header>
+    <h1>Flash messages</h1>
+  </header>
+
+  <div id="flash" class="flash" data-icon="&#xf00c;">Flash message!</div>
+  <div id="flash" class="flash notice" data-icon="&#xf071;">Notice flash message!</div>
+  <div id="flash" class="flash error" data-icon="&#xf00d;">Error flash message!</div>
+  <div id="flash" class="flash permanent" data-icon="&#xf00c;">
+    Permanent flash message!
+    <a href="#" class="close" data-icon="&#xf05c;">Close</a>
+  </div>
+</section>
+
+<section class="calendar">
+  <header>
+    <h1>Calendars</h1><a name="calendar"></a>
+  </header>
+  <pre>table.calendar.employee-in-week</pre>
+    <table id="calendar" class="calendar employee-in-week">
+      <thead>
+      <tr>
+      <th>
+      </th>
+      <th><abbr class="day_name" title="Montag"><span>Mo</span></abbr></th>
+      <th><abbr class="day_name" title="Dienstag"><span>Di</span></abbr></th>
+      <th><abbr class="day_name" title="Mittwoch"><span>Mi</span></abbr></th>
+      <th><abbr class="day_name" title="Donnerstag"><span>Do</span></abbr></th>
+      <th><abbr class="day_name" title="Freitag"><span>Fr</span></abbr></th>
+      <th><abbr class="day_name" title="Samstag"><span>Sa</span></abbr></th>
+      <th><abbr class="day_name" title="Sonntag"><span>So</span></abbr></th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <th class="employee">
+        <img alt="" class="avatar tiny" src="https://secure.gravatar.com/avatar/.png?d=mm&amp;r=PG&amp;s=27">
+        <span class="employee_name">Peter Lustig</span>
+        <div class="wwt_diff">
+        <span class="weekly_working_time">Stunden/
+          <abbr title="Wochenarbeitszeit">
+          WAZ
+          </abbr>
+        </span>
+        <abbr class="weekly_working_time" title="Stunden/Wochenarbeitszeit">
+          h/WAZ
+          </abbr>
+          <abbr class="warning" title="3 von 40">
+            <span>3 / 40</span>
+          </abbr>
+        </div>
+        </th>
+        <td>
+          <ul>
+            <li class="scheduling team_1">
+              <abbr class="work_time" title="2-4 (2h)"><span>2-15</span></abbr>
+              <abbr class="team_name" title="Team 1 mit längerem Namen"><span>T1</span></abbr>
+              <div class="gimmicks">
+                <a href="#" class="comments" data-remote="true" title="Kommentare">0</a>
+              </div>
+            </li>
+          </ul>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <th class="employee">
+        <img alt="" class="avatar tiny" src="https://secure.gravatar.com/avatar/.png?d=mm&amp;r=PG&amp;s=27">
+        <span class="employee_name">Hans Christian Andersen</span>
+        <div class="wwt_diff">
+        <span class="weekly_working_time">Stunden/
+          <abbr title="Wochenarbeitszeit">
+          WAZ
+          </abbr>
+        </span>
+        <abbr class="weekly_working_time" title="Stunden/Wochenarbeitszeit">
+          h/WAZ
+          </abbr>
+          <abbr class="success" title="20 von 20">
+            <span>20 / 20</span>
+          </abbr>
+        </div>
+        </th>
+        <td></td>
+        <td></td>
+        <td>
+          <ul>
+            <li class="scheduling team_3">
+              <abbr class="work_time" title="2-4 (2h)"><span>9-17</span></abbr>
+              <abbr class="team_name" title="Team 3"><span>T3</span></abbr>
+              <div class="gimmicks">
+                <a href="#" class="comments" data-remote="true" title="Kommentare">3</a>
+                <ul class="comments">
+                  <li>
+                    <span class="employee">Raphaela Wrede</span>
+                    <div class="body">Auch gut, dass du no...</div>
+                  </li>
+                  <li>
+                    <span class="employee">Raphaela Wrede</span>
+                    <div class="body">Hat ja super geklapp...</div>
+                  </li>
+                  <li>
+                    <span class="employee">Planner Burns</span>
+                    <div class="body">war ziemlich einfach</div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li class="scheduling team_1">
+              <abbr class="work_time" title="2-4 (2h)"><span>12-14</span></abbr>
+              <abbr class="team_name" title="Team 1 mit längerem Namen"><span>T1</span></abbr>
+              <div class="gimmicks">
+                <a href="#" class="comments" data-remote="true" title="Kommentare">18</a>
+                <ul class="comments">
+                  <li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li><li><span class="employee">Spambot McSpam</span><div class="body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+
+          <ul>
+            <li class="scheduling team_2">
+              <abbr class="work_time" title="2-4 (2h)"><span>2-15</span></abbr>
+              <abbr class="team_name" title="Team 2"><span>T2</span></abbr>
+              <div class="gimmicks">
+                <a href="#" class="comments" data-remote="true" title="Kommentare">0</a>
+              </div>
+            </li>
+          </ul>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <th class="employee">
+        <img alt="" class="avatar tiny" src="https://secure.gravatar.com/avatar/.png?d=mm&amp;r=PG&amp;s=27">
+        <span class="employee_name">Bernd das Brot</span>
+        <div class="wwt_diff">
+        <span class="weekly_working_time">Stunden/
+          <abbr title="Wochenarbeitszeit">
+          WAZ
+          </abbr>
+        </span>
+        <abbr class="weekly_working_time" title="Stunden/Wochenarbeitszeit">
+          h/WAZ
+          </abbr>
+          <abbr class="" title="50">
+            <span>50</span>
+          </abbr>
+        </div>
+        </th>
+        <td></td>
+        <td>
+          <ul>
+            <li class="scheduling team_2">
+              <abbr class="work_time" title="2-4 (2h)"><span>2-15</span></abbr>
+              <abbr class="team_name" title="Team 2"><span>T2</span></abbr>
+              <div class="gimmicks">
+                <a href="#" class="comments" data-remote="true" title="Kommentare">0</a>
+              </div>
+            </li>
+            <li class="scheduling team_2">
+              <abbr class="work_time" title="2-4 (2h)"><span>2-15</span></abbr>
+              <abbr class="team_name" title="Team 2"><span>T2</span></abbr>
+              <div class="gimmicks">
+                <a href="#" class="comments" data-remote="true" title="Kommentare">0</a>
+              </div>
+            </li>
+          </ul>
+        </td>
+        <td></td>
+        <td></td>
+        <td class="focus"></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <th class="employee">
+        <img alt="" class="avatar tiny" src="https://secure.gravatar.com/avatar/.png?d=mm&amp;r=PG&amp;s=27">
+        <span class="employee_name">Bernd das Brot</span>
+        <div class="wwt_diff">
+        <span class="weekly_working_time">Stunden/
+          <abbr title="Wochenarbeitszeit">
+          WAZ
+          </abbr>
+        </span>
+        <abbr class="weekly_working_time" title="Stunden/Wochenarbeitszeit">
+          h/WAZ
+          </abbr>
+          <abbr class="failure" title="30 von 10">
+            <span>30 / 10</span>
+          </abbr>
+        </div>
+        </th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</section>
 </body>
 </html>

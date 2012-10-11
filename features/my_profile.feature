@@ -11,7 +11,7 @@ I want to edit my profile
   Scenario: Editing the lastname on the my profile page
     Given I am signed in as the confirmed user
       And I am on the page for the organization "fukushima"
-     Then I should see "Marge Bouvier" within the navigation
+     Then I should see "Marge Bouvier" within the user navigation
 
      When I choose "Einstellungen" from the drop down "Marge Bouvier"
      Then I should be on the profile page of the employee
@@ -20,14 +20,14 @@ I want to edit my profile
       And I press "Speichern"
      Then I should be on the profile page of the employee
       And I should see "Profil gespeichert."
-      And I should see "Marge Simpson" within the navigation
+      And I should see "Marge Simpson" within the user navigation
       But I should not see "Zurück"
 
   @fileupload
   Scenario: Editing the avatar on the my profile page
     Given I am signed in as the confirmed user
       And I am on the page for the organization "fukushima"
-     Then I should see a tiny gravatar within the navigation
+     Then I should see a tiny gravatar within the user navigation
 
      When I choose "Einstellungen" from the drop down "Marge Bouvier"
      Then I should be on the profile page of the employee
@@ -35,7 +35,7 @@ I want to edit my profile
       And I press "Speichern"
      Then I should be on the profile page of the employee
       And I should see "Profil gespeichert."
-      And I should see the avatar "rails.png" within the navigation
+      And I should see the avatar "rails.png" within the user navigation
 
   Scenario: Edit my full name for one of the accounts I joined
     Given the confirmed user has joined another account with organization_name: "Tschernobyl GmbH", as: "Margeret Bouvier"
@@ -53,7 +53,7 @@ I want to edit my profile
       And I fill in "Nachname" with "Simpson"
       And I press "Speichern"
      Then I should see "Profil gespeichert."
-      And I should see "Margeret Simpson" within the navigation
+      And I should see "Margeret Simpson" within the user navigation
 
      When I follow "Zurück"
      Then I should be on the profile page of my employees
