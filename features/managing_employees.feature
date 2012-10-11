@@ -94,7 +94,7 @@ Feature: Create Employees
     # So we manually create a membership for the owner "mr. burns" and the organization here.
     Given a membership exists with organization: the organization, employee: the employee "mr. burns"
       And I am on the employees page for the organization
-      And I should see "Owner Burns" within the navigation
+      And I should see "Owner Burns" within the user navigation
      When I follow "Burns, Owner" within the employees table
       And I wait for the modal box to appear
      When I fill in "Nachname" with "Burns-Simpson"
