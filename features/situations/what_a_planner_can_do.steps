@@ -1,7 +1,7 @@
  When I go to the home page
  Then I should be authorized to access the page
   And I should see link "Ausloggen" within the user navigation
-  And I should see link "Fukushima GmbH" within the navigation
+  And I should see link "Fukushima" within the navigation
   But I should not see link "Einloggen"
 
  When I follow "Fukushima"
@@ -10,7 +10,7 @@
  Then I should be authorized to access the page
   And I should see link "Hinzufügen"
   And I should see link "Ausloggen" within the user navigation
-  And I should see link "Fukushima GmbH" within the navigation
+  And I should see link "Fukushima" within the navigation
   And I should see link "Pläne" within the navigation
   And I should see link "Mitarbeiter" within the navigation
   And I should see link "Teams" within the navigation

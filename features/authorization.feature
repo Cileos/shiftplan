@@ -42,7 +42,7 @@ Feature: Authorization
 
      When I go to the dashboard page
      Then I should be authorized to access the page
-      And I should see link "Ausloggen" within the navigation
+      And I should see link "Ausloggen" within the user navigation
       But I should not see link "Einloggen"
 
      When I follow "Fukushima"
