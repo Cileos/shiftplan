@@ -16,7 +16,8 @@
     .body= post.body
 
   %footer
-    = link_to :more, nested_resources_for(post)
+    - unless @post == post
+      = link_to :more, nested_resources_for(post)
     &middot;
     = render('posts/comments_count', post: post)
 
