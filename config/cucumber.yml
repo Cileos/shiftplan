@@ -2,8 +2,10 @@
 rerun = File.file?('rerun.txt') ? IO.read('rerun.txt') : ""
 rerun_opts = rerun.to_s.strip.empty? ? "--format #{ENV['CUCUMBER_FORMAT'] || 'Cucumber::Formatter::Progretty'} features" : "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} #{rerun}"
 std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --color --strict --tags ~@wip"
+reporter_root = `bundle show ci_reporter`
+reporter_loader = reporter_root.chomp + '/lib/ci/reporter/rake/cucumber_loader.rb'
 %>
 default: <%= std_opts %> features
 wip: --tags @wip:3 --wip features
 rerun: <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags ~@wip
-ci:                     --format Cucumber::Formatter::Progretty --color --tags ~@wip
+ci:  --require <%= reporter_loader %> --format CI::Reporter::Cucumber --out <%= ENV['CI_REPORTS'] %> --format Cucumber::Formatter::Progretty --color --tags ~@wip
