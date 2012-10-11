@@ -2,6 +2,6 @@
 
 - if can? :create, Employee
   - masthead_toolbar do
-    =link_to ti(:add), nested_resources_for(current_organization) + [:employees, :new], class: 'button', remote: true, data: { icon: i(:add) }
+    =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:employee], class: 'button', remote: true, data: { icon: i(:add) }
 
 = render 'table', employees: collection
