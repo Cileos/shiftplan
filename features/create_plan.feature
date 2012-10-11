@@ -39,11 +39,11 @@ Feature: Creating a plan
       And I press "Anlegen"
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
       And I should be on the employees in week page for the plan for week: 9, year: 2012
-      And I should not see "<" within the calendar navigation
-      But I should see ">" within the calendar navigation
+      And I should not see "<" within the toolbar
+      But I should see ">" within the toolbar
 
      When I go to the employees in week page for the plan for week: 23, year: 2012
      Then I should be on the employees in week page for the plan for week: 13, year: 2012
-      And I should not see ">" within the calendar navigation
-      But I should see "<" within the calendar navigation
+      And I should not see ">" within the toolbar
+      But I should see "<" within the toolbar
 
