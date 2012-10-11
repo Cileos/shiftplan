@@ -15,8 +15,10 @@ de:
       new_employee: Mitarbeiter hinzufügen
       plans: Pläne
       all_plans: Alle Pläne
+      all_posts: "Alle Neuigkeiten anzeigen"
       new_plan: Neuer Plan
       new_scheduling: Neue Terminierung
+      new_organization: "eine weitere Organisation anlegen"
       next: Weiter
       create: Anlegen
       update: Speichern

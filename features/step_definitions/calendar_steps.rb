@@ -19,7 +19,13 @@ When /^I click on the #{capture_quoted} row$/ do |row_name|
 end
 
 When /^I click on (?:the )?scheduling #{capture_quoted}$/ do |quickie|
-  page.find(".scheduling", text: quickie).click()
+  scheduling = page.find(".scheduling", text: quickie)
+  begin
+    scheduling.click()
+  rescue Selenium::WebDriver::Error::UnknownError => e # page was maybe still moving, could not hit element
+    sleep 0.5
+    scheduling.click() # try again once
+  end
 end
 
 Then /^the #{capture_cell} should be (focus)$/ do |cell, predicate|
@@ -31,7 +37,7 @@ Then /^the scheduling #{capture_quoted} should be (focus)$/ do |quickie, predica
 end
 
 Then /^I should see a calendar (?:titled|captioned) #{capture_quoted}$/ do |caption|
-  step %Q~I should see "#{caption}" within ".caption" within the calendar navigation~
+  step %Q~I should see "#{caption}" within the calendar caption~
 end
 
 Then /^I should see the following calendar:$/ do |expected|

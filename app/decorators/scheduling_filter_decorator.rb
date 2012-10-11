@@ -41,7 +41,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     {
       organization_id: h.current_organization.id,
       plan_id:         plan.id,
-      new_url:         h.new_organization_plan_scheduling_path(h.current_organization, plan),
+      new_url:         h.new_account_organization_plan_scheduling_path(h.current_account, h.current_organization, plan),
       mode:            mode
     }
   end
@@ -149,7 +149,13 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # URI-Path to another week
   def path_to_week(week)
     raise(ArgumentError, "please give a date or datetime, got #{week.inspect}") unless week.acts_like?(:date) or week.acts_like?(:time)
-    h.send(:"organization_plan_#{mode}_path", h.current_organization, plan, year: week.year, week: week.cweek)
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: week.year, week: week.cweek)
+  end
+
+  def path_to_day(day)
+    raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
+    raise(ArgumentError, "can only link to day in day view") unless mode?('day')
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: day.year, month: day.month, day: day.day)
   end
 
   # URI-Path to another mode
@@ -174,6 +180,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def next_path
     path_to_date(next_step)
+  end
+
+  def path_to_day(day=monday)
+    h.account_organization_plan_teams_in_day_path(h.current_account, h.current_organization, plan, day.year, day.month, day.day)
   end
 
   # TODO hooks?

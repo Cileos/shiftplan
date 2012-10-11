@@ -7,29 +7,34 @@
 # optional
 #   competions: quickies to complete for
 class QuickieEditor extends View
-  @content: (params) ->
-    name = "scheduling_#{params.id || 'new'}"
-    @div class: 'control-group quickie', =>
-      @label "Quickie", for: "#{name}_quickie", class: 'control-label'
-      @div class: 'controls', =>
-        @input type: 'text', value: params.value, id: "#{name}_quickie", name: 'scheduling[quickie]', outlet: 'input'
+  @content: (params) -> '' # FIXME still needed, but no View anymore
 
   initialize: (params) ->
+    @input = params.element
+    unless @input?
+      console?.warn('no element given to QuickieEditor')
+      return
+    @completions = params.completions || gon.quickie_completions || []
+
     # input will be autocompleted, keybindings removed on modal box close
     @input
       .attr('autocomplete', 'off')
-      .addClass('typeahead')
-      .typeahead
-        source: params.completions || gon.quickie_completions,
-        sorter: @sorter
-        matcher: @matcher
+      .data('autocompletion', this)
+      .addClass('autocompleted')
+      .autocomplete
+        source: @autocompleteSource
     @one 'attach', =>
       $(@).closest('form').bind 'shiftplan.remove', @destroy
       $('#modalbox').bind 'dialogclose', @destroy
 
   destroy: =>
-    @input?.unbind().data('typeahead')?.$menu?.remove()
+    @input?.unbind().autocomplete('destroy')
     true
+
+  autocompleteSource: (request, response) =>
+    @query = request.term
+    matched = (item for item in @completions when @matcher(item))
+    response @sorter(matched)
 
   matcher: (item) ->
     return true for term in @query.split(/\s/) when ~item.toLowerCase().indexOf(term.toLowerCase())
@@ -55,3 +60,7 @@ class QuickieEditor extends View
     timeRange.concat(shortCuts, beginsWith, rest)
 
 window.QuickieEditor = QuickieEditor
+
+$.fn.edit_quickie = ->
+  $(this).not('.autocompleted').each ->
+    new QuickieEditor element: $(this)

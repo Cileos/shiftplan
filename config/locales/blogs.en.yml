@@ -24,7 +24,8 @@ en:
       destroy_comment: 'x' 
   comments: 
     comments: comments 
-    no_comments_present: 'No comments have been created.' 
+    no_comments_present: 'No comments have been created.'
+    add_comment: 'Add a comment' 
   post_notification_mailer: 
     new_post: 
       subjects: 

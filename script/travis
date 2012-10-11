@@ -3,8 +3,11 @@
 . script/_lib
 
 header "configuring Travis"
+# TODO parallelize by choosing a uniq dbname (hash+pid?)
 
 cp config/database.yml{.travis,}
+
+migrate_database
 
 bundle exec rake db:migrate > /dev/null || exit 64
 

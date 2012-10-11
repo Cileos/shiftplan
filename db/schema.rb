@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120813134550) do
+ActiveRecord::Schema.define(:version => 20120914152445) do
 
   create_table "accounts", :force => true do |t|
-    t.integer  "owner_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "name"
   end
 
   create_table "blogs", :force => true do |t|
@@ -60,14 +60,14 @@ ActiveRecord::Schema.define(:version => 20120813134550) do
     t.string   "last_name"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.integer  "organization_id"
     t.decimal  "weekly_working_time"
     t.integer  "user_id"
     t.string   "role"
     t.string   "avatar"
+    t.integer  "account_id"
   end
 
-  add_index "employees", ["organization_id"], :name => "index_employees_on_organization_id"
+  add_index "employees", ["account_id"], :name => "index_employees_on_account_id"
   add_index "employees", ["user_id"], :name => "index_employees_on_user_id"
 
   create_table "invitations", :force => true do |t|
@@ -88,6 +88,26 @@ ActiveRecord::Schema.define(:version => 20120813134550) do
   add_index "invitations", ["inviter_id"], :name => "index_invitations_on_inviter_id"
   add_index "invitations", ["organization_id"], :name => "index_invitations_on_organization_id"
   add_index "invitations", ["user_id"], :name => "index_invitations_on_user_id"
+
+  create_table "memberships", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "employee_id"
+    t.decimal  "organization_weekly_working_time"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "memberships", ["employee_id"], :name => "index_memberships_on_employee_id"
+  add_index "memberships", ["organization_id"], :name => "index_memberships_on_organization_id"
+
+  create_table "milestones", :force => true do |t|
+    t.string   "name"
+    t.integer  "plan_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.datetime "due_at"
+    t.boolean  "done"
+  end
 
   create_table "notifications", :force => true do |t|
     t.string   "type",            :null => false
@@ -148,6 +168,17 @@ ActiveRecord::Schema.define(:version => 20120813134550) do
 
   add_index "schedulings", ["employee_id"], :name => "index_schedulings_on_employee_id"
   add_index "schedulings", ["plan_id"], :name => "index_schedulings_on_plan_id"
+
+  create_table "tasks", :force => true do |t|
+    t.string   "name"
+    t.integer  "milestone_id"
+    t.datetime "due_at"
+    t.boolean  "done"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "tasks", ["milestone_id"], :name => "index_tasks_on_milestone_id"
 
   create_table "teams", :force => true do |t|
     t.string   "name"

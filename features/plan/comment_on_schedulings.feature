@@ -20,11 +20,13 @@ Feature: Comment on Schedulings
   Scenario: planner writes the first comment using the keyboard
     Given I am on the page for the plan
      When I press arrow right 4 times
-      And I press arrow down 3 times
+      And I press arrow down 2 times
       And I press key "c"
       And I comment "Excellent!"
      Then I should see "1" within the comment link within cell "Fr"/"Homer S"
 
+  @todo
+  @wip
   Scenario: employee answers
     Given a scheduling should exist
       And employee "Burns" has commented the scheduling with "Excellent!"

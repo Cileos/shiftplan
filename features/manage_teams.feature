@@ -6,16 +6,21 @@ Feature: Manage Teams
   Background:
     Given the situation of a nuclear reactor
 
+  # TODO fix _navigation for organization after merge of nuke-bootstrap
+  @wip
+  @todo
   Scenario: Listing all the Teams for my organization
-    Given a organization "Government" exists
+    Given a organization "Government" exists with account: the account "tepco"
       And the following teams exist:
         | organization              | name           |
         | organization "Reactor"    | Reaktor putzen |
         | organization "Reactor"    | Uran rangieren |
         | organization "Reactor"    | Jodausschank   |
         | organization "Government" | Entsorgung     |
+      And I am on the page for the organization "Government"
      When I follow "Teams"
-     Then I should see the following table of teams:
+     Then I should be on the page for teams of the organization "Government"
+      And I should see the following table of teams:
        | Name           | Kürzel |
        | Jodausschank   | J      |
        | Reaktor putzen | Rp     |
@@ -27,21 +32,23 @@ Feature: Manage Teams
 
   Scenario: Modify the color of a team
     Given a team exists with organization: organization: "Reactor"
-     When I follow "Teams"
-      And I follow "Bearbeiten"
+      And I am on the page for teams of the organization "Reactor"
+     When I follow "Bearbeiten"
      Then the "Farbe" field should contain "#"
      When I fill in "Farbe" with "#C83BB4"
       And I press "Team aktualisieren"
-     Then the team color should be "#C83BB4"
+     Then I should be on the page for teams of the organization "Reactor"
+      And the team color should be "#C83BB4"
 
   Scenario: Modify the shortcut of a team
     Given a team exists with name: "Uran rangieren", organization: organization: "Reactor"
-     When I follow "Teams"
-      And I follow "Bearbeiten"
+      And I am on the page for teams of the organization "Reactor"
+     When I follow "Bearbeiten"
      Then the "Kürzel" field should contain "Ur"
      When I fill in "Kürzel" with "OK"
       And I press "Team aktualisieren"
-     Then I should see the following table of teams:
+     Then I should be on the page for teams of the organization "Reactor"
+      And I should see the following table of teams:
        | Name           | Kürzel |
        | Uran rangieren | OK     |
 

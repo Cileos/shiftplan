@@ -4,11 +4,11 @@ class EmployeesController < InheritedResources::Base
   respond_to :html, :js
 
   def create
-    create! { organization_employees_url(current_organization) }
+    create! { account_organization_employees_url(current_account, current_organization) }
   end
 
   def update
-    update! { edit_organization_employee_url(current_employee) }
+    update! { edit_account_organization_employee_url(current_account, current_organization, current_employee) }
   end
 
   private

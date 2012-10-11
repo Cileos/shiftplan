@@ -5,14 +5,11 @@ Feature: Feedback without Screenshot
   In order to be able to improve my application
 
   Background:
-    Given an organization "fukushima" exists with name: "Fukushima"
-      And a confirmed user exists with email: "planner@fukushima.jp"
-      And a employee planner exists with first_name: "Planner", last_name: "Burns", user: the confirmed user, organization: the organization
+    Given the situation of a nuclear reactor
       And a clear email queue
 
-  Scenario: Employee sends feedback
-    Given I am signed in as the confirmed user
-      And I am on the page of the organization "fukushima"
+  Scenario: Owner sends feedback
+    Given I am on the page of the organization "Reactor"
 
      When I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
@@ -23,15 +20,18 @@ Feature: Feedback without Screenshot
 
       And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von Planner Burns"
      When I open the email
-     Then I should see the email delivered from "planner@fukushima.jp"
+     Then I should see the email delivered from "burns@shiftplan.local"
       And I should see "Name: Planner Burns" in the email body
-      And I should see "E-Mail: planner@fukushima.jp" in the email body
+      And I should see "E-Mail: burns@shiftplan.local" in the email body
       And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
-  Scenario: Logged in user (not in the scope of an organization) sends feedback without providing a name
-    Given I am signed in as the confirmed user
+  Scenario: Signed in multiple account user (not yet in the scope of an account) sends feedback without providing a name
+    Given the confirmed user "Homer" has joined another account
+      And I sign out
+      And I am signed in as confirmed user "Homer"
       And I am on the home page
+      And I should be on the dashboard page
 
      When I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
@@ -40,36 +40,38 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von planner@fukushima.jp"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von homer@shiftplan.local"
      When I open the email
-     Then I should see the email delivered from "planner@fukushima.jp"
+     Then I should see the email delivered from "homer@shiftplan.local"
       And I should see "Name: " in the email body
-      And I should see "E-Mail: planner@fukushima.jp" in the email body
+      And I should see "E-Mail: homer@shiftplan.local" in the email body
       And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
-  Scenario: Logged in user (not in the scope of an organization) sends feedback with providing a name
-    Given I am signed in as the confirmed user
+  Scenario: Logged in multiple account user (not yet in the scope of an account) sends feedback with providing a name
+    Given the confirmed user "Homer" has joined another account
+      And I sign out
+      And I am signed in as confirmed user "Homer"
       And I am on the home page
-
      When I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
-      And I fill in "Name" with "Hein Blöd"
+      And I fill in "Name" with "not Mr Burns"
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear
      Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
+      And "support@shiftplan.de" should receive an email with subject "Sie haben neues Feedback erhalten von not Mr Burns"
      When I open the email
-     Then I should see the email delivered from "planner@fukushima.jp"
-      And I should see "Name: Hein Blöd" in the email body
-      And I should see "E-Mail: planner@fukushima.jp" in the email body
+     Then I should see the email delivered from "homer@shiftplan.local"
+      And I should see "Name: not Mr Burns" in the email body
+      And I should see "E-Mail: homer@shiftplan.local" in the email body
       And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Guest sends feedback by providing his name and email
-     When I go to the home page
+     When I sign out
+      And I go to the home page
 
       And I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
@@ -89,7 +91,8 @@ Feature: Feedback without Screenshot
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Guest sends feedback by providing his email address but no name
-     When I go to the home page
+     When I sign out
+      And I go to the home page
 
       And I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
@@ -108,7 +111,8 @@ Feature: Feedback without Screenshot
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
   Scenario: Guest sends feedback without providing a text and his email
-     When I go to the home page
+     When I sign out
+      And I go to the home page
 
       And I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear

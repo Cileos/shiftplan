@@ -1,0 +1,30 @@
+table {
+  margin-bottom: 2em;
+
+  thead {
+    border-bottom: 1px solid $ci_darkgray;
+  }
+
+  tr {
+    &:nth-child(2n) {
+      background: $ci_darkwhite;
+    }
+  }
+
+  td, th {
+    padding: $table_cell_padding;
+    text-align: left;
+  }
+
+  img {
+    vertical-align: middle;
+  }
+
+  .numeric {
+    text-align: right;
+  }
+
+  &:not(.table-condensed) {
+    width: 100%;
+  }
+}

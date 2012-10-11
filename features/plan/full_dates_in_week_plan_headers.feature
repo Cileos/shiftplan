@@ -16,7 +16,6 @@ Feature: Full dates in week plan headers
      When I go to the page of the plan
      Then I should see the following calendar:
         | Mitarbeiter   | Mo   | Di | Mi | Do | Fr | Sa | So |
-        | Planner Burns |      |    |    |    |    |    |    |
         | Carl C        |      |    |    |    |    |    |    |
         | Lenny L       |      |    |    |    |    |    |    |
         | Homer S       | 9-17 |    |    |    |    |    |    |

@@ -1,5 +1,5 @@
 jQuery(document).ready ->
-  return if $('#page #calendar.hours-in-week').length == 0
+  return if $('#calendar.hours-in-week').length == 0
 
   layout_stacks = ->
     $(this).find('.scheduling').each ->
