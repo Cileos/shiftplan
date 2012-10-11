@@ -1,5 +1,4 @@
 @javascript
-@big_screen
 Feature: Create Employees
   In order to assign my employees to their shift
   As a planner
