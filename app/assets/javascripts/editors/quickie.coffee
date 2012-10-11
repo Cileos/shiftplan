@@ -14,12 +14,13 @@ class QuickieEditor extends View
     unless @input?
       console?.warn('no element given to QuickieEditor')
       return
-    @completions = params.completions || gon.quickie_completions
+    @completions = params.completions || gon.quickie_completions || []
 
     # input will be autocompleted, keybindings removed on modal box close
     @input
       .attr('autocomplete', 'off')
       .data('autocompletion', this)
+      .addClass('autocompleted')
       .autocomplete
         source: @autocompleteSource
     @one 'attach', =>
@@ -30,10 +31,10 @@ class QuickieEditor extends View
     @input?.unbind().autocomplete('destroy')
     true
 
-  autocompleteSource: (request, response) ->
+  autocompleteSource: (request, response) =>
     @query = request.term
-    matched = (item for item in @completions when matcher(item))
-    response sorter(matched)
+    matched = (item for item in @completions when @matcher(item))
+    response @sorter(matched)
 
   matcher: (item) ->
     return true for term in @query.split(/\s/) when ~item.toLowerCase().indexOf(term.toLowerCase())
@@ -61,5 +62,5 @@ class QuickieEditor extends View
 window.QuickieEditor = QuickieEditor
 
 $.fn.edit_quickie = ->
-  $(this).not('.typeahead').each ->
+  $(this).not('.autocompleted').each ->
     new QuickieEditor element: $(this)

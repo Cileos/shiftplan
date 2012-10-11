@@ -60,6 +60,9 @@ module HtmlSelectorsHelpers
     when 'the modal box'
       'div#modalbox'
 
+    when 'the completion list'
+      'ul.ui-autocomplete'
+
     when 'errors'
       '.errors.alert.alert-error'
 

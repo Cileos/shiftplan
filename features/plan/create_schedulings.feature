@@ -27,6 +27,8 @@ Feature: create a scheduling
       And I select "Lenny L" from "Mitarbeiter"
       And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9"
+      And I wait for the completion list to appear
+      And I press arrow down in the "Quickie" field
       And I press return in the "Quickie" field
      Then the "Quickie" field should contain "9-17"
 
