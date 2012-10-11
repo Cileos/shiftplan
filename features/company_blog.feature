@@ -68,9 +68,6 @@ In order to keep my colleagues informed about important news
       And I should be on the page of the post
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
-     When I follow "Zurück"
-      And I should see "Umweltminister zu Besuch"
-      And I should see "Bitte putzen"
 
   Scenario: Creating a blog post without entering a title
     Given I am signed in as the confirmed user "mr. burns"
@@ -319,7 +316,7 @@ In order to keep my colleagues informed about important news
       And I should see "Post 2"
       And I should see "Post 1"
       But I should not see "Post 0"
-     When I follow "»" within the pagination
+     When I follow ">>" within the pagination
      Then I should see "Post 0"
       But I should not see "Post 10"
       And I should not see "Post 9"
@@ -360,7 +357,7 @@ In order to keep my colleagues informed about important news
       And I should see "Post 2"
       And I should see "Post 1"
       But I should not see "Post 0"
-     When I follow "»" within the pagination
+     When I follow ">>" within the pagination
      Then I should see "Post 0"
       But I should not see "Post 10"
       And I should not see "Post 9"
@@ -372,7 +369,7 @@ In order to keep my colleagues informed about important news
       And I should not see "Post 3"
       And I should not see "Post 2"
       And I should not see "Post 1"
-     When I follow "«" within the pagination
+     When I follow "<<" within the pagination
      Then I should see "Post 10"
       And I should see "Post 9"
       And I should see "Post 8"
