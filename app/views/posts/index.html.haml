@@ -1,8 +1,8 @@
 - title t(:'blogs.company_news')
 
-- if can? :create, company_blog.posts.new
+- if can? :create, parent.posts.new
   - masthead_toolbar do
-    = link_to ti(:add, translation_key: 'posts.new'), [:new] + nested_resources_for(company_blog), |
+    = link_to ti(:add, translation_key: 'posts.new'), [:new] + nested_resources_for(parent) + [:post], |
       class: 'button', remote: true, data: { icon: i(:add) }
 
 .posts

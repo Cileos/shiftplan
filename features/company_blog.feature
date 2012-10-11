@@ -30,7 +30,7 @@ In order to keep my colleagues informed about important news
      Then I should see a flash info "Post erfolgreich angelegt."
       And I should see "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
-      And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben" within the posts
+      And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben" within the posts list
       And I should not see "Es wurden noch keine Blogposts erstellt."
       And I sign out
 
@@ -146,7 +146,8 @@ In order to keep my colleagues informed about important news
   Scenario: Employees can only destroy their own blog posts
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And a confirmed user "bart" exists
-      And an employee "bart" exists with first_name: "Bart", organization: organization "fukushima", user: the confirmed user "bart"
+      And an employee "bart" exists with first_name: "Bart", user: the confirmed user "bart"
+      And the employee "bart" is a member in the organization "fukushima"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
      When I follow "Mehr"
@@ -418,7 +419,7 @@ In order to keep my colleagues informed about important news
       And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     Then I should see a thumb gravatar within the post
+     Then I should see a thumb gravatar within the first post
      When I follow "Mehr"
-     Then I should see a thumb gravatar within the post
+     Then I should see a thumb gravatar within the first post
       And I should see the avatar "rails.png" within the comment

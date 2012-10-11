@@ -2,7 +2,7 @@
 
 %article
   %header
-    %h3= link_to(post.title, [current_organization, post.blog, post])
+    %h3= link_to post.title, nested_resources_for(post)
 
     %p.meta
       - if post.author == current_user.current_employee
@@ -16,7 +16,7 @@
     .body= post.body
 
   %footer
-    = link_to(:'more', [current_organization, post.blog, post])
+    = link_to :more, nested_resources_for(post)
     &middot;
     = render('posts/comments_count', post: post)
 

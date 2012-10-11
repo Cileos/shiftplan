@@ -84,8 +84,6 @@ module HtmlSelectorsHelpers
       '.hint'
     when 'the pagination'
       '.pagination'
-    when 'the posts'
-      'ul.posts'
     when 'the comments'
       'ul#comments'
 
@@ -99,6 +97,9 @@ module HtmlSelectorsHelpers
 
     when /^(?: a |the )?(\w+) list$/
       "ul.#{$1}"
+
+    when /^the #{capture_nth} (post)/
+      ".#{$2}#{Numerals[$1]}"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
@@ -121,8 +122,6 @@ module HtmlSelectorsHelpers
     when /^#{capture_model}$/
       model = model!($1)
       case model
-      when Post
-        "#post_#{model.id}"
       when Comment
         "#comment_#{model.id}"
       else
