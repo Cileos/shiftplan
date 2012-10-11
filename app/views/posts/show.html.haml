@@ -1,5 +1,5 @@
 #actions.btn-group
-  = link_to(ti(:back), [current_organization, @post.blog, :posts], class: 'btn btn-primary', id: 'back')
+  = link_to(ti(:back), [current_account, current_organization, @post.blog, :posts], class: 'btn btn-primary', id: 'back')
 .row
   .post
     %div{id: "post_#{@post.id}"}

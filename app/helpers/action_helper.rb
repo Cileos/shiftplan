@@ -4,7 +4,7 @@ module ActionHelper
       t(opts.delete(:translation_key), opts)
     elsif key.is_a?(Symbol)
       t("helpers.actions.#{key}", opts)
-    elsif key.present? && key.first == '.'
+    elsif key.present? && key.respond_to?(:first) && key.first == '.'
       t("helpers.actions#{key}", opts)
     else
       key
@@ -35,6 +35,7 @@ module ActionHelper
     edit:              'edit',
     destroy:           'trash',
     new_scheduling:    'plus',
+    new_organization:  'plus',
     copy_week:         'retweet',
     update:            'ok-circle',
     invite:            'user',

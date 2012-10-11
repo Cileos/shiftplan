@@ -15,5 +15,7 @@ FactoryGirl.define do
         after(:create) { |u| FactoryGirl.create :employee, user: u }
       end
     end
+
+    factory :owner # of Account
   end
 end

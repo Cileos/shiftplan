@@ -1,4 +1,4 @@
-= simple_form_for scheduling, url: organization_plan_schedulings_path(current_organization, scheduling.plan), remote: true, html: { class: 'form-horizontal' } do |f|
+= simple_form_for scheduling, url: account_organization_plan_schedulings_path(current_account, current_organization, scheduling.plan), remote: true, html: { class: 'form-horizontal' } do |f|
   - if current_plan_mode.teams_in_week? or current_plan_mode.teams_in_day?
     = f.input :quickie, hint: true, input_html: { value: '' }
   - else

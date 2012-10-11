@@ -8,7 +8,7 @@
       - comments.each do |comment|
         = render('comments/item', comment: comment, avatar_size: :thumb)
   = simple_form_for Comment.new(employee: current_user.current_employee), |
-      url: organization_blog_post_comments_path(@post.organization, @post.blog, @post), remote: true do |f|
+      url: account_organization_blog_post_comments_path(current_account, @post.organization, @post.blog, @post), remote: true do |f|
     = f.input :body, input_html: { rows: 2 }
     = f.input :employee_id, as: :hidden
     %button.btn.btn-inverse{type: 'submit'}= ti(:comment)

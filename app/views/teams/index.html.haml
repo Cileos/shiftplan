@@ -13,11 +13,11 @@
       %tbody
         - collection.each do |team|
           %tr
-            %td= can?(:edit, team) ? link_to(team.name, organization_team_path(current_organization, team)) : team.name
+            %td= can?(:edit, team) ? link_to(team.name, account_organization_team_path(current_account, current_organization, team)) : team.name
             %td= team.shortcut
             %td= render 'pibble', team: team
             %td
               - if can? :edit, team
-                = link_to :edit, edit_organization_team_path(current_organization, team), class: 'btn btn-mini'
+                = link_to :edit, edit_account_organization_team_path(current_account, current_organization, team), class: 'btn btn-mini'
   .span5.instructions
     = tt '.instructions'

@@ -13,8 +13,8 @@
       %tr{ id: "employee_#{employee.id}" }
         %th
           - if can?(:update, employee)
-            = link_to(avatar(employee.user, employee, :tiny), [:edit, current_organization, employee], remote: true)
-            = link_to(employee.last_and_first_name, [:edit, current_organization, employee], remote: true, :class => 'name')
+            = link_to(avatar(employee.user, employee, :tiny), [:edit, current_account, current_organization, employee], remote: true)
+            = link_to(employee.last_and_first_name, [:edit, current_account, current_organization, employee], remote: true, :class => 'name')
           - else
             = avatar(employee.user, employee, :tiny)
             = employee.last_and_first_name

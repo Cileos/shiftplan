@@ -39,6 +39,9 @@ module HtmlSelectorsHelpers
     when 'the navigation'
       '.navbar:first'
 
+    when 'the content'
+      'div#content'
+
     when "the calendar"
       'table#calendar'
 

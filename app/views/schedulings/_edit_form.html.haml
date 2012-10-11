@@ -1,5 +1,5 @@
 - scheduling ||= record
-- url = organization_plan_scheduling_path(current_organization, scheduling.plan, scheduling)
+- url = account_organization_plan_scheduling_path(current_account, current_organization, scheduling.plan, scheduling)
 = simple_form_for scheduling, url: url, remote: true, html: { class: 'form-horizontal edit_scheduling' } do |f|
   = f.input :quickie, hint: true, wrapper_html: { class: 'quickie' }
   = f.association :employee, as: :select, include_blank: false, collection: scheduling.plan.organization.employees
