@@ -29,10 +29,12 @@ Feature: Creating a plan
         | Lenny L       |    |    |    |    |    |    |    |
         | Homer S       |    |    |    |    |    |    |    |
 
+  # in germany, the week with january 4th is the first calendar week
+  # in 2012, the January 1st is a sunday
   Scenario: creating a plan by name for the current organization with a specific period locks the user in this time period frame
-      # monday 4 weeks from now (10th week)
+      # monday 4 weeks from now (9th week, german)
      When I fill in "Startdatum" with "2012-02-27"
-      # friday a month later (14th week)
+      # friday a month later (13th week, german)
       And I fill in "Enddatum" with "2012-03-30"
       And I press "Anlegen"
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
