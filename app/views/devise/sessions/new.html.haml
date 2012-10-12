@@ -1,12 +1,15 @@
 - title :signin
 
 = simple_form_for resource, :as => resource_name, :url => session_path(resource_name) do |f|
-  = hidden_field_tag :return_to, params[:return_to] if params[:return_to]
-  = f.input :email, :hint => false, required: true
-  = f.input :password, hint: false, required: true
-  - if devise_mapping.rememberable?
-    = f.input :remember_me, as: :boolean
-  .form-actions
+  .inputs
+    = hidden_field_tag :return_to, params[:return_to] if params[:return_to]
+    = f.input :email, :hint => false, required: true
+    = f.input :password, hint: false, required: true
+    - if devise_mapping.rememberable?
+      = f.input :remember_me, as: :boolean
+
+  .actions
     = f.button :submit, ta(:signin), class: ''
 
-= render :partial => "devise/links"
+.additional-actions
+  = render :partial => "devise/links"
