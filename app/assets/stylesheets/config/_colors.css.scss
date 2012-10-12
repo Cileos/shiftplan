@@ -10,14 +10,16 @@ $ci_yellow: #e8cf15;
 $ci_lime: #cedf14;
 $ci_green: #5fca12;
 $ci_teal: #11be65;
+
+$ci_anthracite: #363640;
+$ci_darkgray: #808086;
+$ci_darkgrey: $ci_darkgray;
 $ci_gray: #c0c0cc;
 $ci_grey: $ci_gray;
-$ci_darkgray: #363640;
-$ci_darkgrey: $ci_darkgray;
-$ci_lightgray: #e0e0e6;
-$ci_lightgrey: $ci_lightgray;
 $ci_midgray: #e2e2e8;
 $ci_midgrey: $ci_midgray;
+$ci_lightgray: #e0e0e6;
+$ci_lightgrey: $ci_lightgray;
 $ci_darkwhite: lighten($ci_lightgray, 7.5%);
 
 $ci_bg-color: #f8fff8;
@@ -56,13 +58,15 @@ $gradient_2: #F0F4F8;
 $ci_color-names: ci_blue, ci_darkblue, ci_darkpurple, ci_purple,
                  ci_pink, ci_darkorange, ci_orange, ci_darkyellow,
                  ci_yellow, ci_lime, ci_green, ci_teal, ci_gray,
-                 ci_darkgray, ci_blue_hover, ci_blue_hover_dark,
-                 ci_gray_hover, ci_green_hover, ci_darkorange_hover;
+                 ci_darkgray, ci_anthracite, ci_blue_hover,
+                 ci_blue_hover_dark, ci_gray_hover, ci_green_hover,
+                 ci_darkorange_hover;
 $ci_color-values: $ci_blue, $ci_darkblue, $ci_darkpurple, $ci_purple,
                   $ci_pink, $ci_darkorange, $ci_orange, $ci_darkyellow,
                   $ci_yellow, $ci_lime, $ci_green, $ci_teal, $ci_gray,
-                  $ci_darkgray, $ci_blue_hover, $ci_blue_hover_dark,
-                  $ci_gray_hover, $ci_green_hover, $ci_darkorange_hover;
+                  $ci_darkgray, $ci_anthracite, $ci_blue_hover,
+                  $ci_blue_hover_dark, $ci_gray_hover, $ci_green_hover,
+                  $ci_darkorange_hover;
 
 @function color-for($name) {
   @return nth($ci_color-values, index($ci_color-names, $name));
@@ -73,7 +77,7 @@ $ci_color-values: $ci_blue, $ci_darkblue, $ci_darkpurple, $ci_purple,
     @if lightness(color-for($color)) < 50 {
       color: #fff;
     } @else {
-      color: $ci_darkgray;
+      color: $ci_anthracite;
     }
 
     background: color-for($color);

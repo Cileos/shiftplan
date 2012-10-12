@@ -6,6 +6,6 @@
   @if lightness($color) < 50 {
     color: #fff;
   } @else {
-    color: $ci_darkgray;
+    color: $ci_anthracite;
   }
 }

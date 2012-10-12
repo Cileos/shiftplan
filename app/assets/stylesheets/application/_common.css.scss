@@ -183,14 +183,14 @@ small {
     border: 1px solid $ci_lightgray;
 
     &:hover {
-      color: $ci_darkgray;
-      border: 1px solid $ci_darkgray;
+      color: $ci_anthracite;
+      border: 1px solid $ci_anthracite;
     }
   }
 
   .active a {
     border: 1px solid $ci_gray;
-    color: $ci_darkgray;
+    color: $ci_anthracite;
   }
 }
 

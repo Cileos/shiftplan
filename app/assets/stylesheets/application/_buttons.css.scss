@@ -28,7 +28,7 @@ button {
     @include box-shadow(0 0 .35em transparentize($ci_blue, .2));
 
     border-color: $ci_blue;
-    color: $ci_darkgray;
+    color: $ci_anthracite;
   }
 
   &:active {
