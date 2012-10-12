@@ -10,13 +10,9 @@
     = f.input :avatar, as: :file
     = f.input :avatar_cache, as: :hidden
 
-  .inputs
     = f.input :first_name, autofocus: true
-
-  .inputs
     = f.input :last_name
 
-  .inputs
     = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
     = f.input :organization_id, as: :hidden
     = f.input :account_id, as: :hidden
