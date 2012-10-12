@@ -62,10 +62,6 @@ small {
   font-size: $ci_font-size;
 }
 
-#title {
-  padding: 10px 0;
-}
-
 [role=banner] {
   background: $ci_blue;
   border-bottom: 1px solid darken($ci_blue, 7.5%);
@@ -275,6 +271,12 @@ small {
 
 .user-settings {
   margin-top: 15px;
+}
+
+#spinner {
+  @include z-index(1000, fixed);
+  top:  50%;
+  left: 50%;
 }
 
 .hidden {
