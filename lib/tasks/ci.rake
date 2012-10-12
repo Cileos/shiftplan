@@ -11,3 +11,5 @@ if ENV['CI'].to_s == 'true'
     end
   end
 end
+
+end
