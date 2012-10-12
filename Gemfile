@@ -65,7 +65,7 @@ group :development, :test do
   gem 'pry'
   gem "guard-jasmine"
   gem "jasminerice"
-  gem 'rb-inotify', '~> 0.8.8'
+  gem 'rb-inotify', '~> 0.8.8', :require => false
 end
 
 group :development do
