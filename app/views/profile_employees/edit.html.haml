@@ -10,7 +10,7 @@
 
       %legend= t('.your_photo')
 
-      .inputs 
+      .inputs.avatar_and_name
         = avatar(@employee.user, @employee, :thumb, :author)
         = f.input :avatar, as: :file, :label => false
         = f.input :avatar_cache, as: :hidden
