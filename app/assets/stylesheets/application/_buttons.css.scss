@@ -117,6 +117,10 @@ input[type=submit].utility-button {
     display: inline;
     float: left;
     margin: 0;
+
+    &:hover {
+      @include z-index(1);
+    }
   }
 
   :first-child {
