@@ -16,3 +16,5 @@
         - filter.days.each do |day|
           %td{data: filter.cell_metadata(day, team)}
             = filter.cell_content(day, team)
+
+= render 'plans/details', plan: filter.plan

@@ -33,6 +33,12 @@ class SchedulingFilter
     ( Date.new(year) + week.weeks ).beginning_of_week
   end
 
+  alias first_day monday
+
+  def last_day
+    ( Date.new(year) + week.weeks ).end_of_week
+  end
+
   def previous_week
     prev = monday.prev_week
     self.class.new attributes.merge(week: prev.cweek, year: prev.year)
@@ -74,6 +80,14 @@ class SchedulingFilter
   end
 
   delegate :all, to: :records
+
+  def before_start_of_plan?(date=last_day)
+    plan.starts_at.present? && date.to_time < plan.starts_at
+  end
+
+  def after_end_of_plan?(date=first_day)
+    plan.ends_at.present? && plan.ends_at < date.to_time
+  end
 
 
   private

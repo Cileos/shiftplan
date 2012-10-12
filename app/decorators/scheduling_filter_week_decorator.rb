@@ -29,16 +29,20 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
     end
   end
 
-  def previous_path
-    path_to_week(monday.prev_week)
+  def previous_step
+    monday.prev_week
   end
 
-  def next_path
-    path_to_week(monday.next_week)
+  def next_step
+    monday.next_week
   end
 
   def today_path
     path_to_week(Date.today)
+  end
+
+  def path_to_date(date)
+    path_to_week(date)
   end
 
   # Returns a Hash of Hashes of Arrays

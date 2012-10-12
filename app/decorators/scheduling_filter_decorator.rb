@@ -148,7 +148,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   # URI-Path to another week
   def path_to_week(week)
-    raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
+    raise(ArgumentError, "please give a date or datetime, got #{week.inspect}") unless week.acts_like?(:date) or week.acts_like?(:time)
     h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: week.year, week: week.cweek)
   end
 
@@ -167,6 +167,19 @@ class SchedulingFilterDecorator < ApplicationDecorator
     else
       '#' # TODO
     end
+  end
+
+  # Path to view with given date, mus tbe implemented in subclass, for example to find the corresponding week
+  def path_to_date(date)
+    raise NotImplementedError, 'should return path to view including the given date'
+  end
+
+  def previous_path
+    path_to_date(previous_step)
+  end
+
+  def next_path
+    path_to_date(next_step)
   end
 
   def path_to_day(day=monday)
@@ -236,4 +249,13 @@ class SchedulingFilterDecorator < ApplicationDecorator
   def update_team_colors
     select(:team_colors).refresh_html team_colors
   end
+
+  def has_previous?
+    ! before_start_of_plan?(previous_step)
+  end
+
+  def has_next?
+    ! after_end_of_plan?(next_step)
+  end
+
 end

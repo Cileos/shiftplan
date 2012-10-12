@@ -5,6 +5,8 @@ class Plan < ActiveRecord::Base
 
   validates_presence_of :name
 
+  attr_accessible :name, :description, :duration, :starts_at, :ends_at
+
   # for now, durations are hardcoded, not saved
   Durations = %w(1_week)
   attr_writer :duration
