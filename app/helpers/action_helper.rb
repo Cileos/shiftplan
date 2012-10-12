@@ -50,7 +50,7 @@ module ActionHelper
     news:              '&#xf015;',
     dropdown:          '&#xf073;',
     employees:         '&#xf007;',
-    tems:              '&#xf0e8;',
+    teams:             '&#xf0e8;',
     settings:          '&#xf007;',
     signup:            '&#xf007;',
     signout:           '&#xf08b;',
