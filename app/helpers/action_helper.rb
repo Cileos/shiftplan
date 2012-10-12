@@ -34,6 +34,7 @@ module ActionHelper
     add:               '&#xf067;',
     edit:              'edit',
     destroy:           '&#xf00d;',
+    new_plan:          'plus',
     new_scheduling:    'plus',
     new_organization:  'plus',
     copy_week:         'retweet',
