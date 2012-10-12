@@ -42,6 +42,9 @@ input[type=radio] {
 form div {
   & > label {
     margin-left: 0.25em;
+    &:first-child {
+      font-weight: bold;
+    }
   }
 }
 
