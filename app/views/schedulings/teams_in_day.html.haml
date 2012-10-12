@@ -12,3 +12,5 @@
         %th.team_name= team.name
         %td.bars{data: filter.cell_metadata(team)}
           = filter.cell_content(team)
+
+= render 'plans/details', plan: filter.plan

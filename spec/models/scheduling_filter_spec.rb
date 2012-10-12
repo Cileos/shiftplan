@@ -119,4 +119,35 @@ describe SchedulingFilter do
 
   end
 
+  describe "plan period" do
+    let(:filter) { SchedulingFilter.new year: 2012, week: 26, plan: plan }
+
+    context "for plan without start date" do
+      let(:plan) { create :plan, starts_at: nil }
+      it { filter.should_not be_before_start_of_plan }
+    end
+    context "for plan without end date" do
+      let(:plan) { create :plan, ends_at: nil }
+      it { filter.should_not be_after_end_of_plan }
+    end
+
+    context "for plan with start date before filter" do
+      let(:plan) { create :plan, starts_at: '2012-01-01' }
+      it { filter.should_not be_before_start_of_plan }
+    end
+    context "for plan with start date after filter" do
+      let(:plan) { create :plan, starts_at: '2012-12-21' }
+      it { filter.should be_before_start_of_plan }
+    end
+
+    context "for plan with end date after filter" do
+      let(:plan) { create :plan, ends_at: '2012-12-21' }
+      it { filter.should_not be_after_end_of_plan }
+    end
+    context "for plan with end date before filter" do
+      let(:plan) { create :plan, ends_at: '2012-01-01' }
+      it { filter.should be_after_end_of_plan }
+    end
+  end
+
 end

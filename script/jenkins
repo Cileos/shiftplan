@@ -19,6 +19,7 @@ export RAILS_ENV
 APP_DIR=`pwd`
 
 export CI_REPORTS="log/reports/"
+rm -rf $CI_REPORTS
 
 # Install RVM
 rvmrc="$HOME/.rvmrc"
