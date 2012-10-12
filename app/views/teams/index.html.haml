@@ -1,7 +1,12 @@
 - title :teams
 
-.row
-  .span7
+- if can? :create, Team
+  - masthead_toolbar do
+    =link_to ti(:add), '#', class: 'button', remote: true, data: { icon: i(:add) }
+
+
+.row.two-columns.inverted
+  .primary
     %table#teams.table.table-striped.table-condensed
       %thead
         %tr.employee
@@ -13,11 +18,11 @@
       %tbody
         - collection.each do |team|
           %tr
-            %td= can?(:edit, team) ? link_to(team.name, organization_team_path(current_organization, team)) : team.name
+            %td= can?(:edit, team) ? link_to(team.name, account_organization_team_path(current_account, current_organization, team)) : team.name
             %td= team.shortcut
             %td= render 'pibble', team: team
             %td
               - if can? :edit, team
-                = link_to :edit, edit_organization_team_path(current_organization, team), class: 'btn btn-mini'
-  .span5.instructions
+                = link_to :edit, [:edit] + nested_resources_for(team), class: 'button button-small'
+  .secondary.instructions
     = tt '.instructions'

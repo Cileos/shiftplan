@@ -10,6 +10,7 @@ de:
         first_name: Vorname
         last_name: Nachname
         organization_name: Organisationsname
+        account_name: Accountbezeichnung
         name: "Name"
         locale: "Sprache"
         password: "Passwort"

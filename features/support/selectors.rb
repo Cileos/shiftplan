@@ -37,19 +37,31 @@ module HtmlSelectorsHelpers
       "table#employees"
 
     when 'the navigation'
-      '.navbar:first'
+      'nav[role=navigation]'
+
+    when 'the user navigation'
+      '.user-navigation'
+
+    when 'the content'
+      'section[role=content]'
 
     when "the calendar"
       'table#calendar'
 
+    when "the calendar caption"
+      'header.calendar-caption h2'
+
     when "the legend"
       '#legend'
 
-    when "the calendar navigation"
-      'div#calendar-navigation'
+    when 'the toolbar'
+      'nav[role=toolbar]'
 
     when 'the modal box'
       'div#modalbox'
+
+    when 'the completion list'
+      'ul.ui-autocomplete'
 
     when 'errors'
       '.errors.alert.alert-error'
@@ -75,11 +87,9 @@ module HtmlSelectorsHelpers
       "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
 
     when 'a hint'
-      '.help-block'
+      '.hint'
     when 'the pagination'
       '.pagination'
-    when 'the posts'
-      'ul#posts'
     when 'the comments'
       'ul#comments'
 
@@ -93,6 +103,9 @@ module HtmlSelectorsHelpers
 
     when /^(?: a |the )?(\w+) list$/
       "ul.#{$1}"
+
+    when /^the #{capture_nth} (post)/
+      ".#{$2}#{Numerals[$1]}"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
@@ -115,8 +128,6 @@ module HtmlSelectorsHelpers
     when /^#{capture_model}$/
       model = model!($1)
       case model
-      when Post
-        "#post_#{model.id}"
       when Comment
         "#comment_#{model.id}"
       else
@@ -145,13 +156,22 @@ module HtmlSelectorsHelpers
     rows.index(row_label)
   end
 
-  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.btn.active']
+  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.button.active']
   def extract_text_from_cell(cell)
+    tried = 0
     found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }
     if found.present?
       found.map { |f| cell.all(f).map(&:text).map(&:strip) }.flatten.join(' ')
     else
       cell.text.strip
+    end
+  rescue Timeout::Error => e
+    # sometimes the finding takes too long and travis times out.
+    if tried < 1
+      tried += 1
+      retry
+    else
+      raise e
     end
   end
 

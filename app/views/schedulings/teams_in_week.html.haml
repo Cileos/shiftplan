@@ -1,6 +1,6 @@
 - title filter.caption, false
 
-%table#calendar.teams-in-week.table.table-striped.table-bordered.table-condensed{class: filter.range, data: filter.table_metadata}
+%table#calendar.calendar.teams-in-week{class: filter.range, data: filter.table_metadata}
   %thead
     %tr
       %th
@@ -16,3 +16,5 @@
         - filter.days.each do |day|
           %td{data: filter.cell_metadata(day, team)}
             = filter.cell_content(day, team)
+
+= render 'plans/details', plan: filter.plan

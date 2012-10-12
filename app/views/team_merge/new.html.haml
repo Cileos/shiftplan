@@ -1,4 +1,4 @@
 - title :merge
-= simple_form_for resource, url: organization_team_merge_path(current_organization, parent) do |f|
+= simple_form_for resource, url: account_organization_team_merge_path(parent.organization.account, parent.organization, parent) do |f|
   = f.input :other_team_id, collection: parent.organization.teams.reject {|t| t == parent }
   = f.button :submit, ta(:merge)

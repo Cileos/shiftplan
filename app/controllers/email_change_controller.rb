@@ -13,7 +13,7 @@ class EmailChangeController < ApplicationController
     if @user.update_with_password(params[:user])
       set_flash(:notice, 'accepted', email: @user.email)
       sign_in(User, @user)
-      redirect_to dashboard_path
+      redirect_to dynamic_dashboard_path
     else
       set_flash(:alert, 'rejected', email: @user.email)
       render :accept
@@ -25,7 +25,7 @@ class EmailChangeController < ApplicationController
   def set_email_change
     unless @email_change = EmailChange.find_by_token(params[:token])
       set_flash(:alert, 'token_invalid')
-      redirect_to root_url
+      redirect_to dashboard_path
     end
   end
 
@@ -37,7 +37,7 @@ class EmailChangeController < ApplicationController
     if @email_change.confirmed?
       if current_user
         set_flash(:alert, 'already_confirmed', action: 'accept')
-        redirect_to dashboard_path
+        redirect_to dynamic_dashboard_path
       else
         set_flash(:alert, 'already_confirmed_sign_in', action: 'accept')
         redirect_to new_user_session_path

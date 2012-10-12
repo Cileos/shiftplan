@@ -1,0 +1,62 @@
+nav {
+  padding: 0;
+
+  li {
+    display: inline-block;
+    float: left;
+  }
+
+  .organization:after {
+    font-family: FontAwesome;
+    content: '\f04e';
+    margin-left: .35em;
+    font-size: .8em;
+  }
+}
+
+.dropdown {
+  position: relative;
+
+  > a:after {
+    font-family: FontAwesome;
+    content: '\f078';
+    margin-left: .35em;
+    font-size: .8em;
+  }
+
+  &:hover > ul, &.open > ul {
+    display: block;
+  }
+
+  > ul {
+    @include box-shadow(0 2px 3px rgba(0,0,0,.25));
+    @include border-radius(0 0 $ci_border-radius $ci_border-radius);
+
+    display: none;
+    position: absolute;
+    top: $ci_font_size / $ci_line_height / 2;
+    left: 0;
+    padding: 10px 0;
+    background: #fff;
+    border: 1px solid lighten($ci_blue, 10%);
+    border-top: none;
+  }
+
+  > ul a {
+    @include transition(none);
+
+    padding: 3px 15px;
+    display: block;
+    white-space: nowrap;
+
+    &:hover {
+      color: #fff;
+      background: $ci_blue;
+    }
+  }
+
+  li {
+    display: block;
+    float: none;
+  }
+}

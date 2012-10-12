@@ -1,6 +1,6 @@
 - title filter.caption, false
 
-%table#calendar.employee-in-week.table.table-striped.table-bordered.table-condensed{class: filter.range, data: filter.table_metadata}
+%table#calendar.calendar.employee-in-week{class: filter.range, data: filter.table_metadata}
   %thead
     %tr
       %th
@@ -27,3 +27,5 @@
 
 #legend
   = filter.legend
+
+= render 'plans/details', plan: filter.plan

@@ -1,15 +1,18 @@
 .comments
   %a{name: 'comments'}
-  %h4= t(:'comments.comments')
-  %ul#comments
+  %h3= t(:'comments.comments')
+  %ul#comments.comments
     - if comments.empty?
-      %li#no-comments= t(:'comments.no_comments_present')
+      %li.no-comments= t(:'comments.no_comments_present')
     - else
       - comments.each do |comment|
         = render('comments/item', comment: comment, avatar_size: :thumb)
-  = simple_form_for Comment.new(employee: current_user.current_employee), |
-      url: organization_blog_post_comments_path(@post.organization, @post.blog, @post), remote: true do |f|
-    = f.input :body, input_html: { rows: 2 }
-    = f.input :employee_id, as: :hidden
-    %button.btn.btn-inverse{type: 'submit'}= ti(:comment)
+    %li
+      = simple_form_for Comment.new(employee: current_user.current_employee), |
+          url: nested_resources_for(@post) + [:comments], remote: true do |f|
+        = avatar(current_user, current_user.current_employee, :thumb, :author)
+        = f.input :body, input_html: { rows: 4 }
+        -# FIXME security. I am in our Post, commenting as YOU
+        = f.input :employee_id, as: :hidden
+        %button{type: 'submit'}= ti(:comment)
 

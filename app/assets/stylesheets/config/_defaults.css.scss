@@ -1,0 +1,17 @@
+$ci_border-radius: .35em;
+
+// All the typographic stuff goes here
+$ci_font-size: 13px;
+$ci_header-size: 20px;
+$ci_line-height: 1.5;
+$ci_scale: 1.618; // Golden ratio
+$ci_small-font: floor(modular-scale($ci_font-size, -1, $ci_scale));
+$ci_big-font: floor(modular-scale($ci_font-size, 1, $ci_scale));
+$ci_bigger-font: floor(modular-scale($ci_font-size, 2, $ci_scale));
+$ci_biggest-font: floor(modular-scale($ci_font-size, 4, $ci_scale));
+
+// Breakpoints go here
+$ci_break-tablet-portrait: 768px;
+
+// CSS3 animation functions go here
+$ci_easing: cubic-bezier(0.250, 0.460, 0.450, 0.940);

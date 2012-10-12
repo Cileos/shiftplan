@@ -6,6 +6,6 @@
 
 %p Klicken Sie auf den folgenden Link um den Blogpost zu lesen oder zu kommentieren:
 
-%p= link_to "Blogpost lesen >>", organization_blog_post_url(@post.organization, @post.blog, @post)
+%p= link_to "Blogpost lesen >>", account_organization_blog_post_url(@post.organization.account, @post.organization, @post.blog, @post)
 
 %p Ihr Shiftplan Team

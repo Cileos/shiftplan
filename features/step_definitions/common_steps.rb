@@ -27,5 +27,33 @@ end
 Given /^the situation of ([\w ]+)$/ do |situation|
   file = situation.downcase.gsub(/\s+/,'_')
   path = Rails.root/"features"/"situations"/"#{file}.steps"
-  steps File.read(path)
+  index = 0
+  last = nil
+  sentences = File.read(path).lines.map do |line|
+    index += 1
+    line.chomp!
+    next if line.blank?
+    if line.lstrip.starts_with?('|') # a table
+      last << line
+      nil
+    else
+      last = [index, line]
+    end
+  end.compact
+
+  sentences.each do |lines|
+    index = lines.shift
+    process_situation_steps lines, file, index
+  end
+end
+
+def process_situation_steps(s, file, index)
+  if s.size > 1
+    steps(out = s.join("\n"))
+  else
+    step(out = s.first.lstrip.sub(/^\w+\s+/,''))
+  end
+rescue Exception => e
+  clean_backtrace = Rails.backtrace_cleaner.clean(e.backtrace).join("\n")
+  raise "#{e}\n#{clean_backtrace}\n#{file}:#{index}\n #{out}"
 end

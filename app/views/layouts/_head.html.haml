@@ -7,12 +7,16 @@
       \-
     Shiftplan
   = stylesheet_link_tag 'application'
-  = stylesheet_link_tag 'iPad'
-  = stylesheet_link_tag 'iPhone'
-  = stylesheet_link_tag 'print', :media => "print"
+  = javascript_include_tag 'lib'
+  = javascript_include_tag 'application'
   = csrf_meta_tags
   -# just set something so gon is always present
   - controller.gon.controller_name = controller.controller_name
   = include_gon
   - if current_organization?
     = render 'teams/colors', teams: current_organization.teams
+
+  %script{ :type => "text/javascript",  :src => "http://use.typekit.com/gye8xts.js" }
+
+  :javascript
+    try{Typekit.load();}catch(e){}

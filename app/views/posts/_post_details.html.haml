@@ -1,9 +1,2 @@
 - require 'notification/comment_on_post'
-- if can?(:edit, post) || can?(:destroy, post)
-  .actions
-    - if can? :edit, post
-      = link_to(ti(:edit), [:edit, current_organization, post.blog, post], class: 'btn btn-inverse btn-mini', remote: true)
-    - if can? :destroy, post
-      -# TODO: Open the confirm dialog in our own modal box.
-      = button_to(ta(:destroy), [current_organization, post.blog, post], method: :delete, data: { confirm: t('posts.show.confirm_to_delete', post: post.title) }, class: 'btn btn-danger btn-mini', id: 'destroy-post')
 = render('posts/post', post: post, truncation: false)

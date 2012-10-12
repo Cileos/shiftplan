@@ -14,7 +14,7 @@ Feature: Merge Teams
         | date       | quickie               |
         | 2012-12-21 | 2-3 Reaktor schrubben |
         | 2012-12-22 | 3-4 Reaktor putzen    |
-      And I follow "Teams"
+      And I am on the page for teams of the organization
       And I should see the following table of teams:
        | Name              | Kürzel |
        | Reaktor putzen    | Rp     |
@@ -23,7 +23,8 @@ Feature: Merge Teams
       And I follow "Zusammenlegen"
       And I select "Reaktor schrubben" from "anderes Team"
       And I press "Zusammenlegen"
-     Then I should see info "Teams erfolgreich zusammengeführt."
+     Then I should be on the page for teams of the organization
+      And I should see info "Teams erfolgreich zusammengeführt."
       And I should see the following table of teams:
        | Name           | Kürzel |
        | Reaktor putzen | Rp     |
@@ -31,7 +32,6 @@ Feature: Merge Teams
      When I go to the page of the plan
      Then I should see the following calendar:
         | Mitarbeiter   | Fr     | Sa     |
-        | Planner Burns |        |        |
         | Carl C        |        |        |
         | Lenny L       | 2-3 Rp | 3-4 Rp |
         | Homer S       | 1-2 Rp | 2-3 Rp |

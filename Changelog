@@ -1,0 +1,13 @@
+Changelog
+=========
+
+Release 0.0.10 2012-10-10 22:06
+-------------------------------
+
+* delete schedulings with comments
+* error messages on ajax
+* waz-nullification
+* full dates in table headers
+* fix hint for quickie
+
+

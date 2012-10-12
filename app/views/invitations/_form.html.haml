@@ -1,4 +1,4 @@
-= simple_form_for resource, url: [current_organization, resource], remote: true do |f|
+= simple_form_for resource, url: [current_account, current_organization, resource], remote: true do |f|
   = f.error_notification
 
   .inputs
@@ -6,4 +6,4 @@
     = f.input :email, autofocus: true
 
   .actions
-    %button.btn.btn-primary= ti(:send_invitation)
+    %button= ti(:send_invitation)

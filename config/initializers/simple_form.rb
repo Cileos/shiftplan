@@ -45,53 +45,8 @@ SimpleForm.setup do |config|
     b.use :error, :wrap_with => { :tag => :span, :class => :error }
   end
 
-  config.wrappers :bootstrap, :tag => 'div', :class => 'control-group', :error_class => 'error' do |b|
-    b.use :html5
-    b.use :placeholder
-    b.use :label, :wrap_with => { :class => 'control-label' }
-    b.wrapper :tag => 'div', :class => 'controls' do |ba|
-      ba.use :input
-      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
-      ba.optional :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
-    end
-  end
-
-  config.wrappers :prepend, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
-    b.use :placeholder
-    b.use :label, :wrap_with => { :class => 'control-label' }
-    b.use :hint,  :wrap_with => { :tag => 'span', :class => 'help-block' }
-    b.wrapper :tag => 'div', :class => 'controls' do |input|
-      input.wrapper :tag => 'div', :class => 'input-prepend' do |prepend|
-        prepend.use :input
-      end
-      input.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
-    end
-  end
-
-  config.wrappers :append, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
-    b.use :placeholder
-    b.use :label, :wrap_with => { :class => 'control-label' }
-    b.use :hint,  :wrap_with => { :tag => 'span', :class => 'help-block' }
-    b.wrapper :tag => 'div', :class => 'controls' do |input|
-      input.wrapper :tag => 'div', :class => 'input-append' do |append|
-        append.use :input
-      end
-      input.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
-    end
-  end
-
-  config.wrappers :inline, :tag => false do |b|
-    b.use :placeholder
-    b.use :label, :wrap_with => { :class => 'hidden' }
-    b.use :input
-    b.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
-  end
-
-  # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
-  # Check the Bootstrap docs (http://twitter.github.com/bootstrap)
-  # to learn about the different styles for forms and inputs,
-  # buttons and other elements.
-  config.default_wrapper = :bootstrap
+  # The default wrapper to be used by the FormBuilder.
+  config.default_wrapper = :default
 
   # Define the way to render check boxes / radio buttons with labels.
   # Defaults to :nested for bootstrap config.
@@ -100,16 +55,18 @@ SimpleForm.setup do |config|
   config.boolean_style = :nested
 
   # Default class for buttons
-  config.button_class = 'btn'
+  config.button_class = 'button'
 
-  # Method used to tidy up errors.
+  # Method used to tidy up errors. Specify any Rails Array method.
+  # :first lists the first message for each field.
+  # Use :to_sentence to list all errors for each field.
   # config.error_method = :first
 
   # Default tag used for error notification helper.
-  # config.error_notification_tag = :p
+  config.error_notification_tag = :div
 
   # CSS class to add for error notification helper.
-  # config.error_notification_class = :error_notification
+  config.error_notification_class = 'alert alert-error'
 
   # ID to add for error notification helper.
   # config.error_notification_id = nil
@@ -143,6 +100,9 @@ SimpleForm.setup do |config|
   # You can define the class to use on all forms. Default is simple_form.
   # config.form_class = :simple_form
 
+  # You can define which elements should obtain additional classes
+  # config.generate_additional_classes_for = [:wrapper, :label, :input]
+
   # Whether attributes are required by default (or not). Default is true.
   # config.required_by_default = true
 
@@ -173,6 +133,6 @@ SimpleForm.setup do |config|
   # Automatically discover new inputs in Rails' autoload path.
   # config.inputs_discovery = true
 
-  # Cache simple form inputs discovery
+  # Cache SimpleForm inputs discovery
   # config.cache_discovery = !Rails.env.development?
 end

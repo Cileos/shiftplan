@@ -3,4 +3,4 @@
 %ul.comments{id: dom_id(scheduling, :comments)}
   = render partial: 'comments/item', collection: scheduling.comments.roots
 
-= render 'comments/new', url: organization_plan_scheduling_comments_path(current_organization, scheduling.plan, scheduling)
+= render 'comments/new', url: account_organization_plan_scheduling_comments_path(current_account, current_organization, scheduling.plan, scheduling)

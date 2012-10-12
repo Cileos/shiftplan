@@ -11,7 +11,6 @@ Feature: Sum of hours in plan
     # I did not plan any schedules for Homer
      When I go to the page of the plan
      Then I should see the following WAZ:
-        | Planner Burns | 0      |
         | Carl C        | 0      |
         | Lenny L       | 0      |
         | Homer S       | 0 / 40 |
@@ -26,7 +25,6 @@ Feature: Sum of hours in plan
         | 5     | 9-17    |
      When I go to the page of the plan
      Then I should see the following WAZ:
-        | Planner Burns | 0       |
         | Carl C        | 0       |
         | Lenny L       | 0       |
         | Homer S       | 40 / 40 |
@@ -44,7 +42,6 @@ Feature: Sum of hours in plan
      When I schedule "Homer S" on "Sa" for "10-17"
       And I schedule "Homer S" on "So" for "12-17"
      Then I should see the following WAZ:
-        | Planner Burns | 0       |
         | Carl C        | 0       |
         | Lenny L       | 0       |
         | Homer S       | 52 / 40 |

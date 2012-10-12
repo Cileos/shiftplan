@@ -1,53 +1,55 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 
 require 'factory_girl'
 FactoryGirl.reload
 
-require 'database_cleaner'
-DatabaseCleaner.clean_with :truncation
+if Rails.env.development?
+  require 'database_cleaner'
+  DatabaseCleaner.clean_with :truncation
 
-ActionMailer::Base.delivery_method = :test
+  ActionMailer::Base.delivery_method = :test
 
-#########################
-# Organization Cileos  #
-########################
+  #########################
+  # Organization Cileos  #
+  ########################
 
-organization = FactoryGirl.create :organization, name: 'Cileos'
-organization.plans.create! name: "Softwareentwicklung"
-organization.blogs.create! title: "Cileos Blog"
+  include FactoryGirl::Syntax::Default
 
-owner = FactoryGirl.create :confirmed_user, email: 'owner@dev.shiftplan.de'
-FactoryGirl.create :employee, organization: organization, user: owner, role: 'owner', first_name: 'Fritz', last_name: 'Thielemann'
+  # Seeds currently contain only one account. Let's try to model Cileos as accurate as we can.
 
-planner = FactoryGirl.create :confirmed_user, email: 'planner@dev.shiftplan.de'
-FactoryGirl.create :employee, organization: organization, user: planner, role: 'planner', first_name: 'Carl', last_name: 'Carlson'
+  cileos      = create :account, name: 'Cileos'
 
-user_with_multiple_employees = FactoryGirl.create :confirmed_user, email: 'poweruser@dev.shiftplan.de'
-FactoryGirl.create :employee, organization: organization, user: user_with_multiple_employees, first_name: 'Niklas', last_name: 'Hofer', weekly_working_time: 40
+  clockwork = create :organization, name: 'Clockwork', account: cileos
+  clockwork.plans.create! name: "Softwareentwicklung"
+  clockwork.blogs.create! title: "Cileos Blog"
 
-FactoryGirl.create :employee, organization: organization, first_name: 'Raphaela', last_name: 'Wrede', weekly_working_time: 38
+  owner = create :confirmed_user, email: 'owner@dev.shiftplan.de'
+  create :employee_owner, account: cileos, user: owner, first_name: 'Fritz', last_name: 'Thielemann'
 
+  # cileos has no real planning, it is done by destiny
+  planner = create :confirmed_user, email: 'planner@dev.shiftplan.de'
+  shakira = create :employee_planner, account: cileos, user: planner, first_name: 'Shakira', last_name: 'Schicksal'
 
-########################
-# Organization Apple  #
-#######################
+  user_with_multiple_employees = create :confirmed_user, email: 'poweruser@dev.shiftplan.de'
+  niklas = create :employee, account: cileos, user: user_with_multiple_employees, first_name: 'Niklas', last_name: 'Hofer', weekly_working_time: 40
+  raphaela = create :employee, account: cileos, first_name: 'Raphaela', last_name: 'Wrede', weekly_working_time: 38
 
-apple = FactoryGirl.create :organization, name: 'Apple'
-apple.plans.create! name: "Produktdesign"
-apple.blogs.create! title: "Apple Blog"
+  [niklas, raphaela].each do |empl|
+    create :membership, employee: empl, organization: clockwork
+  end
 
-owner_apple = FactoryGirl.create :confirmed_user, email: 'owner@dev.apple.de'
-FactoryGirl.create :employee, organization: apple, user: owner_apple, role: 'owner', first_name: 'Steve', last_name: 'Jobs'
+  ##########################
+  # Organization Wurstbrot #
+  ##########################
+  # a special organization niklas works totally alone
 
-planner_apple = FactoryGirl.create :confirmed_user, email: 'planner@dev.apple.de'
-FactoryGirl.create :employee, organization: apple, user: planner_apple, role: 'planner', first_name: 'Anton', last_name: 'Cook'
+  wurstbrot = create :organization, name: 'Wurstbrot', account: cileos
+  [niklas].each do |empl|
+    create :membership, employee: empl, organization: wurstbrot
+  end
 
-FactoryGirl.create :employee, organization: apple, user: user_with_multiple_employees, first_name: 'N.', last_name: 'Hofer', weekly_working_time: 42
+  # mom will never be invited
+  mom = create :employee, account: cileos, first_name: 'Mama', last_name: 'X.', weekly_working_time: 80
+end # only in development environment
 
-FactoryGirl.create :employee, organization: apple, first_name: 'Rolf', last_name: 'Eden', weekly_working_time: 40

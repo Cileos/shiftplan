@@ -1,6 +1,6 @@
 - title filter.caption, false
 
-%table#calendar.table.table-striped.table-bordered.table-condensed{class: filter.range, data: filter.table_metadata}
+%table#calendar.calendar.teams-in-day{class: filter.range, data: filter.table_metadata}
   %thead
     %tr
       %th
@@ -12,3 +12,5 @@
         %th.team_name= team.name
         %td.bars{data: filter.cell_metadata(team)}
           = filter.cell_content(team)
+
+= render 'plans/details', plan: filter.plan

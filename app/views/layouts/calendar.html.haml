@@ -3,18 +3,14 @@
 %html
   = render 'layouts/head'
   %body#ember
-    #page.container-fluid
-      = render 'layouts/top'
-      #content
-        = render 'flash'
-        - if show_title?
-          %h1#title= yield(:title)
+    = render 'layouts/top'
 
-        = render 'calendar_navigation', filter: filter
-        = yield
-        = help_tag 'calendar.keyboard', id: 'help'
-      = render 'layouts/footer'
+    %section{:role => 'content'}
+      = render 'flash'
+      - if show_title?
+        %h2#title= yield(:title)
 
-  = render 'layouts/foot'
-  = javascript_include_tag "templates/all"
-
+      = render 'calendar_navigation', filter: filter
+      = yield
+      = help_tag 'calendar.keyboard', id: 'help'
+    = render 'layouts/footer'
