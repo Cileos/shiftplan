@@ -8,14 +8,14 @@
     = simple_form_for @employee, url: profile_employee_path(@employee) do |f|
       = f.error_notification
 
-      %legend= t('.your_photo')
+      %legend= t('profile_employees.your_photo')
 
       .inputs.avatar_and_name
         = avatar(@employee.user, @employee, :thumb, :author)
         = f.input :avatar, as: :file, :label => false
         = f.input :avatar_cache, as: :hidden
 
-      %legend= t('.your_profile')
+      %legend= t('profile_employees.your_profile')
 
       .inputs
         = f.input :first_name, autofocus: true

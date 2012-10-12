@@ -2,6 +2,5 @@ de:
   profile_employees:
     index:
       instructions: "Bitte wählen Sie einen Mitarbeiter aus."
-    show:
-      your_photo: "Your photo"
-      your_profile: "Your profile"
+    your_photo: "Ihr Foto"
+    your_profile: "Ihr Profil"
