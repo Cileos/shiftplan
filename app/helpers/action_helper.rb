@@ -37,7 +37,7 @@ module ActionHelper
     new_plan:          'plus',
     new_scheduling:    'plus',
     new_organization:  'plus',
-    copy_week:         'retweet',
+    copy_week:         '&#xf079',
     update:            'ok-circle',
     invite:            'user',
     reinvite:          'user',
