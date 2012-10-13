@@ -43,7 +43,7 @@
   font-family: "proxima-nova",Helvetica,Arial,sans-serif;
 }
 
-.ui-widget input:not(.button),
+.ui-widget input:not(.button):not(.boolean),
 .ui-widget select,
 .ui-widget textarea {
     width: 100%;
@@ -65,6 +65,12 @@
 
   .ui-dialog-content {
     padding: 1em;
+    background: $ci_bg-color;
+    .flash {
+       & + form .inputs {
+        margin-top: 2em;
+      }
+    }
   }
 
   .actions {
