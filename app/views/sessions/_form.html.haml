@@ -1,8 +1,8 @@
 = simple_form_for resource, :as => resource_name, :url => session_path(resource_name), html: { class: 'form-horizontal' } do |f|
   .inputs
     = hidden_field_tag :return_to, params[:return_to] if params[:return_to]
-    = f.input :email, :hint => false, input_html: { class: 'span3' }
-    = f.input :password, input_html: { class: 'span2' }, hint: false
+    = f.input :email, :hint => false
+    = f.input :password, hint: false
     - if devise_mapping.rememberable?
       = f.input :remember_me, as: :boolean
     = hidden_field_tag :return_to,  '', class: 'return_to'
