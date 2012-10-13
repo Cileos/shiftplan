@@ -9,6 +9,7 @@ de:
       signin_with: "Einloggen mit %{provider}"
       signout: Ausloggen
       signup: Registrieren
+      set_your_password: "Passwort festlegen"
       employees: Mitarbeiter
       teams: Teams
       add: Hinzufügen
