@@ -135,7 +135,7 @@ small {
   }
 
   @media screen and (max-width: 800px) {
-    ul.nav li+li a,
+    ul.nav li a,
     .user-navigation li a {
       width: 40px;
       white-space: nowrap;
