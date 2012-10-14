@@ -6,7 +6,7 @@ end
 When /^I open (?:the )?#{capture_quoted} menu$/ do |menu|
   begin
     page.execute_script <<-EOJS
-      $('header li:contains("#{menu}")').addClass('open')
+      $('li:contains("#{menu}")').addClass('open')
     EOJS
   rescue Capybara::NotSupportedByDriverError => e
     # in rack server, menu opens you
