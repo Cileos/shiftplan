@@ -133,6 +133,31 @@ small {
       border-left: none;
     }
   }
+
+  @media screen and (max-width: 800px) {
+    ul.nav li+li a,
+    .user-navigation li a {
+      width: 40px;
+      white-space: nowrap;
+      overflow: hidden;
+      &[data-icon]:before {
+        margin-right: 1.5em;
+      }
+    }
+    ul.nav li.dropdown li a,
+    .user-navigation li li a {
+      width: auto;
+    }
+    .user-navigation {
+      .dropdown > ul {
+        left: auto;
+        right: 0;
+      }
+      .name {
+        margin-left: 1.5em;
+      }
+    }
+  }
 }
 
 [role=content] {
