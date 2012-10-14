@@ -1,11 +1,9 @@
 .calendar {
-  abbr[title] {
+  abbr {
     border-bottom: none;
   }
 
   thead {
-    @include z-index(101);
-
     th:not(:first-child) {
       border-left: 1px solid $ci_midgrey;
       text-align: center;
@@ -14,6 +12,7 @@
     &.tableFloatingHeader {
       @include box-shadow($ci_lightgrey 0 5px 10px 0);
 
+      z-index: 101;
       border-left: 1px solid $ci_darkgrey;
       border-right: 1px solid $ci_darkgrey;
     }
@@ -69,7 +68,8 @@
   .badge {
     @include border-radius(10px);
 
-    padding: 2px 6px;
+    float: right;
+    padding: 2px 6px 1px;
     background: $ci_darkgrey;
     color: #fff;
     text-shadow: 0 0px 0 rgba(0, 0, 0, 0.25);

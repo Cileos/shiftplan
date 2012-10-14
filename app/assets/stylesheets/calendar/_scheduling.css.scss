@@ -19,8 +19,8 @@
   }
 
   .team_name {
-    background: #fbfbfb;
-    border-top: 1px solid    $ci_grey;
+    background: $ci_darkwhite;
+    border-top:    1px solid $ci_midgrey;
     border-bottom: 1px solid $ci_midgrey;
     // @include box-shadow($ci_midgrey 0px 1px 5px 0px inset);
     padding: 2px 4px 3px 4px;
