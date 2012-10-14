@@ -6,8 +6,9 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
   def formatted_days
     days.map do |day|
       [
-        I18n.localize(day, format: :week_day_with_yearless_date), # full
-        I18n.localize(day, format: :abbr_week_day)                # abbr
+        I18n.localize(day, format: :week_day),      # day
+        I18n.localize(day, format: :yearless_date), # date
+        I18n.localize(day, format: :abbr_week_day)  # abbr
       ]
     end
   end
