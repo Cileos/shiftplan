@@ -4,11 +4,18 @@
   }
 
   thead {
-    @include z-index(103);
+    @include z-index(101);
 
     th:not(:first-child) {
       border-left: 1px solid $ci_midgrey;
       text-align: center;
+    }
+
+    &.tableFloatingHeader {
+      @include box-shadow($ci_lightgrey 0 5px 10px 0);
+
+      border-left: 1px solid $ci_darkgrey;
+      border-right: 1px solid $ci_darkgrey;
     }
   }
 
