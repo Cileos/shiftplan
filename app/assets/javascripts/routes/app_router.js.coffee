@@ -26,6 +26,7 @@ Shiftplan.Router = Ember.Router.extend
             milestone = transaction.createRecord Shiftplan.Milestone, entered
             transaction.commit()
             router.transitionTo('milestones')
+        cancel: Ember.Route.transitionTo('milestones')
         exit: (router) ->
           if milestones = router.get('milestonesController')
             milestones.disconnectOutlet()

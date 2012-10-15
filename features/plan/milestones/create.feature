@@ -36,5 +36,9 @@ Feature: create Milestones for a plan
     Then 0 milestones should exist
      And I should see flash alert "Meilenstein konnte nicht angelegt werden."
      And I should see "muss ausgefüllt werden"
+     # error messages are shown inline
+     And I should not see a field labeled "Name"
 
+ @wip
+ Scenario: Edit a milestone
 

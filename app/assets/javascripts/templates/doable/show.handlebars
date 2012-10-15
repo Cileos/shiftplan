@@ -3,4 +3,6 @@
 {{#if due_at}}
 <span class="due_on">{{formatted_due_on}}</span>
 {{/if}}
-
+{{#unless isValid}}
+<div class="error">{{errorMessages}}</div>
+{{/unless}}

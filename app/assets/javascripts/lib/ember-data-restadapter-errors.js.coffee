@@ -12,7 +12,7 @@ DS.RESTAdapter.reopen
     root = this.rootForType(type)
 
     data = {}
-    data[root] = record.toJSON()
+    data[root] = record.toJSON(record, includeId: true)
 
     @ajax @buildURL(root), "POST",
       data: data,
