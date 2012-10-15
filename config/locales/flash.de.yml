@@ -2,23 +2,23 @@ de:
   flash:
     actions:
       create:
-        info: "%{resource_name} erfolgreich angelegt."
+        notice: "%{resource_name} erfolgreich angelegt."
         alert: "%{resource_name} konnte nicht angelegt werden."
       update:
-        info: "%{resource_name} erfolgreich geändert."
+        notice: "%{resource_name} erfolgreich geändert."
         alert: "%{resource_name} konnte nicht geändert werden."
       destroy:
-        info: "%{resource_name} erfolgreich gelöscht."
+        notice: "%{resource_name} erfolgreich gelöscht."
         alert: "%{resource_name} konnte nicht gelöscht werden."
     profile_employees:
       update:
-        info: "Profil gespeichert."
+        notice: "Profil gespeichert."
     user_email:
       update:
-        info: "Um die Änderung Ihrer E-Mail Adresse zu bestätigen, schauen Sie bitte in das Postfach Ihrer neuen E-Mail Adresse."
+        notice: "Um die Änderung Ihrer E-Mail Adresse zu bestätigen, schauen Sie bitte in das Postfach Ihrer neuen E-Mail Adresse."
         alert: "Ihre E-Mail Adresse konnte nicht geändert werden."
         same_email: "%{email} ist bereits Ihre aktuelle E-Mail Adresse."
     user_password:
       update:
-        info: "Passwort geändert."
+        notice: "Passwort geändert."
         alert: "Ihr Passwort konnte nicht geändert werden."

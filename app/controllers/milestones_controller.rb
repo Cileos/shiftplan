@@ -1,6 +1,7 @@
 class MilestonesController < InheritedResources::Base
   belongs_to :organization, :plan
   load_and_authorize_resource
+  self.responder = Volksplaner::Responder
   respond_to :json
 
   protected

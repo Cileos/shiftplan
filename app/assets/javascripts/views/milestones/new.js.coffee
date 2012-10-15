@@ -1,1 +1,1 @@
-Shiftplan.NewMilestoneView = Shiftplan.EditDoable.extend()
+Shiftplan.NewMilestoneView = Shiftplan.NewDoable.extend()

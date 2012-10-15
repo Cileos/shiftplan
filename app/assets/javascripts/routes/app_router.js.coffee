@@ -13,6 +13,7 @@ Shiftplan.Router = Ember.Router.extend
       connectOutlets: (router) ->
         router.get('applicationController').connectModal 'milestones', Shiftplan.Milestone.find()
       newMilestone: Ember.Router.transitionTo 'milestones.new'
+      editMilestone: Ember.Router.transitionTo 'milestones.edit'
       new: Ember.Route.extend
         route: '/new'
         connectOutlets: (router) ->
@@ -30,4 +31,20 @@ Shiftplan.Router = Ember.Router.extend
         exit: (router) ->
           if milestones = router.get('milestonesController')
             milestones.disconnectOutlet()
+      edit: Ember.Route.extend
+        route: '/edit/:milestone_id'
+        connectOutlets: (router, milestone) ->
+          if milestones = router.get('milestonesController')
+            milestones.connectOutlet 'editMilestone', milestone
+          else
+            alert "no milestones view found to connect outlet for new to"
+        save: (router) ->
+          if milestone = router.get('editMilestoneController.content')
+            transaction = Shiftplan.store.commit() # FIXME use transaction. somehow...
+            router.transitionTo('milestones')
+        cancel: Ember.Route.transitionTo('milestones')
+        exit: (router) ->
+          if milestones = router.get('milestonesController')
+            milestones.disconnectOutlet()
+
 

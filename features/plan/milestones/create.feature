@@ -29,7 +29,7 @@ Feature: create Milestones for a plan
     Then a milestone should exist with name: "World domination", plan: the plan
      And the milestone's due_on should be "2012-12-31"
 
-  Scenario: trying to create a milestone without a name
+  Scenario: trying to create a milestone without a name adds it to the list, but does not save it
    Given I should not see "muss ausgefüllt werden"
     When I press "Anlegen"
      And I wait for the spinner to disappear
@@ -38,7 +38,4 @@ Feature: create Milestones for a plan
      And I should see "muss ausgefüllt werden"
      # error messages are shown inline
      And I should not see a field labeled "Name"
-
- @wip
- Scenario: Edit a milestone
 

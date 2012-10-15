@@ -29,7 +29,10 @@ DS.RESTAdapter.reopen
 DS.Model.reopen
   errorMessages: (->
     messages = ''
-    for field, errors of @get('errors')
-      for error in errors
-        messages += "#{field} #{error} "
+    if @get('errors')?
+      for field, errors of @get('errors')
+        if errors
+          for error in errors
+            messages += "#{field} #{error} "
+    messages
   ).property('isValid')
