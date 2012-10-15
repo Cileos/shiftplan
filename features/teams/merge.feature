@@ -1,5 +1,3 @@
-@javascript
-
 Feature: Merge Teams
   In order to remove double teams caused by wrongly typing the name
   As a Planer
