@@ -119,3 +119,8 @@ Then /^I should see a (tiny|thumb) (gravatar|default gravatar)$/ do |version, gr
     params.should == "d=mm&forcedefault=y&r=PG&s=#{size}"
   end
 end
+
+Then /^I should not see a field labeled #{capture_quoted}$/ do |label|
+  page.should have_no_xpath( XPath::HTML.field(label) )
+end
+

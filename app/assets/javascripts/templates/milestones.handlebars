@@ -1,11 +1,13 @@
 <ul class="milestones">
   {{#each controller}}
-    {{view Shiftplan.ShowMilestoneView contentBinding="this"}}
+    {{view Shiftplan.ShowMilestoneView}}
   {{/each}}
 </ul>
 
 <ul class="actions">
   <li>
-    <a href="#" {{action newMilestone target="controller"}}>neuer Meilenstein</a>
+    <a href="#" {{action newMilestone}}>neuer Meilenstein</a>
   </li>
 </ul>
+
+{{outlet}}

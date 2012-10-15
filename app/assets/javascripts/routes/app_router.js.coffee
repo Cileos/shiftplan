@@ -11,4 +11,22 @@ Shiftplan.Router = Ember.Router.extend
     milestones: Ember.Route.extend
       route: '/milestones'
       connectOutlets: (router) ->
-        router.get('applicationController').connectModal 'milestones', Shiftplan.store.find(Shiftplan.Milestone)
+        router.get('applicationController').connectModal 'milestones', Shiftplan.Milestone.find()
+      newMilestone: Ember.Router.transitionTo 'milestones.new'
+      new: Ember.Route.extend
+        route: '/new'
+        connectOutlets: (router) ->
+          if milestones = router.get('milestonesController')
+            milestones.connectOutlet 'newMilestone', {}
+          else
+            alert "no milestones view found to connect outlet for new to"
+        save: (router) ->
+          if entered = router.get('newMilestoneController.content')
+            transaction = Shiftplan.store.transaction()
+            milestone = transaction.createRecord Shiftplan.Milestone, entered
+            transaction.commit()
+            router.transitionTo('milestones')
+        exit: (router) ->
+          if milestones = router.get('milestonesController')
+            milestones.disconnectOutlet()
+

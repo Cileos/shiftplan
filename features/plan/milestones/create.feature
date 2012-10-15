@@ -17,6 +17,7 @@ Feature: create Milestones for a plan
      And I wait for the spinner to disappear
     Then I should see "World domination" within the milestones list
      And a milestone should exist with name: "World domination", plan: the plan
+     And I should not see a field labeled "Name"
 
   Scenario: create a milestone with name and due date
     When I fill in "Name" with "World domination"

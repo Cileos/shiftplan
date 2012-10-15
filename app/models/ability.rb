@@ -136,6 +136,12 @@ class Ability
       account == invitation.employee.account &&
         account == invitation.organization.account
     end
+    can :manage, Milestone do |milestone|
+      account == milestone.plan.organization.account
+    end
+    can :manage, Task do |task|
+      account == task.milestone.plan.organization.account
+    end
 
     authorize_employee(planner)
   end
