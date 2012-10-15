@@ -5,8 +5,8 @@
 //= require space-pen/space-pen
 //= require jquery.miniColors
 //= require handlebars
-//= require ember
-//= require ember-data
+//= require ember-latest
+//= require ember-data-latest
 //= require ember-rails-flash
 
 //= require_tree './lib'

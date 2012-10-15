@@ -7,11 +7,12 @@
 #= require_tree ./routes
 
 Shiftplan = Ember.Application.create
+  autoinit: false
   rootElement: 'body#ember'
   Fields: Ember.Object.extend()
 
 Shiftplan.store = DS.Store.create
-  revision: 4
+  revision: 6
   adapter: DS.RESTAdapter.create
     bulkCommit: false
     #plurals:
