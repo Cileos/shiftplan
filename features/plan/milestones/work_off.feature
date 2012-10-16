@@ -13,26 +13,22 @@ Feature: working off milestones
       And I am on the page for the plan
       And I follow "Meilensteine"
 
+  @wip
   Scenario: marking a milestone as done
      When I check "done" within the first item within the milestones list
       And I close the modal box
       And I wait for the modal box to disappear
      Then the milestone should be done
 
-  Scenario: editing a milestone
-     When I follow "Bearbeiten" within the first item within the milestones list
-      And I fill in "Name" with "take over World"
-      And I press "Speichern"
-      And I wait for the spinner to disappear
-     Then the milestone's name should be "take over World"
-
   Scenario: deleting a milestone
      When I follow "Bearbeiten" within the first item within the milestones list
-      And I follow "Löschen" within the first item within the milestones list
+      And I press "Löschen"
       # And I confirm
-      And I wait for the spinner to disappear
-     Then 0 milestones should exist
+     Then I should see flash notice "Meilenstein erfolgreich gelöscht"
+      And 0 milestones should exist
+      And I should not see "World Domination"
 
+  @wip
   Scenario: create tasks for milestone
      When I follow "neue Aufgabe"
       And I fill in "Name" with "become rich"
@@ -44,6 +40,7 @@ Feature: working off milestones
       And I press "Anlegen"
      Then I should see "become famous" within the third item within the tasks list within the first item within the milestones list
 
+  @wip
   Scenario: mark task for milestone as done
      When I check "done" within the first item within the tasks list within the first item within the milestones list
       And I close the modal box

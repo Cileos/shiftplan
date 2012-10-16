@@ -46,5 +46,11 @@ Shiftplan.Router = Ember.Router.extend
         exit: (router) ->
           if milestones = router.get('milestonesController')
             milestones.disconnectOutlet()
+      delete: (router) ->
+        if milestone = router.get('editMilestoneController.content')
+          milestone.deleteRecord()
+          milestone.store.commit()
+          router.transitionTo('milestones')
+
 
 

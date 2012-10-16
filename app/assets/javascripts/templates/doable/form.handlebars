@@ -3,5 +3,6 @@
 {{/unless}}
 {{view Shiftplan.Fields.Name valueBinding="name"}}
 {{view Shiftplan.Fields.DueDateField valueBinding="formatted_due_on"}}
-<button {{action save}}>{{view.buttonLabel}}</button>
+<button class="button" {{action delete}}>Löschen</button>
+<button class="button" {{action save}}>{{view.buttonLabel}}</button>
 
