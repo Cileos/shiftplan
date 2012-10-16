@@ -42,6 +42,7 @@ module ActionHelper
     invite:            'user',
     reinvite:          'user',
     comment:           '&#xf075;',
+    no_comment:        '&#xf0e5;',
     comments_count:    'comment',
     reply:             '&#xf053;',
     back:              'arrow-left',

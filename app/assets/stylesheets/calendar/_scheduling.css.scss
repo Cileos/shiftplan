@@ -1,8 +1,8 @@
 .scheduling {
-  background: white;
   overflow: hidden;
   margin-bottom: 5px;
-  padding: 0px 0px 0px 0px;
+  padding: 0px;
+  font-size: 10px;
   // border styles have to be defined seperately for
   // changing the colors (top and bottom) by inline css
   border-width: 1px;
@@ -12,6 +12,7 @@
   border-left-color:  $ci_grey;
   border-right-color: $ci_grey;
   @include border-radius(2px);
+  @include transition (height 0.25s ease, width 0.25s ease, left 0.25s ease, right 0.25s ease);
 
   .team_name,
   .employee_name,
@@ -31,14 +32,11 @@
   }
 
   &.focus, &:focus, &:hover {
-    background: $ci_midgrey;
-    border-left-color:  #666;
-    border-right-color: #666;
+    @include box-shadow($ci_darkgrey 0px 0px 20px 3px);
 
-    .team_name {
-      background: #f0f0f0;
-      border-top-color:    #999;
-      border-bottom-color: #999;
+    .team_name,
+    .employee_name {
+      background: #fff;
     }
   }
 
@@ -51,4 +49,9 @@
     }
   }
 
+}
+
+div[class*="team_"].scheduling,
+li[class*="team_"].scheduling {
+  background: white;
 }

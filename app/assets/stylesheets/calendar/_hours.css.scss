@@ -38,71 +38,29 @@ table.hours-in-week {
   }
 
   td.day {
-    @include box-shadow(none);
-
+    outline: none;
     position: relative;
 
     .vertical {
       position: absolute;
       overflow: hidden;
-      background: white;
-    }
-
-    .team-colors {
-      @include border-radius(2px);
-
-      height: 100%;
-      border-width: 1px;
-      border-top-width: 3px;
-      border-bottom-width: 2px;
-      border-style: solid;
     }
 
     .scheduling {
-      padding: 0px;
-      border: none;
-      font-size: 10px;
 
-      .team_name, .work_time {
-        display: block;
-        padding: 0 3px;
-      }
-
-// TODO refactor the rest of the stuff
-
-      .team_name {
-        background: #fbfbfb;
-        border-top: 1px solid #c8c8c8;
-        border-bottom: 1px solid #d0d0d0;
-        @include box-shadow(#e8e8e8 0px 1px 5px 0px inset);
-        padding: 2px 4px 3px 4px;
-        line-height: 14px;
+      .gimmicks {
+        height: 100%;
       }
 
       &.focus, &:focus, &:hover {
-        background: #d8d8d8;
-        border-left-color:  #666;
-        border-right-color: #666;
-        @include box-shadow(#aaa 0px 0px 30px 0px);
-        width: 100% !important;
-        left: 0 !important;
-        color: black;
-        z-index: 1000 !important;
+        @include box-shadow(#000 0px 0px 20px 1px);
+
+        width: 100% !important; // override inline styles set by JS
+        left: 0 !important; // override inline styles set by JS
+        z-index: 1000 !important; // override inline styles set by JS
         opacity: 0.9;
-        @include transition(all, 0.5s, ease);
-        .team_name {
-          background: #f0f0f0;
-          border-top-color:    #999;
-          border-bottom-color: #999;
-        }
       }
-      .gimmicks {
-        padding: 0 5px;
-        text-align: right;
-        a.comments {
-          padding-left: 15px;
-        }
-      }
+
       @for $hour from 1 to 23 {
         &[data-start="#{$hour}"] {
           top: $row_height * $hour + 1px;
@@ -118,18 +76,13 @@ table.hours-in-week {
         }
       }
 
-            // @for $index from 1 to 10 {
-            //     &[data-stack="#{$index}"] {
-            //         left: 7% * $index;
-            //     }
-            //     &[data-remaining="#{$index}"] {
-            //         margin-right: $bar_shift * $index;
-            //     }
-            //     &[data-total="#{$index}"] {
-            //         width: 99% / $index;
-            //         left: 99% / $index;
-            //     }
-            // }
-          }
-        }
+      // set min-height (==2h) to show all information
+      &.focus[data-length="1"],
+      &[data-length="1"]:hover,
+      &[data-length="1"]:focus {
+        height: $row_height * 2 + 1px !important;
       }
+
+    }
+  }
+}
