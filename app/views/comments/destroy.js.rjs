@@ -1,5 +1,5 @@
 page.select("li#comment_#{@comment.id}").remove
-page.select('p.comments-count').replace_with render('posts/comments_count', post: @comment.commentable)
+page.select('div.comments-count').replace_with render('posts/comments_count', post: @comment.commentable)
 if @comment.commentable.comments.empty?
   page.select("ul#comments").prepend(content_tag :li, t(:'comments.no_comments_present'), id: 'no-comments')
 end

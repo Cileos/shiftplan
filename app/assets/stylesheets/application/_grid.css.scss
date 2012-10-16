@@ -1,0 +1,39 @@
+.row {
+  @include outer-container;
+
+  &.two-columns {
+    .secondary {
+      @include span-columns(3);
+    }
+
+    .primary {
+      @include span-columns(9);
+      @include omega;
+    }
+
+    &.inverted {
+      .primary {
+        @include span-columns(9);
+      }
+
+      .secondary {
+        @include span-columns(3);
+        @include omega;
+      }
+    }
+  }
+
+  &.three-columns {
+    .primary {
+      @include span-columns(6);
+    }
+
+    .secondary, .tertiary {
+      @include span-columns(3);
+    }
+
+    .tertiary {
+      @include omega;
+    }
+  }
+}

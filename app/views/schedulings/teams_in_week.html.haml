@@ -1,12 +1,14 @@
 - title filter.caption, false
 
-%table#calendar.teams-in-week.table.table-striped.table-bordered.table-condensed{class: filter.range, data: filter.table_metadata}
+%table#calendar.calendar.teams-in-week{class: filter.range, data: filter.table_metadata}
   %thead
     %tr
       %th
         = render 'week_switch', filter: filter
-      - filter.formatted_days.each do |full, abbr|
-        %th= abbr_tag(abbr, full, class: 'day_name')
+      - filter.formatted_days.each do |full, date, abbr|
+        %th
+          = abbr_tag(abbr, full, class: 'day_name')
+          %div.date-without-year= date
   %tbody
     - filter.teams.each do |team|
       %tr{data: { team_id: team.id }}
@@ -16,3 +18,5 @@
         - filter.days.each do |day|
           %td{data: filter.cell_metadata(day, team)}
             = filter.cell_content(day, team)
+
+= render 'plans/details', plan: filter.plan

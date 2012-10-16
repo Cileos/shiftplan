@@ -15,12 +15,12 @@ end unless ENV['NO_SPORK']
 
 group :test, :halt_on_fail => true do
 
-  guard 'rspec', :cli => '--drb --color', :version => 2, :run_all => { :cli => "--color" }, :all_on_start => false do
+  guard 'rspec', :cli => '--drb --color --format documentation', :version => 2, :run_all => { :cli => "--color" }, :all_on_start => false do
     watch(%r{^spec/.+_spec\.rb$})
     watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
     watch('spec/spec_helper.rb')  { "spec" }
     watch(%r{^spec/factories/.+$}) { 'spec' }
-    watch(%r{^factories/+$})       { "spec" }
+    watch(%r{^factories/.+$})       { "spec" }
 
     # Rails example
     watch(%r{^spec/.+_spec\.rb$})
@@ -32,6 +32,7 @@ group :test, :halt_on_fail => true do
     watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
     watch('spec/spec_helper.rb')                        { "spec" }
     watch('config/routes.rb')                           { "spec/routing" }
+    watch('app/models/ability.rb')                      { "spec/abilities" }
     # Capybara request specs
     watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
   end
@@ -43,6 +44,7 @@ group :test, :halt_on_fail => true do
   end
 
   ENV['CUCUMBER_FORMAT'] = 'fuubar'
+  ENV['CAPYBARA_CHROME'] = 'yes'
 #                                                         V --no-drb skip spork to run simplecov 
   guard 'cucumber', :cli => "--drb --no-source --no-profile --strict --format pretty --format rerun --out rerun.txt --tags ~@wip", :run_all => { :cli => "--format fuubar --tags ~@wip" }, :all_on_start => false, :all_after_pass => false do
     watch(%r{^features/.+\.feature$})

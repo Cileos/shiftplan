@@ -1,6 +1,7 @@
 //= require jquery.ui.resizable
 //= require jquery.ui.dialog
 //= require jquery-miniColors/jquery.miniColors
+//= require normalize.css/normalize
 
 /*
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
@@ -10,49 +11,44 @@
  * `require` directives for SASS files, because they're horrible and will kill
  * your cat. */
 
-/* overwrite boostrap variables heer */
+@import "bourbon";
+@import "config/defaults";
+@import "config/*";
+@import "neat/neat";
 
-@import "bootstrap";
-
-@import "compass/css3";
-@import "compass/utilities/lists/horizontal-list";
-
-@import "config";
 
 /* import custom library */
 @import "library/*";
 
+/* import application/mixins */
 @import "application/common";
-@import "comments";
-@import "modal";
-@import "application/buttons";
-@import "application/js_buttons";
-@import "application/spinner";
 @import "application/avatar";
-@import "application/employees";
-@import "application/teams";
-@import "application/pagination";
-@import "application/badge";
-@import "application/tooltip";
-@import "application/form";
-@import "application/page";
-@import "application/header";
-@import "application/navigation";
-@import "application/content";
-@import "application/calendar";
-@import "application/help";
-@import "application/instructions";
-@import "application/modal";
+@import "application/wrap";
+@import "application/grid";
+@import "application/flash_messages";
+@import "application/icons";
+@import "application/buttons";
+@import "application/forms";
+@import "application/modals";
+@import "application/dropdowns";
 @import "application/feedback";
-@import "application/user_settings";
+@import "application/tables";
+@import "application/toolbar";
+@import "application/blog";
+@import "application/comments";
 
-/* from here on, we can re-use bootstrap variables */
-@import "application/posts";
-// @import "application/plans";
+/* import calendar specific styles */
+@import "calendar/common";
+@import "calendar/detail_level";
+@import "calendar/scheduling";
+@import "calendar/hours";
 
-@import "application/detail_condensed";
 
-/* specific layouts for different viewports (*not* iPad/iPhone) */
-@import "application/1000px";
-@import "application/800px";
-@import "application/600px";
+// here comes the ugly part ...
+
+// FIXME delete this as soon as the old icon helper
+//       which renders <i class='icon-[whatever]></i>'
+//       is recoded to use [data-icon]
+i[class^="icon-"] {
+    @include _hidden();
+}

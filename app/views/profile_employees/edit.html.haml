@@ -1,22 +1,25 @@
 - title :settings
-.row
-  .span3
+.row.two-columns
+  %nav.secondary
     = render 'user/settings_menu'
-  .span7.user-edit-form
+  .primary.content-form.user-edit-form
     %h3= ta :profile
 
     = simple_form_for @employee, url: profile_employee_path(@employee) do |f|
       = f.error_notification
 
       .inputs
-        = avatar(@employee.user, @employee, :thumb)
-        = f.input :avatar, as: :file
-        = f.input :avatar_cache, as: :hidden
+        .avatar_and_name
+          = f.label :avatar
+          = avatar(@employee.user, @employee, :thumb, :author)
+          = f.input :avatar, as: :file, :label => false
+          = f.input :avatar_cache, as: :hidden
+
         = f.input :first_name, autofocus: true
         = f.input :last_name
 
       .actions
-        %button.btn.btn-primary= ti(:update)
+        %button= ti(:update)
 
-    - if current_user.has_multiple_employees?
+    - if current_user.is_multiple?
       = link_to :back, profile_employees_path

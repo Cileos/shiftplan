@@ -2,7 +2,7 @@ $ci_blue: #117bbe;
 $ci_darkblue: #112ebe;
 $ci_darkpurple: #5111be;
 $ci_purple: #be11bc;
-$ci_pink: #d11340;
+$ci_pink: #d11380;
 $ci_darkorange: #e83815;
 $ci_orange: #e87b15;
 $ci_darkyellow: #e8a515;
@@ -11,6 +11,76 @@ $ci_lime: #cedf14;
 $ci_green: #5fca12;
 $ci_teal: #11be65;
 
+$ci_anthracite: #363640;
+$ci_darkgray: #808086;
+$ci_darkgrey: $ci_darkgray;
+$ci_gray: #c0c0cc;
+$ci_grey: $ci_gray;
+$ci_midgray: #e2e2e8;
+$ci_midgrey: $ci_midgray;
+$ci_lightgray: #e0e0e6;
+$ci_lightgrey: $ci_lightgray;
+$ci_darkwhite: lighten($ci_lightgray, 9%);
+
+$ci_bg-color: #f8fff8;
+$ci_text-color: #121812;
+
+$ci_shadow: rgba(10,0,0,.25);
+$ci_glow: rgba(255,255,255,.25);
+$ci_blaze: rgba(255,255,255,.75);
+
+$ci_blue_hover: lighten($ci_blue, 10%);
+$ci_blue_hover_dark: darken($ci_blue, 10%);
+$ci_gray_hover: lighten($ci_gray, 5%);
+$ci_green_hover: lighten($ci_green, 1%);
+$ci_darkorange_hover: lighten($ci_darkorange, 5%);
+
 $gradient_1: #ececec;
 $gradient_2: #F0F4F8;
+
+.colors li {
+  @include border-radius($ci_border-radius);
+
+  margin-bottom: 5px;
+  width: 250px;
+  display: block;
+  padding: 5px 10px;
+}
+
+[data-color]:after {
+  content: attr(data-color);
+}
+
+// This is a pretty freaking hacky way to do this,
+// but we'll have to wait with a better solution until
+// Sass implements maps / lookup tables.
+
+$ci_color-names: ci_blue, ci_darkblue, ci_darkpurple, ci_purple,
+                 ci_pink, ci_darkorange, ci_orange, ci_darkyellow,
+                 ci_yellow, ci_lime, ci_green, ci_teal, ci_gray,
+                 ci_darkgray, ci_anthracite, ci_blue_hover,
+                 ci_blue_hover_dark, ci_gray_hover, ci_green_hover,
+                 ci_darkorange_hover;
+$ci_color-values: $ci_blue, $ci_darkblue, $ci_darkpurple, $ci_purple,
+                  $ci_pink, $ci_darkorange, $ci_orange, $ci_darkyellow,
+                  $ci_yellow, $ci_lime, $ci_green, $ci_teal, $ci_gray,
+                  $ci_darkgray, $ci_anthracite, $ci_blue_hover,
+                  $ci_blue_hover_dark, $ci_gray_hover, $ci_green_hover,
+                  $ci_darkorange_hover;
+
+@function color-for($name) {
+  @return nth($ci_color-values, index($ci_color-names, $name));
+}
+
+@each $color in $ci_color-names {
+  [data-color=#{$color}] {
+    @if lightness(color-for($color)) < 50 {
+      color: #fff;
+    } @else {
+      color: $ci_anthracite;
+    }
+
+    background: color-for($color);
+  }
+}
 

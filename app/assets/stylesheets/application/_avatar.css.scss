@@ -1,22 +1,28 @@
-/* --------------------------------------------------------------------- */
-/*  _avatar.css.scss                                                     */
-/*  compass version: 0.12.rc.1                                           */
-/* --------------------------------------------------------------------- */
-
-
-#avatar_and_name,
-#employees {
-    .name {
-        line-height: 24px;
-    }
-}
 .avatar {
-    margin: 1px 5px 0 0;
-    float: left;
-    border: 1px solid #ccc;
-    @include border-radius(3px);
-    &.tiny {
-        height: 20px;
-        width: 20px;
-    }
+  &.tiny {
+    max-height: 16px;
+    width: 16px;
+  }
+  &.thumb {
+    @include border-radius($ci_border-radius);
+
+    max-height: 50px;
+    width: 50px;
+  }
+}
+
+.avatar_and_name {
+  margin-bottom: 1.5385em;
+  label {
+    display: block;
+    margin-left: 0;
+    margin-bottom: 0.25em;
+  }
+  .avatar {
+    margin-right: 0.5em;
+    vertical-align: middle;
+  }
+  .input {
+    display: inline-block;
+  }
 }

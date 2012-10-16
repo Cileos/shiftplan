@@ -18,21 +18,20 @@ Feature: View as employees in week (first one)
      Then I should be on the employees in week page for the plan for year: 2012, week: 49
       And I should see the following calendar:
         | Mitarbeiter   | Mo   | Di | Mi | Do | Fr | Sa | So |
-        | Planner Burns |      |    |    |    |    |    |    |
         | Carl C        |      |    |    |    |    |    |    |
         | Lenny L       | 9-17 |    |    |    |    |    |    |
-        | Homer S       |      |    |    |    |    |    |    | 
+        | Homer S       |      |    |    |    |    |    |    |
       And the employee "Homer S" should have a yellow hours/waz value of "0 / 40"
       And the employee "Lenny L" should have a grey hours/waz value of "8"
 
 
   Scenario: Navigating back and forth weekwise
     Given I am on the employees in week page of the plan for year: 2012, week: 49
-      When I follow ">" within the calendar navigation
+      When I follow ">" within the toolbar
       Then I should be on the employees in week page of the plan for year: 2012, week: 50
-      When I follow "Heute" within the calendar navigation
+      When I follow "Heute" within the toolbar
       Then I should be on the employees in week page of the plan for year: 2012, week: 49
-      When I follow "<" within the calendar navigation
+      When I follow "<" within the toolbar
       Then I should be on the employees in week page of the plan for year: 2012, week: 48
 
   # a basic version of this is tested in every plan/view_*week.feature
@@ -49,47 +48,42 @@ Feature: View as employees in week (first one)
       And I should see a calendar titled "Cleaning the Reactor - KW 49 03.12.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di    | Mi | Do | Fr |
-        | Planner Burns |    |       |    |    |    |
         | Carl C        |    |       |    |    |    |
         | Lenny L       |    |       |    |    |    |
         | Homer S       |    | 10-16 |    |    |    |
 
-     When I follow "<" within the calendar navigation
+     When I follow "<" within the toolbar
      Then I should be on the employees in week page of the plan for week: 48, year: 2012
       And I should see a calendar titled "Cleaning the Reactor - KW 48 26.11.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo   | Di | Mi | Do | Fr |
-        | Planner Burns |      |    |    |    |    |
         | Carl C        |      |    |    |    |    |
         | Lenny L       |      |    |    |    |    |
         | Homer S       | 9-17 |    |    |    |    |
 
-     When I follow ">" within the calendar navigation
+     When I follow ">" within the toolbar
      Then I should be on the employees in week page of the plan for week: 49, year: 2012
       And I should see a calendar titled "Cleaning the Reactor - KW 49 03.12.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di    | Mi | Do | Fr |
-        | Planner Burns |    |       |    |    |    |
         | Carl C        |    |       |    |    |    |
         | Lenny L       |    |       |    |    |    |
         | Homer S       |    | 10-16 |    |    |    |
 
-     When I follow ">" within the calendar navigation
+     When I follow ">" within the toolbar
      Then I should be on the employees in week page of the plan for week: 50, year: 2012
       And I should see a calendar titled "Cleaning the Reactor - KW 50 10.12.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi    | Do | Fr |
-        | Planner Burns |    |    |       |    |    |
         | Carl C        |    |    |       |    |    |
         | Lenny L       |    |    |       |    |    |
         | Homer S       |    |    | 11-15 |    |    |
 
-     When I follow ">" within the calendar navigation
+     When I follow ">" within the toolbar
      Then I should be on the employees in week page of the plan for week: 51, year: 2012
       And I should see a calendar titled "Cleaning the Reactor - KW 51 17.12.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi | Do    | Fr |
-        | Planner Burns |    |    |    |       |    |
         | Carl C        |    |    |    |       |    |
         | Lenny L       |    |    |    |       |    |
         | Homer S       |    |    |    | 12-14 |    |

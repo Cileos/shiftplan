@@ -1,8 +1,8 @@
 - title :settings
-.row
-  .span3
+.row.two-columns
+  %nav.secondary
     = render 'user/settings_menu'
-  .span7.user-edit-form
+  .primary.content-form
     %h3= ta :change_password
 
     %p= t('.instructions')
@@ -15,4 +15,4 @@
         = f.input :password_confirmation, required: true
 
       .actions
-        %button.btn.btn-primary= ti(:update)
+        %button= ti(:update)

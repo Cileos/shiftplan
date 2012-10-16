@@ -1,0 +1,20 @@
+- title :signup
+
+= simple_form_for resource, :as => resource_name, :url => registration_path(resource_name) do |f|
+  - resource.on_signup = true
+  .inputs
+    = f.input :on_signup, as: :hidden
+    = f.input :account_name, autofocus: true, required: true, hint: true
+    = f.input :organization_name, autofocus: true, required: true
+    = f.input :first_name, required: true
+    = f.input :last_name, required: true
+    = f.input :email, required: true, input_html: { class: 'mailcheck' }
+    = f.input :password, required: true
+    = f.input :password_confirmation, required: true
+
+  .actions
+    = f.button :submit, ta(:signup), class: ''
+
+.additional-actions
+  = render :partial => "devise/links"
+

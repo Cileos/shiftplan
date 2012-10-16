@@ -4,6 +4,11 @@ class TeamMergeController < InheritedResources::Base
   load_and_authorize_resource
 
   def create
-    create! { organization_teams_url(current_organization) }
+    create! { [team.organization.account, team.organization, :teams] }
+  end
+
+  private
+  def team
+    parent
   end
 end

@@ -1,5 +1,5 @@
 - @post.author = current_user.current_employee
-= simple_form_for([@organization, @blog, @post], remote: true) do |f|
+= simple_form_for([current_account, @organization, @blog, @post], remote: true) do |f|
   = f.error_notification
 
   .inputs
@@ -9,4 +9,4 @@
     = f.input :body, as: :text, input_html: { rows: 10, cols: 20 }
 
   .actions
-    %button.btn.btn-success= ti(:update)
+    %button.button-success= ti(:update)

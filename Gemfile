@@ -54,7 +54,7 @@ group :test do
   gem 'simplecov', :require => false
   gem 'term-ansicolor' # for ScenarioTodo
 
-  gem 'fuubar-cucumber', git: 'git://github.com/iain/fuubar-cucumber.git', branch: 'cucumber-1-2-api' # the ETA progress bar
+  gem 'fuubar-cucumber'
 
   gem 'diff_matcher'
 
@@ -65,6 +65,7 @@ group :development, :test do
   gem 'pry'
   gem "guard-jasmine"
   gem "jasminerice"
+  gem 'rb-inotify', '~> 0.8.8', :require => false
 end
 
 group :development do
@@ -80,7 +81,7 @@ group :production do
 end
 
 gem 'coffee-rails', '~> 3.2.2'
-gem 'compass-rails'
+gem 'bourbon'
 gem 'devise'
 gem 'cancan'
 gem 'simple_form', '~> 2.0.0'
@@ -101,10 +102,11 @@ gem 'gon' # push variables from rails to js
 gem 'RedCloth' # textilize instructions and other texts from locales
 
 gem 'database_cleaner'
-gem 'will_paginate', '~> 3.0'
-
-# until merge of https://github.com/elight/acts_as_commentable_with_threading/pull/32
-gem 'acts_as_commentable_with_threading', '~> 1.1.2', git: 'git://github.com/niklas/acts_as_commentable_with_threading.git', branch: '98f82fb5b4797523d5e3e4d4ba99a1be9836d4a5'
+# oh noes, niklas wants kaminari
+# gem 'will_paginate', '~> 3.0'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+gem 'acts_as_commentable_with_threading', '~> 1.1.2'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart'

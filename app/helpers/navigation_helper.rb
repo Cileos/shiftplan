@@ -9,6 +9,7 @@ module NavigationHelper
   def li_link(name, path, options = {})
     can = options.delete(:can)
     if !can || can?(*can)
+      path = polymorphic_path(path) unless path.is_a?(String)
       active = request.path.starts_with?( path )
       content_tag :li, class: active && 'active' do
         link_to name, path, options
