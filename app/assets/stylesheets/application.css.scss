@@ -46,7 +46,9 @@
 
 // here comes the ugly part ...
 
-// delete this as soon as icon helper is recoded
+// FIXME delete this as soon as the old icon helper
+//       which renders <i class='icon-[whatever]></i>'
+//       is recoded to use [data-icon]
 i[class^="icon-"] {
     @include _hidden();
 }
