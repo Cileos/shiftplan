@@ -6,7 +6,7 @@ class Notification::Base < ActiveRecord::Base
 
   validates_presence_of :employee
 
-  after_create :deliver!
+  after_commit :deliver!, on: :create
 
   def self.mailer_class
     raise NotImplementedError, "must return a your ActionMailer::Base class used to send out mails for notifications of type #{self.class.name}"
