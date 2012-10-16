@@ -25,8 +25,7 @@ class Notification::Base < ActiveRecord::Base
   protected
 
   def deliver!
-    self.class.mailer_class.send(self.class.mailer_action, self).deliver
-    self.sent_at = Time.now
-    self.save!
+    self.class.mailer_class.public_send(self.class.mailer_action, self).deliver
+    touch :sent_at
   end
 end

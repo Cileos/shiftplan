@@ -60,6 +60,10 @@ group :test do
   gem 'diff_matcher'
 
   gem 'ci_reporter', "~> 1.7.3"
+
+  # we send our notifications in after_commit hook, but this normally is not
+  # fired in an rSpec test suite with transactionial fixtures
+  gem 'test_after_commit'
 end
 
 group :development, :test do
