@@ -7,13 +7,13 @@
 
 .row.two-columns.inverted
   .primary
-    %table#teams.table.table-striped.table-condensed
+    %table#teams
       %thead
         %tr.employee
           %th= Team.human_attribute_name(:name)
           %th= Team.human_attribute_name(:shortcut)
-          %th
-          %th
+          %th= t('.team_color')
+          %th= t('.action')
 
       %tbody
         - collection.each do |team|
