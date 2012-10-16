@@ -1,3 +1,4 @@
 page.decorate @employee do |employee|
-  employee.append_modal body: render('form', employee: employee)
+  employee.append_modal body: render('form', employee: employee),
+      header: content_tag(:h3, ta(:'edit_employee'))
 end

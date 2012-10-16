@@ -1,0 +1,88 @@
+/*
+  We try to copy google calendar's layout: Basically, they use a table for the
+  columns, but only one row for the content itself, because schedulings can span
+  over multiple hours.
+
+  Downside: we have to set the height of "rows" and schedulings per css
+
+  see hours_in_week.html.haml
+*/
+
+table.hours-in-week {
+
+  // reset common styles
+  tbody tr {
+  background: image-url('grid2.png') repeat 0px 2px;
+
+  }
+  tr:last-child th, .calendar tr:last-child td {
+    border-bottom: none;
+
+  }
+
+
+  // and set the desired ones
+  $row_height: 40px;  // see background image gaps
+
+  th.hours {
+    width: 2%;
+
+    div {
+      height: $row_height;
+      padding: 0 15px 0 0;
+      text-align: right;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  td.day {
+    outline: none;
+    position: relative;
+
+    .vertical {
+      position: absolute;
+      overflow: hidden;
+    }
+
+    .scheduling {
+
+      .gimmicks {
+        height: 100%;
+      }
+
+      &.focus, &:focus, &:hover {
+        @include box-shadow(#000 0px 0px 20px 1px);
+
+        width: 100% !important; // override inline styles set by JS
+        left: 0 !important; // override inline styles set by JS
+        z-index: 1000 !important; // override inline styles set by JS
+        opacity: 0.9;
+      }
+
+      @for $hour from 1 to 23 {
+        &[data-start="#{$hour}"] {
+          top: $row_height * $hour + 1px;
+        }
+        &[data-start="#{$hour}.5"] {
+          top: $row_height * ($hour + 0.5) + 1px;
+        }
+        &[data-length="#{$hour}"] {
+          height: $row_height * $hour + 1px;
+        }
+        &[data-length="#{$hour}.5"] {
+          height: $row_height * ($hour + 0.5) + 1px;
+        }
+      }
+
+      // set min-height (==2h) to show all information
+      &.focus[data-length="1"],
+      &[data-length="1"]:hover,
+      &[data-length="1"]:focus {
+        height: $row_height * 2 + 1px !important;
+      }
+
+    }
+  }
+}

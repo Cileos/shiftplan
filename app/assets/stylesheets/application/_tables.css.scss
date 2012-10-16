@@ -1,12 +1,15 @@
 table {
   margin-bottom: 2em;
+  border: 1px solid $ci_grey;
 
   thead {
-    border-bottom: 1px solid $ci_darkgray;
+    border-bottom: 1px solid $ci_anthracite;
+    background: white;
   }
 
-  tr {
-    &:nth-child(2n) {
+  tbody tr {
+    background: white;
+    &:nth-child(2n+1) {
       background: $ci_darkwhite;
     }
   }

@@ -7,5 +7,5 @@ de:
           password_confirmation: 'Neues Passwort bestätigen'
     hints:
       user:
-        account_name: Stadtverwaltung Potsdam
-        organization_name: Bürgeramt
+        account_name: 'z. B.: Stadtverwaltung Potsdam'
+        organization_name: 'z. B.: Bürgeramt'

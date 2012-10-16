@@ -49,7 +49,7 @@ module HtmlSelectorsHelpers
       'table#calendar'
 
     when "the calendar caption"
-      'header.calendar-caption h2'
+      'header.calendar-caption h3'
 
     when "the legend"
       '#legend'
@@ -153,7 +153,7 @@ module HtmlSelectorsHelpers
     rows.index(row_label)
   end
 
-  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.button.active']
+  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.button.active', 'li.dropdown a.button']
   def extract_text_from_cell(cell)
     tried = 0
     found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }

@@ -19,7 +19,7 @@ de:
         body: Text
   helpers:
     actions:
-      more: 'Mehr'
+      more: 'Mehr ...'
   post_notification_mailer:
     new_post:
       subjects:
