@@ -49,9 +49,14 @@
     }
   }
 
-  .employee {
+  .employee,
+  .team {
     width: 16%;
     padding: 8px 5px;
+  }
+
+  .team .pibble {
+    margin-bottom: 6px; // prevent text beyond due to linebreak
   }
 
   .wwt_diff {
