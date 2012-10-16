@@ -20,7 +20,7 @@ Feature: As a logged in user
        | Neues Passwort bestätigen | topsecret |
       And I press "Speichern"
      Then I should be on the password page of the confirmed user
-      And I should see a flash info "Passwort geändert."
+      And I should see a flash notice "Passwort geändert."
 
      When I sign out
       And I am on the home page

@@ -27,7 +27,7 @@ In order to keep my colleagues informed about important news
       And I fill in "Text" with "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I press "Speichern"
       And I wait for the modal box to disappear
-     Then I should see a flash info "Post erfolgreich angelegt."
+     Then I should see a flash notice "Post erfolgreich angelegt."
       And I should see "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben" within the posts list
@@ -101,7 +101,7 @@ In order to keep my colleagues informed about important news
      When I fill in "Text" with "Bitte Kontrollräume aufräumen"
       And I press "Speichern"
       And I wait for the modal box to disappear
-     Then I should see a flash info "Post erfolgreich geändert."
+     Then I should see a flash notice "Post erfolgreich geändert."
       And I should see "Besuch des Umweltministers"
       And I should see "Bitte Kontrollräume aufräumen"
 
@@ -115,7 +115,7 @@ In order to keep my colleagues informed about important news
      When I press "Löschen"
      Then I should see "Wollen Sie den Blogpost 'Umweltminister zu Besuch' mit allen Kommentaren wirklich löschen?" in the alert box
      When I accept the popup
-     Then I should see a flash info "Post erfolgreich gelöscht."
+     Then I should see a flash notice "Post erfolgreich gelöscht."
       And I should see "Es wurden noch keine Blogposts erstellt."
 
   # TODO: Open the confirm dialog in our own modal box.

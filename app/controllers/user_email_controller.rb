@@ -7,7 +7,7 @@ class UserEmailController < InheritedResources::Base
   def update
     update! do |success, failure|
       success.html do
-        set_flash :info
+        set_flash :notice
         redirect_to user_email_path
       end
       failure.html do

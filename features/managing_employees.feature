@@ -25,7 +25,7 @@ Feature: Create Employees
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
       And I wait for the modal box to disappear
-     Then I should see flash info "Mitarbeiter erfolgreich angelegt."
+     Then I should see flash notice "Mitarbeiter erfolgreich angelegt."
       And I should be on the employees page for the organization
       Then I should see the following table of employees:
         | Name           | WAZ  | E-Mail  | Status                 |
@@ -56,7 +56,7 @@ Feature: Create Employees
      When I fill in "Vorname" with "Carl"
       And I press "Speichern"
       And I wait for the modal box to disappear
-     Then I should see flash info "Mitarbeiter erfolgreich angelegt."
+     Then I should see flash notice "Mitarbeiter erfolgreich angelegt."
       And I should be on the employees page for the organization
       Then I should see the following table of employees:
         | Name           | WAZ  | E-Mail  | Status                 |
@@ -129,7 +129,7 @@ Feature: Create Employees
         | Wochenarbeitszeit |         |
       And I press "Speichern"
       And I wait for the modal box to disappear
-     Then I should see flash info "Mitarbeiter erfolgreich angelegt."
+     Then I should see flash notice "Mitarbeiter erfolgreich angelegt."
 
   Scenario: Editing an employee
     Given an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account
@@ -144,7 +144,7 @@ Feature: Create Employees
         | Nachname | Simpson-Carlson |
       And I press "Speichern"
       And I wait for the modal box to disappear
-     Then I should see flash info "Mitarbeiter erfolgreich geändert."
+     Then I should see flash notice "Mitarbeiter erfolgreich geändert."
       And I should be on the employees page for the organization
       And I should see the following table of employees:
         | Name                    |
