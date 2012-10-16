@@ -11,5 +11,5 @@ de:
   flash:
     organizations:
       create:
-        info: "Organisation '%{organization}' angelegt."
+        notice: "Organisation '%{organization}' angelegt."
 
