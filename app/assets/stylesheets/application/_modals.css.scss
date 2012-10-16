@@ -53,6 +53,8 @@
   @include box-shadow(0 0 15px $ci_shadow);
   @include transition(opacity .5s $ci_easing);
 
+  overflow: visible;
+
   h3 {
     padding: 0;
   }
@@ -66,6 +68,8 @@
   .ui-dialog-content {
     padding: 1em;
     background: $ci_darkwhite;
+    overflow: visible;
+
     .flash {
        & + form .inputs {
         margin-top: 2em;
@@ -76,6 +80,29 @@
   .actions {
     margin-top: 1em;
     text-align: center;
+  }
+}
+
+.ui-autocomplete {
+  position: absolute;
+  list-style: none;
+  padding: 0;
+
+  .ui-menu-item {
+    padding: 0;
+
+    a {
+      @include transition(none);
+
+      display: block;
+      padding: 2px 5px;
+    }
+  }
+
+  .ui-state-hover {
+    border: none;
+    background: $ci_blue;
+    color: white;
   }
 }
 
