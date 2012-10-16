@@ -43,7 +43,7 @@
   font-family: "proxima-nova",Helvetica,Arial,sans-serif;
 }
 
-.ui-widget input:not(.button),
+.ui-widget input:not(.button):not(.boolean),
 .ui-widget select,
 .ui-widget textarea {
     width: 100%;
@@ -53,6 +53,8 @@
   @include box-shadow(0 0 15px $ci_shadow);
   @include transition(opacity .5s $ci_easing);
 
+  overflow: visible;
+
   h3 {
     padding: 0;
   }
@@ -60,15 +62,47 @@
   .ui-dialog-titlebar {
     background: none;
     border: 0;
-    border-bottom: 1px solid $ci_gray;
+    border-bottom: 1px solid $ci_midgray;
   }
 
   .ui-dialog-content {
     padding: 1em;
+    background: $ci_darkwhite;
+    overflow: visible;
+
+    .flash {
+       & + form .inputs {
+        margin-top: 2em;
+      }
+    }
   }
 
   .actions {
+    margin-top: 1em;
     text-align: center;
+  }
+}
+
+.ui-autocomplete {
+  position: absolute;
+  list-style: none;
+  padding: 0;
+
+  .ui-menu-item {
+    padding: 0;
+
+    a {
+      @include transition(none);
+
+      display: block;
+      padding: 2px 5px;
+    }
+  }
+
+  .ui-state-hover {
+    border: none;
+    background: $ci_blue;
+    color: white;
   }
 }
 
@@ -99,7 +133,7 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    color: $ci_darkgray;
+    color: $ci_anthracite;
     text-decoration:none;
 
     &:hover {

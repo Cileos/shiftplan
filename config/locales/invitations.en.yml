@@ -16,6 +16,3 @@ en:
     already_accepted: 'You have already accepted this invitation.'
     new:
       invite_employee: "%{employee_name} invite"
-  accept_invitations:
-    accept:
-      set_your_password: "Set password"

@@ -10,6 +10,8 @@ textarea {
   font-family:"proxima-nova",Helvetica,Arial,sans-serif;
 }
 
+$all-text-inputs: append($all-text-inputs, unquote('input[type="stringy_date"]'), comma);
+
 #{$all-text-inputs}, textarea {
   @include box-shadow(inset 0 0 3px rgba(0,0,0,.25));
   @include border-radius($ci_border-radius);
@@ -40,12 +42,15 @@ input[type=radio] {
 form div {
   & > label {
     margin-left: 0.25em;
+    &:first-child {
+      font-weight: bold;
+    }
   }
 }
 
 label {
   abbr[title] {
-    color: $ci_darkgray;
+    color: $ci_anthracite;
     border-bottom: none;
   }
 
@@ -58,7 +63,7 @@ legend {
   display: block;
   width: 100%;
   margin-bottom: 1em;
-  border-bottom: 1px solid $ci_gray;
+  border-bottom: 1px solid $ci_midgray;
   font-weight: bold;
 }
 
@@ -69,4 +74,11 @@ legend {
   h1, h2, h3, h4 {
     padding: 0;
   }
+}
+
+.hint {
+  display: inline-block;
+  margin-top: 0.25em;
+  margin-left: 0.5em;
+  color: $ci_darkgrey;
 }
