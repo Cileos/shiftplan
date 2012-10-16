@@ -3,6 +3,6 @@
     - if @organization.company_blog.present?
       .blog
         %h2= t(:'blogs.company_news')
-        = render('posts/posts', posts: @organization.company_blog.posts.order('created_at').limit(5))
+        = render('posts/posts', posts: @organization.company_blog.posts.order('created_at DESC').limit(5))
       %p#all-news
         = link_to 'Alle Neuigkeiten anzeigen', nested_resources_for(@organization.company_blog) + [:posts], id: 'all-news', class: 'button utility-button'

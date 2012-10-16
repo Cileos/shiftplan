@@ -199,7 +199,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
       update_team_colors
       update_quickie_completions
     else
-      append_errors_for(resource)
+      prepend_errors_for(resource)
     end
   end
 

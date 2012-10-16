@@ -1,15 +1,14 @@
 @mixin button-colors($color: $ci_gray, $color_hover: $ci_gray_hover) {
+  background: $color; // fallback for e.g. iOS 4
+
   @include background-image(linear-gradient(lighten($color, 12.5%) 20%, lighten($color, 7.5%) 50%, $color));
   @include adaptive-color(color, $color);
   @include adaptive-color(text-shadow, $color);
 
   border: 1px solid $color;
 
-  &:hover {
+  &:hover, &:focus {
     @include background-image(linear-gradient(lighten($color_hover, 7.5%), $color_hover));
-  }
-
-  &:active:hover {
     border-color: darken($color, 20%);
   }
 }
@@ -20,6 +19,7 @@ button {
   @include button-colors;
   @include border-radius($ci_border-radius);
   @include box-shadow(inset 0 1px 0 $ci_glow);
+  @include transition(all 0.5s $ci_easing);
 
   padding:.4em .5em .35em;
   text-decoration: none;
@@ -28,7 +28,7 @@ button {
     @include box-shadow(0 0 .35em transparentize($ci_blue, .2));
 
     border-color: $ci_blue;
-    color: $ci_darkgray;
+    color: $ci_anthracite;
   }
 
   &:active {
@@ -73,7 +73,7 @@ button {
 .utility-button,
 input[type=submit].utility-button {
   @include border-radius(10px);
-  @include transition(background .5s $ci_easing);
+  @include transition(background 0.5s $ci_easing);
 
   background: $ci_gray;
   color: #fff;

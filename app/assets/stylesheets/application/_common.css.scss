@@ -62,10 +62,6 @@ small {
   font-size: $ci_font-size;
 }
 
-#title {
-  padding: 10px 0;
-}
-
 [role=banner] {
   background: $ci_blue;
   border-bottom: 1px solid darken($ci_blue, 7.5%);
@@ -85,6 +81,7 @@ small {
   h1, ul, li {
     margin: 0;
     padding: 0;
+    white-space: nowrap;
   }
 
   a {
@@ -137,6 +134,31 @@ small {
       border-left: none;
     }
   }
+
+  @media screen and (max-width: 800px) {
+    ul.nav li a,
+    .user-navigation li a {
+      width: 40px;
+      white-space: nowrap;
+      overflow: hidden;
+      &[data-icon]:before {
+        margin-right: 1.5em;
+      }
+    }
+    ul.nav li.dropdown li a,
+    .user-navigation li li a {
+      width: auto;
+    }
+    .user-navigation {
+      .dropdown > ul {
+        left: auto;
+        right: 0;
+      }
+      .name {
+        margin-left: 1.5em;
+      }
+    }
+  }
 }
 
 [role=content] {
@@ -183,14 +205,14 @@ small {
     border: 1px solid $ci_lightgray;
 
     &:hover {
-      color: $ci_darkgray;
-      border: 1px solid $ci_darkgray;
+      color: $ci_anthracite;
+      border: 1px solid $ci_anthracite;
     }
   }
 
   .active a {
     border: 1px solid $ci_gray;
-    color: $ci_darkgray;
+    color: $ci_anthracite;
   }
 }
 
@@ -203,9 +225,9 @@ small {
 .masthead {
   @include clearfix;
 
-  padding: 10px;
+  padding: 10px 0;
   margin: 0 0 20px;
-  border-bottom: 1px solid darken($ci_lightgray, 5%);
+  border-bottom: 1px solid $ci_midgray;
 
   h1, h2, h3,
   #title {
@@ -277,6 +299,18 @@ small {
   margin-top: 15px;
 }
 
+#spinner {
+  @include z-index(1000, fixed);
+  top:  50%;
+  left: 50%;
+}
+
 .hidden {
   @include _hidden;
+}
+
+.additional-actions {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid $ci_midgray;
 }

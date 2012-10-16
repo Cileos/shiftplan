@@ -1,10 +1,10 @@
 %ul.nav
   - if user_signed_in?
     - if current_user.is_multiple?
-      = li_link '.dashboard', dashboard_path, can: [:dashboard, current_user]
+      = li_link '.dashboard', dashboard_path, can: [:dashboard, current_user], class: 'dashboard', data: { icon: i(:dashboard) }
     - if organization = @organization || current_organization
       = render 'organizations/navigation_links', organization: organization
     - elsif !current_user.is_multiple?
       -# TODO: change me here after datamodel changed
       - if organization = current_user.joined_organizations.first
-        = li_link organization.name, [organization.account, organization], class: 'organization'
+        = li_link organization.name, [organization.account, organization], class: 'organization', data: { icon: i(:organization) }
