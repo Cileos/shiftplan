@@ -29,9 +29,41 @@ Feature: Creating a plan
         | Lenny L       |    |    |    |    |    |    |    |
         | Homer S       |    |    |    |    |    |    |    |
 
+
+  Scenario: when creating a plan with a time period the toolbar navigation locks the user in the plan period
+     When I fill in "Startdatum" with "2012-01-01"
+      And I fill in "Enddatum" with "2012-01-02"
+      And I press "Anlegen"
+     Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
+     # as today is after the plan period end the user gets redirected to the last week
+     # view of the plan period (week 1, year 2012)
+      And I should be on the employees in week page for the plan for week: 1, year: 2012
+      And I should see "<" within the toolbar
+      But I should not see ">" within the toolbar
+
+     When I follow "<" within the toolbar
+     # in germany, the week with january 4th is the first calendar week
+     # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
+     Then I should be on the employees in week page for the plan for week: 52, year: 2011
+      And I should see ">" within the toolbar
+      But I should not see "<" within the toolbar
+     When I follow ">" within the toolbar
+     Then I should be on the employees in week page for the plan for week: 1, year: 2012
+
+
   # in germany, the week with january 4th is the first calendar week
-  # in 2012, the January 1st is a sunday
-  Scenario: creating a plan by name for the current organization with a specific period locks the user in this time period frame
+  # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
+  Scenario: user gets redirected properly to last cweek of the previous year for 2012-01-01
+     When I fill in "Startdatum" with "2012-01-01"
+      And I fill in "Enddatum" with "2012-01-01"
+      And I press "Anlegen"
+     Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
+      And I should be on the employees in week page for the plan for week: 52, year: 2011
+      And I should not see "<" within the toolbar
+      And I should not see ">" within the toolbar
+
+
+  Scenario: user is locked within the plan period frame when trying to visit a page outside the frame
       # monday 4 weeks from now (9th week, german)
      When I fill in "Startdatum" with "2012-02-27"
       # friday a month later (13th week, german)
@@ -39,11 +71,17 @@ Feature: Creating a plan
       And I press "Anlegen"
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
       And I should be on the employees in week page for the plan for week: 9, year: 2012
-      And I should not see "<" within the toolbar
-      But I should see ">" within the toolbar
 
-     When I go to the employees in week page for the plan for week: 23, year: 2012
+     # trying to navigate to a page after the end of the plan period
+     When I go to the employees in week page for the plan for week: 14, year: 2012
+     # user gets redirected to last page of the plan period
      Then I should be on the employees in week page for the plan for week: 13, year: 2012
-      And I should not see ">" within the toolbar
-      But I should see "<" within the toolbar
 
+     # trying to navigate to a page before the start of the plan period
+     When I go to the employees in week page for the plan for week: 8, year: 2012
+     # user gets redirected to first page of the plan period
+     Then I should be on the employees in week page for the plan for week: 9, year: 2012
+
+     # trying to navigate to a page within the plan period
+     When I go to the employees in week page for the plan for week: 13, year: 2012
+     Then I should be on the employees in week page for the plan for week: 13, year: 2012

@@ -82,11 +82,11 @@ class SchedulingFilter
   delegate :all, to: :records
 
   def before_start_of_plan?(date=last_day)
-    plan.starts_at.present? && date.to_time < plan.starts_at
+    plan.starts_at.present? && date.to_date < plan.starts_at.to_date
   end
 
   def after_end_of_plan?(date=first_day)
-    plan.ends_at.present? && plan.ends_at < date.to_time
+    plan.ends_at.present? && date.to_date > plan.ends_at.to_date
   end
 
 

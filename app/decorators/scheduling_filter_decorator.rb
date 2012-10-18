@@ -147,9 +147,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   # URI-Path to another week
-  def path_to_week(week)
-    raise(ArgumentError, "please give a date or datetime, got #{week.inspect}") unless week.acts_like?(:date) or week.acts_like?(:time)
-    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: week.year, week: week.cweek)
+  def path_to_week(date)
+    raise(ArgumentError, "please give a date or datetime, got #{date.inspect}") unless date.acts_like?(:date) or date.acts_like?(:time)
+    calendar_week_year = (date.month == 1 && date.cweek > 1) ? date.year - 1 : date.year
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: calendar_week_year, week: date.cweek)
   end
 
   def path_to_day(day)
@@ -251,11 +252,19 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def has_previous?
-    ! before_start_of_plan?(previous_step)
+    if plan.starts_at.present?
+      plan.starts_at.to_date <= previous_week.days.last.to_date
+    else
+      true
+    end
   end
 
   def has_next?
-    ! after_end_of_plan?(next_step)
+    if plan.ends_at.present?
+      plan.ends_at.to_date >= next_step.to_date
+    else
+      true
+    end
   end
 
 end
