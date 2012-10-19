@@ -114,3 +114,32 @@ Feature: Creating a plan
 
       When I click on cell "Sa"/"Carl C"
       Then the new scheduling form should not appear
+
+
+  Scenario: only days within the plan period should be selectable in the new scheduling form
+    # sunday
+     When I fill in "Startdatum" with "2012-01-01"
+     # tuesday
+      And I fill in "Enddatum" with "2012-01-03"
+      And I press "Anlegen"
+     Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
+      And I should be on the employees in week page for the plan for week: 1, year: 2012
+
+      When I click on cell "Mo"/"Carl C"
+      Then the new scheduling form should appear
+       And the select field for "Wochentag" should have the following options:
+        | Montag      |
+        | Dienstag    |
+       And I close the modal box
+
+      When I follow "<"
+       And I click on cell "So"/"Carl C"
+      Then the new scheduling form should appear
+       And the select field for "Wochentag" should have the following options:
+        | Sonntag     |
+       And I close the modal box
+
+      When I follow "Neue Terminierung"
+      Then the new scheduling form should appear
+       And the select field for "Wochentag" should have the following options:
+        | Sonntag     |
