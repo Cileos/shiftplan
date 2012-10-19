@@ -48,7 +48,7 @@ button {
 
 .button-green, input[type=submit].button-green,
 .button-success, input[type=submit].button-success {
-  @include button-colors($ci_green, lighten($ci_green, 1%));
+  @include button-colors(darken($ci_green, 12.5%), darken($ci_green, 7.5%));
 
   &:hover {
     @include box-shadow(0 0 .35em transparentize($ci_green, .2));
