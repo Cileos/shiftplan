@@ -3,7 +3,7 @@
 #   tds:       which tds do we want to navigate
 #   items:     items within the tds
 class CalendarCursor
-  constructor: (@$calendar, @tds = 'td:not(.wwt_diff)', @items = '.scheduling') ->
+  constructor: (@$calendar, @tds = 'td:not(.wwt_diff):not(.outside_plan_period)', @items = '.scheduling') ->
 
     @$body     = @$calendar.find('tbody:first')
 
