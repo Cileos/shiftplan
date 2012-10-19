@@ -15,5 +15,9 @@
 
 $(function(){
     $("#calendar").stickyTableHeaders({fixedOffset: 50});
-    $('textarea').autosize();
+    $("textarea").autosize();
+
+    $("body").on("dialogopen", function() {
+      $(".ui-widget textarea").autosize();
+    });
 });
