@@ -211,28 +211,29 @@ small {
   }
 
   li {
-
     display: inline;
     margin-right: 5px;
   }
 
   a {
-    @include transition(all .5s $ci_easing);
-    @include border-radius(5px);
+    @include transition(all .3s $ci_easing);
 
-    color: $ci_gray;
     padding: 3px 5px;
-    border: 1px solid $ci_lightgray;
 
     &:hover {
-      color: $ci_anthracite;
-      border: 1px solid $ci_anthracite;
+      background: $ci_blue;
+      color: #fff;
     }
   }
 
   .active a {
-    border: 1px solid $ci_gray;
-    color: $ci_anthracite;
+    color: $ci_blue;
+    border-bottom: 2px solid $ci_blue;
+    font-weight: bold;
+  
+    &:hover {
+      color: #fff;
+    }
   }
 }
 
