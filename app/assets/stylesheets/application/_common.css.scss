@@ -78,6 +78,26 @@ small {
     font-size: 1em;
   }
 
+  .logo {
+    padding: 15px;
+
+    a {
+      @include image-2x(image-url("clockwork-logo-32px.png"), 156px, 16px);
+      @include transition(all .15s $ci_easing);
+
+      display: block;
+      width: 156px;
+      height: 16px;
+      background: image-url("clockwork-logo-16px.png");
+      text-indent: -999em;
+      padding: 0;
+
+      &:hover {
+        @include transform(scale(1.05));
+      }
+    }
+  }
+
   h1, ul, li {
     margin: 0;
     padding: 0;
