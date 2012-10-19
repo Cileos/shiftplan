@@ -181,3 +181,14 @@ Feature: Creating a plan
       Then the new scheduling form should appear
        And the select field for "Wochentag" should have the following options:
         | Sonntag     |
+
+
+  Scenario: focus first calendar cell which is not outside the plan period
+    # tuesday
+     When I fill in "Startdatum" with "2012-01-03"
+     # wednesday
+      And I fill in "Enddatum" with "2012-01-04"
+      And I press "Anlegen"
+     Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
+      And I should be on the employees in week page for the plan for week: 1, year: 2012
+      And the cell "Di"/"Carl C" should be focus

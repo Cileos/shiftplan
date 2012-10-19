@@ -27,8 +27,8 @@ class CalendarCursor
     # call .trigger('focus') on a .scheduling to focus it externally
     @$calendar.on 'focus', '.scheduling', (event) => @focus $(event.target)
 
-    # focus first calendar data cell
-    @focus @$body.find('tr:nth-child(1) td:nth-child(2)')
+    # focus first calendar data cell which is not outside the plan period
+    @focus @$body.find('tr:nth-child(1) td:not(.outside_plan_period):first')
 
     @enable()
 
