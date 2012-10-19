@@ -10,3 +10,4 @@
 //= require jquery.mailcheck.min
 //= require fix_iOS_rotation
 //= require StickyTableHeaders
+//= require jquery.autosize

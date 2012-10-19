@@ -15,4 +15,5 @@
 
 $(function(){
     $("#calendar").stickyTableHeaders({fixedOffset: 50});
+    $('textarea').autosize();
 });
