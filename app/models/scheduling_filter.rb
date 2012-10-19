@@ -89,6 +89,10 @@ class SchedulingFilter
     plan.ends_at.present? && date.to_date > plan.ends_at.to_date
   end
 
+  def outside_plan_period?(date)
+    before_start_of_plan?(date) || after_end_of_plan?(date)
+  end
+
 
   private
     def fetch_records
