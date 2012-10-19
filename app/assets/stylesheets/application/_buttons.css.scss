@@ -60,15 +60,20 @@ button {
 
 .button-red, input[type=submit].button-red,
 .button-warning, input[type=submit].button-warning {
-  @include button-colors($ci_darkorange, $ci_darkorange_hover);
+  border: 1px solid $ci_lightgray;
+  background: transparent;
+  color: $ci_darkorange;
+  text-decoration: none;
 
   &:hover {
-    @include box-shadow(0 0 .35em transparentize($ci_darkorange, .2));
+    @include adaptive-color(color, $ci_darkorange);
+    @include adaptive-color(text-shadow, $ci_darkorange);
 
-    border-color: $ci_darkorange;
-    color: #fff;
+    background: $ci_darkorange;
+    border: 1px solid $ci_darkorange;
   }
 }
+
 
 .utility-button,
 input[type=submit].utility-button {
