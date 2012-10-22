@@ -18,15 +18,23 @@ Feature: Creating schedulings in a plan with time period
       # tuesday
       And I fill in "Enddatum" with "2012-01-03"
       And I press "Anlegen"
-     Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
+      And I wait for the modal box to disappear
+     Then I should see the following table of plans:
+        | Name                        | Beschreibung  | Startdatum  | Enddatum    |
+        | Cleaning the Reactor        |               | -           | -           |
+        | Halloween im Atomkraftwerk  |               | 01.01.2012  | 03.01.2012  |
+      And a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
+
+     When I follow "Halloween im Atomkraftwerk"
      # as today is after the plan period end the user gets redirected to the last week
      # view of the plan period (week 1, year 2012)
-      And I should be on the employees in week page for the plan for week: 1, year: 2012
+     Then I should be on the employees in week page for the plan for week: 1, year: 2012
 
      When I click on cell "Mo"/"Carl C"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
+      And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Mitarbeiter  | Mo   | Di  | Mi  | Do  | Fr  | Sa  | So  |
         | Carl C       | 9-17 |     |     |     |     |     |     |
@@ -37,6 +45,7 @@ Feature: Creating schedulings in a plan with time period
      And I wait for the new scheduling form to appear
      And I fill in "Quickie" with "22-6"
      And I press "Anlegen"
+     And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Mitarbeiter  | Mo          | Di   | Mi  | Do  | Fr  | Sa  | So  |
         | Carl C       | 9-17 22-24  | 0-6  |     |     |     |     |     |
@@ -72,6 +81,7 @@ Feature: Creating schedulings in a plan with time period
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
+      And I wait for the modal box to disappear
       # TODO
      Then I should see the following calendar:
         | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So      |
@@ -110,6 +120,7 @@ Feature: Creating schedulings in a plan with time period
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
+      And I wait for the modal box to disappear
       # TODO
      Then I should see "Die Terminierung konnte nicht angelegt werden."
      Then I should see the following calendar:

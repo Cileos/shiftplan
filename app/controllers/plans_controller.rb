@@ -20,6 +20,10 @@ class PlansController < InheritedResources::Base
     current_organization
   end
 
+  def collection
+    end_of_association_chain.order(:name)
+  end
+
   def redirect_to_current_week
     redirect_to current_week_path
   end

@@ -1,4 +1,4 @@
-= simple_form_for [current_account, current_organization, plan], html: { class: 'form-horizontal' } do |f|
+= simple_form_for [current_account, current_organization, plan], html: { class: 'form-horizontal' }, remote: true do |f|
   - unless plan.duration.present?
     = f.input :duration, :collection => durations_for_select(plan), :as => :radio, autofocus: true
     = f.button :submit, translate_action('.next')

@@ -17,9 +17,16 @@ Feature: Creating a plan
       And I fill in "Name" with "Halloween im Atomkraftwerk"
      When I fill in "Beschreibung" with "5 eyes minimum"
       And I press "Anlegen"
+      And I wait for the modal box to disappear
 
-     Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
-      And I should be on the employees in week page for the plan for week: 5, year: 2012
+     Then I should see the following table of plans:
+        | Name                        | Beschreibung    | Startdatum  | Enddatum  |
+        | Cleaning the Reactor        |                 | -           | -         |
+        | Halloween im Atomkraftwerk  | 5 eyes minimum  | -           | -         |
+      And a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
+
+     When I follow "Halloween im Atomkraftwerk"
+     Then I should be on the employees in week page for the plan for week: 5, year: 2012
       And the page should be titled "Halloween im Atomkraftwerk"
       And I should see "5 eyes minimum"
       And I should see a calendar titled "Halloween im Atomkraftwerk - KW 05 30.01.2012"
@@ -28,6 +35,19 @@ Feature: Creating a plan
         | Carl C        |    |    |    |    |    |    |    |
         | Lenny L       |    |    |    |    |    |    |    |
         | Homer S       |    |    |    |    |    |    |    |
+
+
+  Scenario: plan's start time must be smaller or equal to the plan's end time
+    Given I am on the page for the organization "Reactor"
+     When I choose "Alle Pläne" from the drop down "Pläne"
+      And I follow "Hinzufügen"
+      And I wait for the modal box to appear
+      And I fill in "Name" with "Halloween im Atomkraftwerk"
+     When I fill in "Startdatum" with "2012-01-02"
+      And I fill in "Enddatum" with "2012-01-01"
+      And I press "Anlegen"
+     Then I should see "Das Startdatum muss kleiner oder gleich dem Enddatum des Plans sein" within errors
+      And 0 plans should exist with name: "Halloween im Atomkraftwerk"
 
 
   Scenario: when creating a plan with a time period the toolbar navigation locks the user in the plan period
@@ -39,10 +59,13 @@ Feature: Creating a plan
      When I fill in "Startdatum" with "2012-01-01"
       And I fill in "Enddatum" with "2012-01-02"
       And I press "Anlegen"
+      And I wait for the modal box to disappear
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
+
+     When I follow "Halloween im Atomkraftwerk"
      # as today is after the plan period end the user gets redirected to the last week
      # view of the plan period (week 1, year 2012)
-      And I should be on the employees in week page for the plan for week: 1, year: 2012
+     Then I should be on the employees in week page for the plan for week: 1, year: 2012
       And I should see "<" within the toolbar
       But I should not see ">" within the toolbar
 
@@ -68,10 +91,13 @@ Feature: Creating a plan
      When I fill in "Startdatum" with "2012-01-01"
       And I fill in "Enddatum" with "2012-01-28"
       And I press "Anlegen"
+      And I wait for the modal box to disappear
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
+
+     When I follow "Halloween im Atomkraftwerk"
      # as today is before the plan period end the user gets redirected to the first week
      # view of the plan period (week 52, year 2011)
-      And I should be on the employees in week page for the plan for week: 52, year: 2011
+     Then I should be on the employees in week page for the plan for week: 52, year: 2011
       And I should not see "<" within the toolbar
       And I should see ">" within the toolbar
 
