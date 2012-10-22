@@ -11,6 +11,7 @@ class Scheduling < ActiveRecord::Base
   after_validation :set_human_date_attributes
   validates :starts_at, :ends_at, :plan, :employee,
     :year, :week, :presence => true
+  validates :starts_at, :ends_at, within_plan_period: true
 
   after_create :create_next_day
   attr_accessor :next_day
@@ -201,7 +202,7 @@ class Scheduling < ActiveRecord::Base
   # TODO save start_hour and end_hour or even cache the whole quickie
   def self.quickies
     # select the maximal dates because psql wants aggregations and we are just interested in the hours anyway
-    includes(:team) 
+    includes(:team)
       .select(%q~max(starts_at) AS starts_at, max(ends_at) AS ends_at, team_id~)
       .group(%q~date_part('hour', starts_at), date_part('hour', ends_at), team_id~)
       .map(&:quickie)
