@@ -83,6 +83,19 @@
   }
 }
 
+.ui-widget-content {
+  .button-red,
+  input[type="submit"].button-red,
+  .button-warning,
+  input[type="submit"].button-warning {
+    color: $ci_darkorange;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
 .ui-autocomplete {
   position: absolute;
   list-style: none;
