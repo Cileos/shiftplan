@@ -125,6 +125,11 @@ small {
 
   .user-navigation {
     float: right;
+
+    .dropdown > ul {
+      left: auto;
+      right: 0;
+    }
   }
 
   .brand img {
@@ -170,10 +175,6 @@ small {
       width: auto;
     }
     .user-navigation {
-      .dropdown > ul {
-        left: auto;
-        right: 0;
-      }
       .name {
         margin-left: 1.5em;
       }
