@@ -11,4 +11,8 @@ module LayoutHelper
   def show_title?
     @show_title
   end
+
+  def sidebar(&block)
+    content_for :sidebar, &block
+  end
 end
