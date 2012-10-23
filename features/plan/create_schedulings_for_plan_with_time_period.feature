@@ -62,15 +62,15 @@ Feature: Creating schedulings in a plan with time period
         | Homer S      |             |      |     |     |     |     |     |
 
 
-  # TODO, FIXME: the scheduling filter does not fetch the scheduling because week and year
-  # are not set the right way for a scheduling that gets created with a date with year
-  # 2012 but belongs to the last calendar week of the year before (2011 in the case of
-  # a scheduling like 2012-01-01.  In germany, the week with january 4th is the first
-  # calendar week in 2012, the January 1st is a sunday, so January 1st is in week 52 (of
-  # year 2011)
-  @todo
-  @wip
-  Scenario: schedulings belonging to the last calendar week of the previous year can be created and display properly
+  # When creating schedulings with an hour range over midnight and turn of year (special case)
+  # we have to make sure that for both schedulings that will be created (1st 22:00-23:59, 2nd 0:00-6:00)
+  # the year and week will be set the right way. In the case of Sunday, 2012-01-01
+  # 22:00-23:59 the year must be set to 2011 and the week to the calendar week 52 as Jan
+  # 1st 2012 belongs to the last week in 2011. Otherwise the scheduling filter will not
+  # fetch the scheduling when visiting the page for week 52, year 2011.
+  # For the second scheduling (0:00-6:00 2012-01-02) the week must be set to 1 and year to
+  # 2012.
+  Scenario: creating schedulings with an hour range over midnight and turn of calendar week and year (special case)
     # 2012-01-01: sunday
     # 2012-01-02: monday
     Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
@@ -82,7 +82,6 @@ Feature: Creating schedulings in a plan with time period
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
       And I wait for the modal box to disappear
-      # TODO
      Then I should see the following calendar:
         | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So      |
         | Carl C       |     |     |     |     |     |     | 22-24   |
@@ -94,6 +93,8 @@ Feature: Creating schedulings in a plan with time period
         | Carl C       | 0-6    |     |     |     |     |     |     |
         | Lenny L      |        |     |     |     |     |     |     |
         | Homer S      |        |     |     |     |     |     |     |
+     # go back to first page to really make sure that scheduling filter will fetch
+     # the scheduling so that it will be displayed in the calendar week.
      When I follow "<"
      Then I should see the following calendar:
         | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So      |

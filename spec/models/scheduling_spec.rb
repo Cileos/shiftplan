@@ -84,18 +84,6 @@ describe Scheduling do
       end
     end
 
-    # use factory except for the time range related attributes, so the
-    # validity of the Scheduling is not compromised
-    def build_without_dates(attrs={})
-      build :scheduling, attrs.reverse_merge({
-        starts_at: nil,
-        ends_at:   nil,
-        week:      nil,
-        year:      nil,
-        date:      nil
-      })
-    end
-
     describe "explictly given" do
       it_behaves_like 'completely defined' do
         let :scheduling do
@@ -214,6 +202,21 @@ describe Scheduling do
 
     it "should create 2 scheduling, ripped apart at midnight" do
       expect { nightwatch.save! }.to change(Scheduling, :count).by(2)
+    end
+
+    context "with year and week turn" do
+      let(:nightwatch) { build_without_dates quickie: '19-6', date: '2012-01-01' }
+
+      # in germany, the week with january 4th is the first calendar week
+      # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
+      it "should set year and week correctly" do
+        nightwatch.save!
+        nightwatch.year.should == 2011
+        nightwatch.week.should == 52
+
+        nightwatch.next_day.year.should == 2012
+        nightwatch.next_day.week.should == 1
+      end
     end
   end
 
@@ -471,5 +474,17 @@ describe Scheduling do
       scheduling.should_not be_valid
       scheduling.errors[:ends_at].should == ["is greater than the plan's end time"]
     end
+  end
+
+  # use factory except for the time range related attributes, so the
+  # validity of the Scheduling is not compromised
+  def build_without_dates(attrs={})
+    build :scheduling, attrs.reverse_merge({
+      starts_at: nil,
+      ends_at:   nil,
+      week:      nil,
+      year:      nil,
+      date:      nil
+    })
   end
 end
