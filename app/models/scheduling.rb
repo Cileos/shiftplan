@@ -12,9 +12,11 @@ class Scheduling < ActiveRecord::Base
   validates :starts_at, :ends_at, :plan, :employee,
     :year, :week, :presence => true
   validates :starts_at, :ends_at, within_plan_period: true
+  validates_with NextDayWithinPlanPeriodValidator
 
   after_create :create_next_day
   attr_accessor :next_day
+  attr_reader :next_day_end_hour
 
   acts_as_commentable
   has_many :comments, as: :commentable, order: 'comments.lft, comments.id' # FIXME gets ALL comments, tree structure is ignored

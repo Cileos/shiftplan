@@ -103,14 +103,12 @@ Feature: Creating schedulings in a plan with time period
         | Homer S      |     |     |     |     |     |     |         |
 
 
-  # TODO: Show appropriate error message if the second scheduling 0-6 can not be created
-  # because it is outside the plan's time period.  (When entering 22-6 for monday normally
-  # two schedulings would be created. 1st monday 22-24.  2nd tuesday 0-6 which is outside
-  # the plan's time period)
-  # At the moment we just see a rollback in the log but no error message in the modal box.
-  @todo
-  @wip
-  Scenario: schedulings outside the plan's time period can not be created
+  # Show appropriate error message when user tries to create a scheduling with an hour
+  # range over midnight resulting in the second scheduling being outside the plan's time
+  # period. (When entering 22-6 for monday normally two schedulings would be created. 1st
+  # monday 22-24.  2nd tuesday 0-6 which is outside the plan's time period in the
+  # following scenario).
+  Scenario: display error message when creating schedulings with next day outside the plan period
     # 2012-01-01: sunday
     # 2012-01-02: monday
     Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
@@ -121,23 +119,15 @@ Feature: Creating schedulings in a plan with time period
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
-      And I wait for the modal box to disappear
-      # TODO
-     Then I should see "Die Terminierung konnte nicht angelegt werden."
-     Then I should see the following calendar:
+
+     Then I should see "Die Endzeit ist größer als die Endzeit des Plans."
+      And I should see the following calendar:
         | Mitarbeiter  | Mo   | Di  | Mi  | Do  | Fr  | Sa  | So  |
         | Carl C       |      |     |     |     |     |     |     |
         | Lenny L      |      |     |     |     |     |     |     |
         | Homer S      |      |     |     |     |     |     |     |
+      And 0 schedulings should exist
 
-     When I follow "<" within the toolbar
-     # in germany, the week with january 4th is the first calendar week
-     # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
-     Then I should be on the employees in week page for the plan for week: 52, year: 2011
-      And I should see ">" within the toolbar
-      But I should not see "<" within the toolbar
-     When I follow ">" within the toolbar
-     Then I should be on the employees in week page for the plan for week: 1, year: 2012
 
   Scenario: no modals boxes open when clicking on cells which are outside the plan period in employees in week view
     # 2012-01-01: sunday

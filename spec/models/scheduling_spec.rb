@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe Scheduling do
@@ -408,25 +410,25 @@ describe Scheduling do
     it "should not be valid when the start time is smaller than the plan's start time" do
       scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-11 8:00'), ends_at: DateTime.parse('2012-12-12 8:00'))
       scheduling.should_not be_valid
-      scheduling.errors[:starts_at].should == ["is smaller than the plan's start time"]
+      scheduling.errors[:starts_at].should == ["ist kleiner als die Startzeit des Plans"]
     end
 
     it "should not be valid when start time is greater than the plan's end time" do
       scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-14 8:00'), ends_at: DateTime.parse('2012-12-13 8:00'))
       scheduling.should_not be_valid
-      scheduling.errors[:starts_at].should == ["is greater than the plan's end time"]
+      scheduling.errors[:starts_at].should == ["ist größer als die Endzeit des Plans"]
     end
 
     it "should not be valid when the end time is smaller than the plan's start time" do
       scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-12 8:00'), ends_at: DateTime.parse('2012-12-11 8:00'))
       scheduling.should_not be_valid
-      scheduling.errors[:ends_at].should == ["is smaller than the plan's start time"]
+      scheduling.errors[:ends_at].should == ["ist kleiner als die Startzeit des Plans"]
     end
 
     it "should not be valid when end time is greater than the plan's end time" do
       scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-12 8:00'), ends_at: DateTime.parse('2012-12-14 8:00'))
       scheduling.should_not be_valid
-      scheduling.errors[:ends_at].should == ["is greater than the plan's end time"]
+      scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
     end
   end
 
@@ -443,13 +445,13 @@ describe Scheduling do
     it "should not be valid when the start time is smaller than the plan's start time" do
       scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-11 8:00'), ends_at: DateTime.parse('2012-12-12 8:00'))
       scheduling.should_not be_valid
-      scheduling.errors[:starts_at].should == ["is smaller than the plan's start time"]
+      scheduling.errors[:starts_at].should == ["ist kleiner als die Startzeit des Plans"]
     end
 
     it "should not be valid when the end time is smaller than the plan's start time" do
       scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-12 8:00'), ends_at: DateTime.parse('2012-12-11 8:00'))
       scheduling.should_not be_valid
-      scheduling.errors[:ends_at].should == ["is smaller than the plan's start time"]
+      scheduling.errors[:ends_at].should == ["ist kleiner als die Startzeit des Plans"]
     end
   end
 
@@ -466,13 +468,24 @@ describe Scheduling do
     it "should not be valid when the start time is greater than the plan's end time" do
       scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-13 8:00'), ends_at: DateTime.parse('2012-12-12 8:00'))
       scheduling.should_not be_valid
-      scheduling.errors[:starts_at].should == ["is greater than the plan's end time"]
+      scheduling.errors[:starts_at].should == ["ist größer als die Endzeit des Plans"]
     end
 
     it "should not be valid when the end time is greater than the plan's end time" do
       scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-12 8:00'), ends_at: DateTime.parse('2012-12-13 8:00'))
       scheduling.should_not be_valid
-      scheduling.errors[:ends_at].should == ["is greater than the plan's end time"]
+      scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
+    end
+  end
+
+  context "for a plan with end time" do
+    let(:plan) { build :plan, ends_at: DateTime.parse('2012-12-12') }
+
+    it "should not be valid if the next day is outside the plan period" do
+      scheduling = build_without_dates quickie: '22-6', date: '2012-12-12', plan: plan
+
+      scheduling.should_not be_valid
+      scheduling.errors[:base].should == ["Die Endzeit ist größer als die Endzeit des Plans."]
     end
   end
 
