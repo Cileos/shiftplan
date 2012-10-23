@@ -5,8 +5,8 @@
   - else
     .inputs
       = f.input :name, autofocus: true
-      = f.input :starts_at, as: :stringy_date
-      = f.input :ends_at, as: :stringy_date
+      = f.input :starts_at, as: :stringy_date, hint: true
+      = f.input :ends_at, as: :stringy_date, hint: true
       = f.input :description, input_html: { rows: 3 }
     .actions
       %button.button-success{type: 'submit'}
