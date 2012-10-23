@@ -18,6 +18,10 @@ $(function(){
     $("textarea").autosize();
 
     $("body").on("dialogopen", function() {
-      $(".ui-widget textarea").autosize();
+      var elmTextarea = $('.ui-widget textarea');
+      var windowH = $(window).height() / 2 - 100;
+
+      elmTextarea.css('max-height', windowH + 'px');
+      elmTextarea.autosize();
     });
 });
