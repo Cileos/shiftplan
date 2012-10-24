@@ -17,6 +17,7 @@ Feature: Creating schedulings in a plan with time period
      When I fill in "Startdatum" with "2012-01-01"
       # tuesday
       And I fill in "Enddatum" with "2012-01-03"
+      And I close all datepickers
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following table of plans:

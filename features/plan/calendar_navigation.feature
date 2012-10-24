@@ -93,6 +93,7 @@ Feature: Calendar navigation
       And I fill in "Name" with "Halloween im Atomkraftwerk"
      When I fill in "Startdatum" with "2012-01-01"
       And I fill in "Enddatum" with "2012-01-02"
+      And I close all datepickers
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"

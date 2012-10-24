@@ -43,8 +43,10 @@ Feature: Creating a plan
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Halloween im Atomkraftwerk"
-     When I fill in "Startdatum" with "2012-01-02"
+      And I fill in "Beschreibung" with "Halloween im Atomkraftwerk"
+      And I fill in "Startdatum" with "2012-01-02"
       And I fill in "Enddatum" with "2012-01-01"
+      And I close all datepickers
       And I press "Anlegen"
      Then I should see "Das Startdatum muss kleiner oder gleich dem Enddatum des Plans sein" within errors
       And 0 plans should exist with name: "Halloween im Atomkraftwerk"
@@ -61,6 +63,7 @@ Feature: Creating a plan
       And I fill in "Name" with "Halloween im Atomkraftwerk"
      When I fill in "Startdatum" with "2012-01-01"
       And I fill in "Enddatum" with "2012-01-28"
+      And I close all datepickers
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
