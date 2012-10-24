@@ -15,28 +15,29 @@ Feature: Calendar navigation
       And I am signed in as the confirmed user "Burns"
       And I go to the page of the plan
      Then I should be on the employees in week page of the plan for year: 2015, week: 53
-      And I should see "KW 53"
+      And I should see "KW 53 28.12.2015"
 
      When I go to the <view> page of the plan for year: 2015, week: 53
-     Then I should see "KW 53"
+      And I should see "KW 53 28.12.2015"
 
      When I follow ">" within the toolbar
      Then I should be on the <view> page of the plan for year: 2016, week: 1
-      And I should see "KW 01"
+      And I should see "KW 01 04.01.2016"
 
      When I follow "Heute" within the toolbar
      Then I should be on the <view> page of the plan for year: 2015, week: 53
-      And I should see "KW 53"
+      And I should see "KW 53 28.12.2015"
 
      When I go to the <view> page of the plan for year: 2016, week: 1
-     Then I should see "KW 01"
+      And I should see "KW 01 04.01.2016"
+
      When I follow "<" within the toolbar
      Then I should be on the <view> page of the plan for year: 2015, week: 53
-      And I should see "KW 53"
+      And I should see "KW 53 28.12.2015"
 
      When I follow "<" within the toolbar
      Then I should be on the <view> page of the plan for year: 2015, week: 52
-      And I should see "KW 52"
+      And I should see "KW 52 21.12.2015"
 
     Examples:
       | view              |
@@ -54,18 +55,18 @@ Feature: Calendar navigation
       And I am signed in as the confirmed user "Burns"
       And I go to the page of the plan
      Then I should be on the employees in week page of the plan for year: 2015, week: 1
-      And I should see "KW 01"
+      And I should see "KW 01 29.12.2014"
 
      When I go to the <view> page of the plan for year: 2015, week: 1
-     Then I should see "KW 01"
+      And I should see "KW 01 29.12.2014"
 
      When I follow "<" within the toolbar
      Then I should be on the <view> page of the plan for year: 2014, week: 52
-      And I should see "KW 52"
+      And I should see "KW 52 22.12.2014"
 
      When I follow "Heute" within the toolbar
      Then I should be on the <view> page of the plan for year: 2015, week: 1
-      And I should see "KW 01"
+      And I should see "KW 01 29.12.2014"
 
     Examples:
       | view              |
