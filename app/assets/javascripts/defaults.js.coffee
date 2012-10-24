@@ -10,6 +10,6 @@ jQuery(document).ready ->
         $('#modalbox').prepend $flash
         $('#modalbox input[type=hidden].return_to').val window.location.pathname
 
+  language = $('html').attr('lang')
   $('body').on 'dialogopen', (e, ui) ->
-    locale = $('meta[name=locale]').attr('content')
-    $(e.target).find('input.stringy_date').datepicker($.datepicker.regional[locale])
+    $(e.target).find('input.stringy_date').datepicker($.datepicker.regional[language])

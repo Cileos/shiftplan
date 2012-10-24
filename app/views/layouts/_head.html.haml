@@ -1,8 +1,6 @@
 %head
   %meta{'http-equiv' => "Content-Type", 'content' => "text/html;charset=utf-8"}
   %meta{name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.4"}
-  -# the jquery datepicker needs to know the current locale
-  %meta{name: "locale", content: I18n.locale }
   %title
     - if content_for?(:title)
       = yield(:title)
