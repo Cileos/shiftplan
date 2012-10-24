@@ -62,12 +62,3 @@ Feature: View Teams over weekdays in plan
      When I follow "Kommentare" within cell "Di"/"Reaktor putzen"
       And I comment "Excellent!"
      Then I should see "1" within the comment link within cell "Di"/"Reaktor putzen"
-
-  Scenario: Navigating back and forth weekwise
-    Given I am on the teams in week page of the plan for year: 2012, week: 49
-      When I follow ">" within the toolbar
-      Then I should be on the teams in week page of the plan for year: 2012, week: 50
-      When I follow "Heute" within the toolbar
-      Then I should be on the teams in week page of the plan for year: 2012, week: 49
-      When I follow "<" within the toolbar
-      Then I should be on the teams in week page of the plan for year: 2012, week: 48

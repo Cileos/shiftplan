@@ -160,10 +160,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # URI-Path to another week
   def path_to_week(date)
     raise(ArgumentError, "please give a date or datetime, got #{date.inspect}") unless date.acts_like?(:date) or date.acts_like?(:time)
-     # In germany, the week with january 4th is the first calendar week.
-     # E.g., in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011).
-    calendar_week_year = (date.month == 1 && date.cweek > 5) ? date.year - 1 : date.year
-    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: calendar_week_year, week: date.cweek)
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: h.calendar_week_year(date), week: date.cweek)
   end
 
   def path_to_day(day)

@@ -28,9 +28,10 @@ class SchedulingFilter
     end
   end
 
-  # OPTIMIZE is this always right? NiklasOffByOne?
   def monday
-    ( Date.new(year) + week.weeks ).beginning_of_week
+    # In Germany, the week with January 4th is the first calendar week.
+    week_offset = Date.new(year).end_of_week.day >= 4 ? week - 1 : week
+    ( Date.new(year) + week_offset.weeks ).beginning_of_week
   end
 
   alias first_day monday
