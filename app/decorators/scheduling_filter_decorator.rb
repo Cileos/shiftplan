@@ -169,7 +169,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # URI-Path to another week
   def path_to_week(date)
     raise(ArgumentError, "please give a date or datetime, got #{date.inspect}") unless date.acts_like?(:date) or date.acts_like?(:time)
-    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: h.calendar_week_year(date), week: date.cweek)
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: date.year_for_cweek, week: date.cweek)
   end
 
   def path_to_day(day)
