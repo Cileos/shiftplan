@@ -75,7 +75,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   def render_cell_for_day(day, *a)
     cell_html_options = { data: cell_metadata(day, *a) }
     if outside_plan_period?(day)
-      cell_html_options.merge!(class: 'outside_plan_period')
+      cell_html_options[:class] = "outside_plan_period #{cell_html_options[:class]}"
     end
 
     h.content_tag :td, cell_content(day, *a), cell_html_options
