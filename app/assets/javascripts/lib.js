@@ -11,3 +11,4 @@
 //= require fix_iOS_rotation
 //= require StickyTableHeaders
 //= require jquery.autosize
+//= require bootstrap-alert
