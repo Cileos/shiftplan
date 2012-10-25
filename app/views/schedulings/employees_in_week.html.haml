@@ -28,7 +28,8 @@
             = filter.cell_content(day, employee)
 
 - sidebar do
-  #legend
+  #legend.calendar-legend
+    %h4= t('.legend')
     = filter.legend
 
 = render 'plans/details', plan: filter.plan
