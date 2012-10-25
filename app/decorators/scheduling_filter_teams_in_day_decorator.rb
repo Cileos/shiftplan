@@ -10,7 +10,7 @@ class SchedulingFilterTeamsInDayDecorator < SchedulingFilterDayDecorator
   end
 
   def cell_selector(scheduling)
-   %Q~#calendar tbody td[data-team_id=#{scheduling.team_id}]~
+   %Q~#calendar tbody td[data-team-id=#{scheduling.team_id}]~
   end
 
   def coordinates_for_scheduling(scheduling)

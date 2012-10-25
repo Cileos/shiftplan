@@ -15,7 +15,7 @@ class SchedulingFilterTeamsInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def cell_selector(scheduling)
-   %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-team_id=#{scheduling.team_id}]~
+   %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-team-id=#{scheduling.team_id}]~
   end
 
   def coordinates_for_scheduling(scheduling)

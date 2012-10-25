@@ -99,12 +99,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
         cell_selector(resource)
       else
         day, employee_id = resource, extra
-        %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
+        %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee-id=#{employee_id}]~
       end
     when :scheduling
       %Q~#calendar tbody .scheduling[data-edit_url="#{resource.decorate.edit_url}"]~
     when :wwt_diff
-      %Q~#calendar tbody tr[data-employee_id=#{resource.id}] th .wwt_diff~
+      %Q~#calendar tbody tr[data-employee-id=#{resource.id}] th .wwt_diff~
     when :legend
       '#legend'
     when :team_colors
@@ -116,7 +116,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   # selector for the cell of the given scheduling
   def cell_selector(scheduling)
-     %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee_id=#{scheduling.employee_id}]~
+     %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee-id=#{scheduling.employee_id}]~
   end
 
   def wwt_diff_for(employee)
