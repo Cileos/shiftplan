@@ -24,7 +24,7 @@
               ='h/' + translate_action(:wwt_short)
             = filter.wwt_diff_for(employee)
         - filter.days.each do |day|
-          = filter.render_cell_for_day day
+          = filter.render_cell_for_day day, employee
 
 #legend
   = filter.legend
