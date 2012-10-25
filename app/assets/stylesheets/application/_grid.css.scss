@@ -1,5 +1,8 @@
 .row, .wrap [role=content] {
   @include outer-container;
+}
+
+.row, [role=content] {
 
   &.two-columns {
     .secondary {
