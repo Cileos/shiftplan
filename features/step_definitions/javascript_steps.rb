@@ -5,3 +5,9 @@ Then /^I close all datepickers$/ do
   # wait a little bit so that datepicker is really closed after waiting
   sleep 0.5
 end
+
+Then /^I deactivate all confirm dialogs$/ do
+  page.execute_script <<-EOJS
+    window.confirm = function(msg) { return true; }
+  EOJS
+end
