@@ -25,7 +25,7 @@ class Organization < ActiveRecord::Base
   end
 
   def employees_plus_owners_and_planners
-    (employees << planners << owners).uniq
+    (employees.all + planners.all + owners.all).uniq
   end
 
   def setup
