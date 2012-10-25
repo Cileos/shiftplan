@@ -67,6 +67,6 @@ Shiftplan::Application.configure do
   config.action_mailer.delivery_method = :sendmail
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[Shiftplan Exception] ",
-    :sender_address => %{"Shiftplan Notifier" <notifier@staging.clockwork.io>},
+    :sender_address => %{"Clockwork Notifier" <notifier@staging.clockwork.io>},
     :exception_recipients => %w{errors@clockwork.io}
 end
