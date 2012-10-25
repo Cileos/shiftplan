@@ -7,6 +7,9 @@ Spork.prefork do
 
   require 'rspec/rails'
 
+  # Must beloaded early to extend RSpec with RSpecLocale.
+  # can be removed if we load the whole support dir while preloading
+  require Rails.root.join('spec/support/locale')
 
   RSpec.configure do |config|
     include FactoryGirl::Syntax::Default
@@ -31,6 +34,7 @@ Spork.prefork do
       Quickie.reload_parser!
     end
 
+    config.extend RSpecLocale
   end
 end
 
