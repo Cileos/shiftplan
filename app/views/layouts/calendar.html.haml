@@ -7,10 +7,16 @@
 
     %section{:role => 'content'}
       = render 'flash'
-      - if show_title?
-        %h2#title= yield(:title)
 
-      = render 'calendar_navigation', filter: filter
-      = yield
-      = help_tag 'calendar.keyboard', id: 'help'
+      .primary
+        - if show_title?
+          %h2#title= yield(:title)
+
+        = render 'calendar_navigation', filter: filter
+        = yield
+
+      #sidebar.secondary
+        = yield(:sidebar)
+        = help_tag 'calendar.keyboard', id: 'help'
+
     = render 'layouts/footer'

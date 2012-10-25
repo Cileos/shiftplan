@@ -7,18 +7,18 @@
     .wrap
       %section{role: 'content', :class => ((content_for? :sidebar) ? "two-columns" : nil) }
         = render 'flash'
-        
+
         .primary
           %header.masthead
             - if show_title?
               %h2#title= yield(:title)
             - if content_for? :masthead_toolbar
               %nav{role: 'toolbar'}= yield(:masthead_toolbar)
-          
+
           = yield
 
         - if content_for? :sidebar
-          .secondary
+          #sidebar.secondary
             = yield(:sidebar)
 
       = render 'layouts/footer'
