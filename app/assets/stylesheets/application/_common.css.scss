@@ -256,6 +256,7 @@ small {
     float: left;
     padding: 0;
     font-size: $ci_header-size;
+    white-space: nowrap;
   }
 
   nav {
