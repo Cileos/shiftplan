@@ -72,6 +72,15 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  def render_cell_for_day(day)
+    cell_html_options = { data: cell_metadata(day) }
+    if outside_plan_period?(day)
+      cell_html_options.merge!(class: 'outside_plan_period')
+    end
+
+    h.content_tag :td, cell_content(day), cell_html_options
+  end
+
   # can give
   # 1) a Scheduling to find its cell mates
   # 2) coordinates to find all the scheudlings in cell (needs schedulings_for implemented)
