@@ -9,10 +9,11 @@
       = render 'flash'
 
       .primary
-        - if show_title?
+        %header.masthead.calendar-caption
           %h2#title= yield(:title)
+          %nav{role: 'toolbar'}
+            = render 'calendar_navigation', filter: filter
 
-        = render 'calendar_navigation', filter: filter
         = yield
 
       #sidebar.secondary
