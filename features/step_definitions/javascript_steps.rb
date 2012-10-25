@@ -11,3 +11,9 @@ Then /^I deactivate all confirm dialogs$/ do
     window.confirm = function(msg) { return true; }
   EOJS
 end
+
+Then /^I deactivate all alert dialogs$/ do
+  page.execute_script <<-EOJS
+    window.alert = function(msg) { return true; }
+  EOJS
+end

@@ -16,5 +16,11 @@
         %td= plan.starts_at.present? ? I18n.localize(plan.starts_at.to_date, format: :default) : '-'
         %td= plan.ends_at.present? ? I18n.localize(plan.ends_at.to_date, format: :default) : '-'
         - if can?(:manage, plan)
-          %td= link_to i(:destroy), nested_resources_for(plan), method: :delete,
-            class: 'utility-button icon-button button-warning', confirm: ta(:confirm_destroy_plan, plan: plan.name), title: ta(:destroy)
+          - if !plan.schedulings.present?
+            %td= link_to i(:destroy), nested_resources_for(plan), method: :delete,
+              class: 'utility-button icon-button button-warning',
+              confirm: ta(:confirm_destroy_plan, plan: plan.name), title: ta(:destroy)
+          - else
+            %td= link_to_function i(:destroy), "alert('#{ta(:plan_cannot_be_destroyed,
+              plan: plan.name, entries: plan.schedulings.count)}')",
+              class: 'utility-button icon-button button-warning', title: ta(:destroy)

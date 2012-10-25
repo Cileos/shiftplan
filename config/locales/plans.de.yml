@@ -17,3 +17,5 @@ de:
   helpers:
     actions:
       confirm_destroy_plan: "Plan \"%{plan}\" wirklich löschen?"
+      plan_cannot_be_destroyed: "Der Plan \"%{plan}\" kann nicht gelöscht werden, da es
+      bereits %{entries} Einträge gibt."
