@@ -5,7 +5,7 @@ class EmailChange < ActiveRecord::Base
   attr_accessible :confirmed_at, :email
 
   before_validation :set_token, on: :create
-  after_create :send_confirmation_mail
+  after_commit :send_confirmation_mail, on: :create
 
   def confirmed?
     confirmed_at.present?

@@ -13,7 +13,7 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, polymorphic: true
   belongs_to :employee
 
-  after_create :create_notifications
+  after_commit :create_notifications, on: :create
 
   # builds a comment by passing a commentable object, a user_id, and comment
   # text.
