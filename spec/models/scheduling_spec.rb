@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe Scheduling do
@@ -82,18 +84,6 @@ describe Scheduling do
           scheduling.read_attribute(:year).should == 1988
         end
       end
-    end
-
-    # use factory except for the time range related attributes, so the
-    # validity of the Scheduling is not compromised
-    def build_without_dates(attrs={})
-      build :scheduling, attrs.reverse_merge({
-        starts_at: nil,
-        ends_at:   nil,
-        week:      nil,
-        year:      nil,
-        date:      nil
-      })
     end
 
     describe "explictly given" do
@@ -214,6 +204,21 @@ describe Scheduling do
 
     it "should create 2 scheduling, ripped apart at midnight" do
       expect { nightwatch.save! }.to change(Scheduling, :count).by(2)
+    end
+
+    context "with year and week turn" do
+      let(:nightwatch) { build_without_dates quickie: '19-6', date: '2012-01-01' }
+
+      # in germany, the week with january 4th is the first calendar week
+      # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
+      it "should set year and week correctly" do
+        nightwatch.save!
+        nightwatch.year.should == 2011
+        nightwatch.week.should == 52
+
+        nightwatch.next_day.year.should == 2012
+        nightwatch.next_day.week.should == 1
+      end
     end
   end
 
@@ -389,5 +394,110 @@ describe Scheduling do
       undone
       record.team.should == new_team
     end
+  end
+
+  context "for plan with start and end time set" do
+    let(:plan) { build :plan,
+                 starts_at: DateTime.parse('2012-12-12'),
+                 ends_at:   DateTime.parse('2012-12-13')
+                }
+
+    it "should be valid when start time and end time are within the plan period" do
+      build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-12 8:00'),  ends_at: DateTime.parse('2012-12-12 17:00')).should be_valid
+      build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-13 16:00'), ends_at: DateTime.parse('2012-12-13 23:59')).should be_valid
+    end
+
+    it "should not be valid when the start time is smaller than the plan's start time" do
+      scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-11 8:00'), ends_at: DateTime.parse('2012-12-12 8:00'))
+      scheduling.should_not be_valid
+      scheduling.errors[:starts_at].should == ["ist kleiner als die Startzeit des Plans"]
+    end
+
+    it "should not be valid when start time is greater than the plan's end time" do
+      scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-14 8:00'), ends_at: DateTime.parse('2012-12-13 8:00'))
+      scheduling.should_not be_valid
+      scheduling.errors[:starts_at].should == ["ist größer als die Endzeit des Plans"]
+    end
+
+    it "should not be valid when the end time is smaller than the plan's start time" do
+      scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-12 8:00'), ends_at: DateTime.parse('2012-12-11 8:00'))
+      scheduling.should_not be_valid
+      scheduling.errors[:ends_at].should == ["ist kleiner als die Startzeit des Plans"]
+    end
+
+    it "should not be valid when end time is greater than the plan's end time" do
+      scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-12 8:00'), ends_at: DateTime.parse('2012-12-14 8:00'))
+      scheduling.should_not be_valid
+      scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
+    end
+  end
+
+  context "for plan with only start time set" do
+    let(:plan) { build :plan,
+                 starts_at: DateTime.parse('2012-12-12'),
+                 ends_at:   nil
+                }
+
+    it "should be valid when start time and end time are >= the plan's start time" do
+      build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-12 8:00'), ends_at: DateTime.parse('2012-12-13 8:00')).should be_valid
+    end
+
+    it "should not be valid when the start time is smaller than the plan's start time" do
+      scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-11 8:00'), ends_at: DateTime.parse('2012-12-12 8:00'))
+      scheduling.should_not be_valid
+      scheduling.errors[:starts_at].should == ["ist kleiner als die Startzeit des Plans"]
+    end
+
+    it "should not be valid when the end time is smaller than the plan's start time" do
+      scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-12 8:00'), ends_at: DateTime.parse('2012-12-11 8:00'))
+      scheduling.should_not be_valid
+      scheduling.errors[:ends_at].should == ["ist kleiner als die Startzeit des Plans"]
+    end
+  end
+
+  context "for plan with only end time set" do
+    let(:plan) { build :plan,
+                 starts_at:   nil,
+                 ends_at: DateTime.parse('2012-12-12')
+                }
+
+    it "should be valid when start time and end time are <= the plan's end time" do
+      build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-11 8:00'), ends_at: DateTime.parse('2012-12-12 8:00')).should be_valid
+    end
+
+    it "should not be valid when the start time is greater than the plan's end time" do
+      scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-13 8:00'), ends_at: DateTime.parse('2012-12-12 8:00'))
+      scheduling.should_not be_valid
+      scheduling.errors[:starts_at].should == ["ist größer als die Endzeit des Plans"]
+    end
+
+    it "should not be valid when the end time is greater than the plan's end time" do
+      scheduling = build(:scheduling, plan: plan, starts_at: DateTime.parse('2012-12-12 8:00'), ends_at: DateTime.parse('2012-12-13 8:00'))
+      scheduling.should_not be_valid
+      scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
+    end
+  end
+
+  context "for a plan with end time" do
+    let(:plan) { build :plan, ends_at: DateTime.parse('2012-12-12') }
+
+    it "should not be valid if the next day is outside the plan period" do
+      scheduling = build_without_dates quickie: '22-6', date: '2012-12-12', plan: plan
+
+      scheduling.should_not be_valid
+      scheduling.errors[:base].should == ["Die Endzeit ist größer als die Endzeit des Plans."]
+    end
+  end
+
+  # use factory except for the time range related attributes, so the
+  # validity of the Scheduling is not compromised
+  def build_without_dates(attrs={})
+    build :scheduling, attrs.reverse_merge({
+      starts_at: nil,
+      ends_at:   nil,
+      week:      nil,
+      year:      nil,
+      date:      nil
+    })
   end
 end

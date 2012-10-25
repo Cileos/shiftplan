@@ -24,7 +24,10 @@
               ='h/' + translate_action(:wwt_short)
             = filter.wwt_diff_for(employee)
         - filter.days.each do |day|
-          %td{data: filter.cell_metadata(day, employee)}
+          - cell_html_options = { data: filter.cell_metadata(day, employee) }
+          - if filter.outside_plan_period?(day)
+            - cell_html_options.merge!(class: 'outside_plan_period')
+          %td{cell_html_options}
             = filter.cell_content(day, employee)
 
 #legend

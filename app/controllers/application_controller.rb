@@ -20,14 +20,25 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  helper_method :calendar_week_year
+  def calendar_week_year(date)
+     # In germany, the week with january 4th is the first calendar week.
+     # E.g., in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011).
+    if date.month == 1 && date.cweek > 5
+      date.year - 1
+    elsif date.month == 12 && date.cweek == 1
+      date.year + 1
+    else
+      date.year
+    end
+  end
+
   def set_flash(severity, key=nil, opts={})
     key ||= severity
     action = opts.delete(:action) || params[:action]
     controller = opts.delete(:controller) || params[:controller]
     flash[severity] = t("flash.#{controller}.#{action}.#{key}", opts)
   end
-
-
 
   # TODO test
   def dynamic_dashboard_path

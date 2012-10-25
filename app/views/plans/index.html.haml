@@ -5,6 +5,6 @@
     =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:plan], class: 'button', remote: true, data: { icon: i(:add) }
 
 - unless collection.empty?
-  = render 'list', plans: collection
+  = render 'table', plans: collection
 - else
   %p= t(:'.no_plans')
