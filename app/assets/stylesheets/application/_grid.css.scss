@@ -1,4 +1,4 @@
-.row, [role=content] {
+.row, .wrap [role=content] {
   @include outer-container;
 
   &.two-columns {
