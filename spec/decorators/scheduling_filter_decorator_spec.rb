@@ -33,4 +33,42 @@ describe SchedulingFilterDecorator, 'mode' do
     decorator = SchedulingFilterDecorator.new(filter)
     decorator.plan_period.should == "Endet: 24.12.2012"
   end
+
+  describe 'render_cell_for_day' do
+    let(:decorator) { SchedulingFilterDecorator.new(filter) }
+    let(:view)    { mock('View').tap    { |v| decorator.stub(:h).and_return(v) } }
+    let(:content) { mock('content').tap { |c| decorator.stub(:cell_content).and_return(c) } }
+    before :each do
+      decorator.stub(:outside_plan_period?).and_return(false)
+      decorator.stub(:cell_metadata).and_return('none')
+    end
+
+    describe "for one dimension" do
+      it "accepts an extra class" do
+        view.should_receive(:content_tag).with(:td, content, class: "day", data: 'none')
+        decorator.render_cell_for_day(23, class: "day")
+      end
+
+      it "joins an extra class with outside plan period" do
+        decorator.stub(:outside_plan_period?).and_return(true)
+        view.should_receive(:content_tag).with(:td, content, class: "outside_plan_period day", data: 'none')
+        decorator.render_cell_for_day(23, class: "day")
+      end
+    end
+
+    describe "for two dimensions" do
+      it "accepts an extra class" do
+        view.should_receive(:content_tag).with(:td, content, class: "day", data: 'none')
+        decorator.render_cell_for_day(23, 42, class: "day")
+      end
+
+      it "joins an extra class with outside plan period" do
+        decorator.stub(:outside_plan_period?).and_return(true)
+        view.should_receive(:content_tag).with(:td, content, class: "outside_plan_period day", data: 'none')
+        decorator.render_cell_for_day(23, 42, class: "day")
+      end
+    end
+
+  end
+
 end
