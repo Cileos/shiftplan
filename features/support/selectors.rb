@@ -150,7 +150,7 @@ module HtmlSelectorsHelpers
   def row_index_for(row_label)
     rows = page.all("tbody th").map { |c| extract_text_from_cell c }
     # check if in hours in week view
-    if row_label =~ /\d{1,2}/ && rows.first =~ /^0\n(\d{1,2}\n){22}23$/m
+    if row_label =~ /\d{1,2}/ && rows.first =~ /^1\n(\d{1,2}\n){21}23$/m
       row_label = rows.first
     end
     rows.should include(row_label)
