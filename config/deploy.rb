@@ -1,15 +1,13 @@
 set :stage_dir, File.dirname(__FILE__) + '/deploy/stages'
 set :default_state, 'staging'
 
-set :mett. '89.238.64.208'
+set :mett, '89.238.64.208'
 set :gruetz, '89.238.64.209'
 
 require 'capistrano/ext/multistage'
 
 # RVM bootstrap
 require 'rvm/capistrano'
-set :rvm_ruby_string, '1.9.3-p194@shiftplan'
-set :rvm_type, :user
 
 # bundler bootstrap
 require 'bundler/capistrano'
@@ -21,7 +19,6 @@ ssh_options[:forward_agent] = true
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
-set :application, "shiftplan"
 set :repository,  "git@github.com:Cileos/shiftplan.git"
 set :local_repository, "."
 set :git_enable_submodules, 1
@@ -68,11 +65,5 @@ namespace :deploy do
       STDERR.puts "please specify the task you want to run with TASK="
     end
   end
-
-  task :notify do
-    run "cd #{current_release} && ruby script/capistrano-done"
-  end
-
-  after 'deploy:restart', 'deploy:notify'
 
 end

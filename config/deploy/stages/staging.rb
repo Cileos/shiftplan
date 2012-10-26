@@ -8,6 +8,10 @@ role :web, "ci.shiftplan.de"
 role :app, "ci.shiftplan.de"
 role :db,  "ci.shiftplan.de", :primary => true
 
+set :rvm_type, :user
+set :rvm_ruby_string, '1.9.3-p194@shiftplan'
+set :application, "shiftplan"
+
 namespace :deploy do
 
   desc "Seed the Database"
@@ -18,6 +22,13 @@ namespace :deploy do
       run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:seed"
     end
   end
+
+  task :notify do
+    run "cd #{current_release} && ruby script/capistrano-done staging"
+  end
+
+  after 'deploy:restart', 'deploy:notify'
+
 
 end
 
