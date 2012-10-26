@@ -27,7 +27,9 @@
           %td{data: filter.cell_metadata(day, employee)}
             = filter.cell_content(day, employee)
 
-#legend
-  = filter.legend
+- sidebar do
+  #legend.calendar-legend
+    %h4= t('.legend')
+    = filter.legend
 
 = render 'plans/details', plan: filter.plan

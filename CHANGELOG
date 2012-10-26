@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Release 0.1.0 2013-10-16 20:19
+------------------------------
+* period for plan
+* account has organizations
+* organization has everything
+* replace twitter-bootstrap with own design
+
 Release 0.0.10 2012-10-10 22:06
 -------------------------------
 

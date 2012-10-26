@@ -78,6 +78,26 @@ small {
     font-size: 1em;
   }
 
+  .logo {
+    padding: 15px;
+
+    a {
+      @include image-2x(image-url("clockwork-logo-32px.png"), 156px, 16px);
+      @include transition(all .15s $ci_easing);
+
+      display: block;
+      width: 156px;
+      height: 16px;
+      background: image-url("clockwork-logo-16px.png");
+      text-indent: -999em;
+      padding: 0;
+
+      &:hover {
+        @include transform(scale(1.05));
+      }
+    }
+  }
+
   h1, ul, li {
     margin: 0;
     padding: 0;
@@ -105,6 +125,11 @@ small {
 
   .user-navigation {
     float: right;
+
+    .dropdown > ul {
+      left: auto;
+      right: 0;
+    }
   }
 
   .brand img {
@@ -150,10 +175,6 @@ small {
       width: auto;
     }
     .user-navigation {
-      .dropdown > ul {
-        left: auto;
-        right: 0;
-      }
       .name {
         margin-left: 1.5em;
       }
@@ -191,35 +212,39 @@ small {
   }
 
   li {
-
     display: inline;
     margin-right: 5px;
   }
 
   a {
-    @include transition(all .5s $ci_easing);
-    @include border-radius(5px);
+    @include transition(all .3s $ci_easing);
 
-    color: $ci_gray;
     padding: 3px 5px;
-    border: 1px solid $ci_lightgray;
 
     &:hover {
-      color: $ci_anthracite;
-      border: 1px solid $ci_anthracite;
+      background: $ci_blue;
+      color: #fff;
     }
   }
 
   .active a {
-    border: 1px solid $ci_gray;
-    color: $ci_anthracite;
+    color: $ci_blue;
+    border-bottom: 2px solid $ci_blue;
+    font-weight: bold;
+  
+    &:hover {
+      color: #fff;
+    }
   }
 }
 
 .instructions {
+  @include box-shadow(0 1px 0 $ci_shadow);
+  @include border-radius(5px);
+
   padding: 20px;
-  background: lighten($ci_yellow, 40%);
-  color: darken($ci_yellow, 30%);
+  background: tint($ci_blue, 90%);
+  color: darken($ci_blue, 30%);
 }
 
 .masthead {
@@ -313,4 +338,16 @@ small {
   margin-top: 20px;
   padding-top: 10px;
   border-top: 1px solid $ci_midgray;
+}
+
+.pibble {
+  @include border-radius(9px);
+  @include box-shadow(white 1px 1px 5px inset);
+
+  display: inline-block;
+  height: 13px;
+  width:  13px;
+  float: left;
+  border: 1px solid $ci_anthracite;
+  margin: 2px 5px 3px;
 }
