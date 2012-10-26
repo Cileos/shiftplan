@@ -6,7 +6,7 @@ class SchedulingFilterTeamsInDayDecorator < SchedulingFilterDayDecorator
   end
 
   def cell_metadata(team)
-    { team_id: team.id, date: date.iso8601 }
+    { :'team-id' => team.id, :date => date.iso8601 }
   end
 
   def cell_selector(scheduling)

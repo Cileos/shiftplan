@@ -11,7 +11,7 @@
           %div.date-without-year= date
   %tbody
     - filter.employees.each do |employee|
-      %tr{data: { employee_id: employee.id }}
+      %tr{data: { :'employee-id' => employee.id }}
         %th.employee
           = avatar(employee.user, employee, :tiny)
           %span.employee_name= employee.name
