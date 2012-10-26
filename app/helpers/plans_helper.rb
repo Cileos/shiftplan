@@ -6,8 +6,7 @@ module PlansHelper
     (0..6).to_a.map do |more|
       day = monday + more.days
       [l(day, :format => format), day.iso8601]
-    end
-
+    end.select { |day_option| !filter.outside_plan_period?(Date.parse(day_option.last)) }
   end
 
   def durations_for_select(plan)

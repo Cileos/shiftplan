@@ -33,13 +33,24 @@ Then /^(.+) should be visible/ do |name|
   step %Q~I wait for #{name} to appear~
 end
 
+Then /^(.+) should appear/ do |name|
+  step %Q~I wait for #{name} to appear~
+end
+
+Then /^(.+) should not appear/ do |name|
+  # Wait here for a few milliseconds because the following step could
+  # accidentally pass because the modal box has not appeared yet.
+  sleep 0.5
+  step %Q~I wait for #{name} to disappear~
+end
+
 Then /^(.+) should disappear$/ do |name|
   step %Q~I wait for #{name} to disappear~
 end
 
-When /^I close (the modal box)$/ do |target|
-  page.first('a[role=button].ui-dialog-titlebar-close').click
-  page.should have_no_css('.ui-widget-overlay') # implies waiting
+When /^I close the modal box$/ do
+  page.first('a.ui-dialog-titlebar-close').click
+  page.should have_no_css('a.ui-dialog-titlebar-close', :visible => true) # implies waiting
 end
 
 Then /^I should see the following defined items:$/ do |expected|
@@ -79,4 +90,13 @@ end
 When /^(?:|I )follow "([^"]*)" and confirm$/ do |link|
   click_link(link)
   step 'I confirm popup'
+end
+
+Then /^the select field for "(.*?)" should have the following options:$/ do |label, table|
+  select_field = find_field(label)
+  options = table.raw.map &:first
+  options.count.should == select_field.all('option').count
+  table.raw.map(&:first).each do |option|
+    select_field.has_css?('option', :text => option).should be_true
+  end
 end

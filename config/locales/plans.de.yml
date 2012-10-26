@@ -1,5 +1,9 @@
 de:
   activerecord:
+    errors:
+      models:
+       plan:
+        plan_period: "Das Startdatum muss kleiner oder gleich dem Enddatum des Plans sein."
     attributes:
       plan:
         starts_at: "Startdatum"

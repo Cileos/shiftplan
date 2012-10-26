@@ -5,7 +5,7 @@ class SchedulingsController < InheritedResources::Base
   actions :all, :except => [:show]
   # same as SchedulingFilter::Modes - naming explicitly here because of
   # decoupling and we don't want eagler preloading here
-  custom_actions collection: [:employees_in_week, :hours_in_week] 
+  custom_actions collection: [:employees_in_week, :hours_in_week]
   # FIXME obviously the custom actions are not neccessary if a view with the name exists
   layout 'calendar'
 

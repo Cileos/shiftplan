@@ -11,9 +11,12 @@ class Scheduling < ActiveRecord::Base
   after_validation :set_human_date_attributes
   validates :starts_at, :ends_at, :plan, :employee,
     :year, :week, :presence => true
+  validates :starts_at, :ends_at, within_plan_period: true
+  validates_with NextDayWithinPlanPeriodValidator
 
   after_create :create_next_day
   attr_accessor :next_day
+  attr_reader :next_day_end_hour
 
   acts_as_commentable
   has_many :comments, as: :commentable, order: 'comments.lft, comments.id' # FIXME gets ALL comments, tree structure is ignored
@@ -201,7 +204,7 @@ class Scheduling < ActiveRecord::Base
   # TODO save start_hour and end_hour or even cache the whole quickie
   def self.quickies
     # select the maximal dates because psql wants aggregations and we are just interested in the hours anyway
-    includes(:team) 
+    includes(:team)
       .select(%q~max(starts_at) AS starts_at, max(ends_at) AS ends_at, team_id~)
       .group(%q~date_part('hour', starts_at), date_part('hour', ends_at), team_id~)
       .map(&:quickie)
@@ -236,7 +239,20 @@ class Scheduling < ActiveRecord::Base
   end
 
   def starts_at_or(attr, &fallback)
-    starts_at.present?? starts_at.public_send(attr) : fallback.call
+    if starts_at.present?
+      # In germany, the week with january 4th is the first calendar week.
+      # E.g., in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
+      # So if the month is January (1) but the calendar week is greater than 5, we know
+      # that we have to set the year to the previous one. If we do not set week and year
+      # of schedulings to the right values than the scheduling filter will not fetch them
+      # when visiting the page for a certain calendar week of the year.
+      if attr.to_sym == :year && starts_at.month == 1 && starts_at.cweek > 5
+        return starts_at.year - 1
+      end
+      starts_at.public_send(attr)
+    else
+      fallback.call
+    end
   end
 
   def set_human_date_attributes
@@ -254,15 +270,16 @@ class Scheduling < ActiveRecord::Base
         next_day.date = date + 1.day
         next_day.start_hour = 0
         next_day.end_hour = next_day_end_hour
+        # It is important to recalculate the week of the next day. Imagine a scheduling
+        # for 2012-01-01 (sunday) with and hour range over midnight is created.  As in
+        # germany the week with january 4th is the first calendar week and the January 1st
+        # is a sunday, January 1st is in week 52 (of year 2011).  But the next day, will
+        # be in calendar week 1 of year 2012.
+        next_day.week = next_day.date.cweek # must be recalculated and not copied
+        next_day.year = next_day.date.year  # must be recalculated and not copied
         next_day.save!
       end
     end
-  end
-end
-
-class ActiveSupport::TimeWithZone
-  def cweek
-    to_date.cweek
   end
 end
 

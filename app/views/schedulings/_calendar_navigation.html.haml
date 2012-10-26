@@ -1,5 +1,7 @@
 %header.calendar-caption
   %h3= filter.caption
+  - if @plan.starts_at.present? || @plan.ends_at.present?
+    %h4= filter.plan_period
 
 %nav{:role => 'toolbar'}
   -#.button-group
