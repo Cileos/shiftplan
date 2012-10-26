@@ -1,13 +1,13 @@
 - title :settings
-.row
-  .span3
+.row.two-columns
+  %nav.secondary
     = render 'user/settings_menu'
-  .span9
+  .primary.content-form
     %h3= ta :profile
 
     %p= t('.instructions')
 
-    %table#employees.table.table-striped.table-bordered.table-condensed
+    %table#employees
       %thead
         %tr.employee
           %th= Employee.human_attribute_name(:full_name)

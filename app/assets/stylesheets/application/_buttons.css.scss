@@ -48,7 +48,7 @@ button {
 
 .button-green, input[type=submit].button-green,
 .button-success, input[type=submit].button-success {
-  @include button-colors($ci_green, lighten($ci_green, 1%));
+  @include button-colors(darken($ci_green, 12.5%), darken($ci_green, 7.5%));
 
   &:hover {
     @include box-shadow(0 0 .35em transparentize($ci_green, .2));
@@ -56,19 +56,28 @@ button {
     border-color: $ci_green;
     color: #fff;
   }
+
+  &:active {
+    @include box-shadow(inset 0 0 .35em $ci_shadow);
+  }
 }
 
 .button-red, input[type=submit].button-red,
 .button-warning, input[type=submit].button-warning {
-  @include button-colors($ci_darkorange, $ci_darkorange_hover);
+  border: 1px solid $ci_lightgray;
+  background: transparent;
+  color: $ci_darkorange;
+  text-decoration: none;
 
   &:hover {
-    @include box-shadow(0 0 .35em transparentize($ci_darkorange, .2));
+    @include adaptive-color(color, $ci_darkorange);
+    @include adaptive-color(text-shadow, $ci_darkorange);
 
-    border-color: $ci_darkorange;
-    color: #fff;
+    background: $ci_darkorange;
+    border: 1px solid $ci_darkorange;
   }
 }
+
 
 .utility-button,
 input[type=submit].utility-button {

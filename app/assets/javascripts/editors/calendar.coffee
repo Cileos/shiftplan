@@ -14,9 +14,9 @@ class CalendarEditor extends View
         url: @element.closest('table').data('new_url')
         data:
           scheduling:
-            employee_id: @element.data('employee_id')
+            employee_id: @element.data('employee-id')
             date:        @element.data('date')
-            team_id:     @element.data('team_id')
+            team_id:     @element.data('team-id')
         complete: @setupInputs
 
   modal: ->

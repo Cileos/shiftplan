@@ -19,7 +19,7 @@ describe 'CalendarEditor', ->
     beforeEach ->
       setFixtures sandbox
         id: 'cell'
-        'data-employee_id': 42
+        'data-employee-id': 42
         'data-date': '2012-12-21'
       # :input#scheduling_date actually a select, but this should work (TM)
       form = """

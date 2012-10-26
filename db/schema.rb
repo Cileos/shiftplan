@@ -100,15 +100,6 @@ ActiveRecord::Schema.define(:version => 20120914152445) do
   add_index "memberships", ["employee_id"], :name => "index_memberships_on_employee_id"
   add_index "memberships", ["organization_id"], :name => "index_memberships_on_organization_id"
 
-  create_table "milestones", :force => true do |t|
-    t.string   "name"
-    t.integer  "plan_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.datetime "due_at"
-    t.boolean  "done"
-  end
-
   create_table "notifications", :force => true do |t|
     t.string   "type",            :null => false
     t.string   "notifiable_type"
@@ -168,17 +159,6 @@ ActiveRecord::Schema.define(:version => 20120914152445) do
 
   add_index "schedulings", ["employee_id"], :name => "index_schedulings_on_employee_id"
   add_index "schedulings", ["plan_id"], :name => "index_schedulings_on_plan_id"
-
-  create_table "tasks", :force => true do |t|
-    t.string   "name"
-    t.integer  "milestone_id"
-    t.datetime "due_at"
-    t.boolean  "done"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "tasks", ["milestone_id"], :name => "index_tasks_on_milestone_id"
 
   create_table "teams", :force => true do |t|
     t.string   "name"

@@ -1,5 +1,5 @@
 !!!5
-%html
+%html{lang: I18n.locale}
   = render 'layouts/head'
   %body
     = render 'layouts/top'
@@ -7,11 +7,13 @@
     .wrap
       %section{role: 'content'}
         = render 'flash'
-        %header.masthead
-          - if show_title?
-            %h2#title= yield(:title)
-          - if content_for? :masthead_toolbar
-            %nav{role: 'toolbar'}= yield(:masthead_toolbar)
+        
+        .main
+          %header.masthead
+            - if show_title?
+              %h2#title= yield(:title)
+            - if content_for? :masthead_toolbar
+              %nav{role: 'toolbar'}= yield(:masthead_toolbar)
 
         = yield
       = render 'layouts/footer'

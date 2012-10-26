@@ -8,6 +8,17 @@ class SchedulingFilterDecorator < ApplicationDecorator
     "#{plan.name} - #{formatted_range}"
   end
 
+  def plan_period
+    plan_period = []
+    if plan.starts_at.present?
+      plan_period << I18n.t('schedulings.plan_period.starts_at', date: (I18n.localize plan.starts_at.to_date, format: :default))
+    end
+    if plan.ends_at.present?
+      plan_period << I18n.t('schedulings.plan_period.ends_at', date: (I18n.localize plan.ends_at.to_date, format: :default))
+    end
+    plan_period.join(' ')
+  end
+
   Modes = [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
 
   def mode
@@ -61,6 +72,15 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  def render_cell_for_day(day, *a)
+    cell_html_options = { data: cell_metadata(day, *a) }
+    if outside_plan_period?(day)
+      cell_html_options[:class] = "outside_plan_period #{cell_html_options[:class]}"
+    end
+
+    h.content_tag :td, cell_content(day, *a), cell_html_options
+  end
+
   # can give
   # 1) a Scheduling to find its cell mates
   # 2) coordinates to find all the scheudlings in cell (needs schedulings_for implemented)
@@ -79,12 +99,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
         cell_selector(resource)
       else
         day, employee_id = resource, extra
-        %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
+        %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee-id=#{employee_id}]~
       end
     when :scheduling
       %Q~#calendar tbody .scheduling[data-edit_url="#{resource.decorate.edit_url}"]~
     when :wwt_diff
-      %Q~#calendar tbody tr[data-employee_id=#{resource.id}] th .wwt_diff~
+      %Q~#calendar tbody tr[data-employee-id=#{resource.id}] th .wwt_diff~
     when :legend
       '#legend'
     when :team_colors
@@ -96,7 +116,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   # selector for the cell of the given scheduling
   def cell_selector(scheduling)
-     %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee_id=#{scheduling.employee_id}]~
+     %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee-id=#{scheduling.employee_id}]~
   end
 
   def wwt_diff_for(employee)
@@ -147,9 +167,9 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   # URI-Path to another week
-  def path_to_week(week)
-    raise(ArgumentError, "please give a date or datetime, got #{week.inspect}") unless week.acts_like?(:date) or week.acts_like?(:time)
-    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: week.year, week: week.cweek)
+  def path_to_week(date)
+    raise(ArgumentError, "please give a date or datetime, got #{date.inspect}") unless date.acts_like?(:date) or date.acts_like?(:time)
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: date.year_for_cweek, week: date.cweek)
   end
 
   def path_to_day(day)
@@ -251,11 +271,19 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def has_previous?
-    ! before_start_of_plan?(previous_step)
+    if plan.starts_at.present?
+      plan.starts_at.to_date <= previous_week.days.last.to_date
+    else
+      true
+    end
   end
 
   def has_next?
-    ! after_end_of_plan?(next_step)
+    if plan.ends_at.present?
+      plan.ends_at.to_date >= next_step.to_date
+    else
+      true
+    end
   end
 
 end

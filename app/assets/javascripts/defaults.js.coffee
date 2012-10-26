@@ -9,3 +9,7 @@ jQuery(document).ready ->
       $.getScript '/users/sign_in', ->
         $('#modalbox').prepend $flash
         $('#modalbox input[type=hidden].return_to').val window.location.pathname
+
+  language = $('html').attr('lang')
+  $('body').on 'dialogopen', (e, ui) ->
+    $(e.target).find('input.stringy_date').datepicker($.datepicker.regional[language])

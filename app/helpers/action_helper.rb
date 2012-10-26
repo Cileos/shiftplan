@@ -83,7 +83,7 @@ module ActionHelper
       nested_resources_for(resource.commentable.blog) + [ resource.commentable, resource]
     when Post
       nested_resources_for(resource.blog) + [resource]
-    when Blog, Team
+    when Blog, Team, Plan
       nested_resources_for(resource.organization) + [resource]
     when Organization
       [ resource.account, resource ]

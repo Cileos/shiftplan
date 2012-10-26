@@ -3,7 +3,7 @@
 #   tds:       which tds do we want to navigate
 #   items:     items within the tds
 class CalendarCursor
-  constructor: (@$calendar, @tds = 'td:not(.wwt_diff)', @items = '.scheduling') ->
+  constructor: (@$calendar, @tds = 'td:not(.wwt_diff):not(.outside_plan_period)', @items = '.scheduling') ->
 
     @$body     = @$calendar.find('tbody:first')
 
@@ -27,8 +27,8 @@ class CalendarCursor
     # call .trigger('focus') on a .scheduling to focus it externally
     @$calendar.on 'focus', '.scheduling', (event) => @focus $(event.target)
 
-    # focus first calendar data cell
-    @focus @$body.find('tr:nth-child(1) td:nth-child(2)')
+    # focus first calendar data cell which is not outside the plan period
+    @focus @$body.find('tr:nth-child(1) td:not(.outside_plan_period):first')
 
     @enable()
 
