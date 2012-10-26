@@ -26,7 +26,8 @@
 
 6. Create a new release with an incremented version number. Increment the highest tag
    number you get from 'git tag'(see 5.) after you have updated the tags by 
-   'git fetch --tags'(see 4.)
+   'git fetch --tags'(see 4.). Compare this version number with the current version in the
+    CHANGELOG.
 
    $ git flow release start <new-version-nummer>
    e.g.
@@ -45,7 +46,8 @@
    Then update the CHANGELOG file in the following format by copy pasting the output you
    got from git log(see above):
 
-   == VERSION 1.0.5
+   Release 0.1.0 2013-10-16 20:19
+   ------------------------------
    * 13feaa5 Merge pull request #47 from Siewert-Kau/feature/copy-text-changes-kw21
    * 3e987f0 Merge pull request #46 from Siewert-Kau/feature/search-by-manufacturers
    * 302bf95 Merge branch 'feature/copy-text-changes-kw21' of github.com:Siewert-Kau/b2c into feature/copy-text-changes-kw21
