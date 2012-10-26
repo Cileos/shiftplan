@@ -22,9 +22,6 @@ end
 # Use unicorn as the web server
 # gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
@@ -75,6 +72,7 @@ end
 group :development do
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem 'capistrano'
+  gem 'capistrano-ext'
   gem 'rvm-capistrano'
   gem 'notes', :require => false, :git => 'git://github.com/v0n/notes.git'
 end
