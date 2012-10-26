@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Release 0.1.1 2012-10-26 18:30
+------------------------------
+* a9d2ad8 Merge branch 'feature/plan-period-improvements' into develop
+* 578b03f Merge pull request #88 from Cileos/feature/user-has-only-one-employee-per-organization
+* 7eb51d2 Merge branch 'hotfix/move-bootstrap-css-out-off-assets-dir' into develop
+
+
 Release 0.1.0 2013-10-16 20:19
 ------------------------------
 * period for plan
