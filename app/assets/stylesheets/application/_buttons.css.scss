@@ -130,10 +130,14 @@ input[type=submit].utility-button {
 
   :first-child {
     @include border-radius($ci_border-radius 0 0 $ci_border-radius);
+
+    border-right: none;
   }
 
   :last-child {
     @include border-radius(0 $ci_border-radius $ci_border-radius 0);
+
+    border-left: none;
   }
 }
 

@@ -5,8 +5,15 @@
   %body
     = render 'layouts/top'
 
-    %section.two-columns{:role => 'content'}
+    %section.three-columns{:role => 'content'}
       = render 'flash'
+
+      - if content_for? :sidebar
+        #sidebar.secondary
+          = yield(:sidebar)
+
+      #sidebar.tertiary
+        = help_tag 'calendar.keyboard', id: 'help'
 
       .primary
         %header.masthead.calendar-caption
@@ -15,9 +22,5 @@
             = render 'calendar_navigation', filter: filter
 
         = yield
-
-      #sidebar.secondary
-        = yield(:sidebar)
-        = help_tag 'calendar.keyboard', id: 'help'
 
     = render 'layouts/footer'

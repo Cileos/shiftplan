@@ -238,7 +238,7 @@ small {
   }
 }
 
-.instructions {
+.instructions, .help {
   @include box-shadow(0 1px 0 $ci_shadow);
   @include border-radius(5px);
 

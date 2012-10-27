@@ -34,15 +34,17 @@
 
   &.three-columns {
     .primary {
-      @include span-columns(6);
+      @include span-columns(8);
     }
 
     .secondary, .tertiary {
-      @include span-columns(3);
+      @include span-columns(2);
     }
 
     .tertiary {
       @include omega;
+      
+      float: right;
     }
   }
 }
