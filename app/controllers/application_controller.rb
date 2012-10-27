@@ -20,6 +20,21 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  helper_method :nested_resources_for
+  # returns an array to be used in link_to and other helpers containing the full-defined nesting for the given resource
+  def nested_resources_for(resource)
+    case resource
+    when Comment
+      nested_resources_for(resource.commentable.blog) + [ resource.commentable, resource]
+    when Post
+      nested_resources_for(resource.blog) + [resource]
+    when Blog, Team, Plan
+      nested_resources_for(resource.organization) + [resource]
+    when Organization
+      [ resource.account, resource ]
+    end
+  end
+
   helper_method :year_for_cweek_at
   def year_for_cweek_at(date)
     if date.month == 1 && date.cweek > 5
