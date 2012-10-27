@@ -62,3 +62,37 @@ Feature: Editing plans
       And I should see the following table of plans:
         | Name                 | Beschreibung | Startdatum | Enddatum |
         | Cleaning the Reactor |              | 10.12.2012 | -        |
+
+
+
+  Scenario: Editing the end date of a plan with schedulings
+    # scheduling on 10.12.2012 9-17
+    Given the employee "Homer" was scheduled in the plan as following:
+        | year | week | cwday | quickie |
+        | 2012 | 50   | 1     | 9-17    |
+      And I go to the plans page of the organization
+     Then I should see the following table of plans:
+        | Name                       | Beschreibung   | Startdatum | Enddatum   |
+        | Cleaning the Reactor       |                | -          | -          |
+
+     When I follow "Bearbeiten" within the first table row
+      And I wait for the modal box to appear
+      # one day before the scheduling
+      And I fill in "Enddatum" with "09.12.2012"
+      And I close all datepickers
+      And I press "Speichern"
+
+     Then I should see "Enddatum kann nicht geändert werden." within errors
+      And I should see "Es existiert bereits ein Eintrag für diesen Plan, der größer als das neue Enddatum ist." within errors
+      And I should see "Der größte Eintrag ist am 10.12.2012" within errors
+
+     # at the day of the scheduling
+     When I fill in "Enddatum" with "10.12.2012"
+      And I close all datepickers
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+
+     Then I should be on the plans page of the organization
+      And I should see the following table of plans:
+        | Name                 | Beschreibung | Startdatum | Enddatum   |
+        | Cleaning the Reactor |              | -          | 10.12.2012 |
