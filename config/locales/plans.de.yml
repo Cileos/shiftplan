@@ -4,6 +4,9 @@ de:
       models:
        plan:
         plan_period: "Das Startdatum muss kleiner oder gleich dem Enddatum des Plans sein."
+        start_date_too_small: "kann nicht geändert werden. Es existiert
+        bereits ein Eintrag für diesen Plan, der kleiner als das neue Startdatum ist. Der
+        kleinste Eintrag ist am %{date_of_smallest_scheduling}."
     attributes:
       plan:
         starts_at: "Startdatum"
