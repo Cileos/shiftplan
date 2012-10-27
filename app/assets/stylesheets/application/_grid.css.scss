@@ -6,24 +6,27 @@
 
   &.two-columns {
     .secondary {
-      @include span-columns(3);
-      @include omega;
+      @include span-columns(2);
+
+      float: right;
     }
 
     .primary {
-      @include span-columns(9);
+      @include span-columns(10);
+      @include omega;
 
-      padding-right: 20px;
-      border-right: 1px solid $ci_midgray;
+      float: right;
+      padding-left: 20px;
+      border-left: 1px solid $ci_midgray;
     }
 
     &.inverted {
       .primary {
-        @include span-columns(9);
+        @include span-columns(10);
       }
 
       .secondary {
-        @include span-columns(3);
+        @include span-columns(2);
         @include omega;
       }
     }
