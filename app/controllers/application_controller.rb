@@ -20,27 +20,8 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  helper_method :nested_resources_for
-  # returns an array to be used in link_to and other helpers containing the full-defined nesting for the given resource
-  def nested_resources_for(resource)
-    case resource
-    when Comment
-      nested_resources_for(resource.commentable.blog) + [ resource.commentable, resource]
-    when Post
-      nested_resources_for(resource.blog) + [resource]
-    when Blog, Team
-      nested_resources_for(resource.organization) + [resource]
-    when Organization
-      [ resource.account, resource ]
-    when Plan
-      nested_resources_for(resource.organization) + [resource]
-    end
-  end
-
-  helper_method :calendar_week_year
-  def calendar_week_year(date)
-     # In germany, the week with january 4th is the first calendar week.
-     # E.g., in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011).
+  helper_method :year_for_cweek_at
+  def year_for_cweek_at(date)
     if date.month == 1 && date.cweek > 5
       date.year - 1
     elsif date.month == 12 && date.cweek == 1

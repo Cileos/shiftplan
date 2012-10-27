@@ -283,10 +283,4 @@ class Scheduling < ActiveRecord::Base
   end
 end
 
-class ActiveSupport::TimeWithZone
-  def cweek
-    to_date.cweek
-  end
-end
-
 SchedulingDecorator

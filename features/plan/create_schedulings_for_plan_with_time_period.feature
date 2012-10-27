@@ -185,11 +185,11 @@ Feature: Creating schedulings in a plan with time period
 
       When I choose "Stunden" from the drop down "Mitarbeiter" within the calendar
 
-      When I click on cell "Mo"/"0"
+      When I click on cell "Mo"/"1"
       Then the new scheduling form should appear
        And I close the modal box
 
-      When I click on cell "Di"/"0"
+      When I click on cell "Di"/"1"
       Then the new scheduling form should not appear
 
 

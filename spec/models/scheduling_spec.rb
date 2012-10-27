@@ -4,6 +4,8 @@ require 'spec_helper'
 
 describe Scheduling do
 
+  in_locale :de
+
   context "hour accessor" do
     let(:scheduling) { Scheduling.new(date: Date.today) }
 

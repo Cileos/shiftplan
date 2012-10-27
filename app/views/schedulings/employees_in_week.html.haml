@@ -11,7 +11,7 @@
           %div.date-without-year= date
   %tbody
     - filter.employees.each do |employee|
-      %tr{data: { employee_id: employee.id }}
+      %tr{data: { :'employee-id' => employee.id }}
         %th.employee
           = avatar(employee.user, employee, :tiny)
           %span.employee_name= employee.name
@@ -24,11 +24,7 @@
               ='h/' + translate_action(:wwt_short)
             = filter.wwt_diff_for(employee)
         - filter.days.each do |day|
-          - cell_html_options = { data: filter.cell_metadata(day, employee) }
-          - if filter.outside_plan_period?(day)
-            - cell_html_options.merge!(class: 'outside_plan_period')
-          %td{cell_html_options}
-            = filter.cell_content(day, employee)
+          = filter.render_cell_for_day day, employee
 
 #legend
   = filter.legend
