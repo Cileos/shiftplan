@@ -22,7 +22,9 @@
 
       #contextual_help{:class => contextual_help_class(2)}
         #keyboard-shortcuts.keyboard-shortcuts
-          %h4= t('help.calendar.keyboard_heading')
+          %h4
+            = link_to '', '#', :id => 'toggle_keyboard-shortcuts' , data: { icon: i(:collapse)}
+            = t('help.calendar.keyboard_heading')
           = help_tag 'calendar.keyboard'
         = yield(:contextual_help)
 

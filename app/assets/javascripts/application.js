@@ -8,8 +8,7 @@
 //= require 'calendar/vertical_positioning'
 //= require_tree './editors'
 //= require mailcheck
-//= require help
-//= require legend
+//= require contextual_help
 // always last!
 //= require lib/loaded_page
 

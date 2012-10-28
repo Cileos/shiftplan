@@ -29,7 +29,9 @@
 
 - contextual_help do
   #legend.calendar-legend
-    %h4= t('schedulings.legend')
+    %h4
+      = link_to '', '#', :id => 'toggle_legend' , data: { icon: i(:collapse)}
+      = t('schedulings.legend')
     = filter.legend
 
 = render 'plans/details', plan: filter.plan
