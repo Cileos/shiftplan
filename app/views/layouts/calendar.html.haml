@@ -5,15 +5,12 @@
   %body
     = render 'layouts/top'
 
-    %section.three-columns{:role => 'content'}
+    %section{:role => 'content', :class => content_class(2)}
       = render 'flash'
 
       - if content_for? :sidebar
         #sidebar.secondary
           = yield(:sidebar)
-
-      #sidebar.tertiary
-        = help_tag 'calendar.keyboard', id: 'help'
 
       .primary
         %header.masterhead.calendar-caption
@@ -22,5 +19,9 @@
             = render 'calendar_navigation', filter: filter
 
         = yield
+
+      #contextual_help{:class => contextual_help_class(2)}
+        = help_tag 'calendar.keyboard', id: 'help'
+        = yield(:contextual_help)
 
     = render 'layouts/footer'

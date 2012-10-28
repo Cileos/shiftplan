@@ -25,7 +25,9 @@
         %td.day{data: filter.cell_metadata(day)}
           = filter.cell_content(day)
 
-#legend
-  = filter.legend
+- contextual_help do
+  #legend.calendar-legend
+    %h4= t('schedulings.legend')
+    = filter.legend
 
 = render 'plans/details', plan: filter.plan

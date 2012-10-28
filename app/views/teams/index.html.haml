@@ -22,6 +22,6 @@
           - if can? :edit, team
             = link_to :edit, [:edit] + nested_resources_for(team), class: 'button button-small'
 
-- sidebar do
+- contextual_help do
   .instructions
     = tt '.instructions'

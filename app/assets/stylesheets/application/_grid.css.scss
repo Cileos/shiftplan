@@ -1,8 +1,30 @@
 .row, .wrap [role=content] {
   @include outer-container;
+
+  &.two-columns {
+    .secondary {
+      @include span-columns(3);
+    }
+
+    .primary {
+      @include span-columns(9);
+    }
+  }
 }
 
 .row, [role=content] {
+
+  &.two-columns,
+  &.three-columns {
+    .primary,
+    .secondary,
+    .tertiary {
+      &:not(:last-child) {
+        padding-right: 20px;
+        border-right: 1px solid $ci_midgray;
+      }
+    }
+  }
 
   &.two-columns {
     .secondary {
@@ -13,11 +35,8 @@
 
     .primary {
       @include span-columns(10);
-      @include omega;
 
-      float: right;
-      padding-left: 20px;
-      border-left: 1px solid $ci_midgray;
+      float: left;
     }
 
     &.inverted {
@@ -42,8 +61,6 @@
     }
 
     .tertiary {
-      @include omega;
-      
       float: right;
     }
   }
