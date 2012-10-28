@@ -231,7 +231,7 @@ small {
     color: $ci_blue;
     border-bottom: 2px solid $ci_blue;
     font-weight: bold;
-  
+
     &:hover {
       color: #fff;
     }
@@ -247,7 +247,7 @@ small {
   color: darken($ci_blue, 30%);
 }
 
-.masthead {
+.masterhead {
   @include clearfix;
 
   padding: 10px 0;

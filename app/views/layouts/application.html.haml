@@ -9,11 +9,11 @@
         = render 'flash'
 
         .primary
-          %header.masthead
+          %header.masterhead
             - if show_title?
               %h2#title= yield(:title)
-            - if content_for? :masthead_toolbar
-              %nav{role: 'toolbar'}= yield(:masthead_toolbar)
+            - if content_for? :masterhead_toolbar
+              %nav{role: 'toolbar'}= yield(:masterhead_toolbar)
 
           = yield
 
