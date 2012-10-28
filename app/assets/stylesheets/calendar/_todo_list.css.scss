@@ -5,7 +5,12 @@ $todolist_border_color: $ci_gray;
 .actions {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 10px;
+  line-height: 1;
+
+  div {
+    margin: 0.3em 0;
+  }
 }
 
 .milestones {
@@ -16,8 +21,7 @@ $todolist_border_color: $ci_gray;
 
     input {
       position: absolute;
-      top: 3px;
-      left: -7px;
+      left: -6px;
     }
   }
 
@@ -33,9 +37,9 @@ $todolist_border_color: $ci_gray;
     }
   }
 
-  .due_on,
-  .button {
+  .due_on {
     float: right;
+    margin: 0 0 0 5px;
   }
 
   .description {
@@ -49,8 +53,7 @@ $todolist_border_color: $ci_gray;
 
     li {
       input {
-        top: 4px;
-        left: -15px;
+        left: -18px;
       }
 
       &:before {
@@ -59,7 +62,7 @@ $todolist_border_color: $ci_gray;
         width: 10px;
         border-top: 1px solid $todolist_border_color;
         position: relative;
-        top: 8px;
+        top: 10px;
         left: -25px;
       }
     }
