@@ -1,6 +1,9 @@
 .row, .wrap [role=content] {
   @include outer-container;
+}
 
+.wrap [role=content],
+.wrap [role=content] .row {
   &.two-columns {
     .secondary {
       @include span-columns(3);
@@ -12,8 +15,7 @@
   }
 }
 
-.row, [role=content] {
-
+[role=content] {
   &.two-columns,
   &.three-columns {
     .primary,
@@ -25,7 +27,10 @@
       }
     }
   }
+}
 
+.row,
+[role=content] {
   &.two-columns {
     .secondary {
       @include span-columns(2);
@@ -62,6 +67,14 @@
 
     .tertiary {
       float: right;
+    }
+  }
+}
+
+.row {
+  &.two-columns {
+    .secondary {
+      float: left;
     }
   }
 }
