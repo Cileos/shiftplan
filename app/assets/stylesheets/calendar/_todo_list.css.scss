@@ -1,0 +1,72 @@
+$todolist_border_color: $ci_gray;
+
+
+.milestones,
+.actions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.milestones {
+  li {
+    position: relative;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+
+    input {
+      position: absolute;
+      top: 3px;
+      left: -7px;
+    }
+  }
+
+  > li {
+    margin-bottom: 20px;
+    padding-left: 10px;
+    // background: white;
+    border-left:   1px solid $todolist_border_color;
+    border-bottom: 1px solid $todolist_border_color;
+
+    &:nth-child(even) {
+      // background: $ci_table-zebra;
+    }
+  }
+
+  .due_on,
+  .button {
+    float: right;
+  }
+
+  .description {
+    color: $ci_darkgrey;
+  }
+
+  .tasks {
+    list-style: none;
+    padding: 0 0 0 15px;
+    margin: 10px 0 0;
+
+    li {
+      input {
+        top: 4px;
+        left: -15px;
+      }
+
+      &:before {
+        content: '';
+        display: block;
+        width: 10px;
+        border-top: 1px solid $todolist_border_color;
+        position: relative;
+        top: 8px;
+        left: -25px;
+      }
+    }
+  }
+}
+
+// TODO for test-purposes only
+.milestones a.button {
+  @include _hidden();
+}

@@ -1,5 +1,5 @@
 {{view Shiftplan.ShowDoable}}
 {{#unless isNew}}
-  <a href='#' {{action newTask target="view"}}>neue Aufgabe</a>
   {{view Shiftplan.TaskListView contentBinding="tasks"}}
+  <a href='#' {{action newTask target="view"}} data-icon="&#xf067;">neue Aufgabe</a>
 {{/unless}}

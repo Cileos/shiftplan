@@ -1,7 +1,7 @@
 {{#unless isValid}}
 <div>{{errorMessages}}</div>
 {{/unless}}
-{{view Shiftplan.Fields.Name valueBinding="name" placeholder="Name"}}
+{{view Shiftplan.Fields.Name valueBinding="name" placeholder="Meilenstein"}}
 {{view Shiftplan.Fields.DueDateField valueBinding="formatted_due_on" placeholder="Fällig am"}}
 <button class="button" {{action delete}}>Löschen</button>
 <button class="button" {{action save}}>{{view.buttonLabel}}</button>
