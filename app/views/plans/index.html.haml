@@ -1,7 +1,7 @@
 -title :plans
 
 - if can? :create, Plan
-  - masthead_toolbar do
+  - masterhead_toolbar do
     =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:plan], class: 'button', remote: true, data: { icon: i(:add) }
 
 - unless collection.empty?

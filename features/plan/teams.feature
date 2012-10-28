@@ -14,8 +14,7 @@ Feature: Teams in plans
         | Carl C        |         |
         | Lenny L       |         |
         | Homer S       | 9-17 Rp |
-     When I follow "Legende"
-     Then I should see the following defined items within the legend:
+     And I should see the following defined items within the legend:
         | Rp | Reaktor putzen |
 
   @javascript
@@ -26,7 +25,6 @@ Feature: Teams in plans
         | Carl C        |         |
         | Lenny L       |         |
         | Homer S       | 9-17 OK |
-     When I follow "Legende"
-     Then I should see the following defined items within the legend:
+     And I should see the following defined items within the legend:
         | OK | Reaktor putzen |
 

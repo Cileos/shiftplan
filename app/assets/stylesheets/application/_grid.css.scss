@@ -2,28 +2,55 @@
   @include outer-container;
 }
 
-.row, [role=content] {
-
+.wrap [role=content],
+.wrap [role=content] .row {
   &.two-columns {
     .secondary {
       @include span-columns(3);
-      @include omega;
     }
 
     .primary {
       @include span-columns(9);
+    }
+  }
+}
 
-      padding-right: 20px;
-      border-right: 1px solid $ci_midgray;
+[role=content] {
+  &.two-columns,
+  &.three-columns {
+    .primary,
+    .secondary,
+    .tertiary {
+      &:not(:last-child) {
+        padding-right: 20px;
+        border-right: 1px solid $ci_midgray;
+      }
+    }
+  }
+}
+
+.row,
+[role=content] {
+  &.two-columns {
+    .secondary {
+      @include span-columns(2);
+
+      float: right;
+    }
+
+    .primary {
+      @include span-columns(10);
+
+      float: left;
     }
 
     &.inverted {
       .primary {
-        @include span-columns(9);
+        @include span-columns(10);
       }
 
       .secondary {
-        @include span-columns(3);
+        @include span-columns(2);
         @include omega;
       }
     }
@@ -31,15 +58,23 @@
 
   &.three-columns {
     .primary {
-      @include span-columns(6);
+      @include span-columns(8);
     }
 
     .secondary, .tertiary {
-      @include span-columns(3);
+      @include span-columns(2);
     }
 
     .tertiary {
-      @include omega;
+      float: right;
+    }
+  }
+}
+
+.row {
+  &.two-columns {
+    .secondary {
+      float: left;
     }
   }
 }

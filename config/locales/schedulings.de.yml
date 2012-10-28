@@ -8,6 +8,8 @@ de:
         quickie: Quickie
         starts_at: Startzeit
         ends_at: Endzeit
+  schedulings:
+    legend: Legende
   simple_form:
     labels:
       defaults:

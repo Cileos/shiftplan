@@ -1,7 +1,7 @@
 - title :teams
 
 - if can? :create, Team
-  - masthead_toolbar do
+  - masterhead_toolbar do
     =link_to ti(:add), '#', class: 'button', remote: true, data: { icon: i(:add) }
 
 %table#teams
@@ -22,6 +22,6 @@
           - if can? :edit, team
             = link_to :edit, [:edit] + nested_resources_for(team), class: 'button button-small'
 
-- sidebar do
+- contextual_help do
   .instructions
     = tt '.instructions'

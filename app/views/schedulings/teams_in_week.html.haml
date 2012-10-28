@@ -14,7 +14,9 @@
       %tr{data: { team_id: team.id }}
         %th.team
           .pibble.team-color{style: "background-color: #{team.color};"}
-          .team_name= team.name
+          .team_name
+            = team.name
+            = '(' + team.shortcut + ')'
         - filter.days.each do |day|
           %td{data: filter.cell_metadata(day, team)}
             = filter.cell_content(day, team)

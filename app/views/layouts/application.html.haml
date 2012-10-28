@@ -5,21 +5,25 @@
     = render 'layouts/top'
 
     .wrap
-      %section{role: 'content', :class => ((content_for? :sidebar) ? "two-columns" : nil) }
+      %section{:role => 'content', :class => content_class}
         = render 'flash'
-
-        .primary
-          %header.masthead
-            - if show_title?
-              %h2#title= yield(:title)
-            - if content_for? :masthead_toolbar
-              %nav{role: 'toolbar'}= yield(:masthead_toolbar)
-
-          = yield
 
         - if content_for? :sidebar
           #sidebar.secondary
             = yield(:sidebar)
+
+        .primary
+          %header.masterhead
+            - if show_title?
+              %h2#title= yield(:title)
+            - if content_for? :masterhead_toolbar
+              %nav{role: 'toolbar'}= yield(:masterhead_toolbar)
+
+          = yield
+
+        -if content_for? :contextual_help
+          #contextual_help{:class => contextual_help_class}
+            = yield(:contextual_help)
 
       = render 'layouts/footer'
 

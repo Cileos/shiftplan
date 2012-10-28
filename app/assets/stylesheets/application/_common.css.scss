@@ -30,6 +30,7 @@ a {
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   letter-spacing: -.05em;
+  line-height: 1.2;
 }
 
 h1.huge {
@@ -46,7 +47,6 @@ h1, h2 {
 
 h3 {
   font-size: $ci_big-font;
-  line-height: 1.90476em;
   padding: 0.9524em 0 0;
 }
 
@@ -231,14 +231,14 @@ small {
     color: $ci_blue;
     border-bottom: 2px solid $ci_blue;
     font-weight: bold;
-  
+
     &:hover {
       color: #fff;
     }
   }
 }
 
-.instructions {
+.instructions, .help {
   @include box-shadow(0 1px 0 $ci_shadow);
   @include border-radius(5px);
 
@@ -247,7 +247,7 @@ small {
   color: darken($ci_blue, 30%);
 }
 
-.masthead {
+.masterhead {
   @include clearfix;
 
   padding: 10px 0;
