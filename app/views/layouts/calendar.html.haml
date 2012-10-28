@@ -21,7 +21,9 @@
         = yield
 
       #contextual_help{:class => contextual_help_class(2)}
-        = help_tag 'calendar.keyboard', id: 'help'
+        #keyboard-shortcuts.keyboard-shortcuts
+          %h4= t('help.calendar.keyboard_heading')
+          = help_tag 'calendar.keyboard'
         = yield(:contextual_help)
 
     = render 'layouts/footer'
