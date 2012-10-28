@@ -49,7 +49,7 @@ module HtmlSelectorsHelpers
       'table#calendar'
 
     when "the calendar caption"
-      'header.calendar-caption h3'
+      'header.calendar-caption h2'
 
     when "the legend"
       '#legend'
