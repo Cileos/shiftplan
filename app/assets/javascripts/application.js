@@ -1,4 +1,5 @@
 // Please include all needed application specific JS files manually
+//= require jquery.cookie
 //= require defaults
 //= require employees
 //= require plans
