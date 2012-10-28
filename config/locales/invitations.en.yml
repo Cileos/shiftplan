@@ -5,17 +5,17 @@ en:
         email: E-Mail
   mailer:
     invitation:
-      subject: 'You were invited to Shifplan'
+      subject: 'Clockwork welcomes you!'
   invitations:
-    sent_successfully: 'The invitation was sent successfully.'
-    token_invalid: 'The invitation is not valid. Your invitation could not be accepted.'
-    another_employee_already_exists_with_email: "You have already invited the employee %{employee_name} with this email address %{email}."
-    accepted: 'Thank you for accepting the invitation to Shiftplan.'
-    accept_by_setting_a_password: 'Thank you for wanting to confirm your invitation.  You must simply set a password, in order to successfully confirm the invitation.'
-    already_accepted_log_in: 'You have already accepted this invitation. Please log in with your email address and password.'
+    sent_successfully: 'You've just sent the invitation. High five!'
+    token_invalid: 'The invitation is not valid. It couldn't be accepted, sorry.'
+    another_employee_already_exists_with_email: "You have already invited someone %{employee_name} with this email address %{email}."
+    accepted: 'Clockwork is very glad to have you on board.'
+    accept_by_setting_a_password: 'Just one thing is between you and us. A password. Please set it now to confirm the invitation.'
+    already_accepted_log_in: 'You've already used this invitation. Please log in with your email and password.'
     already_accepted: 'You have already accepted this invitation.'
     new:
-      invite_employee: "%{employee_name} invite"
+      invite_employee: "Get %{employee_name} in gear!"
   accept_invitations:
     accept:
       set_your_password: "Set password"

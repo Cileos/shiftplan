@@ -1,9 +1,9 @@
 en:
   blogs: 
-    meta_data: "%{author}'s wrote this on %{published_at}:" 
+    meta_data: "%{author} wrote this on %{published_at}:" 
     own_meta_data: "you wrote this on %{published_at}"  
     no_posts_present: 'No new posts here.' 
-    company_news: News  
+    company_news: News Flash
   posts:  
     new: 'Write a new post' 
     headers: 
@@ -19,8 +19,8 @@ en:
     actions: 
       more: More 
       comments_count: 
-        one: '1 comment' 
-        other: "%{count} comments"  
+        one: '1 person had something to say' 
+        other: "%{count} people had something to say"  
       destroy_comment: 'x' 
   comments: 
     comments: comments 
@@ -28,15 +28,15 @@ en:
   post_notification_mailer: 
     new_post: 
       subjects: 
-        post: "New post by %{name} on %{date}:" 
+        post: "A brand new post by %{name} on %{date}:" 
       introductory_texts: 
         post: "%{name} has written something new on %{date}:"   
     new_comment:  
       subjects: 
-        comment_on_post: '%{name} has talked about a post' 
+        comment_on_post: '%{name} has been interested in a post' 
         comment_on_post_of_employee: '%{name} has talked about one of your posts' 
-        comment_on_post_for_commenter: '%{name} also commented on your post' 
+        comment_on_post_for_commenter: '%{name} has also commented on your post' 
     introductory_texts: 
       comment_on_post: "%{author_name} has talked about the '%{post_title}' post on  %{date}:" 
       comment_on_post_of_employee: "%{author_name} has talked about your '%{post_title}' post on  %{date}:" 
-      comment_on_post_for_commenter: "%{author_name} also commented on the  '%{post_title}' post on  %{date}:"
+      comment_on_post_for_commenter: "%{author_name} has also commented on the  '%{post_title}' post on  %{date}:"

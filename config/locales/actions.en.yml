@@ -4,5 +4,5 @@ en:
       signin: Sign in
       signin_with: "Come aboard with %{provider}"
       signout: Sign out
-      signup: Sign up
+      signup: Register
 

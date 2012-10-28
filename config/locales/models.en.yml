@@ -17,7 +17,7 @@ en:
         current_password: "current password"
         full_name: "full name"
         mobile_number: "mobile number"
-        remember_me: "stay signed in"
+        remember_me: "Remember me!"
         avatar: "profile picture"
       plan:
         name: name
@@ -33,6 +33,6 @@ en:
   activemodel:
     attributes:
       feedback:
-        body: 'problem description or suggest an improvement'
+        body: 'an issue description or feedback'
         email: 'email'
         name: name

@@ -16,7 +16,7 @@ en:
   flash:
     team_merge:
       create:
-        info: "teams were successfully merged."
+        info: "Selected teams are now one."
 
   teams:
     index:

@@ -20,7 +20,7 @@ en:
       subjects:
         comment_on_scheduling: "%{name} has commented on a shift"
         comment_on_scheduling_of_employee: "%{name} has commented on one of your shifts"
-        comment_for_commenter: "%{name} has commented on a shift, that you have also commented on"
+        comment_for_commenter: "%{name} has commented on a shift you've have also commented on"
         answer_on_comment: "%{name} has answered to a comment about a shift"
         answer_on_comment_of_employee: "%{name} has replied to your comment about a shift"
         answer_on_comment_on_scheduling_of_employee: "%{name} has replied to a comment about one of your shifts"
