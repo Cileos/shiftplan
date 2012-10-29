@@ -1,6 +1,12 @@
 Shiftplan.Router = Ember.Router.extend
   enableLogging: true
   location: 'hash'
+  openModal: (opts...) ->
+    # The used View must mixin Shiftplan.ModalMixin
+    @get('applicationController').connectOutlet 'modal', opts...
+  closeModal: ->
+    @get('applicationController').disconnectOutlet 'modal'
+
   root: Ember.Route.extend
 
     index: Ember.Route.extend
@@ -18,10 +24,7 @@ Shiftplan.Router = Ember.Router.extend
       new: Ember.Route.extend
         route: '/new'
         connectOutlets: (router) ->
-          if application = router.get('applicationController')
-            application.openModal 'newMilestone', {}
-          else
-            alert "no milestones view found to connect outlet for new to"
+          router.openModal 'newMilestone', {}
         save: (router) ->
           if entered = router.get('newMilestoneController.content')
             transaction = Shiftplan.store.transaction()
@@ -30,8 +33,7 @@ Shiftplan.Router = Ember.Router.extend
             router.transitionTo('milestones')
         cancel: Ember.Route.transitionTo('milestones')
         exit: (router) ->
-          if milestones = router.get('milestonesController')
-            milestones.disconnectOutlet()
+          router.closeModal()
       edit: Ember.Route.extend
         route: '/edit/:milestone_id'
         connectOutlets: (router, milestone) ->

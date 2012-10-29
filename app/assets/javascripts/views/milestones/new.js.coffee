@@ -1,2 +1,2 @@
-Shiftplan.NewMilestoneView = Shiftplan.NewDoable.extend Shiftplan.ModalMixin,
+Shiftplan.NewMilestoneView = Shiftplan.NewDoable.extend
   heading: 'neuer Meilenstein'
