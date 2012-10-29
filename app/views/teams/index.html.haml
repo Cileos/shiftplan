@@ -1,15 +1,19 @@
 - title :teams
 
-- if can? :create, Team
-  - masthead_toolbar do
-    =link_to ti(:add), '#', class: 'button', remote: true, data: { icon: i(:add) }
+- masthead_toolbar do
+  %button{:id => 'merge-button'}
+    = ti(:merge)
 
+  - if can? :create, Team
+    = link_to ti(:add), '#', class: 'button', remote: true, data: { icon: i(:add) }
 
 .row.two-columns.inverted
   .primary
     %table#teams
       %thead
         %tr.employee
+          %th.checkbox
+            &nbsp;
           %th= Team.human_attribute_name(:name)
           %th= Team.human_attribute_name(:shortcut)
           %th= t('.team_color')
@@ -18,6 +22,8 @@
       %tbody
         - collection.each do |team|
           %tr
+            %td.checkbox
+              %input(type="checkbox")
             %td= can?(:edit, team) ? link_to(team.name, account_organization_team_path(current_account, current_organization, team)) : team.name
             %td= team.shortcut
             %td= render 'pibble', team: team
