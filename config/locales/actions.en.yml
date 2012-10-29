@@ -1,8 +1,62 @@
 en:
   helpers:
     actions:
-      signin: Sign in
+      profile: Profile.
+      settings: Preferences
+      dashboard: Dashboard
+      news: News Flash
+      signin: Log in
       signin_with: "Come aboard with %{provider}"
-      signout: Sign out
+      signout: Log out
       signup: Register
+      employees: Employees
+      teams: Teams
+      add: Add
+      new_employee: A new employee
+      plans: Work plan
+      all_plans: All plans
+      new_plan: New plan
+      new_scheduling: New schedule
+      next: Next one!
+      create: Create
+      update: Refresh
+      hours: Hours
+      wwt_short: WWT
+      wwt_long: Weekly Working Time
+      close: '×'
+      edit: Adjust
+      back: Go back
+      show: Show
+      destroy: Erase!
+      invite: Invite.
+      reinvite: Invite again.
+      send_invitation: 'Send an invitation card'
+      copy: "Copy"
+      copy_week: "Duplicate whole week"
+      comment: Leave a comment
+      comments: Comments
+      reply: 'Reply'
+      set_password: 'Set your password'
+      feedback_without_screenshot: 'Tell us what you think'
+      send: Send
+      confirm_email_change: 'Confirm e-mail change'
+      confirm: 'Yes'
+      change_email: 'I want a different e-mail'
+      change_password: 'I want a different password'
+      show_legend: "Legend"
+      show_legend_long: "Expand legend"
+      show_help: "I need help."
+      show_help_long: "Expand help"
+  schedulings:
+    calendar_navigation:
+      day: "Day"
+      previous: '<'
+      today: 'Today'
+      next: '>'
+    week_switch: Change week
+      employees_in_week: "People for this week"
+      teams_in_week: ""Teams for this week
+      hours_in_week: "Hours for this week"
+
+
 
