@@ -28,6 +28,7 @@ class Organization < ActiveRecord::Base
     (employees.all + planners.all + owners.all).uniq
   end
 
+  after_create :setup
   def setup
     if blogs.empty?
       blogs.create! :title => 'Company Blog'

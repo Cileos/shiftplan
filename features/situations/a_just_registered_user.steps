@@ -3,3 +3,4 @@ And an organization "fukushima" exists with name: "Fukushima", account: the acco
 And a confirmed user "mr. burns" exists with email: "owner@burns.com"
 And an employee_owner "mr. burns" exists with first_name: "Owner", last_name: "Burns", user: the confirmed user "mr. burns", account: the account
 And a blog exists with title: "Company Blog", organization: organization "fukushima"
+And I am signed in as the confirmed user "mr. burns"
