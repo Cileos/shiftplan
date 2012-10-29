@@ -64,8 +64,11 @@ class CalendarCursor
 
 
   keydown: (event) =>
+    if $(event.srcElement).is(':input') or $(event.target).is(':input')
+      return true # no not capture
+
     captured = true
-    switch event.keyCode
+    switch event.which
       when 65, 78 # _a_dd, _n_ew
         @orientate()
         @create()

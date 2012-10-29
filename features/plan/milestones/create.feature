@@ -13,7 +13,8 @@ Feature: create Milestones for a plan
 
   Scenario: create a milestone with name only
     When I fill in "Name" with "World domination"
-     And I press "Anlegen"
+    Then no modal box should be open
+    When I press "Anlegen"
      And I wait for the spinner to disappear
     Then I should see "World domination" within the milestones list
      And a milestone should exist with name: "World domination", plan: the plan
