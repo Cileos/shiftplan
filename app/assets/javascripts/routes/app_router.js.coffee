@@ -11,7 +11,7 @@ Shiftplan.Router = Ember.Router.extend
     milestones: Ember.Route.extend
       route: '/milestones'
       connectOutlets: (router) ->
-        router.get('applicationController').connectModal 'milestones', Shiftplan.Milestone.find()
+        router.get('applicationController').connectOutlet 'milestones', Shiftplan.Milestone.find()
       newMilestone: Ember.Router.transitionTo 'milestones.new'
       editMilestone: Ember.Router.transitionTo 'milestones.edit'
       new: Ember.Route.extend

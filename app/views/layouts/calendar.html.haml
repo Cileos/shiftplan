@@ -2,15 +2,16 @@
 - controller.gon.quickie_completions = filter.quickies_for_completion
 %html
   = render 'layouts/head'
-  %body#ember
+  %body
     = render 'layouts/top'
 
     %section{:role => 'content', :class => content_class(2)}
       = render 'flash'
 
-      - if content_for? :sidebar
-        #sidebar.secondary
+      #sidebar.secondary
+        - if content_for? :sidebar
           = yield(:sidebar)
+        #milestones
 
       .primary
         %header.masterhead.calendar-caption

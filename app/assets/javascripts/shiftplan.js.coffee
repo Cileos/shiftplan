@@ -8,7 +8,7 @@
 
 Shiftplan = Ember.Application.create
   autoinit: false
-  rootElement: 'body#ember'
+  rootElement: '#milestones'
   Fields: Ember.Object.extend()
 
 Shiftplan.store = DS.Store.create
@@ -24,7 +24,7 @@ Shiftplan.settings = Ember.Object.create
 window.Shiftplan = Shiftplan
 
 jQuery ->
-  if $('body#ember').length > 0
+  if $('#milestones').length > 0
     # base all URLs on current plan
     Shiftplan.store.get('adapter').set 'namespace', (window.location.pathname.replace(/(plans\/\d+).*$/,'$1')).slice(1)
     Shiftplan.initialize()

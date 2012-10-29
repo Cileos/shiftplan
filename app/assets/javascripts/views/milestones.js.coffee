@@ -1,4 +1,2 @@
-#= require views/modal
-Shiftplan.MilestonesView = Shiftplan.ModalView.extend
+Shiftplan.MilestonesView = Ember.View.extend
   templateName: 'milestones'
-  heading: 'Meilensteine' # TODO i18n
