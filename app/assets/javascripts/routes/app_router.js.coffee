@@ -8,17 +8,18 @@ Shiftplan.Router = Ember.Router.extend
       connectOutlets: -> # nuffin
       openMilestones: Ember.Router.transitionTo('milestones')
 
+    newMilestone: Ember.Router.transitionTo 'milestones.new'
+    editMilestone: Ember.Router.transitionTo 'milestones.edit'
+
     milestones: Ember.Route.extend
       route: '/milestones'
       connectOutlets: (router) ->
         router.get('applicationController').connectOutlet 'milestones', Shiftplan.Milestone.find()
-      newMilestone: Ember.Router.transitionTo 'milestones.new'
-      editMilestone: Ember.Router.transitionTo 'milestones.edit'
       new: Ember.Route.extend
         route: '/new'
         connectOutlets: (router) ->
-          if milestones = router.get('milestonesController')
-            milestones.connectOutlet 'newMilestone', {}
+          if application = router.get('applicationController')
+            application.openModal 'newMilestone', {}
           else
             alert "no milestones view found to connect outlet for new to"
         save: (router) ->
