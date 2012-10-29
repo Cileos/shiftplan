@@ -2,6 +2,15 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
 
   include StackDecoratorHelper
 
+  def respond(resource, action=:update)
+    super
+    remove_focus(resource) if resource.errors.empty?
+  end
+
+  def remove_focus(resource)
+    select(:scheduling, resource).removeClass('focus')
+  end
+
   # TODO make configurable
   def working_hours
     (0..23).to_a
