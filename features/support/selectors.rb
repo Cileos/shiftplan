@@ -149,6 +149,10 @@ module HtmlSelectorsHelpers
   # 0-based index of row (in tbody) headed by given label
   def row_index_for(row_label)
     rows = page.all("tbody th").map { |c| extract_text_from_cell c }
+    # check if in hours in week view
+    if row_label =~ /\d{1,2}/ && rows.first =~ /^1\n(\d{1,2}\n){21}23$/m
+      row_label = rows.first
+    end
     rows.should include(row_label)
     rows.index(row_label)
   end

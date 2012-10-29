@@ -1,4 +1,7 @@
-- title filter.caption
+%header.calendar-caption
+  %h3= filter.caption
+  - if @plan.starts_at.present? || @plan.ends_at.present?
+    %h4= filter.plan_period
 
 -#.button-group
 -#  = link_to t('.day'), filter.path_to_day, class: 'button'
