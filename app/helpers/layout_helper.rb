@@ -20,8 +20,8 @@ module LayoutHelper
     content_for :contextual_help, &block
   end
 
-  def content_class(minimum=1)
-    number_of_columns = columns_count(minimum)
+  def content_class(number_of_columns=nil)
+    number_of_columns = columns_count() unless number_of_columns
     case number_of_columns
       when 3 then 'three-columns'
       when 2 then 'two-columns'
@@ -29,8 +29,8 @@ module LayoutHelper
     end
   end
 
-  def contextual_help_class(minimum=1)
-    number_of_columns = columns_count(minimum)
+  def contextual_help_class(number_of_columns=nil)
+    number_of_columns = columns_count() unless number_of_columns
     case number_of_columns
       when 3 then 'tertiary'
       when 2 then 'secondary'

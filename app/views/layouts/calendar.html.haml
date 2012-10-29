@@ -5,12 +5,11 @@
   %body
     = render 'layouts/top'
 
-    %section{:role => 'content', :class => content_class(2)}
+    %section{:role => 'content', :class => content_class(3)}
       = render 'flash'
 
-      - if content_for? :sidebar
-        #sidebar.secondary
-          = yield(:sidebar)
+      #sidebar.secondary
+        = yield(:sidebar)
 
       .primary
         %header.masterhead.calendar-caption
@@ -20,7 +19,7 @@
 
         = yield
 
-      #contextual_help{:class => contextual_help_class(2)}
+      #contextual_help{:class => contextual_help_class(3)}
         #keyboard-shortcuts.keyboard-shortcuts
           %h4
             = link_to '', '#', :id => 'toggle_keyboard-shortcuts' , data: { icon: i(:collapse)}
