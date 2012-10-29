@@ -21,7 +21,7 @@ Feature: working off milestones
      Then the milestone should be done
 
   Scenario: deleting a milestone
-     When I follow "Bearbeiten" within the first item within the milestones list
+     When I click on the first item within the milestones list
       And I press "Löschen"
       # And I confirm
      Then I should see flash notice "Meilenstein erfolgreich gelöscht"
