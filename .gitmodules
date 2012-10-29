@@ -4,3 +4,6 @@
 [submodule "vendor/assets/mixed/jquery-miniColors"]
 	path = vendor/assets/mixed/jquery-miniColors
 	url = git://github.com/claviska/jquery-miniColors.git
+[submodule "vendor/assets/fonts/fontawesome"]
+	path = vendor/assets/fonts/fontawesome
+	url = https://github.com/FortAwesome/Font-Awesome.git
