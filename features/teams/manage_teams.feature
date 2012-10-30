@@ -6,6 +6,21 @@ Feature: Manage Teams
   Background:
     Given the situation of a nuclear reactor
 
+  @javascript
+  Scenario: Adding a team on the teams page
+    Given I am on the page for teams of the organization "Reactor"
+     Then I should see "Es existieren noch keine Teams für diese Organisation."
+     When I follow "Hinzufügen"
+      And I wait for the modal box to appear
+      And I fill in "Name" with "Reaktor putzen"
+      And I fill in "Kürzel" with "Rp"
+      And I press "Anlegen"
+      And I wait for the modal box to disappear
+     Then I should be on the page for teams of the organization "Reactor"
+      And I should see the following table of teams:
+       | Name           | Kürzel |
+       | Reaktor putzen | Rp     |
+
   Scenario: Listing all the Teams for my organization
     Given a organization "Government" exists with account: the account "tepco"
       And the following teams exist:

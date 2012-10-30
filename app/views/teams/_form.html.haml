@@ -1,0 +1,10 @@
+= simple_form_for [current_account, current_organization, team],
+  html: { class: 'form-horizontal' }, remote: true do |f|
+  .inputs
+    = f.input :name
+    = f.input :shortcut
+    = f.input :color
+  .actions
+    %button.button-success{type: 'submit'}
+      %i.icon-ok-circle.icon-white
+      = ta :create

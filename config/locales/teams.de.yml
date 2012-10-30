@@ -20,8 +20,10 @@ de:
 
   teams:
     index:
+      no_teams: "Es existieren noch keine Teams für diese Organisation."
       team_color: Farbe
       action: Aktion
+    table:
       instructions: >
         Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
         oder Aufgaben unterschieden werden.
