@@ -6,9 +6,6 @@ Feature: Manage Teams
   Background:
     Given the situation of a nuclear reactor
 
-  # TODO fix _navigation for organization after merge of nuke-bootstrap
-  @wip
-  @todo
   Scenario: Listing all the Teams for my organization
     Given a organization "Government" exists with account: the account "tepco"
       And the following teams exist:
@@ -17,9 +14,9 @@ Feature: Manage Teams
         | organization "Reactor"    | Uran rangieren |
         | organization "Reactor"    | Jodausschank   |
         | organization "Government" | Entsorgung     |
-      And I am on the page for the organization "Government"
+      And I am on the page for the organization "Reactor"
      When I follow "Teams"
-     Then I should be on the page for teams of the organization "Government"
+     Then I should be on the page for teams of the organization "Reactor"
       And I should see the following table of teams:
        | Name           | Kürzel |
        | Jodausschank   | J      |
@@ -28,6 +25,7 @@ Feature: Manage Teams
       But I should not see "Entsorgung"
 
       And I should see "Um ein neues Team anzulegen"
+      And I should see "Sie können ein neues Team auch explizit anlegen, indem Sie auf den Hinzufügen Button klicken"
 
 
   Scenario: Modify the color of a team
