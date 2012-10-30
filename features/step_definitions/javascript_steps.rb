@@ -5,3 +5,9 @@ Then /^I close all datepickers$/ do
   # wait a little bit so that datepicker is really closed after waiting
   sleep 0.5
 end
+
+When /^I close all colorpickers$/ do
+  page.execute_script("$('input.miniColors').miniColors('destroy')")
+  sleep 0.5
+end
+

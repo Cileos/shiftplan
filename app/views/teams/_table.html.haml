@@ -10,12 +10,12 @@
 
       %tbody
         - teams.each do |team|
-          %tr
+          %tr{ id: "team_#{team.id}" }
             %td= can?(:edit, team) ? link_to(team.name, account_organization_team_path(current_account, current_organization, team)) : team.name
             %td= team.shortcut
             %td= render 'pibble', team: team
             %td
               - if can? :edit, team
-                = link_to :edit, [:edit] + nested_resources_for(team), class: 'button button-small'
+                = link_to :edit, [:edit] + nested_resources_for(team), remote: true, class: 'button button-small'
   .secondary.instructions
     = tt '.instructions'

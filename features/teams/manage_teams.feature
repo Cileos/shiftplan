@@ -43,27 +43,39 @@ Feature: Manage Teams
       And I should see "Sie können ein neues Team auch explizit anlegen, indem Sie auf den Hinzufügen Button klicken"
 
 
+  @javascript
   Scenario: Modify the color of a team
     Given a team exists with organization: organization: "Reactor"
       And I am on the page for teams of the organization "Reactor"
      When I follow "Bearbeiten"
+      And I wait for the modal box to appear
      Then the "Farbe" field should contain "#"
      When I fill in "Farbe" with "#C83BB4"
-      And I press "Team aktualisieren"
+      And I close all colorpickers
+      And I press "Speichern"
+      And I wait for the modal box to disappear
      Then I should be on the page for teams of the organization "Reactor"
-      And the team color should be "#C83BB4"
+      # hex color #C83BB4 is equal to rgb(200, 59, 180)
+      # Somehow since the feature runs as a javascript feature the style attribute
+      # of the team color sets the background-color to a rgb value.
+      And the team color should be "rgb(200, 59, 180)"
 
+
+  @javascript
   Scenario: Modify the shortcut of a team
     Given a team exists with name: "Uran rangieren", organization: organization: "Reactor"
       And I am on the page for teams of the organization "Reactor"
      When I follow "Bearbeiten"
+      And I wait for the modal box to appear
      Then the "Kürzel" field should contain "Ur"
      When I fill in "Kürzel" with "OK"
-      And I press "Team aktualisieren"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
      Then I should be on the page for teams of the organization "Reactor"
       And I should see the following table of teams:
        | Name           | Kürzel |
        | Uran rangieren | OK     |
 
      When I follow "Bearbeiten"
+      And I wait for the modal box to appear
      Then the "Kürzel" field should contain "OK"

@@ -1,4 +1,4 @@
 page.decorate @team do |team|
-  team.append_modal body: render('form', team: team),
+  team.append_modal body: render('form', team: team, create_or_update: :create),
     header: content_tag(:h3, ta(:'new_team'))
 end
