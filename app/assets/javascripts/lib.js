@@ -16,5 +16,8 @@
 //= require locales/jquery.ui.datepicker-de.js
 
 $(function() {
-  $("[title]").tipsy({ gravity: 's' });
+  $("[title]").tipsy({ 
+    delayIn: 500,
+    gravity: 's' 
+  });
 });
