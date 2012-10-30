@@ -1,7 +1,10 @@
 - title :teams
 
-- if can? :create, Team
-  - masthead_toolbar do
+- masthead_toolbar do
+  %button{:id => 'merge-button'}
+    = ti(:merge)
+
+  - if can? :create, Team
     = link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:team],
       class: 'button', remote: true, data: { icon: i(:add) }
 
@@ -10,5 +13,3 @@
     = render 'table', teams: collection
   - else
     %p= t(:'.no_teams')
-
-

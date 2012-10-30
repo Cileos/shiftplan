@@ -27,6 +27,10 @@ table {
     text-align: right;
   }
 
+  .checkbox {
+    width: 16px;
+  }
+
   &:not(.table-condensed) {
     width: 100%;
   }
