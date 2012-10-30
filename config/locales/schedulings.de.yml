@@ -43,6 +43,7 @@ de:
         answer_on_comment_for_commenter: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:"
   schedulings:
     legend: Legende
+    information: Plan-Informationen
     plan_period:
       starts_at: "Beginnt: %{date}"
       ends_at: "Endet: %{date}"
