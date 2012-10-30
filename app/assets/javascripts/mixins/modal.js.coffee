@@ -1,6 +1,6 @@
 Shiftplan.ModalMixin = Ember.Mixin.create
   classNames: ['modalor']
-  layout: Ember.Handlebars.compile("{{yield}}")
+  layout: Ember.Handlebars.compile("{{view Shiftplan.FlashMessagesView}}{{yield}}")
   heading: ''
   didInsertElement: ->
     dialog = @$().dialog
