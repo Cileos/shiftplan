@@ -1,0 +1,84 @@
+.dashboard {
+  .module {
+    header {
+      border-bottom: 1px solid $ci_lightgray;
+      padding-bottom: .5em;
+      margin-bottom: .5em;
+    }
+
+    h2 {
+      font-size: 18px;
+      letter-spacing: -.1em;
+      margin: 0;
+      padding: 0;
+    }
+
+    .count {
+      @include border-radius(10px);
+
+      padding: 3px 5px;
+      font-size: 0.8em;
+      background: $ci_lightgray;
+      color: $ci_darkgray;
+    }
+  }
+
+  .agenda {
+    border: none;
+    border-collapse: separate;
+    border-spacing: 5px;
+
+    th {
+      background: $ci_darkwhite;
+      border-right: 1px solid $ci_lightgray;
+    }
+
+    .date {
+      position: relative;
+      padding-left: 55px; 
+      width: 150px;
+    }
+
+    .day {
+      font-size: 36px;
+      float: left;
+      position: absolute;
+      top: 0;
+      left: 10px;
+    }
+
+    .day-name,
+    .month-year {
+      display: block;
+      line-height: 1.25;
+    }
+
+    .month-year {
+      color: $ci_gray;
+    }
+
+    td {
+      font-size: 14px;
+    }
+  }
+
+  .company-information {
+    ul {
+      list-style: none;
+      padding: 0 10px;
+
+      img {
+        vertical-align: middle;
+      }
+    }
+
+    li {
+      margin-bottom: 5px;
+      padding: 5px;
+
+      &:nth-child(even) {
+        background: $ci_darkwhite;
+      }
+    }
+  }
+}

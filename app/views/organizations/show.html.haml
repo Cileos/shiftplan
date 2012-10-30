@@ -1,8 +1,104 @@
-.row.two-columns.inverted
+- title @organization.name + " " + t(:dashboard)
+
+
+.row.two-columns.inverted.dashboard
   .primary
+    .module.schedulings
+      %header 
+        %h2 
+          = t(:upcoming_schedulings)
+          %span.count 17
+
+      .content
+        %table.agenda
+          %tr
+            %th.date
+              %span.day
+                20
+              %span.day-name
+                Wed
+              %span.month-year
+                Oct 2012
+            %td
+              %strong
+                9 - 17
+
+              Team Name [TN]
+
+          %tr
+            %th.date
+              %span.day
+                26
+              %span.day-name
+                Wed
+              %span.month-year
+                Oct 2012
+            %td
+              %strong
+                9 - 17
+
+              Team Name [TN]              
+
+          %tr
+            %th.date
+              %span.day
+                29
+              %span.day-name
+                Wed
+              %span.month-year
+                Oct 2012
+            %td
+              %strong
+                9 - 17
+
+              Other Team Name [OTN]
+
+    .module.company-information
+      %header
+        %h2
+          Company information
+
+      .content
+        %ul
+          %li
+            = image_tag 'https://secure.gravatar.com/avatar/805ea7f363eeb009288b7f285258f565.png?d=mm&r=PG&s=27'
+            %strong
+              John Smith
+            has joined.
+          %li
+            = image_tag 'https://secure.gravatar.com/avatar/805ea7f363eeb009288b7f285258f565.png?d=mm&r=PG&s=27'
+            %strong
+              John Smith
+            has joined.
+          %li
+            = image_tag 'https://secure.gravatar.com/avatar/805ea7f363eeb009288b7f285258f565.png?d=mm&r=PG&s=27'
+            %strong
+              John Smith
+            has joined.
+          %li
+            = image_tag 'https://secure.gravatar.com/avatar/805ea7f363eeb009288b7f285258f565.png?d=mm&r=PG&s=27'
+            %strong
+              John Smith
+            has joined.
+
+  .secondary
     - if @organization.company_blog.present?
-      .blog
-        %h2= t(:'blogs.company_news')
+      .module.news
+        %header
+          %h2= t(:'blogs.company_news')
+
         = render('posts/posts', posts: @organization.company_blog.posts.order('created_at DESC').limit(5))
-      %p#all-news
-        = link_to 'Alle Neuigkeiten anzeigen', nested_resources_for(@organization.company_blog) + [:posts], id: 'all-news', class: 'button utility-button'
+        
+        %p#all-news
+          = link_to 'Alle Neuigkeiten anzeigen', nested_resources_for(@organization.company_blog) + [:posts], id: 'all-news', class: 'button utility-button'
+
+    - if @organization.company_blog.present?
+      .module.news
+        %header
+          %h2
+            New comments & activity
+
+        = render('posts/posts', posts: @organization.company_blog.posts.order('created_at DESC').limit(5))
+        
+        %p#all-news
+          = link_to 'Alle Neuigkeiten anzeigen', nested_resources_for(@organization.company_blog) + [:posts], id: 'all-news', class: 'button utility-button'

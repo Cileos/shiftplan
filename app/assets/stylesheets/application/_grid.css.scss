@@ -61,6 +61,13 @@
         @include span-columns(2);
       }
     }
+
+    &.exact {
+      .primary,
+      .secondary {
+        @include span-columns(6);
+      }
+    }
   }
 
   &.three-columns {
@@ -88,6 +95,14 @@
   &.two-columns {
     .secondary {
       float: left;
+    }
+
+    &.exact {
+      .primary,
+      .secondary,
+      .tertiary {
+        @include span-columns(4);
+      }
     }
   }
 }
