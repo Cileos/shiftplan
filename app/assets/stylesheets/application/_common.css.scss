@@ -343,3 +343,27 @@ small {
   border: 1px solid $ci_anthracite;
   margin: 2px 5px 3px;
 }
+
+
+[data-toggle='collapsible-heading'] {
+  position: relative;
+  margin-bottom: 0.5em;
+  font-size: $ci_large-font;
+  cursor: pointer;
+
+  &[data-icon]:before {
+    position: absolute;
+    top: 0.05em;
+    left: -1em;
+  }
+
+  &.collapsed[data-icon]:before {
+    left: -0.75em;
+  }
+}
+
+[data-toggle="collapsible-content"] {
+  &.collapsed {
+    display: none;
+  }
+}

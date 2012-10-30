@@ -1,28 +1,24 @@
 jQuery(document).ready ->
-  return if $('#contextual_help').length == 0
 
-  updateStatus = (e, id) ->
-    if e.hasClass('content-hidden')
-      e.attr('data-icon', "")
-      $.cookie('shiftplan_'+id, 'hidden', { path: '/' })
+  toggleVisiblity = (e) ->
+    coll_head = e.children('[data-toggle="collapsible-heading"]')
+    coll_cont = e.children('[data-toggle="collapsible-content"]')
+
+    coll_head.toggleClass('collapsed')
+    coll_cont.toggleClass('collapsed')
+
+    if coll_cont.hasClass('collapsed')
+      coll_head.attr('data-icon', "")
+      $.cookie('shiftplan_'+e.attr('id'), 'collapsed', { path: '/' })
       false
     else
-      e.attr('data-icon', "")
-      $.cookie('shiftplan_'+id, 'visible', { path: '/' })
+      coll_head.attr('data-icon', "")
+      $.cookie('shiftplan_'+e.attr('id'), 'visible', { path: '/' })
       false
 
-  toggleVisiblity = (e, speed='instant') ->
-    container = e.parents('div').first()
-    if speed != 'slide'
-      container.children(':not(h4)').toggle()
-    else
-      container.children(':not(h4)').slideToggle()
-    e.toggleClass('content-hidden')
-    updateStatus(e,container.attr('id'))
-
-  $('#contextual_help > div').each ->
-    link = $(this).find('a[id^="toggle_"]')
-    if $.cookie('shiftplan_'+$(this).attr('id')) == 'hidden'
-      toggleVisiblity(link)
-    link.click ->
-      toggleVisiblity($(this), 'slide')
+  $('[data-toggle="collapsible"]').each ->
+    e = $(this)
+    if $.cookie('shiftplan_'+e.attr('id')) == 'collapsed'
+      toggleVisiblity(e)
+    e.children('[data-toggle="collapsible-heading"]').click ->
+      toggleVisiblity(e)
