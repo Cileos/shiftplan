@@ -18,7 +18,8 @@
 
         = yield(:sidebar)
 
-        #milestones
+        = collapsible(t('milestones'), id: 'milestones-toggle') do
+          #milestones
 
       .primary
         %header.masterhead
