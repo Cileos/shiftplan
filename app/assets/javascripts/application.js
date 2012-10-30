@@ -9,7 +9,7 @@
 //= require 'calendar/vertical_positioning'
 //= require_tree './editors'
 //= require mailcheck
-//= require contextual_help
+//= require collapsible
 // always last!
 //= require lib/loaded_page
 
