@@ -12,7 +12,7 @@ Feature: edit Milestones for a plan
    Given a milestone exists with name: "Global Domination", plan: the plan
      And I am on the page of the plan "clean reactor"
      And I follow "Meilensteine"
-    When I follow "Bearbeiten" within the first item within the milestones list
+    When I follow "Global Domination"
      And I fill in "Name" with "World Domination"
      And I press "Speichern"
     Then I should see flash notice "Meilenstein erfolgreich geändert"
@@ -26,8 +26,7 @@ Feature: edit Milestones for a plan
      And I follow "neuer Meilenstein"
      And I press "Anlegen"
     Then I should see "muss ausgefüllt werden"
-    When I follow "Bearbeiten" within the first item within the milestones list
-     And I fill in "Name" with "World Domination"
+    When I fill in "Name" with "World Domination"
      And I press "Speichern"
     Then I should see flash notice "Meilenstein erfolgreich angelegt"
      And I should see "World Domination" within the milestones list
@@ -44,7 +43,7 @@ Feature: edit Milestones for a plan
    Given a milestone exists with name: "World Domination", plan: the plan
      And I am on the page of the plan "clean reactor"
      And I follow "Meilensteine"
-    When I follow "Bearbeiten" within the first item within the milestones list
+    When I follow "World Domination"
      And I fill in "Name" with ""
      And I press "Speichern"
     Then I should see flash alert "Meilenstein konnte nicht geändert werden"
