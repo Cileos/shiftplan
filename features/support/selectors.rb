@@ -49,7 +49,7 @@ module HtmlSelectorsHelpers
       'table#calendar'
 
     when "the calendar caption"
-      'header.calendar-caption h2'
+      'header h2.calendar-caption'
 
     when "the legend"
       '#legend'
@@ -85,8 +85,10 @@ module HtmlSelectorsHelpers
 
     when 'a hint'
       '.hint'
+
     when 'the pagination'
       '.pagination'
+
     when 'the comments'
       'ul#comments'
 
@@ -104,6 +106,8 @@ module HtmlSelectorsHelpers
     when /^the #{capture_nth} (post)/
       ".#{$2}#{Numerals[$1]}"
 
+    when 'active week'
+      '.calendar-active-week'
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
