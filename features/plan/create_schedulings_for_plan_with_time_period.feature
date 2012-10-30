@@ -167,11 +167,11 @@ Feature: Creating schedulings in a plan with time period
 
       When I choose "Teams" from the drop down "Mitarbeiter" within the calendar
 
-      When I click on cell "Mo"/"Reaktor fegen"
+      When I click on cell "Mo"/"Reaktor fegen (Rf)"
       Then the new scheduling form should appear
        And I close the modal box
 
-      When I click on cell "Di"/"Reaktor fegen"
+      When I click on cell "Di"/"Reaktor fegen (Rf)"
       Then the new scheduling form should not appear
 
 
