@@ -7,7 +7,7 @@ jQuery(document).ready ->
     coll_head.toggleClass('collapsed')
     coll_cont.toggleClass('collapsed')
 
-    if coll_cont.hasClass('collapsed')
+    if coll_head.hasClass('collapsed')
       coll_head.attr('data-icon', "")
       $.cookie('shiftplan_'+e.attr('id'), 'collapsed', { path: '/' })
       false
