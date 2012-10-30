@@ -43,7 +43,7 @@ de:
         Anfangsbuchstaben des Teamnamens erstellt, aber können auch bei der
         ersten Erwähnung des Teams im Plan verwendet werden.
 
-        Beispiel: @9-17 Teller Abwaschen [A1]@
+        Beispiel: @9-17 Teller Abwaschen [TA]@
     show:
       merge_motivation: >
         Falls durch Tippfehler ein zweites Team angelegt wurde, kann es mit
