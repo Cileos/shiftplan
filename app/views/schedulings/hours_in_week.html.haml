@@ -25,10 +25,7 @@
         = filter.render_cell_for_day day
 
 - contextual_help do
-  #legend.calendar-legend
-    %h4
-      = link_to '', '#', :id => 'toggle_legend' , data: { icon: i(:collapse)}
-      = t('schedulings.legend')
+  = collapsible(t('schedulings.legend'), id: 'legend', class: 'calendar-legend') do
     = filter.legend
 
 = render 'plans/details', plan: filter.plan
