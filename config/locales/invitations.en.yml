@@ -1,4 +1,4 @@
-en:
+de:
   activerecord:
     attributes:
       invitation:
@@ -7,15 +7,15 @@ en:
     invitation:
       subject: 'Clockwork welcomes you!'
   invitations:
-    sent_successfully: 'You've just sent the invitation. High five!'
-    token_invalid: 'The invitation is not valid. It couldn't be accepted, sorry.'
-    another_employee_already_exists_with_email: "You have already invited someone %{employee_name} with this email address %{email}."
-    accepted: 'Clockwork is very glad to have you on board.'
-    accept_by_setting_a_password: 'Just one thing is between you and us. A password. Please set it now to confirm the invitation.'
-    already_accepted_log_in: 'You've already used this invitation. Please log in with your email and password.'
-    already_accepted: 'You have already accepted this invitation.'
+    sent_successfully: "You've just sent the invitation. High five!"
+    token_invalid: 'Der Einladungstoken ist nicht gültig. Ihre Einladung konnte nicht akzeptiert werden.'
+    another_employee_already_exists_with_email: "Sie haben bereits den Mitarbeiter %{employee_name} mit der E-Mail Adresse %{email} eingeladen."
+    accepted: 'Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben.'
+    accept_by_setting_a_password: 'Vielen Dank, dass Sie Ihre Einladung bestätigen wollen. Sie müssen lediglich noch ein Passwort festlegen, um die Einladungsbestätigung erfolgreich abzuschließen.'
+    already_accepted_log_in: 'Sie haben diese Einladung bereits akzeptiert. Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein.'
+    already_accepted: 'Sie haben diese Einladung bereits akzeptiert.'
     new:
-      invite_employee: "Get %{employee_name} in gear!"
+      invite_employee: "%{employee_name} einladen"
   accept_invitations:
     accept:
-      set_your_password: "Set password"
+      set_your_password: "Passwort festlegen"

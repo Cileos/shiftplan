@@ -17,17 +17,17 @@ en:
       all_plans: All plans
       new_plan: New plan
       new_scheduling: New schedule
-      next: Next one!
+      next: "Next one!"
       create: Create
       update: Refresh
       hours: Hours
       wwt_short: WWT
       wwt_long: Weekly Working Time
-      close: '×'
+      close: 'Ã—'
       edit: Adjust
       back: Go back
       show: Show
-      destroy: Erase!
+      destroy: "Erase!"
       invite: Invite.
       reinvite: Invite again.
       send_invitation: 'Send an invitation card'
@@ -53,10 +53,7 @@ en:
       previous: '<'
       today: 'Today'
       next: '>'
-    week_switch: Change week
+    week_switch:
       employees_in_week: "People for this week"
-      teams_in_week: ""Teams for this week
+      teams_in_week: "Teams for this week"
       hours_in_week: "Hours for this week"
-
-
-
