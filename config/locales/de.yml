@@ -13,6 +13,7 @@ de:
       long_without_day: "%B %Y"
       only_day: "%e"
       week: "KW %V"
+      week_long: "Kalenderwoche %V"
       week_with_first_day: "KW %V %d.%m.%Y"
       week_day: "%A"
       abbr_week_day: "%a"

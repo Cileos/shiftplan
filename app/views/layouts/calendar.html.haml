@@ -10,16 +10,17 @@
 
       #sidebar.secondary
         = collapsible(t('schedulings.information'), id: 'calendar-information', class: 'calendar-information') do
-          .calendar-caption= filter.caption
-          - if filter.plan.starts_at.present? || filter.plan.ends_at.present?
-            .calendar-period-dates= filter.plan_period
-          - if filter.plan.description.present?
-            .calendar-description!= textilize filter.plan.description
+          .calendar-description!= textilize filter.plan.description
+          .calendar-period-dates
+            %div= filter.plan_period_start_date
+            %div= filter.plan_period_end_date
+          .calendar-active-week= filter.formatted_range
 
         = yield(:sidebar)
 
       .primary
         %header.masterhead
+          %h2#title.calendar-caption= filter.plan.name
           %nav{role: 'toolbar'}
             = render 'calendar_navigation', filter: filter
 

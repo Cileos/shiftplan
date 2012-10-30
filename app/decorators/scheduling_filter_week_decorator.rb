@@ -1,6 +1,6 @@
 class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
   def formatted_range
-    I18n.localize monday, format: :week_with_first_day
+    I18n.localize monday, format: :week_long
   end
 
   def formatted_days
