@@ -22,12 +22,8 @@
         - filter.working_hours.each do |hour|
           %div= hour
       - filter.days.each do |day|
-        %td.day{data: filter.cell_metadata(day)}
-          = filter.cell_content(day)
+        = filter.render_cell_for_day day
 
-- contextual_help do
-  #legend.calendar-legend
-    %h4= t('schedulings.legend')
+- sidebar do
+  = collapsible(t('schedulings.legend'), id: 'legend', class: 'calendar-legend') do
     = filter.legend
-
-= render 'plans/details', plan: filter.plan

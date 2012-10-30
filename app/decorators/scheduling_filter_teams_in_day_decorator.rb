@@ -6,11 +6,11 @@ class SchedulingFilterTeamsInDayDecorator < SchedulingFilterDayDecorator
   end
 
   def cell_metadata(team)
-    { team_id: team.id, date: date.iso8601 }
+    { :'team-id' => team.id, :date => date.iso8601 }
   end
 
   def cell_selector(scheduling)
-   %Q~#calendar tbody td[data-team_id=#{scheduling.team_id}]~
+   %Q~#calendar tbody td[data-team-id=#{scheduling.team_id}]~
   end
 
   def coordinates_for_scheduling(scheduling)

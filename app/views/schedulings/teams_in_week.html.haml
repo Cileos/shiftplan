@@ -11,14 +11,11 @@
           %div.date-without-year= date
   %tbody
     - filter.teams.each do |team|
-      %tr{data: { team_id: team.id }}
+      %tr{data: { :'team-id' => team.id }}
         %th.team
           .pibble.team-color{style: "background-color: #{team.color};"}
           .team_name
             = team.name
             = '(' + team.shortcut + ')'
         - filter.days.each do |day|
-          %td{data: filter.cell_metadata(day, team)}
-            = filter.cell_content(day, team)
-
-= render 'plans/details', plan: filter.plan
+          = filter.render_cell_for_day day, team

@@ -55,6 +55,10 @@ button {
     border-color: $ci_green;
     color: #fff;
   }
+
+  &:active {
+    @include box-shadow(inset 0 0 .35em $ci_shadow);
+  }
 }
 
 .button-red, input[type=submit].button-red,

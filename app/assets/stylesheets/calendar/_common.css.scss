@@ -47,6 +47,9 @@
 
       outline: 1px solid $ci_blue;
     }
+    &.outside_plan_period {
+      background-color: lightgrey;
+    }
   }
 
   .employee,
@@ -124,16 +127,5 @@
       display: none;
     }
 
-  }
-}
-
-.calendar-legend {
-  di {
-    display: block;
-  }
-
-  dt, .pibble {
-    float: left;
-    margin-right: 1em;
   }
 }

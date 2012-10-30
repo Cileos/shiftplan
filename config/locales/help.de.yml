@@ -2,9 +2,8 @@
 de:
   help:
     calendar:
+      keyboard_heading: Tastatursteuerung für alle Planansichten
       keyboard: |
-        h3. Tastatursteuerung für alle Planansichten
-
         - ⇦, ⇩, ⇧, ⇨ := Navigation
         - ENTER  := anlegen / editieren (kontextsensitiv)
         - n, a := [*n*]euer Termin / Termin [*a*]nlegen

@@ -5,24 +5,33 @@
   %body
     = render 'layouts/top'
 
-    %section{:role => 'content', :class => content_class(2)}
+    %section{:role => 'content', :class => content_class(3)}
       = render 'flash'
 
       #sidebar.secondary
-        - if content_for? :sidebar
-          = yield(:sidebar)
+        = collapsible(t('schedulings.information'), id: 'calendar-information', class: 'calendar-information') do
+          .calendar-description!= textilize filter.plan.description
+          .calendar-period-dates
+            %div= filter.plan_period_start_date
+            %div= filter.plan_period_end_date
+          .calendar-active-week= filter.formatted_range
+
+        = yield(:sidebar)
+
         #milestones
 
       .primary
-        %header.masterhead.calendar-caption
-          %h2#title= yield(:title)
+        %header.masterhead
+          %h2#title.calendar-caption= filter.plan.name
           %nav{role: 'toolbar'}
             = render 'calendar_navigation', filter: filter
 
         = yield
 
-      #contextual_help{:class => contextual_help_class(2)}
-        = help_tag 'calendar.keyboard', id: 'help'
+      #contextual_help{:class => contextual_help_class(3)}
+        = collapsible(t('help.calendar.keyboard_heading'), id: 'keyboard-shortcuts', class: 'keyboard-shortcuts') do
+          = help_tag 'calendar.keyboard'
+
         = yield(:contextual_help)
 
     = render 'layouts/footer'

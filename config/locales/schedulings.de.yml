@@ -1,5 +1,11 @@
 de:
   activerecord:
+    errors:
+      models:
+        scheduling:
+          next_day_outside_plan_period: "Die Endzeit ist größer als die Endzeit des Plans."
+          greater_than_plan_end_time: "ist größer als die Endzeit des Plans"
+          smaller_than_plan_start_time: "ist kleiner als die Startzeit des Plans"
     attributes:
       scheduling:
         employee: Mitarbeiter
@@ -8,8 +14,6 @@ de:
         quickie: Quickie
         starts_at: Startzeit
         ends_at: Endzeit
-  schedulings:
-    legend: Legende
   simple_form:
     labels:
       defaults:
@@ -37,5 +41,11 @@ de:
         answer_on_comment_on_scheduling_of_employee: "%{author_name} hat auf einen Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
         answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
         answer_on_comment_for_commenter: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:"
+  schedulings:
+    legend: Legende
+    information: Plan-Informationen
+    plan_period:
+      starts_at: "Beginnt: %{date}"
+      ends_at: "Endet: %{date}"
 
 

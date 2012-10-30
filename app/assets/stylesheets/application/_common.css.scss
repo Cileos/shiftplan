@@ -238,15 +238,6 @@ small {
   }
 }
 
-.instructions, .help {
-  @include box-shadow(0 1px 0 $ci_shadow);
-  @include border-radius(5px);
-
-  padding: 20px;
-  background: tint($ci_blue, 90%);
-  color: darken($ci_blue, 30%);
-}
-
 .masterhead {
   @include clearfix;
 
@@ -256,12 +247,13 @@ small {
 
   h1, h2, h3,
   #title {
-    float: left;
+    display: inline;
     padding: 0;
     font-size: $ci_header-size;
   }
 
   nav {
+    display: inline;
     float: right;
     padding: 0;
   }
@@ -350,4 +342,28 @@ small {
   float: left;
   border: 1px solid $ci_anthracite;
   margin: 2px 5px 3px;
+}
+
+
+[data-toggle='collapsible-heading'] {
+  position: relative;
+  margin: 0 0 0.5em 1em;
+  font-size: $ci_large-font;
+  cursor: pointer;
+
+  &[data-icon]:before {
+    position: absolute;
+    top: 0.05em;
+    left: -1em;
+  }
+
+  &.collapsed[data-icon]:before {
+    left: -0.75em;
+  }
+}
+
+[data-toggle="collapsible-content"] {
+  &.collapsed {
+    display: none;
+  }
 }

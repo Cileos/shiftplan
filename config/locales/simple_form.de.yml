@@ -9,3 +9,7 @@ de:
       user:
         account_name: 'z. B.: Stadtverwaltung Potsdam'
         organization_name: 'z. B.: Bürgeramt'
+    hints:
+      plan:
+        starts_at: 'z.B. 01.12.2012'
+        ends_at: 'z.B. 31.12.2012'

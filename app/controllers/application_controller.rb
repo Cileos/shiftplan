@@ -21,14 +21,23 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  helper_method :year_for_cweek_at
+  def year_for_cweek_at(date)
+    if date.month == 1 && date.cweek > 5
+      date.year - 1
+    elsif date.month == 12 && date.cweek == 1
+      date.year + 1
+    else
+      date.year
+    end
+  end
+
   def set_flash(severity, key=nil, opts={})
     key ||= severity
     action = opts.delete(:action) || params[:action]
     controller = opts.delete(:controller) || params[:controller]
     flash[severity] = t("flash.#{controller}.#{action}.#{key}", opts)
   end
-
-
 
   # TODO test
   def dynamic_dashboard_path

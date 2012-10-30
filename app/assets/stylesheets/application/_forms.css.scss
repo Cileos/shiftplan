@@ -43,6 +43,19 @@ input[type=radio] {
   margin-right: .35em;
 }
 
+.inputs.edit-team input {
+  width: 325px;
+}
+
+input.miniColors {
+  padding-left: 30px;
+
+  + .miniColors-trigger {
+    position: relative;
+    top: -27px;
+  }
+}
+
 form div {
   & > label {
     margin-left: 0.25em;
