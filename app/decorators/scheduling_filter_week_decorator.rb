@@ -3,6 +3,10 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
     I18n.localize monday, format: :week_with_year
   end
 
+  def formatted_range_extended
+    I18n.localize monday, format: :week_with_first_day
+  end
+
   def formatted_days
     days.map do |day|
       [
