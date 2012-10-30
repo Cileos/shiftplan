@@ -27,6 +27,28 @@ DS.RESTAdapter.reopen
 
 # TODO naive, does not consider translating the fields
 DS.Model.reopen
+
+  toJSONwithErrors: ->
+    jQuery.extend @toJSON(), errors: @get('errors')
+
+  # options: error, success (both functions)
+  # TODO: switch to using record.one 'didCreate' from the isDirty & isValid
+  observeSaveOnce: (options) ->
+    callback = ->
+      outcome = 'success'
+      if @get('isDirty')
+        return if @get('isValid') # not submitted yet
+        outcome = 'error'
+
+      (options[outcome] || Ember.K).call(this)
+
+      @removeObserver('isDirty', callback)
+      @removeObserver('isValid', callback)
+
+    @addObserver('isDirty', callback)
+    @addObserver('isValid', callback)
+
+  errors: null
   errorMessages: (->
     messages = ''
     if @get('errors')?
@@ -35,4 +57,7 @@ DS.Model.reopen
           for error in errors
             messages += "#{field} #{error} "
     messages
-  ).property('isValid')
+  ).property('isValid', 'errors', 'data')
+  hasErrors: (->
+    @get('errorMessages').match /\w+/
+  ).property('errorMessages')

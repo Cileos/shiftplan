@@ -21,18 +21,30 @@ Shiftplan.Router = Ember.Router.extend
       route: '/milestones'
       connectOutlets: (router) ->
         router.get('applicationController').connectOutlet 'milestones', Shiftplan.Milestone.find()
+
       new: Ember.Route.extend
         route: '/new'
         connectOutlets: (router) ->
-          router.openModal 'newMilestone', {}
+          transaction = Shiftplan.store.transaction()
+          milestone = transaction.createRecord Shiftplan.Milestone
+          router.set 'currentTransaction', transaction
+          router.openModal 'newMilestone', milestone
         save: (router) ->
-          if entered = router.get('newMilestoneController.content')
-            transaction = Shiftplan.store.transaction()
-            milestone = transaction.createRecord Shiftplan.Milestone, entered
+          if milestone = router.get('newMilestoneController.content')
+            transaction = router.get('currentTransaction')
+            milestone.observeSaveOnce
+              success: -> router.transitionTo('milestones')
+              error: ->
+                newTransaction = Shiftplan.store.transaction()
+                newMilestone = newTransaction.createRecord Shiftplan.Milestone, milestone.toJSON()
+                newMilestone.set 'errors', milestone.get('errors') # set by custom hook
+                router.set 'currentTransaction', newTransaction
+                router.set 'newMilestoneController.content', newMilestone
+                transaction.rollback()
             transaction.commit()
-            router.transitionTo('milestones')
         cancel: Ember.Route.transitionTo('milestones')
         exit: (router) -> router.closeModal()
+
       doEdit: Ember.Router.transitionTo 'milestones.edit'
       edit: Ember.Route.extend
         route: '/edit/:milestone_id'
