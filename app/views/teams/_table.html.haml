@@ -3,6 +3,8 @@
     %table#teams
       %thead
         %tr.employee
+          %th.checkbox
+            &nbsp;
           %th= Team.human_attribute_name(:name)
           %th= Team.human_attribute_name(:shortcut)
           %th= t('.team_color')
@@ -11,6 +13,8 @@
       %tbody
         - teams.each do |team|
           %tr{ id: "team_#{team.id}" }
+            %td.checkbox
+              %input(type="checkbox")
             %td= can?(:edit, team) ? link_to(team.name, account_organization_team_path(current_account, current_organization, team)) : team.name
             %td= team.shortcut
             %td= render 'pibble', team: team
