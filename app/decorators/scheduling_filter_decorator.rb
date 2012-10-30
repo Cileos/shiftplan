@@ -10,13 +10,21 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def plan_period
     plan_period = []
-    if plan.starts_at.present?
-      plan_period << I18n.t('schedulings.plan_period.starts_at', date: (I18n.localize plan.starts_at.to_date, format: :default))
-    end
-    if plan.ends_at.present?
-      plan_period << I18n.t('schedulings.plan_period.ends_at', date: (I18n.localize plan.ends_at.to_date, format: :default))
-    end
+    plan_period << plan_period_start_date
+    plan_period << plan_period_end_date
     plan_period.join(' ')
+  end
+
+  def plan_period_start_date
+    if plan.starts_at.present?
+      I18n.t('schedulings.plan_period.starts_at', date: (I18n.localize plan.starts_at.to_date, format: :default))
+    end
+  end
+
+  def plan_period_end_date
+    if plan.ends_at.present?
+      I18n.t('schedulings.plan_period.ends_at', date: (I18n.localize plan.ends_at.to_date, format: :default))
+    end
   end
 
   Modes = [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
