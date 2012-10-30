@@ -1,4 +1,4 @@
-%h2= t('.set_your_password')
+- title :set_your_password
 
 - @invitation.accepted_at = Time.now
 = simple_form_for @invitation, :url => confirm_invitation_path(:token => @invitation.token), :html => { :method => :put } do |f|
@@ -6,9 +6,11 @@
 
   - @invitation.user.skip_confirmation!
   = f.simple_fields_for :user do |user_form|
-    = user_form.input :confirmed_at, as: :hidden
-    = user_form.input :email, as: :hidden
-    = user_form.input :password
-    = user_form.input :password_confirmation
+    .inputs
+      = user_form.input :confirmed_at, as: :hidden
+      = user_form.input :email, as: :hidden
+      = user_form.input :password
+      = user_form.input :password_confirmation
 
-  %button.btn.btn-primary= ti(:set_password)
+    .actions
+      %button= ti(:set_password)

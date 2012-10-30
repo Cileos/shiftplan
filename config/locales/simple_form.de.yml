@@ -5,3 +5,10 @@ de:
         show:
           password: 'Neues Passwort'
           password_confirmation: 'Neues Passwort bestätigen'
+    hints:
+      user:
+        account_name: 'z. B.: Big Kahuna Burger'
+        organization_name: 'z. B.: Bürgeramt'
+      plan:
+        starts_at: 'z.B. 01.12.2012'
+        ends_at: 'z.B. 31.12.2012'

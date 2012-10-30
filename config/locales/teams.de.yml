@@ -20,6 +20,8 @@ de:
 
   teams:
     index:
+      team_color: Farbe
+      action: Aktion
       instructions: >
         Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
         oder Aufgaben unterschieden werden.
@@ -27,7 +29,7 @@ de:
 
         Um ein neues Team anzulegen, kann dessen Name beim Anlegen eines
         Termines im Plan benutzt werden.
-       
+
         Beispiel: @9-17 Teller Abwaschen@
 
 
@@ -35,7 +37,7 @@ de:
         einfacher zu gestalten. Diese werden automatisch aus den
         Anfangsbuchstaben des Teamnamens erstellt, aber können auch bei der
         ersten Erwähnung des Teams im Plan verwendet werden.
-       
+
         Beispiel: @9-17 Teller Abwaschen [A1]@
     show:
       merge_motivation: >

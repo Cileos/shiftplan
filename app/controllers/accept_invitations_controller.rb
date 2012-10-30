@@ -27,15 +27,15 @@ class AcceptInvitationsController < ApplicationController
   def set_invitation
     unless @invitation = Invitation.find_by_token(params[:token])
       flash[:alert] = t(:'invitations.token_invalid')
-      redirect_to root_url
+      redirect_to user_signed_in?? dashboard_url : root_url
     end
   end
 
   def ensure_not_yet_accepted
     if @invitation.accepted?
-      if current_user
+      if user_signed_in?
         flash[:notice] = t(:'invitations.already_accepted')
-        redirect_to dashboard_path
+        redirect_to dynamic_dashboard_path
       else
         flash[:notice] = t(:'invitations.already_accepted_log_in')
         redirect_to new_user_session_path
@@ -54,7 +54,7 @@ class AcceptInvitationsController < ApplicationController
   def respond_with_successful_confirmation
     flash[:notice] = t(:'invitations.accepted')
     sign_in(User, @invitation.user)
-    redirect_to dashboard_path
+    redirect_to dynamic_dashboard_path
   end
 
   def respond_with_accept_by_setting_a_password

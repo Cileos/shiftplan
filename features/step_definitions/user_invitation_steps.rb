@@ -47,18 +47,15 @@ When /^#{capture_model} accepts the invitation for the organization "([^"]*)" (w
     step %{I press "Passwort setzen"}
   end
 
-  name_or_email = if employee.reload.user.has_multiple_employees?
+  name_or_email = if employee.reload.user.is_multiple?
     employee.user.email
   else
     employee.name
   end
+  # When there is only one organization, we will be redirected there from the dashboard
+  # step %{I should be on the dashboard page}
   step %{I should be signed in as "#{name_or_email}"}
   step %{I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."}
-  if employee.user.organizations.count > 1
-    step %{I should be on the dashboard page}
-  else
-    step %{I should be on the page of the organization "#{organization_name}"}
-  end
 end
 
 When /^I try to accept an invitation with an invalid token$/ do

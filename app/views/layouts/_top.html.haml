@@ -1,7 +1,6 @@
-%nav.navbar
-  .navbar-inner
-    .container-fluid
-      = link_to 'shiftplan', root_path, class: 'brand', id: 'logo'
-      = render 'session'
-      = render 'navigation'
-
+%header{:role => 'banner'}
+  %h1.logo= link_to "Clockwork", root_path, class: 'brand', id: 'logo'
+  %nav{:role => 'navigation'}
+    = render 'navigation'
+  %nav.user-navigation
+    = render 'session'

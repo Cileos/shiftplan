@@ -1,8 +1,10 @@
-%h3= ta :plans
-- unless collection.empty?
-  = render 'list', plans: collection
-- else
-  %p= t(:'.no_plans')
+-title :plans
 
 - if can? :create, Plan
-  = link_to ti(:add), [:new, current_organization, :plan], class: 'btn btn-inverse', remote: true
+  - masthead_toolbar do
+    =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:plan], class: 'button', remote: true, data: { icon: i(:add) }
+
+- unless collection.empty?
+  = render 'table', plans: collection
+- else
+  %p= t(:'.no_plans')

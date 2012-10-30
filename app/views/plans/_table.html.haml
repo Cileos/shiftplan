@@ -1,0 +1,15 @@
+%table#plans
+  %thead
+    %tr.plans
+      %th= t('activerecord.attributes.plan.name')
+      %th= t('activerecord.attributes.plan.description')
+      %th= t('activerecord.attributes.plan.starts_at')
+      %th= t('activerecord.attributes.plan.ends_at')
+
+  %tbody
+    - plans.each do |plan|
+      %tr{ id: "plan_#{plan.id}" }
+        %th= link_to plan.name, [plan.organization.account, plan.organization, plan]
+        %td= truncate(plan.description, length: 60)
+        %td= plan.starts_at.present? ? I18n.localize(plan.starts_at.to_date, format: :default) : '-'
+        %td= plan.ends_at.present? ? I18n.localize(plan.ends_at.to_date, format: :default) : '-'

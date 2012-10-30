@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# here we go go
+export CI=true
+. script/_lib
+
+# Prerequisites for Ubuntu:
+#  for RVM: build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion
+#  for APP: libpq-dev postgresql libcurl4-openssl-dev freetds-dev imagemagick libjpeg-progs
+#  for CI: firefox chromium-browser xvfb phantomjs ~> 1.6.1
+
+RUBY='ruby-1.9.3-p194'
+GEMSET='clockwork'
+BRANCH=`git log -1 HEAD --format=format:%h`
+DATABASE="clockwork_test_${BRANCH}_$$"
+RAILS_ENV=test
+export RAILS_ENV
+
+APP_DIR=`pwd`
+
+export CI_REPORTS="log/reports/"
+rm -rf $CI_REPORTS
+
+# Install RVM
+rvmrc="$HOME/.rvmrc"
+
+
+cat >> $rvmrc <<-EORC
+rvm_install_on_use_flag=1
+EORC
+sort -u -o $rvmrc $rvmrc
+
+# remove remotely removed branches
+git remote prune origin
+
+# remove files not under versioncontrol
+git clean -fdx
+
+setup_ruby
+setup_database
+
+# cp config/application.yml.example config/application.yml
+
+build "$@"
+ret=$?
+
+teardown_database
+
+echo "fin. (exit code: $ret)"
+exit $ret

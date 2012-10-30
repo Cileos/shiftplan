@@ -37,19 +37,31 @@ module HtmlSelectorsHelpers
       "table#employees"
 
     when 'the navigation'
-      '.navbar:first'
+      'nav[role=navigation]'
+
+    when 'the user navigation'
+      '.user-navigation'
+
+    when 'the content'
+      'section[role=content]'
 
     when "the calendar"
       'table#calendar'
 
+    when "the calendar caption"
+      'header.calendar-caption h3'
+
     when "the legend"
       '#legend'
 
-    when "the calendar navigation"
-      'div#calendar-navigation'
+    when 'the toolbar'
+      'nav[role=toolbar]'
 
     when 'the modal box'
       'div#modalbox'
+
+    when 'the completion list'
+      'ul.ui-autocomplete'
 
     when 'errors'
       '.errors.alert.alert-error'
@@ -72,11 +84,9 @@ module HtmlSelectorsHelpers
       "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
 
     when 'a hint'
-      '.help-block'
+      '.hint'
     when 'the pagination'
       '.pagination'
-    when 'the posts'
-      'ul#posts'
     when 'the comments'
       'ul#comments'
 
@@ -90,6 +100,9 @@ module HtmlSelectorsHelpers
 
     when /^(?: a |the )?(\w+) list$/
       "ul.#{$1}"
+
+    when /^the #{capture_nth} (post)/
+      ".#{$2}#{Numerals[$1]}"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
@@ -112,8 +125,6 @@ module HtmlSelectorsHelpers
     when /^#{capture_model}$/
       model = model!($1)
       case model
-      when Post
-        "#post_#{model.id}"
       when Comment
         "#comment_#{model.id}"
       else
@@ -138,11 +149,15 @@ module HtmlSelectorsHelpers
   # 0-based index of row (in tbody) headed by given label
   def row_index_for(row_label)
     rows = page.all("tbody th").map { |c| extract_text_from_cell c }
+    # check if in hours in week view
+    if row_label =~ /\d{1,2}/ && rows.first =~ /^1\n(\d{1,2}\n){21}23$/m
+      row_label = rows.first
+    end
     rows.should include(row_label)
     rows.index(row_label)
   end
 
-  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.btn.active']
+  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.button.active', 'li.dropdown a.button']
   def extract_text_from_cell(cell)
     tried = 0
     found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }

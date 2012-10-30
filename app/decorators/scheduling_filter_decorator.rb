@@ -8,6 +8,17 @@ class SchedulingFilterDecorator < ApplicationDecorator
     "#{plan.name} - #{formatted_range}"
   end
 
+  def plan_period
+    plan_period = []
+    if plan.starts_at.present?
+      plan_period << I18n.t('schedulings.plan_period.starts_at', date: (I18n.localize plan.starts_at.to_date, format: :default))
+    end
+    if plan.ends_at.present?
+      plan_period << I18n.t('schedulings.plan_period.ends_at', date: (I18n.localize plan.ends_at.to_date, format: :default))
+    end
+    plan_period.join(' ')
+  end
+
   Modes = [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
 
   def mode
@@ -41,7 +52,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     {
       organization_id: h.current_organization.id,
       plan_id:         plan.id,
-      new_url:         h.new_organization_plan_scheduling_path(h.current_organization, plan),
+      new_url:         h.new_account_organization_plan_scheduling_path(h.current_account, h.current_organization, plan),
       mode:            mode
     }
   end
@@ -59,6 +70,16 @@ class SchedulingFilterDecorator < ApplicationDecorator
     unless schedulings.empty?
       h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate), filter: self
     end
+  end
+
+  def render_cell_for_day(day, *a)
+    options = a.extract_options!
+    options[:data] = cell_metadata(day, *a)
+    if outside_plan_period?(day)
+      options[:class] = "outside_plan_period #{options[:class]}".strip
+    end
+
+    h.content_tag :td, cell_content(day, *a), options
   end
 
   # can give
@@ -79,12 +100,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
         cell_selector(resource)
       else
         day, employee_id = resource, extra
-        %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee_id=#{employee_id}]~
+        %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee-id=#{employee_id}]~
       end
     when :scheduling
       %Q~#calendar tbody .scheduling[data-edit_url="#{resource.decorate.edit_url}"]~
     when :wwt_diff
-      %Q~#calendar tbody tr[data-employee_id=#{resource.id}] th .wwt_diff~
+      %Q~#calendar tbody tr[data-employee-id=#{resource.id}] th .wwt_diff~
     when :legend
       '#legend'
     when :team_colors
@@ -96,7 +117,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   # selector for the cell of the given scheduling
   def cell_selector(scheduling)
-     %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee_id=#{scheduling.employee_id}]~
+     %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee-id=#{scheduling.employee_id}]~
   end
 
   def wwt_diff_for(employee)
@@ -147,15 +168,15 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   # URI-Path to another week
-  def path_to_week(week)
-    raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
-    h.send(:"organization_plan_#{mode}_path", h.current_organization, plan, year: week.year, week: week.cweek)
+  def path_to_week(date)
+    raise(ArgumentError, "please give a date or datetime, got #{date.inspect}") unless date.acts_like?(:date) or date.acts_like?(:time)
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: date.year_for_cweek, week: date.cweek)
   end
 
   def path_to_day(day)
     raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
     raise(ArgumentError, "can only link to day in day view") unless mode?('day')
-    h.send(:"organization_plan_#{mode}_path", h.current_organization, plan, year: day.year, month: day.month, day: day.day)
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: day.year, month: day.month, day: day.day)
   end
 
   # URI-Path to another mode
@@ -169,8 +190,21 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  # Path to view with given date, mus tbe implemented in subclass, for example to find the corresponding week
+  def path_to_date(date)
+    raise NotImplementedError, 'should return path to view including the given date'
+  end
+
+  def previous_path
+    path_to_date(previous_step)
+  end
+
+  def next_path
+    path_to_date(next_step)
+  end
+
   def path_to_day(day=monday)
-    h.organization_plan_teams_in_day_path(h.current_organization, plan, day.year, day.month, day.day)
+    h.account_organization_plan_teams_in_day_path(h.current_account, h.current_organization, plan, day.year, day.month, day.day)
   end
 
   # TODO hooks?
@@ -186,7 +220,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
       update_team_colors
       update_quickie_completions
     else
-      append_errors_for(resource)
+      prepend_errors_for(resource)
     end
   end
 
@@ -236,4 +270,21 @@ class SchedulingFilterDecorator < ApplicationDecorator
   def update_team_colors
     select(:team_colors).refresh_html team_colors
   end
+
+  def has_previous?
+    if plan.starts_at.present?
+      plan.starts_at.to_date <= previous_week.days.last.to_date
+    else
+      true
+    end
+  end
+
+  def has_next?
+    if plan.ends_at.present?
+      plan.ends_at.to_date >= next_step.to_date
+    else
+      true
+    end
+  end
+
 end

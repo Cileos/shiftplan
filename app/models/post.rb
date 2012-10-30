@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   validates_presence_of :title, :blog, :body, :author, :published_at
 
   before_validation :set_published_at, on: :create
-  after_create :create_notifications
+  after_commit :create_notifications, on: :create
 
   delegate :organization, to: :blog
 

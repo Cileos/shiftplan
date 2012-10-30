@@ -1,7 +1,7 @@
 - title :employees
 
-#actions.btn-toolbar
-  - if can? :create, Employee
-    = link_to ti(:add), new_organization_employee_path(current_organization), class: 'btn btn-primary', remote: true
+- if can? :create, Employee
+  - masthead_toolbar do
+    =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:employee], class: 'button', remote: true, data: { icon: i(:add) }
 
 = render 'table', employees: collection

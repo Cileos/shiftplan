@@ -6,8 +6,9 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
   def formatted_days
     days.map do |day|
       [
-        I18n.localize(day, format: :week_day_with_yearless_date), # full
-        I18n.localize(day, format: :abbr_week_day)                # abbr
+        I18n.localize(day, format: :week_day),      # day
+        I18n.localize(day, format: :yearless_date), # date
+        I18n.localize(day, format: :abbr_week_day)  # abbr
       ]
     end
   end
@@ -29,16 +30,20 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
     end
   end
 
-  def previous_path
-    path_to_week(monday.prev_week)
+  def previous_step
+    monday.prev_week
   end
 
-  def next_path
-    path_to_week(monday.next_week)
+  def next_step
+    monday.next_week
   end
 
   def today_path
     path_to_week(Date.today)
+  end
+
+  def path_to_date(date)
+    path_to_week(date)
   end
 
   # Returns a Hash of Hashes of Arrays

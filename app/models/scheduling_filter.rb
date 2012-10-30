@@ -28,9 +28,16 @@ class SchedulingFilter
     end
   end
 
-  # OPTIMIZE is this always right? NiklasOffByOne?
   def monday
-    ( Date.new(year) + week.weeks ).beginning_of_week
+    # In Germany, the week with January 4th is the first calendar week.
+    week_offset = Date.new(year).end_of_week.day >= 4 ? week - 1 : week
+    ( Date.new(year) + week_offset.weeks ).beginning_of_week
+  end
+
+  alias first_day monday
+
+  def last_day
+    ( Date.new(year) + week.weeks ).end_of_week
   end
 
   def previous_week
@@ -74,6 +81,18 @@ class SchedulingFilter
   end
 
   delegate :all, to: :records
+
+  def before_start_of_plan?(date=last_day)
+    plan.starts_at.present? && date.to_date < plan.starts_at.to_date
+  end
+
+  def after_end_of_plan?(date=first_day)
+    plan.ends_at.present? && date.to_date > plan.ends_at.to_date
+  end
+
+  def outside_plan_period?(date)
+    before_start_of_plan?(date) || after_end_of_plan?(date)
+  end
 
 
   private

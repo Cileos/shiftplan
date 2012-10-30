@@ -1,24 +1,23 @@
 en:
   simple_form:
+    # TODO are these translations really needed? if yes: please fill in in .de.yml
     "yes": 'Yes'
     "no": 'No'
     required:
       text: 'required'
       mark: '*'
-      # You can uncomment the line below if you need to overwrite the whole required html.
-      # When using html, text and mark won't be used.
-      # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "We've found some errors, please take a look:"
-    # Labels and hints examples
-    # labels:
-    #   password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail para efetuar o sign in.'
-    #     edit:
-    #       email: 'E-mail.'
-    # hints:
-    #   username: 'User name to sign in.'
-    #   password: 'No special characters, please.'
-
+    # end 'are there really needed'
+    labels:
+      user:
+        show:
+          password: 'Neues Passwort'
+          password_confirmation: 'Neues Passwort bestätigen'
+    hints:
+      user:
+        account_name: 'z. B.: Big Kahuna Burger'
+        organization_name: 'z. B.: Bürgeramt'
+      plan:
+        starts_at: 'z.B. 01.12.2012'
+        ends_at: 'z.B. 31.12.2012'

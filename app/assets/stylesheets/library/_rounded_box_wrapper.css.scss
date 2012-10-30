@@ -1,0 +1,11 @@
+@mixin rounded-box-wrapper($color) {
+  @include border-radius($ci_border-radius);
+
+  background: $color;
+
+  @if lightness($color) < 50 {
+    color: #fff;
+  } @else {
+    color: $ci_anthracite;
+  }
+}

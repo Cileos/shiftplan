@@ -23,7 +23,6 @@ Feature: Plan a week
       And I should see a calendar titled "Cleaning the Reactor - KW 50 10.12.2012"
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di    | Mi    | Do    | Fr |
-        | Planner Burns |    |       |       |       |    |
         | Carl C        |    |       |       |       |    |
         | Lenny L       |    |       |       |       |    |
         | Homer S       |    | 10-11 | 11-12 | 12-13 |    |

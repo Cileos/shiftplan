@@ -1,31 +1,18 @@
-/* --------------------------------------------------------------------- */
-/*  _feedback.css.scss                                                   */
-/*  compass version: 0.12.rc.1                                           */
-/* --------------------------------------------------------------------- */
-
-
-a.feedback-without-screenshot {
-    position: fixed;
-    right: 50px;
-    bottom: -7px;
-    z-index: 999;
-    padding: 5px 10px 10px 10px;
-    background: #49afcd;
-    @include transition(0.25s);
-    @include border-radius(5px 5px 0 0);
+.feedback-without-screenshot {
+    @include transition(all 0.25s);
+    @include border-radius($ci_border_radius $ci_border_radius 0 0);
     @include box-shadow(rgba(0, 0, 0, 0.296875) 0px 0px 5px);
-    cursor: pointer;
-    font-family: verdana;
-    font-size: 11px;
-    text-align: center;
-    text-decoration: none;
+
+    position: fixed;
+    bottom: -7px;
+    right: 0;
+    padding: 5px 10px 10px;
+    background: $ci_blue;
     color: white;
+
     &:hover {
         bottom: 0px;
-        background: #5C5C5C;
+        background: $ci_blue_hover_dark;
+        color: white;
     }
-}
-a.feedback-without-screenshot:hover {
-    text-decoration: none;
-    color: white;
 }

@@ -1,0 +1,23 @@
+.flash, .alert {
+  @include flash-message($ci_green);
+
+  padding: 5px 10px;
+  margin: 10px auto;
+
+  &.notice {
+    @include flash-message($ci_darkyellow);
+  }
+
+  &.error, &.errors {
+    @include flash-message($ci_darkorange);
+  }
+
+  .close {
+    float: right;
+    cursor: pointer;
+  }
+
+  &[data-icon]::before {
+    margin: auto 1em;
+  }
+}

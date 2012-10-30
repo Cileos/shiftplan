@@ -2,9 +2,11 @@ Feature: As a logged in user
   I want to change my password
 
   Background:
-    Given an organization "fukushima" exists with name: "Fukushima GmbH"
+    Given an account exists with name: "Tepco GmbH"
+      And an organization "fukushima" exists with name: "Fukushima", account: the account
       And a confirmed user exists with email: "marge@thesimpsons.com"
-      And an employee exists with user: the confirmed user, organization: the organization "fukushima", first_name: "Marge", last_name: "Bouvier"
+      And an employee exists with user: the confirmed user, account: the account, first_name: "Marge", last_name: "Bouvier"
+      And a membership exists with organization: the organization, employee: the employee
       And I am signed in as the confirmed user
       And I am on my dashboard
 

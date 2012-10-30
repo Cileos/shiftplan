@@ -1,4 +1,4 @@
-%table#calendar.month.table.table-striped.table-bordered
+%table#calendar.month.table
   %thead
     %tr
       %th= translate_action '.employees'
@@ -9,5 +9,5 @@
       %tr
         %th.employee= employee.name
         - plan.model.days.each do |column|
-          %td{data: {employee_id: employee.id, day: column.day}}= plan.quickie_list(employee, column.day)
+          %td{data: { :'employee-id' => employee.id, :day => column.day}}= plan.quickie_list(employee, column.day)
 

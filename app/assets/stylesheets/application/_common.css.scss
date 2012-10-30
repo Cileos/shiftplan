@@ -1,50 +1,351 @@
-/* --------------------------------------------------------------------- */
-/*  _common.css.scss                                                     */
-/*  compass version: 0.12.rc.1                                           */
-/* --------------------------------------------------------------------- */
+html {
+  @include font-smoothing(subpixel-antialiased);
 
+  font-family: "proxima-nova",Helvetica,Arial,sans-serif;
+  font-size: $ci_font-size;
+  line-height: $ci_line-height;
+  text-rendering: optimizeLegibility;
+}
 
-table {
-    border-collapse: separate;
-    border: 1px solid #DDD;
-    @include box-shadow(#e0e0e0 0px 0px 10px 0px);
-    @include border-radius(5px);
-    .numeric {
-        text-align: right;
+body {
+  background: $ci_bg-color;
+  color: $ci_text-color;
+}
+
+abbr {
+  cursor: help;
+}
+
+a {
+  @include transition(color .5s ease);
+
+  color: $ci_blue;
+  text-decoration: none;
+
+  &:hover {
+    color: $ci_blue_hover;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  letter-spacing: -.05em;
+}
+
+h1.huge {
+  font-size: $ci_biggest-font;
+  line-height: 1.1236em;
+  padding: 0.22472em 0 0.44944em;
+}
+
+h1, h2 {
+  font-size: $ci_bigger-font;
+  line-height: 1.17647em;
+  padding: 1.17647em 0 1.17647em;
+}
+
+h3 {
+  font-size: $ci_big-font;
+  line-height: 1.90476em;
+  padding: 0.9524em 0 0;
+}
+
+h4, h5, h6, p, small,
+.post .body,
+.inputs > div {
+  margin: 0;
+  padding: 0 0 1.5385em;
+}
+
+small {
+  color: $ci_gray;
+  font-size: $ci_font-size;
+}
+
+[role=banner] {
+  background: $ci_blue;
+  border-bottom: 1px solid darken($ci_blue, 7.5%);
+  color: lighten($ci_blue, 50%);
+  display: inline-block;
+  width: 100%;
+  @include z-index('103', 'fixed');
+  top: 0;
+  // white shadow to fade away scrolled content smoothly
+  @include box-shadow($ci_bg-color 0 1px 20px 10px);
+
+  h1 {
+    float: left;
+    font-size: 1em;
+  }
+
+  .logo {
+    padding: 15px;
+
+    a {
+      @include image-2x(image-url("clockwork-logo-32px.png"), 156px, 16px);
+      @include transition(all .15s $ci_easing);
+
+      display: block;
+      width: 156px;
+      height: 16px;
+      background: image-url("clockwork-logo-16px.png");
+      text-indent: -999em;
+      padding: 0;
+
+      &:hover {
+        @include transform(scale(1.05));
+      }
     }
-    thead {
-        border-bottom: 1px solid #ccc;
-        th {
-            padding: 8px 5px;
-            position: relative;
-            z-index: 40;
-            @include _set_gradient_background($color: $gradient_1, $percentage: 5%);
-            /* override bootstrap ... again */
-            border-top: 1px solid #DDD !important;
-            &:first-child {
-                @include border-radius(5px 0 0 0);
-            }
-            &:last-child {
-                @include border-radius(0 5px 0 0);
-            }
-        }
-    }
-}
+  }
 
-#content > h1 {
-    margin-bottom: 1em;
-    font-size: 22px;
-    font-weight: normal;
-    line-height: 26px;
-}
-.btn-toolbar {
-   margin-bottom: 15px;
-}
+  h1, ul, li {
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+  }
 
-.pibble.team-color {
+  a {
+    @include transition(color, background .5s ease);
+
+    border-left: 1px solid darken($ci_blue, 7.5%);
+    color: lighten($ci_blue, 50%);
+    padding: $banner_link_padding_tb $banner_link_padding_lr;
     display: inline-block;
-    border: 1px solid #666;
-    @include border-radius(3px);
-    height: 13px;
-    width: 13px;
+
+  }
+
+  h1 a,
+  .user-navigation a {
+    border-left: 0;
+  }
+
+  [role=navigation] {
+    float:left;
+  }
+
+  .user-navigation {
+    float: right;
+
+    .dropdown > ul {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  .brand img {
+    vertical-align: middle;
+  }
+
+  .avatar {
+    vertical-align: -4px;
+  }
+
+  .active {
+    background: darken($ci_blue, 5%);
+  }
+
+  li:hover > a {
+    color: #fff;
+    background: $ci_blue_hover_dark;
+  }
+
+  .dropdown {
+    > ul {
+      top: $ci_font_size * $ci_line_height + 2 * $banner_link_padding_tb;
+    }
+
+    > ul a {
+      color: $ci_blue;
+      border-left: none;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    ul.nav li a,
+    .user-navigation li a {
+      width: 40px;
+      white-space: nowrap;
+      overflow: hidden;
+      &[data-icon]:before {
+        margin-right: 1.5em;
+      }
+    }
+    ul.nav li.dropdown li a,
+    .user-navigation li li a {
+      width: auto;
+    }
+    .user-navigation {
+      .name {
+        margin-left: 1.5em;
+      }
+    }
+  }
+}
+
+[role=content] {
+  padding: $banner_top_padding $banner_link_padding_lr 40px;
+
+  .wrap.expanded & {
+    padding-left:  20px;
+    padding-right: 20px;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+}
+
+[role=footer] {
+  clear: both;
+  float: right;
+}
+
+.pagination {
+  @include clearfix;
+
+  text-align: center;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: inline;
+    margin-right: 5px;
+  }
+
+  a {
+    @include transition(all .3s $ci_easing);
+
+    padding: 3px 5px;
+
+    &:hover {
+      background: $ci_blue;
+      color: #fff;
+    }
+  }
+
+  .active a {
+    color: $ci_blue;
+    border-bottom: 2px solid $ci_blue;
+    font-weight: bold;
+  
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.instructions {
+  padding: 20px;
+  background: lighten($ci_yellow, 40%);
+  color: darken($ci_yellow, 30%);
+}
+
+.masthead {
+  @include clearfix;
+
+  padding: 10px 0;
+  margin: 0 0 20px;
+  border-bottom: 1px solid $ci_midgray;
+
+  h1, h2, h3,
+  #title {
+    display: inline;
+    padding: 0;
+    font-size: $ci_header-size;
+  }
+
+  nav {
+    display: inline;
+    float: right;
+    padding: 0;
+  }
+
+  ul, form, form div {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin-right: 5px;
+    float: none;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.nav-pills {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: inline;
+  }
+
+  a {
+    @include border-radius(20px);
+    @include transition(background .5s $ci_easing);
+
+    padding: 4px 10px;
+  }
+
+  .active a,
+  a:hover {
+    background: $ci_blue;
+    color: #fff;
+    text-shadow: 0 -1px $ci_shadow;
+  }
+  a:hover {
+    background: $ci_blue_hover;
+  }
+}
+
+.nav-stacked {
+  li {
+    display: block;
+    float: none;
+    margin-bottom: 5px;
+  }
+
+  a {
+    display: block;
+  }
+}
+
+.user-settings {
+  margin-top: 15px;
+}
+
+#spinner {
+  @include z-index(1000, fixed);
+  top:  50%;
+  left: 50%;
+}
+
+.hidden {
+  @include _hidden;
+}
+
+.additional-actions {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid $ci_midgray;
+}
+
+.pibble {
+  @include border-radius(9px);
+  @include box-shadow(white 1px 1px 5px inset);
+
+  display: inline-block;
+  height: 13px;
+  width:  13px;
+  float: left;
+  border: 1px solid $ci_anthracite;
+  margin: 2px 5px 3px;
 }

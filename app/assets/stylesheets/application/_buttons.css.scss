@@ -1,23 +1,143 @@
-/* --------------------------------------------------------------------- */
-/*  _buttons.css.scss                                                    */
-/*  compass version: 0.12.rc.1                                           */
-/* --------------------------------------------------------------------- */
+@mixin button-colors($color: $ci_gray, $color_hover: $ci_gray_hover) {
+  background: $color; // fallback for e.g. iOS 4
 
+  @include background-image(linear-gradient(lighten($color, 12.5%) 20%, lighten($color, 7.5%) 50%, $color));
+  @include adaptive-color(color, $color);
+  @include adaptive-color(text-shadow, $color);
 
-.pager {
-    position: relative;
-    z-index: 2;
-    a {
-        @include _set-gradient-background();
-        border-color: #c0c0c0;
-        &:hover, &:focus {
-            @include _set-gradient-background($color: darken(#e2e2e2, 5%), $percentage: 15% );
-            border-color: #b0b0b0;
-        }
-        &:active { /* push button effect */
-            @include single-box-shadow(#666, 0px, 0px, 5px, 0px, inset);
-            border-color: darken(#b0b0b0, 10%);
-            text-decoration: none;
-        }
-    }
+  border: 1px solid $color;
+
+  &:hover, &:focus {
+    @include background-image(linear-gradient(lighten($color_hover, 7.5%), $color_hover));
+    border-color: darken($color, 20%);
+  }
 }
+
+input[type=submit],
+.button,
+button {
+  @include button-colors;
+  @include border-radius($ci_border-radius);
+  @include box-shadow(inset 0 1px 0 $ci_glow);
+  @include transition(all 0.5s $ci_easing);
+
+  padding:.4em .5em .35em;
+  text-decoration: none;
+
+  &:hover, &:focus {
+    @include box-shadow(0 0 .35em transparentize($ci_blue, .2));
+
+    border-color: $ci_blue;
+    color: $ci_anthracite;
+  }
+
+  &:active {
+    @include box-shadow(inset 0 0 .35em $ci_shadow);
+  }
+
+  &.button-small {
+    font-size: .85em;
+    padding-top: .35em;
+    padding-bottom: .3em;
+  }
+
+  &[data-icon] {
+    padding:.4em .5em .35em;
+  }
+}
+
+.button-green, input[type=submit].button-green,
+.button-success, input[type=submit].button-success {
+  @include button-colors(darken($ci_green, 12.5%), darken($ci_green, 7.5%));
+
+  &:hover {
+    @include box-shadow(0 0 .35em transparentize($ci_green, .2));
+
+    border-color: $ci_green;
+    color: #fff;
+  }
+
+  &:active {
+    @include box-shadow(inset 0 0 .35em $ci_shadow);
+  }
+}
+
+.button-red, input[type=submit].button-red,
+.button-warning, input[type=submit].button-warning {
+  border: 1px solid $ci_lightgray;
+  background: transparent;
+  color: $ci_darkorange;
+  text-decoration: none;
+
+  &:hover {
+    @include adaptive-color(color, $ci_darkorange);
+    @include adaptive-color(text-shadow, $ci_darkorange);
+
+    background: $ci_darkorange;
+    border: 1px solid $ci_darkorange;
+  }
+}
+
+
+.utility-button,
+input[type=submit].utility-button {
+  @include border-radius(10px);
+  @include transition(background 0.5s $ci_easing);
+
+  background: $ci_gray;
+  color: #fff;
+  padding: 3px 5px;
+  border-width: 0;
+  text-shadow: none;
+
+  &.button-warning:hover, &.button-warning:focus {
+    background: $ci_darkorange;
+  }
+
+  &:hover {
+    color:#fff;
+    background: $ci_blue;
+  }
+
+  &.icon-button {
+    font-family: "FontAwesome";
+    padding: 3px 5px 0;
+    line-height: 15px;
+    font-size: 10px;
+  }
+}
+
+.button-cancel {
+  float:left;
+}
+
+.button-ok {
+  float:right;
+}
+
+.button-group {
+  padding: 0;
+
+  input[type=submit],
+  .button,
+  button {
+    @include border-radius(0);
+
+    display: inline;
+    float: left;
+    margin: 0;
+
+    &:hover {
+      @include z-index(1);
+    }
+  }
+
+  :first-child {
+    @include border-radius($ci_border-radius 0 0 $ci_border-radius);
+  }
+
+  :last-child {
+    @include border-radius(0 $ci_border-radius $ci_border-radius 0);
+  }
+}
+

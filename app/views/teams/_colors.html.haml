@@ -1,3 +1,9 @@
+%style#bg_team_colors
+  - teams.each do |team|
+    - bg_team_color = team.color[1,6].scan(/../).map { |color| color.to_i(16) }
+    - bg_team_color = bg_team_color.join(',')
+    = %Q~.#{dom_id(team)} { background: rgba(#{bg_team_color},0.2);}~
+
 %style#team_colors
   - teams.each do |team|
     = %Q~.#{dom_id(team)} { border-color: #{team.color};}~

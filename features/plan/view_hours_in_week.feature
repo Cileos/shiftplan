@@ -56,12 +56,3 @@ Feature: View hours over weekdays in plan
      When I follow "Kommentare" within the calendar
       And I comment "Excellently short!"
      Then I should see "1" within the comment link within the calendar
-
-  Scenario: Navigating back and forth weekwise
-    Given I am on the hours in week page of the plan for year: 2012, week: 49
-      When I follow ">" within the calendar navigation
-      Then I should be on the hours in week page of the plan for year: 2012, week: 50
-      When I follow "Heute" within the calendar navigation
-      Then I should be on the hours in week page of the plan for year: 2012, week: 49
-      When I follow "<" within the calendar navigation
-      Then I should be on the hours in week page of the plan for year: 2012, week: 48

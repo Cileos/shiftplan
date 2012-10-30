@@ -1,10 +1,10 @@
 Then /^I should be signed in as "([^"]*)"$/ do |email|
-  step %Q~I should see "#{email}" within "#session"~
+  step %Q~I should see "#{email}" within the user navigation~
 end
 
 Then /^I should be signed in as "([^"]*)" for #{capture_model}$/ do |email_or_name, organisation|
-  step %Q~I should see "#{email_or_name}" within "#session"~
-  step %Q~I should see "#{model!(organisation).name}" within "#session"~
+  step %Q~I should see "#{email_or_name}" within the user navigation~
+  step %Q~I should see "#{model!(organisation).name}" within the navigation~
 end
 
 Given /^I am signed in as #{capture_model}$/ do |user|
@@ -30,9 +30,11 @@ Given /^I am signed out$/ do
 end
 
 When /^I sign out$/ do
-  with_scope 'the navigation' do
-    page.first('ul#session li.dropdown a.dropdown-toggle').click
+  name = nil
+  with_scope 'the user navigation' do
+    name = page.first( '.name' ).text
   end
+  step %~I open "#{name}" menu~
   step %~I follow "Ausloggen"~
   step %~I should see "Erfolgreich ausgeloggt."~
 end

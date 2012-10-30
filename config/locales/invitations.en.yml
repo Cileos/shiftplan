@@ -15,7 +15,4 @@ de:
     already_accepted_log_in: 'Sie haben diese Einladung bereits akzeptiert. Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein.'
     already_accepted: 'Sie haben diese Einladung bereits akzeptiert.'
     new:
-      invite_employee: "%{employee_name} einladen"
-  accept_invitations:
-    accept:
-      set_your_password: "Passwort festlegen"
+      invite_employee: "invite %{employee_name}"

@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :authenticate_user!
-  before_filter :set_current_employee, if: :user_signed_in?
+  include Volksplaner::Currents
+  before_filter :prefetch_current_employee, if: :user_signed_in? # to set it on current_user
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.debug('Access denied')
@@ -19,6 +20,17 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  helper_method :year_for_cweek_at
+  def year_for_cweek_at(date)
+    if date.month == 1 && date.cweek > 5
+      date.year - 1
+    elsif date.month == 12 && date.cweek == 1
+      date.year + 1
+    else
+      date.year
+    end
+  end
+
   def set_flash(severity, key=nil, opts={})
     key ||= severity
     action = opts.delete(:action) || params[:action]
@@ -26,37 +38,22 @@ class ApplicationController < ActionController::Base
     flash[severity] = t("flash.#{controller}.#{action}.#{key}", opts)
   end
 
-  def organization_param; params[:organization_id] end
-
-  def set_current_employee
-    if organization_param
-      current_user.current_employee = current_user.employees.find_by_organization_id!(organization_param)
-    end
-  end
-
-  def current_organization
-    @current_organization ||= organization_param && current_user.organizations.find(organization_param)
-  end
-  helper_method :current_organization
-
-  def current_employee
-    current_user.try :current_employee
-  end
-  helper_method :current_employee
-
-  def current_organization?
-    current_organization.present?
-  end
-  helper_method :current_organization?
-
-  # HACK on every AJAX request, we deliver the mode of the plan in a header, so
-  # the RJS responses can figure out the correct decorators
-  def current_plan_mode
-    if mode = request.headers['HTTP_X_SHIFTPLAN_MODE'] || params['_shiftplan_mode']
-      mode.inquiry
+  # TODO test
+  def dynamic_dashboard_path
+    # Maybe make dynamic again later.  E.g., if a user just has one account, we
+    # might want to show him a "only one account" optimized dashboard.
+    if user_signed_in?
+      if not current_user.is_multiple?
+        if first = current_user.joined_organizations.first
+          [first.account, first]
+        else # has one account, but no membership
+          dashboard_path
+        end
+      else
+        dashboard_path
+      end
     else
-      nil
+      root_path
     end
   end
-  helper_method :current_plan_mode
 end

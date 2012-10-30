@@ -1,10 +1,38 @@
-== VERSION 0.0.4
+Changelog
+=========
+
+Release 0.1.1 2012-10-26 18:30
+------------------------------
+* a9d2ad8 Merge branch 'feature/plan-period-improvements' into develop
+* 578b03f Merge pull request #88 from Cileos/feature/user-has-only-one-employee-per-organization
+* 7eb51d2 Merge branch 'hotfix/move-bootstrap-css-out-off-assets-dir' into develop
+
+
+Release 0.1.0 2013-10-16 20:19
+------------------------------
+* period for plan
+* account has organizations
+* organization has everything
+* replace twitter-bootstrap with own design
+
+Release 0.0.10 2012-10-10 22:06
+-------------------------------
+
+* delete schedulings with comments
+* error messages on ajax
+* waz-nullification
+* full dates in table headers
+* fix hint for quickie
+
+Release 0.0.4
+-------------
 
 * Feature: mini-blog
 * Feature: comment-on-posts
 * Menu improvements
 
-== VERSION 0.0.3
+Release 0.0.3
+-------------
 
 * Feature: invitation-rewrite
 * Hotfix: email-sending

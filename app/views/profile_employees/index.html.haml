@@ -1,13 +1,13 @@
 - title :settings
-.row
-  .span3
+.row.two-columns
+  %nav.secondary
     = render 'user/settings_menu'
-  .span9
+  .primary.content-form
     %h3= ta :profile
 
     %p= t('.instructions')
 
-    %table#employees.table.table-striped.table-bordered.table-condensed
+    %table#employees
       %thead
         %tr.employee
           %th= Employee.human_attribute_name(:full_name)
@@ -19,4 +19,6 @@
             %th
               = avatar(employee.user, employee, :tiny)
               = link_to employee.last_and_first_name, edit_profile_employee_path(employee)
-            %td.organization= employee.organization.name
+            %td.organization
+              - employee.organizations.order('name').each do |organization|
+                = organization.name
