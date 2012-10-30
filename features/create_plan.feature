@@ -6,7 +6,7 @@ Feature: Creating a plan
 
   Background:
     Given today is 2012-02-01
-      # monday
+      # 2012-02-01 is a wednesday
       And the situation of a nuclear reactor
 
   Scenario: creating a plan by name for the current organization
@@ -31,6 +31,7 @@ Feature: Creating a plan
       And I should see "5 eyes minimum"
       And I should see a calendar titled "Halloween im Atomkraftwerk"
       And I should see "KW 05 / 2012" within active week
+      And I should see "30.01." within weeks first date
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi | Do | Fr | Sa | So |
         | Carl C        |    |    |    |    |    |    |    |

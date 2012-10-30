@@ -108,6 +108,10 @@ module HtmlSelectorsHelpers
 
     when 'active week'
       '.calendar-active-week'
+
+    when 'weeks first date'
+      '#calendar thead th:nth-child(2) .date-without-year'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
