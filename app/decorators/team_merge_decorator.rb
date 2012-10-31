@@ -7,6 +7,8 @@ class TeamMergeDecorator < ApplicationDecorator
       'div#teams'
     when :team
       "tr#team_#{resource.id}"
+    when :merge_button
+      "button#merge-button"
     else
       super
     end
@@ -24,6 +26,10 @@ class TeamMergeDecorator < ApplicationDecorator
     select(:team, team).effect('highlight', {}, 3000)
   end
 
+  def disable_merge_button
+    select(:merge_button).prop('disabled', true)
+  end
+
   def respond
     unless errors.empty?
       prepend_errors_for(team)
@@ -31,6 +37,7 @@ class TeamMergeDecorator < ApplicationDecorator
       clear_modal
       update_teams
       highlight(team)
+      disable_merge_button
       update_flash
     end
   end

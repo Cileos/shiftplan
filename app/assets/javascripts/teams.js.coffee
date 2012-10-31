@@ -5,7 +5,7 @@ jQuery(document).ready ->
 
   $(':input#team_color').miniColors()
 
-  $('#teams input[type=checkbox]').click ->
+  $('#teams input[type=checkbox]').live 'click', (event)  ->
     checkedElms = $('input[type=checkbox]:checked').length
     allCheckboxes = $('#teams input[type=checkbox]')
     allCheckedCheckboxes = $('#teams input[type=checkbox]:checked')
