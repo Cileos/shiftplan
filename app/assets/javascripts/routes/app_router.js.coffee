@@ -11,8 +11,7 @@ Shiftplan.Router = Ember.Router.extend
 
     index: Ember.Route.extend
       route: '/'
-      connectOutlets: -> # nuffin
-      openMilestones: Ember.Router.transitionTo('milestones')
+      connectOutlets: (router) -> router.transitionTo('milestones')
 
     newMilestone: Ember.Router.transitionTo 'milestones.new'
     editMilestone: Ember.Router.transitionTo 'milestones.edit'
