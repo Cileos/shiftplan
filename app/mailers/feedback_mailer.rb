@@ -1,6 +1,6 @@
 class FeedbackMailer < ActionMailer::Base
   default charset: 'UTF-8'
-  default to: 'support@shiftplan.de'
+  default to: 'support@clockwork.io'
 
   def notification(feedback)
     @feedback = feedback
