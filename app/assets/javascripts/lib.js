@@ -14,10 +14,3 @@
 //= require bootstrap-alert
 //= require jquery.tipsy
 //= require locales/jquery.ui.datepicker-de.js
-
-$(function() {
-  $("[title]").tipsy({ 
-    delayIn: 500,
-    gravity: 's' 
-  });
-});

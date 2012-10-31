@@ -24,4 +24,9 @@ $(function(){
       elmTextarea.css('max-height', windowH + 'px');
       elmTextarea.autosize();
     });
+
+    $("[title]").tipsy({
+      delayIn: 500,
+      gravity: 's',
+    });
 });

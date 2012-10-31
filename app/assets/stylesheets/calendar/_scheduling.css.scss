@@ -19,10 +19,6 @@
   .work_time {
     display: block;
     padding: 0 3px;
-
-    &:before {
-      content: attr(original-title);
-    }
   }
 
   .team_name,
