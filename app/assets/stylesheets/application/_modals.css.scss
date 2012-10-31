@@ -59,6 +59,14 @@
     padding: 0;
   }
 
+  .instructions {
+    margin-bottom: 1em;
+
+    p:last-child {
+      padding-bottom: 0;
+    }
+  }
+
   .ui-dialog-titlebar {
     background: none;
     border: 0;
@@ -75,6 +83,21 @@
         margin-top: 2em;
       }
     }
+
+    .inputs.edit-team input {
+      width: 325px;
+    }
+
+  input.miniColors {
+    padding-left: 30px;
+
+    + .miniColors-trigger {
+      position: relative;
+      top: -28px;
+    }
+  }
+
+
   }
 
   .actions {
