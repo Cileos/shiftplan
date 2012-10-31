@@ -15,7 +15,7 @@ module PlansHelper
     end
   end
 
-  def destroy_link_for(plan, html_options={})
+  def destroy_link_for_plan(plan, html_options={})
     html_options = {
       class: 'button button-warning button-small',
       title: ta(:destroy)
