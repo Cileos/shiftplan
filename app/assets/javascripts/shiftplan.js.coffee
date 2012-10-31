@@ -13,7 +13,7 @@ Shiftplan = Ember.Application.create
   Fields: Ember.Object.extend()
 
 Shiftplan.store = DS.Store.create
-  revision: 6
+  revision: 7
   adapter: DS.RESTAdapter.create
     bulkCommit: false
     #plurals:
