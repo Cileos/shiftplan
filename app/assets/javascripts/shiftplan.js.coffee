@@ -1,3 +1,4 @@
+#= require_tree ./ember-patches
 #= require_self
 #= require_tree ./mixins
 #= require_tree ./models
