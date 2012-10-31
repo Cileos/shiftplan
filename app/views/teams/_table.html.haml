@@ -15,7 +15,7 @@
           %tr{ id: "team_#{team.id}" }
             %td.checkbox
               %input(type="checkbox"){ 'data-team-id' => "#{team.id}" }
-            %td= can?(:edit, team) ? link_to(team.name, account_organization_team_path(current_account, current_organization, team)) : team.name
+            %td= team.name
             %td= team.shortcut
             %td= render 'teams/pibble', team: team
             %td
