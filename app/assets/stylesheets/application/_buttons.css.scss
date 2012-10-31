@@ -1,15 +1,14 @@
-@mixin button-colors($color: $ci_gray, $color_hover: $ci_gray_hover) {
+@mixin button-colors($color: $ci_lightgray, $color_hover: lighten($ci_lightgray, 2.5%)) {
   background: $color; // fallback for e.g. iOS 4
 
-  @include background-image(linear-gradient(lighten($color, 12.5%) 20%, lighten($color, 7.5%) 50%, $color));
+  @include background-image(linear-gradient(lighten($color, 5%), $color));
   @include adaptive-color(color, $color);
   @include adaptive-color(text-shadow, $color);
 
-  border: 1px solid $color;
+  border: 1px solid darken($color, 2.5%);
 
   &:hover, &:focus {
     @include background-image(linear-gradient(lighten($color_hover, 7.5%), $color_hover));
-    border-color: darken($color, 20%);
   }
 }
 
@@ -19,20 +18,26 @@ button {
   @include button-colors;
   @include border-radius($ci_border-radius);
   @include box-shadow(inset 0 1px 0 $ci_glow);
-  @include transition(all 0.5s $ci_easing);
+  @include transition(all .25s $ci_easing);
 
   padding:.4em .5em .35em;
   text-decoration: none;
 
   &:hover, &:focus {
-    @include box-shadow(0 0 .35em transparentize($ci_blue, .2));
+    //@include box-shadow(0 0 .35em transparentize($ci_blue, .2));
 
-    border-color: $ci_blue;
+    //border-color: $ci_blue;
     color: $ci_anthracite;
   }
 
   &:active {
     @include box-shadow(inset 0 0 .35em $ci_shadow);
+  }
+
+  &:disabled {
+    background: transparent;
+    color: $ci_gray;
+    border: 1px solid $ci_gray;
   }
 
   &.button-small {
@@ -117,6 +122,7 @@ input[type=submit].utility-button {
 
 .button-group {
   padding: 0;
+  float: left;  // prevents inner linebreaks
 
   input[type=submit],
   .button,
@@ -134,10 +140,13 @@ input[type=submit].utility-button {
 
   :first-child {
     @include border-radius($ci_border-radius 0 0 $ci_border-radius);
+
+    border-right: none;
   }
 
   :last-child {
     @include border-radius(0 $ci_border-radius $ci_border-radius 0);
+
+    border-left: none;
   }
 }
-

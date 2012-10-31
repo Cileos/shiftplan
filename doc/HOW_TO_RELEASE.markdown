@@ -13,19 +13,21 @@
    $ git checkout develop
    $ git pull --rebase
 
+4. Check if the rake db:seed task successfully runs locally. (We need the task after
+   deploying to staging.
 
-4. Fetch all tags that have been created so far:
+5. Fetch all tags that have been created so far:
 
    $ git fetch --tags
 
 
-5. List all tags:
+6. List all tags:
 
    $ git tag
 
 
-6. Create a new release with an incremented version number. Increment the highest tag
-   number you get from 'git tag'(see 5.) after you have updated the tags by 
+7. Create a new release with an incremented version number. Increment the highest tag
+   number you get from 'git tag'(see 5.) after you have updated the tags by
    'git fetch --tags'(see 4.). Compare this version number with the current version in the
     CHANGELOG.
 
@@ -34,10 +36,10 @@
    $ git flow release start 1.0.5
 
 
-7. Bump the version in the VERSION file: 
+8. Bump the version in the VERSION file:
    e.g. replace 1.0.4 with 1.0.5
 
-8. Update the CHANGELOG file with important changes (Pull requests, Merges, Hotfixes) To
+9. Update the CHANGELOG file with important changes (Pull requests, Merges, Hotfixes) To
    easily get a list of all Merges/Pull requests/Hotfixes from the current master until
    the current develop branch execute:
 
@@ -61,9 +63,9 @@
    * 9743ad4 Merge branch 'hotfix/fix-fact-finder-export' into develop
 
 
-9. Commit all local changes(at least VERSION and CHANGELOG should have changes).
+10. Commit all local changes(at least VERSION and CHANGELOG should have changes).
 
-10. Finish your release with:
+11. Finish your release with:
 
     $ git flow release finish <new-version-number>
 
@@ -92,7 +94,7 @@
     - Release branch 'release/1.0.13' has been deleted
 
 
-11. You should be on the master branch then. Push the master branch:
+12. You should be on the master branch then. Push the master branch:
 
     $ git push origin master
 
@@ -102,41 +104,45 @@
     $ git push origin develop
 
 
-12. Review the Notes for the next deployment. These are located in
+13. Review the Notes for the next deployment. These are located in
     "doc/NEXT_RELEASE.markdown". It's fine if the document is empty, just check if there
     is anything special to be done before/during/after the actual deployment. A typical next
     release note is that certain yaml files need to be changed on the servers before
     deploying. The file doc/NEXT_RELEASE.markdown should be emptied immediately after
     a successful release in the develop branch. (see 18.)
 
-13. Before deploy check the diff if any gitignored .yml files have been changed. If yes,
-    amend relevant files on staging and production to reflect the new structure. 
-    It is also a good idea to briefly take a look at each Kanbanery ticket that is to be 
+14. Before deploy check the diff if any gitignored .yml files have been changed. If yes,
+    amend relevant files on staging and production to reflect the new structure.
+    It is also a good idea to briefly take a look at each Kanbanery ticket that is to be
     released and check comments for important information.
 
-14. Wait for the master branch build on the CI Server to finish. If it is green, deploy
+15. Wait for the master branch build on the CI Server to finish. If it is green, deploy
     the master to staging with:
 
     $ cap staging deploy:migrations
 
+    Then seed the staging database with:
+
+    $ cap deploy:seed
+
     Check if everything went fine on staging and briefly take a look at each feature just
     released and deployed.
 
-15. If the deployment to staging was successful, deploy the master to production with:
+16. If the deployment to staging was successful, deploy the master to production with:
 
     $ cap production deploy:migrations
 
-16. After the deployment, check all release tickets in the Kanbanery "Release" column to
+17. After the deployment, check all release tickets in the Kanbanery "Release" column to
     mark them as ready/deployed.
 
-17. Check if everything went fine on production and briefly take a look at each feature
-    just released and deployed. If a ticket looks fine on production, move it to the 
+18. Check if everything went fine on production and briefly take a look at each feature
+    just released and deployed. If a ticket looks fine on production, move it to the
     Kanbanery "Done" column.
 
-17. Tags have to be pushed explicitely with git, otherwise the other developers won't see
+18. Tags have to be pushed explicitely with git, otherwise the other developers won't see
     them when executing 'git tag'. Push tags with:
 
-    $ git push --tags 
+    $ git push --tags
 
-18. If the doc/NEXT_RELEASE.markdown included some TODOs/notes for the last release,
+19. If the doc/NEXT_RELEASE.markdown included some TODOs/notes for the last release,
     please empty this file now on the develop branch.

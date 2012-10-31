@@ -2,7 +2,7 @@ class CopyWeekDecorator < ApplicationDecorator
 
   def previous_weeks_for_select(num=5)
     filters_for_previous_weeks(num).map do |filter|
-      [filter.formatted_range, "#{filter.year}/#{filter.week}"]
+      [filter.formatted_range_extended, "#{filter.year}/#{filter.week}"]
     end
   end
 

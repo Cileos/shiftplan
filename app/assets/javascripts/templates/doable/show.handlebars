@@ -1,0 +1,10 @@
+{{view Shiftplan.MilestoneDoneView checkedBinding="done"}}
+<a class="name" href="#" {{action doEdit this}}>{{name}}</a>
+{{#if due_at}}
+<span class="due_on">{{formatted_due_on}}</span>
+{{/if}}
+<!--
+<div class="description">Just a fake description. It may be very long, so we might shorten it.</div>
+<span class="employee_name">Pur Doohd</span>
+-->
+

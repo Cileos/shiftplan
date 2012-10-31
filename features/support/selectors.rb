@@ -1,14 +1,4 @@
 module HtmlSelectorsHelpers
-  Numerals = {
-    'first'  => ':first',
-    'second' => ':nth-of-type(2)',
-    'third'  => ':nth-of-type(3)',
-    'forth'  => ':nth-of-type(4)'
-  }
-
-  def capture_nth
-    /(#{Numerals.keys.join('|')})/
-  end
   # Maps a name to a selector. Used primarily by the
   #
   #   When /^(.+) within (.+)$/ do |step, scope|
@@ -49,7 +39,7 @@ module HtmlSelectorsHelpers
       'table#calendar'
 
     when "the calendar caption"
-      'header.calendar-caption h3'
+      'header h2.calendar-caption'
 
     when "the legend"
       '#legend'
@@ -72,11 +62,17 @@ module HtmlSelectorsHelpers
     when /^the #{capture_nth} active tab$/
       ".tabbable#{Numerals[$1]} .tab-pane.active"
 
+    when /^the #{capture_nth} table row$/
+      "table tbody tr#{Numerals[$1]}"
+
     when /^the comment link$/
       'a.comments'
 
     when /^the #{capture_nth} form$/
       "form#{Numerals[$1]}"
+
+    when /^the #{capture_nth} item/
+      "li#{Numerals[$1]}"
 
     when %r~^(?:the )?cell "([^"]+)"/"([^"]+)"$~
       column = column_index_for($1)
@@ -85,8 +81,10 @@ module HtmlSelectorsHelpers
 
     when 'a hint'
       '.hint'
+
     when 'the pagination'
       '.pagination'
+
     when 'the comments'
       'ul#comments'
 
@@ -103,6 +101,12 @@ module HtmlSelectorsHelpers
 
     when /^the #{capture_nth} (post)/
       ".#{$2}#{Numerals[$1]}"
+
+    when 'active week'
+      '.calendar-active-week'
+
+    when 'weeks first date'
+      '#calendar thead th:nth-child(2) .date-without-year'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

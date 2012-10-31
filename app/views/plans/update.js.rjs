@@ -1,0 +1,3 @@
+page.decorate @plan do |plan|
+  plan.respond
+end

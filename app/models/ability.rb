@@ -116,8 +116,9 @@ class Ability
       account == team.organization.account
     end
     can :manage, TeamMerge do |team_merge|
-      account == team_merge.team.organization.account &&
-        (team_merge.other_team_id.blank? || account == team_merge.other_team.organization.account)
+      (team_merge.team_id.blank? || account == team_merge.team.organization.account) &&
+        (team_merge.other_team_id.blank? || account == team_merge.other_team.organization.account) &&
+        (team_merge.new_team_id.blank? || account == team_merge.new_team.organization.account)
     end
     can [:read, :create], Post do |post|
       account == post.blog.organization.account
@@ -135,6 +136,12 @@ class Ability
     can :manage, Invitation do |invitation|
       account == invitation.employee.account &&
         account == invitation.organization.account
+    end
+    can :manage, Milestone do |milestone|
+      account == milestone.plan.organization.account
+    end
+    can :manage, Task do |task|
+      account == task.milestone.plan.organization.account
     end
 
     authorize_employee(planner)

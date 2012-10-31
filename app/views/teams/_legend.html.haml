@@ -1,7 +1,7 @@
 %dl
   - teams.each do |team|
-    %di
-      %dt.shortcut{class: dom_id(team)}
+    %di{class: dom_id(team)}
+      %dt.shortcut
         .pibble.team-color{style: "background-color: #{team.color};"}
         %span= team.shortcut
       %dd.name= team.name

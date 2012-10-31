@@ -1,22 +1,16 @@
-%header.calendar-caption
-  %h3= filter.caption
-  - if @plan.starts_at.present? || @plan.ends_at.present?
-    %h4= filter.plan_period
-
-%nav{:role => 'toolbar'}
-  -#.button-group
-  -#  = link_to t('.day'), filter.path_to_day, class: 'button'
+-#.button-group
+-#  = link_to t('.day'), filter.path_to_day, class: 'button'
+.button-group
+  - if filter.has_previous?
+    = link_to t('.previous'), filter.previous_path, class: 'button'
+  = link_to t('.today'), filter.today_path,       class: 'button'
+  - if filter.has_next?
+    = link_to t('.next'), filter.next_path,         class: 'button'
+- if can? :create, Scheduling
   .button-group
-    - if filter.has_previous?
-      = link_to t('.previous'), filter.previous_path, class: 'button'
-    = link_to t('.today'), filter.today_path,       class: 'button'
-    - if filter.has_next?
-      = link_to t('.next'), filter.next_path,         class: 'button'
-  - if can? :create, Scheduling
-    .button-group
-      - if filter.mode?('week')
-        = link_to ti(:copy_week), new_account_organization_plan_copy_week_path(current_organization.account, current_organization, filter.plan, copy_week: { target_week: filter.week, target_year: filter.year }), remote: true, class: 'button', data: { icon: i(:copy_week)}
-      = link_to ti(:new_scheduling), new_account_organization_plan_scheduling_path(current_organization.account, current_organization, filter.plan, scheduling: { date: filter.monday}), class: 'new_scheduling button', remote: true, data: { icon: i(:add)}
-  .button-group.options
-    = link_to :show_legend, '#legend', id: 'display_legend', class: "js_button button", title: ta(:show_legend_long)
-    = link_to :show_help, '#help', id: 'display_help', class: "js_button button", title: ta(:show_help_long)
+    - if filter.mode?('week')
+      = link_to ti(:copy_week), new_account_organization_plan_copy_week_path(current_organization.account, current_organization, filter.plan, copy_week: { target_week: filter.week, target_year: filter.year }), remote: true, class: 'button', data: { icon: i(:copy_week)}
+    = link_to ti(:new_scheduling), new_account_organization_plan_scheduling_path(current_organization.account, current_organization, filter.plan, scheduling: { date: filter.monday}), class: 'new_scheduling button', remote: true, data: { icon: i(:add)}
+-# .button-group.options
+-#  = link_to :show_legend, '#legend', id: 'display_legend', class: "js_button button", title: ta(:show_legend_long)
+-#  = link_to :show_help, '#help', id: 'display_help', class: "js_button button", title: ta(:show_help_long)

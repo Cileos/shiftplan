@@ -5,7 +5,7 @@ Then /^I should (see|not see) (?:an? )?(?:flash )?(flash|info|alert|notice) "([^
   if see_or_not =~ /not/
     step %Q{I should #{see_or_not} "#{message}"}
   else
-    step %Q{I should #{see_or_not} "#{message}" within ".flash.alert.alert-#{severity}"}
+    step %Q{I should #{see_or_not} "#{message}" within ".flash.alert-#{severity}"}
   end
 end
 
@@ -23,9 +23,9 @@ end
 
 Then /^I should see a list of the following (.+):$/ do |plural, expected|
   selectors = expected.column_names.map(&:underscore).map {|s| ".#{s}" }
-  actual = find("ul.#{plural}").all('li').map do |li|
+  actual = first("ul.#{plural}").all('li').map do |li|
     selectors.map do |column|
-      li.find(column).try(:text).try(:strip)
+      li.first(column).try(:text).try(:strip) || ''
     end
   end
   actual.unshift expected.column_names
@@ -119,3 +119,8 @@ Then /^I should see a (tiny|thumb) (gravatar|default gravatar)$/ do |version, gr
     params.should == "d=mm&forcedefault=y&r=PG&s=#{size}"
   end
 end
+
+Then /^I should not see a field labeled #{capture_quoted}$/ do |label|
+  page.should have_no_xpath( XPath::HTML.field(label) )
+end
+

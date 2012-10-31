@@ -9,10 +9,11 @@ gem 'pg'
 group :assets do
   gem 'sass-rails',   '~> 3.2.4'
   gem 'uglifier', '>= 1.2.3'
-  gem 'jquery-rails'
+  gem 'jquery-rails', '~> 2.1.3' # latest 1.7, ember whines about >1.7
   gem 'jquery-ui-rails'
   # until merge of https://github.com/thomas-mcdonald/bootstrap-sass/pull/170
   gem 'bootstrap-sass', '~> 2.0.4', git: "git://github.com/niklas/bootstrap-sass.git"
+  gem 'ember-rails'
 end
 
 
@@ -84,6 +85,8 @@ group :production do
   gem 'exception_notification'
 end
 
+gem 'thin' # webrick must die
+
 gem 'coffee-rails', '~> 3.2.2'
 gem 'bourbon'
 gem 'devise'
@@ -102,6 +105,7 @@ gem 'versatile_rjs', :git => 'git://github.com/condor/versatile_rjs.git'
 gem 'polyglot' # load treetop grammars with #require
 
 gem 'gon' # push variables from rails to js
+gem "active_model_serializers", :git => "git://github.com/josevalim/active_model_serializers.git"
 
 gem 'RedCloth' # textilize instructions and other texts from locales
 
@@ -115,3 +119,4 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart'
 gem 'gravtastic'
+gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git'

@@ -1,6 +1,5 @@
 table {
   margin-bottom: 2em;
-  border: 1px solid $ci_grey;
 
   thead {
     border-bottom: 1px solid $ci_anthracite;
@@ -9,8 +8,9 @@ table {
 
   tbody tr {
     background: white;
-    &:nth-child(2n+1) {
-      background: $ci_darkwhite;
+
+    &:nth-child(even) {
+      background: $ci_table-zebra;
     }
   }
 
@@ -25,6 +25,10 @@ table {
 
   .numeric {
     text-align: right;
+  }
+
+  .checkbox {
+    width: 16px;
   }
 
   &:not(.table-condensed) {

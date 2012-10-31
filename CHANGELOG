@@ -1,6 +1,30 @@
 Changelog
 =========
 
+Release 0.1.2 2012-10-31 22:04
+------------------------------
+* 2c26f54 Merge branch 'feature/create-blog-for-added-organization' into develop
+* 1ca26e2 Merge branch 'feature/adding-teams-explicitly-on-the-teams-page' into develop
+* 52b8f19 Merge branch 'feature/destroy-and-edit-plans' into develop
+* 0859066 Merge branch 'feature/todo-lists-on-plans' into develop
+* de5d34e Merge pull request #90 from Cileos/feature/change-support-and-error-mail-addresses
+* 8c753da Merge pull request #96 from Cileos/feature/add-global-sidebar
+* 1e0e660 Merge remote-tracking branch 'origin/feature/add-global-sidebar' into feature/todo-lists-on-plans
+* befbbc2 Merge remote-tracking branch 'origin/feature/add-global-sidebar' into feature/todo-lists-on-plans
+* c3f2519 Merge branch 'feature/add-global-sidebar' into feature/todo-lists-on-plans
+* a5f601e Merge branch 'feature/merge-teams' into feature/adding-teams-explicitly-on-the-teams-page
+* 47df02f Merge branch 'feature/add-global-sidebar' into feature/todo-lists-on-plans
+* cc6b18e Merge pull request #92 from Cileos/feature/options-for-cell-rendering
+* 1526dac Merge branch 'develop' into feature/add-global-sidebar
+* ce77b16 Merge branch 'feature/add-global-sidebar' into feature/todo-lists-on-plans
+* 1eaa4cc Merge branch 'develop' into feature/destroy-and-edit-plans
+* 07def35 Merge remote-tracking branch 'origin/feature/add-global-sidebar' into feature/todo-list-on-plans
+* d6ad646 Merge branch 'release/0.1.1' into develop
+* 6438d15 Merge branch 'feature/plan-period-improvements' into feature/destroy-and-edit-plans
+* fffc8e6 Merge branch 'develop' into feature/todo-lists-on-plans
+* 8113312 Merge branch 'develop' into feature/todo-lists-on-plans
+
+
 Release 0.1.1 2012-10-26 18:30
 ------------------------------
 * a9d2ad8 Merge branch 'feature/plan-period-improvements' into develop

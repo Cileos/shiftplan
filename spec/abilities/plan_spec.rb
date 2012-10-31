@@ -1,6 +1,7 @@
 require 'spec_helper'
 require "cancan/matchers"
 
+# TODO take out of global scope or name accordingly
 shared_examples "a planner for own accounts" do
   it "should be able to manage plans" do
     should be_able_to(:manage, create(:plan, organization: organization))
@@ -34,7 +35,6 @@ describe "Plan permissions:" do
 
   let(:account) { create(:account) }
   let(:organization) { create(:organization, account: account) }
-  let(:another_organization) { create(:organization, account: account) }
 
   let(:other_account) { create(:account) }
   let(:other_organization) { create(:organization, account: other_account) }

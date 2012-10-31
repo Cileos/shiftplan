@@ -1,0 +1,3 @@
+page.decorate @team_merge do |team_merge|
+  team_merge.respond
+end

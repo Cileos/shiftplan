@@ -1,8 +1,10 @@
 %ul
   - if user_signed_in?
     %li.dropdown
-      %a{href: '#', 'data-toggle' => 'dropdown'}
-        = render 'avatar_and_name'
+      - if current_user.is_multiple?
+        = link_to render('avatar_and_name'), profile_employees_path, { data: { toggle: 'dropdown' }}
+      - else
+        = link_to render('avatar_and_name'), edit_profile_employee_path(current_user.employees.first), { data: { toggle: 'dropdown' }}
       %ul
         - if current_user.is_multiple?
           %li= link_to :settings, profile_employees_path, data: { icon: i(:settings) }

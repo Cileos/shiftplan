@@ -100,3 +100,13 @@ Then /^the select field for "(.*?)" should have the following options:$/ do |lab
     select_field.has_css?('option', :text => option).should be_true
   end
 end
+
+When /^I click on (the #{match_nth}\s?\w+\s?\w+)(?!within.*)$/ do |name|
+  selector = selector_for(name)
+  page.should have_css(selector)
+  page.first( selector ).click
+end
+
+When /^I check the checkbox$/ do
+  page.first('input[type=checkbox]').click()
+end

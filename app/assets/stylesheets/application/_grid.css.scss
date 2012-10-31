@@ -1,6 +1,9 @@
-.row {
+.row, .wrap [role=content] {
   @include outer-container;
+}
 
+.wrap [role=content],
+.wrap [role=content] .row {
   &.two-columns {
     .secondary {
       @include span-columns(3);
@@ -8,32 +11,83 @@
 
     .primary {
       @include span-columns(9);
-      @include omega;
+    }
+  }
+}
+
+[role=content]:not(.no-animation) {
+  &.two-columns,
+  &.three-columns {
+    .primary,
+    .secondary,
+    .tertiary {
+      @include transition(0.5s width ease);
+
+      &:not(:last-child) {
+        padding-right: 20px;
+        border-right: 1px solid $ci_midgray;
+      }
+    }
+
+    .secondary,
+    .tertiary {
+        overflow: hidden;
+    }
+  }
+}
+
+.row,
+[role=content] {
+  &.two-columns {
+    .secondary {
+      @include span-columns(2);
+
+      float: right;
+    }
+
+    .primary {
+      @include span-columns(10);
+
+      float: left;
     }
 
     &.inverted {
       .primary {
-        @include span-columns(9);
+        @include span-columns(10);
+        @include omega;
       }
 
       .secondary {
-        @include span-columns(3);
-        @include omega;
+        @include span-columns(2);
       }
     }
   }
 
   &.three-columns {
     .primary {
-      @include span-columns(6);
+      @include span-columns(8);
     }
 
     .secondary, .tertiary {
-      @include span-columns(3);
+      @include span-columns(2);
+
+    }
+
+    .secondary {
+      padding-top: 30px;
     }
 
     .tertiary {
-      @include omega;
+      float: right;
+      margin-top: 30px;
+    }
+  }
+}
+
+.row {
+  &.two-columns {
+    .secondary {
+      float: left;
     }
   }
 }

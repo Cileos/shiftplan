@@ -30,6 +30,7 @@ a {
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   letter-spacing: -.05em;
+  line-height: 1.2;
 }
 
 h1.huge {
@@ -46,7 +47,6 @@ h1, h2 {
 
 h3 {
   font-size: $ci_big-font;
-  line-height: 1.90476em;
   padding: 0.9524em 0 0;
 }
 
@@ -231,20 +231,14 @@ small {
     color: $ci_blue;
     border-bottom: 2px solid $ci_blue;
     font-weight: bold;
-  
+
     &:hover {
       color: #fff;
     }
   }
 }
 
-.instructions {
-  padding: 20px;
-  background: lighten($ci_yellow, 40%);
-  color: darken($ci_yellow, 30%);
-}
-
-.masthead {
+.masterhead {
   @include clearfix;
 
   padding: 10px 0;
@@ -348,4 +342,55 @@ small {
   float: left;
   border: 1px solid $ci_anthracite;
   margin: 2px 5px 3px;
+}
+
+
+[data-toggle='collapsible-heading'] {
+  @include transition(0.5s color ease);
+
+  position: relative;
+  margin: 0 0 0.5em 1em;
+  font-size: $ci_large-font;
+  cursor: pointer;
+
+  &[data-icon]:before {
+    position: absolute;
+    top: 0.05em;
+    left: -1em;
+  }
+
+  &.collapsed[data-icon]:before {
+    left: -0.75em;
+  }
+
+  &:hover {
+    color: $ci_blue;
+  }
+}
+
+// [data-toggle="collapsible-content"] {
+// }
+
+.utility-button.toggle-sidebars {
+  @include border-radius(2px);
+
+  position: absolute;
+  top: 60px;
+  display: inline-block;
+  width: 20px;
+  padding: 4px 0 0;
+  text-align: center;
+  line-height: 1;
+  font-size: 20px;
+
+  &:before {
+    margin-right: 0;
+  }
+}
+
+.toggle-sidebars[data-toggle="sidebar"] {
+  left: 0;
+}
+.toggle-sidebars[data-toggle="contextual_help"] {
+  right: 0;
 }

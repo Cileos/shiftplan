@@ -7,6 +7,7 @@ Shiftplan::Application.routes.draw do
 
   resources :accounts do
     resources :organizations do
+
       resources :plans do
         resources :schedulings do
           resources :comments, only: [:index, :create, :destroy], controller: 'scheduling_comments'
@@ -24,19 +25,24 @@ Shiftplan::Application.routes.draw do
         end
 
         resource :copy_week, only: [:new, :create], controller: :copy_week
-      end
+
+        resources :milestones
+        # TODO nest tasks under milestones, EmberData cannot do this 2012-09-11
+        resources :tasks
+      end # plans
+
       resources :employees
-      resources :teams do
-        resource :merge, only: [:new, :create], :controller => 'team_merge'
-      end
+      resources :teams
+      resources :team_merges, only: [:new, :create], :controller => 'team_merges'
       resources :invitations
       resources :blogs do
         resources :posts do
           resources :comments, only: [:create, :destroy], controller: 'post_comments'
         end
       end
-    end
-  end
+
+    end # organizations
+  end # accounts
 
   resource :user, only: :show, controller: 'user'
   get 'user/email'  => 'user_email#show', :as => :user_email

@@ -20,5 +20,9 @@ jQuery(document).ready ->
 
   $('#calendar.hours-in-week').each ->
     $calendar = $(this)
-    $calendar.on 'update', 'td.day', layout_stacks
-    $calendar.find('td.day').each layout_stacks
+    $calendar.on 'update', 'td', layout_stacks
+    $calendar.find('td').each layout_stacks
+
+  if jQuery.browser.mozilla
+    $('#calendar.hours-in-week td').wrapInner('<div style="padding: 2px; height: 100%; width: 100%; position: relative" />')
+                                   .css('padding', '0')
