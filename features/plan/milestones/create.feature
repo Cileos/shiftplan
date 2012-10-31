@@ -8,7 +8,6 @@ Feature: create Milestones for a plan
   Background:
    Given today is 2012-12-18
      And the situation of a nuclear reactor
-     And I follow "Meilensteine"
      And I follow "neuer Meilenstein"
 
   Scenario: create a milestone with name only
