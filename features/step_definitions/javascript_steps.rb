@@ -21,3 +21,9 @@ Then /^I deactivate all alert dialogs$/ do
     window.alert = function(msg) { return true; }
   EOJS
 end
+
+When /^I close all colorpickers$/ do
+  page.execute_script("$('input.miniColors').miniColors('destroy')")
+  sleep 0.5
+end
+

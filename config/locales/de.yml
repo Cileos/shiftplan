@@ -238,3 +238,5 @@ de:
 
       full_messages:
         format: "%{attribute} %{message}"
+
+  action: Aktion

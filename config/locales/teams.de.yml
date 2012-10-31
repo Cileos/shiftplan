@@ -13,15 +13,27 @@ de:
     attributes:
       team_merge:
         other_team_id: anderes Team
+        new_team_id: Neuer Teamname
   flash:
     team_merge:
       create:
         notice: "Teams erfolgreich zusammengeführt."
 
+  team_merges:
+    new:
+      instructions: >
+        Wollen Sie wirklich Team "%{team_name}" und Team "%{other_team_name}" zusammenlegen?
+        Falls ja, wählen Sie bitte den Namen des neuen Teams aus und klicken auf Bestätigen.
+        Dieser Schritt ist unwiderrufbar. Alle Einträge der Teams werden dem neuen Team
+        zugeordnet.
+    flash:
+      success: "Teams erfolgreich zusammengelegt."
   teams:
     index:
-      team_color: Farbe
+      no_teams: "Es existieren noch keine Teams für diese Organisation."
       action: Aktion
+    table:
+      team_color: Farbe
       instructions: >
         Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
         oder Aufgaben unterschieden werden.
@@ -32,13 +44,16 @@ de:
 
         Beispiel: @9-17 Teller Abwaschen@
 
+        Sie können ein neues Team auch explizit anlegen, indem Sie auf den Hinzufügen
+        Button klicken.
+
 
         Zusätzlich können _Kürzel_ verwendet werden, um das Ausfüllen der Pläne
         einfacher zu gestalten. Diese werden automatisch aus den
         Anfangsbuchstaben des Teamnamens erstellt, aber können auch bei der
         ersten Erwähnung des Teams im Plan verwendet werden.
 
-        Beispiel: @9-17 Teller Abwaschen [A1]@
+        Beispiel: @9-17 Teller Abwaschen [TA]@
     show:
       merge_motivation: >
         Falls durch Tippfehler ein zweites Team angelegt wurde, kann es mit

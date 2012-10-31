@@ -106,3 +106,7 @@ When /^I click on (the #{match_nth}\s?\w+\s?\w+)(?!within.*)$/ do |name|
   page.should have_css(selector)
   page.first( selector ).click
 end
+
+When /^I check the checkbox$/ do
+  page.first('input[type=checkbox]').click()
+end
