@@ -10,6 +10,7 @@
 //= require_tree './editors'
 //= require mailcheck
 //= require collapsible
+//= require sidebars
 // always last!
 //= require lib/loaded_page
 

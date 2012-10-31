@@ -62,6 +62,7 @@ module ActionHelper
     edit_post:         '&#xf044;',
     expand:            '&#xf0da;',
     collapse:          '&#xf0d7;',
+    left_caret:        '&#xf0d9;',
 
   }
 
