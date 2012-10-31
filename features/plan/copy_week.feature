@@ -20,7 +20,9 @@ Feature: Plan a week
       And I select "KW 49 03.12.2012" from "Von"
       And I press "Übernehmen"
      Then I should be on the employees in week page of the plan for year: 2012, week: 50
-      And I should see a calendar titled "Cleaning the Reactor - KW 50 10.12.2012"
+      And I should see a calendar titled "Cleaning the Reactor"
+      And I should see "KW 50 / 2012" within active week
+      And I should see "10.12." within weeks first date
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di    | Mi    | Do    | Fr |
         | Carl C        |    |       |       |       |    |
