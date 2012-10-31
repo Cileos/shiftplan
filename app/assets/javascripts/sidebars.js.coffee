@@ -11,8 +11,8 @@ jQuery(document).ready ->
   updateWidths = ->
     # sidebar width: 14.70196% # from neat css
     small_width = '65.88078%'  # from neat css
-    medium_width = '80%'
-    full_width = '95%'
+    medium_width = '81%'
+    full_width = '96%'
 
     cnt = $('#toggle_sidebar').hasClass('collapsed') ? 1 : 0
     cnt += $('#toggle_contextual_help').hasClass('collapsed') ? 1 : 0
@@ -23,6 +23,10 @@ jQuery(document).ready ->
       else small_width
 
     $('.primary').css('width', wdth)
+    if $('#toggle_contextual_help').hasClass('collapsed')
+      $('.primary').css('margin-right', '1%')
+    else
+      $('.primary').css('margin-right', '')
 
   toggleSidebars = (e) ->
     id = e.attr('id')

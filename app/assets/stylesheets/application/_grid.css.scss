@@ -66,11 +66,15 @@
     .secondary, .tertiary {
       @include span-columns(2);
 
-      margin-top: 30px;
+    }
+
+    .secondary {
+      padding-top: 30px;
     }
 
     .tertiary {
       float: right;
+      margin-top: 30px;
     }
   }
 }
