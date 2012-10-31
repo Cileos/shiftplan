@@ -368,15 +368,8 @@ small {
   }
 }
 
-[data-toggle="collapsible-content"] {
-  @include transition(0.5s height ease);
-  height: auto;
-  overflow: hidden;
-
-  &.collapsed {
-    height: 0px;
-  }
-}
+// [data-toggle="collapsible-content"] {
+// }
 
 .utility-button.toggle-sidebars {
   @include border-radius(2px);

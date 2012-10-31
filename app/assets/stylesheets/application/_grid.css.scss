@@ -28,6 +28,11 @@
         border-right: 1px solid $ci_midgray;
       }
     }
+
+    .secondary,
+    .tertiary {
+        overflow: hidden;
+    }
   }
 }
 
