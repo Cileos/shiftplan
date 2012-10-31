@@ -92,3 +92,21 @@
     - if @organization.company_blog.present?
       .module.list.news
         %header
+          %h2= t(:'blogs.company_news')
+
+        .content
+          %ul
+            %li
+              %a{ :href => "#" } News post
+            %li
+              %a{ :href => "#" } News post
+            %li
+              %a{ :href => "#" } News post
+            %li
+              %a{ :href => "#" } News post
+            %li
+              %a{ :href => "#" } News post
+
+          %p#all-news
+            = link_to 'Alle Neuigkeiten anzeigen', nested_resources_for(@organization.company_blog) + [:posts], id: 'all-news', class: 'button utility-button'
+
