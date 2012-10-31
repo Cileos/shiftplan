@@ -9,20 +9,36 @@
 
 DS.RESTAdapter.reopen
   createRecord: (store, type, record) ->
-    root = this.rootForType(type)
+    root = @rootForType(type)
 
     data = {}
-    data[root] = record.toJSON(record, includeId: true)
+    data[root] = @toJSON record, includeId: true
 
     @ajax @buildURL(root), "POST",
-      data: data,
-      context: this,
+      data: data
+      context: this
       success: (json) ->
         @didCreateRecord(store, type, record, json)
       error: (xhr) ->
         if xhr.status == 422
           data = Ember.$.parseJSON xhr.responseText
-          # we don't materialize the errors, so we cannot use them in a view :(
+          store.recordWasInvalid record, data.errors
+
+  updateRecord: (store, type, record) ->
+    id = Ember.get record, 'id'
+    root = @rootForType(type)
+
+    data = {}
+    data[root] = @toJSON record
+
+    @ajax @buildURL(root, id), 'PUT',
+      data: data
+      context: this
+      success: (json) ->
+        @didUpdateRecord(store, type, record, json)
+      error: (xhr) ->
+        if xhr.status == 422
+          data = Ember.$.parseJSON xhr.responseText
           store.recordWasInvalid record, data.errors
 
 # TODO naive, does not consider translating the fields

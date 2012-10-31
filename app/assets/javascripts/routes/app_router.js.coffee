@@ -49,11 +49,26 @@ Shiftplan.Router = Ember.Router.extend
       edit: Ember.Route.extend
         route: '/edit/:milestone_id'
         connectOutlets: (router, milestone) ->
+          transaction = Shiftplan.store.transaction()
+          transaction.add milestone
+          router.set 'currentTransaction', transaction
           router.openModal 'editMilestone', milestone
         save: (router) ->
           if milestone = router.get('editMilestoneController.content')
-            transaction = Shiftplan.store.commit() # FIXME use transaction. somehow...
-            router.transitionTo('milestones')
+            transaction = router.get('currentTransaction')
+            milestone.observeSaveOnce
+              success: -> router.transitionTo('milestones')
+              error: ->
+                # we cannot add a dirty record to a transaction and we cannot re-use a failed transaction
+                # FIXME when we rollback a failed transaction with pre-existing
+                # records, it does not remove the isDirty flag from the DS.Model
+                changes = milestone.toJSON()
+                newTransaction = Shiftplan.store.transaction()
+                transaction.rollback()
+                newTransaction.add milestone
+                milestone.setProperties changes
+                router.set 'currentTransaction', newTransaction
+            transaction.commit()
         cancel: Ember.Route.transitionTo('milestones')
         exit: (router) -> router.closeModal()
       delete: (router) ->
