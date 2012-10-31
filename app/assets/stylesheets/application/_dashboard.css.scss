@@ -34,17 +34,14 @@
     }
 
     .date {
-      position: relative;
-      padding-left: 55px; 
       width: 125px;
     }
 
     .day {
       font-size: 36px;
       float: left;
-      position: absolute;
-      top: 0;
-      left: 10px;
+      margin-right: 10px;
+      line-height: 1;
     }
 
     .day-name,
