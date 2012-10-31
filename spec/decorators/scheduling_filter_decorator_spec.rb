@@ -14,21 +14,21 @@ describe SchedulingFilterDecorator, 'mode' do
   end
 
   it "plan period for plan with start and end date" do
-    plan = build :plan, starts_at: DateTime.parse('2012-12-12'), ends_at: DateTime.parse('2012-12-24')
+    plan = build :plan, starts_at: Time.zone.parse('2012-12-12'), ends_at: Time.zone.parse('2012-12-24')
     filter = SchedulingFilter.new plan: plan
     decorator = SchedulingFilterDecorator.new(filter)
     decorator.plan_period.should == "Beginnt: 12.12.2012 Endet: 24.12.2012"
   end
 
   it "plan period for plan with only start date" do
-    plan = build :plan, starts_at: DateTime.parse('2012-12-12')
+    plan = build :plan, starts_at: Time.zone.parse('2012-12-12')
     filter = SchedulingFilter.new plan: plan
     decorator = SchedulingFilterDecorator.new(filter)
     decorator.plan_period.should == "Beginnt: 12.12.2012"
   end
 
   it "plan period for plan with only end date" do
-    plan = build :plan, ends_at: DateTime.parse('2012-12-24')
+    plan = build :plan, ends_at: Time.zone.parse('2012-12-24')
     filter = SchedulingFilter.new plan: plan
     decorator = SchedulingFilterDecorator.new(filter)
     decorator.plan_period.should == "Endet: 24.12.2012"
