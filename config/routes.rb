@@ -26,9 +26,8 @@ Shiftplan::Application.routes.draw do
         resource :copy_week, only: [:new, :create], controller: :copy_week
       end
       resources :employees
-      resources :teams do
-        resource :merge, only: [:new, :create], :controller => 'team_merge'
-      end
+      resources :teams
+      resources :team_merges, only: [:new, :create], :controller => 'team_merges'
       resources :invitations
       resources :blogs do
         resources :posts do

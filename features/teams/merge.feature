@@ -1,3 +1,4 @@
+@javascript
 Feature: Merge Teams
   In order to remove double teams caused by wrongly typing the name
   As a Planer
@@ -19,19 +20,21 @@ Feature: Merge Teams
        | Name              | Kürzel |
        | Reaktor putzen    | Rp     |
        | Reaktor schrubben | Rs     |
-     When I follow "Reaktor putzen"
-      And I follow "Zusammenlegen"
-      And I select "Reaktor schrubben" from "anderes Team"
+     When I check the checkbox within the first table row
+      And I check the checkbox within the second table row
       And I press "Zusammenlegen"
+      And I wait for the modal box to appear
+     When I select "Reaktor schrubben" from "Neuer Teamname"
+      And I press "Bestätigen"
+      And I wait for the modal box to disappear
      Then I should be on the page for teams of the organization
-      And I should see info "Teams erfolgreich zusammengeführt."
+      And I should see info "Teams erfolgreich zusammengelegt."
       And I should see the following table of teams:
-       | Name           | Kürzel |
-       | Reaktor putzen | Rp     |
-      But I should not see "Reaktor schrubben"
+       | Name              | Kürzel |
+       | Reaktor schrubben | Rs     |
      When I go to the page of the plan
      Then I should see the following calendar:
-        | Mitarbeiter   | Fr     | Sa     |
-        | Carl C        |        |        |
-        | Lenny L       | 2-3 Rp | 3-4 Rp |
-        | Homer S       | 1-2 Rp | 2-3 Rp |
+        | Mitarbeiter | Fr     | Sa     |
+        | Carl C      |        |        |
+        | Lenny L     | 2-3 Rs | 3-4 Rs |
+        | Homer S     | 1-2 Rs | 2-3 Rs |

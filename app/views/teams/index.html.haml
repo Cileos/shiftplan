@@ -1,7 +1,8 @@
 - title :teams
 
 - masthead_toolbar do
-  %button{:id => 'merge-button'}
+  %button{ :id => 'merge-button',
+    'data-url' => new_account_organization_team_merge_path(current_account, current_organization) }
     = ti(:merge)
 
   - if can? :create, Team

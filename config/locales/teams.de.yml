@@ -13,11 +13,21 @@ de:
     attributes:
       team_merge:
         other_team_id: anderes Team
+        new_team_id: Neuer Teamname
   flash:
     team_merge:
       create:
         info: "Teams erfolgreich zusammengeführt."
 
+  team_merges:
+    new:
+      instructions: >
+        Wollen Sie wirklich Team "%{team_name}" und Team "%{other_team_name}" zusammenlegen?
+        Falls ja, wählen Sie bitte den Namen des neuen Teams aus und klicken auf Bestätigen.
+        Dieser Schritt ist unwiderrufbar. Alle Einträge der Teams werden dem neuen Team
+        zugeordnet.
+    flash:
+      success: "Teams erfolgreich zusammengelegt."
   teams:
     index:
       no_teams: "Es existieren noch keine Teams für diese Organisation."
