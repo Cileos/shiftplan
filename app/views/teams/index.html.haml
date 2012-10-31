@@ -13,7 +13,7 @@
           %th= Team.human_attribute_name(:name)
           %th= Team.human_attribute_name(:shortcut)
           %th= t('.team_color')
-          %th= ta('action')
+          %th= ta(:action)
 
       %tbody
         - collection.each do |team|

@@ -6,7 +6,7 @@
       %th= t('activerecord.attributes.plan.starts_at')
       %th= t('activerecord.attributes.plan.ends_at')
       - if can?(:manage, Plan)
-        %th= ta('action')
+        %th= ta(:action)
 
   %tbody
     - plans.each do |plan|
