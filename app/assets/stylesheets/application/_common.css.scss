@@ -62,6 +62,13 @@ small {
   font-size: $ci_font-size;
 }
 
+.side-link {
+  font-size: 12px;
+  float: right;
+  font-weight: normal;
+  letter-spacing: 0;
+}
+
 [role=banner] {
   background: $ci_blue;
   border-bottom: 1px solid darken($ci_blue, 7.5%);

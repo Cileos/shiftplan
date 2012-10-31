@@ -23,6 +23,32 @@
       background: $ci_lightgray;
       color: $ci_darkgray;
     }
+
+    .tag {
+      @include border-radius(10px);
+
+      padding: 3px 5px;
+      margin-right: 5px;
+      font-size: 10px;
+      background: $ci_lightgray;
+    }
+  }
+
+  .news {
+    li strong {
+      display: block;
+      font-size: 12px;
+    }
+  }
+
+  .notifications {
+    .avatar {
+      width: 16px;
+    }
+
+    li:before {
+      color: $ci_darkgray;
+    }
   }
 
   .agenda {
@@ -54,6 +80,8 @@
 
     .month-year {
       color: $ci_gray;
+      font-size: 12px;
+      font-weight: normal;
     }
 
     td {
