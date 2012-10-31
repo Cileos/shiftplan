@@ -7,9 +7,9 @@
       - if organization = @organization || current_organization
         %li.dropdown
           = link_to organization.name, '#', class: 'organization', data: { icon: i(:organization), toggle: 'dropdown' }
-          %ul
-            - current_user.joined_organizations.each do |org|
-              %li= link_to org.account.name + " - " + org.name, nested_resources_for(org)
+          %ul.organization-dropdown
+            - (current_user.joined_organizations - [organization]).each do |org|
+              %li= link_to org.name_with_account, nested_resources_for(org)
 
         = render 'organizations/navigation_links', organization: organization
     - else

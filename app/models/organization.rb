@@ -42,4 +42,8 @@ class Organization < ActiveRecord::Base
       blogs.create! :title => 'Company Blog'
     end
   end
+
+  def name_with_account
+    account.name + " - " + name
+  end
 end

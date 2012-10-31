@@ -3,6 +3,6 @@
     %ul
       %li.dropdown
         %a{href: '#', 'data-toggle' => 'dropdown'}= Organization.model_name.human count: 9001
-        %ul
+        %ul.organization-dropdown
           - current_user.joined_organizations.each do |org|
-            %li= link_to org.account.name + " - " + org.name, nested_resources_for(org)
+            %li= link_to org.name_with_account, nested_resources_for(org)
