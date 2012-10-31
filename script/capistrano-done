@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 
+stage = ARGV.shift || 'somewhere'
 require 'drb'
 DRb.start_service()
 bot = DRbObject.new(nil, 'druby://localhost:5678')
 ENV['PROJECT'] = 'shiftplan'
-bot.notify 'deployed', 'version' => File.read('REVISION')
+bot.notify 'deployed', 'version' => "#{File.read('REVISION')} => #{stage}"
 
 
