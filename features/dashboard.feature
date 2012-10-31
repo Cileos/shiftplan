@@ -17,21 +17,10 @@ Feature: Dashboard
 
      And I am signed in as the user "homer"
     When I go to the dashboard
-     And I should see "AKW Fukushima GmbH"
-     And I should see "Reaktor putzen in Fukushima"
-     And I should see "AKW Tschernobyl GmbH"
-     And I should see "Brennstäbe wechseln in Tschernobyl"
 
      And I should see "Organisationen" within the navigation
-     And I should see "AKW Fukushima GmbH" within the navigation
-     And I should see "AKW Tschernobyl GmbH" within the navigation
-
-    When I follow "Reaktor putzen in Fukushima"
-    Then I should be on the employees in week page of the plan "reaktor putzen" for week: 49, year: 2012
-
-    When I go to the dashboard
-     And I follow "Brennstäbe wechseln in Tschernobyl"
-    Then I should be on the employees in week page of the plan "brennstäbe wechseln" for week: 49, year: 2012
+     And I should see "AKW Fukushima GmbH" within the organization dropdown list
+     And I should see "AKW Tschernobyl GmbH" within the organization dropdown list
 
     When I go to the dashboard
      And I follow "AKW Fukushima GmbH"

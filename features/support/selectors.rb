@@ -29,6 +29,9 @@ module HtmlSelectorsHelpers
     when 'the navigation'
       'nav[role=navigation]'
 
+    when 'the organization dropdown list'
+      selector_for('the navigation') + ' ul.organization-dropdown'
+
     when 'the user navigation'
       '.user-navigation'
 
