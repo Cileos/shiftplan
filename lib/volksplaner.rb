@@ -7,7 +7,7 @@ module Volksplaner
   end
 
   def self.hostname
-    @hostname ||= staging?? 'staging.clockwork.io' : 'clockwork.io'
+    @hostname ||= staging?? 'staging.clockwork.io' : 'app.clockwork.io'
   end
 end
 
