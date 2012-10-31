@@ -1,4 +1,5 @@
 jQuery(document).ready ->
+  return if $('#calendar').length == 0
 
   setIcon = (lnk, id) ->
     icon_left = ""
