@@ -13,4 +13,7 @@
     .actions
       %button.button-success{type: 'submit'}
         %i.icon-ok-circle.icon-white
-        = ta update_or_create
+        - if f.object.persisted?
+          = ta :update
+        - else
+          = ta :create
