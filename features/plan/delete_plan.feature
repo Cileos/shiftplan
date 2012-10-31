@@ -35,6 +35,7 @@ Feature: Deleting plans
 
      When I deactivate all alert dialogs
       And I follow "Löschen" within the first table row
+      # the reason we cannot delete is in the disable alert box
      Then I should be on the plans page of the organization
       And I should not see "Es wurden noch keine Pläne angelegt"
       But I should see the following table of plans:
