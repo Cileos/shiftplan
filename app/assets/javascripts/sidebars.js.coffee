@@ -47,6 +47,7 @@ jQuery(document).ready ->
       e.css('width', '0')
        .css('padding-right', '0')
        .css('overflow', 'hidden')
+       .css('border-right', 'none')
       updateWidths(e)
       $.cookie('shiftplan_'+id, 'collapsed', { path: '/' })
       false
@@ -55,6 +56,7 @@ jQuery(document).ready ->
       e.css('width', '')
        .css('padding-right', '')
        .css('overflow', '')
+       .css('border-right', '')
       updateWidths(e, 'restore')
       $.cookie('shiftplan_'+id, 'visible', { path: '/' })
       false

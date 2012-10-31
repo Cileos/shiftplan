@@ -346,6 +346,8 @@ small {
 
 
 [data-toggle='collapsible-heading'] {
+  @include transition(0.5s color ease);
+
   position: relative;
   margin: 0 0 0.5em 1em;
   font-size: $ci_large-font;
@@ -359,6 +361,10 @@ small {
 
   &.collapsed[data-icon]:before {
     left: -0.75em;
+  }
+
+  &:hover {
+    color: $ci_blue;
   }
 }
 
