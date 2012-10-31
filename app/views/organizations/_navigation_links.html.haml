@@ -6,8 +6,7 @@
     = li_link '.news', base + [company_blog, :posts], can: [:read, organization], data: { icon: i(:news) }
   - active_or_not = dropdown_class polymorphic_path(base)
   %li{class: "dropdown #{active_or_not}"}
-    %a.dropdown-toggle{href: '#', data: { toggle: 'dropdown', icon: i(:dropdown)}}
-      = t(:'helpers.actions.plans')
+    = link_to t(:'helpers.actions.plans'), base + [:plans], { data: { toggle: 'dropdown', icon: i(:dropdown)}}
     %ul
       %li= link_to :all_plans, base + [:plans]
       - organization.plans.each do |plan|
