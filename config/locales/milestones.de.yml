@@ -3,4 +3,4 @@ de:
     models:
       milestone:
         one: "Meilenstein"
-        others: "Meilensteine"
+        other: "Meilensteine"
