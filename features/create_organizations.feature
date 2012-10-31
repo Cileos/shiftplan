@@ -13,7 +13,7 @@ Feature: create organizations
       And I press "Anlegen"
 
      Then I should be on the dashboard
-      And I should see info "Organisation 'Reactor Shelbyville' angelegt."
+      And I should see "Organisation 'Reactor Shelbyville' angelegt."
       And I should see "Fukushima" within the content
       And I should see "Reactor Shelbyville" within the content
       And an organization "shelbyville" should exist with name: "Reactor Shelbyville", account: the account
