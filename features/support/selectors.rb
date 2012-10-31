@@ -62,6 +62,9 @@ module HtmlSelectorsHelpers
     when /^the #{capture_nth} active tab$/
       ".tabbable#{Numerals[$1]} .tab-pane.active"
 
+    when /^the #{capture_nth} table row$/
+      "table tbody tr#{Numerals[$1]}"
+
     when /^the comment link$/
       'a.comments'
 
