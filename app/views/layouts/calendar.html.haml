@@ -5,16 +5,19 @@
   %body
     = render 'layouts/top'
 
-    %section{:role => 'content', :class => content_class(3)}
+    %section{:role => 'content', :class => content_class(2) + ' inverted has-calendar'}
       = render 'flash'
 
       #sidebar.secondary
         = collapsible(t('schedulings.information'), id: 'calendar-information', class: 'calendar-information') do
-          .calendar-description!= textilize filter.plan.description
+          .calendar-active-week= filter.formatted_range
+          .calendar-description!= filter.plan.description
           .calendar-period-dates
             %div= filter.plan_period_start_date
             %div= filter.plan_period_end_date
-          .calendar-active-week= filter.formatted_range
+
+        = collapsible(t('help.calendar.keyboard_heading'), id: 'keyboard-shortcuts', class: 'keyboard-shortcuts') do
+          = help_tag 'calendar.keyboard'
 
         = yield(:sidebar)
 
@@ -26,10 +29,7 @@
 
         = yield
 
-      #contextual_help{:class => contextual_help_class(3)}
-        = collapsible(t('help.calendar.keyboard_heading'), id: 'keyboard-shortcuts', class: 'keyboard-shortcuts') do
-          = help_tag 'calendar.keyboard'
-
-        = yield(:contextual_help)
+      -# #contextual_help{:class => contextual_help_class(3)}
+      -#   = yield(:contextual_help)
 
     = render 'layouts/footer'

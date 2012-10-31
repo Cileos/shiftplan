@@ -4,6 +4,7 @@ jQuery(document).ready ->
     coll_head = e.children('[data-toggle="collapsible-heading"]')
     coll_cont = e.children('[data-toggle="collapsible-content"]')
 
+    e.toggleClass('collapsed')
     coll_head.toggleClass('collapsed')
     coll_cont.toggleClass('collapsed')
 

@@ -2,6 +2,10 @@
 .tertiary {
   > div {
     margin-bottom: 2em;
+
+    &.collapsed {
+      margin-bottom: 1em;
+    }
   }
 }
 

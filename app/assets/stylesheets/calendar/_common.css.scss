@@ -1,3 +1,9 @@
+.has-calendar {
+  .secondary {
+      padding-top: 30px;
+  }
+}
+
 .calendar {
   abbr {
     border-bottom: none;
@@ -128,4 +134,13 @@
     }
 
   }
+}
+
+.calendar-active-week {
+  font-weight: bold;
+}
+
+.calendar-description {
+  color: $ci_darkgrey;
+  margin: 0.2em 0;
 }
