@@ -49,11 +49,11 @@
     &.inverted {
       .primary {
         @include span-columns(10);
+        @include omega;
       }
 
       .secondary {
         @include span-columns(2);
-        @include omega;
       }
     }
   }
