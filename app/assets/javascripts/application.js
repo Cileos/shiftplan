@@ -1,4 +1,5 @@
 // Please include all needed application specific JS files manually
+//= require jquery.cookie
 //= require defaults
 //= require employees
 //= require plans
@@ -8,8 +9,8 @@
 //= require 'calendar/vertical_positioning'
 //= require_tree './editors'
 //= require mailcheck
-//= require help
-//= require legend
+//= require collapsible
+//= require sidebars
 // always last!
 //= require lib/loaded_page
 

@@ -15,29 +15,36 @@ Feature: Calendar navigation
       And I am signed in as the confirmed user "Burns"
       And I go to the page of the plan
      Then I should be on the employees in week page of the plan for year: 2015, week: 53
-      And I should see "KW 53 28.12.2015"
+      And I should see "KW 53 / 2015" within active week
+      And I should see "28.12." within weeks first date
 
      When I go to the <view> page of the plan for year: 2015, week: 53
-      And I should see "KW 53 28.12.2015"
+      And I should see "KW 53 / 2015" within active week
+      And I should see "28.12" within weeks first date
 
      When I follow ">" within the toolbar
      Then I should be on the <view> page of the plan for year: 2016, week: 1
-      And I should see "KW 01 04.01.2016"
+      And I should see "KW 01 / 2016" within active week
+      And I should see "04.01." within weeks first date
 
      When I follow "Heute" within the toolbar
      Then I should be on the <view> page of the plan for year: 2015, week: 53
-      And I should see "KW 53 28.12.2015"
+      And I should see "KW 53 / 2015" within active week
+      And I should see "28.12." within weeks first date
 
      When I go to the <view> page of the plan for year: 2016, week: 1
-      And I should see "KW 01 04.01.2016"
+      And I should see "KW 01 / 2016" within active week
+      And I should see "04.01." within weeks first date
 
      When I follow "<" within the toolbar
      Then I should be on the <view> page of the plan for year: 2015, week: 53
-      And I should see "KW 53 28.12.2015"
+      And I should see "KW 53 / 2015" within active week
+      And I should see "28.12." within weeks first date
 
      When I follow "<" within the toolbar
      Then I should be on the <view> page of the plan for year: 2015, week: 52
-      And I should see "KW 52 21.12.2015"
+      And I should see "KW 52 / 2015" within active week
+      And I should see "21.12." within weeks first date
 
     Examples:
       | view              |
@@ -55,18 +62,22 @@ Feature: Calendar navigation
       And I am signed in as the confirmed user "Burns"
       And I go to the page of the plan
      Then I should be on the employees in week page of the plan for year: 2015, week: 1
-      And I should see "KW 01 29.12.2014"
+      And I should see "KW 01 / 2014" within active week
+      And I should see "29.12." within weeks first date
 
      When I go to the <view> page of the plan for year: 2015, week: 1
-      And I should see "KW 01 29.12.2014"
+      And I should see "KW 01 / 2014" within active week
+      And I should see "29.12." within weeks first date
 
      When I follow "<" within the toolbar
      Then I should be on the <view> page of the plan for year: 2014, week: 52
-      And I should see "KW 52 22.12.2014"
+      And I should see "KW 52 / 2014" within active week
+      And I should see "22.12." within weeks first date
 
      When I follow "Heute" within the toolbar
      Then I should be on the <view> page of the plan for year: 2015, week: 1
-      And I should see "KW 01 29.12.2014"
+      And I should see "KW 01 / 2014" within active week
+      And I should see "29.12." within weeks first date
 
     Examples:
       | view              |
@@ -128,7 +139,9 @@ Feature: Calendar navigation
 
      When I go to the page of the plan
      Then I should be on the employees in week page of the plan for week: 49, year: 2012
-      And I should see a calendar titled "Cleaning the Reactor - KW 49 03.12.2012"
+      And I should see a calendar titled "Cleaning the Reactor"
+      And I should see "KW 49 / 2012" within active week
+      And I should see "03.12." within weeks first date
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di    | Mi | Do | Fr |
         | Carl C        |    |       |    |    |    |
@@ -137,7 +150,9 @@ Feature: Calendar navigation
 
      When I follow "<" within the toolbar
      Then I should be on the employees in week page of the plan for week: 48, year: 2012
-      And I should see a calendar titled "Cleaning the Reactor - KW 48 26.11.2012"
+      And I should see a calendar titled "Cleaning the Reactor"
+      And I should see "KW 48 / 2012" within active week
+      And I should see "26.11." within weeks first date
       And I should see the following calendar:
         | Mitarbeiter   | Mo   | Di | Mi | Do | Fr |
         | Carl C        |      |    |    |    |    |
@@ -146,7 +161,9 @@ Feature: Calendar navigation
 
      When I follow ">" within the toolbar
      Then I should be on the employees in week page of the plan for week: 49, year: 2012
-      And I should see a calendar titled "Cleaning the Reactor - KW 49 03.12.2012"
+      And I should see a calendar titled "Cleaning the Reactor"
+      And I should see "KW 49 / 2012" within active week
+      And I should see "03.12." within weeks first date
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di    | Mi | Do | Fr |
         | Carl C        |    |       |    |    |    |
@@ -155,7 +172,9 @@ Feature: Calendar navigation
 
      When I follow ">" within the toolbar
      Then I should be on the employees in week page of the plan for week: 50, year: 2012
-      And I should see a calendar titled "Cleaning the Reactor - KW 50 10.12.2012"
+      And I should see a calendar titled "Cleaning the Reactor"
+      And I should see "KW 50 / 2012" within active week
+      And I should see "10.12." within weeks first date
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi    | Do | Fr |
         | Carl C        |    |    |       |    |    |
@@ -164,7 +183,9 @@ Feature: Calendar navigation
 
      When I follow ">" within the toolbar
      Then I should be on the employees in week page of the plan for week: 51, year: 2012
-      And I should see a calendar titled "Cleaning the Reactor - KW 51 17.12.2012"
+      And I should see a calendar titled "Cleaning the Reactor"
+      And I should see "KW 51 / 2012" within active week
+      And I should see "17.12." within weeks first date
       And I should see the following calendar:
         | Mitarbeiter   | Mo | Di | Mi | Do    | Fr |
         | Carl C        |    |    |    |       |    |
