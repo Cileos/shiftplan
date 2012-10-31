@@ -52,6 +52,7 @@ de:
       show_legend_long: "Legende anzeigen"
       show_help: "Hilfe"
       show_help_long: "Hilfe anzeigen"
+      action: "Aktion"
   schedulings:
     calendar_navigation:
       day: "Tag"

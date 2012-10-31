@@ -18,8 +18,6 @@ de:
   plans:
     index:
       no_plans: "Es wurden noch keine Pläne angelegt."
-    table:
-      action: "Aktion"
   helpers:
     actions:
       confirm_destroy_plan: "Plan \"%{plan}\" wirklich löschen?"

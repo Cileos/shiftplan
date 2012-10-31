@@ -21,7 +21,6 @@ de:
   teams:
     index:
       team_color: Farbe
-      action: Aktion
       instructions: >
         Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
         oder Aufgaben unterschieden werden.
