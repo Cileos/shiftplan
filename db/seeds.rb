@@ -35,7 +35,7 @@ if Rails.env.development?
   niklas = create :employee, account: cileos, user: user_with_multiple_employees, first_name: 'Niklas', last_name: 'Hofer', weekly_working_time: 40
   raphaela = create :employee, account: cileos, first_name: 'Raphaela', last_name: 'Wrede', weekly_working_time: 38
 
-  [niklas, raphaela].each do |empl|
+  [shakira, niklas, raphaela].each do |empl|
     create :membership, employee: empl, organization: clockwork
   end
 
@@ -45,7 +45,7 @@ if Rails.env.development?
   # a special organization niklas works totally alone
 
   wurstbrot = create :organization, name: 'Wurstbrot', account: cileos
-  [niklas].each do |empl|
+  [shakira, niklas].each do |empl|
     create :membership, employee: empl, organization: wurstbrot
   end
 
