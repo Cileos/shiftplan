@@ -6,7 +6,7 @@ module Volksplaner
     @staging = `hostname` =~ /FTD001/
   end
 
-  def hostname
+  def self.hostname
     @hostname ||= staging?? 'staging.clockwork.io' : 'clockwork.io'
   end
 end
