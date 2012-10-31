@@ -11,6 +11,7 @@
 //= require mailcheck
 //= require ./shiftplan
 //= require collapsible
+//= require sidebars
 // always last!
 //= require lib/loaded_page
 

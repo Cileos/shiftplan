@@ -10,8 +10,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def plan_period
     plan_period = []
-    plan_period << plan_period_start_date
-    plan_period << plan_period_end_date
+    plan_period << plan_period_start_date if plan.starts_at.present?
+    plan_period << plan_period_end_date if plan.ends_at.present?
     plan_period.join(' ')
   end
 

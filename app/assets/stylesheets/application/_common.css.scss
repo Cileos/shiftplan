@@ -363,7 +363,35 @@ small {
 }
 
 [data-toggle="collapsible-content"] {
+  @include transition(0.5s height ease);
+  height: auto;
+  overflow: hidden;
+
   &.collapsed {
-    display: none;
+    height: 0px;
   }
+}
+
+.utility-button.toggle-sidebars {
+  @include border-radius(2px);
+
+  position: absolute;
+  top: 60px;
+  display: inline-block;
+  width: 20px;
+  padding: 4px 0 0;
+  text-align: center;
+  line-height: 1;
+  font-size: 20px;
+
+  &:before {
+    margin-right: 0;
+  }
+}
+
+.toggle-sidebars[data-toggle="sidebar"] {
+  left: 0;
+}
+.toggle-sidebars[data-toggle="contextual_help"] {
+  right: 0;
 }
