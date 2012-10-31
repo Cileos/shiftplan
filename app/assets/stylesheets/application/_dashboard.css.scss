@@ -1,5 +1,7 @@
 .dashboard {
   .module {
+    margin-bottom: 20px;
+
     header {
       border-bottom: 1px solid $ci_lightgray;
       padding-bottom: .5em;
@@ -59,7 +61,7 @@
     }
   }
 
-  .company-information {
+  .list {
     ul {
       list-style: none;
       padding: 0 10px;
