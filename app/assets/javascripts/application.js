@@ -9,13 +9,16 @@
 //= require 'calendar/vertical_positioning'
 //= require_tree './editors'
 //= require mailcheck
+//= require ./shiftplan
 //= require collapsible
 //= require sidebars
 // always last!
 //= require lib/loaded_page
 
+//= require_self
 $(function(){
     $("#calendar").stickyTableHeaders({fixedOffset: 50});
+
     $("textarea").autosize();
 
     $("body").on("dialogopen", function() {

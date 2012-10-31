@@ -35,9 +35,9 @@ describe SchedulingNotificationMailer do
     end
 
     @plan =                             create :plan, organization: organization, name: 'AKW Springfield'
-    @scheduling_for_homer =             create :scheduling, quickie: '3-5 Reaktor putzen', starts_at: DateTime.parse('2012-12-21'),
+    @scheduling_for_homer =             create :scheduling, quickie: '3-5 Reaktor putzen', starts_at: Time.zone.parse('2012-12-21'),
                                           employee: @employee_homer, plan: @plan
-    @scheduling_for_lisa_without_user = create :scheduling, quickie: '3-5 Reaktor putzen', starts_at: DateTime.parse('2012-12-21'),
+    @scheduling_for_lisa_without_user = create :scheduling, quickie: '3-5 Reaktor putzen', starts_at: Time.zone.parse('2012-12-21'),
                                           employee: @employee_lisa_without_user, plan: @plan
     clear_mails
   end

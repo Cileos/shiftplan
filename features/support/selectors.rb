@@ -1,14 +1,4 @@
 module HtmlSelectorsHelpers
-  Numerals = {
-    'first'  => ':first',
-    'second' => ':nth-of-type(2)',
-    'third'  => ':nth-of-type(3)',
-    'forth'  => ':nth-of-type(4)'
-  }
-
-  def capture_nth
-    /(#{Numerals.keys.join('|')})/
-  end
   # Maps a name to a selector. Used primarily by the
   #
   #   When /^(.+) within (.+)$/ do |step, scope|
@@ -77,6 +67,9 @@ module HtmlSelectorsHelpers
 
     when /^the #{capture_nth} form$/
       "form#{Numerals[$1]}"
+
+    when /^the #{capture_nth} item/
+      "li#{Numerals[$1]}"
 
     when %r~^(?:the )?cell "([^"]+)"/"([^"]+)"$~
       column = column_index_for($1)

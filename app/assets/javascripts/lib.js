@@ -4,6 +4,11 @@
 //= require jquery.scrollTo-1.4.2
 //= require space-pen/space-pen
 //= require jquery.miniColors
+//= require handlebars
+//= require ember-latest
+//= require ember-data-latest
+//= require ember-rails-flash
+
 //= require_tree './lib'
 //= require spinner
 //= require jquery.remotipart

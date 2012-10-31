@@ -24,7 +24,7 @@ Feature: Merge Teams
       And I select "Reaktor schrubben" from "anderes Team"
       And I press "Zusammenlegen"
      Then I should be on the page for teams of the organization
-      And I should see info "Teams erfolgreich zusammengeführt."
+      And I should see flash notice "Teams erfolgreich zusammengeführt."
       And I should see the following table of teams:
        | Name           | Kürzel |
        | Reaktor putzen | Rp     |

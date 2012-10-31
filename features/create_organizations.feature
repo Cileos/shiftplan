@@ -19,7 +19,7 @@ Feature: create organizations
        And I fill in "Name" with "Reactor Shelbyville"
        And I press "Anlegen"
       Then I should be on the dashboard
-       And I should see info "Organisation 'Reactor Shelbyville' angelegt."
+       And I should see flash notice "Organisation 'Reactor Shelbyville' angelegt."
        And I should see "Reactor Springfield" within the content
        And I should see "Reactor Shelbyville" within the content
 

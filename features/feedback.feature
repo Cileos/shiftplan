@@ -16,7 +16,7 @@ Feature: Feedback without Screenshot
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear
-     Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
+     Then I should see a flash notice "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
       And "support@clockwork.io" should receive an email with subject "Sie haben neues Feedback erhalten von Planner Burns"
      When I open the email
@@ -38,7 +38,7 @@ Feature: Feedback without Screenshot
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear
-     Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
+     Then I should see a flash notice "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
       And "support@clockwork.io" should receive an email with subject "Sie haben neues Feedback erhalten von homer@shiftplan.local"
      When I open the email
@@ -59,7 +59,7 @@ Feature: Feedback without Screenshot
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear
-     Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
+     Then I should see a flash notice "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
       And "support@clockwork.io" should receive an email with subject "Sie haben neues Feedback erhalten von not Mr Burns"
      When I open the email
@@ -80,7 +80,7 @@ Feature: Feedback without Screenshot
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear
-     Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
+     Then I should see a flash notice "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
       And "support@clockwork.io" should receive an email with subject "Sie haben neues Feedback erhalten von Hein Blöd"
      When I open the email
@@ -100,7 +100,7 @@ Feature: Feedback without Screenshot
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear
-     Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
+     Then I should see a flash notice "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
       And "support@clockwork.io" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
      When I open the email
@@ -128,7 +128,7 @@ Feature: Feedback without Screenshot
      When I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear
-     Then I should see a flash info "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
+     Then I should see a flash notice "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
       And "support@clockwork.io" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
      When I open the email

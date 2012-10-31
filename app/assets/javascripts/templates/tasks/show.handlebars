@@ -1,0 +1,7 @@
+{{#with view.content}}
+  {{#if isNew}}
+    {{view Shiftplan.EditDoable contentBinding="this"}}
+  {{else}}
+    {{view Shiftplan.ShowDoable contentBinding="this"}}
+  {{/if}}
+{{/with}}

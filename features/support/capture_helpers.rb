@@ -1,3 +1,9 @@
+Numerals = {
+  'first'  => ':first',
+  'second' => ':nth-of-type(2)',
+  'third'  => ':nth-of-type(3)',
+  'forth'  => ':nth-of-type(4)'
+}
 module StringCaptureHelper
   def capture_quoted
     /"([^"]+)"/
@@ -13,6 +19,14 @@ module StringCaptureHelper
 
   def capture_date_with_time(*a)
     /(#{match_date_with_time(*a)})/
+  end
+
+  def match_nth
+    /#{Numerals.keys.join('|')}/
+  end
+
+  def capture_nth
+    /(#{match_nth})/
   end
 end
 World(StringCaptureHelper)

@@ -6,7 +6,7 @@ class FeedbackController < InheritedResources::Base
 
   def create
     create! do
-      flash[:info] = t(:'feedback.thank_you')
+      flash[:notice] = t(:'feedback.thank_you')
       request.referer
     end
   end

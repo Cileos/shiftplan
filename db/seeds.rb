@@ -21,7 +21,7 @@ if Rails.env.development?
   cileos      = create :account, name: 'Cileos'
 
   clockwork = create :organization, name: 'Clockwork', account: cileos
-  clockwork.plans.create! name: "Softwareentwicklung"
+  software = clockwork.plans.create! name: "Softwareentwicklung"
   clockwork.blogs.create! title: "Cileos Blog"
 
   owner = create :confirmed_user, email: 'owner@dev.shiftplan.de'
@@ -51,5 +51,10 @@ if Rails.env.development?
 
   # mom will never be invited
   mom = create :employee, account: cileos, first_name: 'Mama', last_name: 'X.', weekly_working_time: 80
+
+  released = software.milestones.create! name: 'Released', due_at: 1.month.from_now
+  released.tasks.create! name: 'Plans', due_at: 1.week.from_now
+  released.tasks.create! name: 'Employees', due_at: 2.weeks.from_now
+  released.tasks.create! name: 'Meilensteine', due_at: 4.weeks.from_now
 end # only in development environment
 

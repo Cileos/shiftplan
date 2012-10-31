@@ -15,7 +15,7 @@ class PostsController < InheritedResources::Base
   # FIXME why not just rescue from ActiveRecord::RecordNotFound ??
   def check_if_post_was_deleted
     unless resource.present?
-      flash[:info] = t(:'posts.post_deleted')
+      flash[:notice] = t(:'posts.post_deleted')
       redirect_to [current_account, current_organization, current_organization.company_blog, :posts]
     end
   end

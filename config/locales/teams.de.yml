@@ -16,7 +16,7 @@ de:
   flash:
     team_merge:
       create:
-        info: "Teams erfolgreich zusammengeführt."
+        notice: "Teams erfolgreich zusammengeführt."
 
   teams:
     index:

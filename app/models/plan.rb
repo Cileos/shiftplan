@@ -2,6 +2,7 @@ class Plan < ActiveRecord::Base
   include Draper::ModelSupport
   belongs_to :organization
   has_many :schedulings
+  has_many :milestones
 
   validates_with PlanPeriodValidator
   validates_presence_of :name
