@@ -4,25 +4,21 @@ Feature: create organizations
   I want to create another organization belonging to the same account
 
   Background:
-    Given an account exists
-    Given an organization "Springfield" exists with name: "Reactor Springfield", account: the account
-      And a confirmed user "Burns" exists with email: "burns@shiftplan.local"
-      And an employee owner exists with user: the confirmed user, account: the account
-      And the employee is a member in the organization "Springfield"
-      # we only deal with exactly one account
-      And 1 accounts should exist
-      And I am signed in as the confirmed user "Burns"
+    Given the situation of a just registered user
 
   Scenario: creating another organization
-     Given I am on the dashboard
-      When I follow "eine weitere Organisation anlegen"
-       And I fill in "Name" with "Reactor Shelbyville"
-       And I press "Anlegen"
-      Then I should be on the dashboard
-       And I should see info "Organisation 'Reactor Shelbyville' angelegt."
-       And I should see "Reactor Springfield" within the content
-       And I should see "Reactor Shelbyville" within the content
+    Given I am on the dashboard page
+      And I follow "eine weitere Organisation anlegen"
+      And I fill in "Name" with "Reactor Shelbyville"
+      And I press "Anlegen"
 
-       And an account should exist
-       And an organization "Shelbyville" should exist with name: "Reactor Shelbyville"
-       And the account should be the organization "Shelbyville"'s account
+     Then I should be on the dashboard
+      And I should see info "Organisation 'Reactor Shelbyville' angelegt."
+      And I should see "Fukushima" within the content
+      And I should see "Reactor Shelbyville" within the content
+      And an organization "shelbyville" should exist with name: "Reactor Shelbyville", account: the account
+      And a blog "shelbyville" should exist with organization: the organization "shelbyville"
+
+     When I follow "Reactor Shelbyville"
+      And I follow "Neuigkeiten"
+     Then I should see "Es wurden noch keine Blogposts erstellt."

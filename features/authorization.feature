@@ -8,6 +8,7 @@ Feature: Authorization
 
   Background:
     Given the situation of a just registered user
+      And I sign out
       And a plan exists with name: "Brennstäbe wechseln", organization: the organization
       And a team "kühlwasser wechseln" exists with name: "Kühlwasser wechseln", organization: the organization
       And another team "kühlwasser tauschen" exists with name: "Kühlwasser tauschen", organization: the organization
