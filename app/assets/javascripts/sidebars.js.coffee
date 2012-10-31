@@ -11,7 +11,7 @@ jQuery(document).ready ->
   updateWidths = ->
     # sidebar width: 14.70196% # from neat css
     small_width = '65.88078%'  # from neat css
-    medium_width = '81%'
+    medium_width = '80%'
     full_width = '96%'
 
     cnt = $('#toggle_sidebar').hasClass('collapsed') ? 1 : 0
