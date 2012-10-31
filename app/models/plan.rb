@@ -4,6 +4,7 @@ class Plan < ActiveRecord::Base
   has_many :schedulings
 
   validates_with PlanPeriodValidator
+  validates_with PlanPeriodSurroundsSchedulingsValidator
   validates_presence_of :name
 
   attr_accessible :name, :description, :duration, :starts_at, :ends_at

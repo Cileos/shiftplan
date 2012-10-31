@@ -38,6 +38,10 @@ module NavigationHelpers
         polymorphic_path [model.account, model, sub]
       end
 
+    when /^the plans page of #{capture_model}$/
+      organization = model!($1)
+      account_organization_plans_path(organization.account, organization)
+
     when /^the page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       params = parse_fields($2).symbolize_keys
       case model = model!($1)

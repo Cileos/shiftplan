@@ -5,10 +5,15 @@
   - else
     .inputs
       = f.input :name, autofocus: true
-      = f.input :starts_at, as: :stringy_date, hint: true
-      = f.input :ends_at, as: :stringy_date, hint: true
+      = f.input :starts_at, as: :stringy_date, hint: true,
+        input_html: { value: plan.starts_at.present? ? I18n.localize(plan.starts_at.to_date, format: :default) : '' }
+      = f.input :ends_at, as: :stringy_date, hint: true,
+        input_html: { value: plan.ends_at.present? ? I18n.localize(plan.ends_at.to_date, format: :default) : '' }
       = f.input :description, input_html: { rows: 3 }
     .actions
       %button.button-success{type: 'submit'}
         %i.icon-ok-circle.icon-white
-        = ta :create
+        - if f.object.persisted?
+          = ta :update
+        - else
+          = ta :create

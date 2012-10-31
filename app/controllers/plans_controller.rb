@@ -9,6 +9,12 @@ class PlansController < InheritedResources::Base
     end
   end
 
+  def destroy
+    destroy! do |success, failure|
+      success.html { redirect_to (nested_resources_for(current_organization) + [:plans]) }
+    end
+  end
+
   def show
     redirect_to_current_week
   end

@@ -19,6 +19,7 @@ de:
       all_plans: Alle Pläne
       all_posts: "Alle Neuigkeiten anzeigen"
       new_plan: Neuer Plan
+      edit_plan: Plan bearbeiten
       new_scheduling: Neue Terminierung
       new_organization: "eine weitere Organisation anlegen"
       next: Weiter
@@ -51,6 +52,7 @@ de:
       show_legend_long: "Legende anzeigen"
       show_help: "Hilfe"
       show_help_long: "Hilfe anzeigen"
+      action: "Aktion"
   schedulings:
     calendar_navigation:
       day: "Tag"

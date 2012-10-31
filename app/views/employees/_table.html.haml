@@ -6,7 +6,7 @@
       %th= t('activerecord.attributes.employee.email')
       %th= t('.status')
       - if can?(:manage, Invitation)
-        %th= t('.action')
+        %th= ta('action')
 
   %tbody
     - employees.each do |employee|

@@ -5,6 +5,8 @@ class PlanDecorator < ApplicationDecorator
     case name
     when :plans
       'table#plans'
+    when :plan
+      "table#plans tr#plan_#{resource.id}"
     else
       super
     end
@@ -18,6 +20,10 @@ class PlanDecorator < ApplicationDecorator
     h.render('plans/table', plans: h.current_organization.plans.order(:name))
   end
 
+  def highlight(plan)
+    select(:plan, plan).effect('highlight', {}, 3000)
+  end
+
   def respond
     unless errors.empty?
       prepend_errors_for(plan)
@@ -25,6 +31,7 @@ class PlanDecorator < ApplicationDecorator
       clear_modal
       update_plans
       update_flash
+      highlight(plan)
     end
   end
 end

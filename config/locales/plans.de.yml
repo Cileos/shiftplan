@@ -4,6 +4,12 @@ de:
       models:
        plan:
         plan_period: "Das Startdatum muss kleiner oder gleich dem Enddatum des Plans sein."
+        start_date_too_small: "kann nicht geändert werden. Es existiert
+        bereits ein Eintrag für diesen Plan, der kleiner als das neue Startdatum ist. Der
+        kleinste Eintrag ist am %{date_of_smallest_scheduling}."
+        end_date_too_small: "kann nicht geändert werden. Es existiert
+        bereits ein Eintrag für diesen Plan, der größer als das neue Enddatum ist. Der
+        größte Eintrag ist am %{date_of_greatest_scheduling}."
     attributes:
       plan:
         starts_at: "Startdatum"
@@ -12,3 +18,8 @@ de:
   plans:
     index:
       no_plans: "Es wurden noch keine Pläne angelegt."
+  helpers:
+    actions:
+      confirm_destroy_plan: "Plan \"%{plan}\" wirklich löschen?"
+      plan_cannot_be_destroyed: "Der Plan \"%{plan}\" kann nicht gelöscht werden, da es
+      bereits %{entries} Einträge gibt."
