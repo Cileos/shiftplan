@@ -1,6 +1,6 @@
 class WithinPlanPeriodValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    if record.plan?
+    if record.plan.present?
       plan = record.plan
       if plan.starts_at.present?
         if value < plan.starts_at.beginning_of_day
