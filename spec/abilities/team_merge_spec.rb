@@ -4,38 +4,49 @@ require "cancan/matchers"
 shared_examples "an employee who can manage team merges" do
   context "for own accounts" do
     it "can manage team merges" do
-      should be_able_to(:manage, merge(team_1.id, team_2.id))
-      should be_able_to(:manage, merge(team_1.id, nil))
+      should be_able_to(:manage, merge(team_1.id, team_2.id, team_1.id))
+      should be_able_to(:manage, merge(team_1.id, team_2.id, team_2.id))
+      should be_able_to(:manage, merge(nil, nil, nil))
+      should be_able_to(:manage, merge(team_1.id, nil, nil))
+      should be_able_to(:manage, merge(team_1.id, team_2.id, nil))
     end
   end
   context "for other accounts" do
     it "can not create team merges" do
-      should_not be_able_to(:create, merge(other_team_1.id, other_team_2.id))
+      should_not be_able_to(:create, merge(other_team_1.id, team_2.id, team_1.id))
+      should_not be_able_to(:create, merge(team_1.id, other_team_2.id, team_2.id))
+      should_not be_able_to(:create, merge(team_1.id, team_2.id, other_team_1.id))
     end
     it "can not read team merges" do
-      should_not be_able_to(:read, merge(other_team_1.id, other_team_2.id))
+      should_not be_able_to(:read, merge(other_team_1.id, team_2.id, team_1.id))
+      should_not be_able_to(:read, merge(team_1.id, other_team_2.id, team_2.id))
+      should_not be_able_to(:read, merge(team_1.id, team_2.id, other_team_1.id))
     end
     it "can not update team merges" do
-      should_not be_able_to(:update, merge(other_team_1.id, other_team_2.id))
+      should_not be_able_to(:update, merge(other_team_1.id, team_2.id, team_1.id))
+      should_not be_able_to(:update, merge(team_1.id, other_team_2.id, team_2.id))
+      should_not be_able_to(:update, merge(team_1.id, team_2.id, other_team_1.id))
     end
     it "can not destroy team merges" do
-      should_not be_able_to(:destroy, merge(other_team_1.id, other_team_2.id))
+      should_not be_able_to(:destroy, merge(other_team_1.id, team_2.id, team_1.id))
+      should_not be_able_to(:destroy, merge(team_1.id, other_team_2.id, team_2.id))
+      should_not be_able_to(:destroy, merge(team_1.id, team_2.id, other_team_1.id))
     end
   end
 end
 
 shared_examples "an employee who is not able to manage team merges" do
   it "should not be able to create team merges" do
-    should_not be_able_to(:create, merge(team_1.id, team_2.id))
+    should_not be_able_to(:create, merge(team_1.id, team_2.id, team_1.id))
   end
   it "should not be able to read team merges" do
-    should_not be_able_to(:read, merge(team_1.id, team_2.id))
+    should_not be_able_to(:read, merge(team_1.id, team_2.id, team_1.id))
   end
   it "should not be able to update team merges" do
-    should_not be_able_to(:update, merge(team_1.id, team_2.id))
+    should_not be_able_to(:update, merge(team_1.id, team_2.id, team_1.id))
   end
   it "should not be able to destroy team merges" do
-    should_not be_able_to(:destroy, merge(team_1.id, team_2.id))
+    should_not be_able_to(:destroy, merge(team_1.id, team_2.id, team_1.id))
   end
 end
 
@@ -54,8 +65,8 @@ describe "TeamMerge permissions:" do
   let(:other_team_1) { create(:team, organization: other_organization) }
   let(:other_team_2) { create(:team, organization: other_organization) }
 
-  def merge(t_id, ot_id)
-    TeamMerge.new(team_id: t_id, other_team_id: ot_id)
+  def merge(t_id, ot_id, nt_id)
+    TeamMerge.new(team_id: t_id, other_team_id: ot_id, new_team_id: nt_id)
   end
 
   before(:each) do
