@@ -1,33 +1,41 @@
 jQuery(document).ready ->
-  elmMergeButton = $('#merge-button')
-  elmMergeButton.prop('disabled', true)
-  elmMergeButton.click -> false
 
   $(':input#team_color').miniColors()
 
-  $('#teams input[type=checkbox]').live 'click', (event)  ->
-    checkedElms = $('input[type=checkbox]:checked').length
-    allCheckboxes = $('#teams input[type=checkbox]')
-    allCheckedCheckboxes = $('#teams input[type=checkbox]:checked')
+  $('div#teams').each ->
+    $teams = $(this)
+    $elmMergeButton = $('#merge-button')
 
+    $elmMergeButton.click ->
+      event.preventDefault()
+      $.ajax
+        url: $(this).data('url')
+        data:
+          team_merge:
+            team_id: $('input[type=checkbox]:checked').first().data('team-id')
+            other_team_id: $('input[type=checkbox]:checked').last().data('team-id')
 
-    if checkedElms == 2
-      allCheckboxes.prop('disabled', true)
-      allCheckedCheckboxes.prop('disabled', false)
+    refreshBehaviourOfTeamMerge = ->
+      disableMergeButton()
 
-      elmMergeButton.prop('disabled', false)
-      elmMergeButton.click ->
-        event.preventDefault()
-        $.ajax
-          url: $(this).data('url')
-          data:
-            team_merge:
-              team_id: $('input[type=checkbox]:checked').first().data('team-id')
-              other_team_id: $('input[type=checkbox]:checked').last().data('team-id')
+      allCheckboxes = $teams.find('input[type=checkbox]')
+      allCheckboxes.click ->
+        allCheckedCheckboxes = $teams.find('input[type=checkbox]:checked')
+        checkedElms = allCheckedCheckboxes.length
+        if checkedElms == 2
+          allCheckboxes.prop('disabled', true)
+          allCheckedCheckboxes.prop('disabled', false)
+          enableMergeButton()
+        else
+          allCheckboxes.prop('disabled', false)
+          disableMergeButton()
 
-    else
-      allCheckboxes.prop('disabled', false)
+    disableMergeButton = ->
+      $elmMergeButton.prop('disabled', true)
+      $elmMergeButton.click -> false
 
-      elmMergeButton.prop('disabled', true)
-      elmMergeButton.click -> false
+    enableMergeButton = ->
+      $elmMergeButton.prop('disabled', false)
 
+    $teams.each refreshBehaviourOfTeamMerge
+    $teams.on('update', refreshBehaviourOfTeamMerge)

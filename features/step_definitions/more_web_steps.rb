@@ -110,3 +110,10 @@ end
 When /^I check the checkbox$/ do
   page.first('input[type=checkbox]').click()
 end
+
+Then /^the (.+) should( not)? be disabled$/ do |name, negate|
+  selector = selector_for(name)
+  page.should have_css(selector)
+  page.first(selector)['disabled'].should == (negate ? nil : 'true')
+end
+

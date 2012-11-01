@@ -108,6 +108,9 @@ module HtmlSelectorsHelpers
     when 'weeks first date'
       '#calendar thead th:nth-child(2) .date-without-year'
 
+    when 'merge button'
+      'button#merge-button'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
