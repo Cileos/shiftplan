@@ -1,5 +1,5 @@
 class InvitationMailer < ActionMailer::Base
-  default :from => "info@shiftplan.de"
+  default from: "Clockwork <no-reply@#{Volksplaner.hostname}>"
   default :charset => "UTF-8"
 
   def invitation(invitation)

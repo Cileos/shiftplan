@@ -15,6 +15,7 @@ de:
         starts_at: "Startdatum"
         ends_at: "Enddatum"
         description: "Beschreibung"
+        action: Aktion
   plans:
     index:
       no_plans: "Es wurden noch keine Pläne angelegt."

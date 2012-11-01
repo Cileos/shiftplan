@@ -32,10 +32,6 @@ namespace :deploy do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 
-  task :check, :roles => :app do
-    run "sleep 2; wget -q -O /dev/null http://staging.shiftplan.de/"
-  end
-
   desc "Migrate the Database"
   task :migrate, :roles => :db do
     run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:migrate"

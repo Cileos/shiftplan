@@ -17,11 +17,11 @@ describe SchedulingNotificationMailer do
   let(:organization) { create :organization, account: account }
 
   before :each do
-    @user_owner =                       create :user, email: 'owner@shiftplan.local'
-    @user_owner_2 =                     create :user, email: 'owner_2@shiftplan.local'
-    @user_planner =                     create :user, email: 'planner@shiftplan.local'
-    @user_employee_homer =              create :user, email: 'homer.simpson@shiftplan.local'
-    @user_employee_bart =               create :user, email: 'bart.simpson@shiftplan.local'
+    @user_owner =                       create :user, email: 'owner@clockwork.local'
+    @user_owner_2 =                     create :user, email: 'owner_2@clockwork.local'
+    @user_planner =                     create :user, email: 'planner@clockwork.local'
+    @user_employee_homer =              create :user, email: 'homer.simpson@clockwork.local'
+    @user_employee_bart =               create :user, email: 'bart.simpson@clockwork.local'
 
     @employee_owner =                   create :employee_owner, account: account, user: @user_owner, first_name: 'Owner'
     @employee_owner_2 =                 create :employee_owner, account: account, user: @user_owner_2, first_name: 'Owner 2'
@@ -42,11 +42,11 @@ describe SchedulingNotificationMailer do
     clear_mails
   end
 
-  it 'should set sender address no-reply@shiftplan.de' do
+  it 'should set sender address no-reply@app.clockwork.io' do
     comment(@scheduling_for_homer, @employee_owner, 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
 
     mail = SchedulingNotificationMailer.new_comment(Notification::Base.last)
-    mail.from.should == ['no-reply@shiftplan.de']
+    mail.from.should == ['no-reply@app.clockwork.io']
   end
 
   describe "new comment by account owner" do

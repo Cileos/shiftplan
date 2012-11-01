@@ -15,17 +15,17 @@ module PlansHelper
     end
   end
 
-  def destroy_link_for(plan, html_options={})
+  def destroy_link_for_plan(plan, html_options={})
     html_options = {
-      class: 'utility-button icon-button button-warning',
+      class: 'button button-warning button-small',
       title: ta(:destroy)
     }
     if !plan.schedulings.present?
       html_options[:method]  = :delete
       html_options[:confirm] = ta(:confirm_destroy_plan, plan: plan.name)
-      link_to i(:destroy), nested_resources_for(plan), html_options
+      link_to ta(:destroy), nested_resources_for(plan), html_options
     else
-      link_to_function i(:destroy),
+      link_to_function ta(:destroy),
         "alert('#{ta(:plan_cannot_be_destroyed, plan: plan.name, entries: plan.schedulings.count)}')",
         html_options
     end

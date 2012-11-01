@@ -10,8 +10,11 @@ jQuery(document).ready ->
 
     if coll_head.hasClass('collapsed')
       coll_head.attr('data-icon', "")
-      coll_cont.slideToggle()
-      $.cookie('shiftplan_'+e.attr('id'), 'collapsed', { path: '/' })
+      if $.cookie('shiftplan_'+e.attr('id')) == 'collapsed'
+        coll_cont.toggle()
+      else
+        coll_cont.slideToggle()
+        $.cookie('shiftplan_'+e.attr('id'), 'collapsed', { path: '/' })
       false
     else
       coll_head.attr('data-icon', "")

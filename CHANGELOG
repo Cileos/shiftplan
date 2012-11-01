@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Release 0.1.4 2012-11-01 01:11
+------------------------------
+* s/shiftplan/clockwork for mail sender
+* remove ember
+* bobsliding is nothing for cookies
+
 Release 0.1.3 2012-10-31 22:14
 ------------------------------
 18b8b0b Merge pull request #91 from Cileos/feature/multi-stage-deploying

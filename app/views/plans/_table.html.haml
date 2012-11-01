@@ -17,4 +17,4 @@
         %td= plan.ends_at.present? ? I18n.localize(plan.ends_at.to_date, format: :default) : '-'
         - if can?(:manage, plan)
           %td= link_to(:edit, [:edit] + nested_resources_for(plan), remote: true,
-            class: 'button button-small', title: ta(:edit)) + ' | ' + destroy_link_for(plan)
+            class: 'button button-small', title: ta(:edit)) + ' ' + destroy_link_for_plan(plan)
