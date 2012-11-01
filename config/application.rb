@@ -9,6 +9,8 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+require File.expand_path('../../lib/volksplaner', __FILE__)
+
 module Shiftplan
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
