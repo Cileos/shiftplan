@@ -27,4 +27,5 @@
  When I follow "Teams"
  Then I should be authorized to access the page
   And I should see link "Bearbeiten"
-  And I should see "Zusammenlegen"
+  And I should see link "Hinzufügen"
+  And I should see button "Zusammenlegen"

@@ -1,10 +1,10 @@
 - title :teams
 
 - masterhead_toolbar do
-  %button{ :id => 'merge-button',
-    'data-url' => new_account_organization_team_merge_path(current_account, current_organization) }
-    = ti(:merge)
-
+  - if can? :manage, TeamMerge
+    %button{ :id => 'merge-button',
+      'data-url' => new_account_organization_team_merge_path(current_account, current_organization) }
+      = ti(:merge)
   - if can? :create, Team
     = link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:team],
       class: 'button', remote: true, data: { icon: i(:add) }
@@ -15,7 +15,7 @@
       - unless collection.empty?
         = render 'table', teams: collection
       - else
-      %p= t(:'.no_teams')
+        %p= t(:'.no_teams')
 
   .secondary.instructions
     = tt '.instructions'

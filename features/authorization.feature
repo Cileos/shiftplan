@@ -73,8 +73,9 @@ Feature: Authorization
      When I follow "Teams"
      Then I should be authorized to access the page
       And I should see "Kühlwasser tauschen"
-      But I should not see link "Kühlwasser tauschen"
       And I should not see link "Bearbeiten"
+      And I should not see link "Hinzufügen"
+      And I should not see button "Zusammenlegen"
 
   Scenario: planner
     Given a confirmed user "planner" exists

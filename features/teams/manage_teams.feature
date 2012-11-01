@@ -24,6 +24,7 @@ Feature: Manage Teams
       And I should see the following table of teams:
        | Name           | Kürzel |
        | Reaktor putzen | Rp     |
+      But I should not see "Es existieren noch keine Teams für diese Organisation."
 
   Scenario: Listing all the Teams for my organization
     Given a organization "Government" exists with account: the account "tepco"
@@ -42,7 +43,7 @@ Feature: Manage Teams
        | Reaktor putzen | Rp     |
        | Uran rangieren | Ur     |
       But I should not see "Entsorgung"
-
+      And I should not see "Es existieren noch keine Teams für diese Organisation."
 
 
   @javascript
