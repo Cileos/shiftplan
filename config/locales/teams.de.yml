@@ -32,20 +32,18 @@ de:
     index:
       no_teams: "Es existieren noch keine Teams für diese Organisation."
       action: Aktion
-    table:
-      team_color: Farbe
       instructions: >
         Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
         oder Aufgaben unterschieden werden.
 
 
-        Um ein neues Team anzulegen, kann dessen Name beim Anlegen eines
+        Um ein neues Team implizit anzulegen, kann dessen Name einfach beim Anlegen eines
         Termines im Plan benutzt werden.
 
         Beispiel: @9-17 Teller Abwaschen@
 
         Sie können ein neues Team auch explizit anlegen, indem Sie auf den Hinzufügen
-        Button klicken.
+        Button auf dieser Seite klicken.
 
 
         Zusätzlich können _Kürzel_ verwendet werden, um das Ausfüllen der Pläne
@@ -54,6 +52,15 @@ de:
         ersten Erwähnung des Teams im Plan verwendet werden.
 
         Beispiel: @9-17 Teller Abwaschen [TA]@
+
+
+        Sie können Teams zusammenlegen, indem Sie zwei Teams durch Aktivieren der
+        entsprechenden Checkboxen auswählen und dann auf Zusammenlegen klicken.
+        Nachdem Sie einen Namen für das neue Team gewählt haben, werden alle bereits
+        existierenden Termine der beiden Teams dem neuen Team zugeordnet. Dieser
+        Schritt ist unwiderrufbar.
+    table:
+      team_color: Farbe
     show:
       merge_motivation: >
         Falls durch Tippfehler ein zweites Team angelegt wurde, kann es mit
