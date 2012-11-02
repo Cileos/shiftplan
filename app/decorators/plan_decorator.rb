@@ -7,6 +7,8 @@ class PlanDecorator < ApplicationDecorator
       'table#plans'
     when :plan
       "table#plans tr#plan_#{resource.id}"
+    when :plans_list
+      'li.dropdown ul#plans-list'
     else
       super
     end
@@ -24,12 +26,22 @@ class PlanDecorator < ApplicationDecorator
     select(:plan, plan).effect('highlight', {}, 3000)
   end
 
+  def update_plans_dropdown(plan)
+    select(:plans_list).replace_with(plans_list(plan.organization))
+  end
+
+  def plans_list(organization)
+    h.render('organizations/plans_list', base: [organization.account, organization],
+      organization: organization)
+  end
+
   def respond
     unless errors.empty?
       prepend_errors_for(plan)
     else
       clear_modal
       update_plans
+      update_plans_dropdown(plan)
       update_flash
       highlight(plan)
     end

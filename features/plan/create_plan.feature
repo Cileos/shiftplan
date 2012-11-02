@@ -38,6 +38,18 @@ Feature: Creating a plan
         | Lenny L       |    |    |    |    |    |    |    |
         | Homer S       |    |    |    |    |    |    |    |
 
+  Scenario: creating a plan and then choosing the new plan from the plans drop down
+    Given I am on the page for the organization "Reactor"
+     When I choose "Alle Pläne" from the drop down "Pläne"
+      And I follow "Hinzufügen"
+      And I wait for the modal box to appear
+      And I fill in "Name" with "Halloween im Atomkraftwerk"
+      And I press "Anlegen"
+      And I wait for the modal box to disappear
+
+     Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
+     When I choose "Halloween im Atomkraftwerk" from the drop down "Pläne"
+     Then I should be on the employees in week page for the plan for week: 5, year: 2012
 
   Scenario: plan's start time must be smaller or equal to the plan's end time
     Given I am on the page for the organization "Reactor"
