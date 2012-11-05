@@ -21,7 +21,7 @@
             = employee.last_and_first_name
         %td.waz.numeric= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
         %td= employee.try(:user).try(:email) || employee.try(:invitation).try(:email)
-        %td= t("employees.roles.#{employee.role.present? ? employee.role : 'employee' }")
+        %td= t("employees.roles.#{employee.role.present? ? employee.role : 'none' }")
         %td.status= invitation_status(employee)
         - if can?(:manage, Invitation)
           %td.action= invitation_status_link(employee)

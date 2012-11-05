@@ -22,7 +22,7 @@ de:
     roles:
       planner: Planer
       owner: Accountinhaber
-      employee: keine
+      none: keine
     table:
       action: Aktion
       status: Status

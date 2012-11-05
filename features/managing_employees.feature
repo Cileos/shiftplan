@@ -53,7 +53,7 @@ Feature: Create Employees
      When I follow "Carlson, Carl" within the employees table
       And I wait for the modal box to appear
      Then the selected "Rolle" should be "Planer"
-      And I select "" from "Rolle"
+      And I select "keine" from "Rolle"
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following table of employees:
