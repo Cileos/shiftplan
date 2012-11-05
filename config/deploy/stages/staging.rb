@@ -4,6 +4,7 @@ set :branch do
 end
 set :application, "shiftplan"
 set :deploy_to, "/home/staging/www/#{application}"
+set :rails_env, 'production'
 
 role :web, "ci.shiftplan.de"
 role :app, "ci.shiftplan.de"
