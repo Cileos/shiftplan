@@ -95,6 +95,9 @@ Feature: Plan cursor
       And the scheduling "7-11" should be focus within the cell "Do"/"Homer S"
 
 
+  # Somehow this scenario was green even though the key navigation did not work
+  # after closing the modal box by pressing escape manually in the browser.
+  # I have no idea why this is the case.
   Scenario: opening the modal window by pressing enter
     When I press return
      And I wait for the modal box to appear

@@ -64,7 +64,15 @@ class CalendarCursor
 
 
   keydown: (event) =>
-    if $(event.srcElement).is(':input') or $(event.target).is(':input')
+    # The following old condition, made the scenario "opening the modal window by pressing
+    # enter" in cursor.feature pass. So the key navigation worked there after the modal
+    # box was closed by pressing ESC. But when manually clicking in the browser the key
+    # navigation was always broken after closing with ESC. This was because the
+    # event.srcElement was an input, namely the quickie input field. Do not know where
+    # the different behaviours resulted from. :(
+    # if $(event.srcElement).is(':input') or $(event.target).is(':input')
+    # Now checking if the modalbox is open and if so, the keystokes are ignored.
+    if $('#modalbox').length >= 1 and $('#modalbox').dialog('isOpen')
       return true # no not capture
 
     captured = true
