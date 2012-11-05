@@ -1,2 +1,2 @@
-Shiftplan.NewMilestoneView = Shiftplan.NewDoable.extend
+Clockwork.NewMilestoneView = Clockwork.NewDoable.extend
   heading: 'neuer Meilenstein'

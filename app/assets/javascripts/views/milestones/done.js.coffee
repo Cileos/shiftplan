@@ -1,4 +1,4 @@
-Shiftplan.MilestoneDoneView = Ember.Checkbox.extend
+Clockwork.MilestoneDoneView = Ember.Checkbox.extend
   attributeBindings: ['name']
   name: 'done'
 

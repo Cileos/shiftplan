@@ -37,7 +37,7 @@ Feature: Inviting Employees
      Then I should see that the invitation for "carl@carlson.com" and organization "fukushima" was successful
      When I sign out
 
-     When I open the email with subject "Sie wurden zu Shiftplan eingeladen"
+     When I open the email with subject "Sie wurden zu Clockwork eingeladen"
      When I follow "Einladung akzeptieren" in the email
      Then I should see a flash notice "Vielen Dank, dass Sie Ihre Einladung bestätigen wollen. Sie müssen lediglich noch ein Passwort festlegen, um die Einladungsbestätigung erfolgreich abzuschließen."
      When I fill in "Passwort" with "secret!"
@@ -61,14 +61,14 @@ Feature: Inviting Employees
      And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
 
    # accept invitation again, still being logged in
-   When I open the email with subject "Sie wurden zu Shiftplan eingeladen"
+   When I open the email with subject "Sie wurden zu Clockwork eingeladen"
     And I follow "Einladung akzeptieren" in the email
    Then I should see "Sie haben diese Einladung bereits akzeptiert."
     And I should not see "Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein."
 
     When I sign out
     # accept invitation again, when being logged out
-    When I open the email with subject "Sie wurden zu Shiftplan eingeladen"
+    When I open the email with subject "Sie wurden zu Clockwork eingeladen"
      And I follow "Einladung akzeptieren" in the email
     Then I should be on the signin page
      And I should see "Sie haben diese Einladung bereits akzeptiert."
@@ -83,7 +83,7 @@ Feature: Inviting Employees
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     When I sign out
 
-    When I open the email with subject "Sie wurden zu Shiftplan eingeladen"
+    When I open the email with subject "Sie wurden zu Clockwork eingeladen"
      And I follow "Einladung akzeptieren" in the email
      And I fill in "Passwort" with "secret!"
      And I fill in "invitation_user_attributes_password_confirmation" with "wrong confirmation"
@@ -94,7 +94,7 @@ Feature: Inviting Employees
     When I fill in "invitation_user_attributes_password_confirmation" with "secret!"
      And I press "Passwort setzen"
     Then I should be signed in as "Homer Simpson"
-     And I should see "Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben."
+     And I should see "Vielen Dank, dass Sie Ihre Einladung zu Clockwork akzeptiert haben."
 
   Scenario: Inviting with an email that's already assigned to an employee of a different account
     Given an account "tschernobyl" exists with name: "Tschernobyl GmbH"

@@ -1,3 +1,3 @@
-Shiftplan.ShowMilestoneView = Ember.View.extend
+Clockwork.ShowMilestoneView = Ember.View.extend
   templateName: 'milestones/show'
   tagName: 'li'

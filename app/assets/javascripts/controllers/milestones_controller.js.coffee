@@ -1,1 +1,1 @@
-Shiftplan.MilestonesController = Ember.ArrayController.extend()
+Clockwork.MilestonesController = Ember.ArrayController.extend()

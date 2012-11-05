@@ -1,4 +1,4 @@
-Shiftplan.TaskListView = Ember.CollectionView.extend
+Clockwork.TaskListView = Ember.CollectionView.extend
   tagName: 'ul'
   classNames: 'tasks'
-  itemViewClass: 'Shiftplan.ShowTaskView'
+  itemViewClass: 'Clockwork.ShowTaskView'
