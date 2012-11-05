@@ -50,6 +50,7 @@ Feature: Create Employees
        | Name           | WAZ  | E-Mail  | Rolle   | Status                 |
        | Carlson, Carl  | 40   |         | Planer  | Noch nicht eingeladen  |
 
+     When I inject style "position:relative" into "header"
      When I follow "Carlson, Carl" within the employees table
       And I wait for the modal box to appear
      Then the selected "Rolle" should be "Planer"
