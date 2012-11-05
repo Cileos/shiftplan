@@ -1,4 +1,3 @@
-@wip
 @javascript
 @big_screen
 Feature: working off milestones

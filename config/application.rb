@@ -58,6 +58,6 @@ module Shiftplan
     end
 
     #config.ember.variant = :development
-    #config.handlebars.templates_root = 'templates'
+    config.handlebars.templates_root = 'templates'
   end
 end

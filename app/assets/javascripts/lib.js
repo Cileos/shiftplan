@@ -4,11 +4,10 @@
 //= require jquery.scrollTo-1.4.2
 //= require space-pen/space-pen
 //= require jquery.miniColors
-// disabled, as handlebars and ember barf in production
-// require handlebars
-// require ember-latest
-// require ember-data-latest
-// require ember-rails-flash
+//= require handlebars
+//= require ember-latest
+//= require ember-data-latest
+//= require ember-rails-flash
 
 //= require_tree './lib'
 //= require spinner

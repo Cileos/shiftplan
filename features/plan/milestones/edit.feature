@@ -1,4 +1,3 @@
-@wip
 @javascript
 Feature: edit Milestones for a plan
     In order to fix typing mistakes or change of goals
