@@ -12,12 +12,17 @@ de:
         email: E-Mail
         avatar: Mitarbeiterfoto
         organization: Organisation
+        role: Rolle
   simple_form:
     placeholders:
       employee:
         first_name: Vorname
         last_name: Nachname
   employees:
+    roles:
+      planner: Planer
+      owner: Accountinhaber
+      employee: keine
     table:
       action: Aktion
       status: Status
@@ -27,3 +32,27 @@ de:
       not_invited_yet: Noch nicht eingeladen
     index:
       employees: Mitarbeiter
+      no_employees: "Es existieren noch keine Mitarbeiter für diese Organisation."
+      instructions: >
+        Legen Sie einen neuen Mitarbeiter für diese Organisation an, indem Sie auf den
+        Button _Hinzufügen_ klicken.
+
+
+        Bearbeiten Sie einen existierenden Mitarbeiter, indem Sie auf den Namen des
+        Mitarbeiters in der Tabelle klicken.
+
+
+        Wenn Sie einem Mitarbeiter mehr Rechte geben wollen, dann wählen Sie bitte die
+        Rolle _Planer_ aus. Ein _Planer_ kann, anders als normale Mitarbeiter, auch
+        administrative Aufgaben wie z.B. das Verwalten von Mitarbeitern, Teams, Plänen
+        und Terminen übernehmen.
+
+
+        Wenn Sie wollen, das sich ein existierender Mitarbeiter auch bei Clockwork
+        einloggen können soll, dann müssen Sie diesen zunächst einladen. Dazu klicken
+        Sie bitte auf den Button _Einladen_ in der Zeile des Mitarbeiters und tragen
+        seine E-Mail Adresse ein. Der Mitarbeiter bekommt daraufhin eine Einladung per
+        E-Mail zugestellt. Er muss die Einladung dann akzeptieren, um sich zukünftig in
+        Clockwork einloggen zu können.
+        Alle Mitarbeiter, die sich mit Ihrer E-Mail Adresse in Clockwork einloggen
+        können, werden mit dem Status _Aktiv_ auf dieser Seite angezeigt.

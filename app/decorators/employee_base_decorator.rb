@@ -2,14 +2,14 @@ module EmployeeBaseDecorator
   def selector_for(name, resource=nil, extra=nil)
     case name
     when :employees
-      'table#employees'
+      'div#employees'
     else
       super
     end
   end
 
   def update_employees
-    select(:employees).replace_with employees_table
+    select(:employees).refresh_html employees_table
   end
 
   def employees_table
