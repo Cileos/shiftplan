@@ -9,7 +9,7 @@
 //= require 'calendar/vertical_positioning'
 //= require_tree './editors'
 //= require mailcheck
-// require ./shiftplan
+//= require ./shiftplan
 //= require collapsible
 //= require sidebars
 // always last!
