@@ -2,6 +2,7 @@ set :user, "staging"
 set :branch do
   ENV['BRANCH'] || 'develop'
 end
+set :application, "shiftplan"
 set :deploy_to, "/home/staging/www/#{application}"
 
 role :web, "ci.shiftplan.de"
@@ -10,7 +11,6 @@ role :db,  "ci.shiftplan.de", :primary => true
 
 set :rvm_type, :user
 set :rvm_ruby_string, '1.9.3-p194@shiftplan'
-set :application, "shiftplan"
 
 namespace :deploy do
 
