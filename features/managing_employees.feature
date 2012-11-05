@@ -185,6 +185,7 @@ Feature: Create Employees
       And I fill in "Wochenarbeitszeit" with ""
       And I press "Speichern"
       And I wait for the modal box to disappear
+      And I inject style "position:relative" into "header"
       And I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
      Then the "Wochenarbeitszeit" field should be empty
