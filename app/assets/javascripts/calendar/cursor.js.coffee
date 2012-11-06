@@ -64,16 +64,14 @@ class CalendarCursor
 
 
   keydown: (event) =>
-    # The following old condition, made the scenario "opening the modal window by pressing
-    # enter" in cursor.feature pass. So the key navigation worked there after the modal
-    # box was closed by pressing ESC. But when manually clicking in the browser the key
-    # navigation was always broken after closing with ESC. This was because the
-    # event.srcElement was an input, namely the quickie input field. Do not know where
-    # the different behaviours resulted from. :(
-    # if $(event.srcElement).is(':input') or $(event.target).is(':input')
-    # Now checking if the modalbox is open and if so, the keystokes are ignored.
-    if $('#modalbox').length >= 1 and $('#modalbox').dialog('isOpen')
-      return true # no not capture
+    # ignore the ESC key, as it always acts a a shortcut for close (ie modalbox).
+    # This code is reached only in certain browsers (Chromium 20.0.1132.47)
+    if event.which == 27
+      return true
+
+    # ignore key pressed in visible input field (some browsers can keep focus on input fields in a closed modal box)
+    if $(event.srcElement).is(':input:visible') or $(event.target).is(':input:visible')
+      return true
 
     captured = true
     switch event.which

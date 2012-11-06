@@ -95,10 +95,12 @@ Feature: Plan cursor
       And the scheduling "7-11" should be focus within the cell "Do"/"Homer S"
 
 
-  # Somehow this scenario was green even though the key navigation did not work
-  # after closing the modal box by pressing escape manually in the browser.
-  # I have no idea why this is the case.
-  Scenario: opening the modal window by pressing enter
+  # In reality, the first field in the modal box with be focussed
+  # automatically, so it takes 2 presses of ESC to close the modal box - 1 for
+  # unfocus, one for close - at least in the current dev version of Chrome
+  # (24.0.1305.3) We cannot test this properly as the first ESC is processed by
+  # the browser before selenium can take any action.
+  Scenario: opening the modal window by pressing enter and closing it by pressing escape
     When I press return
      And I wait for the modal box to appear
      And I press escape
