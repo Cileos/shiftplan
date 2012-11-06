@@ -77,11 +77,12 @@ Then /^I (should|should not) be authorized to access the page$/ do |or_not|
   end
 end
 
-Then /^I (should|should not) see link #{capture_quoted}$/ do |or_not, link|
+Then /^I (should|should not) see (link|button) #{capture_quoted}$/ do |or_not, link_or_button, text|
+  link_button_map = { 'link' => 'a', 'button' => 'button'}
   if or_not.include?('not')
-    page.should have_no_css('a', :text => link)
+    page.should have_no_css(link_button_map[link_or_button], :text => text)
   else
-    page.should have_css('a', :text => link)
+    page.should have_css(link_button_map[link_or_button], :text => text)
   end
 end
 

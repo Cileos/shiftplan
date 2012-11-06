@@ -30,7 +30,7 @@ Feature: Merge Teams
       And I press "Bestätigen"
       And I wait for the modal box to disappear
      Then I should be on the page for teams of the organization
-      And I should see info "Teams erfolgreich zusammengelegt."
+      And I should see notice "Teams erfolgreich zusammengelegt."
       And I should see the following table of teams:
        | Name              | Kürzel |
        | Reaktor schrubben | Rs     |
@@ -43,22 +43,17 @@ Feature: Merge Teams
 
 
   Scenario: merge button should be disabled when visiting the teams page
-     Given I press "Zusammenlegen"
-     # nothing should happen because the button is disabled, two checkboxes
-     # must be checked to merge teams
-     Then the modal box should not appear
+     Then the merge button should be disabled
 
   Scenario: merge button should be disabled when only one checkbox was clicked so far
     Given I check the checkbox within the first table row
-      And I press "Zusammenlegen"
-     # nothing should happen because the button is still disabled, two
-     # checkboxes must be checked to merge teams
-     Then the modal box should not appear
+     Then the merge button should be disabled
 
-  Scenario: after adding a team the the activated merge button should be disabled again
+  Scenario: after adding a team the activated merge button should be disabled again
     # activate merge button by checking two boxes
     Given I check the checkbox within the first table row
       And I check the checkbox within the second table row
+     Then the merge button should not be disabled
 
      When I follow "Hinzufügen"
       And I wait for the modal box to appear
@@ -66,8 +61,7 @@ Feature: Merge Teams
       And I press "Anlegen"
       And I wait for the modal box to disappear
 
-     When I press "Zusammenlegen"
-     Then the modal box should not appear
+     Then the merge button should be disabled
 
   Scenario: after adding a team the on click handlers for the checkboxes should still work
     Given I follow "Hinzufügen"
@@ -78,7 +72,8 @@ Feature: Merge Teams
 
      When I check the checkbox within the second table row
       And I check the checkbox within the third table row
-      And I press "Zusammenlegen"
+     Then the merge button should not be disabled
+     When I press "Zusammenlegen"
      Then the modal box should appear
 
   Scenario: the merge button should be disabled again after a team merge
@@ -89,12 +84,9 @@ Feature: Merge Teams
       And I select "Reaktor schrubben" from "Neuer Teamname"
       And I press "Bestätigen"
       And I wait for the modal box to disappear
-      And I should see info "Teams erfolgreich zusammengelegt."
+      And I should see notice "Teams erfolgreich zusammengelegt."
 
-     When I press "Zusammenlegen"
-     # nothing should happen because the button is disabled again after
-     # two teams have been merged
-     Then the modal box should not appear
+     Then the merge button should be disabled
 
   Scenario: after merging teams the on click handlers for the checkboxes should still work
     Given a team exists with name: "Müll rausbringen", organization: the organization
@@ -112,7 +104,7 @@ Feature: Merge Teams
       And I select "Reaktor schrubben" from "Neuer Teamname"
       And I press "Bestätigen"
       And I wait for the modal box to disappear
-      And I should see info "Teams erfolgreich zusammengelegt."
+      And I should see notice "Teams erfolgreich zusammengelegt."
 
      When I check the checkbox within the first table row
       And I check the checkbox within the second table row

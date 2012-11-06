@@ -4,12 +4,9 @@
   = li_link organization.name, base, can: [:read, organization], class: 'organization', data: { icon: i(:organization) }
   - if (company_blog = organization.company_blog).present?
     = li_link '.news', base + [company_blog, :posts], can: [:read, organization], data: { icon: i(:news) }
-  - active_or_not = dropdown_class polymorphic_path(base)
+  - active_or_not = dropdown_class polymorphic_path(base + [:plans])
   %li{class: "dropdown #{active_or_not}"}
     = link_to t(:'helpers.actions.plans'), base + [:plans], { data: { toggle: 'dropdown', icon: i(:dropdown)}}
-    %ul
-      %li= link_to :all_plans, base + [:plans]
-      - organization.plans.each do |plan|
-        %li= link_to plan.name, base + [plan]
+    = render 'organizations/plans_list', base: base, organization: organization
   = li_link '.employees', base + [:employees], can: [:show, Employee], data: { icon: i(:employees) }
   = li_link '.teams',     base + [:teams],     can: [:show, Team], data: { icon: i(:teams) }

@@ -13,7 +13,7 @@ class TeamDecorator < ApplicationDecorator
   end
 
   def update_teams
-    select(:teams).html teams_table
+    select(:teams).refresh_html teams_table
   end
 
   def teams_table

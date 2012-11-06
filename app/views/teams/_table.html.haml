@@ -1,25 +1,23 @@
-.row.two-columns.inverted
-  .primary
-    %table#teams
-      %thead
-        %tr.employee
-          %th.checkbox
-            &nbsp;
-          %th= Team.human_attribute_name(:name)
-          %th= Team.human_attribute_name(:shortcut)
-          %th= t('.team_color')
-          %th= t('action')
+%table#teams
+  %thead
+    %tr.employee
+      - if can? :manage, TeamMerge
+        %th.checkbox
+          &nbsp;
+      %th= Team.human_attribute_name(:name)
+      %th= Team.human_attribute_name(:shortcut)
+      %th= t('.team_color')
+      - if can? :edit, Team
+        %th= t('action')
 
-      %tbody
-        - teams.each do |team|
-          %tr{ id: "team_#{team.id}" }
-            %td.checkbox
-              %input(type="checkbox"){ 'data-team-id' => "#{team.id}" }
-            %td= team.name
-            %td= team.shortcut
-            %td= render 'teams/pibble', team: team
-            %td
-              - if can? :edit, team
-                = link_to :edit, [:edit] + nested_resources_for(team), remote: true, class: 'button button-small'
-  .secondary.instructions
-    = tt '.instructions'
+  %tbody
+    - teams.each do |team|
+      %tr{ id: "team_#{team.id}" }
+        - if can? :manage, TeamMerge
+          %td.checkbox
+            %input(type="checkbox"){ 'data-team-id' => "#{team.id}" }
+        %td= team.name
+        %td= team.shortcut
+        %td= render 'teams/pibble', team: team
+        - if can? :edit, Team
+          %td= link_to :edit, [:edit] + nested_resources_for(team), remote: true, class: 'button button-small'

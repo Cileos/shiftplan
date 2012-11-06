@@ -10,6 +10,10 @@ Feature: Manage Teams
   Scenario: Adding a team on the teams page
     Given I am on the page for teams of the organization "Reactor"
      Then I should see "Es existieren noch keine Teams für diese Organisation."
+      # help texts
+      And I should see "Um ein neues Team implizit anzulegen"
+      And I should see "Sie können ein neues Team auch explizit anlegen"
+      And I should see "Sie können Teams zusammenlegen, indem"
      When I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Reaktor putzen"
@@ -20,6 +24,7 @@ Feature: Manage Teams
       And I should see the following table of teams:
        | Name           | Kürzel |
        | Reaktor putzen | Rp     |
+      But I should not see "Es existieren noch keine Teams für diese Organisation."
 
   Scenario: Listing all the Teams for my organization
     Given a organization "Government" exists with account: the account "tepco"
@@ -38,9 +43,7 @@ Feature: Manage Teams
        | Reaktor putzen | Rp     |
        | Uran rangieren | Ur     |
       But I should not see "Entsorgung"
-
-      And I should see "Um ein neues Team anzulegen"
-      And I should see "Sie können ein neues Team auch explizit anlegen, indem Sie auf den Hinzufügen Button klicken"
+      And I should not see "Es existieren noch keine Teams für diese Organisation."
 
 
   @javascript

@@ -116,9 +116,9 @@ class Ability
       account == team.organization.account
     end
     can :manage, TeamMerge do |team_merge|
-      (team_merge.team_id.blank? || account == team_merge.team.organization.account) &&
-        (team_merge.other_team_id.blank? || account == team_merge.other_team.organization.account) &&
-        (team_merge.new_team_id.blank? || account == team_merge.new_team.organization.account)
+      (team_merge.team_id.blank? || account == team_merge.team.try(:organization).try(:account)) &&
+        (team_merge.other_team_id.blank? || account == team_merge.other_team.try(:organization).try(:account)) &&
+        (team_merge.new_team_id.blank? || account == team_merge.new_team.try(:organization).try(:account))
     end
     can [:read, :create], Post do |post|
       account == post.blog.organization.account
