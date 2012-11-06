@@ -15,9 +15,9 @@ de:
         other_team_id: anderes Team
         new_team_id: Neuer Teamname
   flash:
-    team_merge:
+    team_merges:
       create:
-        notice: "Teams erfolgreich zusammengeführt."
+        notice: "Teams erfolgreich zusammengelegt."
 
   team_merges:
     new:
@@ -26,8 +26,6 @@ de:
         Falls ja, wählen Sie bitte den Namen des neuen Teams aus und klicken auf Bestätigen.
         Dieser Schritt ist unwiderrufbar. Alle Einträge der Teams werden dem neuen Team
         zugeordnet.
-    flash:
-      success: "Teams erfolgreich zusammengelegt."
   teams:
     index:
       no_teams: "Es existieren noch keine Teams für diese Organisation."
