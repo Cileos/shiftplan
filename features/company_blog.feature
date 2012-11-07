@@ -257,7 +257,8 @@ In order to keep my colleagues informed about important news
       And a comment exists with commentable: the post, employee: the employee owner "mr. burns", body: "Ich backe einen Kuchen für den Umweltminister"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the post
-     When I follow "Löschen" and confirm
+     When I deactivate all confirm dialogs
+      And I follow the delete link
      Then I should not see "Ich backe einen Kuchen für den Umweltminister"
       And I should see "0 Kommentare"
       And I should see "Es wurden noch keine Kommentare erstellt"
