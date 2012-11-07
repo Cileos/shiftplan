@@ -12,11 +12,9 @@ Feature: working off milestones
       And a task exists with name: "1 Million", milestone: the milestone
       And I am on the page for the plan
 
-  @wip
   Scenario: marking a milestone as done
      When I check "done" within the first item within the milestones list
-      And I close the modal box
-      And I wait for the modal box to disappear
+      And I wait for the spinner to disappear
      Then the milestone should be done
 
   Scenario: deleting a milestone
