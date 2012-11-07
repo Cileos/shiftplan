@@ -10,6 +10,7 @@
 //= require mailcheck
 //= require help
 //= require legend
+//= require lib/tooltips
 // always last!
 //= require lib/loaded_page
 
@@ -23,10 +24,5 @@ $(function(){
 
       elmTextarea.css('max-height', windowH + 'px');
       elmTextarea.autosize();
-    });
-
-    $("[title]").tipsy({
-      delayIn: 500,
-      gravity: 's',
     });
 });
