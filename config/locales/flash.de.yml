@@ -22,3 +22,6 @@ de:
       update:
         notice: "Passwort geändert."
         alert: "Ihr Passwort konnte nicht geändert werden."
+    copy_week:
+      create:
+        notice: "Alle Termine wurden erfolgreich übernommen."

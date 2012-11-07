@@ -5,7 +5,7 @@ class TeamMergesController < InheritedResources::Base
 
   def create
     create! do
-      flash[:info] = t('team_merges.flash.success')
+      set_flash(:notice)
       account_organization_teams_path(current_account, current_organization, :teams)
     end
   end

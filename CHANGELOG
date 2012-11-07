@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Release 0.1.5 2012-11-06 12:30
+------------------------------
+* 54cf3ca Merge pull request #99 from Cileos/feature/update-all-plans-drop-down
+* smaller fixes and improvements
+
 Release 0.1.4 2012-11-01 01:11
 ------------------------------
 * s/shiftplan/clockwork for mail sender

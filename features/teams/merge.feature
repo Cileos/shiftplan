@@ -30,7 +30,7 @@ Feature: Merge Teams
       And I press "Bestätigen"
       And I wait for the modal box to disappear
      Then I should be on the page for teams of the organization
-      And I should see info "Teams erfolgreich zusammengelegt."
+      And I should see notice "Teams erfolgreich zusammengelegt."
       And I should see the following table of teams:
        | Name              | Kürzel |
        | Reaktor schrubben | Rs     |
@@ -84,7 +84,7 @@ Feature: Merge Teams
       And I select "Reaktor schrubben" from "Neuer Teamname"
       And I press "Bestätigen"
       And I wait for the modal box to disappear
-      And I should see info "Teams erfolgreich zusammengelegt."
+      And I should see notice "Teams erfolgreich zusammengelegt."
 
      Then the merge button should be disabled
 
@@ -104,7 +104,7 @@ Feature: Merge Teams
       And I select "Reaktor schrubben" from "Neuer Teamname"
       And I press "Bestätigen"
       And I wait for the modal box to disappear
-      And I should see info "Teams erfolgreich zusammengelegt."
+      And I should see notice "Teams erfolgreich zusammengelegt."
 
      When I check the checkbox within the first table row
       And I check the checkbox within the second table row
