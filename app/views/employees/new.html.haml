@@ -1,3 +1,9 @@
 - title :new_employee
 
 = render 'form', employee: resource
+
+- unless @employees_from_other_organizations.empty?
+
+  %h3= ta :add_employee_from_other_organizations
+
+  = render 'organizations/add_members_form', employees: @employees_from_other_organizations

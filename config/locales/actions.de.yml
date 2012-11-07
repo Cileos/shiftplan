@@ -13,7 +13,9 @@ de:
       employees: Mitarbeiter
       teams: Teams
       add: Hinzufügen
-      new_employee: Mitarbeiter hinzufügen
+      new_employee: Neuen Mitarbeiter anlegen
+      add_employee: Mitarbeiter hinzufügen
+      add_employee_from_other_organizations: Mitarbeiter aus anderen Organisationen hinzufügen
       new_team: Neues Team
       edit_team: Team bearbeiten
       new_team_merge: Teams zusammenlegen

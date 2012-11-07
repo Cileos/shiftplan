@@ -1,0 +1,10 @@
+= form_tag([:add_members, current_account, current_organization], { id: 'add-members', class: 'form-horizontal add-employee' }) do |f|
+  .inputs
+  %ul
+    - employees.each do |e|
+      %li
+        = check_box_tag 'employees[]', e.id, false, id: "employee_#{e.id}"
+        = label_tag "employee_#{e.id}", e.name
+
+  .actions
+    %button.button-success= ti(:add_employee)

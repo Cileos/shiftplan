@@ -7,6 +7,9 @@ Shiftplan::Application.routes.draw do
 
   resources :accounts do
     resources :organizations do
+      member do
+        post 'add_members'
+      end
 
       resources :plans do
         resources :schedulings do

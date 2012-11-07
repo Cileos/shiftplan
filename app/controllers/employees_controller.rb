@@ -3,6 +3,8 @@ class EmployeesController < InheritedResources::Base
 
   respond_to :html, :js
 
+  before_filter :set_employees_from_other_organizations, only: :new
+
   def create
     create! { account_organization_employees_path(current_account, current_organization) }
   end
@@ -12,6 +14,12 @@ class EmployeesController < InheritedResources::Base
   end
 
   private
+
+  def set_employees_from_other_organizations
+    @employees_from_other_organizations = current_account.employees.reject do |e|
+      current_organization.employees.include? e
+    end
+  end
 
   # TODO more than one organization per planner
   def begin_of_association_chain
