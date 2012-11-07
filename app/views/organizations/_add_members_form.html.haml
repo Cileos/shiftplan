@@ -4,7 +4,9 @@
     - employees.each do |e|
       %li
         = check_box_tag 'employees[]', e.id, false, id: "employee_#{e.id}"
-        = label_tag "employee_#{e.id}", e.name
+        = label_tag "employee_#{e.id}" do
+          %span= avatar(e.user, e, :tiny)
+          %span= e.name_with_email_and_organizations
 
   .actions
     %button.button-success= ti(:add_employee)

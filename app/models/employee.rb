@@ -63,6 +63,14 @@ class Employee < ActiveRecord::Base
     %Q~#{last_name}, #{first_name}~
   end
 
+  def name_with_email_and_organizations
+    [
+      name,
+      "#{I18n.t('activerecord.attributes.user.email')}: " + (user ? user.email : I18n.t('none')),
+      "#{I18n.t('activerecord.models.organization.others')}: #{organizations.empty? ? I18n.t('none') : organizations.map(&:name).join(', ')}"
+    ].join(', ')
+  end
+
   # TODO remove when we want fractioned working time
   def weekly_working_time_before_type_cast
     pure = read_attribute(:weekly_working_time)
