@@ -9,7 +9,7 @@ Feature: working off milestones
     Given today is 2012-12-18
       And the situation of a nuclear reactor
       And a milestone exists with name: "World Domination", plan: the plan
-      And a task exists with name: "1 Million", milestone: the milestone
+      #And a task exists with name: "1 Million", milestone: the milestone
       And I am on the page for the plan
 
   Scenario: marking a milestone as done

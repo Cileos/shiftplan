@@ -75,7 +75,9 @@ Shiftplan.Router = Ember.Router.extend
 
         doDelete: (router) ->
           if milestone = router.get('editMilestoneController.content')
-            transaction = router.get('currentTransaction')
+            router.get('currentTransaction').rollback()
+            transaction = Shiftplan.store.transaction()
+            transaction.add milestone
             milestone.deleteRecord()
             transaction.commit()
             router.transitionTo('milestones')
