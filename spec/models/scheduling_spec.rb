@@ -23,6 +23,12 @@ describe Scheduling do
     end
   end
 
+  context "without start date and quickie" do
+    let(:scheduling) { build :scheduling, starts_at: nil, ends_at: nil, quickie: '', week: nil, year: nil }
+    it { scheduling.should_not be_valid }
+    it { scheduling.should have_at_least(1).errors_on(:quickie) }
+  end
+
   context "hour accessor" do
     let(:scheduling) { Scheduling.new(date: Date.today) }
 

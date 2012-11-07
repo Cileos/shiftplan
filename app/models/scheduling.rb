@@ -10,6 +10,7 @@ class Scheduling < ActiveRecord::Base
   before_validation :parse_quickie
   after_validation :set_human_date_attributes
   validates_presence_of :plan, :employee
+  validates_presence_of :quickie
   validates_presence_of :starts_at, :ends_at, :year, :week, if: :quickie_parsable?
 
   after_create :create_next_day
