@@ -59,3 +59,15 @@ Feature: Add Employees from other Organization
         | Mitarbeiter   | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
         | Owner Burns   |     |     |     |     |     |     |     |
         | Homer Simpson |     |     |     |     |     |     |     |
+
+  @javascript
+  Scenario: Filter employees of other organization while filling in the new employee form
+    Given I follow "Hinzufügen"
+     Then I should see "Owner Burns" within the add members form
+      And I should see "Homer Simpson" within the add members form
+      And I should see "Bart Simpson" within the add members form
+
+      And I fill in "Vorname" with "Homer"
+     Then I should see "Homer Simpson" within the add members form
+      But I should not see "Owner Burns" within the add members form
+      And I should not see "Bart Simpson" within the add members form

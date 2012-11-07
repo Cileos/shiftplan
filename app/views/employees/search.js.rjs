@@ -1,0 +1,1 @@
+page.replace_html('add-members', render('organizations/add_members_form', employees: @employees_from_other_organizations))

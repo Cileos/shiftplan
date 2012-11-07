@@ -13,6 +13,19 @@ class EmployeesController < InheritedResources::Base
     update! { edit_account_organization_employee_path(current_account, current_organization, current_employee) }
   end
 
+  def search
+    scope = current_account.employees
+    if params[:query][:first_name].present?
+      scope = scope.where("first_name like ?", "#{params[:query][:first_name]}%")
+    end
+    if params[:query][:last_name].present?
+      scope = scope.where("last_name like ?", "#{params[:query][:last_name]}%")
+    end
+    @employees_from_other_organizations = scope.all.reject do |e|
+      current_organization.employees.include? e
+    end
+  end
+
   private
 
   def set_employees_from_other_organizations
