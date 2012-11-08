@@ -7,6 +7,7 @@
       %th= t('.status')
       - if can?(:manage, Invitation)
         %th= t('.action')
+      %th= t('activerecord.models.organization.others')
 
   %tbody
     - employees.each do |employee|
@@ -23,3 +24,5 @@
         %td.status= invitation_status(employee)
         - if can?(:manage, Invitation)
           %td.action= invitation_status_link(employee)
+        - organizations = employee.organizations
+        %td= organizations.present? ? organizations.order(:name).map(&:name).join(', ') : t('none')

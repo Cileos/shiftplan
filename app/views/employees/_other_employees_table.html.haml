@@ -6,6 +6,7 @@
       %th.numeric= abbr_tag(t('helpers.actions.wwt_short'), t('helpers.actions.wwt_long'))
       %th= t('activerecord.attributes.employee.email')
       %th= t('employees.table.status')
+      %th= t('activerecord.models.organization.others')
 
   %tbody
     - employees.each do |employee|
@@ -17,3 +18,5 @@
         %td.waz.numeric= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
         %td= employee.try(:user).try(:email) || employee.try(:invitation).try(:email)
         %td.status= invitation_status(employee)
+        - organizations = employee.organizations
+        %td= organizations.present? ? organizations.order(:name).map(&:name).join(', ') : t('none')

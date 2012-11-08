@@ -16,13 +16,14 @@ Feature: Add Employees from other Organization
       And an organization "krümmel" exists with name: "Krümmel", account: the account "tepco"
       And an employee "bart" exists with first_name: "Bart", last_name: "Simpson", account: the account "tepco"
       And a membership exists with employee: the employee "bart", organization: the organization "krümmel"
+      # homer is also a member of organization krümmel
+      And a membership exists with employee: the employee "homer", organization: the organization "krümmel"
 
       # organization, employee and plan for other account
       And an account "cileos" exists with name: "Cileos UG"
       And an organization "clockwork" exists with account: the account "cileos"
       And an employee "raphaela" exists with first_name: "Raphaela", last_name: "Wrede", account: the account "cileos"
       And a membership exists with employee: the employee "raphaela", organization: the organization "clockwork"
-      And a plan exists with name: "Programmieren", organization: the organization "clockwork"
 
      When I sign in as the confirmed user
       And I am on the employees page for the organization "fukushima"
@@ -33,10 +34,10 @@ Feature: Add Employees from other Organization
      When I follow "Hinzufügen"
      Then I should be on the new employee page for the organization "fukushima"
       And I should see the following table of employees:
-        | Name           | WAZ | E-Mail          | Status                |
-        | Burns, Owner   |     | owner@burns.com | Aktiv                 |
-        | Simpson, Bart  |     |                 | Noch nicht eingeladen |
-        | Simpson, Homer |     |                 | Noch nicht eingeladen |
+        | Name           | WAZ | E-Mail          | Status                | Organisationen       |
+        | Burns, Owner   |     | owner@burns.com | Aktiv                 | keine                |
+        | Simpson, Bart  |     |                 | Noch nicht eingeladen | Krümmel              |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen | Krümmel, Tschernobyl |
 
      When I check the checkbox within the first table row
       And I check the checkbox within the second table row
@@ -45,14 +46,14 @@ Feature: Add Employees from other Organization
      Then I should be on the employees page for the organization "fukushima"
       And I should see flash notice "Mitarbeiter erfolgreich hinzugefügt."
       And I should see the following table of employees:
-        | Name           | WAZ | E-Mail          | Status                |
-        | Burns, Owner   |     | owner@burns.com | Aktiv                 |
-        | Simpson, Bart  |     |                 | Noch nicht eingeladen |
+        | Name          | WAZ | E-Mail          | Status                | Organisationen     |
+        | Burns, Owner  |     | owner@burns.com | Aktiv                 | Fukushima          |
+        | Simpson, Bart |     |                 | Noch nicht eingeladen | Fukushima, Krümmel |
 
      When I follow "Hinzufügen"
      Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail          | Status                |
-        | Simpson, Homer |     |                 | Noch nicht eingeladen |
+        | Name           | WAZ | E-Mail          | Status                | Organisationen       |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen | Krümmel, Tschernobyl |
 
      When I go to the page of the plan "kühlungsraum"
      Then I should see the following calendar:
@@ -64,32 +65,32 @@ Feature: Add Employees from other Organization
   Scenario: Filter employees of other organization while filling in the new employee form
     Given I follow "Hinzufügen"
      Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail          | Status                |
-        | Burns, Owner   |     | owner@burns.com | Aktiv                 |
-        | Simpson, Bart  |     |                 | Noch nicht eingeladen |
-        | Simpson, Homer |     |                 | Noch nicht eingeladen |
+        | Name           | WAZ | E-Mail          | Status                | Organisationen       |
+        | Burns, Owner   |     | owner@burns.com | Aktiv                 | keine                |
+        | Simpson, Bart  |     |                 | Noch nicht eingeladen | Krümmel              |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen | Krümmel, Tschernobyl |
 
      When I fill in "first_name" with "Homer" within the search form
      # wait for the instant search to complete
       And I wait a bit
      Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail          | Status                |
-        | Simpson, Homer |     |                 | Noch nicht eingeladen |
+        | Name           | WAZ | E-Mail          | Status                | Organisationen       |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen | Krümmel, Tschernobyl |
       And I should see "1 Mitarbeiter gefunden."
 
      When I follow "Suchfilter zurücksetzen"
       And I wait a bit
      Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail          | Status                |
-        | Burns, Owner   |     | owner@burns.com | Aktiv                 |
-        | Simpson, Bart  |     |                 | Noch nicht eingeladen |
-        | Simpson, Homer |     |                 | Noch nicht eingeladen |
+        | Name           | WAZ | E-Mail          | Status                | Organisationen       |
+        | Burns, Owner   |     | owner@burns.com | Aktiv                 | keine                |
+        | Simpson, Bart  |     |                 | Noch nicht eingeladen | Krümmel              |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen | Krümmel, Tschernobyl |
       And I should see "3 Mitarbeiter gefunden."
 
      When I fill in "last_name" with "Simpson" within the search form
       And I wait a bit
      Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail          | Status                |
-        | Simpson, Bart  |     |                 | Noch nicht eingeladen |
-        | Simpson, Homer |     |                 | Noch nicht eingeladen |
+        | Name           | WAZ | E-Mail          | Status                | Organisationen       |
+        | Simpson, Bart  |     |                 | Noch nicht eingeladen | Krümmel              |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen | Krümmel, Tschernobyl |
       And I should see "2 Mitarbeiter gefunden."
