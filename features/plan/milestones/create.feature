@@ -29,13 +29,14 @@ Feature: create Milestones for a plan
     Then a milestone should exist with name: "World domination", plan: the plan
      And the milestone's due_on should be "2012-12-31"
 
-  Scenario: trying to create a milestone without a name adds it to the list, but does not save it
-   Given I should not see "muss ausgefüllt werden"
+  Scenario: Failing to enter name shows validation error message
     When I press "Anlegen"
-     And I wait for the spinner to disappear
-    Then 0 milestones should exist
-     And I should see flash alert "Meilenstein konnte nicht angelegt werden."
-     And I should see "muss ausgefüllt werden"
-     # error messages are shown inline
+    Then I should see "muss ausgefüllt werden"
+    When I fill in "Name" with "World Domination"
+     And I press "Anlegen"
+     # TODO we close the modal box on success, and the flash messages are in the modal box for now
+     #Then I should see flash notice "Meilenstein erfolgreich angelegt"
+    Then I should see "World Domination" within the milestones list
+     And a milestone should exist with name: "World Domination"
      And I should not see a field labeled "Name"
-
+     And I should not see "muss ausgefüllt werden"

@@ -70,7 +70,10 @@ Shiftplan.Router = Ember.Router.extend
                 milestone.setProperties changes
                 router.set 'currentTransaction', newTransaction
             transaction.commit()
-        cancel: Ember.Route.transitionTo('milestones')
+        cancel: (router) ->
+          if transaction = router.get('currentTransaction')
+            transaction.rollback()
+          router.transitionTo('milestones')
         exit: (router) -> router.closeModal()
 
         doDelete: (router) ->
