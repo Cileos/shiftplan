@@ -33,4 +33,8 @@ de:
       hint: 'Suchen Sie nach Mitarbeitern aus anderen Organisationen:'
       results: "%{count} Mitarbeiter gefunden."
       clear: 'Suchfilter zurücksetzen'
+      placeholders:
+        first_name: 'Vorname eingeben'
+        last_name: 'Nachname eingeben'
+        email: 'E-Mail Adresse eingeben'
   none: keine
