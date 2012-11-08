@@ -27,4 +27,8 @@ de:
       not_invited_yet: Noch nicht eingeladen
     index:
       employees: Mitarbeiter
+    search:
+      hint: 'Suchen Sie nach Mitarbeitern aus anderen Organisationen:'
+      results: "%{count} Mitarbeiter gefunden."
+      clear: 'Suchfilter zurücksetzen'
   none: keine

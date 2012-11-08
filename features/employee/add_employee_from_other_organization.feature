@@ -32,13 +32,14 @@ Feature: Add Employees from other Organization
       | Name | WAZ | E-Mail | Status |
      When I follow "Hinzufügen"
      Then I should be on the new employee page for the organization "fukushima"
-      And I should see "Owner Burns" within the add members form
-      And I should see "Homer Simpson" within the add members form
-      And I should see "Bart Simpson" within the add members form
-      But I should not see "Raphaela Wrede" within the add members form
+      And I should see the following table of employees:
+        | Name           | WAZ | E-Mail          | Status                |
+        | Burns, Owner   |     | owner@burns.com | Aktiv                 |
+        | Simpson, Bart  |     |                 | Noch nicht eingeladen |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen |
 
-     When I check "Owner Burns"
-      And I check "Homer Simpson"
+     When I check the checkbox within the first table row
+      And I check the checkbox within the second table row
       And I press "Mitarbeiter hinzufügen"
 
      Then I should be on the employees page for the organization "fukushima"
@@ -46,28 +47,49 @@ Feature: Add Employees from other Organization
       And I should see the following table of employees:
         | Name           | WAZ | E-Mail          | Status                |
         | Burns, Owner   |     | owner@burns.com | Aktiv                 |
-        | Simpson, Homer |     |                 | Noch nicht eingeladen |
+        | Simpson, Bart  |     |                 | Noch nicht eingeladen |
 
      When I follow "Hinzufügen"
-     Then I should see "Bart Simpson" within the add members form
-      But I should not see "Owner Burns" within the add members form
-      And I should not see "Homer Simpson" within the add members form
-      And I should not see "Raphaela Wrede" within the add members form
+     Then I should see the following table of employees:
+        | Name           | WAZ | E-Mail          | Status                |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen |
 
      When I go to the page of the plan "kühlungsraum"
      Then I should see the following calendar:
         | Mitarbeiter   | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
         | Owner Burns   |     |     |     |     |     |     |     |
-        | Homer Simpson |     |     |     |     |     |     |     |
+        | Bart Simpson  |     |     |     |     |     |     |     |
 
   @javascript
   Scenario: Filter employees of other organization while filling in the new employee form
     Given I follow "Hinzufügen"
-     Then I should see "Owner Burns" within the add members form
-      And I should see "Homer Simpson" within the add members form
-      And I should see "Bart Simpson" within the add members form
+     Then I should see the following table of employees:
+        | Name           | WAZ | E-Mail          | Status                |
+        | Burns, Owner   |     | owner@burns.com | Aktiv                 |
+        | Simpson, Bart  |     |                 | Noch nicht eingeladen |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen |
 
-      And I fill in "Vorname" with "Homer"
-     Then I should see "Homer Simpson" within the add members form
-      But I should not see "Owner Burns" within the add members form
-      And I should not see "Bart Simpson" within the add members form
+     When I fill in "first_name" with "Homer" within the search form
+     # wait for the instant search to complete
+      And I wait a bit
+     Then I should see the following table of employees:
+        | Name           | WAZ | E-Mail          | Status                |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen |
+      And I should see "1 Mitarbeiter gefunden."
+
+     When I follow "Suchfilter zurücksetzen"
+      And I wait a bit
+     Then I should see the following table of employees:
+        | Name           | WAZ | E-Mail          | Status                |
+        | Burns, Owner   |     | owner@burns.com | Aktiv                 |
+        | Simpson, Bart  |     |                 | Noch nicht eingeladen |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen |
+      And I should see "3 Mitarbeiter gefunden."
+
+     When I fill in "last_name" with "Simpson" within the search form
+      And I wait a bit
+     Then I should see the following table of employees:
+        | Name           | WAZ | E-Mail          | Status                |
+        | Simpson, Bart  |     |                 | Noch nicht eingeladen |
+        | Simpson, Homer |     |                 | Noch nicht eingeladen |
+      And I should see "2 Mitarbeiter gefunden."

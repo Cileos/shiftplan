@@ -114,6 +114,9 @@ module HtmlSelectorsHelpers
     when 'the add members form'
       'form#add-members'
 
+    when 'the search form'
+      'form#search'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

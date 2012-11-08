@@ -15,6 +15,7 @@ de:
       add: Hinzufügen
       new_employee: Neuen Mitarbeiter anlegen
       add_employee: Mitarbeiter hinzufügen
+      want_to_add: 'Hinzufügen?'
       add_employee_from_other_organizations: Mitarbeiter aus anderen Organisationen hinzufügen
       new_team: Neues Team
       edit_team: Team bearbeiten

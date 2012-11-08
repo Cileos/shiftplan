@@ -14,7 +14,7 @@ class EmployeesController < InheritedResources::Base
   end
 
   def search
-    scope = current_account.employees
+    scope = current_account.employees.order_by_names
     if params[:query][:first_name].present?
       scope = scope.where("first_name like ?", "#{params[:query][:first_name]}%")
     end
@@ -29,7 +29,7 @@ class EmployeesController < InheritedResources::Base
   private
 
   def set_employees_from_other_organizations
-    @employees_from_other_organizations = current_account.employees.reject do |e|
+    @employees_from_other_organizations = current_account.employees.order_by_names.reject do |e|
       current_organization.employees.include? e
     end
   end
