@@ -22,10 +22,13 @@ class EmployeesController < InheritedResources::Base
     scope = current_organization.other_employees
     if query_params = params[:query]
       if query_params[:first_name].present?
-        scope = scope.where("first_name like ?", "#{params[:query][:first_name]}%")
+        scope = scope.where("first_name LIKE ?", "#{query_params[:first_name]}%")
       end
       if query_params[:last_name].present?
-        scope = scope.where("last_name like ?", "#{params[:query][:last_name]}%")
+        scope = scope.where("last_name LIKE ?", "#{query_params[:last_name]}%")
+      end
+      if query_params[:email].present?
+        scope = scope.joins(:user).where("users.email LIKE ?", "#{query_params[:email]}%")
       end
     end
     @other_employees = scope

@@ -41,7 +41,7 @@ class Employee < ActiveRecord::Base
   end
 
   def active?
-    invitation.try(:accepted?) || planner? || owner?
+    user && user.confirmed?
   end
 
   def invited?

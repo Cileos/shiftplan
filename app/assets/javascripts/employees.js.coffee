@@ -8,11 +8,12 @@ jQuery(document).ready ->
   #     search(first_name: first_name, last_name: last_name)
   #     ), 500
 
-  $('form#search input#first_name,form#search input#last_name').keyup ->
+  $('form#search input[type=text]').keyup ->
     first_name = $('form#search input#first_name').val()
-    last_name = $('form#search input#last_name').val()
+    last_name  = $('form#search input#last_name').val()
+    email      = $('form#search input#email').val()
     delay (->
-      search(first_name: first_name, last_name: last_name)
+      search(first_name: first_name, last_name: last_name, email: email)
       ), 500
 
   search = (params = {}) ->
