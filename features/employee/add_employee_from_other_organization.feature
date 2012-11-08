@@ -117,10 +117,13 @@ Feature: Add Employees from other Organization
     Given I follow "Hinzufügen"
       And I fill in "first_name" with "Homer" within the search form
       And I fill in "last_name" with "Simpson" within the search form
+      And I fill in "email" with "homer@thesimpsons.com" within the search form
+      And I wait a bit
+      And I should see the following table of employees:
+        | Name           | WAZ | E-Mail                | Status                | Organisationen       |
+        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
       And I follow "Suchfilter zurücksetzen"
       And I wait a bit
-     Then the "first_name" field should contain ""
-      And the "last_name" field should contain ""
       And I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
         | Burns, Owner   |     | owner@burns.com       | Aktiv                 | keine                |

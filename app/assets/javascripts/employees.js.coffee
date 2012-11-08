@@ -30,6 +30,5 @@ jQuery(document).ready ->
   )()
 
   $('a#clear-search').click ->
-    $('form#search input#first_name').val('')
-    $('form#search input#last_name').val('')
+    $('form#search input[type=text]').val('')
     $('form#search input#first_name').trigger('keyup')
