@@ -1,25 +1,19 @@
 %table#employees
   %thead
     %tr.employee
+      %th= ta(:want_to_add)
       %th= t('activerecord.attributes.employee.full_name')
       %th.numeric= abbr_tag(t('helpers.actions.wwt_short'), t('helpers.actions.wwt_long'))
       %th= t('activerecord.attributes.employee.email')
-      %th= t('.status')
-      - if can?(:manage, Invitation)
-        %th= t('.action')
+      %th= t('employees.table.status')
 
   %tbody
     - employees.each do |employee|
       %tr{ id: "employee_#{employee.id}" }
+        %td= check_box_tag 'employees[]', employee.id, false, id: "employee_#{employee.id}"
         %th
-          - if can?(:update, employee)
-            = link_to(avatar(employee.user, employee, :tiny), [:edit, current_account, current_organization, employee], remote: true)
-            = link_to(employee.last_and_first_name, [:edit, current_account, current_organization, employee], remote: true, :class => 'name')
-          - else
-            = avatar(employee.user, employee, :tiny)
-            = employee.last_and_first_name
+          = avatar(employee.user, employee, :tiny)
+          = employee.last_and_first_name
         %td.waz.numeric= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
         %td= employee.try(:user).try(:email) || employee.try(:invitation).try(:email)
         %td.status= invitation_status(employee)
-        - if can?(:manage, Invitation)
-          %td.action= invitation_status_link(employee)
