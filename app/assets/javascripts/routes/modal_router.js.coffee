@@ -6,8 +6,42 @@
 #        @get('applicationController').connectOutlet 'modal', opts...
 #      closeModal: ->
 #        @get('applicationController').disconnectOutlet 'modal'
+#
+# Then you can setup a full route or just parts:
+#
+#    App.Router = Ember.Router.extend # continued
+#      root:
+#         posts: ModalRouter.fullRoute(App.Post, 'posts')
+#
+#         feedbacks: ModalRouter.newRoute(App.Feedback, 'root')
+#
+#         # and you can even add more routes by extending the returned route as usual
+#
+#         comments: ModalRouter.fullRoute(App.Comment, 'comments').extend
+#          ratings: Ember.Route.extend
+#            # ....
+
+modelName = (model) ->
+  parts = model.toString().split(".")
+  parts[parts.length - 1]
 
 ModalRouter = Ember.Namespace.create
+
+  # @method fullRoute
+  # builds up a route to manage a ember-data model in a modalbox, including a list, create, edit and delete
+  # @param model {DS.Model} ie. App.Post
+  # @param routeName {String} ie. 'posts', should be the same as the propery you assign this route to
+  fullRoute: (model, routeName) ->
+    Ember.Route.extend
+      route: "/#{routeName}" # convention: path segment == route string
+      connectOutlets: (router) ->
+        router.get('applicationController').connectOutlet routeName, model.find()
+
+      new: ModalRouter.newRoute(model, routeName)
+
+      doEdit: Ember.Router.transitionTo "#{routeName}.edit"
+      edit: ModalRouter.editRoute(model, routeName)
+
 
   # @method newRoute
   # builds up a route to create a ember-data model in a modalbox.
@@ -15,8 +49,7 @@ ModalRouter = Ember.Namespace.create
   # @param parentPath {String} ie. 'posts' or 'root'
 
   newRoute: (model, parentPath) ->
-    parts = model.toString().split(".")
-    name = parts[parts.length - 1]
+    name = modelName model
 
     view = "new#{name}"
     controller = "new#{name}Controller"
@@ -51,8 +84,7 @@ ModalRouter = Ember.Namespace.create
   # @param model {DS.Model} ie. App.Post
   # @param parentPath {String} ie. 'posts' or 'root'
   editRoute: (model, parentPath) ->
-    parts = model.toString().split(".")
-    name = parts[parts.length - 1]
+    name = modelName model
 
     view = "edit#{name}"
     controller = "edit#{name}Controller"
