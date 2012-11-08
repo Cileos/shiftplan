@@ -31,7 +31,7 @@ class Organization < ActiveRecord::Base
   def other_employees
     scope = account.employees
     unless employees.empty?
-      scope = scope.where("id NOT IN (#{employees.map(&:id).join(',')})")
+      scope = scope.where("employees.id NOT IN (#{employees.map(&:id).join(',')})")
     end
     scope.order_by_names
   end
