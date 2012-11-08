@@ -3,7 +3,7 @@ class EmployeesController < InheritedResources::Base
 
   respond_to :html, :js
 
-  before_filter :set_employees_from_other_organizations, only: :new
+  before_filter :set_other_employees, only: [:new, :search]
 
   def create
     create! { account_organization_employees_path(current_account, current_organization) }
@@ -14,24 +14,21 @@ class EmployeesController < InheritedResources::Base
   end
 
   def search
-    scope = current_account.employees.order_by_names
-    if params[:query][:first_name].present?
-      scope = scope.where("first_name like ?", "#{params[:query][:first_name]}%")
-    end
-    if params[:query][:last_name].present?
-      scope = scope.where("last_name like ?", "#{params[:query][:last_name]}%")
-    end
-    @employees_from_other_organizations = scope.all.reject do |e|
-      current_organization.employees.include? e
-    end
   end
 
   private
 
-  def set_employees_from_other_organizations
-    @employees_from_other_organizations = current_account.employees.order_by_names.reject do |e|
-      current_organization.employees.include? e
+  def set_other_employees
+    scope = current_organization.other_employees
+    if query_params = params[:query]
+      if query_params[:first_name].present?
+        scope = scope.where("first_name like ?", "#{params[:query][:first_name]}%")
+      end
+      if query_params[:last_name].present?
+        scope = scope.where("last_name like ?", "#{params[:query][:last_name]}%")
+      end
     end
+    @other_employees = scope
   end
 
   # TODO more than one organization per planner

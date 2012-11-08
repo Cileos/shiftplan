@@ -28,6 +28,14 @@ class Organization < ActiveRecord::Base
     (employees.all + planners.all + owners.all).uniq
   end
 
+  def other_employees
+    scope = account.employees
+    unless employees.empty?
+      scope = scope.where("id NOT IN (#{employees.map(&:id).join(',')})")
+    end
+    scope.order_by_names
+  end
+
   after_create :setup
   def setup
     if blogs.empty?
