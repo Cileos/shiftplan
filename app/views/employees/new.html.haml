@@ -2,10 +2,14 @@
 
 = render 'form', employee: resource
 
-- unless @other_employees.empty?
+%h3= ta :add_employee_from_other_organizations
 
-  %h3= ta :add_employee_from_other_organizations
+- unless @other_employees.empty?
 
   = render 'search_form'
 
   = render 'organizations/add_members_form', employees: @other_employees
+
+- else
+
+  %p= t('.no_other_employees')

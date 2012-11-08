@@ -27,6 +27,8 @@ de:
       not_invited_yet: Noch nicht eingeladen
     index:
       employees: Mitarbeiter
+    new:
+      no_other_employees: "Zur Zeit gibt es keine Mitarbeiter aus anderen Organisationen, die noch nicht Mitglied in dieser Organisation sind."
     search:
       hint: 'Suchen Sie nach Mitarbeitern aus anderen Organisationen:'
       results: "%{count} Mitarbeiter gefunden."
