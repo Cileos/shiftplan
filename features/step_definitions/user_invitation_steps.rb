@@ -64,10 +64,10 @@ end
 
 Then /^#{capture_model} should (be|not be) confirmed$/ do |user, be_or_not_be|
   user = model!(user)
-  if be_or_not_be == 'not be'
-    user.confirmed?.should == false
-  elsif be_or_not_be == 'be'
-    user.confirmed?.should == true
+  if be_or_not_be =~ /not/
+    user.should_not be_confirmed
+  elsif
+    user.should be_confirmed
   end
 end
 
