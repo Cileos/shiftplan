@@ -16,6 +16,16 @@ class EmployeesController < InheritedResources::Base
   def search
   end
 
+  def duplicate_search
+    query_params = params[:query]
+    if query_params.present? and query_params[:first_name].present? and query_params[:last_name].present?
+      @duplicate_employees = current_account.employees.where("first_name = ? AND last_name = ?",
+        query_params[:first_name], query_params[:last_name])
+    else
+      @duplicate_employees = []
+    end
+  end
+
   private
 
   def set_other_employees

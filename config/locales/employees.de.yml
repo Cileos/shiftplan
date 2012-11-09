@@ -29,6 +29,8 @@ de:
       employees: Mitarbeiter
     new:
       no_other_employees: "Zur Zeit gibt es keine Mitarbeiter aus anderen Organisationen, die noch nicht Mitglied in dieser Organisation sind."
+      duplication_warning_intro: "Folgende Mitarbeiter mit gleichem Namen existieren bereits:"
+      duplication_warning_outro: "Sind Sie sicher, dass Sie den Mitarbeiter trotzdem anlegen möchten?"
     search:
       hint: 'Suchen Sie nach Mitarbeitern aus anderen Organisationen:'
       results: "%{count} Mitarbeiter gefunden."

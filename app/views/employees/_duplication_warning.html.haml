@@ -1,0 +1,12 @@
+#duplication-warning
+  - unless duplicate_employees.empty?
+
+    %p= t('employees.new.duplication_warning_intro')
+
+    %ul#duplicate-employees
+      - duplicate_employees.each do |e|
+        %li
+          %span= avatar(e.user, e, :tiny)
+          %span= e.name_with_email_and_organizations
+
+    %p= t('employees.new.duplication_warning_outro')

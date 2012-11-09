@@ -117,6 +117,9 @@ module HtmlSelectorsHelpers
     when 'the search form'
       'form#search'
 
+    when 'the duplication warning'
+      'div#duplication-warning'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
