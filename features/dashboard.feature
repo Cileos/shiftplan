@@ -7,7 +7,7 @@ Feature: Dashboard
     Given a confirmed user "homer" exists with email: "homer@thesimpsons.de"
       And an account exists
       # week 49
-      And today is 2012-12-04
+      And today is 2012-12-04 06:00
       And the situation of an atomic power plant tschernobyl
 
   Scenario: Dashboard page with multiple organizations
@@ -33,3 +33,18 @@ Feature: Dashboard
      When I go to the dashboard
      # full introductory_text of dummy notification
      Then I should see "You did something awesome"
+
+  Scenario: List upcoming notifications (just the next 7 days for now)
+    Given the employee "Homer" was scheduled in the plan as following:
+        | week | cwday | quickie                         |
+        | 49   | 2     | 9-17 Reaktor Putzen [RP]        |
+        | 50   | 3     | 10-18 Reaktor Fegen [RF]        |
+        | 51   | 2     | 22-23 Verantwortung tragen [Vt] |
+      And I am signed in as the user "homer"
+     When I go to the dashboard
+     Then I should see an agenda table with the following rows:
+       | day | day-name | month-year | time    | team                |
+       | 4   | Di       | Dez 2012   | 9 - 17  | Reaktor Putzen [RP] |
+       | 12  | Mi       | Dez 2012   | 10 - 18 | Reaktor Fegen [RF]  |
+      But I should not see "22 - 23" within the schedulings module
+      And I should not see "Verantwortung tragen" within the schedulings module

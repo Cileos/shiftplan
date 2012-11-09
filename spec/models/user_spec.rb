@@ -30,7 +30,6 @@ describe User do
   end
 
   context "notifications" do
-
     it "should be collected through all employees" do
       u = create :user
       e1 = create :employee, user: u
@@ -40,6 +39,19 @@ describe User do
         create :notification, employee: e1
         create :notification, employee: e2
       }.to change { u.notifications.count }.by(2)
+    end
+  end
+
+  context "schedulings" do
+    it "should be collected through all employees" do
+      u = create :user
+      e1 = create :employee, user: u
+      e2 = create :employee, user: u
+
+      expect {
+        create :scheduling, employee: e1
+        create :scheduling, employee: e2
+      }.to change { u.schedulings.count }.by(2)
     end
   end
 end

@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   has_many :joined_organizations, :through => :memberships, source: :organization
 
   has_many :notifications, through: :employees
+  has_many :schedulings, through: :employees
 
   # unsure about the naming of this method.. rather call it organizations_for_account ?
   def organizations_for(account)

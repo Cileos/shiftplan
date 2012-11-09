@@ -27,6 +27,10 @@ class Scheduling < ActiveRecord::Base
     comments.map &:employee
   end
 
+  def self.upcoming
+    where("starts_at > :now AND starts_at < TIMESTAMP :now + INTERVAL '14 days'", now: Time.zone.now).order('starts_at ASC')
+  end
+
   module Stackable
     def bump_remaining_stack
       self.remaining_stack ||= 0

@@ -22,4 +22,23 @@
               = avatar notification.acting_employee.user, notification.acting_employee, :thumb
               = notification.introductory_text
 
+  .primary
+    .module.schedulings
+      %header
+        %h2
+          = t(:upcoming_schedulings)
+          %span.count= current_user.schedulings.upcoming.count
+      .content
+        %table.agenda
+          - current_user.schedulings.upcoming.each do |scheduling|
+            %tr
+              %th.date
+                %span.day= scheduling.starts_at.day
+                %span.day-name= l scheduling.starts_at, format: :abbr_week_day
+                %span.month-year= l scheduling.starts_at, format: :short_month_and_year
+              %td
+                %strong.time= "#{scheduling.starts_at.hour} - #{scheduling.ends_at.hour}"
+                %span.team= scheduling.team.to_quickie
+
+
 = render :partial => "dashboard/static"
