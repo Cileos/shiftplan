@@ -3,7 +3,8 @@ class Employee < ActiveRecord::Base
 
   Roles = %w(owner planner)
 
-  attr_accessible :first_name, :last_name, :weekly_working_time, :avatar, :avatar_cache, :organization_id, :account_id
+  attr_accessible :first_name, :last_name, :weekly_working_time, :avatar, :avatar_cache,
+    :organization_id, :account_id, :role
   attr_accessor :organization_id
 
   validates_presence_of :first_name, :last_name
@@ -41,7 +42,7 @@ class Employee < ActiveRecord::Base
   end
 
   def active?
-    invitation.try(:accepted?) || planner? || owner?
+    user && user.confirmed?
   end
 
   def invited?

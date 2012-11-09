@@ -17,6 +17,10 @@
     = f.input :last_name
 
     = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
+
+    = f.input :role, include_blank: false,
+      collection: [[t('employees.roles.none'), nil], [t('employees.roles.planner'), 'planner']]
+
     = f.input :organization_id, as: :hidden
     = f.input :account_id, as: :hidden
 

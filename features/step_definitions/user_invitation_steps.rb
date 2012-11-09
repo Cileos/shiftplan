@@ -61,3 +61,13 @@ end
 When /^I try to accept an invitation with an invalid token$/ do
   visit '/invitation/accept?token=someinvalidtoken'
 end
+
+Then /^#{capture_model} should (be|not be) confirmed$/ do |user, be_or_not_be|
+  user = model!(user)
+  if be_or_not_be =~ /not/
+    user.should_not be_confirmed
+  elsif
+    user.should be_confirmed
+  end
+end
+

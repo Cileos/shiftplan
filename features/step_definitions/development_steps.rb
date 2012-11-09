@@ -19,3 +19,9 @@ end
 When /^nothing$/ do
   # for scenario outlines
 end
+
+# FIXME: styles should only be injected temporary until The Designers fix it
+# example When I inject style "position:relative" into "header"
+When /^I inject style #{capture_quoted} into #{capture_quoted}$/ do |style, selector|
+  page.execute_script %Q~$('#{selector}').attr('style', "#{style}");~
+end
