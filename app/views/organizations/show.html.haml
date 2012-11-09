@@ -1,3 +1,7 @@
 - title @organization.name + " " + t(:dashboard)
 
-= render :partial => "dashboard/static"
+.row.two-columns.inverted.dashboard
+  .primary
+    = render 'schedulings/for_dashboard', schedulings: current_employee.schedulings.upcoming
+  .secondary
+    = render 'posts/for_dashboard', posts: @organization.posts.recent(42)

@@ -1,0 +1,13 @@
+- unless posts.empty?
+  .module.list.news
+    %header
+      %h2
+        = t(:'blogs.company_news')
+    .content
+      %ul.posts
+        - posts.each do |post|
+          %li
+            %a{href: nested_resources_for(post)}
+              %strong= "#{post.account.name} - #{post.organization.name}"
+              %span.title= post.title
+

@@ -6,50 +6,9 @@
 
 .row.two-columns.inverted.dashboard
   .primary
-    .module.list.notifications
-      %header
-        %h2
-          = t(:notifications)
-          %span.count= current_user.notifications.count
-
-          -# TODO ticket #505710
-          %a.side-link{style: 'display: none'} See all
-
-      .content
-        %ul
-          - current_user.notifications.recent(23).each do |notification|
-            %li{ data: { icon: i(:comment) }}
-              = avatar notification.acting_employee.user, notification.acting_employee, :thumb
-              = notification.introductory_text
-
+    = render 'notifications/for_dashboard', notifications: current_user.notifications
   .primary
-    .module.schedulings
-      %header
-        %h2
-          = t(:upcoming_schedulings)
-          %span.count= current_user.schedulings.upcoming.count
-      .content
-        %table.agenda
-          - current_user.schedulings.upcoming.each do |scheduling|
-            %tr
-              %th.date
-                %span.day= scheduling.starts_at.day
-                %span.day-name= l scheduling.starts_at, format: :abbr_week_day
-                %span.month-year= l scheduling.starts_at, format: :short_month_and_year
-              %td
-                %strong.time= "#{scheduling.starts_at.hour} - #{scheduling.ends_at.hour}"
-                %span.team= scheduling.team.to_quickie
-
+    = render 'schedulings/for_dashboard', schedulings: current_user.schedulings.upcoming
   .secondary
-    .module.list.news
-      %header
-        %h2
-          = t(:'blogs.company_news')
-      .content
-        %ul.posts
-          - current_user.posts_of_joined_organizations.recent(23).each do |post|
-            %li
-              %a{href: nested_resources_for(post)}
-                %strong= "#{post.account.name} - #{post.organization.name}"
-                %span.title= post.title
+    = render 'posts/for_dashboard', posts: current_user.posts_of_joined_organizations.recent(23)
 
