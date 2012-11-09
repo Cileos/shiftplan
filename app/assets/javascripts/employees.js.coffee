@@ -1,34 +1,35 @@
 jQuery(document).ready ->
-  # TODO: Filtering for new employee form deactivated for now. We want something else
-  # here.
-  # $('input#employee_first_name,input#employee_last_name').keyup ->
-  #   first_name = $('input#employee_first_name').val()
-  #   last_name = $('input#employee_last_name').val()
-  #   delay (->
-  #     search(first_name: first_name, last_name: last_name)
-  #     ), 500
 
-  $('form#search input[type=text]').keyup ->
-    first_name = $('form#search input#first_name').val()
-    last_name  = $('form#search input#last_name').val()
-    email      = $('form#search input#email').val()
-    delay (->
-      search(first_name: first_name, last_name: last_name, email: email)
-      ), 500
+  $('form#search').each ->
+    $search_form = $(this)
+    search_url = $search_form.attr('action')
 
-  search = (params = {}) ->
-    $.ajax
-      url: $('form#search').attr('action')
-      data:
-        query: params
+    $search_form.find('input').keyup ->
+      search()
 
-  delay = (->
-    timer = 0
-    (callback, ms) ->
-      clearTimeout timer
-      timer = setTimeout(callback, ms)
-  )()
+    $search_form.find('select').change ->
+      search()
 
-  $('a#clear-search').click ->
-    $('form#search input[type=text]').val('')
-    $('form#search input#first_name').trigger('keyup')
+    search = ->
+      query_params =
+        query:
+          first_name:   $search_form.find('input#first_name').val()
+          last_name:    $search_form.find('input#last_name').val()
+          email:        $search_form.find('input#email').val()
+          organization: $search_form.find('select#organization').val()
+      delay (->
+        $.ajax
+          url:  search_url
+          data: query_params
+        ), 500
+
+    delay = (->
+      timer = 0
+      (callback, ms) ->
+        clearTimeout timer
+        timer = setTimeout(callback, ms)
+    )()
+
+    $('a#clear-search').click ->
+      $('form#search').find('input[type=text],select').val('')
+      $('form#search input#first_name').trigger('keyup')

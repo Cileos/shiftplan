@@ -1,10 +1,14 @@
 %p= t('employees.search.hint')
 
-= form_tag([:search, current_account, current_organization, :employees], { id: 'search', class: 'form-horizontal' }) do |f|
+= form_tag([:search, current_account, current_organization, :employees],
+  { id: 'search', class: 'form-horizontal' }) do |f|
+
   .inputs
     = text_field_tag 'first_name', nil, placeholder: t('employees.search.placeholders.first_name')
     = text_field_tag 'last_name', nil, placeholder: t('employees.search.placeholders.last_name')
     = text_field_tag 'email', nil, placeholder: t('employees.search.placeholders.email')
+    = select_tag 'organization', options_from_collection_for_select(current_account.organizations, :id, :name),
+      prompt: t('employees.search.placeholders.organization')
 
 %a#clear-search{href: '#'}= t('employees.search.clear')
 

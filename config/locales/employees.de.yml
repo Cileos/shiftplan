@@ -37,4 +37,5 @@ de:
         first_name: 'Vorname eingeben'
         last_name: 'Nachname eingeben'
         email: 'E-Mail Adresse eingeben'
+        organization: 'Organisation auswählen'
   none: keine

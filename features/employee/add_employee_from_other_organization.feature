@@ -63,7 +63,7 @@ Feature: Add Employees from other Organization
         | Bart Simpson  |     |     |     |     |     |     |     |
 
   @javascript
-  Scenario: Filtering employees of other organization by first name
+  Scenario: Filtering employees of other organizations by first name
     Given I follow "Hinzufügen"
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
@@ -80,7 +80,7 @@ Feature: Add Employees from other Organization
       And I should see "1 Mitarbeiter gefunden."
 
   @javascript
-  Scenario: Filtering employees of other organization by last name
+  Scenario: Filtering employees of other organizations by last name
     Given I follow "Hinzufügen"
       And I fill in "last_name" with "Simpson" within the search form
       And I wait a bit
@@ -91,7 +91,7 @@ Feature: Add Employees from other Organization
       And I should see "2 Mitarbeiter gefunden."
 
   @javascript
-  Scenario: Filtering employees of other organization by email
+  Scenario: Filtering employees of other organizations by email
     Given I follow "Hinzufügen"
       And I fill in "email" with "homer@thesimpsons.com" within the search form
       And I wait a bit
@@ -101,11 +101,23 @@ Feature: Add Employees from other Organization
       And I should see "1 Mitarbeiter gefunden."
 
   @javascript
-  Scenario: Filtering employees of other organization by first name, last name and email
+  Scenario: Filtering employees of other organizations by organization
+    Given I follow "Hinzufügen"
+      And I select "Krümmel" from "organization" within the search form
+      And I wait a bit
+     Then I should see the following table of employees:
+        | Name           | WAZ | E-Mail                | Status                | Organisationen       |
+        | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
+        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
+      And I should see "2 Mitarbeiter gefunden."
+
+  @javascript
+  Scenario: Filtering employees of other organizations by first name, last name, email and organization
     Given I follow "Hinzufügen"
       And I fill in "first_name" with "Homer" within the search form
       And I fill in "last_name" with "Simpson" within the search form
       And I fill in "email" with "homer@thesimpsons.com" within the search form
+      And I select "Krümmel" from "organization" within the search form
       And I wait a bit
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status | Organisationen       |
@@ -118,6 +130,7 @@ Feature: Add Employees from other Organization
       And I fill in "first_name" with "Homer" within the search form
       And I fill in "last_name" with "Simpson" within the search form
       And I fill in "email" with "homer@thesimpsons.com" within the search form
+      And I select "Krümmel" from "organization" within the search form
       And I wait a bit
       And I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |

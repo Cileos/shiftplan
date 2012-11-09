@@ -30,6 +30,9 @@ class EmployeesController < InheritedResources::Base
       if query_params[:email].present?
         scope = scope.joins(:user).where("users.email LIKE ?", "#{query_params[:email]}%")
       end
+      if query_params[:organization].present?
+        scope = scope.joins(:organizations).where(organizations: { id: query_params[:organization] })
+      end
     end
     @other_employees = scope
   end
