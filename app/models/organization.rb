@@ -6,6 +6,7 @@ class Organization < ActiveRecord::Base
   has_many   :teams,      order: 'name ASC'
   has_many   :invitations
   has_many   :blogs
+  has_many   :posts,      through: :blogs
   has_many   :memberships
 
   validates_presence_of :name

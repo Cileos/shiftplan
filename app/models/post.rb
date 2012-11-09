@@ -11,15 +11,21 @@ class Post < ActiveRecord::Base
   after_commit :create_notifications, on: :create
 
   delegate :organization, to: :blog
+  delegate :account, to: :organization
 
   def commenters
     comments.map &:employee
   end
 
+  def self.recent(num=5)
+    order('published_at DESC, updated_at DESC').limit(num)
+  end
+
+
   protected
 
   def set_published_at
-    self.published_at = Time.now
+    self.published_at ||= Time.now
   end
 
   def create_notifications

@@ -40,5 +40,16 @@
                 %strong.time= "#{scheduling.starts_at.hour} - #{scheduling.ends_at.hour}"
                 %span.team= scheduling.team.to_quickie
 
+  .secondary
+    .module.list.news
+      %header
+        %h2
+          = t(:'blogs.company_news')
+      .content
+        %ul.posts
+          - current_user.posts_of_joined_organizations.recent(23).each do |post|
+            %li
+              %a{href: nested_resources_for(post)}
+                %strong= "#{post.account.name} - #{post.organization.name}"
+                %span.title= post.title
 
-= render :partial => "dashboard/static"

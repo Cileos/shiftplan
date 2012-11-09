@@ -48,3 +48,23 @@ Feature: Dashboard
        | 12  | Mi       | Dez 2012   | 10 - 18 | Reaktor Fegen [RF]  |
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
+
+   Scenario: List recent news posts of company blogs
+    Given an organization "fukushima" exists with name: "AKW Fukushima GmbH", account: the account
+      And a blog "fukushima" exists with organization: organization "fukushima"
+      And the employee "Homer" is a member of the organization "fukushima"
+      And a blog "tschernobyl" exists with organization: organization "tschernobyl"
+      And the following posts exist:
+        | blog               | title       | published_at |
+        | blog "fukushima"   | No Danger   | 11.03.2011   |
+        | blog "fukushima"   | Level 7     | 11.04.2011   |
+        | blog "tschernobyl" | Oops        | 26.04.1986   |
+        | blog "tschernobyl" | Liquidators | 01.12.1986   |
+      And I am signed in as the user "homer"
+     When I go to the dashboard
+     Then I should see a list of the following posts:
+        | title       |
+        | Level 7     |
+        | No Danger   |
+        | Liquidators |
+        | Oops        |

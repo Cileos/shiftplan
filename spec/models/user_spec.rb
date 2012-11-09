@@ -54,4 +54,25 @@ describe User do
       }.to change { u.schedulings.count }.by(2)
     end
   end
+
+  context "posts of joined organizations" do
+    it "should be collected through all employees and their memberships" do
+      u = create :user
+      e1 = create :employee, user: u
+      e2 = create :employee, user: u
+
+      post1 = create :post
+      post2 = create :post
+
+      expect {
+        Membership.create employee: e1, organization: post1.blog.organization
+        Membership.create employee: e2, organization: post2.blog.organization
+
+        create :post
+      }.to change { u.posts_of_joined_organizations.count }.by(2)
+
+      u.posts_of_joined_organizations.should include(post1)
+      u.posts_of_joined_organizations.should include(post2)
+    end
+  end
 end
