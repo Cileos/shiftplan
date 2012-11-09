@@ -28,4 +28,18 @@ describe User do
       expect { user.current_employee = foreign_employee }.to raise_error
     end
   end
+
+  context "notifications" do
+
+    it "should be collected through all employees" do
+      u = create :user
+      e1 = create :employee, user: u
+      e2 = create :employee, user: u
+
+      expect {
+        create :notification, employee: e1
+        create :notification, employee: e2
+      }.to change { u.notifications.count }.by(2)
+    end
+  end
 end

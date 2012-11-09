@@ -4,4 +4,22 @@
   - if can? :create, Organization.new(account: current_account)
     = link_to ti(:new_organization), new_account_organization_path(current_account), class: 'button'
 
+.row.two-columns.inverted.dashboard
+  .primary
+    .module.list.notifications
+      %header
+        %h2
+          = t(:notifications)
+          %span.count= current_user.notifications.count
+
+          -# TODO ticket #505710
+          %a.side-link{style: 'display: none'} See all
+
+      .content
+        %ul
+          - current_user.notifications.recent(23).each do |notification|
+            %li{ data: { icon: i(:comment) }}
+              = avatar notification.acting_employee.user, notification.acting_employee, :thumb
+              = notification.introductory_text
+
 = render :partial => "dashboard/static"

@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
   # organizations the user joined (aka "has a membership in")
   has_many :joined_organizations, :through => :memberships, source: :organization
 
+  has_many :notifications, through: :employees
+
   # unsure about the naming of this method.. rather call it organizations_for_account ?
   def organizations_for(account)
     # a user only has one employee per account but can have several employees across accounts

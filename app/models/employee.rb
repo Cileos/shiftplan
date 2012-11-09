@@ -19,6 +19,7 @@ class Employee < ActiveRecord::Base
   has_many   :schedulings
   has_many   :organizations, through: :memberships
   has_many   :memberships
+  has_many   :notifications, class_name: 'Notification::Base'
 
   validates_presence_of :account_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
