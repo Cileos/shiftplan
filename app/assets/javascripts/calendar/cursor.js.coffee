@@ -64,8 +64,14 @@ class CalendarCursor
 
 
   keydown: (event) =>
-    if $(event.srcElement).is(':input') or $(event.target).is(':input')
-      return true # no not capture
+    # ignore the ESC key, as it always acts a a shortcut for close (ie modalbox).
+    # This code is reached only in certain browsers (Chromium 20.0.1132.47)
+    if event.which == 27
+      return true
+
+    # ignore key pressed in visible input field (some browsers can keep focus on input fields in a closed modal box)
+    if $(event.srcElement).is(':input:visible') or $(event.target).is(':input:visible')
+      return true
 
     captured = true
     switch event.which
