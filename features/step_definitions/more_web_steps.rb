@@ -87,10 +87,13 @@ When /^I confirm popup$/ do
   page.driver.browser.switch_to.alert.accept
 end
 
-When /^(?:|I )follow "([^"]*)" and confirm$/ do |link|
-  click_link(link)
-  step 'I confirm popup'
+# When I click on the delete link (or any other human selector for a link)
+When /^I follow (the .+ link)$/ do |target|
+  selector = selector_for(target)
+  page.should have_css(selector)
+  page.first(selector).click
 end
+
 
 Then /^the select field for "(.*?)" should have the following options:$/ do |label, table|
   select_field = find_field(label)
