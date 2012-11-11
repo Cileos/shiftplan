@@ -9,11 +9,10 @@ Feature: Create Employees
       And a plan exists with name: "Kühlungsraum säubern", organization: the organization
      When I sign in as the confirmed user
       And I am on the employees page for the organization
+    Then I should see "Es existieren noch keine Mitarbeiter für diese Organisation"
 
   @fileupload
   Scenario: Creating an employee
-    Given I should see the following table of employees:
-      | Name | WAZ | E-Mail | Status |
      When I follow "Hinzufügen"
       And I wait for the modal box to appear
      Then the "Wochenarbeitszeit" field should contain "40"
@@ -35,6 +34,32 @@ Feature: Create Employees
       And I should see the following calendar:
         | Mitarbeiter   | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
         | Carl Carlson  |     |     |     |     |     |     |     |
+
+
+  Scenario: Creating a planner
+    Given I follow "Hinzufügen"
+      And I wait for the modal box to appear
+      And I fill in the following:
+        | Vorname           | Carl    |
+        | Nachname          | Carlson |
+      And I select "Planer" from "Rolle"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+      And I should be on the employees page for the organization
+     Then I should see the following table of employees:
+       | Name           | WAZ  | E-Mail  | Rolle   | Status                 |
+       | Carlson, Carl  | 40   |         | Planer  | Noch nicht eingeladen  |
+
+     When I inject style "position:relative" into "header"
+     When I follow "Carlson, Carl" within the employees table
+      And I wait for the modal box to appear
+     Then the selected "Rolle" should be "Planer"
+      And I select "keine" from "Rolle"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see the following table of employees:
+       | Name           | WAZ  |  E-Mail  | Rolle | Status                 |
+       | Carlson, Carl  | 40   |          | keine | Noch nicht eingeladen  |
 
   # The following scenario tests if the ajax multipart form really works.
   # Because ajax file uploads are not supported normally because of security reasons,
@@ -59,8 +84,8 @@ Feature: Create Employees
      Then I should see flash notice "Mitarbeiter erfolgreich angelegt."
       And I should be on the employees page for the organization
       Then I should see the following table of employees:
-        | Name           | WAZ  | E-Mail  | Status                 |
-        | Carlson, Carl  | 40   |         | Noch nicht eingeladen  |
+        | Name           | WAZ  | E-Mail  | Rolle | Status                 |
+        | Carlson, Carl  | 40   |         | keine | Noch nicht eingeladen  |
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
      When I go to the page of the plan
       And I should see the following calendar:
@@ -75,8 +100,8 @@ Feature: Create Employees
     Given a membership exists with organization: the organization, employee: the employee "mr. burns"
       And I am on the employees page for the organization
       Then I should see the following table of employees:
-        | Name          | WAZ  | E-Mail           | Status  |
-        | Burns, Owner  |      | owner@burns.com  | Aktiv   |
+        | Name          | WAZ  | E-Mail           | Rolle          | Status  |
+        | Burns, Owner  |      | owner@burns.com  | Accountinhaber | Aktiv   |
      Then I should see a tiny gravatar within the row for employee "Owner Burns"
       And I should see a tiny gravatar within the user navigation
      When I follow "Burns, Owner" within the employees table
@@ -136,8 +161,8 @@ Feature: Create Employees
       And a membership exists with organization: the organization, employee: the employee "homer"
       And I am on the employees page for the organization
       Then I should see the following table of employees:
-        | Name            | WAZ  | E-Mail  | Status                 |
-        | Simpson, Homer  |      |         | Noch nicht eingeladen  |
+        | Name            | WAZ  | E-Mail  | Rolle | Status                 |
+        | Simpson, Homer  |      |         | keine | Noch nicht eingeladen  |
      When I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
       And I fill in the following:
@@ -160,6 +185,7 @@ Feature: Create Employees
       And I fill in "Wochenarbeitszeit" with ""
       And I press "Speichern"
       And I wait for the modal box to disappear
+      And I inject style "position:relative" into "header"
       And I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
      Then the "Wochenarbeitszeit" field should be empty
@@ -169,8 +195,7 @@ Feature: Create Employees
       And an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account
       And a membership exists with organization: the organization "Chefs", employee: the employee "homer"
       And I am on the employees page for the organization "fukushima"
-     Then I should see the following table of employees:
-        | Name |
+     Then I should see "Es existieren noch keine Mitarbeiter für diese Organisation"
 
      When I go to the employees page for the organization "Chefs"
      Then I should see the following table of employees:
