@@ -12,8 +12,6 @@
 // require ./clockwork
 //= require collapsible
 //= require sidebars
-//= require help
-//= require legend
 //= require lib/tooltips
 // always last!
 //= require lib/loaded_page
