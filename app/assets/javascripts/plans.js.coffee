@@ -11,12 +11,12 @@ jQuery(document).ready ->
     # plan is in to update the cell accordingly. Yes, this validates the same
     # origin policy.
     $calendar.ajaxSend (e, jqxhr, settings) ->
-      jqxhr.setRequestHeader('X-Shiftplan-Mode', $calendar.data('mode'))
+      jqxhr.setRequestHeader('X-Clockwork-Mode', $calendar.data('mode'))
 
-    $hidden_mode = $("<input type='hidden' name='_shiftplan_mode' value='#{$calendar.data('mode')}' />").addClass('_shiftplan_mode')
+    $hidden_mode = $("<input type='hidden' name='_clockwork_mode' value='#{$calendar.data('mode')}' />").addClass('_clockwork_mode')
 
     $('body').bind 'dialogopen', (event, ui) ->
-      $(event.target).find('form:not([data-remote]):not(:has(input._shiftplan_mode))').append($hidden_mode)
+      $(event.target).find('form:not([data-remote]):not(:has(input._clockwork_mode))').append($hidden_mode)
 
     cursor = new CalendarCursor $calendar
 

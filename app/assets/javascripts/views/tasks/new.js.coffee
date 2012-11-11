@@ -1,3 +1,3 @@
-Shiftplan.NewTaskView = Shiftplan.NewDoable.extend
+Clockwork.NewTaskView = Clockwork.NewDoable.extend
   heading: 'neue Aufgabe'
 

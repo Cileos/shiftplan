@@ -1,2 +1,2 @@
-Shiftplan.MilestonesView = Ember.View.extend
+Clockwork.MilestonesView = Ember.View.extend
   templateName: 'milestones'

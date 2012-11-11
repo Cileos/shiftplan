@@ -1,8 +1,8 @@
-Shiftplan.Router = Ember.Router.extend
+Clockwork.Router = Ember.Router.extend
   enableLogging: true
   location: 'hash'
   openModal: (opts...) ->
-    # The used View must mixin Shiftplan.ModalMixin
+    # The used View must mixin Clockwork.ModalMixin
     @get('applicationController').connectOutlet 'modal', opts...
   closeModal: ->
     @get('applicationController').disconnectOutlet 'modal'
@@ -21,13 +21,13 @@ Shiftplan.Router = Ember.Router.extend
     milestones: Ember.Route.extend
       route: '/milestones'
       connectOutlets: (router) ->
-        router.get('applicationController').connectOutlet 'milestones', Shiftplan.Milestone.find()
+        router.get('applicationController').connectOutlet 'milestones', Clockwork.Milestone.find()
 
       new: Ember.Route.extend
         route: '/new'
         connectOutlets: (router) ->
-          transaction = Shiftplan.store.transaction()
-          milestone = transaction.createRecord Shiftplan.Milestone
+          transaction = Clockwork.store.transaction()
+          milestone = transaction.createRecord Clockwork.Milestone
           router.set 'currentTransaction', transaction
           router.openModal 'newMilestone', milestone
         save: (router) ->
@@ -36,8 +36,8 @@ Shiftplan.Router = Ember.Router.extend
             milestone.observeSaveOnce
               success: -> router.transitionTo('milestones')
               error: ->
-                newTransaction = Shiftplan.store.transaction()
-                newMilestone = newTransaction.createRecord Shiftplan.Milestone, milestone.toJSON()
+                newTransaction = Clockwork.store.transaction()
+                newMilestone = newTransaction.createRecord Clockwork.Milestone, milestone.toJSON()
                 newMilestone.set 'errors', milestone.get('errors') # set by custom hook
                 router.set 'currentTransaction', newTransaction
                 router.set 'newMilestoneController.content', newMilestone
@@ -50,7 +50,7 @@ Shiftplan.Router = Ember.Router.extend
       edit: Ember.Route.extend
         route: '/edit/:milestone_id'
         connectOutlets: (router, milestone) ->
-          transaction = Shiftplan.store.transaction()
+          transaction = Clockwork.store.transaction()
           transaction.add milestone
           router.set 'currentTransaction', transaction
           router.openModal 'editMilestone', milestone
@@ -64,7 +64,7 @@ Shiftplan.Router = Ember.Router.extend
                 # FIXME when we rollback a failed transaction with pre-existing
                 # records, it does not remove the isDirty flag from the DS.Model
                 changes = milestone.toJSON()
-                newTransaction = Shiftplan.store.transaction()
+                newTransaction = Clockwork.store.transaction()
                 transaction.rollback()
                 newTransaction.add milestone
                 milestone.setProperties changes

@@ -49,7 +49,7 @@ jQuery(document).ready ->
        .css('overflow', 'hidden')
        .css('border-right', 'none')
       updateWidths(e)
-      $.cookie('shiftplan_'+id, 'collapsed', { path: '/' })
+      $.cookie('clockwork_'+id, 'collapsed', { path: '/' })
       false
     else
       setIcon(lnk, id)
@@ -58,7 +58,7 @@ jQuery(document).ready ->
        .css('overflow', '')
        .css('border-right', '')
       updateWidths(e, 'restore')
-      $.cookie('shiftplan_'+id, 'visible', { path: '/' })
+      $.cookie('clockwork_'+id, 'visible', { path: '/' })
       false
 
   calcPercentage = (val) ->
@@ -70,7 +70,7 @@ jQuery(document).ready ->
     id = e.attr('id')
     $('[role="content"]').prepend('<a href="#" id="toggle_'+id+'" data-toggle="'+id+'" class="toggle-sidebars utility-button" data-icon="x">')
     lnk = $('[role="content"]').find('#toggle_'+id)
-    if $.cookie('shiftplan_'+e.attr('id')) == 'collapsed'
+    if $.cookie('clockwork_'+e.attr('id')) == 'collapsed'
       $('[role="content"]').addClass('no-animation')
       toggleSidebars(e)
     setIcon(lnk, id)

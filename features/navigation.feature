@@ -1,7 +1,7 @@
 # we have to discuss how to handle the dashboard
 @wip
 Feature: Navigation
-  In order to access all the wonderful functionality of shiftplan
+  In order to access all the wonderful functionality of clockwork
   As a user
   I want to use a navigation
 
@@ -93,7 +93,7 @@ Feature: Navigation
        | Mitarbeiter    | false   |
        | Teams          | true    |
 
-     When I follow "shiftplan"
+     When I follow "clockwork"
      Then I should be on the dashboard
      Then I should see the following list of links within the navigation:
        | link           | active  |

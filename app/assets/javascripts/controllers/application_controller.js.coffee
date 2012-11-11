@@ -1,1 +1,1 @@
-Shiftplan.ApplicationController = Ember.Controller.extend()
+Clockwork.ApplicationController = Ember.Controller.extend()

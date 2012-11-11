@@ -1,1 +1,1 @@
-Shiftplan.NewMilestoneController = Ember.ObjectController.extend()
+Clockwork.NewMilestoneController = Ember.ObjectController.extend()

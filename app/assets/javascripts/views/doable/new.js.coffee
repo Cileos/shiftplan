@@ -1,3 +1,3 @@
 #= require views/doable/form
-Shiftplan.NewDoable = Shiftplan.DoableForm.extend Shiftplan.ModalMixin,
+Clockwork.NewDoable = Clockwork.DoableForm.extend Clockwork.ModalMixin,
   buttonLabel: "Anlegen"
