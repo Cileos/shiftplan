@@ -1,7 +1,7 @@
 Given an account "tepco" exists with name: "Tepco GmbH"
 And an organization "Reactor" exists with name: "Reactor", account: the account
-  And a confirmed user "Burns" exists with email: "burns@shiftplan.local"
-  And a confirmed user "Homer" exists with email: "homer@shiftplan.local"
+  And a confirmed user "Burns" exists with email: "burns@clockwork.local"
+  And a confirmed user "Homer" exists with email: "homer@clockwork.local"
   And the following employees exist:
     | account     | employee | role    | first_name | last_name | user                   | weekly_working_time |
     | the account | Burns    | planner | Planner    | Burns     | confirmed user "Burns" |                     |

@@ -1,4 +1,4 @@
-Shiftplan.FlashMessageView = Ember.View.extend
+Clockwork.FlashMessageView = Ember.View.extend
   severity: (->
     "alert-#{@get('content.severity')}"
   ).property('content.severity')
@@ -6,6 +6,6 @@ Shiftplan.FlashMessageView = Ember.View.extend
   <div {{bindAttr class=":flash :alert view.severity"}}>{{view.content.message}}</div>
   """
 
-Shiftplan.FlashMessagesView = Ember.Rails.FlashListView.extend
+Clockwork.FlashMessagesView = Ember.Rails.FlashListView.extend
   classNames: 'flash'.w()
-  itemViewClass: Shiftplan.FlashMessageView
+  itemViewClass: Clockwork.FlashMessageView

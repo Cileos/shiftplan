@@ -1,4 +1,4 @@
 #= require views/doable/form
-Shiftplan.EditDoable = Shiftplan.DoableForm.extend Shiftplan.ModalMixin,
+Clockwork.EditDoable = Clockwork.DoableForm.extend Clockwork.ModalMixin,
   buttonLabel: 'Speichern'
 

@@ -1,3 +1,3 @@
 #= require views/fields/name
-Shiftplan.Fields.MilestoneName = Shiftplan.Fields.Name.extend
+Clockwork.Fields.MilestoneName = Clockwork.Fields.Name.extend
   viewName: 'milestoneName'

@@ -25,7 +25,7 @@ class QuickieEditor extends View
         source: @autocompleteSource
         appendTo: @input.closest('form')
     @one 'attach', =>
-      $(@).closest('form').bind 'shiftplan.remove', @destroy
+      $(@).closest('form').bind 'clockwork.remove', @destroy
       $('#modalbox').bind 'dialogclose', @destroy
 
   destroy: =>
