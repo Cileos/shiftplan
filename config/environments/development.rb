@@ -28,6 +28,9 @@ Shiftplan::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  # Show asset messages (gem quiet_assets)
+  # config.quiet_assets = false
+
   ###### comment the sendmail settings in, if you need to test mail deliveries locally #####
   #
   # config.action_mailer.delivery_method = :sendmail
