@@ -18,7 +18,7 @@ button {
   @include button-colors;
   @include border-radius($ci_border-radius);
   @include box-shadow(inset 0 1px 0 $ci_glow);
-  @include transition(all .25s $ci_easing);
+  // @include transition(all .25s $ci_easing);
 
   padding:.4em .5em .35em;
   text-decoration: none;
