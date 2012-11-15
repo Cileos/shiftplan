@@ -18,10 +18,14 @@ Shiftplan.Router = Ember.Router.extend
 
     newMilestone: Ember.Router.transitionTo 'milestones.new'
     milestones: ModalRouter.fullRoute(Shiftplan.Milestone, 'milestones').extend
-      newTask: (router, event) -> router.transitionTo 'tasks.new', milestone: event.context.get('id')
+      newTask: Ember.Router.transitionTo 'tasks.new'
 
       tasks: Ember.Route.extend
         route: '/tasks'
+        index: Ember.Route.extend
+          route: '/'
         new: ModalRouter.newRoute(Shiftplan.Task, 'tasks').extend
-          route: '/new/:milestone'
-
+          route: '/:milestone_id/new'
+          # :milestone_id causes the router not to return a hash, but only the
+          # milestone. We need it as `milestone` attribute for the new record
+          paramsForNewRecord: (router, milestone) -> { milestone: milestone }

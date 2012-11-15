@@ -39,6 +39,9 @@ ModalRouter = Ember.Namespace.create
         # must fetch ALL the records so they appear in the list
         model.find()
 
+      index: Ember.Route.extend
+        route: '/' # to make ember happy, see http://emberjs.com/api/classes/Ember.Router.html "Adding Nested Routes to a Router"
+
       new: ModalRouter.newRoute(model, routeName)
 
       doEdit: Ember.Router.transitionTo "#{routeName}.edit"
@@ -65,9 +68,14 @@ ModalRouter = Ember.Namespace.create
 
     Ember.Route.extend
       route: '/new'
+      # default: forward the context as auto-detected by ember
+      paramsForNewRecord: (router, params) -> params
       connectOutlets: (router, params) ->
+        console?.debug "route params for #{model.toString()}:", params
+        newParams = @paramsForNewRecord router, params
+        console?.debug "used to createRecord:", newParams
         transaction = router.get('namespace.store').transaction()
-        record = transaction.createRecord model, params
+        record = transaction.createRecord model, newParams
         router.set transactionName, transaction
         router.openModal view, record
       save: (router) ->
