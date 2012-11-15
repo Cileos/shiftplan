@@ -35,7 +35,7 @@ ModalRouter = Ember.Namespace.create
     Ember.Route.extend
       route: "/#{routeName}" # convention: path segment == route string
       connectOutlets: (router) ->
-        router.get('applicationController').connectOutlet routeName, model.find()
+        router.get('applicationController').connectOutlet routeName, model.filter( (milestone) -> not milestone.get('isNew') )
 
       new: ModalRouter.newRoute(model, routeName)
 
