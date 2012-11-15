@@ -11,11 +11,11 @@ Feature: Tasks of milestones
       And a milestone exists with name: "World Domination", plan: the plan
       And I am on the page for the plan
 
-  @wip
   Scenario: create tasks for milestone
      When I follow "neue Aufgabe"
       And I fill in "Name" with "become rich"
-      And I press "Anlegen"
+     Then I should not see "become rich" within the milestones list
+     When I press "Anlegen"
      Then I should see "become rich" within the second item within the tasks list within the first item within the milestones list
 
      When I follow "neue Aufgabe"

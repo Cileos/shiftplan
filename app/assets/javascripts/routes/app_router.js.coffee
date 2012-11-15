@@ -16,8 +16,12 @@ Shiftplan.Router = Ember.Router.extend
       connectOutlets: (router) -> router.transitionTo('milestones')
 
 
-    newTask: (router, event) ->
-      router.get('applicationController').openModal 'newTask', { milestone: event.context}
-
     newMilestone: Ember.Router.transitionTo 'milestones.new'
-    milestones: ModalRouter.fullRoute(Shiftplan.Milestone, 'milestones')
+    milestones: ModalRouter.fullRoute(Shiftplan.Milestone, 'milestones').extend
+      newTask: (router, event) -> router.transitionTo 'tasks.new', milestone: event.context.get('id')
+
+      tasks: Ember.Route.extend
+        route: '/tasks'
+        new: ModalRouter.newRoute(Shiftplan.Task, 'tasks').extend
+          route: '/new/:milestone'
+

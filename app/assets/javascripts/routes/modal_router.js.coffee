@@ -47,6 +47,11 @@ ModalRouter = Ember.Namespace.create
 
   # @method newRoute
   # builds up a route to create a ember-data model in a modalbox.
+  #
+  # To open a Modalbox to create a Thing with default value for parent, you can
+  #
+  #    router.transitionTo 'things.new', parent: theParent.get('id'), name: "My thing"
+  #
   # @param model {DS.Model} ie. App.Post
   # @param parentPath {String} ie. 'posts' or 'root'
 
@@ -60,9 +65,9 @@ ModalRouter = Ember.Namespace.create
 
     Ember.Route.extend
       route: '/new'
-      connectOutlets: (router) ->
+      connectOutlets: (router, params) ->
         transaction = router.get('namespace.store').transaction()
-        record = transaction.createRecord model
+        record = transaction.createRecord model, params
         router.set transactionName, transaction
         router.openModal view, record
       save: (router) ->
@@ -78,7 +83,7 @@ ModalRouter = Ember.Namespace.create
               router.set contentInController, newRecord
               transaction.rollback()
           transaction.commit()
-      cancel: Ember.Route.transitionTo(parentPath)
+      cancel: (router) -> router.transitionTo(parentPath)
       exit: (router) -> router.closeModal()
 
   # @method newRoute
