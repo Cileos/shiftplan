@@ -1,7 +1,7 @@
 Shiftplan.ModalMixin = Ember.Mixin.create
   classNames: ['modalor']
   layout: Ember.Handlebars.compile("{{view Shiftplan.FlashMessagesView}}{{yield}}")
-  heading: ''
+  heading: '<set a `heading` in your View>'
   didInsertElement: ->
     dialog = @$().dialog
       closeOnEscape: false
@@ -15,6 +15,8 @@ Shiftplan.ModalMixin = Ember.Mixin.create
     # also see http://bugs.jqueryui.com/ticket/7948 (parent option for jQUeryUI#dialog)
     dialog.parent('.ui-dialog').appendTo Shiftplan.get('rootElement')
 
+  willDestroyElement: ->
+    @$().dialog('destroy')
 
   close: -> @$().dialog('close')
 
