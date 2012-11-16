@@ -27,9 +27,9 @@ Feature: Tasks of milestones
       And I press "Anlegen"
       And I wait for the spinner to disappear
      Then a task should exist with name: "become rich", milestone: the milestone
-      And I should see "become rich" within the first item within the tasks list within the first item within the milestones list
-      And I should see "become famous" within the second item within the tasks list within the first item within the milestones list
-      # task seem to be prepended to the list (?!)
+      And I should see "become famous" within the first item within the tasks list within the first item within the milestones list
+      And I should see "become rich" within the second item within the tasks list within the first item within the milestones list
+    # newest tasks at bottom, sorted by id
 
   Scenario: start to create, cancel, try again (Bender mode)
     Given I am on the page for the plan
