@@ -1,3 +1,3 @@
-Shiftplan.EditTaskView = Shiftplan.EditDoable.extend
+Clockwork.EditTaskView = Clockwork.EditDoable.extend
   heading: "Aufgabe bearbeiten"
 
