@@ -39,8 +39,6 @@ ModalRouter = Ember.Namespace.create
         route: '/' # to make ember happy, see http://emberjs.com/api/classes/Ember.Router.html "Adding Nested Routes to a Router"
         connectOutlets: (router) ->
           router.get('applicationController').connectOutlet routeName, model.filter( (record) -> not record.get('isNew') )
-          # must fetch ALL the records so they appear in the list
-          model.find()
 
       new: ModalRouter.newRoute(model, "#{routeName}.index")
 
