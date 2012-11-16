@@ -1,4 +1,8 @@
 {{#with view.content}}
-  {{view Shiftplan.ShowDoable contentBinding="this"}}
+  {{view Shiftplan.DoableDoneView checkedBinding="done"}}
+  <a class="name" {{action editTask this href=true}}>{{name}}</a>
+  {{#if due_at}}
+  <span class="due_on">{{formatted_due_on}}</span>
+  {{/if}}
 {{/with}}
 

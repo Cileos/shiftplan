@@ -50,6 +50,9 @@ module HtmlSelectorsHelpers
     when 'the modal box'
       'div#modalbox'
 
+    when /^the modal box (?:header|title)$/
+      '.ui-dialog .ui-dialog-title'
+
     when 'the completion list'
       'ul.ui-autocomplete'
 

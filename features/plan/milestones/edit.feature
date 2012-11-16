@@ -12,6 +12,7 @@ Feature: edit Milestones for a plan
     When I follow "Global Domination"
 
   Scenario: Edit an existing milestone
+   Given I should see "Meilenstein bearbeiten" within the modal box header
     When I fill in "Name" with "World Domination"
      And I press "Speichern"
      #Then I should see flash notice "Meilenstein erfolgreich geändert"

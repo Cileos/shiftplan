@@ -9,9 +9,9 @@ Feature: Tasks of milestones
     Given today is 2012-12-18
       And the situation of a nuclear reactor
       And a milestone exists with name: "World Domination", plan: the plan
-      And I am on the page for the plan
 
   Scenario: create tasks for milestone
+    Given I am on the page for the plan
      When I follow "neue Aufgabe"
       And I fill in "Name" with "become famous"
      Then I should not see "become famous" within the milestones list
@@ -32,6 +32,7 @@ Feature: Tasks of milestones
       # task seem to be prepended to the list (?!)
 
   Scenario: start to create, cancel, try again (Bender mode)
+    Given I am on the page for the plan
      When I follow "neue Aufgabe"
       And I fill in "Name" with "Kill all humans"
       And I close the modal box
@@ -46,3 +47,14 @@ Feature: Tasks of milestones
       And I should see "Kill all INNOCENT humans" within the first item within the tasks list within the first item within the milestones list
       But I should not see "Kill all humans"
 
+  Scenario: Edit a task
+    Given a task exists with name: "Kill the King", milestone: the milestone
+      And I am on the page for the plan
+     When I follow "Kill the King"
+     Then I should see "Aufgabe bearbeiten" within the modal box header
+     When I fill in "Name" with "Kill the Queen"
+      And I press "Speichern"
+      And I wait for the spinner to disappear
+     Then I should not see "Kill the King"
+      But I should see "Kill the Queen" within the first item within the tasks list within the first item within the milestones list
+      And the task's name should be "Kill the Queen"

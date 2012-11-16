@@ -29,3 +29,8 @@ Shiftplan.Router = Ember.Router.extend
           # :milestone_id causes the router not to return a hash, but only the
           # milestone. We need it as `milestone` attribute for the new record
           paramsForNewRecord: (router, milestone) -> { milestone: milestone }
+
+        edit: ModalRouter.editRoute(Shiftplan.Task, 'milestones.index')
+
+    editMilestone: Ember.Router.transitionTo 'milestones.edit'
+    editTask: Ember.Router.transitionTo 'milestones.tasks.edit'

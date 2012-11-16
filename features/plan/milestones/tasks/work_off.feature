@@ -19,3 +19,6 @@ Feature: Work of task for milestone of a plan
      When I uncheck "done" within the first item within the tasks list within the first item within the milestones list
       And I wait for the spinner to disappear
      Then the task should not be done
+
+  @wip
+  Scenario: can mark milestone only if all tasks are marked
