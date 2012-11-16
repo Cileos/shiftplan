@@ -3,7 +3,7 @@
 Feature: Tasks of milestones
   In order to describe the goals of a milestones in detail
   As a planner
-  I want to create, delete and mark tasks as done
+  I want to create, edit and delete tasks
 
   Background:
     Given today is 2012-12-18
@@ -46,10 +46,3 @@ Feature: Tasks of milestones
       And I should see "Kill all INNOCENT humans" within the first item within the tasks list within the first item within the milestones list
       But I should not see "Kill all humans"
 
-
-  @wip
-  Scenario: mark task for milestone as done
-     When I check "done" within the first item within the tasks list within the first item within the milestones list
-      And I close the modal box
-      And I wait for the modal box to disappear
-     Then the task should be done
