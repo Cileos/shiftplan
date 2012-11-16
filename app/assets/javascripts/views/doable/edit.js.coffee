@@ -1,4 +1,2 @@
-#= require views/doable/form
-Shiftplan.EditDoable = Shiftplan.DoableForm.extend Shiftplan.ModalMixin,
+Shiftplan.EditDoable = Shiftplan.DoableForm.extend
   buttonLabel: 'Speichern'
-
