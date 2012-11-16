@@ -13,15 +13,23 @@ Feature: Tasks of milestones
 
   Scenario: create tasks for milestone
      When I follow "neue Aufgabe"
-      And I fill in "Name" with "become rich"
-     Then I should not see "become rich" within the milestones list
+      And I fill in "Name" with "become famous"
+     Then I should not see "become famous" within the milestones list
+     # ^^ do not list unsaved tasks
+
      When I press "Anlegen"
-     Then I should see "become rich" within the second item within the tasks list within the first item within the milestones list
+      And I wait for the spinner to disappear
+     Then a task should exist with name: "become famous", milestone: the milestone
+      And I should see "become famous" within the first item within the tasks list within the first item within the milestones list
 
      When I follow "neue Aufgabe"
-      And I fill in "Name" with "become famous"
+      And I fill in "Name" with "become rich"
       And I press "Anlegen"
-     Then I should see "become famous" within the third item within the tasks list within the first item within the milestones list
+      And I wait for the spinner to disappear
+     Then a task should exist with name: "become rich", milestone: the milestone
+      And I should see "become rich" within the first item within the tasks list within the first item within the milestones list
+      And I should see "become famous" within the second item within the tasks list within the first item within the milestones list
+      # task seem to be prepended to the list (?!)
 
   @wip
   Scenario: mark task for milestone as done

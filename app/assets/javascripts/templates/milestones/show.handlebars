@@ -1,5 +1,5 @@
 {{view Shiftplan.ShowDoable}}
 {{#if tasksEnabled}}
-  {{view Shiftplan.TaskListView contentBinding="tasks"}}
+  {{view Shiftplan.TaskListView contentBinding="savedTasks"}}
   <a {{action newTask this href=true}} data-icon="&#xf067;">neue Aufgabe</a>
 {{/if}}
