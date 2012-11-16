@@ -1,5 +1,6 @@
 @javascript
 @big_screen
+@wip
 Feature: create Milestones for a plan
   In order to achieve the goal of the plan
   As a planner
