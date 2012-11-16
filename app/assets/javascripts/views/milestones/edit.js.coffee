@@ -1,2 +1,2 @@
-Shiftplan.EditMilestoneView = Shiftplan.EditDoable.extend
+Clockwork.EditMilestoneView = Clockwork.EditDoable.extend
   heading: "Meilenstein bearbeiten"

@@ -10,7 +10,7 @@ Then /^I close all datepickers$/ do
   sleep 0.5
 end
 
-Then /^I deactivate all confirm dialogs$/ do
+When /^I deactivate all confirm dialogs$/ do
   page.execute_script <<-EOJS
     window.confirm = function(msg) { return true; }
   EOJS
@@ -26,4 +26,3 @@ When /^I close all colorpickers$/ do
   page.execute_script("$('input.miniColors').miniColors('destroy')")
   sleep 0.5
 end
-

@@ -17,7 +17,7 @@ abbr {
 }
 
 a {
-  @include transition(color .5s ease);
+  @include transition(color .25s ease);
 
   color: $ci_blue;
   text-decoration: none;
@@ -71,7 +71,7 @@ small {
   @include z-index('103', 'fixed');
   top: 0;
   // white shadow to fade away scrolled content smoothly
-  @include box-shadow($ci_bg-color 0 1px 20px 10px);
+  // @include box-shadow($ci_bg-color 0 1px 20px 10px);
 
   h1 {
     float: left;
@@ -111,7 +111,6 @@ small {
     color: lighten($ci_blue, 50%);
     padding: $banner_link_padding_tb $banner_link_padding_lr;
     display: inline-block;
-
   }
 
   h1 a,
@@ -346,7 +345,7 @@ small {
 
 
 [data-toggle='collapsible-heading'] {
-  @include transition(0.5s color ease);
+  @include transition(0.25s color ease);
 
   position: relative;
   margin: 0 0 0.5em 1em;

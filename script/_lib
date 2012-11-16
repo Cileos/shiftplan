@@ -12,7 +12,7 @@ function run_suite () {
   case $1 in
     rspec)
       header "rSpec"
-      bundle exec rake --trace  spec:ci
+      bundle exec rake spec:ci --backtrace
       ;;
     jasmine)
       header "Jasmine"
@@ -74,7 +74,7 @@ function setup_ruby () {
 }
 
 function migrate_database () {
-  bundle exec rake --trace  db:migrate > /dev/null || exit 64
+  bundle exec rake db:migrate --backtrace > /dev/null || exit 64
 }
 
 function setup_database () {

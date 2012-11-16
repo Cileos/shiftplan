@@ -1,2 +1,2 @@
-Shiftplan.Task = DS.Model.extend Shiftplan.Doable,
-  milestone: DS.belongsTo('Shiftplan.Milestone')
+Clockwork.Task = DS.Model.extend Clockwork.Doable,
+  milestone: DS.belongsTo('Clockwork.Milestone')

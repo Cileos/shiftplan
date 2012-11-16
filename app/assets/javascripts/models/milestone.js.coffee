@@ -1,6 +1,19 @@
-Shiftplan.Milestone = DS.Model.extend Shiftplan.Doable,
-  tasks: DS.hasMany('Shiftplan.Task')
+Clockwork.Milestone = DS.Model.extend Clockwork.Doable,
+  tasks: DS.hasMany('Clockwork.Task')
+  savedTasks: (->
+    @get('tasks').filterProperty('isNew', false)
+  ).property('tasks', 'tasks.@each.isNew')
 
-  # @wip for now, have to do other stuff first
-  tasksEnabled: true
+  savedAndSortedTasks: (->
+    @get('savedTasks').toArray().sort (a,b) -> a.get('id') - b.get('id')
+  ).property('savedTasks', 'savedTasks.@each.id')
+
+  checkboxDisabled: (->
+    if @get('savedTasks').every( (task) -> task.get('done') )
+      undefined
+    else
+      'disabled'
+  ).property('savedTasks', 'savedTasks.@each.done')
+
+  tasksEnabledBinding: 'isLoaded'
 

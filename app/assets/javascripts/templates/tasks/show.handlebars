@@ -1,7 +1,8 @@
 {{#with view.content}}
-  {{#if isNew}}
-    {{view Shiftplan.EditDoable contentBinding="this"}}
-  {{else}}
-    {{view Shiftplan.ShowDoable contentBinding="this"}}
+  {{view Clockwork.DoableDoneView checkedBinding="done" classNames="task"}}
+  <a class="name" {{action editTask this href=true}}>{{name}}</a>
+  {{#if due_at}}
+  <span class="due_on">{{formatted_due_on}}</span>
   {{/if}}
 {{/with}}
+

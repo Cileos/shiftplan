@@ -1,4 +1,3 @@
-@wip
 @javascript
 @big_screen
 Feature: working off milestones
@@ -10,14 +9,12 @@ Feature: working off milestones
     Given today is 2012-12-18
       And the situation of a nuclear reactor
       And a milestone exists with name: "World Domination", plan: the plan
-      And a task exists with name: "1 Million", milestone: the milestone
+      #And a task exists with name: "1 Million", milestone: the milestone
       And I am on the page for the plan
 
-  @wip
   Scenario: marking a milestone as done
      When I check "done" within the first item within the milestones list
-      And I close the modal box
-      And I wait for the modal box to disappear
+      And I wait for the spinner to disappear
      Then the milestone should be done
 
   Scenario: deleting a milestone
