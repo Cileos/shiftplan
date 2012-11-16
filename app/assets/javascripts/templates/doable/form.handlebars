@@ -1,11 +1,11 @@
+{{#if milestone}}
+<h4 class="milestone_name">{{milestone.name}}</h4>
+{{/if}}
 {{#if hasErrors}}
 <div>{{errorMessages}}</div>
 {{/if}}
 {{view Clockwork.Fields.Name valueBinding="name" placeholder="Bezeichnung"}}
 {{view Clockwork.Fields.DueDateField valueBinding="formatted_due_on" placeholder="Fällig am"}}
-{{#if milestone}}
-<span class="milestone_name">{{milestone.name}}</span>
-{{/if}}
 {{#unless isNew}}
   <button class="button" {{action doDelete}}>Löschen</button>
 {{/unless}}
