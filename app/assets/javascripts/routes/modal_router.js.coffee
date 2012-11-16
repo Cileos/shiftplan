@@ -34,18 +34,18 @@ ModalRouter = Ember.Namespace.create
   fullRoute: (model, routeName) ->
     Ember.Route.extend
       route: "/#{routeName}" # convention: path segment == route string
-      connectOutlets: (router) ->
-        router.get('applicationController').connectOutlet routeName, model.filter( (record) -> not record.get('isNew') )
-        # must fetch ALL the records so they appear in the list
-        model.find()
 
       index: Ember.Route.extend
         route: '/' # to make ember happy, see http://emberjs.com/api/classes/Ember.Router.html "Adding Nested Routes to a Router"
+        connectOutlets: (router) ->
+          router.get('applicationController').connectOutlet routeName, model.filter( (record) -> not record.get('isNew') )
+          # must fetch ALL the records so they appear in the list
+          model.find()
 
-      new: ModalRouter.newRoute(model, routeName)
+      new: ModalRouter.newRoute(model, "#{routeName}.index")
 
       doEdit: Ember.Router.transitionTo "#{routeName}.edit"
-      edit: ModalRouter.editRoute(model, routeName)
+      edit: ModalRouter.editRoute(model, "#{routeName}.index")
 
 
   # @method newRoute
