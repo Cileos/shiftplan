@@ -91,7 +91,10 @@ ModalRouter = Ember.Namespace.create
               router.set contentInController, newRecord
               transaction.rollback()
           transaction.commit()
-      cancel: (router) -> router.transitionTo(parentPath)
+      cancel: (router) ->
+        if transaction = router.get(transactionName)
+          transaction.rollback()
+        router.transitionTo(parentPath)
       exit: (router) -> router.closeModal()
 
   # @method newRoute

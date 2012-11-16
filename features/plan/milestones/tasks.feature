@@ -31,6 +31,22 @@ Feature: Tasks of milestones
       And I should see "become famous" within the second item within the tasks list within the first item within the milestones list
       # task seem to be prepended to the list (?!)
 
+  Scenario: start to create, cancel, try again (Bender mode)
+     When I follow "neue Aufgabe"
+      And I fill in "Name" with "Kill all humans"
+      And I close the modal box
+     Then I should not see "Kill all humans"
+      And 0 tasks should exist with name: "Kill all humans"
+
+     When I follow "neue Aufgabe"
+      And I fill in "Name" with "Kill all INNOCENT humans"
+      And I press "Anlegen"
+      And I wait for the spinner to disappear
+     Then a task should exist with name: "Kill all INNOCENT humans", milestone: the milestone
+      And I should see "Kill all INNOCENT humans" within the first item within the tasks list within the first item within the milestones list
+      But I should not see "Kill all humans"
+
+
   @wip
   Scenario: mark task for milestone as done
      When I check "done" within the first item within the tasks list within the first item within the milestones list
