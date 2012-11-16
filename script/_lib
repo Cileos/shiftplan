@@ -24,7 +24,7 @@ function run_suite () {
       ;;
     strangecucumber)
       header "Strange Cucumber Scenarios (failing only sometimes)"
-      bundle exec cucumber --profile ci -t @strange features
+      CAPYBARA_CHROME=yes bundle exec cucumber --profile ci -t @strange features
       ;;
     chrome)
       header "Cucumber with chrome"
