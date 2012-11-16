@@ -5,12 +5,13 @@ Feature: Creating a plan
   I want to create a plan
 
   Background:
+    # 2012-02-01 is a wednesday
     Given today is 2012-02-01
-      # 2012-02-01 is a wednesday
-      And the situation of a nuclear reactor
 
   Scenario: creating a plan by name for the current organization
-    Given I am on the page for the organization "Reactor"
+    Given the situation of a nuclear reactor
+      And I am on the page for the organization "Reactor"
+
      When I choose "Alle Pläne" from the drop down "Pläne"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
@@ -38,8 +39,11 @@ Feature: Creating a plan
         | Lenny L       |    |    |    |    |    |    |    |
         | Homer S       |    |    |    |    |    |    |    |
 
-  Scenario: creating a plan and then choosing the new plan from the plans drop down
-    Given I am on the page for the organization "Reactor"
+  Scenario: creating the first plan and then choosing the new plan from the plans drop down
+    Given the situation of a just registered user
+      And 0 plans should exist
+      And I am on the page for the organization "Fukushima"
+
      When I choose "Alle Pläne" from the drop down "Pläne"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
@@ -48,11 +52,17 @@ Feature: Creating a plan
       And I wait for the modal box to disappear
 
      Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
+      And I should see the following table of plans:
+        | Name                        | Beschreibung    | Startdatum  | Enddatum  |
+        | Halloween im Atomkraftwerk  |                 | -           | -         |
+
      When I choose "Halloween im Atomkraftwerk" from the drop down "Pläne"
      Then I should be on the employees in week page for the plan for week: 5, year: 2012
 
   Scenario: plan's start time must be smaller or equal to the plan's end time
-    Given I am on the page for the organization "Reactor"
+    Given the situation of a nuclear reactor
+      And I am on the page for the organization "Reactor"
+
      When I choose "Alle Pläne" from the drop down "Pläne"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
@@ -70,7 +80,9 @@ Feature: Creating a plan
   # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
   Scenario: user gets redirected properly to last cweek of the previous year for 2012-01-01
     Given today is 2011-12-15
+      And the situation of a nuclear reactor
       And I am on the page for the organization "Reactor"
+
      When I choose "Alle Pläne" from the drop down "Pläne"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
@@ -89,9 +101,11 @@ Feature: Creating a plan
 
 
   Scenario: user is locked within the plan period frame when trying to visit a page outside the frame
-    # 2012-02-27: monday, 9th calendar week
-    # 2012-03-30: friday, 13th calendar week
-    Given a plan exists with starts_at: "2012-02-27", ends_at: "2012-03-30", organization: the organization
+    Given the situation of a nuclear reactor
+
+      # 2012-02-27: monday, 9th calendar week
+      # 2012-03-30: friday, 13th calendar week
+      And a plan exists with starts_at: "2012-02-27", ends_at: "2012-03-30", organization: the organization
       And I go to the page of the plan
      Then I should be on the employees in week page for the plan for week: 9, year: 2012
 
@@ -108,9 +122,10 @@ Feature: Creating a plan
 
 
   Scenario: focus first calendar cell which is not outside the plan period
+     Given the situation of a nuclear reactor
      # 2012-01-03: tuesday
      # 2012-01-04: wednesday
-     Given a plan exists with starts_at: "2012-01-03", ends_at: "2012-01-04", organization: the organization
+       And a plan exists with starts_at: "2012-01-03", ends_at: "2012-01-04", organization: the organization
        And I go to the page of the plan
       Then I should be on the employees in week page for the plan for week: 1, year: 2012
-      And the cell "Di"/"Carl C" should be focus
+       And the cell "Di"/"Carl C" should be focus

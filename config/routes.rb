@@ -1,4 +1,4 @@
-Shiftplan::Application.routes.draw do
+Clockwork::Application.routes.draw do
 
   get 'invitation/accept'    => 'accept_invitations#accept',  :as => :accept_invitation
   put 'invitation/confirm'   => 'accept_invitations#confirm', :as => :confirm_invitation

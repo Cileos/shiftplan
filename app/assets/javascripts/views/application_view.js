@@ -1,3 +1,3 @@
-Shiftplan.ApplicationView = Ember.View.extend({
+Clockwork.ApplicationView = Ember.View.extend({
   templateName: 'application'
 });

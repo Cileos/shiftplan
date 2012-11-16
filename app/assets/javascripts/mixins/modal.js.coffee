@@ -1,6 +1,6 @@
-Shiftplan.ModalMixin = Ember.Mixin.create
+Clockwork.ModalMixin = Ember.Mixin.create
   classNames: ['modalor']
-  layout: Ember.Handlebars.compile("{{view Shiftplan.FlashMessagesView}}{{yield}}")
+  layout: Ember.Handlebars.compile("{{view Clockwork.FlashMessagesView}}{{yield}}")
   heading: '<set a `heading` in your View>'
   didInsertElement: ->
     dialog = @$().dialog
@@ -13,7 +13,7 @@ Shiftplan.ModalMixin = Ember.Mixin.create
     # to events in it and have to move it within our application.
     # OPTIMIZE: do not reappend dialog when ember is bound to body, too
     # also see http://bugs.jqueryui.com/ticket/7948 (parent option for jQUeryUI#dialog)
-    dialog.parent('.ui-dialog').appendTo Shiftplan.get('rootElement')
+    dialog.parent('.ui-dialog').appendTo Clockwork.get('rootElement')
 
   willDestroyElement: ->
     @$().dialog('destroy')
@@ -21,5 +21,5 @@ Shiftplan.ModalMixin = Ember.Mixin.create
   close: -> @$().dialog('close')
 
   dialogclose: (event, ui) ->
-    Shiftplan.get('router').send('cancel')
+    Clockwork.get('router').send('cancel')
 

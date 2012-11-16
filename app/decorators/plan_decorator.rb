@@ -4,7 +4,7 @@ class PlanDecorator < ApplicationDecorator
   def selector_for(name, resource=nil, extra=nil)
     case name
     when :plans
-      'table#plans'
+      '#plans'
     when :plan
       "table#plans tr#plan_#{resource.id}"
     when :plans_list

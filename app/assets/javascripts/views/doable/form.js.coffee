@@ -1,4 +1,4 @@
-Shiftplan.DoableForm = Ember.View.extend Shiftplan.ModalMixin,
+Clockwork.DoableForm = Ember.View.extend Clockwork.ModalMixin,
   templateName: 'doable/form'
   buttonLabel: '[buttonLabel]'
 

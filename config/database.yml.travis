@@ -1,6 +1,6 @@
 test: &test
   adapter: postgresql
-  database: shiftplan
+  database: clockwork
   pool: 5
 
 cucumber:

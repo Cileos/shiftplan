@@ -1,2 +1,2 @@
-Shiftplan.EditDoable = Shiftplan.DoableForm.extend
+Clockwork.EditDoable = Clockwork.DoableForm.extend
   buttonLabel: 'Speichern'

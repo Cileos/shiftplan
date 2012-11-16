@@ -1,4 +1,4 @@
-Shiftplan::Application.configure do
+Clockwork::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -67,7 +67,7 @@ Shiftplan::Application.configure do
 
   config.action_mailer.delivery_method = :sendmail
   config.middleware.use ExceptionNotifier,
-    :email_prefix => "[Shiftplan Exception] ",
+    :email_prefix => "[Clockwork Exception] ",
     :sender_address => %{"Clockwork Notifier" <notifier@#{Volksplaner.hostname}>},
     :exception_recipients => %w{errors@clockwork.io}
 end

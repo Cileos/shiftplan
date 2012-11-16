@@ -72,8 +72,12 @@ module HtmlSelectorsHelpers
     when /^the #{capture_nth} table row$/
       "table tbody tr#{Numerals[$1]}"
 
-    when /^the comment link$/
-      'a.comments'
+    # The following links are decorated with tipsy, which uses the @title attribute and moves it to @original-title
+    when /^the comments? link$/
+      %Q~a.comments[original-title]~ # check only for presence of o-t; it is pluralized, depending on number of comments
+
+    when /^the delete link$/
+      %Q~a[data-method="delete"][original-title="#{I18n.translate('helpers.actions.destroy')}"]~
 
     when /^the #{capture_nth} form$/
       "form#{Numerals[$1]}"

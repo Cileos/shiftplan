@@ -1,2 +1,2 @@
-Shiftplan.NewDoable = Shiftplan.DoableForm.extend
+Clockwork.NewDoable = Clockwork.DoableForm.extend
   buttonLabel: "Anlegen"

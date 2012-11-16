@@ -1,5 +1,5 @@
-Shiftplan.Fields.DateField = Ember.TextField.extend
-  formatBinding: 'Shiftplan.settings.dateFormat'
+Clockwork.Fields.DateField = Ember.TextField.extend
+  formatBinding: 'Clockwork.settings.dateFormat'
   didInsertElement: ->
     @$().datepicker
       dateFormat: @get('format')

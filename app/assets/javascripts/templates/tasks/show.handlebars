@@ -1,5 +1,5 @@
 {{#with view.content}}
-  {{view Shiftplan.DoableDoneView checkedBinding="done" classNames="task"}}
+  {{view Clockwork.DoableDoneView checkedBinding="done" classNames="task"}}
   <a class="name" {{action editTask this href=true}}>{{name}}</a>
   {{#if due_at}}
   <span class="due_on">{{formatted_due_on}}</span>

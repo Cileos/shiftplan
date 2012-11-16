@@ -1,34 +1,3 @@
-== Welcome to Shiftplan
+== Welcome to Clockwork
 
 Use it. Enjoy it. Love it.
-
-
-== Developer Notes
-
-=== Forms
-
-Because we use jQuery Mobile, all Forms will be submitted through AJAX but still expect HTML back. To Use Rails' ajaxified forms, you must
-* add remote: true to enable Rails' ajax form handling
-* add a html data-ajax attribute with value "false" to disable jQmobile
-
-Example:
-
-    = simple_form_for scheduling, url: plan_schedulings_path(scheduling.plan), remote: true, html: { 'data-ajax' => false } do |f|
-      = f.input :quicky
-
-
-=== Cucumber stepfinder ===
-
-Usage examples for stepfinder thor task:
-
-$ bundle exec thor cucumber:find_step --search='the following'
-Finds step definitions including the string 'the following'.
-
-$ bundle exec thor cucumber:find_step --search='the following' --refresh_steps
-Fetches/refreshes stepsdefinition found in this app and in all other adva gems to be searched in.
-All step definitions are written to a file 'features/support/stepdefs.txt'.
-Then it finds step definitions including the string 'the following'.
-
-$ bundle exec thor cucumber:find_step --search='I should see the "Leckerhonig" page' --regex
-Finds step definitions which match the string 'I should see the "Leckerhonig" page'.
-
