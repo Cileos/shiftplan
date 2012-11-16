@@ -4,5 +4,5 @@ Shiftplan.Milestone = DS.Model.extend Shiftplan.Doable,
     @get('tasks').filterProperty('isNew', false)
   ).property('tasks', 'tasks.@each.isNew')
 
-  tasksEnabled: true
+  tasksEnabledBinding: 'isLoaded'
 
