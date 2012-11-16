@@ -113,7 +113,12 @@ end
 
 Then /^the (.+) should( not)? be disabled$/ do |name, negate|
   selector = selector_for(name)
-  page.should have_css(selector)
-  page.first(selector)['disabled'].should == (negate ? nil : 'true')
+  elem = page.first(selector)
+  disabled = elem['disabled']
+  if negate
+    disabled.should be_in(["false", nil])
+  else
+    disabled.should be_in(%w(true disabled))
+  end
 end
 

@@ -1,9 +1,9 @@
-{{view Shiftplan.DoableDoneView checkedBinding="done"}}
+{{view Shiftplan.DoableDoneView checkedBinding="done" classNames="milestone" disabledBinding="checkboxDisabled"}}
 <a class="name" {{action editMilestone this href=true}}>{{name}}</a>
 {{#if due_at}}
 <span class="due_on">{{formatted_due_on}}</span>
 {{/if}}
 {{#if tasksEnabled}}
-  {{view Shiftplan.TaskListView contentBinding="savedTasks"}}
+  {{view Shiftplan.TaskListView contentBinding="savedAndSortedTasks"}}
   <a {{action newTask this href=true}} data-icon="&#xf067;">neue Aufgabe</a>
 {{/if}}
