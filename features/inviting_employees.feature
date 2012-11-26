@@ -17,12 +17,10 @@ Feature: Inviting Employees
       | Name            |
       | Simpson, Homer  |
      When I follow "Hinzufügen"
-      And I wait for the modal box to appear
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
       And I press "Speichern"
-      And I wait for the modal box to disappear
      Then I should see the following table of employees:
       | Name           |
       | Carlson, Carl  |
