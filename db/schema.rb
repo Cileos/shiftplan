@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120914152445) do
+ActiveRecord::Schema.define(:version => 20121126193238) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -103,11 +103,14 @@ ActiveRecord::Schema.define(:version => 20120914152445) do
   create_table "milestones", :force => true do |t|
     t.string   "name"
     t.integer  "plan_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.datetime "due_at"
     t.boolean  "done"
+    t.integer  "responsible_id"
   end
+
+  add_index "milestones", ["responsible_id"], :name => "index_milestones_on_responsible_id"
 
   create_table "notifications", :force => true do |t|
     t.string   "type",            :null => false

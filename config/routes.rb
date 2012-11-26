@@ -29,6 +29,9 @@ Clockwork::Application.routes.draw do
         resources :milestones
         # TODO nest tasks under milestones, EmberData cannot do this 2012-09-11
         resources :tasks
+
+        # TODO force ember to fetch employees from organization, not from plan
+        resources :employees
       end # plans
 
       resources :employees

@@ -1,7 +1,7 @@
 class EmployeesController < InheritedResources::Base
   load_and_authorize_resource
 
-  respond_to :html, :js
+  respond_to :html, :js, :json
 
   def create
     create! { account_organization_employees_url(current_account, current_organization) }

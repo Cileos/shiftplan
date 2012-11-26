@@ -21,15 +21,18 @@ Feature: create Milestones for a plan
      And a milestone should exist with name: "World Domination", plan: the plan
      And I should not see a field labeled "Name"
 
-  Scenario: create a milestone with name and due date
+  Scenario: create a milestone with name, due date and employee
     When I fill in "Name" with "World Domination"
      And I fill in "Fällig am" with "2012-12-31"
      # to close the date picker
      And I press escape in the "Fällig am" field
+     And I select "Homer S" from "Verantwortlicher"
      And I press "Anlegen"
      And I wait for the spinner to disappear
     Then a milestone should exist with name: "World Domination", plan: the plan
      And the milestone's due_on should be "2012-12-31"
+     And the employee "Homer" should be the milestone's responsible
+     And I should see "Homer S" within the milestones list
 
   Scenario: Failing to enter name shows validation error message
     When I press "Anlegen"

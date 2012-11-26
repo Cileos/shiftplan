@@ -6,6 +6,8 @@
 {{/if}}
 {{view Clockwork.Fields.Name valueBinding="name" placeholder="Bezeichnung"}}
 {{view Clockwork.Fields.DueDateField valueBinding="formatted_due_on" placeholder="Fällig am"}}
+{{view Clockwork.Fields.SelectEmployee selectionBinding="responsible" name="Verantwortlicher"}}
+
 {{#unless isNew}}
   <button class="button" {{action doDelete}}>Löschen</button>
 {{/unless}}

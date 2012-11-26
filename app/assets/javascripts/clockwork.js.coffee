@@ -17,6 +17,8 @@ Clockwork.store = DS.Store.create
   revision: 7
   adapter: DS.RESTAdapter.create
     bulkCommit: false
+    mappings:
+      responsibles: 'Clockwork.Employee'
     #plurals:
     #  directory: 'directories'
 
@@ -29,4 +31,5 @@ jQuery ->
   if $('#milestones').length > 0
     # base all URLs on current plan
     Clockwork.store.get('adapter').set 'namespace', (window.location.pathname.replace(/(plans\/\d+).*$/,'$1')).slice(1)
+    Clockwork.set 'employees', Clockwork.Employee.find()
     Clockwork.initialize()
