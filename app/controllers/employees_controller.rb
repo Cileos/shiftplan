@@ -3,7 +3,7 @@ class EmployeesController < InheritedResources::Base
 
   respond_to :html, :js
 
-  before_filter :set_other_employees, only: [:new, :search]
+  before_filter :set_other_employees, only: [:new, :search, :adopt]
 
   def create
     create! { account_organization_employees_path(current_account, current_organization) }
@@ -14,6 +14,9 @@ class EmployeesController < InheritedResources::Base
   end
 
   def search
+  end
+
+  def adopt
   end
 
   def duplicate_search

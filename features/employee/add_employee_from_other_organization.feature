@@ -32,8 +32,9 @@ Feature: Add Employees from other Organization
   Scenario: Adding an employee of a different organization
     Given I should see the following table of employees:
       | Name | WAZ | E-Mail | Status |
-     When I follow "Hinzufügen"
-     Then I should be on the new employee page for the organization "fukushima"
+     When I follow "Übernehmen"
+     # TODO: is there a better word than adopt? Good translation for "übernehmen" needed.
+     Then I should be on the adopt employees page for the organization "fukushima"
       And I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
         | Burns, Owner   |     | owner@burns.com       | Aktiv                 | keine                |
@@ -51,7 +52,7 @@ Feature: Add Employees from other Organization
         | Burns, Owner  |     | owner@burns.com | Aktiv                 | Fukushima          |
         | Simpson, Bart |     |                 | Noch nicht eingeladen | Fukushima, Krümmel |
 
-     When I follow "Hinzufügen"
+     When I follow "Übernehmen"
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status | Organisationen       |
         | Simpson, Homer |     | homer@thesimpsons.com | Aktiv  | Krümmel, Tschernobyl |
@@ -64,7 +65,7 @@ Feature: Add Employees from other Organization
 
   @javascript
   Scenario: Filtering employees of other organizations by first name
-    Given I follow "Hinzufügen"
+    Given I follow "Übernehmen"
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
         | Burns, Owner   |     | owner@burns.com       | Aktiv                 | keine                |
@@ -81,7 +82,7 @@ Feature: Add Employees from other Organization
 
   @javascript
   Scenario: Filtering employees of other organizations by last name
-    Given I follow "Hinzufügen"
+    Given I follow "Übernehmen"
       And I fill in "last_name" with "Simpson" within the search form
       And I wait a bit
      Then I should see the following table of employees:
@@ -92,7 +93,7 @@ Feature: Add Employees from other Organization
 
   @javascript
   Scenario: Filtering employees of other organizations by email
-    Given I follow "Hinzufügen"
+    Given I follow "Übernehmen"
       And I fill in "email" with "homer@thesimpsons.com" within the search form
       And I wait a bit
      Then I should see the following table of employees:
@@ -102,7 +103,7 @@ Feature: Add Employees from other Organization
 
   @javascript
   Scenario: Filtering employees of other organizations by organization
-    Given I follow "Hinzufügen"
+    Given I follow "Übernehmen"
       And I select "Krümmel" from "organization" within the search form
       And I wait a bit
      Then I should see the following table of employees:
@@ -113,7 +114,7 @@ Feature: Add Employees from other Organization
 
   @javascript
   Scenario: Filtering employees of other organizations by first name, last name, email and organization
-    Given I follow "Hinzufügen"
+    Given I follow "Übernehmen"
       And I fill in "first_name" with "Homer" within the search form
       And I fill in "last_name" with "Simpson" within the search form
       And I fill in "email" with "homer@thesimpsons.com" within the search form
@@ -126,7 +127,7 @@ Feature: Add Employees from other Organization
 
    @javascript
    Scenario: Clearing the search
-    Given I follow "Hinzufügen"
+    Given I follow "Übernehmen"
       And I fill in "first_name" with "Homer" within the search form
       And I fill in "last_name" with "Simpson" within the search form
       And I fill in "email" with "homer@thesimpsons.com" within the search form
