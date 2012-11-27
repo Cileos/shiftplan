@@ -87,3 +87,4 @@ Feature: Create Duplicate Employee
         | Meier, Heinz  | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
         | Meier, Heinz  |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
       And I should see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
+      And the adopt employee button should be disabled

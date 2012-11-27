@@ -111,6 +111,9 @@ module HtmlSelectorsHelpers
     when 'merge button'
       'button#merge-button'
 
+    when 'adopt employee button'
+      'form#add-members button'
+
     when 'the add members form'
       'form#add-members'
 
