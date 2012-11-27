@@ -29,7 +29,7 @@ Feature: Add Employees from other Organization
      When I sign in as the confirmed user "mr. burns"
       And I am on the employees page for the organization "fukushima"
 
-  Scenario: Adding an employee of a different organization
+  Scenario: Adding employees of a different organization
     Given I should see the following table of employees:
       | Name | WAZ | E-Mail | Status |
      When I follow "Übernehmen"

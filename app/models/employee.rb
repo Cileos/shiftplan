@@ -3,8 +3,9 @@ class Employee < ActiveRecord::Base
 
   Roles = %w(owner planner)
 
-  attr_accessible :first_name, :last_name, :weekly_working_time, :avatar, :avatar_cache, :organization_id, :account_id
-  attr_accessor :organization_id
+  attr_accessible :first_name, :last_name, :weekly_working_time, :avatar, :avatar_cache,
+    :organization_id, :account_id, :force_create_duplicate
+  attr_accessor :organization_id, :force_create_duplicate
 
   validates_presence_of :first_name, :last_name
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
@@ -21,6 +22,7 @@ class Employee < ActiveRecord::Base
 
   validates_presence_of :account_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
+  validates_with DuplicateEmployeeValidator, on: :create
 
   after_create :create_membership
 
@@ -48,6 +50,14 @@ class Employee < ActiveRecord::Base
     invitation.present?
   end
 
+  def duplicates=(duplicates)
+    @duplicates = duplicates
+  end
+
+  def duplicates
+    @duplicates || []
+  end
+
   def name
     %Q~#{first_name} #{last_name}~
   end
@@ -67,7 +77,7 @@ class Employee < ActiveRecord::Base
     [
       name,
       "#{I18n.t('activerecord.attributes.user.email')}: " + (user ? user.email : I18n.t('none')),
-      "#{I18n.t('activerecord.models.organization.others')}: #{organizations.empty? ? I18n.t('none') : organizations.map(&:name).join(', ')}"
+      "#{I18n.t('activerecord.models.organization.others')}: #{organizations.empty? ? I18n.t('none') : organizations.order(:name).map(&:name).join(', ')}"
     ].join(', ')
   end
 

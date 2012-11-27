@@ -21,22 +21,32 @@ Feature: Create Duplicate Employee
      When I sign in as the confirmed user "mr. burns"
       And I am on the employees page for the organization "fukushima"
 
-  @javascript
   Scenario: Creating duplicate employee Heinz Meier
     Given I follow "Hinzufügen"
       And I fill in "Vorname" with "Heinz"
-      And I wait a bit
-      # at least first name + beginning of last name must have been entered for a warnin
-      # to be displayed
-     Then I should not see "Folgende Mitarbeiter mit gleichem Namen existieren bereits:" within the duplication warning
+      And I fill in "Nachname" with "Meier"
+      And I press "Speichern"
 
-     When I fill in "Nachname" with "Meier"
-      And I wait a bit
-     Then I should see "Folgende Mitarbeiter mit gleichem Namen existieren bereits:" within the duplication warning
+     # TODO: does not work for some reason
+     # Then I should be on the new employee page for the organization "fukushima"
+      And I should see "Folgende Mitarbeiter mit gleichem Namen existieren bereits:" within the duplication warning
       And I should see "Heinz Meier, E-Mail: heinz.meier@fukushima.de, Organisationen: Fukushima, Tschernobyl" within the duplication warning
       And I should see "Heinz Meier, E-Mail: keine, Organisationen: Tschernobyl" within the duplication warning
       And I should see "Sind Sie sicher, dass Sie den Mitarbeiter trotzdem anlegen möchten?" within the duplication warning
+      And the "Trotzdem anlegen" checkbox should not be checked
 
-     When I fill in "Nachname" with "Meier-Schnarrenberger"
-      And I wait a bit
-     Then I should not see "Folgende Mitarbeiter mit gleichem Namen existieren bereits:" within the duplication warning
+     When I press "Speichern"
+     # TODO: does not work for some reason
+     # Then I should be on the new employee page for the organization "fukushima"
+     Then I should see "Folgende Mitarbeiter mit gleichem Namen existieren bereits:" within the duplication warning
+
+     When I check "Trotzdem anlegen"
+     # create employee anyway
+      And I press "Speichern"
+
+     Then I should be on the employees page for the organization "fukushima"
+      And I should see the following table of employees:
+        | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
+        | Meier, Heinz  | 40   |                           | Noch nicht eingeladen  | Fukushima               |
+        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+

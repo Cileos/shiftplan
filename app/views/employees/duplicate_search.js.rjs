@@ -1,1 +1,0 @@
-page.replace_html('duplication-warning', render('duplication_warning', duplicate_employees: @duplicate_employees))

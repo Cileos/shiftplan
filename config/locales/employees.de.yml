@@ -1,5 +1,9 @@
 de:
   activerecord:
+    errors:
+      models:
+        employee:
+          duplicates_found: "Es gibt bereits Mitarbeiter mit gleichem Namen in dieser Organisation."
     models:
       employee:
         one: "Mitarbeiter"
@@ -12,6 +16,7 @@ de:
         email: E-Mail
         avatar: Mitarbeiterfoto
         organization: Organisation
+        force_create_duplicate: "Trotzdem anlegen?"
   simple_form:
     placeholders:
       employee:
