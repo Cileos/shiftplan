@@ -27,8 +27,6 @@ Feature: Create Duplicate Employee
       And I fill in "Nachname" with "Meier"
       And I press "Speichern"
 
-     # TODO: does not work for some reason
-     # Then I should be on the new employee page for the organization "fukushima"
       And I should see "Folgende Mitarbeiter mit gleichem Namen existieren bereits:" within the duplication warning
       And I should see "Heinz Meier, E-Mail: heinz.meier@fukushima.de, Organisationen: Fukushima, Tschernobyl" within the duplication warning
       And I should see "Heinz Meier, E-Mail: keine, Organisationen: Tschernobyl" within the duplication warning
@@ -36,8 +34,6 @@ Feature: Create Duplicate Employee
       And the "Trotzdem anlegen" checkbox should not be checked
 
      When I press "Speichern"
-     # TODO: does not work for some reason
-     # Then I should be on the new employee page for the organization "fukushima"
      Then I should see "Folgende Mitarbeiter mit gleichem Namen existieren bereits:" within the duplication warning
 
      When I check "Trotzdem anlegen"
