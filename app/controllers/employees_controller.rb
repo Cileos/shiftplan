@@ -3,7 +3,7 @@ class EmployeesController < InheritedResources::Base
 
   respond_to :html, :js
 
-  before_filter :set_other_employees, only: [:new, :search, :adopt]
+  before_filter :set_other_employees, only: [:search, :adopt]
 
   def create
     create! { account_organization_employees_path(current_account, current_organization) }
