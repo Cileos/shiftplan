@@ -35,7 +35,7 @@ group :test do
   gem "email_spec"
 
   # TODO for latest chrome-webdriver remove when capybara > 1.1.2 depends on it
-  gem 'selenium-webdriver', '~> 2.22.2'
+  gem 'selenium-webdriver', '~> 2.26.0'
   gem 'chromedriver-helper'
 
   gem "spork", "1.0.0rc2"
