@@ -1,23 +1,5 @@
 jQuery(document).ready ->
 
-  $('form#new_employee').each ->
-    $new_employee_form = $(this)
-
-    $new_employee_form.find('input#employee_first_name,input#employee_last_name').keyup ->
-      query_params =
-        query:
-          first_name: $new_employee_form.find('input#employee_first_name').val()
-          last_name:  $new_employee_form.find('input#employee_last_name').val()
-      if query_params['query']['first_name'].length > 0 and query_params['query']['last_name'].length > 0
-        search_for_duplicates(query_params)
-
-    search_for_duplicates = (query_params) ->
-      delay (->
-        $.ajax
-          url:  $new_employee_form.data('duplicate-search-url')
-          data: query_params
-        ), 500
-
   $('form#search').each ->
     $search_form = $(this)
     search_url = $search_form.attr('action')
