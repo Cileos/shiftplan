@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127113755) do
+ActiveRecord::Schema.define(:version => 20121127144238) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(:version => 20121127113755) do
     t.datetime "due_at"
     t.boolean  "done"
     t.integer  "responsible_id"
+    t.text     "description"
   end
 
   add_index "milestones", ["responsible_id"], :name => "index_milestones_on_responsible_id"
@@ -180,6 +181,7 @@ ActiveRecord::Schema.define(:version => 20121127113755) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "responsible_id"
+    t.text     "description"
   end
 
   add_index "tasks", ["milestone_id"], :name => "index_tasks_on_milestone_id"

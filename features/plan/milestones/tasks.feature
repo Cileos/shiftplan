@@ -28,14 +28,17 @@ Feature: Tasks of milestones
       # to close the date picker
       And I press escape in the "Fällig am" field
       And I select "Homer S" from "Verantwortlicher"
+      And I fill in "Beschreibung" with "need money"
       And I press "Anlegen"
       And I wait for the spinner to disappear
      Then a task should exist with name: "become rich", milestone: the milestone
       And the task's due_on should be "2012-12-31"
+      And the task's description should be "need money"
       And the employee "Homer" should be the task's responsible
       And I should see "become famous" within the first item within the tasks list within the first item within the milestones list
       And I should see "become rich" within the second item within the tasks list within the first item within the milestones list
       And I should see "Homer S" within the second item within the tasks list within the first item within the milestones list
+      But I should not see "need money" within the milestones list
     # newest tasks at bottom, sorted by id
 
 

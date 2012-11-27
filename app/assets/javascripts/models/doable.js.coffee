@@ -3,6 +3,8 @@ Clockwork.Doable = Ember.Mixin.create
   due_at: DS.attr('date')
   done: DS.attr('boolean')
 
+  description: DS.attr('string')
+
   formatted_due_on: ( (key,value) ->
     format = Clockwork.get('settings.dateFormat')
     if arguments.length is 1 # getter
