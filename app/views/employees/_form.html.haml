@@ -25,4 +25,7 @@
     = f.input :account_id, as: :hidden
 
   .actions
-    = f.button :submit
+    - if employee.new_record?
+      = f.create_button
+    - else
+      = f.update_button
