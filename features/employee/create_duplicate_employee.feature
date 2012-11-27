@@ -55,13 +55,10 @@ Feature: Create Duplicate Employee
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
-        | Name          | E-Mail                    | Status                 | Organisationen          |
-        | Meier, Heinz  | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
-        | Meier, Heinz  |                           | Noch nicht eingeladen  | Tschernobyl             |
+        | Übernehmen?          | Name          | E-Mail                    | Status                 | Organisationen          |
+        | ist bereits Mitglied | Meier, Heinz  | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        |                      | Meier, Heinz  |                           | Noch nicht eingeladen  | Tschernobyl             |
       But I should not see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
-
-      And 0 memberships should exist with employee: employee "heinz2", organization: organization "fukushima"
-      And 2 employees should exist with first_name: "Heinz", last_name: "Meier"
 
      When I check the checkbox within the second table row
       And I press "Mitarbeiter übernehmen"
@@ -72,9 +69,8 @@ Feature: Create Duplicate Employee
         | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
         | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
 
-      # make sure only a membership is created and no new employee was created
-      And 1 memberships should exist with employee: employee "heinz2", organization: organization "fukushima"
-      And 2 employees should exist with first_name: "Heinz", last_name: "Meier"
+  Scenario: with all duplicates beeing already member of organization
+    Given a membership exists with employee: the employee "heinz2", organization: the organization "fukushima"
 
      When I follow "Hinzufügen"
       And I fill in "Vorname" with "Heinz"
@@ -83,8 +79,8 @@ Feature: Create Duplicate Employee
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
-        | Name          | E-Mail                    | Status                 | Organisationen          |
-        | Meier, Heinz  | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
-        | Meier, Heinz  |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
+        | Übernehmen?          | Name          | E-Mail                    | Status                 | Organisationen          |
+        | ist bereits Mitglied | Meier, Heinz  | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | ist bereits Mitglied | Meier, Heinz  |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
       And I should see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
       And the adopt employee button should be disabled
