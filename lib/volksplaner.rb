@@ -11,6 +11,3 @@ module Volksplaner
     @hostname ||= staging?? 'staging.clockwork.io' : 'app.clockwork.io'
   end
 end
-
-
-SimpleForm::FormBuilder.send :include, Volksplaner::FormButtons

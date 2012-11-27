@@ -1,4 +1,4 @@
-module Volksplanner
+module Volksplaner
   # can be used directly by name or by
   #
   #   f.button :update # => update_button
