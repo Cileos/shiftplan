@@ -32,6 +32,8 @@ de:
       not_invited_yet: Noch nicht eingeladen
     index:
       employees: Mitarbeiter
+      adopt_employee: 'Mitarbeiter aus einer anderen Organisation übernehmen.'
+      add_employee: 'Neuen Mitarbeiter für diese Organisation anlegen.'
     new:
       duplication_warning: "Achtung: Eventuell versuchen Sie gerade einen Mitarbeiter anzulegen, den es schon gibt. Weiter unten sehen Sie eine Liste von Mitarbeitern mit gleichem Namen, die Sie stattdessen zu dieser Organisation hinzufügen können, sofern diese nicht bereits Mitglied in dieser Organisation sind. Wenn Sie den Mitarbeiter trotzdem anlegen wollen, aktivieren Sie bitte die Checkbox \"Trotzdem anlegen\" und klicken erneut auf \"Speichern\"."
       following_duplicates_found: "Folgende Mitarbeiter mit gleichem Namen existieren in diesem Account."
