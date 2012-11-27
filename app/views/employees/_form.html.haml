@@ -22,7 +22,8 @@
     = f.input :account_id, as: :hidden
 
     - unless employee.duplicates.empty?
-      = render('duplication_warning', duplicate_employees: employee.duplicates)
+      %p= t('activerecord.errors.models.employee.duplicates_found')
+      %p= t('employees.new.duplication_warning')
       = f.input :force_create_duplicate, as: :boolean
 
   .actions

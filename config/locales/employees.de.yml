@@ -3,7 +3,7 @@ de:
     errors:
       models:
         employee:
-          duplicates_found: "Es gibt bereits Mitarbeiter mit gleichem Namen in dieser Organisation."
+          duplicates_found: "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
     models:
       employee:
         one: "Mitarbeiter"
@@ -33,8 +33,10 @@ de:
     index:
       employees: Mitarbeiter
     new:
-      duplication_warning_intro: "Folgende Mitarbeiter mit gleichem Namen existieren bereits:"
-      duplication_warning_outro: "Sind Sie sicher, dass Sie den Mitarbeiter trotzdem anlegen möchten?"
+      duplication_warning: "Achtung: Eventuell versuchen Sie gerade einen Mitarbeiter anzulegen, den es schon gibt. Weiter unten sehen Sie eine Liste von Mitarbeitern mit gleichem Namen, die Sie stattdessen zu dieser Organisation hinzufügen können, sofern diese nicht bereits Mitglied in dieser Organisation sind. Wenn Sie den Mitarbeiter trotzdem anlegen wollen, aktivieren Sie bitte die Checkbox \"Trotzdem anlegen\" und klicken erneut auf \"Speichern\"."
+      following_duplicates_found: "Folgende Mitarbeiter mit gleichem Namen existieren in diesem Account."
+      duplicates_are_all_members: "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
+      already_member: 'ist bereits Mitglied'
     adopt:
       no_other_employees: "Zur Zeit gibt es keine Mitarbeiter aus anderen Organisationen, die noch nicht Mitglied in dieser Organisation sind."
     search:

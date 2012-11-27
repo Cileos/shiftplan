@@ -1,3 +1,6 @@
 - title :new_employee
 
 = render 'form', employee: resource
+
+- unless resource.duplicates.empty?
+  = render('duplication_warning', duplicate_employees: resource.duplicates)

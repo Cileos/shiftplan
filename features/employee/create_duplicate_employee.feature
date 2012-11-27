@@ -27,14 +27,15 @@ Feature: Create Duplicate Employee
       And I fill in "Nachname" with "Meier"
       And I press "Speichern"
 
-      And I should see "Folgende Mitarbeiter mit gleichem Namen existieren bereits:" within the duplication warning
-      And I should see "Heinz Meier, E-Mail: heinz.meier@fukushima.de, Organisationen: Fukushima, Tschernobyl" within the duplication warning
-      And I should see "Heinz Meier, E-Mail: keine, Organisationen: Tschernobyl" within the duplication warning
-      And I should see "Sind Sie sicher, dass Sie den Mitarbeiter trotzdem anlegen möchten?" within the duplication warning
+      And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
+      And I should see the following table of employees:
+        | Name          | E-Mail                    | Status                 | Organisationen          |
+        | Meier, Heinz  | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | Meier, Heinz  |                           | Noch nicht eingeladen  | Tschernobyl             |
       And the "Trotzdem anlegen" checkbox should not be checked
 
      When I press "Speichern"
-     Then I should see "Folgende Mitarbeiter mit gleichem Namen existieren bereits:" within the duplication warning
+     Then I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
 
      When I check "Trotzdem anlegen"
      # create employee anyway
@@ -46,3 +47,43 @@ Feature: Create Duplicate Employee
         | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
         | Meier, Heinz  | 40   |                           | Noch nicht eingeladen  | Fukushima               |
 
+  Scenario: Adopt duplicate employee Heinz Meier after trying to create
+    Given I follow "Hinzufügen"
+      And I fill in "Vorname" with "Heinz"
+      And I fill in "Nachname" with "Meier"
+      And I press "Speichern"
+
+      And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
+      And I should see the following table of employees:
+        | Name          | E-Mail                    | Status                 | Organisationen          |
+        | Meier, Heinz  | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | Meier, Heinz  |                           | Noch nicht eingeladen  | Tschernobyl             |
+      But I should not see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
+
+      And 0 memberships should exist with employee: employee "heinz2", organization: organization "fukushima"
+      And 2 employees should exist with first_name: "Heinz", last_name: "Meier"
+
+     When I check the checkbox within the second table row
+      And I press "Mitarbeiter übernehmen"
+
+     Then I should be on the employees page for the organization "fukushima"
+      And I should see the following table of employees:
+        | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
+        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
+
+      # make sure only a membership is created and no new employee was created
+      And 1 memberships should exist with employee: employee "heinz2", organization: organization "fukushima"
+      And 2 employees should exist with first_name: "Heinz", last_name: "Meier"
+
+     When I follow "Hinzufügen"
+      And I fill in "Vorname" with "Heinz"
+      And I fill in "Nachname" with "Meier"
+      And I press "Speichern"
+
+      And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
+      And I should see the following table of employees:
+        | Name          | E-Mail                    | Status                 | Organisationen          |
+        | Meier, Heinz  | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | Meier, Heinz  |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
+      And I should see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
