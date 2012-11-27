@@ -22,7 +22,7 @@
         = f.input :last_name
 
       .actions
-        %button= ti(:update)
+        = f.update_button
 
     - if current_user.is_multiple?
       = link_to :back, profile_employees_path

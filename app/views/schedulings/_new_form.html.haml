@@ -16,5 +16,4 @@
       = f.association :team, as: :select, include_blank: false, collection: scheduling.plan.organization.teams
 
   .actions
-    %button.button-success{type: 'submit', 'data-icon' => '&#xf00c;'.html_safe}
-      = ta :create
+    = f.create_button data: { icon: i(:check) }

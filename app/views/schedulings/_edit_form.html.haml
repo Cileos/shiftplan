@@ -8,4 +8,4 @@
 
   .actions
     = link_to ti(:destroy), url, remote: true, method: :delete, class: 'button button-warning delete'
-    %button.button-success{type: 'submit'}= ti(:update)
+    = f.update_button
