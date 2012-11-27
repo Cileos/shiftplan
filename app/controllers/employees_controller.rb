@@ -46,6 +46,6 @@ class EmployeesController < InheritedResources::Base
   end
 
   def end_of_association_chain
-    super.order_by_names
+    super.order_by_names.order(:created_at)
   end
 end

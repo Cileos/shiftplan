@@ -47,6 +47,6 @@ Feature: Create Duplicate Employee
      Then I should be on the employees page for the organization "fukushima"
       And I should see the following table of employees:
         | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
-        | Meier, Heinz  | 40   |                           | Noch nicht eingeladen  | Fukushima               |
         | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | Meier, Heinz  | 40   |                           | Noch nicht eingeladen  | Fukushima               |
 
