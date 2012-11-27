@@ -2,8 +2,7 @@
   - employee.weekly_working_time = 40
 
 = simple_form_for([current_account, current_organization, employee], remote: params[:action] == 'edit',
-  html: { data: { :'duplicate-search-url' => duplicate_search_account_organization_employees_path(current_account, current_organization) },
-  class: 'form-horizontal edit_employee' }) do |f|
+  html: { class: 'form-horizontal edit_employee' }) do |f|
 
   - employee.organization_id = current_organization.id
   - employee.account_id = current_account.id
