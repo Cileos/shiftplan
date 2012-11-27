@@ -3,7 +3,8 @@ module Doable
   def self.included(model)
     model.class_eval do
       validates_presence_of :name
-      attr_accessible :name, :due_at, :done
+      attr_accessible :name, :due_at, :done, :responsible_id
+      belongs_to :responsible, class_name: 'Employee', foreign_key: :responsible_id
     end
   end
 

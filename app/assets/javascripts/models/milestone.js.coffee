@@ -17,5 +17,3 @@ Clockwork.Milestone = DS.Model.extend Clockwork.Doable,
 
   tasksEnabledBinding: 'isLoaded'
 
-  responsible: DS.belongsTo('Clockwork.Employee', key: 'responsible_id')
-
