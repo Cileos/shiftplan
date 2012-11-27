@@ -38,7 +38,7 @@ function run_suite () {
       # skipping Firefox because travis kills (it)
       # "firefox"
       # re-enable "jasmine" when phantomjs is installed
-      run_suites "strangecucumber"
+      run_suites "rspec" "cucumber" "chrome"
   esac
 }
 

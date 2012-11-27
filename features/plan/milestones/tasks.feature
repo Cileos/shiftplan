@@ -10,7 +10,6 @@ Feature: Tasks of milestones
       And the situation of a nuclear reactor
       And a milestone exists with name: "World Domination", plan: the plan
 
-  @strange
   Scenario: create tasks for milestone
     Given I am on the page for the plan
      When I follow "neue Aufgabe"
@@ -40,7 +39,6 @@ Feature: Tasks of milestones
     # newest tasks at bottom, sorted by id
 
 
-  @strange
   Scenario: start to create, cancel, try again (Bender mode)
     Given I am on the page for the plan
      When I follow "neue Aufgabe"
