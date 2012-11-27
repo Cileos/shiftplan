@@ -3,7 +3,7 @@ class EmployeeSearch
   attr_reader :base, :first_name, :last_name, :email, :organization
 
   def initialize( attrs = {} )
-    raise ArgumentError, 'no attribute :base given' unless attrs[:base].present?
+    raise ArgumentError, 'no attribute :base given' unless attrs.has_key? :base
 
     @base          = attrs.delete(:base)
     @first_name    = attrs.delete(:first_name)
