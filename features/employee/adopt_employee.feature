@@ -125,6 +125,16 @@ Feature: Add Employees from other Organization
         | Simpson, Homer |     | homer@thesimpsons.com | Aktiv  | Krümmel, Tschernobyl |
       And I should see "1 Mitarbeiter gefunden."
 
+  @javascript
+  Scenario: Filtering without results
+    Given I follow "Übernehmen"
+     When I fill in "first_name" with "Heinz"
+      And I wait a bit
+     Then I should see the following table of employees:
+        | Name           | WAZ | E-Mail                | Status                | Organisationen       |
+      And I should see "0 Mitarbeiter gefunden."
+      And the adopt employee button should be disabled
+
    @javascript
    Scenario: Clearing the search
     Given I follow "Übernehmen"
