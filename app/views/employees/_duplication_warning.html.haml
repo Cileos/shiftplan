@@ -2,7 +2,7 @@
   - unless duplicate_employees.empty?
     %br
     %p= t('employees.new.following_duplicates_found')
-    - adoptable_employees = duplicate_employees.select { |e| !e.organizations.include?(current_organization) }
+    - adoptable_employees = duplicate_employees.reject { |e| e.organizations.include?(current_organization) }
     - if adoptable_employees.empty?
       %p= t('employees.new.duplicates_are_all_members')
 
