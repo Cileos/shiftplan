@@ -2,37 +2,14 @@
   - unless duplicate_employees.empty?
     %br
     %p= t('employees.new.following_duplicates_found')
+
     - adoptable_employees = duplicate_employees.reject { |e| e.organizations.include?(current_organization) }
     - if adoptable_employees.empty?
       %p= t('employees.new.duplicates_are_all_members')
 
     = form_tag([:add_members, current_account, current_organization], { id: 'add-members', class: 'form-horizontal add-employee' }) do |f|
-      %table#employees
-        %thead
-          %tr.employee
-            %th= ta(:want_to_adopt)
-            %th= t('activerecord.attributes.employee.full_name')
-            %th.numeric= abbr_tag(t('helpers.actions.wwt_short'), t('helpers.actions.wwt_long'))
-            %th= t('activerecord.attributes.employee.email')
-            %th= t('employees.table.status')
-            %th= t('activerecord.models.organization.others')
+      = render 'adopt_employees_table', employees: duplicate_employees
 
-        %tbody
-          - duplicate_employees.each do |employee|
-            %tr{ id: "employee_#{employee.id}" }
-              %td
-                - if employee.organizations.include?(current_organization)
-                  = t('employees.new.already_member')
-                - else
-                  = check_box_tag 'employees[]', employee.id, false, id: "employee_#{employee.id}"
-              %th
-                = avatar(employee.user, employee, :tiny)
-                = employee.last_and_first_name
-              %td.waz.numeric= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
-              %td= employee.try(:user).try(:email) || employee.try(:invitation).try(:email)
-              %td.status= invitation_status(employee)
-              - organizations = employee.organizations
-              %td= organizations.present? ? organizations.order(:name).map(&:name).join(', ') : t('none')
       .actions
         %button.button-success{ disabled: adoptable_employees.empty? ? true : false}= ti(:adopt_employee)
 
