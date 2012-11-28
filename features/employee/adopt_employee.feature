@@ -1,6 +1,6 @@
-Feature: Add Employees from other Organization
+Feature: Adopt Employee from other Organization
   As a planner
-  I want to add existing employees of different organizations
+  I want to adopt existing employees of other organizations
   In order to be able to schedule an employee in several organizations
 
   Background:
@@ -29,11 +29,10 @@ Feature: Add Employees from other Organization
      When I sign in as the confirmed user "mr. burns"
       And I am on the employees page for the organization "fukushima"
 
-  Scenario: Adding employees of a different organization
+  Scenario: Adopting employees
     Given I should see the following table of employees:
       | Name | WAZ | E-Mail | Status |
      When I follow "Übernehmen"
-     # TODO: is there a better word than adopt? Good translation for "übernehmen" needed.
      Then I should be on the adopt employees page for the organization "fukushima"
       And I should see the following table of employees:
         | Übernehmen? | Name           | WAZ | E-Mail                | Status                | Organisationen       |
@@ -64,7 +63,7 @@ Feature: Add Employees from other Organization
         | Bart Simpson  |     |     |     |     |     |     |     |
 
   @javascript
-  Scenario: Filtering employees of other organizations by first name
+  Scenario: Filtering by first name
     Given I follow "Übernehmen"
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
@@ -81,7 +80,7 @@ Feature: Add Employees from other Organization
       And I should see "1 Mitarbeiter gefunden."
 
   @javascript
-  Scenario: Filtering employees of other organizations by last name
+  Scenario: Filtering last name
     Given I follow "Übernehmen"
       And I fill in "last_name" with "Simpson" within the search form
       And I wait a bit
@@ -92,7 +91,7 @@ Feature: Add Employees from other Organization
       And I should see "2 Mitarbeiter gefunden."
 
   @javascript
-  Scenario: Filtering employees of other organizations by email
+  Scenario: Filtering by email
     Given I follow "Übernehmen"
       And I fill in "email" with "homer@thesimpsons.com" within the search form
       And I wait a bit
@@ -102,7 +101,7 @@ Feature: Add Employees from other Organization
       And I should see "1 Mitarbeiter gefunden."
 
   @javascript
-  Scenario: Filtering employees of other organizations by organization
+  Scenario: Filtering by organization
     Given I follow "Übernehmen"
       And I select "Krümmel" from "organization" within the search form
       And I wait a bit
@@ -113,7 +112,7 @@ Feature: Add Employees from other Organization
       And I should see "2 Mitarbeiter gefunden."
 
   @javascript
-  Scenario: Filtering employees of other organizations by first name, last name, email and organization
+  Scenario: Filtering by first name, last name, email and organization
     Given I follow "Übernehmen"
       And I fill in "first_name" with "Homer" within the search form
       And I fill in "last_name" with "Simpson" within the search form
