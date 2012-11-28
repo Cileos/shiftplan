@@ -15,7 +15,7 @@ class OrganizationsController < InheritedResources::Base
       redirect_to [current_account, resource, :employees]
     else
       set_flash(:alert)
-      redirect_to [:new, current_account, resource, :employee]
+      redirect_to [:adopt, current_account, resource, :employee]
     end
   end
 
