@@ -34,13 +34,66 @@ de:
       employees: Mitarbeiter
       adopt_employee: 'Mitarbeiter aus einer anderen Organisation übernehmen.'
       add_employee: 'Neuen Mitarbeiter für diese Organisation anlegen.'
+      instructions: >
+        Hier sehen Sie alle Mitarbeiter, die Mitglied in dieser Organisation sind.
+        Die Mitarbeiter erscheinen in allen Plänen dieser Organisation und können dort
+        geplant werden.
+
+
+        Sie haben auch die Möglichkeit, die Mitarbeiter zu Clockwork einzuladen, indem Sie die
+        E-Mail Adresse des Mitarbeiters eingeben. Sobald der Mitarbeiter die Einladung
+        akzeptiert, kann dieser sich in Clockwork einloggen und zum Beispiel die Pläne
+        dieser Organisation sehen.
+
+
+        Um einen Mitarbeiter für diese Organisation neu anzulegen, klicken Sie bitte oben
+        auf _Hinzufügen_.
+
+
+        Wenn Sie wissen, dass ein bestimmter Mitarbeiter bereits in anderen Organisationen
+        existiert, klicken Sie bitte oben auf _Übernehmen_. Dort haben Sie
+        dann die Möglichkeit Mitarbeiter, die bisher nur Mitglied in anderen Organisationen
+        sind, zu dieser Organisation hinzuzufügen.
     new:
       duplication_warning: "Achtung: Eventuell versuchen Sie gerade einen Mitarbeiter anzulegen, den es schon gibt. Weiter unten sehen Sie eine Liste von Mitarbeitern mit gleichem Namen, die Sie stattdessen zu dieser Organisation hinzufügen können, sofern diese nicht bereits Mitglied in dieser Organisation sind. Wenn Sie den Mitarbeiter trotzdem anlegen wollen, aktivieren Sie bitte die Checkbox \"Trotzdem anlegen\" und klicken erneut auf \"Speichern\"."
       following_duplicates_found: "Folgende Mitarbeiter mit gleichem Namen existieren in diesem Account."
       duplicates_are_all_members: "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
       already_member: 'ist bereits Mitglied'
+      instructions: >
+        Hier können Sie Mitarbeiter für diese Organisation neu anlegen.
+
+
+        Nachdem ein Mitarbeiter angelegt wurde, erscheint dieser in allen Plänen dieser
+        Organisation und kann geplant werden.
+
+
+        Falls ein Mitarbeiter mit identischem Vor- und Nachnamen bereits in diesem Account
+        existiert, bekommen Sie eine Warnung angezeigt. Dies soll verhindern, dass
+        Mitarbeiter in diesem Account versehentlich doppelt angelegt werden.
+
+
+        Wenn Sie wissen, dass ein bestimmter Mitarbeiter bereits in anderen Organisationen
+        existiert, können Sie stattdessen oben auf _Übernehmen_ klicken. Dort haben Sie
+        dann die Möglichkeit Mitarbeiter, die bisher nur Mitglied in anderen Organisationen
+        sind, zu dieser Organisation hinzuzufügen.
     adopt:
       no_other_employees: "Zur Zeit gibt es keine Mitarbeiter aus anderen Organisationen, die noch nicht Mitglied in dieser Organisation sind."
+      instructions: >
+        Hier können Sie Mitarbeiter, die bisher nur Mitglied in anderen Organisationen
+        dieses Accounts sind, zu dieser Organisation hinzufügen.
+
+
+        Sobald die Mitarbeiter Mitglied sind, erscheinen sie in allen Plänen dieser
+        Organisation und können geplant werden.
+
+
+        Benutzen Sie die Suche um Mitarbeiter aus anderen Organisationen zu finden.
+        Sie können nach Vorname, Nachname, E-Mail Addresse und Organisation filtern.
+
+
+        Existiert der gesuchte Mitarbeiter noch nicht, klicken Sie bitte stattdessen oben
+        auf _Hinzufügen_, um den Mitarbeiter für diese Organisation neu anzulegen.
+      not_member_yet: 'Folgende Mitarbeiter sind noch nicht Mitglied in dieser Organisation:'
     search:
       hint: 'Suchen Sie nach Mitarbeitern aus anderen Organisationen:'
       results: "%{count} Mitarbeiter gefunden."

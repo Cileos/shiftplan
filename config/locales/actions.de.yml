@@ -17,9 +17,8 @@ de:
       new_employee: Neuen Mitarbeiter anlegen
       add_employee: Mitarbeiter hinzufügen
       adopt_employee: Mitarbeiter übernehmen
-      want_to_add: 'Hinzufügen?'
       want_to_adopt: 'Übernehmen?'
-      add_employee_from_other_organizations: Mitarbeiter aus anderen Organisationen hinzufügen
+      adopt_employees: 'Mitarbeiter übernehmen'
       new_team: Neues Team
       edit_team: Team bearbeiten
       new_team_merge: Teams zusammenlegen

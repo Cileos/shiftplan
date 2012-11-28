@@ -1,4 +1,4 @@
 = form_tag([:add_members, current_account, current_organization], { id: 'add-members', class: 'form-horizontal add-employee' }) do |f|
   = render 'employees/other_employees_table', employees: employees
   .actions
-    %button.button-success= ti(:add_employee)
+    %button.button-success= ti(:adopt_employee)

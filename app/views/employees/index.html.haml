@@ -7,4 +7,9 @@
     =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:employee],
       class: 'button', data: { icon: i(:add) }, title: t('employees.index.add_employee')
 
-= render 'table', employees: collection
+.row.two-columns.inverted
+  .primary
+    = render 'table', employees: collection
+
+  .secondary.instructions
+    = tt '.instructions'

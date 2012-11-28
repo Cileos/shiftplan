@@ -36,14 +36,14 @@ Feature: Add Employees from other Organization
      # TODO: is there a better word than adopt? Good translation for "übernehmen" needed.
      Then I should be on the adopt employees page for the organization "fukushima"
       And I should see the following table of employees:
-        | Name           | WAZ | E-Mail                | Status                | Organisationen       |
-        | Burns, Owner   |     | owner@burns.com       | Aktiv                 | keine                |
-        | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
-        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
+        | Übernehmen? | Name           | WAZ | E-Mail                | Status                | Organisationen       |
+        |             | Burns, Owner   |     | owner@burns.com       | Aktiv                 | keine                |
+        |             | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
+        |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
 
      When I check the checkbox within the first table row
       And I check the checkbox within the second table row
-      And I press "Mitarbeiter hinzufügen"
+      And I press "Mitarbeiter übernehmen"
 
      Then I should be on the employees page for the organization "fukushima"
       And I should see flash notice "Mitarbeiter erfolgreich hinzugefügt."
@@ -54,8 +54,8 @@ Feature: Add Employees from other Organization
 
      When I follow "Übernehmen"
      Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail                | Status | Organisationen       |
-        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv  | Krümmel, Tschernobyl |
+        | Übernehmen? | Name           | WAZ | E-Mail                | Status | Organisationen       |
+        |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv  | Krümmel, Tschernobyl |
 
      When I go to the page of the plan "kühlungsraum"
      Then I should see the following calendar:
