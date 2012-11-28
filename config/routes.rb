@@ -38,7 +38,6 @@ Shiftplan::Application.routes.draw do
         collection do
           get 'adopt'
           get 'search'
-          get 'duplicate_search'
         end
       end
       resources :teams
