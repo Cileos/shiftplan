@@ -12,4 +12,7 @@
     = render 'table', employees: collection
 
   .secondary.instructions
-    = tt '.instructions'
+    - if can? :create, Employee
+      = tt '.planner_instructions'
+    - else
+      = tt '.instructions'

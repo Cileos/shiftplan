@@ -36,6 +36,14 @@ de:
       add_employee: 'Neuen Mitarbeiter für diese Organisation anlegen.'
       instructions: >
         Hier sehen Sie alle Mitarbeiter, die Mitglied in dieser Organisation sind.
+
+
+        Die Mitarbeiter erscheinen in allen Plänen dieser Organisation und können dort
+        geplant werden.
+      planner_instructions: >
+        Hier sehen Sie alle Mitarbeiter, die Mitglied in dieser Organisation sind.
+
+
         Die Mitarbeiter erscheinen in allen Plänen dieser Organisation und können dort
         geplant werden.
 
