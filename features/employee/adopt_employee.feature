@@ -63,7 +63,7 @@ Feature: Adopt Employee from other Organization
         | Bart Simpson  |     |     |     |     |     |     |     |
 
   @javascript
-  Scenario: Filtering by first name
+  Scenario: Filtering last name
     Given I follow "Übernehmen"
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
@@ -71,58 +71,13 @@ Feature: Adopt Employee from other Organization
         | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
         | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
 
-     When I fill in "first_name" with "Homer" within the search form
-     # wait for the instant search to complete
-      And I wait a bit
-     Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail                | Status | Organisationen       |
-        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv  | Krümmel, Tschernobyl |
-      And I should see "1 Mitarbeiter gefunden."
-
-  @javascript
-  Scenario: Filtering last name
-    Given I follow "Übernehmen"
-      And I fill in "last_name" with "Simpson" within the search form
+     When I fill in "last_name" with "Simpson" within the search form
       And I wait a bit
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
         | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
         | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
       And I should see "2 Mitarbeiter gefunden."
-
-  @javascript
-  Scenario: Filtering by email
-    Given I follow "Übernehmen"
-      And I fill in "email" with "homer@thesimpsons.com" within the search form
-      And I wait a bit
-     Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail                | Status                | Organisationen       |
-        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
-      And I should see "1 Mitarbeiter gefunden."
-
-  @javascript
-  Scenario: Filtering by organization
-    Given I follow "Übernehmen"
-      And I select "Krümmel" from "organization" within the search form
-      And I wait a bit
-     Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail                | Status                | Organisationen       |
-        | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
-        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
-      And I should see "2 Mitarbeiter gefunden."
-
-  @javascript
-  Scenario: Filtering by first name, last name, email and organization
-    Given I follow "Übernehmen"
-      And I fill in "first_name" with "Homer" within the search form
-      And I fill in "last_name" with "Simpson" within the search form
-      And I fill in "email" with "homer@thesimpsons.com" within the search form
-      And I select "Krümmel" from "organization" within the search form
-      And I wait a bit
-     Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail                | Status | Organisationen       |
-        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv  | Krümmel, Tschernobyl |
-      And I should see "1 Mitarbeiter gefunden."
 
   @javascript
   Scenario: Filtering without results
@@ -130,7 +85,7 @@ Feature: Adopt Employee from other Organization
      When I fill in "first_name" with "Heinz"
       And I wait a bit
      Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail                | Status                | Organisationen       |
+        | Name  | WAZ  | E-Mail  | Status  | Organisationen  |
       And I should see "0 Mitarbeiter gefunden."
       And the adopt employee button should be disabled
 
