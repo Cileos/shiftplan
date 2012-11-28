@@ -5,7 +5,7 @@ describe Organization do
     build(:organization, :name => nil).should be_invalid
   end
 
-  describe "#other_employees" do
+  describe "#adoptable_employees" do
     let(:account) { create :account }
     let(:organization) { create :organization, account: account }
     let(:other_organization) { create(:organization, account: account) }
@@ -17,7 +17,7 @@ describe Organization do
         other_organization.employees << employee_homer
         other_organization.employees << employee_bart
 
-        organization.other_employees.should == [employee_bart, employee_homer]
+        organization.adoptable_employees.should == [employee_bart, employee_homer]
       end
     end
 
@@ -27,7 +27,7 @@ describe Organization do
         other_organization.employees << employee_homer
         other_organization.employees << employee_bart
 
-        organization.other_employees.should == [employee_bart]
+        organization.adoptable_employees.should == [employee_bart]
       end
     end
   end

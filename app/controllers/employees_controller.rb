@@ -3,7 +3,7 @@ class EmployeesController < InheritedResources::Base
 
   respond_to :html, :js
 
-  before_filter :set_other_employees, only: [:search, :adopt]
+  before_filter :set_adoptable_employees, only: [:search, :adopt]
 
   def create
     create! { account_organization_employees_path(current_account, current_organization) }
@@ -21,10 +21,10 @@ class EmployeesController < InheritedResources::Base
 
   private
 
-  def set_other_employees
-    search_attrs = { base: current_organization.other_employees }
+  def set_adoptable_employees
+    search_attrs = { base: current_organization.adoptable_employees }
     search_attrs.merge!(params[:query]) if params[:query].present?
-    @other_employees = EmployeeSearch.new(search_attrs.symbolize_keys).fuzzy_results
+    @adoptable_employees = EmployeeSearch.new(search_attrs.symbolize_keys).fuzzy_results
   end
 
   # TODO more than one organization per planner

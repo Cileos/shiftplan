@@ -85,7 +85,7 @@ de:
         dann die Möglichkeit Mitarbeiter, die bisher nur Mitglied in anderen Organisationen
         sind, zu dieser Organisation hinzuzufügen.
     adopt:
-      no_other_employees: "Zur Zeit gibt es keine Mitarbeiter aus anderen Organisationen, die noch nicht Mitglied in dieser Organisation sind."
+      no_adoptable_employees: "Zur Zeit gibt es keine Mitarbeiter aus anderen Organisationen, die noch nicht Mitglied in dieser Organisation sind."
       instructions: >
         Hier können Sie Mitarbeiter, die bisher nur Mitglied in anderen Organisationen
         dieses Accounts sind, zu dieser Organisation hinzufügen.

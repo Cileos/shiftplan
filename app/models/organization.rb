@@ -28,7 +28,7 @@ class Organization < ActiveRecord::Base
     (employees.all + planners.all + owners.all).uniq
   end
 
-  def other_employees
+  def adoptable_employees
     scope = account.employees
     unless employees.empty?
       scope = scope.where("employees.id NOT IN (#{employees.map(&:id).join(',')})")
