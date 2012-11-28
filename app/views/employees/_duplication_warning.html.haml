@@ -12,6 +12,7 @@
           %tr.employee
             %th= ta(:want_to_adopt)
             %th= t('activerecord.attributes.employee.full_name')
+            %th.numeric= abbr_tag(t('helpers.actions.wwt_short'), t('helpers.actions.wwt_long'))
             %th= t('activerecord.attributes.employee.email')
             %th= t('employees.table.status')
             %th= t('activerecord.models.organization.others')
@@ -27,6 +28,7 @@
               %th
                 = avatar(employee.user, employee, :tiny)
                 = employee.last_and_first_name
+              %td.waz.numeric= number_with_precision(employee.weekly_working_time, :precision => 2, :strip_insignificant_zeros => true)
               %td= employee.try(:user).try(:email) || employee.try(:invitation).try(:email)
               %td.status= invitation_status(employee)
               - organizations = employee.organizations

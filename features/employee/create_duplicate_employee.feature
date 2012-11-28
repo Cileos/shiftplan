@@ -29,9 +29,9 @@ Feature: Create Duplicate Employee
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
-        | Name          | E-Mail                    | Status                 | Organisationen          |
-        | Meier, Heinz  | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
-        | Meier, Heinz  |                           | Noch nicht eingeladen  | Tschernobyl             |
+        | Übernehmen?           | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
+        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        |                       | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Tschernobyl             |
       And the "Trotzdem anlegen" checkbox should not be checked
 
      When I press "Speichern"
@@ -55,9 +55,9 @@ Feature: Create Duplicate Employee
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
-        | Übernehmen?          | Name          | E-Mail                    | Status                 | Organisationen          |
-        | ist bereits Mitglied | Meier, Heinz  | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
-        |                      | Meier, Heinz  |                           | Noch nicht eingeladen  | Tschernobyl             |
+        | Übernehmen?           | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
+        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        |                       | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Tschernobyl             |
       But I should not see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
 
      When I check the checkbox within the second table row
@@ -79,8 +79,8 @@ Feature: Create Duplicate Employee
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
-        | Übernehmen?          | Name          | E-Mail                    | Status                 | Organisationen          |
-        | ist bereits Mitglied | Meier, Heinz  | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
-        | ist bereits Mitglied | Meier, Heinz  |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
+        | Übernehmen?           | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
+        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | ist bereits Mitglied  | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
       And I should see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
       And the adopt employee button should be disabled
