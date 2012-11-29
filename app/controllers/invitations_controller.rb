@@ -3,8 +3,6 @@ class InvitationsController < InheritedResources::Base
 
   respond_to :html, :js
 
-  before_filter :set_inviter, only: [:create, :update]
-
   def create
     create! { respond_with_successful_invitation }
   end
@@ -14,10 +12,6 @@ class InvitationsController < InheritedResources::Base
   end
 
   private
-
-  def set_inviter
-    resource.inviter = current_user.current_employee
-  end
 
   def respond_with_successful_invitation
     flash[:notice] = t(:'invitations.sent_successfully')

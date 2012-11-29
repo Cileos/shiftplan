@@ -1,8 +1,12 @@
+- resource.inviter = current_user.current_employee
+
 = simple_form_for resource, url: [current_account, current_organization, resource], remote: true do |f|
   = f.error_notification
 
   .inputs
+    = f.input :inviter_id,  as: :hidden
     = f.input :employee_id, as: :hidden
+
     = f.input :email, autofocus: true
 
   .actions
