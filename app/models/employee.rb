@@ -50,10 +50,7 @@ class Employee < ActiveRecord::Base
     invitation.present?
   end
 
-  def duplicates=(duplicates)
-    @duplicates = duplicates
-  end
-
+  attr_writer :duplicates
   def duplicates
     @duplicates || []
   end
