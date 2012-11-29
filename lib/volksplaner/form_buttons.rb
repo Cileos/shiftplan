@@ -23,6 +23,9 @@ module Volksplaner
       options[:class] << 'button-success'
       options[:type] = 'submit'
 
+      # TODO use label to lookup disable-text?
+      options['data-disable-with'] = '...'
+
       options[:class] = options[:class].join(' ')
       if block_given?
         template.content_tag(:button, options, &block)
