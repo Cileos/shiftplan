@@ -50,10 +50,6 @@ Feature: Inviting Employees
      When I sign out
      And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
 
-  Scenario: Inviting an employee without entering an email address
-    When I invite the employee "homer" with the email address "" for the organization "fukushima"
-    Then I should see "muss ausgefüllt werden"
-
   Scenario: Accepting the same invitation a second time
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
