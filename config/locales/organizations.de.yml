@@ -12,4 +12,7 @@ de:
     organizations:
       create:
         notice: "Organisation '%{organization}' angelegt."
+      add_members:
+        notice: Mitarbeiter erfolgreich hinzugefügt.
+        alert: 'Mitarbeiter konnten nicht hinzugefügt werden. Sie müssen mindestens einen Mitarbeiter auswählen.'
 

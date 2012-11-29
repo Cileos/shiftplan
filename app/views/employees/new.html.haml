@@ -1,0 +1,16 @@
+- title :new_employee
+
+- if can? :create, Employee
+  - masterhead_toolbar do
+    =link_to ti(:adopt), [:adopt] + nested_resources_for(current_organization) + [:employees],
+      class: 'button', data: { icon: i(:add) }, title: t('employees.index.adopt_employee')
+
+.row.two-columns.inverted
+  .primary
+    = render 'form', employee: resource
+
+    - unless resource.duplicates.empty?
+      = render('duplication_warning', duplicate_employees: resource.duplicates)
+
+  .secondary.instructions
+    = tt '.instructions'

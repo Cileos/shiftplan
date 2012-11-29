@@ -31,6 +31,15 @@ de:
       no_teams: "Es existieren noch keine Teams für diese Organisation."
       action: Aktion
       instructions: >
+        Hier sehen Sie alle Teams dieser Organisation.
+
+
+        Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
+        oder Aufgaben unterschieden werden.
+      planner_instructions: >
+        Hier sehen Sie alle Teams dieser Organisation.
+
+
         Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
         oder Aufgaben unterschieden werden.
 

@@ -18,4 +18,7 @@
         %p= t(:'.no_teams')
 
   .secondary.instructions
-    = tt '.instructions'
+    - if can? :create, Employee
+      = tt '.planner_instructions'
+    - else
+      = tt '.instructions'

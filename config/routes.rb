@@ -7,6 +7,9 @@ Clockwork::Application.routes.draw do
 
   resources :accounts do
     resources :organizations do
+      member do
+        post 'add_members'
+      end
 
       resources :plans do
         resources :schedulings do
@@ -31,7 +34,12 @@ Clockwork::Application.routes.draw do
         resources :tasks
       end # plans
 
-      resources :employees
+      resources :employees do
+        collection do
+          get 'adopt'
+          get 'search'
+        end
+      end
       resources :teams
       resources :team_merges, only: [:new, :create], :controller => 'team_merges'
       resources :invitations

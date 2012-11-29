@@ -57,3 +57,7 @@ rescue Exception => e
   clean_backtrace = Rails.backtrace_cleaner.clean(e.backtrace).join("\n")
   raise "#{e}\n#{clean_backtrace}\n#{file}:#{index}\n #{out}"
 end
+
+Given /^I wait a bit$/ do
+  sleep 1
+end
