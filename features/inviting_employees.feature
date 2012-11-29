@@ -21,7 +21,7 @@ Feature: Inviting Employees
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
-      And I press "Speichern"
+      And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following table of employees:
       | Name           |

@@ -5,4 +5,4 @@
   .inputs
     = f.input :body, input_html: { rows: 1 }
   .actions
-    %button.button-success{type: 'submit'}= ti(:comment)
+    = f.responsive_submit_button :comment

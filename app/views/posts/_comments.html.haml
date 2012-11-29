@@ -15,4 +15,4 @@
         -# FIXME security. I am in our Post, commenting as YOU
         = f.input :employee_id, as: :hidden
       .actions
-        %button{type: 'submit'}= ti(:comment)
+        = f.responsive_submit_button :comment
