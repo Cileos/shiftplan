@@ -1,6 +1,6 @@
 class DuplicateEmployeeValidator < ActiveModel::Validator
   def validate(record)
-    unless record.force_create_duplicate == "1"
+    unless record.force_create_duplicate?
       record.duplicates = EmployeeSearch.new(
         first_name: record.first_name,
         last_name: record.last_name,

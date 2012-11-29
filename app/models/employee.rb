@@ -79,6 +79,10 @@ class Employee < ActiveRecord::Base
     pure.blank?? nil : pure.to_i
   end
 
+  def force_create_duplicate?
+    force_create_duplicate.in?(['1', 1, true])
+  end
+
   private
 
   def create_membership
