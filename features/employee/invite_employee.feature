@@ -96,18 +96,6 @@ Feature: Inviting Employees
     Then I should be signed in as "Homer Simpson"
      And I should see "Vielen Dank, dass Sie Ihre Einladung zu Clockwork akzeptiert haben."
 
-  Scenario: Inviting with an email that's already assigned to an employee of a different account
-    Given an account "tschernobyl" exists with name: "Tschernobyl GmbH"
-      And an organization "überwachungszentrale" exists with name: "Überwachungszentrale"
-      And a confirmed user "homer 2" exists with email: "homer@thesimpsons.com"
-      And an employee "homer 2" exists with user: the confirmed user "homer 2", account: the account "tschernobyl"
-      And a membership exists with organization: the organization "überwachungszentrale", employee: the employee "homer 2"
-
-     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
-     When I sign out
-      And the employee "homer" accepts the invitation for the organization "fukushima" without setting a password
-
   Scenario: Inviting an employee with an email address of an unconfirmed user which has not been invited yet
     Given an account "tschernobyl" exists with name: "Tschernobyl GmbH"
       And an organization "überwachungszentrale" exists with name: "Überwachungszentrale"
@@ -162,6 +150,7 @@ Feature: Inviting Employees
       | Name           | E-Mail                | Status |
       | Simpson, Homer | homer@thesimpsons.com | Aktiv  |
 
+
   Scenario: Inviting with an email that's already assigned to an employee of the same organization
    Given an employee "bart" exists with account: the account, first_name: "Bart"
      And a membership exists with organization: the organization, employee: the employee "bart"
@@ -174,4 +163,33 @@ Feature: Inviting Employees
 
     When I invite the employee "bart" with the email address "bart@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "bart@thesimpsons.com" and organization "fukushima" was successful
+
+
+  Scenario: Inviting with an email that's already assigned to an employee of another organization of the same account
+   Given an employee "homer 2" exists with account: the account, first_name: "Homer"
+     And an organization "tschernobyl" exists with account: the account
+     And a membership exists with organization: the organization "tschernobyl", employee: the employee "homer 2"
+
+    When I invite the employee "homer 2" with the email address "homer@thesimpsons.com" for the organization "tschernobyl"
+    Then I should see that the invitation for "homer@thesimpsons.com" and organization "tschernobyl" was successful
+
+    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
+    Then I should see "ist bereits vergeben"
+     And "homer@thesimpsons.com" should receive no email
+
+    When I invite the employee "homer" with the email address "homer.simpson@fukushima.com" for the organization "fukushima"
+    Then I should see that the invitation for "homer.simpson@fukushima.com" and organization "fukushima" was successful
+
+
+  Scenario: Inviting with an email that's already assigned to an employee of a different account
+    Given an account "tschernobyl" exists with name: "Tschernobyl GmbH"
+      And an organization "überwachungszentrale" exists with name: "Überwachungszentrale", account: the account "tschernobyl"
+      And a confirmed user "homer 2" exists with email: "homer@thesimpsons.com"
+      And an employee "homer 2" exists with user: the confirmed user "homer 2", account: the account "tschernobyl"
+      And a membership exists with organization: the organization "überwachungszentrale", employee: the employee "homer 2"
+
+     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
+     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+     When I sign out
+      And the employee "homer" accepts the invitation for the organization "fukushima" without setting a password
 
