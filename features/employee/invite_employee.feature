@@ -149,17 +149,3 @@ Feature: Inviting Employees
     Then I should see the following table of employees:
       | Name           | E-Mail                | Status |
       | Simpson, Homer | homer@thesimpsons.com | Aktiv  |
-
-
-  Scenario: Inviting with an email that's already assigned to an employee of the same organization
-   Given an employee "bart" exists with account: the account, first_name: "Bart"
-     And a membership exists with organization: the organization, employee: the employee "bart"
-    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-    Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
-
-    When I invite the employee "bart" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-    Then I should see "ist bereits vergeben"
-     And "homer@thesimpsons.com" should receive no email
-
-    When I invite the employee "bart" with the email address "bart@thesimpsons.com" for the organization "fukushima"
-    Then I should see that the invitation for "bart@thesimpsons.com" and organization "fukushima" was successful
