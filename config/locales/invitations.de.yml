@@ -3,6 +3,11 @@ de:
     attributes:
       invitation:
         email: E-Mail
+    errors:
+      models:
+        invitation:
+          other_user_has_email: "ist bereits einem Ihrer Mitarbeiter zugeordnet."
+          other_invitation_has_email: "wurde bereits in einer Einladung verwendet."
   mailer:
     invitation:
       subject: 'Sie wurden zu Clockwork eingeladen'

@@ -6,6 +6,7 @@ guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAIL
   watch('config/environment.rb')
   watch(%r{^config/environments/.+\.rb$})
   watch(%r{^config/initializers/.+\.rb$})
+  watch(%r{^app/validators/.+\.rb$})
   watch('Gemfile.lock')
   watch('spec/spec_helper.rb')
   watch('test/test_helper.rb')
@@ -15,7 +16,7 @@ end unless ENV['NO_SPORK']
 
 group :test, :halt_on_fail => true do
 
-  guard 'rspec', :cli => '--drb --color --format documentation', :version => 2, :run_all => { :cli => "--color" }, :all_on_start => false do
+  guard 'rspec', :cli => '--drb --color --format documentation', :version => 2, :run_all => false, :all_on_start => false do
     watch(%r{^spec/.+_spec\.rb$})
     watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
     watch('spec/spec_helper.rb')  { "spec" }
