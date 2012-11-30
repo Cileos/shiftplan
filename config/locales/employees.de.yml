@@ -95,6 +95,12 @@ de:
         Organisation und kann geplant werden.
 
 
+        Wenn Sie einem Mitarbeiter mehr Rechte geben wollen, dann wählen Sie bitte die
+        Rolle Planer aus. Ein Planer kann, anders als normale Mitarbeiter, auch
+        administrative Aufgaben wie z.B. das Verwalten von Mitarbeitern, Teams, Plänen und
+        Terminen übernehmen.
+
+
         Falls ein Mitarbeiter mit identischem Vor- und Nachnamen bereits in diesem Account
         existiert, bekommen Sie eine Warnung angezeigt. Dies soll verhindern, dass
         Mitarbeiter in diesem Account versehentlich doppelt angelegt werden.
