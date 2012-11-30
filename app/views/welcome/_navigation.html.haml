@@ -6,3 +6,6 @@
         %ul.organization-dropdown
           - current_user.joined_organizations.each do |org|
             %li= link_to org.name_with_account, nested_resources_for(org)
+  - else
+    %ul
+      = render 'organizations/navigation_links', organization: current_user.joined_organizations.first
