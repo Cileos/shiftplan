@@ -10,6 +10,7 @@
             = link_to nested_resources_for(post) do
               %strong= "#{post.account.name} - #{post.organization.name}"
               %span.title= post.title
+            = render 'posts/comments_count', post: post
 - else
   %p= t('blogs.no_posts_present')
 
