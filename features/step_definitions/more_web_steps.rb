@@ -111,7 +111,7 @@ When /^I click on (the #{match_nth}\s?\w+\s?\w+)(?!within.*)$/ do |name|
 end
 
 When /^I check the checkbox$/ do
-  page.first('input[type=checkbox]').click()
+  check page.first('input[type=checkbox]')['id']
 end
 
 Then /^the (.+) should( not)? be disabled$/ do |name, negate|

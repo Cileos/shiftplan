@@ -84,6 +84,14 @@ module NavigationHelpers
       org = model!($1)
       account_organization_employees_path(org.account, org)
 
+    when /^the new employee page for #{capture_model}$/
+      org = model!($1)
+      new_account_organization_employee_path(org.account, org)
+
+    when /^the adopt employees page for #{capture_model}$/
+      org = model!($1)
+      adopt_account_organization_employees_path(org.account, org)
+
     when /^the email change confirmation page$/
       accept_email_change_path
 

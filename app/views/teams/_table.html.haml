@@ -15,7 +15,7 @@
       %tr{ id: "team_#{team.id}" }
         - if can? :manage, TeamMerge
           %td.checkbox
-            %input(type="checkbox"){ 'data-team-id' => "#{team.id}" }
+            %input(type="checkbox"){ id: "team_#{team.id}", 'data-team-id' => "#{team.id}" }
         %td= team.name
         %td= team.shortcut
         %td= render 'teams/pibble', team: team

@@ -122,6 +122,18 @@ module HtmlSelectorsHelpers
     when 'merge button'
       'button#merge-button'
 
+    when 'adopt employee button'
+      'form#add-members button'
+
+    when 'the add members form'
+      'form#add-members'
+
+    when 'the search form'
+      'form#search'
+
+    when 'the duplication warning'
+      'div#duplication-warning'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

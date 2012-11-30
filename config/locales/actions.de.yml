@@ -13,7 +13,12 @@ de:
       employees: Mitarbeiter
       teams: Teams
       add: Hinzufügen
-      new_employee: Mitarbeiter hinzufügen
+      adopt: Übernehmen
+      new_employee: Mitarbeiter anlegen
+      add_employee: Mitarbeiter hinzufügen
+      adopt_employee: Mitarbeiter übernehmen
+      want_to_adopt: 'Übernehmen?'
+      adopt_employees: 'Mitarbeiter übernehmen'
       new_team: Neues Team
       edit_team: Team bearbeiten
       new_team_merge: Teams zusammenlegen

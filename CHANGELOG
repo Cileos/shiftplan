@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Release 0.2.1 2012-11-30 17:14
+------------------------------
+* 50c22ab Merge branch 'feature/fix-duplicate-emails-within-account-without-db' into develop
+* e248d1f Merge branch 'feature/unobstrusivly-disable-form-buttons' into develop
+* 0d12d22 Merge branch 'feature/add-employees-of-other-organizations' into develop
+
+
 Release 0.2.0 2012-11-16 10:46
 ------------------------------
 Features:

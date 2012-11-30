@@ -2,7 +2,10 @@
 
 - if can? :create, Employee
   - masterhead_toolbar do
-    =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:employee], class: 'button', remote: true, data: { icon: i(:add) }
+    =link_to ti(:adopt), [:adopt] + nested_resources_for(current_organization) + [:employees],
+      class: 'button', data: { icon: i(:add) }, title: t('employees.index.adopt_employee')
+    =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:employee],
+      class: 'button', data: { icon: i(:add) }, title: t('employees.index.add_employee')
 
 .row.two-columns.inverted
   .primary
@@ -14,4 +17,6 @@
 
   .secondary.instructions
     - if can? :create, Employee
+      = tt '.planner_instructions'
+    - else
       = tt '.instructions'

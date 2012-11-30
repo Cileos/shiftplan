@@ -6,6 +6,6 @@
     = f.input :other_team_id, as: :hidden
     = f.input :new_team_id, collection: [resource.team, resource.other_team], include_blank: false
   .actions
-    %button.button-success{type: 'submit'}
+    = f.responsive_submit_button do
       %i.icon-ok-circle.icon-white
       = ta :confirm

@@ -75,6 +75,7 @@ group :development do
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
   gem 'notes', :require => false, :git => 'git://github.com/v0n/notes.git'
+  gem 'quiet_assets'
 end
 
 group :production do
