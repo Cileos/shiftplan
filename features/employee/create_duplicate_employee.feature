@@ -25,7 +25,7 @@ Feature: Create Duplicate Employee
     Given I follow "Hinzufügen"
       And I fill in "Vorname" with "Heinz"
       And I fill in "Nachname" with "Meier"
-      And I press "Speichern"
+      And I press "Anlegen"
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
@@ -34,12 +34,12 @@ Feature: Create Duplicate Employee
         |                       | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Tschernobyl             |
       And the "Trotzdem anlegen" checkbox should not be checked
 
-     When I press "Speichern"
+     When I press "Anlegen"
      Then I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
 
      When I check "Trotzdem anlegen"
      # create employee anyway
-      And I press "Speichern"
+      And I press "Anlegen"
 
      Then I should be on the employees page for the organization "fukushima"
       And I should see the following table of employees:
@@ -51,7 +51,7 @@ Feature: Create Duplicate Employee
     Given I follow "Hinzufügen"
       And I fill in "Vorname" with "Heinz"
       And I fill in "Nachname" with "Meier"
-      And I press "Speichern"
+      And I press "Anlegen"
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
@@ -75,7 +75,7 @@ Feature: Create Duplicate Employee
      When I follow "Hinzufügen"
       And I fill in "Vorname" with "Heinz"
       And I fill in "Nachname" with "Meier"
-      And I press "Speichern"
+      And I press "Anlegen"
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:

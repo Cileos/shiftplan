@@ -192,7 +192,7 @@ de:
 
     submit:
       create: '%{model} erstellen'
-      update: '%{model} aktualisieren'
+      update: '%{model} ändern'
       submit: '%{model} speichern'
 
   errors:

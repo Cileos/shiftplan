@@ -21,7 +21,7 @@ Feature: Create Employees
         | Wochenarbeitszeit | 30      |
       And I should see a thumb default gravatar within the new employee form
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
-      And I press "Speichern"
+      And I press "Anlegen"
 
      Then I should be on the employees page for the organization
       And I should see flash notice "Mitarbeiter erfolgreich angelegt."
@@ -41,7 +41,7 @@ Feature: Create Employees
         | Vorname           | Carl    |
         | Nachname          | Carlson |
       And I select "Planer" from "Rolle"
-      And I press "Speichern"
+      And I press "Anlegen"
       And I should be on the employees page for the organization
      Then I should see the following table of employees:
        | Name           | WAZ  | E-Mail  | Rolle   | Status                 |
@@ -52,7 +52,7 @@ Feature: Create Employees
       And I wait for the modal box to appear
      Then the selected "Rolle" should be "Planer"
       And I select "keine" from "Rolle"
-      And I press "Speichern"
+      And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following table of employees:
        | Name           | WAZ  |  E-Mail  | Rolle | Status                 |
@@ -63,7 +63,7 @@ Feature: Create Employees
      Then the "Wochenarbeitszeit" field should contain "40"
       And I fill in the following:
         | Nachname          | Carlson |
-      And I press "Speichern"
+      And I press "Anlegen"
      Then I should see "muss ausgefüllt werden"
       And I should see "Mitarbeiter konnte nicht angelegt werden."
 
@@ -72,7 +72,7 @@ Feature: Create Employees
      Then the "Wochenarbeitszeit" field should contain "40"
       And I fill in the following:
         | Vorname           | Carl    |
-      And I press "Speichern"
+      And I press "Anlegen"
      Then I should see "muss ausgefüllt werden"
       And I should see "Mitarbeiter konnte nicht angelegt werden."
 
@@ -82,7 +82,7 @@ Feature: Create Employees
         | Vorname           | Carl    |
         | Nachname          | Carlson |
         | Wochenarbeitszeit |         |
-      And I press "Speichern"
+      And I press "Anlegen"
      Then I should see flash notice "Mitarbeiter erfolgreich angelegt."
       And I should see the following table of employees:
         | Name           | WAZ  | E-Mail  | Status                 |

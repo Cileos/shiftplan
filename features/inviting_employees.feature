@@ -13,18 +13,18 @@ Feature: Inviting Employees
 
   Scenario: Adding an then inviting an employee with an email address that does not exist yet (full roundtrip for adding employees and inviting them)
     Given I am on the employees page for the organization
-    Then I should see the following table of employees:
-      | Name            |
-      | Simpson, Homer  |
+     Then I should see the following table of employees:
+        | Name            |
+        | Simpson, Homer  |
      When I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
-      And I press "Speichern"
+      And I press "Anlegen"
      Then I should see the following table of employees:
-      | Name           |
-      | Carlson, Carl  |
-      | Simpson, Homer |
+        | Name           |
+        | Carlson, Carl  |
+        | Simpson, Homer |
 
     Given a clear email queue
      When I go to the employees page for the organization "fukushima"

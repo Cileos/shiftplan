@@ -31,4 +31,7 @@
       = f.input :force_create_duplicate, as: :boolean
 
   .actions
-    %button.button-success= ti(:update)
+    - if employee.new_record?
+      = f.create_button
+    - else
+      = f.update_button
