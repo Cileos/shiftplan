@@ -7,7 +7,7 @@
       %ul.posts
         - posts.each do |post|
           %li
-            %a{href: nested_resources_for(post)}
+            = link_to nested_resources_for(post) do
               %strong= "#{post.account.name} - #{post.organization.name}"
               %span.title= post.title
 - else
