@@ -18,6 +18,13 @@ describe Invitation do
     end
   end
 
+  it 'must have an email' do
+    invitation = build(:invitation, email: nil)
+
+    invitation.should_not be_valid
+    invitation.should have(1).errors_on(:email)
+  end
+
   context 'uniqueness of email within the account' do
       let(:homer)          { create :employee }
       let(:bart)           { create :employee }
