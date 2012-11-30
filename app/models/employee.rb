@@ -43,6 +43,10 @@ class Employee < ActiveRecord::Base
     scope given_role.pluralize.to_sym, where(role: given_role)
   end
 
+  def self.planners_and_owners
+    where(role: %w(planner owner))
+  end
+
   def active?
     user && user.confirmed?
   end

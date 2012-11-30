@@ -1,6 +1,6 @@
 %ul.nav
   - if user_signed_in?
-    - if organization = @organization || current_organization || current_user.joined_organizations.first
+    - if organization = @organization || current_organization || current_user.organizations.first
       = render 'organizations/navigation_selector', current: organization
       = render 'organizations/navigation_links', organization: organization
 

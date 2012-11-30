@@ -75,4 +75,33 @@ describe User do
       u.posts_of_joined_organizations.should include(post2)
     end
   end
+
+  context "#organizations" do
+    let(:account)      { create :account }
+    let(:organization) { create :organization, account: account }
+    let(:user)         { create :user }
+    let(:employee)     { create :employee, user: user, account: account }
+
+    before(:each) { organization }
+
+    it "does not contains orgs the user did not join" do
+      employee
+      user.organizations.should_not include(organization)
+    end
+
+    it "contains orgs the user joined as a normal member" do
+      create :membership, employee: employee, organization: organization
+      user.organizations.should include(organization)
+    end
+
+    it "contains orgs the user is a planner for" do
+      create :employee_planner, user: user, account: account
+      user.organizations.should include(organization)
+    end
+
+    it "contains orgs the user is a owner for" do
+      create :employee_owner, user: user, account: account
+      user.organizations.should include(organization)
+    end
+  end
 end

@@ -46,6 +46,12 @@ class User < ActiveRecord::Base
     employees.find_by_account_id!(account.id)
   end
 
+  # A Planner or Owner does not need a membership
+  def organizations
+    joined_organizations.all +
+      employees.planners_and_owners.map(&:account).map(&:organizations).flatten.uniq
+  end
+
   def label
     email
   end
