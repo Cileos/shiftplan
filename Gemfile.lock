@@ -6,13 +6,6 @@ GIT
       rails (>= 3.1.0)
 
 GIT
-  remote: git://github.com/josevalim/active_model_serializers.git
-  revision: 634f5ba91e6b1218319dace0fee9e10a9b2ec8b8
-  specs:
-    active_model_serializers (0.5.2)
-      activemodel (>= 3.0)
-
-GIT
   remote: git://github.com/niklas/bootstrap-sass.git
   revision: 0303023aa073257e610f990f4880f1af76fadb72
   specs:
@@ -33,6 +26,13 @@ GIT
   specs:
     kopflos (0.0.1)
       open4
+
+GIT
+  remote: git://github.com/rails-api/active_model_serializers.git
+  revision: e79fe399a53bb79b22f040697681617eea8cedbc
+  specs:
+    active_model_serializers (0.5.2)
+      activemodel (>= 3.0)
 
 GIT
   remote: git://github.com/v0n/notes.git
