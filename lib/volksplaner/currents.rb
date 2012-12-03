@@ -26,7 +26,7 @@ module Volksplaner::Currents
     if params[:account_id]
       Account.find(params[:account_id])
     else
-      if user_signed_in? && !current_user.is_multiple?
+      if user_signed_in? && !current_user.multiple?
         current_user.accounts.first
       end
     end

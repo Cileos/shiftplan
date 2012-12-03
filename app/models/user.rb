@@ -69,8 +69,8 @@ class User < ActiveRecord::Base
   end
 
   # Works at multiple organizations or accounts
-  def is_multiple?
-    joined_organizations.count > 1
+  def multiple?
+    organizations.count > 1
   end
 
   def confirming_email_change?
@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
   end
 
   def name_or_email
-    if is_multiple?
+    if multiple?
       email
     else
       employees.first.name

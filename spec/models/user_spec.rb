@@ -76,7 +76,7 @@ describe User do
     end
   end
 
-  context "#organizations" do
+  context "organizations" do
     let(:account)      { create :account }
     let(:organization) { create :organization, account: account }
     let(:user)         { create :user }
@@ -84,24 +84,53 @@ describe User do
 
     before(:each) { organization }
 
-    it "does not contains orgs the user did not join" do
-      employee
-      user.organizations.should_not include(organization)
+    describe 'the user did not join' do
+      before(:each) { employee }
+
+      it "are not listed" do
+        user.organizations.should_not include(organization)
+      end
+
+      it { user.should_not be_multiple }
     end
 
-    it "contains orgs the user joined as a normal member" do
-      create :membership, employee: employee, organization: organization
-      user.organizations.should include(organization)
+    describe 'the user did join as a normal member' do
+      before(:each) { create :membership, employee: employee, organization: organization }
+
+      it "are listed" do
+        user.organizations.should include(organization)
+      end
+
+      it { user.should_not be_multiple }
     end
 
-    it "contains orgs the user is a planner for" do
-      create :employee_planner, user: user, account: account
-      user.organizations.should include(organization)
+    describe 'the user is a planner for' do
+      before(:each) { create :employee_planner, user: user, account: account }
+
+      it "are listed" do
+        user.organizations.should include(organization)
+      end
+
+      it { user.should_not be_multiple }
     end
 
-    it "contains orgs the user is a owner for" do
-      create :employee_owner, user: user, account: account
-      user.organizations.should include(organization)
+    describe 'the user is an owner for' do
+      before(:each) { create :employee_owner, user: user, account: account }
+
+      it "are listed" do
+        user.organizations.should include(organization)
+      end
+
+      it { user.should_not be_multiple }
+    end
+
+    describe 'the user is an owner for and employee in another' do
+      before(:each) do
+        create :employee_owner, user: user, account: account
+        create :membership, employee: create(:employee, user: user)
+      end
+
+      it { user.should be_multiple }
     end
   end
 end

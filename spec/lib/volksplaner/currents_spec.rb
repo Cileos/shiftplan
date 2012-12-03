@@ -79,17 +79,6 @@ describe Volksplaner::Currents do
       end
     end
 
-    shared_examples 'ambiguous' do
-      it_should_behave_like 'ambiguous employee'
-      it_should_behave_like 'ambiguous account'
-      it_should_behave_like 'ambiguous organization'
-    end
-    shared_examples 'nonambiguous' do
-      it_should_behave_like 'nonambiguous employee'
-      it_should_behave_like 'nonambiguous account'
-      it_should_behave_like 'nonambiguous organization'
-    end
-
     context 'having params' do
       before :each do
         controller.stub(:params).and_return(params)
@@ -117,7 +106,6 @@ describe Volksplaner::Currents do
 
     context 'without direct params (dashboard)' do
 
-      before(:each)      { membership.should be_persisted }
       before :each do
         controller.stub(:params).and_return({})
       end
@@ -134,25 +122,34 @@ describe Volksplaner::Currents do
           controller.stub(:user_signed_in? => false, current_user: nil)
         end
 
-        it_should_behave_like 'ambiguous'
+        it_should_behave_like 'ambiguous employee'
+        it_should_behave_like 'ambiguous account'
+        it_should_behave_like 'ambiguous organization'
       end
 
       context "owning one account" do
         let(:role)  { :employee_owner }
+        before(:each)    { [employee, organization].each {|x| x.should be_persisted } }
 
-        it_should_behave_like 'nonambiguous'
+        it_should_behave_like 'nonambiguous employee'
+        it_should_behave_like 'nonambiguous account'
+        it_should_behave_like 'nonambiguous organization'
       end
 
       context "member in one organization" do
-        let(:role)  { :employee }
+        let(:role)     { :employee }
+        before(:each)  { membership.should be_persisted }
 
-        it_should_behave_like 'nonambiguous'
+        it_should_behave_like 'nonambiguous employee'
+        it_should_behave_like 'nonambiguous account'
+        it_should_behave_like 'nonambiguous organization'
       end
 
       context "member in multiple organizations of same account" do
         let(:role)               { :employee }
         let(:other_organization) { create :organization, account: account } # <<<<<<<<<
         let(:other_membership)   { create :membership, employee: employee, organization: other_organization }
+        before(:each)            { membership.should be_persisted }
         before(:each)            { other_membership.should be_persisted }
 
         it_should_behave_like 'ambiguous employee'
@@ -164,6 +161,7 @@ describe Volksplaner::Currents do
         let(:other_account)      { create :account }
         let(:other_organization) { create :organization, account: other_account } # <<<<<<<<<
         let(:other_membership)   { create :membership, employee: employee, organization: other_organization }
+        before(:each)            { membership.should be_persisted }
         before(:each)            { other_membership.should be_persisted }
 
         it_should_behave_like 'ambiguous employee'
@@ -176,9 +174,12 @@ describe Volksplaner::Currents do
         let(:other_employee)     { create :employee, account: other_account, user: user }
         let(:other_organization) { create :organization, account: other_account }
         let(:other_membership)   { create :membership, employee: other_employee, organization: other_organization }
-        before(:each)            { other_membership.should be_persisted }
+        let(:membership)         { nil }
+        before(:each)            { [employee, organization, other_membership].each {|x| x.should be_persisted } }
 
-        it_should_behave_like 'ambiguous'
+        it_should_behave_like 'ambiguous employee'
+        it_should_behave_like 'ambiguous account'
+        it_should_behave_like 'ambiguous organization'
       end
 
     end

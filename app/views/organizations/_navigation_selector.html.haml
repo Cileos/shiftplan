@@ -1,5 +1,5 @@
 - defined?(current) or raise(ArgumentError, "must provide :current (organization)")
-- if current_user.is_multiple?
+- if current_user.multiple?
   = li_link '.dashboard', dashboard_path, can: [:dashboard, current_user], class: 'dashboard', data: { icon: i(:dashboard) }
   %li.dropdown
     = link_to current.name, '#', class: 'organization', data: { icon: i(:organization), toggle: 'dropdown' }
