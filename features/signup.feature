@@ -45,9 +45,6 @@ Feature: Signing up
      Then I should see "bestätigt"
       And I should be signed in as "Homer Simpson"
       And I should be on the dashboard page
-      And I should see "Fukushima GmbH"
-     When I follow "Reaktor A"
-     Then I should be on the page of the organization
 
 
   @javascript
