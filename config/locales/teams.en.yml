@@ -3,7 +3,7 @@ en:
     models:
       team:
         one: "team"
-        others: "%{count} teams"
+        other: "%{count} teams"
     attributes:
       team:
         name: name
