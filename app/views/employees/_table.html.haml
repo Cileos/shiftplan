@@ -8,7 +8,7 @@
       %th= t('.status')
       - if can?(:manage, Invitation)
         %th= t('.action')
-      %th= t('activerecord.models.organization.others')
+      %th= Organization.model_name.human(count: 9001)
 
   %tbody
     - employees.each do |employee|
