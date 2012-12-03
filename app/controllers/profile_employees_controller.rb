@@ -1,6 +1,10 @@
 class ProfileEmployeesController < InheritedResources::Base
   defaults resource_class: Employee, collection_name: 'employees', instance_name: 'employee'
-  load_and_authorize_resource :employee
+
+  load_resource :employee
+  skip_authorization_check
+
+  before_filter :authorize_update_self
 
   def update
     update! { edit_profile_employee_path(@employee) }
@@ -18,5 +22,13 @@ class ProfileEmployeesController < InheritedResources::Base
 
   def end_of_association_chain
     super.order_by_names
+  end
+
+  def resource
+    begin super; rescue; nil; end
+  end
+
+  def authorize_update_self
+    authorize! :update_self, resource || Employee
   end
 end

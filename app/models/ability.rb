@@ -34,7 +34,7 @@ class Ability
     can :read, Account do |account|
       user.accounts.include?(account)
     end
-    can [:read, :update], Employee do |employee|
+    can [:update_self], Employee do |employee|
       user == employee.user
     end
     can [:read, :update], User do |u|

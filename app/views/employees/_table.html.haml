@@ -14,11 +14,7 @@
     - employees.each do |employee|
       %tr{ id: "employee_#{employee.id}" }
         %th
-          -# We reuse employee abilities on the profile pages. So the current employee should
-          -# be allowed to edit his own name on the profile page, but on the employees page
-          -# where fields like WAZ can be edited, too, a normal employee not beeing a planner
-          -# nor owner should not be able to edit himself/herself.
-          - if can?(:update, employee) && (current_employee.planner? || current_employee.owner?)
+          - if can?(:update, employee)
             = link_to(avatar(employee.user, employee, :tiny), [:edit, current_account, current_organization, employee], remote: true)
             = link_to(employee.last_and_first_name, [:edit, current_account, current_organization, employee], remote: true, :class => 'name')
           - else
