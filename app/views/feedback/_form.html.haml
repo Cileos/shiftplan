@@ -18,4 +18,4 @@
     = f.input :body, as: :text, input_html: { class: 'input-fullwidth', rows: 10 }, autofocus: true
 
   .actions
-    %button= ti(:send)
+    = f.responsive_submit_button :send

@@ -3,8 +3,9 @@ class Employee < ActiveRecord::Base
 
   Roles = %w(owner planner)
 
-  attr_accessible :first_name, :last_name, :weekly_working_time, :avatar, :avatar_cache, :organization_id, :account_id
-  attr_accessor :organization_id
+  attr_accessible :first_name, :last_name, :weekly_working_time, :avatar, :avatar_cache,
+    :organization_id, :account_id, :role, :force_create_duplicate
+  attr_accessor :organization_id, :force_create_duplicate
 
   validates_presence_of :first_name, :last_name
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
@@ -21,6 +22,7 @@ class Employee < ActiveRecord::Base
 
   validates_presence_of :account_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
+  validates_with DuplicateEmployeeValidator, on: :create
 
   after_create :create_membership
 
@@ -41,11 +43,16 @@ class Employee < ActiveRecord::Base
   end
 
   def active?
-    invitation.try(:accepted?) || planner? || owner?
+    user && user.confirmed?
   end
 
   def invited?
     invitation.present?
+  end
+
+  attr_writer :duplicates
+  def duplicates
+    @duplicates || []
   end
 
   def name
@@ -67,6 +74,10 @@ class Employee < ActiveRecord::Base
   def weekly_working_time_before_type_cast
     pure = read_attribute(:weekly_working_time)
     pure.blank?? nil : pure.to_i
+  end
+
+  def force_create_duplicate?
+    force_create_duplicate.in?(['1', 1, true])
   end
 
   private

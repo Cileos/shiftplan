@@ -1,8 +1,13 @@
+{{#if milestone}}
+<h4 class="milestone_name">{{milestone.name}}</h4>
+{{/if}}
 {{#if hasErrors}}
 <div>{{errorMessages}}</div>
 {{/if}}
-{{view Shiftplan.Fields.Name valueBinding="name" placeholder="Bezeichnung"}}
-{{view Shiftplan.Fields.DueDateField valueBinding="formatted_due_on" placeholder="Fällig am"}}
-<button class="button" {{action doDelete}}>Löschen</button>
+{{view Clockwork.Fields.Name valueBinding="name" placeholder="Bezeichnung"}}
+{{view Clockwork.Fields.DueDateField valueBinding="formatted_due_on" placeholder="Fällig am"}}
+{{#unless isNew}}
+  <button class="button" {{action doDelete}}>Löschen</button>
+{{/unless}}
 <button class="button" {{action save}}>{{view.buttonLabel}}</button>
 

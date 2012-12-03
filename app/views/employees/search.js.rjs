@@ -1,0 +1,2 @@
+page.replace_html('add-members', render('organizations/add_members_form', employees: @adoptable_employees))
+page.replace_html('search-results', render('search_results', count: @adoptable_employees.count))

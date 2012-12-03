@@ -5,6 +5,32 @@ require 'spec_helper'
 describe Scheduling do
 
   in_locale :de
+  context "without employee" do
+    let(:scheduling) { build :scheduling, employee: nil }
+
+    it { scheduling.should_not be_valid }
+  end
+
+  context "with illegal characters in team name (quickie)" do
+    let(:scheduling) { Scheduling.new quickie: "9-17 work 'hard'" }
+    it { scheduling.should_not be_valid }
+
+    it "should not have errors on start time" do
+      scheduling.valid?
+      scheduling.should have(:no).errors_on(:starts_at)
+    end
+
+    it "should not have errors on end time" do
+      scheduling.valid?
+      scheduling.should have(:no).errors_on(:ends_at)
+    end
+  end
+
+  context "without start date and quickie" do
+    let(:scheduling) { build :scheduling, starts_at: nil, ends_at: nil, quickie: '', week: nil, year: nil }
+    it { scheduling.should_not be_valid }
+    it { scheduling.should have_at_least(1).errors_on(:quickie) }
+  end
 
   context "hour accessor" do
     let(:scheduling) { Scheduling.new(date: Date.today) }

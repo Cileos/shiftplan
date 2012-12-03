@@ -1,2 +1,2 @@
-Shiftplan.NewTaskController = Ember.ObjectController.extend()
+Clockwork.NewTaskController = Ember.ObjectController.extend()
 

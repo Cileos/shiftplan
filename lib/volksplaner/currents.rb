@@ -98,7 +98,7 @@ module Volksplaner::Currents
   # the RJS responses can figure out the correct decorators
   # FIXME: remove with RJS
   def current_plan_mode
-    if mode = request.headers['HTTP_X_SHIFTPLAN_MODE'] || params['_shiftplan_mode']
+    if mode = request.headers['HTTP_X_CLOCKWORK_MODE'] || params['_clockwork_mode']
       mode.inquiry
     else
       nil

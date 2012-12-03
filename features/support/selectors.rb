@@ -50,6 +50,13 @@ module HtmlSelectorsHelpers
     when 'the modal box'
       'div#modalbox'
 
+    when /^the modal box (?:header|title)$/
+      '.ui-dialog .ui-dialog-title'
+
+   # the "done" milestone checkbox
+   when /^#{capture_quoted} (\w+) checkbox$/
+     %Q~input.#{$2}[name="#{$1}"]~
+
     when 'the completion list'
       'ul.ui-autocomplete'
 
@@ -65,8 +72,12 @@ module HtmlSelectorsHelpers
     when /^the #{capture_nth} table row$/
       "table tbody tr#{Numerals[$1]}"
 
-    when /^the comment link$/
-      'a.comments'
+    # The following links are decorated with tipsy, which uses the @title attribute and moves it to @original-title
+    when /^the comments? link$/
+      %Q~a.comments[original-title]~ # check only for presence of o-t; it is pluralized, depending on number of comments
+
+    when /^the delete link$/
+      %Q~a[data-method="delete"][original-title="#{I18n.translate('helpers.actions.destroy')}"]~
 
     when /^the #{capture_nth} form$/
       "form#{Numerals[$1]}"
@@ -110,6 +121,18 @@ module HtmlSelectorsHelpers
 
     when 'merge button'
       'button#merge-button'
+
+    when 'adopt employee button'
+      'form#add-members button'
+
+    when 'the add members form'
+      'form#add-members'
+
+    when 'the search form'
+      'form#search'
+
+    when 'the duplication warning'
+      'div#duplication-warning'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

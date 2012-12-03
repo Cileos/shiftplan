@@ -11,7 +11,7 @@ end
 
 require File.expand_path('../../lib/volksplaner', __FILE__)
 
-module Shiftplan
+module Clockwork
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -57,7 +57,7 @@ module Shiftplan
       g.view_specs false
     end
 
-    #config.ember.variant = :development
-    #config.handlebars.templates_root = 'templates'
+    config.ember.variant = :development
+    config.handlebars.templates_root = 'templates'
   end
 end

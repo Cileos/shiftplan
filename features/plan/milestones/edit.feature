@@ -1,4 +1,3 @@
-@wip
 @javascript
 Feature: edit Milestones for a plan
     In order to fix typing mistakes or change of goals
@@ -8,12 +7,13 @@ Feature: edit Milestones for a plan
   Background:
    Given today is 2012-12-18
      And the situation of a nuclear reactor
-
-  Scenario: Edit an existing milestone
-   Given a milestone exists with name: "Global Domination", plan: the plan
+     And a milestone exists with name: "Global Domination", plan: the plan
      And I am on the page of the plan "clean reactor"
     When I follow "Global Domination"
-     And I fill in "Name" with "World Domination"
+
+  Scenario: Edit an existing milestone
+   Given I should see "Meilenstein bearbeiten" within the modal box header
+    When I fill in "Name" with "World Domination"
      And I press "Speichern"
      #Then I should see flash notice "Meilenstein erfolgreich geändert"
     Then I should see "World Domination" within the milestones list
@@ -21,19 +21,13 @@ Feature: edit Milestones for a plan
      And a milestone should exist with name: "World Domination"
      And I should not see a field labeled "Name"
 
-
-  Scenario: Edit and create a milestone failed to create
-    When I follow "neuer Meilenstein"
-     And I press "Anlegen"
-    Then I should see "muss ausgefüllt werden"
-    When I fill in "Name" with "World Domination"
-     And I press "Anlegen"
-     # TODO we close the modal box on success, and the flash messages are in the modal box for now
-     #Then I should see flash notice "Meilenstein erfolgreich angelegt"
-    Then I should see "World Domination" within the milestones list
-     And a milestone should exist with name: "World Domination"
-     And I should not see a field labeled "Name"
-     And I should not see "muss ausgefüllt werden"
+  Scenario: Edit and cancel should rollback changes
+    When I fill in "Name" with "Kindergarten"
+     And I close the modal box
+    Then I should see "Global Domination" within the milestones list
+     And a milestone should exist with name: "Global Domination"
+     But I should not see "Kindergarten" within the milestones list
+     And 0 milestones should exist with name: "Kindergarten"
 
 
   # TODO revert changes/redisplay form if milestone invalid
@@ -42,16 +36,13 @@ Feature: edit Milestones for a plan
   # cannot rollback the changes and the 'edit' action was already exited.
   @wip
   Scenario: making the milestone invalid
-   Given a milestone exists with name: "World Domination", plan: the plan
-     And I am on the page of the plan "clean reactor"
-    When I follow "World Domination"
-     And I fill in "Name" with ""
+    When I fill in "Name" with ""
      And I press "Speichern"
     Then I should see flash alert "Meilenstein konnte nicht geändert werden"
-     And a milestone should exist with name: "World Domination"
+     And a milestone should exist with name: "Global Domination"
      And I should see "muss ausgefüllt werden"
      And the "Name" field should contain ""
-    When I fill "Name" with "Global Domination"
+    When I fill "Name" with "World Domination"
      And I press "Speichern"
-    Then a milestone should exist with name: "World Domination"
+    Then a milestone should exist with name: "Global Domination"
      And I should not see "muss ausgefüllt werden"

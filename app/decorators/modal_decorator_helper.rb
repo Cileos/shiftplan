@@ -11,7 +11,6 @@ module ModalDecoratorHelper
   # removes all modal boxes first, appends a new one to the body and opens it
   # title can be given as :header or :title
   def append_modal(options = {})
-    hide_modal
     remove_modal
     dialog_options = {
       title: options.delete(:header)

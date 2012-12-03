@@ -9,8 +9,10 @@ class Scheduling < ActiveRecord::Base
 
   before_validation :parse_quickie
   after_validation :set_human_date_attributes
-  validates :starts_at, :ends_at, :plan, :employee,
-    :year, :week, :presence => true
+
+  validates_presence_of :plan, :employee
+  validates_presence_of :quickie
+  validates_presence_of :starts_at, :ends_at, :year, :week, if: :quickie_parsable?
   validates :starts_at, :ends_at, within_plan_period: true
   validates_with NextDayWithinPlanPeriodValidator
 
@@ -219,11 +221,18 @@ class Scheduling < ActiveRecord::Base
   def parse_quickie
     if @quickie.present?
       if parsed = Quickie.parse(@quickie)
+        @parsed_quickie = parsed
         parsed.fill(self)
       else
+        @parsed_quickie = nil
         errors.add :quickie, :invalid
       end
     end
+  end
+
+  # A Quickie was given and it is parsable. Depends on #parse_quickie to be run in advance.
+  def quickie_parsable?
+    @quickie.present? && @parsed_quickie.present?
   end
 
   def to_quickie

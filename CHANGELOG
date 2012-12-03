@@ -1,6 +1,30 @@
 Changelog
 =========
 
+Release 0.2.1 2012-11-30 17:14
+------------------------------
+* 50c22ab Merge branch 'feature/fix-duplicate-emails-within-account-without-db' into develop
+* e248d1f Merge branch 'feature/unobstrusivly-disable-form-buttons' into develop
+* 0d12d22 Merge branch 'feature/add-employees-of-other-organizations' into develop
+
+
+Release 0.2.0 2012-11-16 10:46
+------------------------------
+Features:
+ * Milestones and Tasks for Plans (Ember)
+ * assign roles to Emplyoees
+ * full rename to Shiftplan
+
+Fixes:
+ * key navigation after closing modal box with ESC
+ * Validation errors regarding Quickie
+ * Schedulings need a date
+
+Release 0.1.5 2012-11-06 12:30
+------------------------------
+* 54cf3ca Merge pull request #99 from Cileos/feature/update-all-plans-drop-down
+* smaller fixes and improvements
+
 Release 0.1.4 2012-11-01 01:11
 ------------------------------
 * s/shiftplan/clockwork for mail sender

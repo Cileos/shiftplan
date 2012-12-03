@@ -24,7 +24,7 @@
   abbr {
     // show full description
     &:before {
-      content: attr(title);
+      content: attr(original-title);
     }
     // hide the shortened stuff (will be shown wenn width < 1000px)
     span {

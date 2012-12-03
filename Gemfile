@@ -13,7 +13,6 @@ group :assets do
   gem 'jquery-ui-rails'
   # until merge of https://github.com/thomas-mcdonald/bootstrap-sass/pull/170
   gem 'bootstrap-sass', '~> 2.0.4', git: "git://github.com/niklas/bootstrap-sass.git"
-  # gem 'ember-rails' # handlebars templates don't compile: can't convert nil into String
 end
 
 
@@ -76,6 +75,7 @@ group :development do
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
   gem 'notes', :require => false, :git => 'git://github.com/v0n/notes.git'
+  gem 'quiet_assets'
 end
 
 group :production do
@@ -103,7 +103,7 @@ gem 'versatile_rjs', :git => 'git://github.com/condor/versatile_rjs.git'
 gem 'polyglot' # load treetop grammars with #require
 
 gem 'gon' # push variables from rails to js
-gem "active_model_serializers", :git => "git://github.com/josevalim/active_model_serializers.git"
+gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
 
 gem 'RedCloth' # textilize instructions and other texts from locales
 
@@ -117,4 +117,5 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart'
 gem 'gravtastic'
-gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git'
+gem 'ember-rails'
+gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'

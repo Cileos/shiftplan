@@ -1,6 +1,6 @@
 @javascript
 Feature: Feedback without Screenshot
-  As the owner of shiftplan
+  As the owner of clockwork
   I want to receive feedback from users
   In order to be able to improve my application
 
@@ -20,9 +20,9 @@ Feature: Feedback without Screenshot
 
       And "support@clockwork.io" should receive an email with subject "Sie haben neues Feedback erhalten von Planner Burns"
      When I open the email
-     Then I should see the email delivered from "burns@shiftplan.local"
+     Then I should see the email delivered from "burns@clockwork.local"
       And I should see "Name: Planner Burns" in the email body
-      And I should see "E-Mail: burns@shiftplan.local" in the email body
+      And I should see "E-Mail: burns@clockwork.local" in the email body
       And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
@@ -40,11 +40,11 @@ Feature: Feedback without Screenshot
       And I wait for the modal box to disappear
      Then I should see a flash notice "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
-      And "support@clockwork.io" should receive an email with subject "Sie haben neues Feedback erhalten von homer@shiftplan.local"
+      And "support@clockwork.io" should receive an email with subject "Sie haben neues Feedback erhalten von homer@clockwork.local"
      When I open the email
-     Then I should see the email delivered from "homer@shiftplan.local"
+     Then I should see the email delivered from "homer@clockwork.local"
       And I should see "Name: " in the email body
-      And I should see "E-Mail: homer@shiftplan.local" in the email body
+      And I should see "E-Mail: homer@clockwork.local" in the email body
       And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
@@ -63,9 +63,9 @@ Feature: Feedback without Screenshot
 
       And "support@clockwork.io" should receive an email with subject "Sie haben neues Feedback erhalten von not Mr Burns"
      When I open the email
-     Then I should see the email delivered from "homer@shiftplan.local"
+     Then I should see the email delivered from "homer@clockwork.local"
       And I should see "Name: not Mr Burns" in the email body
-      And I should see "E-Mail: homer@shiftplan.local" in the email body
+      And I should see "E-Mail: homer@clockwork.local" in the email body
       And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
