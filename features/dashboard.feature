@@ -34,7 +34,7 @@ Feature: Dashboard
      # full introductory_text of dummy notification
      Then I should see "You did something awesome"
 
-  Scenario: List upcoming notifications (just the next 7 days for now)
+  Scenario: List upcoming schedulings (just the next 7 days for now)
     Given the employee "Homer" was scheduled in the plan as following:
         | week | cwday | quickie                         |
         | 49   | 2     | 9-17 Reaktor Putzen [RP]        |
@@ -49,7 +49,7 @@ Feature: Dashboard
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
 
-   Scenario: List recent news posts of company blogs
+   Scenario: List recent news posts of company blogs of organizations I am a member in
     Given an organization "fukushima" exists with name: "AKW Fukushima GmbH", account: the account
       And a blog "fukushima" exists with organization: organization "fukushima"
       And the employee "Homer" is a member of the organization "fukushima"
