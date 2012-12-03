@@ -37,6 +37,7 @@ Feature: Edit Employee
         | Name            |
         | Simpson, Bart   |
         | Simpson, Homer  |
+      And I should not see link "Simpson, Bart" within the employees table
       And I should not see link "Simpson, Homer" within the employees table
 
   @javascript
