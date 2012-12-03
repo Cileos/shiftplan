@@ -9,11 +9,11 @@ grammar Quickie
 
   # at least two characters, first is not a number, multiple words
   rule team_name
-    [\p{Word}] [\p{Word} ]+ <Quickie::TeamNameNode>
+    [\p{Letter}] [\p{Letter} ]+ <Quickie::TeamNameNode>
   end
 
   rule team_shortcut
-    '[' shortcut:[\p{Word}]+ ']' <Quickie::TeamShortcutNode>
+    '[' shortcut:[\p{Letter}]+ ']' <Quickie::TeamShortcutNode>
   end
 
   rule hour
