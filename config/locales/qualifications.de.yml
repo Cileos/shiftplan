@@ -1,0 +1,32 @@
+de:
+  activerecord:
+    models:
+      qualification:
+        one: "Qualifikation"
+        other: "%{count} Qualifikationen"
+  qualifications:
+    index:
+      no_qualifications: "Es existieren noch keine Qualifikationen für diese Organisation."
+      instructions: >
+        Hier sehen Sie alle Qualifikationen dieser Organisation.
+
+      planner_instructions: >
+        Hier sehen Sie alle Qualifikationen dieser Organisation.
+
+
+        Sie können eine neue Qualifikation anlegen, indem Sie auf den Hinzufügen
+        Button auf dieser Seite klicken.
+    new:
+      instructions:
+        Hier können Sie eine neue Qualifikation für diese Organisation anlegen.
+
+
+        Bitte geben Sie einen Namen für die neue Qualifikation ein und klicken dann auf
+        _Anlegen_.
+    edit:
+      instructions:
+        Hier können Sie die Qualifikation bearbeiten.
+
+
+        Bitte geben Sie einen neuen Namen für die Qualifikation ein und klicken dann auf
+        _Speichern_.

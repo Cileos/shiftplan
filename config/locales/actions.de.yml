@@ -12,6 +12,7 @@ de:
       set_your_password: "Passwort festlegen"
       employees: Mitarbeiter
       teams: Teams
+      qualifications: Qualifikationen
       add: Hinzufügen
       adopt: Übernehmen
       new_employee: Mitarbeiter anlegen
@@ -21,6 +22,8 @@ de:
       adopt_employees: 'Mitarbeiter übernehmen'
       new_team: Neues Team
       edit_team: Team bearbeiten
+      new_qualification: Qualifikation anlegen
+      edit_qualification: Qualifikation bearbeiten
       new_team_merge: Teams zusammenlegen
       edit_employee: Mitarbeiter bearbeiten
       plans: Pläne
