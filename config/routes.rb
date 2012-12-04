@@ -41,6 +41,7 @@ Clockwork::Application.routes.draw do
         end
       end
       resources :teams
+      resources :qualifications
       resources :team_merges, only: [:new, :create], :controller => 'team_merges'
       resources :invitations
       resources :blogs do

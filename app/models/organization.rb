@@ -1,9 +1,10 @@
 class Organization < ActiveRecord::Base
   belongs_to :account
-  belongs_to :planner,    class_name: 'User'
-  has_many   :employees,  through: :memberships, order: 'last_name ASC, first_name ASC'
+  belongs_to :planner,        class_name: 'User'
+  has_many   :employees,      through: :memberships, order: 'last_name ASC, first_name ASC'
   has_many   :plans
-  has_many   :teams,      order: 'name ASC'
+  has_many   :teams,          order: 'name ASC'
+  has_many   :qualifications, order: 'name ASC'
   has_many   :invitations
   has_many   :blogs
   has_many   :memberships

@@ -1,0 +1,9 @@
+%table#qualifications
+  %thead
+    %tr
+      %th= Qualification.human_attribute_name(:name)
+
+  %tbody
+    - qualifications.each do |qualification|
+      %tr
+        %td= qualification.name
