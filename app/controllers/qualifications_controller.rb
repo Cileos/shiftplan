@@ -6,4 +6,8 @@ class QualificationsController < InheritedResources::Base
   def create
     create! { [parent.account, parent, :qualifications] }
   end
+
+  def update
+    update! { [parent.account, parent, :qualifications] }
+  end
 end

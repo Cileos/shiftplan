@@ -18,3 +18,4 @@ Feature: Create Qualifications
       And I should see the following table of qualifications:
         | Name              |
         | Brennstabpolierer |
+      And I should see notice "Qualifikation erfolgreich angelegt."
