@@ -1,14 +1,15 @@
 # WARNING: always keep behaviour in sync with Ruby part in lib/quickie.treetop
+expression = """
+  (?<hour_range> (?:2[0-4]|1[0-9]|[0-9])-(?:2[0-4]|1[0-9]|[0-9]))
+  \\s*
+  (?<team_name> [\\p{Letter}] [\\p{Letter} ]+)
+  \\s*
+  \\[(?<team_shortcut> [\\p{Letter}]+)\\]
+"""
+
 QuickieParser =
-  expressions:
-    hour_range: /((?:2[0-4]|1[0-9]|[0-9])-(?:2[0-4]|1[0-9]|[0-9]))/
+  expression: XRegExp expression, 'x'
   parse: (quickie) ->
-    parsed = {}
-
-    if m = quickie.match(@expressions.hour_range)
-      parsed.hour_range = m[1]
-
-    parsed
-
+    XRegExp.exec quickie, @expression
 
 window.QuickieParser = QuickieParser

@@ -8,6 +8,9 @@
 //= require ember-latest
 //= require ember-data-latest
 //= require ember-rails-flash
+// for QuickieParser
+//= require xregexp
+//= require xregexp/unicode-base
 
 //= require_tree './lib'
 //= require spinner
