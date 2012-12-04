@@ -10,4 +10,4 @@
     = render 'organizations/plans_list', base: base, organization: organization
   = li_link '.employees',      base + [:employees],      can: [:show, Employee],      data: { icon: i(:employees) }
   = li_link '.teams',          base + [:teams],          can: [:show, Team],          data: { icon: i(:teams) }
-  = li_link '.qualifications', base + [:qualifications], can: [:show, Qualification], data: { icon: i(:qualifications) }
+  = li_link '.qualifications', base + [:qualifications], can: [:show, Qualification]
