@@ -124,6 +124,20 @@ describe User do
       it { user.should_not be_multiple }
     end
 
+    describe 'the user is owner for and member in' do
+      before(:each) do
+        e = create :employee_owner, user: user, account: account
+        create :membership, employee: e, organization: organization
+      end
+
+      it "are listed uniq" do
+        user.organizations.should == [organization]
+      end
+
+      it { user.should_not be_multiple }
+
+    end
+
     describe 'the user is an owner for and employee in another' do
       before(:each) do
         create :employee_owner, user: user, account: account

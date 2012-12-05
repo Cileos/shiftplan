@@ -37,6 +37,10 @@ class Organization < ActiveRecord::Base
     scope.order_by_names
   end
 
+  def inspect
+    %Q~<#{self.class} #{id || 'new'} #{name.inspect} (account_id: #{account_id})>~
+  end
+
   after_create :setup
   def setup
     if blogs.empty?

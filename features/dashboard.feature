@@ -5,7 +5,7 @@ Feature: Dashboard
 
   Background:
     Given a confirmed user "homer" exists with email: "homer@thesimpsons.de"
-      And an account exists
+    And an account exists with name: "Main"
       # week 49
       And today is 2012-12-04 06:00
       And the situation of an atomic power plant tschernobyl
@@ -13,18 +13,22 @@ Feature: Dashboard
   Scenario: Dashboard page with multiple organizations
     Given an organization "fukushima" exists with name: "AKW Fukushima GmbH", account: the account
       And the employee "Homer" is a member of the organization "fukushima"
-      And a plan "reaktor putzen" exists with organization: organization "fukushima", name: "Reaktor putzen in Fukushima"
+      And an account "private" exists with name: "Privat"
+      And an organization "home" exists with name: "Home Homer", account: account "private"
+      And an employee owner "homer at home" exists with user: confirmed user "homer", account: account "private"
+      # VV this had created double entries in dropdown
+      And the employee owner "homer at home" is a member of organization "home"
+      And I am signed in as the user "homer"
 
+     When I go to the dashboard
+     Then I should see "Organisationen" within the navigation
+     # currently ordered by creation date.
+      And I should see the following items in the organization dropdown list:
+        | Main - AKW Tschernobyl GmbH |
+        | Main - AKW Fukushima GmbH   |
+        | Privat - Home Homer         |
 
-     And I am signed in as the user "homer"
-    When I go to the dashboard
-
-     And I should see "Organisationen" within the navigation
-     And I should see "AKW Fukushima GmbH" within the organization dropdown list
-     And I should see "AKW Tschernobyl GmbH" within the organization dropdown list
-
-    When I go to the dashboard
-     And I follow "AKW Fukushima GmbH"
+     When I follow "AKW Fukushima GmbH"
      Then I should be on the page for the organization "fukushima"
 
   Scenario: Lists recent notifications

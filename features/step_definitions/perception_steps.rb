@@ -44,6 +44,14 @@ Then /^I should see the following list of links:$/ do |expected|
   expected.diff! actual
 end
 
+Then /^I should see the following items in (.* list):$/ do |list_name, expected|
+  list = first( selector_for(list_name) )
+  actual = list.all('li').map do |li|
+    [ li.try(:text).try(:strip) || '' ]
+  end
+  expected.diff! actual
+end
+
 # %table#people
 #   %tr
 #     %td.name
