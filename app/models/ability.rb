@@ -67,6 +67,9 @@ class Ability
     can :read, Qualification do |qualification|
       employee.organizations.include?(qualification.organization)
     end
+    can :read, PlanTemplate do |plan_template|
+      employee.organizations.include?(plan_template.organization)
+    end
     can [:read, :create], Post do |post|
       employee.organizations.include?(post.blog.organization)
     end
@@ -120,6 +123,9 @@ class Ability
     end
     can :manage, Qualification do |qualification|
       account == qualification.organization.account
+    end
+    can :manage, PlanTemplate do |plan_template|
+      account == plan_template.organization.account
     end
     can :manage, TeamMerge do |team_merge|
       (team_merge.team_id.blank? || account == team_merge.team.try(:organization).try(:account)) &&

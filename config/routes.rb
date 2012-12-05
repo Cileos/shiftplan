@@ -49,7 +49,7 @@ Clockwork::Application.routes.draw do
           resources :comments, only: [:create, :destroy], controller: 'post_comments'
         end
       end
-
+      resources :plan_templates
     end # organizations
   end # accounts
 

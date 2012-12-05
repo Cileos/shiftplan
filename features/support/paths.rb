@@ -96,6 +96,10 @@ module NavigationHelpers
       org = model!($1)
       new_account_organization_qualification_path(org.account, org)
 
+    when /^the new plan template page for #{capture_model}$/
+      org = model!($1)
+      new_account_organization_plan_template_path(org.account, org)
+
     when /^the adopt employees page for #{capture_model}$/
       org = model!($1)
       adopt_account_organization_employees_path(org.account, org)

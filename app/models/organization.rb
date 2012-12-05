@@ -8,6 +8,7 @@ class Organization < ActiveRecord::Base
   has_many   :invitations
   has_many   :blogs
   has_many   :memberships
+  has_many   :plan_templates
 
   validates_presence_of :name
 

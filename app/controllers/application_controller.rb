@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
       nested_resources_for(resource.commentable.blog) + [ resource.commentable, resource]
     when Post
       nested_resources_for(resource.blog) + [resource]
-    when Blog, Team, Plan, Qualification
+    when Blog, Team, Plan, Qualification, PlanTemplate
       nested_resources_for(resource.organization) + [resource]
     when Organization
       [ resource.account, resource ]

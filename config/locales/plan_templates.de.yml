@@ -1,0 +1,17 @@
+de:
+  activerecord:
+    attributes:
+      plan_template:
+        name: Name
+        template_type: Vorlagentyp
+    models:
+      plan_template:
+        one: "Planvorlage"
+        other: "%{count} Planvorlagen"
+  plan_templates:
+    template_types:
+      weekbased: 'Wochenbasiert'
+    new:
+      instructions: >
+        Legen Sie eine neue Planvorlage an, indem Sie einen Namen eingeben und einen
+        Vorlagentyp wählen.

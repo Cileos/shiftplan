@@ -1,0 +1,8 @@
+- title :new_plan_template
+
+.row.two-columns.inverted
+  .primary
+    = render 'form', plan_template: @plan_template, create_or_update: :create
+
+  .secondary.instructions
+    = tt '.instructions'
