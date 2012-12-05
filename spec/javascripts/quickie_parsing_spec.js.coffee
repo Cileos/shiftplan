@@ -41,3 +41,29 @@ describe 'Quickie', ->
     expect( parsed ).not.toBeNull()
     expect( parsed.hour_range ).toEqual('9-17')
     expect( parsed.team_name ).toEqual('Brennstäbe wechseln')
+
+
+  valid_quickies = [
+      '9-23'
+      '0-5'
+      '1-2'
+      '12-24'
+      '20-8'
+    ]
+
+  for valid_quickie in valid_quickies
+    it "should parse '#{valid_quickie}'", ->
+      parsed = Quickie.parse(valid_quickie)
+      expect( parsed ).not.toBeNull()
+
+  invalid_quickies = [
+      '1-'
+      '-23'
+      '9-25'
+      '1-88'
+  ]
+
+  for invalid_quickie in invalid_quickies
+    it "should not parse '#{invalid_quickie}'", ->
+      parsed = Quickie.parse(invalid_quickie)
+      expect( parsed ).toBeNull()
