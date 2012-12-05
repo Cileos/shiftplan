@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121205111600) do
+ActiveRecord::Schema.define(:version => 20121205160054) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -187,6 +187,20 @@ ActiveRecord::Schema.define(:version => 20121205111600) do
 
   add_index "schedulings", ["employee_id"], :name => "index_schedulings_on_employee_id"
   add_index "schedulings", ["plan_id"], :name => "index_schedulings_on_plan_id"
+
+  create_table "shifts", :force => true do |t|
+    t.integer  "plan_template_id"
+    t.integer  "start_hour"
+    t.integer  "end_hour"
+    t.integer  "start_minute"
+    t.integer  "end_minute"
+    t.integer  "team_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "shifts", ["plan_template_id"], :name => "index_shifts_on_plan_template_id"
+  add_index "shifts", ["team_id"], :name => "index_shifts_on_team_id"
 
   create_table "tasks", :force => true do |t|
     t.string   "name"

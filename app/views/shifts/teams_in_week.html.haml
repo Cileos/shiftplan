@@ -1,0 +1,21 @@
+- title @plan_template.name
+
+%table#calendar.calendar.teams-in-week{class: :week}
+  %thead
+    %tr
+      -# TODO: use the week switch like for schedulings later
+      %th= t('schedulings.week_switch.teams_in_week')
+      - filter.formatted_days.each do |full, abbr|
+        %th
+          = abbr_tag(abbr, full, class: 'day_name')
+  %tbody
+    - filter.teams.each do |team|
+      %tr{data: { :'team-id' => team.id }}
+        %th.team
+          .pibble.team-color{style: "background-color: #{team.color};"}
+          .team_name
+            = team.name + '(' + team.shortcut + ')'
+        - filter.days.each do |day|
+          %td
+          -# TODO: render cell
+          -# = filter.render_cell_for_day day, team

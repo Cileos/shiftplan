@@ -1,5 +1,6 @@
 class PlanTemplate < ActiveRecord::Base
   belongs_to :organization
+  has_many   :shifts
 
   TEMPLATE_TYPES = ['weekbased']
 

@@ -23,5 +23,8 @@ Feature: Create Weekbased Plan Template
       And I select "Wochenbasiert" from "Vorlagentyp"
       And I press "Anlegen"
      Then a plan template should exist with organization: the organization
-      # TODO:
-      # And I should be on the teams in week page for the plan template
+      And I should be on the teams in week page for the plan template
+      And I should see the following calendar:
+        | Teams                 | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel(B)    |     |     |     |     |     |     |     |
+        | Druckwasserreaktor(D) |     |     |     |     |     |     |     |

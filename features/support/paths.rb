@@ -67,9 +67,9 @@ module NavigationHelpers
 
     when /^the (teams in week|hours in week|teams in day|employees in week) page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       scope, model, params = $1, model!($2), parse_fields($3).symbolize_keys
-      raise ArgumentError, "only plans can be scoped as #{scope}" unless model.is_a?(Plan)
+      raise ArgumentError, "only plans and plan templates can be scoped as #{scope}" unless model.is_a?(Plan) || model.is_a?(PlanTemplate)
       organization = model.organization
-      send "account_organization_plan_#{scope.strip.gsub(/\s+/,'_')}_path", organization.account, organization, model, params
+      send "account_organization_#{model.class.name.underscore}_#{scope.strip.gsub(/\s+/,'_')}_path", organization.account, organization, model, params
 
     when /^(?:my|the) dashboard$/
       dashboard_path

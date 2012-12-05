@@ -4,7 +4,6 @@ class PlanTemplatesController < InheritedResources::Base
   load_and_authorize_resource
 
   def create
-    # TODO: redirect to the  teams in week page for the plan template
-    create! { [parent.account, parent] }
+    create! { nested_resources_for(@plan_template) + [:teams_in_week] }
   end
 end

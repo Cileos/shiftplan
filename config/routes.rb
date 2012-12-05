@@ -49,7 +49,9 @@ Clockwork::Application.routes.draw do
           resources :comments, only: [:create, :destroy], controller: 'post_comments'
         end
       end
-      resources :plan_templates
+      resources :plan_templates do
+        get 'week/teams' => 'shifts#teams_in_week', :as => 'teams_in_week'
+      end
     end # organizations
   end # accounts
 

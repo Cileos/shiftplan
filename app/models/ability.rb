@@ -61,6 +61,9 @@ class Ability
     can :read, Scheduling do |scheduling|
       employee.organizations.include?(scheduling.plan.organization)
     end
+    can :read, Shift do |shift|
+      employee.organizations.include?(shift.plan_template.organization)
+    end
     can :read, Team do |team|
       employee.organizations.include?(team.organization)
     end
@@ -114,6 +117,9 @@ class Ability
     end
     can :manage, Scheduling do |scheduling|
       account == scheduling.plan.organization.account
+    end
+    can :manage, Shift do |shift|
+      account == shift.plan_template.organization.account
     end
     can :manage, CopyWeek do |copy_week|
       account == copy_week.plan.organization.account
