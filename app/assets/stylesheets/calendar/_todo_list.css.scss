@@ -15,6 +15,7 @@ $todolist_border_color: $ci_gray;
 
 .milestones {
   li {
+    @include clearfix;
     position: relative;
     margin-bottom: 5px;
     padding-bottom: 5px;
@@ -57,8 +58,6 @@ $todolist_border_color: $ci_gray;
       }
 
       &:before {
-        content: '';
-        display: block;
         width: 10px;
         border-top: 1px solid $todolist_border_color;
         position: relative;
