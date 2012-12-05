@@ -1,5 +1,4 @@
 # we have to discuss how to handle the dashboard
-@wip
 Feature: Navigation
   In order to access all the wonderful functionality of clockwork
   As a user
@@ -9,30 +8,24 @@ Feature: Navigation
     Given the situation of a just registered user
       And I am signed in as the confirmed user "mr. burns"
 
-  # BUG: should the "Alle Pläne" menu be always extended?
-  @todo
+  # testing too much at once
   @wip
   Scenario: as an owner with multiple organizations in same account
     Given an organization "tschernobyl" exists with name: "Tschernobyl", account: the account
      When I am on the dashboard page
 
-     Then I should see the following list of links within the navigation:
+     Then I should see the following list of links within the user navigation:
        | link            | active |
-       | Owner Burns     | false  |
+       | owner@burns.com | false  |
        | Einstellungen   | false  |
        | Ausloggen       | false  |
-       | Dashboard       | true   |
 
      When I follow "Fukushima"
      Then I should see the following list of links within the navigation:
        | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | false   |
-       | Fukushima >>   | true    |
+       | Fukushima      | true    |
        | Neuigkeiten    | false   |
-       | Pläne          | true    |
+       | Pläne          | false   |
        | Alle Pläne     | false   |
        | Mitarbeiter    | false   |
        | Teams          | false   |
@@ -40,13 +33,9 @@ Feature: Navigation
      When I follow "Neuigkeiten"
      Then I should see the following list of links within the navigation:
        | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | false   |
-       | Fukushima >>   | true    |
+       | Fukushima      | true    |
        | Neuigkeiten    | true    |
-       | Pläne          | true    |
+       | Pläne          | false   |
        | Alle Pläne     | false   |
        | Mitarbeiter    | false   |
        | Teams          | false   |
@@ -54,11 +43,7 @@ Feature: Navigation
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
        | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | false   |
-       | Fukushima >>   | true    |
+       | Fukushima      | true    |
        | Neuigkeiten    | false   |
        | Pläne          | true    |
        | Alle Pläne     | false   |
@@ -68,13 +53,9 @@ Feature: Navigation
      When I follow "Mitarbeiter"
      Then I should see the following list of links within the navigation:
        | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | false   |
-       | Fukushima >>   | true    |
+       | Fukushima      | true    |
        | Neuigkeiten    | false   |
-       | Pläne          | true    |
+       | Pläne          | false   |
        | Alle Pläne     | false   |
        | Mitarbeiter    | true    |
        | Teams          | false   |
@@ -85,7 +66,6 @@ Feature: Navigation
        | Owner Burns    | false   |
        | Einstellungen  | false   |
        | Ausloggen      | false   |
-       | Dashboard      | false   |
        | Fukushima >>   | true    |
        | Neuigkeiten    | false   |
        | Pläne          | true    |
@@ -100,10 +80,8 @@ Feature: Navigation
        | Owner Burns    | false   |
        | Einstellungen  | false   |
        | Ausloggen      | false   |
-       | Dashboard      | true    |
 
-  # BUG: should the "Alle Pläne" menu be always extended?
-  @todo
+  # What the frak are we actually testing here?
   @wip
   Scenario: an user beeing an employee for two accounts
     Given the user has joined another account with organization_name: "Clockwork", as: "Charles Montgomery Burns"
@@ -113,26 +91,25 @@ Feature: Navigation
      # going to the dashboard.  So instead of showing the name of one of his
      # employees, we show the email address "owner@burns.com" in the
      # navigation.
-     Then I should see the following list of links within the navigation:
+     Then I should see the following list of links within the user navigation:
        | link            | active |
        | owner@burns.com | false  |
        | Einstellungen   | false  |
        | Ausloggen       | false  |
-       | Dashboard       | false  |
 
-     When I follow "Dashboard"
-      And I follow "Tschernobyl GmbH"
-     Then I should see the following list of links within the navigation:
+     When I follow "Tepco GmbH - Fukushima"
+     Then I should see the following list of links within the user navigation:
        | link                | active |
-       | Bart Simpson        | false  |
+       | Owner Burns         | false  |
        | Einstellungen       | false  |
        | Ausloggen           | false  |
-       | Dashboard           | false  |
-       | Tschernobyl GmbH >> | true   |
-       | Pläne               | true   |
-       | Alle Pläne          | false  |
-       | Mitarbeiter         | false  |
-       | Teams               | false  |
+     Then I should see the following list of links within the navigation:
+       | link                   | active |
+       | Tepco GmbH - Fukushima | true   |
+       | Pläne                  | true   |
+       | Alle Pläne             | false  |
+       | Mitarbeiter            | false  |
+       | Teams                  | false  |
 
   Scenario: as a planner with one organization
     Given I am signed in as the confirmed user
@@ -140,13 +117,9 @@ Feature: Navigation
      When I go to the page of the organization "fukushima"
      Then I should see the following list of links within the navigation:
        | link          | active |
-       | Owner Burns   | false  |
-       | Einstellungen | false  |
-       | Ausloggen     | false  |
-       | Dashboard     | false  |
-       | Fukushima >>  | true   |
+       | Fukushima     | true   |
        | Neuigkeiten   | false  |
-       | Pläne         | true   |
+       | Pläne         | false  |
        | Alle Pläne    | false  |
        | Mitarbeiter   | false  |
        | Teams         | false  |
@@ -154,13 +127,9 @@ Feature: Navigation
      When I follow "Neuigkeiten"
      Then I should see the following list of links within the navigation:
        | link          | active |
-       | Owner Burns   | false  |
-       | Einstellungen | false  |
-       | Ausloggen     | false  |
-       | Dashboard     | false  |
-       | Fukushima >>  | true   |
+       | Fukushima     | true   |
        | Neuigkeiten   | true   |
-       | Pläne         | true   |
+       | Pläne         | false  |
        | Alle Pläne    | false  |
        | Mitarbeiter   | false  |
        | Teams         | false  |
@@ -168,11 +137,7 @@ Feature: Navigation
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
        | link          | active |
-       | Owner Burns   | false  |
-       | Einstellungen | false  |
-       | Ausloggen     | false  |
-       | Dashboard     | false  |
-       | Fukushima >>  | true   |
+       | Fukushima     | true   |
        | Neuigkeiten   | false  |
        | Pläne         | true   |
        | Alle Pläne    | false  |
@@ -182,13 +147,9 @@ Feature: Navigation
      When I follow "Mitarbeiter"
      Then I should see the following list of links within the navigation:
        | link          | active |
-       | Owner Burns   | false  |
-       | Einstellungen | false  |
-       | Ausloggen     | false  |
-       | Dashboard     | false  |
-       | Fukushima >>  | true   |
+       | Fukushima     | true   |
        | Neuigkeiten   | false  |
-       | Pläne         | true   |
+       | Pläne         | false  |
        | Alle Pläne    | false  |
        | Mitarbeiter   | true   |
        | Teams         | false  |
@@ -199,13 +160,9 @@ Feature: Navigation
      # account which is "Owner Burns".
      Then I should see the following list of links within the navigation:
        | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | false   |
-       | Fukushima >>   | true    |
+       | Fukushima      | true    |
        | Neuigkeiten    | false   |
-       | Pläne          | true    |
+       | Pläne          | false   |
        | Alle Pläne     | false   |
        | Mitarbeiter    | false   |
        | Teams          | false   |
