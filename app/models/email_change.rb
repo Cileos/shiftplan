@@ -1,4 +1,5 @@
 class EmailChange < ActiveRecord::Base
+  # email gets validated in User due to :before_save :create_email_change
   belongs_to :user
   validates_presence_of :email, :user_id, :token
 
