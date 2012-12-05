@@ -1,12 +1,12 @@
-describe 'QuickieParser', ->
+describe 'Quickie', ->
   it 'is defined', ->
-    expect(QuickieParser).not.toBeNull()
+    expect(Quickie).not.toBeNull()
 
 
   describe 'parsing a full quickie with whole hours and unicode', ->
     beforeEach ->
       @quickie = '9-17 Brennstäbe wechseln [Bw]'
-      @parsed = QuickieParser.parse @quickie
+      @parsed = Quickie.parse @quickie
 
     it "should be parsable", ->
       expect(@parsed).not.toBeNull()
@@ -27,17 +27,17 @@ describe 'QuickieParser', ->
       expect(@parsed.team_shortcut).toEqual('Bw')
 
   it "should parse lonely hour range", ->
-    parsed = QuickieParser.parse('9-17')
+    parsed = Quickie.parse('9-17')
     expect( parsed ).not.toBeNull()
     expect( parsed.hour_range ).toEqual('9-17')
 
   it "should parse lonely team name", ->
-    parsed = QuickieParser.parse('Brennstäbe wechseln')
+    parsed = Quickie.parse('Brennstäbe wechseln')
     expect( parsed ).not.toBeNull()
     expect( parsed.team_name ).toEqual('Brennstäbe wechseln')
 
   it "should parse hour range with team name", ->
-    parsed = QuickieParser.parse('9-17 Brennstäbe wechseln')
+    parsed = Quickie.parse('9-17 Brennstäbe wechseln')
     expect( parsed ).not.toBeNull()
     expect( parsed.hour_range ).toEqual('9-17')
     expect( parsed.team_name ).toEqual('Brennstäbe wechseln')

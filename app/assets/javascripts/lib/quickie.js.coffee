@@ -7,11 +7,8 @@ exp.team_shortcut = XRegExp.build '(?x)^ \\p{Letter}+ $'
 exp.team_shortcut_in_brackets = XRegExp.build '(?x)^ \\[ ({{team_shortcut}}) \\] $', exp
 exp.quickie       = XRegExp.build '(?x)^ \\s* ({{hour_range}}) ? \\s* ({{team_name}}) ? \\s* {{team_shortcut_in_brackets}} ? $', exp
 
+class Quickie
+  @parse: (string) ->
+    XRegExp.exec string, exp.quickie
 
-
-QuickieParser =
-  parse: (quickie) ->
-    XRegExp.exec quickie, exp.quickie
-
-window.QuickieParser = QuickieParser
-window.exp = exp
+window.Quickie = Quickie

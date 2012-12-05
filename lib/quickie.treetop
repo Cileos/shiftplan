@@ -1,3 +1,4 @@
+# WARNING: always keep behaviour in sync with Ruby part in javascripts/lib/quickie.js.coffee
 grammar Quickie
   rule message
     hour_range? optional_space team_name? optional_space team_shortcut? <Quickie::MessageNode>
