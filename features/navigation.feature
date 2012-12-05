@@ -223,24 +223,24 @@ Feature: Navigation
       And the employee "elbarto" has the avatar "app/assets/images/rails.png"
 
      When I go to the dashboard page
-     # show (default) gravatar for user burns on the dashboard
-      And I should see a tiny gravatar within the navigation
+     # use the avatar of the first employee having one
+     Then I should see the avatar "barts_avatar.jpg" within the user navigation
 
      When I follow "Fukushima"
      # show (default) gravatar for user burns in organization "Fukushima" as no avatar
      # has been uploaded for the user's employee in organization "Fukushima"
-      And I should see a tiny gravatar within the navigation
+      And I should see a tiny gravatar within the user navigation
 
      When I go to the page of the organization "school"
-     Then I should see the avatar "barts_avatar.jpg" within the navigation
+     Then I should see the avatar "barts_avatar.jpg" within the user navigation
 
      When I go to the page of the organization "street"
-     Then I should see the avatar "rails.png" within the navigation
+     Then I should see the avatar "rails.png" within the user navigation
 
   @javascript
   Scenario: (Default) gravatar for the user's email is shown in the navigation if no other avatar has been uploaded
     Given I am on the dashboard
-      And I should see a tiny gravatar within the navigation
+      And I should see a tiny gravatar within the user navigation
 
      When I follow "Fukushima"
-      And I should see a tiny gravatar within the navigation
+      And I should see a tiny gravatar within the user navigation
