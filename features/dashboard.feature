@@ -47,11 +47,13 @@ Feature: Dashboard
       And I am signed in as the user "homer"
      When I go to the dashboard
      Then I should see an agenda table with the following rows:
-       | day | day-name | month-year | time    | team                |
-       | 4   | Di       | Dez 2012   | 9 - 17  | Reaktor Putzen [RP] |
-       | 12  | Mi       | Dez 2012   | 10 - 18 | Reaktor Fegen [RF]  |
+       | day | day-name | month-year | time    | team                | plan                               |
+       | 4   | Di       | Dez 2012   | 9 - 17  | Reaktor Putzen [RP] | Brennstäbe wechseln in Tschernobyl |
+       | 12  | Mi       | Dez 2012   | 10 - 18 | Reaktor Fegen [RF]  | Brennstäbe wechseln in Tschernobyl |
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
+     When I follow "Brennstäbe wechseln in Tschernobyl" within the schedulings module
+     Then I should be somewhere under the page of the plan
 
    Scenario: List recent news posts of company blogs of organizations I am a member in
     Given an organization "fukushima" exists with name: "AKW Fukushima GmbH", account: the account

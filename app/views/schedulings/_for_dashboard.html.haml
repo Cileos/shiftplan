@@ -15,4 +15,5 @@
             %td
               %strong.time= "#{scheduling.starts_at.hour} - #{scheduling.ends_at.hour}"
               %span.team= scheduling.team.to_quickie
+              %span.plan= link_to scheduling.plan.name, nested_resources_for(scheduling.plan)
 
