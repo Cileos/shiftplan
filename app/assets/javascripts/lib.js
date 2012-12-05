@@ -11,6 +11,7 @@
 // for QuickieParser
 //= require xregexp
 //= require xregexp/unicode-base
+//= require xregexp/build
 
 //= require_tree './lib'
 //= require spinner
