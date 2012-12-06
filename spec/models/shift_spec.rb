@@ -33,12 +33,13 @@ describe Shift do
       build(:shift, start_or_end_hour => 23).should be_valid
     end
   end
-  [:start_minute, :end_minute].each do |start_or_end_minute|
-    it "must have a #{start_or_end_minute} between 0 and 59" do
-      build(:shift, start_or_end_minute => -1).should_not be_valid
-      build(:shift, start_or_end_minute => 60).should_not be_valid
-      build(:shift, start_or_end_minute => 0).should be_valid
-      build(:shift, start_or_end_minute => 59).should be_valid
-    end
-  end
+  # TODO: comment in again, when our scheduling support minutes, too
+  # [:start_minute, :end_minute].each do |start_or_end_minute|
+  #   it "must have a #{start_or_end_minute} between 0 and 59" do
+  #     build(:shift, start_or_end_minute => -1).should_not be_valid
+  #     build(:shift, start_or_end_minute => 60).should_not be_valid
+  #     build(:shift, start_or_end_minute => 0).should be_valid
+  #     build(:shift, start_or_end_minute => 59).should be_valid
+  #   end
+  # end
 end

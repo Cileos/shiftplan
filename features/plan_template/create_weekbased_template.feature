@@ -6,9 +6,9 @@ Feature: Create Weekbased Plan Template
   Background:
     Given the situation of a just registered user
       And the following teams exist:
-        | name               | organization      |
-        | Brennstabkessel    | the organization  |
-        | Druckwasserreaktor | the organization  |
+        | team                | name                | organization      |
+        | Brennstabkessel     | Brennstabkessel     | the organization  |
+        | Druckwasserreaktor  | Druckwasserreaktor  | the organization  |
 
   Scenario: Create weekbased plan template
     Given a plan exists with name: "Brennstabpflege", organization: the organization
@@ -30,9 +30,9 @@ Feature: Create Weekbased Plan Template
   Scenario: Adding shifts to a plan template
     Given a plan template exists with name: "Typische Woche", template_type: "weekbased", organization: the organization
       And the following qualifications exist:
-        | name               | organization      |
-        | Brennstabpolierer  | the organization  |
-        | Brennstabexperte   | the organization  |
+        | qualification      | name               | organization      |
+        | Brennstabpolierer  | Brennstabpolierer  | the organization  |
+        | Brennstabexperte   | Brennstabexperte   | the organization  |
 
      When I follow "Planvorlagen" within the navigation
      Then I should be on the plan templates page for the organization
@@ -53,16 +53,22 @@ Feature: Create Weekbased Plan Template
       And the selected "Tag" should be "Di"
      When I select "9" from "Startstunde"
       And I select "17" from "Endstunde"
-      # TODO implement
-      # And I fill in "Anzahl" with "2"
-      # And I select "Brennstabpolierer" from "Qualifikation"
-      # And I press "Anlegen"
-      # And I wait for the modal box to disappear
-     # Then I should be on the teams in week page for the plan template
+      And I fill in "Anzahl" with "2"
+      And I select "Brennstabpolierer" from "Qualifikation"
+      And I press "Anlegen"
+      And I wait for the modal box to disappear
+     Then I should be on the teams in week page for the plan template
+      # expected day of the shift is 1, monday would be 0 (in fact it is a day offset,
+      # maybe rename it later
+     Then the following shifts should exist:
+        | plan_template      | start_hour  | end_hour  | team                       | day  |
+        | the plan template  | 9           | 17        | team "Druckwasserreaktor"  | 1    |
+      And the following demands should exist:
+        | shift      | quantity  | qualification                      |
+        | the shift  | 2         | qualification "Brennstabpolierer"  |
+
+      # TODO: implement
       # And I should see the following calendar:
       #  | Teams                  | Mo  | Di                     | Mi  | Do  | Fr  | Sa  | So  |
       #  | Brennstabkessel(B)     |     |                        |     |     |     |     |     |
       #  | Druckwasserreaktor(D)  |     | 2 x Brennstabpolierer  |     |     |     |     |     |
-
-
-

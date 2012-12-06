@@ -6,5 +6,11 @@
     = f.input :day,        collection: days_for_select, :include_blank => false
     = f.association :team, collection: shift.plan_template.organization.teams, include_blank: false
 
+    %h4= ta(:demands)
+
+    = f.simple_fields_for :demands do |df|
+      = df.input :quantity
+      = df.association :qualification, collection: shift.plan_template.organization.qualifications
+
   .actions
     = f.create_button data: { icon: i(:check) }

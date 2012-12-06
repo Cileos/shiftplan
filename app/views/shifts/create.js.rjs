@@ -1,0 +1,3 @@
+page.decorate resource do |filter|
+  filter.respond(resource, :create)
+end

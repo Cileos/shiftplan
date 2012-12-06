@@ -6,6 +6,13 @@ class ShiftsController < InheritedResources::Base
 
   respond_to :html, :js
 
+  def new
+    new! do
+      # increase later
+      1.times { @shift.demands.build }
+    end
+  end
+
   private
 
   def filter
