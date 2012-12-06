@@ -9,8 +9,10 @@
 {{view Clockwork.Fields.SelectEmployee selectionBinding="responsible" name="Verantwortlicher"}}
 {{view Clockwork.Fields.Text valueBinding="description" name="Beschreibung"}}
 
-{{#unless isNew}}
-  <button class="button" {{action doDelete}}>Löschen</button>
-{{/unless}}
-<button class="button" {{action save}}>{{view.buttonLabel}}</button>
+{{#if can_manage}}
+  {{#unless isNew}}
+    <button class="button" {{action doDelete}}>Löschen</button>
+  {{/unless}}
+  <button class="button" {{action save}}>{{view.buttonLabel}}</button>
+{{/if}}
 

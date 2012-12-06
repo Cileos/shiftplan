@@ -85,6 +85,13 @@ class Ability
     can [:destroy], Comment do |comment|
       comment.employee == employee
     end
+
+    can :read, Milestone do |milestone|
+      employee.organizations.include?  milestone.plan.organization
+    end
+    can :read, Task do |task|
+      employee.organizations.include?  task.milestone.plan.organization
+    end
   end
 
   # As a planner or an owner must not have a membership for an organization of

@@ -17,3 +17,5 @@ Clockwork.Milestone = DS.Model.extend Clockwork.Doable,
 
   tasksEnabledBinding: 'isLoaded'
 
+  can_manageBinding: 'Clockwork.session.can_manage_milestone'
+
