@@ -9,6 +9,7 @@ Feature: create a scheduling
 
   @javascript
   Scenario: just entering time span
+    Given I inject style "position:relative" into "header"
      When I follow "Neue Terminierung"
      Then I should see "9-17 wichtige Arbeit [wA]" within a hint
       And I select "Homer S" from "Mitarbeiter"
@@ -23,7 +24,8 @@ Feature: create a scheduling
      And the employee "Homer S" should have a yellow hours/waz value of "8 / 40"
 
      # completion
-     When I follow "Neue Terminierung"
+     When I inject style "position:relative" into "header"
+      And I follow "Neue Terminierung"
       And I select "Lenny L" from "Mitarbeiter"
       And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9"
@@ -39,7 +41,8 @@ Feature: create a scheduling
         | date       | quickie |
         | 2012-02-15 | 9-17    |
       And I am on the page of the plan
-     When I follow "Neue Terminierung"
+     When I inject style "position:relative" into "header"
+      And I follow "Neue Terminierung"
       And I select "Homer S" from "Mitarbeiter"
       And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "18-23"
@@ -58,7 +61,8 @@ Feature: create a scheduling
      When I go to the page of the plan "clean reactor"
      Then I should see "Homer S"
       And I should not see "Tarzan" within the calendar
-     When I follow "Neue Terminierung"
+     When I inject style "position:relative" into "header"
+      And I follow "Neue Terminierung"
       And I wait for the new scheduling form to appear
      Then I should not see "Tarzan" within the first form
 
