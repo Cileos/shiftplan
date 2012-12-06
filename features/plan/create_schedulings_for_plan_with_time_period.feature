@@ -10,6 +10,7 @@ Feature: Creating schedulings in a plan with time period
   Scenario: schedulings within the plan's time period can be created
     Given I am on the page for the organization "Reactor"
      When I choose "Alle Pläne" from the drop down "Pläne"
+      And I inject style "position:relative" into "header"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Halloween im Atomkraftwerk"
@@ -77,6 +78,7 @@ Feature: Creating schedulings in a plan with time period
     Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
       And I go to the page of the plan
      Then I should be on the employees in week page for the plan for week: 1, year: 2012
+      And I inject style "position:relative" into "header"
      When I follow "<"
       And I click on cell "So"/"Carl C"
       And I wait for the new scheduling form to appear
@@ -88,6 +90,7 @@ Feature: Creating schedulings in a plan with time period
         | Carl C       |     |     |     |     |     |     | 22-24   |
         | Lenny L      |     |     |     |     |     |     |         |
         | Homer S      |     |     |     |     |     |     |         |
+      And I inject style "position:relative" into "header"
      When I follow ">"
      Then I should see the following calendar:
         | Mitarbeiter  | Mo     | Di  | Mi  | Do  | Fr  | Sa  | So  |
@@ -96,6 +99,7 @@ Feature: Creating schedulings in a plan with time period
         | Homer S      |        |     |     |     |     |     |     |
      # go back to first page to really make sure that scheduling filter will fetch
      # the scheduling so that it will be displayed in the calendar week.
+      And I inject style "position:relative" into "header"
      When I follow "<"
      Then I should see the following calendar:
         | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So      |
@@ -144,6 +148,7 @@ Feature: Creating schedulings in a plan with time period
       When I click on cell "Di"/"Carl C"
       Then the new scheduling form should not appear
 
+       And I inject style "position:relative" into "header"
       When I follow "<" within the toolbar
       # in germany, the week with january 4th is the first calendar week
       # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
@@ -207,6 +212,7 @@ Feature: Creating schedulings in a plan with time period
         | Dienstag    |
        And I close the modal box
 
+       And I inject style "position:relative" into "header"
       When I follow "<"
        And I click on cell "So"/"Carl C"
       Then the new scheduling form should appear
@@ -214,6 +220,7 @@ Feature: Creating schedulings in a plan with time period
         | Sonntag     |
        And I close the modal box
 
+       And I inject style "position:relative" into "header"
       When I follow "Neue Terminierung"
       Then the new scheduling form should appear
        And the select field for "Wochentag" should have the following options:

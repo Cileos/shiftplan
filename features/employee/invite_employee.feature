@@ -16,6 +16,7 @@ Feature: Inviting Employees
      Then I should see the following table of employees:
         | Name            |
         | Simpson, Homer  |
+      And I inject style "position:relative" into "header"
      When I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |

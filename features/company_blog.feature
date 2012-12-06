@@ -21,6 +21,7 @@ In order to keep my colleagues informed about important news
 
      Then I should see "Es wurden noch keine Blogposts erstellt."
      When I follow "Alle Neuigkeiten anzeigen"
+      And I inject style "position:relative" into "header"
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
@@ -73,7 +74,8 @@ In order to keep my colleagues informed about important news
   Scenario: Creating a blog post without entering a title
     Given I am signed in as the confirmed user "mr. burns"
       And I go to the posts page of the blog
-      When I follow "Neuen Blogpost erstellen"
+      And I inject style "position:relative" into "header"
+     When I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Text" with "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I press "Speichern"
@@ -83,6 +85,7 @@ In order to keep my colleagues informed about important news
   Scenario: Creating a blog post without entering a text
     Given I am signed in as the confirmed user "mr. burns"
       And I go to the posts page of the blog
+      And I inject style "position:relative" into "header"
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
@@ -94,6 +97,7 @@ In order to keep my colleagues informed about important news
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page of the post
+      And I inject style "position:relative" into "header"
       And I follow "Bearbeiten"
       And I wait for the modal box to appear
      Then the "Titel" field should contain "Umweltminister zu Besuch"
@@ -164,6 +168,7 @@ In order to keep my colleagues informed about important news
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
 
+      And I inject style "position:relative" into "header"
      When I follow "Bearbeiten"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Besuch des Umweltministers"
@@ -301,6 +306,7 @@ In order to keep my colleagues informed about important news
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
      When I follow "Alle Neuigkeiten anzeigen"
+      And I inject style "position:relative" into "header"
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Post 10"

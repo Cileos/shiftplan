@@ -63,7 +63,8 @@ Feature: Adopt Employee from other Organization
 
   @javascript
   Scenario: Filtering last name
-    Given I follow "Übernehmen"
+    Given I inject style "position:relative" into "header"
+     When I follow "Übernehmen"
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
         | Burns, Owner   |     | owner@burns.com       | Aktiv                 | keine                |
@@ -80,7 +81,8 @@ Feature: Adopt Employee from other Organization
 
   @javascript
   Scenario: Filtering without results
-    Given I follow "Übernehmen"
+    Given I inject style "position:relative" into "header"
+     When I follow "Übernehmen"
      When I fill in "first_name" with "Heinz"
       And I wait a bit
      Then I should see the following table of employees:
@@ -90,7 +92,8 @@ Feature: Adopt Employee from other Organization
 
    @javascript
    Scenario: Clearing the search
-    Given I follow "Übernehmen"
+    Given I inject style "position:relative" into "header"
+     When I follow "Übernehmen"
       And I fill in "first_name" with "Homer" within the search form
       And I fill in "last_name" with "Simpson" within the search form
       And I fill in "email" with "homer@thesimpsons.com" within the search form
