@@ -54,6 +54,7 @@ Feature: Creating schedulings in a plan with time period
         | Lenny L      |             |      |     |     |     |     |     |
         | Homer S      |             |      |     |     |     |     |     |
 
+      And I inject style "position:relative" into "header"
      # check if scheduling is still displayed after revisiting the page
      When I follow "<" within the toolbar
      When I follow ">" within the toolbar
