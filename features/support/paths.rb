@@ -80,25 +80,21 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
 
-    when /^the employees page for #{capture_model}$/
-      org = model!($1)
-      account_organization_employees_path(org.account, org)
+    when/^the (employees|plan templates|qualifications) page for #{capture_model}$/
+      model = model($2)
+      if model.is_a?(Organization)
+        send "account_organization_#{$1.gsub(' ', '_')}_path", model.account, model
+      else
+        raise ArgumentError, "only paths scoped to organizations defined so far. please add more paths in #{__FILE__}:#{__LINE__}"
+      end
 
-    when /^the new employee page for #{capture_model}$/
-      org = model!($1)
-      new_account_organization_employee_path(org.account, org)
-
-    when /^the qualifications page for #{capture_model}$/
-      org = model!($1)
-      account_organization_qualifications_path(org.account, org)
-
-    when /^the new qualification page for #{capture_model}$/
-      org = model!($1)
-      new_account_organization_qualification_path(org.account, org)
-
-    when /^the new plan template page for #{capture_model}$/
-      org = model!($1)
-      new_account_organization_plan_template_path(org.account, org)
+    when/^the new ([a-z ]+) page for #{capture_model}$/
+      model = model($2)
+      if model.is_a?(Organization)
+        send "new_account_organization_#{$1.gsub(' ', '_')}_path", model.account, model
+      else
+        raise ArgumentError, "only paths scoped to organizations defined so far. please add more paths in #{__FILE__}:#{__LINE__}"
+      end
 
     when /^the adopt employees page for #{capture_model}$/
       org = model!($1)
