@@ -1,6 +1,6 @@
 - title @plan_template.name
 
-%table#calendar.calendar.teams-in-week{class: :week}
+%table#calendar.calendar.teams-in-week.shifts{class: :week, data: filter.table_metadata}
   %thead
     %tr
       -# TODO: use the week switch like for schedulings later
@@ -15,7 +15,5 @@
           .pibble.team-color{style: "background-color: #{team.color};"}
           .team_name
             = team.name + '(' + team.shortcut + ')'
-        - filter.days.each do |day|
-          %td
-          -# TODO: render cell
-          -# = filter.render_cell_for_day day, team
+        - filter.days.each_with_index do |day, number_of_day|
+          = filter.render_cell_for_day number_of_day, team

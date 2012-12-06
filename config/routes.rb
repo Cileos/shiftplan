@@ -50,6 +50,7 @@ Clockwork::Application.routes.draw do
         end
       end
       resources :plan_templates do
+        resources :shifts
         get 'week/teams' => 'shifts#teams_in_week', :as => 'teams_in_week'
       end
     end # organizations

@@ -26,7 +26,7 @@ Feature: Create Weekbased Plan Template
         | Brennstabkessel(B)    |     |     |     |     |     |     |     |
         | Druckwasserreaktor(D) |     |     |     |     |     |     |     |
 
-  # wip
+  @javascript
   Scenario: Adding shifts to a plan template
     Given a plan template exists with name: "Typische Woche", template_type: "weekbased", organization: the organization
       And the following qualifications exist:
@@ -46,3 +46,23 @@ Feature: Create Weekbased Plan Template
         | Teams                 | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)    |     |     |     |     |     |     |     |
         | Druckwasserreaktor(D) |     |     |     |     |     |     |     |
+
+     When I click on cell "Di"/"Druckwasserreaktor(D)"
+      And I wait for the modal box to appear
+     Then the selected "Team" should be "Druckwasserreaktor"
+      And the selected "Tag" should be "Di"
+     When I select "9" from "Startstunde"
+      And I select "17" from "Endstunde"
+      # TODO implement
+      # And I fill in "Anzahl" with "2"
+      # And I select "Brennstabpolierer" from "Qualifikation"
+      # And I press "Anlegen"
+      # And I wait for the modal box to disappear
+     # Then I should be on the teams in week page for the plan template
+      # And I should see the following calendar:
+      #  | Teams                  | Mo  | Di                     | Mi  | Do  | Fr  | Sa  | So  |
+      #  | Brennstabkessel(B)     |     |                        |     |     |     |     |     |
+      #  | Druckwasserreaktor(D)  |     | 2 x Brennstabpolierer  |     |     |     |     |     |
+
+
+

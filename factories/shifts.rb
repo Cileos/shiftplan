@@ -7,6 +7,7 @@ FactoryGirl.define do
     end_hour 1
     start_minute 1
     end_minute 1
+    day 1
     team
   end
 end

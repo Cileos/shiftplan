@@ -1,0 +1,3 @@
+page.decorate @shift do |f|
+  f.insert_new_form(ta(:'new_shift'), :shift)
+end

@@ -4,6 +4,8 @@ class ShiftsController < InheritedResources::Base
   nested_belongs_to :plan_template
   actions :all, :except => [:show]
 
+  respond_to :html, :js
+
   private
 
   def filter

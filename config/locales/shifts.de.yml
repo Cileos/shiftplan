@@ -1,0 +1,11 @@
+de:
+  activerecord:
+    attributes:
+      shift:
+        day: Tag
+        start_hour: Startstunde
+        end_hour: Endstunde
+    models:
+      shift:
+        one: "Schicht"
+        other: "%{count} Schichten"

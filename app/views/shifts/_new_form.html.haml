@@ -1,0 +1,10 @@
+= simple_form_for shift, url: nested_resources_for(shift.plan_template) + [:shifts],
+  remote: true, html: { class: 'form-horizontal' } do |f|
+  .inputs
+    = f.input :start_hour, collection: 0..23, :include_blank => false
+    = f.input :end_hour,   collection: 0..23, :include_blank => false
+    = f.input :day,        collection: days_for_select, :include_blank => false
+    = f.association :team, collection: shift.plan_template.organization.teams, include_blank: false
+
+  .actions
+    = f.create_button data: { icon: i(:check) }
