@@ -66,9 +66,8 @@ Feature: Create Weekbased Plan Template
       And the following demands should exist:
         | shift      | quantity  | qualification                      |
         | the shift  | 2         | qualification "Brennstabpolierer"  |
-
-      # TODO: implement
-      # And I should see the following calendar:
-      #  | Teams                  | Mo  | Di                     | Mi  | Do  | Fr  | Sa  | So  |
-      #  | Brennstabkessel(B)     |     |                        |     |     |     |     |     |
-      #  | Druckwasserreaktor(D)  |     | 2 x Brennstabpolierer  |     |     |     |     |     |
+      # TODO: show more information of the shifts in the calendar cells
+      And I should see the following calendar:
+       | Teams                  | Mo  | Di    | Mi  | Do  | Fr  | Sa  | So  |
+       | Brennstabkessel(B)     |     |       |     |     |     |     |     |
+       | Druckwasserreaktor(D)  |     | 9-17  |     |     |     |     |     |

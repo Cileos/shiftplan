@@ -1,6 +1,4 @@
-class ShiftTeamsInWeekDecorator < ApplicationDecorator
-
-  delegate :organization, to: :plan_template
+class ShiftFilterTeamsInWeekDecorator < ShiftFilterWeekDecorator
 
   def formatted_days
     days.map do |day|
@@ -29,10 +27,6 @@ class ShiftTeamsInWeekDecorator < ApplicationDecorator
     organization.teams
   end
 
-  def plan_template
-    model
-  end
-
   def table_metadata
     {
       new_url: h.new_account_organization_plan_template_shift_path(h.current_account,
@@ -49,18 +43,6 @@ class ShiftTeamsInWeekDecorator < ApplicationDecorator
 
   def cell_metadata(day, team)
     { :'team-id' => team.id, :day => day }
-  end
-
-  # TODO: implement
-  def find_shifts(*a)
-    []
-  end
-
-  def cell_content(*a)
-    shifts = find_shifts(*a)
-    unless shifts.empty?
-      h.render "shifts/lists/teams_in_week", shifts: shifts.map(&:decorate), filter: self
-    end
   end
 end
 

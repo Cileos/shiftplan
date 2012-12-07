@@ -13,6 +13,15 @@ class Shift < ActiveRecord::Base
   validates :start_hour,   :end_hour,   :inclusion => { :in => 0..23 }
   # TODO: comment in again, when our scheduling support minutes, too
   # validates :start_minute, :end_minute, :inclusion => { :in => 0..59 }
+
+
+  def self.filter(params={})
+    ShiftFilter.new params.reverse_merge(:base => self)
+  end
+
+  def concurrent
+    ShiftFilter.new plan_template: plan_template
+  end
 end
 
 ShiftDecorator

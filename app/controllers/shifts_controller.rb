@@ -15,8 +15,24 @@ class ShiftsController < InheritedResources::Base
 
   private
 
-  def filter
-    @filter ||= ShiftTeamsInWeekDecorator.new(@plan_template)
-  end
-  helper_method :filter
+    def collection
+      @shifts ||= filter.records
+    end
+
+    def pure_filter
+      @pure_filter ||= Shift.filter( filter_params )
+    end
+
+    def filter
+      @filter ||= ShiftFilterDecorator.decorate(pure_filter, mode: 'teams_in_week')
+    end
+    helper_method :filter
+
+    def filter_params
+      { plan_template: plan_template }
+    end
+
+    def plan_template
+      parent
+    end
 end
