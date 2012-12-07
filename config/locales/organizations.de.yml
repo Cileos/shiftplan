@@ -1,6 +1,8 @@
 de:
   dashboard: "Dashboard"
-  notifications: Benachrichtigungen
+  notifications:
+    caption: Benachrichtigungen
+    no_notifications_present: 'Zur Zeit liegen keine Benachrichtigungen vor.'
   upcoming_schedulings: nächste Termine
   activerecord:
     models:
