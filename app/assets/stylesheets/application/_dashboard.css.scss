@@ -18,7 +18,8 @@
     .count {
       @include border-radius(10px);
 
-      padding: 3px 5px;
+      padding: 3px 5px 3px 4px;
+      margin: 0 0.25em;
       font-size: 0.8em;
       background: $ci_lightgray;
       color: $ci_darkgray;
@@ -79,7 +80,7 @@
     }
 
     .month-year {
-      color: $ci_gray;
+      color: $ci_darkgray;
       font-size: 12px;
       font-weight: normal;
     }
