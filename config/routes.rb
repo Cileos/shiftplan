@@ -64,9 +64,7 @@ Clockwork::Application.routes.draw do
   get "user/:user_id/employees" => 'employees#list', :as => 'list_employees'
 
   devise_for :users, :controllers => { registrations: 'owners/registrations', sessions: 'sessions'}
-  devise_scope :user do
-    get 'session' => 'sessions#show'
-  end
+  get 'session' => 'current_user#show', as: 'current_user'
 
   if Rails.env.test?
     scope 'test' do
