@@ -3,7 +3,6 @@
 .row.two-columns.inverted.dashboard
   .primary
     = render 'notifications/for_dashboard', notifications: current_employee.notifications
-  .primary
     = render 'schedulings/for_dashboard', schedulings: current_employee.schedulings.upcoming.for_organization(@organization)
   .secondary
     = render 'posts/for_dashboard', posts: @organization.posts.recent(42)
