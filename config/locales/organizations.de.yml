@@ -1,5 +1,7 @@
 de:
   dashboard: "Dashboard"
+  notifications: Benachrichtigungen
+  upcoming_schedulings: nächste Termine
   activerecord:
     models:
       organization:
@@ -17,3 +19,6 @@ de:
         notice: Mitarbeiter erfolgreich hinzugefügt.
         alert: 'Mitarbeiter konnten nicht hinzugefügt werden. Sie müssen mindestens einen Mitarbeiter auswählen.'
 
+  organizations:
+    navigation_selector:
+      new_organization: Neue Organisation

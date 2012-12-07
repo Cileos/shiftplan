@@ -6,5 +6,5 @@
       - (current_user.organizations - [current]).each do |org|
         %li= link_to org.name_with_account, nested_resources_for(org)
 - else
-  = li_link current.name, nested_resources_for(current), class: 'organization', data: { icon: i(:organization) }
-
+  - link_caption = current.name.blank? ? t('.new_organization') : current.name
+  = li_link link_caption, nested_resources_for(current), class: 'organization', data: { icon: i(:organization) }
