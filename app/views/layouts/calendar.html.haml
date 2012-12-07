@@ -20,7 +20,7 @@
           = help_tag 'calendar.keyboard'
 
         = collapsible( Milestone.model_name.human(count: 9001), id: 'milestones-toggle') do
-          #milestones
+          #milestones{data: { role: current_employee.role }}
 
         = yield(:sidebar)
 
