@@ -44,6 +44,7 @@ group :test do
   gem "guard-spork", "~> 1.1.0"
   gem "guard-bundler", "~> 1.0.0"
   gem "libnotify", :require => false
+  gem 'rb-fsevent', '~> 0.9.1', :require => false
 
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
