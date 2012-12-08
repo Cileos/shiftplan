@@ -179,7 +179,8 @@ small {
 }
 
 [role=content] {
-  padding: $banner_top_padding $banner_link_padding_lr 40px;
+  padding: $banner_top_padding $banner_link_padding_lr 0px;
+  margin-bottom: 40px;
 
   .wrap.expanded & {
     padding-left:  20px;

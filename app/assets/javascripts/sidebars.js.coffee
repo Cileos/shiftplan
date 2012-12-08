@@ -13,7 +13,7 @@ jQuery(document).ready ->
     # sidebar width: 14.70196% # from neat css
     small_width = '65.88078%'  # from neat css
     medium_width = '80%'
-    full_width = '96%'
+    full_width = '99%'
 
     # # enable this as soon as we have 2 sidebars again
     # cnt = $('#toggle_sidebar').hasClass('collapsed') ? 1 : 0
@@ -34,6 +34,11 @@ jQuery(document).ready ->
     wdth = ''
     if $('#toggle_sidebar').hasClass('collapsed')
       wdth = full_width
+      $('.primary').css('margin-left', '0')
+      $('.primary').css('padding-left', '0')
+    else
+      $('.primary').css('margin-left', '')
+      $('.primary').css('padding-left', '')
     $('.primary').css('width', wdth)
     # # end disable this as soon as we have 2 sidebars again
 
@@ -45,8 +50,6 @@ jQuery(document).ready ->
     if e.hasClass('collapsed')
       setIcon(lnk, id)
       e.css('width', '0')
-       .css('padding-right', '0')
-       .css('padding-left', '0')
        .css('overflow', 'hidden')
        .css('border-right', 'none')
       updateWidths(e)
@@ -55,8 +58,6 @@ jQuery(document).ready ->
     else
       setIcon(lnk, id)
       e.css('width', '')
-       .css('padding-right', '')
-       .css('padding-left', '')
        .css('overflow', '')
        .css('border-right', '')
       updateWidths(e, 'restore')

@@ -1,9 +1,13 @@
 .secondary,
 .tertiary {
   > div {
-    margin-bottom:  1em;
-    padding-bottom: 1em;
-    border-bottom: 1px solid $ci_lightgrey;
+    padding: 0 10px 1em 10px;
+    border-bottom: 1px solid $ci_midgray;
+
+    &:not(:first-child) {
+      padding-top: 1em;
+      border-top: 1px solid white;
+    }
 
     &.collapsed {
       padding-bottom: 0;

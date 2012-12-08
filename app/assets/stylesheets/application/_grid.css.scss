@@ -21,7 +21,7 @@
     .primary,
     .secondary,
     .tertiary {
-      @include transition(0.5s width ease);
+      // @include transition(0.5s width ease);
 
       &:not(:last-child) {
         padding-right: 20px;
