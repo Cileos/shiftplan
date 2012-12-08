@@ -7,7 +7,7 @@ de:
           password_confirmation: 'Neues Passwort bestätigen'
     hints:
       user:
-        account_name: 'z. B.: Veridan Dynamics'
+        account_name: 'z. B.: Veridian Dynamics'
         organization_name: 'z. B.: Entwicklungsabteilung'
       plan:
         starts_at: 'z.B. 01.12.2012'

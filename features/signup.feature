@@ -13,7 +13,7 @@ Feature: Signing up
       And 0 employees should exist
       And 0 memberships should exist
      When I follow "Registrieren"
-     Then I should see "Big Kahuna Burger" within a hint
+     Then I should see "Veridian Dynamics" within a hint
       And I fill in the following:
         | Accountbezeichnung  | Fukushima GmbH |
         | Organisationsname   | Reaktor A      |
