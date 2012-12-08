@@ -79,18 +79,15 @@ small {
   }
 
   .logo {
-    padding: 15px;
-
     a {
-      @include image-2x(image-url("clockwork-logo-32px.png"), 156px, 16px);
+      @include image-2x(image-url("clockwork-logo-32px.png"), 190px, 50px);
       @include transition(all .15s $ci_easing);
 
       display: block;
-      width: 156px;
-      height: 16px;
-      background: image-url("clockwork-logo-16px.png");
+      width: 190px;
+      height: 49px;
+      background: image-url("clockwork-logo-16px.png") 50% 16px no-repeat;
       text-indent: -999em;
-      padding: 0;
 
       &:hover {
         @include transform(scale(1.05));

@@ -1,12 +1,11 @@
-.has-calendar {
-  .secondary {
-    @include box-shadow($ci_lightgrey 0 5px 10px 0);
-    margin-top: -20px;
-    padding-top: 50px;
-    margin-left: -$banner_link_padding_lr;
-    padding-left: $banner_link_padding_lr;
-    background: $ci_darkwhite;
-  }
+.has-calendar[role="content"].two-columns.inverted .secondary {
+  @include box-shadow($ci_lightgrey 0 5px 10px 0);
+  margin-top: -20px;
+  padding-top: 50px;
+  margin-left: -$banner_link_padding_lr;
+  padding-left: $banner_link_padding_lr;
+  background: $ci_darkwhite;
+  width: 191px;
 }
 
 .calendar {
