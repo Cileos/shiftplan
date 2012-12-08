@@ -31,15 +31,14 @@ jQuery(document).ready ->
     # # end enable this as soon as we have 2 sidebars again
 
     # # disable this as soon as we have 2 sidebars again
-    wdth = ''
     if $('#toggle_sidebar').hasClass('collapsed')
-      wdth = full_width
-      $('.primary').css('margin-left', '0')
-      $('.primary').css('padding-left', '0')
+      $('.primary').css('margin-left', '-25px')
+                   .css('padding-left', '25px')
+                   .css('width', full_width)
     else
       $('.primary').css('margin-left', '')
-      $('.primary').css('padding-left', '')
-    $('.primary').css('width', wdth)
+                   .css('padding-left', '')
+                   .css('width', '')
     # # end disable this as soon as we have 2 sidebars again
 
   toggleSidebars = (e) ->
@@ -49,9 +48,9 @@ jQuery(document).ready ->
     lnk.toggleClass('collapsed')
     if e.hasClass('collapsed')
       setIcon(lnk, id)
-      e.css('width', '0')
+      e.css('width', '25px')
        .css('overflow', 'hidden')
-       .css('border-right', 'none')
+      e.children('div').css('width', '191px')
       updateWidths(e)
       $.cookie('clockwork_'+id, 'collapsed', { path: '/' })
       false
@@ -59,7 +58,7 @@ jQuery(document).ready ->
       setIcon(lnk, id)
       e.css('width', '')
        .css('overflow', '')
-       .css('border-right', '')
+      e.children('div').css('width', '')
       updateWidths(e, 'restore')
       $.cookie('clockwork_'+id, 'visible', { path: '/' })
       false
@@ -72,6 +71,7 @@ jQuery(document).ready ->
     e = $(this)
     id = e.attr('id')
     $('[role="content"]').prepend('<a href="#" id="toggle_'+id+'" data-toggle="'+id+'" class="toggle-sidebars utility-button" data-icon="x">')
+    # e.prepend('<a href="#" id="toggle_'+id+'" data-toggle="'+id+'" class="toggle-sidebars utility-button" data-icon="x">')
     lnk = $('[role="content"]').find('#toggle_'+id)
     if $.cookie('clockwork_'+e.attr('id')) == 'collapsed'
       $('[role="content"]').addClass('no-animation')

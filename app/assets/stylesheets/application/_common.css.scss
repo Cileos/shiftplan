@@ -376,16 +376,24 @@ small {
 }
 
 .utility-button.toggle-sidebars {
-  @include border-radius(2px);
+  @include border-radius(0);
 
   position: absolute;
-  top: 60px;
-  display: inline-block;
-  width: 20px;
-  padding: 4px 0 0;
+  z-index: 1;
+  top: 48px;
+  display: block;
+  width: 190px;
+  padding: 6px 0 0;
   text-align: center;
   line-height: 1;
-  font-size: 20px;
+  font-size: 16px;
+  border-bottom: 1px solid $ci_middarkgray;
+
+  &.collapsed {
+    height: 100%;
+    width: 25px;
+    border-right: 1px solid $ci_middarkgray;
+  }
 
   &:before {
     margin-right: 0;
