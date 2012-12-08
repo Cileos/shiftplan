@@ -18,7 +18,7 @@ jQuery(document).ready ->
     refreshBehaviourOfTeamMerge = ->
       disableMergeButton()
 
-      allCheckboxes = $teams.find('input[type=checkbox]')
+      allCheckboxes = $teams.find('td.checkbox, input[type=checkbox]')
       allCheckboxes.click ->
         allCheckedCheckboxes = $teams.find('input[type=checkbox]:checked')
         checkedElms = allCheckedCheckboxes.length
