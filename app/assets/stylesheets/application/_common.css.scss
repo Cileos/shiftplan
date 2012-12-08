@@ -341,18 +341,23 @@ small {
   margin: 2px 5px 3px;
 }
 
+[data-toggle='collapsible'] {
+    @include background-image(linear-gradient(lighten($ci_sidebar_bg-color, 3%), $ci_sidebar_bg-color 30px));
+}
 
 [data-toggle='collapsible-heading'] {
   @include transition(0.25s color ease);
 
   position: relative;
-  margin: 0 0 0.5em 1em;
-  font-size: $ci_large-font;
+  margin: 0;
+  padding: 10px 0;
+  font-size: $ci_font-size;
+  font-weight: bold;
   cursor: pointer;
 
   &[data-icon]:before {
     position: absolute;
-    top: 0.05em;
+    top: 10px;
     left: -1em;
   }
 
@@ -365,8 +370,10 @@ small {
   }
 }
 
-// [data-toggle="collapsible-content"] {
-// }
+[data-toggle="collapsible-content"] {
+  margin-top: 0.5em;
+  padding-right: 10px;
+}
 
 .utility-button.toggle-sidebars {
   @include border-radius(2px);

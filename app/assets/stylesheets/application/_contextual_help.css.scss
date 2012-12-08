@@ -1,11 +1,11 @@
 .secondary,
 .tertiary {
   > div {
-    padding: 0 10px 1em 10px;
+    color: $ci_anthracite;
+    padding: 0 0px 1em 15px;
     border-bottom: 1px solid $ci_midgray;
 
     &:not(:first-child) {
-      padding-top: 1em;
       border-top: 1px solid white;
     }
 
