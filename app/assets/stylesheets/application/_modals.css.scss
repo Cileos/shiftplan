@@ -54,6 +54,7 @@
   @include transition(opacity .5s $ci_easing);
 
   overflow: visible;
+  max-width: 50%;
 
   h3 {
     padding: 0;
