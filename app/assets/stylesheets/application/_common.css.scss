@@ -387,12 +387,12 @@ small {
   text-align: center;
   line-height: 1;
   font-size: 16px;
-  border-bottom: 1px solid $ci_middarkgray;
+  border-bottom: 1px solid $ci_middarkgrey;
 
   &.collapsed {
     height: 100%;
     width: 25px;
-    border-right: 1px solid $ci_middarkgray;
+    border-right: 1px solid $ci_middarkgrey;
   }
 
   &:before {
