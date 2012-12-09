@@ -29,4 +29,8 @@ $(function(){
       elmTextarea.css('max-height', windowH + 'px');
       elmTextarea.autosize();
     });
+
+    if (!$.cookie('clockwork_keyboard-shortcuts')) {
+      $('#keyboard-shortcuts [data-toggle="collapsible-heading"]').click();
+    }
 });

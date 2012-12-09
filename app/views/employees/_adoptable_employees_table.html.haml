@@ -7,12 +7,12 @@
       %th= t('activerecord.attributes.employee.email')
       %th= t('activerecord.attributes.employee.role')
       %th= t('employees.table.status')
-      %th= t('activerecord.models.organization.others')
+      %th= Organization.model_name.human(count: 9001)
 
   %tbody
     - employees.each do |employee|
       %tr{ id: "employee_#{employee.id}" }
-        %td
+        %td.checkbox
           - if employee.organizations.include?(current_organization)
             = t('employees.new.already_member')
           - else

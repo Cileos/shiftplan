@@ -14,21 +14,24 @@ $ci_teal: #11be65;
 $ci_anthracite: #363640;
 $ci_darkgray: #808086;
 $ci_darkgrey: $ci_darkgray;
+$ci_middarkgray: #a0a0a6;
+$ci_middarkgrey: $ci_middarkgray;
 $ci_gray: #c0c0cc;
 $ci_grey: $ci_gray;
-$ci_midgray: #e2e2e8;
+$ci_midgray: #d9d9df;
 $ci_midgrey: $ci_midgray;
 $ci_lightgray: #e0e0e6;
 $ci_lightgrey: $ci_lightgray;
 $ci_darkwhite: lighten($ci_lightgray, 7%);
 
 $ci_bg-color: #f8f8ff;
+$ci_sidebar_bg-color: #f0f0f6;
 $ci_text-color: #121812;
 $ci_table-zebra: #f5f5f8;
 
 $ci_shadow: rgba(10,0,0,.25);
-$ci_glow: rgba(255,255,255,.25);
-$ci_blaze: rgba(255,255,255,.75);
+$ci_glow: rgba(255,255,255,.35);
+$ci_blaze: rgba(255,255,255,.65);
 
 $ci_blue_hover: lighten($ci_blue, 10%);
 $ci_blue_hover_dark: darken($ci_blue, 10%);

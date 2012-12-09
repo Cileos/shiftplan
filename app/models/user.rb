@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   attr_accessor :first_name, :last_name, :organization_name, :account_name, :on_signup, :confirming_email_change
 
   validates_presence_of :first_name, :last_name, :organization_name, :account_name, if: Proc.new { |u| u.on_signup }
+  validates :email, :email => true
 
   has_many :employees # but just one employee per account
   has_many :invitations

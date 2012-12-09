@@ -35,7 +35,7 @@ group :test do
   gem "email_spec"
 
   # TODO for latest chrome-webdriver remove when capybara > 1.1.2 depends on it
-  gem 'selenium-webdriver', '~> 2.22.2'
+  gem 'selenium-webdriver', '~> 2.26.0'
   gem 'chromedriver-helper'
 
   gem "spork", "1.0.0rc2"
@@ -44,6 +44,7 @@ group :test do
   gem "guard-spork", "~> 1.1.0"
   gem "guard-bundler", "~> 1.0.0"
   gem "libnotify", :require => false
+  gem 'rb-fsevent', '~> 0.9.1', :require => false
 
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
@@ -88,6 +89,7 @@ gem 'thin' # webrick must die
 gem 'coffee-rails', '~> 3.2.2'
 gem 'bourbon'
 gem 'devise'
+gem 'spectator-validates_email', :require => 'validates_email'
 gem 'cancan'
 gem 'simple_form', '~> 2.0.0'
 gem 'haml-rails'
@@ -103,7 +105,7 @@ gem 'versatile_rjs', :git => 'git://github.com/condor/versatile_rjs.git'
 gem 'polyglot' # load treetop grammars with #require
 
 gem 'gon' # push variables from rails to js
-gem "active_model_serializers", :git => "git://github.com/josevalim/active_model_serializers.git"
+gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
 
 gem 'RedCloth' # textilize instructions and other texts from locales
 
@@ -119,3 +121,7 @@ gem 'remotipart'
 gem 'gravtastic'
 gem 'ember-rails'
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
+
+# Use master of strong parameters because of issue https://github.com/rails/strong_parameters/issues/52
+# TODO: remove repo when a new version including the fix was released.
+gem 'strong_parameters', git: 'git://github.com/rails/strong_parameters.git'

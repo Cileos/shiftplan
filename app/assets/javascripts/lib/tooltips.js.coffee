@@ -3,6 +3,7 @@ jQuery(document).ready ->
     $("[title]").tipsy
       delayIn: 500
       gravity: 's'
+      opacity: '1'
 
   tipsify()
   $("#calendar").on 'update', tipsify

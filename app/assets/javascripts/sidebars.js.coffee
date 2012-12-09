@@ -13,7 +13,7 @@ jQuery(document).ready ->
     # sidebar width: 14.70196% # from neat css
     small_width = '65.88078%'  # from neat css
     medium_width = '80%'
-    full_width = '96%'
+    full_width = '99%'
 
     # # enable this as soon as we have 2 sidebars again
     # cnt = $('#toggle_sidebar').hasClass('collapsed') ? 1 : 0
@@ -31,10 +31,14 @@ jQuery(document).ready ->
     # # end enable this as soon as we have 2 sidebars again
 
     # # disable this as soon as we have 2 sidebars again
-    wdth = ''
     if $('#toggle_sidebar').hasClass('collapsed')
-      wdth = full_width
-    $('.primary').css('width', wdth)
+      $('.primary').css('margin-left', '-25px')
+                   .css('padding-left', '25px')
+                   .css('width', full_width)
+    else
+      $('.primary').css('margin-left', '')
+                   .css('padding-left', '')
+                   .css('width', '')
     # # end disable this as soon as we have 2 sidebars again
 
   toggleSidebars = (e) ->
@@ -44,21 +48,17 @@ jQuery(document).ready ->
     lnk.toggleClass('collapsed')
     if e.hasClass('collapsed')
       setIcon(lnk, id)
-      e.css('width', '0')
-       .css('padding-right', '0')
-       .css('padding-left', '0')
+      e.css('width', '25px')
        .css('overflow', 'hidden')
-       .css('border-right', 'none')
+      e.children('div').css('width', '191px')
       updateWidths(e)
       $.cookie('clockwork_'+id, 'collapsed', { path: '/' })
       false
     else
       setIcon(lnk, id)
       e.css('width', '')
-       .css('padding-right', '')
-       .css('padding-left', '')
        .css('overflow', '')
-       .css('border-right', '')
+      e.children('div').css('width', '')
       updateWidths(e, 'restore')
       $.cookie('clockwork_'+id, 'visible', { path: '/' })
       false
@@ -71,6 +71,7 @@ jQuery(document).ready ->
     e = $(this)
     id = e.attr('id')
     $('[role="content"]').prepend('<a href="#" id="toggle_'+id+'" data-toggle="'+id+'" class="toggle-sidebars utility-button" data-icon="x">')
+    # e.prepend('<a href="#" id="toggle_'+id+'" data-toggle="'+id+'" class="toggle-sidebars utility-button" data-icon="x">')
     lnk = $('[role="content"]').find('#toggle_'+id)
     if $.cookie('clockwork_'+e.attr('id')) == 'collapsed'
       $('[role="content"]').addClass('no-animation')

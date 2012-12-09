@@ -26,6 +26,20 @@ Feature: Edit Employee
         | Name                    |
         | Simpson-Carlson, Homer  |
 
+  Scenario: Normal user can not edit himself on the employees page
+    Given a confirmed user "bart" exists
+      And an employee "bart" exists with first_name: "Bart", last_name: "Simpson", account: the account, user: the user "bart"
+      And a membership exists with organization: the organization, employee: the employee "bart"
+
+     When I sign in as the confirmed user "bart"
+      And I go to the employees page for the organization
+     Then I should see the following table of employees:
+        | Name            |
+        | Simpson, Bart   |
+        | Simpson, Homer  |
+      And I should not see link "Simpson, Bart" within the employees table
+      And I should not see link "Simpson, Homer" within the employees table
+
   @javascript
   Scenario: removing WAZ from an employee
     Given I follow "Simpson, Homer" within the employees table

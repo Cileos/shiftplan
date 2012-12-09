@@ -5,7 +5,14 @@ Clockwork.Milestone = DS.Model.extend Clockwork.Doable,
   ).property('tasks', 'tasks.@each.isNew')
 
   savedAndSortedTasks: (->
-    @get('savedTasks').toArray().sort (a,b) -> a.get('id') - b.get('id')
+    @get('savedTasks').toArray().sort (a,b) ->
+      if a.get('due_at')?
+        if b.get('due_at')?
+          a.get('due_at') - b.get('due_at')
+        else
+          -1 # b is null => to bottom
+      else
+        1 # a is null => to buttom
   ).property('savedTasks', 'savedTasks.@each.id')
 
   checkboxDisabled: (->
@@ -16,4 +23,3 @@ Clockwork.Milestone = DS.Model.extend Clockwork.Doable,
   ).property('savedTasks', 'savedTasks.@each.done')
 
   tasksEnabledBinding: 'isLoaded'
-

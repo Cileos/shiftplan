@@ -1,11 +1,11 @@
 @mixin button-colors($color: $ci_lightgray, $color_hover: lighten($ci_lightgray, 2.5%)) {
   background: $color; // fallback for e.g. iOS 4
 
-  @include background-image(linear-gradient(lighten($color, 5%), $color));
+  @include background-image(linear-gradient(lighten($color, 7.5%), $color));
   @include adaptive-color(color, $color);
   @include adaptive-color(text-shadow, $color);
 
-  border: 1px solid darken($color, 2.5%);
+  border: 1px solid darken($color, 5%);
 
   &:hover, &:focus {
     @include background-image(linear-gradient(lighten($color_hover, 7.5%), $color_hover));

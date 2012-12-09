@@ -25,7 +25,7 @@ Then /^I should see a list of the following (.+):$/ do |plural, expected|
   selectors = expected.column_names.map(&:underscore).map {|s| ".#{s}" }
   actual = first("ul.#{plural}").all('li').map do |li|
     selectors.map do |column|
-      li.first(column).try(:text).try(:strip) || ''
+      li.first(column).try(:text).try(:strip).try(:lines).try(:first) || ''
     end
   end
   actual.unshift expected.column_names

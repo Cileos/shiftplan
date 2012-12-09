@@ -3,6 +3,8 @@ Clockwork.Doable = Ember.Mixin.create
   due_at: DS.attr('date')
   done: DS.attr('boolean')
 
+  description: DS.attr('string')
+
   formatted_due_on: ( (key,value) ->
     format = Clockwork.get('settings.dateFormat')
     if arguments.length is 1 # getter
@@ -31,3 +33,6 @@ Clockwork.Doable = Ember.Mixin.create
     valid
 
 
+  responsible: DS.belongsTo('Clockwork.Employee', key: 'responsible_id')
+
+  can_manage: Clockwork.isOwnerOrPlanner()

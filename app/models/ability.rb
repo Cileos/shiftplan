@@ -34,7 +34,7 @@ class Ability
     can :read, Account do |account|
       user.accounts.include?(account)
     end
-    can [:read, :update], Employee do |employee|
+    can [:update_self], Employee do |employee|
       user == employee.user
     end
     can [:read, :update], User do |u|
@@ -84,6 +84,13 @@ class Ability
     # must not be copied to authorize_planner
     can [:destroy], Comment do |comment|
       comment.employee == employee
+    end
+
+    can :read, Milestone do |milestone|
+      employee.organizations.include?  milestone.plan.organization
+    end
+    can :read, Task do |task|
+      employee.organizations.include?  task.milestone.plan.organization
     end
   end
 
