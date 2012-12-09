@@ -80,7 +80,7 @@ small {
 
   .logo {
     a {
-      @include image-2x(image-url("clockwork-logo-32px.png"), 190px, 50px);
+      @include image-2x("clockwork-logo-32px.png", 156px, 16px);
       @include transition(all .15s $ci_easing);
 
       display: block;
