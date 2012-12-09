@@ -4,10 +4,18 @@
 {{#if hasErrors}}
 <div class="alert error">{{errorMessages}}</div>
 {{/if}}
-{{view Clockwork.Fields.Name valueBinding="name" placeholder="Bezeichnung"}}
-{{view Clockwork.Fields.DueDateField valueBinding="formatted_due_on" placeholder="Fällig am"}}
-{{#unless isNew}}
-  <button class="button" {{action doDelete}}>Löschen</button>
-{{/unless}}
-<button class="button" {{action save}}>{{view.buttonLabel}}</button>
+<div class="inputs">
+  <div class="input">
+    {{view Clockwork.Fields.Name valueBinding="name" placeholder="Bezeichnung"}}
+  </div>
+  <div class="input">
+    {{view Clockwork.Fields.DueDateField valueBinding="formatted_due_on" placeholder="Fällig am"}}
+  </div>
+</div>
 
+<div class="actions">
+{{#unless isNew}}
+  <button class="button-warning delete" {{action doDelete}}>Löschen</button>
+{{/unless}}
+<button class="button-success" {{action save}}>{{view.buttonLabel}}</button>
+</div>
