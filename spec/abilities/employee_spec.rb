@@ -2,12 +2,9 @@ require 'spec_helper'
 require "cancan/matchers"
 
 
-shared_examples "an employee who can edit itself" do
-  it "should be able to read itself" do
-    should be_able_to(:read, employee)
-  end
+shared_examples "an employee who can update itself" do
   it "should be able to update itself" do
-    should be_able_to(:update, employee)
+    should be_able_to(:update_self, employee)
   end
 end
 
@@ -84,20 +81,20 @@ describe "Employee permissions:" do
   context "An owner" do
     let(:employee) { create(:employee_owner, account: account, user: user) }
 
-    it_behaves_like "an employee who can edit itself"
+    it_behaves_like "an employee who can update itself"
     it_behaves_like "an employee who can manage employees"
   end
 
   context "A planner" do
     let(:employee) { create(:employee_planner, account: account, user: user) }
-    it_behaves_like "an employee who can edit itself"
+    it_behaves_like "an employee who can update itself"
     it_behaves_like "an employee who can manage employees"
   end
 
   context "An employee" do
     let(:employee) { create(:employee, account: account, user: user) }
 
-    it_behaves_like "an employee who can edit itself"
+    it_behaves_like "an employee who can update itself"
 
     context "for own accounts" do
       it "should be able to read employees" do
