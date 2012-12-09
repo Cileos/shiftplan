@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe User do
@@ -7,6 +8,13 @@ describe User do
 
     it { planner.should be_a_planner }
     it { planner.should be_role('planner') }
+  end
+
+  it 'must have a valid email' do
+    user = build(:user, email: 'fnørd..d.@p0x.asdt')
+
+    user.should_not be_valid
+    user.should have(1).errors_on(:email)
   end
 
   context "current_employee" do
