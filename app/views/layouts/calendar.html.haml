@@ -17,7 +17,7 @@
             %div= filter.plan_period_end_date
 
         = collapsible( Milestone.model_name.human(count: 9001), id: 'milestones-toggle') do
-          #milestones.milestones-list
+          #milestones.milestones-list{data: { role: current_employee.role }}
 
         = yield(:sidebar)
 

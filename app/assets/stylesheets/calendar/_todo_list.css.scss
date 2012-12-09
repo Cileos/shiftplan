@@ -67,7 +67,6 @@ $todolist_border_color: $ci_gray;
     }
   }
 }
-
 .milestones-list a.button {
   @include button-colors($color: $ci_midgray);
   display: block;
