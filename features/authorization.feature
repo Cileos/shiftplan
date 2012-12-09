@@ -63,10 +63,10 @@ Feature: Authorization
 
      When I follow "Mitarbeiter"
      Then I should be authorized to access the page
-      And I should see link "Simpson, Homer"
       And I should see "Simpson, Bart"
-      But I should not see link "Simpson, Bart"
-      But I should not see link "Hinzufügen"
+      But I should not see link "Simpson, Homer"
+      And I should not see link "Simpson, Bart"
+      And I should not see link "Hinzufügen"
       And I should not see link "Einladen"
       But I should see "Noch nicht eingeladen"
 
