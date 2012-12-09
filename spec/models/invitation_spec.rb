@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe Invitation do
@@ -20,6 +21,13 @@ describe Invitation do
 
   it 'must have an email' do
     invitation = build(:invitation, email: nil)
+
+    invitation.should_not be_valid
+    invitation.should have(1).errors_on(:email)
+  end
+
+  it 'must have a valid email' do
+    invitation = build(:invitation, email: 'fnørd..d.@p0x.asdt')
 
     invitation.should_not be_valid
     invitation.should have(1).errors_on(:email)

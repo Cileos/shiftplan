@@ -89,6 +89,7 @@ gem 'thin' # webrick must die
 gem 'coffee-rails', '~> 3.2.2'
 gem 'bourbon'
 gem 'devise'
+gem 'spectator-validates_email', :require => 'validates_email'
 gem 'cancan'
 gem 'simple_form', '~> 2.0.0'
 gem 'haml-rails'
