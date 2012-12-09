@@ -43,6 +43,21 @@ $todolist_border_color: $ci_gray;
     margin: 0 0 0 5px;
   }
 
+  .employee_name,
+  .due_on,
+  .description {
+    font-size: 11px;
+  }
+
+  .employee_name {
+    display: block;
+  }
+
+  .due_on,
+  .employee_name {
+    @include clearfix;
+  }
+
   .description {
     color: $ci_darkgrey;
   }
