@@ -106,9 +106,12 @@ class Ability
     can [:read, :update], Organization do |organization|
       account == organization.account
     end
-    can :manage, Employee do |employee|
+    can [:read, :update, :create], Employee do |employee|
       (employee.account.nil? || account == employee.account) &&
         (employee.organization_id.nil? || account.organizations.map(&:id).include?(employee.organization_id.to_i))
+    end
+    can :update_role, Employee do |employee|
+      account == employee.account && planner != employee
     end
     can :manage, Plan do |plan|
       account == plan.organization.account

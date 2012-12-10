@@ -1,6 +1,26 @@
 require 'spec_helper'
 require "cancan/matchers"
 
+shared_examples "an employee who cannot update his own role" do
+  it "should not be able to update own role" do
+    should_not be_able_to(:update_role, employee)
+  end
+end
+
+shared_examples "an employee who can update roles of other employees" do
+  context "for own accounts" do
+    let(:another_employee) { build(:employee, account: account) }
+    it "should be able to update role" do
+      should be_able_to(:update_role, another_employee)
+    end
+  end
+  context "for other accounts" do
+    let(:other_employee) { build(:employee, account: other_account) }
+    it "should not be able to update role" do
+      should_not be_able_to(:update_role, other_employee)
+    end
+  end
+end
 
 shared_examples "an employee who can update itself" do
   it "should be able to update itself" do
@@ -20,33 +40,44 @@ shared_examples "an employee who cannot create, update and destroy employees" do
   end
 end
 
-shared_examples "an employee who cannot manage employees" do
+shared_examples "an employee who cannot read, update and create employees" do
   it "should not be able to read other employees" do
-    should_not be_able_to(:read, another_employee)
+    [:read, :update, :create].each do |action|
+      should_not be_able_to(action, another_employee)
+    end
   end
 
   it_behaves_like "an employee who cannot create, update and destroy employees"
 end
 
-shared_examples "an employee who can manage employees" do
+shared_examples "an employee who can read, update and create employees" do
   context "for own accounts" do
     let(:another_employee) { build(:employee, account: nil) }
+    let(:allowed_actions)  { [:read, :update, :create] }
 
-    it "should be able to manage employees without account and without organization" do
-      should be_able_to(:manage, another_employee)
+    it "should be able to read, update and create employees without account and without organization" do
+      allowed_actions.each do |action|
+        should be_able_to(action,   another_employee)
+      end
     end
-    it "should be able to manage employees without account and an organization of the planner/owner" do
+    it "should be able to read, update and create employees without account and an organization of the planner/owner" do
       another_employee.organization_id = organization.id
-      should be_able_to(:manage, another_employee )
+      allowed_actions.each do |action|
+        should be_able_to(action, another_employee )
+      end
     end
-    it "should be able to manage employees without organization and an account of the planner/owner" do
+    it "should be able to read, update and create employees without organization and an account of the planner/owner" do
       another_employee.account_id = account.id
-      should be_able_to(:manage, another_employee)
+      allowed_actions.each do |action|
+        should be_able_to(action, another_employee)
+      end
     end
-    it "should be able to manage employees with an account and organization of the planner/owner" do
+    it "should be able to read, update and create employees with an account and organization of the planner/owner" do
       another_employee.account_id = account.id
       another_employee.organization_id = organization.id
-      should be_able_to(:manage, another_employee)
+      allowed_actions.each do |action|
+        should be_able_to(action, another_employee)
+      end
     end
   end
   context "for other organizations" do
@@ -61,7 +92,7 @@ shared_examples "an employee who can manage employees" do
   context "for other accounts" do
     let(:another_employee) { build(:employee, account: other_account) }
 
-    it_behaves_like "an employee who cannot manage employees"
+    it_behaves_like "an employee who cannot read, update and create employees"
   end
 end
 
@@ -82,19 +113,25 @@ describe "Employee permissions:" do
     let(:employee) { create(:employee_owner, account: account, user: user) }
 
     it_behaves_like "an employee who can update itself"
-    it_behaves_like "an employee who can manage employees"
+    it_behaves_like "an employee who can read, update and create employees"
+    it_behaves_like "an employee who cannot update his own role"
+    it_behaves_like "an employee who can update roles of other employees"
   end
 
   context "A planner" do
     let(:employee) { create(:employee_planner, account: account, user: user) }
     it_behaves_like "an employee who can update itself"
-    it_behaves_like "an employee who can manage employees"
+    it_behaves_like "an employee who can read, update and create employees"
+    it_behaves_like "an employee who cannot update his own role"
+    it_behaves_like "an employee who can update roles of other employees"
   end
 
   context "An employee" do
     let(:employee) { create(:employee, account: account, user: user) }
 
     it_behaves_like "an employee who can update itself"
+
+    it_behaves_like "an employee who cannot update his own role"
 
     context "for own accounts" do
       it "should be able to read employees" do
@@ -109,12 +146,22 @@ describe "Employee permissions:" do
       it "should not be able to destroy employees" do
         should_not be_able_to(:destroy, create(:employee, account: account))
       end
+      it "should not be able to change roles" do
+        should_not be_able_to(:change_role, employee)
+      end
+      it "should not be able to update roles of other employees" do
+        should_not be_able_to(:update_role, build(:employee, account: account))
+      end
     end
 
     context "for other accounts" do
       let(:another_employee) { build(:employee, account: other_account) }
 
-      it_behaves_like "an employee who cannot manage employees"
+      it_behaves_like "an employee who cannot read, update and create employees"
+
+      it "should not be able to update roles of employees of other accounts" do
+        should_not be_able_to(:update_role, build(:employee, account: other_account))
+      end
     end
   end
 
