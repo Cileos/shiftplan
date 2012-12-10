@@ -26,6 +26,16 @@ Feature: Edit Employee
         | Name                    |
         | Simpson-Carlson, Homer  |
 
+  # Planners and owners should not be able to update their own role. We only test this
+  # for owners here because specs exist for both planners and owners.
+  Scenario: Owner can not update his own role
+    # add owner mr. burns to organization
+    Given a membership exists with organization: the organization, employee: the employee "mr. burns"
+     When I go to the employees page for the organization
+      And I follow "Burns, Owner"
+      And I wait for the modal box to appear
+     Then I should not see a field labeled "Rolle"
+
   Scenario: Normal user can not edit himself on the employees page
     Given a confirmed user "bart" exists
       And an employee "bart" exists with first_name: "Bart", last_name: "Simpson", account: the account, user: the user "bart"
