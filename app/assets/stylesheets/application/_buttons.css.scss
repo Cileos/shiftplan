@@ -128,6 +128,7 @@ input[type=submit].utility-button {
 
 .button-group {
   padding: 0;
+  margin: 0 5px 0 0;
   float: left;  // prevents inner linebreaks
 
   input[type=submit],
@@ -139,6 +140,10 @@ input[type=submit].utility-button {
     float: left;
     margin: 0;
 
+    &:not(:last-child) {
+      border-right: none;
+    }
+
     &:hover {
       @include z-index(1);
     }
@@ -146,13 +151,9 @@ input[type=submit].utility-button {
 
   :first-child {
     @include border-radius($ci_border-radius 0 0 $ci_border-radius);
-
-    border-right: none;
   }
 
   :last-child {
     @include border-radius(0 $ci_border-radius $ci_border-radius 0);
-
-    border-left: none;
   }
 }
