@@ -10,6 +10,11 @@
   &:hover, &:focus {
     @include background-image(linear-gradient(lighten($color_hover, 7.5%), $color_hover));
   }
+
+  &.disabled {
+    background: $color;
+    cursor: default;
+  }
 }
 
 input[type=submit],
@@ -31,7 +36,7 @@ button {
     color: $ci_anthracite;
   }
 
-  &:active {
+  &:not(.disabled):active {
     @include box-shadow(inset 0 0 .35em $ci_shadow);
   }
 
