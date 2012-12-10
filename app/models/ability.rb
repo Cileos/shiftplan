@@ -106,7 +106,7 @@ class Ability
     can [:read, :update], Organization do |organization|
       account == organization.account
     end
-    can [:read, :update, :create], Employee do |employee|
+    can [:read, :update, :create, :adopt, :search], Employee do |employee|
       (employee.account.nil? || account == employee.account) &&
         (employee.organization_id.nil? || account.organizations.map(&:id).include?(employee.organization_id.to_i))
     end

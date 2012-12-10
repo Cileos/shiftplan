@@ -50,10 +50,10 @@ shared_examples "an employee who cannot read, update and create employees" do
   it_behaves_like "an employee who cannot create, update and destroy employees"
 end
 
-shared_examples "an employee who can read, update and create employees" do
+shared_examples "an employee who can read, update, create, adopt and search employees" do
   context "for own accounts" do
     let(:another_employee) { build(:employee, account: nil) }
-    let(:allowed_actions)  { [:read, :update, :create] }
+    let(:allowed_actions)  { [:read, :update, :create, :adopt, :search] }
 
     it "should be able to read, update and create employees without account and without organization" do
       allowed_actions.each do |action|
@@ -113,7 +113,7 @@ describe "Employee permissions:" do
     let(:employee) { create(:employee_owner, account: account, user: user) }
 
     it_behaves_like "an employee who can update itself"
-    it_behaves_like "an employee who can read, update and create employees"
+    it_behaves_like "an employee who can read, update, create, adopt and search employees"
     it_behaves_like "an employee who cannot update his own role"
     it_behaves_like "an employee who can update roles of other employees"
   end
@@ -121,7 +121,7 @@ describe "Employee permissions:" do
   context "A planner" do
     let(:employee) { create(:employee_planner, account: account, user: user) }
     it_behaves_like "an employee who can update itself"
-    it_behaves_like "an employee who can read, update and create employees"
+    it_behaves_like "an employee who can read, update, create, adopt and search employees"
     it_behaves_like "an employee who cannot update his own role"
     it_behaves_like "an employee who can update roles of other employees"
   end
@@ -145,6 +145,12 @@ describe "Employee permissions:" do
       end
       it "should not be able to destroy employees" do
         should_not be_able_to(:destroy, create(:employee, account: account))
+      end
+      it "should not be able to adopt employees" do
+        should_not be_able_to(:adopt, Employee)
+      end
+      it "should not be able to search employees" do
+        should_not be_able_to(:search, Employee)
       end
       it "should not be able to change roles" do
         should_not be_able_to(:change_role, employee)
