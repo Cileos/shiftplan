@@ -111,7 +111,7 @@ class Ability
         (employee.organization_id.nil? || account.organizations.map(&:id).include?(employee.organization_id.to_i))
     end
     can :update_role, Employee do |employee|
-      account == employee.account && planner != employee
+      account == employee.account && planner.id != employee.id
     end
     can :manage, Plan do |plan|
       account == plan.organization.account
