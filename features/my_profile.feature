@@ -23,6 +23,20 @@ I want to edit my profile
       And I should see "Marge Simpson" within the user navigation
       But I should not see "Zurück"
 
+  @javascript
+  Scenario: Trying to promote myself to owner by manipulating the profile form
+    Given I am signed in as the confirmed user
+      And I am on the page for the organization "fukushima"
+      And I choose "Einstellungen" from the drop down "Marge Bouvier"
+      And I manipulate the form "edit_employee" with attribute "employee[role]" and value "owner"
+      And I press "Speichern"
+
+     Then 1 employees should exist with first_name: "Marge", last_name: "Bouvier", role: ""
+     When I go to the employees page for the organization "fukushima"
+     Then I should see the following table of employees:
+       | Name           | Rolle  |
+       | Bouvier, Marge | keine  |
+
   @fileupload
   Scenario: Editing the avatar on the my profile page
     Given I am signed in as the confirmed user

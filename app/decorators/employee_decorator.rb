@@ -6,6 +6,8 @@ class EmployeeDecorator < ApplicationDecorator
     case name
     when :avatar_and_name
       'span#avatar_and_name'
+    when :employee_row
+      "tr#employee_#{resource.id}"
     else
       super
     end
@@ -22,16 +24,26 @@ class EmployeeDecorator < ApplicationDecorator
         update_avatar_and_name
       end
       update_flash
+      scroll_to
+      highlight
     end
-  end
-
-  def update_avatar_and_name
-    select(:avatar_and_name).replace_with h.render('application/avatar_and_name')
   end
 
   protected
 
   def resource
     employee
+  end
+
+  def update_avatar_and_name
+    select(:avatar_and_name).replace_with h.render('application/avatar_and_name')
+  end
+
+  def scroll_to
+    select(:employee_row, resource).scroll_to()
+  end
+
+  def highlight
+    select(:employee_row, resource).effect('highlight', {}, 3000)
   end
 end
