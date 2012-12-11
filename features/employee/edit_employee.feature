@@ -43,6 +43,16 @@ Feature: Edit Employee
         | Burns, Owner    | Accountinhaber  |
         | Simpson, Homer  | keine           |
 
+  Scenario: The role owner can not be assigned to other employees
+    Given I follow "Simpson, Homer" within the employees table
+      And I wait for the modal box to appear
+     When I manipulate the form "edit_employee" with attribute "employee[role]" and value "owner"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see the following table of employees:
+        | Name            | Rolle  |
+        | Simpson, Homer  | keine  |
+
   Scenario: Owner can not be updated by any one else
     # add owner mr. burns to organization
     Given a membership exists with organization: the organization, employee: the employee "mr. burns"
