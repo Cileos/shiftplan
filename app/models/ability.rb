@@ -106,9 +106,21 @@ class Ability
     can [:read, :update], Organization do |organization|
       account == organization.account
     end
-    can :manage, Employee do |employee|
+    can [:adopt, :search], Employee
+    can [:read], Employee do |employee|
+      account == employee.account
+    end
+    can [:update, :create], Employee do |employee|
+      (!employee.owner? || employee == planner) &&
       (employee.account.nil? || account == employee.account) &&
+        # organization_id is a virtual attribute of employee and is used to create the
+        # membership for the current organization after create of the employee. So the
+        # following line makes sure that memberships for orgs of other account can not be
+        # created.
         (employee.organization_id.nil? || account.organizations.map(&:id).include?(employee.organization_id.to_i))
+    end
+    can :update_role, Employee do |employee|
+      account == employee.account && planner.id != employee.id
     end
     can :manage, Plan do |plan|
       account == plan.organization.account
