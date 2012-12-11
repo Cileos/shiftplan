@@ -43,7 +43,8 @@ Feature: Edit Employee
         | Burns, Owner    | Accountinhaber  |
         | Simpson, Homer  | keine           |
 
-  Scenario: The role owner can not be assigned to other employees
+  # The role owner can not be assigned to other employees
+  Scenario: Trying to promote someone to owner
     Given I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
      When I manipulate the form "edit_employee" with attribute "employee[role]" and value "owner"
