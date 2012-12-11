@@ -1,12 +1,11 @@
 [role=toolbar] {
   @include clearfix;
-
   @include z-index(102);
 
   padding: 15px 0;
 
-  .button-group :last-child {
-    margin-right: 1em;
+  .button-group {
+    margin-right: 10px;
   }
 
   .options {
