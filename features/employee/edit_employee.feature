@@ -35,6 +35,13 @@ Feature: Edit Employee
       And I follow "Burns, Owner"
       And I wait for the modal box to appear
      Then I should not see a field labeled "Rolle"
+     When I manipulate the form "edit_employee" with attribute "employee[role]" and value ""
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see the following table of employees:
+        | Name            | Rolle           |
+        | Burns, Owner    | Accountinhaber  |
+        | Simpson, Homer  | keine           |
 
   Scenario: Owner can not be updated by any one else
     # add owner mr. burns to organization
