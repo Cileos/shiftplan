@@ -116,6 +116,10 @@ describe "Employee permissions:" do
     it_behaves_like "an employee who can read, update, create, adopt and search employees"
     it_behaves_like "an employee who cannot update his own role"
     it_behaves_like "an employee who can update roles of other employees"
+    # owners can not be updated by anyone except by themselves
+    it "can update himself" do
+      should be_able_to(:update, employee)
+    end
   end
 
   context "A planner" do
@@ -124,6 +128,9 @@ describe "Employee permissions:" do
     it_behaves_like "an employee who can read, update, create, adopt and search employees"
     it_behaves_like "an employee who cannot update his own role"
     it_behaves_like "an employee who can update roles of other employees"
+    it "can not update owners" do
+      should_not be_able_to(:update, create(:employee_owner, account: account))
+    end
   end
 
   context "An employee" do

@@ -36,6 +36,23 @@ Feature: Edit Employee
       And I wait for the modal box to appear
      Then I should not see a field labeled "Rolle"
 
+  Scenario: Owner can not be updated by any one else
+    # add owner mr. burns to organization
+    Given a membership exists with organization: the organization, employee: the employee "mr. burns"
+      And a confirmed user "planner bart" exists with email: "bart@thesimpsons.com"
+      And an employee_planner "planner bart" exists with first_name: "Bart", user: the confirmed user "planner bart", account: the account
+      And a membership exists with organization: the organization, employee: the employee "planner bart"
+      And I am signed in as the confirmed user "planner bart"
+     When I go to the employees page for the organization
+     Then I should see the following table of employees:
+        | Name            | Rolle           |
+        | Burns, Owner    | Accountinhaber  |
+        | Simpson, Bart   | Planer          |
+        | Simpson, Homer  | keine           |
+      And I should see link "Simpson, Bart"
+      And I should see link "Simpson, Homer"
+      But I should not see link "Burns, Owner"
+
   Scenario: Normal user can not edit himself on the employees page
     Given a confirmed user "bart" exists
       And an employee "bart" exists with first_name: "Bart", last_name: "Simpson", account: the account, user: the user "bart"
