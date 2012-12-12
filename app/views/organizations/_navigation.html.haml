@@ -1,4 +1,5 @@
 %ul.nav
+  = render 'accounts/navigation_selector', current: @account
   = render 'organizations/navigation_selector', current: @organization
   = render 'organizations/navigation_links', organization: @organization
 

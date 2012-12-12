@@ -1,16 +1,19 @@
 - defined?(current) or raise(ArgumentError, "must provide :current (organization)")
-- organizations = current_user.organizations_for(account)
-%li
-  - if organizations.count > 1
-    %ul
-      %li.dropdown
-        %a{href: '#', 'data-toggle' => 'dropdown'}= Organization.model_name.human count: 9001
-        %ul.organization-dropdown
-          - organizations.each do |org|
-            %li= link_to org.name_with_account, nested_resources_for(org)
+- if user_signed_in?
 
+  - if current_user.accounts.count > 1
+    %li.dropdown
+      - if current_account
+        = link_to current_account.name, account_path(current_account),
+          class: 'account', data: { toggle: 'dropdown' }
+        %ul.account-dropdown
+          - (current_user.accounts - [current_account]).each do |account|
+            %li= link_to account.name, account_path(account)
+      - else
+        %a{href: '#', 'data-toggle' => 'dropdown'}= Account.model_name.human count: 9001
+        %ul.account-dropdown
+          - current_user.accounts.each do |account|
+            %li= link_to account.name, account_path(account)
   - else
-    %ul
-      - if organization = organizations.first
-        = li_link organization.name, nested_resources_for(organization), class: 'organization', data: { icon: i(:organization) }
-        = render 'organizations/navigation_links', organization: organization
+    - if account = current_user.accounts.first
+      = li_link account.name, account_path(account), class: 'account'

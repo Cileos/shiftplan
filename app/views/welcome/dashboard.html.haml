@@ -1,9 +1,5 @@
 - title :dashboard
 
-- masterhead_toolbar do
-  - if can? :create, Organization.new(account: current_account)
-    = link_to ti(:new_organization), new_account_organization_path(current_account), class: 'button'
-
 .row.two-columns.inverted.dashboard
   .primary
     = render 'notifications/for_dashboard', notifications: current_user.notifications
