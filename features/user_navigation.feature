@@ -8,16 +8,15 @@ Feature: User Navigation
     Given an organization "tschernobyl" exists with name: "Tschernobyl", account: the account
      When I am on the dashboard page
 
+     # Only one employee exists for the current user. So we display the name of
+     # the employee instead of the users email address
      Then I should see the following list of links within the user navigation:
        | link            | active |
-       | owner@burns.com | false  |
+       | Owner Burns     | false  |
        | Einstellungen   | false  |
        | Ausloggen       | false  |
 
      When I follow "Tepco GmbH"
-      # within the scope of the account, we are now able to determine the current
-      # employee and therefore display the name of the employee rather than only the
-      # email address of the current user
       And I should see the following list of links within the user navigation:
        | link            | active |
        | Owner Burns     | false  |
