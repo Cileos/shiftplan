@@ -70,33 +70,30 @@ Feature: User Navigation
        | Einstellungen       | false  |
        | Ausloggen           | false  |
 
-  # TODO test gravatar/avator in the user navigation
-  # @fileupload
-  # Scenario: avatar is only shown on page of organization, fallback to gravatar
-  #   Given the user has joined another account with organization_name: "School", as: "Bart S"
-  #     And a organization "school" should exist with name: "School"
-  #     And an employee "bart" should exist with first_name: "Bart"
-  #     And the employee "bart" has the avatar "features/support/images/barts_avatar.jpg"
+  @fileupload
+  Scenario: avatar of the first employee having one is shown when outside of the scope of an account
+    Given an organization "tschernobyl" exists with name: "Tschernobyl", account: the account
+      And a account "cileos" exists with name: "Cileos UG"
+      And an organization "clockwork programming" exists with name: "Clockwork Programming", account: the account "cileos"
+      And an employee "charles m. burns" exists with first_name: "Charles M.", last_name: "Burns", account: the account "cileos", user: the confirmed user
+      And a membership exists with organization: the organization "clockwork programming", employee: the employee "charles m. burns"
 
-  #     And the user has joined another account with organization_name: "Street", as: "El Barto"
-  #     And a organization "street" should exist with name: "Street"
-  #     And an employee "elbarto" should exist with first_name: "El", last_name: "Barto"
-  #     And the employee "elbarto" has the avatar "app/assets/images/rails.png"
+      And the employee "mr. burns" has the avatar "features/support/images/barts_avatar.jpg"
 
-  #    When I go to the dashboard page
-  #    # use the avatar of the first employee having one
-  #    Then I should see the avatar "barts_avatar.jpg" within the user navigation
+     When I go to the dashboard page
+     # use the avatar of the first employee having one
+     Then I should see the avatar "barts_avatar.jpg" within the user navigation
 
-  #    When I follow "Fukushima"
-  #    # show (default) gravatar for user burns in organization "Fukushima" as no avatar
-  #    # has been uploaded for the user's employee in organization "Fukushima"
-  #     And I should see a tiny gravatar within the user navigation
+     # Now both employees of the user have an avatar uploaded.
+     # Still use the avatar of the first employee having one.
+     When the employee "charles m. burns" has the avatar "app/assets/images/rails.png"
+      And I go to the dashboard page
+     Then I should see the avatar "barts_avatar.jpg" within the user navigation
 
-  #    When I go to the page of the organization "school"
-  #    Then I should see the avatar "barts_avatar.jpg" within the user navigation
-
-  #    When I go to the page of the organization "street"
-  #    Then I should see the avatar "rails.png" within the user navigation
+     When I follow "Tepco GmbH"
+     Then I should see the avatar "barts_avatar.jpg" within the user navigation
+     When I follow "Cileos UG"
+     Then I should see the avatar "rails.png" within the user navigation
 
   @javascript
   Scenario: (Default) gravatar for the user's email is shown in the navigation if no other avatar has been uploaded
