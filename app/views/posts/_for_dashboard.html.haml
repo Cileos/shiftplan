@@ -1,0 +1,15 @@
+.module.list.news
+  %header
+    %h2
+      = t(:'blogs.company_news')
+  .content
+    - unless posts.empty?
+      %ul.posts
+        - posts.each do |post|
+          %li
+            = link_to nested_resources_for(post) do
+              %strong= "#{post.account.name} - #{post.organization.name}"
+              %span.title= post.title
+            = render 'posts/comments_count', post: post
+    - else
+      %p= t('blogs.no_posts_present')

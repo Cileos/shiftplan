@@ -1,12 +1,12 @@
 %ul
   - if user_signed_in?
     %li.dropdown
-      - if current_user.is_multiple?
+      - if current_user.multiple?
         = link_to render('avatar_and_name'), profile_employees_path, { data: { toggle: 'dropdown' }}
       - else
         = link_to render('avatar_and_name'), edit_profile_employee_path(current_user.employees.first), { data: { toggle: 'dropdown' }}
       %ul
-        - if current_user.is_multiple?
+        - if current_user.multiple?
           %li= link_to :settings, profile_employees_path, data: { icon: i(:settings) }
         - else
           %li= link_to :settings, edit_profile_employee_path(current_user.employees.first), data: { icon: i(:settings) }

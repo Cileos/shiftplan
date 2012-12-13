@@ -16,11 +16,7 @@ end unless ENV['NO_SPORK']
 
 group :test, :halt_on_fail => true do
 
-  guard 'rspec', :cli => '--drb --color --format documentation', :version => 2, :run_all => false, :all_on_start => false do
-    watch(%r{^spec/.+_spec\.rb$})
-    watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
-    watch('spec/spec_helper.rb')  { "spec" }
-    watch(%r{^spec/factories/.+$}) { 'spec' }
+  guard 'rspec', :cli => '--drb --color --format nested', :version => 2, :run_all => false, :all_on_start => false do
     watch(%r{^factories/.+$})       { "spec" }
 
     # Rails example
