@@ -1,4 +1,3 @@
-# we have to discuss how to handle the dashboard
 Feature: Navigation
   In order to access all the wonderful functionality of clockwork
   As a user
@@ -6,7 +5,6 @@ Feature: Navigation
 
   Background:
     Given the situation of a just registered user
-      And I am signed in as the confirmed user "mr. burns"
 
   Scenario: as an owner with multiple organizations in same account
     # an owner can manage all organizations of the account
@@ -227,38 +225,3 @@ Feature: Navigation
        | Teams                  | false   |
       And I should see the following items in the account dropdown list:
        | Tepco GmbH  |
-
-  # @fileupload
-  # Scenario: avatar is only shown on page of organization, fallback to gravatar
-  #   Given the user has joined another account with organization_name: "School", as: "Bart S"
-  #     And a organization "school" should exist with name: "School"
-  #     And an employee "bart" should exist with first_name: "Bart"
-  #     And the employee "bart" has the avatar "features/support/images/barts_avatar.jpg"
-
-  #     And the user has joined another account with organization_name: "Street", as: "El Barto"
-  #     And a organization "street" should exist with name: "Street"
-  #     And an employee "elbarto" should exist with first_name: "El", last_name: "Barto"
-  #     And the employee "elbarto" has the avatar "app/assets/images/rails.png"
-
-  #    When I go to the dashboard page
-  #    # use the avatar of the first employee having one
-  #    Then I should see the avatar "barts_avatar.jpg" within the user navigation
-
-  #    When I follow "Fukushima"
-  #    # show (default) gravatar for user burns in organization "Fukushima" as no avatar
-  #    # has been uploaded for the user's employee in organization "Fukushima"
-  #     And I should see a tiny gravatar within the user navigation
-
-  #    When I go to the page of the organization "school"
-  #    Then I should see the avatar "barts_avatar.jpg" within the user navigation
-
-  #    When I go to the page of the organization "street"
-  #    Then I should see the avatar "rails.png" within the user navigation
-
-  # @javascript
-  # Scenario: (Default) gravatar for the user's email is shown in the navigation if no other avatar has been uploaded
-  #   Given I am on the dashboard
-  #     And I should see a tiny gravatar within the user navigation
-
-  #    When I follow "Fukushima"
-  #     And I should see a tiny gravatar within the user navigation
