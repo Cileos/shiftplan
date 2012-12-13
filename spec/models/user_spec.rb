@@ -36,4 +36,123 @@ describe User do
       expect { user.current_employee = foreign_employee }.to raise_error
     end
   end
+
+  context "notifications" do
+    it "should be collected through all employees" do
+      u = create :user
+      e1 = create :employee, user: u
+      e2 = create :employee, user: u
+
+      expect {
+        create :notification, employee: e1
+        create :notification, employee: e2
+      }.to change { u.notifications.count }.by(2)
+    end
+  end
+
+  context "schedulings" do
+    it "should be collected through all employees" do
+      u = create :user
+      e1 = create :employee, user: u
+      e2 = create :employee, user: u
+
+      expect {
+        create :scheduling, employee: e1
+        create :scheduling, employee: e2
+      }.to change { u.schedulings.count }.by(2)
+    end
+  end
+
+  context "posts of joined organizations" do
+    it "should be collected through all employees and their memberships" do
+      u = create :user
+      e1 = create :employee, user: u
+      e2 = create :employee, user: u
+
+      post1 = create :post
+      post2 = create :post
+
+      expect {
+        Membership.create employee: e1, organization: post1.blog.organization
+        Membership.create employee: e2, organization: post2.blog.organization
+
+        create :post
+      }.to change { u.posts_of_joined_organizations.count }.by(2)
+
+      u.posts_of_joined_organizations.should include(post1)
+      u.posts_of_joined_organizations.should include(post2)
+    end
+  end
+
+  context "organizations" do
+    let(:account)      { create :account }
+    let(:organization) { create :organization, account: account }
+    let(:user)         { create :user }
+    let(:employee)     { create :employee, user: user, account: account }
+
+    before(:each) { organization }
+
+    describe 'the user did not join' do
+      before(:each) { employee }
+
+      it "are not listed" do
+        user.organizations.should_not include(organization)
+      end
+
+      it { user.should_not be_multiple }
+    end
+
+    describe 'the user did join as a normal member' do
+      before(:each) { create :membership, employee: employee, organization: organization }
+
+      it "are listed" do
+        user.organizations.should include(organization)
+      end
+
+      it { user.should_not be_multiple }
+    end
+
+    describe 'the user is a planner for' do
+      before(:each) { create :employee_planner, user: user, account: account }
+
+      it "are listed" do
+        user.organizations.should include(organization)
+      end
+
+      it { user.should_not be_multiple }
+    end
+
+    describe 'the user is an owner for' do
+      before(:each) { create :employee_owner, user: user, account: account }
+
+      it "are listed" do
+        user.organizations.should include(organization)
+      end
+
+      it { user.should_not be_multiple }
+    end
+
+    describe 'the user is owner for and member in' do
+      before(:each) do
+        e = create :employee_owner, user: user, account: account
+        create :membership, employee: e, organization: organization
+      end
+
+      it "are listed uniq" do
+        user.organizations.should == [organization]
+      end
+
+      it { user.should_not be_multiple }
+
+    end
+
+    describe 'the user is an owner for and employee in another' do
+      before(:each) do
+        create :employee_owner, user: user, account: account
+        create :membership, employee: create(:employee, user: user)
+      end
+
+      it { user.should be_multiple }
+    end
+  end
 end

@@ -125,3 +125,13 @@ Then /^the (.+) should( not)? be disabled$/ do |name, negate|
   end
 end
 
+# Just checks if the current URL starts with the provided one, ignoring sub-URL parts
+#  Then I should be under the page of the plan
+Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
+  expected = path_to(page_name)
+  begin
+    wait_until { URI.parse(current_url).path.starts_with? expected }
+  rescue Capybara::TimeoutError => e
+    URI.parse(current_url).path.should starts_with(expected)
+  end
+end

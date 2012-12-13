@@ -9,17 +9,33 @@ class Notification::Base < ActiveRecord::Base
   after_commit :deliver!, on: :create
 
   def self.mailer_class
-    raise NotImplementedError, "must return a your ActionMailer::Base class used to send out mails for notifications of type #{self.class.name}"
+    raise NotImplementedError, "must return a your ActionMailer::Base class used to send out mails for notifications of type #{name}"
   end
 
   def self.mailer_action
-    raise NotImplementedError, "must return the mailer action name of your ActionMailer::Base class used to send out mails for notifications of type #{self.class.name}"
+    raise NotImplementedError, "must return the mailer action name of your ActionMailer::Base class used to send out mails for notifications of type #{name}"
+  end
+
+  def subject
+    raise NotImplementedError, "must implement #{self.class.name}#subject containing a short description of what happened"
+  end
+
+  def introductory_text
+    raise NotImplementedError, "must implement #{self.class.name}#introductory_text containing a longer description of what happened"
+  end
+
+  def acting_employee
+    raise NotImplementedError, "must implement #{self.class.name}#acting_employee returning the employee who caused the reason for the notification"
   end
 
   # for mailer_class: PostNotificationMailer and mailer_action: new_comment, it looks up
   #    post_notification_mailer.new_comment.#{key}
   def t(key, opts={})
     I18n.t(:"#{self.class.mailer_class.name.underscore}.#{self.class.mailer_action}.#{key}", opts)
+  end
+
+  def self.recent(num=5)
+    order('updated_at DESC').limit(num)
   end
 
   protected

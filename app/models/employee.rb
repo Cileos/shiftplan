@@ -19,6 +19,7 @@ class Employee < ActiveRecord::Base
   has_many   :schedulings
   has_many   :organizations, through: :memberships
   has_many   :memberships
+  has_many   :notifications, class_name: 'Notification::Base'
 
   validates_presence_of :account_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
@@ -40,6 +41,10 @@ class Employee < ActiveRecord::Base
     end
 
     scope given_role.pluralize.to_sym, where(role: given_role)
+  end
+
+  def self.planners_and_owners
+    where(role: %w(planner owner))
   end
 
   def active?

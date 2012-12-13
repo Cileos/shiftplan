@@ -1,8 +1,8 @@
-.row.two-columns.inverted
+- title @organization.name + " " + t(:dashboard)
+
+.row.two-columns.inverted.dashboard
   .primary
-    - if @organization.company_blog.present?
-      .blog
-        %h2= t(:'blogs.company_news')
-        = render('posts/posts', posts: @organization.company_blog.posts.order('created_at DESC').limit(5))
-      %p#all-news
-        = link_to 'Alle Neuigkeiten anzeigen', nested_resources_for(@organization.company_blog) + [:posts], id: 'all-news', class: 'button utility-button'
+    = render 'notifications/for_dashboard', notifications: current_employee.notifications
+    = render 'schedulings/for_dashboard', schedulings: current_employee.schedulings.upcoming.for_organization(@organization)
+  .secondary
+    = render 'posts/for_dashboard', posts: @organization.posts.recent(42)

@@ -1,0 +1,112 @@
+.dashboard {
+  .module {
+    margin-bottom: 20px;
+
+    header {
+      border-bottom: 1px solid $ci_lightgray;
+      padding-bottom: .5em;
+      margin-bottom: .5em;
+    }
+
+    h2 {
+      font-size: 18px;
+      letter-spacing: -.1em;
+      margin: 0;
+      padding: 0;
+    }
+
+    .count {
+      @include border-radius(10px);
+
+      padding: 3px 5px 3px 4px;
+      margin: 0 0.25em;
+      font-size: 0.8em;
+      background: $ci_lightgray;
+      color: $ci_darkgray;
+    }
+
+    .tag {
+      @include border-radius(10px);
+
+      padding: 3px 5px;
+      margin-right: 5px;
+      font-size: 10px;
+      background: $ci_lightgray;
+    }
+  }
+
+  .news {
+    li strong {
+      display: block;
+      font-size: 12px;
+    }
+  }
+
+  .notifications {
+    .avatar {
+      width: 16px;
+    }
+
+    li:before {
+      color: $ci_darkgray;
+    }
+  }
+
+  .agenda {
+    border: none;
+    border-collapse: separate;
+    border-spacing: 5px;
+
+    th {
+      background: $ci_darkwhite;
+      border-right: 1px solid $ci_lightgray;
+    }
+
+    .date {
+      width: 125px;
+    }
+
+    .day {
+      font-size: 36px;
+      float: left;
+      margin-right: 10px;
+      line-height: 1;
+    }
+
+    .day-name,
+    .month-year {
+      display: block;
+      line-height: 1.25;
+    }
+
+    .month-year {
+      color: $ci_darkgray;
+      font-size: 12px;
+      font-weight: normal;
+    }
+
+    td {
+      font-size: 14px;
+    }
+  }
+
+  .list {
+    ul {
+      list-style: none;
+      padding: 0;
+
+      img {
+        vertical-align: middle;
+      }
+    }
+
+    li {
+      margin-bottom: 5px;
+      padding: 5px;
+
+      &:nth-child(even) {
+        background: $ci_darkwhite;
+      }
+    }
+  }
+}
