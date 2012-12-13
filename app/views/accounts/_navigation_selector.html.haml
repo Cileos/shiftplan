@@ -2,7 +2,7 @@
 - if user_signed_in?
 
   - if current_user.accounts.count > 1
-    %li.dropdown
+    %li{class: "dropdown #{current_account ? dropdown_class(account_path(current_account)): ''}"}
       - if current_account
         = link_to current_account.name, account_path(current_account),
           class: 'account', data: { toggle: 'dropdown' }
