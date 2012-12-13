@@ -1,4 +1,4 @@
-- organizations = current_user.organizations_for(account)
+- organizations = current_user.organizations_for(account).order(:name)
 %li
   - if organizations.count > 1
     %ul

@@ -12,7 +12,7 @@
         - else
           %a{href: '#', 'data-toggle' => 'dropdown'}= Account.model_name.human count: 9001
           %ul.account-dropdown
-            - current_user.accounts.each do |account|
+            - current_user.accounts.order(:name).each do |account|
               %li= link_to account.name, account_path(account)
       - if current_account
         = render 'accounts/navigation_links', account: current_account
