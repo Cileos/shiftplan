@@ -108,6 +108,21 @@ Feature: Navigation
        | Mitarbeiter               | false   |
        | Teams                     | true    |
 
+     # Click on the selected account in the account selector in menu when beeing in the
+     # scope of an organization.
+     When I follow "Tepco GmbH" within the navigation
+     Then I should be on the page of the account "tepco"
+     Then I should see the following list of links within the navigation:
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | false   |
+       | Tepco GmbH - Tschernobyl  | false   |
+      And I should see the following items in the organization dropdown list:
+        | Tepco GmbH - Fukushima   |
+        | Tepco GmbH - Tschernobyl |
+
+
   # 1.) The user has an employee with role "owner" in the account "fukushima" and therefore can
   # see all organizations of this account.
   # 2.) The user is also a normal employee in another account "Cileos UG" with a membership for
@@ -189,6 +204,23 @@ Feature: Navigation
        | Cileos UG              | true    |
        | Tepco GmbH             | false   |
        | Clockwork Programming  | true    |
+       | Neuigkeiten            | false   |
+       | Pläne                  | false   |
+       | Alle Pläne             | false   |
+       | Mitarbeiter            | false   |
+       | Teams                  | false   |
+      And I should see the following items in the account dropdown list:
+       | Tepco GmbH  |
+
+     # Click on the selected account in the account selector in menu when beeing in the
+     # scope of an organization.
+     When I follow "Cileos UG" within the navigation
+     Then I should be on the page of the account "cileos"
+      And I should see the following list of links within the navigation:
+       | link                   | active  |
+       | Cileos UG              | true    |
+       | Tepco GmbH             | false   |
+       | Clockwork Programming  | false   |
        | Neuigkeiten            | false   |
        | Pläne                  | false   |
        | Alle Pläne             | false   |
