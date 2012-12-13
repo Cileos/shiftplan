@@ -228,62 +228,6 @@ Feature: Navigation
       And I should see the following items in the account dropdown list:
        | Tepco GmbH  |
 
-  # Scenario: as a planner with one organization
-  #   Given I am signed in as the confirmed user
-
-  #    When I go to the page of the organization "fukushima"
-  #    Then I should see the following list of links within the navigation:
-  #      | link          | active |
-  #      | Fukushima     | true   |
-  #      | Neuigkeiten   | false  |
-  #      | Pläne         | false  |
-  #      | Alle Pläne    | false  |
-  #      | Mitarbeiter   | false  |
-  #      | Teams         | false  |
-
-  #    When I follow "Neuigkeiten"
-  #    Then I should see the following list of links within the navigation:
-  #      | link          | active |
-  #      | Fukushima     | true   |
-  #      | Neuigkeiten   | true   |
-  #      | Pläne         | false  |
-  #      | Alle Pläne    | false  |
-  #      | Mitarbeiter   | false  |
-  #      | Teams         | false  |
-
-  #    When I choose "Alle Pläne" from the drop down "Pläne"
-  #    Then I should see the following list of links within the navigation:
-  #      | link          | active |
-  #      | Fukushima     | true   |
-  #      | Neuigkeiten   | false  |
-  #      | Pläne         | true   |
-  #      | Alle Pläne    | false  |
-  #      | Mitarbeiter   | false  |
-  #      | Teams         | false  |
-
-  #    When I follow "Mitarbeiter"
-  #    Then I should see the following list of links within the navigation:
-  #      | link          | active |
-  #      | Fukushima     | true   |
-  #      | Neuigkeiten   | false  |
-  #      | Pläne         | false  |
-  #      | Alle Pläne    | false  |
-  #      | Mitarbeiter   | true   |
-  #      | Teams         | false  |
-
-  #    When I follow "Fukushima"
-  #    # The user "owner@burns.com" is now in the scope of account "tepco". So in
-  #    # the navigation we show the name of the user's employee in the tepco
-  #    # account which is "Owner Burns".
-  #    Then I should see the following list of links within the navigation:
-  #      | link           | active  |
-  #      | Fukushima      | true    |
-  #      | Neuigkeiten    | false   |
-  #      | Pläne          | false   |
-  #      | Alle Pläne     | false   |
-  #      | Mitarbeiter    | false   |
-  #      | Teams          | false   |
-
   # @fileupload
   # Scenario: avatar is only shown on page of organization, fallback to gravatar
   #   Given the user has joined another account with organization_name: "School", as: "Bart S"
