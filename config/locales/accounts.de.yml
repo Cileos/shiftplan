@@ -1,0 +1,17 @@
+de:
+  activerecord:
+    models:
+      account:
+        one: "Account"
+        other: "Accounts"
+  accounts:
+    show:
+      instructions: >
+        Hier sehen Sie alle Organisationen des Accounts, in denen Sie Mitglied sind.
+
+      planner_instructions: >
+        Hier sehen Sie alle Organisationen des Accounts.
+
+
+        Um eine weiter Organisation anzulegen, klicken Sie bitte rechts oben auf
+        _Hinzufügen_.

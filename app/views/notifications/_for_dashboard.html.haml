@@ -1,0 +1,18 @@
+.module.list.notifications
+  %header
+    %h2
+      = t('notifications.caption')
+      %span.count= notifications.count
+
+      -# TODO ticket #505710
+      %a.side-link{style: 'display: none'} See all
+  .content
+    - unless notifications.empty?
+      %ul
+        - notifications.recent(23).each do |notification|
+          %li{ data: { icon: i(:comment) }}
+            = avatar notification.acting_employee.user, notification.acting_employee, :thumb
+            = notification.introductory_text
+    - else
+      %p= t('notifications.no_notifications_present')
+

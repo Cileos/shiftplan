@@ -76,6 +76,8 @@ de:
       tiny: "%d.%m.%Y um %H:%M Uhr"
       long: "%A, %d. %B %Y, %H:%M Uhr"
       time: "%H:%M"
+      abbr_week_day: "%a"
+      short_month_and_year: "%b %Y"
 
     am: "vormittags"
     pm: "nachmittags"

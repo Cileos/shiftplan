@@ -1,0 +1,21 @@
+- title Organization.model_name.human count: 9001
+
+- if can? :manage, Organization.new(account: @account)
+  - masterhead_toolbar do
+    =link_to ti(:add), new_account_organization_path(@account),
+      class: 'button', data: { icon: i(:add) }, title: ta(:add_organization)
+
+.row.two-columns.inverted
+  .primary
+    #organizations
+      - organizations = current_user.organizations_for(@account)
+      - unless organizations.empty?
+        = render 'organizations/table', organizations: organizations
+      - else
+        %p= t(:'.no_organizations')
+
+  .secondary.instructions
+    - if can? :create, Organization.new(account: @account)
+      = tt '.planner_instructions'
+    - else
+      = tt '.instructions'

@@ -18,6 +18,9 @@ Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
 # see http://my.rails-royce.org/2012/01/14/reloading-models-in-rails-3-1-when-usign-spork-and-cache_classes-true/
 Spork.trap_method(Rails::Application, :eager_load!)
 
+require 'draper'
+Spork.trap_class_method(Draper::System, :load_app_local_decorators)
+
 require File.dirname(__FILE__) + "/environment"
 
 # preload all engines and railties we want
