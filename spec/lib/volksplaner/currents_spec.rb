@@ -84,11 +84,33 @@ describe Volksplaner::Currents do
         controller.stub(:params).and_return(params)
       end
 
+      context "with controller accounts and numeric id" do
+        let(:params) { {controller: 'accounts', id: 23} }
+        let(:user_accounts) { [account] }
+        it "should set current_account" do
+          possibilities = mock 'relation', find: account
+          user.should_receive(:accounts).and_return(possibilities)
+          controller.current_account.should == account
+        end
+      end
+
       context "with numeric account_id" do
         let(:params) { {account_id: 23} }
+        let(:user_accounts) { [account] }
         it "should set current_account" do
-          Account.should_receive(:find).with(23).and_return(account)
+          user.should_receive(:accounts).and_return(user_accounts)
+          user_accounts.should_receive(:find).with(23).and_return(account)
           controller.current_account.should == account
+        end
+      end
+
+      context "with controller organizations, numeric id and detected account" do
+        let(:params) { {controller: 'organizations', id: 77} }
+        it "should provide current_organization" do
+          controller.stub(:current_account).and_return(account)
+          possibilities = mock 'relation', find: organization
+          user.should_receive(:organizations_for).with(account).and_return(possibilities)
+          controller.current_organization.should == organization
         end
       end
 
@@ -152,7 +174,7 @@ describe Volksplaner::Currents do
         before(:each)            { membership.should be_persisted }
         before(:each)            { other_membership.should be_persisted }
 
-        it_should_behave_like 'ambiguous employee'
+        it_should_behave_like 'nonambiguous employee'
         it_should_behave_like 'ambiguous organization'
       end
 
@@ -164,7 +186,7 @@ describe Volksplaner::Currents do
         before(:each)            { membership.should be_persisted }
         before(:each)            { other_membership.should be_persisted }
 
-        it_should_behave_like 'ambiguous employee'
+        it_should_behave_like 'nonambiguous employee'
         it_should_behave_like 'ambiguous organization'
       end
 

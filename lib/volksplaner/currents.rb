@@ -23,13 +23,15 @@ module Volksplaner::Currents
   ######################################################################
 
   def find_current_account
-    possibilities = current_user.accounts
-    if params[:account_id]
-      possibilities.find(params[:account_id])
-    elsif params[:controller] == 'accounts' && params[:id]
-      possibilities.find(params[:id])
-    elsif possibilities.count == 1
-      possibilities.first
+    if user_signed_in?
+      possibilities = current_user.accounts
+      if params[:account_id]
+        possibilities.find(params[:account_id])
+      elsif params[:controller] == 'accounts' && params[:id]
+        possibilities.find(params[:id])
+      elsif possibilities.count == 1
+        possibilities.first
+      end
     end
   end
 
