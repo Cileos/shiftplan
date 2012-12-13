@@ -10,48 +10,6 @@ Feature: Dashboard
       And today is 2012-12-04 06:00
       And the situation of an atomic power plant tschernobyl
 
-  Scenario: Dashboard menu for owner with multiple accounts
-    Given a confirmed user "bart" exists
-      And an employee owner "owner bart" exists with first_name: "Bart", user: the confirmed user "bart", account: the account
-      And an account "akw gmbh" exists with name: "Akw GmbH"
-      And an organization "fukushima" exists with name: "Fukushima", account: the account "akw gmbh"
-      And an employee "bart" exists with first_name: "Bart", user: the confirmed user "bart", account: the account "akw gmbh"
-      And the employee "bart" is a member of the organization "fukushima"
-      And I am signed in as the user "bart"
-      And I go to the dashboard
-     Then I should see "Accounts" within the navigation
-      And I should see the following items in the account dropdown list:
-        | Akw GmbH  |
-        | Main      |
-
-     When I follow "Main"
-     Then I should be on the page of the account "main"
-      And I should see the following table of organizations:
-       | Name                  |
-       | AKW Tschernobyl GmbH  |
-     # bart is owner of account "main" so he can create new organizations
-     When I follow "Hinzufügen"
-     Then I should be on the new organization page for the account "main"
-     # TODO fix navigation links
-      And I fill in "Name" with "Another Organization"
-      And I press "Anlegen"
-     Then I should be on the page of the account "main"
-      And I should see the following table of organizations:
-       | Name                  |
-       | AKW Tschernobyl GmbH  |
-       | Another Organization  |
-
-     When I go to the dashboard page
-      And I follow "Akw GmbH"
-     Then I should be on the page of the account "akw gmbh"
-      And I should see the following table of organizations:
-       | Name       |
-       | Fukushima  |
-       # bart is not owner of account "akw gmbh" so he cannot create new organizations
-      But I should not see link "Hinzufügen"
-     When I follow "Fukushima" within the organizations table
-     Then I should be on the page for the organization "fukushima"
-
   Scenario: Lists recent notifications
     Given a notification exists with employee: the employee "Homer"
       And I am signed in as the user "homer"
