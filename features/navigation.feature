@@ -112,33 +112,121 @@ Feature: Navigation
        | Mitarbeiter               | false   |
        | Teams                     | true    |
 
-  # Scenario: an user beeing an employee for two accounts
-  #   Given the user has joined another account with organization_name: "Clockwork", as: "Charles Montgomery Burns"
+  # 1.) The user has an employee with role "owner" in the account "fukushima" and therefore can
+  # see all organizations of this account.
+  # 2.) The user is also a normal employee in another account "Cileos UG" with a membership for
+  # organization "Clockwork Programming" but has no membership for organization
+  # "Clockwork Marketing".
+  Scenario: a user beeing an employee for two accounts
+    Given an organization "tschernobyl" exists with name: "Tschernobyl", account: the account
+      And a account "cileos" exists with name: "Cileos UG"
+      And an organization "clockwork programming" exists with name: "Clockwork Programming", account: the account "cileos"
+      And an organization "clockwork marketing" exists with name: "Clockwork Marketing", account: the account "cileos"
+      And an employee "charles m. burns" exists with first_name: "Charles M.", last_name: "Burns", account: the account "cileos", user: the confirmed user
+      And a membership exists with organization: the organization "clockwork programming", employee: the employee "charles m. burns"
 
-  #    When I go to the dashboard page
-  #    # The user "owner@burns.com" is not in the scope of an account, yet, when
-  #    # going to the dashboard.  So instead of showing the name of one of his
-  #    # employees, we show the email address "owner@burns.com" in the
-  #    # navigation.
-  #    Then I should see the following list of links within the user navigation:
-  #      | link            | active |
-  #      | owner@burns.com | false  |
-  #      | Einstellungen   | false  |
-  #      | Ausloggen       | false  |
+     When I go to the dashboard page
+     # The user "owner@burns.com" is not in the scope of an account, yet, when
+     # going to the dashboard.  So instead of showing the name of one of his
+     # employees, we show the email address "owner@burns.com" in the
+     # navigation.
+     Then I should see the following list of links within the user navigation:
+       | link            | active |
+       | owner@burns.com | false  |
+       | Einstellungen   | false  |
+       | Ausloggen       | false  |
 
-  #    When I follow "Tepco GmbH - Fukushima"
-  #    Then I should see the following list of links within the user navigation:
-  #      | link                | active |
-  #      | Owner Burns         | false  |
-  #      | Einstellungen       | false  |
-  #      | Ausloggen           | false  |
-  #    Then I should see the following list of links within the navigation:
-  #      | link                   | active |
-  #      | Tepco GmbH - Fukushima | true   |
-  #      | Pläne                  | true   |
-  #      | Alle Pläne             | false  |
-  #      | Mitarbeiter            | false  |
-  #      | Teams                  | false  |
+      And I should see the following list of links within the navigation:
+       | link        | active  |
+       | Accounts    | false   |
+       | Cileos UG   | false   |
+       | Tepco GmbH  | false   |
+      And I should see the following items in the account dropdown list:
+       | Cileos UG   |
+       | Tepco GmbH  |
+
+     When I follow "Tepco GmbH" within the navigation
+      # within the scope of the account, we are now able to determine the current
+      # employee and therefore display the name of the employee rather than only the
+      # email address of the current user
+     Then I should see the following list of links within the user navigation:
+       | link                | active |
+       | Owner Burns         | false  |
+       | Einstellungen       | false  |
+       | Ausloggen           | false  |
+      And I should see the following list of links within the navigation:
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Cileos UG                 | false   |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | false   |
+       | Tepco GmbH - Tschernobyl  | false   |
+      And I should see the following items in the account dropdown list:
+       | Cileos UG   |
+      And I should see the following items in the organization dropdown list:
+       | Tepco GmbH - Fukushima   |
+       | Tepco GmbH - Tschernobyl |
+
+     When I follow "Tepco GmbH - Fukushima" within the navigation
+     Then I should see the following list of links within the navigation:
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Cileos UG                 | false   |
+       | Fukushima                 | true    |
+       | Tepco GmbH - Tschernobyl  | false   |
+       | Neuigkeiten               | false   |
+       | Pläne                     | false   |
+       | Alle Pläne                | false   |
+       | Mitarbeiter               | false   |
+       | Teams                     | false   |
+      And I should see the following items in the account dropdown list:
+       | Cileos UG   |
+      And I should see the following items in the organization dropdown list:
+       | Tepco GmbH - Tschernobyl |
+
+      # Now navigate to the other account and check that (normal) employee only sees
+      # organizations in the menu for which he has a membership.
+      #
+      # Within the scope of the account, we are now able to determine the current
+      # employee and therefore display the name of the employee rather than only the
+      # email address of the current user
+     When I follow "Cileos UG" within the navigation
+     Then I should see the following list of links within the user navigation:
+       | link                | active |
+       | Charles M. Burns    | false  |
+       | Einstellungen       | false  |
+       | Ausloggen           | false  |
+      # We can only access one organization in the cileos account. So no organization
+      # dropdown is shown in the menu in this case. We only show the one organization then.
+      # Also as there is only one organization we can immediately show all links (e.g. plans)
+      # in the menu for the organization, though we are not in the scope of the organization,
+      # yet.
+      And I should see the following list of links within the navigation:
+       | link                   | active  |
+       | Cileos UG              | true    |
+       | Tepco GmbH             | false   |
+       | Clockwork Programming  | false   |
+       | Neuigkeiten            | false   |
+       | Pläne                  | false   |
+       | Alle Pläne             | false   |
+       | Mitarbeiter            | false   |
+       | Teams                  | false   |
+      And I should see the following items in the account dropdown list:
+       | Tepco GmbH  |
+
+     When I follow "Clockwork Programming" within the navigation
+     Then I should see the following list of links within the navigation:
+       | link                   | active  |
+       | Cileos UG              | true    |
+       | Tepco GmbH             | false   |
+       | Clockwork Programming  | true    |
+       | Neuigkeiten            | false   |
+       | Pläne                  | false   |
+       | Alle Pläne             | false   |
+       | Mitarbeiter            | false   |
+       | Teams                  | false   |
+      And I should see the following items in the account dropdown list:
+       | Tepco GmbH  |
 
   # Scenario: as a planner with one organization
   #   Given I am signed in as the confirmed user
