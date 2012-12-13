@@ -1,7 +1,7 @@
 - defined?(current) or raise(ArgumentError, "must provide :current (organization)")
 - if current_account
   - if current_user.organizations_for(current_account).count > 1
-    %li.dropdown
+    %li{class: "dropdown #{dropdown_class(url_for(nested_resources_for(current)))}"}
       = link_to current.name, nested_resources_for(current), class: 'organization', data: { icon: i(:organization), toggle: 'dropdown' }
       %ul.organization-dropdown
         - (current_user.organizations_for(current_account) - [current]).each do |org|
