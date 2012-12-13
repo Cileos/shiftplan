@@ -52,27 +52,6 @@ Feature: Dashboard
      When I follow "Fukushima" within the organizations table
      Then I should be on the page for the organization "fukushima"
 
-  Scenario: Dashboard page with multiple organizations
-    Given an organization "fukushima" exists with name: "AKW Fukushima GmbH", account: the account
-      And the employee "Homer" is a member of the organization "fukushima"
-      And an account "private" exists with name: "Privat"
-      And an organization "home" exists with name: "Home Homer", account: account "private"
-      And an employee owner "homer at home" exists with user: confirmed user "homer", account: account "private"
-      # VV this had created double entries in dropdown
-      And the employee owner "homer at home" is a member of organization "home"
-      And I am signed in as the user "homer"
-
-     When I go to the dashboard
-     Then I should see "Organisationen" within the navigation
-     # currently ordered by creation date.
-      And I should see the following items in the organization dropdown list:
-        | Main - AKW Tschernobyl GmbH |
-        | Main - AKW Fukushima GmbH   |
-        | Privat - Home Homer         |
-
-     When I follow "AKW Fukushima GmbH"
-     Then I should be on the page for the organization "fukushima"
-
   Scenario: Lists recent notifications
     Given a notification exists with employee: the employee "Homer"
       And I am signed in as the user "homer"
