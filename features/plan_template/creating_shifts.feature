@@ -1,6 +1,6 @@
-Feature: Edit Weekbased Plan Template
+Feature: Creating shifts for plan templates
   As I planner
-  I want to edit a weekbased plan template
+  I want to create shifts for my plan template
   In order to be able to define demands which exist for a typical work week in my organization
 
   Background:
@@ -26,7 +26,7 @@ Feature: Edit Weekbased Plan Template
         | Druckwasserreaktor(D) |     |     |     |     |     |     |     |
 
   @javascript
-  Scenario: Adding shifts to a plan template
+  Scenario: Creating shifts for a plan template
     Given a plan template exists with name: "Typische Woche", template_type: "weekbased", organization: the organization
       And the following qualifications exist:
         | qualification      | name               | organization      |
