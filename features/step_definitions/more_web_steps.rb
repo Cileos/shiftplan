@@ -128,3 +128,14 @@ end
 When /^(?:|I )fill in the (\d+)(?:st|nd|rd|th) "([^"]*)" with "([^"]*)"$/ do |num, name, value|
   all(:xpath, ".//input[@id=//label[contains(.,'#{name}')]/@for]")[num.to_i-1].set(value)
 end
+
+# Just checks if the current URL starts with the provided one, ignoring sub-URL parts
+#  Then I should be under the page of the plan
+Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
+  expected = path_to(page_name)
+  begin
+    wait_until { URI.parse(current_url).path.starts_with? expected }
+  rescue Capybara::TimeoutError => e
+    URI.parse(current_url).path.should starts_with(expected)
+  end
+end

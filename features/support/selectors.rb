@@ -23,11 +23,17 @@ module HtmlSelectorsHelpers
       employee = Employee.find_by_first_name_and_last_name($1.split[0], $1.split[1])
       "table#employees tr#employee_#{employee.id}"
 
-    when /^the employees table$/
-      "table#employees"
+    when /^the ([a-zA-Z ]+) table$/
+      "table##{$1.gsub(' ', '-')}"
 
     when 'the navigation'
       'nav[role=navigation]'
+
+    when /^the (\w+) module$/
+      ".dashboard .module.#{$1}"
+
+    when /the (account|organization) dropdown list/
+      selector_for('the navigation') + " ul.#{$1}-dropdown"
 
     when 'the user navigation'
       '.user-navigation'

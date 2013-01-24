@@ -3,7 +3,15 @@
 {{#if due_at}}
 <span class="due_on">{{formatted_due_on}}</span>
 {{/if}}
+{{#if responsible}}
+<span class="employee_name">{{responsible.name}}</span>
+{{/if}}
+{{#if description}}
+<span class="description">{{description}}</span>
+{{/if}}
 {{#if tasksEnabled}}
   {{view Clockwork.TaskListView contentBinding="savedAndSortedTasks"}}
-  <a {{action newTask this href=true}} data-icon="&#xf067;">neue Aufgabe</a>
+  {{#if can_manage}}
+  <a {{action newTask this href=true}} data-icon="&#xf067;" class="button button-small">neue Aufgabe</a>
+  {{/if}}
 {{/if}}

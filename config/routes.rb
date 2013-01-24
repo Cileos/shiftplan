@@ -5,7 +5,7 @@ Clockwork::Application.routes.draw do
   get 'email_change/accept'  => 'email_change#accept',        :as => :accept_email_change
   put 'email_change/confirm' => 'email_change#confirm',       :as => :confirm_email_change
 
-  resources :accounts do
+  resources :accounts, only: [:show] do
     resources :organizations do
       member do
         post 'add_members'
@@ -32,6 +32,9 @@ Clockwork::Application.routes.draw do
         resources :milestones
         # TODO nest tasks under milestones, EmberData cannot do this 2012-09-11
         resources :tasks
+
+        # TODO force ember to fetch employees from organization, not from plan
+        resources :employees
       end # plans
 
       resources :employees do

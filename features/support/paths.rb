@@ -96,6 +96,10 @@ module NavigationHelpers
         raise ArgumentError, "only paths scoped to organizations defined so far. please add more paths in #{__FILE__}:#{__LINE__}"
       end
 
+    when /^the new organization page for #{capture_model}$/
+      account = model!($1)
+      new_account_organization_path(account)
+
     when /^the adopt employees page for #{capture_model}$/
       org = model!($1)
       adopt_account_organization_employees_path(org.account, org)

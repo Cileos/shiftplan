@@ -3,6 +3,12 @@ jQuery(document).ready ->
   $.fn.refreshHtml = (content) ->
     $(this).html(content).trigger('update')
 
+  $.fn.scrollTo = ->
+    h = $(window).height() / 3
+    console.log h
+    $('html, body').animate({
+        scrollTop: $(this).offset().top - h
+    },200)
 
   $('table#calendar').each ->
     $calendar = $(this)

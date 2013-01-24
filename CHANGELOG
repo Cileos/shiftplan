@@ -1,6 +1,23 @@
 Changelog
 =========
 
+Release 0.2.4 2012-12-13 19:40
+------------------------------
+* 670bec9 Merge pull request #110 from Cileos/feature/improve-dashboard
+
+Release 0.2.3 2012-12-11 15:15
+------------------------------
+* 55fa50f Merge branch 'feature/owners-and-planners-can-not-change-own-role' into develop
+
+Release 0.2.2 2012-12-09 14:35
+------------------------------
+* 86854b5 Merge pull request #112 from Cileos/feature/fix_email_validation
+* 42dcabc Merge branch 'feature/todo-lists-on-plans' into develop
+* c2d9eac Merge pull request #103 from Cileos/feature/normal-user-can-not-edit-himself-on-employees-page
+* c174a1b Merge pull request #113 from Cileos/feature/reply-to-for-feedback-mail
+* 759baec Merge branch 'develop' into feature/normal-user-can-not-edit-himself-on-employees-page
+
+
 Release 0.2.1 2012-11-30 17:14
 ------------------------------
 * 50c22ab Merge branch 'feature/fix-duplicate-emails-within-account-without-db' into develop

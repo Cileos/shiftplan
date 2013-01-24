@@ -3,7 +3,7 @@ class OrganizationsController < InheritedResources::Base
   load_and_authorize_resource
 
   def create
-    create! { dashboard_path }
+    create! { account_path(current_account) }
   end
 
   def add_members

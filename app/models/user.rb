@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   attr_accessor :first_name, :last_name, :organization_name, :account_name, :on_signup, :confirming_email_change
 
   validates_presence_of :first_name, :last_name, :organization_name, :account_name, if: Proc.new { |u| u.on_signup }
+  validates :email, :email => true
 
   has_many :employees # but just one employee per account
   has_many :invitations
@@ -26,6 +27,11 @@ class User < ActiveRecord::Base
   has_many :memberships, :through => :employees
   # organizations the user joined (aka "has a membership in")
   has_many :joined_organizations, :through => :memberships, source: :organization
+
+  has_many :notifications, through: :employees
+  has_many :schedulings, through: :employees
+
+  has_many :posts_of_joined_organizations, source: :posts, through: :joined_organizations
 
   # unsure about the naming of this method.. rather call it organizations_for_account ?
   def organizations_for(account)
@@ -39,6 +45,11 @@ class User < ActiveRecord::Base
 
   def employee_for_account(account)
     employees.find_by_account_id!(account.id)
+  end
+
+  # A Planner or Owner does not need a membership
+  def organizations
+    (joined_organizations.all + employees.planners_and_owners.map(&:account).map(&:organizations)).flatten.uniq.sort_by(&:created_at)
   end
 
   def label
@@ -58,8 +69,8 @@ class User < ActiveRecord::Base
   end
 
   # Works at multiple organizations or accounts
-  def is_multiple?
-    joined_organizations.count > 1
+  def multiple?
+    organizations.count > 1
   end
 
   def confirming_email_change?
@@ -67,7 +78,7 @@ class User < ActiveRecord::Base
   end
 
   def name_or_email
-    if is_multiple?
+    if multiple?
       email
     else
       employees.first.name

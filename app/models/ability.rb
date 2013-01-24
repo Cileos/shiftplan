@@ -34,7 +34,7 @@ class Ability
     can :read, Account do |account|
       user.accounts.include?(account)
     end
-    can [:read, :update], Employee do |employee|
+    can [:update_self], Employee do |employee|
       user == employee.user
     end
     can [:read, :update], User do |u|
@@ -94,6 +94,13 @@ class Ability
     can [:destroy], Comment do |comment|
       comment.employee == employee
     end
+
+    can :read, Milestone do |milestone|
+      employee.organizations.include?  milestone.plan.organization
+    end
+    can :read, Task do |task|
+      employee.organizations.include?  task.milestone.plan.organization
+    end
   end
 
   # As a planner or an owner must not have a membership for an organization of
@@ -108,9 +115,21 @@ class Ability
     can [:read, :update], Organization do |organization|
       account == organization.account
     end
-    can :manage, Employee do |employee|
+    can [:adopt, :search], Employee
+    can [:read], Employee do |employee|
+      account == employee.account
+    end
+    can [:update, :create], Employee do |employee|
+      (!employee.owner? || employee == planner) &&
       (employee.account.nil? || account == employee.account) &&
+        # organization_id is a virtual attribute of employee and is used to create the
+        # membership for the current organization after create of the employee. So the
+        # following line makes sure that memberships for orgs of other account can not be
+        # created.
         (employee.organization_id.nil? || account.organizations.map(&:id).include?(employee.organization_id.to_i))
+    end
+    can :update_role, Employee do |employee|
+      account == employee.account && planner.id != employee.id
     end
     can :manage, Plan do |plan|
       account == plan.organization.account

@@ -3,9 +3,14 @@
 .button-group
   - if filter.has_previous?
     = link_to t('.previous'), filter.previous_path, class: 'button'
-  = link_to t('.today'), filter.today_path, class: 'button'
+  -# - else
+  -#  %span.button.disabled= t('.previous')
+  = link_to t('.today'), filter.today_path,         class: 'button'
   - if filter.has_next?
-    = link_to t('.next'), filter.next_path, class: 'button'
+    = link_to t('.next'), filter.next_path,         class: 'button'
+  -#- else
+  -#  %span.button.disabled= t('.next')
+
 - if can? :create, Scheduling
   .button-group
     - if filter.mode?('week')

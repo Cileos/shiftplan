@@ -1,4 +1,6 @@
 - title :new_organization
 = simple_form_for [resource.account, resource] do |f|
-  = f.input :name
-  = f.button :submit
+  .inputs
+    = f.input :name
+  .actions
+    = f.button :submit

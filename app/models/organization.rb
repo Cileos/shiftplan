@@ -7,6 +7,7 @@ class Organization < ActiveRecord::Base
   has_many   :qualifications, order: 'name ASC'
   has_many   :invitations
   has_many   :blogs
+  has_many   :posts,      through: :blogs
   has_many   :memberships
   has_many   :plan_templates
 
@@ -38,10 +39,18 @@ class Organization < ActiveRecord::Base
     scope.order_by_names
   end
 
+  def inspect
+    %Q~<#{self.class} #{id || 'new'} #{name.inspect} (account_id: #{account_id})>~
+  end
+
   after_create :setup
   def setup
     if blogs.empty?
       blogs.create! :title => 'Company Blog'
     end
+  end
+
+  def name_with_account
+    account.name + " - " + name
   end
 end
