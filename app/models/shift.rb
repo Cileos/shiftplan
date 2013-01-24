@@ -1,4 +1,8 @@
+require_dependency 'with_previous_changes_undone'
+
 class Shift < ActiveRecord::Base
+  include WithPreviousChangesUndone
+
   belongs_to :plan_template
   belongs_to :team
   has_many   :demands

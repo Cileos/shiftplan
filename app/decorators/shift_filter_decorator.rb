@@ -50,7 +50,8 @@ class ShiftFilterDecorator < ApplicationDecorator
   private
 
   def respond_for_update(resource)
-    # TODO: implement
+    update_cell_for(resource.with_previous_changes_undone)
+    respond_for_create(resource)
   end
 
   def respond_for_create(resource)

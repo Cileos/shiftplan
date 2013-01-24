@@ -1,3 +1,4 @@
-page.decorate @shift do |f|
-  f.insert_new_form(ta(:'new_shift'), :shift)
+page.decorate @shift do |shift|
+  shift.append_modal body: render('form', shift: shift, create_or_update: :create),
+    header: content_tag(:h3, ta(:'new_shift'))
 end

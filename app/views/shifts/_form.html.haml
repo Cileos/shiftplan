@@ -1,4 +1,4 @@
-= simple_nested_form_for shift, url: nested_resources_for(shift.plan_template) + [:shifts],
+= simple_nested_form_for shift, url: nested_resources_for(shift),
   remote: true, html: { class: 'form-horizontal' } do |f|
   .inputs
     = f.input :start_hour, collection: 0..23, :include_blank => false
@@ -15,4 +15,6 @@
   %p= f.link_to_add t('.add_demand'), :demands, class: 'button', data: { icon: i(:add) }
 
   .actions
-    = f.create_button data: { icon: i(:check) }
+    = f.responsive_submit_button do
+      %i.icon-ok-circle.icon-white
+      = ta create_or_update
