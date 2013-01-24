@@ -60,6 +60,6 @@ Feature: Edit Weekbased Plan Template
         | the shift  | 2         | qualification "Brennstabpolierer"  |
       # TODO: show more information of the shifts in the calendar cells
       And I should see the following calendar:
-        | Teams                  | Mo  | Di    | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     |     |       |     |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 9-17  |     |     |     |     |     |
+        | Teams                 | Mo | Di                         | Mi | Do | Fr | Sa | So |
+        | Brennstabkessel(B)    |    |                            |    |    |    |    |    |
+        | Druckwasserreaktor(D) |    | 9-17 2 x Brennstabpolierer |    |    |    |    |    |

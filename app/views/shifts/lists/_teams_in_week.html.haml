@@ -1,3 +1,9 @@
 %ul
   - shifts.each do |shift|
-    %li.shift= "#{shift.start_hour}-#{shift.end_hour}"
+    %li.shift{class: 'shift scheduling', data: shift.metadata}
+      = abbr_tag shift.hour_range_quickie, shift.hour_range_with_duration, class: 'work_time shift'
+      %ul.demands
+        - shift.demands.each do |demand|
+          %li.demand= demand.quantity_and_qualification
+
+      -# = render 'shift/gimmicks', shift: shift
