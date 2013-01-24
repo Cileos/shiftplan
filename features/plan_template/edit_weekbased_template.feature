@@ -47,19 +47,13 @@ Feature: Edit Weekbased Plan Template
       And I select "17" from "Endstunde"
       And I fill in "Anzahl" with "2"
       And I select "Brennstabpolierer" from "Qualifikation"
+
+      And I follow "Anforderung hinzufügen"
+      And I fill in the 2nd "Anzahl" with "3"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should be on the teams in week page for the plan template
-      # expected day of the shift is 1, monday would be 0 (in fact it is a day offset,
-      # maybe rename it later
-      And the following shifts should exist:
-        | plan_template      | start_hour  | end_hour  | team                       | day  |
-        | the plan template  | 9           | 17        | team "Druckwasserreaktor"  | 1    |
-      And the following demands should exist:
-        | shift      | quantity  | qualification                      |
-        | the shift  | 2         | qualification "Brennstabpolierer"  |
-      # TODO: show more information of the shifts in the calendar cells
       And I should see the following calendar:
-        | Teams                 | Mo | Di                         | Mi | Do | Fr | Sa | So |
-        | Brennstabkessel(B)    |    |                            |    |    |    |    |    |
-        | Druckwasserreaktor(D) |    | 9-17 2 x Brennstabpolierer |    |    |    |    |    |
+        | Teams                 | Mo | Di                             | Mi | Do | Fr | Sa | So |
+        | Brennstabkessel(B)    |    |                                |    |    |    |    |    |
+        | Druckwasserreaktor(D) |    | 9-17 2 x Brennstabpolierer 3 x |    |    |    |    |    |

@@ -125,3 +125,6 @@ Then /^the (.+) should( not)? be disabled$/ do |name, negate|
   end
 end
 
+When /^(?:|I )fill in the (\d+)(?:st|nd|rd|th) "([^"]*)" with "([^"]*)"$/ do |num, name, value|
+  all(:xpath, ".//input[@id=//label[contains(.,'#{name}')]/@for]")[num.to_i-1].set(value)
+end

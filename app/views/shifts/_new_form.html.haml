@@ -1,4 +1,4 @@
-= simple_form_for shift, url: nested_resources_for(shift.plan_template) + [:shifts],
+= simple_nested_form_for shift, url: nested_resources_for(shift.plan_template) + [:shifts],
   remote: true, html: { class: 'form-horizontal' } do |f|
   .inputs
     = f.input :start_hour, collection: 0..23, :include_blank => false
@@ -8,9 +8,11 @@
 
     %h4= ta(:demands)
 
-    = f.simple_fields_for :demands do |df|
+    = f.fields_for :demands do |df|
       = df.input :quantity
       = df.association :qualification, collection: shift.plan_template.organization.qualifications
+
+  %p= f.link_to_add t('.add_demand'), :demands, class: 'button', data: { icon: i(:add) }
 
   .actions
     = f.create_button data: { icon: i(:check) }

@@ -9,3 +9,6 @@ de:
       shift:
         one: "Schicht"
         other: "%{count} Schichten"
+  shifts:
+    new_form:
+      add_demand: "Anforderung hinzufügen"
