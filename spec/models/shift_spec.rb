@@ -10,8 +10,14 @@ describe Shift do
   it "must have a start hour" do
     build(:shift, start_hour: nil).should_not be_valid
   end
+  it "must have a start minute" do
+    build(:shift, start_minute: nil).should_not be_valid
+  end
   it "must have an end hour" do
     build(:shift, end_hour: nil).should_not be_valid
+  end
+  it "must have an end minute" do
+    build(:shift, end_minute: nil).should_not be_valid
   end
   it "must have a day" do
     build(:shift, day: nil).should_not be_valid
@@ -21,14 +27,6 @@ describe Shift do
     build(:shift, start_hour: 16, end_hour: 16).should_not be_valid
   end
 
-  # TODO: comment in again, when our scheduling support minutes, too
-  # it "must have a start minute" do
-  #   build(:shift, start_minute: nil).should_not be_valid
-  # end
-  # it "must have an end minute" do
-  #   build(:shift, end_minute: nil).should_not be_valid
-  # end
-
   it "must have a start hour >= 0 and an end hour < 24" do
     build(:shift, start_hour: -1, end_hour: 20).should_not be_valid
     build(:shift, start_hour: 20, end_hour: 24).should_not be_valid
@@ -36,13 +34,20 @@ describe Shift do
     build(:shift, start_hour: 22, end_hour: 23).should be_valid
   end
 
-  # TODO: comment in again, when our scheduling support minutes, too
-  # [:start_minute, :end_minute].each do |start_or_end_minute|
-  #   it "must have a #{start_or_end_minute} between 0 and 59" do
-  #     build(:shift, start_or_end_minute => -1).should_not be_valid
-  #     build(:shift, start_or_end_minute => 60).should_not be_valid
-  #     build(:shift, start_or_end_minute => 0).should be_valid
-  #     build(:shift, start_or_end_minute => 59).should be_valid
-  #   end
-  # end
+  [:start_minute, :end_minute].each do |start_or_end_minute|
+    it "must have a #{start_or_end_minute} of 0, 15, 30 or 45" do
+      [0,15,30,45].each do |valid_minute|
+        build(:shift, start_or_end_minute => valid_minute).should be_valid
+        build(:shift, start_or_end_minute => valid_minute).should be_valid
+        build(:shift, start_or_end_minute => valid_minute).should be_valid
+        build(:shift, start_or_end_minute => valid_minute).should be_valid
+      end
+      [1,16,31,46].each do |invalid_minute|
+        build(:shift, start_or_end_minute => invalid_minute).should_not be_valid
+        build(:shift, start_or_end_minute => invalid_minute).should_not be_valid
+        build(:shift, start_or_end_minute => invalid_minute).should_not be_valid
+        build(:shift, start_or_end_minute => invalid_minute).should_not be_valid
+      end
+    end
+  end
 end
