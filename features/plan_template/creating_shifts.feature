@@ -44,7 +44,9 @@ Feature: Creating shifts for plan templates
      Then the selected "Team" should be "Druckwasserreaktor"
       And the selected "Tag" should be "Di"
      When I select "9" from "Startstunde"
+      And I select "15" from "Startminute"
       And I select "17" from "Endstunde"
+      And I select "45" from "Endminute"
       And I fill in "Anzahl" with "2"
       And I select "Brennstabpolierer" from "Qualifikation"
 
@@ -54,6 +56,6 @@ Feature: Creating shifts for plan templates
       And I wait for the modal box to disappear
      Then I should be on the teams in week page for the plan template
       And I should see the following calendar:
-        | Teams                 | Mo | Di                             | Mi | Do | Fr | Sa | So |
-        | Brennstabkessel(B)    |    |                                |    |    |    |    |    |
-        | Druckwasserreaktor(D) |    | 9-17 2 x Brennstabpolierer 3 x |    |    |    |    |    |
+        | Teams                  | Mo  | Di                                     | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel(B)     |     |                                        |     |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 09:15-17:45 2 x Brennstabpolierer 3 x  |     |     |     |     |     |

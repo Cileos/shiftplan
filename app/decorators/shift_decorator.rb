@@ -14,19 +14,52 @@ class ShiftDecorator < RecordDecorator
     h.url_for([:edit, organization.account, organization, plan_template, shift])
   end
 
-  def hour_range_with_duration
-    hour_range_quickie + ' (' + length_in_hours.to_s + 'h)'
+  def period_with_duration
+    period + ' (' + duration + 'h)'
   end
 
-  def hour_range_quickie
-    "#{normalize(start_hour)}:00-#{normalize(end_hour)}:00"
+  def duration
+    "#{hours}:#{minutes}"
+  end
+
+  def period
+    "#{formatted_start_time}-#{formatted_end_time}"
+  end
+
+  def formatted_start_time
+    formatted_time(start_hour, start_minute)
+  end
+
+  def formatted_end_time
+    formatted_time(end_hour, end_minute)
+  end
+
+  def formatted_time(hour, minute)
+    "#{normalize(hour)}:#{normalize(minute)}"
   end
 
   def normalize(number)
+    number = 0 if number.nil?
     "%02d" % number
   end
 
-  def length_in_hours
-    end_hour - start_hour
+  def hours
+    @hours ||= normalize((length_in_minutes / 60).to_i)
+  end
+
+  def minutes
+    @minutes ||= normalize((length_in_minutes % 60).to_i)
+  end
+
+  def length_in_minutes
+    @length_in_minutes ||= (end_time - start_time) / 60
+  end
+
+  def start_time
+    @start_time ||= Time.parse(formatted_start_time)
+  end
+
+  def end_time
+    @end_time ||= Time.parse(formatted_end_time)
   end
 end

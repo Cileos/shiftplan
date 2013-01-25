@@ -9,7 +9,7 @@ class Shift < ActiveRecord::Base
 
   accepts_nested_attributes_for :demands, :reject_if => :all_blank
 
-  attr_accessible :start_hour, :end_hour, :day, :team_id, :demands_attributes
+  attr_accessible :start_hour, :end_hour, :start_minute, :end_minute, :day, :team_id, :demands_attributes
 
   # TODO: comment in again, when our scheduling support minutes, too
   validates :plan_template, :team, :day, :start_hour, :end_hour, :start_minute, :end_minute,

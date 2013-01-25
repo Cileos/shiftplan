@@ -3,12 +3,14 @@ de:
     errors:
       models:
         shift:
-          shift_period: "Die Startstunde der Schicht muss kleiner als die Endstunde sein."
+          shift_period: "Der Start der Schicht muss vor dem Ende liegen."
     attributes:
       shift:
         day: Tag
         start_hour: Startstunde
+        start_minute: Startminute
         end_hour: Endstunde
+        end_minute: Endminute
       shift/demands:
         quantity: Anzahl
         qualification: Qualifikation

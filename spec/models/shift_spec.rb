@@ -22,20 +22,24 @@ describe Shift do
   it "must have a day" do
     build(:shift, day: nil).should_not be_valid
   end
-  it "has a start hour smaller than the end hour" do
-    build(:shift, start_hour: 16, end_hour: 15).should_not be_valid
-    build(:shift, start_hour: 16, end_hour: 16).should_not be_valid
+
+  it "has a start time smaller than the end time" do
+    build(:shift, start_hour: 16, start_minute: 0,  end_hour: 15, end_minute: 0 ).should_not be_valid
+    build(:shift, start_hour: 16, start_minute: 15, end_hour: 16, end_minute: 0 ).should_not be_valid
+    build(:shift, start_hour: 16, start_minute: 15, end_hour: 16, end_minute: 15).should_not be_valid
+
+    build(:shift, start_hour: 16, start_minute: 0,  end_hour: 16, end_minute: 15).should be_valid
   end
 
-  it "must have a start hour >= 0 and an end hour < 24" do
+  it "has a start hour >= 0 and an end hour < 24" do
     build(:shift, start_hour: -1, end_hour: 20).should_not be_valid
     build(:shift, start_hour: 20, end_hour: 24).should_not be_valid
-    build(:shift, start_hour: 0,  end_hour: 1).should be_valid
+    build(:shift, start_hour: 0,  end_hour: 1 ).should be_valid
     build(:shift, start_hour: 22, end_hour: 23).should be_valid
   end
 
   [:start_minute, :end_minute].each do |start_or_end_minute|
-    it "must have a #{start_or_end_minute} of 0, 15, 30 or 45" do
+    it "has a #{start_or_end_minute} of 0, 15, 30 or 45" do
       [0,15,30,45].each do |valid_minute|
         build(:shift, start_or_end_minute => valid_minute).should be_valid
         build(:shift, start_or_end_minute => valid_minute).should be_valid
