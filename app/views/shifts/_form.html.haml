@@ -1,8 +1,10 @@
+- (shift.start_hour = 8; shift.end_hour = 16) if shift.new_record?
+
 = simple_nested_form_for shift, url: nested_resources_for(shift),
   remote: true, html: { class: 'form-horizontal' } do |f|
   .inputs
-    = f.input :start_hour, collection: 0..23, include_blank: false, selected: 8, input_html: { tabindex: 1 }
-    = f.input :end_hour,   collection: 0..23, include_blank: false, selected: 16, input_html: { tabindex: 2 }
+    = f.input :start_hour, collection: 0..23, include_blank: false, input_html: { tabindex: 1 }
+    = f.input :end_hour,   collection: 0..23, include_blank: false, input_html: { tabindex: 2 }
     = f.input :day,        collection: days_for_select, include_blank: false, input_html: { tabindex: 3 }
     = f.association :team, collection: shift.plan_template.organization.teams, include_blank: false, input_html: { tabindex: 4 }
 
