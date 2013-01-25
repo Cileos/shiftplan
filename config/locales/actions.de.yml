@@ -39,6 +39,8 @@ de:
       new_shift: Neue Schicht
       edit_shift: Schicht bearbeiten
       demands: Anforderungen
+      add_demand: "Anforderung hinzufügen"
+      remove_demand: "Anforderung löschen"
       new_plan_template: Neue Planvorlage
       new_organization: "eine weitere Organisation anlegen"
       next: Weiter
