@@ -19,7 +19,11 @@ class ShiftDecorator < RecordDecorator
   end
 
   def hour_range_quickie
-    "#{start_hour}-#{end_hour}"
+    "#{normalize(start_hour)}:00-#{normalize(end_hour)}:00"
+  end
+
+  def normalize(number)
+    "%02d" % number
   end
 
   def length_in_hours

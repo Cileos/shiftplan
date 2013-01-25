@@ -26,11 +26,11 @@ Feature: Editing shifts of plan templates
   Scenario: Editing shifts of a plan template
      When I go to the teams in week page for the plan template
      Then I should see the following calendar:
-        | Teams                  | Mo  | Di                                               | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     |     |                                                  |     |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 4-12 2 x Brennstabpolierer 4 x Brennstabexperte  |     |     |     |     |     |
+        | Teams                  | Mo  | Di                                                      | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel(B)     |     |                                                         |     |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 04:00-12:00 2 x Brennstabpolierer 4 x Brennstabexperte  |     |     |     |     |     |
 
-     When I click on the shift "4-12"
+      When I click on the shift "04:00-12:00"
       And I wait for the modal box to appear
       And I select "13" from "Endstunde"
       And I select "Brennstabkessel" from "Team"
@@ -39,6 +39,6 @@ Feature: Editing shifts of plan templates
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Teams                  | Mo  | Di                                               | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     |     | 4-13 1 x Brennstabpolierer 3 x Brennstabexperte  |     |     |     |     |     |
-        | Druckwasserreaktor(D)  |     |                                                  |     |     |     |     |     |
+        | Teams                  | Mo  | Di                                                      | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel(B)     |     | 04:00-13:00 1 x Brennstabpolierer 3 x Brennstabexperte  |     |     |     |     |     |
+        | Druckwasserreaktor(D)  |     |                                                         |     |     |     |     |     |
