@@ -5,8 +5,8 @@ FactoryGirl.define do
     plan_template
     start_hour 1
     end_hour 1
-    start_minute 1
-    end_minute 1
+    start_minute 0
+    end_minute 0
     day 1
     team
   end
