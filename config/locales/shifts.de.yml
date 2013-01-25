@@ -1,5 +1,9 @@
 de:
   activerecord:
+    errors:
+      models:
+        shift:
+          shift_period: "Die Startstunde der Schicht muss kleiner als die Endstunde sein."
     attributes:
       shift:
         day: Tag

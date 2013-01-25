@@ -16,6 +16,10 @@ describe Shift do
   it "must have a day" do
     build(:shift, day: nil).should_not be_valid
   end
+  it "has a start hour smaller than the end hour" do
+    build(:shift, start_hour: 16, end_hour: 15).should_not be_valid
+    build(:shift, start_hour: 16, end_hour: 16).should_not be_valid
+  end
 
   # TODO: comment in again, when our scheduling support minutes, too
   # it "must have a start minute" do
@@ -25,14 +29,13 @@ describe Shift do
   #   build(:shift, end_minute: nil).should_not be_valid
   # end
 
-  [:start_hour, :end_hour].each do |start_or_end_hour|
-    it "must have a #{start_or_end_hour} between 0 and 23" do
-      build(:shift, start_or_end_hour => -1).should_not be_valid
-      build(:shift, start_or_end_hour => 24).should_not be_valid
-      build(:shift, start_or_end_hour => 0).should be_valid
-      build(:shift, start_or_end_hour => 23).should be_valid
-    end
+  it "must have a start hour >= 0 and an end hour < 24" do
+    build(:shift, start_hour: -1, end_hour: 20).should_not be_valid
+    build(:shift, start_hour: 20, end_hour: 24).should_not be_valid
+    build(:shift, start_hour: 0,  end_hour: 1).should be_valid
+    build(:shift, start_hour: 22, end_hour: 23).should be_valid
   end
+
   # TODO: comment in again, when our scheduling support minutes, too
   # [:start_minute, :end_minute].each do |start_or_end_minute|
   #   it "must have a #{start_or_end_minute} between 0 and 59" do

@@ -15,6 +15,7 @@ class Shift < ActiveRecord::Base
   validates :plan_template, :team, :day, :start_hour, :end_hour, # :start_minute, :end_minute,
     presence: true
   validates :start_hour,   :end_hour,   :inclusion => { :in => 0..23 }
+  validates_with ShiftPeriodValidator
   # TODO: comment in again, when our scheduling support minutes, too
   # validates :start_minute, :end_minute, :inclusion => { :in => 0..59 }
 
