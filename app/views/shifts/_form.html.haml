@@ -1,20 +1,20 @@
 = simple_nested_form_for shift, url: nested_resources_for(shift),
   remote: true, html: { class: 'form-horizontal' } do |f|
   .inputs
-    = f.input :start_hour, collection: 0..23, :include_blank => false
-    = f.input :end_hour,   collection: 0..23, :include_blank => false
-    = f.input :day,        collection: days_for_select, :include_blank => false
-    = f.association :team, collection: shift.plan_template.organization.teams, include_blank: false
+    = f.input :start_hour, collection: 0..23, include_blank: false, selected: 8, input_html: { tabindex: 1 }
+    = f.input :end_hour,   collection: 0..23, include_blank: false, selected: 16, input_html: { tabindex: 2 }
+    = f.input :day,        collection: days_for_select, include_blank: false, input_html: { tabindex: 3 }
+    = f.association :team, collection: shift.plan_template.organization.teams, include_blank: false, input_html: { tabindex: 4 }
 
     %h4= ta(:demands)
 
-    = f.fields_for :demands do |df|
-      = df.input :quantity
-      = df.association :qualification, collection: shift.plan_template.organization.qualifications
+    = f.simple_fields_for :demands do |df|
+      = df.input :quantity, input_html: { tabindex: 5 }
+      = df.association :qualification, collection: shift.plan_template.organization.qualifications, input_html: { tabindex: 6 }
 
   %p= f.link_to_add t('.add_demand'), :demands, class: 'button', data: { icon: i(:add) }
 
   .actions
-    = f.responsive_submit_button do
+    = f.responsive_submit_button tabindex: 7 do
       %i.icon-ok-circle.icon-white
       = ta create_or_update
