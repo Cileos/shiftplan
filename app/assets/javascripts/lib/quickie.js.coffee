@@ -10,5 +10,7 @@ exp.quickie       = XRegExp.build '(?x)^ \\s* ({{hour_range}}) ? \\s* ({{team_na
 class Quickie
   @parse: (string) ->
     XRegExp.exec string, exp.quickie
+  toString: ->
+    "#{@start_hour}-#{@end_hour} #{@team_name}"
 
 window.Quickie = Quickie
