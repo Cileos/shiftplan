@@ -1,6 +1,6 @@
 class PlanTemplate < ActiveRecord::Base
   belongs_to :organization
-  has_many   :shifts
+  has_many   :shifts, dependent: :destroy
 
   TEMPLATE_TYPES = ['weekbased']
 

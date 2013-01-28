@@ -30,4 +30,14 @@ describe PlanTemplate do
       build(:plan_template, name: 'Brennstabpolierer').should be_valid
     end
   end
+
+  it "destroys all its shifts when destroyed" do
+    plan_template = create(:plan_template)
+    create(:shift, plan_template: plan_template)
+    create(:shift, plan_template: plan_template)
+
+    lambda {
+      plan_template.destroy
+    }.should change(Shift, :count).from(2).to(0)
+  end
 end
