@@ -1,47 +1,78 @@
-en:
+de:
   activerecord:
     models:
       team:
         one: "Team"
-        others: "%{count} teams"
+        other: "%{count} Teams"
     attributes:
       team:
         name: Name
-        shortcut: "Shortcut"
-
-        color: Colour
+        shortcut: Kürzel
+        color: Farbe
   activemodel:
     attributes:
       team_merge:
-        other_team_id: "Other team"
+        other_team_id: anderes Team
+        new_team_id: Neuer Teamname
   flash:
-    team_merge:
+    team_merges:
       create:
-        info: "Selected teams are merged."
+        notice: "Teams erfolgreich zusammengelegt."
 
+  team_merges:
+    new:
+      instructions: >
+        Wollen Sie wirklich Team "%{team_name}" und Team "%{other_team_name}" zusammenlegen?
+        Falls ja, wählen Sie bitte den Namen des neuen Teams aus und klicken auf Bestätigen.
+        Dieser Schritt ist unwiderrufbar. Alle Einträge der Teams werden dem neuen Team
+        zugeordnet.
   teams:
     index:
-      team_color: Colour
-      action: Action
+      no_teams: "No teams yet."
+      action: Aktion
       instructions: >
-
-        Use teams to divide workplaces, activities and tasks/assignments.
-
-
-        In order to create a team, whose name can be used in the plan for the creating of a scheduling.  
-
-        Example: @9-5 Test mail owls@
+        Hier sehen Sie alle Teams dieser Organisation.
 
 
-        Abbreviations are also used to make plan designing easier. They generate automatically from
-        the first letter of the team name or from the first mention of the team in the plan.
+        Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
+        oder Aufgaben unterschieden werden.
+      planner_instructions: >
+        Hier sehen Sie alle Teams dieser Organisation.
 
 
-        Example: @9-5 Test mail owls [A1]@
+        Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
+        oder Aufgaben unterschieden werden.
+
+
+        Um ein neues Team implizit anzulegen, kann dessen Name einfach beim Anlegen eines
+        Termines im Plan benutzt werden.
+
+        Beispiel: @9-17 Teller Abwaschen@
+
+        Sie können ein neues Team auch explizit anlegen, indem Sie auf den Hinzufügen
+        Button auf dieser Seite klicken.
+
+
+        Zusätzlich können _Kürzel_ verwendet werden, um das Ausfüllen der Pläne
+        einfacher zu gestalten. Diese werden automatisch aus den
+        Anfangsbuchstaben des Teamnamens erstellt, aber können auch bei der
+        ersten Erwähnung des Teams im Plan verwendet werden.
+
+        Beispiel: @9-17 Teller Abwaschen [TA]@
+
+
+        Sie können Teams zusammenlegen, indem Sie zwei Teams durch Aktivieren der
+        entsprechenden Checkboxen auswählen und dann auf Zusammenlegen klicken.
+        Nachdem Sie einen Namen für das neue Team gewählt haben, werden alle bereits
+        existierenden Termine der beiden Teams dem neuen Team zugeordnet. Dieser
+        Schritt ist unwiderrufbar.
+    table:
+      team_color: Farbe
     show:
       merge_motivation: >
-        "In case you create a team by mistake, don't worry - it can be merged later!""
+        Falls durch Tippfehler ein zweites Team angelegt wurde, kann es mit
+        diesem zusammengelegt werden.
 
   helpers:
     actions:
-      merge: "Merge"
+      merge: "Zusammenlegen"

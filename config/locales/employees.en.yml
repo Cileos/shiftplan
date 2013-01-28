@@ -51,7 +51,7 @@ de:
       not_invited_yet: Not yet invited
     index:
       employees: Employees
-      no_employees: "There aren't any employees in this Organisation."
+      no_employees: "There are no employees in this Organisation."
       adopt_employee: 'Borrow an employee from another Organisation.'
       add_employee: 'Add a new employee to this Organisation.'
       instructions: >
