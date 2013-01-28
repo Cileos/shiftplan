@@ -36,10 +36,13 @@ class ShiftFilterDecorator < ApplicationDecorator
 
   def respond(resource, action=:update)
     if resource.errors.empty?
-      if action == :update
+      case action
+      when :update
         respond_for_update(resource)
-      else
+      when :create
         respond_for_create(resource)
+      when :destroy
+        respond_for_destroy(resource)
       end
       remove_modal
     else
@@ -61,6 +64,10 @@ class ShiftFilterDecorator < ApplicationDecorator
     #   update_cell_for(resource.next_day)
     # end
     # focus_element_for(resource)
+  end
+
+  def respond_for_destroy(resource)
+    update_cell_for(resource)
   end
 
   def update_cell_for(shift)
