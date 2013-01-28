@@ -1,8 +1,8 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :demand do
-    quantity 1
-    qualification
+  factory :demands_shift, :class => 'DemandsShifts' do
+    demand
+    shift
   end
 end

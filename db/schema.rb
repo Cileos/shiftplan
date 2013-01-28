@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121206164452) do
+ActiveRecord::Schema.define(:version => 20130128150457) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(:version => 20121206164452) do
 
   add_index "demands", ["qualification_id"], :name => "index_demands_on_qualification_id"
   add_index "demands", ["shift_id"], :name => "index_demands_on_shift_id"
+
+  create_table "demands_shifts", :force => true do |t|
+    t.integer  "demand_id"
+    t.integer  "shift_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "demands_shifts", ["demand_id"], :name => "index_demands_shifts_on_demand_id"
+  add_index "demands_shifts", ["shift_id"], :name => "index_demands_shifts_on_shift_id"
 
   create_table "email_changes", :force => true do |t|
     t.integer  "user_id"

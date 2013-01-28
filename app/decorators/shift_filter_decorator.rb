@@ -58,12 +58,10 @@ class ShiftFilterDecorator < ApplicationDecorator
   end
 
   def respond_for_create(resource)
+    if resource.next_day
+      update_cell_for(resource.next_day)
+    end
     update_cell_for(resource)
-    # TODO: for over night shifts update the next cell
-    # if resource.next_day
-    #   update_cell_for(resource.next_day)
-    # end
-    # focus_element_for(resource)
   end
 
   def respond_for_destroy(resource)

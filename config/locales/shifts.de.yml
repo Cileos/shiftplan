@@ -3,7 +3,7 @@ de:
     errors:
       models:
         shift:
-          shift_period: "Der Start der Schicht muss vor dem Ende liegen."
+          start_time_must_be_different_from_end_time: "Der Start und das Ende der Schicht sind identisch."
     attributes:
       shift:
         day: Tag

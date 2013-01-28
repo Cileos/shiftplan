@@ -16,12 +16,16 @@ Feature: Deleting shifts of plan templates
         | Brennstabpolierer  | Brennstabpolierer  | the organization  |
         | Brennstabexperte   | Brennstabexperte   | the organization  |
       And the following shifts exists:
-        | shift               | plan_template     | start_hour | end_hour | team                      |
-        | Early morning shift | the plan template | 4          | 12       | team "Druckwasserreaktor" |
+        | plan_template     | start_hour | end_hour | team                      |
+        | the plan template | 4          | 12       | team "Druckwasserreaktor" |
       And the following demands exist:
-        | shift                       | quantity | qualification                     |
-        | shift "Early morning shift" | 2        | qualification "Brennstabpolierer" |
-        | shift "Early morning shift" | 4        | qualification "Brennstabexperte"  |
+        | demand             | quantity  | qualification                      |
+        | Brennstabpolierer  | 2         | qualification "Brennstabpolierer"  |
+        | Brennstabexperte   | 4         | qualification "Brennstabexperte"   |
+      And the following demands shifts exist:
+        | shift      | demand                          |
+        | the shift  | the demand "Brennstabpolierer"  |
+        | the shift  | the demand "Brennstabexperte"   |
      When I go to the teams in week page for the plan template
      Then I should see the following calendar:
         | Teams                  | Mo  | Di                                                      | Mi  | Do  | Fr  | Sa  | So  |
