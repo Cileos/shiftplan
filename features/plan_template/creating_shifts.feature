@@ -1,5 +1,5 @@
 Feature: Creating shifts for plan templates
-  As I planner
+  As a planner
   I want to create shifts for my plan template
   In order to be able to define demands which exist for a typical work week in my organization
 

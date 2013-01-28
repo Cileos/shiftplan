@@ -1,6 +1,6 @@
 @javascript
 Feature: Editing shifts of plan templates
-  As I planner
+  As a planner
   I want to edit the shifts of my plan templates
   In order to be able to change the demands which exist for a typical work week in my organization
 
