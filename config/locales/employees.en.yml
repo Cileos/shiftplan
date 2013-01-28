@@ -1,8 +1,12 @@
-en:
+de:
   activerecord:
+    errors:
+      models:
+        employee:
+          duplicates_found: "There's already someone with this name. Bad luck!"
     models:
       employee:
-        one: "employee"
+        one: "Employee"
     attributes:
       employee:
         first_name: Name
@@ -16,9 +20,25 @@ en:
       employee:
         first_name: "e.g. Tom" 
         last_name: "e.g. Riddle"
+        weekly_working_time: Weekly Working Time
+        email: E-Mail
+        avatar: Employee photo
+        organization: Organisation
+        role: Role
+        force_create_duplicate: "Create anyway?"
+  simple_form:
+    placeholders:
+      employee:
+        first_name: Name
+        last_name: Surname
   employees:
+    roles:
+      planner: Planner
+      owner: Owner
+      none: None
     table:
       action: Action
+      status: Status
     invitation_status:
       invited: "Invited on the %{invited_at}"
       active: Active
@@ -26,3 +46,109 @@ en:
     index:
       employees: Employees
       status: Status
+      invited: "Invited at %{invited_at}"
+      active: Active
+      not_invited_yet: Not yet invited
+    index:
+      employees: Employees
+      no_employees: "There aren't any employees in this Organisation."
+      adopt_employee: 'Borrow an employee from another Organisation.'
+      add_employee: 'Add a new employee to this Organisation.'
+      instructions: >
+        Here are all employees that are members of this Organisation.
+        
+
+        Employees are visible in all plans of this Organisation and can be organised there.
+      planner_instructions: >
+        Here are all employees that are members of this Organisation.
+
+
+        Die Mitarbeiter erscheinen in allen Plänen dieser Organisation und können dort
+        geplant werden.
+
+
+        Bearbeiten Sie einen existierenden Mitarbeiter, indem Sie auf den Namen des
+        Mitarbeiters in der Tabelle klicken.
+
+
+        Wenn Sie einem Mitarbeiter mehr Rechte geben wollen, dann wählen Sie bitte die
+        Rolle _Planer_ aus. Ein _Planer_ kann, anders als normale Mitarbeiter, auch
+        administrative Aufgaben wie z.B. das Verwalten von Mitarbeitern, Teams, Plänen
+        und Terminen übernehmen. Bitte beachten Sie, dass die Rolle des Accountinhabers
+        nicht geändert werden kann und dass Sie selbst Ihre Rolle nicht ändern können.
+
+
+        Wenn Sie wollen, das sich ein existierender Mitarbeiter auch bei Clockwork
+        einloggen können soll, dann müssen Sie diesen zunächst einladen. Dazu klicken
+        Sie bitte auf den Button _Einladen_ in der Zeile des Mitarbeiters und tragen
+        seine E-Mail Adresse ein. Der Mitarbeiter bekommt daraufhin eine Einladung per
+        E-Mail zugestellt. Er muss die Einladung dann akzeptieren, um sich zukünftig in
+        Clockwork einloggen zu können.
+        Alle Mitarbeiter, die sich mit Ihrer E-Mail Adresse in Clockwork einloggen
+        können, werden mit dem Status _Aktiv_ auf dieser Seite angezeigt.
+
+
+        Um einen Mitarbeiter für diese Organisation neu anzulegen, klicken Sie bitte oben
+        auf _Hinzufügen_.
+
+
+        Wenn Sie wissen, dass ein bestimmter Mitarbeiter bereits in anderen Organisationen
+        existiert, klicken Sie bitte oben auf _Übernehmen_. Dort haben Sie
+        dann die Möglichkeit Mitarbeiter, die bisher nur Mitglied in anderen Organisationen
+        sind, zu dieser Organisation hinzuzufügen.
+    new:
+      duplication_warning: "Achtung: Eventuell versuchen Sie gerade einen Mitarbeiter anzulegen, den es schon gibt. Weiter unten sehen Sie eine Liste von Mitarbeitern mit gleichem Namen, die Sie stattdessen zu dieser Organisation hinzufügen können, sofern diese nicht bereits Mitglied in dieser Organisation sind. Wenn Sie den Mitarbeiter trotzdem anlegen wollen, aktivieren Sie bitte die Checkbox \"Trotzdem anlegen\" und klicken erneut auf \"Speichern\"."
+      following_duplicates_found: "Folgende Mitarbeiter mit gleichem Namen existieren in diesem Account."
+      duplicates_are_all_members: "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
+      already_member: 'ist bereits Mitglied'
+      instructions: >
+        Hier können Sie Mitarbeiter für diese Organisation neu anlegen.
+
+
+        Nachdem ein Mitarbeiter angelegt wurde, erscheint dieser in allen Plänen dieser
+        Organisation und kann geplant werden.
+
+
+        Wenn Sie einem Mitarbeiter mehr Rechte geben wollen, dann wählen Sie bitte die
+        Rolle Planer aus. Ein Planer kann, anders als normale Mitarbeiter, auch
+        administrative Aufgaben wie z.B. das Verwalten von Mitarbeitern, Teams, Plänen und
+        Terminen übernehmen.
+
+
+        Falls ein Mitarbeiter mit identischem Vor- und Nachnamen bereits in diesem Account
+        existiert, bekommen Sie eine Warnung angezeigt. Dies soll verhindern, dass
+        Mitarbeiter in diesem Account versehentlich doppelt angelegt werden.
+
+
+        Wenn Sie wissen, dass ein bestimmter Mitarbeiter bereits in anderen Organisationen
+        existiert, können Sie stattdessen oben auf _Übernehmen_ klicken. Dort haben Sie
+        dann die Möglichkeit Mitarbeiter, die bisher nur Mitglied in anderen Organisationen
+        sind, zu dieser Organisation hinzuzufügen.
+    adopt:
+      no_adoptable_employees: "Zur Zeit gibt es keine Mitarbeiter aus anderen Organisationen, die noch nicht Mitglied in dieser Organisation sind."
+      instructions: >
+        Hier können Sie Mitarbeiter, die bisher nur Mitglied in anderen Organisationen
+        dieses Accounts sind, zu dieser Organisation hinzufügen.
+
+
+        Sobald die Mitarbeiter Mitglied sind, erscheinen sie in allen Plänen dieser
+        Organisation und können geplant werden.
+
+
+        Benutzen Sie die Suche um Mitarbeiter aus anderen Organisationen zu finden.
+        Sie können nach Vorname, Nachname, E-Mail Addresse und Organisation filtern.
+
+
+        Existiert der gesuchte Mitarbeiter noch nicht, klicken Sie bitte stattdessen oben
+        auf _Hinzufügen_, um den Mitarbeiter für diese Organisation neu anzulegen.
+      not_member_yet: 'Folgende Mitarbeiter sind noch nicht Mitglied in dieser Organisation:'
+    search:
+      hint: 'Suchen Sie nach Mitarbeitern aus anderen Organisationen:'
+      results: "%{count} Mitarbeiter gefunden."
+      clear: 'Suchfilter zurücksetzen'
+      placeholders:
+        first_name: 'Vorname eingeben'
+        last_name: 'Nachname eingeben'
+        email: 'E-Mail Adresse eingeben'
+        organization: 'Organisation auswählen'
+  none: keine
