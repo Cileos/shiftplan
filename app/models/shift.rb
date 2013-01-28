@@ -5,7 +5,7 @@ class Shift < ActiveRecord::Base
 
   belongs_to :plan_template
   belongs_to :team
-  has_many   :demands
+  has_many   :demands, dependent: :destroy
 
   accepts_nested_attributes_for :demands, reject_if: :all_blank, allow_destroy: true
 

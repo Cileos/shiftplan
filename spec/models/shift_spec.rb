@@ -54,4 +54,14 @@ describe Shift do
       end
     end
   end
+
+  it "destroys all its demands when destroyed" do
+    shift = create(:shift)
+    create(:demand, shift: shift)
+    create(:demand, shift: shift)
+
+    lambda {
+      shift.destroy
+    }.should change(Demand, :count).from(2).to(0)
+  end
 end
