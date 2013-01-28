@@ -27,7 +27,5 @@
  When I follow "Teams"
  Then I should be authorized to access the page
   And I should see link "Bearbeiten"
-
- When I follow "Kühlwasser tauschen"
- Then I should be authorized to access the page
-  And I should see link "Zusammenlegen"
+  And I should see link "Hinzufügen"
+  And I should see button "Zusammenlegen"

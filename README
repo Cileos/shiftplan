@@ -1,21 +1,12 @@
-== Welcome to Shiftplan
+== Welcome to Clockwork
 
 Use it. Enjoy it. Love it.
-
 
 == Developer Notes
 
 === Forms
 
-Because we use jQuery Mobile, all Forms will be submitted through AJAX but still expect HTML back. To Use Rails' ajaxified forms, you must
-* add remote: true to enable Rails' ajax form handling
-* add a html data-ajax attribute with value "false" to disable jQmobile
-
-Example:
-
-    = simple_form_for scheduling, url: plan_schedulings_path(scheduling.plan), remote: true, html: { 'data-ajax' => false } do |f|
-      = f.input :quicky
-
+See Volksplaner::FormButtons for buttons to use in you forms.
 
 === Cucumber stepfinder ===
 

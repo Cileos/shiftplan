@@ -1,0 +1,4 @@
+%ul#plans-list
+  %li= link_to :all_plans, base + [:plans]
+  - organization.plans.order(:name).each do |plan|
+    %li= link_to plan.name, base + [plan]

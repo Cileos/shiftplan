@@ -26,6 +26,10 @@ Spork.prefork do
       DatabaseCleaner.clean
     end
 
+    config.after(:each) do
+      Timecop.return # to not confuse the test suite benchmarker ("ran 9001 minutes")
+    end
+
     config.mock_with(:rspec)
 
     # reload Grammar manually, because the constant QuickieParser is created

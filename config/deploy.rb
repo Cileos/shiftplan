@@ -1,7 +1,13 @@
+set :stage_dir, File.dirname(__FILE__) + '/deploy/stages'
+set :default_state, 'staging'
+
+set :mett, '89.238.64.208'
+set :gruetz, '89.238.64.209'
+
+require 'capistrano/ext/multistage'
+
 # RVM bootstrap
 require 'rvm/capistrano'
-set :rvm_ruby_string, '1.9.3-p194@shiftplan'
-set :rvm_type, :user
 
 # bundler bootstrap
 require 'bundler/capistrano'
@@ -11,24 +17,13 @@ load 'deploy/assets'
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 set :deploy_via, :remote_cache
-set :user, "staging"
 set :use_sudo, false
 
-
-set :application, "shiftplan"
 set :repository,  "git@github.com:Cileos/shiftplan.git"
 set :local_repository, "."
-set :branch do
-  ENV['BRANCH'] || 'master'
-end
-set :deploy_to, "/home/staging/www/#{application}"
 set :git_enable_submodules, 1
 
 set :scm, :git
-
-role :web, "ci.shiftplan.de"
-role :app, "ci.shiftplan.de"
-role :db,  "ci.shiftplan.de", :primary => true
 
 namespace :deploy do
   task :start do ; end
@@ -37,22 +32,9 @@ namespace :deploy do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 
-  task :check, :roles => :app do
-    run "sleep 2; wget -q -O /dev/null http://staging.shiftplan.de/"
-  end
-
   desc "Migrate the Database"
   task :migrate, :roles => :db do
     run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:migrate"
-  end
-
-  desc "Seed the Database"
-  task :seed, :roles => :db do
-    if ENV['SEED'].nil?
-      STDERR.puts "set the environment variable SEED to anything to confirm this harmful operation"
-    else
-      run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:seed"
-    end
   end
 
   task :symlink_static_directories do
@@ -80,20 +62,4 @@ namespace :deploy do
     end
   end
 
-  task :notify do
-    run "cd #{current_release} && ruby script/capistrano-done"
-  end
-
-  after 'deploy:restart', 'deploy:notify'
-
 end
-
-namespace :setup do
-  task :all, :roles => :app do
-  end
-
-  task :packages, :roles => :app do
-    sudo "apt-get -y install git-core build-essential"
-  end
-end
-

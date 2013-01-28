@@ -38,6 +38,10 @@ module NavigationHelpers
         polymorphic_path [model.account, model, sub]
       end
 
+    when /^the plans page of #{capture_model}$/
+      organization = model!($1)
+      account_organization_plans_path(organization.account, organization)
+
     when /^the page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       params = parse_fields($2).symbolize_keys
       case model = model!($1)
@@ -79,6 +83,18 @@ module NavigationHelpers
     when /^the employees page for #{capture_model}$/
       org = model!($1)
       account_organization_employees_path(org.account, org)
+
+    when /^the new employee page for #{capture_model}$/
+      org = model!($1)
+      new_account_organization_employee_path(org.account, org)
+
+    when /^the new organization page for #{capture_model}$/
+      account = model!($1)
+      new_account_organization_path(account)
+
+    when /^the adopt employees page for #{capture_model}$/
+      org = model!($1)
+      adopt_account_organization_employees_path(org.account, org)
 
     when /^the email change confirmation page$/
       accept_email_change_path

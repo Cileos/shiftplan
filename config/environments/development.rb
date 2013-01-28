@@ -1,4 +1,4 @@
-Shiftplan::Application.configure do
+Clockwork::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -27,6 +27,9 @@ Shiftplan::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Show asset messages (gem quiet_assets)
+  # config.quiet_assets = false
 
   ###### comment the sendmail settings in, if you need to test mail deliveries locally #####
   #

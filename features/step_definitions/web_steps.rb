@@ -43,10 +43,12 @@ end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
+  wait_for_the_page_to_be_loaded
 end
 
 When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
+  wait_for_the_page_to_be_loaded
 end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|

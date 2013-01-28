@@ -1,6 +1,6 @@
 class PostNotificationMailer < ActionMailer::Base
   default charset: 'UTF-8'
-  default from: 'Shiftplan <no-reply@shiftplan.de>'
+  default from: "Clockwork <no-reply@#{Volksplaner.hostname}>"
 
   def new_notification(notification)
     @notification = notification

@@ -17,7 +17,7 @@ abbr {
 }
 
 a {
-  @include transition(color .5s ease);
+  @include transition(color .25s ease);
 
   color: $ci_blue;
   text-decoration: none;
@@ -30,6 +30,7 @@ a {
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   letter-spacing: -.05em;
+  line-height: 1.2;
 }
 
 h1.huge {
@@ -46,7 +47,6 @@ h1, h2 {
 
 h3 {
   font-size: $ci_big-font;
-  line-height: 1.90476em;
   padding: 0.9524em 0 0;
 }
 
@@ -62,6 +62,13 @@ small {
   font-size: $ci_font-size;
 }
 
+.side-link {
+  font-size: 12px;
+  float: right;
+  font-weight: normal;
+  letter-spacing: 0;
+}
+
 [role=banner] {
   background: $ci_blue;
   border-bottom: 1px solid darken($ci_blue, 7.5%);
@@ -71,7 +78,7 @@ small {
   @include z-index('103', 'fixed');
   top: 0;
   // white shadow to fade away scrolled content smoothly
-  @include box-shadow($ci_bg-color 0 1px 20px 10px);
+  // @include box-shadow($ci_bg-color 0 1px 20px 10px);
 
   h1 {
     float: left;
@@ -79,18 +86,15 @@ small {
   }
 
   .logo {
-    padding: 15px;
-
     a {
-      @include image-2x(image-url("clockwork-logo-32px.png"), 156px, 16px);
+      @include image-2x("clockwork-logo-32px.png", 156px, 16px);
       @include transition(all .15s $ci_easing);
 
       display: block;
-      width: 156px;
-      height: 16px;
-      background: image-url("clockwork-logo-16px.png");
+      width: 190px;
+      height: 49px;
+      background: image-url("clockwork-logo-16px.png") 50% 16px no-repeat;
       text-indent: -999em;
-      padding: 0;
 
       &:hover {
         @include transform(scale(1.05));
@@ -111,7 +115,6 @@ small {
     color: lighten($ci_blue, 50%);
     padding: $banner_link_padding_tb $banner_link_padding_lr;
     display: inline-block;
-
   }
 
   h1 a,
@@ -183,7 +186,8 @@ small {
 }
 
 [role=content] {
-  padding: $banner_top_padding $banner_link_padding_lr 40px;
+  padding: $banner_top_padding $banner_link_padding_lr 0px;
+  margin-bottom: 40px;
 
   .wrap.expanded & {
     padding-left:  20px;
@@ -231,20 +235,14 @@ small {
     color: $ci_blue;
     border-bottom: 2px solid $ci_blue;
     font-weight: bold;
-  
+
     &:hover {
       color: #fff;
     }
   }
 }
 
-.instructions {
-  padding: 20px;
-  background: lighten($ci_yellow, 40%);
-  color: darken($ci_yellow, 30%);
-}
-
-.masthead {
+.masterhead {
   @include clearfix;
 
   padding: 10px 0;
@@ -348,4 +346,70 @@ small {
   float: left;
   border: 1px solid $ci_anthracite;
   margin: 2px 5px 3px;
+}
+
+[data-toggle='collapsible'] {
+    @include background-image(linear-gradient(lighten($ci_sidebar_bg-color, 3%), $ci_sidebar_bg-color 30px));
+}
+
+[data-toggle='collapsible-heading'] {
+  @include transition(0.25s color ease);
+
+  position: relative;
+  margin: 0;
+  padding: 10px 0;
+  font-size: $ci_font-size;
+  font-weight: bold;
+  cursor: pointer;
+
+  &[data-icon]:before {
+    position: absolute;
+    top: 10px;
+    left: -1em;
+  }
+
+  &.collapsed[data-icon]:before {
+    left: -0.75em;
+  }
+
+  &:hover {
+    color: $ci_blue;
+  }
+}
+
+[data-toggle="collapsible-content"] {
+  margin-top: 0.5em;
+  padding-right: 10px;
+}
+
+.utility-button.toggle-sidebars {
+  @include border-radius(0);
+
+  position: absolute;
+  z-index: 1;
+  top: 48px;
+  display: block;
+  width: 190px;
+  padding: 6px 0 0;
+  text-align: center;
+  line-height: 1;
+  font-size: 16px;
+  border-bottom: 1px solid $ci_middarkgrey;
+
+  &.collapsed {
+    height: 100%;
+    width: 25px;
+    border-right: 1px solid $ci_middarkgrey;
+  }
+
+  &:before {
+    margin-right: 0;
+  }
+}
+
+.toggle-sidebars[data-toggle="sidebar"] {
+  left: 0;
+}
+.toggle-sidebars[data-toggle="contextual_help"] {
+  right: 0;
 }

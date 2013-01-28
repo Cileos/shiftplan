@@ -1,3 +1,23 @@
+.has-calendar[role="content"].two-columns.inverted {
+
+  .primary {
+    margin-left: -211px;
+    padding-left: 211px;
+    width: 100%;
+    position: relative;
+    z-index: -1;
+  }
+
+  .secondary {
+    margin-top: -20px;
+    padding: 22px 0 0 0;
+    margin-left: -$banner_link_padding_lr;
+    margin-right: 20px;
+    background: $ci_sidebar_bg-color;
+    width: 191px;
+  }
+}
+
 .calendar {
   abbr {
     border-bottom: none;
@@ -13,8 +33,6 @@
       @include box-shadow($ci_lightgrey 0 5px 10px 0);
 
       z-index: 101;
-      border-left: 1px solid $ci_darkgrey;
-      border-right: 1px solid $ci_darkgrey;
     }
   }
 
@@ -126,5 +144,16 @@
     &.comments {
       display: none;
     }
+
   }
+}
+
+.calendar-active-week {
+  // font-weight: bold;
+}
+
+.calendar-description {
+  color: $ci_darkgrey;
+  margin: 0.25em 0;
+  line-height: 1.15;
 }

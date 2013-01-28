@@ -1,0 +1,3 @@
+Ember
+ * use window.location as base for all requests => set store.adapter.namespace
+ * nested resources?

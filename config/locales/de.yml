@@ -13,11 +13,12 @@ de:
       long_without_day: "%B %Y"
       only_day: "%e"
       week: "KW %V"
+      week_with_year: "KW %V / %Y"
       week_with_first_day: "KW %V %d.%m.%Y"
       week_day: "%A"
       abbr_week_day: "%a"
-      week_day_with_yearless_date: "%A, %d.%m"
-      yearless_date: "%d.%m"
+      week_day_with_yearless_date: "%A, %d.%m."
+      yearless_date: "%d.%m."
 
     day_names:
       - Sonntag
@@ -75,6 +76,8 @@ de:
       tiny: "%d.%m.%Y um %H:%M Uhr"
       long: "%A, %d. %B %Y, %H:%M Uhr"
       time: "%H:%M"
+      abbr_week_day: "%a"
+      short_month_and_year: "%b %Y"
 
     am: "vormittags"
     pm: "nachmittags"
@@ -191,7 +194,7 @@ de:
 
     submit:
       create: '%{model} erstellen'
-      update: '%{model} aktualisieren'
+      update: '%{model} ändern'
       submit: '%{model} speichern'
 
   errors:
@@ -237,3 +240,5 @@ de:
 
       full_messages:
         format: "%{attribute} %{message}"
+
+  action: Aktion

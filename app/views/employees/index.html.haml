@@ -1,7 +1,22 @@
 - title :employees
 
 - if can? :create, Employee
-  - masthead_toolbar do
-    =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:employee], class: 'button', remote: true, data: { icon: i(:add) }
+  - masterhead_toolbar do
+    =link_to ti(:adopt), [:adopt] + nested_resources_for(current_organization) + [:employees],
+      class: 'button', data: { icon: i(:add) }, title: t('employees.index.adopt_employee')
+    =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:employee],
+      class: 'button', data: { icon: i(:add) }, title: t('employees.index.add_employee')
 
-= render 'table', employees: collection
+.row.two-columns.inverted
+  .primary
+    #employees
+      - unless collection.empty?
+        = render 'table', employees: collection
+      - else
+        %p= t(:'.no_employees')
+
+  .secondary.instructions
+    - if can? :create, Employee
+      = tt '.planner_instructions'
+    - else
+      = tt '.instructions'

@@ -6,6 +6,7 @@ guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAIL
   watch('config/environment.rb')
   watch(%r{^config/environments/.+\.rb$})
   watch(%r{^config/initializers/.+\.rb$})
+  watch(%r{^app/validators/.+\.rb$})
   watch('Gemfile.lock')
   watch('spec/spec_helper.rb')
   watch('test/test_helper.rb')
@@ -15,11 +16,7 @@ end unless ENV['NO_SPORK']
 
 group :test, :halt_on_fail => true do
 
-  guard 'rspec', :cli => '--drb --color --format documentation', :version => 2, :run_all => { :cli => "--color" }, :all_on_start => false do
-    watch(%r{^spec/.+_spec\.rb$})
-    watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
-    watch('spec/spec_helper.rb')  { "spec" }
-    watch(%r{^spec/factories/.+$}) { 'spec' }
+  guard 'rspec', :cli => '--drb --color --format nested', :version => 2, :run_all => false, :all_on_start => false do
     watch(%r{^factories/.+$})       { "spec" }
 
     # Rails example
@@ -46,7 +43,12 @@ group :test, :halt_on_fail => true do
   ENV['CUCUMBER_FORMAT'] = 'fuubar'
   ENV['CAPYBARA_CHROME'] = 'yes'
 #                                                         V --no-drb skip spork to run simplecov 
-  guard 'cucumber', :cli => "--drb --no-source --no-profile --strict --format pretty --format rerun --out rerun.txt --tags ~@wip", :run_all => { :cli => "--format fuubar --tags ~@wip" }, :all_on_start => false, :all_after_pass => false do
+  guard 'cucumber',
+    :cli => "--drb --no-source --no-profile --strict --format pretty --format rerun --out rerun.txt --tags ~@wip",
+    :keep_failed => false,
+    :run_all => { :cli => "--format fuubar --tags ~@wip" },
+    :all_on_start => false,
+    :all_after_pass => false do
     watch(%r{^features/.+\.feature$})
     watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0]  }
     #watch('app/decorators/scheduling_filter_decorator.rb') { 'features/plan/*.feature' }

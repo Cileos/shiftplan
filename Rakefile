@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Shiftplan::Application.load_tasks
+Clockwork::Application.load_tasks

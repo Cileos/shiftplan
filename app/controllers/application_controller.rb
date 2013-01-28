@@ -17,8 +17,24 @@ class ApplicationController < ActionController::Base
   check_authorization :unless => :devise_controller?
 
   include UrlHelper
+  include EmberRailsFlash::FlashInHeader
 
   protected
+
+  helper_method :nested_resources_for
+  # returns an array to be used in link_to and other helpers containing the full-defined nesting for the given resource
+  def nested_resources_for(resource)
+    case resource
+    when Comment
+      nested_resources_for(resource.commentable.blog) + [ resource.commentable, resource]
+    when Post
+      nested_resources_for(resource.blog) + [resource]
+    when Blog, Team, Plan
+      nested_resources_for(resource.organization) + [resource]
+    when Organization
+      [ resource.account, resource ]
+    end
+  end
 
   helper_method :year_for_cweek_at
   def year_for_cweek_at(date)
@@ -43,7 +59,7 @@ class ApplicationController < ActionController::Base
     # Maybe make dynamic again later.  E.g., if a user just has one account, we
     # might want to show him a "only one account" optimized dashboard.
     if user_signed_in?
-      if not current_user.is_multiple?
+      if not current_user.multiple?
         if first = current_user.joined_organizations.first
           [first.account, first]
         else # has one account, but no membership

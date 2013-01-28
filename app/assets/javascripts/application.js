@@ -1,4 +1,5 @@
 // Please include all needed application specific JS files manually
+//= require jquery.cookie
 //= require defaults
 //= require employees
 //= require plans
@@ -8,13 +9,17 @@
 //= require 'calendar/vertical_positioning'
 //= require_tree './editors'
 //= require mailcheck
-//= require help
-//= require legend
+//= require ./clockwork
+//= require collapsible
+//= require sidebars
+//= require lib/tooltips
 // always last!
 //= require lib/loaded_page
 
+//= require_self
 $(function(){
     $("#calendar").stickyTableHeaders({fixedOffset: 50});
+
     $("textarea").autosize();
 
     $("body").on("dialogopen", function() {
@@ -24,4 +29,8 @@ $(function(){
       elmTextarea.css('max-height', windowH + 'px');
       elmTextarea.autosize();
     });
+
+    if (!$.cookie('clockwork_keyboard-shortcuts')) {
+      $('#keyboard-shortcuts [data-toggle="collapsible-heading"]').click();
+    }
 });

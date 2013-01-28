@@ -1,14 +1,4 @@
 module HtmlSelectorsHelpers
-  Numerals = {
-    'first'  => ':first',
-    'second' => ':nth-of-type(2)',
-    'third'  => ':nth-of-type(3)',
-    'forth'  => ':nth-of-type(4)'
-  }
-
-  def capture_nth
-    /(#{Numerals.keys.join('|')})/
-  end
   # Maps a name to a selector. Used primarily by the
   #
   #   When /^(.+) within (.+)$/ do |step, scope|
@@ -33,11 +23,17 @@ module HtmlSelectorsHelpers
       employee = Employee.find_by_first_name_and_last_name($1.split[0], $1.split[1])
       "table#employees tr#employee_#{employee.id}"
 
-    when /^the employees table$/
-      "table#employees"
+    when /^the ([a-zA-Z ]+) table$/
+      "table##{$1.gsub(' ', '-')}"
 
     when 'the navigation'
       'nav[role=navigation]'
+
+    when /^the (\w+) module$/
+      ".dashboard .module.#{$1}"
+
+    when /the (account|organization) dropdown list/
+      selector_for('the navigation') + " ul.#{$1}-dropdown"
 
     when 'the user navigation'
       '.user-navigation'
@@ -49,7 +45,7 @@ module HtmlSelectorsHelpers
       'table#calendar'
 
     when "the calendar caption"
-      'header.calendar-caption h3'
+      'header h2.calendar-caption'
 
     when "the legend"
       '#legend'
@@ -59,6 +55,13 @@ module HtmlSelectorsHelpers
 
     when 'the modal box'
       'div#modalbox'
+
+    when /^the modal box (?:header|title)$/
+      '.ui-dialog .ui-dialog-title'
+
+   # the "done" milestone checkbox
+   when /^#{capture_quoted} (\w+) checkbox$/
+     %Q~input.#{$2}[name="#{$1}"]~
 
     when 'the completion list'
       'ul.ui-autocomplete'
@@ -72,11 +75,21 @@ module HtmlSelectorsHelpers
     when /^the #{capture_nth} active tab$/
       ".tabbable#{Numerals[$1]} .tab-pane.active"
 
-    when /^the comment link$/
-      'a.comments'
+    when /^the #{capture_nth} table row$/
+      "table tbody tr#{Numerals[$1]}"
+
+    # The following links are decorated with tipsy, which uses the @title attribute and moves it to @original-title
+    when /^the comments? link$/
+      %Q~a.comments[original-title]~ # check only for presence of o-t; it is pluralized, depending on number of comments
+
+    when /^the delete link$/
+      %Q~a[data-method="delete"][original-title="#{I18n.translate('helpers.actions.destroy')}"]~
 
     when /^the #{capture_nth} form$/
       "form#{Numerals[$1]}"
+
+    when /^the #{capture_nth} item/
+      "li#{Numerals[$1]}"
 
     when %r~^(?:the )?cell "([^"]+)"/"([^"]+)"$~
       column = column_index_for($1)
@@ -85,8 +98,10 @@ module HtmlSelectorsHelpers
 
     when 'a hint'
       '.hint'
+
     when 'the pagination'
       '.pagination'
+
     when 'the comments'
       'ul#comments'
 
@@ -103,6 +118,27 @@ module HtmlSelectorsHelpers
 
     when /^the #{capture_nth} (post)/
       ".#{$2}#{Numerals[$1]}"
+
+    when 'active week'
+      '.calendar-active-week'
+
+    when 'weeks first date'
+      '#calendar thead th:nth-child(2) .date-without-year'
+
+    when 'merge button'
+      'button#merge-button'
+
+    when 'adopt employee button'
+      'form#add-members button'
+
+    when 'the add members form'
+      'form#add-members'
+
+    when 'the search form'
+      'form#search'
+
+    when 'the duplication warning'
+      'div#duplication-warning'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

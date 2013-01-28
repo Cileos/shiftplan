@@ -1,6 +1,6 @@
 - title @post.title
 
-- masthead_toolbar do
+- masterhead_toolbar do
   %ul
     - if can? :edit, @post
       %li= link_to(:edit, [:edit] + nested_resources_for(@post), class: 'button', data: { icon: i(:edit_post)}, remote: true)

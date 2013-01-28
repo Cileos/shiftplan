@@ -42,6 +42,9 @@ de:
         answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
         answer_on_comment_for_commenter: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:"
   schedulings:
+    legend: Legende
+    information: Plan-Informationen
+    no_upcoming_schedulings_present: 'In der nächsten Zeit stehen keine Termine an.'
     plan_period:
       starts_at: "Beginnt: %{date}"
       ends_at: "Endet: %{date}"

@@ -5,7 +5,7 @@ Then /^I should (see|not see) (?:an? )?(?:flash )?(flash|info|alert|notice) "([^
   if see_or_not =~ /not/
     step %Q{I should #{see_or_not} "#{message}"}
   else
-    step %Q{I should #{see_or_not} "#{message}" within ".flash.alert.alert-#{severity}"}
+    step %Q{I should #{see_or_not} "#{message}" within ".flash.alert-#{severity}"}
   end
 end
 
@@ -23,9 +23,9 @@ end
 
 Then /^I should see a list of the following (.+):$/ do |plural, expected|
   selectors = expected.column_names.map(&:underscore).map {|s| ".#{s}" }
-  actual = find("ul.#{plural}").all('li').map do |li|
+  actual = first("ul.#{plural}").all('li').map do |li|
     selectors.map do |column|
-      li.find(column).try(:text).try(:strip)
+      li.first(column).try(:text).try(:strip).try(:lines).try(:first) || ''
     end
   end
   actual.unshift expected.column_names
@@ -44,6 +44,18 @@ Then /^I should see the following list of links:$/ do |expected|
   expected.diff! actual
 end
 
+Then /^I should see the following items in (.* list):$/ do |list_name, expected|
+  list = first( selector_for(list_name) )
+  actual = list.all('li').map do |li|
+    [ li.try(:text).try(:strip) || '' ]
+  end
+  expected.diff! actual
+end
+
+# %table#people
+#   %tr
+#     %td.name
+#     %td.age
 Then /^I should see the following table of (.+):$/ do |plural, expected|
   # table is a Cucumber::Ast::Table
   actual = find("table##{plural}").all('tr').map do |tr|
@@ -63,6 +75,27 @@ Then /^I should see the following table of (.+):$/ do |plural, expected|
   expected.diff! actual
 end
 
+# The difference between this step and the previous is: THIS one can handle multiple values per cell properly, for example
+# %table.overview
+#   %tr
+#     %td
+#       %span.name Nina
+#       .age 19
+#
+# Then I should see an overview table with the following rows
+#   | name | age |
+#   | Nina | 19  |
+Then /^I should see an? (\w+) table with the following rows:$/ do |name, expected|
+  selectors = expected.column_names.map {|s| ".#{s}" }
+  actual = find("table.#{name}").all('tr').map do |tr|
+    selectors.map do |column|
+      tr.find(column).try(:text).try(:strip)
+    end
+  end
+  actual.unshift expected.column_names
+  expected.diff! actual
+end
+
 Then /^the page should be titled "([^"]*)"$/ do |title|
   step %Q~I should see "#{title}" within "html head title"~
 end
@@ -77,11 +110,12 @@ Then /^I (should|should not) be authorized to access the page$/ do |or_not|
   end
 end
 
-Then /^I (should|should not) see link #{capture_quoted}$/ do |or_not, link|
+Then /^I (should|should not) see (link|button) #{capture_quoted}$/ do |or_not, link_or_button, text|
+  link_button_map = { 'link' => 'a', 'button' => 'button'}
   if or_not.include?('not')
-    page.should have_no_css('a', :text => link)
+    page.should have_no_css(link_button_map[link_or_button], :text => text)
   else
-    page.should have_css('a', :text => link)
+    page.should have_css(link_button_map[link_or_button], :text => text)
   end
 end
 
@@ -119,3 +153,8 @@ Then /^I should see a (tiny|thumb) (gravatar|default gravatar)$/ do |version, gr
     params.should == "d=mm&forcedefault=y&r=PG&s=#{size}"
   end
 end
+
+Then /^I should not see a field labeled #{capture_quoted}$/ do |label|
+  page.should have_no_xpath( XPath::HTML.field(label) )
+end
+

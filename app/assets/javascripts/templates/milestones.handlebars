@@ -1,0 +1,15 @@
+<ul class="milestones">
+  {{#each controller}}
+    {{view Clockwork.ShowMilestoneView}}
+  {{/each}}
+</ul>
+
+<ul class="actions">
+  {{#if can_manage}}
+  <li>
+    <a href="#" {{action newMilestone}} data-icon="&#xf067;" class="button">neuer Meilenstein</a>
+  </li>
+  {{/if}}
+</ul>
+
+{{outlet}}

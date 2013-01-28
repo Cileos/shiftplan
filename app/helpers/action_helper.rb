@@ -60,6 +60,10 @@ module ActionHelper
     signout:           '&#xf08b;',
     signin:            '&#xf090;',
     edit_post:         '&#xf044;',
+    expand:            '&#xf0da;',
+    collapse:          '&#xf0d7;',
+    left_caret:        '&#xf0d9;',
+    check:             '&#xf00c;'
 
   }
 
@@ -74,19 +78,5 @@ module ActionHelper
 
   def tabs_for(*a, &block)
     Bootstrap::Tabs.for(self, *a, &block)
-  end
-
-  # returns an array to be used in link_to and other helpers containing the full-defined nesting for the given resource
-  def nested_resources_for(resource)
-    case resource
-    when Comment
-      nested_resources_for(resource.commentable.blog) + [ resource.commentable, resource]
-    when Post
-      nested_resources_for(resource.blog) + [resource]
-    when Blog, Team, Plan
-      nested_resources_for(resource.organization) + [resource]
-    when Organization
-      [ resource.account, resource ]
-    end
   end
 end

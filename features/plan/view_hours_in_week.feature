@@ -53,6 +53,6 @@ Feature: View hours over weekdays in plan
         | week | cwday | quickie            |
         | 49   | 2     | 1-8 Reaktor putzen |
       And I am on the hours in week page of the plan for year: 2012, week: 49
-     When I follow "Kommentare" within the calendar
+     When I follow the comments link within the calendar
       And I comment "Excellently short!"
      Then I should see "1" within the comment link within the calendar

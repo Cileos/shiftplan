@@ -3,6 +3,7 @@
 //= require jquery.ui.datepicker
 //= require jquery-miniColors/jquery.miniColors
 //= require normalize.css/normalize
+//= require tipsy
 
 /*
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
@@ -37,12 +38,15 @@
 @import "application/toolbar";
 @import "application/blog";
 @import "application/comments";
+@import "application/contextual_help";
+@import "application/dashboard";
 
 /* import calendar specific styles */
 @import "calendar/common";
 @import "calendar/detail_level";
 @import "calendar/scheduling";
 @import "calendar/hours";
+@import "calendar/todo_list";
 
 
 // here comes the ugly part ...

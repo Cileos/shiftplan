@@ -2,8 +2,13 @@ class Plan < ActiveRecord::Base
   include Draper::ModelSupport
   belongs_to :organization
   has_many :schedulings
+  has_many :milestones
+
+  # just for ember, lacking nested URLs
+  has_many :tasks, through: :milestones
 
   validates_with PlanPeriodValidator
+  validates_with PlanPeriodSurroundsSchedulingsValidator
   validates_presence_of :name
 
   attr_accessible :name, :description, :duration, :starts_at, :ends_at

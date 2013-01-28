@@ -11,23 +11,24 @@ In order to keep my colleagues informed about important news
   Scenario: Creating a first blog post
     Given a confirmed user "heinz" exists with email: "heinz@example.com"
       And an employee "heinz" exists with first_name: "Heinz", last_name: "Müller", user: the confirmed user "heinz", account: the account
-      And a membership exists with organization: the organization, employee: the employee "heinz"
+      And the employee "heinz" is a member in the organization
       And a confirmed user "kurt" exists with email: "kurt@example.com"
       And an employee "kurt" exists with first_name: "Kurt", last_name: "Meyer", user: the confirmed user "kurt", account: the account
-      And a membership exists with organization: the organization, employee: the employee "kurt"
+      And the employee "kurt" is a member in the organization
       And a clear email queue
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization
 
      Then I should see "Es wurden noch keine Blogposts erstellt."
-     When I follow "Alle Neuigkeiten anzeigen"
+     When I follow "Neuigkeiten"
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
       And I fill in "Text" with "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I press "Speichern"
       And I wait for the modal box to disappear
-     Then I should see a flash info "Post erfolgreich angelegt."
+     Then I should see a flash notice "Post erfolgreich angelegt."
+      And a post should exist with title: "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
       And I should see "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben" within the posts list
@@ -62,10 +63,8 @@ In order to keep my colleagues informed about important news
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     Then I should see "Umweltminister zu Besuch"
-      And I should see "Bitte putzen"
-     When I follow "Mehr"
-      And I should be on the page of the post
+     When I follow "Umweltminister zu Besuch"
+     Then I should be on the page of the post
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
 
@@ -101,7 +100,7 @@ In order to keep my colleagues informed about important news
      When I fill in "Text" with "Bitte Kontrollräume aufräumen"
       And I press "Speichern"
       And I wait for the modal box to disappear
-     Then I should see a flash info "Post erfolgreich geändert."
+     Then I should see a flash notice "Post erfolgreich geändert."
       And I should see "Besuch des Umweltministers"
       And I should see "Bitte Kontrollräume aufräumen"
 
@@ -115,7 +114,7 @@ In order to keep my colleagues informed about important news
      When I press "Löschen"
      Then I should see "Wollen Sie den Blogpost 'Umweltminister zu Besuch' mit allen Kommentaren wirklich löschen?" in the alert box
      When I accept the popup
-     Then I should see a flash info "Post erfolgreich gelöscht."
+     Then I should see a flash notice "Post erfolgreich gelöscht."
       And I should see "Es wurden noch keine Blogposts erstellt."
 
   # TODO: Open the confirm dialog in our own modal box.
@@ -147,18 +146,16 @@ In order to keep my colleagues informed about important news
       And the employee "bart" is a member in the organization "fukushima"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
+     When I follow "Umweltminister zu Besuch"
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
       But I should not see "Löschen"
 
-  Scenario: User visits detail view of a post
+  Scenario: User edits a post
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     Then I should see "Umweltminister zu Besuch"
-      And I should see "Bitte putzen"
-     When I follow "Mehr"
+     When I follow "Umweltminister zu Besuch"
       And I should be on the page of the post
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
@@ -219,7 +216,7 @@ In order to keep my colleagues informed about important news
       And I am on the page for the organization "fukushima"
      Then I should see "1 Kommentar"
      # cannot click the comments-count link in cucumber in some browsers because of the :before magic with the data-icon
-     When I follow "Mehr"
+     When I follow "Umweltminister zu Besuch"
      Then I should be on the page of the post
      When I fill in "Kommentar" with "Ich werde einen Blumenstrauß mitbringen"
       And I press "Kommentieren"
@@ -257,7 +254,8 @@ In order to keep my colleagues informed about important news
       And a comment exists with commentable: the post, employee: the employee owner "mr. burns", body: "Ich backe einen Kuchen für den Umweltminister"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the post
-     When I follow "Löschen" and confirm
+     When I deactivate all confirm dialogs
+      And I follow the delete link
      Then I should not see "Ich backe einen Kuchen für den Umweltminister"
       And I should see "0 Kommentare"
       And I should see "Es wurden noch keine Kommentare erstellt"
@@ -266,8 +264,7 @@ In order to keep my colleagues informed about important news
   Scenario: Users can only delete their own comments on posts
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
+      And I am on the page for the post
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
      Then I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
@@ -278,8 +275,7 @@ In order to keep my colleagues informed about important news
       And an employee "bart" exists with first_name: "Bart", account: the account, user: the confirmed user "bart"
       And a membership exists with organization: the organization, employee: the employee "bart"
       And I am signed in as the confirmed user "bart"
-      And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
+     When I go to the page for the post
      Then I should see "Owner Burns schrieb am 24.05.2012 um 12:00 Uhr:" within the comments
       But I should not see a delete button
 
@@ -298,7 +294,7 @@ In order to keep my colleagues informed about important news
       | Post 9 | the blog | the employee owner "mr. burns" |
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     When I follow "Alle Neuigkeiten anzeigen"
+     When I follow "Neuigkeiten"
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Post 10"
@@ -345,7 +341,7 @@ In order to keep my colleagues informed about important news
       | Post 10 | the blog | the employee owner "mr. burns" |
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     When I follow "Alle Neuigkeiten anzeigen"
+     When I follow "Neuigkeiten"
      Then I should see "Post 10"
       And I should see "Post 9"
       And I should see "Post 8"
@@ -415,8 +411,6 @@ In order to keep my colleagues informed about important news
       And a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
       And I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
-     Then I should see a thumb gravatar within the first post
-     When I follow "Mehr"
+      And I am on the page for the post
      Then I should see a thumb gravatar within the first post
       And I should see the avatar "rails.png" within the comment

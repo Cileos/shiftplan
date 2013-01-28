@@ -6,6 +6,7 @@ $ci_header-size: 20px;
 $ci_line-height: 1.5;
 $ci_scale: 1.618; // Golden ratio
 $ci_small-font: floor(modular-scale($ci_font-size, -1, $ci_scale));
+$ci_large-font: floor($ci_font-size *1.3);
 $ci_big-font: floor(modular-scale($ci_font-size, 1, $ci_scale));
 $ci_bigger-font: floor(modular-scale($ci_font-size, 2, $ci_scale));
 $ci_biggest-font: floor(modular-scale($ci_font-size, 4, $ci_scale));
@@ -15,3 +16,11 @@ $ci_break-tablet-portrait: 768px;
 
 // CSS3 animation functions go here
 $ci_easing: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+
+.ci_font-size    { font-size: $ci_font-size; }
+.ci_header-size  { font-size: $ci_header-size; }
+.ci_small-font   { font-size: $ci_small-font; }
+.ci_large-font   { font-size: $ci_large-font; }
+.ci_big-font     { font-size: $ci_big-font; }
+.ci_bigger-font  { font-size: $ci_bigger-font; }
+.ci_biggest-font { font-size: $ci_biggest-font; }

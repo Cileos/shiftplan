@@ -9,3 +9,4 @@
     destroy: 
       info: "%{resource_name} deleted."     
       alert: "%{resource_name} couldn't be deleted."
+

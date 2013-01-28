@@ -18,7 +18,7 @@ Feature: As a logged in user
       And I fill in "Aktuelles Passwort" with "secret"
       And I press "Speichern"
      Then I should be on the email page of the confirmed user
-      And I should see a flash info "schauen Sie bitte in das Postfach Ihrer neuen E-Mail Adresse"
+      And I should see a flash notice "schauen Sie bitte in das Postfach Ihrer neuen E-Mail Adresse"
       And "marge@thesimpsons.com" should receive an email with subject "E-Mail Adresse ändern"
       And I sign out
 

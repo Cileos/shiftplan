@@ -87,10 +87,13 @@ When /^I confirm popup$/ do
   page.driver.browser.switch_to.alert.accept
 end
 
-When /^(?:|I )follow "([^"]*)" and confirm$/ do |link|
-  click_link(link)
-  step 'I confirm popup'
+# When I click on the delete link (or any other human selector for a link)
+When /^I follow (the .+ link)$/ do |target|
+  selector = selector_for(target)
+  page.should have_css(selector)
+  page.first(selector).click
 end
+
 
 Then /^the select field for "(.*?)" should have the following options:$/ do |label, table|
   select_field = find_field(label)
@@ -98,5 +101,37 @@ Then /^the select field for "(.*?)" should have the following options:$/ do |lab
   options.count.should == select_field.all('option').count
   table.raw.map(&:first).each do |option|
     select_field.has_css?('option', :text => option).should be_true
+  end
+end
+
+When /^I click on (the #{match_nth}\s?\w+\s?\w+)(?!within.*)$/ do |name|
+  selector = selector_for(name)
+  page.should have_css(selector)
+  page.first( selector ).click
+end
+
+When /^I check the checkbox$/ do
+  check page.first('input[type=checkbox]')['id']
+end
+
+Then /^the (.+) should( not)? be disabled$/ do |name, negate|
+  selector = selector_for(name)
+  elem = page.first(selector)
+  disabled = elem['disabled']
+  if negate
+    disabled.should be_in(["false", nil])
+  else
+    disabled.should be_in(%w(true disabled))
+  end
+end
+
+# Just checks if the current URL starts with the provided one, ignoring sub-URL parts
+#  Then I should be under the page of the plan
+Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
+  expected = path_to(page_name)
+  begin
+    wait_until { URI.parse(current_url).path.starts_with? expected }
+  rescue Capybara::TimeoutError => e
+    URI.parse(current_url).path.should starts_with(expected)
   end
 end

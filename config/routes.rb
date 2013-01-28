@@ -1,12 +1,16 @@
-Shiftplan::Application.routes.draw do
+Clockwork::Application.routes.draw do
 
   get 'invitation/accept'    => 'accept_invitations#accept',  :as => :accept_invitation
   put 'invitation/confirm'   => 'accept_invitations#confirm', :as => :confirm_invitation
   get 'email_change/accept'  => 'email_change#accept',        :as => :accept_email_change
   put 'email_change/confirm' => 'email_change#confirm',       :as => :confirm_email_change
 
-  resources :accounts do
+  resources :accounts, only: [:show] do
     resources :organizations do
+      member do
+        post 'add_members'
+      end
+
       resources :plans do
         resources :schedulings do
           resources :comments, only: [:index, :create, :destroy], controller: 'scheduling_comments'
@@ -24,19 +28,32 @@ Shiftplan::Application.routes.draw do
         end
 
         resource :copy_week, only: [:new, :create], controller: :copy_week
+
+        resources :milestones
+        # TODO nest tasks under milestones, EmberData cannot do this 2012-09-11
+        resources :tasks
+
+        # TODO force ember to fetch employees from organization, not from plan
+        resources :employees
+      end # plans
+
+      resources :employees do
+        collection do
+          get 'adopt'
+          get 'search'
+        end
       end
-      resources :employees
-      resources :teams do
-        resource :merge, only: [:new, :create], :controller => 'team_merge'
-      end
+      resources :teams
+      resources :team_merges, only: [:new, :create], :controller => 'team_merges'
       resources :invitations
       resources :blogs do
         resources :posts do
           resources :comments, only: [:create, :destroy], controller: 'post_comments'
         end
       end
-    end
-  end
+
+    end # organizations
+  end # accounts
 
   resource :user, only: :show, controller: 'user'
   get 'user/email'  => 'user_email#show', :as => :user_email

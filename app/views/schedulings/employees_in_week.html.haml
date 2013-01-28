@@ -26,7 +26,6 @@
         - filter.days.each do |day|
           = filter.render_cell_for_day day, employee
 
-#legend
-  = filter.legend
-
-= render 'plans/details', plan: filter.plan
+- sidebar do
+  = collapsible(t('schedulings.legend'), id: 'legend-toggle', class: 'calendar-legend') do
+    #legend= filter.legend

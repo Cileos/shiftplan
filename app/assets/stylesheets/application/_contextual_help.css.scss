@@ -1,0 +1,61 @@
+.secondary,
+.tertiary {
+  > div {
+    color: $ci_anthracite;
+    padding: 0 0px 1em 15px;
+    border-bottom: 1px solid $ci_midgray;
+
+    // &:not(:first-child) {
+    border-top: 1px solid white;
+    // }
+
+    &.collapsed {
+      padding-bottom: 0;
+    }
+  }
+  @include clearfix;
+}
+
+.keyboard-shortcuts,
+.calendar-legend {
+  dl {
+    margin: 0;
+  }
+}
+
+.keyboard-shortcuts .help {
+  @include box-shadow(none);
+  background: none;
+}
+
+.instructions, .help {
+  @include box-shadow(0 1px 0 $ci_shadow);
+  @include border-radius(5px);
+
+  padding: 10px 15px;
+  background: tint($ci_blue, 90%);
+  color: darken($ci_blue, 30%);
+}
+
+.keyboard-shortcuts {
+  line-height: 1;
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd:not(:last-child) {
+    margin: 0 0 10px 10px;
+  }
+}
+
+.calendar-legend {
+  di {
+    display: block;
+  }
+
+  dt, .pibble {
+    float: left;
+    margin-right: 1em;
+  }
+}

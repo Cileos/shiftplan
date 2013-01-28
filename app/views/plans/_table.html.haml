@@ -5,6 +5,8 @@
       %th= t('activerecord.attributes.plan.description')
       %th= t('activerecord.attributes.plan.starts_at')
       %th= t('activerecord.attributes.plan.ends_at')
+      - if can?(:manage, Plan)
+        %th= t('.action')
 
   %tbody
     - plans.each do |plan|
@@ -13,3 +15,6 @@
         %td= truncate(plan.description, length: 60)
         %td= plan.starts_at.present? ? I18n.localize(plan.starts_at.to_date, format: :default) : '-'
         %td= plan.ends_at.present? ? I18n.localize(plan.ends_at.to_date, format: :default) : '-'
+        - if can?(:manage, plan)
+          %td= link_to(:edit, [:edit] + nested_resources_for(plan), remote: true,
+            class: 'button button-small', title: ta(:edit)) + ' ' + destroy_link_for_plan(plan)

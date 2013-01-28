@@ -1,7 +1,10 @@
 - title :settings
+
 .row.two-columns
+
   %nav.secondary
     = render 'user/settings_menu'
+
   .primary.content-form.user-edit-form
     %h3= ta :profile
 
@@ -19,7 +22,7 @@
         = f.input :last_name
 
       .actions
-        %button= ti(:update)
+        = f.update_button
 
-    - if current_user.is_multiple?
+    - if current_user.multiple?
       = link_to :back, profile_employees_path

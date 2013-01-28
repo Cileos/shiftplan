@@ -8,6 +8,7 @@ Feature: Authorization
 
   Background:
     Given the situation of a just registered user
+      And I sign out
       And a plan exists with name: "Brennstäbe wechseln", organization: the organization
       And a team "kühlwasser wechseln" exists with name: "Kühlwasser wechseln", organization: the organization
       And another team "kühlwasser tauschen" exists with name: "Kühlwasser tauschen", organization: the organization
@@ -62,18 +63,19 @@ Feature: Authorization
 
      When I follow "Mitarbeiter"
      Then I should be authorized to access the page
-      And I should see link "Simpson, Homer"
       And I should see "Simpson, Bart"
-      But I should not see link "Simpson, Bart"
-      But I should not see link "Hinzufügen"
+      But I should not see link "Simpson, Homer"
+      And I should not see link "Simpson, Bart"
+      And I should not see link "Hinzufügen"
       And I should not see link "Einladen"
       But I should see "Noch nicht eingeladen"
 
      When I follow "Teams"
      Then I should be authorized to access the page
       And I should see "Kühlwasser tauschen"
-      But I should not see link "Kühlwasser tauschen"
       And I should not see link "Bearbeiten"
+      And I should not see link "Hinzufügen"
+      And I should not see button "Zusammenlegen"
 
   Scenario: planner
     Given a confirmed user "planner" exists

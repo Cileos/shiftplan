@@ -1,28 +1,24 @@
 - title :teams
 
-- if can? :create, Team
-  - masthead_toolbar do
-    =link_to ti(:add), '#', class: 'button', remote: true, data: { icon: i(:add) }
-
+- masterhead_toolbar do
+  - if can? :manage, TeamMerge
+    %button{ :id => 'merge-button',
+      'data-url' => new_account_organization_team_merge_path(current_account, current_organization) }
+      = ti(:merge)
+  - if can? :create, Team
+    = link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:team],
+      class: 'button', remote: true, data: { icon: i(:add) }
 
 .row.two-columns.inverted
   .primary
-    %table#teams
-      %thead
-        %tr.employee
-          %th= Team.human_attribute_name(:name)
-          %th= Team.human_attribute_name(:shortcut)
-          %th= t('.team_color')
-          %th= t('.action')
+    #teams
+      - unless collection.empty?
+        = render 'table', teams: collection
+      - else
+        %p= t(:'.no_teams')
 
-      %tbody
-        - collection.each do |team|
-          %tr
-            %td= can?(:edit, team) ? link_to(team.name, account_organization_team_path(current_account, current_organization, team)) : team.name
-            %td= team.shortcut
-            %td= render 'pibble', team: team
-            %td
-              - if can? :edit, team
-                = link_to :edit, [:edit] + nested_resources_for(team), class: 'button button-small'
   .secondary.instructions
-    = tt '.instructions'
+    - if can? :create, Employee
+      = tt '.planner_instructions'
+    - else
+      = tt '.instructions'

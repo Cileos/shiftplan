@@ -34,7 +34,7 @@ class ApplicationDecorator < Draper::Base
   # OPTIMIZE trigger is not chainable
   def remove(*a)
     # event is namespaced to not accidently trigger closing the dialog box
-    select(*a).trigger('shiftplan.remove')
+    select(*a).trigger('clockwork.remove')
     select(*a).remove()
   end
 

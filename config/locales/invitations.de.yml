@@ -3,14 +3,19 @@ de:
     attributes:
       invitation:
         email: E-Mail
+    errors:
+      models:
+        invitation:
+          other_user_has_email: "ist bereits einem Ihrer Mitarbeiter zugeordnet."
+          other_invitation_has_email: "wurde bereits in einer Einladung verwendet."
   mailer:
     invitation:
-      subject: 'Sie wurden zu Shiftplan eingeladen'
+      subject: 'Sie wurden zu Clockwork eingeladen'
   invitations:
     sent_successfully: 'Die Einladung wurde erfolgreich verschickt.'
     token_invalid: 'Der Einladungstoken ist nicht gültig. Ihre Einladung konnte nicht akzeptiert werden.'
     another_employee_already_exists_with_email: "Sie haben bereits den Mitarbeiter %{employee_name} mit der E-Mail Adresse %{email} eingeladen."
-    accepted: 'Vielen Dank, dass Sie Ihre Einladung zu Shiftplan akzeptiert haben.'
+    accepted: 'Vielen Dank, dass Sie Ihre Einladung zu Clockwork akzeptiert haben.'
     accept_by_setting_a_password: 'Vielen Dank, dass Sie Ihre Einladung bestätigen wollen. Sie müssen lediglich noch ein Passwort festlegen, um die Einladungsbestätigung erfolgreich abzuschließen.'
     already_accepted_log_in: 'Sie haben diese Einladung bereits akzeptiert. Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein.'
     already_accepted: 'Sie haben diese Einladung bereits akzeptiert.'

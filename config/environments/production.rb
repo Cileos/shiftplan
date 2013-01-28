@@ -1,4 +1,4 @@
-Shiftplan::Application.configure do
+Clockwork::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -58,7 +58,8 @@ Shiftplan::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => 'staging.shiftplan.de' }
+
+  config.action_mailer.default_url_options = { :host => Volksplaner.hostname }
 
   config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "You May Not Pass") do |u, p|
     [u, p] == ['timtest', 'mug6Ue7i']
@@ -66,7 +67,7 @@ Shiftplan::Application.configure do
 
   config.action_mailer.delivery_method = :sendmail
   config.middleware.use ExceptionNotifier,
-    :email_prefix => "[Shiftplan Exception] ",
-    :sender_address => %{"Shiftplan Notifier" <notifier@staging.shiftplan.de>},
-    :exception_recipients => %w{errors@shiftplan.de}
+    :email_prefix => "[Clockwork Exception] ",
+    :sender_address => %{"Clockwork Notifier" <notifier@#{Volksplaner.hostname}>},
+    :exception_recipients => %w{errors@clockwork.io}
 end
