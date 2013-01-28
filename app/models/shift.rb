@@ -24,7 +24,7 @@ class Shift < ActiveRecord::Base
   attr_reader :next_day_end_minute
 
   before_validation :set_end_of_nightshift_to_midnight
-  after_create :create_next_day
+  after_save :create_next_day
 
   def self.filter(params={})
     ShiftFilter.new params.reverse_merge(:base => self)

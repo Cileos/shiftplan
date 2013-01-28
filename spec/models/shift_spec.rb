@@ -1,5 +1,55 @@
 require 'spec_helper'
 
+shared_examples "a new created overnight shift" do
+  it "creates two shifts" do
+    lambda {
+      overnight_shift
+    }.should change(Shift, :count).from(0).to(2)
+  end
+
+  it "splits the the hour ranges of the shifts at midnight" do
+    overnight_shift
+
+    nightshift.start_hour.should   == 22
+    nightshift.start_minute.should == 15
+    nightshift.end_hour.should     == 24
+    nightshift.end_minute.should   ==  0
+
+    morning_shift.start_hour.should   ==  0
+    morning_shift.start_minute.should ==  0
+    morning_shift.end_hour.should     ==  6
+    morning_shift.end_minute.should   == 45
+  end
+
+  it "links the demands of the nightshift to the morning shift" do
+    lambda {
+      overnight_shift
+    }.should change(Demand, :count).from(0).to(2)
+
+    nightshift.demands.each do |demand|
+      morning_shift.demands.should include(demand)
+    end
+  end
+
+  it "increments the day for the second shift" do
+    overnight_shift
+
+    morning_shift.day.should == 1
+  end
+
+  it "copies the teams to the morning shift" do
+    overnight_shift
+
+    morning_shift.team.should eql(kitchen)
+  end
+
+  it "copies the plan template" do
+    overnight_shift
+
+    morning_shift.plan_template.should eql(plan_template)
+  end
+end
+
 describe Shift do
   it "must have a plan template" do
     build(:shift, plan_template: nil).should_not be_valid
@@ -62,9 +112,9 @@ describe Shift do
 
   describe "overnight shifts" do
     let(:plan_template) { create(:plan_template) }
-    let(:cook)       { create(:qualification, name: "Cook") }
-    let(:dishwasher) { create(:qualification, name: "Dishwasher") }
-    let(:kitchen)    { create(:team, name: "Kitchen") }
+    let(:cook)          { create(:qualification, name: "Cook") }
+    let(:dishwasher)    { create(:qualification, name: "Dishwasher") }
+    let(:kitchen)       { create(:team, name: "Kitchen") }
     let(:demands_attributes) do
       [
         { quantity: 2, qualification_id: cook.id },
@@ -81,52 +131,24 @@ describe Shift do
     let(:nightshift)    { Shift.find_by_day(0) }
     let(:morning_shift) { Shift.find_by_day(1) }
 
-    it "creates two shifts" do
-      lambda {
-        overnight_shift
-      }.should change(Shift, :count).from(0).to(2)
+    describe "creating overnight shifts" do
+      it_behaves_like "a new created overnight shift"
     end
 
-    it "splits the the hour ranges of the shifts at midnight" do
-      overnight_shift
-
-      nightshift.start_hour.should   == 22
-      nightshift.start_minute.should == 15
-      nightshift.end_hour.should     == 24
-      nightshift.end_minute.should   ==  0
-
-      morning_shift.start_hour.should   ==  0
-      morning_shift.start_minute.should ==  0
-      morning_shift.end_hour.should     ==  6
-      morning_shift.end_minute.should   == 45
-    end
-
-    it "links the demands of the nightshift to the morning shift" do
-      lambda {
-        overnight_shift
-      }.should change(Demand, :count).from(0).to(2)
-
-      nightshift.demands.each do |demand|
-        morning_shift.demands.should include(demand)
+    describe "changing a normal shift to an overnight shift" do
+      let(:normal_shift) do
+        create(:shift,
+          day: 0,
+          plan_template: plan_template,
+          team: kitchen,
+          demands_attributes: demands_attributes
+        )
       end
-    end
+      let(:overnight_shift) do
+        normal_shift.update_attributes!(start_hour: 22, start_minute: 15, end_hour: 6, end_minute: 45)
+      end
 
-    it "increments the day for the second shift" do
-      overnight_shift
-
-      morning_shift.day.should == 1
-    end
-
-    it "copies the teams to the morning shift" do
-      overnight_shift
-
-      morning_shift.team.should eql(kitchen)
-    end
-
-    it "copies the plan template" do
-      overnight_shift
-
-      morning_shift.plan_template.should eql(plan_template)
+      it_behaves_like "a new created overnight shift"
     end
   end
 end

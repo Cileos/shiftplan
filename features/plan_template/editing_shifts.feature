@@ -47,6 +47,18 @@ Feature: Editing shifts of plan templates
         | Brennstabkessel(B)     |     | 04:00-13:00 1 x Brennstabpolierer 3 x Brennstabexperte  |     |     |     |     |     |
         | Druckwasserreaktor(D)  |     |                                                         |     |     |     |     |     |
 
+  Scenario: Making a normal shift an overnight shift
+    Given I click on the shift "04:00-12:00"
+      And I wait for the modal box to appear
+      And I select "22" from "Startstunde"
+      And I select "6" from "Endstunde"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see the following calendar:
+        | Teams                  | Mo  | Di                                                      | Mi                                                      | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel(B)     |     |                                                         |                                                         |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 22:00-24:00 2 x Brennstabpolierer 4 x Brennstabexperte  | 00:00-06:00 2 x Brennstabpolierer 4 x Brennstabexperte  |     |     |     |     |
+
   Scenario: Deleting demands of shifts
     Given I click on the shift "04:00-12:00"
       And I wait for the modal box to appear
