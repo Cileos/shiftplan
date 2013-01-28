@@ -1,5 +1,5 @@
 // Please include all needed application specific JS files manually
-//= require jquery.cookie
+//= require ./clockwork
 //= require defaults
 //= require employees
 //= require plans
@@ -9,7 +9,6 @@
 //= require 'calendar/vertical_positioning'
 //= require_tree './editors'
 //= require mailcheck
-//= require ./clockwork
 //= require collapsible
 //= require sidebars
 //= require lib/tooltips

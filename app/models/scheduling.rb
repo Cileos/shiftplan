@@ -58,30 +58,28 @@ class Scheduling < ActiveRecord::Base
 
   include Stackable
 
-  # FIXME #date must be set before setting start_hour and end_hour (hashes beware)
-  def start_hour=(hour)
-    self.starts_at = date + hour.hours
-  end
-
-  def start_hour
-    starts_at.hour
-  end
-
-  # must be set after start_hour= to ensure proper behaviour
-  def end_hour=(hour)
-    if hour.to_i > start_hour # normal range
-      self.ends_at = date + hour.hours
-    else # nightwatch
-      self.ends_at = date.end_of_day
-      @next_day_end_hour = hour
-    end
-  end
-
   def end_hour
     if ends_at.min >= 55 # end of the day is 24, beginning of next day 0
       ends_at.hour + 1
     else
       ends_at.hour
+    end
+  end
+
+  attr_accessor :start_hour, :end_hour
+  before_validation :calculate_range_from_date_and_hours
+
+  # The User wants to give us the starts_at/ends_at as date + (start_hour, end_hour)
+  def calculate_range_from_date_and_hours
+    fields = %w(date start_hour end_hour)
+    if fields.any? { |f| changed.include?(f) } && fields.all? { |f| public_send(f).present? }
+      self.starts_at = date + start_hour.hours
+      if end_hour.to_i > start_hour # normal range
+        self.ends_at = date + end_hour.hours
+      else # nightwatch
+        self.ends_at = date.end_of_day
+        @next_day_end_hour = end_hour
+      end
     end
   end
 
@@ -148,10 +146,10 @@ class Scheduling < ActiveRecord::Base
 
   # FIXME nightshift
   def length_in_hours
-    if start_hour < end_hour
-      end_hour - start_hour
+    if starts_at.hour < ends_at.hour
+      ends_at.hour - starts_at.hour
     else
-      24-start_hour
+      24-starts_at.hour
     end
   end
 
