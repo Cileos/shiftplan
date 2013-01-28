@@ -8,7 +8,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       .filter(':not(.autocomplete)')
         .edit_quickie()
       .end()
-      .keyup => @quickieChanged()
+      .on('keyup change autocompleteclose', => @quickieChanged())
 
   input: (name) ->
     @get('element').find(":input[name=\"scheduling[#{name}]\"]")
@@ -16,10 +16,12 @@ Clockwork.SchedulingEditor = Ember.Object.extend
 
   quickieChanged: (event) ->
     if parsed = Quickie.parse @input('quickie').val()
-      console.debug "the quickie changed to", parsed
       @input('start_hour').val(parsed.start_hour)
       @input('end_hour').val(parsed.end_hour)
-    else
-      console.debug "unparsable quickie :("
+      @setTeamByName(parsed.team_name)
 
-
+  setTeamByName: (name) ->
+    input = @input('team_id')
+    name = name.replace(/"/, '\\"') # escape quotes so the CSS selector won't break
+    if found = input.find("option:contains(\"#{name}\")").attr('value')
+      input.val( found )
