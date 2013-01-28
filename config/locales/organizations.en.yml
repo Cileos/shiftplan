@@ -1,0 +1,15 @@
+de:
+  activerecord:
+    models:
+      organization:
+        one: "Organisation"
+        others: "Organisations"
+  helpers:
+    submit:
+      organization:
+        create: "Create!"
+  flash:
+    organizations:
+      create:
+        info: "'%{organization}' has been created. Let's plan something!"
+

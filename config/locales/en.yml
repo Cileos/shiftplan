@@ -67,14 +67,14 @@ en:
 
   time:
     formats:
-      default: "%A, %d. %B %Y, %H:%M Uhr"
-      short: "%d. %B, %H:%M Uhr"
-      tiny: "%d.%m.%Y um %H:%M Uhr"
-      long: "%A, %d. %B %Y, %H:%M Uhr"
+      default: "%A, %d. %B %Y, %H:%M"
+      short: "%d. %B, %H:%M"
+      tiny: "%d.%m.%Y at %H:%M"
+      long: "%A, %d. %B %Y, %H:%M"
       time: "%H:%M"
 
-    am: "morning"
-    pm: "afternoon"
+    am: "Morning"
+    pm: "Afternoon"
 
   datetime:
     distance_in_words:
@@ -200,8 +200,8 @@ en:
       invalid: "invalid"
       confirmation: "does not match with prior confirmation"
       accepted: "must be accepted"
-      empty: "must be filled in"
-      blank: "must be filled in"
+      empty: "This feld can't be empty."
+      blank: "This feld can't be empty."
       too_long: "too long (not more than %{count} characters)"
       too_short: "too short (not less than %{count} characters)"
       wrong_length: "wrong length (must have exactly %{count} characters)"

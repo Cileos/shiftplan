@@ -12,12 +12,12 @@ en:
     labels:
       user:
         show:
-          password: 'Neues Passwort'
-          password_confirmation: 'Neues Passwort bestätigen'
+          password: 'New password'
+          password_confirmation: 'New password confirmation'
     hints:
       user:
-        account_name: 'z. B.: Big Kahuna Burger'
-        organization_name: 'z. B.: Bürgeramt'
+        account_name: "e.g. Tom Riddle's Coats"
+        organization_name: "e.g. Marvolo's Caps"
       plan:
-        starts_at: 'z.B. 01.12.2012'
-        ends_at: 'z.B. 31.12.2012'
+        starts_at: 'e.g. 01.12.2012'
+        ends_at: 'e.g. 31.12.2012'

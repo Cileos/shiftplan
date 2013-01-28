@@ -1,10 +1,10 @@
 en:
   helpers:
     actions:
-      profile: Profile.
-      settings: Preferences
+      profile: "My profile"
+      settings: Settings
       dashboard: Dashboard
-      news: News Flash
+      news: "News Flash"
       signin: Log in
       signin_with: "Come aboard with %{provider}"
       signout: Log out
@@ -12,40 +12,41 @@ en:
       employees: Employees
       teams: Teams
       add: Add
-      new_employee: A new employee
-      plans: Work plan
-      all_plans: All plans
-      new_plan: New plan
-      new_scheduling: New schedule
+      new_employee: "A new employee"
+      plans: "Work plan"
+      all_plans: "All plans"
+      new_plan: "New plan"
+      new_scheduling: "New schedule"
+      new_organization: "I want a new organization" 
       next: "Next one!"
       create: Create
-      update: Refresh
+      update: Go!
       hours: Hours
       wwt_short: WWT
-      wwt_long: Weekly Working Time
+      wwt_long: "Weekly Working Time"
       close: '×'
-      edit: Adjust
-      back: Go back
+      edit: Edit
+      back: "Go back"
       show: Show
       destroy: "Erase!"
-      invite: Invite.
-      reinvite: Invite again.
-      send_invitation: 'Send an invitation card'
+      invite: Invite
+      reinvite: "Invite again"
+      send_invitation: 'Send an invitation!'
       copy: "Copy"
       copy_week: "Duplicate whole week"
-      comment: Leave a comment
+      comment: "Leave a comment"
       comments: Comments
       reply: 'Reply'
       set_password: 'Set your password'
       feedback_without_screenshot: 'Tell us what you think'
-      send: Send
+      send: Go!
       confirm_email_change: 'Confirm e-mail change'
       confirm: 'Yes'
       change_email: 'I want a different e-mail'
       change_password: 'I want a different password'
       show_legend: "Legend"
       show_legend_long: "Expand legend"
-      show_help: "I need help."
+      show_help: "I need help"
       show_help_long: "Expand help"
   schedulings:
     calendar_navigation:
@@ -55,5 +56,5 @@ en:
       next: '>'
     week_switch:
       employees_in_week: "People for this week"
-      teams_in_week: "Teams for this week"
+      teams_in_week: "Teams working this week"
       hours_in_week: "Hours for this week"

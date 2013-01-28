@@ -1,18 +1,18 @@
 de:
   errors:
     messages:
-      not_found: "nicht gefunden"
-      already_confirmed: "wurde bereits bestätigt"
-      not_locked: "war nicht gesperrt"
+      not_found: "Is not here."
+      already_confirmed: "You've already confirmed this."
+      not_locked: "Not locked"
 
   devise:
     failure:
-      unauthenticated: 'Du musst Dich registrieren oder anmelden, um fortfahren zu können'
-      unconfirmed: 'Du musst Deine E-Mail-Adresse bestätigen um fortzufahren'
-      locked: 'Dein Konto ist gesperrt.'
-      invalid: 'E-Mail-Adresse oder Passwort ungültig'
-      invalid_token: 'ungültiges Token'
-      timeout: 'Deine Sitzung ist abgelaufen, bitte melde Dich neu an.'
+      unauthenticated: 'Register or log in to continue.'
+      unconfirmed: 'Please confirm your e-mail address first.'
+      locked: 'Your account is locked.'
+      invalid: 'Wrong e-mail or password.'
+      invalid_token: 'Aw! An invalid token. '
+      timeout: 'Your session has expired, please log in and out again.'
       inactive: 'Dein Konto wurde noch nicht aktiviert.'
     sessions:
       signed_in: 'Erfolgreich eingeloggt.'
@@ -22,7 +22,7 @@ de:
       send_instructions: 'Du wirst in ein paar Minuten eine E-Mail erhalten, um Dein Passwort zurückzusetzen.'
       updated: 'Dein Passwort wurde erfolgreich geändert - Du bist nun angemeldet.'
     confirmations:
-      not_received: "Bestätigung nicht erhalten?"
+      not_received: "You didn't get the confirmation?"
       confirmed: 'Sie haben erfolgreich Ihren Accout bestätigt und sind nun eingeloggt.'
       updated: 'Deine E-Mail-Adresse wurde erfolgreich geändert - Du bist nun angemeldet.'
     registrations:
@@ -30,9 +30,9 @@ de:
       signed_up_but_inactive: 'Du hast Dich erfolgreich registriert. Jemand muss Dich noch aktivieren.'
       signed_up_but_locked: 'Du hast Dich erfolgreich registriert, bist aber vorerst gesperrt.'
       updated: 'Profil erfolgreich geändert.'
-      destroyed: 'Auf wiedersehen! Dein Konto wurde vollständig gelöscht.'
+      destroyed: 'Bye! Your account is no more.'
     unlocks:
-      not_received: "E-Mail zum Entsperren nicht erhalten?"
+      not_received: "You didn't get the unlock e-mail?"
       send_instructions: 'Du wirst in ein paar Minuten eine E-Mail erhalten, um Dein Konto zu entsperren..'
       unlocked: 'Dein Konto wurde erfolgreich entsperrt. Du bist nun angemeldet.'
     mailer:

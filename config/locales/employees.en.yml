@@ -5,24 +5,24 @@ en:
         one: "employee"
     attributes:
       employee:
-        first_name: First Name
+        first_name: Name
         last_name: Surname
-        full_name: Full Name
-        weekly_working_time: weekly working time
-        email: email
-        avatar: employee photo
+        full_name: Full name
+        weekly_working_time: "Weekly Working Time"
+        email: E-mail
+        avatar: Photo
   simple_form:
     placeholders:
       employee:
-        first_name: First Name
-        last_name: Surname
+        first_name: "e.g. Tom" 
+        last_name: "e.g. Riddle"
   employees:
     table:
       action: Action
     invitation_status:
-      invited: "invited on the %{invited_at}"
-      active: active
-      not_invited_yet: not yet invited
+      invited: "Invited on the %{invited_at}"
+      active: Active
+      not_invited_yet: "Not yet invited"
     index:
-      employees: employees
-      status: status
+      employees: Employees
+      status: Status

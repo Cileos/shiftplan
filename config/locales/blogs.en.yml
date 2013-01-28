@@ -7,23 +7,23 @@ en:
   posts:
     new: 'Write a new post'
     headers:
-      new: 'Create a new post'
-      edit: 'Edit the post'
+      new: 'A new post!'
+      edit: 'Edit post'
     post_deleted: 'The post is no more.'
   activerecord:
     attributes:
       post:
         title: Title
-        body: Text
+        body: Content
   helpers:
     actions:
-      more: More
+      more: Expand
       comments_count:
-        one: '1 person had something to say'
-        other: "%{count} people had something to say"
+        one: '1 person said something'
+        other: "%{count} people said something"
       destroy_comment: 'x'
   comments:
-    comments: comments
+    comments: Comments
     no_comments_present: 'No comments here.'
   post_notification_mailer:
     new_post:
