@@ -3,6 +3,10 @@
 # Prerequisites:
 #   attr_writer :date
 #   method: date_part_or_default
+#
+# Result:
+#   @date is set
+#
 module WeekBasedTimeRange
   def self.included(model)
     model.class_eval do
@@ -39,9 +43,10 @@ module WeekBasedTimeRange
 
   protected
 
+  # year defaults to now
   def calculate_date_from_week_and_weekday
-    if [@year, @week, @cwday].all?(&:present?)
-      self.date = build_date_from_human_attributes(@year, @week, @cwday)
+    if [@week, @cwday].all?(&:present?)
+      self.date = build_date_from_human_attributes(year, @week, @cwday)
     end
   end
 

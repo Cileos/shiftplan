@@ -98,20 +98,6 @@ describe Scheduling do
         scheduling.quickie.should == '9-17'
       end
 
-      context "saved and reloaded" do
-        let(:reloaded) do
-          scheduling.save!
-          Scheduling.find scheduling.id
-        end
-
-        it "has week saved" do
-          scheduling.read_attribute(:week).should == 18
-        end
-
-        it "has year saved" do
-          scheduling.read_attribute(:year).should == 1988
-        end
-      end
     end
 
     describe "explictly given" do
@@ -178,21 +164,6 @@ describe Scheduling do
             date:      the_date,
             quickie:   '9-17'
           })
-        end
-      end
-    end
-
-    describe "old scheduling without week or year, synced" do
-      it_behaves_like 'completely defined' do
-        let :scheduling do
-          s = build_without_dates({
-            date:      the_date,
-            quickie:   '9-17'
-          })
-          s.save!
-          Scheduling.update_all({week: nil, year: nil}, {id: s.id})
-          Scheduling.sync!
-          s
         end
       end
     end

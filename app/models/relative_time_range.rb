@@ -2,6 +2,12 @@
 #
 # Prerequisites:
 #   @date is set to the wanted start date
+#   @start_hour, @end_hour are set
+#
+# Result:
+#   #starts_at, #ends_at are set
+#   @next_day_end_hour is set if the ends_at would stretch to the next day
+#
 module RelativeTimeRange
 
   def self.included(model)

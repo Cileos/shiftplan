@@ -7,7 +7,7 @@ class Scheduling < ActiveRecord::Base
 
   delegate :organization, to: :plan
 
-  before_validation :parse_quickie
+  before_validation :parse_quickie_and_fill_in
 
   validates_presence_of :plan, :employee
   validates_presence_of :quickie
@@ -145,7 +145,7 @@ class Scheduling < ActiveRecord::Base
 
   private
 
-  def parse_quickie
+  def parse_quickie_and_fill_in
     if @quickie.present?
       if parsed = Quickie.parse(@quickie)
         @parsed_quickie = parsed
@@ -157,7 +157,7 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
-  # A Quickie was given and it is parsable. Depends on #parse_quickie to be run in advance.
+  # A Quickie was given and it is parsable. Depends on #parse_quickie_and_fill_in to be run in advance.
   def quickie_parsable?
     @quickie.present? && @parsed_quickie.present?
   end
