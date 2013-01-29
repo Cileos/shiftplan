@@ -4,4 +4,9 @@ class Demand < ActiveRecord::Base
   belongs_to :qualification
 
   validates :quantity, presence: true
+
+  # only added to make the shift features deterministic
+  def self.default_scope
+    order(:id)
+  end
 end

@@ -7,6 +7,8 @@ class Shift < ActiveRecord::Base
   belongs_to :team
   has_many   :demands, through: :demands_shifts
   has_many   :demands_shifts, class_name: 'DemandsShifts', dependent: :destroy
+  # TODO: association does not work
+  has_one    :overnight_mate, class_name: 'Shift', foreign_key: 'overnight_mate_id'
 
   accepts_nested_attributes_for :demands, reject_if: :all_blank, allow_destroy: true
 
@@ -19,12 +21,11 @@ class Shift < ActiveRecord::Base
   validates :start_minute, :end_minute, :inclusion => { :in => [0,15,30,45] }
   validates_with ShiftPeriodValidator
 
-  attr_accessor :next_day
   attr_reader :next_day_end_hour
   attr_reader :next_day_end_minute
 
   before_validation :set_end_of_nightshift_to_midnight
-  after_save :create_next_day
+  after_save :create_or_update_overnight_mates!
 
   def self.filter(params={})
     ShiftFilter.new params.reverse_merge(:base => self)
@@ -35,7 +36,7 @@ class Shift < ActiveRecord::Base
   end
 
   def set_end_of_nightshift_to_midnight
-    if end_hour && start_hour && end_hour < start_hour # overnight shift
+    if has_overnight_timespan?
       @next_day_end_hour = end_hour
       @next_day_end_minute = end_minute
       self.end_hour = 24
@@ -43,30 +44,79 @@ class Shift < ActiveRecord::Base
     end
   end
 
+  def is_overnight?
+    overnight_mate_id
+  end
+  alias :has_overnight_mate? :is_overnight?
+
   private
 
-  def over_midnight_shift?
-    next_day_end_hour.present?
+  def set_overnight_timespan
+    if first_day?
+      self.end_hour   = overnight_mate.end_hour
+      self.end_minute = overnight_mate.end_minute
+    elsif second_day?
+      self.start_hour   = overnight_mate.start_hour
+      self.start_minute = overnight_mate.start_minute
+    end
+  end
+
+  def first_day?
+    is_overnight? && day < overnight_mate.day
+  end
+
+  def second_day?
+    is_overnight? && day > overnight_mate.day
+  end
+
+  def has_overnight_timespan?
+    @has_overnight_timespan ||= end_hour && start_hour && end_hour < start_hour
+  end
+
+  def update_overnight_mates!
+    @has_overnight_timespan = false
+    overnight_mate.tap do |mate|
+      mate.end_hour = @next_day_end_hour
+      mate.end_minute = @next_day_end_minute
+      mate.save!
+      demands.select { |d| !mate.demands.include?(d) }.each do |d|
+        mate.demands << d
+      end
+    end
+  end
+
+  def create_overnight_mates!
+    @has_overnight_timespan = false
+    next_day_end_hour = @next_day_end_hour
+    next_day_end_minute = @next_day_end_minute
+    @next_day_end_hour = nil # must be cleared to protect it from dupping
+    @next_day_end_minute = nil # must be cleared to protect it from dupping
+    mate = dup.tap do |mate|
+      mate.day = day + 1
+      mate.start_hour = 0
+      mate.start_minute = 0
+      mate.end_hour = next_day_end_hour
+      mate.end_minute = next_day_end_minute
+      mate.overnight_mate = self
+      mate.save!
+      demands.each do |d|
+        mate.demands << d
+      end
+    end
+    self.overnight_mate  = mate
+    save!
   end
 
   # if an hour range spanning over midnight is given, we split the shift. the second part is created here
-  def create_next_day
-    if over_midnight_shift?
-      next_day_end_hour = @next_day_end_hour
-      next_day_end_minute = @next_day_end_minute
-      @next_day_end_hour = nil # must be cleared to protect it from dupping
-      @next_day_end_minute = nil # must be cleared to protect it from dupping
-      self.next_day = dup.tap do |next_day|
-        next_day.day = day + 1
-        next_day.start_hour = 0
-        next_day.start_minute = 0
-        next_day.end_hour = next_day_end_hour
-        next_day.end_minute = next_day_end_minute
-        next_day.save!
-        demands.each do |d|
-          next_day.demands << d
-        end
+  def create_or_update_overnight_mates!
+    if has_overnight_mate?
+      if has_overnight_timespan?
+        update_overnight_mates!
+      else
+        # TODO: delete one of the mates
       end
+    elsif has_overnight_timespan?
+      create_overnight_mates!
     end
   end
 end

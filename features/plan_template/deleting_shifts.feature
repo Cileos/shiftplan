@@ -30,7 +30,7 @@ Feature: Deleting shifts of plan templates
      Then I should see the following calendar:
         | Teams                  | Mo  | Di                                                      | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |                                                         |     |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 04:00-12:00 2 x Brennstabpolierer 4 x Brennstabexperte  |     |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 04:00-12:00 4 x Brennstabexperte 2 x Brennstabpolierer  |     |     |     |     |     |
 
 
   Scenario: Deleting shifts of a plan template

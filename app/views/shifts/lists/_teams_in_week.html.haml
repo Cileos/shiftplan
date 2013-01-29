@@ -3,7 +3,7 @@
     %li.shift{class: 'shift scheduling', data: shift.metadata}
       = abbr_tag shift.period, shift.period_with_duration, class: 'work_time shift'
       %ul.demands
-        - shift.demands.each do |demand|
+        - shift.demands_sorted_by_qualification_name.each do |demand|
           %li.demand= demand.quantity_and_qualification
 
       -# = render 'shift/gimmicks', shift: shift

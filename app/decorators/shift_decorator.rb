@@ -2,6 +2,8 @@ class ShiftDecorator < RecordDecorator
   decorates :shift
   decorates_association :demands
 
+  delegate :is_overnight?, :set_overnight_timespan, to: :model
+
   def metadata
     {
       edit_url: edit_url,
@@ -12,6 +14,10 @@ class ShiftDecorator < RecordDecorator
     plan_template = shift.plan_template
     organization = plan_template.organization
     h.url_for([:edit, organization.account, organization, plan_template, shift])
+  end
+
+  def demands_sorted_by_qualification_name
+    demands.sort_by { |d| d.try(:qualification).try(:name) || '' }
   end
 
   def period_with_duration

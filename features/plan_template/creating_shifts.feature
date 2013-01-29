@@ -56,7 +56,7 @@ Feature: Creating shifts for plan templates
       And I should see the following calendar:
         | Teams                  | Mo  | Di                                     | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |                                        |     |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 09:15-17:45 2 x Brennstabpolierer 3 x  |     |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 09:15-17:45 3 x 2 x Brennstabpolierer  |     |     |     |     |     |
 
   @javascript
   Scenario: Creating overnight shifts for a plan template
@@ -82,4 +82,4 @@ Feature: Creating shifts for plan templates
       And I should see the following calendar:
         | Teams                  | Mo  | Di                                     | Mi                                     | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |                                        |                                        |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 22:00-24:00 2 x Brennstabpolierer 3 x  | 00:00-06:00 2 x Brennstabpolierer 3 x  |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 22:00-24:00 3 x 2 x Brennstabpolierer  | 00:00-06:00 3 x 2 x Brennstabpolierer  |     |     |     |     |

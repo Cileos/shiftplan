@@ -58,8 +58,8 @@ class ShiftFilterDecorator < ApplicationDecorator
   end
 
   def respond_for_create(resource)
-    if resource.next_day
-      update_cell_for(resource.next_day)
+    if resource.is_overnight?
+      update_cell_for(resource.overnight_mate)
     end
     update_cell_for(resource)
   end
