@@ -8,7 +8,6 @@ class Scheduling < ActiveRecord::Base
   delegate :organization, to: :plan
 
   before_validation :parse_quickie
-  after_validation :set_human_date_attributes
 
   validates_presence_of :plan, :employee
   validates_presence_of :quickie
@@ -27,34 +26,6 @@ class Scheduling < ActiveRecord::Base
     comments.map &:employee
   end
 
-  module Stackable
-    def bump_remaining_stack
-      self.remaining_stack ||= 0
-      self.remaining_stack += 1
-      stacked_parents.each(&:bump_remaining_stack)
-    end
-
-    def self.included(base)
-      base.class_eval do
-        attr_accessor :stack
-        attr_accessor :remaining_stack
-        attr_accessor :stacked_parents
-      end
-    end
-
-    def total_stack
-      stack + remaining_stack + 1 # except myself
-    end
-
-    # ignores real date, just checks hours
-    def overlap?(other)
-      other.stack == stack && overlap_ignoring_stack?(other)
-    end
-
-    def overlap_ignoring_stack?(other)
-      hour_range.cover?(other.start_hour) || other.hour_range.cover?(start_hour)
-    end
-  end
 
   include Stackable
 
@@ -66,22 +37,9 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
-  attr_accessor :start_hour, :end_hour
-  before_validation :calculate_range_from_date_and_hours
-
-  # The User wants to give us the starts_at/ends_at as date + (start_hour, end_hour)
-  def calculate_range_from_date_and_hours
-    fields = %w(date start_hour end_hour)
-    if fields.any? { |f| changed.include?(f) } && fields.all? { |f| public_send(f).present? }
-      self.starts_at = date + start_hour.hours
-      if end_hour.to_i > start_hour # normal range
-        self.ends_at = date + end_hour.hours
-      else # nightwatch
-        self.ends_at = date.end_of_day
-        @next_day_end_hour = end_hour
-      end
-    end
-  end
+  attr_writer :year
+  include WeekBasedTimeRange
+  include RelativeTimeRange
 
   def hour_range
     (start_hour...end_hour)
@@ -89,7 +47,7 @@ class Scheduling < ActiveRecord::Base
 
   # date of the day the Scheduling starts
   def date
-    @date || starts_at_or(:to_date) { date_from_human_date_attributes }
+    @date || date_part_or_default(:to_date) { date_from_human_date_attributes }
   end
 
   # Because Date and Times are immutable, we have to situps to just change the week and year.
@@ -111,22 +69,6 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
-  # the year, defaults to current
-  def year
-    super || starts_at_or(:year) { Date.today.year }
-  end
-
-  # calendar week, defaults to current
-  # be aware: 1 is not always the week containing Jan 1st
-  def week
-    super || starts_at_or(:cweek) { Date.today.cweek }
-  end
-
-  # calendar week day, monday is 1, Sunday is 7, defaults to current day
-  def cwday
-    @cwday || starts_at_or(:wday) { Date.today.cwday }
-  end
-  attr_writer :cwday
 
   # we have two ways to clean and re-generate the quickie, parsed#to_s or
   # the attributes based self#to_quickie. We use the latter here
@@ -188,19 +130,6 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
-  # repairs all the missing attributes
-  def self.sync!
-    transaction do
-      without_timestamps do
-        [ where(week: nil), where(year: nil) ].each do |collection|
-          collection.each do |scheduling|
-            scheduling.save!
-          end
-        end
-      end
-    end
-  end
-
   # TODO save start_hour and end_hour or even cache the whole quickie
   def self.quickies
     # select the maximal dates because psql wants aggregations and we are just interested in the hours anyway
@@ -238,33 +167,13 @@ class Scheduling < ActiveRecord::Base
   end
 
 
-  # calculates the date manually from #year, #week and #cwday
-  def date_from_human_date_attributes
-    if @cwday
-      ( Date.new(year) + week.weeks ).beginning_of_week + (@cwday.to_i - 1).days
-    end
-  end
-
-  def starts_at_or(attr, &fallback)
+  def date_part_or_default(attr, &fallback)
     if starts_at.present?
-      # In germany, the week with january 4th is the first calendar week.
-      # E.g., in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
-      # So if the month is January (1) but the calendar week is greater than 5, we know
-      # that we have to set the year to the previous one. If we do not set week and year
-      # of schedulings to the right values than the scheduling filter will not fetch them
-      # when visiting the page for a certain calendar week of the year.
-      if attr.to_sym == :year && starts_at.month == 1 && starts_at.cweek > 5
-        return starts_at.year - 1
-      end
+      # FIXME revisit. Ruby 1.9.3 implement ISO 8601 ("commercial"), same as in Germany DIN
       starts_at.public_send(attr)
     else
       fallback.call
     end
-  end
-
-  def set_human_date_attributes
-    write_attribute(:week, week)
-    write_attribute(:year, year)
   end
 
   # if an hour range spanning over midnight is given, we split the scheduling. the second part is created here

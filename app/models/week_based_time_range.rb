@@ -1,0 +1,48 @@
+# The calendar is accessible through a weekly interface (as in "20th week of 1973"). We consider week numbers, 
+#
+# Prerequisites:
+#   attr_writer :date
+#   method: date_part_or_default
+module WeekBasedTimeRange
+  def self.included(model)
+    model.class_eval do
+      attr_writer :year, :week, :cwday
+      before_validation :calculate_date_from_week_and_weekday
+    end
+  end
+  # calculates the date manually from #year, #week and #cwday
+  def build_date_from_human_attributes(year, week, cwday)
+    ( Date.new(year) + week.weeks ).beginning_of_week + (cwday.to_i - 1).days
+  end
+
+  def date_from_human_date_attributes
+    if @cwday
+      build_date_from_human_attributes(year, week, @cwday)
+    end
+  end
+
+  # the year, defaults to current
+  def year
+    @year || date_part_or_default(:year) { Date.today.year }
+  end
+
+  # calendar week, defaults to current
+  # be aware: 1 is not always the week containing Jan 1st
+  def week
+    @year || date_part_or_default(:cweek) { Date.today.cweek }
+  end
+
+  # calendar week day, monday is 1, Sunday is 7, defaults to current day
+  def cwday
+    @cwday || date_part_or_default(:wday) { Date.today.cwday }
+  end
+
+  protected
+
+  def calculate_date_from_week_and_weekday
+    if [@year, @week, @cwday].all?(&:present?)
+      self.date = build_date_from_human_attributes(@year, @week, @cwday)
+    end
+  end
+
+end

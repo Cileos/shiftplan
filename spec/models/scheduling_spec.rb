@@ -159,6 +159,18 @@ describe Scheduling do
       end
     end
 
+    describe "given as hours and date" do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          build_without_dates({
+            start_hour: 9,
+            end_hour:   17,
+            date:       the_date
+          })
+        end
+      end
+    end
+
     describe "given as date and quickie" do
       it_behaves_like 'completely defined' do
         let :scheduling do
