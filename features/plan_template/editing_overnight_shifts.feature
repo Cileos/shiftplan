@@ -33,8 +33,24 @@ Feature: Editing overnight shifts of plan templates
         | Brennstabkessel(B)     |     |                                        |                                        |     |     |     |     |
         | Druckwasserreaktor(D)  |     | 22:15-24:00 3 x 2 x Brennstabpolierer  | 00:00-06:45 3 x 2 x Brennstabpolierer  |     |     |     |     |
 
-  Scenario: Editing the timespan of overnight shifts, so that it stays a overnight shift
+  Scenario: Editing the timespan of overnight shifts by clicking on the first day, so that it stays a overnight shift
     Given I click on the shift "22:15-24:00"
+      And I wait for the modal box to appear
+     Then the selected "Startstunde" should be "22"
+      And the selected "Startminute" should be "15"
+      And the selected "Endstunde" should be "6"
+      And the selected "Endminute" should be "45"
+     When I select "7" from "Endstunde"
+      And I select "21" from "Startstunde"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see the following calendar:
+        | Teams                  | Mo  | Di                                     | Mi                                     | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel(B)     |     |                                        |                                        |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 21:15-24:00 3 x 2 x Brennstabpolierer  | 00:00-07:45 3 x 2 x Brennstabpolierer  |     |     |     |     |
+
+  Scenario: Editing the timespan of overnight shifts by clicking on the second day, so that it stays a overnight shift
+    Given I click on the shift "00:00-06:45"
       And I wait for the modal box to appear
      Then the selected "Startstunde" should be "22"
       And the selected "Startminute" should be "15"

@@ -42,29 +42,32 @@ class Shift < ActiveRecord::Base
   end
 
   def is_overnight?
-    overnight_mate_id
-  end
-  alias :has_overnight_mate? :is_overnight?
-
-  private
-
-  def set_overnight_timespan
-    if first_day?
-      self.end_hour   = overnight_mate.end_hour
-      self.end_minute = overnight_mate.end_minute
-    elsif second_day?
-      self.start_hour   = overnight_mate.start_hour
-      self.start_minute = overnight_mate.start_minute
-    end
+    first_day? || second_day?
   end
 
   def first_day?
-    is_overnight? && day < overnight_mate.day
+    # TODO: why the hack does overnight_mate.present? not work?
+    overnight_mate_id.present?
   end
 
   def second_day?
-    is_overnight? && day > overnight_mate.day
+    first_day.present?
   end
+
+  def first_day
+    @first_day ||= if new_record?
+      nil
+    else
+      Shift.find_by_overnight_mate_id(id)
+    end
+  end
+
+  def init_overnight_shift
+    self.end_hour   = overnight_mate.end_hour
+    self.end_minute = overnight_mate.end_minute
+  end
+
+  private
 
   def has_overnight_timespan?
     @has_overnight_timespan ||= end_hour && start_hour && end_hour < start_hour
@@ -114,7 +117,7 @@ class Shift < ActiveRecord::Base
 
   # if an hour range spanning over midnight is given, we split the shift. the second part is created here
   def create_or_update_overnight_mates!
-    if has_overnight_mate?
+    if first_day?
       if has_overnight_timespan?
         update_overnight_mates!
       else

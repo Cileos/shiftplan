@@ -1,6 +1,9 @@
-- (shift.start_hour = 8; shift.end_hour = 16) if shift.new_record?
-- if shift.is_overnight?
-  - shift.set_overnight_timespan
+-# TODO: maybe move intialization of the shift to a before filter of the shifts controller?
+- if shift.new_record?
+  - (shift.start_hour = 8; shift.end_hour = 16)
+- elsif shift.is_overnight?
+  - shift.init_overnight_shift
+
 - url = nested_resources_for(shift)
 
 = simple_nested_form_for shift, url: url,
