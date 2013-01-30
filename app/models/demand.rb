@@ -7,6 +7,6 @@ class Demand < ActiveRecord::Base
 
   # only added to make the shift features deterministic
   def self.default_scope
-    order(:id)
+    order('demands.id')
   end
 end
