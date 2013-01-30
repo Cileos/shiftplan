@@ -38,14 +38,15 @@ Feature: Editing shifts of plan templates
       And I wait for the modal box to appear
       And I select "13" from "Endstunde"
       And I select "Brennstabkessel" from "Team"
+      And I select "Mittwoch" from "Tag"
       And I fill in the 1st "Anzahl" with "1"
       And I fill in the 2nd "Anzahl" with "3"
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Teams                  | Mo  | Di                                                      | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     |     | 04:00-13:00 3 x Brennstabexperte 1 x Brennstabpolierer  |     |     |     |     |     |
-        | Druckwasserreaktor(D)  |     |                                                         |     |     |     |     |     |
+        | Teams                  | Mo  | Di  | Mi                                                      | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel(B)     |     |     | 04:00-13:00 3 x Brennstabexperte 1 x Brennstabpolierer  |     |     |     |     |
+        | Druckwasserreaktor(D)  |     |     |                                                         |     |     |     |     |
 
   Scenario: Making a normal shift an overnight shift
     Given I click on the shift "04:00-12:00"
