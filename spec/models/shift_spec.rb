@@ -153,6 +153,17 @@ describe Shift do
 
         overnight_shift.overnight_mate.team.should eql(another_team)
       end
+
+      it "updates the day of the second day" do
+        # we need to provide overnight shift time attributes, so that the shift
+        # stays an overnight shift after editing it
+        overnight_shift.update_attributes!(
+          start_hour: 22, start_minute: 15, end_hour: 6, end_minute: 45,
+          day: 4
+        )
+
+        overnight_shift.overnight_mate.day.should eql(5)
+      end
     end
 
     describe "changing an overnight shift to a normal shift" do
