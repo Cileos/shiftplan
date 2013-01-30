@@ -24,7 +24,7 @@ class Shift < ActiveRecord::Base
   attr_reader :next_day_end_hour
   attr_reader :next_day_end_minute
 
-  before_validation :set_end_of_nightshift_to_midnight
+  before_validation :prepare_overnight_shift, if: :has_overnight_timespan?
   after_save :create_or_update_overnight_mates!
 
   def self.filter(params={})
@@ -35,13 +35,11 @@ class Shift < ActiveRecord::Base
     ShiftFilter.new plan_template: plan_template
   end
 
-  def set_end_of_nightshift_to_midnight
-    if has_overnight_timespan?
-      @next_day_end_hour = end_hour
-      @next_day_end_minute = end_minute
-      self.end_hour = 24
-      self.end_minute = 0
-    end
+  def prepare_overnight_shift
+    @next_day_end_hour = end_hour
+    @next_day_end_minute = end_minute
+    self.end_hour = 24
+    self.end_minute = 0
   end
 
   def is_overnight?
