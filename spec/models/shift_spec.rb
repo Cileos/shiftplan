@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 shared_examples "a new created overnight shift" do
+  it "has a overnight mate" do
+    overnight_shift
+
+    overnight_shift.overnight_mate.should_not be_nil
+  end
   it "creates two shifts" do
     lambda {
       overnight_shift
@@ -135,6 +140,21 @@ describe Shift do
       it_behaves_like "a new created overnight shift"
     end
 
+    describe "changing an overnight shift to a normal shift" do
+      it "destroys the overnight mate" do
+        overnight_shift
+
+        lambda {
+          overnight_shift.update_attributes!(end_hour: 23)
+        }.should change(Shift, :count).from(2).to(1)
+
+        normal_shift = Shift.first
+        normal_shift.start_hour.should == 22
+        normal_shift.end_hour.should   == 23
+        normal_shift.overnight_mate.should be_nil
+      end
+    end
+
     describe "changing a normal shift to an overnight shift" do
       let(:normal_shift) do
         create(:shift,
@@ -146,6 +166,7 @@ describe Shift do
       end
       let(:overnight_shift) do
         normal_shift.update_attributes!(start_hour: 22, start_minute: 15, end_hour: 6, end_minute: 45)
+        normal_shift.reload
       end
 
       it_behaves_like "a new created overnight shift"

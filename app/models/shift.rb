@@ -7,8 +7,7 @@ class Shift < ActiveRecord::Base
   belongs_to :team
   has_many   :demands, through: :demands_shifts
   has_many   :demands_shifts, class_name: 'DemandsShifts', dependent: :destroy
-  # TODO: association does not work
-  has_one    :overnight_mate, class_name: 'Shift', foreign_key: 'overnight_mate_id'
+  has_one    :overnight_mate, class_name: 'Shift', foreign_key: 'id', primary_key: 'overnight_mate_id'
 
   accepts_nested_attributes_for :demands, reject_if: :all_blank, allow_destroy: true
 
@@ -95,14 +94,22 @@ class Shift < ActiveRecord::Base
       mate.start_minute = 0
       mate.end_hour = next_day_end_hour
       mate.end_minute = next_day_end_minute
-      mate.overnight_mate = self
       mate.save!
       demands.each do |d|
         mate.demands << d
       end
     end
-    self.overnight_mate  = mate
+    self.overnight_mate_id  = mate.id
+    # Save without callbacks, otherwise we will execute callback create_or_update_overnight_mates
+    # 2 times for the nightshift, leading to wrong results.
+    # Rather set an instance variable which signals skipping the callback???
+    save_without_callback!
+  end
+
+  def save_without_callback!
+    self.class.skip_callback(:save, :after, :create_or_update_overnight_mates!)
     save!
+    self.class.set_callback(:save, :after, :create_or_update_overnight_mates!)
   end
 
   # if an hour range spanning over midnight is given, we split the shift. the second part is created here
@@ -111,7 +118,7 @@ class Shift < ActiveRecord::Base
       if has_overnight_timespan?
         update_overnight_mates!
       else
-        # TODO: delete one of the mates
+        overnight_mate.destroy
       end
     elsif has_overnight_timespan?
       create_overnight_mates!
