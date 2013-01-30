@@ -25,6 +25,7 @@ class Shift < ActiveRecord::Base
 
   before_validation :prepare_overnight_shift, if: :has_overnight_timespan?
   after_save :create_or_update_overnight_mates!
+  after_destroy :destroy_second_day, if: :first_day?
 
   def self.filter(params={})
     ShiftFilter.new params.reverse_merge(:base => self)
@@ -68,6 +69,10 @@ class Shift < ActiveRecord::Base
   end
 
   private
+
+  def destroy_second_day
+    overnight_mate.destroy
+  end
 
   def has_overnight_timespan?
     @has_overnight_timespan ||= end_hour && start_hour && end_hour < start_hour

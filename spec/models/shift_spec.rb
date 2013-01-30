@@ -181,6 +181,16 @@ describe Shift do
       end
     end
 
+    describe "destroying overnight shifts" do
+      it "destroys the second day" do
+        overnight_shift
+
+        lambda {
+          overnight_shift.destroy
+        }.should change(Shift, :count).from(2).to(0)
+      end
+    end
+
     describe "changing a normal shift to an overnight shift" do
       let(:normal_shift) do
         create(:shift,

@@ -52,6 +52,7 @@ class ShiftFilterDecorator < ApplicationDecorator
 
   private
 
+  # TODO: refactor all three methods. make it dry
   def respond_for_update(resource)
     update_cell_for(resource.with_previous_changes_undone)
     if resource.first_day?
@@ -61,14 +62,17 @@ class ShiftFilterDecorator < ApplicationDecorator
   end
 
   def respond_for_create(resource)
+    update_cell_for(resource)
     if resource.first_day?
       update_cell_for(resource.overnight_mate)
     end
-    update_cell_for(resource)
   end
 
   def respond_for_destroy(resource)
     update_cell_for(resource)
+    if resource.first_day?
+      update_cell_for(resource.overnight_mate)
+    end
   end
 
   def update_cell_for(shift)
