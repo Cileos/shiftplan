@@ -140,6 +140,21 @@ describe Shift do
       it_behaves_like "a new created overnight shift"
     end
 
+    describe "editing overnight shifts" do
+      let(:another_team) { create(:team) }
+
+      it "updates the team of the second day" do
+        # we need to provide overnight shift time attributes, so that the shift
+        # stays an overnight shift after editing it
+        overnight_shift.update_attributes!(
+          start_hour: 22, start_minute: 15, end_hour: 6, end_minute: 45,
+          team_id: another_team.id
+        )
+
+        overnight_shift.overnight_mate.team.should eql(another_team)
+      end
+    end
+
     describe "changing an overnight shift to a normal shift" do
       it "destroys the overnight mate" do
         overnight_shift

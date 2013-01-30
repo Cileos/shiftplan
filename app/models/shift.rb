@@ -78,6 +78,7 @@ class Shift < ActiveRecord::Base
     overnight_mate.tap do |mate|
       mate.end_hour = @next_day_end_hour
       mate.end_minute = @next_day_end_minute
+      mate.team     = team
       mate.save!
       demands.select { |d| !mate.demands.include?(d) }.each do |d|
         mate.demands << d
