@@ -59,30 +59,6 @@ Feature: Editing shifts of plan templates
         | Brennstabkessel(B)     |     |                                                         |                                                         |     |     |     |     |
         | Druckwasserreaktor(D)  |     | 22:00-24:00 4 x Brennstabexperte 2 x Brennstabpolierer  | 00:00-06:00 4 x Brennstabexperte 2 x Brennstabpolierer  |     |     |     |     |
 
-  Scenario: Editing overnight shifts
-    Given the following shifts exists:
-        | shift      | plan_template      | start_hour  | start_minute | end_hour | end_minute | team                    |
-        | overnight  | the plan template  | 22          | 15           | 6        | 45         | team "Brennstabkessel"  |
-     When I go to the teams in week page for the plan template
-     Then I should see the following calendar:
-        | Teams                  | Mo  | Di                                                      | Mi           | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     |     | 22:15-24:00                                             | 00:00-06:45  |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 04:00-12:00 4 x Brennstabexperte 2 x Brennstabpolierer  |              |     |     |     |     |
-     When I click on the shift "22:15-24:00"
-      And I wait for the modal box to appear
-     Then the selected "Startstunde" should be "22"
-      And the selected "Startminute" should be "15"
-      And the selected "Endstunde" should be "6"
-      And the selected "Endminute" should be "45"
-     When I select "7" from "Endstunde"
-      And I select "21" from "Startstunde"
-      And I press "Speichern"
-      And I wait for the modal box to disappear
-     Then I should see the following calendar:
-        | Teams                  | Mo  | Di                                                      | Mi           | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     |     | 21:15-24:00                                             | 00:00-07:45  |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 04:00-12:00 4 x Brennstabexperte 2 x Brennstabpolierer  |              |     |     |     |     |
-
   Scenario: Deleting demands of shifts
     Given I click on the shift "04:00-12:00"
       And I wait for the modal box to appear
