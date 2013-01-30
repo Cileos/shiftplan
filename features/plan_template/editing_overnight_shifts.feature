@@ -87,3 +87,14 @@ Feature: Editing overnight shifts of plan templates
         | Teams                  | Mo  | Di                                     | Mi                                     | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     | 22:15-24:00 3 x 2 x Brennstabpolierer  | 00:00-06:45 3 x 2 x Brennstabpolierer  |     |     |     |     |
         | Druckwasserreaktor(D)  |     |                                        |                                        |     |     |     |     |
+
+  Scenario: Deleting demands of overnight shifts
+    Given I click on the shift "22:15-24:00"
+      And I wait for the modal box to appear
+      And I follow "Anforderung löschen"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+     Then I should see the following calendar:
+        | Teams                  | Mo  | Di               | Mi               | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel(B)     |     |                  |                  |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 22:15-24:00 3 x  | 00:00-06:45 3 x  |     |     |     |     |

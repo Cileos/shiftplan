@@ -84,6 +84,11 @@ class Shift < ActiveRecord::Base
       demands.select { |d| !mate.demands.include?(d) }.each do |d|
         mate.demands << d
       end
+      # destroyed demands
+      # TODO: refactor
+      mate.demands.select { |d| !demands.include?(d) }.each do |d|
+        d.demands_shifts.find_by_shift_id(mate.id).destroy
+      end
     end
   end
 
