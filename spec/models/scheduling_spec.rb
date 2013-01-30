@@ -51,7 +51,6 @@ describe Scheduling do
   context "normal time range" do
     # must define "today" here to travel before building anything
     before(:each) { Timecop.travel Time.parse('1988-02-03 23:42') }
-    after(:each)  { Timecop.return }
 
     let(:starts_at)      { '1988-05-05 09:00' }
     let(:ends_at)        { '1988-05-05 17:00' }
