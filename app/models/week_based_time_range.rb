@@ -17,7 +17,7 @@ module WeekBasedTimeRange
   end
   # calculates the date manually from #year, #week and #cwday
   def build_date_from_human_attributes(year, week, cwday)
-    ( Date.new(year) + week.weeks ).beginning_of_week + (cwday.to_i - 1).days
+    ( Date.new(year.to_i) + week.to_i.weeks ).beginning_of_week + (cwday.to_i - 1).days
   end
 
   def date_from_human_date_attributes
@@ -48,6 +48,7 @@ module WeekBasedTimeRange
   def calculate_date_from_week_and_weekday
     if [@week, @cwday].all?(&:present?)
       self.date = build_date_from_human_attributes(year, @week, @cwday)
+      @week = @cwday = nil
     end
   end
 
