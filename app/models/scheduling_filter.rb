@@ -30,6 +30,7 @@ class SchedulingFilter
 
   def monday
     # In Germany, the week with January 4th is the first calendar week.
+    # Everywhere else where ISO 8601 is implemented, too.
     week_offset = Date.new(year).end_of_week.day >= 4 ? week - 1 : week
     ( Date.new(year) + week_offset.weeks ).beginning_of_week
   end
@@ -97,13 +98,21 @@ class SchedulingFilter
 
   private
     def fetch_records
-      base.where(conditions).includes(:employee, :team).sort_by(&:start_hour)
+      results = base
+      results = results.where(conditions)
+      if week?
+        results = results.in_week(week)
+      end
+      if year?
+        results = results.in_year(year)
+      end
+      results.includes(:employee, :team).sort_by(&:start_hour)
     end
 
     def conditions
       case range
       when :week
-        attributes.symbolize_keys.slice(:week, :year).reject {|_,v| v.nil? }.tap do |c|
+        {}.tap do |c|
           if plan?
             c.merge!(:plan_id => plan.id)
           end

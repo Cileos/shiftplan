@@ -142,7 +142,7 @@ describe SchedulingFilter do
     end
 
     it "should find record on that day" do
-      scheduling = create :manual_scheduling, starts_at: filter.date
+      scheduling = create :scheduling, starts_at: filter.date
       filter.records.should include(scheduling)
     end
 

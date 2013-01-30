@@ -12,6 +12,7 @@ module WeekBasedTimeRange
     model.class_eval do
       attr_writer :year, :week, :cwday
       before_validation :calculate_date_from_week_and_weekday
+      extend Scopes
     end
   end
   # calculates the date manually from #year, #week and #cwday
@@ -47,6 +48,16 @@ module WeekBasedTimeRange
   def calculate_date_from_week_and_weekday
     if [@week, @cwday].all?(&:present?)
       self.date = build_date_from_human_attributes(year, @week, @cwday)
+    end
+  end
+
+  module Scopes
+    def in_year(year)
+      where("EXTRACT(YEAR FROM #{table_name}.starts_at) = ?", year)
+    end
+
+    def in_week(week)
+      where("EXTRACT(WEEK FROM #{table_name}.starts_at) = ?", week)
     end
   end
 
