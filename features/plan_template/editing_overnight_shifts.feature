@@ -65,18 +65,6 @@ Feature: Editing overnight shifts of plan templates
         | Brennstabkessel(B)     |     |                                        |                                        |     |     |     |     |
         | Druckwasserreaktor(D)  |     | 21:15-24:00 3 x 2 x Brennstabpolierer  | 00:00-07:45 3 x 2 x Brennstabpolierer  |     |     |     |     |
 
-  Scenario: Editing the timespan of overnight shifts, so that it becomes a normal shift
-    Given I click on the shift "22:15-24:00"
-      And I wait for the modal box to appear
-      And I select "23" from "Endstunde"
-      And I select "30" from "Endminute"
-      And I press "Speichern"
-      And I wait for the modal box to disappear
-     Then I should see the following calendar:
-        | Teams                  | Mo  | Di                                     | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     |     |                                        |     |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 22:15-23:30 3 x 2 x Brennstabpolierer  |     |     |     |     |     |
-
   Scenario: Editing the team of overnight shifts
     Given I click on the shift "22:15-24:00"
       And I wait for the modal box to appear
