@@ -1,3 +1,4 @@
+@javascript
 Feature: Creating shifts for plan templates
   As a planner
   I want to create shifts for my plan template
@@ -9,7 +10,7 @@ Feature: Creating shifts for plan templates
         | team                | name                | organization      |
         | Brennstabkessel     | Brennstabkessel     | the organization  |
         | Druckwasserreaktor  | Druckwasserreaktor  | the organization  |
-    Given a plan template exists with name: "Typische Woche", template_type: "weekbased", organization: the organization
+      And a plan template exists with name: "Typische Woche", template_type: "weekbased", organization: the organization
 
   Scenario: Visit the teams in week page of a plan template
     Given I go to the plan templates page for the organization
@@ -24,7 +25,6 @@ Feature: Creating shifts for plan templates
         | Brennstabkessel(B)    |     |     |     |     |     |     |     |
         | Druckwasserreaktor(D) |     |     |     |     |     |     |     |
 
-  @javascript
   Scenario: Creating shifts for a plan template
     Given the following qualifications exist:
         | qualification      | name               | organization      |
@@ -32,12 +32,7 @@ Feature: Creating shifts for plan templates
         | Brennstabexperte   | Brennstabexperte   | the organization  |
 
      When I go to the teams in week page for the plan template
-     Then I should see the following calendar:
-        | Teams                 | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)    |     |     |     |     |     |     |     |
-        | Druckwasserreaktor(D) |     |     |     |     |     |     |     |
-
-     When I click on cell "Di"/"Druckwasserreaktor(D)"
+      And I click on cell "Di"/"Druckwasserreaktor(D)"
       And I wait for the modal box to appear
      Then the selected "Team" should be "Druckwasserreaktor"
       And the selected "Tag" should be "Di"
@@ -47,7 +42,6 @@ Feature: Creating shifts for plan templates
       And I select "45" from "Endminute"
       And I fill in "Anzahl" with "2"
       And I select "Brennstabpolierer" from "Qualifikation"
-
       And I follow "Anforderung hinzufügen"
       And I fill in the 2nd "Anzahl" with "3"
       And I press "Anlegen"
@@ -58,7 +52,6 @@ Feature: Creating shifts for plan templates
         | Brennstabkessel(B)     |     |                                        |     |     |     |     |     |
         | Druckwasserreaktor(D)  |     | 09:15-17:45 3 x 2 x Brennstabpolierer  |     |     |     |     |     |
 
-  @javascript
   Scenario: Creating overnight shifts for a plan template
     Given the following qualifications exist:
         | qualification      | name               | organization      |
@@ -72,14 +65,10 @@ Feature: Creating shifts for plan templates
       And I select "6" from "Endstunde"
       And I fill in "Anzahl" with "2"
       And I select "Brennstabpolierer" from "Qualifikation"
-
-      And I follow "Anforderung hinzufügen"
-      And I fill in the 2nd "Anzahl" with "3"
       And I press "Anlegen"
       And I wait for the modal box to disappear
 
-     Then I should be on the teams in week page for the plan template
-      And I should see the following calendar:
-        | Teams                  | Mo  | Di                                     | Mi                                     | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     |     |                                        |                                        |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 22:00-24:00 3 x 2 x Brennstabpolierer  | 00:00-06:00 3 x 2 x Brennstabpolierer  |     |     |     |     |
+     Then I should see the following calendar:
+        | Teams                  | Mo  | Di                                 | Mi                                 | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel(B)     |     |                                    |                                    |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 22:00-24:00 2 x Brennstabpolierer  | 00:00-06:00 2 x Brennstabpolierer  |     |     |     |     |
