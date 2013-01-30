@@ -198,7 +198,7 @@ describe Scheduling do
   end
 
   describe "ranging over midnight" do
-    let(:nightwatch) { build :scheduling, quickie: '19-6' }
+    let(:nightwatch) { build :scheduling, quickie: '19-6', date: Date.today }
 
     it "should have hours set" do
       nightwatch.valid?

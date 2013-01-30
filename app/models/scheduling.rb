@@ -19,9 +19,7 @@ class Scheduling < ActiveRecord::Base
   include WeekBasedTimeRange
   include RelativeTimeRange
 
-  after_create :create_next_day
-  attr_accessor :next_day
-  attr_reader :next_day_end_hour
+  include Nightshiftable
 
   acts_as_commentable
   has_many :comments, as: :commentable, order: 'comments.lft, comments.id' # FIXME gets ALL comments, tree structure is ignored
@@ -177,27 +175,6 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
-  # if an hour range spanning over midnight is given, we split the scheduling. the second part is created here
-  def create_next_day
-    if @next_day_end_hour.present?
-      next_day_end_hour = @next_day_end_hour
-      @next_day_end_hour = nil # must be cleared to protect it from dupping
-      self.next_day = dup.tap do |next_day|
-        next_day.quickie = nil
-        next_day.date = date + 1.day
-        next_day.start_hour = 0
-        next_day.end_hour = next_day_end_hour
-        # It is important to recalculate the week of the next day. Imagine a scheduling
-        # for 2012-01-01 (sunday) with and hour range over midnight is created.  As in
-        # ISO 8601 the week with january 4th is the first calendar week and the January 1st
-        # is a sunday, January 1st is in week 52 (of year 2011).  But the next day, will
-        # be in calendar week 1 of year 2012.
-        next_day.week = next_day.date.cweek # must be recalculated and not copied
-        next_day.year = next_day.date.year  # must be recalculated and not copied
-        next_day.save!
-      end
-    end
-  end
 end
 
 SchedulingDecorator

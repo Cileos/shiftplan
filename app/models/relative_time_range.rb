@@ -12,9 +12,24 @@ module RelativeTimeRange
 
   def self.included(model)
     model.class_eval do
-      attr_accessor :start_hour, :end_hour
       before_validation :calculate_time_range_from_date_and_hours
     end
+  end
+
+  def start_hour=(hour)
+    @start_hour = hour.present?? hour.to_i : nil
+  end
+
+  def start_hour
+    @start_hour || date_part_or_default(:hour)
+  end
+
+  def end_hour=(hour)
+    @end_hour = hour.present?? hour.to_i : nil
+  end
+
+  def end_hour
+    @end_hour || (ends_at.present? && end_hour_respecting_end_of_day)
   end
 
   protected
@@ -22,13 +37,10 @@ module RelativeTimeRange
   def calculate_time_range_from_date_and_hours
     if [@date, @start_hour, @end_hour].all?(&:present?)
       self.starts_at = @date + @start_hour.hours
-      if @end_hour.to_i > @start_hour.to_i # normal range
-        self.ends_at = @date + @end_hour.hours
-      else # nightwatch
-        self.ends_at = @date.end_of_day
-        @next_day_end_hour = @end_hour
-      end
-      @start_hour = @end_hour = nil
+      self.ends_at = @date + @end_hour.hours
+
+      # reset
+      @date = @start_hour = @end_hour = nil
     end
   end
 
