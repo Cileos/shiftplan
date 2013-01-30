@@ -15,6 +15,10 @@ class Scheduling < ActiveRecord::Base
   validates :starts_at, :ends_at, within_plan_period: true
   validates_with NextDayWithinPlanPeriodValidator
 
+  attr_writer :year
+  include WeekBasedTimeRange
+  include RelativeTimeRange
+
   after_create :create_next_day
   attr_accessor :next_day
   attr_reader :next_day_end_hour
@@ -30,17 +34,13 @@ class Scheduling < ActiveRecord::Base
   include Stackable
 
   # FIXME wtf?
-  def end_hour
-    if ends_at.min >= 55 # end of the day is 24, beginning of next day 0
-      ends_at.hour + 1
-    else
-      ends_at.hour
-    end
-  end
-
-  attr_writer :year
-  include WeekBasedTimeRange
-  include RelativeTimeRange
+  #def end_hour
+  #  if ends_at.min >= 55 # end of the day is 24, beginning of next day 0
+  #    ends_at.hour + 1
+  #  else
+  #    ends_at.hour
+  #  end
+  #end
 
   def hour_range
     (start_hour...end_hour)
@@ -189,7 +189,7 @@ class Scheduling < ActiveRecord::Base
         next_day.end_hour = next_day_end_hour
         # It is important to recalculate the week of the next day. Imagine a scheduling
         # for 2012-01-01 (sunday) with and hour range over midnight is created.  As in
-        # germany the week with january 4th is the first calendar week and the January 1st
+        # ISO 8601 the week with january 4th is the first calendar week and the January 1st
         # is a sunday, January 1st is in week 52 (of year 2011).  But the next day, will
         # be in calendar week 1 of year 2012.
         next_day.week = next_day.date.cweek # must be recalculated and not copied
