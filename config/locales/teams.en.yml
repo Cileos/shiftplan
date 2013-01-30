@@ -1,4 +1,4 @@
-de:
+en:
   activerecord:
     models:
       team:
@@ -37,7 +37,7 @@ de:
         Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
         oder Aufgaben unterschieden werden.
       planner_instructions: >
-        Hier sehen Sie alle Teams dieser Organisation.
+        Here are all employees that are members of this Organisation.
 
 
         Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
@@ -75,4 +75,4 @@ de:
 
   helpers:
     actions:
-      merge: "Zusammenlegen"
+      merge: "Merge"

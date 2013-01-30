@@ -1,13 +1,12 @@
 # encoding: utf-8
-de:
+en:
   help:
     calendar:
+      keyboard_heading: Keyboard shortcuts for plans
       keyboard: |
-        h3. Tastatursteuerung für alle Planansichten
-
         - ⇦, ⇩, ⇧, ⇨ := Navigation
-        - ENTER  := anlegen / editieren (kontextsensitiv)
-        - n, a := [*n*]euer Termin / Termin [*a*]nlegen
-        - e      := Termin [*e*]ditieren
-        - c      := kommentieren (eng. [*c*]omment)
-        - h, j, k, l := alternative Navigation (Vim)
+        - ENTER  := create / edit (according to context)
+        - n, a := [*n*]ew appointment / cre[*a*]te appointment
+        - e      := [*e*]dit appointment
+        - c      := [*c*]omment
+        - h, j, k, l := alternative navigation (Vim)

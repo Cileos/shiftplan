@@ -1,60 +1,74 @@
 en:
   helpers:
     actions:
-      profile: "My profile"
-      settings: Settings
+      profile: Profile
+      settings: Preferences
       dashboard: Dashboard
-      news: "News Flash"
+      news: News
       signin: Log in
-      signin_with: "Come aboard with %{provider}"
+      signin_with: "Log in with %{provider}"
       signout: Log out
-      signup: Register
+      signup: Sign up
+      set_your_password: "Set your password"
       employees: Employees
       teams: Teams
       add: Add
-      new_employee: "A new employee"
-      plans: "Work plan"
+      adopt: Import     
+      new_employee: "Create user"
+      add_employee: "Add employee"
+      add_organization: "Add Unit"
+      adopt_employee: "Import employee"
+      want_to_adopt: "Import this employee?"
+      adopt_employees: "Import employees"
+      new_team: "New team"
+      edit_team: "Edit team"
+      new_team_merge: "Merge teams"
+      edit_employee: "Edit employee"
+      plans: Plans
       all_plans: "All plans"
+      all_posts: "All posts"
       new_plan: "New plan"
-      new_scheduling: "New schedule"
-      new_organization: "I want a new organization" 
-      next: "Next one!"
+      edit_plan: "Edit plan"
+      new_scheduling: "New scheduling"
+      new_organization: "Create another Unit"
+      next: Next
       create: Create
-      update: Go!
+      update: Update
       hours: Hours
       wwt_short: WWT
-      wwt_long: "Weekly Working Time"
+      wwt_long: Weekly Working Time
       close: '×'
       edit: Edit
-      back: "Go back"
+      back: Go back
       show: Show
-      destroy: "Erase!"
+      destroy: Erase
       invite: Invite
-      reinvite: "Invite again"
-      send_invitation: 'Send an invitation!'
+      reinvite: Invite again
+      send_invitation: "Send invitation"
       copy: "Copy"
-      copy_week: "Duplicate whole week"
-      comment: "Leave a comment"
+      copy_week: "Copy whole week"
+      comment: Comment
       comments: Comments
-      reply: 'Reply'
-      set_password: 'Set your password'
-      feedback_without_screenshot: 'Tell us what you think'
-      send: Go!
-      confirm_email_change: 'Confirm e-mail change'
-      confirm: 'Yes'
-      change_email: 'I want a different e-mail'
-      change_password: 'I want a different password'
+      reply: "Reply"
+      set_password: "Set password"
+      feedback_without_screenshot: "Tell us what you think!"
+      send: Send
+      confirm_email_change: "Confirm your e-mail change"
+      confirm: "Confirm"
+      change_email: "Change e-mail"
+      change_password: "Change password"
       show_legend: "Legend"
       show_legend_long: "Expand legend"
-      show_help: "I need help"
+      show_help: "Help"
       show_help_long: "Expand help"
   schedulings:
     calendar_navigation:
       day: "Day"
       previous: '<'
-      today: 'Today'
+      today: "Today"
       next: '>'
     week_switch:
-      employees_in_week: "People for this week"
-      teams_in_week: "Teams working this week"
-      hours_in_week: "Hours for this week"
+      employees_in_week: "Employees"
+      teams_in_week: "Teams"
+      hours_in_week: "Hours"
+

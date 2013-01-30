@@ -1,13 +1,13 @@
-de:
+en:
   comments:
     comments: Comments
-    no_comments_present: 'No comments here!'
-    add_comment: 'Add a comment'
+    no_comments_present: "No comments here!"
+    add_comment: "Add a comment"
   helpers:
     actions:
       comments_count:
-        one: '1 comment'
+        one: "1 comment"
         other: "%{count} comments"
       destroy_comment: 'x'
-      confirm_destroy_comment: "You really want to delete this comment?"
+      confirm_destroy_comment: "Do you really want to delete this comment?"
   

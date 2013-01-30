@@ -1,38 +1,52 @@
 en:
   activerecord:
+    errors:
+      models:
+        scheduling:
+          next_day_outside_plan_period: "The appointment end time is later than the end time of the plan."
+          greater_than_plan_end_time: "is later than the end time of the plan."
+          smaller_than_plan_start_time: "is earlier than the start time of the plan."
     attributes:
       scheduling:
-        employee: employee
-        day: day
-        date: weekday
-        quickie: quickie
-        starts_at: starts at
-        ends_at: ends at
+        employee: Employee
+        day: Day
+        date: Weekday
+        quickie: Quickie
+        starts_at: Start time
+        ends_at: End time
   simple_form:
     labels:
       defaults:
-        source: from
+        source: From
     hints:
       scheduling:
-        quickie: "9-5 important work [wA]"
+        quickie: "e.g. 9-17 Awesome Job [AJ]"
   scheduling_notification_mailer:
     new_comment:
       subjects:
-        comment_on_scheduling: "%{name} has commented on a shift"
-        comment_on_scheduling_of_employee: "%{name} has commented on one of your shifts"
-        comment_for_commenter: "%{name} has commented on a shift you've have also commented on"
-        answer_on_comment: "%{name} has answered to a comment about a shift"
-        answer_on_comment_of_employee: "%{name} has replied to your comment about a shift"
-        answer_on_comment_on_scheduling_of_employee: "%{name} has replied to a comment about one of your shifts"
-        answer_on_comment_of_employee_on_scheduling_of_employee: "%{name} has replied to your comment about one of your shifts"
-        answer_on_comment_for_commenter: "%{name} has replied to a comment about a shift, that you have also commented on"
+        comment_on_scheduling: "%{name} commented on your schedulings."
+        comment_on_scheduling_of_employee: "%{name} commented on one of your schedulings."
+        comment_for_commenter: "%{name} also commented on a scheduling."
+        answer_on_comment: "%{name} replied to a comment on a scheduling."
+        answer_on_comment_of_employee: "%{name} has replied to your comment on a scheduling."
+        answer_on_comment_on_scheduling_of_employee: "%{name} replied to a comment on one of your schedulings."
+        answer_on_comment_of_employee_on_scheduling_of_employee: "%{name} has replied to your comment on your scheduling."
+        answer_on_comment_for_commenter: "%{name} replied to a comment on a scheduling you've commented on."
       introductory_texts:
-        comment_on_scheduling: "%{author_name} has commented on a shift of %{employee_name} on the %{date} (%{quickie}):"
-        comment_on_scheduling_of_employee: "%{author_name} has commented on one of your shifts on the %{date} (%{quickie}):"
-        comment_for_commenter: "%{author_name} has also commented on a shift of %{employee_name} on the %{date} (%{quickie}), that you have also commented on:"
-        answer_on_comment: "%{author_name} has replied to a comment about a shift of %{employee_name} on the %{date} (%{quickie}):"
-        answer_on_comment_of_employee: "%{author_name} has replied to your comment about a shift of %{employee_name} on the %{date} (%{quickie}):"
-        answer_on_comment_on_scheduling_of_employee: "%{author_name} has replied to a comment about one of your shifts on the %{date} (%{quickie}):"
-        answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} has replied to a comment about one of your shifts on the %{date} (%{quickie}):"
-        answer_on_comment_for_commenter: "%{author_name} has replied to a comment about a shift of %{employee_name} on the %{date} (%{quickie}). You have likewise commented on this shift:"
+        comment_on_scheduling: "%{author_name} commented on a scheduling of %{employee_name} on %{date} (%{quickie}):"
+        comment_on_scheduling_of_employee: "%{author_name} commented on one of your schedulings on %{date} (%{quickie}) kommentiert:"
+        comment_for_commenter: "%{author_name} has also commented on the shift of %{employee_name} on %{date} (%{quickie}) :"
+        answer_on_comment: "%{author_name} has replied to a comment on a scheduling of %{employee_name} on %{date} (%{quickie}):"
+        answer_on_comment_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet:"
+        answer_on_comment_on_scheduling_of_employee: "%{author_name} hat auf einen Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
+        answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
+        answer_on_comment_for_commenter: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:"
+  schedulings:
+    legend: Legende
+    information: Plan-Informationen
+    no_upcoming_schedulings_present: 'In der nächsten Zeit stehen keine Termine an.'
+    plan_period:
+      starts_at: "Beginnt: %{date}"
+      ends_at: "Endet: %{date}"
+
 

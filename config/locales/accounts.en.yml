@@ -1,0 +1,17 @@
+en:
+  activerecord:
+    models:
+      account:
+        one: "Account"
+        other: "Accounts"
+  accounts:
+    show:
+      instructions: >
+        Accounts of all the Units you're a member of.
+
+      planner_instructions: >
+        Here are all the Units you're a member of.
+
+        Need more space? Click "Add Units" to create new Units.
+
+        

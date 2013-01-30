@@ -1,23 +1,14 @@
 en:
   simple_form:
-    # TODO are these translations really needed? if yes: please fill in in .de.yml
-    "yes": 'Yes'
-    "no": 'No'
-    required:
-      text: 'required'
-      mark: '*'
-    error_notification:
-      default_message: "We've found some errors, please take a look:"
-    # end 'are there really needed'
     labels:
       user:
         show:
           password: 'New password'
-          password_confirmation: 'New password confirmation'
+          password_confirmation: 'Confirm new password'
     hints:
       user:
-        account_name: "e.g. Tom Riddle's Coats"
-        organization_name: "e.g. Marvolo's Caps"
+        account_name: 'e.g. Yellow Submarine Inc.'
+        organization_name: 'e.g. Engineering Beetles'
       plan:
-        starts_at: 'e.g. 01.12.2012'
-        ends_at: 'e.g. 31.12.2012'
+        starts_at: 'e.g. 01.02.2013'
+        ends_at: 'e.g. 10.02.2013'
