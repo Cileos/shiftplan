@@ -7,28 +7,9 @@ Feature: Editing overnight shifts of plan templates
   Background:
     Given the situation of a just registered user
       And a plan template exists with name: "Typische Woche", template_type: "weekbased", organization: the organization
-      And the following teams exist:
-        | team                | name                | organization      |
-        | Brennstabkessel     | Brennstabkessel     | the organization  |
-        | Druckwasserreaktor  | Druckwasserreaktor  | the organization  |
-      And the following qualifications exist:
-        | qualification      | name               | organization      |
-        | Brennstabpolierer  | Brennstabpolierer  | the organization  |
-        | Brennstabexperte   | Brennstabexperte   | the organization  |
+      And a default overnight shift for the plan template exists
      When I go to the teams in week page for the plan template
-      And I click on cell "Di"/"Druckwasserreaktor(D)"
-      And I wait for the modal box to appear
-     When I select "22" from "Startstunde"
-      And I select "15" from "Startminute"
-      And I select "6" from "Endstunde"
-      And I select "45" from "Endminute"
-      And I fill in "Anzahl" with "2"
-      And I select "Brennstabpolierer" from "Qualifikation"
-      And I follow "Anforderung hinzufügen"
-      And I fill in the 2nd "Anzahl" with "3"
-      And I press "Anlegen"
-      And I wait for the modal box to disappear
-      And I should see the following calendar:
+     Then I should see the following calendar:
         | Teams                  | Mo  | Di                                     | Mi                                     | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |                                        |                                        |     |     |     |     |
         | Druckwasserreaktor(D)  |     | 22:15-24:00 3 x 2 x Brennstabpolierer  | 00:00-06:45 3 x 2 x Brennstabpolierer  |     |     |     |     |
