@@ -39,10 +39,8 @@ class ShiftFilterDecorator < ApplicationDecorator
       case action
       when :update
         respond_for_update(resource)
-      when :create
-        respond_for_create(resource)
-      when :destroy
-        respond_for_destroy(resource)
+      else
+        respond_for_action(resource)
       end
       remove_modal
     else
@@ -52,23 +50,15 @@ class ShiftFilterDecorator < ApplicationDecorator
 
   private
 
-  # TODO: refactor all three methods. make it dry
   def respond_for_update(resource)
     update_cell_for(resource.with_previous_changes_undone)
     if resource.first_day?
       update_cell_for(resource.overnight_mate.with_previous_changes_undone)
     end
-    respond_for_create(resource)
+    respond_for_action(resource)
   end
 
-  def respond_for_create(resource)
-    update_cell_for(resource)
-    if resource.first_day?
-      update_cell_for(resource.overnight_mate)
-    end
-  end
-
-  def respond_for_destroy(resource)
+  def respond_for_action(resource)
     update_cell_for(resource)
     if resource.first_day?
       update_cell_for(resource.overnight_mate)
