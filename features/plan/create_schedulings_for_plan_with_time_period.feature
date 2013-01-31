@@ -121,7 +121,7 @@ Feature: Creating schedulings in a plan with time period
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
 
-     Then I should see "Die Endzeit ist größer als die Endzeit des Plans."
+     Then I should see "Der nächste Tag endet nach der Endzeit des Plans."
       And I should see the following calendar:
         | Mitarbeiter  | Mo   | Di  | Mi  | Do  | Fr  | Sa  | So  |
         | Carl C       |      |     |     |     |     |     |     |
