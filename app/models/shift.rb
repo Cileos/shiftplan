@@ -110,7 +110,6 @@ class Shift < ActiveRecord::Base
   end
 
   def update_next_day!
-    @has_overnight_timespan = false
     next_day.tap do |next_day|
       next_day.end_hour   = @next_day_end_hour
       next_day.end_minute = @next_day_end_minute
@@ -123,16 +122,12 @@ class Shift < ActiveRecord::Base
 
   def create_next_day!
     @has_overnight_timespan = false
-    next_day_end_hour = @next_day_end_hour
-    next_day_end_minute = @next_day_end_minute
-    @next_day_end_hour = nil # must be cleared to protect it from dupping
-    @next_day_end_minute = nil # must be cleared to protect it from dupping
     self.next_day = dup.tap do |next_day|
       next_day.day = day + 1
       next_day.start_hour = 0
       next_day.start_minute = 0
-      next_day.end_hour = next_day_end_hour
-      next_day.end_minute = next_day_end_minute
+      next_day.end_hour = @next_day_end_hour
+      next_day.end_minute = @next_day_end_minute
       next_day.save!
       demands.each do |d|
         next_day.demands << d
