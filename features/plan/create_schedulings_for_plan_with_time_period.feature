@@ -9,7 +9,7 @@ Feature: Creating schedulings in a plan with time period
 
   Scenario: schedulings within the plan's time period can be created
     Given a plan exists with organization: organization "Reactor", name: "Halloween im Atomkraftwerk", starts_at: "2012-01-01", ends_at: "2012-01-03"
-      And I am on the employees in week page for the plan for week: 1, year: 2012
+      And I am on the employees in week page for the plan for week: 1, cwyear: 2012
 
      When I click on cell "Mo"/"Carl C"
       And I wait for the new scheduling form to appear
@@ -56,7 +56,7 @@ Feature: Creating schedulings in a plan with time period
     # 2012-01-02: monday
     Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
       And I go to the page of the plan
-     Then I should be on the employees in week page for the plan for week: 1, year: 2012
+     Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
      When I follow "<"
       And I click on cell "So"/"Carl C"
       And I wait for the new scheduling form to appear
@@ -94,7 +94,7 @@ Feature: Creating schedulings in a plan with time period
     # 2012-01-02: monday
     Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
       And I go to the page of the plan
-     Then I should be on the employees in week page for the plan for week: 1, year: 2012
+     Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
      When I click on cell "Mo"/"Carl C"
       And I wait for the new scheduling form to appear
@@ -115,7 +115,7 @@ Feature: Creating schedulings in a plan with time period
     # 2012-01-02: monday
     Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
       And I go to the page of the plan
-     Then I should be on the employees in week page for the plan for week: 1, year: 2012
+     Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
       When I click on cell "Mo"/"Carl C"
       Then the new scheduling form should appear
@@ -127,7 +127,7 @@ Feature: Creating schedulings in a plan with time period
       When I follow "<" within the toolbar
       # in germany, the week with january 4th is the first calendar week
       # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
-      Then I should be on the employees in week page for the plan for week: 52, year: 2011
+      Then I should be on the employees in week page for the plan for week: 52, cwyear: 2011
 
       When I click on cell "So"/"Carl C"
       Then the new scheduling form should appear
@@ -143,7 +143,7 @@ Feature: Creating schedulings in a plan with time period
        # 2012-01-02: monday
        And a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
        And I go to the page of the plan
-      Then I should be on the employees in week page for the plan for week: 1, year: 2012
+      Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
       When I choose "Teams" from the drop down "Mitarbeiter" within the calendar
 
@@ -161,7 +161,7 @@ Feature: Creating schedulings in a plan with time period
      # 2012-01-02: monday
      Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
        And I go to the page of the plan
-      Then I should be on the employees in week page for the plan for week: 1, year: 2012
+      Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
       When I choose "Stunden" from the drop down "Mitarbeiter" within the calendar
 
@@ -178,7 +178,7 @@ Feature: Creating schedulings in a plan with time period
      # 2012-01-03: tuesday
      Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-03", organization: the organization
        And I go to the page of the plan
-      Then I should be on the employees in week page for the plan for week: 1, year: 2012
+      Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
       When I click on cell "Mo"/"Carl C"
       Then the new scheduling form should appear

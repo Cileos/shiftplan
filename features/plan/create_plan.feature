@@ -28,7 +28,7 @@ Feature: Creating a plan
       And a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
 
      When I follow "Halloween im Atomkraftwerk"
-     Then I should be on the employees in week page for the plan for week: 5, year: 2012
+     Then I should be on the employees in week page for the plan for week: 5, cwyear: 2012
       And the page should be titled "Halloween im Atomkraftwerk"
       And I should see "5 eyes minimum"
       And I should see a calendar titled "Halloween im Atomkraftwerk"
@@ -58,7 +58,7 @@ Feature: Creating a plan
         | Halloween im Atomkraftwerk  |                 | -           | -         |
 
      When I choose "Halloween im Atomkraftwerk" from the drop down "Pläne"
-     Then I should be on the employees in week page for the plan for week: 5, year: 2012
+     Then I should be on the employees in week page for the plan for week: 5, cwyear: 2012
 
   Scenario: plan's start time must be smaller or equal to the plan's end time
     Given the situation of a nuclear reactor
@@ -98,7 +98,7 @@ Feature: Creating a plan
      When I follow "Halloween im Atomkraftwerk"
      # as today is before the plan period end the user gets redirected to the first week
      # view of the plan period (week 52, year 2011)
-     Then I should be on the employees in week page for the plan for week: 52, year: 2011
+     Then I should be on the employees in week page for the plan for week: 52, cwyear: 2011
 
 
   Scenario: user is locked within the plan period frame when trying to visit a page outside the frame
@@ -108,18 +108,18 @@ Feature: Creating a plan
       # 2012-03-30: friday, 13th calendar week
       And a plan exists with starts_at: "2012-02-27", ends_at: "2012-03-30", organization: the organization
       And I go to the page of the plan
-     Then I should be on the employees in week page for the plan for week: 9, year: 2012
+     Then I should be on the employees in week page for the plan for week: 9, cwyear: 2012
 
-     When I go to the employees in week page for the plan for week: 14, year: 2012
+     When I go to the employees in week page for the plan for week: 14, cwyear: 2012
      # user gets redirected to last page of the plan period
-     Then I should be on the employees in week page for the plan for week: 13, year: 2012
+     Then I should be on the employees in week page for the plan for week: 13, cwyear: 2012
 
-     When I go to the employees in week page for the plan for week: 8, year: 2012
+     When I go to the employees in week page for the plan for week: 8, cwyear: 2012
      # user gets redirected to first page of the plan period
-     Then I should be on the employees in week page for the plan for week: 9, year: 2012
+     Then I should be on the employees in week page for the plan for week: 9, cwyear: 2012
 
-     When I go to the employees in week page for the plan for week: 13, year: 2012
-     Then I should be on the employees in week page for the plan for week: 13, year: 2012
+     When I go to the employees in week page for the plan for week: 13, cwyear: 2012
+     Then I should be on the employees in week page for the plan for week: 13, cwyear: 2012
 
 
   Scenario: focus first calendar cell which is not outside the plan period
@@ -128,5 +128,5 @@ Feature: Creating a plan
      # 2012-01-04: wednesday
        And a plan exists with starts_at: "2012-01-03", ends_at: "2012-01-04", organization: the organization
        And I go to the page of the plan
-      Then I should be on the employees in week page for the plan for week: 1, year: 2012
+      Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
        And the cell "Di"/"Carl C" should be focus

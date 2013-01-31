@@ -60,6 +60,6 @@ Feature: Comment on Schedulings
      Then I fill in "E-Mail" with "burns@clockwork.local"
       And I fill in "Passwort" with "secret"
       And I press "Einloggen"
-     Then I should be on the employees in week page of the plan for week: 51, year: 2012
+     Then I should be on the employees in week page of the plan for week: 51, cwyear: 2012
       And I should see "7-23 Rp"
 

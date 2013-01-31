@@ -14,6 +14,7 @@ class SchedulingFilter
   attribute :day, type: Integer
   attribute :month, type: Integer
   attribute :year, type: Integer
+  attribute :cwyear, type: Integer
   attribute :ids #, type: Array # TODO Array cannot be typecasted yet by AA
 
   delegate :count, to: :base
@@ -31,19 +32,19 @@ class SchedulingFilter
   def monday
     # In Germany, the week with January 4th is the first calendar week.
     # Everywhere else where ISO 8601 is implemented, too.
-    week_offset = Date.new(year).end_of_week.day >= 4 ? week - 1 : week
-    ( Date.new(year) + week_offset.weeks ).beginning_of_week
+    week_offset = Date.new(cwyear).end_of_week.day >= 4 ? week - 1 : week
+    ( Date.new(cwyear) + week_offset.weeks ).beginning_of_week
   end
 
   alias first_day monday
 
   def last_day
-    ( Date.new(year) + week.weeks ).end_of_week
+    ( Date.new(cwyear) + week.weeks ).end_of_week
   end
 
   def previous_week
     prev = monday.prev_week
-    self.class.new attributes.merge(week: prev.cweek, year: prev.year)
+    self.class.new attributes.merge(week: prev.cweek, cwyear: prev.cwyear)
   end
 
   # list of Dates over wich the SchedulingFilter spans
@@ -102,9 +103,13 @@ class SchedulingFilter
       results = results.where(conditions)
       if week?
         results = results.in_week(week)
-      end
-      if year?
-        results = results.in_year(year)
+        if cwyear?
+          results = results.in_cwyear(cwyear)
+        end
+      else
+        if year?
+          results = results.in_year(year)
+        end
       end
       results.includes(:employee, :team).sort_by(&:start_hour)
     end

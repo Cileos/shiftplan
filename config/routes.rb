@@ -17,10 +17,10 @@ Clockwork::Application.routes.draw do
         end
 
         # The names should correspond with the controller actions and modes of the SchedulingFilter
-        scope constraints: { week: /\d{1,2}/, year: /\d{4}/ } do
-          get 'week/employees/:year/:week' => 'schedulings#employees_in_week', :as => 'employees_in_week'
-          get 'week/teams/:year/:week' => 'schedulings#teams_in_week', :as => 'teams_in_week'
-          get 'week/hours/:year/:week' => 'schedulings#hours_in_week', :as => 'hours_in_week'
+        scope constraints: { week: /\d{1,2}/, cwyear: /\d{4}/ } do
+          get 'week/employees/:cwyear/:week' => 'schedulings#employees_in_week', :as => 'employees_in_week'
+          get 'week/teams/:cwyear/:week' => 'schedulings#teams_in_week', :as => 'teams_in_week'
+          get 'week/hours/:cwyear/:week' => 'schedulings#hours_in_week', :as => 'hours_in_week'
         end
 
         scope constraints: { year: /\d{4}/, month: /\d{1,2}/, day: /\d{1,2}/ } do

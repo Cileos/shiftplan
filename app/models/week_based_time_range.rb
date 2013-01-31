@@ -65,10 +65,18 @@ module WeekBasedTimeRange
     def where_date_part_equals_in_time_zone(field, date_part, value)
       where("EXTRACT(#{date_part.upcase} FROM timezone(INTERVAL ?, timezone('UTC', #{table_name}.#{field})) ) = ?", Time.zone.formatted_offset, value)
     end
+
+    # In a normal year (day/month format)
     def in_year(year)
       where_date_part_equals_in_time_zone('starts_at', 'YEAR', year)
     end
 
+    # In a calendar week year (ISO 8601)
+    def in_cwyear(cwyear)
+      where_date_part_equals_in_time_zone('starts_at', 'ISOYEAR', cwyear) # ISOYEAR == calendar week year
+    end
+
+    # In a calendar week (ISO 8601)
     def in_week(week)
       where_date_part_equals_in_time_zone('starts_at', 'WEEK', week)
     end
