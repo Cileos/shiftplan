@@ -1,3 +1,17 @@
+# The importing model will support overnight timespans. When crossing the day boundary, it
+# will be split into 2 parts.
+#
+# The foreign key 'next_day_id' has to be added to the database table of the importing
+# model so that the next_day and previous_day associations will work.
+#
+# The importing model has the implement the following 5 methods:
+#
+# 1.) Overnightable#init_overnight_end_time
+# 2.) Overnightable#prepare_overnightable
+# 3.) Overnightable.has_overnight_timespan?
+# 4.) Overnightable.update_next_day!
+# 5.) Overnightable.build_and_save_next_day
+
 module Overnightable
   def self.included(model)
     model.class_eval do
@@ -44,7 +58,6 @@ module Overnightable
     next_day.destroy
   end
 
-  # if an hour range spanning over midnight is given, we split the shift. the second part is created here
   def create_or_update_next_day!
     if next_day.present?
       update_or_destroy_next_day!
@@ -53,6 +66,10 @@ module Overnightable
     end
   end
 
+  # If the overnightable still has an overnight timespan after it has been editited, the
+  # next day is updated accordingly.
+  # If the overnightable's new time range does not span
+  # over midnight anymore, the next day needs to be destroyed, though.
   def update_or_destroy_next_day!
     if has_overnight_timespan?
       update_next_day!
@@ -61,6 +78,8 @@ module Overnightable
     end
   end
 
+  # If an hour range spanning over midnight is given, we split the overnightable at the
+  # end of the first day. The next day is created here.
   def create_next_day!
     begin
       @has_overnight_timespan = nil # clear to protect it from duping in build_and_save_next_day
