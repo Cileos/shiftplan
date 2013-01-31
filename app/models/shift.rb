@@ -21,10 +21,7 @@ class Shift < ActiveRecord::Base
   validates :start_minute, :end_minute, :inclusion => { :in => [0,15,30,45] }
   validates_with ShiftPeriodValidator
 
-  attr_reader :next_day_end_hour
-  attr_reader :next_day_end_minute
-
-  before_validation :prepare_overnight_shift, if: :has_overnight_timespan?
+  before_validation :prepare_overnightable, if: :has_overnight_timespan?
   after_save        :create_or_update_next_day!, if: :overnight_processing_needed?
   after_destroy     :destroy_next_day, if: :next_day
 
@@ -36,7 +33,7 @@ class Shift < ActiveRecord::Base
     ShiftFilter.new plan_template: plan_template
   end
 
-  def prepare_overnight_shift
+  def prepare_overnightable
     @next_day_end_hour = end_hour
     @next_day_end_minute = end_minute
     self.end_hour = 24
@@ -47,7 +44,7 @@ class Shift < ActiveRecord::Base
     next_day || previous_day
   end
 
-  def init_overnight_shift
+  def init_overnight_end_time
     self.end_hour   = next_day.end_hour
     self.end_minute = next_day.end_minute
   end
@@ -55,13 +52,12 @@ class Shift < ActiveRecord::Base
   protected
 
   def overnight_processing_needed?
-    !overnight_shift_processed? && (next_day || has_overnight_timespan?)
+    !overnightable_processed? && (next_day || has_overnight_timespan?)
   end
 
-  def overnight_shift_processed?
-    @overnight_shift_processed
+  def overnightable_processed?
+    @overnightable_processed
   end
-
 
   def update_demands
     add_demands
@@ -142,11 +138,11 @@ class Shift < ActiveRecord::Base
         next_day.demands << d
       end
     end
-    @overnight_shift_processed = true
+    @overnightable_processed = true
     begin
       save!
     ensure
-      @overnight_shift_processed = false
+      @overnightable_processed = false
     end
   end
 end
