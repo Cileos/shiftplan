@@ -8,28 +8,8 @@ Feature: Creating schedulings in a plan with time period
 
 
   Scenario: schedulings within the plan's time period can be created
-    Given I am on the page for the organization "Reactor"
-     When I choose "Alle Pläne" from the drop down "Pläne"
-      And I follow "Hinzufügen"
-      And I wait for the modal box to appear
-      And I fill in "Name" with "Halloween im Atomkraftwerk"
-      # sunday
-     When I fill in "Startdatum" with "2012-01-01"
-      # tuesday
-      And I fill in "Enddatum" with "2012-01-03"
-      And I close all datepickers
-      And I press "Anlegen"
-      And I wait for the modal box to disappear
-     Then I should see the following table of plans:
-        | Name                        | Beschreibung  | Startdatum  | Enddatum    |
-        | Cleaning the Reactor        |               | -           | -           |
-        | Halloween im Atomkraftwerk  |               | 01.01.2012  | 03.01.2012  |
-      And a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
-
-     When I follow "Halloween im Atomkraftwerk"
-     # as today is after the plan period end the user gets redirected to the last week
-     # view of the plan period (week 1, year 2012)
-     Then I should be on the employees in week page for the plan for week: 1, year: 2012
+    Given a plan exists with organization: organization "Reactor", name: "Halloween im Atomkraftwerk", starts_at: "2012-01-01", ends_at: "2012-01-03"
+      And I am on the employees in week page for the plan for week: 1, year: 2012
 
      When I click on cell "Mo"/"Carl C"
       And I wait for the new scheduling form to appear
