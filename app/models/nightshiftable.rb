@@ -10,7 +10,7 @@ module Nightshiftable
 
   def self.included(model)
     model.class_eval do
-      before_validation :build_next_day
+      before_validation :build_next_day, if: Proc.new { |r| [r.starts_at, r.ends_at].none?(&:blank?) }
       after_create :create_next_day
       attr_accessor :next_day
     end
