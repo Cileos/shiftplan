@@ -160,12 +160,12 @@ class Scheduling < ActiveRecord::Base
   end
 
 
+  # Returns the wanted +attr+ from the (start) date, falling back to supplied block.
   def date_part_or_default(attr, &fallback)
     if starts_at.present?
-      # FIXME revisit. Ruby 1.9.3 implement ISO 8601 ("commercial"), same as in Germany DIN
       starts_at.public_send(attr)
     else
-      fallback.call
+      fallback.present? ? fallback.call : nil
     end
   end
 
