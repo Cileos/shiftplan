@@ -7,7 +7,8 @@ class Shift < ActiveRecord::Base
   belongs_to :team
   has_many   :demands, through: :demands_shifts
   has_many   :demands_shifts, class_name: 'DemandsShifts', dependent: :destroy
-  has_one    :next_day, class_name: 'Shift', foreign_key: 'id', primary_key: 'next_day_id'
+  belongs_to :next_day, class_name: 'Shift'
+  has_one    :previous_day, class_name: 'Shift', foreign_key: 'next_day_id'
 
   accepts_nested_attributes_for :demands, reject_if: :all_blank, allow_destroy: true
 
@@ -24,8 +25,8 @@ class Shift < ActiveRecord::Base
   attr_reader :next_day_end_minute
 
   before_validation :prepare_overnight_shift, if: :has_overnight_timespan?
-  after_save :create_or_update_next_days!
-  after_destroy :destroy_second_day, if: :first_day?
+  after_save        :create_or_update_next_days!
+  after_destroy     :destroy_next_day, if: :next_day
 
   def self.filter(params={})
     ShiftFilter.new params.reverse_merge(:base => self)
@@ -43,24 +44,7 @@ class Shift < ActiveRecord::Base
   end
 
   def is_overnight?
-    first_day? || second_day?
-  end
-
-  def first_day?
-    # TODO: why the hack does next_day.present? not work?
-    next_day_id.present?
-  end
-
-  def second_day?
-    first_day.present?
-  end
-
-  def first_day
-    @first_day ||= if new_record?
-      nil
-    else
-      Shift.find_by_next_day_id(id)
-    end
+    next_day || previous_day
   end
 
   def init_overnight_shift
@@ -70,7 +54,7 @@ class Shift < ActiveRecord::Base
 
   private
 
-  def destroy_second_day
+  def destroy_next_day
     next_day.destroy
   end
 
@@ -80,7 +64,7 @@ class Shift < ActiveRecord::Base
 
   # if an hour range spanning over midnight is given, we split the shift. the second part is created here
   def create_or_update_next_days!
-    if first_day?
+    if next_day.present?
       update_or_destroy_next_day!
     elsif has_overnight_timespan?
       next_day = create_next_day!

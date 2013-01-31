@@ -2,7 +2,7 @@ class ShiftDecorator < RecordDecorator
   decorates :shift
   decorates_association :demands
 
-  delegate :is_overnight?, :init_overnight_shift, :second_day?, :first_day, to: :model
+  delegate :is_overnight?, :init_overnight_shift, :previous_day, to: :model
 
   def metadata
     {
@@ -15,8 +15,8 @@ class ShiftDecorator < RecordDecorator
   def edit_url
     plan_template = shift.plan_template
     organization = plan_template.organization
-    first_day_shift = shift.second_day? ? shift.first_day : shift
-    h.url_for([:edit, organization.account, organization, plan_template, first_day_shift])
+    shift_or_previous_day_shift = shift.previous_day ? shift.previous_day : shift
+    h.url_for([:edit, organization.account, organization, plan_template, shift_or_previous_day_shift])
   end
 
   def demands_sorted_by_qualification_name
