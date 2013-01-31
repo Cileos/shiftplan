@@ -209,14 +209,8 @@ small {
 
   text-align: center;
 
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  li {
-    display: inline;
+  span {
+    display: inline-block;
     margin-right: 5px;
   }
 
@@ -231,14 +225,11 @@ small {
     }
   }
 
-  .active a {
+  .current {
+    padding: 3px 5px;
     color: $ci_blue;
     border-bottom: 2px solid $ci_blue;
     font-weight: bold;
-
-    &:hover {
-      color: #fff;
-    }
   }
 }
 

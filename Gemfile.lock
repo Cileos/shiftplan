@@ -6,12 +6,6 @@ GIT
       rails (>= 3.1.0)
 
 GIT
-  remote: git://github.com/niklas/bootstrap-sass.git
-  revision: 0303023aa073257e610f990f4880f1af76fadb72
-  specs:
-    bootstrap-sass (2.0.4.0)
-
-GIT
   remote: git://github.com/niklas/ember-rails-flash.git
   revision: 63914299fb601b907af1e3133acfb24d3a43c382
   ref: 6391429
@@ -93,9 +87,6 @@ GEM
     awesome_nested_set (2.1.5)
       activerecord (>= 3.0.0)
     bcrypt-ruby (3.0.1)
-    bootstrap-kaminari-views (0.0.2)
-      kaminari (>= 0.13)
-      rails (>= 3.1)
     bourbon (2.1.1)
       sass (>= 3.1)
     builder (3.0.4)
@@ -375,8 +366,6 @@ DEPENDENCIES
   active_attr (~> 0.5.0.alpha2)
   active_model_serializers!
   acts_as_commentable_with_threading (~> 1.1.2)
-  bootstrap-kaminari-views
-  bootstrap-sass (~> 2.0.4)!
   bourbon
   cancan
   capistrano
