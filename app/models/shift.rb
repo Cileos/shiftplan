@@ -121,9 +121,9 @@ class Shift < ActiveRecord::Base
   end
 
   def create_next_day!
-    self.next_day = build_and_save_next_day
-    @overnightable_processed = true
     begin
+      self.next_day = build_and_save_next_day
+      @overnightable_processed = true # prevents that callbacks are executed again after save
       save!
     ensure
       @overnightable_processed = false
