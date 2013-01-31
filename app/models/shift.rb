@@ -121,8 +121,18 @@ class Shift < ActiveRecord::Base
   end
 
   def create_next_day!
+    self.next_day = build_and_save_next_day
+    @overnightable_processed = true
+    begin
+      save!
+    ensure
+      @overnightable_processed = false
+    end
+  end
+
+  def build_and_save_next_day
     @has_overnight_timespan = nil # clear to protect it from duping
-    self.next_day = dup.tap do |next_day|
+    dup.tap do |next_day|
       next_day.day = day + 1
       next_day.start_hour = 0
       next_day.start_minute = 0
@@ -132,12 +142,6 @@ class Shift < ActiveRecord::Base
       demands.each do |d|
         next_day.demands << d
       end
-    end
-    @overnightable_processed = true
-    begin
-      save!
-    ensure
-      @overnightable_processed = false
     end
   end
 end
