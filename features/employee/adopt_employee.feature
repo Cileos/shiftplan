@@ -39,6 +39,10 @@ Feature: Adopt Employee from other Organization
         |             | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
         |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
 
+     When I press "Mitarbeiter übernehmen"
+     Then I should be on the adopt employees page for the organization "fukushima"
+      And I should see flash alert "Mitarbeiter konnten nicht hinzugefügt werden. Sie müssen mindestens einen Mitarbeiter auswählen."
+
      When I check the checkbox within the first table row
       And I check the checkbox within the second table row
       And I press "Mitarbeiter übernehmen"
