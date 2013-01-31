@@ -78,46 +78,68 @@ class Shift < ActiveRecord::Base
     @has_overnight_timespan ||= end_hour && start_hour && end_hour < start_hour
   end
 
-  def update_next_days!
+  # if an hour range spanning over midnight is given, we split the shift. the second part is created here
+  def create_or_update_next_days!
+    if first_day?
+      update_or_destroy_next_day!
+    elsif has_overnight_timespan?
+      next_day = create_next_day!
+      link_to_next_day(next_day)
+    end
+  end
+
+  def update_or_destroy_next_day!
+    if has_overnight_timespan?
+      update_next_day!
+    else
+      next_day.destroy
+    end
+  end
+
+  def update_next_day!
     @has_overnight_timespan = false
-    next_day.tap do |mate|
-      mate.end_hour   = @next_day_end_hour
-      mate.end_minute = @next_day_end_minute
-      mate.team       = team
-      mate.day        = day + 1
-      mate.save!
-      demands.select { |d| !mate.demands.include?(d) }.each do |d|
-        mate.demands << d
+    next_day.tap do |next_day|
+      next_day.end_hour   = @next_day_end_hour
+      next_day.end_minute = @next_day_end_minute
+      next_day.team       = team
+      next_day.day        = day + 1
+      next_day.save!
+      demands.select { |d| !next_day.demands.include?(d) }.each do |d|
+        next_day.demands << d
       end
       # destroyed demands
       # TODO: refactor
-      mate.demands.select { |d| !demands.include?(d) }.each do |d|
-        d.demands_shifts.find_by_shift_id(mate.id).destroy
+      next_day.demands.select { |d| !demands.include?(d) }.each do |d|
+        d.demands_shifts.find_by_shift_id(next_day.id).destroy
       end
     end
   end
 
-  def create_next_days!
+
+  def create_next_day!
     @has_overnight_timespan = false
     next_day_end_hour = @next_day_end_hour
     next_day_end_minute = @next_day_end_minute
     @next_day_end_hour = nil # must be cleared to protect it from dupping
     @next_day_end_minute = nil # must be cleared to protect it from dupping
-    mate = dup.tap do |mate|
-      mate.day = day + 1
-      mate.start_hour = 0
-      mate.start_minute = 0
-      mate.end_hour = next_day_end_hour
-      mate.end_minute = next_day_end_minute
-      mate.save!
+    next_day = dup.tap do |next_day|
+      next_day.day = day + 1
+      next_day.start_hour = 0
+      next_day.start_minute = 0
+      next_day.end_hour = next_day_end_hour
+      next_day.end_minute = next_day_end_minute
+      next_day.save!
       demands.each do |d|
-        mate.demands << d
+        next_day.demands << d
       end
     end
-    self.next_day_id  = mate.id
+  end
+
+  def link_to_next_day(next_day)
+    self.next_day_id  = next_day.id
     # Save without callbacks, otherwise we will execute callback create_or_update_next_days
     # 2 times for the nightshift, leading to wrong results.
-    # Rather set an instance variable which signals skipping the callback???
+    # TODO: Rather set an instance variable which signals skipping the callback???
     save_without_callback!
   end
 
@@ -127,18 +149,6 @@ class Shift < ActiveRecord::Base
     self.class.set_callback(:save, :after, :create_or_update_next_days!)
   end
 
-  # if an hour range spanning over midnight is given, we split the shift. the second part is created here
-  def create_or_update_next_days!
-    if first_day?
-      if has_overnight_timespan?
-        update_next_days!
-      else
-        next_day.destroy
-      end
-    elsif has_overnight_timespan?
-      create_next_days!
-    end
-  end
 end
 
 ShiftDecorator
