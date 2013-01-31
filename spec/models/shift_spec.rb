@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 shared_examples "a new created overnight shift" do
-  it "has a overnight mate" do
+  it "has a next day" do
     overnight_shift
 
     overnight_shift.next_day.should_not be_nil
@@ -167,7 +167,7 @@ describe Shift do
     end
 
     describe "changing an overnight shift to a normal shift" do
-      it "destroys the overnight mate" do
+      it "destroys the next day" do
         overnight_shift
 
         lambda {
