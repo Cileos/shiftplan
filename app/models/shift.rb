@@ -29,6 +29,20 @@ class Shift < ActiveRecord::Base
   def concurrent
     ShiftFilter.new plan_template: plan_template
   end
+
+  def init_overnight_end_time
+    self.end_hour   = next_day.end_hour
+    self.end_minute = next_day.end_minute
+  end
+
+  protected
+
+  def prepare_overnightable
+    @next_day_end_hour = end_hour
+    @next_day_end_minute = end_minute
+    self.end_hour = 24
+    self.end_minute = 0
+  end
 end
 
 ShiftDecorator

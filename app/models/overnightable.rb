@@ -12,19 +12,35 @@ module Overnightable
   end
 
   # We always edit the first day of an overnightable. In order for this to work, we need
-  # to set the end time of the first day to the end time of the next day.
+  # to set the end time of the first day to the end time of the next day.  Call this
+  # method in an before_filter of the model's controller for the edit action for example.
+  #
+  # This needs to be overwritten in the overnightable.
+  # Example:
+  # def init_overnight_end_time
+  #   self.end_hour   = next_day.end_hour
+  #   self.end_minute = next_day.end_minute
+  # end
   def init_overnight_end_time
-    self.end_hour   = next_day.end_hour
-    self.end_minute = next_day.end_minute
+    raise NotImplementedError
   end
 
   protected
 
+  # If a the overnightable has a overnight timespan, we need to set the end time of the
+  # first day to the end of the day and remember the the original end time entered for
+  # the creation of the next day.
+  #
+  # This needs to be overwritten in the overnightable.
+  # Example:
+  # def prepare_overnightable
+  #   @next_day_end_hour = end_hour
+  #   @next_day_end_minute = end_minute
+  #   self.end_hour = 24
+  #   self.end_minute = 0
+  # end
   def prepare_overnightable
-    @next_day_end_hour = end_hour
-    @next_day_end_minute = end_minute
-    self.end_hour = 24
-    self.end_minute = 0
+    raise NotImplementedError
   end
 
   def overnight_processing_needed?
