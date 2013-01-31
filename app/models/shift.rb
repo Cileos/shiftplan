@@ -25,7 +25,7 @@ class Shift < ActiveRecord::Base
   attr_reader :next_day_end_minute
 
   before_validation :prepare_overnight_shift, if: :has_overnight_timespan?
-  after_save        :create_or_update_next_days!
+  after_save        :create_or_update_next_day!
   after_destroy     :destroy_next_day, if: :next_day
 
   def self.filter(params={})
@@ -63,7 +63,7 @@ class Shift < ActiveRecord::Base
   end
 
   # if an hour range spanning over midnight is given, we split the shift. the second part is created here
-  def create_or_update_next_days!
+  def create_or_update_next_day!
     if next_day.present?
       update_or_destroy_next_day!
     elsif has_overnight_timespan?
@@ -121,16 +121,16 @@ class Shift < ActiveRecord::Base
 
   def link_to_next_day(next_day)
     self.next_day_id  = next_day.id
-    # Save without callbacks, otherwise we will execute callback create_or_update_next_days
+    # Save without callbacks, otherwise we will execute callback create_or_update_next_day
     # 2 times for the nightshift, leading to wrong results.
     # TODO: Rather set an instance variable which signals skipping the callback???
     save_without_callback!
   end
 
   def save_without_callback!
-    self.class.skip_callback(:save, :after, :create_or_update_next_days!)
+    self.class.skip_callback(:save, :after, :create_or_update_next_day!)
     save!
-    self.class.set_callback(:save, :after, :create_or_update_next_days!)
+    self.class.set_callback(:save, :after, :create_or_update_next_day!)
   end
 
 end
