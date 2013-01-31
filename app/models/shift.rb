@@ -52,7 +52,32 @@ class Shift < ActiveRecord::Base
     self.end_minute = next_day.end_minute
   end
 
-  private
+  protected
+
+  def update_demands
+    add_demands
+    destroy_demands
+  end
+
+  def add_demands
+    added_demands.each do |demand|
+      demands << demand
+    end
+  end
+
+  def added_demands
+    previous_day.demands.select { |demand| demands.exclude?(demand) }
+  end
+
+  def destroy_demands
+    destroyed_demands.each do |demand|
+      demand.destroy
+    end
+  end
+
+  def destroyed_demands
+    demands.select { |demand| previous_day.demands.exclude?(demand) }
+  end
 
   def destroy_next_day
     next_day.destroy
@@ -88,14 +113,7 @@ class Shift < ActiveRecord::Base
       next_day.team       = team
       next_day.day        = day + 1
       next_day.save!
-      demands.select { |d| !next_day.demands.include?(d) }.each do |d|
-        next_day.demands << d
-      end
-      # destroyed demands
-      # TODO: refactor
-      next_day.demands.select { |d| !demands.include?(d) }.each do |d|
-        d.demands_shifts.find_by_shift_id(next_day.id).destroy
-      end
+      next_day.update_demands
     end
   end
 
