@@ -182,7 +182,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def path_to_day(day)
-    raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
+    raise(ArgumentError, "please give a date or datetime") unless day.acts_like?(:date)
     raise(ArgumentError, "can only link to day in day view") unless mode?('day')
     h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: day.year, month: day.month, day: day.day)
   end
