@@ -35,9 +35,10 @@ module RelativeTimeRange
   protected
 
   def calculate_time_range_from_date_and_hours
-    if [@date, @start_hour, @end_hour].all?(&:present?)
-      self.starts_at = @date + @start_hour.hours
-      self.ends_at = @date + @end_hour.hours
+    date = @date || (starts_at.present? && starts_at.to_date)
+    if [date, @start_hour, @end_hour].all?(&:present?)
+      self.starts_at = date + @start_hour.hours
+      self.ends_at = date + @end_hour.hours
 
       # reset
       @date = @start_hour = @end_hour = nil
