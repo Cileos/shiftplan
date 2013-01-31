@@ -84,14 +84,8 @@ class Scheduling < ActiveRecord::Base
 
   delegate :iso8601, to: :date
 
-
-  # FIXME nightshift
   def length_in_hours
-    if starts_at.hour < ends_at.hour
-      ends_at.hour - starts_at.hour
-    else
-      24-starts_at.hour
-    end
+    end_hour - start_hour
   end
 
   def self.filter(params={})

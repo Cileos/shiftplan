@@ -206,11 +206,18 @@ describe Scheduling do
       nightwatch.end_hour.should == 24
     end
 
-    it "should split the length in hours correctly" do
-      nightwatch.save!
-      nightwatch.length_in_hours.should == 5
-      nightwatch.next_day.length_in_hours.should == 6
+    context "splitting the length in hours" do
+      before(:each) { nightwatch.save! }
+
+      it "should hold hours until midnight" do
+        nightwatch.length_in_hours.should == 5
+      end
+
+      it "should move rest of the length to the next day" do
+        nightwatch.next_day.length_in_hours.should == 6
+      end
     end
+
 
     it "should create 2 scheduling, ripped apart at midnight" do
       expect { nightwatch.save! }.to change(Scheduling, :count).by(2)
@@ -378,6 +385,11 @@ describe Scheduling do
 
     before :each do
       record.update_attributes!(updates)
+    end
+
+    it "should have accepted the changes" do
+      record.starts_at.hour.should == 1
+      record.ends_at.hour.should == 18
     end
 
     it "should have hash to work on" do
