@@ -53,7 +53,7 @@ class ShiftFilterDecorator < ApplicationDecorator
   def respond_for_update(resource)
     update_cell_for(resource.with_previous_changes_undone)
     if resource.first_day?
-      update_cell_for(resource.overnight_mate.with_previous_changes_undone)
+      update_cell_for(resource.next_day.with_previous_changes_undone)
     end
     respond_for_action(resource)
   end
@@ -61,7 +61,7 @@ class ShiftFilterDecorator < ApplicationDecorator
   def respond_for_action(resource)
     update_cell_for(resource)
     if resource.first_day?
-      update_cell_for(resource.overnight_mate)
+      update_cell_for(resource.next_day)
     end
   end
 

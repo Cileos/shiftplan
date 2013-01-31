@@ -4,7 +4,7 @@ shared_examples "a new created overnight shift" do
   it "has a overnight mate" do
     overnight_shift
 
-    overnight_shift.overnight_mate.should_not be_nil
+    overnight_shift.next_day.should_not be_nil
   end
   it "creates two shifts" do
     lambda {
@@ -151,7 +151,7 @@ describe Shift do
           team_id: another_team.id
         )
 
-        overnight_shift.overnight_mate.team.should eql(another_team)
+        overnight_shift.next_day.team.should eql(another_team)
       end
 
       it "updates the day of the second day" do
@@ -162,7 +162,7 @@ describe Shift do
           day: 4
         )
 
-        overnight_shift.overnight_mate.day.should eql(5)
+        overnight_shift.next_day.day.should eql(5)
       end
     end
 
@@ -177,7 +177,7 @@ describe Shift do
         normal_shift = Shift.first
         normal_shift.start_hour.should == 22
         normal_shift.end_hour.should   == 23
-        normal_shift.overnight_mate.should be_nil
+        normal_shift.next_day.should be_nil
       end
     end
 
