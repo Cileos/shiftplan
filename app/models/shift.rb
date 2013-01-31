@@ -33,6 +33,17 @@ class Shift < ActiveRecord::Base
     ShiftFilter.new plan_template: plan_template
   end
 
+  def is_overnight?
+    next_day || previous_day
+  end
+
+  # We always edit the first day of an overnightable. In order for this to work, we need
+  # to set the end time of the first day to the end time of the next day.
+  def init_overnight_end_time
+    self.end_hour   = next_day.end_hour
+    self.end_minute = next_day.end_minute
+  end
+
   protected
 
   def prepare_overnightable
@@ -40,15 +51,6 @@ class Shift < ActiveRecord::Base
     @next_day_end_minute = end_minute
     self.end_hour = 24
     self.end_minute = 0
-  end
-
-  def is_overnight?
-    next_day || previous_day
-  end
-
-  def init_overnight_end_time
-    self.end_hour   = next_day.end_hour
-    self.end_minute = next_day.end_minute
   end
 
   def overnight_processing_needed?
