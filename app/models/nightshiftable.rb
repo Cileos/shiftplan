@@ -13,7 +13,6 @@ module Nightshiftable
       before_validation :build_next_day
       after_create :create_next_day
       attr_accessor :next_day
-      attr_reader :next_day_end_hour
     end
   end
 
