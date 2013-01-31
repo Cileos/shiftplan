@@ -78,7 +78,7 @@ class Scheduling < ActiveRecord::Base
 
   def hour_range_quickie
     if starts_at.present? && ends_at.present?
-      "#{starts_at.hour}-#{ends_at.hour}"
+      "#{start_hour}-#{end_hour}"
     end
   end
 

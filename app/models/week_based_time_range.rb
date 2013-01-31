@@ -42,6 +42,11 @@ module WeekBasedTimeRange
     @cwday || date_part_or_default(:wday) { Date.today.cwday }
   end
 
+  # The year of the calendar week, may differ from year, for example for 2012-01-01
+  def cwyear
+    date_part_or_default(:cwyear) { Date.today.cwyear }
+  end
+
   protected
 
   # year defaults to now
