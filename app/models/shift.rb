@@ -8,8 +8,6 @@ class Shift < ActiveRecord::Base
   belongs_to :team
   has_many   :demands, through: :demands_shifts
   has_many   :demands_shifts, class_name: 'DemandsShifts', dependent: :destroy
-  belongs_to :next_day, class_name: 'Shift'
-  has_one    :previous_day, class_name: 'Shift', foreign_key: 'next_day_id'
 
   accepts_nested_attributes_for :demands, reject_if: :all_blank, allow_destroy: true
 
@@ -42,6 +40,60 @@ class Shift < ActiveRecord::Base
     @next_day_end_minute = end_minute
     self.end_hour = 24
     self.end_minute = 0
+  end
+
+  def update_demands
+    add_demands
+    destroy_demands
+  end
+
+  def add_demands
+    added_demands.each do |demand|
+      demands << demand
+    end
+  end
+
+  def added_demands
+    previous_day.demands.select { |demand| demands.exclude?(demand) }
+  end
+
+  def destroy_demands
+    destroyed_demands.each do |demand|
+      demand.destroy
+    end
+  end
+
+  def destroyed_demands
+    demands.select { |demand| previous_day.demands.exclude?(demand) }
+  end
+
+  def has_overnight_timespan?
+    @has_overnight_timespan ||= end_hour && start_hour && end_hour < start_hour
+  end
+
+  def update_next_day!
+    next_day.tap do |next_day|
+      next_day.end_hour   = @next_day_end_hour
+      next_day.end_minute = @next_day_end_minute
+      next_day.team       = team
+      next_day.day        = day + 1
+      next_day.save!
+      next_day.update_demands
+    end
+  end
+
+  def build_and_save_next_day
+    dup.tap do |next_day|
+      next_day.day = day + 1
+      next_day.start_hour = 0
+      next_day.start_minute = 0
+      next_day.end_hour = @next_day_end_hour
+      next_day.end_minute = @next_day_end_minute
+      next_day.save!
+      demands.each do |d|
+        next_day.demands << d
+      end
+    end
   end
 end
 
