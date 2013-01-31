@@ -25,7 +25,7 @@ class Shift < ActiveRecord::Base
   attr_reader :next_day_end_minute
 
   before_validation :prepare_overnight_shift, if: :has_overnight_timespan?
-  after_save        :create_or_update_next_day!
+  after_save        :create_or_update_next_day!, if: :overnight_processing_needed?
   after_destroy     :destroy_next_day, if: :next_day
 
   def self.filter(params={})
@@ -53,6 +53,15 @@ class Shift < ActiveRecord::Base
   end
 
   protected
+
+  def overnight_processing_needed?
+    !overnight_shift_processed? && (next_day || has_overnight_timespan?)
+  end
+
+  def overnight_shift_processed?
+    @overnight_shift_processed
+  end
+
 
   def update_demands
     add_demands
@@ -92,8 +101,7 @@ class Shift < ActiveRecord::Base
     if next_day.present?
       update_or_destroy_next_day!
     elsif has_overnight_timespan?
-      next_day = create_next_day!
-      link_to_next_day(next_day)
+      create_next_day!
     end
   end
 
@@ -101,7 +109,7 @@ class Shift < ActiveRecord::Base
     if has_overnight_timespan?
       update_next_day!
     else
-      next_day.destroy
+      destroy_next_day
     end
   end
 
@@ -117,14 +125,13 @@ class Shift < ActiveRecord::Base
     end
   end
 
-
   def create_next_day!
     @has_overnight_timespan = false
     next_day_end_hour = @next_day_end_hour
     next_day_end_minute = @next_day_end_minute
     @next_day_end_hour = nil # must be cleared to protect it from dupping
     @next_day_end_minute = nil # must be cleared to protect it from dupping
-    next_day = dup.tap do |next_day|
+    self.next_day = dup.tap do |next_day|
       next_day.day = day + 1
       next_day.start_hour = 0
       next_day.start_minute = 0
@@ -135,22 +142,13 @@ class Shift < ActiveRecord::Base
         next_day.demands << d
       end
     end
+    @overnight_shift_processed = true
+    begin
+      save!
+    ensure
+      @overnight_shift_processed = false
+    end
   end
-
-  def link_to_next_day(next_day)
-    self.next_day_id  = next_day.id
-    # Save without callbacks, otherwise we will execute callback create_or_update_next_day
-    # 2 times for the nightshift, leading to wrong results.
-    # TODO: Rather set an instance variable which signals skipping the callback???
-    save_without_callback!
-  end
-
-  def save_without_callback!
-    self.class.skip_callback(:save, :after, :create_or_update_next_day!)
-    save!
-    self.class.set_callback(:save, :after, :create_or_update_next_day!)
-  end
-
 end
 
 ShiftDecorator
