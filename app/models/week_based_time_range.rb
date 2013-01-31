@@ -58,12 +58,19 @@ module WeekBasedTimeRange
   end
 
   module Scopes
+    # ActiveRecord casts all timestamps to UTC before storing them without any
+    # timestamp in the DB. To search (extract) ie. the calendar week, we have to
+    # (1) interpret the saved timestamps as UTC and
+    # (2) convert them to our current (ruby) time zone.
+    def where_date_part_equals_in_time_zone(field, date_part, value)
+      where("EXTRACT(#{date_part.upcase} FROM timezone(INTERVAL ?, timezone('UTC', #{table_name}.#{field})) ) = ?", Time.zone.formatted_offset, value)
+    end
     def in_year(year)
-      where("EXTRACT(YEAR FROM #{table_name}.starts_at) = ?", year)
+      where_date_part_equals_in_time_zone('starts_at', 'YEAR', year)
     end
 
     def in_week(week)
-      where("EXTRACT(WEEK FROM #{table_name}.starts_at) = ?", week)
+      where_date_part_equals_in_time_zone('starts_at', 'WEEK', week)
     end
   end
 
