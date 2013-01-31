@@ -33,6 +33,8 @@ class Shift < ActiveRecord::Base
     ShiftFilter.new plan_template: plan_template
   end
 
+  protected
+
   def prepare_overnightable
     @next_day_end_hour = end_hour
     @next_day_end_minute = end_minute
@@ -48,8 +50,6 @@ class Shift < ActiveRecord::Base
     self.end_hour   = next_day.end_hour
     self.end_minute = next_day.end_minute
   end
-
-  protected
 
   def overnight_processing_needed?
     !overnightable_processed? && (next_day || has_overnight_timespan?)
