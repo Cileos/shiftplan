@@ -121,7 +121,7 @@ class Shift < ActiveRecord::Base
   end
 
   def create_next_day!
-    @has_overnight_timespan = false
+    @has_overnight_timespan = nil # clear to protect it from duping
     self.next_day = dup.tap do |next_day|
       next_day.day = day + 1
       next_day.start_hour = 0
