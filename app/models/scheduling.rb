@@ -17,7 +17,7 @@ class Scheduling < ActiveRecord::Base
 
   attr_writer :year
   include WeekBasedTimeRange
-  include RelativeTimeRange
+  include TimeRangeComponentsAccessible
 
   include Nightshiftable
 
