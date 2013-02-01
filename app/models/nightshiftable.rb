@@ -20,10 +20,11 @@ module Nightshiftable
 
   def build_next_day
     if ends_at < starts_at
-      self.next_day = dup.tap do |next_day|
-        next_day.quickie = nil
-        next_day.starts_at = starts_at.tomorrow.beginning_of_day
-        next_day.ends_at = ends_at + 1.day
+      self.next_day = dup.tap do |tomorrow|
+        tomorrow.quickie = nil
+        tomorrow.starts_at = ends_at.tomorrow.beginning_of_day
+        tomorrow.ends_at = ends_at + 1.day
+        tomorrow.next_day = nil
       end
       self.ends_at = ends_at.end_of_day
     end
