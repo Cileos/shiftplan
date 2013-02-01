@@ -143,6 +143,9 @@ class Ability
     can :manage, CopyWeek do |copy_week|
       account == copy_week.plan.organization.account
     end
+    can :manage, ApplyPlanTemplate do |apply_plan_template|
+      account == apply_plan_template.plan.organization.account
+    end
     can :manage, Team do |team|
       account == team.organization.account
     end

@@ -59,6 +59,8 @@ de:
       send_invitation: 'Einladung verschicken'
       copy: "Übernehmen"
       copy_week: "Übernahme aus der letzten Woche"
+      apply_plan_template: 'Planvorlage anwenden'
+      apply: 'Anwenden'
       comment: Kommentieren
       comments: Kommentare
       reply: 'Antworten'

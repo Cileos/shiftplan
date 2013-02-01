@@ -1,0 +1,10 @@
+de:
+  simple_form:
+    labels:
+      apply_plan_template:
+        new:
+          plan_template: 'Planvorlage'
+  flash:
+    apply_plan_template:
+      create:
+        notice: 'Alle Schichten der Planvorlage wurden erfolgreich übernommen.'

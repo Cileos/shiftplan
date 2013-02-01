@@ -28,6 +28,10 @@ class Plan < ActiveRecord::Base
   def build_copy_week(attrs={})
     CopyWeek.new attrs.merge(plan: self)
   end
+
+  def build_apply_plan_template(attrs={})
+    ApplyPlanTemplate.new attrs.merge(plan: self)
+  end
 end
 
 PlanDecorator

@@ -1,0 +1,7 @@
+= simple_form_for apply_plan_template, url: [current_account, current_organization, apply_plan_template.plan, :apply_plan_template] do |f|
+  .inputs
+    = f.input :plan_template, collection: apply_plan_template.plan_templates_for_select, include_blank: false
+    = f.hidden_field :target_year
+    = f.hidden_field :target_week
+  .actions
+    = f.responsive_submit_button :apply
