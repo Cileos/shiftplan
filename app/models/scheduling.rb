@@ -31,15 +31,6 @@ class Scheduling < ActiveRecord::Base
 
   include Stackable
 
-  # FIXME wtf?
-  #def end_hour
-  #  if ends_at.min >= 55 # end of the day is 24, beginning of next day 0
-  #    ends_at.hour + 1
-  #  else
-  #    ends_at.hour
-  #  end
-  #end
-
   def hour_range
     (start_hour...end_hour)
   end
