@@ -46,7 +46,7 @@ Spork.prefork do
   end
 
   # some people have slow computers, 2s are not enough. CI is slow also
-  Capybara.default_wait_time = 23
+  Capybara.default_wait_time = 5
 
   DatabaseCleaner.clean_with :truncation
 end
