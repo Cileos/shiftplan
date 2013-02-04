@@ -18,7 +18,7 @@ shared_examples "a new created overnight shift" do
     nightshift.start_hour.should   == 22
     nightshift.start_minute.should == 15
     nightshift.end_hour.should     == 24
-    nightshift.end_minute.should   ==  0
+    nightshift.end_minute.should   == 0
 
     morning_shift.start_hour.should   ==  0
     morning_shift.start_minute.should ==  0
@@ -26,14 +26,12 @@ shared_examples "a new created overnight shift" do
     morning_shift.end_minute.should   == 45
   end
 
-  it "links the demands of the nightshift to the morning shift" do
+  it "delegates the demands of the next day to the previous day" do
     lambda {
       overnight_shift
     }.should change(Demand, :count).from(0).to(2)
 
-    nightshift.demands.each do |demand|
-      morning_shift.demands.should include(demand)
-    end
+    morning_shift.demands.should == nightshift.demands
   end
 
   it "increments the day for the second shift" do
@@ -62,57 +60,12 @@ describe Shift do
   it "must have a team" do
     build(:shift, team: nil).should_not be_valid
   end
-  it "must have a start hour" do
-    build(:shift, start_hour: nil).should_not be_valid
-  end
-  it "must have a start minute" do
-    build(:shift, start_minute: nil).should_not be_valid
-  end
-  it "must have an end hour" do
-    build(:shift, end_hour: nil).should_not be_valid
-  end
-  it "must have an end minute" do
-    build(:shift, end_minute: nil).should_not be_valid
-  end
   it "must have a day" do
     build(:shift, day: nil).should_not be_valid
   end
-  it "must have a start time different from end time" do
-    build(:shift, start_hour: 9, start_minute: 0, end_hour: 9, end_minute: 0).should_not be_valid
-  end
-
-  it "has a start hour >= 0 and an end hour <= 24" do
-    build(:shift, start_hour: -1, end_hour: 20).should_not be_valid
-    build(:shift, start_hour: 20, end_hour: 25).should_not be_valid
-    build(:shift, start_hour: 0,  end_hour: 1 ).should be_valid
-    build(:shift, start_hour: 22, end_hour: 24).should be_valid
-  end
-
-  [:start_minute, :end_minute].each do |start_or_end_minute|
-    it "has a #{start_or_end_minute} of 0, 15, 30 or 45" do
-      [0,15,30,45].each do |valid_minute|
-        build(:shift, start_or_end_minute => valid_minute).should be_valid
-        build(:shift, start_or_end_minute => valid_minute).should be_valid
-        build(:shift, start_or_end_minute => valid_minute).should be_valid
-        build(:shift, start_or_end_minute => valid_minute).should be_valid
-      end
-      [1,16,31,46].each do |invalid_minute|
-        build(:shift, start_or_end_minute => invalid_minute).should_not be_valid
-        build(:shift, start_or_end_minute => invalid_minute).should_not be_valid
-        build(:shift, start_or_end_minute => invalid_minute).should_not be_valid
-        build(:shift, start_or_end_minute => invalid_minute).should_not be_valid
-      end
-    end
-  end
-
-  it "destroys all its demands shifts when destroyed" do
-    shift = create(:shift)
-    shift.demands << create(:demand)
-    shift.demands << create(:demand)
-
-    lambda {
-      shift.destroy
-    }.should change(DemandsShifts, :count).from(2).to(0)
+  it "must have a start_at different from ends_at" do
+    time = Time.zone.parse('08:00')
+    build(:shift, starts_at: time, ends_at: time).should_not be_valid
   end
 
   describe "overnight shifts" do
@@ -169,15 +122,20 @@ describe Shift do
     describe "changing an overnight shift to a normal shift" do
       it "destroys the next day" do
         overnight_shift
-
         lambda {
-          overnight_shift.update_attributes!(end_hour: 23)
+          overnight_shift.update_attributes!(end_hour: 23, end_minute: 0)
         }.should change(Shift, :count).from(2).to(1)
+      end
 
-        normal_shift = Shift.first
-        normal_shift.start_hour.should == 22
-        normal_shift.end_hour.should   == 23
-        normal_shift.next_day.should be_nil
+      context "saved and reloaded" do
+        let(:normal_shift) { Shift.first }
+        before :each do
+          overnight_shift.update_attributes!(end_hour: 23, end_minute: 0)
+        end
+
+        it { normal_shift.start_hour.should == 22 }
+        it { normal_shift.end_hour.should   == 23 }
+        it { normal_shift.next_day.should be_nil }
       end
     end
 

@@ -73,18 +73,6 @@ class Shift < ActiveRecord::Base
     @has_overnight_timespan ||= end_hour && start_hour && end_hour < start_hour
   end
 
-  def update_next_day
-    next_day.tap do |next_day|
-      tomorrow.day = day + 1
-      tomorrow.ends_at = ends_at + 1.day
-      tomorrow.team = team
-      tomorrow.next_day = nil # prevents that a next day for the next day will be created
-      tomorrow.save!
-      tomorrow.update_demands
-      self.ends_at = ends_at.end_of_day
-    end
-  end
-
   def build_and_save_next_day
     dup.tap do |next_day|
       next_day.day = day + 1

@@ -38,7 +38,7 @@ module TimeRangeComponentsAccessible
   end
 
   def end_hour
-    @end_hour || (ends_at.present? && end_hour_respecting_next_day_and_end_of_day)
+    @end_hour || (ends_at.present? && end_hour_respecting_end_of_day)
   end
 
   def end_minute=(minute)
@@ -46,7 +46,7 @@ module TimeRangeComponentsAccessible
   end
 
   def end_minute
-    @end_minute || (ends_at.present? && end_minute_respecting_next_day) || 0
+    @end_minute || (ends_at.present? && end_minute_respecting_end_of_day) || 0
   end
 
   def base_for_time_range_components
@@ -57,12 +57,17 @@ module TimeRangeComponentsAccessible
 
   def compose_time_range_from_components
     date = base_for_time_range_components
-    if [date, @start_hour, @end_hour].all?(&:present?)
+    if [date, @start_hour].all?(&:present?)
       self.starts_at = date + @start_hour.hours + start_minute.minutes
+
+      # reset
+      @date = @start_hour = @start_minute = nil
+    end
+    if [date, @end_hour].all?(&:present?)
       self.ends_at = date + @end_hour.hours + end_minute.minutes
 
       # reset
-      @date = @start_hour = @start_minute = @end_hour = @end_minute = nil
+      @date = @end_hour = @end_minute = nil
     end
   end
 end
