@@ -1,4 +1,9 @@
-# The calendar is accessible through a weekly interface (as in "20th week of 1973"). We consider week numbers, 
+# The calendar is accessible through a weekly interface (as in "20th week of
+# 1973"). We consider week numbers, be careful to use #cwyear instead of #year
+# if you want to address a date by week.
+#
+# For example, January 1st 2012 has a cwyear of 2011 because it is still in the
+# last week (52) of that year.
 #
 # Prerequisites:
 #   attr_writer :date
@@ -7,7 +12,7 @@
 # Result:
 #   @date is set
 #
-module WeekBasedTimeRange
+module TimeRangeWeekBasedAccessible
   def self.included(model)
     model.class_eval do
       attr_writer :year, :week, :cwday

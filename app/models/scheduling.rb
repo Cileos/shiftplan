@@ -16,7 +16,7 @@ class Scheduling < ActiveRecord::Base
   validates_with NextDayWithinPlanPeriodValidator
 
   attr_writer :year
-  include WeekBasedTimeRange
+  include TimeRangeWeekBasedAccessible
   include TimeRangeComponentsAccessible
 
   include Nightshiftable
