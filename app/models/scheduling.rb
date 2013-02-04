@@ -28,6 +28,14 @@ class Scheduling < ActiveRecord::Base
     comments.map &:employee
   end
 
+  # Used for dupping, for example in nightshift. #dup won't copy associations,
+  # so please add them here if needed.
+  def initialize_dup(original)
+    super
+    self.team = original.team
+    self.plan = original.plan
+    self.employee = original.employee
+  end
 
   include Stackable
 
@@ -125,6 +133,10 @@ class Scheduling < ActiveRecord::Base
 
   def comments_count
     comments.count
+  end
+
+  def to_s
+    %Q~<Scheduling #{date} #{to_quickie}>~
   end
 
   private
