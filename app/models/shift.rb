@@ -7,8 +7,7 @@ class Shift < ActiveRecord::Base
 
   belongs_to :plan_template
   belongs_to :team
-  has_many   :demands, through: :demands_shifts
-  has_many   :demands_shifts, class_name: 'DemandsShifts', dependent: :destroy
+  has_many   :demands
 
   accepts_nested_attributes_for :demands, reject_if: :all_blank, allow_destroy: true
 
@@ -33,6 +32,15 @@ class Shift < ActiveRecord::Base
     self.end_hour   = next_day.end_hour
     self.end_minute = next_day.end_minute
   end
+
+  def demands_with_respecting_next_day
+    if next_day.present?
+      next_day.demands
+    else
+      demands_without_respecting_next_day
+    end
+  end
+  alias_method_chain :demands, :respecting_next_day
 
   protected
 
