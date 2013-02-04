@@ -31,6 +31,7 @@ shared_examples "a new created overnight shift" do
       overnight_shift
     }.should change(Demand, :count).from(0).to(2)
 
+    nightshift.should have(2).demands
     morning_shift.demands.should == nightshift.demands
   end
 

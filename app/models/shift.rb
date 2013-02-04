@@ -33,14 +33,14 @@ class Shift < ActiveRecord::Base
     self.end_minute = next_day.end_minute
   end
 
-  def demands_with_respecting_next_day
-    if next_day.present?
-      next_day.demands
+  def demands_with_respecting_previous_day
+    if previous_day.present?
+      previous_day.demands
     else
-      demands_without_respecting_next_day
+      demands_without_respecting_previous_day
     end
   end
-  alias_method_chain :demands, :respecting_next_day
+  alias_method_chain :demands, :respecting_previous_day
 
   protected
 
