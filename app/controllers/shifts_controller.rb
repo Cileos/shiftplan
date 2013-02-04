@@ -4,6 +4,8 @@ class ShiftsController < InheritedResources::Base
   nested_belongs_to :plan_template
   actions :all, :except => [:show]
 
+  before_filter :merge_time_components_from_next_day, only: :edit
+
   respond_to :html, :js
 
   def new
@@ -34,5 +36,11 @@ class ShiftsController < InheritedResources::Base
 
     def plan_template
       parent
+    end
+
+    # We always edit the first day of an overnight shift. So we need to initialize it, so
+    # that the end time of the next day is set.
+    def merge_time_components_from_next_day
+      @shift.merge_time_components_from_next_day! if @shift.is_overnight?
     end
 end
