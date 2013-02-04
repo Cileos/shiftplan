@@ -18,6 +18,7 @@ Feature: Creating a plan
       And I fill in "Name" with "Halloween im Atomkraftwerk"
      When I fill in "Beschreibung" with "5 eyes minimum"
       And I fill in "Enddatum" with "2063-12-23"
+      And I close all datepickers
       And I press "Anlegen"
       And I wait for the modal box to disappear
 
