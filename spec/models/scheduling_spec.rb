@@ -224,19 +224,35 @@ describe Scheduling do
     end
 
     context "with year and week turn" do
-      let(:nightwatch) { build_without_dates quickie: '19-6', date: '2012-01-01' }
-
       # in ISO 8601, the week with january 4th is the first calendar week
       # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
-      it "should set year and week correctly" do
-        nightwatch.save!
-        nightwatch.year.should == 2012
-        nightwatch.cwyear.should == 2011
-        nightwatch.week.should == 52
+      let!(:nightwatch) { build_without_dates(quickie: '19-6', date: '2012-01-01').tap(&:save!) }
 
-        nightwatch.next_day.year.should == 2012
-        nightwatch.next_day.cwyear.should == 2012
-        nightwatch.next_day.week.should == 1
+      context "the day of the night watch" do
+        subject { nightwatch }
+
+        it { subject.year.should == 2012 }
+        it { subject.cwyear.should == 2011 }
+        it { subject.week.should == 52 }
+      end
+
+      context "the next day" do
+        subject { nightwatch.next_day }
+
+        it { should be_persisted }
+        it { should be_valid }
+        it "should keep employee assigned" do
+          subject.employee.should == nightwatch.employee
+        end
+        it "should keep plan assigned" do
+          subject.plan.should == nightwatch.plan
+        end
+        it "should keep team assigned" do
+          subject.team.should == nightwatch.team
+        end
+        it { subject.year.should == 2012 }
+        it { subject.cwyear.should == 2012 }
+        it { subject.week.should == 1 }
       end
     end
   end

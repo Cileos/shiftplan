@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130129193634) do
+ActiveRecord::Schema.define(:version => 20130204150353) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -163,12 +163,16 @@ ActiveRecord::Schema.define(:version => 20130129193634) do
     t.integer  "employee_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.integer  "week",        :limit => 2
+    t.integer  "year"
     t.integer  "team_id"
+    t.integer  "next_day_id"
   end
 
   add_index "schedulings", ["employee_id"], :name => "index_schedulings_on_employee_id"
+  add_index "schedulings", ["next_day_id"], :name => "index_schedulings_on_next_day_id"
   add_index "schedulings", ["plan_id"], :name => "index_schedulings_on_plan_id"
 
   create_table "tasks", :force => true do |t|
