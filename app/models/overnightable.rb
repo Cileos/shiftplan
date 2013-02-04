@@ -3,13 +3,6 @@
 #
 # The foreign key 'next_day_id' has to be added to the database table of the importing
 # model so that the next_day and previous_day associations will work.
-#
-# The importing model has the implement the following 5 methods:
-#
-# 1.) Overnightable#init_overnight_end_time
-# 2.) Overnightable#build_next_day
-# 3.) Overnightable.update_next_day!
-# 4.) Overnightable.build_and_save_next_day
 
 module Overnightable
   def self.included(model)
