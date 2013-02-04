@@ -8,6 +8,8 @@ class SchedulingFilter
   include ActiveAttr::AttributeDefaults
   include Draper::ModelSupport
 
+  class CannotFindMonday < RuntimeError; end
+
   attribute :plan
   attribute :base, default: Scheduling
   attribute :week, type: Integer
@@ -30,8 +32,10 @@ class SchedulingFilter
   end
 
   def monday
-    if week?
-      Date.commercial(cwyear, week,1)
+    if week? && cwyear?
+      Date.commercial(cwyear, week, 1)
+    else
+      raise CannotFindMonday, "attributes: #{attributes.inspect}"
     end
   end
 
