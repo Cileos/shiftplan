@@ -512,7 +512,7 @@ describe Scheduling do
       scheduling = build_without_dates quickie: '22-6', date: '2012-12-12', plan: plan
 
       scheduling.should_not be_valid
-      scheduling.errors[:base].should == ["Die Endzeit ist größer als die Endzeit des Plans."]
+      scheduling.errors[:base].should == ["Der nächste Tag endet nach der Endzeit des Plans."]
     end
   end
 
