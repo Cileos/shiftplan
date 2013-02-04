@@ -29,11 +29,7 @@ class Shift < ActiveRecord::Base
     ShiftFilter.new plan_template: plan_template
   end
 
-  def init_overnight_end_time
-    self.end_hour   = next_day.end_hour
-    self.end_minute = next_day.end_minute
-  end
-
+  # Delegate the demands of the second day of a nightshift to the previous day.
   def demands_with_respecting_previous_day
     if previous_day.present?
       previous_day.demands
@@ -44,49 +40,6 @@ class Shift < ActiveRecord::Base
   alias_method_chain :demands, :respecting_previous_day
 
   protected
-
-  def update_demands
-    add_demands
-    destroy_demands
-  end
-
-  def add_demands
-    added_demands.each do |demand|
-      demands << demand
-    end
-  end
-
-  def added_demands
-    previous_day.demands.select { |demand| demands.exclude?(demand) }
-  end
-
-  def destroy_demands
-    destroyed_demands.each do |demand|
-      demand.destroy
-    end
-  end
-
-  def destroyed_demands
-    demands.select { |demand| previous_day.demands.exclude?(demand) }
-  end
-
-  def has_overnight_timespan?
-    @has_overnight_timespan ||= end_hour && start_hour && end_hour < start_hour
-  end
-
-  def build_and_save_next_day
-    dup.tap do |next_day|
-      next_day.day = day + 1
-      next_day.start_hour = 0
-      next_day.start_minute = 0
-      next_day.end_hour = @next_day_end_hour
-      next_day.end_minute = @next_day_end_minute
-      next_day.save!
-      demands.each do |d|
-        next_day.demands << d
-      end
-    end
-  end
 
   def base_for_time_range_components
     Time.zone.parse('00:00')
