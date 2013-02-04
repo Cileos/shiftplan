@@ -49,8 +49,8 @@ describe SchedulingFilter do
     # the beginning of this week will be the correct monday of the requested week.
     describe "for year 2015 and week 1" do
       it_behaves_like "a scheduling that knows the monday" do
-        let(:year) { 2015 }
-        let(:week) { 1 }
+        let(:year) { 2014 }
+        let(:week) { 52 }
         let(:expected_monday) { Date.new(2014, 12, 29) }
       end
     end

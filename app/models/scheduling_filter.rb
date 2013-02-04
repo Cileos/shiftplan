@@ -30,10 +30,7 @@ class SchedulingFilter
   end
 
   def monday
-    # In Germany, the week with January 4th is the first calendar week.
-    # Everywhere else where ISO 8601 is implemented, too.
-    week_offset = Date.new(cwyear || year).end_of_week.day >= 4 ? week - 1 : week
-    ( Date.new(cwyear) + week_offset.weeks ).beginning_of_week
+    ( Date.new(year || cwyear) + week.weeks ).beginning_of_week
   end
 
   alias first_day monday
