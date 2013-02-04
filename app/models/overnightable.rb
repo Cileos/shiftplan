@@ -11,10 +11,10 @@ module Overnightable
       belongs_to :next_day, class_name: model
       has_one    :previous_day, class_name: model, foreign_key: 'next_day_id'
 
-      before_validation :update_or_destroy_next_day_for_night_shift
-      before_validation :build_next_day_for_nightshift
+      before_validation :update_or_destroy_next_day_for_nightshift,  if: :next_day
+      before_validation :build_next_day_for_nightshift,              unless: :next_day
       after_save        :save_next_day_for_nightshift
-      after_destroy     :destroy_next_day_for_nightshift, if: :next_day
+      after_destroy     :destroy_next_day_for_nightshift,            if: :next_day
 
     end
   end
@@ -31,16 +31,14 @@ module Overnightable
   protected
 
   def build_next_day_for_nightshift
-    if !next_day.present?
-      if ends_at < starts_at
-        self.next_day = dup.tap do |tomorrow|
-          tomorrow.day = day + 1
-          tomorrow.starts_at = ends_at.tomorrow.beginning_of_day
-          tomorrow.ends_at = ends_at + 1.day
-          tomorrow.next_day = nil # prevents that a next day for the next day will be created
-        end
-        self.ends_at = ends_at.end_of_day
+    if ends_at < starts_at
+      self.next_day = dup.tap do |tomorrow|
+        tomorrow.day = day + 1
+        tomorrow.starts_at = ends_at.tomorrow.beginning_of_day
+        tomorrow.ends_at = ends_at + 1.day
+        tomorrow.next_day = nil # prevents that a next day for the next day will be created
       end
+      self.ends_at = ends_at.end_of_day
     end
   end
 
@@ -82,27 +80,11 @@ module Overnightable
   # next day is updated accordingly.
   # If the overnightable's new time range does not span
   # over midnight anymore, the next day needs to be destroyed, though.
-  def update_or_destroy_next_day_for_night_shift
-    if next_day.present?
-      if ends_at < starts_at # still overnight?
-        update_next_day
-      else
-        destroy_next_day_for_nightshift
-      end
-    end
-  end
-
-
-  # If an hour range spanning over midnight is given, we split the overnightable at the
-  # end of the first day. The next day is created here.
-  def create_next_day!
-    begin
-      @has_overnight_timespan = nil # clear to protect it from duping in build_and_save_next_day
-      self.next_day = build_and_save_next_day
-      @overnightable_processed = true # prevents that callbacks are executed again after save
-      save!
-    ensure
-      @overnightable_processed = false
+  def update_or_destroy_next_day_for_nightshift
+    if ends_at < starts_at # still overnight?
+      update_next_day
+    else
+      destroy_next_day_for_nightshift
     end
   end
 
