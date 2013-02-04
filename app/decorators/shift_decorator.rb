@@ -2,7 +2,7 @@ class ShiftDecorator < RecordDecorator
   decorates :shift
   decorates_association :demands
 
-  delegate :is_overnight?, :init_overnight_end_time, :previous_day, to: :model
+  delegate :is_overnight?, :previous_day, to: :model
 
   def metadata
     {
