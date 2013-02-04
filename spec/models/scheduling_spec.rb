@@ -234,6 +234,7 @@ describe Scheduling do
         it { subject.year.should == 2012 }
         it { subject.cwyear.should == 2011 }
         it { subject.week.should == 52 }
+        it { subject.next_day.should_not be_blank }
       end
 
       context "the next day" do
@@ -253,6 +254,7 @@ describe Scheduling do
         it { subject.year.should == 2012 }
         it { subject.cwyear.should == 2012 }
         it { subject.week.should == 1 }
+        it { subject.previous_day.should == nightwatch }
       end
     end
   end

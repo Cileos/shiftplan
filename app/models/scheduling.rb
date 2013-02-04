@@ -139,6 +139,10 @@ class Scheduling < ActiveRecord::Base
     %Q~<Scheduling #{date} #{to_quickie}>~
   end
 
+  def inspect
+    to_s
+  end
+
   private
 
   def parse_quickie_and_fill_in

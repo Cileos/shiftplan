@@ -12,7 +12,7 @@ module Nightshiftable
     model.class_eval do
       with_options class_name: name do |self_ref|
         self_ref.belongs_to :next_day
-        self_ref.belongs_to :previous_day, foreign_key: 'next_day_id'
+        self_ref.has_one :previous_day, foreign_key: 'next_day_id'
       end
       before_validation :build_next_day_for_nightshift, if: Proc.new { |r| [r.starts_at, r.ends_at].none?(&:blank?) }
     end
