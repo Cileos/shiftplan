@@ -64,14 +64,6 @@ module Overnightable
     end
   end
 
-  def overnight_processing_needed?
-    !overnightable_processed? && (next_day || has_overnight_timespan?)
-  end
-
-  def overnightable_processed?
-    @overnightable_processed
-  end
-
   def destroy_next_day_for_nightshift
     next_day.destroy
   end
