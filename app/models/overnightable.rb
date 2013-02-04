@@ -64,6 +64,7 @@ module Overnightable
       tomorrow.team = team
       tomorrow.next_day = nil # prevents that a next day for the next day will be created
     end
+    self.ends_at = ends_at.end_of_day
   end
 
   def save_next_day_for_nightshift
