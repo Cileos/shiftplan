@@ -20,15 +20,10 @@ Feature: Applying Weekbased Plan Templates to Plans
         | Druckwasserreaktor  | the plan template  | 1   | 4           | 12        | team "Druckwasserreaktor"  |
         | Brennstabkessel     | the plan template  | 0   | 8           | 17        | team "Brennstabkessel"     |
       And the following demands exist:
-        | demand                      | quantity  | qualification                      |
-        | Brennstabpolierer           | 1         | qualification "Brennstabpolierer"  |
-        | Brennstabexperte            | 2         | qualification "Brennstabexperte"   |
-        | Einfacher Brennstabexperte  | 1         | qualification "Brennstabexperte"  |
-      And the following demands shifts exist:
-        | shift                           | demand                                   |
-        | the shift "Druckwasserreaktor"  | the demand "Brennstabpolierer"           |
-        | the shift "Druckwasserreaktor"  | the demand "Brennstabexperte"            |
-        | the shift "Brennstabkessel"     | the demand "Einfacher Brennstabexperte"  |
+        | shift                       | quantity  | qualification                      |
+        | shift "Druckwasserreaktor"  | 1         | qualification "Brennstabpolierer"  |
+        | shift "Druckwasserreaktor"  | 2         | qualification "Brennstabexperte"   |
+        | shift "Brennstabkessel"     | 1         | qualification "Brennstabexperte"   |
      When I go to the teams in week page for the plan template
      Then I should see the following calendar:
         | Teams                  | Mo                                | Di                                                      | Mi  | Do  | Fr  | Sa  | So  |
