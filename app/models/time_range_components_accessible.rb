@@ -40,7 +40,7 @@ module TimeRangeComponentsAccessible
   protected
 
   def compose_time_range_from_components
-    date = base_date_for_components
+    date = base_for_time_range_components
     if [date, @start_hour, @end_hour].all?(&:present?)
       self.starts_at = date + @start_hour.hours
       self.ends_at = date + @end_hour.hours
