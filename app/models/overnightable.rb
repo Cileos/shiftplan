@@ -121,36 +121,6 @@ module Overnightable
     starts_at > ends_at
   end
 
-  # As we always edit the first day of an overnightable, we need to update the next day of
-  # an overnightable according to the changes made to the first day.
-  # You should set the end time of the next day to the initially entered end time which
-  # was remembered in instance variables in the prepare_overnightable hook.
-  #
-  # This needs to be overwritten in the overnightable to your own needs.
-
-  # This methods builds the next day of an overnightable.
-  # You should set the end time of the next day to the initially entered end time which
-  # was remembered in instance variables in the prepare_overnightable hook.
-  #
-  # Please implement this according to the needs of your overnightable.
-  # Example:
-  # def build_and_save_next_day
-  #   dup.tap do |next_day|
-  #     next_day.day = day + 1
-  #     next_day.start_hour = 0
-  #     next_day.start_minute = 0
-  #     next_day.end_hour = @next_day_end_hour
-  #     next_day.end_minute = @next_day_end_minute
-  #     next_day.save!
-  #     demands.each do |d|
-  #       next_day.demands << d
-  #     end
-  #   end
-  # end
-  def build_and_save_next_day
-    raise NotImplementedError
-  end
-
   # DateTime#end_of_day returns 23:59:59, which we show as 24 o'clock
   def end_hour_respecting_end_of_day
     if ends_at.min >= 59 and ends_at.hour == 23
