@@ -42,4 +42,8 @@ class Organization < ActiveRecord::Base
       blogs.create! :title => 'Company Blog'
     end
   end
+
+  def to_s
+    %Q~<Organization #{id} "#{name}" account_id: #{account_id}>~
+  end
 end
