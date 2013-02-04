@@ -2,6 +2,7 @@ require_dependency 'with_previous_changes_undone'
 
 class Shift < ActiveRecord::Base
   include WithPreviousChangesUndone
+  include TimeRangeComponentsAccessible
   include Overnightable
 
   belongs_to :plan_template
@@ -35,13 +36,6 @@ class Shift < ActiveRecord::Base
 
   protected
 
-  def prepare_overnightable
-    @next_day_end_hour = end_hour
-    @next_day_end_minute = end_minute
-    self.end_hour = 24
-    self.end_minute = 0
-  end
-
   def update_demands
     add_demands
     destroy_demands
@@ -71,14 +65,15 @@ class Shift < ActiveRecord::Base
     @has_overnight_timespan ||= end_hour && start_hour && end_hour < start_hour
   end
 
-  def update_next_day!
+  def update_next_day
     next_day.tap do |next_day|
-      next_day.end_hour   = @next_day_end_hour
-      next_day.end_minute = @next_day_end_minute
-      next_day.team       = team
-      next_day.day        = day + 1
-      next_day.save!
-      next_day.update_demands
+      tomorrow.day = day + 1
+      tomorrow.ends_at = ends_at + 1.day
+      tomorrow.team = team
+      tomorrow.next_day = nil # prevents that a next day for the next day will be created
+      tomorrow.save!
+      tomorrow.update_demands
+      self.ends_at = ends_at.end_of_day
     end
   end
 
@@ -94,6 +89,10 @@ class Shift < ActiveRecord::Base
         next_day.demands << d
       end
     end
+  end
+
+  def base_for_time_range_components
+    plan_template.created_at.beginning_of_day
   end
 end
 

@@ -4,9 +4,6 @@ class ShiftsController < InheritedResources::Base
   nested_belongs_to :plan_template
   actions :all, :except => [:show]
 
-  before_filter :init_overnightable, only: :edit
-  before_filter :set_defaults, only: :new
-
   respond_to :html, :js
 
   def new
@@ -37,14 +34,5 @@ class ShiftsController < InheritedResources::Base
 
     def plan_template
       parent
-    end
-
-    def init_overnightable
-      @shift.init_overnight_end_time if @shift.is_overnight?
-    end
-
-    def set_defaults
-      @shift.start_hour = 8
-      @shift.end_hour = 16
     end
 end

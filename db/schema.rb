@@ -215,10 +215,8 @@ ActiveRecord::Schema.define(:version => 20130131101403) do
 
   create_table "shifts", :force => true do |t|
     t.integer  "plan_template_id"
-    t.integer  "start_hour"
-    t.integer  "end_hour"
-    t.integer  "start_minute"
-    t.integer  "end_minute"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
     t.integer  "team_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false

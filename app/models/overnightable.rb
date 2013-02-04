@@ -7,20 +7,20 @@
 # The importing model has the implement the following 5 methods:
 #
 # 1.) Overnightable#init_overnight_end_time
-# 2.) Overnightable#prepare_overnightable
-# 3.) Overnightable.has_overnight_timespan?
-# 4.) Overnightable.update_next_day!
-# 5.) Overnightable.build_and_save_next_day
+# 2.) Overnightable#build_next_day
+# 3.) Overnightable.update_next_day!
+# 4.) Overnightable.build_and_save_next_day
 
 module Overnightable
   def self.included(model)
     model.class_eval do
 
-      belongs_to :next_day, class_name: 'Shift'
-      has_one    :previous_day, class_name: 'Shift', foreign_key: 'next_day_id'
+      belongs_to :next_day, class_name: model
+      has_one    :previous_day, class_name: model, foreign_key: 'next_day_id'
 
-      before_validation :prepare_overnightable, if: :has_overnight_timespan?
-      after_save        :create_or_update_next_day!, if: :overnight_processing_needed?
+      before_validation :build_next_day
+      after_create      :create_next_day
+      before_validation :update_or_destroy_next_day
       after_destroy     :destroy_next_day, if: :next_day
 
     end
@@ -30,21 +30,34 @@ module Overnightable
     next_day || previous_day
   end
 
-  # We always edit the first day of an overnightable. In order for this to work, we need
-  # to set the end time of the first day to the end time of the next day.  Call this
-  # method in an before_filter of the model's controller for the edit action for example.
-  #
-  # This needs to be overwritten in the overnightable.
-  # Example:
-  # def init_overnight_end_time
-  #   self.end_hour   = next_day.end_hour
-  #   self.end_minute = next_day.end_minute
-  # end
-  def init_overnight_end_time
-    raise NotImplementedError
+  protected
+
+  def build_next_day
+    if ends_at < starts_at && !next_day.present?
+      self.next_day = dup.tap do |tomorrow|
+        tomorrow.day = day + 1
+        tomorrow.starts_at = ends_at.tomorrow.beginning_of_day
+        tomorrow.ends_at = ends_at + 1.day
+        tomorrow.next_day = nil # prevents that a next day for the next day will be created
+        self.ends_at = ends_at.end_of_day
+      end
+    end
   end
 
-  protected
+  # Creates the second part of a nightshift.
+  def create_next_day
+    if next_day.present? && next_day.new_record?
+      next_day.save!
+      after_create_next_day
+    end
+  end
+
+  # hook for special actions after the next day has been created
+  def after_create_next_day
+    demands.each do |d|
+      next_day.demands << d
+    end
+  end
 
   def overnight_processing_needed?
     !overnightable_processed? && (next_day || has_overnight_timespan?)
@@ -58,23 +71,22 @@ module Overnightable
     next_day.destroy
   end
 
-  def create_or_update_next_day!
-    if next_day.present?
-      update_or_destroy_next_day!
-    elsif has_overnight_timespan?
-      create_next_day!
-    end
+  # Must be implemented in the including model
+  def update_next_day
+    raise NotImplementedError
   end
 
   # If the overnightable still has an overnight timespan after it has been editited, the
   # next day is updated accordingly.
   # If the overnightable's new time range does not span
   # over midnight anymore, the next day needs to be destroyed, though.
-  def update_or_destroy_next_day!
-    if has_overnight_timespan?
-      update_next_day!
-    else
-      destroy_next_day
+  def update_or_destroy_next_day
+    if next_day.present?
+      if ends_at < starts_at # still overnight?
+        update_next_day
+      else
+        destroy_next_day
+      end
     end
   end
 
@@ -91,34 +103,12 @@ module Overnightable
     end
   end
 
-  # If a the overnightable has a overnight timespan, we need to set the end time of the
-  # first day to the end of the day and remember the the original end time entered for
-  # the creation of the next day.
-  #
-  # This needs to be overwritten in the overnightable.
-  # Example:
-  # def prepare_overnightable
-  #   @next_day_end_hour = end_hour
-  #   @next_day_end_minute = end_minute
-  #   self.end_hour = 24
-  #   self.end_minute = 0
-  # end
-  def prepare_overnightable
-    raise NotImplementedError
-  end
-
   # Checks if the model has an overnight timespan. We also need to remember if an
   # overnight timespan was initally given because the end times get set to the end of
   # the day for the first day of the overnightable in the prepare_overnightable hook
   # later.
-  #
-  # This needs to be overwritten in the overnightable.
-  # Example:
-  # def has_overnight_timespan?
-  #   @has_overnight_timespan ||= end_hour && start_hour && end_hour < start_hour
-  # end
   def has_overnight_timespan?
-    raise NotImplementedError
+    starts_at > ends_at
   end
 
   # As we always edit the first day of an overnightable, we need to update the next day of
@@ -128,7 +118,7 @@ module Overnightable
   #
   # This needs to be overwritten in the overnightable to your own needs.
   # Example:
-  # def update_next_day!
+  # def update_next_day
   #   next_day.tap do |next_day|
   #     next_day.end_hour   = @next_day_end_hour
   #     next_day.end_minute = @next_day_end_minute
@@ -138,7 +128,7 @@ module Overnightable
   #     next_day.update_demands
   #   end
   # end
-  def update_next_day!
+  def update_next_day
     raise NotImplementedError
   end
 
@@ -163,5 +153,24 @@ module Overnightable
   # end
   def build_and_save_next_day
     raise NotImplementedError
+  end
+
+  # DateTime#end_of_day returns 23:59:59, which we show as 24 o'clock
+  def end_hour_respecting_next_day_and_end_of_day
+    if next_day
+      next_day.end_hour # always edit the whole overnight shift
+    elsif ends_at.min >= 59 and ends_at.hour == 23
+      24
+    else
+      ends_at.hour
+    end
+  end
+
+  def end_minute_respecting_next_day
+    if next_day
+      next_day.end_minute # always edit the whole overnight shift
+    else
+      ends_at.min
+    end
   end
 end

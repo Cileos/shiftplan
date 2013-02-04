@@ -36,11 +36,11 @@ class ShiftDecorator < RecordDecorator
   end
 
   def formatted_start_time
-    formatted_time(start_hour, start_minute)
+    formatted_time(starts_at.hour, starts_at.min)
   end
 
   def formatted_end_time
-    formatted_time(end_hour, end_minute)
+    formatted_time(ends_at.hour, ends_at.min)
   end
 
   def formatted_time(hour, minute)
