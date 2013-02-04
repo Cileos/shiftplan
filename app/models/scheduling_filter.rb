@@ -30,13 +30,17 @@ class SchedulingFilter
   end
 
   def monday
-    ( Date.new(year || cwyear) + week.weeks ).beginning_of_week
+    if week?
+      Date.commercial(cwyear, week,1)
+    end
   end
 
   alias first_day monday
 
   def last_day
-    ( Date.new(year || cwyear) + week.weeks ).end_of_week
+    if week?
+      Date.commercial(cwyear, week,7)
+    end
   end
 
   def previous_week
