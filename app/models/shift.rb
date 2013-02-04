@@ -88,7 +88,7 @@ class Shift < ActiveRecord::Base
   end
 
   def base_for_time_range_components
-    plan_template.created_at.beginning_of_day
+    Time.zone.parse('00:00')
   end
 end
 
