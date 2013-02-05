@@ -35,7 +35,7 @@ module Overnightable
   def build_next_day_for_nightshift
     if has_overnight_timespan?
       self.next_day = dup.tap do |tomorrow|
-        tomorrow.day = day + 1
+        tomorrow.day = day + 1 if tomorrow.respond_to?(:day)
         tomorrow.starts_at = ends_at.tomorrow.beginning_of_day
         tomorrow.ends_at = ends_at + 1.day
         tomorrow.next_day = nil # prevents that a next day for the next day will be created
@@ -48,7 +48,7 @@ module Overnightable
   # an overnightable according to the changes made.
   def update_next_day
     next_day.tap do |tomorrow|
-      tomorrow.day = day + 1
+      tomorrow.day = day + 1 if tomorrow.respond_to?(:day)
       tomorrow.ends_at = ends_at + 1.day
       tomorrow.team = team
       tomorrow.next_day = nil # prevents that a next day for the next day will be created
