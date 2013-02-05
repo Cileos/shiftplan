@@ -25,6 +25,8 @@ module Overnightable
 
   # We always edit the first day of an overnightable. This makes it necessary to
   # initialize the first day with the end_hour and end_minute of the next day.
+  # You might need to call this in your controller in an before_filter for the edit action
+  # to make sure the first day of your overnightable gets correctly initialized.
   def merge_time_components_from_next_day!
     self.end_hour   = next_day.ends_at.hour
     self.end_minute = next_day.ends_at.min
@@ -32,6 +34,9 @@ module Overnightable
 
   protected
 
+  # Builds the next day if an overnight timespan is present. Takes care of splitting the
+  # overnightable at midnight. (The next_day will start at 00:00 on the next day, the
+  # first day/previous day will end at 23:59)
   def build_next_day_for_nightshift
     if has_overnight_timespan?
       self.next_day = dup.tap do |tomorrow|
@@ -46,6 +51,8 @@ module Overnightable
 
   # As we always edit the first day of an overnightable, we need to update the next day of
   # an overnightable according to the changes made.
+  # Takes care of splitting the overnightable at midnight. (The next_day will start at
+  # 00:00 on the next day, the first day/previous day will end at 23:59)
   def update_next_day
     next_day.tap do |tomorrow|
       tomorrow.day = day + 1 if tomorrow.respond_to?(:day)
@@ -56,17 +63,22 @@ module Overnightable
     self.ends_at = ends_at.end_of_day # split at midnight, end_of_day returns 23:5
   end
 
+  # After the first day of the overnightable has been saved, this method takes care of
+  # saving the next day which has been build or updated before validation of the first
+  # day.
   def save_next_day_for_nightshift
     if next_day.present?
       next_day.save!
     end
   end
 
+  # The next day has to be destroyed if either the overnightable has no overnight timespan
+  # anymore after it has been updated or the overnightable's first day has been destroyed.
   def destroy_next_day_for_nightshift
     next_day.destroy
   end
 
-  # If the overnightable still has an overnight timespan after it has been editited, the
+  # If the overnightable still has an overnight timespan after it has been updated, the
   # next day is updated accordingly.
   # If the overnightable's new timespan does not span over midnight anymore, the next day
   # needs to be destroyed, though.
