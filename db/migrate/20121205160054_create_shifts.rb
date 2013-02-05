@@ -6,6 +6,7 @@ class CreateShifts < ActiveRecord::Migration
       t.datetime :ends_at
       t.integer  :team_id
       t.integer  :next_day_id
+      t.integer  :day
 
       t.timestamps
     end
