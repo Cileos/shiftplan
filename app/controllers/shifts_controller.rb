@@ -38,8 +38,8 @@ class ShiftsController < InheritedResources::Base
       parent
     end
 
-    # We always edit the first day of an overnight shift. So we need to initialize it, so
-    # that the end time of the next day is set.
+  # We always edit the first day of an overnightable. This makes it necessary to
+  # initialize the first day with the end_hour and end_minute of the next day.
     def merge_time_components_from_next_day
       @shift.merge_time_components_from_next_day! if @shift.is_overnight?
     end

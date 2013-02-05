@@ -23,6 +23,8 @@ module Overnightable
     next_day || previous_day
   end
 
+  # We always edit the first day of an overnightable. This makes it necessary to
+  # initialize the first day with the end_hour and end_minute of the next day.
   def merge_time_components_from_next_day!
     self.end_hour   = next_day.ends_at.hour
     self.end_minute = next_day.ends_at.min
