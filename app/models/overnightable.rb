@@ -11,10 +11,10 @@ module Overnightable
       belongs_to :next_day, class_name: model
       has_one    :previous_day, class_name: model, foreign_key: 'next_day_id'
 
-      before_validation :update_or_destroy_next_day_for_nightshift,  if: :next_day
-      before_validation :build_next_day_for_nightshift,              unless: :next_day
-      after_save        :save_next_day_for_nightshift
-      after_destroy     :destroy_next_day_for_nightshift,            if: :next_day
+      before_validation :update_or_destroy_next_day_for_overnightable,  if: :next_day
+      before_validation :build_next_day_for_overnightable,              unless: :next_day
+      after_save        :save_next_day_for_overnightable
+      after_destroy     :destroy_next_day_for_overnightable,            if: :next_day
 
     end
   end
@@ -37,7 +37,7 @@ module Overnightable
   # Builds the next day if an overnight timespan is present. Takes care of splitting the
   # overnightable at midnight. (The next_day will start at 00:00 on the next day, the
   # first day/previous day will end at 23:59)
-  def build_next_day_for_nightshift
+  def build_next_day_for_overnightable
     if has_overnight_timespan?
       self.next_day = dup.tap do |tomorrow|
         tomorrow.day = day + 1 if tomorrow.respond_to?(:day)
@@ -66,7 +66,7 @@ module Overnightable
   # After the first day of the overnightable has been saved, this method takes care of
   # saving the next day which has been build or updated before validation of the first
   # day.
-  def save_next_day_for_nightshift
+  def save_next_day_for_overnightable
     if next_day.present?
       next_day.save!
     end
@@ -74,7 +74,7 @@ module Overnightable
 
   # The next day has to be destroyed if either the overnightable has no overnight timespan
   # anymore after it has been updated or the overnightable's first day has been destroyed.
-  def destroy_next_day_for_nightshift
+  def destroy_next_day_for_overnightable
     next_day.destroy
   end
 
@@ -82,11 +82,11 @@ module Overnightable
   # next day is updated accordingly.
   # If the overnightable's new timespan does not span over midnight anymore, the next day
   # needs to be destroyed, though.
-  def update_or_destroy_next_day_for_nightshift
+  def update_or_destroy_next_day_for_overnightable
     if has_overnight_timespan? # still overnight?
       update_next_day
     else
-      destroy_next_day_for_nightshift
+      destroy_next_day_for_overnightable
     end
   end
 
