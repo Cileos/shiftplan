@@ -31,7 +31,7 @@ module Overnightable
   protected
 
   def build_next_day_for_nightshift
-    if ends_at < starts_at
+    if has_overnight_timespan?
       self.next_day = dup.tap do |tomorrow|
         tomorrow.day = day + 1
         tomorrow.starts_at = ends_at.tomorrow.beginning_of_day
@@ -70,22 +70,19 @@ module Overnightable
 
   # If the overnightable still has an overnight timespan after it has been editited, the
   # next day is updated accordingly.
-  # If the overnightable's new time range does not span
-  # over midnight anymore, the next day needs to be destroyed, though.
+  # If the overnightable's new timespan does not span over midnight anymore, the next day
+  # needs to be destroyed, though.
   def update_or_destroy_next_day_for_nightshift
-    if ends_at < starts_at # still overnight?
+    if has_overnight_timespan? # still overnight?
       update_next_day
     else
       destroy_next_day_for_nightshift
     end
   end
 
-  # Checks if the model has an overnight timespan. We also need to remember if an
-  # overnight timespan was initally given because the end times get set to the end of
-  # the day for the first day of the overnightable in the prepare_overnightable hook
-  # later.
+  # Checks if the model has an overnight timespan.
   def has_overnight_timespan?
-    starts_at > ends_at
+    ends_at < starts_at
   end
 
   # DateTime#end_of_day returns 23:59:59, which we show as 24 o'clock
