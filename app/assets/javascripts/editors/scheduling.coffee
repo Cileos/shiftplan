@@ -8,7 +8,8 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       .filter(':not(.autocomplete)')
         .edit_quickie()
       .end()
-      .on('keyup change autocompleteclose', => @quickieChanged())
+      .on('change autocompleteclose', => @quickieChanged())
+      .bindWithDelay('keyup', (=> @quickieChanged()), 150)
 
     for field in ['start_hour', 'end_hour', 'team_id']
       @input(field).on 'change', => @fieldChanged()

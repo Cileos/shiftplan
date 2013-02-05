@@ -24,3 +24,4 @@
 //= require jquery.tipsy
 //= require locales/jquery.ui.datepicker-de.js
 //= require jquery.cookie
+//= require bindWithDelay/bindWithDelay
