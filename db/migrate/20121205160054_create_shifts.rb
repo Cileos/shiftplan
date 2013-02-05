@@ -2,8 +2,8 @@ class CreateShifts < ActiveRecord::Migration
   def change
     create_table :shifts do |t|
       t.integer  :plan_template_id
-      t.datetime :starts_at
-      t.datetime :ends_at
+      t.time     :starts_at
+      t.time     :ends_at
       t.integer  :team_id
       t.integer  :next_day_id
       t.integer  :day

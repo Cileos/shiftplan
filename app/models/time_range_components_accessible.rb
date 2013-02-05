@@ -59,6 +59,14 @@ module TimeRangeComponentsAccessible
     @date || (starts_at.present? && starts_at.to_date)
   end
 
+  def starts_at
+    super.try(:in_time_zone)
+  end
+
+  def ends_at
+    super.try(:in_time_zone)
+  end
+
   protected
 
   def compose_time_range_from_components
