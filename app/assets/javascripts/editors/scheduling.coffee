@@ -35,8 +35,14 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     @input('quickie').val(quickie.toString())
 
   setTeamByName: (name) ->
-    return unless name?
     input = @input('team_id')
+
+    unless name?
+      input.val( '' ) # prompt
+      return
+
     name = name.replace(/"/, '\\"') # escape quotes so the CSS selector won't break
     if found = input.find("option:contains(\"#{name}\")").attr('value')
       input.val( found )
+    else
+      input.val( '' ) # prompt

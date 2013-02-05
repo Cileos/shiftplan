@@ -14,7 +14,7 @@
 
     = f.association :employee, as: :select, include_blank: false, collection: scheduling.plan.organization.employees
 
-    = f.association :team, as: :select, include_blank: false, collection: scheduling.plan.organization.teams
+    = f.association :team, as: :select, include_blank: true, collection: scheduling.plan.organization.teams
 
   .actions
     = f.create_button data: { icon: i(:check) }
