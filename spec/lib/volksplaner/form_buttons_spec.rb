@@ -59,7 +59,25 @@ describe Volksplaner::FormButtons do
     end
     it "translates label with icon" do
       template.should_receive(:ti).with(:colorful_action).and_return('the label')
+      template.stub(:translate_action!).with(:colorful_action_busy).and_return('.....')
       form.responsive_submit_button(:colorful_action).should have_css('button', text: 'the label')
+    end
+  end
+
+  describe 'busy text for responsive submit button' do
+    it "accepts disabled_label as :disabled_label option" do
+      form.responsive_submit_button(disabled_label: 'Exterminating..').should have_css('button[data-disable-with="Exterminating.."]')
+    end
+    it "accepts disabled_label as :busy_label option" do
+      form.responsive_submit_button(busy_label: 'Exterminating..').should have_css('button[data-disable-with="Exterminating.."]')
+    end
+    it "uses :action_busy as disabled_label when given a symbolized :action" do
+      template.should_receive(:translate_action!).with(:exterminate_busy).and_return('Exterminating..')
+      form.responsive_submit_button(:exterminate).should have_css('button[data-disable-with="Exterminating.."]')
+    end
+    it "falls back to ellipses for disabled label if no :action_busy is available" do
+      template.should_receive(:translate_action!).with(:exterminate_busy).and_raise(I18n::MissingTranslationData)
+      form.responsive_submit_button(:exterminate).should have_css('button[data-disable-with="..."]')
     end
   end
 end
