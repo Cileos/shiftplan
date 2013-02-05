@@ -40,16 +40,12 @@ module Overnightable
         tomorrow.ends_at = ends_at + 1.day
         tomorrow.next_day = nil # prevents that a next day for the next day will be created
       end
-      self.ends_at = ends_at.end_of_day
+      self.ends_at = ends_at.end_of_day # split at midnight, end_of_day returns 23:59
     end
   end
 
   # As we always edit the first day of an overnightable, we need to update the next day of
-  # an overnightable according to the changes made to the first day.
-  # You should set the end time of the next day to the initially entered end time which
-  # was remembered in instance variables in the prepare_overnightable hook.
-  #
-  # This needs to be overwritten in the overnightable to your own needs.
+  # an overnightable according to the changes made.
   def update_next_day
     next_day.tap do |tomorrow|
       tomorrow.day = day + 1
@@ -57,7 +53,7 @@ module Overnightable
       tomorrow.team = team
       tomorrow.next_day = nil # prevents that a next day for the next day will be created
     end
-    self.ends_at = ends_at.end_of_day
+    self.ends_at = ends_at.end_of_day # split at midnight, end_of_day returns 23:5
   end
 
   def save_next_day_for_nightshift
