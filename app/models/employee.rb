@@ -3,9 +3,17 @@ class Employee < ActiveRecord::Base
 
   Roles = %w(owner planner)
 
-  attr_accessible :first_name, :last_name, :weekly_working_time, :avatar, :avatar_cache,
-    :organization_id, :account_id, :role, :force_create_duplicate
-  attr_accessor :organization_id, :force_create_duplicate
+  attr_accessible :first_name,
+                  :last_name,
+                  :weekly_working_time,
+                  :avatar,
+                  :avatar_cache,
+                  :organization_id,
+                  :account_id,
+                  :role,
+                  :force_create_duplicate
+  attr_accessor :organization_id,
+                :force_create_duplicate
 
   validates_presence_of :first_name, :last_name
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
