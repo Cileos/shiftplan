@@ -193,7 +193,8 @@ module HtmlSelectorsHelpers
     rows.index(row_label)
   end
 
-  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.button.active', 'li.dropdown a.button', '.demand']
+  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name',
+    'a.button.active', 'li.dropdown a.button', '.demand', '.qualification_name']
   def extract_text_from_cell(cell)
     tried = 0
     found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }

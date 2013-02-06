@@ -5,11 +5,6 @@ require 'spec_helper'
 describe Scheduling do
 
   in_locale :de
-  context "without employee" do
-    let(:scheduling) { build :scheduling, employee: nil }
-
-    it { scheduling.should_not be_valid }
-  end
 
   context "with illegal characters in team name (quickie)" do
     let(:scheduling) { Scheduling.new quickie: "9-17 work 'hard'" }

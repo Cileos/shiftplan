@@ -6,5 +6,8 @@
         %span.employee_name
           = avatar(scheduling.employee.user, scheduling.employee, :tiny)
           = scheduling.employee.name
+      - if qualification = scheduling.try(:demand).try(:qualification)
+        %span.qualification_name
+          = qualification.name
 
       = render 'schedulings/gimmicks', scheduling: scheduling

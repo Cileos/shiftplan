@@ -3,7 +3,7 @@ de:
     labels:
       apply_plan_template:
         new:
-          plan_template: 'Planvorlage'
+          plan_template_id: 'Planvorlage'
   flash:
     apply_plan_template:
       create:
