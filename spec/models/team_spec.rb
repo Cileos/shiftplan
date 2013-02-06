@@ -23,6 +23,14 @@ describe Team do
       build(:team, name: 'Krümelmonster').should be_valid
     end
 
+    it "accepts spaces and numbers" do
+      build(:team, name: 'Krümelmonster 2').should be_valid
+    end
+
+    it "may not start with a number" do
+      build(:team, name: '5arsch').should_not be_valid
+    end
+
     it "should not accept dashes to avoid confusion for Quickie parser" do
       build(:team, name: 'Krümel-monster').should_not be_valid
     end

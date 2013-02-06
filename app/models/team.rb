@@ -14,7 +14,7 @@ class Team < ActiveRecord::Base
 
   validates :name, :organization, presence: true
   validates_format_of :color, with: /\A#[0-9A-F]{6}\z/
-  validates_format_of :name, with: /\A[\p{Letter}][\p{Letter} ]+\z/
+  validates_format_of :name, with: /\A[\p{Letter}][\p{Letter}\d ]+\z/
   validates_uniqueness_of :name, scope: :organization_id
 
   attr_accessible :name, :shortcut, :color
