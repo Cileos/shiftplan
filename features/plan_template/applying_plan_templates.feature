@@ -78,21 +78,3 @@ Feature: Applying Weekbased Plan Templates to Plans
         | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel (B)     | 22:00-23:59 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
-
-  Scenario: Applying a weekbased plan template on the employees in week page
-    Given today is 2012-12-04
-      And an employee exists with first_name: "Homer", last_name: "Simpson", account: the account
-      And a membership exists with organization: the organization, employee: the employee
-
-      And I go to the employees in week page of the plan for year: 2012, week: 49
-      And I follow "Planvorlage anwenden"
-      And I wait for the modal box to appear
-      And I select "Typische Woche" from "Planvorlage"
-      And I press "Anwenden"
-      And I wait for the modal box to disappear
-     Then I should be on the teams in week page of the plan for year: 2012, week: 49
-      And I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
-      And I should see the following calendar:
-        | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     | 22:00-23:59 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
-        | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
