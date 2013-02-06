@@ -7,6 +7,7 @@ class Scheduling < ActiveRecord::Base
   belongs_to :plan
   belongs_to :employee
   belongs_to :team
+  belongs_to :demand
 
   delegate :organization, to: :plan
 

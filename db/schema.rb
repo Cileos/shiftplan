@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121206164452) do
+ActiveRecord::Schema.define(:version => 20130205135055) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -198,8 +198,10 @@ ActiveRecord::Schema.define(:version => 20121206164452) do
     t.integer  "week",        :limit => 2
     t.integer  "year"
     t.integer  "team_id"
+    t.integer  "demand_id"
   end
 
+  add_index "schedulings", ["demand_id"], :name => "index_schedulings_on_demand_id"
   add_index "schedulings", ["employee_id"], :name => "index_schedulings_on_employee_id"
   add_index "schedulings", ["plan_id"], :name => "index_schedulings_on_plan_id"
 
