@@ -23,7 +23,10 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     if parsed = Quickie.parse @input('quickie').val()
       @input('start_hour').val(parsed.start_hour)
       @input('end_hour').val(parsed.end_hour)
-      @setTeamByName(parsed.team_name)
+
+      # Entering '9-17' should not change the selected team
+      if parsed.space_before_team? and parsed.space_before_team.length > 0
+        @setTeamByName(parsed.team_name)
 
   # sync fields => Quickie
   fieldChanged: ->

@@ -5,7 +5,7 @@ exp.hour_range    = XRegExp.build '(?x)^ (?<start_hour>{{hour}})-(?<end_hour>{{h
 exp.team_name     = XRegExp.build '(?x)^ \\p{Letter} [\\p{Letter} ]+?$'
 exp.team_shortcut = XRegExp.build '(?x)^ \\p{Letter}+ $'
 exp.team_shortcut_in_brackets = XRegExp.build '(?x)^ \\[ ({{team_shortcut}}) \\] $', exp
-exp.quickie       = XRegExp.build '(?x)^ \\s* ({{hour_range}}) ? \\s* ({{team_name}}) ? \\s* {{team_shortcut_in_brackets}} ? $', exp
+exp.quickie       = XRegExp.build '(?x)^ \\s* ({{hour_range}}) ? (?<space_before_team>\\s*) ({{team_name}}) ? \\s* {{team_shortcut_in_brackets}} ? $', exp
 
 class Quickie
   @parse: (string) ->

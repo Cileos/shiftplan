@@ -41,6 +41,14 @@ describe 'Quickie', ->
     expect( parsed ).not.toBeNull()
     expect( parsed.hour_range ).toEqual('9-17')
     expect( parsed.team_name ).toEqual('Brennstäbe wechseln')
+    expect( parsed.space_before_team ).toEqual(' ')
+
+  it "should detect spaces before team to guess whether the user is going to enter one", ->
+    parsed = Quickie.parse('9-17 ')
+    expect( parsed ).not.toBeNull()
+    expect( parsed.hour_range ).toEqual('9-17')
+    expect( parsed.space_before_team ).toEqual(' ')
+
 
 
   valid_quickies = [
