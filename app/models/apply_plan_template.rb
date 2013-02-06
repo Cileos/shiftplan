@@ -20,9 +20,10 @@ class ApplyPlanTemplate
     end
   end
 
-  # TODO: week offset sometimes needs to be decremented by one (cweek)
   def target_day
-    (date_from_target_year + (target_week.to_i).weeks).beginning_of_week
+    monday = (date_from_target_year + (target_week.to_i).weeks).beginning_of_week
+    # TODO: adjustment can hopefully be removed with new cweek refactoring from niklas
+    monday = monday - (monday.cweek - target_week).weeks
   end
 
   def date_from_target_year
