@@ -31,6 +31,10 @@ class Scheduling < ActiveRecord::Base
     comments.map &:employee
   end
 
+  def qualification_name
+    try(:demand).try(:qualification).try(:name) || ''
+  end
+
   def self.upcoming
     t = table_name
     where("#{t}.starts_at > :now AND #{t}.starts_at < TIMESTAMP :now + INTERVAL '14 days'", now: Time.zone.now).order("#{t}.starts_at ASC")
