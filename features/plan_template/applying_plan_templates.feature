@@ -33,6 +33,9 @@ Feature: Applying Weekbased Plan Templates to Plans
   @javascript
   Scenario: Applying a weekbased plan template to a plan in 2012, check week offset problem in 2012
     Given today is 2012-12-04
+      And an employee exists with first_name: "Homer", last_name: "Simpson", account: the account
+      And a membership exists with organization: the organization, employee: the employee
+
       And I go to the teams in week page of the plan for year: 2012, week: 49
       And I follow "Planvorlage anwenden"
       And I wait for the modal box to appear
@@ -45,6 +48,14 @@ Feature: Applying Weekbased Plan Templates to Plans
         | Teams                   | Mo                     | Di                                                                  | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel (B)     | 8-17 Brennstabexperte  |                                                                     |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                        | 4-12 4-12 4-12 Brennstabpolierer Brennstabexperte Brennstabexperte  |     |     |     |     |     |
+
+     When I click on the scheduling "8-17"
+      And I select "Homer Simpson" from "Mitarbeiter"
+      And I press "Speichern"
+     Then I should see the following calendar:
+        | Teams                   | Mo                                   | Di                                                                  | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel (B)     | Homer Simpson 8-17 Brennstabexperte  |                                                                     |     |     |     |     |     |
+        | Druckwasserreaktor (D)  |                                      | 4-12 4-12 4-12 Brennstabpolierer Brennstabexperte Brennstabexperte  |     |     |     |     |     |
 
 
   # TODO: remove this feature if week offset problem is fixed in niklas branch
