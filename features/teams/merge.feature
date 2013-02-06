@@ -37,10 +37,10 @@ Feature: Merge Teams
        | Reaktor schrubben | Rs     |
      When I go to the page of the plan
      Then I should see the following calendar:
-        | Mitarbeiter | Fr     | Sa     |
-        | Carl C      |        |        |
-        | Lenny L     | 2-3 Rs | 3-4 Rs |
-        | Homer S     | 1-2 Rs | 2-3 Rs |
+        | Mitarbeiter  | Fr              | Sa              |
+        | Carl C       |                 |                 |
+        | Lenny L      | 02:00-03:00 Rs  | 03:00-04:00 Rs  |
+        | Homer S      | 01:00-02:00 Rs  | 02:00-03:00 Rs  |
 
 
   Scenario: merge button should be disabled when visiting the teams page

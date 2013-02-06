@@ -154,10 +154,10 @@ Feature: Calendar navigation
       And I should see "KW 49 / 2012" within active week
       And I should see "03.12." within weeks first date
       And I should see the following calendar:
-        | Mitarbeiter   | Mo | Di    | Mi | Do | Fr |
-        | Carl C        |    |       |    |    |    |
-        | Lenny L       |    |       |    |    |    |
-        | Homer S       |    | 10-16 |    |    |    |
+        | Mitarbeiter  | Mo  | Di           | Mi  | Do  | Fr  |
+        | Carl C       |     |              |     |     |     |
+        | Lenny L      |     |              |     |     |     |
+        | Homer S      |     | 10:00-16:00  |     |     |     |
 
       And I inject style "position:relative" into "header"
      When I follow "<" within the toolbar
@@ -166,10 +166,10 @@ Feature: Calendar navigation
       And I should see "KW 48 / 2012" within active week
       And I should see "26.11." within weeks first date
       And I should see the following calendar:
-        | Mitarbeiter   | Mo   | Di | Mi | Do | Fr |
-        | Carl C        |      |    |    |    |    |
-        | Lenny L       |      |    |    |    |    |
-        | Homer S       | 9-17 |    |    |    |    |
+        | Mitarbeiter  | Mo           | Di  | Mi  | Do  | Fr  |
+        | Carl C       |              |     |     |     |     |
+        | Lenny L      |              |     |     |     |     |
+        | Homer S      | 09:00-17:00  |     |     |     |     |
 
       And I inject style "position:relative" into "header"
      When I follow ">" within the toolbar
@@ -178,10 +178,10 @@ Feature: Calendar navigation
       And I should see "KW 49 / 2012" within active week
       And I should see "03.12." within weeks first date
       And I should see the following calendar:
-        | Mitarbeiter   | Mo | Di    | Mi | Do | Fr |
-        | Carl C        |    |       |    |    |    |
-        | Lenny L       |    |       |    |    |    |
-        | Homer S       |    | 10-16 |    |    |    |
+        | Mitarbeiter  | Mo  | Di           | Mi  | Do  | Fr  |
+        | Carl C       |     |              |     |     |     |
+        | Lenny L      |     |              |     |     |     |
+        | Homer S      |     | 10:00-16:00  |     |     |     |
 
       And I inject style "position:relative" into "header"
      When I follow ">" within the toolbar
@@ -190,10 +190,10 @@ Feature: Calendar navigation
       And I should see "KW 50 / 2012" within active week
       And I should see "10.12." within weeks first date
       And I should see the following calendar:
-        | Mitarbeiter   | Mo | Di | Mi    | Do | Fr |
-        | Carl C        |    |    |       |    |    |
-        | Lenny L       |    |    |       |    |    |
-        | Homer S       |    |    | 11-15 |    |    |
+        | Mitarbeiter  | Mo  | Di  | Mi           | Do  | Fr  |
+        | Carl C       |     |     |              |     |     |
+        | Lenny L      |     |     |              |     |     |
+        | Homer S      |     |     | 11:00-15:00  |     |     |
 
       And I inject style "position:relative" into "header"
      When I follow ">" within the toolbar
@@ -202,7 +202,7 @@ Feature: Calendar navigation
       And I should see "KW 51 / 2012" within active week
       And I should see "17.12." within weeks first date
       And I should see the following calendar:
-        | Mitarbeiter   | Mo | Di | Mi | Do    | Fr |
-        | Carl C        |    |    |    |       |    |
-        | Lenny L       |    |    |    |       |    |
-        | Homer S       |    |    |    | 12-14 |    |
+        | Mitarbeiter  | Mo  | Di  | Mi  | Do           | Fr  |
+        | Carl C       |     |     |     |              |     |
+        | Lenny L      |     |     |     |              |     |
+        | Homer S      |     |     |     | 12:00-14:00  |     |

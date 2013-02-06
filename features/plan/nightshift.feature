@@ -8,7 +8,7 @@ Feature: Nightshift
     Given the situation of a nuclear reactor
      When I schedule "Homer S" on "Do" for "19-6 Daumen drehen"
      Then I should see the following calendar:
-        | Mitarbeiter   | Mo | Di | Mi | Do       | Fr     | Sa | So |
-        | Carl C        |    |    |    |          |        |    |    |
-        | Lenny L       |    |    |    |          |        |    |    |
-        | Homer S       |    |    |    | 19-24 Dd | 0-6 Dd |    |    |
+        | Mitarbeiter  | Mo  | Di  | Mi  | Do              | Fr              | Sa  | So  |
+        | Carl C       |     |     |     |                 |                 |     |     |
+        | Lenny L      |     |     |     |                 |                 |     |     |
+        | Homer S      |     |     |     | 19:00-23:59 Dd  | 00:00-06:00 Dd  |     |     |
