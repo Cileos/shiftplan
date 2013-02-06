@@ -6,7 +6,7 @@ class ApplyPlanTemplateController < InheritedResources::Base
   def create
     create! do
       set_flash(:notice)
-      plan_week_mode_path(plan, current_plan_mode, resource.target_day)
+      plan_week_mode_path(plan, 'teams_in_week', resource.target_day)
     end
   end
 
