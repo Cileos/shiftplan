@@ -13,7 +13,7 @@ Feature: Signing in
         | week | cwday | quickie             |
         | 49   | 1     | 9-17                |
       And I am on the employees in week page for the plan for week: 49, year: 2012
-     When I click on the scheduling "9-17"
+     When I click on the scheduling "09:00-17:00"
       And I wait for the modal box to appear
       And 2 hours pass
       And I press "Speichern"
