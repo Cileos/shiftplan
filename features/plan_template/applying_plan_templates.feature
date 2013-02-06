@@ -41,8 +41,7 @@ Feature: Applying Weekbased Plan Templates to Plans
       And I wait for the modal box to disappear
      Then I should be on the teams in week page of the plan for year: 2012, week: 49
       And I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
-      # TODO
-      # And I should see the following calendar:
-      #   | Teams                  | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
-      #   | Brennstabkessel(B)     | 08:00-17:00 Brennstabexperte  |                                                                                          |     |     |     |     |     |
-      #   | Druckwasserreaktor(D)  |                               | 04:00-12:00 Brennstabexperte 04:00-12:00 Brennstabexperte 04:00-12:00 Brennstabpolierer  |     |     |     |     |     |
+      And I should see the following calendar:
+        | Teams                   | Mo                     | Di                                                                  | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel (B)     | 8-17 Brennstabexperte  |                                                                     |     |     |     |     |     |
+        | Druckwasserreaktor (D)  |                        | 4-12 4-12 4-12 Brennstabpolierer Brennstabexperte Brennstabexperte  |     |     |     |     |     |
