@@ -8,3 +8,4 @@ de:
     apply_plan_template:
       create:
         notice: 'Alle Schichten der Planvorlage wurden erfolgreich übernommen.'
+        some_shifts_outside_plan_period: 'Es konnten nicht alle Schichten der Planvorlage übernommen werden. Einige Schichten liegen außerhalb des Plans.'

@@ -78,3 +78,22 @@ Feature: Applying Weekbased Plan Templates to Plans
         | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel (B)     | 22:00-23:59 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
+
+  Scenario: Applying a weekbased plan template to a plan with a plan period
+    Given today is 2012-12-04
+      # plan starts on tuesday and ends on wednesday
+      And a plan exists with starts_at: "2012-12-04", ends_at: "2012-12-05", organization: the organization
+
+      And I go to the teams in week page of the plan for year: 2012, week: 49
+      And I follow "Planvorlage anwenden"
+      And I wait for the modal box to appear
+      And I select "Typische Woche" from "Planvorlage"
+      And I press "Anwenden"
+      And I wait for the modal box to disappear
+     Then I should be on the teams in week page of the plan for year: 2012, week: 49
+      And I should see notice "Es konnten nicht alle Schichten der Planvorlage übernommen werden. Einige Schichten liegen außerhalb des Plans."
+      # TODO: also reject the next day (00:00-06:00)? Easier to implement after merge.
+      And I should see the following calendar:
+        | Teams                   | Mo  | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel (B)     |     | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Druckwasserreaktor (D)  |     | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |

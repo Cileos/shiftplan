@@ -12,6 +12,8 @@ class ApplyPlanTemplate
   validates_presence_of :plan, :plan_template
   validates_presence_of :target_year, :target_week
 
+  attr_accessor :some_shifts_outside_plan_period
+
   def save
     Plan.transaction do
       plan_template.shifts.each do |shift|
@@ -40,7 +42,7 @@ class ApplyPlanTemplate
     ends_at   = base_date + shift.ends_at.hour.hours + shift.ends_at.min.minutes
     shift.demands.each do |demand|
       demand.quantity.times do
-        plan.schedulings.create!(
+        create_scheduling(
           starts_at: starts_at,
           ends_at:   ends_at,
           team:      shift.team,
@@ -51,6 +53,21 @@ class ApplyPlanTemplate
       end
     end
   end
+
+  def create_scheduling(attrs={})
+    begin
+      scheduling = plan.schedulings.new(attrs)
+      scheduling.save!
+    rescue
+      if scheduling.errors[:starts_at].present? || scheduling.errors[:ends_at].present?
+        self.some_shifts_outside_plan_period = true
+      else
+        raise ApplyPlanTemplateError
+      end
+    end
+  end
+
+  class ApplyPlanTemplateError < StandardError; end
 end
 
 ApplyPlanTemplateDecorator
