@@ -1,4 +1,5 @@
 class SchedulingDecorator < RecordDecorator
+  include TimePeriodFormatter
   decorates :scheduling
 
   def long

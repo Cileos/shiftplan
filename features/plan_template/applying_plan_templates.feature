@@ -18,7 +18,7 @@ Feature: Applying Weekbased Plan Templates to Plans
       And the following shifts exists:
         | shift               | plan_template      | day | start_hour  | end_hour  | team                       |
         | Druckwasserreaktor  | the plan template  | 1   | 4           | 12        | team "Druckwasserreaktor"  |
-        | Brennstabkessel     | the plan template  | 0   | 8           | 17        | team "Brennstabkessel"     |
+        | Brennstabkessel     | the plan template  | 0   | 22          | 6         | team "Brennstabkessel"     |
       And the following demands exist:
         | shift                       | quantity  | qualification                      |
         | shift "Druckwasserreaktor"  | 1         | qualification "Brennstabpolierer"  |
@@ -27,7 +27,7 @@ Feature: Applying Weekbased Plan Templates to Plans
      When I go to the teams in week page for the plan template
      Then I should see the following calendar:
         | Teams                  | Mo                                | Di                                                      | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     | 08:00-17:00 1 x Brennstabexperte  |                                                         |     |     |     |     |     |
+        | Brennstabkessel(B)     | 22:00-23:59 1 x Brennstabexperte  | 00:00-06:00 1 x Brennstabexperte                        |     |     |     |     |     |
         | Druckwasserreaktor(D)  |                                   | 04:00-12:00 2 x Brennstabexperte 1 x Brennstabpolierer  |     |     |     |     |     |
       And a plan exists with organization: the organization
 
@@ -45,17 +45,22 @@ Feature: Applying Weekbased Plan Templates to Plans
      Then I should be on the teams in week page of the plan for year: 2012, week: 49
       And I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
       And I should see the following calendar:
-        | Teams                   | Mo                     | Di                                                                  | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     | 8-17 Brennstabexperte  |                                                                     |     |     |     |     |     |
-        | Druckwasserreaktor (D)  |                        | 4-12 4-12 4-12 Brennstabpolierer Brennstabexperte Brennstabexperte  |     |     |     |     |     |
+        | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel (B)     | 22:00-23:59 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
 
-     When I click on the scheduling "8-17"
+      When I click on the scheduling "22:00-23:59"
       And I select "Homer Simpson" from "Mitarbeiter"
       And I press "Speichern"
      Then I should see the following calendar:
-        | Teams                   | Mo                                   | Di                                                                  | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     | Homer Simpson 8-17 Brennstabexperte  |                                                                     |     |     |     |     |     |
-        | Druckwasserreaktor (D)  |                                      | 4-12 4-12 4-12 Brennstabpolierer Brennstabexperte Brennstabexperte  |     |     |     |     |     |
+        | Teams                   | Mo                                          | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel (B)     | Homer Simpson 22:00-00:00 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Druckwasserreaktor (D)  |                                             | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
+    # TODO: remove above calendar step and use the following instead after merge
+     # Then I should see the following calendar:
+     #    | Teams                   | Mo                                          | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
+     #    | Brennstabkessel (B)     | Homer Simpson 22:00-23:59 Brennstabexperte  | Homer Simpson 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+     #    | Druckwasserreaktor (D)  |                                             | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
 
 
   # TODO: remove this feature if week offset problem is fixed in niklas branch
@@ -70,9 +75,9 @@ Feature: Applying Weekbased Plan Templates to Plans
      Then I should be on the teams in week page of the plan for year: 2013, week: 6
       And I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
       And I should see the following calendar:
-        | Teams                   | Mo                     | Di                                                                  | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     | 8-17 Brennstabexperte  |                                                                     |     |     |     |     |     |
-        | Druckwasserreaktor (D)  |                        | 4-12 4-12 4-12 Brennstabpolierer Brennstabexperte Brennstabexperte  |     |     |     |     |     |
+        | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel (B)     | 22:00-23:59 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
 
   Scenario: Applying a weekbased plan template on the employees in week page
     Given today is 2012-12-04
@@ -88,6 +93,6 @@ Feature: Applying Weekbased Plan Templates to Plans
      Then I should be on the teams in week page of the plan for year: 2012, week: 49
       And I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
       And I should see the following calendar:
-        | Teams                   | Mo                     | Di                                                                  | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     | 8-17 Brennstabexperte  |                                                                     |     |     |     |     |     |
-        | Druckwasserreaktor (D)  |                        | 4-12 4-12 4-12 Brennstabpolierer Brennstabexperte Brennstabexperte  |     |     |     |     |     |
+        | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel (B)     | 22:00-23:59 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
