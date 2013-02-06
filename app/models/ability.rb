@@ -61,8 +61,17 @@ class Ability
     can :read, Scheduling do |scheduling|
       employee.organizations.include?(scheduling.plan.organization)
     end
+    can :read, Shift do |shift|
+      employee.organizations.include?(shift.plan_template.organization)
+    end
     can :read, Team do |team|
       employee.organizations.include?(team.organization)
+    end
+    can :read, Qualification do |qualification|
+      employee.organizations.include?(qualification.organization)
+    end
+    can :read, PlanTemplate do |plan_template|
+      employee.organizations.include?(plan_template.organization)
     end
     can [:read, :create], Post do |post|
       employee.organizations.include?(post.blog.organization)
@@ -128,11 +137,23 @@ class Ability
     can :manage, Scheduling do |scheduling|
       account == scheduling.plan.organization.account
     end
+    can :manage, Shift do |shift|
+      account == shift.plan_template.organization.account
+    end
     can :manage, CopyWeek do |copy_week|
       account == copy_week.plan.organization.account
     end
+    can :manage, ApplyPlanTemplate do |apply_plan_template|
+      account == apply_plan_template.plan.organization.account
+    end
     can :manage, Team do |team|
       account == team.organization.account
+    end
+    can :manage, Qualification do |qualification|
+      account == qualification.organization.account
+    end
+    can :manage, PlanTemplate do |plan_template|
+      account == plan_template.organization.account
     end
     can :manage, TeamMerge do |team_merge|
       (team_merge.team_id.blank? || account == team_merge.team.try(:organization).try(:account)) &&

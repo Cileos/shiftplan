@@ -11,7 +11,11 @@ class Plan < ActiveRecord::Base
   validates_with PlanPeriodSurroundsSchedulingsValidator
   validates_presence_of :name
 
-  attr_accessible :name, :description, :duration, :starts_at, :ends_at
+  attr_accessible :name,
+                  :description,
+                  :duration,
+                  :starts_at,
+                  :ends_at
 
   # for now, durations are hardcoded, not saved
   Durations = %w(1_week)
@@ -27,6 +31,10 @@ class Plan < ActiveRecord::Base
 
   def build_copy_week(attrs={})
     CopyWeek.new attrs.merge(plan: self)
+  end
+
+  def build_apply_plan_template(attrs={})
+    ApplyPlanTemplate.new attrs.merge(plan: self)
   end
 end
 

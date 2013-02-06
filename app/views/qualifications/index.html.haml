@@ -1,0 +1,19 @@
+- title :qualifications
+
+- masterhead_toolbar do
+  - if can? :create, Qualification
+    = link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:qualification],
+      class: 'button', data: { icon: i(:add) }
+
+.row.two-columns.inverted
+  .primary
+    - unless collection.empty?
+      = render 'table', qualifications: collection
+    - else
+      %p= t(:'.no_qualifications')
+
+  .secondary.instructions
+    - if can? :create, Qualification
+      = tt '.planner_instructions'
+    - else
+      = tt '.instructions'

@@ -1,16 +1,20 @@
 require_dependency 'quickie'
+require_dependency 'with_previous_changes_undone'
 
 class Scheduling < ActiveRecord::Base
+  include WithPreviousChangesUndone
+
   belongs_to :plan
   belongs_to :employee
   belongs_to :team
+  belongs_to :demand
 
   delegate :organization, to: :plan
 
   before_validation :parse_quickie
   after_validation :set_human_date_attributes
 
-  validates_presence_of :plan, :employee
+  validates_presence_of :plan
   validates_presence_of :quickie
   validates_presence_of :starts_at, :ends_at, :year, :week, if: :quickie_parsable?
   validates :starts_at, :ends_at, within_plan_period: true
@@ -25,6 +29,10 @@ class Scheduling < ActiveRecord::Base
 
   def commenters
     comments.map &:employee
+  end
+
+  def qualification_name
+    try(:demand).try(:qualification).try(:name) || ''
   end
 
   def self.upcoming
@@ -171,16 +179,6 @@ class Scheduling < ActiveRecord::Base
   # FIXME going to fail on month/day view
   def concurrent
     SchedulingFilter.new week: week, employee: employee, year: year, plan: plan
-  end
-
-  def with_previous_changes_undone
-    dup.tap do |copy|
-      copy.attributes = attributes_for_undo
-    end
-  end
-
-  def attributes_for_undo
-    previous_changes.map { |k,(o,n)| { k => o }}.inject(&:merge)
   end
 
   def team_name

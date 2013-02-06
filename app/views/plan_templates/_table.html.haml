@@ -1,0 +1,16 @@
+%table#plan_templates
+  %thead
+    %tr
+      %th= PlanTemplate.human_attribute_name(:name)
+      %th= t('activerecord.attributes.plan_template.template_type')
+      - if can? :edit, PlanTemplate
+        %th= t('action')
+
+  %tbody
+    - plan_templates.each do |plan_template|
+      %tr
+        %td= plan_template.name
+        %td= t("plan_templates.template_types.#{plan_template.template_type}")
+        - if can? :edit, PlanTemplate
+          %td= link_to :edit, nested_resources_for(plan_template) + [:teams_in_week],
+            class: 'button button-small'

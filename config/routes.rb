@@ -28,6 +28,7 @@ Clockwork::Application.routes.draw do
         end
 
         resource :copy_week, only: [:new, :create], controller: :copy_week
+        resource :apply_plan_template, only: [:new, :create], controller: :apply_plan_template
 
         resources :milestones
         # TODO nest tasks under milestones, EmberData cannot do this 2012-09-11
@@ -44,6 +45,7 @@ Clockwork::Application.routes.draw do
         end
       end
       resources :teams
+      resources :qualifications
       resources :team_merges, only: [:new, :create], :controller => 'team_merges'
       resources :invitations
       resources :blogs do
@@ -51,7 +53,10 @@ Clockwork::Application.routes.draw do
           resources :comments, only: [:create, :destroy], controller: 'post_comments'
         end
       end
-
+      resources :plan_templates do
+        resources :shifts
+        get 'week/teams' => 'shifts#teams_in_week', :as => 'teams_in_week'
+      end
     end # organizations
   end # accounts
 

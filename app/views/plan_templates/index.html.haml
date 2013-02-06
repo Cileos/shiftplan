@@ -1,0 +1,19 @@
+- title :plan_templates
+
+- masterhead_toolbar do
+  - if can? :create, PlanTemplate
+    = link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:plan_template],
+      class: 'button', data: { icon: i(:add) }
+
+.row.two-columns.inverted
+  .primary
+    - unless collection.empty?
+      = render 'table', plan_templates: collection
+    - else
+      %p= t(:'.no_plan_templates')
+
+  .secondary.instructions
+    - if can? :create, PlanTemplate
+      = tt '.planner_instructions'
+    - else
+      = tt '.instructions'

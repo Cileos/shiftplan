@@ -10,10 +10,10 @@ Feature: Teams in plans
   Scenario: Using just the full name
      When I schedule "Homer S" on "Do" for "9-17 Reaktor putzen"
      Then I should see the following calendar:
-        | Mitarbeiter   | Do      |
-        | Carl C        |         |
-        | Lenny L       |         |
-        | Homer S       | 9-17 Rp |
+        | Mitarbeiter  | Do              |
+        | Carl C       |                 |
+        | Lenny L      |                 |
+        | Homer S      | 09:00-17:00 Rp  |
      And I should see the following defined items within the legend:
         | Rp | Reaktor putzen |
 
@@ -21,10 +21,10 @@ Feature: Teams in plans
   Scenario: additionally specifying a shortcut for the team
      When I schedule "Homer S" on "Do" for "9-17 Reaktor putzen [OK]"
      Then I should see the following calendar:
-        | Mitarbeiter   | Do      |
-        | Carl C        |         |
-        | Lenny L       |         |
-        | Homer S       | 9-17 OK |
+        | Mitarbeiter  | Do              |
+        | Carl C       |                 |
+        | Lenny L      |                 |
+        | Homer S      | 09:00-17:00 OK  |
      And I should see the following defined items within the legend:
         | OK | Reaktor putzen |
 

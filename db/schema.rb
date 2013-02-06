@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127144238) do
+ActiveRecord::Schema.define(:version => 20130205135055) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -42,6 +42,17 @@ ActiveRecord::Schema.define(:version => 20121127144238) do
 
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["employee_id"], :name => "index_comments_on_employee_id"
+
+  create_table "demands", :force => true do |t|
+    t.integer  "quantity"
+    t.integer  "qualification_id"
+    t.integer  "shift_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "demands", ["qualification_id"], :name => "index_demands_on_qualification_id"
+  add_index "demands", ["shift_id"], :name => "index_demands_on_shift_id"
 
   create_table "email_changes", :force => true do |t|
     t.integer  "user_id"
@@ -133,6 +144,16 @@ ActiveRecord::Schema.define(:version => 20121127144238) do
     t.integer  "account_id"
   end
 
+  create_table "plan_templates", :force => true do |t|
+    t.string   "name"
+    t.string   "template_type"
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "plan_templates", ["organization_id"], :name => "index_plan_templates_on_organization_id"
+
   create_table "plans", :force => true do |t|
     t.integer  "organization_id"
     t.string   "name"
@@ -158,6 +179,15 @@ ActiveRecord::Schema.define(:version => 20121127144238) do
   add_index "posts", ["author_id"], :name => "index_posts_on_author_id"
   add_index "posts", ["blog_id"], :name => "index_posts_on_blog_id"
 
+  create_table "qualifications", :force => true do |t|
+    t.string   "name"
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "qualifications", ["organization_id"], :name => "index_qualifications_on_organization_id"
+
   create_table "schedulings", :force => true do |t|
     t.integer  "plan_id"
     t.integer  "employee_id"
@@ -168,10 +198,27 @@ ActiveRecord::Schema.define(:version => 20121127144238) do
     t.integer  "week",        :limit => 2
     t.integer  "year"
     t.integer  "team_id"
+    t.integer  "demand_id"
   end
 
+  add_index "schedulings", ["demand_id"], :name => "index_schedulings_on_demand_id"
   add_index "schedulings", ["employee_id"], :name => "index_schedulings_on_employee_id"
   add_index "schedulings", ["plan_id"], :name => "index_schedulings_on_plan_id"
+
+  create_table "shifts", :force => true do |t|
+    t.integer  "plan_template_id"
+    t.time     "starts_at"
+    t.time     "ends_at"
+    t.integer  "team_id"
+    t.integer  "next_day_id"
+    t.integer  "day"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "shifts", ["next_day_id"], :name => "index_shifts_on_next_day_id"
+  add_index "shifts", ["plan_template_id"], :name => "index_shifts_on_plan_template_id"
+  add_index "shifts", ["team_id"], :name => "index_shifts_on_team_id"
 
   create_table "tasks", :force => true do |t|
     t.string   "name"

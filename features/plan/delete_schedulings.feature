@@ -15,24 +15,24 @@ Feature: Delete schedulings from plan
       And I am on the page for the plan
 
       And I should see the following calendar:
-        | Mitarbeiter | Do   | Fr       |
-        | Carl C      |      |          |
-        | Lenny L     | 7-17 | 2-4 5-23 |
-        | Homer S     |      |          |
+        | Mitarbeiter  | Do           | Fr                       |
+        | Carl C       |              |                          |
+        | Lenny L      | 07:00-17:00  | 02:00-04:00 05:00-23:00  |
+        | Homer S      |              |                          |
       And the employee "Lenny L" should have a grey hours/waz value of "30"
 
   @javascript
   Scenario: Delete a single scheduling
-    Given I click on scheduling "5-23"
+    Given I click on scheduling "5:00-23:00"
       And I wait for the modal box to appear
      Then the "Quickie" field should contain "5-23"
      When I follow "Löschen" within the modal box
      Then the "Quickie" field should contain "5-23" within the new scheduling form within the modal box
       And I should see the following calendar:
-        | Mitarbeiter | Do   | Fr  |
-        | Carl C      |      |     |
-        | Lenny L     | 7-17 | 2-4 |
-        | Homer S     |      |     |
+        | Mitarbeiter  | Do           | Fr           |
+        | Carl C       |              |              |
+        | Lenny L      | 07:00-17:00  | 02:00-04:00  |
+        | Homer S      |              |              |
       And the employee "Lenny L" should have a grey hours/waz value of "12"
 
       # Undo / Move
@@ -40,8 +40,8 @@ Feature: Delete schedulings from plan
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Mitarbeiter | Do   | Fr  | Sa   |
-        | Carl C      |      |     |      |
-        | Lenny L     | 7-17 | 2-4 | 5-23 |
-        | Homer S     |      |     |      |
+        | Mitarbeiter  | Do           | Fr           | Sa           |
+        | Carl C       |              |              |              |
+        | Lenny L      | 07:00-17:00  | 02:00-04:00  | 05:00-23:00  |
+        | Homer S      |              |              |              |
       And the employee "Lenny L" should have a grey hours/waz value of "30"
