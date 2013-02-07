@@ -12,15 +12,22 @@ de:
       set_your_password: "Passwort festlegen"
       employees: Mitarbeiter
       teams: Teams
+      qualifications: Qualifikationen
+      plan_templates: Planvorlagen
       add: Hinzufügen
       adopt: Übernehmen
       new_employee: Mitarbeiter anlegen
       add_employee: Mitarbeiter hinzufügen
+      add_organization: Organisation hinzufügen
       adopt_employee: Mitarbeiter übernehmen
       want_to_adopt: 'Übernehmen?'
       adopt_employees: 'Mitarbeiter übernehmen'
       new_team: Neues Team
       edit_team: Team bearbeiten
+      new_qualification: Qualifikation anlegen
+      edit_qualification: Qualifikation bearbeiten
+      new_plan_template: Planvorlage anlegen
+      edit_plan_template: Planvorlage bearbeiten
       new_team_merge: Teams zusammenlegen
       edit_employee: Mitarbeiter bearbeiten
       plans: Pläne
@@ -29,6 +36,12 @@ de:
       new_plan: Neuer Plan
       edit_plan: Plan bearbeiten
       new_scheduling: Neue Terminierung
+      new_shift: Neue Schicht
+      edit_shift: Schicht bearbeiten
+      demands: Anforderungen
+      add_demand: "Anforderung hinzufügen"
+      remove_demand: "Anforderung löschen"
+      new_plan_template: Neue Planvorlage
       new_organization: "eine weitere Organisation anlegen"
       next: Weiter
       create: Anlegen
@@ -46,6 +59,8 @@ de:
       send_invitation: 'Einladung verschicken'
       copy: "Übernehmen"
       copy_week: "Übernahme aus der letzten Woche"
+      apply_plan_template: 'Planvorlage anwenden'
+      apply: 'Anwenden'
       comment: Kommentieren
       comments: Kommentare
       reply: 'Antworten'

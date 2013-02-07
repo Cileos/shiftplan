@@ -99,3 +99,17 @@ legend {
   margin-left: 0.5em;
   color: $ci_darkgrey;
 }
+
+.form-vertical {
+  @include clearfix;
+
+  .input {
+    float: left;
+    margin: 0 10px 0 0;
+  }
+
+  select {
+    position: relative;
+    top: 4px;
+  }
+}

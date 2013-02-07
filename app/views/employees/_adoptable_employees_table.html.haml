@@ -12,7 +12,7 @@
   %tbody
     - employees.each do |employee|
       %tr{ id: "employee_#{employee.id}" }
-        %td
+        %td.checkbox
           - if employee.organizations.include?(current_organization)
             = t('employees.new.already_member')
           - else

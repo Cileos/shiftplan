@@ -5,11 +5,6 @@ require 'spec_helper'
 describe Scheduling do
 
   in_locale :de
-  context "without employee" do
-    let(:scheduling) { build :scheduling, employee: nil }
-
-    it { scheduling.should_not be_valid }
-  end
 
   context "with illegal characters in team name (quickie)" do
     let(:scheduling) { Scheduling.new quickie: "9-17 work 'hard'" }
@@ -544,5 +539,38 @@ describe Scheduling do
       year:      nil,
       date:      nil
     })
+  end
+
+  context "upcoming" do
+    before :each do
+
+      @in5      = create :scheduling, starts_at: 5.minutes.from_now
+      @tomorrow = create :scheduling, starts_at: 1.day.from_now
+      @tdat     = create :scheduling, starts_at: 2.days.from_now
+      @in8days  = create :scheduling, starts_at: 8.days.from_now
+      @in15days = create :scheduling, starts_at: 15.days.from_now
+      @yesterday = create :scheduling, starts_at: 1.day.ago
+      @last_week = create :scheduling, starts_at: 1.week.ago
+    end
+    it "should contain the ones starting within the next cigarette break" do
+      Scheduling.upcoming.should include(@in5)
+    end
+    it "should contain all within the next 7 days" do
+      Scheduling.upcoming.should include(@tomorrow)
+      Scheduling.upcoming.should include(@tdat)
+    end
+
+    it "should contain all within the next 14 days" do
+      Scheduling.upcoming.should include(@in8days)
+    end
+
+    it "should not contain any farther than 15 days away" do
+      Scheduling.upcoming.should_not include(@in15days)
+    end
+
+    it "should not contain any from the past" do
+      Scheduling.upcoming.should_not include(@yesterday)
+      Scheduling.upcoming.should_not include(@last_week)
+    end
   end
 end

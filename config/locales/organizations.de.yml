@@ -1,5 +1,13 @@
 de:
+  dashboard: "Dashboard"
+  notifications:
+    caption: Benachrichtigungen
+    no_notifications_present: 'Zur Zeit liegen keine Benachrichtigungen vor.'
+  upcoming_schedulings: nächste Termine
   activerecord:
+    attributes:
+      organization:
+        name: Name
     models:
       organization:
         one: "Organisation"
@@ -16,3 +24,6 @@ de:
         notice: Mitarbeiter erfolgreich hinzugefügt.
         alert: 'Mitarbeiter konnten nicht hinzugefügt werden. Sie müssen mindestens einen Mitarbeiter auswählen.'
 
+  organizations:
+    navigation_selector:
+      new_organization: Neue Organisation

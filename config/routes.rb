@@ -5,7 +5,7 @@ Clockwork::Application.routes.draw do
   get 'email_change/accept'  => 'email_change#accept',        :as => :accept_email_change
   put 'email_change/confirm' => 'email_change#confirm',       :as => :confirm_email_change
 
-  resources :accounts do
+  resources :accounts, only: [:show] do
     resources :organizations do
       member do
         post 'add_members'
@@ -28,10 +28,14 @@ Clockwork::Application.routes.draw do
         end
 
         resource :copy_week, only: [:new, :create], controller: :copy_week
+        resource :apply_plan_template, only: [:new, :create], controller: :apply_plan_template
 
         resources :milestones
         # TODO nest tasks under milestones, EmberData cannot do this 2012-09-11
         resources :tasks
+
+        # TODO force ember to fetch employees from organization, not from plan
+        resources :employees
       end # plans
 
       resources :employees do
@@ -41,6 +45,7 @@ Clockwork::Application.routes.draw do
         end
       end
       resources :teams
+      resources :qualifications
       resources :team_merges, only: [:new, :create], :controller => 'team_merges'
       resources :invitations
       resources :blogs do
@@ -48,7 +53,10 @@ Clockwork::Application.routes.draw do
           resources :comments, only: [:create, :destroy], controller: 'post_comments'
         end
       end
-
+      resources :plan_templates do
+        resources :shifts
+        get 'week/teams' => 'shifts#teams_in_week', :as => 'teams_in_week'
+      end
     end # organizations
   end # accounts
 

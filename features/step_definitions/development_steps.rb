@@ -25,3 +25,7 @@ end
 When /^I inject style #{capture_quoted} into #{capture_quoted}$/ do |style, selector|
   page.execute_script %Q~$('#{selector}').attr('style', "#{style}");~
 end
+
+When /^I wait for (\d+) seconds$/ do |num|
+  sleep num.to_i
+end

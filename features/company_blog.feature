@@ -20,7 +20,8 @@ In order to keep my colleagues informed about important news
       And I am on the page for the organization
 
      Then I should see "Es wurden noch keine Blogposts erstellt."
-     When I follow "Alle Neuigkeiten anzeigen"
+     When I follow "Neuigkeiten"
+      And I inject style "position:relative" into "header"
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
@@ -63,17 +64,16 @@ In order to keep my colleagues informed about important news
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     Then I should see "Umweltminister zu Besuch"
-      And I should see "Bitte putzen"
-     When I follow "Mehr"
-      And I should be on the page of the post
+     When I follow "Umweltminister zu Besuch"
+     Then I should be on the page of the post
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
 
   Scenario: Creating a blog post without entering a title
     Given I am signed in as the confirmed user "mr. burns"
       And I go to the posts page of the blog
-      When I follow "Neuen Blogpost erstellen"
+      And I inject style "position:relative" into "header"
+     When I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Text" with "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
       And I press "Speichern"
@@ -83,6 +83,7 @@ In order to keep my colleagues informed about important news
   Scenario: Creating a blog post without entering a text
     Given I am signed in as the confirmed user "mr. burns"
       And I go to the posts page of the blog
+      And I inject style "position:relative" into "header"
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
@@ -94,6 +95,7 @@ In order to keep my colleagues informed about important news
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page of the post
+      And I inject style "position:relative" into "header"
       And I follow "Bearbeiten"
       And I wait for the modal box to appear
      Then the "Titel" field should contain "Umweltminister zu Besuch"
@@ -148,22 +150,21 @@ In order to keep my colleagues informed about important news
       And the employee "bart" is a member in the organization "fukushima"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
+     When I follow "Umweltminister zu Besuch"
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
       But I should not see "Löschen"
 
-  Scenario: User visits detail view of a post
+  Scenario: User edits a post
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     Then I should see "Umweltminister zu Besuch"
-      And I should see "Bitte putzen"
-     When I follow "Mehr"
+     When I follow "Umweltminister zu Besuch"
       And I should be on the page of the post
      Then I should see "Umweltminister zu Besuch"
       And I should see "Bitte putzen"
 
+      And I inject style "position:relative" into "header"
      When I follow "Bearbeiten"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Besuch des Umweltministers"
@@ -220,7 +221,7 @@ In order to keep my colleagues informed about important news
       And I am on the page for the organization "fukushima"
      Then I should see "1 Kommentar"
      # cannot click the comments-count link in cucumber in some browsers because of the :before magic with the data-icon
-     When I follow "Mehr"
+     When I follow "Umweltminister zu Besuch"
      Then I should be on the page of the post
      When I fill in "Kommentar" with "Ich werde einen Blumenstrauß mitbringen"
       And I press "Kommentieren"
@@ -268,8 +269,7 @@ In order to keep my colleagues informed about important news
   Scenario: Users can only delete their own comments on posts
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
-      And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
+      And I am on the page for the post
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
      Then I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
@@ -280,8 +280,7 @@ In order to keep my colleagues informed about important news
       And an employee "bart" exists with first_name: "Bart", account: the account, user: the confirmed user "bart"
       And a membership exists with organization: the organization, employee: the employee "bart"
       And I am signed in as the confirmed user "bart"
-      And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
+     When I go to the page for the post
      Then I should see "Owner Burns schrieb am 24.05.2012 um 12:00 Uhr:" within the comments
       But I should not see a delete button
 
@@ -300,7 +299,9 @@ In order to keep my colleagues informed about important news
       | Post 9 | the blog | the employee owner "mr. burns" |
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     When I follow "Alle Neuigkeiten anzeigen"
+      And I inject style "position:relative" into "header"
+     When I follow "Neuigkeiten"
+      And I inject style "position:relative" into "header"
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Post 10"
@@ -347,7 +348,7 @@ In order to keep my colleagues informed about important news
       | Post 10 | the blog | the employee owner "mr. burns" |
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     When I follow "Alle Neuigkeiten anzeigen"
+     When I follow "Neuigkeiten"
      Then I should see "Post 10"
       And I should see "Post 9"
       And I should see "Post 8"
@@ -408,3 +409,15 @@ In order to keep my colleagues informed about important news
       And I should see "Post 1"
       But I should not see "Post 0"
 
+  @fileupload
+  Scenario: Avatars of authors of posts and comments
+    Given a confirmed user "bart" exists
+      And an employee "bart" exists with first_name: "Bart", account: the account, user: the confirmed user "bart"
+      And a membership exists with organization: the organization, employee: the employee "bart"
+      And the employee "bart" has the avatar "app/assets/images/rails.png"
+      And a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
+      And I am signed in as the confirmed user "mr. burns"
+      And I am on the page for the post
+     Then I should see a thumb gravatar within the first post
+      And I should see the avatar "rails.png" within the comment

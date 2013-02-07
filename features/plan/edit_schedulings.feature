@@ -15,15 +15,15 @@ Feature: Edit Schedulings of a Plan
         | 2012-12-21 | 7-23    |
       And I am on the page for the plan
 
-     When I click on the scheduling "7-23"
+     When I click on the scheduling "07:00-23:00"
       And I wait for the modal box to appear
      Then I should see "9-17 wichtige Arbeit [wA]" within a hint
      Then I should be able to change the "Quickie" from "7-23" to "1-23" and select "Lenny L" as "Mitarbeiter"
       And I should see the following calendar:
-        | Mitarbeiter | Fr   |
-        | Carl C      |      |
-        | Lenny L     | 1-23 |
-        | Homer S     |      |
+        | Mitarbeiter  | Fr           |
+        | Carl C       |              |
+        | Lenny L      | 01:00-23:00  |
+        | Homer S      |              |
       And the employee "Lenny L" should have a grey hours/waz value of "22"
 
   Scenario: Edit a scheduling in a cell with multiple schedulings
@@ -35,7 +35,7 @@ Feature: Edit Schedulings of a Plan
       And I am on the page for the plan
      When I press arrow right 4 times
       And I press arrow down 2 times
-     Then the scheduling "4-10" should be focus within the cell "Fr"/"Lenny L"
+     Then the scheduling "04:00-10:00" should be focus within the cell "Fr"/"Lenny L"
 
      When I press return
       And I wait for the modal box to appear
@@ -46,8 +46,8 @@ Feature: Edit Schedulings of a Plan
       And I press key "e"
      Then I should be able to change the "Quickie" from "4-10" to "4-11" and select "Lenny L" as "Mitarbeiter"
       And I should see the following calendar:
-        | Mitarbeiter | Fr             |
-        | Carl C      |                |
-        | Lenny L     | 1-3 4-11 12-23 |
-        | Homer S     |                |
-      And the scheduling "4-11" should be focus within the cell "Fr"/"Lenny L"
+        | Mitarbeiter  | Fr                                    |
+        | Carl C       |                                       |
+        | Lenny L      | 01:00-03:00 04:00-11:00 12:00-23:00  |
+        | Homer S      |                                       |
+      And the scheduling "04:00-11:00" should be focus within the cell "Fr"/"Lenny L"

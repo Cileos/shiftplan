@@ -1,14 +1,19 @@
 .secondary,
 .tertiary {
   > div {
-    margin-bottom:  1em;
-    padding-bottom: 1em;
-    border-bottom: 1px solid $ci_lightgrey;
+    color: $ci_anthracite;
+    padding: 0 0px 1em 15px;
+    border-bottom: 1px solid $ci_midgray;
+
+    // &:not(:first-child) {
+    border-top: 1px solid white;
+    // }
 
     &.collapsed {
       padding-bottom: 0;
     }
   }
+  @include clearfix;
 }
 
 .keyboard-shortcuts,
@@ -16,6 +21,11 @@
   dl {
     margin: 0;
   }
+}
+
+.keyboard-shortcuts .help {
+  @include box-shadow(none);
+  background: none;
 }
 
 .instructions, .help {

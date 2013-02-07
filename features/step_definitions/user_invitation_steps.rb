@@ -47,7 +47,7 @@ When /^#{capture_model} accepts the invitation for the organization "([^"]*)" (w
     step %{I press "Passwort setzen"}
   end
 
-  name_or_email = if employee.reload.user.is_multiple?
+  name_or_email = if employee.reload.user.multiple?
     employee.user.email
   else
     employee.name

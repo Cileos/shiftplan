@@ -1,0 +1,3 @@
+page.decorate resource.concurrent do |filter|
+  filter.respond(resource, :update)
+end

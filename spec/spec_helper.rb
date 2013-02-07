@@ -27,7 +27,7 @@ Spork.prefork do
     end
 
     config.after(:each) do
-      Timecop.return
+      Timecop.return # to not confuse the test suite benchmarker ("ran 9001 minutes")
     end
 
     config.mock_with(:rspec)

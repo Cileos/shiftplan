@@ -16,13 +16,13 @@
             %div= filter.plan_period_start_date
             %div= filter.plan_period_end_date
 
-        = collapsible(t('help.calendar.keyboard_heading'), id: 'keyboard-shortcuts', class: 'keyboard-shortcuts') do
-          = help_tag 'calendar.keyboard'
-
         = collapsible( Milestone.model_name.human(count: 9001), id: 'milestones-toggle') do
-          #milestones
+          #milestones.milestones-list{data: { role: current_employee.role }}
 
         = yield(:sidebar)
+
+        = collapsible(t('help.calendar.keyboard_heading'), id: 'keyboard-shortcuts', class: 'keyboard-shortcuts') do
+          = help_tag 'calendar.keyboard'
 
 
       .primary

@@ -62,6 +62,13 @@ small {
   font-size: $ci_font-size;
 }
 
+.side-link {
+  font-size: 12px;
+  float: right;
+  font-weight: normal;
+  letter-spacing: 0;
+}
+
 [role=banner] {
   background: $ci_blue;
   border-bottom: 1px solid darken($ci_blue, 7.5%);
@@ -79,18 +86,15 @@ small {
   }
 
   .logo {
-    padding: 15px;
-
     a {
-      @include image-2x(image-url("clockwork-logo-32px.png"), 156px, 16px);
+      @include image-2x("clockwork-logo-32px.png", 156px, 16px);
       @include transition(all .15s $ci_easing);
 
       display: block;
-      width: 156px;
-      height: 16px;
-      background: image-url("clockwork-logo-16px.png");
+      width: 190px;
+      height: 49px;
+      background: image-url("clockwork-logo-16px.png") 50% 16px no-repeat;
       text-indent: -999em;
-      padding: 0;
 
       &:hover {
         @include transform(scale(1.05));
@@ -182,7 +186,8 @@ small {
 }
 
 [role=content] {
-  padding: $banner_top_padding $banner_link_padding_lr 40px;
+  padding: $banner_top_padding $banner_link_padding_lr 0px;
+  margin-bottom: 40px;
 
   .wrap.expanded & {
     padding-left:  20px;
@@ -343,18 +348,23 @@ small {
   margin: 2px 5px 3px;
 }
 
+[data-toggle='collapsible'] {
+    @include background-image(linear-gradient(lighten($ci_sidebar_bg-color, 3%), $ci_sidebar_bg-color 30px));
+}
 
 [data-toggle='collapsible-heading'] {
   @include transition(0.25s color ease);
 
   position: relative;
-  margin: 0 0 0.5em 1em;
-  font-size: $ci_large-font;
+  margin: 0;
+  padding: 10px 0;
+  font-size: $ci_font-size;
+  font-weight: bold;
   cursor: pointer;
 
   &[data-icon]:before {
     position: absolute;
-    top: 0.05em;
+    top: 10px;
     left: -1em;
   }
 
@@ -367,20 +377,30 @@ small {
   }
 }
 
-// [data-toggle="collapsible-content"] {
-// }
+[data-toggle="collapsible-content"] {
+  margin-top: 0.5em;
+  padding-right: 10px;
+}
 
 .utility-button.toggle-sidebars {
-  @include border-radius(2px);
+  @include border-radius(0);
 
   position: absolute;
-  top: 60px;
-  display: inline-block;
-  width: 20px;
-  padding: 4px 0 0;
+  z-index: 1;
+  top: 48px;
+  display: block;
+  width: 190px;
+  padding: 6px 0 0;
   text-align: center;
   line-height: 1;
-  font-size: 20px;
+  font-size: 16px;
+  border-bottom: 1px solid $ci_middarkgrey;
+
+  &.collapsed {
+    height: 100%;
+    width: 25px;
+    border-right: 1px solid $ci_middarkgrey;
+  }
 
   &:before {
     margin-right: 0;

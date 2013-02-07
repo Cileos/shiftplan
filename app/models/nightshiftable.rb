@@ -32,13 +32,4 @@ module Nightshiftable
     end
   end
 
-  # DateTime#end_of_day returns 23:59:59, which we show as 24 o'clock
-  def end_hour_respecting_end_of_day
-    if ends_at.min >= 59 and ends_at.hour == 23
-      24
-    else
-      ends_at.hour
-    end
-  end
-
 end

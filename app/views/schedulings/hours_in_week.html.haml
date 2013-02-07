@@ -7,7 +7,7 @@
 -# Downside: we have to set the height of "rows" and schedulings per css
 -#           see calendar/_hours.css.scss
 
-%table#calendar.calendar.hours-in-week{class: filter.range, data: filter.table_metadata}
+%table#calendar.calendar.hours-in-week.schedulings{class: filter.range, data: filter.table_metadata}
   %thead
     %tr
       %th
@@ -25,5 +25,5 @@
         = filter.render_cell_for_day day
 
 - sidebar do
-  = collapsible(t('schedulings.legend'), id: 'legend', class: 'calendar-legend') do
-    = filter.legend
+  = collapsible(t('schedulings.legend'), id: 'legend-toggle', class: 'calendar-legend') do
+    #legend= filter.legend

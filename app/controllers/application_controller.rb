@@ -29,10 +29,12 @@ class ApplicationController < ActionController::Base
       nested_resources_for(resource.commentable.blog) + [ resource.commentable, resource]
     when Post
       nested_resources_for(resource.blog) + [resource]
-    when Blog, Team, Plan
+    when Blog, Team, Plan, Qualification, PlanTemplate
       nested_resources_for(resource.organization) + [resource]
     when Organization
       [ resource.account, resource ]
+    when Shift
+      nested_resources_for(resource.plan_template) + [resource]
     end
   end
 
@@ -59,7 +61,7 @@ class ApplicationController < ActionController::Base
     # Maybe make dynamic again later.  E.g., if a user just has one account, we
     # might want to show him a "only one account" optimized dashboard.
     if user_signed_in?
-      if not current_user.is_multiple?
+      if not current_user.multiple?
         if first = current_user.joined_organizations.first
           [first.account, first]
         else # has one account, but no membership

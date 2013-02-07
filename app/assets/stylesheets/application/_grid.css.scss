@@ -21,11 +21,11 @@
     .primary,
     .secondary,
     .tertiary {
-      @include transition(0.5s width ease);
+      // @include transition(0.5s width ease);
 
       &:not(:last-child) {
         padding-right: 20px;
-        border-right: 1px solid $ci_midgray;
+        border-right: 1px solid $ci_grey;
       }
     }
 
@@ -61,6 +61,13 @@
         @include span-columns(2);
       }
     }
+
+    &.exact {
+      .primary,
+      .secondary {
+        @include span-columns(6);
+      }
+    }
   }
 
   &.three-columns {
@@ -88,6 +95,14 @@
   &.two-columns {
     .secondary {
       float: left;
+    }
+
+    &.exact {
+      .primary,
+      .secondary,
+      .tertiary {
+        @include span-columns(4);
+      }
     }
   }
 }

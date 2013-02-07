@@ -1,12 +1,15 @@
 class Organization < ActiveRecord::Base
   belongs_to :account
-  belongs_to :planner,    class_name: 'User'
-  has_many   :employees,  through: :memberships, order: 'last_name ASC, first_name ASC'
+  belongs_to :planner,        class_name: 'User'
+  has_many   :employees,      through: :memberships, order: 'last_name ASC, first_name ASC'
   has_many   :plans
-  has_many   :teams,      order: 'name ASC'
+  has_many   :teams,          order: 'name ASC'
+  has_many   :qualifications, order: 'name ASC'
   has_many   :invitations
   has_many   :blogs
+  has_many   :posts,      through: :blogs
   has_many   :memberships
+  has_many   :plan_templates
 
   validates_presence_of :name
 
@@ -36,6 +39,10 @@ class Organization < ActiveRecord::Base
     scope.order_by_names
   end
 
+  def inspect
+    %Q~<#{self.class} #{id || 'new'} #{name.inspect} (account_id: #{account_id})>~
+  end
+
   after_create :setup
   def setup
     if blogs.empty?
@@ -45,5 +52,9 @@ class Organization < ActiveRecord::Base
 
   def to_s
     %Q~<Organization #{id} "#{name}" account_id: #{account_id}>~
+  end
+
+  def name_with_account
+    account.name + " - " + name
   end
 end

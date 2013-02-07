@@ -25,7 +25,7 @@ Then /^I should see a list of the following (.+):$/ do |plural, expected|
   selectors = expected.column_names.map(&:underscore).map {|s| ".#{s}" }
   actual = first("ul.#{plural}").all('li').map do |li|
     selectors.map do |column|
-      li.first(column).try(:text).try(:strip) || ''
+      li.first(column).try(:text).try(:strip).try(:lines).try(:first) || ''
     end
   end
   actual.unshift expected.column_names
@@ -44,6 +44,18 @@ Then /^I should see the following list of links:$/ do |expected|
   expected.diff! actual
 end
 
+Then /^I should see the following items in (.* list):$/ do |list_name, expected|
+  list = first( selector_for(list_name) )
+  actual = list.all('li').map do |li|
+    [ li.try(:text).try(:strip) || '' ]
+  end
+  expected.diff! actual
+end
+
+# %table#people
+#   %tr
+#     %td.name
+#     %td.age
 Then /^I should see the following table of (.+):$/ do |plural, expected|
   # table is a Cucumber::Ast::Table
   actual = find("table##{plural}").all('tr').map do |tr|
@@ -60,6 +72,27 @@ Then /^I should see the following table of (.+):$/ do |plural, expected|
     end.strip.squeeze(' ')
     end
   end
+  expected.diff! actual
+end
+
+# The difference between this step and the previous is: THIS one can handle multiple values per cell properly, for example
+# %table.overview
+#   %tr
+#     %td
+#       %span.name Nina
+#       .age 19
+#
+# Then I should see an overview table with the following rows
+#   | name | age |
+#   | Nina | 19  |
+Then /^I should see an? (\w+) table with the following rows:$/ do |name, expected|
+  selectors = expected.column_names.map {|s| ".#{s}" }
+  actual = find("table.#{name}").all('tr').map do |tr|
+    selectors.map do |column|
+      tr.find(column).try(:text).try(:strip)
+    end
+  end
+  actual.unshift expected.column_names
   expected.diff! actual
 end
 

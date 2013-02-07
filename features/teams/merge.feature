@@ -24,6 +24,7 @@ Feature: Merge Teams
   Scenario: merge two teams
     Given I check the checkbox within the first table row
       And I check the checkbox within the second table row
+     When I inject style "position:relative" into "header"
       And I press "Zusammenlegen"
       And I wait for the modal box to appear
      When I select "Reaktor schrubben" from "Neuer Teamname"
@@ -36,10 +37,10 @@ Feature: Merge Teams
        | Reaktor schrubben | Rs     |
      When I go to the page of the plan
      Then I should see the following calendar:
-        | Mitarbeiter | Fr     | Sa     |
-        | Carl C      |        |        |
-        | Lenny L     | 2-3 Rs | 3-4 Rs |
-        | Homer S     | 1-2 Rs | 2-3 Rs |
+        | Mitarbeiter  | Fr              | Sa              |
+        | Carl C       |                 |                 |
+        | Lenny L      | 02:00-03:00 Rs  | 03:00-04:00 Rs  |
+        | Homer S      | 01:00-02:00 Rs  | 02:00-03:00 Rs  |
 
 
   Scenario: merge button should be disabled when visiting the teams page
@@ -55,7 +56,8 @@ Feature: Merge Teams
       And I check the checkbox within the second table row
      Then the merge button should not be disabled
 
-     When I follow "Hinzufügen"
+     When I inject style "position:relative" into "header"
+      And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Müll rausbringen"
       And I press "Anlegen"
@@ -64,7 +66,8 @@ Feature: Merge Teams
      Then the merge button should be disabled
 
   Scenario: after adding a team the on click handlers for the checkboxes should still work
-    Given I follow "Hinzufügen"
+    Given I inject style "position:relative" into "header"
+      And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Müll rausbringen"
       And I press "Anlegen"
@@ -79,6 +82,7 @@ Feature: Merge Teams
   Scenario: the merge button should be disabled again after a team merge
     Given I check the checkbox within the first table row
       And I check the checkbox within the second table row
+      And I inject style "position:relative" into "header"
       And I press "Zusammenlegen"
       And I wait for the modal box to appear
       And I select "Reaktor schrubben" from "Neuer Teamname"
@@ -99,6 +103,7 @@ Feature: Merge Teams
 
      When I check the checkbox within the second table row
       And I check the checkbox within the third table row
+      And I inject style "position:relative" into "header"
       And I press "Zusammenlegen"
       And I wait for the modal box to appear
       And I select "Reaktor schrubben" from "Neuer Teamname"

@@ -246,7 +246,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def update_cell_for(scheduling)
-    update_wwt_diff_for(scheduling.employee)
+    update_wwt_diff_for(scheduling.employee) if scheduling.employee.present?
     select(:cell, scheduling).refresh_html cell_content(scheduling) || ''
   end
 

@@ -67,9 +67,9 @@ module NavigationHelpers
 
     when /^the (teams in week|hours in week|teams in day|employees in week) page (?:of|for) #{capture_model}(?: for #{capture_fields})?$/
       scope, model, params = $1, model!($2), parse_fields($3).symbolize_keys
-      raise ArgumentError, "only plans can be scoped as #{scope}" unless model.is_a?(Plan)
+      raise ArgumentError, "only plans and plan templates can be scoped as #{scope}" unless model.is_a?(Plan) || model.is_a?(PlanTemplate)
       organization = model.organization
-      send "account_organization_plan_#{scope.strip.gsub(/\s+/,'_')}_path", organization.account, organization, model, params
+      send "account_organization_#{model.class.name.underscore}_#{scope.strip.gsub(/\s+/,'_')}_path", organization.account, organization, model, params
 
     when /^(?:my|the) dashboard$/
       dashboard_path
@@ -79,14 +79,22 @@ module NavigationHelpers
     #
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
+      #
+    when/^the (employees|plan templates|qualifications) page for #{capture_model}$/
+      model = model($2)
+      if model.is_a?(Organization)
+        send "account_organization_#{$1.gsub(' ', '_')}_path", model.account, model
+      else
+        raise ArgumentError, "only paths scoped to organizations defined so far. please add more paths in #{__FILE__}:#{__LINE__}"
+      end
 
-    when /^the employees page for #{capture_model}$/
-      org = model!($1)
-      account_organization_employees_path(org.account, org)
-
-    when /^the new employee page for #{capture_model}$/
-      org = model!($1)
-      new_account_organization_employee_path(org.account, org)
+    when/^the new ([a-z ]+) page for #{capture_model}$/
+      model = model($2)
+      if model.is_a?(Organization)
+        send "new_account_organization_#{$1.gsub(' ', '_')}_path", model.account, model
+      elsif model.is_a?(Account)
+        new_account_organization_path(model)
+      end
 
     when /^the adopt employees page for #{capture_model}$/
       org = model!($1)

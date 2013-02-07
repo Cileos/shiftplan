@@ -116,7 +116,10 @@ class SchedulingFilter
           results = results.in_year(year)
         end
       end
-      results.includes(:employee, :team).sort_by(&:start_hour)
+      results.
+        includes(:employee, :team).
+        sort_by(&:start_hour).
+        sort_by(&:qualification_name)
     end
 
     def conditions
@@ -131,10 +134,10 @@ class SchedulingFilter
           end
         end
       when :day
+        # FIXME this may not work thanks to timezones, see Scheduling.in_year
         raise ArgumentError, "not enough data to build date" unless date?
         ["starts_at::date = ?::date", date]
       end
     end
-
 
 end

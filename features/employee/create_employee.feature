@@ -34,9 +34,25 @@ Feature: Create Employees
         | Mitarbeiter   | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
         | Carl Carlson  |     |     |     |     |     |     |     |
 
+  # The role owner can not be assigned to other employees
+  @javascript
+  Scenario: Trying to create an owner
+    Given I inject style "position:relative" into "header"
+      And I follow "Hinzufügen"
+      And I fill in the following:
+        | Vorname           | Carl    |
+        | Nachname          | Carlson |
+     When I manipulate the form "edit_employee" with attribute "employee[role]" and value "owner"
+      And I press "Anlegen"
+      And I should be on the employees page for the organization
+     Then I should see the following table of employees:
+       | Name           | Rolle  |
+       | Carlson, Carl  | keine  |
+
   @javascript
   Scenario: Creating a planner
-    Given I follow "Hinzufügen"
+    Given I inject style "position:relative" into "header"
+      And I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
@@ -59,7 +75,7 @@ Feature: Create Employees
        | Carlson, Carl  | 40   |          | keine | Noch nicht eingeladen  |
 
   Scenario: Trying to create an employee without a first name
-     When I follow "Hinzufügen"
+    Given I follow "Hinzufügen"
      Then the "Wochenarbeitszeit" field should contain "40"
       And I fill in the following:
         | Nachname          | Carlson |
@@ -68,7 +84,7 @@ Feature: Create Employees
       And I should see "Mitarbeiter konnte nicht angelegt werden."
 
   Scenario: Trying to create an employee without a last name
-     When I follow "Hinzufügen"
+    Given I follow "Hinzufügen"
      Then the "Wochenarbeitszeit" field should contain "40"
       And I fill in the following:
         | Vorname           | Carl    |
@@ -77,7 +93,7 @@ Feature: Create Employees
       And I should see "Mitarbeiter konnte nicht angelegt werden."
 
   Scenario: Creating an employee without a weekly working time
-     When I follow "Hinzufügen"
+    Given I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |

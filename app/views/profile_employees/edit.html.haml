@@ -24,5 +24,5 @@
       .actions
         = f.update_button
 
-    - if current_user.is_multiple?
+    - if current_user.multiple?
       = link_to :back, profile_employees_path

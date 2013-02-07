@@ -55,7 +55,7 @@ Feature: Comments in Company blog
       And I am on the page for the organization "fukushima"
      Then I should see "1 Kommentar"
      # cannot click the comments-count link in cucumber in some browsers because of the :before magic with the data-icon
-     When I follow "Mehr"
+     When I follow "Umweltminister zu Besuch"
      Then I should be on the page of the post
      When I fill in "Kommentar" with "Ich werde einen Blumenstrauß mitbringen"
       And I press "Kommentieren"
@@ -93,8 +93,8 @@ Feature: Comments in Company blog
       And a comment exists with commentable: the post, employee: the employee owner "mr. burns", body: "Ich backe einen Kuchen für den Umweltminister"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the post
-      And I deactivate all confirm dialogs
-     When I follow the delete link
+     When I deactivate all confirm dialogs
+      And I follow the delete link
      Then I should not see "Ich backe einen Kuchen für den Umweltminister"
       And I should see "0 Kommentare"
       And I should see "Es wurden noch keine Kommentare erstellt"
@@ -104,7 +104,7 @@ Feature: Comments in Company blog
     Given a post exists with blog: the blog, author: the employee owner "mr. burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
+     When I follow "Umweltminister zu Besuch"
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
      Then I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
@@ -116,7 +116,7 @@ Feature: Comments in Company blog
       And the employee "bart" is a member of the organization
       And I am signed in as the confirmed user "bart"
       And I am on the page for the organization "fukushima"
-     When I follow "Mehr"
+     When I follow "Umweltminister zu Besuch"
      Then I should see "Owner Burns schrieb am 24.05.2012 um 12:00 Uhr:" within the comments
       But I should not see a delete button
 
