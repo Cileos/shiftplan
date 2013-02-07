@@ -15,8 +15,8 @@ module Overnightable
   def self.included(model)
     model.class_eval do
 
-      belongs_to :next_day, class_name: model
-      has_one    :previous_day, class_name: model, foreign_key: 'next_day_id'
+      belongs_to :next_day, class_name: name
+      has_one    :previous_day, class_name: name, foreign_key: 'next_day_id'
 
       before_validation :update_or_destroy_next_day_for_overnightable,  if: :next_day
       before_validation :build_next_day_for_overnightable,              unless: :next_day
