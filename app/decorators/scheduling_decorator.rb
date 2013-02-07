@@ -46,7 +46,13 @@ class SchedulingDecorator < RecordDecorator
 
   def edit_url
     organization = scheduling.organization
-    h.url_for([:edit, organization.account, organization, scheduling.plan, scheduling])
+    scheduling_or_previous_day_scheduling = if scheduling.previous_day.present?
+      scheduling.previous_day
+    else
+      scheduling
+    end
+    h.url_for([:edit, organization.account, organization, scheduling.plan,
+      scheduling_or_previous_day_scheduling])
   end
 
   def concat(*args)

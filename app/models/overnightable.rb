@@ -65,8 +65,13 @@ module Overnightable
   # 00:00 on the next day, the first day/previous day will end at 23:59)
   def update_next_day
     next_day.tap do |tomorrow|
-      tomorrow.day = day + 1 if tomorrow.respond_to?(:day)
+      if tomorrow.respond_to?(:day)
+        tomorrow.day = day + 1 # for shifts
+      else
+        tomorrow.starts_at = (starts_at + 1.day).beginning_of_day # for schedulings
+      end
       tomorrow.ends_at = ends_at + 1.day
+      tomorrow.employee = employee if tomorrow.respond_to?(:employee)
       tomorrow.team = team
       tomorrow.next_day = nil # prevents that a next day for the next day will be created
     end

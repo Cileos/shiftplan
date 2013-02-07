@@ -10,6 +10,7 @@ class SchedulingsController < InheritedResources::Base
   layout 'calendar'
 
   before_filter :validate_plan_period, except: [:new, :create, :edit, :update, :destroy] # but all the collections
+  before_filter :merge_time_components_from_next_day, only: :edit
 
   respond_to :html, :js
 
@@ -52,5 +53,11 @@ class SchedulingsController < InheritedResources::Base
 
     def plan
       parent
+    end
+
+    # We always edit the first day of an overnightable. This makes it necessary to
+    # initialize the first day with the end_hour and end_minute of the next day.
+    def merge_time_components_from_next_day
+      resource.merge_time_components_from_next_day! if resource.is_overnight?
     end
 end

@@ -221,7 +221,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
       if action == :update
         respond_for_update(resource)
       else
-        respond_for_create(resource)
+        respond_for_action(resource)
       end
       remove_modal
       update_legend
@@ -232,17 +232,20 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def respond_for_create(resource)
+  def respond_for_update(resource)
+    update_cell_for(resource.with_previous_changes_undone)
+    if resource.next_day
+      update_cell_for(resource.next_day.with_previous_changes_undone)
+    end
+    respond_for_action(resource)
+  end
+
+  def respond_for_action(resource)
     update_cell_for(resource)
     if resource.next_day
       update_cell_for(resource.next_day)
     end
     focus_element_for(resource)
-  end
-
-  def respond_for_update(resource)
-    update_cell_for(resource.with_previous_changes_undone)
-    respond_for_create(resource)
   end
 
   def update_cell_for(scheduling)
