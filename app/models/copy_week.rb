@@ -47,7 +47,6 @@ class CopyWeek
   def source_filter
     plan.schedulings.filter(week: source_week, cwyear: source_year)
   end
-  
 end
 
 CopyWeekDecorator

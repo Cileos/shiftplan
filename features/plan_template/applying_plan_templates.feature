@@ -54,16 +54,10 @@ Feature: Applying Weekbased Plan Templates to Plans
       And I press "Speichern"
      Then I should see the following calendar:
         | Teams                   | Mo                                          | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     | Homer Simpson 22:00-00:00 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Brennstabkessel (B)     | Homer Simpson 22:00-23:59 Brennstabexperte  | Homer Simpson 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                                             | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
-    # TODO: remove above calendar step and use the following instead after merge
-     # Then I should see the following calendar:
-     #    | Teams                   | Mo                                          | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
-     #    | Brennstabkessel (B)     | Homer Simpson 22:00-23:59 Brennstabexperte  | Homer Simpson 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
-     #    | Druckwasserreaktor (D)  |                                             | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
 
 
-  # TODO: remove this feature if week offset problem is fixed in niklas branch
   Scenario: Applying a weekbased plan template to a plan in 2013, check week offset problem in 2013
     Given today is 2013-02-06
       And I go to the teams in week page of the plan for cwyear: 2013, week: 6
@@ -92,8 +86,7 @@ Feature: Applying Weekbased Plan Templates to Plans
       And I wait for the modal box to disappear
      Then I should be on the teams in week page of the plan for cwyear: 2012, week: 49
       And I should see notice "Es konnten nicht alle Schichten der Planvorlage übernommen werden. Einige Schichten liegen außerhalb des Plans."
-      # TODO: also reject the next day (00:00-06:00)? Easier to implement after merge.
       And I should see the following calendar:
         | Teams                   | Mo  | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     |     | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Brennstabkessel (B)     |     |                                                                                          |     |     |     |     |     |
         | Druckwasserreaktor (D)  |     | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |

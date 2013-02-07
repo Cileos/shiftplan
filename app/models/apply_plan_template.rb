@@ -16,20 +16,14 @@ class ApplyPlanTemplate
 
   def save
     Plan.transaction do
-      plan_template.shifts.each do |shift|
+      plan_template.shifts.select { |s| !s.previous_day.present? }.each do |shift|
         create_schedulings_for_shift(shift)
       end
     end
   end
 
-  def target_day
-    monday = (date_from_target_year + (target_week.to_i).weeks).beginning_of_week
-    # TODO: adjustment can hopefully be removed with new cweek refactoring from niklas
-    monday = monday - (monday.cweek - target_week).weeks
-  end
-
-  def date_from_target_year
-    Date.new(target_year.to_i)
+  def monday
+    Date.commercial(target_year, target_week, 1)
   end
 
   def plan_template
@@ -37,17 +31,19 @@ class ApplyPlanTemplate
   end
 
   def create_schedulings_for_shift(shift)
-    base_date = target_day + shift.day.days
+    base_date = monday + shift.day.days
     starts_at = base_date + shift.starts_at.hour.hours + shift.starts_at.min.minutes
-    ends_at   = base_date + shift.ends_at.hour.hours + shift.ends_at.min.minutes
+    if shift.next_day
+      ends_at = base_date + shift.next_day.ends_at.hour.hours + shift.next_day.ends_at.min.minutes
+    else
+      ends_at = base_date + shift.ends_at.hour.hours + shift.ends_at.min.minutes
+    end
     shift.demands.each do |demand|
       demand.quantity.times do
         create_scheduling(
           starts_at: starts_at,
           ends_at:   ends_at,
           team:      shift.team,
-          week:      target_week,
-          year:      target_year,
           demand:    demand
         )
       end

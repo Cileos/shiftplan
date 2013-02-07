@@ -10,7 +10,7 @@ class ApplyPlanTemplateController < InheritedResources::Base
       else
         set_flash(:notice)
       end
-      plan_week_mode_path(plan, 'teams_in_week', resource.target_day)
+      plan_week_mode_path(plan, 'teams_in_week', resource.monday)
     end
   end
 
