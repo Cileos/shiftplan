@@ -1,0 +1,23 @@
+- organizations = current_user.organizations_for(account).order(:name)
+%li
+  - if organizations.count > 1
+    %ul
+      %li{class: "dropdown #{current_organization ? dropdown_class(url_for nested_resources_for(current_organization)) : ''}"}
+        - if current_organization
+          = link_to current_organization.name, nested_resources_for(current_organization),
+            class: 'organization', data: { toggle: 'dropdown' }
+          %ul.organization-dropdown
+            - (organizations - [current_organization]).each do |org|
+              %li= link_to org.name_with_account, nested_resources_for(org)
+        - else
+          %a{href: '#', 'data-toggle' => 'dropdown'}= Organization.model_name.human count: 9001
+          %ul.organization-dropdown
+            - organizations.each do |org|
+              %li= link_to org.name_with_account, nested_resources_for(org)
+      - if current_organization
+        = render 'organizations/navigation_links', organization: current_organization
+  - else
+    %ul
+      - if organization = organizations.first
+        = li_link organization.name, nested_resources_for(organization), class: 'organization', data: { icon: i(:organization) }
+        = render 'organizations/navigation_links', organization: organization

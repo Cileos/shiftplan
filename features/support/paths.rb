@@ -88,6 +88,10 @@ module NavigationHelpers
       org = model!($1)
       new_account_organization_employee_path(org.account, org)
 
+    when /^the new organization page for #{capture_model}$/
+      account = model!($1)
+      new_account_organization_path(account)
+
     when /^the adopt employees page for #{capture_model}$/
       org = model!($1)
       adopt_account_organization_employees_path(org.account, org)

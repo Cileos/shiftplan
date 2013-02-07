@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
     # Maybe make dynamic again later.  E.g., if a user just has one account, we
     # might want to show him a "only one account" optimized dashboard.
     if user_signed_in?
-      if not current_user.is_multiple?
+      if not current_user.multiple?
         if first = current_user.joined_organizations.first
           [first.account, first]
         else # has one account, but no membership

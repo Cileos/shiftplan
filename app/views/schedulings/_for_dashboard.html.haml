@@ -1,0 +1,20 @@
+.module.schedulings
+  %header
+    %h2
+      = t(:upcoming_schedulings)
+      %span.count= schedulings.count
+  .content
+    - unless schedulings.empty?
+      %table.agenda
+        - schedulings.each do |scheduling|
+          %tr
+            %th.date
+              %span.day= scheduling.starts_at.day
+              %span.day-name= l scheduling.starts_at, format: :abbr_week_day
+              %span.month-year= l scheduling.starts_at, format: :short_month_and_year
+            %td
+              %strong.time= "#{scheduling.starts_at.hour} - #{scheduling.ends_at.hour}"
+              %span.team= scheduling.team.to_quickie
+              %span.plan= link_to scheduling.plan.name, nested_resources_for(scheduling.plan)
+    - else
+      %p= t('schedulings.no_upcoming_schedulings_present')

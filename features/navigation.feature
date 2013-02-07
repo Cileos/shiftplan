@@ -1,5 +1,3 @@
-# we have to discuss how to handle the dashboard
-@wip
 Feature: Navigation
   In order to access all the wonderful functionality of clockwork
   As a user
@@ -7,240 +5,226 @@ Feature: Navigation
 
   Background:
     Given the situation of a just registered user
-      And I am signed in as the confirmed user "mr. burns"
 
-  # BUG: should the "Alle Pläne" menu be always extended?
-  @todo
-  @wip
   Scenario: as an owner with multiple organizations in same account
+    # an owner can manage all organizations of the account
     Given an organization "tschernobyl" exists with name: "Tschernobyl", account: the account
+
      When I am on the dashboard page
-
      Then I should see the following list of links within the navigation:
-       | link            | active |
-       | Owner Burns     | false  |
-       | Einstellungen   | false  |
-       | Ausloggen       | false  |
-       | Dashboard       | true   |
+       | link                      | active  |
+       | Tepco GmbH                | false   |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | false   |
+       | Tepco GmbH - Tschernobyl  | false   |
+      And I should see the following items in the organization dropdown list:
+        | Tepco GmbH - Fukushima   |
+        | Tepco GmbH - Tschernobyl |
 
-     When I follow "Fukushima"
+     When I follow "Tepco GmbH"
      Then I should see the following list of links within the navigation:
-       | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | false   |
-       | Fukushima >>   | true    |
-       | Neuigkeiten    | false   |
-       | Pläne          | true    |
-       | Alle Pläne     | false   |
-       | Mitarbeiter    | false   |
-       | Teams          | false   |
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | false   |
+       | Tepco GmbH - Tschernobyl  | false   |
+      And I should see the following items in the organization dropdown list:
+        | Tepco GmbH - Fukushima   |
+        | Tepco GmbH - Tschernobyl |
+
+     When I follow "Hinzufügen"
+     Then I should be on the new organization page for the account
+      And I should see the following list of links within the navigation:
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | false   |
+       | Tepco GmbH - Tschernobyl  | false   |
+      And I should see the following items in the organization dropdown list:
+        | Tepco GmbH - Fukushima   |
+        | Tepco GmbH - Tschernobyl |
+
+     When I follow "Tepco GmbH - Fukushima" within the navigation
+     Then I should see the following list of links within the navigation:
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Fukushima                 | true    |
+       | Tepco GmbH - Tschernobyl  | false   |
+       | Neuigkeiten               | false   |
+       | Pläne                     | false   |
+       | Alle Pläne                | false   |
+       | Mitarbeiter               | false   |
+       | Teams                     | false   |
+      And I should see the following items in the organization dropdown list:
+        | Tepco GmbH - Tschernobyl |
 
      When I follow "Neuigkeiten"
      Then I should see the following list of links within the navigation:
-       | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | false   |
-       | Fukushima >>   | true    |
-       | Neuigkeiten    | true    |
-       | Pläne          | true    |
-       | Alle Pläne     | false   |
-       | Mitarbeiter    | false   |
-       | Teams          | false   |
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Fukushima                 | true    |
+       | Tepco GmbH - Tschernobyl  | false   |
+       | Neuigkeiten               | true    |
+       | Pläne                     | false   |
+       | Alle Pläne                | false   |
+       | Mitarbeiter               | false   |
+       | Teams                     | false   |
+      And I should see the following items in the organization dropdown list:
+        | Tepco GmbH - Tschernobyl |
 
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
-       | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | false   |
-       | Fukushima >>   | true    |
-       | Neuigkeiten    | false   |
-       | Pläne          | true    |
-       | Alle Pläne     | false   |
-       | Mitarbeiter    | false   |
-       | Teams          | false   |
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Fukushima                 | true    |
+       | Tepco GmbH - Tschernobyl  | false   |
+       | Neuigkeiten               | false   |
+       | Pläne                     | true    |
+       | Alle Pläne                | false   |
+       | Mitarbeiter               | false   |
+       | Teams                     | false   |
 
      When I follow "Mitarbeiter"
      Then I should see the following list of links within the navigation:
-       | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | false   |
-       | Fukushima >>   | true    |
-       | Neuigkeiten    | false   |
-       | Pläne          | true    |
-       | Alle Pläne     | false   |
-       | Mitarbeiter    | true    |
-       | Teams          | false   |
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Fukushima                 | true    |
+       | Tepco GmbH - Tschernobyl  | false   |
+       | Neuigkeiten               | false   |
+       | Pläne                     | false   |
+       | Alle Pläne                | false   |
+       | Mitarbeiter               | true    |
+       | Teams                     | false   |
 
      When I follow "Teams"
      Then I should see the following list of links within the navigation:
-       | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | false   |
-       | Fukushima >>   | true    |
-       | Neuigkeiten    | false   |
-       | Pläne          | true    |
-       | Alle Pläne     | false   |
-       | Mitarbeiter    | false   |
-       | Teams          | true    |
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Fukushima                 | true    |
+       | Tepco GmbH - Tschernobyl  | false   |
+       | Neuigkeiten               | false   |
+       | Pläne                     | false   |
+       | Alle Pläne                | false   |
+       | Mitarbeiter               | false   |
+       | Teams                     | true    |
 
-     When I follow "clockwork"
-     Then I should be on the dashboard
+     # Click on the selected account in the account selector in menu when beeing in the
+     # scope of an organization.
+     When I follow "Tepco GmbH" within the navigation
+     Then I should be on the page of the account "tepco"
      Then I should see the following list of links within the navigation:
-       | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | true    |
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | false   |
+       | Tepco GmbH - Tschernobyl  | false   |
+      And I should see the following items in the organization dropdown list:
+        | Tepco GmbH - Fukushima   |
+        | Tepco GmbH - Tschernobyl |
 
-  # BUG: should the "Alle Pläne" menu be always extended?
-  @todo
-  @wip
-  Scenario: an user beeing an employee for two accounts
-    Given the user has joined another account with organization_name: "Clockwork", as: "Charles Montgomery Burns"
+
+  # 1.) The user has an employee with role "owner" in the account "fukushima" and therefore can
+  # see all organizations of this account.
+  # 2.) The user is also a normal employee in another account "Cileos UG" with a membership for
+  # organization "Clockwork Programming" but has no membership for organization
+  # "Clockwork Marketing".
+  Scenario: a user beeing an employee for two accounts
+    Given an organization "tschernobyl" exists with name: "Tschernobyl", account: the account
+      And a account "cileos" exists with name: "Cileos UG"
+      And an organization "clockwork programming" exists with name: "Clockwork Programming", account: the account "cileos"
+      And an organization "clockwork marketing" exists with name: "Clockwork Marketing", account: the account "cileos"
+      And an employee "charles m. burns" exists with first_name: "Charles M.", last_name: "Burns", account: the account "cileos", user: the confirmed user
+      And a membership exists with organization: the organization "clockwork programming", employee: the employee "charles m. burns"
 
      When I go to the dashboard page
-     # The user "owner@burns.com" is not in the scope of an account, yet, when
-     # going to the dashboard.  So instead of showing the name of one of his
-     # employees, we show the email address "owner@burns.com" in the
-     # navigation.
      Then I should see the following list of links within the navigation:
-       | link            | active |
-       | owner@burns.com | false  |
-       | Einstellungen   | false  |
-       | Ausloggen       | false  |
-       | Dashboard       | false  |
+       | link        | active  |
+       | Accounts    | false   |
+       | Cileos UG   | false   |
+       | Tepco GmbH  | false   |
+      And I should see the following items in the account dropdown list:
+       | Cileos UG   |
+       | Tepco GmbH  |
 
-     When I follow "Dashboard"
-      And I follow "Tschernobyl GmbH"
+     When I follow "Tepco GmbH" within the navigation
      Then I should see the following list of links within the navigation:
-       | link                | active |
-       | Bart Simpson        | false  |
-       | Einstellungen       | false  |
-       | Ausloggen           | false  |
-       | Dashboard           | false  |
-       | Tschernobyl GmbH >> | true   |
-       | Pläne               | true   |
-       | Alle Pläne          | false  |
-       | Mitarbeiter         | false  |
-       | Teams               | false  |
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Cileos UG                 | false   |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | false   |
+       | Tepco GmbH - Tschernobyl  | false   |
+      And I should see the following items in the account dropdown list:
+       | Cileos UG   |
+      And I should see the following items in the organization dropdown list:
+       | Tepco GmbH - Fukushima   |
+       | Tepco GmbH - Tschernobyl |
 
-  Scenario: as a planner with one organization
-    Given I am signed in as the confirmed user
-
-     When I go to the page of the organization "fukushima"
+     When I follow "Tepco GmbH - Fukushima" within the navigation
      Then I should see the following list of links within the navigation:
-       | link          | active |
-       | Owner Burns   | false  |
-       | Einstellungen | false  |
-       | Ausloggen     | false  |
-       | Dashboard     | false  |
-       | Fukushima >>  | true   |
-       | Neuigkeiten   | false  |
-       | Pläne         | true   |
-       | Alle Pläne    | false  |
-       | Mitarbeiter   | false  |
-       | Teams         | false  |
+       | link                      | active  |
+       | Tepco GmbH                | true    |
+       | Cileos UG                 | false   |
+       | Fukushima                 | true    |
+       | Tepco GmbH - Tschernobyl  | false   |
+       | Neuigkeiten               | false   |
+       | Pläne                     | false   |
+       | Alle Pläne                | false   |
+       | Mitarbeiter               | false   |
+       | Teams                     | false   |
+      And I should see the following items in the account dropdown list:
+       | Cileos UG   |
+      And I should see the following items in the organization dropdown list:
+       | Tepco GmbH - Tschernobyl |
 
-     When I follow "Neuigkeiten"
+      # Now navigate to the other account and check that (normal) employee only sees
+      # organizations in the menu for which he has a membership.
+     When I follow "Cileos UG" within the navigation
+      # We can only access one organization in the cileos account. So no organization
+      # dropdown is shown in the menu in this case. We only show the one organization then.
+      # Also as there is only one organization we can immediately show all links (e.g. plans)
+      # in the menu for the organization, though we are not in the scope of the organization,
+      # yet.
+      And I should see the following list of links within the navigation:
+       | link                   | active  |
+       | Cileos UG              | true    |
+       | Tepco GmbH             | false   |
+       | Clockwork Programming  | false   |
+       | Neuigkeiten            | false   |
+       | Pläne                  | false   |
+       | Alle Pläne             | false   |
+       | Mitarbeiter            | false   |
+       | Teams                  | false   |
+      And I should see the following items in the account dropdown list:
+       | Tepco GmbH  |
+
+     When I follow "Clockwork Programming" within the navigation
      Then I should see the following list of links within the navigation:
-       | link          | active |
-       | Owner Burns   | false  |
-       | Einstellungen | false  |
-       | Ausloggen     | false  |
-       | Dashboard     | false  |
-       | Fukushima >>  | true   |
-       | Neuigkeiten   | true   |
-       | Pläne         | true   |
-       | Alle Pläne    | false  |
-       | Mitarbeiter   | false  |
-       | Teams         | false  |
+       | link                   | active  |
+       | Cileos UG              | true    |
+       | Tepco GmbH             | false   |
+       | Clockwork Programming  | true    |
+       | Neuigkeiten            | false   |
+       | Pläne                  | false   |
+       | Alle Pläne             | false   |
+       | Mitarbeiter            | false   |
+       | Teams                  | false   |
+      And I should see the following items in the account dropdown list:
+       | Tepco GmbH  |
 
-     When I choose "Alle Pläne" from the drop down "Pläne"
-     Then I should see the following list of links within the navigation:
-       | link          | active |
-       | Owner Burns   | false  |
-       | Einstellungen | false  |
-       | Ausloggen     | false  |
-       | Dashboard     | false  |
-       | Fukushima >>  | true   |
-       | Neuigkeiten   | false  |
-       | Pläne         | true   |
-       | Alle Pläne    | false  |
-       | Mitarbeiter   | false  |
-       | Teams         | false  |
-
-     When I follow "Mitarbeiter"
-     Then I should see the following list of links within the navigation:
-       | link          | active |
-       | Owner Burns   | false  |
-       | Einstellungen | false  |
-       | Ausloggen     | false  |
-       | Dashboard     | false  |
-       | Fukushima >>  | true   |
-       | Neuigkeiten   | false  |
-       | Pläne         | true   |
-       | Alle Pläne    | false  |
-       | Mitarbeiter   | true   |
-       | Teams         | false  |
-
-     When I follow "Fukushima"
-     # The user "owner@burns.com" is now in the scope of account "tepco". So in
-     # the navigation we show the name of the user's employee in the tepco
-     # account which is "Owner Burns".
-     Then I should see the following list of links within the navigation:
-       | link           | active  |
-       | Owner Burns    | false   |
-       | Einstellungen  | false   |
-       | Ausloggen      | false   |
-       | Dashboard      | false   |
-       | Fukushima >>   | true    |
-       | Neuigkeiten    | false   |
-       | Pläne          | true    |
-       | Alle Pläne     | false   |
-       | Mitarbeiter    | false   |
-       | Teams          | false   |
-
-  @fileupload
-  Scenario: avatar is only shown on page of organization, fallback to gravatar
-    Given the user has joined another account with organization_name: "School", as: "Bart S"
-      And a organization "school" should exist with name: "School"
-      And an employee "bart" should exist with first_name: "Bart"
-      And the employee "bart" has the avatar "features/support/images/barts_avatar.jpg"
-
-      And the user has joined another account with organization_name: "Street", as: "El Barto"
-      And a organization "street" should exist with name: "Street"
-      And an employee "elbarto" should exist with first_name: "El", last_name: "Barto"
-      And the employee "elbarto" has the avatar "app/assets/images/rails.png"
-
-     When I go to the dashboard page
-     # show (default) gravatar for user burns on the dashboard
-      And I should see a tiny gravatar within the navigation
-
-     When I follow "Fukushima"
-     # show (default) gravatar for user burns in organization "Fukushima" as no avatar
-     # has been uploaded for the user's employee in organization "Fukushima"
-      And I should see a tiny gravatar within the navigation
-
-     When I go to the page of the organization "school"
-     Then I should see the avatar "barts_avatar.jpg" within the navigation
-
-     When I go to the page of the organization "street"
-     Then I should see the avatar "rails.png" within the navigation
-
-  @javascript
-  Scenario: (Default) gravatar for the user's email is shown in the navigation if no other avatar has been uploaded
-    Given I am on the dashboard
-      And I should see a tiny gravatar within the navigation
-
-     When I follow "Fukushima"
-      And I should see a tiny gravatar within the navigation
+     # Click on the selected account in the account selector in menu when beeing in the
+     # scope of an organization.
+     When I follow "Cileos UG" within the navigation
+     Then I should be on the page of the account "cileos"
+      And I should see the following list of links within the navigation:
+       | link                   | active  |
+       | Cileos UG              | true    |
+       | Tepco GmbH             | false   |
+       | Clockwork Programming  | false   |
+       | Neuigkeiten            | false   |
+       | Pläne                  | false   |
+       | Alle Pläne             | false   |
+       | Mitarbeiter            | false   |
+       | Teams                  | false   |
+      And I should see the following items in the account dropdown list:
+       | Tepco GmbH  |

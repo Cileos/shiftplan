@@ -28,6 +28,11 @@ class User < ActiveRecord::Base
   # organizations the user joined (aka "has a membership in")
   has_many :joined_organizations, :through => :memberships, source: :organization
 
+  has_many :notifications, through: :employees
+  has_many :schedulings, through: :employees
+
+  has_many :posts_of_joined_organizations, source: :posts, through: :joined_organizations
+
   # unsure about the naming of this method.. rather call it organizations_for_account ?
   def organizations_for(account)
     # a user only has one employee per account but can have several employees across accounts
@@ -40,6 +45,11 @@ class User < ActiveRecord::Base
 
   def employee_for_account(account)
     employees.find_by_account_id!(account.id)
+  end
+
+  # A Planner or Owner does not need a membership
+  def organizations
+    (joined_organizations.all + employees.planners_and_owners.map(&:account).map(&:organizations)).flatten.uniq.sort_by(&:created_at)
   end
 
   def label
@@ -59,8 +69,8 @@ class User < ActiveRecord::Base
   end
 
   # Works at multiple organizations or accounts
-  def is_multiple?
-    joined_organizations.count > 1
+  def multiple?
+    organizations.count > 1
   end
 
   def confirming_email_change?
@@ -68,7 +78,7 @@ class User < ActiveRecord::Base
   end
 
   def name_or_email
-    if is_multiple?
+    if multiple?
       email
     else
       employees.first.name
