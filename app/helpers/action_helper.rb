@@ -67,7 +67,7 @@ module ActionHelper
     notice:            '&#xf00c;',
     info:              '&#xf00c;',
     warning:           '&#xf071;',
-    error:             '&#xf00d;',
+    error:             '&#xf071;',
     alert:             '&#xf00d;'
 
   }
