@@ -196,8 +196,8 @@ ActiveRecord::Schema.define(:version => 20130205135055) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "team_id"
-    t.integer  "next_day_id"
     t.integer  "demand_id"
+    t.integer  "next_day_id"
   end
 
   add_index "schedulings", ["demand_id"], :name => "index_schedulings_on_demand_id"
