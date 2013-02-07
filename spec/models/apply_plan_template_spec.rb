@@ -52,7 +52,7 @@ describe ApplyPlanTemplate do
       end
     end
     let(:schedulings_for_year_and_week) do
-      plan.schedulings.where(year: 2012, week: 49)
+      plan.schedulings.in_cwyear(2012).in_week(49)
     end
     let(:schedulings_for_year_and_month) do
       schedulings_for_year_and_week.select do |s|
