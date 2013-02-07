@@ -3,6 +3,13 @@
 #
 # The foreign key 'next_day_id' has to be added to the database table of the importing
 # model so that the next_day and previous_day associations will work.
+#
+# Prerequisites:
+#   starts_at and ends_at are set, will only be touched if ends_at < starts_at
+#
+# Results:
+#   ends_at fixed
+#   second record spanning the time of the next day
 
 module Overnightable
   def self.included(model)
@@ -40,6 +47,9 @@ module Overnightable
   def build_next_day_for_overnightable
     if has_overnight_timespan?
       self.next_day = dup.tap do |tomorrow|
+        if tomorrow.respond_to?(:quickie=)
+          tomorrow.quickie = nil
+        end
         tomorrow.day = day + 1 if tomorrow.respond_to?(:day)
         tomorrow.starts_at = ends_at.tomorrow.beginning_of_day
         tomorrow.ends_at = ends_at + 1.day

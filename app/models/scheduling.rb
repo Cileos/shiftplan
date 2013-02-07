@@ -23,7 +23,7 @@ class Scheduling < ActiveRecord::Base
   include TimeRangeWeekBasedAccessible
   include TimeRangeComponentsAccessible
 
-  include Nightshiftable
+  include Overnightable
 
   acts_as_commentable
   has_many :comments, as: :commentable, order: 'comments.lft, comments.id' # FIXME gets ALL comments, tree structure is ignored
