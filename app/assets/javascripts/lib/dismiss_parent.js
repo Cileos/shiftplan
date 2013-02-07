@@ -1,3 +1,4 @@
+// MODIFIED VERSION TO SUPPORT 'flash' instead of 'alert'
 /* ==========================================================
  * bootstrap-alert.js v2.1.1
  * http://twitter.github.com/bootstrap/javascript.html#alerts
@@ -26,7 +27,7 @@
  /* ALERT CLASS DEFINITION
   * ====================== */
 
-  var dismiss = '[data-dismiss="alert"]'
+  var dismiss = '[data-dismiss="flash"]'
     , Alert = function (el) {
         $(el).on('click', dismiss, this.close)
       }
@@ -45,7 +46,7 @@
 
     e && e.preventDefault()
 
-    $parent.length || ($parent = $this.hasClass('alert') ? $this : $this.parent())
+    $parent.length || ($parent = $this.hasClass('flash') ? $this : $this.parent())
 
     $parent.trigger(e = $.Event('close'))
 
@@ -71,8 +72,8 @@
   $.fn.alert = function (option) {
     return this.each(function () {
       var $this = $(this)
-        , data = $this.data('alert')
-      if (!data) $this.data('alert', (data = new Alert(this)))
+        , data = $this.data('flash')
+      if (!data) $this.data('flash', (data = new Alert(this)))
       if (typeof option == 'string') data[option].call($this)
     })
   }
@@ -84,7 +85,7 @@
   * ============== */
 
   $(function () {
-    $('body').on('click.alert.data-api', dismiss, Alert.prototype.close)
+    $('body').on('click.flash.data-api', dismiss, Alert.prototype.close)
   })
 
 }(window.jQuery);
