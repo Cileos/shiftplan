@@ -17,7 +17,7 @@ Feature: Signing in
       And I wait for the modal box to appear
       And 2 hours pass
       And I press "Speichern"
-     Then I should see flash notice "Deine Sitzung ist abgelaufen, bitte melde Dich neu an." within the modal box
+     Then I should see flash alert "Deine Sitzung ist abgelaufen, bitte melde Dich neu an." within the modal box
      When I fill in "E-Mail" with "homer@clockwork.local" within the modal box
       And I fill in "Passwort" with "secret" within the modal box
       And I press "Einloggen"
