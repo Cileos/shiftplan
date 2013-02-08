@@ -11,8 +11,6 @@ group :assets do
   gem 'uglifier', '>= 1.2.3'
   gem 'jquery-rails', '~> 2.1.3' # latest 1.7, ember whines about >1.7
   gem 'jquery-ui-rails'
-  # until merge of https://github.com/thomas-mcdonald/bootstrap-sass/pull/170
-  gem 'bootstrap-sass', '~> 2.0.4', git: "git://github.com/niklas/bootstrap-sass.git"
 end
 
 
@@ -113,7 +111,6 @@ gem 'database_cleaner'
 # oh noes, niklas wants kaminari
 # gem 'will_paginate', '~> 3.0'
 gem 'kaminari'
-gem 'bootstrap-kaminari-views'
 gem 'acts_as_commentable_with_threading', '~> 1.1.2'
 gem 'carrierwave'
 gem 'mini_magick'
