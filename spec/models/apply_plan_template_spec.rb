@@ -183,6 +183,21 @@ describe ApplyPlanTemplate do
         end
       end
     end
+    context "with shift without demands" do
+      # day = 0 => monday
+      let!(:overnight_shift) do
+        create(:shift, start_hour: 9, start_minute: 15, end_hour: 18, end_minute: 45, day: 0,
+          plan_template: plan_template,
+          team: kitchen
+        )
+      end
+
+      it "creates 1 scheduling for the plan for year and week" do
+        lambda {
+          apply_plan_template.save
+        }.should change(schedulings_for_year_and_week, :count).from(0).to(1)
+      end
+    end
   end
 
 end
