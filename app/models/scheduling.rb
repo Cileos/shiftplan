@@ -68,10 +68,11 @@ class Scheduling < ActiveRecord::Base
   # Because Date and Times are immutable, we have to situps to just change the week and year.
   # must be used on a valid record.
   def move_to_week_and_year(week, year)
-    *saved = cwday, start_hour, end_hour
-    self.starts_at = self.ends_at = @date = nil
-    self.week, self.year = week, year
-    self.cwday, self.start_hour, self.end_hour = *saved
+    end_hour_or_end_hour_of_next_day = next_day ? next_day.end_hour : end_hour
+    *saved = start_hour, end_hour_or_end_hour_of_next_day
+    @date = Date.commercial(year, week, cwday)
+    self.next_day_id = self.starts_at = self.ends_at = self.week = self.year = nil
+    self.start_hour, self.end_hour = *saved
   end
 
   def date=(new_date)
@@ -178,6 +179,7 @@ class Scheduling < ActiveRecord::Base
   def date_part_or_default(attr, &fallback)
     if starts_at.present?
       starts_at.public_send(attr)
+      # starts_at.to_date.public_send(attr)
     else
       fallback.present? ? fallback.call : nil
     end

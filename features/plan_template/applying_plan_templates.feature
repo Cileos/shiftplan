@@ -72,6 +72,17 @@ Feature: Applying Weekbased Plan Templates to Plans
         | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel (B)     | 22:00-23:59 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
+    When I follow ">"
+    Then I should be on the teams in week page of the plan for cwyear: 2013, week: 7
+     And I follow "Übernahme aus der letzten Woche"
+     And I select "KW 06 04.02.2013" from "Von"
+     And I press "Übernehmen"
+    Then I should be on the teams in week page of the plan for cwyear: 2013, week: 7
+     And I should see the following calendar:
+        | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel (B)     | 22:00-23:59 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
+
 
   Scenario: Applying a weekbased plan template to a plan with a plan period
     Given today is 2012-12-04

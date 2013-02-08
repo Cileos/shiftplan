@@ -25,11 +25,10 @@ class CopyWeek
     end
   end
 
-  def target_day
-    (Date.new(target_year.to_i) + target_week.to_i.weeks).beginning_of_week
+  def monday
+    Date.commercial(target_year, target_week, 1)
   end
 
-  # TODO actually copy
   def save
     Plan.transaction do
       source_schedulings.each do |s|
@@ -41,11 +40,9 @@ class CopyWeek
   end
 
   def source_schedulings
-    source_filter.records
-  end
-
-  def source_filter
-    plan.schedulings.filter(week: source_week, cwyear: source_year)
+    plan.schedulings.in_cwyear(source_year).in_week(source_week).reject do |s|
+      s.previous_day.present?
+    end
   end
 end
 
