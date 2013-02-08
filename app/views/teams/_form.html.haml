@@ -5,6 +5,4 @@
     = f.input :shortcut
     = f.input :color, :class => 'miniColors'
   .actions
-    = f.responsive_submit_button do
-      %i.icon-ok-circle.icon-white
-      = ta create_or_update
+    = f.create_or_update_button
