@@ -1,3 +1,6 @@
+- if shift.new_record?
+  - shift.start_hour = 8
+  - shift.end_hour   = 16
 - url = nested_resources_for(shift)
 
 = simple_nested_form_for shift, url: url,
