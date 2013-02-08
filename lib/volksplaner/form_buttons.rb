@@ -44,15 +44,23 @@ module Volksplaner
         template.content_tag(:button, label, options)
       end
     end
- 
+
     # standard Update Button
     def update_button(*a, &block)
-      responsive_submit_button template.ti(:update)
+      responsive_submit_button :update
     end
 
     # standard Create Button
     def create_button(*a, &block)
-      responsive_submit_button template.ti(:create)
+      responsive_submit_button :create
+    end
+
+    def create_or_update_button(*a, &block)
+      if object.new_record?
+        create_button(*a, &block)
+      else
+        update_button(*a, &block)
+      end
     end
   end
 end
