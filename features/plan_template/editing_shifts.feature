@@ -22,14 +22,3 @@ Feature: Editing shifts of plan templates
         | Teams                  | Mo  | Di  | Mi                                                      | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |     | 04:00-13:00 3 x Brennstabexperte 1 x Brennstabpolierer  |     |     |     |     |
         | Druckwasserreaktor(D)  |     |     |                                                         |     |     |     |     |
-
-  Scenario: Deleting demands of shifts
-    Given I click on the shift "04:00-12:00"
-      And I wait for the modal box to appear
-      And I follow "Anforderung löschen"
-      And I press "Speichern"
-      And I wait for the modal box to disappear
-     Then I should see the following calendar:
-        | Teams                  | Mo  | Di                                | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     |     |                                   |     |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 04:00-12:00 4 x Brennstabexperte  |     |     |     |     |     |

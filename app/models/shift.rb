@@ -9,7 +9,7 @@ class Shift < ActiveRecord::Base
   belongs_to :team
   has_many   :demands
 
-  accepts_nested_attributes_for :demands, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :demands, reject_if: :all_blank
 
   attr_accessible :start_hour,
                   :end_hour,
