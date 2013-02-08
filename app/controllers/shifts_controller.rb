@@ -11,7 +11,7 @@ class ShiftsController < InheritedResources::Base
   def new
     new! do
       # increase later
-      1.times { @shift.demands.build }
+      1.times { @shift.demands.build(quantity: 1) }
     end
   end
 
