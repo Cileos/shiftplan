@@ -13,3 +13,6 @@
 [submodule "vendor/assets/stylesheets/neat"]
 	path = vendor/assets/stylesheets/neat
 	url = git://github.com/thoughtbot/neat.git
+[submodule "vendor/assets/javascripts/bindWithDelay"]
+	path = vendor/assets/javascripts/bindWithDelay
+	url = git://github.com/bgrins/bindWithDelay.git

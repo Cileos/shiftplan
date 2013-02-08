@@ -17,6 +17,7 @@ Then /^I (?:should be able to change|change) the #{capture_quoted} from #{captur
   end
 end
 
+# I fill in the empty "Quickie" with "9-17" and select "Homer S" as "Mitarbeiter"
 When /^I fill in the empty #{capture_quoted} with #{capture_quoted} and select #{capture_quoted} as #{capture_quoted}$/ do |quickie_field, quickie, employee, employee_field|
   within_modal_box do
     find_field(quickie_field).value.should be_empty

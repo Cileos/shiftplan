@@ -8,6 +8,10 @@
 //= require ember-latest
 //= require ember-data-latest
 //= require ember-rails-flash
+// for QuickieParser
+//= require xregexp
+//= require xregexp/unicode-base
+//= require xregexp/build
 
 //= require_tree './lib'
 //= require spinner
@@ -18,3 +22,5 @@
 //= require jquery.autosize
 //= require jquery.tipsy
 //= require locales/jquery.ui.datepicker-de.js
+//= require jquery.cookie
+//= require bindWithDelay/bindWithDelay

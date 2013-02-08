@@ -9,8 +9,6 @@ FactoryGirl.define do
     employee
     sequence(:starts_at) {|i| Time.zone.parse('1968-01-01') + i.hours }
     sequence(:ends_at) {|i| Time.zone.parse('1968-01-01') + (i + 2).hours }
-    week 1
-    year 1968
   end
 
   factory :manual_scheduling, class: 'Scheduling' do

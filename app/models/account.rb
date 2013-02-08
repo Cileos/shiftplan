@@ -16,4 +16,8 @@ class Account < ActiveRecord::Base
   def self.planners
     where(:role => 'owner')
   end
+
+  def to_s
+    %Q~<Account #{id} "#{name}">~
+  end
 end

@@ -34,7 +34,7 @@ class SchedulingsController < InheritedResources::Base
 
     def filter_params
       params
-        .slice(:week, :year, :ids, :day, :month)
+        .slice(:week, :year, :cwyear, :ids, :day, :month)
         .reverse_merge(:year => Date.today.year)
         .merge(:plan => plan)
     end

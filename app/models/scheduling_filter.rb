@@ -8,12 +8,15 @@ class SchedulingFilter
   include ActiveAttr::AttributeDefaults
   include Draper::ModelSupport
 
+  class CannotFindMonday < RuntimeError; end
+
   attribute :plan
   attribute :base, default: Scheduling
   attribute :week, type: Integer
   attribute :day, type: Integer
   attribute :month, type: Integer
   attribute :year, type: Integer
+  attribute :cwyear, type: Integer
   attribute :ids #, type: Array # TODO Array cannot be typecasted yet by AA
 
   delegate :count, to: :base
@@ -29,20 +32,24 @@ class SchedulingFilter
   end
 
   def monday
-    # In Germany, the week with January 4th is the first calendar week.
-    week_offset = Date.new(year).end_of_week.day >= 4 ? week - 1 : week
-    ( Date.new(year) + week_offset.weeks ).beginning_of_week
+    if week? && cwyear?
+      Date.commercial(cwyear, week, 1)
+    else
+      raise CannotFindMonday, "attributes: #{attributes.inspect}"
+    end
   end
 
   alias first_day monday
 
   def last_day
-    ( Date.new(year) + week.weeks ).end_of_week
+    if week?
+      Date.commercial(cwyear, week,7)
+    end
   end
 
   def previous_week
     prev = monday.prev_week
-    self.class.new attributes.merge(week: prev.cweek, year: prev.year)
+    self.class.new attributes.merge(week: prev.cweek, cwyear: prev.cwyear)
   end
 
   # list of Dates over wich the SchedulingFilter spans
@@ -97,13 +104,25 @@ class SchedulingFilter
 
   private
     def fetch_records
-      base.where(conditions).includes(:employee, :team).sort_by(&:start_hour)
+      results = base
+      results = results.where(conditions)
+      if week?
+        results = results.in_week(week)
+        if cwyear?
+          results = results.in_cwyear(cwyear)
+        end
+      else
+        if year?
+          results = results.in_year(year)
+        end
+      end
+      results.includes(:employee, :team).sort_by(&:start_hour)
     end
 
     def conditions
       case range
       when :week
-        attributes.symbolize_keys.slice(:week, :year).reject {|_,v| v.nil? }.tap do |c|
+        {}.tap do |c|
           if plan?
             c.merge!(:plan_id => plan.id)
           end

@@ -23,12 +23,16 @@ RSpec::Matchers.define :have_received_mails do |count|
     address = resolve_email_address address
     "#{address} should have received #{count} mails, but received #{@count}".tap do |m|
       if @subject.present?
-        m << " with subject #{@subject.inspect}"
+        m << "\n  with subject #{@subject.inspect}"
       end
       if @body.present?
-        m << " with body including #{@body.inspect}"
+        m << "\n  with body including #{@body.inspect}"
       end
-      m << "\nreceived_mails:\n#{all_mails(address).map {|m| dump_mail(m) }.join("\n\n\n")}"
+      if (mails = all_mails(address)).empty?
+        m << "\n\nDid not receive ANY mails"
+      else
+        m << "\nreceived_mails:\n#{mails.map {|m| dump_mail(m) }.join("\n\n\n")}"
+      end
     end
   end
 end

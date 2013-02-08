@@ -38,15 +38,18 @@ describe SchedulingFilter do
   describe "knowing mondays" do
     shared_examples "a scheduling that knows the monday" do
       it "should know the monday" do
-        SchedulingFilter.new(year: year, week: week).monday.should == expected_monday
+        SchedulingFilter.new(cwyear: year, week: week).monday.should == expected_monday
       end
     end
 
-    # In Germany, the week with January 4th is the first calendar week.
-    # For 01.01.2015 the end of the week is sunday, 4th. So when we are requesting
-    # a certain week, let's say week 1, we have to add a week offset of 0 to
-    # 01.01.2015(because Jan 4th is already included in the week of 01.01.2015) and then
-    # the beginning of this week will be the correct monday of the requested week.
+    describe "for year 2014 and week 52" do
+      it_behaves_like "a scheduling that knows the monday" do
+        let(:year) { 2014 }
+        let(:week) { 52 }
+        let(:expected_monday) { Date.new(2014, 12, 22) }
+      end
+    end
+
     describe "for year 2015 and week 1" do
       it_behaves_like "a scheduling that knows the monday" do
         let(:year) { 2015 }
@@ -55,11 +58,14 @@ describe SchedulingFilter do
       end
     end
 
-    # In Germany, the week with January 4th is the first calendar week.
-    # For 01.01.2016 the end of the week is sunday, 3th. So when we are requesting
-    # a certain week, let's say week 1, we have to add a week offset of 1 to
-    # 01.01.2016(because Jan 4th is not included in the week of 01.01.2016) and then the
-    # beginning of this week will be the correct monday of the requested week.
+    describe "for year 2015 and week 53" do
+      it_behaves_like "a scheduling that knows the monday" do
+        let(:year) { 2015 }
+        let(:week) { 53 }
+        let(:expected_monday) { Date.new(2015, 12, 28) }
+      end
+    end
+
     describe "for year 2016 and week 1" do
       it_behaves_like "a scheduling that knows the monday" do
         let(:year) { 2016 }
@@ -70,7 +76,7 @@ describe SchedulingFilter do
   end
 
   describe "for a week and year" do
-    let(:filter) { SchedulingFilter.new week: 52, year: 2012 }
+    let(:filter) { SchedulingFilter.new week: 52, cwyear: 2012 }
 
     it "should know the monday" do
       filter.monday.should == Date.new(2012, 12, 24) # third day of lofwyr
@@ -98,7 +104,7 @@ describe SchedulingFilter do
 
     context "scheduled a lot" do
       let(:plan)   { create :plan }
-      let(:filter) { SchedulingFilter.new week: 52, year: 2012, plan: plan }
+      let(:filter) { SchedulingFilter.new week: 52, cwyear: 2012, plan: plan }
       let(:me)     { create :employee }
       let(:you)    { create :employee }
       before :each do
@@ -142,7 +148,7 @@ describe SchedulingFilter do
     end
 
     it "should find record on that day" do
-      scheduling = create :manual_scheduling, starts_at: filter.date
+      scheduling = create :scheduling, starts_at: filter.date
       filter.records.should include(scheduling)
     end
 
@@ -154,7 +160,7 @@ describe SchedulingFilter do
   end
 
   describe "plan period" do
-    let(:filter) { SchedulingFilter.new year: 2012, week: 26, plan: plan }
+    let(:filter) { SchedulingFilter.new cwyear: 2012, week: 26, plan: plan }
 
     context "for plan without start date" do
       let(:plan) { create :plan, starts_at: nil }

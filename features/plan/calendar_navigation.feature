@@ -14,35 +14,35 @@ Feature: Calendar navigation
     Given today is 2015-12-29
       And I am signed in as the confirmed user "Burns"
       And I go to the page of the plan
-     Then I should be on the employees in week page of the plan for year: 2015, week: 53
+     Then I should be on the employees in week page of the plan for cwyear: 2015, week: 53
       And I should see "KW 53 / 2015" within active week
       And I should see "28.12." within weeks first date
 
-     When I go to the <view> page of the plan for year: 2015, week: 53
+     When I go to the <view> page of the plan for cwyear: 2015, week: 53
       And I should see "KW 53 / 2015" within active week
       And I should see "28.12" within weeks first date
 
      When I follow ">" within the toolbar
-     Then I should be on the <view> page of the plan for year: 2016, week: 1
+     Then I should be on the <view> page of the plan for cwyear: 2016, week: 1
       And I should see "KW 01 / 2016" within active week
       And I should see "04.01." within weeks first date
 
      When I follow "Heute" within the toolbar
-     Then I should be on the <view> page of the plan for year: 2015, week: 53
+     Then I should be on the <view> page of the plan for cwyear: 2015, week: 53
       And I should see "KW 53 / 2015" within active week
       And I should see "28.12." within weeks first date
 
-     When I go to the <view> page of the plan for year: 2016, week: 1
+     When I go to the <view> page of the plan for cwyear: 2016, week: 1
       And I should see "KW 01 / 2016" within active week
       And I should see "04.01." within weeks first date
 
      When I follow "<" within the toolbar
-     Then I should be on the <view> page of the plan for year: 2015, week: 53
+     Then I should be on the <view> page of the plan for cwyear: 2015, week: 53
       And I should see "KW 53 / 2015" within active week
       And I should see "28.12." within weeks first date
 
      When I follow "<" within the toolbar
-     Then I should be on the <view> page of the plan for year: 2015, week: 52
+     Then I should be on the <view> page of the plan for cwyear: 2015, week: 52
       And I should see "KW 52 / 2015" within active week
       And I should see "21.12." within weeks first date
 
@@ -61,21 +61,21 @@ Feature: Calendar navigation
     Given today is 2014-12-29
       And I am signed in as the confirmed user "Burns"
       And I go to the page of the plan
-     Then I should be on the employees in week page of the plan for year: 2015, week: 1
+     Then I should be on the employees in week page of the plan for cwyear: 2015, week: 1
       And I should see "KW 01 / 2014" within active week
       And I should see "29.12." within weeks first date
 
-     When I go to the <view> page of the plan for year: 2015, week: 1
+     When I go to the <view> page of the plan for cwyear: 2015, week: 1
       And I should see "KW 01 / 2014" within active week
       And I should see "29.12." within weeks first date
 
      When I follow "<" within the toolbar
-     Then I should be on the <view> page of the plan for year: 2014, week: 52
+     Then I should be on the <view> page of the plan for cwyear: 2014, week: 52
       And I should see "KW 52 / 2014" within active week
       And I should see "22.12." within weeks first date
 
      When I follow "Heute" within the toolbar
-     Then I should be on the <view> page of the plan for year: 2015, week: 1
+     Then I should be on the <view> page of the plan for cwyear: 2015, week: 1
       And I should see "KW 01 / 2014" within active week
       And I should see "29.12." within weeks first date
 
@@ -112,18 +112,18 @@ Feature: Calendar navigation
      When I follow "Halloween im Atomkraftwerk"
      # as today is after the plan period end the user gets redirected to the last week
      # view of the plan period (week 1, year 2012)
-     Then I should be on the employees in week page for the plan for week: 1, year: 2012
+     Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
       And I should see "<" within the toolbar
       But I should not see ">" within the toolbar
 
      When I follow "<" within the toolbar
      # in Germany, the week with january 4th is the first calendar week
      # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
-     Then I should be on the employees in week page for the plan for week: 52, year: 2011
+     Then I should be on the employees in week page for the plan for week: 52, cwyear: 2011
       And I should see ">" within the toolbar
       But I should not see "<" within the toolbar
      When I follow ">" within the toolbar
-     Then I should be on the employees in week page for the plan for week: 1, year: 2012
+     Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
 
   # a basic version of this is tested in every plan/view_*week.feature
@@ -138,7 +138,7 @@ Feature: Calendar navigation
         | 51   | 4     | 12-14   |
 
      When I go to the page of the plan
-     Then I should be on the employees in week page of the plan for week: 49, year: 2012
+     Then I should be on the employees in week page of the plan for week: 49, cwyear: 2012
       And I should see a calendar titled "Cleaning the Reactor"
       And I should see "KW 49 / 2012" within active week
       And I should see "03.12." within weeks first date
@@ -149,7 +149,7 @@ Feature: Calendar navigation
         | Homer S       |    | 10-16 |    |    |    |
 
      When I follow "<" within the toolbar
-     Then I should be on the employees in week page of the plan for week: 48, year: 2012
+     Then I should be on the employees in week page of the plan for week: 48, cwyear: 2012
       And I should see a calendar titled "Cleaning the Reactor"
       And I should see "KW 48 / 2012" within active week
       And I should see "26.11." within weeks first date
@@ -160,7 +160,7 @@ Feature: Calendar navigation
         | Homer S       | 9-17 |    |    |    |    |
 
      When I follow ">" within the toolbar
-     Then I should be on the employees in week page of the plan for week: 49, year: 2012
+     Then I should be on the employees in week page of the plan for week: 49, cwyear: 2012
       And I should see a calendar titled "Cleaning the Reactor"
       And I should see "KW 49 / 2012" within active week
       And I should see "03.12." within weeks first date
@@ -171,7 +171,7 @@ Feature: Calendar navigation
         | Homer S       |    | 10-16 |    |    |    |
 
      When I follow ">" within the toolbar
-     Then I should be on the employees in week page of the plan for week: 50, year: 2012
+     Then I should be on the employees in week page of the plan for week: 50, cwyear: 2012
       And I should see a calendar titled "Cleaning the Reactor"
       And I should see "KW 50 / 2012" within active week
       And I should see "10.12." within weeks first date
@@ -182,7 +182,7 @@ Feature: Calendar navigation
         | Homer S       |    |    | 11-15 |    |    |
 
      When I follow ">" within the toolbar
-     Then I should be on the employees in week page of the plan for week: 51, year: 2012
+     Then I should be on the employees in week page of the plan for week: 51, cwyear: 2012
       And I should see a calendar titled "Cleaning the Reactor"
       And I should see "KW 51 / 2012" within active week
       And I should see "17.12." within weeks first date

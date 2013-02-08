@@ -28,8 +28,8 @@ describe 'Quickie::parser' do
       '-23',
       '9-25',
       '1-88'
-    ].each do |in_valid_hour_range|
-      describe in_valid_hour_range do
+    ].each do |invalid_hour_range|
+      describe invalid_hour_range do
         it { should_not parse_successfully }
       end
     end
