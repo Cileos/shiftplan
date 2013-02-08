@@ -75,6 +75,11 @@ group :development do
   gem 'rvm-capistrano'
   gem 'notes', :require => false, :git => 'git://github.com/v0n/notes.git'
   gem 'quiet_assets'
+
+  # see http://railscasts.com/episodes/402-better-errors-railspanel
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
 end
 
 group :production do
