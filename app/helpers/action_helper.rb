@@ -63,7 +63,12 @@ module ActionHelper
     expand:            '&#xf0da;',
     collapse:          '&#xf0d7;',
     left_caret:        '&#xf0d9;',
-    check:             '&#xf00c;'
+    check:             '&#xf00c;',
+    notice:            '&#xf00c;',
+    info:              '&#xf00c;',
+    warning:           '&#xf071;',
+    error:             '&#xf071;',
+    alert:             '&#xf00d;'
 
   }
 

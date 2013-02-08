@@ -1,6 +1,6 @@
 - unless controller.flash.blank?
   #flash
-    - controller.flash.to_hash.with_indifferent_access.slice(:info, :alert, :notice, :error).each do |name, msg|
-      .flash.alert{class: "alert-#{name}"}
-        %a.close{'data-dismiss' => 'alert'} ×
+    - controller.flash.to_hash.with_indifferent_access.slice(:info, :notice, :alert, :error).each do |name, msg|
+      .flash{class: "#{name}", data: { icon: i(name.to_sym), target: 'flash'}}
+        %a.close{'data-dismiss' => 'flash'} ×
         = msg
