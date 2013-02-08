@@ -1,10 +1,11 @@
+#encoding: utf-8
 require 'spec_helper'
 
 describe Volksplaner::FormButtons do
   let(:template) do
-   mock('template').tap do |t| 
+   mock('template').tap do |t|
      t.extend ActionView::Helpers::TagHelper
-     t.stub(ti: 'icon')
+     t.stub(ta: 'Äktschn', translate_action!: 'KATT')
    end
   end
   let(:form) do
@@ -57,8 +58,8 @@ describe Volksplaner::FormButtons do
     it "accepts label as :label option" do
       form.responsive_submit_button(label: 'the label').should have_css('button', text: 'the label')
     end
-    it "translates label with icon" do
-      template.should_receive(:ti).with(:colorful_action).and_return('the label')
+    it "translates label" do
+      template.should_receive(:ta).with(:colorful_action).and_return('the label')
       template.stub(:translate_action!).with(:colorful_action_busy).and_return('.....')
       form.responsive_submit_button(:colorful_action).should have_css('button', text: 'the label')
     end

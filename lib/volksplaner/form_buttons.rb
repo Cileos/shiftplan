@@ -40,7 +40,7 @@ module Volksplaner
       if block_given?
         template.content_tag(:button, options, &block)
       else
-        label = template.ti(label) if label.is_a?(Symbol)
+        label = template.ta(label) if label.is_a?(Symbol)
         template.content_tag(:button, label, options)
       end
     end
