@@ -175,16 +175,24 @@ module HtmlSelectorsHelpers
 
   private
 
+  # If we use pure Capybara, the Browser is asked a thousand times, resulting in
+  # more than 1 seconds parsing time per week calendar row.
+  #
+  # Instead, we parse the html once locally
+  def nokogiri_calendar
+    Nokogiri::HTML.parse evaluate_script(%Q~jQuery('#{selector_for('the calendar')}').html()~)
+  end
+
   # 0-based index of column headed by given label
   def column_index_for(column_label)
-    columns = page.all('thead tr th').map { |c| extract_text_from_cell c }
+    columns = nokogiri_calendar.css('thead tr th').map { |c| extract_text_from_cell c }
     columns.should include(column_label)
     columns.index(column_label)
   end
 
   # 0-based index of row (in tbody) headed by given label
   def row_index_for(row_label)
-    rows = page.all("tbody th").map { |c| extract_text_from_cell c }
+    rows = nokogiri_calendar.css("tbody th").map { |c| extract_text_from_cell c }
     # check if in hours in week view
     if row_label =~ /\d{1,2}/ && rows.first =~ /^1\n(\d{1,2}\n){21}23$/m
       row_label = rows.first
@@ -195,21 +203,16 @@ module HtmlSelectorsHelpers
 
   SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name',
     'a.button.active', 'li.dropdown a.button', '.demand', '.qualification_name']
+
+  # Does only work when parsing HTML manually (with Nokogiri). Used mainly by
+  # the calendar steps to enhance performance.
   def extract_text_from_cell(cell)
-    tried = 0
-    found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }
+    raise("please give a Nokogiri::XML::Element, got a #{cell.class}") unless cell.is_a?(Nokogiri::XML::Element)
+    found = SelectorsForTextExtraction.select { |s| cell.css(s).count > 0 }
     if found.present?
-      found.map { |f| cell.all(f).map(&:text).map(&:strip) }.flatten.join(' ')
+      found.map { |f| cell.css(f).map(&:text).map(&:strip) }.flatten.join(' ')
     else
       cell.text.strip
-    end
-  rescue Timeout::Error => e
-    # sometimes the finding takes too long and travis times out.
-    if tried < 1
-      tried += 1
-      retry
-    else
-      raise e
     end
   end
 
