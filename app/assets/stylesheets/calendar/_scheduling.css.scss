@@ -11,7 +11,8 @@
   border-style: solid;
   border-left-color:  $ci_grey;
   border-right-color: $ci_grey;
-  @include border-radius(2px);
+  border-radius: 2px;
+
   @include transition (height 0.25s ease, width 0.25s ease, left 0.25s ease, right 0.25s ease);
 
   .team_name,

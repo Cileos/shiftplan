@@ -30,7 +30,6 @@ nav {
 
   > ul {
     @include box-shadow(0 2px 3px rgba(0,0,0,.1));
-    //@include border-radius(0 0 $ci_border-radius $ci_border-radius);
 
     display: none;
     position: absolute;
