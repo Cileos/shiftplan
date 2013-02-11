@@ -23,6 +23,7 @@
     = f.simple_fields_for :demands do |df|
       = df.input :quantity, input_html: { tabindex: 7 }
       = df.association :qualification, collection: shift.plan_template.organization.qualifications, input_html: { tabindex: 8 }
+      = df.link_to_remove ta(:remove_demand), class: 'button button-warning'
 
   %p= f.link_to_add ta(:add_demand), :demands, class: 'button', data: { icon: i(:add) }
 
