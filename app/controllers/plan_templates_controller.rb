@@ -6,4 +6,8 @@ class PlanTemplatesController < InheritedResources::Base
   def create
     create! { nested_resources_for(@plan_template) + [:teams_in_week] }
   end
+
+  def update
+    update! { nested_resources_for(current_organization) + [:plan_templates] }
+  end
 end

@@ -26,13 +26,18 @@ Feature: Create Weekbased Plan Template
         | Brennstabkessel(B)    |     |     |     |     |     |     |     |
         | Druckwasserreaktor(D) |     |     |     |     |     |     |     |
 
-  Scenario: See all the plan templates of my organization
+  Scenario: Edit plan templates of my organization
     Given a plan template exists with name: "Typische Woche", template_type: "weekbased", organization: the organization
-    Given a plan template exists with name: "Event Woche", template_type: "weekbased", organization: the organization
      When I follow "Planvorlagen" within the navigation
      Then I should be on the plan templates page for the organization
       And I should see the following table of plan_templates:
         | Name           | Vorlagentyp   |
-        | Event Woche    | Wochenbasiert |
         | Typische Woche | Wochenbasiert |
+     When I follow "Bearbeiten"
+      And I fill in "Name" with "Typische Adventswoche"
+      And I press "Speichern"
+     Then I should be on the plan templates page for the organization
+      And I should see the following table of plan_templates:
+        | Name                   | Vorlagentyp    |
+        | Typische Adventswoche  | Wochenbasiert  |
 

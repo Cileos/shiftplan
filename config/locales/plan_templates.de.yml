@@ -11,10 +11,9 @@ de:
   plan_templates:
     template_types:
       weekbased: 'Wochenbasiert'
-    new:
-      instructions: >
-        Legen Sie eine neue Planvorlage an, indem Sie einen Namen eingeben und einen
-        Vorlagentyp wählen.
+    instructions: >
+      Legen Sie eine neue Planvorlage an, indem Sie einen Namen eingeben und einen
+      Vorlagentyp wählen.
     index:
       no_plan_templates: "Es existieren noch keine Planvorlagen für diese Organisation."
       planner_instructions: >

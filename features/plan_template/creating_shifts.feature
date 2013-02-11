@@ -18,7 +18,7 @@ Feature: Creating shifts for plan templates
         | Name            | Vorlagentyp    |
         | Typische Woche  | Wochenbasiert  |
 
-     When I follow "Bearbeiten" within the first table row
+     When I follow "Typische Woche" within the first table row
      Then I should be on the teams in week page for the plan template
       And I should see the following calendar:
         | Teams                 | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
