@@ -41,8 +41,9 @@ Then /^I should see a calendar (?:titled|captioned) #{capture_quoted}$/ do |capt
 end
 
 Then /^I should see the following calendar:$/ do |expected|
-  actual = nokogiri_calendar.css("thead:first tr, tbody tr").map do |tr|
-    tr.css('th, td').map do |cell|
+  calendar = find(selector_for('the calendar'))
+  actual = calendar.all("thead:first tr, tbody tr").map do |tr|
+    tr.all('th, td').map do |cell|
       extract_text_from_cell(cell) || ''
     end
   end
