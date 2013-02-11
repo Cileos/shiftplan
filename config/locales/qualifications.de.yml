@@ -5,8 +5,9 @@ de:
         one: "Qualifikation"
         other: "%{count} Qualifikationen"
   qualifications:
+    no_qualifications_present: "Es existieren noch keine Qualifikationen für diese Organisation."
+    goto_qualifications: 'Falls Sie Qualifikationen zum Definieren von Anforderungen Ihrer Schichten verwenden wollen, können Sie diese hier anlegen:'
     index:
-      no_qualifications: "Es existieren noch keine Qualifikationen für diese Organisation."
       instructions: >
         Hier sehen Sie alle Qualifikationen dieser Organisation.
 

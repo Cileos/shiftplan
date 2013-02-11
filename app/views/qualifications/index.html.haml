@@ -10,7 +10,7 @@
     - unless collection.empty?
       = render 'table', qualifications: collection
     - else
-      %p= t(:'.no_qualifications')
+      %p= t(:'qualifications.no_qualifications_present')
 
   .secondary.instructions
     - if can? :create, Qualification

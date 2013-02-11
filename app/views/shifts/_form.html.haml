@@ -15,6 +15,11 @@
 
     %h4= ta(:demands)
 
+    - unless current_organization.qualifications.present?
+      %p= t(:'qualifications.no_qualifications_present')
+      %p= t(:'qualifications.goto_qualifications')
+      = link_to ta(:qualifications), nested_resources_for(current_organization) + [:qualifications], class: 'button'
+
     = f.simple_fields_for :demands do |df|
       = df.input :quantity, input_html: { tabindex: 7 }
       = df.association :qualification, collection: shift.plan_template.organization.qualifications, input_html: { tabindex: 8 }
