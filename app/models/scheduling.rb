@@ -7,7 +7,7 @@ class Scheduling < ActiveRecord::Base
   belongs_to :plan
   belongs_to :employee
   belongs_to :team
-  belongs_to :demand
+  belongs_to :qualification
 
   delegate :organization, to: :plan
 
@@ -42,7 +42,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def qualification_name
-    try(:demand).try(:qualification).try(:name) || ''
+    try(:qualification).try(:name) || ''
   end
 
   def self.upcoming

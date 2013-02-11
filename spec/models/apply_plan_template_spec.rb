@@ -106,14 +106,14 @@ describe ApplyPlanTemplate do
           apply_plan_template.save
 
           monday_schedulings.select do |s|
-            s.demand.qualification == cook
+            s.qualification == cook
           end.count.should == 1
         end
         it "include 2 schedulings for a dishwasher" do
           apply_plan_template.save
 
           monday_schedulings.select do |s|
-            s.demand.qualification == dishwasher
+            s.qualification == dishwasher
           end.count.should == 2
         end
       end
@@ -145,14 +145,14 @@ describe ApplyPlanTemplate do
           apply_plan_template.save
 
           friday_schedulings.select do |s|
-            s.demand.qualification == cook
+            s.qualification == cook
           end.count.should == 2
         end
         it "include 4 schedulings for a dishwasher" do
           apply_plan_template.save
 
           friday_schedulings.select do |s|
-            s.demand.qualification == dishwasher
+            s.qualification == dishwasher
           end.count.should == 4
         end
       end

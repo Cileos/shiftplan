@@ -38,7 +38,7 @@ class ApplyPlanTemplate
     else
       shift.demands.each do |demand|
         demand.quantity.times do
-          create_scheduling(default_attrs.merge(demand: demand))
+          create_scheduling(default_attrs.merge(qualification: demand.qualification))
         end
       end
     end

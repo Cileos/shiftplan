@@ -193,17 +193,17 @@ ActiveRecord::Schema.define(:version => 20130205135055) do
     t.integer  "employee_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "team_id"
-    t.integer  "demand_id"
     t.integer  "next_day_id"
+    t.integer  "qualification_id"
   end
 
-  add_index "schedulings", ["demand_id"], :name => "index_schedulings_on_demand_id"
   add_index "schedulings", ["employee_id"], :name => "index_schedulings_on_employee_id"
   add_index "schedulings", ["next_day_id"], :name => "index_schedulings_on_next_day_id"
   add_index "schedulings", ["plan_id"], :name => "index_schedulings_on_plan_id"
+  add_index "schedulings", ["qualification_id"], :name => "index_schedulings_on_qualification_id"
 
   create_table "shifts", :force => true do |t|
     t.integer  "plan_template_id"
