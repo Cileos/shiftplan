@@ -11,15 +11,30 @@ de:
   plan_templates:
     template_types:
       weekbased: 'Wochenbasiert'
-    instructions: >
-      Legen Sie eine neue Planvorlage an, indem Sie einen Namen eingeben und einen
-      Vorlagentyp wählen.
     index:
       no_plan_templates: "Es existieren noch keine Planvorlagen für diese Organisation."
       planner_instructions: >
-        Hier sehen Sie alle Planvorlagen, die für diese Organisation existieren.
+        Hier sehen Sie alle Planvorlagen, die für diese Organisation
+        existieren.
 
 
-        Um eine neu Planvorlage anzulegen, klicken Sie bitte oben auf _Hinzufügen_.
+        Um eine neue Planvorlage anzulegen, klicken Sie bitte oben auf
+        _Hinzufügen_.
+
+
+        Mit Planvorlagen haben Sie die Möglichkeit typische, wiederkehrende
+        Schichten innerhalb einer Woche zu definieren.  Schichten bestehen aus
+        Anforderungen, die eine Anzahl festlegen und gegebenenfalls benötigte
+        Qualifikationen beeinhalten.
+
+
+        Beispiel 1: @08:00-16:00 2 x Koch im Team Küche@
+
+
+        Beispiel 2: @14:00-22:00 2 x im Team Service@
+
+
+        Nachdem Sie Ihre Planvorlage definiert haben, können Sie diese auf
+        einen beliebigen Plan anwenden.
       instructions: >
         Hier sehen Sie alle Planvorlagen, die für diese Organisation existieren.

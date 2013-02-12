@@ -21,3 +21,27 @@ de:
   shifts:
     teams_in_week:
       teams_required_for_templates: 'Zum Erstellen von Planvorlagen, müssen zunächst Teams angelegt werden.'
+      planner_instructions: >
+        Hier sehen Sie alle Schichten, die für diese Planvorlage definiert sind.
+
+
+        Um eine neue Schicht anzulegen, klicken Sie bitte oben auf
+        _Hinzufügen_ oder klicken auf eine Zelle des Kalenders.
+
+
+        Mit Planvorlagen haben Sie die Möglichkeit typische, wiederkehrende
+        Schichten innerhalb einer Woche zu definieren.  Schichten bestehen aus
+        Anforderungen die eine Anzahl festlegen und gegebenenfalls benötigte
+        Qualifikationen beeinhalten.
+
+
+        Beispiel 1: @08:00-16:00 2 x Koch im Team Küche@
+
+
+        Beispiel 2: @14:00-22:00 2 x im Team Service@
+
+
+        Nachdem Sie Ihre Planvorlage definiert haben, können Sie diese auf
+        einen beliebigen Plan anwenden.
+      instructions: >
+        Hier sehen Sie alle Schichten, die für diese Planvorlage definiert sind.
