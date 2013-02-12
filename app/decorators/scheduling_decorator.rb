@@ -1,16 +1,6 @@
 class SchedulingDecorator < RecordDecorator
   decorates :scheduling
 
-  delegate :start_hour,
-           :end_hour,
-           :team,
-           :team_name,
-           :length_in_hours,
-           :hour_range_quickie,
-           :comments_count,
-           :organization,
-           :plan
-
   def long
     quickie
   end

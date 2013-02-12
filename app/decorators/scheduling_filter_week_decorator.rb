@@ -1,6 +1,4 @@
 class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
-  delegate :week
-
   def formatted_range
     I18n.localize monday, format: :week_with_year
   end

@@ -3,14 +3,7 @@
 class SchedulingFilterDecorator < ApplicationDecorator
   decorates :scheduling_filter
 
-  delegate :before_start_of_plan?,
-           :after_end_of_plan?,
-           :outside_plan_period?,
-           :records,
-           :monday,
-           :range,
-           :days,
-           :year
+  delegate_all
 
   # The title of the plan with range
   def caption
@@ -46,6 +39,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     mode.include?(query)
   end
 
+  # OPTIMIZE Draper supports providing the wanted decorator since 1.0
   def self.decorate(input, opts={})
     mode = opts.delete(:mode) || opts.delete('mode')
     if page = opts[:page]

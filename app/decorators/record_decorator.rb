@@ -1,6 +1,6 @@
 # Decorator helpers dealing with an (ActiveRecord) model
 class RecordDecorator < ApplicationDecorator
-  delegate :errors
+  delegate_all
 
   # Models can be called by name, for example :post in the PostDecorator
   def self.decorates(*a)
