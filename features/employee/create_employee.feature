@@ -72,24 +72,6 @@ Feature: Create Employees
        | Name           | WAZ  |  E-Mail  | Rolle | Status                 |
        | Carlson, Carl  | 40   |          | keine | Noch nicht eingeladen  |
 
-  Scenario: Trying to create an employee without a first name
-     When I follow "Hinzufügen"
-     Then the "Wochenarbeitszeit" field should contain "40"
-      And I fill in the following:
-        | Nachname          | Carlson |
-      And I press "Anlegen"
-     Then I should see "muss ausgefüllt werden"
-      And I should see "Mitarbeiter konnte nicht angelegt werden."
-
-  Scenario: Trying to create an employee without a last name
-     When I follow "Hinzufügen"
-     Then the "Wochenarbeitszeit" field should contain "40"
-      And I fill in the following:
-        | Vorname           | Carl    |
-      And I press "Anlegen"
-     Then I should see "muss ausgefüllt werden"
-      And I should see "Mitarbeiter konnte nicht angelegt werden."
-
   Scenario: Creating an employee without a weekly working time
      When I follow "Hinzufügen"
       And I fill in the following:
