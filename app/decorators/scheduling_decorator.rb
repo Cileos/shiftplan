@@ -44,6 +44,8 @@ class SchedulingDecorator < RecordDecorator
     }
   end
 
+  # Makes sure that always the first day of an overnightable is edited.
+  # The second day, if present, gets updated in after callbacks accordingly.
   def edit_url
     organization = scheduling.organization
     scheduling_or_previous_day_scheduling = if scheduling.previous_day.present?
