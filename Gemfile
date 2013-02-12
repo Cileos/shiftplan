@@ -124,6 +124,4 @@ gem 'gravtastic'
 gem 'ember-rails'
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
 
-# Use master of strong parameters because of issue https://github.com/rails/strong_parameters/issues/52
-# TODO: remove repo when a new version including the fix was released.
-gem 'strong_parameters', git: 'git://github.com/rails/strong_parameters.git'
+gem 'strong_parameters', '~> 0.1.6'

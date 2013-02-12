@@ -29,15 +29,6 @@ GIT
       activemodel (>= 3.0)
 
 GIT
-  remote: git://github.com/rails/strong_parameters.git
-  revision: 2df13a050efb6087960ec5978b5d84f291307b0e
-  specs:
-    strong_parameters (0.1.6.dev)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
-      railties (~> 3.0)
-
-GIT
   remote: git://github.com/v0n/notes.git
   revision: 742ab45246a6b1ded12df51ec27f915989b63f6d
   specs:
@@ -349,6 +340,10 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    strong_parameters (0.1.6)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+      railties (~> 3.0)
     subexec (0.2.2)
     term-ansicolor (1.0.7)
     test_after_commit (0.0.1)
@@ -439,7 +434,7 @@ DEPENDENCIES
   simplecov
   spectator-validates_email
   spork (= 1.0.0rc3)
-  strong_parameters!
+  strong_parameters (~> 0.1.6)
   term-ansicolor
   test_after_commit
   therubyracer
