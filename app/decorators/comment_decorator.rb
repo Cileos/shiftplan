@@ -1,4 +1,4 @@
-class CommentDecorator < ApplicationDecorator
+class CommentDecorator < RecordDecorator
   decorates :comment
 
   def update_parent

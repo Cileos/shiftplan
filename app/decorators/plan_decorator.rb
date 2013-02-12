@@ -1,4 +1,4 @@
-class PlanDecorator < ApplicationDecorator
+class PlanDecorator < RecordDecorator
   decorates :plan
 
   def selector_for(name, resource=nil, extra=nil)
