@@ -23,9 +23,9 @@ module Draper::RJS
   end
 
   def initialize_with_rjs(input, options={})
-    initialize_without_rjs(input, options)
-    self.page    = options[:page]
+    self.page    = options.delete(:page)
     self.options = options # for re-decoration
+    initialize_without_rjs(input, options)
   end
 
   def page?
@@ -33,7 +33,7 @@ module Draper::RJS
   end
 end
 
-Draper::Base.class_eval do
+Draper::Decorator.class_eval do
   include Draper::RJS
 end
 

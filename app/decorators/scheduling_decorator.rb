@@ -59,6 +59,6 @@ class SchedulingDecorator < RecordDecorator
 
   private
     def scheduling
-      model
+      source
     end
 end

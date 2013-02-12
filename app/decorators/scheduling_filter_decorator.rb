@@ -3,6 +3,8 @@
 class SchedulingFilterDecorator < ApplicationDecorator
   decorates :scheduling_filter
 
+  delegate :before_start_of_plan?
+
   # The title of the plan with range
   def caption
     "#{plan.name} - #{formatted_range}"
@@ -53,7 +55,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
 
   def filter
-    model
+    source
   end
 
   def table_metadata

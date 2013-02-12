@@ -1,5 +1,5 @@
 class Plan < ActiveRecord::Base
-  include Draper::ModelSupport
+  include Draper::Decoratable
   belongs_to :organization
   has_many :schedulings
   has_many :milestones
