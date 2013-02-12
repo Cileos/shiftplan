@@ -3,7 +3,14 @@
 class SchedulingFilterDecorator < ApplicationDecorator
   decorates :scheduling_filter
 
-  delegate :before_start_of_plan?
+  delegate :before_start_of_plan?,
+           :after_end_of_plan?,
+           :outside_plan_period?,
+           :records,
+           :monday,
+           :range,
+           :days,
+           :year
 
   # The title of the plan with range
   def caption
