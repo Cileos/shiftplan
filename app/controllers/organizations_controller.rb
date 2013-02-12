@@ -6,6 +6,7 @@ class OrganizationsController < InheritedResources::Base
     create! { account_path(current_account) }
   end
 
+  # OPTIMIZE MembershipsController#create_multiple, using a tableless model like MultipleMembership
   def add_members
     if params[:employees].present?
       params[:employees].each do |employee_id|
@@ -15,7 +16,7 @@ class OrganizationsController < InheritedResources::Base
       redirect_to [current_account, resource, :employees]
     else
       set_flash(:alert)
-      redirect_to [:adopt, current_account, resource, :employee]
+      redirect_to [:adopt, current_account, resource, :employees]
     end
   end
 
