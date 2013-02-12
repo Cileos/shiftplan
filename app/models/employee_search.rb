@@ -21,9 +21,9 @@ class EmployeeSearch
 
   def fuzzy_results
     scope = sorted_base
-    scope = scope.where("first_name LIKE ?", "#{first_name}%") if first_name.present?
-    scope = scope.where("last_name LIKE ?", "#{last_name}%") if last_name.present?
-    scope = scope.joins(:user).where("users.email LIKE ?", "#{email}%") if email.present?
+    scope = scope.where("first_name ILIKE ?", "#{first_name}%") if first_name.present?
+    scope = scope.where("last_name ILIKE ?", "#{last_name}%") if last_name.present?
+    scope = scope.joins(:user).where("users.email ILIKE ?", "#{email}%") if email.present?
     if organization.present?
       scope = scope.joins(:organizations).where(organizations: { id: organization })
     end

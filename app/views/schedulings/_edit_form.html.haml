@@ -4,7 +4,8 @@
 
   .inputs
     = f.input :quickie, hint: true, wrapper_html: { class: 'quickie' }
-    = f.association :employee, as: :select, include_blank: false, collection: scheduling.plan.organization.employees
+
+    = render 'schedulings/fields', f: f
 
   .actions
     = link_to ti(:destroy), url, remote: true, method: :delete, class: 'button button-warning delete'

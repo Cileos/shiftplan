@@ -1,3 +1,4 @@
+# WARNING: always keep behaviour in sync with Ruby part in javascripts/lib/quickie.js.coffee
 grammar Quickie
   rule message
     hour_range? optional_space team_name? optional_space team_shortcut? <Quickie::MessageNode>
@@ -9,11 +10,11 @@ grammar Quickie
 
   # at least two characters, first is not a number, multiple words
   rule team_name
-    [\p{Word}] [\p{Word} ]+ <Quickie::TeamNameNode>
+    [\p{Letter}] [\p{Letter} ]+ <Quickie::TeamNameNode>
   end
 
   rule team_shortcut
-    '[' shortcut:[\p{Word}]+ ']' <Quickie::TeamShortcutNode>
+    '[' shortcut:[\p{Letter}]+ ']' <Quickie::TeamShortcutNode>
   end
 
   rule hour

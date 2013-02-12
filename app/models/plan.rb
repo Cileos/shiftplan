@@ -28,6 +28,20 @@ class Plan < ActiveRecord::Base
   def build_copy_week(attrs={})
     CopyWeek.new attrs.merge(plan: self)
   end
+
+
+  # Valid hour range for Schedulings of this plan
+  # TODO: un-hardcode to customize "the workday"
+  def start_hour
+    0
+  end
+  def end_hour
+    23
+  end
+  def hour_range
+    (start_hour .. end_hour)
+  end
+
 end
 
 PlanDecorator

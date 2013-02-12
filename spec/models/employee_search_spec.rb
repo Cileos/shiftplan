@@ -84,6 +84,14 @@ describe EmployeeSearch do
       end
     end
 
+    context 'when searching by lowercase last name' do
+      let(:search) { EmployeeSearch.new(base: base, last_name: 'simp') }
+
+      it 'returns employees with matching last name prefix case-insensitive' do
+        search.fuzzy_results.should == [employee_bart, employee_homer]
+      end
+    end
+
     context 'when searching by email' do
       let(:search) { EmployeeSearch.new(base: base, email: 'homer@thesimpsons') }
 

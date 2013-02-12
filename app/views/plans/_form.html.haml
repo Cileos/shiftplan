@@ -11,6 +11,4 @@
         input_html: { value: plan.ends_at.present? ? I18n.localize(plan.ends_at.to_date, format: :default) : '' }
       = f.input :description, input_html: { rows: 3 }
     .actions
-      = f.responsive_submit_button do
-        %i.icon-ok-circle.icon-white
-        = ta update_or_create
+      = f.create_or_update_button

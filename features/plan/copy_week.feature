@@ -14,12 +14,12 @@ Feature: Plan a week
         | 49   | 2     | 10-11   |
         | 49   | 3     | 11-12   |
         | 49   | 4     | 12-13   |
-      And I am on the employees in week page of the plan for week: 50, year: 2012
+      And I am on the employees in week page of the plan for week: 50, cwyear: 2012
      When I follow "Übernahme aus der letzten Woche"
       And I wait for the modal box to appear
       And I select "KW 49 03.12.2012" from "Von"
       And I press "Übernehmen"
-     Then I should be on the employees in week page of the plan for year: 2012, week: 50
+     Then I should be on the employees in week page of the plan for cwyear: 2012, week: 50
       And I should see "Alle Termine wurden erfolgreich übernommen."
       And I should see a calendar titled "Cleaning the Reactor"
       And I should see "KW 50 / 2012" within active week
