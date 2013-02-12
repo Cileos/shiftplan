@@ -1,5 +1,5 @@
 page.decorate resource.concurrent do |filter|
-  filter.update_wwt_diff_for(resource.employee)
+  filter.update_wwt_diff_for(resource.employee) if resource.employee.present?
   filter.update_cell_for(resource)
 
 
