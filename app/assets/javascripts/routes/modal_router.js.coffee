@@ -126,6 +126,8 @@ ModalRouter = Ember.Namespace.create
               changes = record.toJSON()
               newTransaction = router.get('namespace.store').transaction()
               transaction.rollback()
+              # FIXME remove when ember fixed their bugs
+              record.set 'isDirty', false
               newTransaction.add record
               record.setProperties changes
               router.set transactionName, newTransaction
