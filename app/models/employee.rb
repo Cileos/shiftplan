@@ -23,7 +23,7 @@ class Employee < ActiveRecord::Base
 
   validates_presence_of :account_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
-  validates_length_of :duplicates, is: 0,
+  validates_length_of :duplicates, is: 0, on: :create,
     if: Proc.new { |e| e.sufficient_details_to_search_duplicates? and !e.force_create_duplicate? }
 
   after_create :create_membership
