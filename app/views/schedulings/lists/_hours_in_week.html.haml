@@ -3,9 +3,9 @@
     = abbr_tag scheduling.period, scheduling.period_with_duration, class: 'work_time ' + scheduling.css_class
     - if scheduling.employee
       %span.employee_name= scheduling.employee.name
-    - if qualification = scheduling.try(:demand).try(:qualification)
+    - if qualification_name = scheduling.qualification_name
       %span.qualification_name
-        = qualification.name
+        = qualification_name
     -# = avatar(scheduling.employee.user, scheduling.employee, :tiny)
     - if scheduling.team
       = abbr_tag scheduling.team_shortcut, scheduling.team_name, class: 'team_name'
