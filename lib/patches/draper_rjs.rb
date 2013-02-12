@@ -38,8 +38,8 @@ Draper::Decorator.class_eval do
 end
 
 module VersatileRJS::Draper
-  def decorate(resource, options={}, &block)
-    resource.decorate options.merge(:page => self), &block
+  def decorate(resource, options={})
+    yield resource.decorate(options.merge(:page => self))
   end
 end
 
