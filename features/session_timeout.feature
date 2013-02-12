@@ -3,7 +3,16 @@ Feature: Signing in
   As a user
   I want my session to time out after 2 hours
 
-  TODO: Datahas to be entered again
+  TODO: Data has to be entered again
+
+        Currently we show the sign in form per AJAX, but submit it the
+        classical way and redirect to the original page. This is caused by:
+
+        * Signing in _may_ give the user a new CSRF token (plz check). Staying
+          on the page would render all AJAX calls after sign_in invalid.
+        * Ember does not remove the isDirty flag from the model that had failed
+          saving (BUG), cannot add it to another transaction and thus looses a
+          workable state. wait for Ember 1.0+
 
   Background:
     Given today is 2012-12-04
