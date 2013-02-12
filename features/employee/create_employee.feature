@@ -15,7 +15,7 @@ Feature: Create Employees
     Given I follow "Hinzufügen"
      Then I should be on the new employee page for the organization
       And the "Wochenarbeitszeit" field should contain "40"
-      And I fill in the following:
+     When I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30      |
