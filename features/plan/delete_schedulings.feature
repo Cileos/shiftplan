@@ -27,21 +27,10 @@ Feature: Delete schedulings from plan
       And I wait for the modal box to appear
      Then the "Quickie" field should contain "5-23"
      When I follow "Löschen" within the modal box
-     Then the "Quickie" field should contain "5-23" within the new scheduling form within the modal box
-      And I should see the following calendar:
+      And I wait for the modal box to disappear
+     Then I should see the following calendar:
         | Mitarbeiter  | Do           | Fr           |
         | Carl C       |              |              |
         | Lenny L      | 07:00-17:00  | 02:00-04:00  |
         | Homer S      |              |              |
       And the employee "Lenny L" should have a grey hours/waz value of "12"
-
-      # Undo / Move
-     When I select "Samstag" from "Wochentag" within the new scheduling form within the modal box
-      And I press "Anlegen"
-      And I wait for the modal box to disappear
-     Then I should see the following calendar:
-        | Mitarbeiter  | Do           | Fr           | Sa           |
-        | Carl C       |              |              |              |
-        | Lenny L      | 07:00-17:00  | 02:00-04:00  | 05:00-23:00  |
-        | Homer S      |              |              |              |
-      And the employee "Lenny L" should have a grey hours/waz value of "30"

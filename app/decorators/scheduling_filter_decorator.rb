@@ -220,6 +220,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
     if resource.errors.empty?
       if action == :update
         respond_for_update(resource)
+      elsif action == :destroy
+        respond_for_destroy(resource)
       else
         respond_for_action(resource)
       end
@@ -241,11 +243,19 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def respond_for_action(resource)
+    respond_normally(resource)
+    focus_element_for(resource)
+  end
+
+  def respond_for_destroy(resource)
+    respond_normally(resource)
+  end
+
+  def respond_normally(resource)
     update_cell_for(resource)
     if resource.next_day
       update_cell_for(resource.next_day)
     end
-    focus_element_for(resource)
   end
 
   def update_cell_for(scheduling)
