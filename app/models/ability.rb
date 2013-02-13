@@ -12,7 +12,7 @@ class Ability
     user = current_user || User.new # guest user (not logged in)
 
     alias_action :multiple, to: :read
-    SchedulingFilterDecorator::Modes.each do |mode|
+    SchedulingFilterDecorator.supported_modes.each do |mode|
       alias_action mode, to: :read
     end
 

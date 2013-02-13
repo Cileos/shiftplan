@@ -170,7 +170,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   # URI-Path to another mode
   def path_to_mode(mode)
-    raise(ArgumentError, "unknown mode: #{mode}") unless mode.in?(Modes)
+    raise(ArgumentError, "unknown mode: #{mode}") unless mode.in?(SchedulingFilterDecorator.supported_modes)
     if mode =~ /week/
       # Array notation breaks on week-Fixnums
       h.plan_week_mode_path(plan, mode, monday)
