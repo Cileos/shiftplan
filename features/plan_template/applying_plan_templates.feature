@@ -52,10 +52,11 @@ Feature: Applying Weekbased Plan Templates to Plans
       When I click on the scheduling "22:00-23:59"
       And I select "Homer Simpson" from "Mitarbeiter"
       And I press "Speichern"
+      And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Teams                   | Mo                                          | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     | Homer Simpson 22:00-23:59 Brennstabexperte  | Homer Simpson 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
-        | Druckwasserreaktor (D)  |                                             | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
+        | Teams                  | Mo                                         | Di                                                                                      | Mi | Do | Fr | Sa | So |
+        | Brennstabkessel (B)    | Homer Simpson 22:00-23:59 Brennstabexperte | Homer Simpson 00:00-06:00 Brennstabexperte                                              |    |    |    |    |    |
+        | Druckwasserreaktor (D) |                                            | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer |    |    |    |    |    |
 
 
   Scenario: Applying a weekbased plan template to a plan in 2013, check week offset problem in 2013
