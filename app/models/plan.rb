@@ -10,6 +10,7 @@ class Plan < ActiveRecord::Base
   validates_with PlanPeriodValidator
   validates_with PlanPeriodSurroundsSchedulingsValidator
   validates_presence_of :name
+  validates_uniqueness_of :name, scope: [:organization_id]
 
   attr_accessible :name, :description, :duration, :starts_at, :ends_at
 
