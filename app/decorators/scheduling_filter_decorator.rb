@@ -246,12 +246,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  private
-
-    def respond_specially(resource=nil)
-      update_legend
-      update_team_colors
-      update_quickie_completions
-      focus_element_for(resource) unless resource.destroyed?
-    end
+  def respond_specially(resource=nil)
+    update_legend
+    update_team_colors
+    update_quickie_completions
+    focus_element_for(resource) unless resource.destroyed?
+  end
 end
