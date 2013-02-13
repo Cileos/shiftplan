@@ -7,6 +7,6 @@ class ShiftDecorator < RecordDecorator
   delegate :is_overnight?, :previous_day, to: :model
 
   def demands_sorted_by_qualification_name
-    demands.sort_by { |d| d.try(:qualification).try(:name) || '' }
+    demands.sort_by { |d| d.qualification.try(:name) || '' }
   end
 end
