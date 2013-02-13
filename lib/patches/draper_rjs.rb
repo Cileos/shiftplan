@@ -23,9 +23,10 @@ module Draper::RJS
   end
 
   def initialize_with_rjs(input, options={})
-    self.page    = options.delete(:page)
+    self.page    = options[:page]
     self.options = options # for re-decoration
-    initialize_without_rjs(input, options)
+    # Draper asserts valid keys in options
+    initialize_without_rjs(input, options.except(:page))
   end
 
   def page?
