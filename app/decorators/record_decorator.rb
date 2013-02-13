@@ -20,9 +20,19 @@ class RecordDecorator < ApplicationDecorator
     h.url_for([:edit] + h.nested_resources_for(record_or_previous_day_record))
   end
 
+  def metadata
+    local_metadata.merge(edit_url: edit_url)
+  end
+
+
   private
 
     def record
       model
+    end
+
+    # override in subclass, if you need more metadata
+    def local_metadata
+      {}
     end
 end

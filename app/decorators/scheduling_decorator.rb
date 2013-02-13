@@ -36,9 +36,8 @@ class SchedulingDecorator < RecordDecorator
     end
   end
 
-  def metadata
+  def local_metadata
     {
-      edit_url: edit_url,
       start: start_hour,
       length: length_in_hours
     }
