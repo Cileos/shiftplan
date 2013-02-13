@@ -12,6 +12,10 @@ de:
         day: Tag
         date: Wochentag
         quickie: Quickie
+        start_hour: Startstunde
+        start_minute: Startminute
+        end_hour: Endstunde
+        end_minute: Endminute
         starts_at: Startzeit
         ends_at: Endzeit
   simple_form:

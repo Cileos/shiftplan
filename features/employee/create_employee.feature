@@ -37,7 +37,8 @@ Feature: Create Employees
   # The role owner can not be assigned to other employees
   @javascript
   Scenario: Trying to create an owner
-    Given I follow "Hinzufügen"
+    Given I inject style "position:relative" into "header"
+      And I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
@@ -50,7 +51,8 @@ Feature: Create Employees
 
   @javascript
   Scenario: Creating a planner
-    Given I follow "Hinzufügen"
+    Given I inject style "position:relative" into "header"
+      And I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
@@ -73,7 +75,7 @@ Feature: Create Employees
        | Carlson, Carl  | 40   |          | keine | Noch nicht eingeladen  |
 
   Scenario: Creating an employee without a weekly working time
-     When I follow "Hinzufügen"
+    Given I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |

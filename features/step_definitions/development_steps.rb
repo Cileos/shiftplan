@@ -23,7 +23,11 @@ end
 # FIXME: styles should only be injected temporary until The Designers fix it
 # example When I inject style "position:relative" into "header"
 When /^I inject style #{capture_quoted} into #{capture_quoted}$/ do |style, selector|
-  page.execute_script %Q~$('#{selector}').attr('style', "#{style}");~
+  begin
+    page.execute_script %Q~$('#{selector}').attr('style', "#{style}");~
+  rescue Capybara::NotSupportedByDriverError => e
+    # does not matter in pure Rack scenarios
+  end
 end
 
 When /^I wait for (\d+) seconds$/ do |num|

@@ -16,7 +16,6 @@ class Feedback
   end
 
   def name_or_email
-    return name if name.present?
-    email
+    name.presence || email
   end
 end

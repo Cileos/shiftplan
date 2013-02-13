@@ -1,0 +1,4 @@
+page.decorate @shift do |shift|
+  shift.append_modal body: render('form', shift: shift, create_or_update: :update),
+    header: content_tag(:h3, ta(:'edit_shift'))
+end
