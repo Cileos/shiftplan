@@ -46,9 +46,4 @@ class SchedulingDecorator < RecordDecorator
   def concat(*args)
     args.compact.join(' ')
   end
-
-  private
-    def scheduling
-      model
-    end
 end
