@@ -12,36 +12,7 @@ class ShiftFilterDecorator < ApplicationDecorator
   delegate :plan_template, to: :filter
   delegate :organization, to: :plan_template
 
-  def respond(resource, action=:update)
-    if resource.errors.empty?
-      case action
-      when :update
-        respond_for_update(resource)
-      else
-        respond_for_action(resource)
-      end
-      remove_modal
-    else
-      prepend_errors_for(resource)
-    end
-  end
-
   private
-
-  def respond_for_update(resource)
-    update_cell_for(resource.with_previous_changes_undone)
-    if resource.next_day
-      update_cell_for(resource.next_day.with_previous_changes_undone)
-    end
-    respond_for_action(resource)
-  end
-
-  def respond_for_action(resource)
-    update_cell_for(resource)
-    if resource.next_day
-      update_cell_for(resource.next_day)
-    end
-  end
 
   def update_cell_for(shift)
     select(:cell, shift).refresh_html cell_content(shift) || ''

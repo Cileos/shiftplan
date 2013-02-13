@@ -196,49 +196,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
     h.account_organization_plan_teams_in_day_path(h.current_account, h.current_organization, plan, day.year, day.month, day.day)
   end
 
-  # TODO hooks?
-  def respond(resource, action=:update)
-    if resource.errors.empty?
-      if action == :update
-        respond_for_update(resource)
-      elsif action == :destroy
-        respond_for_destroy(resource)
-      else
-        respond_for_action(resource)
-      end
-      remove_modal
-      update_legend
-      update_team_colors
-      update_quickie_completions
-    else
-      prepend_errors_for(resource)
-    end
-  end
-
-  def respond_for_update(resource)
-    update_cell_for(resource.with_previous_changes_undone)
-    if resource.next_day
-      update_cell_for(resource.next_day.with_previous_changes_undone)
-    end
-    respond_for_action(resource)
-  end
-
-  def respond_for_action(resource)
-    respond_normally(resource)
-    focus_element_for(resource)
-  end
-
-  def respond_for_destroy(resource)
-    respond_normally(resource)
-  end
-
-  def respond_normally(resource)
-    update_cell_for(resource)
-    if resource.next_day
-      update_cell_for(resource.next_day)
-    end
-  end
-
   def update_cell_for(scheduling)
     update_wwt_diff_for(scheduling.employee) if scheduling.employee.present?
     select(:cell, scheduling).refresh_html cell_content(scheduling) || ''
@@ -289,4 +246,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  private
+
+    def respond_specially(resource=nil)
+      update_legend
+      update_team_colors
+      update_quickie_completions
+      focus_element_for(resource)
+    end
 end
