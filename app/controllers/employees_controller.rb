@@ -16,6 +16,8 @@ class EmployeesController < InheritedResources::Base
   def search
   end
 
+  # OPTIMIZE this is loosely coupled with OrganizationsController#add_members
+  #          they should at least share a Controller, better a model, too
   def adopt
   end
 

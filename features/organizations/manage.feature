@@ -18,15 +18,15 @@ Feature: create organizations
      # user is owner of account "tepco" so he can create new organizations
      When I follow "Hinzufügen"
      Then I should be on the new organization page for the account "tepco"
-      And I fill in "Name" with "Another Organization"
+      And I fill in "Name" with "Nuclear Cleanup Inc."
       And I press "Anlegen"
-     Then I should see notice "Organisation 'Another Organization' angelegt."
+     Then I should see notice "Organisation 'Nuclear Cleanup Inc.' angelegt."
       And I should be on the page of the account "tepco"
       And I should see the following table of organizations:
        | Name                  |
        | Fukushima             |
+       | Nuclear Cleanup Inc.  |
        | Tschernobyl           |
-       | Another Organization  |
 
   Scenario: Normal employee can not create organizations on account page
     Given I follow "Cileos UG" within the navigation

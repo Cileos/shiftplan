@@ -15,7 +15,7 @@ Feature: Create Employees
     Given I follow "Hinzufügen"
      Then I should be on the new employee page for the organization
       And the "Wochenarbeitszeit" field should contain "40"
-      And I fill in the following:
+     When I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30      |
@@ -73,24 +73,6 @@ Feature: Create Employees
      Then I should see the following table of employees:
        | Name           | WAZ  |  E-Mail  | Rolle | Status                 |
        | Carlson, Carl  | 40   |          | keine | Noch nicht eingeladen  |
-
-  Scenario: Trying to create an employee without a first name
-    Given I follow "Hinzufügen"
-     Then the "Wochenarbeitszeit" field should contain "40"
-      And I fill in the following:
-        | Nachname          | Carlson |
-      And I press "Anlegen"
-     Then I should see "muss ausgefüllt werden"
-      And I should see "Mitarbeiter konnte nicht angelegt werden."
-
-  Scenario: Trying to create an employee without a last name
-    Given I follow "Hinzufügen"
-     Then the "Wochenarbeitszeit" field should contain "40"
-      And I fill in the following:
-        | Vorname           | Carl    |
-      And I press "Anlegen"
-     Then I should see "muss ausgefüllt werden"
-      And I should see "Mitarbeiter konnte nicht angelegt werden."
 
   Scenario: Creating an employee without a weekly working time
     Given I follow "Hinzufügen"

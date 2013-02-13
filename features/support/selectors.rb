@@ -67,7 +67,7 @@ module HtmlSelectorsHelpers
       'ul.ui-autocomplete'
 
     when 'errors'
-      '.errors.alert.alert-error'
+      '.errors.alert.flash'
 
     when 'the spinner'
       '#spinner'

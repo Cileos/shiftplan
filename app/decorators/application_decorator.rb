@@ -52,7 +52,7 @@ class ApplicationDecorator < Draper::Base
   end
 
   def errors_for(resource)
-    h.content_tag :div, resource.errors.full_messages.to_sentence, class: 'alert alert-error errors'
+    h.content_tag :div, resource.errors.full_messages.to_sentence, class: 'flash alert errors', :data => {:icon => '&#xf071;'.html_safe}
   end
 
   def update_flash

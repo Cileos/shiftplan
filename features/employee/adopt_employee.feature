@@ -29,15 +29,20 @@ Feature: Adopt Employee from other Organization
      When I sign in as the confirmed user "mr. burns"
       And I am on the employees page for the organization "fukushima"
       And I should see "Es existieren noch keine Mitarbeiter für diese Organisation"
+      And I inject style "position:relative" into "header"
+      And I follow "Übernehmen"
 
   Scenario: Adopting employees
-    Given I follow "Übernehmen"
-     Then I should be on the adopt employees page for the organization "fukushima"
+    Given I should be on the adopt employees page for the organization "fukushima"
       And I should see the following table of employees:
         | Übernehmen? | Name           | WAZ | E-Mail                | Status                | Organisationen       |
         |             | Burns, Owner   |     | owner@burns.com       | Aktiv                 | keine                |
         |             | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
         |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
+
+     When I press "Mitarbeiter übernehmen"
+     Then I should be on the adopt employees page for the organization "fukushima"
+      And I should see flash alert "Mitarbeiter konnten nicht hinzugefügt werden. Sie müssen mindestens einen Mitarbeiter auswählen."
 
      When I check the checkbox within the first table row
       And I check the checkbox within the second table row
@@ -50,7 +55,8 @@ Feature: Adopt Employee from other Organization
         | Burns, Owner  |     | owner@burns.com | Aktiv                 | Fukushima          |
         | Simpson, Bart |     |                 | Noch nicht eingeladen | Fukushima, Krümmel |
 
-     When I follow "Übernehmen"
+     When I inject style "position:relative" into "header"
+      And I follow "Übernehmen"
      Then I should see the following table of employees:
         | Übernehmen? | Name           | WAZ | E-Mail                | Status | Organisationen       |
         |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv  | Krümmel, Tschernobyl |
@@ -61,28 +67,30 @@ Feature: Adopt Employee from other Organization
         | Owner Burns   |     |     |     |     |     |     |     |
         | Bart Simpson  |     |     |     |     |     |     |     |
 
-  @javascript
-  Scenario: Filtering last name
-    Given I inject style "position:relative" into "header"
-     When I follow "Übernehmen"
+
+   @javascript
+   Scenario: Search, Clear, refine search to continue to adopt the found employees
+     # Fill in (almost?) every field
+     When I fill in "first_name" with "Homer" within the search form
+      And I fill in "last_name" with "Simpson" within the search form
+      And I fill in "email" with "homer@thesimpsons.com" within the search form
+      And I select "Krümmel" from "organization" within the search form
+      And I wait a bit
+     Then I should see the following table of employees:
+        | Name           | WAZ | E-Mail                | Status                | Organisationen       |
+        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
+
+     # Clear
+     When I follow "Suchfilter zurücksetzen"
+      And I wait a bit
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
         | Burns, Owner   |     | owner@burns.com       | Aktiv                 | keine                |
         | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
         | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
+      And I should see "3 Mitarbeiter gefunden."
 
-     When I fill in "last_name" with "Simpson" within the search form
-      And I wait a bit
-     Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail                | Status                | Organisationen       |
-        | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
-        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
-      And I should see "2 Mitarbeiter gefunden."
-
-  @javascript
-  Scenario: Filtering without results
-    Given I inject style "position:relative" into "header"
-     When I follow "Übernehmen"
+     # search that yields no results
      When I fill in "first_name" with "Heinz"
       And I wait a bit
      Then I should see the following table of employees:
@@ -90,23 +98,13 @@ Feature: Adopt Employee from other Organization
       And I should see "0 Mitarbeiter gefunden."
       And the adopt employee button should be disabled
 
-   @javascript
-   Scenario: Clearing the search
-    Given I inject style "position:relative" into "header"
-     When I follow "Übernehmen"
-      And I fill in "first_name" with "Homer" within the search form
+     # Successful search again, work can continue
+     When I follow "Suchfilter zurücksetzen"
       And I fill in "last_name" with "Simpson" within the search form
-      And I fill in "email" with "homer@thesimpsons.com" within the search form
-      And I select "Krümmel" from "organization" within the search form
       And I wait a bit
-      And I should see the following table of employees:
+     Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
-        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
-      And I follow "Suchfilter zurücksetzen"
-      And I wait a bit
-      And I should see the following table of employees:
-        | Name           | WAZ | E-Mail                | Status                | Organisationen       |
-        | Burns, Owner   |     | owner@burns.com       | Aktiv                 | keine                |
         | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
         | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
-      And I should see "3 Mitarbeiter gefunden."
+      And I should see "2 Mitarbeiter gefunden."
+      And the adopt employee button should not be disabled

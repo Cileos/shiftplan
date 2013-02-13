@@ -1,5 +1,7 @@
 de:
   views:
     pagination:
-      next: '>>'
+      first: 'Anfang'
       previous: '<<'
+      next: '>>'
+      last: 'Ende'
