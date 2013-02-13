@@ -252,6 +252,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
       update_legend
       update_team_colors
       update_quickie_completions
-      focus_element_for(resource)
+      focus_element_for(resource) unless resource.destroyed?
     end
 end
