@@ -1,5 +1,6 @@
 class SchedulingDecorator < RecordDecorator
   include TimePeriodFormatter
+  include OvernightableDecoratorHelper
   decorates :scheduling
 
   def long
@@ -36,11 +37,11 @@ class SchedulingDecorator < RecordDecorator
     end
   end
 
-  def local_metadata
-    {
+  def metadata
+    super.merge({
       start: start_hour,
       length: length_in_hours
-    }
+    })
   end
 
   def concat(*args)
