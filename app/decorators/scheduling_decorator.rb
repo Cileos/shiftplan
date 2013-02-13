@@ -47,4 +47,8 @@ class SchedulingDecorator < RecordDecorator
   def concat(*args)
     args.compact.join(' ')
   end
+
+  def edit_url
+    edit_url_for_overnightable
+  end
 end
