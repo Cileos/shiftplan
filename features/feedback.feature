@@ -117,6 +117,7 @@ Feature: Feedback without Screenshot
       And I follow "Feedback ohne Bildschirmfoto"
       And I wait for the modal box to appear
       And I press "Abschicken"
+      And I wait for the spinner to disappear
      Then I should see "E-Mail muss ausgefüllt werden"
       And I should see "Problembeschreibung oder Verbesserungsvorschlag muss ausgefüllt werden"
 
