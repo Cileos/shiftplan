@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe SchedulingFilterEmployeesInWeekDecorator do
-  before { ApplicationController.new.set_current_view_context }
 
   let(:filter)    { Scheduling.filter }
   let(:decorator) { described_class.new(filter) }
