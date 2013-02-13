@@ -110,31 +110,3 @@ Feature: Feedback without Screenshot
       And I should see "Browser: " in the email body
       And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
 
-  Scenario: Guest sends feedback without providing a text and his email
-     When I sign out
-      And I go to the home page
-
-      And I follow "Feedback ohne Bildschirmfoto"
-      And I wait for the modal box to appear
-      And I press "Abschicken"
-      And I wait for the spinner to disappear
-     Then I should see "E-Mail muss ausgefüllt werden"
-      And I should see "Problembeschreibung oder Verbesserungsvorschlag muss ausgefüllt werden"
-
-     When I fill in "E-Mail" with "guest@example.xyz"
-      And I press "Abschicken"
-     Then I should not see "E-Mail muss ausgefüllt werden"
-      But I should see "Problembeschreibung oder Verbesserungsvorschlag muss ausgefüllt werden"
-
-     When I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
-      And I press "Abschicken"
-      And I wait for the modal box to disappear
-     Then I should see a flash notice "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
-
-      And "support@clockwork.io" should receive an email with subject "Sie haben neues Feedback erhalten von guest@example.xyz"
-     When I open the email
-     Then I should see the email delivered from "guest@example.xyz"
-      And I should see "Name: " in the email body
-      And I should see "E-Mail: guest@example.xyz" in the email body
-      And I should see "Browser: " in the email body
-      And I should see "Fehler beim Anlegen eines Mitarbeiters" in the email body
