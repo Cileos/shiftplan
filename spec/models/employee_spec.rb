@@ -50,4 +50,40 @@ describe Employee do
       create(:employee, weekly_working_time: nil).weekly_working_time_before_type_cast.should be_nil
     end
   end
+
+  context "duplicates" do
+    let(:account) { create :account }
+
+    context "for blank employee" do
+      let(:employee) { build :employee, first_name: '', last_name: '', account: account }
+
+      it "has not enough details" do
+        employee.should_not be_sufficient_details_to_search_duplicates
+      end
+    end
+
+    context "for non blank employee" do
+      let(:employee) { build :employee, first_name: 'Helmut', last_name: '', account: account, force_create_duplicate: false }
+
+      it "has enough details" do
+        employee.should be_sufficient_details_to_search_duplicates
+      end
+
+      context "with duplicates present" do
+        let!(:duplicate) { create :employee, name: 'Helmut Kohl', account: account }
+
+        it "should find them" do
+          employee.duplicates.should include(duplicate)
+        end
+
+        it "should have errors" do
+          employee.valid?
+          employee.should have_at_least(1).error_on(:duplicates)
+        end
+
+      end
+
+
+    end
+  end
 end
