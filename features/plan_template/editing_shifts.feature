@@ -1,3 +1,5 @@
+@wip
+@minutes
 @javascript
 Feature: Editing shifts of plan templates
   As a planner

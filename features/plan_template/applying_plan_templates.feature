@@ -1,3 +1,5 @@
+@wip
+@minutes
 @javascript
 Feature: Applying Weekbased Plan Templates to Plans
   As I planner

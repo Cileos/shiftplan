@@ -1,3 +1,5 @@
+@wip
+@minutes
 @javascript
 Feature: Deleting shifts of plan templates
   As a planner
