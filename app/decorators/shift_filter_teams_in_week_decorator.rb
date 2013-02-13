@@ -30,7 +30,8 @@ class ShiftFilterTeamsInWeekDecorator < ShiftFilterWeekDecorator
   def table_metadata
     {
       new_url: h.new_account_organization_plan_template_shift_path(h.current_account,
-        h.current_organization, plan_template)
+        h.current_organization, plan_template),
+      mode: mode
     }
   end
 
