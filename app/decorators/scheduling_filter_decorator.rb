@@ -1,7 +1,13 @@
 # This decorator has multiple `modes` to act in. These correspond to the
 # different actions and views of the SchedulingsController.
 class SchedulingFilterDecorator < ApplicationDecorator
+  include ModeAwareness
+
   decorates :scheduling_filter
+
+  def self.supported_modes
+    [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
+  end
 
   # The title of the plan with range
   def caption
@@ -26,31 +32,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
       I18n.t('schedulings.plan_period.ends_at', date: (I18n.localize plan.ends_at.to_date, format: :default))
     end
   end
-
-  Modes = [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
-
-  def mode
-    @mode ||= self.class.name.scan(/SchedulingFilter(.*)Decorator/).first.first.underscore
-  end
-
-  def mode?(query)
-    mode.include?(query)
-  end
-
-  def self.decorate(input, opts={})
-    mode = opts.delete(:mode) || opts.delete('mode')
-    if page = opts[:page]
-      mode ||= page.view.current_plan_mode
-    end
-    unless mode
-      raise ArgumentError, 'must give :mode in options'
-    end
-    unless mode.in?( Modes.map(&:to_s) )
-      raise ArgumentError, "mode is not supported: #{mode}"
-    end
-    "SchedulingFilter#{mode.classify}Decorator".constantize.new(input, opts)
-  end
-
 
   def filter
     model

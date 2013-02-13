@@ -3,29 +3,7 @@
 class ShiftFilterDecorator < ApplicationDecorator
   decorates :shift_filter
 
-  Modes = [:teams_in_week]
-
-  def mode
-    @mode ||= self.class.name.scan(/ShiftFilter(.*)Decorator/).first.first.underscore
-  end
-
-  def mode?(query)
-    mode.include?(query)
-  end
-
-  def self.decorate(input, opts={})
-    mode = opts.delete(:mode) || opts.delete('mode')
-    # TODO support more modes
-    mode = 'teams_in_week'
-    unless mode
-      raise ArgumentError, 'must give :mode in options'
-    end
-    unless mode.in?( Modes.map(&:to_s) )
-      raise ArgumentError, "mode is not supported: #{mode}"
-    end
-    "ShiftFilter#{mode.classify}Decorator".constantize.new(input, opts)
-  end
-
+  include ModeAwareness
 
   def filter
     model
