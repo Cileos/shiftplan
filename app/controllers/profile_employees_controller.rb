@@ -25,7 +25,9 @@ class ProfileEmployeesController < InheritedResources::Base
   end
 
   def resource
-    begin super; rescue; nil; end
+    super
+  rescue
+    nil
   end
 
   def authorize_update_self
