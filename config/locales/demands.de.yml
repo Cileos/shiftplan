@@ -1,0 +1,10 @@
+de:
+  activerecord:
+    attributes:
+      demand:
+        quantity: Anzahl
+        qualification: Qualifikation
+    models:
+      demand:
+        one: "Anforderung"
+        other: "%{count} Anforderungen"

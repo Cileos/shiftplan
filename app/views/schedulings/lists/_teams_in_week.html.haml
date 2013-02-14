@@ -1,10 +1,13 @@
 %ul
   - schedulings.each do |scheduling|
     %li.scheduling{class: scheduling.css_class, data: scheduling.metadata}
-      = abbr_tag scheduling.hour_range_quickie, scheduling.hour_range_with_duration, class: 'work_time ' + scheduling.css_class
+      = abbr_tag scheduling.period, scheduling.period_with_duration, class: 'work_time ' + scheduling.css_class
       - if scheduling.employee
         %span.employee_name
           = avatar(scheduling.employee.user, scheduling.employee, :tiny)
           = scheduling.employee.name
+      - if qualification = scheduling.try(:qualification)
+        %span.qualification_name
+          = qualification.name
 
       = render 'schedulings/gimmicks', scheduling: scheduling

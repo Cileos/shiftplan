@@ -1,0 +1,4 @@
+page.decorate @apply_plan_template do |apply_plan_template|
+  apply_plan_template.append_modal body: render('form', apply_plan_template: apply_plan_template),
+    header: content_tag(:h3, ta(:'apply_plan_template'))
+end

@@ -15,7 +15,8 @@ Feature: Plan a week
         | 49   | 3     | 11-12   |
         | 49   | 4     | 12-13   |
       And I am on the employees in week page of the plan for week: 50, cwyear: 2012
-     When I follow "Übernahme aus der letzten Woche"
+     When I inject style "position:relative" into "header"
+      And I follow "Übernahme aus der letzten Woche"
       And I wait for the modal box to appear
       And I select "KW 49 03.12.2012" from "Von"
       And I press "Übernehmen"
@@ -25,7 +26,7 @@ Feature: Plan a week
       And I should see "KW 50 / 2012" within active week
       And I should see "10.12." within weeks first date
       And I should see the following calendar:
-        | Mitarbeiter   | Mo | Di    | Mi    | Do    | Fr |
-        | Carl C        |    |       |       |       |    |
-        | Lenny L       |    |       |       |       |    |
-        | Homer S       |    | 10-11 | 11-12 | 12-13 |    |
+        | Mitarbeiter  | Mo  | Di           | Mi           | Do           | Fr  |
+        | Carl C       |     |              |              |              |     |
+        | Lenny L      |     |              |              |              |     |
+        | Homer S      |     | 10:00-11:00  | 11:00-12:00  | 12:00-13:00  |     |

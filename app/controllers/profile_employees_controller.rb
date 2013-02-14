@@ -25,7 +25,9 @@ class ProfileEmployeesController < InheritedResources::Base
   end
 
   def resource
-    begin super; rescue; nil; end
+    super
+  rescue
+    nil
   end
 
   def authorize_update_self
@@ -38,6 +40,8 @@ class ProfileEmployeesController < InheritedResources::Base
     [permitted_employee_params]
   end
 
+  # OPTIMIZE please move to model and use the role param of update_attributes,
+  #          or another way of protecting attributes from within. see railscast 237
   def permitted_employee_params
     params.require(:employee).permit(:first_name, :last_name, :avatar)
   end
