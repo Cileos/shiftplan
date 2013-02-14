@@ -1,0 +1,13 @@
+%p= "Hallo #{@notification.employee.name}!"
+
+%p= @notification.introductory_text
+
+%p= '"' + @comment.body + '"'
+
+
+%p Klicken Sie auf den folgenden Link, um zur Wochenansicht für diese Schicht zu gelangen. Kommentare und Antworten können Sie lesen und schreiben, indem Sie auf die entsprechende Schicht klicken.
+
+%p= link_to "Zur Wochenansicht >>",  account_organization_plan_employees_in_week_url(@scheduling.organization.account, @scheduling.organization, @scheduling.plan, cwyear: @scheduling.cwyear, week: @scheduling.week)
+
+
+%p Ihr Clockwork Team

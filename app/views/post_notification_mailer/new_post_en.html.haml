@@ -1,0 +1,11 @@
+%p= "Hallo #{@notification.employee.name}!"
+
+%p= @notification.introductory_text
+
+%p= '"' + @post.body + '"'
+
+%p Klicken Sie auf den folgenden Link um den Blogpost zu lesen oder zu kommentieren:
+
+%p= link_to "Blogpost lesen >>", account_organization_blog_post_url(@post.organization.account, @post.organization, @post.blog, @post)
+
+%p Ihr Clockwork Team
