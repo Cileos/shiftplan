@@ -6,7 +6,7 @@
 
 .user-settings {
     border: 1px solid #ccc;
-    @include border-radius(6px);
+    border-radius: 6px;
     li a {
         margin: 1px;
     }

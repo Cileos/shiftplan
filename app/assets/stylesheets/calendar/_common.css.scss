@@ -92,8 +92,7 @@
   }
 
   .badge {
-    @include border-radius(10px);
-
+    border-radius: 10px;
     float: right;
     padding: 2px 6px 1px;
     background: $ci_darkgrey;
@@ -129,8 +128,8 @@
       .dropdown {
         &:hover > a {
           @include box-shadow(0 0 .35em transparentize($ci_blue, .2));
-          @include border-radius($ci_border-radius $ci_border-radius 0 0);
 
+          border-radius: $ci_border-radius $ci_border-radius 0 0;
           border-color: $ci_blue;
           color: $ci_anthracite;
         }
