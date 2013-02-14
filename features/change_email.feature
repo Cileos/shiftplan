@@ -13,11 +13,11 @@ Feature: As a logged in user
   Scenario: Changing the email address
     Given I choose "Einstellungen" from the drop down "Marge Bouvier"
      When I follow "E-Mail Adresse ändern"
-     Then I should be on the email page of the confirmed user
+     Then I should be on the change email page
      When I fill in "E-Mail" with "marge@thesimpsons.com"
       And I fill in "Aktuelles Passwort" with "secret"
       And I press "Speichern"
-     Then I should be on the email page of the confirmed user
+     Then I should be on the change email page
       And I should see a flash notice "schauen Sie bitte in das Postfach Ihrer neuen E-Mail Adresse"
       And "marge@thesimpsons.com" should receive an email with subject "E-Mail Adresse ändern"
       And I sign out
@@ -42,7 +42,7 @@ Feature: As a logged in user
       And I should see "Erfolgreich eingeloggt."
 
   Scenario: Changing the email address with providing the same email address
-    Given I am on the email page of the confirmed user
+    Given I am on the change email page
       And a clear email queue
 
      When I fill in "E-Mail" with "marge@thebouviers.com"
@@ -54,7 +54,7 @@ Feature: As a logged in user
       # Filling in wrong passwords:
 
   Scenario: User tries to change the email address but fills in a wrong password
-    Given I am on the email page of the confirmed user
+    Given I am on the change email page
 
      When I fill in "E-Mail" with "marge@thesimpsons.com"
       And I fill in "Aktuelles Passwort" with "wrongpass"
@@ -121,7 +121,7 @@ Feature: As a logged in user
     Given a confirmed user exists with email: "marge@thesimpsons.com"
       And a clear email queue
 
-      And I am on the email page of the confirmed user
+      And I am on the change email page
       # entered email already exists
      When I fill in "E-Mail" with "marge@thesimpsons.com"
       And I fill in "Aktuelles Passwort" with "secret"
@@ -132,7 +132,7 @@ Feature: As a logged in user
 
   @javascript
   Scenario: Show mail address suggestion if typo in email address
-    Given I am on the email page of the confirmed user
+    Given I am on the change email page
 
      When I fill in "E-Mail" with "marge@yaho.com"
       And I fill in "Aktuelles Passwort" with "secret"

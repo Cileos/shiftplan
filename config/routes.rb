@@ -56,10 +56,15 @@ Clockwork::Application.routes.draw do
   end # accounts
 
   resource :user, only: :show, controller: 'user'
-  get 'user/email'  => 'user_email#show', :as => :user_email
-  put 'user/email'  => 'user_email#update'
-  get 'user/password'  => 'user_password#show', :as => :user_password
-  put 'user/password'  => 'user_password#update'
+
+  # For changing password when being signed in. Use named route 'change_password' to not
+  # conflict with devise's named route helper 'user_password'.
+  scope '/user', as: 'change' do
+    get  'password'  => 'user_password#show'
+    put  'password'  => 'user_password#update'
+    get  'email'     => 'user_email#show'
+    put  'email'     => 'user_email#update'
+  end
 
   resource :feedback, only: [:new, :create], :controller => 'feedback'
   scope 'profile', as: 'profile' do

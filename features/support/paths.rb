@@ -17,9 +17,8 @@ module NavigationHelpers
     when /the (?:signup|sign up) page/
       new_user_registration_path
 
-    when /^the (email|password) page of #{capture_model}$/
-      email_or_password = $1
-      send("user_#{email_or_password}_path")
+    when /^the change (email|password) page$/
+      send("change_#{$1}_path")
 
     when /^the profile page of #{capture_model}$/
       case model = model!($1)
