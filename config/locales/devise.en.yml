@@ -26,6 +26,7 @@ en:
       signed_out: 'Signed out successfully.'
     passwords:
       forgotten: "Forgot your password?"
+      reset_password: "Reset password"
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
       updated: 'Your password was changed successfully. You are now signed in.'
       updated_not_active: 'Your password was changed successfully.'
