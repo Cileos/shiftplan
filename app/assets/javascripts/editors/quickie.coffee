@@ -38,7 +38,10 @@ class QuickieEditor extends View
     response @sorter(matched)
 
   matcher: (item) ->
-    return true for term in @query.split(/\s/) when ~item.toLowerCase().indexOf(term.toLowerCase())
+    query = @query
+      .replace(/^\s+/,'') # lstrip
+      .replace(/\s+$/,'') # rstrip
+    return true for term in query.split(/\s/) when ~item.toLowerCase().indexOf(term.toLowerCase())
     return false
 
   sorter: (items) ->

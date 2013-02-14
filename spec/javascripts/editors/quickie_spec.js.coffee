@@ -76,6 +76,7 @@ describe 'QuickieEditor', ->
 
     it 'should complete prefix of words in team name', ->
       expect('17-23 laut Hacken').toBeCompletedBy('Hack')
+      expect('17-23 laut Hacken').toBeCompletedBy('la')
 
     it 'should ignore case', ->
       expect('17-23 laut HacKen').toBeCompletedBy('hAck')
@@ -83,6 +84,12 @@ describe 'QuickieEditor', ->
     it 'should complete shortcut in square brackets', ->
       expect('17-23 laut Hacken [lH]').toBeCompletedBy('lh')
       expect('17-23 laut Hacken [lH]').toBeCompletedBy('[lh')
+
+    # entering time range and ....
+
+    it 'should not use whitespace before team name to find all', ->
+      expect('1-2 aTeam').not.toBeCompletedBy('3-4 ')
+
 
     it 'should show matches on beginning before matches on part', ->
       quickies = ['Brathering', 'TheBrain']
