@@ -10,7 +10,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.4'
   gem 'uglifier', '>= 1.2.3'
   gem 'jquery-rails', '~> 2.1.3' # latest 1.7, ember whines about >1.7
-  gem 'jquery-ui-rails'
+  gem 'jquery-ui-rails', '~> 2.0.2'
 end
 
 
