@@ -158,8 +158,8 @@
 .modal {
   @include box-shadow(0 0 10px rgba(0,0,0,.25));
   @include transition(all .3s $ci_easing);
-  @include border-radius($ci_border-radius);
 
+  border-radius: $ci_border-radius;
   background:#fff;
   position: absolute;
   top: 50%;

@@ -68,7 +68,7 @@ ul#comments {
     padding: 10px 30px 0px 50px;
     margin: 50px 0 20px 25px;
     border: 1px solid #ccc;
-    @include border-radius(5px);
+    border-radius: 5px;
     @include box-shadow(#ccc 0 0 10px 0px inset);
     .avatar {
         left: -15px;

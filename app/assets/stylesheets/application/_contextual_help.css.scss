@@ -30,8 +30,8 @@
 
 .instructions, .help {
   @include box-shadow(0 1px 0 $ci_shadow);
-  @include border-radius(5px);
-
+  
+  border-radius: 5px;
   padding: 10px 15px;
   background: tint($ci_blue, 90%);
   color: darken($ci_blue, 30%);

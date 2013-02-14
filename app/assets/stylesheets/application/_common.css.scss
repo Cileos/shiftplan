@@ -278,9 +278,9 @@ small {
   }
 
   a {
-    @include border-radius(20px);
     @include transition(background .5s $ci_easing);
 
+    border-radius: 20px;
     padding: 4px 10px;
   }
 
@@ -328,9 +328,9 @@ small {
 }
 
 .pibble {
-  @include border-radius(9px);
   @include box-shadow(white 1px 1px 5px inset);
 
+  border-radius: 9px;
   display: inline-block;
   height: 13px;
   width:  13px;
@@ -374,8 +374,7 @@ small {
 }
 
 .utility-button.toggle-sidebars {
-  @include border-radius(0);
-
+  border-radius: 0;
   position: absolute;
   z-index: 1;
   top: 48px;
