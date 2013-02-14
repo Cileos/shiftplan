@@ -51,4 +51,10 @@ class SchedulingDecorator < RecordDecorator
   def edit_url
     edit_url_for_overnightable
   end
+
+
+  private
+  def scheduling
+    source
+  end
 end

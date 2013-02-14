@@ -1,4 +1,4 @@
-class EmployeeDecorator < ApplicationDecorator
+class EmployeeDecorator < RecordDecorator
   include EmployeeBaseDecorator
   decorates :employee
 

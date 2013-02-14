@@ -1,8 +1,8 @@
-class ApplicationDecorator < Draper::Base
+class ApplicationDecorator < Draper::Decorator
   include ModalDecoratorHelper
   include ResponderDecoratorHelper
 
-  def dom_id(m=model)
+  def dom_id(m=source)
     h.dom_id(m)
   end
 
@@ -66,7 +66,7 @@ class ApplicationDecorator < Draper::Base
 
   # Lazy Helpers
   #   PRO: Call Rails helpers without the h. proxy
-  #        ex: number_to_currency(model.price)
+  #        ex: number_to_currency(source.price)
   #   CON: Add a bazillion methods into your decorator's namespace
   #        and probably sacrifice performance/memory
   #

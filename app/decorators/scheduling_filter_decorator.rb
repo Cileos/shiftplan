@@ -5,6 +5,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   decorates :scheduling_filter
 
+  delegate_all
+
   def self.supported_modes
     [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
   end
@@ -34,7 +36,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def filter
-    model
+    source
   end
 
   def table_metadata

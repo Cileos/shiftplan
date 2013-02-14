@@ -77,7 +77,8 @@ describe Volksplaner::FormButtons do
       form.responsive_submit_button(:exterminate).should have_css('button[data-disable-with="Exterminating.."]')
     end
     it "falls back to ellipses for disabled label if no :action_busy is available" do
-      template.should_receive(:translate_action!).with(:exterminate_busy).and_raise(I18n::MissingTranslationData)
+      missing_translation = I18n::MissingTranslationData.new('de', 'key.that.does_not.exist', {})
+      template.should_receive(:translate_action!).with(:exterminate_busy).and_raise(missing_translation)
       form.responsive_submit_button(:exterminate).should have_css('button[data-disable-with="..."]')
     end
   end

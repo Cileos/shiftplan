@@ -1,4 +1,4 @@
-class CopyWeekDecorator < ApplicationDecorator
+class CopyWeekDecorator < RecordDecorator
 
   def previous_weeks_for_select(num=5)
     filters_for_previous_weeks(num).map do |filter|

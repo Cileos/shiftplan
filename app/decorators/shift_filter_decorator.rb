@@ -2,6 +2,7 @@
 # different actions and views of the ShiftsController.
 class ShiftFilterDecorator < ApplicationDecorator
   decorates :shift_filter
+  delegate_all
 
   include ModeAwareness
 

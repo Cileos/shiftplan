@@ -7,7 +7,7 @@
 require 'digest/md5'
 
 class Team < ActiveRecord::Base
-  include Draper::ModelSupport
+  include Draper::Decoratable
 
   belongs_to :organization
   has_many :schedulings

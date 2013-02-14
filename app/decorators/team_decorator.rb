@@ -1,4 +1,4 @@
-class TeamDecorator < ApplicationDecorator
+class TeamDecorator < RecordDecorator
   decorates :team
 
   def selector_for(name, resource=nil, extra=nil)

@@ -23,9 +23,10 @@ module Draper::RJS
   end
 
   def initialize_with_rjs(input, options={})
-    initialize_without_rjs(input, options)
     self.page    = options[:page]
     self.options = options # for re-decoration
+    # Draper asserts valid keys in options
+    initialize_without_rjs(input, options.except(:page))
   end
 
   def page?
@@ -33,13 +34,13 @@ module Draper::RJS
   end
 end
 
-Draper::Base.class_eval do
+Draper::Decorator.class_eval do
   include Draper::RJS
 end
 
 module VersatileRJS::Draper
-  def decorate(resource, options={}, &block)
-    resource.decorate options.merge(:page => self), &block
+  def decorate(resource, options={})
+    yield resource.decorate(options.merge(:page => self))
   end
 end
 
