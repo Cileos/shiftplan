@@ -6,8 +6,7 @@
 input[type=submit],
 .button,
 button {
-  @include border-radius($ci_border-radius);
-
+  border-radius: $ci_border-radius;
   padding:.35em .5em;
   background: $ci_blue;
   color: #fff;

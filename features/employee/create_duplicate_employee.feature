@@ -21,6 +21,13 @@ Feature: Create Duplicate Employee
      When I sign in as the confirmed user "mr. burns"
       And I am on the employees page for the organization "fukushima"
 
+  Scenario: Entering no details should inhibit duplication detection
+    Given I follow "Hinzufügen"
+     When I press "Anlegen"
+     Then the page should be titled "Mitarbeiter anlegen"
+      But I should not see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
+      And I should not see "Folgende Mitarbeiter mit gleichem Namen existieren in diesem Account."
+
   Scenario: Creating duplicate employee Heinz Meier
     Given I follow "Hinzufügen"
       And I fill in "Vorname" with "Heinz"

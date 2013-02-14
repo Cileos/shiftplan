@@ -10,8 +10,13 @@ class Plan < ActiveRecord::Base
   validates_with PlanPeriodValidator
   validates_with PlanPeriodSurroundsSchedulingsValidator
   validates_presence_of :name
+  validates_uniqueness_of :name, scope: [:organization_id]
 
-  attr_accessible :name, :description, :duration, :starts_at, :ends_at
+  attr_accessible :name,
+                  :description,
+                  :duration,
+                  :starts_at,
+                  :ends_at
 
   # for now, durations are hardcoded, not saved
   Durations = %w(1_week)
@@ -29,7 +34,6 @@ class Plan < ActiveRecord::Base
     CopyWeek.new attrs.merge(plan: self)
   end
 
-
   # Valid hour range for Schedulings of this plan
   # TODO: un-hardcode to customize "the workday"
   def start_hour
@@ -42,6 +46,9 @@ class Plan < ActiveRecord::Base
     (start_hour .. end_hour)
   end
 
+  def build_apply_plan_template(attrs={})
+    ApplyPlanTemplate.new attrs.merge(plan: self)
+  end
 end
 
 PlanDecorator

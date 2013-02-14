@@ -193,25 +193,19 @@ module HtmlSelectorsHelpers
     rows.index(row_label)
   end
 
-  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name', 'a.button.active', 'li.dropdown a.button']
+  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name',
+    'a.button.active', 'li.dropdown a.button', '.demand', '.qualification_name']
+
+  # Does only work when parsing HTML manually (with Nokogiri). Used mainly by
+  # the calendar steps to enhance performance.
   def extract_text_from_cell(cell)
-    tried = 0
     found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }
     if found.present?
       found.map { |f| cell.all(f).map(&:text).map(&:strip) }.flatten.join(' ')
     else
       cell.text.strip
     end
-  rescue Timeout::Error => e
-    # sometimes the finding takes too long and travis times out.
-    if tried < 1
-      tried += 1
-      retry
-    else
-      raise e
-    end
   end
-
 end
 
 World(HtmlSelectorsHelpers)

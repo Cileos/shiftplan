@@ -9,7 +9,7 @@
   .primary
     = render 'form', employee: resource
 
-    - unless resource.duplicates.empty?
+    - if resource.sufficient_details_to_search_duplicates?
       = render('duplication_warning', duplicate_employees: resource.duplicates)
 
   .secondary.instructions

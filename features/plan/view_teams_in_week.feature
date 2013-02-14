@@ -19,9 +19,9 @@ Feature: View Teams over weekdays in plan
      When I choose "Teams" from the drop down "Mitarbeiter" within the calendar
      Then I should be on the teams in week page of the plan for cwyear: 2012, week: 49
       And I should see the following calendar:
-       | Teams                  | Mo           | Di            | Mi            | Do            | Fr |
-       | Lampen betrachten (Lb) |              | Homer S 10-16 |               | Homer S 12-14 |    |
-       | Reaktor putzen (Rp)    | Homer S 9-17 |               | Homer S 11-15 |               |    |
+       | Teams                   | Mo                   | Di                   | Mi                   | Do                   | Fr  |
+       | Lampen betrachten (Lb)  |                      | Homer S 10:00-16:00  |                      | Homer S 12:00-14:00  |     |
+       | Reaktor putzen (Rp)     | Homer S 09:00-17:00  |                      | Homer S 11:00-15:00  |                      |     |
 
   Scenario: create a scheduling by clicking in cell and filling out form in modal
     Given a team exists with name: "Reaktor putzen", organization: the organization
@@ -31,8 +31,8 @@ Feature: View Teams over weekdays in plan
 
      Then I should be on the teams in week page of the plan for cwyear: 2012, week: 49
       And I should see the following calendar:
-       | Teams               | Mo | Di           | Mi | Do | Fr |
-       | Reaktor putzen (Rp) |    | Homer S 9-17 |    |    |    |
+       | Teams                | Mo  | Di                   | Mi  | Do  | Fr  |
+       | Reaktor putzen (Rp)  |     | Homer S 09:00-17:00  |     |     |     |
 
   Scenario: editing a single scheduling by clicking in cell and filling out form in modal
     Given the employee "Homer" was scheduled in the plan as following:
@@ -40,12 +40,12 @@ Feature: View Teams over weekdays in plan
         | 49   | 2     | 9-17 Reaktor putzen     |
       And I am on the teams in week page of the plan for cwyear: 2012, week: 49
 
-     When I click on the scheduling "9-17"
+     When I click on the scheduling "09:00-17:00"
      # TODO should not show team in quickie?
      Then I should be able to change the "Quickie" from "9-17 Reaktor putzen [Rp]" to "1-23" and select "Lenny L" as "Mitarbeiter"
       And I should see the following calendar:
-       | Teams               | Mo | Di           | Mi | Do | Fr |
-       | Reaktor putzen (Rp) |    | Lenny L 1-23 |    |    |    |
+       | Teams                | Mo  | Di                   | Mi  | Do  | Fr  |
+       | Reaktor putzen (Rp)  |     | Lenny L 01:00-23:00  |     |     |     |
 
   @todo
   Scenario: change team? How? clear it by just entering "1-23" as quickie?

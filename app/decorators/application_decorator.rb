@@ -1,5 +1,6 @@
 class ApplicationDecorator < Draper::Decorator
   include ModalDecoratorHelper
+  include ResponderDecoratorHelper
 
   def dom_id(m=source)
     h.dom_id(m)

@@ -3,9 +3,17 @@ class Employee < ActiveRecord::Base
 
   Roles = %w(owner planner)
 
-  attr_accessible :first_name, :last_name, :weekly_working_time, :avatar, :avatar_cache,
-    :organization_id, :account_id, :role, :force_create_duplicate
-  attr_accessor :organization_id, :force_create_duplicate
+  attr_accessible :first_name,
+                  :last_name,
+                  :weekly_working_time,
+                  :avatar,
+                  :avatar_cache,
+                  :organization_id,
+                  :account_id,
+                  :role,
+                  :force_create_duplicate
+  attr_accessor :organization_id,
+                :force_create_duplicate
 
   validates_presence_of :first_name, :last_name
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
@@ -23,7 +31,8 @@ class Employee < ActiveRecord::Base
 
   validates_presence_of :account_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
-  validates_with DuplicateEmployeeValidator, on: :create
+  validates_length_of :duplicates, is: 0, on: :create,
+    if: Proc.new { |e| e.sufficient_details_to_search_duplicates? and !e.force_create_duplicate? }
 
   after_create :create_membership
 
@@ -55,9 +64,16 @@ class Employee < ActiveRecord::Base
     invitation.present?
   end
 
-  attr_writer :duplicates
+  def duplicates_search
+    @duplicates_search ||= EmployeeSearch.for_employee(self)
+  end
+
+  def sufficient_details_to_search_duplicates?
+    duplicates_search.search?
+  end
+
   def duplicates
-    @duplicates || []
+    @duplicates ||= duplicates_search.results
   end
 
   def name

@@ -17,6 +17,17 @@ Feature: Dashboard
      # full introductory_text of dummy notification
      Then I should see "You did something awesome"
 
+    When I follow "Brennstäbe wechseln in Tschernobyl"
+    Then I should be on the employees in week page of the plan for week: 49, cwyear: 2012
+
+    When I go to the dashboard
+     And I follow "Brennstäbe wechseln in Tschernobyl"
+    Then I should be on the employees in week page of the plan "brennstäbe wechseln" for week: 49, cwyear: 2012
+
+    When I go to the dashboard
+     And I follow "AKW Tschernobyl GmbH"
+    Then I should be on the page for the organization
+
   Scenario: List upcoming schedulings (just the next 7 days for now)
     Given the employee "Homer" was scheduled in the plan as following:
         | week | cwday | quickie                         |

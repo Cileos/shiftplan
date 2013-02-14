@@ -12,8 +12,19 @@ class RecordDecorator < ApplicationDecorator
     source.class.model_name.plural
   end
 
-  def insert_new_form(heading='')
-    append_modal body: h.render('new_form', scheduling: source),
+  def insert_new_form(heading='', model_name)
+    append_modal body: h.render('new_form', model_name => model),
       header: h.content_tag(:h3, heading)
   end
+
+  def metadata
+    {}
+  end
+
+
+  private
+
+    def record
+      model
+    end
 end

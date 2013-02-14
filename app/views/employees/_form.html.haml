@@ -26,8 +26,8 @@
     = f.input :organization_id, as: :hidden
     = f.input :account_id, as: :hidden
 
-    - unless employee.duplicates.empty?
-      %p= t('activerecord.errors.models.employee.duplicates_found')
+    - if resource.sufficient_details_to_search_duplicates? and employee.duplicates.present?
+      %p= t('employees.new.duplicates_found')
       %p= t('employees.new.duplication_warning')
       = f.input :force_create_duplicate, as: :boolean
 
