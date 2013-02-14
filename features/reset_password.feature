@@ -10,7 +10,7 @@ Feature: Resetting Password
       And the employee is a member in the organization
       And a clear email queue
 
-  Scenario: User with one employee signing in and signing out successfully
+  Scenario: Resetting password
     Given I am on the home page
      When I follow "Einloggen"
       And I follow "Passwort vergessen"
