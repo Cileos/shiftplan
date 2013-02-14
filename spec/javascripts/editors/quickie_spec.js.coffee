@@ -90,6 +90,13 @@ describe 'QuickieEditor', ->
     it 'should not use whitespace before team name to find all', ->
       expect('1-2 aTeam').not.toBeCompletedBy('3-4 ')
 
+    it 'should complete prefix of team name', ->
+      expect('17-23 Besprechung').toBeCompletedBy('17-23 Bespr')
+
+    it 'should only complete team names who have the prefix', ->
+      expect('17-23 wirklich Arbeiten').not.toBeCompletedBy('17-23 Bespr')
+      expect('1-2 wirklich Arbeiten').not.toBeCompletedBy('17-23 Bespr')
+
 
     it 'should show matches on beginning before matches on part', ->
       quickies = ['Brathering', 'TheBrain']
