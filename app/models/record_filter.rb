@@ -6,7 +6,7 @@ class RecordFilter
   include ActiveAttr::Model
   include ActiveAttr::TypecastedAttributes
   include ActiveAttr::AttributeDefaults
-  include Draper::ModelSupport
+  include Draper::Decoratable
 
   attribute :plan_template
   attribute :base
