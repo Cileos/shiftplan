@@ -11,12 +11,12 @@ Clockwork.Router = Ember.Router.extend
 
   root: Ember.Route.extend
 
-    index: Ember.Route.extend
-      route: '/'
-      connectOutlets: (router) -> router.transitionTo('milestones.index')
-
     newMilestone: Ember.Router.transitionTo 'milestones.new'
     milestones: ModalRouter.fullRoute(Clockwork.Milestone, 'milestones').extend
+      # TODO remove when we have proper 'root.index' route
+      #      This is the temporary root so a visit of the calendar page does
+      #      not create an extra entry in the browser history
+      route: '/'
       newTask: Ember.Router.transitionTo 'tasks.new'
 
       tasks: Ember.Route.extend
