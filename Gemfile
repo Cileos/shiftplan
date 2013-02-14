@@ -33,7 +33,7 @@ group :test do
   gem "email_spec", '~> 1.4.0'
 
   # TODO for latest chrome-webdriver remove when capybara > 1.1.2 depends on it
-  gem 'selenium-webdriver', '~> 2.26.0'
+  gem 'selenium-webdriver', '~> 2.29.0'
   gem 'chromedriver-helper'
 
   gem "spork", "1.0.0rc3"
@@ -121,7 +121,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart'
 gem 'gravtastic'
-gem 'ember-rails'
+gem 'ember-rails', '0.7.0'
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
 
 gem 'strong_parameters', '~> 0.1.6'
