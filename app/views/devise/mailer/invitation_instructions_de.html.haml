@@ -5,6 +5,6 @@
 %p= link_to 'Einladung akzeptieren', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token)
 
 - unless @resource.confirmed? && @resource.encrypted_password.present?
-  %p Falls Sie die Einladung nicht bestätigen wollen, ignorieren Sie diese E-Mail bitte. Ihr Account wird nicht angelegt, solange Sie nicht auf den 'Einladung akzeptieren' Link geklickt und Ihr Passwort gesetzt haben.
+  %p Falls Sie die Einladung nicht bestätigen wollen, ignorieren Sie diese E-Mail bitte. Ihr Account wird nicht angelegt, solange Sie nicht auf den "Einladung akzeptieren" Link geklickt und Ihr Passwort gesetzt haben.
 
 %p Ihr Clockwork Team
