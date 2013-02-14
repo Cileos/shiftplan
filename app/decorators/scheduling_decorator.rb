@@ -48,13 +48,13 @@ class SchedulingDecorator < RecordDecorator
     args.compact.join(' ')
   end
 
+  def edit_url
+    edit_url_for_overnightable
+  end
+
 
   private
   def scheduling
     source
-  end
-
-  def edit_url
-    edit_url_for_overnightable
   end
 end
