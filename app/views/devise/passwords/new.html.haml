@@ -1,8 +1,8 @@
-%h2 Forgot your password?
-= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+%h2= t('devise.passwords.forgotten')
+= simple_form_for(resource, :as => resource_name, :url => user_password_path, :html => { :method => :post }) do |f|
   = f.error_notification
   .inputs
     = f.input :email, :required => true
   .actions
-    = f.button :submit, "Send me reset password instructions"
+    = f.button :submit, t('devise.passwords.reset_password')
 = render "links"

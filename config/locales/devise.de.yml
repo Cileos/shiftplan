@@ -19,7 +19,9 @@ de:
       signed_in: 'Erfolgreich eingeloggt.'
       signed_out: 'Erfolgreich ausgeloggt.'
     passwords:
+      change: "Passwort ändern"
       forgotten: "Passwort vergessen?"
+      reset_password: "Passwort zurückzusetzen"
       send_instructions: 'Du wirst in ein paar Minuten eine E-Mail erhalten, um Dein Passwort zurückzusetzen.'
       updated: 'Dein Passwort wurde erfolgreich geändert - Du bist nun angemeldet.'
     confirmations:
