@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204150353) do
+ActiveRecord::Schema.define(:version => 20130215152010) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -181,12 +181,12 @@ ActiveRecord::Schema.define(:version => 20130204150353) do
 
   create_table "qualifications", :force => true do |t|
     t.string   "name"
-    t.integer  "organization_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "account_id"
   end
 
-  add_index "qualifications", ["organization_id"], :name => "index_qualifications_on_organization_id"
+  add_index "qualifications", ["account_id"], :name => "index_qualifications_on_account_id"
 
   create_table "schedulings", :force => true do |t|
     t.integer  "plan_id"

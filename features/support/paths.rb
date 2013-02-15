@@ -84,6 +84,8 @@ module NavigationHelpers
       model = model($2)
       if model.is_a?(Organization)
         send "account_organization_#{$1.gsub(' ', '_')}_path", model.account, model
+      elsif model.is_a?(Account)
+        send "account_#{$1.gsub(' ', '_')}_path", model
       else
         raise ArgumentError, "only paths scoped to organizations defined so far. please add more paths in #{__FILE__}:#{__LINE__}"
       end
@@ -93,7 +95,7 @@ module NavigationHelpers
       if model.is_a?(Organization)
         send "new_account_organization_#{$1.gsub(' ', '_')}_path", model.account, model
       elsif model.is_a?(Account)
-        new_account_organization_path(model)
+        send "new_account_#{$1.gsub(' ', '_')}_path", model
       end
 
     when /^the adopt employees page for #{capture_model}$/
