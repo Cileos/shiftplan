@@ -47,6 +47,20 @@ Feature: View Teams over weekdays in plan
        | Teams                | Mo  | Di                   | Mi  | Do  | Fr  |
        | Reaktor putzen (Rp)  |     | Lenny L 01:00-23:00  |     |     |     |
 
+  Scenario: creating a scheduling with a new or unused team, implying a new row in the calendar
+    Given a team exists with name: "Reaktor putzen", organization: the organization
+      And I am on the teams in week page of the plan for cwyear: 2012, week: 49
+     When I click on cell "Di"/"Reaktor putzen (Rp)"
+      And I fill in the empty "Quickie" with "9-17 Kühlwasser tauschen" and select "Homer S" as "Mitarbeiter"
+     Then I should be on the teams in week page of the plan for cwyear: 2012, week: 49
+      And I should see the following calendar:
+       | Teams                    | Mo | Di                  | Mi | Do | Fr |
+       | Kühlwasser tauschen (Kt) |    | Homer S 09:00-17:00 |    |    |    |
+       | Reaktor putzen (Rp)      |    |                     |    |    |    |
+     When I click on the scheduling "09:00-17:00"
+      And I wait for the modal box to appear
+     Then the "Quickie" field should contain "9-17 Kühlwasser tauschen"
+
   @todo
   Scenario: change team? How? clear it by just entering "1-23" as quickie?
 

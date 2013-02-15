@@ -5,8 +5,6 @@
 class CalendarCursor
   constructor: (@$calendar, @tds = 'td:not(.wwt_diff):not(.outside_plan_period)', @items = '.scheduling') ->
 
-    @$body     = @$calendar.find('tbody:first')
-
     $calendar = @$calendar
     @$calendar.on 'click', @tds, (event) =>
       $target = $(event.target)
@@ -28,7 +26,7 @@ class CalendarCursor
     @$calendar.on 'focus', '.scheduling', (event) => @focus $(event.target)
 
     # focus first calendar data cell which is not outside the plan period
-    @focus @$body.find('tr:nth-child(1) td:not(.outside_plan_period):first')
+    @focus @$body().find('tr:nth-child(1) td:not(.outside_plan_period):first')
 
     @enable()
 
@@ -42,9 +40,11 @@ class CalendarCursor
 
     $calendar.addClass 'with_cursor'
 
+  # as we may update the inner HTML of the whole calendar, we may not cache the tbody
+  $body: -> @$calendar.find('tbody:first')
 
   focussed_cell: ->
-    @$body.find('td.focus')
+    @$body().find('td.focus')
 
   focus: ($target, item_select) ->
     if item_select? and $target.has(@items).length > 0

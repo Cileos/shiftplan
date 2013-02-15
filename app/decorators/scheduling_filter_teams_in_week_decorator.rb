@@ -21,4 +21,30 @@ class SchedulingFilterTeamsInWeekDecorator < SchedulingFilterWeekDecorator
   def coordinates_for_scheduling(scheduling)
     [ scheduling.date, scheduling.team ]
   end
+
+  def respond_for_create(resource)
+    super
+    respond_to_new_team(resource)
+  end
+
+  def respond_for_update(resource)
+    super
+    respond_to_new_team(resource)
+  end
+
+  private
+
+  # When the Planner creates a new Team implicitly (by using it in the
+  # Quickie), the calendar gets a new row. Instead of fiddily inserting the new
+  # row, we re-render it.
+  def respond_to_new_team(resource)
+    if team = resource.team
+      # only used once (by us)
+      records_for_team = unsorted_records.for_team(team)
+      if records_for_team.count == 1 ||
+        (records_for_team.count == 2 && resource.is_overnight?)
+        refresh_calendar
+      end
+    end
+  end
 end

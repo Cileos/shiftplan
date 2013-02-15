@@ -101,6 +101,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
       '#legend'
     when :team_colors
       '#team_colors'
+    when :calendar
+      '#calendar'
     else
       super
     end
@@ -139,8 +141,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def teams
+  def teams_of_records
     records.map(&:team).compact.uniq.sort_by(&:name)
+  end
+
+  def teams
+    teams_of_records
   end
 
   def hours_for(employee)
@@ -253,5 +259,13 @@ class SchedulingFilterDecorator < ApplicationDecorator
     update_team_colors
     update_quickie_completions
     focus_element_for(resource) unless resource.destroyed?
+  end
+
+  # Refreshes the whole #calendar, very expensive in comparison to other RJS
+  # responses. Use with care.
+  # The container table#calendar should not be replaced itself, because all the
+  # behaviours are attached to it.
+  def refresh_calendar
+    select(:calendar).refresh_html h.render("schedulings/#{mode}", filter: self)
   end
 end
