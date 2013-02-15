@@ -57,6 +57,9 @@ Feature: View Teams over weekdays in plan
        | Teams                    | Mo | Di                  | Mi | Do | Fr |
        | Kühlwasser tauschen (Kt) |    | Homer S 09:00-17:00 |    |    |    |
        | Reaktor putzen (Rp)      |    |                     |    |    |    |
+     When I click on the scheduling "09:00-17:00"
+      And I wait for the modal box to appear
+     Then the "Quickie" field should contain "9-17 Kühlwasser tauschen"
 
   @todo
   Scenario: change team? How? clear it by just entering "1-23" as quickie?
