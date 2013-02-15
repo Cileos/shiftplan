@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     logger.debug('Access denied')
     flash[:alert] = translate('message.access_denied')
     respond_to do |denied|
-      denied.html { redirect_to root_url }
+      denied.html { redirect_to user_signed_in?? dashboard_url : root_url }
       denied.js   { render 'denied' }
     end
   end

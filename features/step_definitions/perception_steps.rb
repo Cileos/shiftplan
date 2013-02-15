@@ -103,7 +103,7 @@ end
 Then /^I (should|should not) be authorized to access the page$/ do |or_not|
   message = "Sie sind nicht berechtigt, auf diese Seite zuzugreifen."
   if or_not.include?('not')
-    step %~I should be on the homepage~
+    step %~I should be on the dashboard~
     step %Q~I should see flash alert "#{message}"~
   else
     step %Q~I should not see flash "#{message}"~

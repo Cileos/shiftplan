@@ -40,7 +40,7 @@ Feature: Signing in
        | scenario                                                    | email                 | result                                                  | page                                                               |
        | nothing                                                     | burns@clockwork.local | Erfolgreich eingeloggt.                                 | the employees in week page for the plan for week: 49, cwyear: 2012 |
        | nothing                                                     | homer@clockwork.local | Erfolgreich eingeloggt.                                 | the employees in week page for the plan for week: 49, cwyear: 2012 |
-       | a confirmed user exists with email: "peter@clockwork.local" | peter@clockwork.local | Sie sind nicht berechtigt, auf diese Seite zuzugreifen. | the home page                                                      |
+       | a confirmed user exists with email: "peter@clockwork.local" | peter@clockwork.local | Sie sind nicht berechtigt, auf diese Seite zuzugreifen. | the dashboard                                                      |
 
 
   @javascript
