@@ -1,5 +1,5 @@
 - scheduling = f.object
-.fieldset
+.fieldset.weekday-and-time
   = f.input :date, :collection => cwdays_for_select(scheduling.date), :include_blank => false
 
   = f.input :start_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false

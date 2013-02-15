@@ -89,6 +89,29 @@
       width: 325px;
     }
 
+    .weekday-and-time > .input {
+      display: inline-block;
+      width: 25%;
+      position: relative;
+
+      &:first-child {
+        width: 45%;
+        padding-right: 1em;
+      }
+
+      &:last-child {
+        label, select {
+          margin-left: 0.5em;
+        }
+
+        &:before {
+          content: ":";
+          position: absolute;
+          bottom: 0;
+        }
+      }
+    }
+
   input.miniColors {
     padding-left: 30px;
 
