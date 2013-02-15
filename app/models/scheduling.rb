@@ -41,6 +41,10 @@ class Scheduling < ActiveRecord::Base
     joins(:plan).where('plans.organization_id' => organization.id)
   end
 
+  def self.for_team(team)
+    where(team_id: team.id)
+  end
+
   # Used for dupping, for example in nightshift. #dup won't copy associations,
   # so please add them here if needed.
   def initialize_dup(original)
@@ -111,7 +115,7 @@ class Scheduling < ActiveRecord::Base
 
   # FIXME going to fail on month/day view
   def concurrent
-    SchedulingFilter.new week: week, employee: employee, year: year, plan: plan
+    SchedulingFilter.new week: week, employee: employee, cwyear: cwyear, plan: plan
   end
 
   def team_name

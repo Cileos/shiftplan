@@ -91,6 +91,18 @@ class SchedulingFilter < RecordFilter
     before_start_of_plan?(date) || after_end_of_plan?(date)
   end
 
+  def records
+    sorted_records
+  end
+
+  def sorted_records
+    @sorted_records ||= sort_fields.inject(unsorted_records) { |records, field| records.sort_by(&field) }
+  end
+
+  def unsorted_records
+    fetch_records
+  end
+
 
   private
     def fetch_records
@@ -107,9 +119,6 @@ class SchedulingFilter < RecordFilter
         end
       end
       results = results.includes(*to_include)
-      sort_fields.each do |field|
-        results = results.sort_by(&field)
-      end
       results
     end
 

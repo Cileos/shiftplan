@@ -19,6 +19,7 @@ module ResponderDecoratorHelper
     end
   end
 
+  # OPTIMIZE extract Overnightable-specific code
   def respond_for_update(resource)
     update_cell_for(resource.with_previous_changes_undone)
     if resource.next_day
