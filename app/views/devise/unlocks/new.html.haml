@@ -6,4 +6,6 @@
     = f.input :email, :required => true
   .actions
     = f.button :submit, t('devise.unlocks.unlock')
-= render "links"
+
+.additional-actions
+  = render "links"
