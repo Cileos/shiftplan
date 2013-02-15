@@ -37,7 +37,7 @@ de:
     unlocks:
       not_received: "E-Mail zum Entsperren nicht erhalten?"
       send_instructions: 'Du wirst in ein paar Minuten eine E-Mail erhalten, um Dein Konto zu entsperren..'
-      unlocked: 'Dein Konto wurde erfolgreich entsperrt. Du bist nun angemeldet.'
+      unlocked: "Ihr Konto wurde erfolgreich entsperrt. Bitten loggen Sie sich nun ein. Falls Sie Ihr Passwort vergessen haben, klicken Sie bitte auf 'Passwort vergessen?'."
       unlock: 'Account entsperren'
     mailer:
       confirmation_instructions:
@@ -45,4 +45,4 @@ de:
       reset_password_instructions:
         subject: 'Passwort zurücksetzen'
       unlock_instructions:
-        subject: 'Konto entsperren'
+        subject: 'Account entsperren'
