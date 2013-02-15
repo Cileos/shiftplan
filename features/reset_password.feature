@@ -27,6 +27,3 @@ Feature: Resetting Password
       And I press "Passwort ändern"
      Then I should see notice "Dein Passwort wurde erfolgreich geändert - Du bist nun angemeldet."
       And I am signed in as the confirmed user
-
-
-
