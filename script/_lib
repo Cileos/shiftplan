@@ -16,7 +16,7 @@ function run_suite () {
       ;;
     jasmine)
       header "Jasmine"
-      xvfb-run bundle exec guard-jasmine
+      xvfb-run --auto-servernum bundle exec guard-jasmine
       ;;
     cucumber)
       header "Cucumber (non-javascript)"
