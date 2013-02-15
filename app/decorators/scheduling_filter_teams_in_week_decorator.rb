@@ -42,7 +42,7 @@ class SchedulingFilterTeamsInWeekDecorator < SchedulingFilterWeekDecorator
       # only used once (by us)
       records_for_team = unsorted_records.for_team(team)
       if records_for_team.count == 1 ||
-        (records_for_team.count == 2 && records_for_team.first.is_overnight?)
+        (records_for_team.count == 2 && resource.is_overnight?)
         refresh_calendar
       end
     end
