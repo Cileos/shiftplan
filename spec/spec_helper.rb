@@ -6,6 +6,7 @@ Spork.prefork do
   require File.dirname(__FILE__) + "/../config/spork_prefork"
 
   require 'rspec/rails'
+  require 'draper/test/rspec_integration'
 
   # Must beloaded early to extend RSpec with RSpecLocale.
   # can be removed if we load the whole support dir while preloading

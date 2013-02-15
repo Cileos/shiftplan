@@ -1,6 +1,6 @@
 class Feedback
   include ActiveAttr::Model
-  include Draper::ModelSupport
+  include Draper::Decoratable
 
   attribute :name, type: String
   attribute :email, type: String

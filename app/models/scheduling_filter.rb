@@ -3,6 +3,10 @@
 # display in a weekly calendar. It behaves like an ActiveRecord model
 # and can therefor be used in forms to build searches.
 class SchedulingFilter < RecordFilter
+  include ActiveAttr::Model
+  include ActiveAttr::TypecastedAttributes
+  include ActiveAttr::AttributeDefaults
+  include Draper::Decoratable
 
   class CannotFindMonday < RuntimeError; end
 

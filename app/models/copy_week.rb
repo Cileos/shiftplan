@@ -2,7 +2,7 @@ class CopyWeek
   include ActiveAttr::Model
   include ActiveAttr::TypecastedAttributes
   include ActiveAttr::AttributeDefaults
-  include Draper::ModelSupport
+  include Draper::Decoratable
 
   attribute :plan
   attribute :source_year, type: Integer

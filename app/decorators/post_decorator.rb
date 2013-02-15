@@ -1,4 +1,4 @@
-class PostDecorator < ApplicationDecorator
+class PostDecorator < RecordDecorator
   decorates :post
 
   def selector_for(name, resource=nil, extra=nil)

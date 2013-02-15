@@ -4,6 +4,7 @@ module ModeAwareness
   end
 
   module ClassMethods
+    # OPTIMIZE Draper supports providing the wanted decorator as a parameter since 1.0
     def decorate(input, opts={})
       mode = opts.delete(:mode) || opts.delete('mode')
       if page = opts[:page]
