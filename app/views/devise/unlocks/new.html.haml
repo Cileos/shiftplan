@@ -1,4 +1,4 @@
-%h2= t('devise.unlocks.unlock')
+- title t('devise.unlocks.unlock')
 
 = simple_form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f|
   = f.error_notification

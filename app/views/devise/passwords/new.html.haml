@@ -1,4 +1,4 @@
-%h2= t('devise.passwords.forgotten')
+- title t('devise.passwords.forgotten')
 = simple_form_for(resource, :as => resource_name, :url => user_password_path, :html => { :method => :post }) do |f|
   = f.error_notification
   .inputs
