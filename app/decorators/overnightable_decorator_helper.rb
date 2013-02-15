@@ -14,4 +14,12 @@ module OvernightableDecoratorHelper
   def metadata
     super.merge(edit_url: edit_url_for_overnightable)
   end
+
+  def nightshift_class
+    if previous_day.present?
+      'early'
+    elsif next_day.present?
+      'late'
+    end
+  end
 end
