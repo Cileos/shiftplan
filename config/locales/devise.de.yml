@@ -26,8 +26,11 @@ de:
       updated: 'Dein Passwort wurde erfolgreich geändert - Du bist nun angemeldet.'
     confirmations:
       not_received: "Bestätigung nicht erhalten?"
+      resend_instructions: 'Bestätigung erneut verschicken'
       confirmed: 'Sie haben erfolgreich Ihren Accout bestätigt und sind nun eingeloggt.'
       updated: 'Deine E-Mail-Adresse wurde erfolgreich geändert - Du bist nun angemeldet.'
+      user:
+        send_instructions: 'Wir haben Ihnen erneut eine Bestätigungsmail zugeschickt. Bitte schauen Sie in Ihr E-Mail Postfach.'
     registrations:
       signed_up_but_unconfirmed: 'Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen.'
       signed_up_but_inactive: 'Du hast Dich erfolgreich registriert. Jemand muss Dich noch aktivieren.'
