@@ -4,12 +4,6 @@ jQuery(document).ready ->
     $search_form = $(this)
     search_url = $search_form.attr('action')
 
-    $search_form.find('input').keyup ->
-      search()
-
-    $search_form.find('select').change ->
-      search()
-
     search = ->
       query_params =
         query:
@@ -17,21 +11,14 @@ jQuery(document).ready ->
           last_name:    $search_form.find('input#last_name').val()
           email:        $search_form.find('input#email').val()
           organization: $search_form.find('select#organization').val()
-      delay (->
-        $.ajax
-          url:  search_url
-          data: query_params
-        ), 500
+      $.ajax
+        url:  search_url
+        data: query_params
+
+    $search_form.find('input').bindWithDelay('keyup', search, 300)
+    $search_form.find('select').bind('change', search)
+
 
     $('a#clear-search').click ->
       $('form#search').find('input[type=text],select').val('')
       $('form#search input#first_name').trigger('keyup')
-
-
-  delay = (->
-    timer = 0
-    (callback, ms) ->
-      clearTimeout timer
-      timer = setTimeout(callback, ms)
-  )()
-

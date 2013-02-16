@@ -2,7 +2,7 @@
 <h4 class="milestone_name">{{milestone.name}}</h4>
 {{/if}}
 {{#if hasErrors}}
-<div class="alert error">{{errorMessages}}</div>
+<div class="flash error" data-icon="&#xf00d;"><a class="close" data-dismiss="flash">×</a>{{errorMessages}}</div>
 {{/if}}
 <div class="inputs">
   <div class="input">

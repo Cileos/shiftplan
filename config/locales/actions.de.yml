@@ -33,7 +33,9 @@ de:
       new_organization: "eine weitere Organisation anlegen"
       next: Weiter
       create: Anlegen
+      create_busy: Lege an ...
       update: Speichern
+      update_busy: Speichere ...
       hours: Stunden
       wwt_short: WAZ
       wwt_long: Wochenarbeitszeit

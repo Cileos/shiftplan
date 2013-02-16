@@ -27,7 +27,7 @@ class CalendarEditor extends View
     @addTabIndices()
 
   setupForm: ->
-    @modal().find('input[name="scheduling[quickie]"]').edit_quickie()
+    Clockwork.SchedulingEditor.create element: @modal().find('form:first')
 
   addTabIndices: ->
     tabIndex = 1

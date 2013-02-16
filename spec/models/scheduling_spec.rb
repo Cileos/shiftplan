@@ -51,7 +51,6 @@ describe Scheduling do
   context "normal time range" do
     # must define "today" here to travel before building anything
     before(:each) { Timecop.travel Time.parse('1988-02-03 23:42') }
-    after(:each)  { Timecop.return }
 
     let(:starts_at)      { '1988-05-05 09:00' }
     let(:ends_at)        { '1988-05-05 17:00' }
@@ -98,20 +97,6 @@ describe Scheduling do
         scheduling.quickie.should == '9-17'
       end
 
-      context "saved and reloaded" do
-        let(:reloaded) do
-          scheduling.save!
-          Scheduling.find scheduling.id
-        end
-
-        it "has week saved" do
-          scheduling.read_attribute(:week).should == 18
-        end
-
-        it "has year saved" do
-          scheduling.read_attribute(:year).should == 1988
-        end
-      end
     end
 
     describe "explictly given" do
@@ -159,6 +144,18 @@ describe Scheduling do
       end
     end
 
+    describe "given as hours and date" do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          build_without_dates({
+            start_hour: 9,
+            end_hour:   17,
+            date:       the_date
+          })
+        end
+      end
+    end
+
     describe "given as date and quickie" do
       it_behaves_like 'completely defined' do
         let :scheduling do
@@ -166,21 +163,6 @@ describe Scheduling do
             date:      the_date,
             quickie:   '9-17'
           })
-        end
-      end
-    end
-
-    describe "old scheduling without week or year, synced" do
-      it_behaves_like 'completely defined' do
-        let :scheduling do
-          s = build_without_dates({
-            date:      the_date,
-            quickie:   '9-17'
-          })
-          s.save!
-          Scheduling.update_all({week: nil, year: nil}, {id: s.id})
-          Scheduling.sync!
-          s
         end
       end
     end
@@ -216,7 +198,7 @@ describe Scheduling do
   end
 
   describe "ranging over midnight" do
-    let(:nightwatch) { build :scheduling, quickie: '19-6' }
+    let(:nightwatch) { build :scheduling, quickie: '19-6', date: Date.today }
 
     it "should have hours set" do
       nightwatch.valid?
@@ -224,28 +206,55 @@ describe Scheduling do
       nightwatch.end_hour.should == 24
     end
 
-    it "should split the length in hours correctly" do
-      nightwatch.save!
-      nightwatch.length_in_hours.should == 5
-      nightwatch.next_day.length_in_hours.should == 6
+    context "splitting the length in hours" do
+      before(:each) { nightwatch.save! }
+
+      it "should hold hours until midnight" do
+        nightwatch.length_in_hours.should == 5
+      end
+
+      it "should move rest of the length to the next day" do
+        nightwatch.next_day.length_in_hours.should == 6
+      end
     end
+
 
     it "should create 2 scheduling, ripped apart at midnight" do
       expect { nightwatch.save! }.to change(Scheduling, :count).by(2)
     end
 
     context "with year and week turn" do
-      let(:nightwatch) { build_without_dates quickie: '19-6', date: '2012-01-01' }
-
-      # in germany, the week with january 4th is the first calendar week
+      # in ISO 8601, the week with january 4th is the first calendar week
       # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
-      it "should set year and week correctly" do
-        nightwatch.save!
-        nightwatch.year.should == 2011
-        nightwatch.week.should == 52
+      let!(:nightwatch) { build_without_dates(quickie: '19-6', date: '2012-01-01').tap(&:save!) }
 
-        nightwatch.next_day.year.should == 2012
-        nightwatch.next_day.week.should == 1
+      context "the day of the night watch" do
+        subject { nightwatch }
+
+        it { subject.year.should == 2012 }
+        it { subject.cwyear.should == 2011 }
+        it { subject.week.should == 52 }
+        it { subject.next_day.should_not be_blank }
+      end
+
+      context "the next day" do
+        subject { nightwatch.next_day }
+
+        it { should be_persisted }
+        it { should be_valid }
+        it "should keep employee assigned" do
+          subject.employee.should == nightwatch.employee
+        end
+        it "should keep plan assigned" do
+          subject.plan.should == nightwatch.plan
+        end
+        it "should keep team assigned" do
+          subject.team.should == nightwatch.team
+        end
+        it { subject.year.should == 2012 }
+        it { subject.cwyear.should == 2012 }
+        it { subject.week.should == 1 }
+        it { subject.previous_day.should == nightwatch }
       end
     end
   end
@@ -398,6 +407,11 @@ describe Scheduling do
       record.update_attributes!(updates)
     end
 
+    it "should have accepted the changes" do
+      record.starts_at.hour.should == 1
+      record.ends_at.hour.should == 18
+    end
+
     it "should have hash to work on" do
       record.attributes_for_undo.should be_a(Hash)
       record.attributes_for_undo.should be_hash_matching({'team_id'=> team.id}, ignore_additional: true)
@@ -516,7 +530,7 @@ describe Scheduling do
       scheduling = build_without_dates quickie: '22-6', date: '2012-12-12', plan: plan
 
       scheduling.should_not be_valid
-      scheduling.errors[:base].should == ["Die Endzeit ist größer als die Endzeit des Plans."]
+      scheduling.errors[:base].should == ["Der nächste Tag endet nach der Endzeit des Plans."]
     end
   end
 

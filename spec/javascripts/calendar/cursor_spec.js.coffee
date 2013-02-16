@@ -23,7 +23,7 @@ describe 'Calendar Cursor', ->
 
     describe 'in a text input field', ->
       it 'should be ignored', ->
-        $field = $('<input type="text" />')
+        $field = $('<input type="text" />').appendTo('#calendar')
         @event.srcElement = $field
         @$calendar.trigger @event
         expect( @cursor.down ).not.toHaveBeenCalled()
@@ -44,7 +44,7 @@ describe 'Calendar Cursor', ->
 
     describe 'in a text input field', ->
       it 'should be ignored', ->
-        $field = $('<input type="text" />')
+        $field = $('<input type="text" />').appendTo('#calendar')
         @event.srcElement = $field
         @$calendar.trigger @event
         expect( @cursor.create ).not.toHaveBeenCalled()
