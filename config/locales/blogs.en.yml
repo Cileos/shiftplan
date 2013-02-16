@@ -5,7 +5,7 @@ en:
     no_posts_present: "No posts here!"
     company_news: "News"
   posts:
-    new: "Write a new blog post"
+    new: "Write a new post"
     show:
       confirm_to_delete: "Do you want to remove '%{post}' with all the comments?"
     headers:

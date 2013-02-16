@@ -7,71 +7,63 @@ en:
     attributes:
       team:
         name: Name
-        shortcut: Kürzel
-        color: Farbe
+        shortcut: Shortcut
+        color: Colour
   activemodel:
     attributes:
       team_merge:
-        other_team_id: anderes Team
-        new_team_id: Neuer Teamname
+        other_team_id: Other Team
+        new_team_id: New Team Name
   flash:
     team_merges:
       create:
-        notice: "Teams erfolgreich zusammengelegt."
+        notice: "Teams merged. Less colour mode activated."
 
   team_merges:
     new:
       instructions: >
-        Wollen Sie wirklich Team "%{team_name}" und Team "%{other_team_name}" zusammenlegen?
-        Falls ja, wählen Sie bitte den Namen des neuen Teams aus und klicken auf Bestätigen.
-        Dieser Schritt ist unwiderrufbar. Alle Einträge der Teams werden dem neuen Team
-        zugeordnet.
+        Do you want to to merge "%{team_name}" and "%{other_team_name}"?
+        If so, please select the name of the new team and Confirm. You can't revert this step. All records of the teams 
+        will be assigned to the new team.
   teams:
     index:
       no_teams: "No teams yet."
-      action: Aktion
+      action: Action
       instructions: >
-        Hier sehen Sie alle Teams dieser Organisation.
+        Here you can see all the Teams in a Unit.
 
 
-        Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
-        oder Aufgaben unterschieden werden.
+        _Teams_ are helpful when distinguishing various jobs, activities or tasks.
       planner_instructions: >
         Here are all employees that are members of this Organisation.
 
 
-        Mit der Hilfe von _Teams_ können verschiedene Arbeitsplätze, Tätigkeiten
-        oder Aufgaben unterschieden werden.
+        _Teams_ are helpful when distinguishing various jobs, activities or tasks.
 
 
-        Um ein neues Team implizit anzulegen, kann dessen Name einfach beim Anlegen eines
-        Termines im Plan benutzt werden.
+        To implicitly create a new team, whose names can be used when you create a new Scheduling used in a Plan.
 
-        Beispiel: @9-17 Teller Abwaschen@
+        Example: @9-17 Preparing Ship@
 
-        Sie können ein neues Team auch explizit anlegen, indem Sie auf den Hinzufügen
-        Button auf dieser Seite klicken.
-
-
-        Zusätzlich können _Kürzel_ verwendet werden, um das Ausfüllen der Pläne
-        einfacher zu gestalten. Diese werden automatisch aus den
-        Anfangsbuchstaben des Teamnamens erstellt, aber können auch bei der
-        ersten Erwähnung des Teams im Plan verwendet werden.
-
-        Beispiel: @9-17 Teller Abwaschen [TA]@
+        When you want to create a team directly, click the _Add_ button on this page.
+        
 
 
-        Sie können Teams zusammenlegen, indem Sie zwei Teams durch Aktivieren der
-        entsprechenden Checkboxen auswählen und dann auf Zusammenlegen klicken.
-        Nachdem Sie einen Namen für das neue Team gewählt haben, werden alle bereits
-        existierenden Termine der beiden Teams dem neuen Team zugeordnet. Dieser
-        Schritt ist unwiderrufbar.
-    table:
-      team_color: Farbe
+        Additionally, shortcuts will be used to fill in the diagrams, to made them easier to design.
+        Shortcuts are made automatically from the inital letters of the team name, but they can also be used
+        in the first mention of a team in the Plan.
+
+        Example: @9-17 Preparing Ship [PS]@
+
+
+        In order to merge two teams, tick the appropriate checkboxes and click _Merge_. 
+        After you chose the name for the merged team, both teams will be assigned to this one. You cannot revert this step.
+       
+    table:  
+      team_color: Colour
     show:
       merge_motivation: >
-        Falls durch Tippfehler ein zweites Team angelegt wurde, kann es mit
-        diesem zusammengelegt werden.
+        If a second team has been created by accident, you can merge it like this.
 
   helpers:
     actions:

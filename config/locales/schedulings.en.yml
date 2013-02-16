@@ -36,17 +36,17 @@ en:
         comment_on_scheduling: "%{author_name} commented on a scheduling of %{employee_name} on %{date} (%{quickie}):"
         comment_on_scheduling_of_employee: "%{author_name} commented on one of your schedulings on %{date} (%{quickie}) kommentiert:"
         comment_for_commenter: "%{author_name} has also commented on the shift of %{employee_name} on %{date} (%{quickie}) :"
-        answer_on_comment: "%{author_name} has replied to a comment on a scheduling of %{employee_name} on %{date} (%{quickie}):"
-        answer_on_comment_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet:"
-        answer_on_comment_on_scheduling_of_employee: "%{author_name} hat auf einen Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
-        answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
-        answer_on_comment_for_commenter: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:"
+        answer_on_comment: "%{author_name} replied to a comment on a scheduling of %{employee_name} on %{date} (%{quickie}):"
+        answer_on_comment_of_employee: "%{author_name} replied to your comment on the scheduling of %{employee_name} on %{date} (%{quickie}) :"
+        answer_on_comment_on_scheduling_of_employee: "%{author_name} replied to a comment on one of your schedulings %{date} (%{quickie}) :"
+        answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} has replied on your comment on one of your schedulings on %{date} (%{quickie}):"
+        answer_on_comment_for_commenter: "%{author_name} has replied to a comment on scheduling of  %{employee_name} on %{date} (%{quickie}). Others also commented on this scheduling:"
   schedulings:
-    legend: Legende
-    information: Plan-Informationen
-    no_upcoming_schedulings_present: 'In der nächsten Zeit stehen keine Termine an.'
+    legend: Legend
+    information: Plan info
+    no_upcoming_schedulings_present: 'No upcoming schedulings. Hooray!'
     plan_period:
-      starts_at: "Beginnt: %{date}"
-      ends_at: "Endet: %{date}"
+      starts_at: "Begins: %{date}"
+      ends_at: "Ends: %{date}"
 
 
