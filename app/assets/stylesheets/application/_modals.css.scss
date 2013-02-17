@@ -89,39 +89,72 @@
       width: 325px;
     }
 
-    .weekday-and-time > .input {
-      display: inline-block;
-      width: 25%;
-      position: relative;
+    .inputs.new-shift-form {
+      min-width: 400px;
+    }
 
-      &:first-child {
-        width: 45%;
-        padding-right: 1em;
+    .weekday-and-time, .qualification-fields .fields {
+      & > .input {
+        display: inline-block;
+        width: 25%;
+        position: relative;
+
+        &:first-child {
+          width: 45%;
+          padding-right: 1em;
+        }
+
+        &:last-child {
+          label, select {
+            margin-left: 0.5em;
+          }
+
+          &:before {
+            content: "-";
+            position: absolute;
+            bottom: 0;
+          }
+        }
+      }
+    }
+
+    .qualification-fields {
+      h4 {
+        border-top: 1px solid $ci_midgrey;
+        margin-top: 0.5em;
+        padding-top: 1.5em;
       }
 
-      &:last-child {
-        label, select {
+      .fields {
+        margin-bottom: 1.5em;
+
+        & > a {
+          display: inline-block;
           margin-left: 0.5em;
         }
 
-        &:before {
-          content: ":";
-          position: absolute;
-          bottom: 0;
+        & > .input {
+          width: 60%;
+
+          &:first-child {
+            width: 20%;
+          }
         }
       }
     }
 
-  input.miniColors {
-    padding-left: 30px;
-
-    + .miniColors-trigger {
-      position: relative;
-      top: -28px;
+    .qualification-select {
+      margin-top: 0.75em;
     }
-  }
 
+    input.miniColors {
+      padding-left: 30px;
 
+      + .miniColors-trigger {
+        position: relative;
+        top: -28px;
+      }
+    }
   }
 
   .actions {

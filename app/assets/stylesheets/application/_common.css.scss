@@ -16,7 +16,7 @@ abbr {
   cursor: help;
 }
 
-a {
+a, a.link, .link {
   @include transition(color .25s ease);
 
   color: $ci_blue;
