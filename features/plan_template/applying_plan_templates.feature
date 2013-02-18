@@ -1,5 +1,3 @@
-@wip
-@minutes
 @javascript
 Feature: Applying Weekbased Plan Templates to Plans
   As I planner
@@ -14,9 +12,9 @@ Feature: Applying Weekbased Plan Templates to Plans
         | Brennstabkessel     | Brennstabkessel     | the organization  |
         | Druckwasserreaktor  | Druckwasserreaktor  | the organization  |
       And the following qualifications exist:
-        | qualification      | name               | organization      |
-        | Brennstabpolierer  | Brennstabpolierer  | the organization  |
-        | Brennstabexperte   | Brennstabexperte   | the organization  |
+        | qualification      | name               | account      |
+        | Brennstabpolierer  | Brennstabpolierer  | the account  |
+        | Brennstabexperte   | Brennstabexperte   | the account  |
       And the following shifts exists:
         | shift               | plan_template      | day | start_hour  | end_hour  | team                       |
         | Druckwasserreaktor  | the plan template  | 1   | 4           | 12        | team "Druckwasserreaktor"  |
