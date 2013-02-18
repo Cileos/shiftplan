@@ -66,7 +66,8 @@
       outline: 1px solid $ci_blue;
     }
     &.outside_plan_period {
-      background-color: lightgrey;
+      background-color: $ci_lightgray;
+      border: 1px solid $ci_lightgray;
     }
   }
 
