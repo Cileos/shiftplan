@@ -125,4 +125,4 @@ gem 'ember-rails', '0.7.0'
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
 
 gem 'strong_parameters', '~> 0.1.6'
-gem 'nested_form'
+gem 'nested_form', :git => 'git@github.com:rwrede/nested_form.git'
