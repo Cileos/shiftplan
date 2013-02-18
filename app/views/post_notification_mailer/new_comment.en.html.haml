@@ -1,0 +1,11 @@
+%p= "Hallo #{@notification.employee.name}!"
+
+%p= @notification.introductory_text
+
+%p= '"' + @notification.comment.body + '"'
+
+%p Klicken Sie auf den folgenden Link, um den Kommentar zu lesen oder einen weiteren Kommentar zu verfassen:
+
+%p= link_to "Kommentar lesen >>", account_organization_blog_post_url(@post.organization.account, @post.organization, @post.blog, @post) + '#comments'
+
+%p Ihr Clockwork Team

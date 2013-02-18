@@ -10,7 +10,7 @@
 
     %p= t('.instructions')
 
-    = simple_form_for @user, url: user_password_path do |f|
+    = simple_form_for @user, url: change_password_path do |f|
 
       .inputs
         = f.input :current_password, required: true, autofocus: true
