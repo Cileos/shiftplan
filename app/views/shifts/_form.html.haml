@@ -25,10 +25,12 @@
       - if current_account.qualifications.present?
         = f.simple_fields_for :demands do |df|
           = df.input :quantity, input_html: { tabindex: 7 }
-          = df.association :qualification, collection: current_account.qualifications, input_html: { tabindex: 8, :class => 'qualification-select' }
+          = df.association :qualification, collection: current_account.qualifications,
+            input_html: { tabindex: 8, :class => 'qualification-select' }
           = df.link_to_remove ta(:destroy), class: 'button button-warning button-small'
 
-        = f.link_to_add ta(:add_demand), :demands, class: 'button', data: { icon: i(:add) }
+        = f.link_to_add ta(:add_demand), :demands, class: 'button',
+          model_object: shift.source.demands.new(quantity: 1), data: { icon: i(:add) }
 
       - else
         %p= t(:'qualifications.no_qualifications_present')
