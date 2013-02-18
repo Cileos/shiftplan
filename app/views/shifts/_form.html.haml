@@ -34,7 +34,7 @@
         %p= t(:'qualifications.no_qualifications_present')
         %p
           = t(:'qualifications.goto_qualifications')
-          = link_to ta(:qualifications), nested_resources_for(current_organization) + [:qualifications], :class => 'link'
+          = link_to ta(:qualifications), [current_account, :qualifications], :class => 'link'
 
   .actions
     - if create_or_update == :update
