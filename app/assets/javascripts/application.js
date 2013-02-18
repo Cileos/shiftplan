@@ -6,6 +6,7 @@
 //= require comments
 //= require teams
 //= require 'calendar/cursor'
+//= require 'calendar/hover'
 //= require 'calendar/vertical_positioning'
 //= require_tree './editors'
 //= require mailcheck

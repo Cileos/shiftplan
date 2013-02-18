@@ -52,7 +52,10 @@ class CalendarCursor
     if $target.length > 0
       @$calendar.find('.focus').removeClass('focus')
       $target.closest('td').addClass('focus') unless $target.is('td')
-      $target.addClass('focus')
+      if $pairing_id = $target.attr('data-pairing')
+        @$calendar.find('[data-pairing=' + $pairing_id + ']').addClass('focus')
+      else
+        $target.addClass('focus')
       scroll_to($target)
 
 
