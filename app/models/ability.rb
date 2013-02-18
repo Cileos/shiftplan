@@ -68,7 +68,7 @@ class Ability
       employee.organizations.include?(team.organization)
     end
     can :read, Qualification do |qualification|
-      employee.organizations.include?(qualification.organization)
+      employee.account == qualification.account
     end
     can :read, PlanTemplate do |plan_template|
       employee.organizations.include?(plan_template.organization)
@@ -150,7 +150,7 @@ class Ability
       account == team.organization.account
     end
     can :manage, Qualification do |qualification|
-      account == qualification.organization.account
+      account == qualification.account
     end
     can :manage, PlanTemplate do |plan_template|
       account == plan_template.organization.account
