@@ -6,6 +6,7 @@ class CalendarCursor
   constructor: (@$calendar, @tds = 'td:not(.wwt_diff):not(.outside_plan_period)', @items = '.scheduling') ->
 
     $calendar = @$calendar
+    cursor = this
     @$calendar.on 'click', @tds, (event) =>
       $target = $(event.target)
       return true if $target.is('a,i') # keep rails' remote links working
@@ -24,6 +25,9 @@ class CalendarCursor
 
     # call .trigger('focus') on a .scheduling to focus it externally
     @$calendar.on 'focus', '.scheduling', (event) => @focus $(event.target)
+    @$calendar.on 'mouseenter', '.scheduling, td:not( .scheduling)', (event) ->
+      cursor.focus($(this), null, false)
+      false
 
     # focus first calendar data cell which is not outside the plan period
     @focus @$body().find('tr:nth-child(1) td:not(.outside_plan_period):first')
@@ -46,17 +50,18 @@ class CalendarCursor
   focussed_cell: ->
     @$body().find('td.focus')
 
-  focus: ($target, item_select) ->
+  focus: ($target, item_select, scroll=true) ->
     if item_select? and $target.has(@items).length > 0
       $target = $target.find(@items)[item_select]()
     if $target.length > 0
       @$calendar.find('.focus').removeClass('focus')
       $target.closest('td').addClass('focus') unless $target.is('td')
-      if $pairing_id = $target.attr('data-pairing')
-        @$calendar.find('[data-pairing=' + $pairing_id + ']').addClass('focus')
+      if pairing_id = $target.data('pairing')
+        @$calendar.find("[data-pairing=#{pairing_id}]").addClass('focus')
       else
         $target.addClass('focus')
-      scroll_to($target)
+      if scroll
+        scroll_to($target)
 
 
   refocus: ->

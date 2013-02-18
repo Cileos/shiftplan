@@ -27,7 +27,7 @@ jQuery(document).ready ->
 
     refresh_behaviour_of_cell = ->
       $cell = $(this)
-      $cell.find('li').each ->
+      $cell.find('li.scheduling').each ->
         $scheduling = $(this)
         $scheduling.find('a.comments:has(~ul.comments)').each ->
           $link = $(this)

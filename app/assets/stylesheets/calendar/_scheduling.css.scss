@@ -84,7 +84,7 @@
     height: 5px;
   }
 
-  &.focus, &:focus, &:hover {
+  &.focus {
     @include box-shadow($ci_darkgrey 0px 0px 20px 3px);
 
     .team_name,
