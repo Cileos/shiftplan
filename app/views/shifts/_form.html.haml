@@ -22,10 +22,10 @@
 
       %h4= ta(:demands)
 
-      - if current_organization.qualifications.present?
+      - if current_account.qualifications.present?
         = f.simple_fields_for :demands do |df|
           = df.input :quantity, input_html: { tabindex: 7 }
-          = df.association :qualification, collection: shift.plan_template.organization.qualifications, input_html: { tabindex: 8, :class => 'qualification-select' }
+          = df.association :qualification, collection: current_account.qualifications, input_html: { tabindex: 8, :class => 'qualification-select' }
           = df.link_to_remove ta(:destroy), class: 'button button-warning button-small'
 
         = f.link_to_add ta(:add_demand), :demands, class: 'button', data: { icon: i(:add) }
