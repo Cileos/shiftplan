@@ -1,4 +1,5 @@
 .scheduling {
+  position: relative;
   overflow: hidden;
   margin-bottom: 5px;
   padding: 0px;
@@ -32,15 +33,6 @@
     line-height: 14px;
   }
 
-  &.focus, &:focus, &:hover {
-    @include box-shadow($ci_darkgrey 0px 0px 20px 3px);
-
-    .team_name,
-    .employee_name {
-      background: #fff;
-    }
-  }
-
   .gimmicks {
     padding: 0 5px;
     text-align: right;
@@ -50,9 +42,73 @@
     }
   }
 
+  &.early {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: -2px;
+
+    .work_time {
+      padding-top: 5px;
+    }
+  }
+
+  &.late {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: -2px;
+
+    .gimmicks {
+      padding-bottom: 5px;
+    }
+  }
+
+  &.early:before,
+  &.late:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-size: 8px 16px;
+    background-repeat: repeat-x;
+  }
+
+  &.early:before {
+    top: -10px;
+    height: 15px;
+  }
+
+  &.late:before {
+    bottom: 0;
+    height: 5px;
+  }
+
+  &.focus, &:focus, &:hover {
+    @include box-shadow($ci_darkgrey 0px 0px 20px 3px);
+
+    .team_name,
+    .employee_name {
+      background: #fff;
+    }
+  }
 }
 
 div[class*="team_"].scheduling,
 li[class*="team_"].scheduling {
   background: white;
+}
+
+
+table tbody tr {
+  .scheduling.early:before,
+  .scheduling.late:before {
+    @include background-image(linear-gradient(45deg, transparent 34%, white 34%, white 66%, transparent 66%), linear-gradient(315deg, transparent 34%, white 34%, white 66%, transparent 66%));
+  }
+}
+table tbody tr:nth-child(even) {
+  .scheduling.early:before,
+  .scheduling.late:before {
+    @include background-image(linear-gradient(45deg, transparent 34%, $ci_table_zebra 34%, $ci_table_zebra 66%, transparent 66%), linear-gradient(315deg, transparent 34%, $ci_table_zebra 34%, $ci_table_zebra 66%, transparent 66%));
+  }
 }
