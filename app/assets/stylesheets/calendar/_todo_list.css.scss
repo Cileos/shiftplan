@@ -46,7 +46,7 @@ $todolist_border_color: $ci_gray;
   .employee_name,
   .due_on,
   .description {
-    font-size: 11px;
+    font-size: $ci_small-font;
   }
 
   .employee_name {

@@ -4,14 +4,14 @@ $ci_border-radius: .35em;
 $ci_font-size: 13px;
 $ci_header-size: 20px;
 $ci_line-height: 1.5;
-$ci_scale: 1.25; // Major third scale
-$ci_smaller-font: ceil(modular-scale($ci_font-size, -2, $ci_scale));
-$ci_small-font: ceil(modular-scale($ci_font-size, -1, $ci_scale));
-$ci_large-font: floor(modular-scale($ci_font-size, 1, $ci_scale));
-$ci_big-font: floor(modular-scale($ci_font-size, 2, $ci_scale));
-$ci_bigger-font: floor(modular-scale($ci_font-size, 3, $ci_scale));
-$ci_biggest-font: floor(modular-scale($ci_font-size, 4, $ci_scale));
-$ci_huge-font: floor(modular-scale($ci_font-size, 5, $ci_scale));
+$ci_scale: 1.25; // Major third scale                                  // values with 13px basic size
+$ci_smaller-font: ceil(modular-scale($ci_font-size, -2, $ci_scale));   //  9px
+$ci_small-font: ceil(modular-scale($ci_font-size, -1, $ci_scale));     // 11px
+$ci_large-font: floor(modular-scale($ci_font-size, 1, $ci_scale));     // 16px
+$ci_big-font: floor(modular-scale($ci_font-size, 2, $ci_scale));       // 20px
+$ci_bigger-font: floor(modular-scale($ci_font-size, 3, $ci_scale));    // 25px
+$ci_biggest-font: floor(modular-scale($ci_font-size, 4, $ci_scale));   // 31px
+$ci_huge-font: floor(modular-scale($ci_font-size, 5, $ci_scale));      // 39px
 
 // Breakpoints go here
 $ci_break-tablet-portrait: 768px;
