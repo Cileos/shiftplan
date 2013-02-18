@@ -1,6 +1,6 @@
 = simple_form_for nested_resources_for(qualification), html: { class: 'form-horizontal' } do |f|
   .inputs.edit-team
-    = f.input :name
+    = f.input :name, autofocus: true
   .actions
     = f.responsive_submit_button do
       %i.icon-ok-circle.icon-white

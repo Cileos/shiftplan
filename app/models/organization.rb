@@ -4,7 +4,6 @@ class Organization < ActiveRecord::Base
   has_many   :employees,      through: :memberships, order: 'last_name ASC, first_name ASC'
   has_many   :plans
   has_many   :teams,          order: 'name ASC'
-  has_many   :qualifications, order: 'name ASC'
   has_many   :invitations
   has_many   :blogs
   has_many   :posts,      through: :blogs

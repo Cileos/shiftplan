@@ -45,7 +45,6 @@ Clockwork::Application.routes.draw do
         end
       end
       resources :teams
-      resources :qualifications
       resources :team_merges, only: [:new, :create], :controller => 'team_merges'
       resources :invitations
       resources :blogs do
@@ -58,6 +57,9 @@ Clockwork::Application.routes.draw do
         get 'week/teams' => 'shifts#teams_in_week', :as => 'teams_in_week'
       end
     end # organizations
+
+    resources :qualifications
+
   end # accounts
 
   resource :user, only: :show, controller: 'user'

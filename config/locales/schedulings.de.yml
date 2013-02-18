@@ -8,6 +8,7 @@ de:
           smaller_than_plan_start_time: "ist kleiner als die Startzeit des Plans"
     attributes:
       scheduling:
+        qualification: Qualifikation
         employee: Mitarbeiter
         day: Tag
         date: Wochentag

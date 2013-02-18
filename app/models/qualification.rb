@@ -1,7 +1,7 @@
 class Qualification < ActiveRecord::Base
-  belongs_to :organization
+  belongs_to :account
   has_many   :schedulings
 
-  validates :name, :organization, presence: true
-  validates_uniqueness_of :name, scope: :organization_id
+  validates :name, :account, presence: true
+  validates_uniqueness_of :name, scope: :account_id
 end
