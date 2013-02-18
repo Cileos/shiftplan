@@ -30,6 +30,14 @@ module Overnightable
     next_day || previous_day
   end
 
+  def pairing_id
+    if previous_day.present?
+      previous_day.id
+    elsif next_day.present?
+      id
+    end
+  end
+
   # We always edit the first day of an overnightable. This makes it necessary to
   # initialize the first day with the end_hour and end_minute of the next day.
   # You might need to call this in your controller in an before_filter for the edit action

@@ -201,6 +201,18 @@ describe Scheduling do
       nightwatch.end_hour.should == 24
     end
 
+    context "pairing_id" do
+      before(:each) { nightwatch.save! }
+
+      it "should equal id for the first part" do
+        nightwatch.pairing_id.should == nightwatch.id
+      end
+
+      it "should equal the id of the first part for the second part" do
+        nightwatch.next_day.pairing_id.should == nightwatch.id
+      end
+    end
+
     context "splitting the length in hours" do
       before(:each) { nightwatch.save! }
 

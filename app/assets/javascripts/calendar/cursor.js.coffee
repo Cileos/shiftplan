@@ -25,8 +25,15 @@ class CalendarCursor
 
     # call .trigger('focus') on a .scheduling to focus it externally
     @$calendar.on 'focus', '.scheduling', (event) => @focus $(event.target)
-    @$calendar.on 'mouseenter', '.scheduling, td:not( .scheduling)', (event) ->
-      cursor.focus($(this), null, false)
+    @$calendar.on 'mouseenter', '.scheduling, td', (event) ->
+      console.debug cursor.scrolling
+      unless cursor.scrolling
+        cursor.focus($(this), null, false)
+      false
+    @$calendar.on 'mouseleave', '.scheduling', (event) ->
+      unless cursor.scrolling
+        cursor.unfocus()
+        cursor.focus($(this).closest('td'), null, false)
       false
 
     # focus first calendar data cell which is not outside the plan period
@@ -54,15 +61,17 @@ class CalendarCursor
     if item_select? and $target.has(@items).length > 0
       $target = $target.find(@items)[item_select]()
     if $target.length > 0
-      @$calendar.find('.focus').removeClass('focus')
+      @unfocus()
       $target.closest('td').addClass('focus') unless $target.is('td')
       if pairing_id = $target.data('pairing')
         @$calendar.find("[data-pairing=#{pairing_id}]").addClass('focus')
       else
         $target.addClass('focus')
       if scroll
-        scroll_to($target)
+        @scroll_to($target)
 
+  unfocus: ->
+    @$calendar.find('.focus').removeClass('focus')
 
   refocus: ->
     if @$focussed_item? and @$focussed_item.length > 0
@@ -108,11 +117,13 @@ class CalendarCursor
     else
       true
 
-  scroll_to = (elem)->
+  scroll_to: (elem)->
+    @scrolling = true
     h = $(window).height() / 3
-    $('html, body').animate({
+    $('body').stop().animate(
         scrollTop: elem.offset().top - h
-    },200)
+    ,200, => @scrolling = false)
+
 
   # sets all the instance vars needed for navigation
   orientate: ->
