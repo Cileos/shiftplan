@@ -10,7 +10,7 @@
 
     %p= t('.instructions')
 
-    = simple_form_for @user, url: user_email_path do |f|
+    = simple_form_for @user, url: change_email_path do |f|
 
       .inputs
         = f.input :email, input_html: { class: 'mailcheck' }, required: true, autofocus: true

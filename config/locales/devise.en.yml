@@ -26,6 +26,7 @@ en:
       signed_out: 'Signed out successfully.'
     passwords:
       forgotten: "Forgot your password?"
+      reset_password: "Reset password"
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
       updated: 'Your password was changed successfully. You are now signed in.'
       updated_not_active: 'Your password was changed successfully.'
@@ -35,6 +36,8 @@ en:
       send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
       send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
       confirmed: 'Your account was successfully confirmed. You are now signed in.'
+      user:
+        send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
     registrations:
       signed_up: 'Welcome! You have signed up successfully.'
       inactive_signed_up: 'You have signed up successfully. However, we could not sign you in because your account is %{reason}.'
@@ -47,8 +50,9 @@ en:
     unlocks:
       not_received: "Didn't receive unlock instructions?"
       send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
-      unlocked: 'Your account was successfully unlocked. You are now signed in.'
+      unlocked: "Your account was successfully unlocked. Please sign in now. If you have forgotten your password, please click on 'Forgot your password?'"
       send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
+      unlock: 'Unlock account'
     omniauth_callbacks:
       success: 'Successfully authorized from %{kind} account.'
       failure: 'Could not authorize you from %{kind} because "%{reason}".'

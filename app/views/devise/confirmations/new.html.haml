@@ -1,8 +1,10 @@
-%h2 Resend confirmation instructions
+- title t('devise.confirmations.resend_instructions')
 = simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
   = f.error_notification
   .inputs
     = f.input :email, :required => true
   .actions
-    = f.button :submit, "Resend confirmation instructions"
-= render "links"
+    = f.button :submit, t('devise.confirmations.resend_instructions')
+
+.additional-actions
+  = render "links"

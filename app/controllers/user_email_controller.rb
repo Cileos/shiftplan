@@ -8,7 +8,7 @@ class UserEmailController < InheritedResources::Base
     update! do |success, failure|
       success.html do
         set_flash :notice
-        redirect_to user_email_path
+        redirect_to change_email_path
       end
       failure.html do
         set_flash :alert
@@ -37,7 +37,7 @@ class UserEmailController < InheritedResources::Base
   def check_for_same_email
     if params[:user][:email] == resource.email
       set_flash :alert, :same_email, email: params[:user][:email]
-      redirect_to user_email_path
+      redirect_to change_email_path
     end
   end
 end

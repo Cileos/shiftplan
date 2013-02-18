@@ -19,13 +19,18 @@ de:
       signed_in: 'Erfolgreich eingeloggt.'
       signed_out: 'Erfolgreich ausgeloggt.'
     passwords:
+      change: "Passwort ändern"
       forgotten: "Passwort vergessen?"
+      reset_password: "Passwort zurückzusetzen"
       send_instructions: 'Du wirst in ein paar Minuten eine E-Mail erhalten, um Dein Passwort zurückzusetzen.'
       updated: 'Dein Passwort wurde erfolgreich geändert - Du bist nun angemeldet.'
     confirmations:
       not_received: "Bestätigung nicht erhalten?"
+      resend_instructions: 'Bestätigung erneut verschicken'
       confirmed: 'Sie haben erfolgreich Ihren Accout bestätigt und sind nun eingeloggt.'
       updated: 'Deine E-Mail-Adresse wurde erfolgreich geändert - Du bist nun angemeldet.'
+      user:
+        send_instructions: 'Wir haben Ihnen erneut eine Bestätigungsmail zugeschickt. Bitte schauen Sie in Ihr E-Mail Postfach.'
     registrations:
       signed_up_but_unconfirmed: 'Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen.'
       signed_up_but_inactive: 'Du hast Dich erfolgreich registriert. Jemand muss Dich noch aktivieren.'
@@ -35,11 +40,12 @@ de:
     unlocks:
       not_received: "E-Mail zum Entsperren nicht erhalten?"
       send_instructions: 'Du wirst in ein paar Minuten eine E-Mail erhalten, um Dein Konto zu entsperren..'
-      unlocked: 'Dein Konto wurde erfolgreich entsperrt. Du bist nun angemeldet.'
+      unlocked: "Ihr Konto wurde erfolgreich entsperrt. Bitten loggen Sie sich nun ein. Falls Sie Ihr Passwort vergessen haben, klicken Sie bitte auf 'Passwort vergessen?'."
+      unlock: 'Account entsperren'
     mailer:
       confirmation_instructions:
         subject: 'E-Mail-Adresse bestätigen'
       reset_password_instructions:
         subject: 'Passwort zurücksetzen'
       unlock_instructions:
-        subject: 'Konto entsperren'
+        subject: 'Account entsperren'
