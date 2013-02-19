@@ -1,6 +1,6 @@
 %ul
   - shifts.each do |shift|
-    %li.scheduling{class: shift.css_class, data: shift.metadata}
+    %li.shift.scheduling{class: shift.css_class, data: shift.metadata}
       = abbr_tag shift.period, shift.period_with_duration, class: 'work_time ' + shift.css_class
       %ul.demands
         - shift.demands_sorted_by_qualification_name.each do |demand|
