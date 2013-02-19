@@ -69,4 +69,4 @@ Feature: Creating shifts for plan templates
      Then I should see the following calendar:
         | Teams                  | Mo  | Di                                 | Mi                                 | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |                                    |                                    |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 22:00-23:59 2 x Brennstabpolierer  | 00:00-06:00 2 x Brennstabpolierer  |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 22:00-24:00 2 x Brennstabpolierer  | 00:00-06:00 2 x Brennstabpolierer  |     |     |     |     |

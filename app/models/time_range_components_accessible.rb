@@ -70,7 +70,11 @@ module TimeRangeComponentsAccessible
       @date = @start_hour = @start_minute = nil
     end
     if [date, @end_hour].all?(&:present?)
-      self.ends_at = date + @end_hour.hours + end_minute.minutes
+      if @end_hour == 0 || @end_hour == 24
+        self.ends_at = date.end_of_day
+      else
+        self.ends_at = date + @end_hour.hours + end_minute.minutes
+      end
 
       # reset
       @date = @end_hour = @end_minute = nil
