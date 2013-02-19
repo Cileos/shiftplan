@@ -114,6 +114,7 @@ Feature: Detect duplicate Employee
       # check box "Trotzdem speichern?" not checked(raised error)
      Then I should see "Duplikate gefunden" within the modal box
      When I check "Trotzdem speichern?"
+      And I press "Speichern"
       And I wait for the modal box to disappear
 
      Then I should be on the employees page for the organization "fukushima"
