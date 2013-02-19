@@ -37,7 +37,7 @@ Feature: Applying Weekbased Plan Templates to Plans
       And a membership exists with organization: the organization, employee: the employee
 
       And I go to the teams in week page of the plan for cwyear: 2012, week: 49
-      And I follow "Planvorlage anwenden"
+      And I choose "Planvorlage anwenden" from the drop down "Weitere Aktionen"
       And I wait for the modal box to appear
       And I select "Typische Woche" from "Planvorlage"
       And I press "Anwenden"
@@ -62,7 +62,7 @@ Feature: Applying Weekbased Plan Templates to Plans
   Scenario: Applying a weekbased plan template to a plan in 2013, check week offset problem in 2013
     Given today is 2013-02-06
       And I go to the teams in week page of the plan for cwyear: 2013, week: 6
-      And I follow "Planvorlage anwenden"
+      And I choose "Planvorlage anwenden" from the drop down "Weitere Aktionen"
       And I wait for the modal box to appear
       And I select "Typische Woche" from "Planvorlage"
       And I press "Anwenden"
@@ -75,7 +75,7 @@ Feature: Applying Weekbased Plan Templates to Plans
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
     When I follow ">"
     Then I should be on the teams in week page of the plan for cwyear: 2013, week: 7
-     And I follow "Übernahme aus der letzten Woche"
+     And I choose "Übernahme aus der letzten Woche" from the drop down "Weitere Aktionen"
      And I select "KW 06 04.02.2013" from "Von"
      And I press "Übernehmen"
     Then I should be on the teams in week page of the plan for cwyear: 2013, week: 7
@@ -91,7 +91,7 @@ Feature: Applying Weekbased Plan Templates to Plans
       And a plan exists with starts_at: "2012-12-04", ends_at: "2012-12-05", organization: the organization
 
       And I go to the teams in week page of the plan for cwyear: 2012, week: 49
-      And I follow "Planvorlage anwenden"
+      And I choose "Planvorlage anwenden" from the drop down "Weitere Aktionen"
       And I wait for the modal box to appear
       And I select "Typische Woche" from "Planvorlage"
       And I press "Anwenden"
