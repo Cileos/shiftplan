@@ -10,9 +10,8 @@ module OvernightableDecoratorHelper
     h.url_for([:edit] + h.nested_resources_for(record_or_previous_day_record))
   end
 
-
   def metadata
-    super.merge(edit_url: edit_url_for_overnightable)
+    super.merge(edit_url: edit_url_for_overnightable, pairing: pairing_id)
   end
 
   def nightshift_class
