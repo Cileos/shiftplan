@@ -35,6 +35,12 @@ GIT
     notes (0.1.1)
       paint (>= 0.8.4)
 
+GIT
+  remote: git@github.com:rwrede/nested_form.git
+  revision: 5c78a4137124defa96aa65470c6095707d218488
+  specs:
+    nested_form (0.3.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -235,7 +241,6 @@ GEM
     mini_magick (3.4)
       subexec (~> 0.2.1)
     multi_json (1.6.1)
-    nested_form (0.3.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -415,7 +420,7 @@ DEPENDENCIES
   libnotify
   meta_request
   mini_magick
-  nested_form
+  nested_form!
   notes!
   pg
   pickle

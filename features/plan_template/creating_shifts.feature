@@ -1,5 +1,3 @@
-@wip
-@minutes
 @javascript
 Feature: Creating shifts for plan templates
   As a planner
@@ -29,9 +27,9 @@ Feature: Creating shifts for plan templates
 
   Scenario: Creating shifts for a plan template
     Given the following qualifications exist:
-        | qualification      | name               | organization      |
-        | Brennstabpolierer  | Brennstabpolierer  | the organization  |
-        | Brennstabexperte   | Brennstabexperte   | the organization  |
+        | qualification      | name               | account      |
+        | Brennstabpolierer  | Brennstabpolierer  | the account  |
+        | Brennstabexperte   | Brennstabexperte   | the account  |
 
      When I go to the teams in week page for the plan template
       And I click on cell "Di"/"Druckwasserreaktor(D)"
@@ -39,9 +37,7 @@ Feature: Creating shifts for plan templates
      Then the selected "Team" should be "Druckwasserreaktor"
       And the selected "Tag" should be "Di"
      When I select "9" from "Startstunde"
-      And I select "15" from "Startminute"
       And I select "17" from "Endstunde"
-      And I select "45" from "Endminute"
       And I fill in "Anzahl" with "2"
       And I select "Brennstabpolierer" from "Qualifikation"
       And I follow "Anforderung hinzufügen"
@@ -52,13 +48,13 @@ Feature: Creating shifts for plan templates
       And I should see the following calendar:
         | Teams                  | Mo  | Di                                     | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |                                        |     |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 09:15-17:45 3 x 2 x Brennstabpolierer  |     |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 09:00-17:00 3 x 2 x Brennstabpolierer  |     |     |     |     |     |
 
   Scenario: Creating overnight shifts for a plan template
     Given the following qualifications exist:
-        | qualification      | name               | organization      |
-        | Brennstabpolierer  | Brennstabpolierer  | the organization  |
-        | Brennstabexperte   | Brennstabexperte   | the organization  |
+        | qualification      | name               | account      |
+        | Brennstabpolierer  | Brennstabpolierer  | the account  |
+        | Brennstabexperte   | Brennstabexperte   | the account  |
 
      When I go to the teams in week page for the plan template
       And I click on cell "Di"/"Druckwasserreaktor(D)"
