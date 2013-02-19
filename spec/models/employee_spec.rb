@@ -63,7 +63,7 @@ describe Employee do
     end
 
     context "for non blank employee" do
-      let(:employee) { build :employee, first_name: 'Helmut', last_name: '', account: account, force_create_duplicate: false }
+      let(:employee) { build :employee, first_name: 'Helmut', last_name: 'Kohl', account: account, force_create_duplicate: false }
 
       it "has enough details" do
         employee.should be_sufficient_details_to_search_duplicates
@@ -74,6 +74,10 @@ describe Employee do
 
         it "should find them" do
           employee.duplicates.should include(duplicate)
+        end
+
+        it "should not find itself" do
+          duplicate.duplicates.should be_empty
         end
 
         it "should have errors" do

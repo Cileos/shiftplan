@@ -34,6 +34,7 @@ class Employee < ActiveRecord::Base
   validates_length_of :duplicates, is: 0, on: :create,
     if: Proc.new { |e| e.sufficient_details_to_search_duplicates? and !e.force_create_duplicate? }
 
+  before_validation :reset_duplicates
   after_create :create_membership
 
   def self.order_by_names
@@ -65,7 +66,7 @@ class Employee < ActiveRecord::Base
   end
 
   def duplicates_search
-    @duplicates_search ||= EmployeeSearch.for_employee(self)
+    @duplicates_search ||= EmployeeSearch.duplicates_for_employee(self)
   end
 
   def sufficient_details_to_search_duplicates?
@@ -101,12 +102,24 @@ class Employee < ActiveRecord::Base
     force_create_duplicate.in?(['1', 1, true])
   end
 
+  def to_s
+    %Q~<Employee #{id || 'new'} #{name.inspect} (#{role || 'employee'}) [#{account.try(:name)}]>~
+  end
+
+  def inspect
+    to_s
+  end
+
   private
 
   def create_membership
     if organization_id
       memberships.create!(organization_id: organization_id)
     end
+  end
+
+  def reset_duplicates
+    @duplicates_search = @duplicates = nil
   end
 end
 

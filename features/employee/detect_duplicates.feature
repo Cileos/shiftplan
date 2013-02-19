@@ -1,4 +1,4 @@
-Feature: Create Duplicate Employee
+Feature: Detect duplicate Employee
   As a planner
   to avoid the creation of possible duplicate employees
   I want to see a warning
@@ -91,3 +91,13 @@ Feature: Create Duplicate Employee
         | ist bereits Mitglied  | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
       And I should see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
       And the adopt employee button should be disabled
+
+
+  @javascript
+  Scenario: generate duplicate by editing existing employee
+    Given an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account
+      And the employee "homer" is a member in the organization "fukushima"
+      And I am on the employees page for the organization "fukushima"
+     When I follow "Simpson, Homer" within the employees table
+      And I wait for the modal box to appear
+     Then I should not see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
