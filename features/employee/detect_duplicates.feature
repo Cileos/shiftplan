@@ -95,9 +95,27 @@ Feature: Detect duplicate Employee
 
   @javascript
   Scenario: generate duplicate by editing existing employee
-    Given an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account
+    Given an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account, weekly_working_time: 33
       And the employee "homer" is a member in the organization "fukushima"
       And I am on the employees page for the organization "fukushima"
      When I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
      Then I should not see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
+
+     When I fill in the following:
+       | Vorname  | Heinz |
+       | Nachname | Meier |
+      And I press "Speichern"
+      And I wait for the spinner to disappear
+
+     Then I should see "Duplikate gefunden" within the modal box
+      And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account." within the modal box
+     When I check "Trotzdem speichern?"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+
+     Then I should be on the employees page for the organization "fukushima"
+      And I should see the following table of employees:
+        | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
+        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | Meier, Heinz  | 33   |                           | Noch nicht eingeladen  | Fukushima               |

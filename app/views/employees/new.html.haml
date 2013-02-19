@@ -7,7 +7,7 @@
 
 .row.two-columns.inverted
   .primary
-    = render 'form', employee: resource
+    = render 'form', employee: resource.decorate
 
     - if resource.sufficient_details_to_search_duplicates?
       = render('duplication_warning', duplicate_employees: resource.duplicates)
