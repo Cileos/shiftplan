@@ -251,6 +251,17 @@ small {
     display: inline;
     float: right;
     padding: 0;
+
+    white-space: nowrap;
+
+    > ul,
+    .button-group + .button {
+      float: left;
+    }
+
+    .dropdown {
+      margin: .6em 1.5em .35em;
+    }
   }
 
   ul, form, form div {
@@ -262,7 +273,7 @@ small {
     margin-right: 5px;
     float: none;
 
-    &:last-child {
+    &:not(.dropdown):last-child {
       margin-right: 0;
     }
   }

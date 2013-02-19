@@ -33,10 +33,11 @@ Feature: Creating schedulings in a plan with time period
         | Lenny L      |                          |              |     |     |     |     |     |
         | Homer S      |                          |              |     |     |     |     |     |
 
-      And I inject style "position:relative" into "header"
      # check if scheduling is still displayed after revisiting the page
-     When I follow "<" within the toolbar
-     When I follow ">" within the toolbar
+     When I inject style "position:relative" into "header"
+      And I follow "<" within the toolbar
+     When I inject style "position:relative" into "header"
+      And I follow ">" within the toolbar
      Then I should see the following calendar:
         | Mitarbeiter  | Mo                       | Di           | Mi  | Do  | Fr  | Sa  | So  |
         | Carl C       | 09:00-17:00 22:00-23:59  | 00:00-06:00  |     |     |     |     |     |
