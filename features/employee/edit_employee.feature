@@ -14,7 +14,7 @@ Feature: Edit Employee
         | Simpson, Homer  | 40   |         | Noch nicht eingeladen  |
 
   Scenario: Editing an employee
-    Given I follow "Simpson, Homer" within the employees table
+     When I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
       And I fill in the following:
         | Nachname | Simpson-Carlson |

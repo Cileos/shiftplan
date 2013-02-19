@@ -8,6 +8,8 @@ class EmployeeDecorator < RecordDecorator
       'span#avatar_and_name'
     when :employee_row
       "tr#employee_#{resource.id}"
+    when :edit_employee_form
+      'form.edit_employee'
     else
       super
     end
@@ -15,7 +17,7 @@ class EmployeeDecorator < RecordDecorator
 
   def respond
     unless errors.empty?
-      prepend_errors_for(resource)
+      select(:edit_employee_form).replace_with h.render('form', employee: self)
     else
       hide_modal
       update_employees
@@ -23,7 +25,6 @@ class EmployeeDecorator < RecordDecorator
         h.current_employee.reload
         update_avatar_and_name
       end
-      update_flash
       scroll_to
       highlight
     end

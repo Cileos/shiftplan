@@ -11,9 +11,9 @@ class Employee < ActiveRecord::Base
                   :organization_id,
                   :account_id,
                   :role,
-                  :force_create_duplicate
+                  :force_duplicate
   attr_accessor :organization_id,
-                :force_create_duplicate
+                :force_duplicate
 
   validates_presence_of :first_name, :last_name
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
@@ -31,9 +31,10 @@ class Employee < ActiveRecord::Base
 
   validates_presence_of :account_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
-  validates_length_of :duplicates, is: 0, on: :create,
-    if: Proc.new { |e| e.sufficient_details_to_search_duplicates? and !e.force_create_duplicate? }
+  validates_length_of :duplicates, is: 0,
+    if: Proc.new { |e| e.sufficient_details_to_search_duplicates? and !e.force_duplicate? }
 
+  before_validation :reset_duplicates
   after_create :create_membership
 
   def self.order_by_names
@@ -65,7 +66,7 @@ class Employee < ActiveRecord::Base
   end
 
   def duplicates_search
-    @duplicates_search ||= EmployeeSearch.for_employee(self)
+    @duplicates_search ||= EmployeeSearch.duplicates_for_employee(self)
   end
 
   def sufficient_details_to_search_duplicates?
@@ -97,8 +98,16 @@ class Employee < ActiveRecord::Base
     pure.blank?? nil : pure.to_i
   end
 
-  def force_create_duplicate?
-    force_create_duplicate.in?(['1', 1, true])
+  def force_duplicate?
+    force_duplicate.in?(['1', 1, true])
+  end
+
+  def to_s
+    %Q~<Employee #{id || 'new'} #{name.inspect} (#{role || 'employee'}) [#{account.try(:name)}]>~
+  end
+
+  def inspect
+    to_s
   end
 
   private
@@ -107,6 +116,10 @@ class Employee < ActiveRecord::Base
     if organization_id
       memberships.create!(organization_id: organization_id)
     end
+  end
+
+  def reset_duplicates
+    @duplicates_search = @duplicates = nil
   end
 end
 
