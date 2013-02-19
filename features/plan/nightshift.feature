@@ -11,7 +11,7 @@ Feature: Nightshift
         | Mitarbeiter  | Mo  | Di  | Mi  | Do              | Fr              | Sa  | So  |
         | Carl C       |     |     |     |                 |                 |     |     |
         | Lenny L      |     |     |     |                 |                 |     |     |
-        | Homer S      |     |     |     | 19:00-23:59 Dd  | 00:00-06:00 Dd  |     |     |
+        | Homer S      |     |     |     | 19:00-24:00 Dd  | 00:00-06:00 Dd  |     |     |
       And the employee "Homer S" should have a yellow hours/waz value of "11 / 40"
 
      When I click on scheduling "00:00-06:00"
@@ -19,12 +19,12 @@ Feature: Nightshift
      Then I should see the following calendar:
         | Mitarbeiter  | Mo  | Di  | Mi  | Do              | Fr              | Sa  | So  |
         | Carl C       |     |     |     |                 |                 |     |     |
-        | Lenny L      |     |     |     | 20:00-23:59 Kh  | 00:00-05:00 Kh  |     |     |
+        | Lenny L      |     |     |     | 20:00-24:00 Kh  | 00:00-05:00 Kh  |     |     |
         | Homer S      |     |     |     |                 |                 |     |     |
       And the employee "Homer S" should have a yellow hours/waz value of "0 / 40"
       And the employee "Lenny L" should have a grey hours/waz value of "9"
 
-     When I click on scheduling "20:00-23:59"
+     When I click on scheduling "20:00-24:00"
       And I wait for the modal box to appear
       And I select "Mittwoch" from "Wochentag"
       And I press "Speichern"
@@ -33,6 +33,6 @@ Feature: Nightshift
      Then I should see the following calendar:
         | Mitarbeiter | Mo | Di | Mi             | Do             | Fr | Sa | So |
         | Carl C      |    |    |                |                |    |    |    |
-        | Lenny L     |    |    | 20:00-23:59 Kh | 00:00-05:00 Kh |    |    |    |
+        | Lenny L     |    |    | 20:00-24:00 Kh | 00:00-05:00 Kh |    |    |    |
         | Homer S     |    |    |                |                |    |    |    |
       And the employee "Lenny L" should have a grey hours/waz value of "9"
