@@ -26,7 +26,6 @@ class CalendarCursor
     # call .trigger('focus') on a .scheduling to focus it externally
     @$calendar.on 'focus', @items, (event) => @focus $(event.target)
     @$calendar.on 'mouseenter', @items, (event) ->
-      console.debug cursor.scrolling
       unless cursor.scrolling
         cursor.focus($(this), null, false)
       false
