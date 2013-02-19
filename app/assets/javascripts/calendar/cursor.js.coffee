@@ -24,20 +24,20 @@ class CalendarCursor
     @$calendar.on 'update', => @refocus()
 
     # call .trigger('focus') on a .scheduling to focus it externally
-    @$calendar.on 'focus', '.scheduling', (event) => @focus $(event.target)
-    @$calendar.on 'mouseenter', '.scheduling, td', (event) ->
+    @$calendar.on 'focus', @items, (event) => @focus $(event.target)
+    @$calendar.on 'mouseenter', @items, (event) ->
       console.debug cursor.scrolling
       unless cursor.scrolling
         cursor.focus($(this), null, false)
       false
-    @$calendar.on 'mouseleave', '.scheduling', (event) ->
+    @$calendar.on 'mouseleave', @items, (event) ->
       unless cursor.scrolling
         cursor.unfocus()
         cursor.focus($(this).closest('td'), null, false)
       false
 
     # focus first calendar data cell which is not outside the plan period
-    @focus @$body().find('tr:nth-child(1) td:not(.outside_plan_period):first')
+    @focus @$body().find("tr:nth-child(1) #{@tds}:first")
 
     @enable()
 
