@@ -40,7 +40,7 @@ class Plan < ActiveRecord::Base
     0
   end
   def end_hour
-    23
+    24
   end
   def hour_range
     (start_hour .. end_hour)

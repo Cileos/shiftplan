@@ -29,7 +29,7 @@ Feature: Creating schedulings in a plan with time period
      And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Mitarbeiter  | Mo                       | Di           | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       | 09:00-17:00 22:00-23:59  | 00:00-06:00  |     |     |     |     |     |
+        | Carl C       | 09:00-17:00 22:00-24:00  | 00:00-06:00  |     |     |     |     |     |
         | Lenny L      |                          |              |     |     |     |     |     |
         | Homer S      |                          |              |     |     |     |     |     |
 
@@ -40,15 +40,15 @@ Feature: Creating schedulings in a plan with time period
       And I follow ">" within the toolbar
      Then I should see the following calendar:
         | Mitarbeiter  | Mo                       | Di           | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       | 09:00-17:00 22:00-23:59  | 00:00-06:00  |     |     |     |     |     |
+        | Carl C       | 09:00-17:00 22:00-24:00  | 00:00-06:00  |     |     |     |     |     |
         | Lenny L      |                          |              |     |     |     |     |     |
         | Homer S      |                          |              |     |     |     |     |     |
 
 
   # When creating schedulings with an hour range over midnight and turn of year (special case)
-  # we have to make sure that for both schedulings that will be created (1st 22:00-23:59, 2nd 0:00-6:00)
+  # we have to make sure that for both schedulings that will be created (1st 22:00-24:00, 2nd 0:00-6:00)
   # the year and week will be set the right way. In the case of Sunday, 2012-01-01
-  # 22:00-23:59 the year must be set to 2011 and the week to the calendar week 52 as Jan
+  # 22:00-24:00 the year must be set to 2011 and the week to the calendar week 52 as Jan
   # 1st 2012 belongs to the last week in 2011. Otherwise the scheduling filter will not
   # fetch the scheduling when visiting the page for week 52, year 2011.
   # For the second scheduling (0:00-6:00 2012-01-02) the week must be set to 1 and year to
@@ -68,7 +68,7 @@ Feature: Creating schedulings in a plan with time period
       And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So           |
-        | Carl C       |     |     |     |     |     |     | 22:00-23:59  |
+        | Carl C       |     |     |     |     |     |     | 22:00-24:00  |
         | Lenny L      |     |     |     |     |     |     |              |
         | Homer S      |     |     |     |     |     |     |              |
       And I inject style "position:relative" into "header"
@@ -84,7 +84,7 @@ Feature: Creating schedulings in a plan with time period
      When I follow "<"
      Then I should see the following calendar:
         | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So           |
-        | Carl C       |     |     |     |     |     |     | 22:00-23:59  |
+        | Carl C       |     |     |     |     |     |     | 22:00-24:00  |
         | Lenny L      |     |     |     |     |     |     |              |
         | Homer S      |     |     |     |     |     |     |              |
 

@@ -16,7 +16,7 @@ module TimePeriodFormatter
   end
 
   def formatted_end_time
-    formatted_time(ends_at.hour, ends_at.min)
+    formatted_time(end_hour, end_minute)
   end
 
   def formatted_time(hour, minute)
