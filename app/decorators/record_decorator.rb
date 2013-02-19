@@ -21,6 +21,12 @@ class RecordDecorator < ApplicationDecorator
     {}
   end
 
+  def error_messages
+    unless errors.empty?
+      errors_for(source)
+    end
+  end
+
 
   private
 

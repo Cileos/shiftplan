@@ -14,6 +14,14 @@ de:
         organization: Organisation
         role: Rolle
         force_create_duplicate: "Trotzdem anlegen?"
+        force_update_duplicate: "Trotzdem speichern?"
+        duplicates: 'Duplikate'
+    errors:
+      models:
+        employee:
+          attributes:
+            duplicates:
+              wrong_length: 'gefunden'
   simple_form:
     placeholders:
       employee:

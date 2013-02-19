@@ -1,8 +1,11 @@
 - if employee.new_record?
   - employee.weekly_working_time = 40
 
-= simple_form_for([current_account, current_organization, employee], remote: params[:action] == 'edit',
+
+= simple_form_for([current_account, current_organization, employee], remote: employee.persisted? == true,
   html: { class: 'form-horizontal edit_employee' }) do |f|
+
+  = employee.error_messages
 
   - employee.organization_id = current_organization.id
   - employee.account_id = current_account.id
@@ -26,10 +29,10 @@
     = f.input :organization_id, as: :hidden
     = f.input :account_id, as: :hidden
 
-    - if resource.sufficient_details_to_search_duplicates? and employee.duplicates.present?
+    - if f.object.sufficient_details_to_search_duplicates? and employee.duplicates.present?
       %p= t('employees.new.duplicates_found')
       %p= t('employees.new.duplication_warning')
-      = f.input :force_create_duplicate, as: :boolean
+      = f.input :force_duplicate, as: :boolean, label: Employee.human_attribute_name( f.object.new_record?? :force_create_duplicate : :force_update_duplicate)
 
   .actions
     - if employee.new_record?
