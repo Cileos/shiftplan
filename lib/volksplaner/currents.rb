@@ -33,6 +33,8 @@ module Volksplaner::Currents
         possibilities.first
       end
     end
+  rescue ActiveRecord::RecordNotFound => e
+    return nil
   end
 
   def current_account
