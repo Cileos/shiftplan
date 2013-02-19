@@ -110,8 +110,10 @@ Feature: Detect duplicate Employee
 
      Then I should see "Duplikate gefunden" within the modal box
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account." within the modal box
-     When I check "Trotzdem speichern?"
       And I press "Speichern"
+      # check box "Trotzdem speichern?" not checked(raised error)
+     Then I should see "Duplikate gefunden" within the modal box
+     When I check "Trotzdem speichern?"
       And I wait for the modal box to disappear
 
      Then I should be on the employees page for the organization "fukushima"

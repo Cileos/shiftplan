@@ -25,7 +25,6 @@ class EmployeeDecorator < RecordDecorator
         h.current_employee.reload
         update_avatar_and_name
       end
-      update_flash
       scroll_to
       highlight
     end

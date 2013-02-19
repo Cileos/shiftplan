@@ -1,10 +1,11 @@
 - if employee.new_record?
   - employee.weekly_working_time = 40
 
-= employee.error_messages
 
-= simple_form_for([current_account, current_organization, employee], remote: params[:action] == 'edit',
+= simple_form_for([current_account, current_organization, employee], remote: employee.persisted? == true,
   html: { class: 'form-horizontal edit_employee' }) do |f|
+
+  = employee.error_messages
 
   - employee.organization_id = current_organization.id
   - employee.account_id = current_account.id
