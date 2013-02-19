@@ -1,13 +1,14 @@
 class Organization < ActiveRecord::Base
   belongs_to :account
-  belongs_to :planner,    class_name: 'User'
-  has_many   :employees,  through: :memberships, order: 'last_name ASC, first_name ASC'
+  belongs_to :planner,        class_name: 'User'
+  has_many   :employees,      through: :memberships, order: 'last_name ASC, first_name ASC'
   has_many   :plans
-  has_many   :teams,      order: 'name ASC'
+  has_many   :teams,          order: 'name ASC'
   has_many   :invitations
   has_many   :blogs
   has_many   :posts,      through: :blogs
   has_many   :memberships
+  has_many   :plan_templates
 
   validates_presence_of :name
 
@@ -50,5 +51,9 @@ class Organization < ActiveRecord::Base
 
   def name_with_account
     account.name + " - " + name
+  end
+
+  def to_s
+    inspect
   end
 end

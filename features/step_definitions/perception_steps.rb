@@ -5,7 +5,7 @@ Then /^I should (see|not see) (?:an? )?(?:flash )?(flash|info|alert|notice) "([^
   if see_or_not =~ /not/
     step %Q{I should #{see_or_not} "#{message}"}
   else
-    step %Q{I should #{see_or_not} "#{message}" within ".flash.alert-#{severity}"}
+    step %Q{I should #{see_or_not} "#{message}" within ".flash.#{severity}"}
   end
 end
 
@@ -103,7 +103,7 @@ end
 Then /^I (should|should not) be authorized to access the page$/ do |or_not|
   message = "Sie sind nicht berechtigt, auf diese Seite zuzugreifen."
   if or_not.include?('not')
-    step %~I should be on the homepage~
+    step %~I should be on the dashboard~
     step %Q~I should see flash alert "#{message}"~
   else
     step %Q~I should not see flash "#{message}"~

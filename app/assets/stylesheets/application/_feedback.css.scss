@@ -1,8 +1,8 @@
 .feedback-without-screenshot {
     @include transition(all 0.25s);
-    @include border-radius($ci_border_radius $ci_border_radius 0 0);
     @include box-shadow(rgba(0, 0, 0, 0.296875) 0px 0px 5px);
 
+    border-radius: $ci_border-radius $ci_border-radius 0 0;
     position: fixed;
     bottom: -7px;
     right: 0;

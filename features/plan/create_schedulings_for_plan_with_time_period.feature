@@ -8,28 +8,8 @@ Feature: Creating schedulings in a plan with time period
 
 
   Scenario: schedulings within the plan's time period can be created
-    Given I am on the page for the organization "Reactor"
-     When I choose "Alle Pläne" from the drop down "Pläne"
-      And I follow "Hinzufügen"
-      And I wait for the modal box to appear
-      And I fill in "Name" with "Halloween im Atomkraftwerk"
-      # sunday
-     When I fill in "Startdatum" with "2012-01-01"
-      # tuesday
-      And I fill in "Enddatum" with "2012-01-03"
-      And I close all datepickers
-      And I press "Anlegen"
-      And I wait for the modal box to disappear
-     Then I should see the following table of plans:
-        | Name                        | Beschreibung  | Startdatum  | Enddatum    |
-        | Cleaning the Reactor        |               | -           | -           |
-        | Halloween im Atomkraftwerk  |               | 01.01.2012  | 03.01.2012  |
-      And a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
-
-     When I follow "Halloween im Atomkraftwerk"
-     # as today is after the plan period end the user gets redirected to the last week
-     # view of the plan period (week 1, year 2012)
-     Then I should be on the employees in week page for the plan for week: 1, year: 2012
+    Given a plan exists with organization: organization "Reactor", name: "Halloween im Atomkraftwerk", starts_at: "2012-01-01", ends_at: "2012-01-03"
+      And I am on the employees in week page for the plan for week: 1, cwyear: 2012
 
      When I click on cell "Mo"/"Carl C"
       And I wait for the new scheduling form to appear
@@ -37,10 +17,10 @@ Feature: Creating schedulings in a plan with time period
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Mitarbeiter  | Mo   | Di  | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       | 9-17 |     |     |     |     |     |     |
-        | Lenny L      |      |     |     |     |     |     |     |
-        | Homer S      |      |     |     |     |     |     |     |
+        | Mitarbeiter  | Mo           | Di  | Mi  | Do  | Fr  | Sa  | So  |
+        | Carl C       | 09:00-17:00  |     |     |     |     |     |     |
+        | Lenny L      |              |     |     |     |     |     |     |
+        | Homer S      |              |     |     |     |     |     |     |
 
     When I click on cell "Mo"/"Carl C"
      And I wait for the new scheduling form to appear
@@ -48,19 +28,21 @@ Feature: Creating schedulings in a plan with time period
      And I press "Anlegen"
      And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Mitarbeiter  | Mo          | Di   | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       | 9-17 22-24  | 0-6  |     |     |     |     |     |
-        | Lenny L      |             |      |     |     |     |     |     |
-        | Homer S      |             |      |     |     |     |     |     |
+        | Mitarbeiter  | Mo                       | Di           | Mi  | Do  | Fr  | Sa  | So  |
+        | Carl C       | 09:00-17:00 22:00-23:59  | 00:00-06:00  |     |     |     |     |     |
+        | Lenny L      |                          |              |     |     |     |     |     |
+        | Homer S      |                          |              |     |     |     |     |     |
 
      # check if scheduling is still displayed after revisiting the page
-     When I follow "<" within the toolbar
-     When I follow ">" within the toolbar
+     When I inject style "position:relative" into "header"
+      And I follow "<" within the toolbar
+     When I inject style "position:relative" into "header"
+      And I follow ">" within the toolbar
      Then I should see the following calendar:
-        | Mitarbeiter  | Mo          | Di   | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       | 9-17 22-24  | 0-6  |     |     |     |     |     |
-        | Lenny L      |             |      |     |     |     |     |     |
-        | Homer S      |             |      |     |     |     |     |     |
+        | Mitarbeiter  | Mo                       | Di           | Mi  | Do  | Fr  | Sa  | So  |
+        | Carl C       | 09:00-17:00 22:00-23:59  | 00:00-06:00  |     |     |     |     |     |
+        | Lenny L      |                          |              |     |     |     |     |     |
+        | Homer S      |                          |              |     |     |     |     |     |
 
 
   # When creating schedulings with an hour range over midnight and turn of year (special case)
@@ -76,32 +58,35 @@ Feature: Creating schedulings in a plan with time period
     # 2012-01-02: monday
     Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
       And I go to the page of the plan
-     Then I should be on the employees in week page for the plan for week: 1, year: 2012
-     When I follow "<"
+     Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
+     When I inject style "position:relative" into "header"
+      And I follow "<"
       And I click on cell "So"/"Carl C"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So      |
-        | Carl C       |     |     |     |     |     |     | 22-24   |
-        | Lenny L      |     |     |     |     |     |     |         |
-        | Homer S      |     |     |     |     |     |     |         |
+        | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So           |
+        | Carl C       |     |     |     |     |     |     | 22:00-23:59  |
+        | Lenny L      |     |     |     |     |     |     |              |
+        | Homer S      |     |     |     |     |     |     |              |
+      And I inject style "position:relative" into "header"
      When I follow ">"
      Then I should see the following calendar:
-        | Mitarbeiter  | Mo     | Di  | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       | 0-6    |     |     |     |     |     |     |
-        | Lenny L      |        |     |     |     |     |     |     |
-        | Homer S      |        |     |     |     |     |     |     |
+        | Mitarbeiter  | Mo           | Di  | Mi  | Do  | Fr  | Sa  | So  |
+        | Carl C       | 00:00-06:00  |     |     |     |     |     |     |
+        | Lenny L      |              |     |     |     |     |     |     |
+        | Homer S      |              |     |     |     |     |     |     |
      # go back to first page to really make sure that scheduling filter will fetch
      # the scheduling so that it will be displayed in the calendar week.
+      And I inject style "position:relative" into "header"
      When I follow "<"
      Then I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So      |
-        | Carl C       |     |     |     |     |     |     | 22-24   |
-        | Lenny L      |     |     |     |     |     |     |         |
-        | Homer S      |     |     |     |     |     |     |         |
+        | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So           |
+        | Carl C       |     |     |     |     |     |     | 22:00-23:59  |
+        | Lenny L      |     |     |     |     |     |     |              |
+        | Homer S      |     |     |     |     |     |     |              |
 
 
   # Show appropriate error message when user tries to create a scheduling with an hour
@@ -114,14 +99,14 @@ Feature: Creating schedulings in a plan with time period
     # 2012-01-02: monday
     Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
       And I go to the page of the plan
-     Then I should be on the employees in week page for the plan for week: 1, year: 2012
+     Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
      When I click on cell "Mo"/"Carl C"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
 
-     Then I should see "Die Endzeit ist größer als die Endzeit des Plans."
+     Then I should see "Der nächste Tag endet nach der Endzeit des Plans."
       And I should see the following calendar:
         | Mitarbeiter  | Mo   | Di  | Mi  | Do  | Fr  | Sa  | So  |
         | Carl C       |      |     |     |     |     |     |     |
@@ -135,7 +120,7 @@ Feature: Creating schedulings in a plan with time period
     # 2012-01-02: monday
     Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
       And I go to the page of the plan
-     Then I should be on the employees in week page for the plan for week: 1, year: 2012
+     Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
       When I click on cell "Mo"/"Carl C"
       Then the new scheduling form should appear
@@ -144,10 +129,11 @@ Feature: Creating schedulings in a plan with time period
       When I click on cell "Di"/"Carl C"
       Then the new scheduling form should not appear
 
+       And I inject style "position:relative" into "header"
       When I follow "<" within the toolbar
       # in germany, the week with january 4th is the first calendar week
       # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
-      Then I should be on the employees in week page for the plan for week: 52, year: 2011
+      Then I should be on the employees in week page for the plan for week: 52, cwyear: 2011
 
       When I click on cell "So"/"Carl C"
       Then the new scheduling form should appear
@@ -163,7 +149,7 @@ Feature: Creating schedulings in a plan with time period
        # 2012-01-02: monday
        And a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
        And I go to the page of the plan
-      Then I should be on the employees in week page for the plan for week: 1, year: 2012
+      Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
       When I choose "Teams" from the drop down "Mitarbeiter" within the calendar
 
@@ -181,7 +167,7 @@ Feature: Creating schedulings in a plan with time period
      # 2012-01-02: monday
      Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-02", organization: the organization
        And I go to the page of the plan
-      Then I should be on the employees in week page for the plan for week: 1, year: 2012
+      Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
       When I choose "Stunden" from the drop down "Mitarbeiter" within the calendar
 
@@ -198,7 +184,7 @@ Feature: Creating schedulings in a plan with time period
      # 2012-01-03: tuesday
      Given a plan exists with starts_at: "2012-01-01", ends_at: "2012-01-03", organization: the organization
        And I go to the page of the plan
-      Then I should be on the employees in week page for the plan for week: 1, year: 2012
+      Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
       When I click on cell "Mo"/"Carl C"
       Then the new scheduling form should appear
@@ -207,6 +193,7 @@ Feature: Creating schedulings in a plan with time period
         | Dienstag    |
        And I close the modal box
 
+       And I inject style "position:relative" into "header"
       When I follow "<"
        And I click on cell "So"/"Carl C"
       Then the new scheduling form should appear
@@ -214,6 +201,7 @@ Feature: Creating schedulings in a plan with time period
         | Sonntag     |
        And I close the modal box
 
+       And I inject style "position:relative" into "header"
       When I follow "Neue Terminierung"
       Then the new scheduling form should appear
        And the select field for "Wochentag" should have the following options:

@@ -16,7 +16,7 @@ abbr {
   cursor: help;
 }
 
-a {
+a, a.link, .link {
   @include transition(color .25s ease);
 
   color: $ci_blue;
@@ -209,14 +209,8 @@ small {
 
   text-align: center;
 
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  li {
-    display: inline;
+  span {
+    display: inline-block;
     margin-right: 5px;
   }
 
@@ -231,14 +225,11 @@ small {
     }
   }
 
-  .active a {
+  .current {
+    padding: 3px 5px;
     color: $ci_blue;
     border-bottom: 2px solid $ci_blue;
     font-weight: bold;
-
-    &:hover {
-      color: #fff;
-    }
   }
 }
 
@@ -260,6 +251,17 @@ small {
     display: inline;
     float: right;
     padding: 0;
+
+    white-space: nowrap;
+
+    > ul,
+    .button-group + .button {
+      float: left;
+    }
+
+    .dropdown {
+      margin: .6em 1.5em .35em;
+    }
   }
 
   ul, form, form div {
@@ -271,7 +273,7 @@ small {
     margin-right: 5px;
     float: none;
 
-    &:last-child {
+    &:not(.dropdown):last-child {
       margin-right: 0;
     }
   }
@@ -287,9 +289,9 @@ small {
   }
 
   a {
-    @include border-radius(20px);
     @include transition(background .5s $ci_easing);
 
+    border-radius: 20px;
     padding: 4px 10px;
   }
 
@@ -337,9 +339,9 @@ small {
 }
 
 .pibble {
-  @include border-radius(9px);
   @include box-shadow(white 1px 1px 5px inset);
 
+  border-radius: 9px;
   display: inline-block;
   height: 13px;
   width:  13px;
@@ -383,8 +385,7 @@ small {
 }
 
 .utility-button.toggle-sidebars {
-  @include border-radius(0);
-
+  border-radius: 0;
   position: absolute;
   z-index: 1;
   top: 48px;

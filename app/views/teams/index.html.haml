@@ -15,10 +15,10 @@
       - unless collection.empty?
         = render 'table', teams: collection
       - else
-        %p= t(:'.no_teams')
+        %p= t(:'teams.no_teams_present')
 
   .secondary.instructions
-    - if can? :create, Employee
+    - if can? :create, Team
       = tt '.planner_instructions'
     - else
       = tt '.instructions'

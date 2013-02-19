@@ -2,7 +2,7 @@ Given /^#{capture_model} was scheduled in #{capture_model} as following:$/ do |e
   employee = model!(employee)
   plan     = model!(plan)
   table.hashes.each do |line|
-    FactoryGirl.create(:scheduling, {plan: plan, employee: employee, year: nil, week: nil, starts_at: nil, ends_at: nil, date: nil}.merge(line))
+    FactoryGirl.create(:scheduling, {plan: plan, employee: employee, starts_at: nil, ends_at: nil, date: nil}.merge(line))
   end
 end
 

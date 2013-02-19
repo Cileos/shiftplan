@@ -4,7 +4,7 @@ FactoryGirl.define do
     sequence(:first_name) { |i| "Bart #{i.ordinalize}" } # should be #romanize (Bart the III.)
     last_name 'Simpson'
     role ''
-    force_create_duplicate "1"
+    force_duplicate "1"
 
     factory :employee_planner do
       role 'planner'

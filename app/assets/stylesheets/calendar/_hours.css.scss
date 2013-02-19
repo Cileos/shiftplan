@@ -71,7 +71,7 @@ table.hours-in-week {
         opacity: 0.9;
       }
 
-      @for $hour from 1 to 23 {
+      @for $hour from 1 to 24 {
         &[data-start="#{$hour}"] {
           top: $row_height * $hour + 1px;
         }

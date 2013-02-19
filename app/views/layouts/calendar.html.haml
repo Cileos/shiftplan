@@ -6,7 +6,6 @@
     = render 'layouts/top'
 
     %section{:role => 'content', :class => content_class(2) + ' inverted has-calendar'}
-      = render 'flash'
 
       #sidebar.secondary
         = collapsible(t('schedulings.information'), id: 'calendar-information', class: 'calendar-information') do
@@ -26,6 +25,8 @@
 
 
       .primary
+        = render 'flash'
+
         %header.masterhead
           %h2#title.calendar-caption= filter.plan.name
           %nav{role: 'toolbar'}

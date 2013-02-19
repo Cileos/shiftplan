@@ -1,6 +1,7 @@
 jQuery(document).ready ->
   return if $('#page #calendar').length == 0
 
+  # FIXME extract into template, use i18n
   $('#actions').append('<div class="btn-group pull-right"><div id="calendar_detail_level" class="js_button btn btn-inverse detail_level" title="Detail Level umstellen"><i class="icon-th-list icon-white"></i></div><div id="max_min_calendar" class="js_button btn btn-inverse expandable" title="Maximieren/Minimieren"><i class="icon-resize-full icon-white"></i></div></div>')
 
   page = $('#page')

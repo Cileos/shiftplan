@@ -1,0 +1,45 @@
+- if shift.new_record?
+  - shift.start_hour = 8
+  - shift.end_hour   = 16
+- url = nested_resources_for(shift)
+
+= simple_nested_form_for shift, url: url,
+  remote: true, html: { class: 'form-horizontal' } do |f|
+  .inputs.new-shift-form
+    -# TODO re-enable minute inputs when @minutes are supported by Schedulings
+    .weekday-and-time
+      = f.input :day,          collection: days_for_select, include_blank: false, input_html: { tabindex: 5 }
+      = f.input :start_hour,   collection: 0..23, include_blank: false, input_html: { tabindex: 1 }
+      -# f.input :start_minute, collection: [0,15,30,45], include_blank: false, input_html: { tabindex: 2 }
+      = f.hidden_field :start_minute, value: 0
+      = f.input :end_hour,     collection: 0..24, include_blank: false, input_html: { tabindex: 3 }
+      -# f.input :end_minute,   collection: [0,15,30,45], include_blank: false, input_html: { tabindex: 4 }
+      = f.hidden_field :end_minute, value: 0
+
+    = f.association :team,   collection: shift.plan_template.organization.teams, include_blank: false, input_html: { tabindex: 6 }
+
+    .qualification-fields
+
+      %h4= ta(:demands)
+
+      - if current_account.qualifications.present?
+        = f.simple_fields_for :demands do |df|
+          = df.input :quantity, input_html: { tabindex: 7 }
+          = df.association :qualification, collection: current_account.qualifications,
+            input_html: { tabindex: 8, :class => 'qualification-select' }
+          = df.link_to_remove ta(:destroy), class: 'button button-warning button-small'
+
+        = f.link_to_add ta(:add_demand), :demands, class: 'button',
+          model_object: shift.source.demands.new(quantity: 1), data: { icon: i(:add) }
+
+      - else
+        %p= t(:'qualifications.no_qualifications_present')
+        %p
+          = t(:'qualifications.goto_qualifications')
+          = link_to ta(:qualifications), [current_account, :qualifications], :class => 'link'
+
+  .actions
+    - if create_or_update == :update
+      = link_to ti(:destroy), url, remote: true, method: :delete, class: 'button button-warning delete'
+    = f.responsive_submit_button tabindex: 9 do
+      = ta create_or_update

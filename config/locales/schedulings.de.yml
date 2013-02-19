@@ -3,15 +3,20 @@ de:
     errors:
       models:
         scheduling:
-          next_day_outside_plan_period: "Die Endzeit ist größer als die Endzeit des Plans."
+          next_day_outside_plan_period: "Der nächste Tag endet nach der Endzeit des Plans."
           greater_than_plan_end_time: "ist größer als die Endzeit des Plans"
           smaller_than_plan_start_time: "ist kleiner als die Startzeit des Plans"
     attributes:
       scheduling:
+        qualification: Qualifikation
         employee: Mitarbeiter
         day: Tag
         date: Wochentag
         quickie: Quickie
+        start_hour: Startstunde
+        start_minute: Startminute
+        end_hour: Endstunde
+        end_minute: Endminute
         starts_at: Startzeit
         ends_at: Endzeit
   simple_form:

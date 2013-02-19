@@ -16,7 +16,7 @@ function run_suite () {
       ;;
     jasmine)
       header "Jasmine"
-      xvfb-run bundle exec guard-jasmine
+      xvfb-run --auto-servernum bundle exec guard-jasmine
       ;;
     cucumber)
       header "Cucumber (non-javascript)"
@@ -38,7 +38,7 @@ function run_suite () {
       # skipping Firefox because travis kills (it)
       # "firefox"
       # re-enable "jasmine" when phantomjs is installed
-      run_suites "rspec" "cucumber" "chrome"
+      run_suites "rspec" "jasmine" "cucumber" "chrome"
   esac
 }
 

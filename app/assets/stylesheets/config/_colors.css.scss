@@ -43,8 +43,7 @@ $gradient_1: #ececec;
 $gradient_2: #F0F4F8;
 
 .colors li {
-  @include border-radius($ci_border-radius);
-
+  border-radius: $ci_border-radius;
   margin-bottom: 5px;
   width: 250px;
   display: block;

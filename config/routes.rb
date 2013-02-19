@@ -17,10 +17,10 @@ Clockwork::Application.routes.draw do
         end
 
         # The names should correspond with the controller actions and modes of the SchedulingFilter
-        scope constraints: { week: /\d{1,2}/, year: /\d{4}/ } do
-          get 'week/employees/:year/:week' => 'schedulings#employees_in_week', :as => 'employees_in_week'
-          get 'week/teams/:year/:week' => 'schedulings#teams_in_week', :as => 'teams_in_week'
-          get 'week/hours/:year/:week' => 'schedulings#hours_in_week', :as => 'hours_in_week'
+        scope constraints: { week: /\d{1,2}/, cwyear: /\d{4}/ } do
+          get 'week/employees/:cwyear/:week' => 'schedulings#employees_in_week', :as => 'employees_in_week'
+          get 'week/teams/:cwyear/:week' => 'schedulings#teams_in_week', :as => 'teams_in_week'
+          get 'week/hours/:cwyear/:week' => 'schedulings#hours_in_week', :as => 'hours_in_week'
         end
 
         scope constraints: { year: /\d{4}/, month: /\d{1,2}/, day: /\d{1,2}/ } do
@@ -28,6 +28,7 @@ Clockwork::Application.routes.draw do
         end
 
         resource :copy_week, only: [:new, :create], controller: :copy_week
+        resource :apply_plan_template, only: [:new, :create], controller: :apply_plan_template
 
         resources :milestones
         # TODO nest tasks under milestones, EmberData cannot do this 2012-09-11
@@ -51,15 +52,26 @@ Clockwork::Application.routes.draw do
           resources :comments, only: [:create, :destroy], controller: 'post_comments'
         end
       end
-
+      resources :plan_templates do
+        resources :shifts
+        get 'week/teams' => 'shifts#teams_in_week', :as => 'teams_in_week'
+      end
     end # organizations
+
+    resources :qualifications
+
   end # accounts
 
   resource :user, only: :show, controller: 'user'
-  get 'user/email'  => 'user_email#show', :as => :user_email
-  put 'user/email'  => 'user_email#update'
-  get 'user/password'  => 'user_password#show', :as => :user_password
-  put 'user/password'  => 'user_password#update'
+
+  # For changing password when being signed in. Use named route 'change_password' to not
+  # conflict with devise's named route helper 'user_password'.
+  scope '/user', as: 'change' do
+    get  'password'  => 'user_password#show'
+    put  'password'  => 'user_password#update'
+    get  'email'     => 'user_email#show'
+    put  'email'     => 'user_email#update'
+  end
 
   resource :feedback, only: [:new, :create], :controller => 'feedback'
   scope 'profile', as: 'profile' do

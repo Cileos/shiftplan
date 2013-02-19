@@ -1,4 +1,4 @@
-class EmployeeDecorator < ApplicationDecorator
+class EmployeeDecorator < RecordDecorator
   include EmployeeBaseDecorator
   decorates :employee
 
@@ -8,6 +8,8 @@ class EmployeeDecorator < ApplicationDecorator
       'span#avatar_and_name'
     when :employee_row
       "tr#employee_#{resource.id}"
+    when :edit_employee_form
+      'form.edit_employee'
     else
       super
     end
@@ -15,7 +17,7 @@ class EmployeeDecorator < ApplicationDecorator
 
   def respond
     unless errors.empty?
-      prepend_errors_for(resource)
+      select(:edit_employee_form).replace_with h.render('form', employee: self)
     else
       hide_modal
       update_employees

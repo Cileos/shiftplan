@@ -1,7 +1,15 @@
 # This decorator has multiple `modes` to act in. These correspond to the
 # different actions and views of the SchedulingsController.
 class SchedulingFilterDecorator < ApplicationDecorator
+  include ModeAwareness
+
   decorates :scheduling_filter
+
+  delegate_all
+
+  def self.supported_modes
+    [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
+  end
 
   # The title of the plan with range
   def caption
@@ -27,33 +35,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  Modes = [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
-
-  def mode
-    @mode ||= self.class.name.scan(/SchedulingFilter(.*)Decorator/).first.first.underscore
-  end
-
-  def mode?(query)
-    mode.include?(query)
-  end
-
-  def self.decorate(input, opts={})
-    mode = opts.delete(:mode) || opts.delete('mode')
-    if page = opts[:page]
-      mode ||= page.view.current_plan_mode
-    end
-    unless mode
-      raise ArgumentError, 'must give :mode in options'
-    end
-    unless mode.in?( Modes.map(&:to_s) )
-      raise ArgumentError, "mode is not supported: #{mode}"
-    end
-    "SchedulingFilter#{mode.classify}Decorator".constantize.new(input, opts)
-  end
-
-
   def filter
-    model
+    source
   end
 
   def table_metadata
@@ -118,6 +101,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
       '#legend'
     when :team_colors
       '#team_colors'
+    when :calendar
+      '#calendar'
     else
       super
     end
@@ -156,8 +141,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def teams
+  def teams_of_records
     records.map(&:team).compact.uniq.sort_by(&:name)
+  end
+
+  def teams
+    teams_of_records
   end
 
   def hours_for(employee)
@@ -178,18 +167,18 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # URI-Path to another week
   def path_to_week(date)
     raise(ArgumentError, "please give a date or datetime, got #{date.inspect}") unless date.acts_like?(:date) or date.acts_like?(:time)
-    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: date.year_for_cweek, week: date.cweek)
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, cwyear: date.cwyear, week: date.cweek)
   end
 
   def path_to_day(day)
-    raise(ArgumentError, "please give a date or datetime") unless week.acts_like?(:date)
+    raise(ArgumentError, "please give a date or datetime") unless day.acts_like?(:date)
     raise(ArgumentError, "can only link to day in day view") unless mode?('day')
     h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: day.year, month: day.month, day: day.day)
   end
 
   # URI-Path to another mode
   def path_to_mode(mode)
-    raise(ArgumentError, "unknown mode: #{mode}") unless mode.in?(Modes)
+    raise(ArgumentError, "unknown mode: #{mode}") unless mode.in?(SchedulingFilterDecorator.supported_modes)
     if mode =~ /week/
       # Array notation breaks on week-Fixnums
       h.plan_week_mode_path(plan, mode, monday)
@@ -215,38 +204,8 @@ class SchedulingFilterDecorator < ApplicationDecorator
     h.account_organization_plan_teams_in_day_path(h.current_account, h.current_organization, plan, day.year, day.month, day.day)
   end
 
-  # TODO hooks?
-  def respond(resource, action=:update)
-    if resource.errors.empty?
-      if action == :update
-        respond_for_update(resource)
-      else
-        respond_for_create(resource)
-      end
-      remove_modal
-      update_legend
-      update_team_colors
-      update_quickie_completions
-    else
-      prepend_errors_for(resource)
-    end
-  end
-
-  def respond_for_create(resource)
-    update_cell_for(resource)
-    if resource.next_day
-      update_cell_for(resource.next_day)
-    end
-    focus_element_for(resource)
-  end
-
-  def respond_for_update(resource)
-    update_cell_for(resource.with_previous_changes_undone)
-    respond_for_create(resource)
-  end
-
   def update_cell_for(scheduling)
-    update_wwt_diff_for(scheduling.employee)
+    update_wwt_diff_for(scheduling.employee) if scheduling.employee.present?
     select(:cell, scheduling).refresh_html cell_content(scheduling) || ''
   end
 
@@ -295,4 +254,18 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  def respond_specially(resource=nil)
+    update_legend
+    update_team_colors
+    update_quickie_completions
+    focus_element_for(resource) unless resource.destroyed?
+  end
+
+  # Refreshes the whole #calendar, very expensive in comparison to other RJS
+  # responses. Use with care.
+  # The container table#calendar should not be replaced itself, because all the
+  # behaviours are attached to it.
+  def refresh_calendar
+    select(:calendar).refresh_html h.render("schedulings/#{mode}", filter: self)
+  end
 end

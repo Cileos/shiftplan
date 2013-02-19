@@ -1,6 +1,6 @@
 class Feedback
   include ActiveAttr::Model
-  include Draper::ModelSupport
+  include Draper::Decoratable
 
   attribute :name, type: String
   attribute :email, type: String
@@ -16,7 +16,6 @@ class Feedback
   end
 
   def name_or_email
-    return name if name.present?
-    email
+    name.presence || email
   end
 end

@@ -1,9 +1,5 @@
 de:
   activerecord:
-    errors:
-      models:
-        employee:
-          duplicates_found: "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
     models:
       employee:
         one: "Mitarbeiter"
@@ -18,6 +14,14 @@ de:
         organization: Organisation
         role: Rolle
         force_create_duplicate: "Trotzdem anlegen?"
+        force_update_duplicate: "Trotzdem speichern?"
+        duplicates: 'Duplikate'
+    errors:
+      models:
+        employee:
+          attributes:
+            duplicates:
+              wrong_length: 'gefunden'
   simple_form:
     placeholders:
       employee:
@@ -84,6 +88,7 @@ de:
         dann die Möglichkeit Mitarbeiter, die bisher nur Mitglied in anderen Organisationen
         sind, zu dieser Organisation hinzuzufügen.
     new:
+      duplicates_found: "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       duplication_warning: "Achtung: Eventuell versuchen Sie gerade einen Mitarbeiter anzulegen, den es schon gibt. Weiter unten sehen Sie eine Liste von Mitarbeitern mit gleichem Namen, die Sie stattdessen zu dieser Organisation hinzufügen können, sofern diese nicht bereits Mitglied in dieser Organisation sind. Wenn Sie den Mitarbeiter trotzdem anlegen wollen, aktivieren Sie bitte die Checkbox \"Trotzdem anlegen\" und klicken erneut auf \"Speichern\"."
       following_duplicates_found: "Folgende Mitarbeiter mit gleichem Namen existieren in diesem Account."
       duplicates_are_all_members: "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."

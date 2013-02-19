@@ -41,8 +41,8 @@ shared_examples "an employee who cannot create, update and destroy employees" do
 end
 
 shared_examples "an employee who cannot read, update and create employees" do
-  it "should not be able to read, update and create other employees" do
-    [:read, :update, :create].each do |action|
+  [:read, :update, :create].each do |action|
+    it "should not be able to #{action} other employees" do
       should_not be_able_to(action, another_employee)
     end
   end
@@ -50,10 +50,10 @@ shared_examples "an employee who cannot read, update and create employees" do
   it_behaves_like "an employee who cannot create, update and destroy employees"
 end
 
-shared_examples "an employee who can read, update, create, adopt and search employees" do
+shared_examples "an employee who can read, update, create, adopt and search employees" do |allowed_actions|
+  allowed_actions ||= [:update, :create]
   context "for own accounts" do
     let(:another_employee) { build(:employee, account: nil) }
-    let(:allowed_actions)  { [:update, :create] }
 
     it "should be able to adopt employees" do
       should be_able_to :adopt, Employee
@@ -62,29 +62,27 @@ shared_examples "an employee who can read, update, create, adopt and search empl
       should be_able_to :search, Employee
     end
 
-    it "should be able to update and create employees without account and without organization" do
-      allowed_actions.each do |action|
+    allowed_actions.each do |action|
+      it "should be able to #{action} employees without account and without organization" do
         should be_able_to(action,   another_employee)
       end
     end
-    it "should be able to update and create employees without account and an organization of the planner/owner" do
-      another_employee.organization_id = organization.id
-      allowed_actions.each do |action|
+    allowed_actions.each do |action|
+      it "should be able to #{action} employees without account and an organization of the planner/owner" do
+        another_employee.organization_id = organization.id
         should be_able_to(action, another_employee )
       end
     end
-    it "should be able to read, update and create employees without organization and an account of the planner/owner" do
-      another_employee.account_id = account.id
-      allowed_actions << :read
-      allowed_actions.each do |action|
+    (allowed_actions + [:read]).each do |action|
+      it "should be able to #{action} employees without organization and an account of the planner/owner" do
+        another_employee.account_id = account.id
         should be_able_to(action, another_employee)
       end
     end
-    it "should be able to read, update and create employees with an account and organization of the planner/owner" do
-      another_employee.account_id = account.id
-      another_employee.organization_id = organization.id
-      allowed_actions << :read
-      allowed_actions.each do |action|
+    (allowed_actions + [:read]).each do |action|
+      it "should be able to #{action} employees with an account and organization of the planner/owner" do
+        another_employee.account_id = account.id
+        another_employee.organization_id = organization.id
         should be_able_to(action, another_employee)
       end
     end

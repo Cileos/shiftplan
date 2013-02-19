@@ -46,7 +46,7 @@ $row_height: 42px;
             border-style: solid;
             border-left-color: #c8c8c8;
             border-right-color: #c8c8c8;
-            @include border-radius(2px);
+            border-radius: 2px;
             .team_name, .work_time {
                 display: block;
                 padding: 0 3px;

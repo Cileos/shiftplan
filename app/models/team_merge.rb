@@ -1,5 +1,5 @@
 class TeamMerge
-  include Draper::ModelSupport
+  include Draper::Decoratable
   include ActiveAttr::Model
 
   attribute :team_id, type: Integer

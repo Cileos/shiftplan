@@ -1,4 +1,4 @@
-class FeedbackDecorator < ApplicationDecorator
+class FeedbackDecorator < RecordDecorator
   decorates :feedback
 
   def respond

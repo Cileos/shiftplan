@@ -9,6 +9,10 @@ module StringCaptureHelper
     /"([^"]+)"/
   end
 
+  def capture_quoted_with_empty
+    /"([^"]*)"/
+  end
+
   def capture_cell
     %r~(cell "[^"]+"/"[^"]+")~
   end

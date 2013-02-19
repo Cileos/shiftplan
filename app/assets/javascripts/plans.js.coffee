@@ -5,7 +5,6 @@ jQuery(document).ready ->
 
   $.fn.scrollTo = ->
     h = $(window).height() / 3
-    console.log h
     $('html, body').animate({
         scrollTop: $(this).offset().top - h
     },200)
@@ -22,13 +21,13 @@ jQuery(document).ready ->
     $hidden_mode = $("<input type='hidden' name='_clockwork_mode' value='#{$calendar.data('mode')}' />").addClass('_clockwork_mode')
 
     $('body').bind 'dialogopen', (event, ui) ->
-      $(event.target).find('form:not([data-remote]):not(:has(input._clockwork_mode))').append($hidden_mode)
+      $(event.target).find('form:not(:has(input._clockwork_mode))').append($hidden_mode)
 
     cursor = new CalendarCursor $calendar
 
     refresh_behaviour_of_cell = ->
       $cell = $(this)
-      $cell.find('li').each ->
+      $cell.find('li.scheduling').each ->
         $scheduling = $(this)
         $scheduling.find('a.comments:has(~ul.comments)').each ->
           $link = $(this)
@@ -40,5 +39,5 @@ jQuery(document).ready ->
     $calendar.on 'update', 'td', refresh_behaviour_of_cell
 
   $('nav a.new_scheduling').live 'ajax:success', ->
-    $('#modalbox input[name="scheduling[quickie]"]').edit_quickie()
+    Clockwork.SchedulingEditor.create element: $('#modalbox form:first')
     true

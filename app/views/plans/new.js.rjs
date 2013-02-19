@@ -1,4 +1,4 @@
 page.decorate @plan do |plan|
-  plan.append_modal body: render('form', plan: plan, update_or_create: :create),
+  plan.append_modal body: render('form', plan: plan),
     header: content_tag(:h3, ta(:'new_plan'))
 end

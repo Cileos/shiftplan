@@ -15,7 +15,7 @@ Feature: Create Employees
     Given I follow "Hinzufügen"
      Then I should be on the new employee page for the organization
       And the "Wochenarbeitszeit" field should contain "40"
-      And I fill in the following:
+     When I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30      |
@@ -37,7 +37,8 @@ Feature: Create Employees
   # The role owner can not be assigned to other employees
   @javascript
   Scenario: Trying to create an owner
-    Given I follow "Hinzufügen"
+    Given I inject style "position:relative" into "header"
+      And I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
@@ -50,7 +51,8 @@ Feature: Create Employees
 
   @javascript
   Scenario: Creating a planner
-    Given I follow "Hinzufügen"
+    Given I inject style "position:relative" into "header"
+      And I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
@@ -72,26 +74,8 @@ Feature: Create Employees
        | Name           | WAZ  |  E-Mail  | Rolle | Status                 |
        | Carlson, Carl  | 40   |          | keine | Noch nicht eingeladen  |
 
-  Scenario: Trying to create an employee without a first name
-     When I follow "Hinzufügen"
-     Then the "Wochenarbeitszeit" field should contain "40"
-      And I fill in the following:
-        | Nachname          | Carlson |
-      And I press "Anlegen"
-     Then I should see "muss ausgefüllt werden"
-      And I should see "Mitarbeiter konnte nicht angelegt werden."
-
-  Scenario: Trying to create an employee without a last name
-     When I follow "Hinzufügen"
-     Then the "Wochenarbeitszeit" field should contain "40"
-      And I fill in the following:
-        | Vorname           | Carl    |
-      And I press "Anlegen"
-     Then I should see "muss ausgefüllt werden"
-      And I should see "Mitarbeiter konnte nicht angelegt werden."
-
   Scenario: Creating an employee without a weekly working time
-     When I follow "Hinzufügen"
+    Given I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |

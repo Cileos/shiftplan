@@ -15,4 +15,4 @@ Feature: Authentication
       And I fill in "Passwort" with "secret"
       And I press "Einloggen"
      # redirected to initially requested page
-     Then I should be on the employees in week page of the plan for year: 2011, week: 48
+     Then I should be on the employees in week page of the plan for cwyear: 2011, week: 48

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Factory do
+describe 'Factory' do
 
   FactoryGirl.factories.each do |factory|
-    context "Factory #{factory.name}" do
+    context "for #{factory.name}" do
       it "should build valid record" do
         build(factory.name).should be_valid
       end
