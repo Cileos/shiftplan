@@ -86,8 +86,8 @@ Feature: Applying Weekbased Plan Templates to Plans
 
 
   Scenario: Applying a weekbased plan template to a plan with a plan period
-    Given today is 2012-12-04
-      # plan starts on tuesday and ends on wednesday
+    Given today is 2013-02-19
+      # plan starts on tuesday and ends on wednesday, week 49
       And a plan exists with starts_at: "2012-12-04", ends_at: "2012-12-05", organization: the organization
 
       And I go to the teams in week page of the plan for cwyear: 2012, week: 49

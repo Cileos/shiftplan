@@ -2,18 +2,18 @@
 Feature: Plan a week
 
   Background:
-    Given today is 2012-12-04
+    Given today is 2013-02-19
       And the situation of a nuclear reactor
 
 
   # TODO do not copy schedulings of deactivated employee
   Scenario: copy from last week
     Given the employee "Homer" was scheduled in the plan as following:
-        | week | cwday | quickie |
-        | 48   | 1     | 5-7     |
-        | 49   | 2     | 10-11   |
-        | 49   | 3     | 11-12   |
-        | 49   | 4     | 12-13   |
+      | year  | week | cwday | quickie |
+      | 2012  | 48   | 1     | 5-7     |
+      | 2012  | 49   | 2     | 10-11   |
+      | 2012  | 49   | 3     | 11-12   |
+      | 2012  | 49   | 4     | 12-13   |
       And I am on the employees in week page of the plan for week: 50, cwyear: 2012
      When I inject style "position:relative" into "header"
       And I choose "Übernahme aus der letzten Woche" from the drop down "Weitere Aktionen"
