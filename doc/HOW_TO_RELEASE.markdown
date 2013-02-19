@@ -29,7 +29,7 @@
 7. Create a new release with an incremented version number. Increment the highest tag
    number you get from 'git tag'(see 5.) after you have updated the tags by
    'git fetch --tags'(see 4.). Compare this version number with the current version in the
-    CHANGELOG.
+    CHANGELOG and VERSION files.
 
    $ git flow release start <new-version-nummer>
    e.g.
