@@ -19,8 +19,9 @@ Feature: Signing in
       And the situation of a nuclear reactor
 
   @javascript
-  Scenario: Session times out on HTML pages
-    Given the employee "Homer" was scheduled in the plan as following:
+  Scenario Outline: Session times out on HTML pages
+    Given <scenario>
+      And the employee "Homer" was scheduled in the plan as following:
         | week | cwday | quickie             |
         | 49   | 1     | 9-17                |
       And I am on the employees in week page for the plan for week: 49, cwyear: 2012
@@ -29,11 +30,17 @@ Feature: Signing in
       And 2 hours pass
       And I press "Speichern"
      Then I should see flash alert "Deine Sitzung ist abgelaufen, bitte melde Dich neu an." within the modal box
-     When I fill in "E-Mail" with "homer@clockwork.local" within the modal box
+     When I fill in "E-Mail" with "<email>" within the modal box
       And I fill in "Passwort" with "secret" within the modal box
       And I press "Einloggen"
-     Then I should see "Erfolgreich eingeloggt."
-      And I should be on the employees in week page for the plan for week: 49, cwyear: 2012
+     Then I should see flash "<result>"
+      And I should be on <page>
+
+    Examples:
+       | scenario                                                    | email                 | result                                                  | page                                                               |
+       | nothing                                                     | burns@clockwork.local | Erfolgreich eingeloggt.                                 | the employees in week page for the plan for week: 49, cwyear: 2012 |
+       | nothing                                                     | homer@clockwork.local | Erfolgreich eingeloggt.                                 | the employees in week page for the plan for week: 49, cwyear: 2012 |
+       | a confirmed user exists with email: "peter@clockwork.local" | peter@clockwork.local | Sie sind nicht berechtigt, auf diese Seite zuzugreifen. | the dashboard                                                      |
 
 
   @javascript
