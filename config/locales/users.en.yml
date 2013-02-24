@@ -4,4 +4,4 @@ en:
       instructions: 'We need two things to change your e-mail address: your password and your new e-mail address.'
   user_password:
     show:
-      instructions: "It's very easy to change your password: enter your actual password once and the new one twice."
+      instructions: "It's very easy to change your password: enter your current password once and the new one twice."

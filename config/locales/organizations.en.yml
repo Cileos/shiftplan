@@ -3,7 +3,7 @@ en:
   notifications:
     caption: Notifications
     no_notifications_present: 'No notifications yet.'
-  upcoming_schedulings: Upcoming schedulings
+  upcoming_schedulings: Upcoming schedules
   activerecord:
     attributes:
       organization:

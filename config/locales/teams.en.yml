@@ -17,7 +17,7 @@ en:
   flash:
     team_merges:
       create:
-        notice: "Teams merged. Less colour mode activated."
+        notice: "Teams merged!"
 
   team_merges:
     new:
@@ -41,7 +41,7 @@ en:
         _Teams_ are helpful when distinguishing various jobs, activities or tasks.
 
 
-        To implicitly create a new team, whose names can be used when you create a new Scheduling used in a Plan.
+        To implicitly create a new team, whose names can be used when you create a new schedule used in a Plan.
 
         Example: @9-17 Preparing Ship@
 
