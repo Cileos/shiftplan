@@ -8,7 +8,8 @@
     = f.input :organization_name, required: true
     = f.input :first_name, required: true
     = f.input :last_name, required: true
-    = f.input :email, required: true, input_html: { class: 'mailcheck' }
+    = f.input :email, required: true, input_html: { class: 'mailcheck',
+      data: { :'mailcheck-hint' => t('hint.did_you_mean') } }
     = f.input :password, required: true
     = f.input :password_confirmation, required: true
 

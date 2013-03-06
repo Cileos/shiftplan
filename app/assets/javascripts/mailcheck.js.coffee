@@ -1,10 +1,13 @@
 jQuery(document).ready ->
 
   $('input.mailcheck').on 'blur', ->
+    mailcheck_hint = $(this).data('mailcheck-hint')
     $(this).mailcheck
       suggested: (element, suggestion) ->
         $('span.mailcheck-suggestion').remove()
-        $(element).parent().append "<span class='help-inline mailcheck-suggestion'><%= I18n.t('hint.did_you_mean')%> <a href='#'>" + suggestion.full + "</a>?</span>"
+        $(element).parent().append(
+          "<span class='help-inline mailcheck-suggestion'>" +
+            mailcheck_hint + " <a href='#'>" + suggestion.full + "</a>?</span>")
 
       empty: (element) ->
         $('span.mailcheck-suggestion').remove()
