@@ -9,7 +9,7 @@
         %th
           = abbr_tag(abbr, full, class: 'day_name')
           %div.date-without-year= date
-  %tbody
+  %tbody{ class: clickable_class }
     - filter.employees.each do |employee|
       %tr{data: { :'employee-id' => employee.id }}
         %th.employee
