@@ -13,7 +13,9 @@
     = simple_form_for @user, url: user_email_path do |f|
 
       .inputs
-        = f.input :email, input_html: { class: 'mailcheck' }, required: true, autofocus: true
+        = f.input :email, input_html: { class: 'mailcheck',
+          data: { :'mailcheck-hint' => t('hint.did_you_mean') } },
+          required: true, autofocus: true
         = f.input :current_password, required: true
 
       .actions
