@@ -2,38 +2,38 @@ en:
   activerecord:
     models:
       user:
-        one: "user"
+        one: "User"
         other: "%{count} users"
     attributes:
       user:
-        email: "email"
-        first_name: first name
-        last_name: surname
-        organization_name: Name of Organisation
-        account_name: Name of Account
-        name: "name"
-        locale: "language"
-        password: "password"
-        password_confirmation: "confirm password"
-        current_password: "current password"
-        full_name: "full name"
-        mobile_number: "mobile number"
-        remember_me: "stay signed in"
-        avatar: "profile picture"
+        email: "E-mail"
+        first_name: Name
+        last_name: Surname
+        organization_name: Unit name
+        account_name: Company name
+        name: "Name"
+        locale: "Language"
+        password: "Password"
+        password_confirmation: "Confirm password"
+        current_password: "Current password"
+        full_name: "Full name"
+        mobile_number: "Mobile number"
+        remember_me: "Remember me"
+        avatar: "Photo"
       plan:
-        name: name
-        week: week
-        month: month
+        name: Name
+        week: Week
+        month: Month
       comment:
-        body: comment
+        body: Comment
     values:
       plan:
         durations:
-          1_week: weekly
-          1_month: whole month
+          1_week: Weekly
+          1_month: Whole month
   activemodel:
     attributes:
       feedback:
-        body: 'problem description or suggest an improvement'
-        email: 'email'
-        name: name
+        body: 'Bugs, ideas, praise. Tell us!'
+        email: 'Your e-mail'
+        name: 'Your name'

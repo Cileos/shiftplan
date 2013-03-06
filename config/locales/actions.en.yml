@@ -1,8 +1,74 @@
 en:
   helpers:
     actions:
-      signin: Sign in
-      signin_with: "Sign in with %{provider}"
-      signout: Sign out
+      profile: Profile
+      settings: Preferences
+      dashboard: Dashboard
+      news: News
+      signin: Log in
+      signin_with: "Log in with %{provider}"
+      signout: Log out
       signup: Sign up
-      set_your_password: "Set password"
+      set_your_password: "Set your password"
+      employees: Employees
+      teams: Teams
+      add: Add
+      adopt: Import     
+      new_employee: "Create user"
+      add_employee: "Add employee"
+      add_organization: "Add Unit"
+      adopt_employee: "Import employee"
+      want_to_adopt: "Import this employee?"
+      adopt_employees: "Import employees"
+      new_team: "New team"
+      edit_team: "Edit team"
+      new_team_merge: "Merge teams"
+      edit_employee: "Edit employee"
+      plans: Plans
+      all_plans: "All plans"
+      all_posts: "All posts"
+      new_plan: "New plan"
+      edit_plan: "Edit plan"
+      new_scheduling: "New scheduling"
+      new_organization: "Create another Unit"
+      next: Next
+      create: Create
+      update: Update
+      hours: Hours
+      wwt_short: WWT
+      wwt_long: Weekly Working Time
+      close: '×'
+      edit: Edit
+      back: Go back
+      show: Show
+      destroy: Erase
+      invite: Invite
+      reinvite: Invite again
+      send_invitation: "Send invitation"
+      copy: "Copy"
+      copy_week: "Copy whole week"
+      comment: Comment
+      comments: Comments
+      reply: "Reply"
+      set_password: "Set password"
+      feedback_without_screenshot: "Tell us what you think!"
+      send: Send
+      confirm_email_change: "Confirm your e-mail change"
+      confirm: "Confirm"
+      change_email: "Change e-mail"
+      change_password: "Change password"
+      show_legend: "Legend"
+      show_legend_long: "Expand legend"
+      show_help: "Help"
+      show_help_long: "Expand help"
+  schedulings:
+    calendar_navigation:
+      day: "Day"
+      previous: '<'
+      today: "Today"
+      next: '>'
+    week_switch:
+      employees_in_week: "Employees"
+      teams_in_week: "Teams"
+      hours_in_week: "Hours"
+

@@ -1,56 +1,48 @@
-# Additional translations at http://github.com/plataformatec/devise/wiki/I18n
-
 en:
   errors:
     messages:
-      expired: "has expired, please request a new one"
-      not_found: "not found"
-      already_confirmed: "was already confirmed, please try signing in"
-      not_locked: "was not locked"
-      not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+      not_found: "Is not here."
+      already_confirmed: "You've already confirmed this."
+      not_locked: "Not locked"
 
   devise:
     failure:
-      already_authenticated: 'You are already signed in.'
-      unauthenticated: 'You need to sign in or sign up before continuing.'
-      unconfirmed: 'You have to confirm your account before continuing.'
-      locked: 'Your account is locked.'
-      invalid: 'Invalid email or password.'
-      invalid_token: 'Invalid authentication token.'
-      timeout: 'Your session expired, please sign in again to continue.'
-      inactive: 'Your account was not activated yet.'
+      unauthenticated: "Register or log in to continue."
+      unconfirmed: "Please confirm your e-mail address first."
+      already_authenticated: "Your account is already authenticated"
+      locked: "Your account is locked."
+      invalid: "Wrong e-mail or password."
+      invalid_token: "Aw! An invalid token."
+      timeout: "Your session has expired, please log in again."
+      inactive: "Your account hasn't been activated yet"
     sessions:
-      signed_in: 'Signed in successfully.'
-      signed_out: 'Signed out successfully.'
+      signed_in: "You've logged in. Welcome!"
+      signed_out: "You've logged out. Bye!"
     passwords:
       forgotten: "Forgot your password?"
       reset_password: "Reset password"
-      send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
-      updated: 'Your password was changed successfully. You are now signed in.'
+      send_instructions: "You will receive an e-mail with password reset instructions shortly."
+      updated: "Password changed - you're now logged in"
       updated_not_active: 'Your password was changed successfully.'
       send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
     confirmations:
-      not_received: "Didn't receive confirmation instructions?"
+      not_received: "I haven't received the confirmation e-mail."
       send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
       send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
-      confirmed: 'Your account was successfully confirmed. You are now signed in.'
+      confirmed: "Account confirmed - you're now logged in"
+      updated: "E-mail changed - you're now logged in"
       user:
         send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
     registrations:
-      signed_up: 'Welcome! You have signed up successfully.'
-      inactive_signed_up: 'You have signed up successfully. However, we could not sign you in because your account is %{reason}.'
-      updated: 'You updated your account successfully.'
-      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
-      reasons:
-        inactive: 'inactive'
-        unconfirmed: 'unconfirmed'
-        locked: 'locked'
+      signed_up_but_unconfirmed: "You've signed up, nice! Now all you need is to confirm your account - there should be an e-mail in your inbox."
+      signed_up_but_inactive: "You've signed up, great! Now someone has to activate your account."
+      signed_up_but_locked: "You've signed up, but your account is locked for now"
+      updated: "Profile updated."
+      destroyed: "Your account is no more. See you!"
     unlocks:
-      not_received: "Didn't receive unlock instructions?"
-      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
-      unlocked: "Your account was successfully unlocked. Please sign in now. If you have forgotten your password, please click on 'Forgot your password?'"
+      not_received: "I haven't received the unlock e-mail."
+      send_instructions: "You will receive an unlocking e-mail shortly."
+      unlocked: "Your account has been unlocked - you're now logged in."
       send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
       unlock: 'Unlock account'
     omniauth_callbacks:
@@ -58,8 +50,8 @@ en:
       failure: 'Could not authorize you from %{kind} because "%{reason}".'
     mailer:
       confirmation_instructions:
-        subject: 'Confirmation instructions'
+        subject: "Confirm your e-mail address."
       reset_password_instructions:
-        subject: 'Reset password instructions'
+        subject: "Password reset instructions."
       unlock_instructions:
-        subject: 'Unlock Instructions'
+        subject: "Account unlock instructions."

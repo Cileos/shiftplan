@@ -121,7 +121,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def wwt_diff_label_text_for(employee, opts={})
     if employee.weekly_working_time.present?
-      opts[:short].present? ? txt = '/' : txt = 'von'
+      opts[:short].present? ? txt = '/' : txt = 'of'
       "#{hours_for(employee)} #{txt} #{employee.weekly_working_time.to_i}"
     else
       "#{hours_for(employee)}"

@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    models:
+      milestone:
+        one: "Milestone"
+        other: "Milestones"

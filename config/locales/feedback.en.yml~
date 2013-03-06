@@ -1,0 +1,6 @@
+en: 
+  feedback: 
+    your_feedback: 'Your feedback' 
+    thank_you: 'That's awesome! Our engineers will look be with you shortly.' 
+    mailer: 
+      subject: "%{name} gave you some feedback. x" 
