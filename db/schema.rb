@@ -163,10 +163,8 @@ ActiveRecord::Schema.define(:version => 20130204150353) do
     t.integer  "employee_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
-    t.integer  "week",        :limit => 2
-    t.integer  "year"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "team_id"
     t.integer  "next_day_id"
   end
