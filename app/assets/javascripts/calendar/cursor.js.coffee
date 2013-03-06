@@ -39,7 +39,7 @@ class CalendarCursor
       false
 
     # focus first calendar data cell which is not outside the plan period
-    @focus @$body().find("tr:nth-child(1) #{@tds}:first")
+    @focus @$calendar.find("#{@tds}:first")
 
     @enable()
 
@@ -60,7 +60,7 @@ class CalendarCursor
   $body: -> @$calendar.find('tbody:first')
 
   focussed_cell: ->
-    @$body().find('td.focus')
+    @$calendar.find('td.focus')
 
   focus: ($target, item_select, scroll=true) ->
     if item_select? and $target.has(@items).length > 0
