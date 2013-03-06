@@ -15,6 +15,7 @@ Feature: Milestones and tasks for a plan
      | the plan | World Domination | 2012-12-31 |
      | the plan | Rest             |            |
     When I go to the page for the plan
+     And I wait for the spinner to disappear
     # TODO date should be formatted
     Then I should see a list of the following milestones:
      | name             | due_on     |

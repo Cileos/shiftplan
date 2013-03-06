@@ -1,0 +1,10 @@
+%p= "Hello #{@resource.email}!"
+
+%p= "Someone invited you on #{root_url}. You can accept your invitation by clicking on the following link:"
+
+%p= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token)
+
+- unless @resource.confirmed? && @resource.encrypted_password.present?
+  %p If you do not want to accept this invitation, please ignore this email. Your account will not be created as long as you do not accept this invitation and set your password.
+
+%p Your Clockwork team

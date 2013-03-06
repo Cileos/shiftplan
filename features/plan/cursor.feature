@@ -19,10 +19,10 @@ Feature: Plan cursor
       And I am signed in as the confirmed user "Burns"
       And I am on the page for the plan
       And I should see the following calendar:
-       | Mitarbeiter   | Mo | Di | Mi | Do               | Fr   | Sa | So |
-       | Carl C        |    |    |    |                  |      |    |    |
-       | Lenny L       |    |    |    |                  |      |    |    |
-       | Homer S       |    |    |    | 7-11 12-18 19-23 | 7-19 |    |    |
+       | Mitarbeiter  | Mo  | Di  | Mi  | Do                                   | Fr           | Sa  | So  |
+       | Carl C       |     |     |     |                                      |              |     |     |
+       | Lenny L      |     |     |     |                                      |              |     |     |
+       | Homer S      |     |     |     | 07:00-11:00 12:00-18:00 19:00-23:00  | 07:00-19:00  |     |     |
      Then the cell "Mo"/"Carl C" should be focus
 
      When I press arrow up
@@ -57,16 +57,16 @@ Feature: Plan cursor
      Then the cell "Do"/"Carl C" should be focus
      When I press arrow down 2 times
      Then the cell "Do"/"Homer S" should be focus
-      And the scheduling "7-11" should be focus within the cell "Do"/"Homer S"
+     And the scheduling "07:00-11:00" should be focus within the cell "Do"/"Homer S"
      When I press arrow down
      Then the cell "Do"/"Homer S" should be focus
-      And the scheduling "12-18" should be focus within the cell "Do"/"Homer S"
+     And the scheduling "12:00-18:00" should be focus within the cell "Do"/"Homer S"
      When I press arrow down
      Then the cell "Do"/"Homer S" should be focus
-      And the scheduling "19-23" should be focus within the cell "Do"/"Homer S"
+     And the scheduling "19:00-23:00" should be focus within the cell "Do"/"Homer S"
      When I press arrow up
      Then the cell "Do"/"Homer S" should be focus
-      And the scheduling "12-18" should be focus within the cell "Do"/"Homer S"
+     And the scheduling "12:00-18:00" should be focus within the cell "Do"/"Homer S"
      When I press arrow down 2 times
      Then the cell "Do"/"Carl C" should be focus
 
@@ -74,7 +74,7 @@ Feature: Plan cursor
      When I press arrow right
       And I press arrow down 2 times
      Then the cell "Fr"/"Homer S" should be focus
-      And the scheduling "7-19" should be focus within the cell "Fr"/"Homer S"
+     And the scheduling "07:00-19:00" should be focus within the cell "Fr"/"Homer S"
      When I press arrow down
      Then the cell "Fr"/"Carl C" should be focus
 
@@ -83,16 +83,16 @@ Feature: Plan cursor
       And I press arrow down 2 times
       And I press arrow left
      Then the cell "Fr"/"Homer S" should be focus
-      And the scheduling "7-19" should be focus within the cell "Fr"/"Homer S"
+     And the scheduling "07:00-19:00" should be focus within the cell "Fr"/"Homer S"
       And I press arrow left
      Then the cell "Do"/"Homer S" should be focus
-      And the scheduling "7-11" should be focus within the cell "Do"/"Homer S"
+     And the scheduling "07:00-11:00" should be focus within the cell "Do"/"Homer S"
      When I press arrow down
       And I press arrow left
       And I press arrow right
      # BUG vs FEATURE does not remember last active item
      Then the cell "Do"/"Homer S" should be focus
-      And the scheduling "7-11" should be focus within the cell "Do"/"Homer S"
+     And the scheduling "07:00-11:00" should be focus within the cell "Do"/"Homer S"
 
 
   # In reality, the first field in the modal box with be focussed

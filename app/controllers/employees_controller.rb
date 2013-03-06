@@ -10,12 +10,14 @@ class EmployeesController < InheritedResources::Base
   end
 
   def update
-    update! { edit_account_organization_employee_path(current_account, current_organization, current_employee) }
+    update! { account_organization_employees_path(current_account, current_organization) }
   end
 
   def search
   end
 
+  # OPTIMIZE this is loosely coupled with OrganizationsController#add_members
+  #          they should at least share a Controller, better a model, too
   def adopt
   end
 
@@ -40,10 +42,12 @@ class EmployeesController < InheritedResources::Base
     [permitted_employee_params]
   end
 
+  # OPTIMIZE please move to model and use the role param of update_attributes,
+  #          or another way of protecting attributes from within. see railscast 237
   def permitted_employee_params
     if params[:employee].present?
       allowed_params = [ :first_name, :last_name, :avatar, :avatar_cache,
-        :weekly_working_time, :account_id, :organization_id, :force_create_duplicate, :role ]
+        :weekly_working_time, :account_id, :organization_id, :force_duplicate, :role ]
       e = Employee.find_by_id(params[:id])
       if params[:employee][:role] == 'owner' || e.present? && !can?(:update_role, e)
         allowed_params = allowed_params.reject { |p| p == :role }

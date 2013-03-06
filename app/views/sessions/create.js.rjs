@@ -1,0 +1,4 @@
+page.decorate current_user do |user|
+  user.update_flash
+  user.remove_modal
+end

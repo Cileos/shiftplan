@@ -29,7 +29,7 @@
 7. Create a new release with an incremented version number. Increment the highest tag
    number you get from 'git tag'(see 5.) after you have updated the tags by
    'git fetch --tags'(see 4.). Compare this version number with the current version in the
-    CHANGELOG.
+    CHANGELOG and VERSION files.
 
    $ git flow release start <new-version-nummer>
    e.g.
@@ -94,15 +94,11 @@
     - Release branch 'release/1.0.13' has been deleted
 
 
-12. You should be on the master branch then. Push the master branch:
+12. You should be on the develop branch then. Push both the master and develop branches:
 
-    $ git push origin master
+    $ git push
 
-    Also push the develop branch:
-
-    $ git checkout develop
-    $ git push origin develop
-
+    Make sure that both branches have been pushed.
 
 13. Review the Notes for the next deployment. These are located in
     "doc/NEXT_RELEASE.markdown". It's fine if the document is empty, just check if there
@@ -119,11 +115,11 @@
 15. Wait for the master branch build on the CI Server to finish. If it is green, deploy
     the master to staging with:
 
-    $ cap staging deploy:migrations
+    $ cap staging deploy:migrations BRANCH=master
 
     Then seed the staging database with:
 
-    $ cap deploy:seed
+    $ cap staging deploy:seed
 
     Check if everything went fine on staging and briefly take a look at each feature just
     released and deployed.

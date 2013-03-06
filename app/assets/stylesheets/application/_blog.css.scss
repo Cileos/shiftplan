@@ -25,8 +25,7 @@
   }
 
   .author {
-    @include border-radius($ci_border-radius);
-
+    border-radius: $ci_border-radius;
     float: left;
     margin-right: 10px;
   }

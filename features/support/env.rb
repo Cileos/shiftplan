@@ -20,6 +20,7 @@ Spork.prefork do
   require 'kopflos/cucumber'
 
   World(RSpec::Matchers)
+  World(FactoryGirl::Syntax::Methods)
 
   # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
   # order to ease the transition to Capybara we set the default here. If you'd
@@ -45,7 +46,7 @@ Spork.prefork do
   end
 
   # some people have slow computers, 2s are not enough. CI is slow also
-  Capybara.default_wait_time = 23
+  Capybara.default_wait_time = 5
 
   DatabaseCleaner.clean_with :truncation
 end

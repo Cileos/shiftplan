@@ -4,8 +4,7 @@
     width: 16px;
   }
   &.thumb {
-    @include border-radius($ci_border-radius);
-
+    border-radius: $ci_border-radius; 
     max-height: 50px;
     width: 50px;
   }

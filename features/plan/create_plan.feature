@@ -13,6 +13,7 @@ Feature: Creating a plan
       And I am on the page for the organization "Reactor"
 
      When I choose "Alle Pläne" from the drop down "Pläne"
+      And I inject style "position:relative" into "header"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Halloween im Atomkraftwerk"
@@ -47,6 +48,7 @@ Feature: Creating a plan
       And I am on the page for the organization "Fukushima"
 
      When I choose "Alle Pläne" from the drop down "Pläne"
+      And I inject style "position:relative" into "header"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Halloween im Atomkraftwerk"
@@ -66,6 +68,7 @@ Feature: Creating a plan
       And I am on the page for the organization "Reactor"
 
      When I choose "Alle Pläne" from the drop down "Pläne"
+      And I inject style "position:relative" into "header"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Halloween im Atomkraftwerk"
@@ -86,6 +89,7 @@ Feature: Creating a plan
       And I am on the page for the organization "Reactor"
 
      When I choose "Alle Pläne" from the drop down "Pläne"
+      And I inject style "position:relative" into "header"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Halloween im Atomkraftwerk"

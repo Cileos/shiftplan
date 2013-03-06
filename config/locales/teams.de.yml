@@ -27,8 +27,9 @@ de:
         Dieser Schritt ist unwiderrufbar. Alle Einträge der Teams werden dem neuen Team
         zugeordnet.
   teams:
+    no_teams_present: "Es existieren noch keine Teams für diese Organisation."
+    goto_teams: 'Hier können Sie Teams anlegen.'
     index:
-      no_teams: "Es existieren noch keine Teams für diese Organisation."
       action: Aktion
       instructions: >
         Hier sehen Sie alle Teams dieser Organisation.

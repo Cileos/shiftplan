@@ -1,12 +1,14 @@
 - scheduling = f.object
-.fieldset
+.weekday-and-time
   = f.input :date, :collection => cwdays_for_select(scheduling.date), :include_blank => false
 
   = f.input :start_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
   = f.input :end_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
 
 
-= f.association :employee, as: :select, include_blank: false, collection: scheduling.plan.organization.employees
+= f.association :employee, as: :select, collection: scheduling.plan.organization.employees
+
+= f.association :qualification, as: :select, collection: current_account.qualifications
 
 = f.association :team, as: :select, include_blank: true, collection: scheduling.plan.organization.teams
 

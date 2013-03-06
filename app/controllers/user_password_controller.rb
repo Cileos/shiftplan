@@ -6,7 +6,7 @@ class UserPasswordController < InheritedResources::Base
     update! do |success, failure|
       success.html do
         set_flash :notice
-        redirect_to user_password_path
+        redirect_to change_password_path
       end
       failure.html do
         set_flash :alert

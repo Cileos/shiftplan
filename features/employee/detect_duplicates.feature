@@ -1,4 +1,4 @@
-Feature: Create Duplicate Employee
+Feature: Detect duplicate Employee
   As a planner
   to avoid the creation of possible duplicate employees
   I want to see a warning
@@ -20,6 +20,13 @@ Feature: Create Duplicate Employee
 
      When I sign in as the confirmed user "mr. burns"
       And I am on the employees page for the organization "fukushima"
+
+  Scenario: Entering no details should inhibit duplication detection
+    Given I follow "Hinzufügen"
+     When I press "Anlegen"
+     Then the page should be titled "Mitarbeiter anlegen"
+      But I should not see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
+      And I should not see "Folgende Mitarbeiter mit gleichem Namen existieren in diesem Account."
 
   Scenario: Creating duplicate employee Heinz Meier
     Given I follow "Hinzufügen"
@@ -84,3 +91,34 @@ Feature: Create Duplicate Employee
         | ist bereits Mitglied  | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
       And I should see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
       And the adopt employee button should be disabled
+
+
+  @javascript
+  Scenario: generate duplicate by editing existing employee
+    Given an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account, weekly_working_time: 33
+      And the employee "homer" is a member in the organization "fukushima"
+      And I am on the employees page for the organization "fukushima"
+     When I follow "Simpson, Homer" within the employees table
+      And I wait for the modal box to appear
+     Then I should not see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
+
+     When I fill in the following:
+       | Vorname  | Heinz |
+       | Nachname | Meier |
+      And I press "Speichern"
+      And I wait for the spinner to disappear
+
+     Then I should see "Duplikate gefunden" within the modal box
+      And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account." within the modal box
+      And I press "Speichern"
+      # check box "Trotzdem speichern?" not checked(raised error)
+     Then I should see "Duplikate gefunden" within the modal box
+     When I check "Trotzdem speichern?"
+      And I press "Speichern"
+      And I wait for the modal box to disappear
+
+     Then I should be on the employees page for the organization "fukushima"
+      And I should see the following table of employees:
+        | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
+        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | Meier, Heinz  | 33   |                           | Noch nicht eingeladen  | Fukushima               |

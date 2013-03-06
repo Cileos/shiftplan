@@ -1,4 +1,4 @@
-class InvitationDecorator < ApplicationDecorator
+class InvitationDecorator < RecordDecorator
   include EmployeeBaseDecorator
   decorates :invitation
 

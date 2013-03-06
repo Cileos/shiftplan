@@ -38,8 +38,20 @@ class QuickieEditor extends View
     response @sorter(matched)
 
   matcher: (item) ->
-    return true for term in @query.split(/\s/) when ~item.toLowerCase().indexOf(term.toLowerCase())
-    return false
+    query = @query
+      .replace(/^\s+/,'') # lstrip
+      .replace(/\s+$/,'') # rstrip
+
+    terms = query.split(/\s/)
+
+    if terms.length == 1  # only one term entered ("Clean", "9-17") => match anywhere
+      @termInItem(terms[0], item)
+    else                  # multiple words entered => must all be contained in item
+      all_terms_match = true
+      all_terms_match &= @termInItem(term, item) for term in terms
+      all_terms_match
+
+  termInItem: (term, item) -> ~item.toLowerCase().indexOf(term.toLowerCase())
 
   sorter: (items) ->
     [timeRange, shortCuts, beginsWith, rest] = [ [],[],[],[] ]

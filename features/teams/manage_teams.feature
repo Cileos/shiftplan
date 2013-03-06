@@ -14,6 +14,7 @@ Feature: Manage Teams
       And I should see "Um ein neues Team implizit anzulegen"
       And I should see "Sie können ein neues Team auch explizit anlegen"
       And I should see "Sie können Teams zusammenlegen, indem"
+      And I inject style "position:relative" into "header"
      When I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Reaktor putzen"

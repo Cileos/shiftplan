@@ -66,7 +66,8 @@
       outline: 1px solid $ci_blue;
     }
     &.outside_plan_period {
-      background-color: lightgrey;
+      background-color: $ci_lightgray;
+      border-color: $ci_lightgray;
     }
   }
 
@@ -92,8 +93,7 @@
   }
 
   .badge {
-    @include border-radius(10px);
-
+    border-radius: 10px;
     float: right;
     padding: 2px 6px 1px;
     background: $ci_darkgrey;
@@ -115,7 +115,7 @@
     list-style: none;
     padding: 0;
     margin: 5px 0 20px 0;
-    font-size: 11px;
+    font-size: $ci_small-font;
 
     &.weekswitch {
       display: inline-block;
@@ -129,8 +129,8 @@
       .dropdown {
         &:hover > a {
           @include box-shadow(0 0 .35em transparentize($ci_blue, .2));
-          @include border-radius($ci_border-radius $ci_border-radius 0 0);
 
+          border-radius: $ci_border-radius $ci_border-radius 0 0;
           border-color: $ci_blue;
           color: $ci_anthracite;
         }

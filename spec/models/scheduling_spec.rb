@@ -5,11 +5,6 @@ require 'spec_helper'
 describe Scheduling do
 
   in_locale :de
-  context "without employee" do
-    let(:scheduling) { build :scheduling, employee: nil }
-
-    it { scheduling.should_not be_valid }
-  end
 
   context "with illegal characters in team name (quickie)" do
     let(:scheduling) { Scheduling.new quickie: "9-17 work 'hard'" }
@@ -204,6 +199,18 @@ describe Scheduling do
       nightwatch.valid?
       nightwatch.start_hour.should == 19
       nightwatch.end_hour.should == 24
+    end
+
+    context "pairing_id" do
+      before(:each) { nightwatch.save! }
+
+      it "should equal id for the first part" do
+        nightwatch.pairing_id.should == nightwatch.id
+      end
+
+      it "should equal the id of the first part for the second part" do
+        nightwatch.next_day.pairing_id.should == nightwatch.id
+      end
     end
 
     context "splitting the length in hours" do

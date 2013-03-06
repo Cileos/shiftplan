@@ -14,6 +14,7 @@
 //= require lib/tooltips
 // always last!
 //= require lib/loaded_page
+//= require jquery_nested_form
 
 //= require_self
 $(function(){

@@ -16,7 +16,7 @@ end unless ENV['NO_SPORK']
 
 group :test, :halt_on_fail => true do
 
-  guard 'rspec', :cli => '--drb --color --format nested', :version => 2, :run_all => false, :all_on_start => false do
+  guard 'rspec', :cli => '--drb --color --format nested', :run_all => false, :all_on_start => false do
     watch(%r{^factories/.+$})       { "spec" }
 
     # Rails example

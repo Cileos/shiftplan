@@ -1,0 +1,8 @@
+- title :new_qualification
+
+.row.two-columns.inverted
+  .primary
+    = render 'form', qualification: @qualification, create_or_update: :create
+
+  .secondary.instructions
+    = tt '.instructions'

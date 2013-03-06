@@ -1,6 +1,6 @@
 - schedulings.each do |scheduling|
   %div.scheduling.horizontal{data: scheduling.metadata.merge(filter.stack_metadata_for(scheduling))}
-    = abbr_tag scheduling.hour_range_quickie, scheduling.hour_range_with_duration, class: 'work_time'
+    = abbr_tag scheduling.period, scheduling.period_with_duration, class: 'work_time'
     %span.employee_name= scheduling.employee.name
     = avatar(scheduling.employee.user, scheduling.employee, :tiny)
 

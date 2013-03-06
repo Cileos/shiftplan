@@ -6,4 +6,4 @@
     - if current_user.multiple?
       %span.name= current_user.email
     - else
-      %span.name= current_user.employees.first.name
+      %span.name= current_user.employees.first.try(:name) || current_user.email

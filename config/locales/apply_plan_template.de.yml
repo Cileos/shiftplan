@@ -1,0 +1,15 @@
+de:
+  simple_form:
+    labels:
+      apply_plan_template:
+        new:
+          plan_template_id: 'Planvorlage'
+  flash:
+    apply_plan_template:
+      create:
+        notice: 'Alle Schichten der Planvorlage wurden erfolgreich übernommen.'
+        some_shifts_outside_plan_period: 'Es konnten nicht alle Schichten der Planvorlage übernommen werden. Einige Schichten liegen außerhalb des Plans.'
+  apply_plan_template:
+    form:
+      no_plan_template_present: 'Es wurden noch keine Planvorlagen für diese Organisation angelegt.'
+      goto_plan_templates: 'Hier können Sie Planvorlagen anlegen:'

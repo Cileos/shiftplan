@@ -5,9 +5,8 @@
 class CalendarCursor
   constructor: (@$calendar, @tds = 'td:not(.wwt_diff):not(.outside_plan_period)', @items = '.scheduling') ->
 
-    @$body     = @$calendar.find('tbody:first')
-
     $calendar = @$calendar
+    cursor = this
     @$calendar.on 'click', @tds, (event) =>
       $target = $(event.target)
       return true if $target.is('a,i') # keep rails' remote links working
@@ -25,10 +24,19 @@ class CalendarCursor
     @$calendar.on 'update', => @refocus()
 
     # call .trigger('focus') on a .scheduling to focus it externally
-    @$calendar.on 'focus', '.scheduling', (event) => @focus $(event.target)
+    @$calendar.on 'focus', @items, (event) => @focus $(event.target)
+    @$calendar.on 'mouseenter', @items, (event) ->
+      unless cursor.scrolling
+        cursor.focus($(this), null, false)
+      false
+    @$calendar.on 'mouseleave', @items, (event) ->
+      unless cursor.scrolling
+        cursor.unfocus()
+        cursor.focus($(this).closest('td'), null, false)
+      false
 
     # focus first calendar data cell which is not outside the plan period
-    @focus @$body.find('tr:nth-child(1) td:not(.outside_plan_period):first')
+    @focus @$body().find("tr:nth-child(1) #{@tds}:first")
 
     @enable()
 
@@ -42,19 +50,27 @@ class CalendarCursor
 
     $calendar.addClass 'with_cursor'
 
+  # as we may update the inner HTML of the whole calendar, we may not cache the tbody
+  $body: -> @$calendar.find('tbody:first')
 
   focussed_cell: ->
-    @$body.find('td.focus')
+    @$body().find('td.focus')
 
-  focus: ($target, item_select) ->
+  focus: ($target, item_select, scroll=true) ->
     if item_select? and $target.has(@items).length > 0
       $target = $target.find(@items)[item_select]()
     if $target.length > 0
-      @$calendar.find('.focus').removeClass('focus')
+      @unfocus()
       $target.closest('td').addClass('focus') unless $target.is('td')
-      $target.addClass('focus')
-      scroll_to($target)
+      if pairing_id = $target.data('pairing')
+        @$calendar.find("[data-pairing=#{pairing_id}]").addClass('focus')
+      else
+        $target.addClass('focus')
+      if scroll
+        @scroll_to($target)
 
+  unfocus: ->
+    @$calendar.find('.focus').removeClass('focus')
 
   refocus: ->
     if @$focussed_item? and @$focussed_item.length > 0
@@ -100,11 +116,13 @@ class CalendarCursor
     else
       true
 
-  scroll_to = (elem)->
+  scroll_to: (elem)->
+    @scrolling = true
     h = $(window).height() / 3
-    $('html, body').animate({
+    $('body').stop().animate(
         scrollTop: elem.offset().top - h
-    },200)
+    ,200, => @scrolling = false)
+
 
   # sets all the instance vars needed for navigation
   orientate: ->

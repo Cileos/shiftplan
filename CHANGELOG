@@ -1,6 +1,33 @@
 Changelog
 =========
 
+Release 0.3.0 2013-02-19 13:50
+------------------------------
+* 83697e3 Merge pull request #140 from Cileos/feature/bug-848691-duplicate-warning-when-editing-employee
+* efc90b1 Merge pull request #136 from Cileos/feature/fix-plan-templates
+* 8dd4e02 Merge pull request #139 from Cileos/feature/planners_actions_as_dropdown
+* f6df9cc Merge pull request #135 from Cileos/feature/overnights
+* bc03fc6 Merge pull request #132 from Cileos/feature/bug-480867-quickie-autocompletion-does-not-hide-unmatched-entries
+* 0b622be Merge pull request #137 from Cileos/feature/bug-471176-session-timeout-relogin-other-user-wrong-dashboard
+* e479eae Merge branch 'feature/more-usable-font-sizes' into develop
+* e7ed45c Merge pull request #134 from Cileos/feature/qualifications-belong-to-account
+* 5d1db63 Merge pull request #133 from Cileos/feature/fix-reset-password
+* d9ec80f Merge pull request #131 from Cileos/feature/bug-480792-new-teams-need-reload
+* fdab2a0 Merge branch 'feature/upgrade-rails-3.2.12' into develop
+* f2a386c Merge pull request #127 from Cileos/feature/border-radius-mixin-fix
+* d0478a0 Merge pull request #129 from Cileos/feature/bug-690767-no-history-entry-for-milestones
+* 1f93d88 Merge pull request #128 from Cileos/feature/validate-uniqueness-of-name-of-plan-in-organization
+* e76d5f0 Merge pull request #125 from Cileos/feature/merge-hybrid-dialog-and-week-templates
+* 7c1dbe7 Merge pull request #126 from Cileos/feature/bug-594280-wrong-redirect-when-creating-blank-employee
+* bf812ea Merge pull request #124 from Cileos/feature/session-timeout-json
+* 3f48ae7 Merge pull request #118 from Cileos/feature/fix-594303-employeeless-adoption
+* 7d0713a Merge pull request #123 from Cileos/feature/fix-818300-random-fail-milestone-feature
+* e8afa9b Merge branch 'feature/button-labels-disabled-texts' into develop
+* 4fe8340 Merge branch 'feature/better_errors' into develop
+* 46f618f Merge branch 'feature/hybrid-scheduling-dialog' into develop
+* 3865d45 Merge branch 'feature/unify_flashmessages' into develop
+* d19b3d5 Merge branch 'feature/pagination_without_bootstrap' into develop
+
 Release 0.2.4 2012-12-13 19:40
 ------------------------------
 * 670bec9 Merge pull request #110 from Cileos/feature/improve-dashboard

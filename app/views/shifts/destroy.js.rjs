@@ -1,0 +1,3 @@
+page.decorate resource.concurrent do |filter| # ShiftFilterDecorator
+  filter.respond(resource, :destroy)
+end

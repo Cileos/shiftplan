@@ -3,6 +3,7 @@ class Account < ActiveRecord::Base
   has_many :employees
   has_many :users, through: :employees
   has_many :invitations, through: :organizations
+  has_many :qualifications, order: 'name ASC'
 
   def self.owners_and_planners
     owners.planners

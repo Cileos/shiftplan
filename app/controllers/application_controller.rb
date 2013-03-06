@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     logger.debug('Access denied')
     flash[:alert] = translate('message.access_denied')
     respond_to do |denied|
-      denied.html { redirect_to root_url }
+      denied.html { redirect_to user_signed_in?? dashboard_url : root_url }
       denied.js   { render 'denied' }
     end
   end
@@ -29,10 +29,14 @@ class ApplicationController < ActionController::Base
       nested_resources_for(resource.commentable.blog) + [ resource.commentable, resource]
     when Post
       nested_resources_for(resource.blog) + [resource]
-    when Blog, Team, Plan
+    when Blog, Team, Plan, PlanTemplate
       nested_resources_for(resource.organization) + [resource]
-    when Organization
+    when Organization, Qualification
       [ resource.account, resource ]
+    when Shift
+      nested_resources_for(resource.plan_template) + [resource]
+    when Scheduling
+      nested_resources_for(resource.plan) + [resource]
     end
   end
 

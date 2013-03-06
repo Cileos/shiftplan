@@ -8,7 +8,7 @@
 .row.two-columns.inverted
   .primary
     #organizations
-      - organizations = current_user.organizations_for(@account)
+      - organizations = current_user.organizations_for(@account).sort_by(&:name)
       - unless organizations.empty?
         = render 'organizations/table', organizations: organizations
       - else

@@ -11,4 +11,9 @@ class SessionsController < Devise::SessionsController
     end
   end
 
+  # Force Devise to set flash messages on AJAX signin (by session timeout)
+  def is_navigational_format?
+    request.format == :js || super
+  end
+
 end

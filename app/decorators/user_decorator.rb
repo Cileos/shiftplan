@@ -1,4 +1,4 @@
-class UserDecorator < ApplicationDecorator
+class UserDecorator < RecordDecorator
   decorates :user
 end
 

@@ -12,12 +12,26 @@ class CalendarEditor extends View
     else # cell given, assuming it is empty, => create new
       $.ajax
         url: @element.closest('table').data('new_url')
-        data:
-          scheduling:
-            employee_id: @element.data('employee-id')
-            date:        @element.data('date')
-            team_id:     @element.data('team-id')
+        data: @params_for_new()
         complete: @setupInputs
+
+  params_for_new: ->
+    table = @element.closest('table')
+    if table.is('.schedulings')
+      @params_for_new_scheduling()
+    else if table.is('.shifts')
+      @params_for_new_shift()
+
+  params_for_new_scheduling: ->
+    scheduling:
+      employee_id: @element.data('employee-id')
+      date:        @element.data('date')
+      team_id:     @element.data('team-id')
+
+  params_for_new_shift: ->
+    shift:
+      day:     @element.data('day')
+      team_id: @element.data('team-id')
 
   modal: ->
     $('#modalbox')

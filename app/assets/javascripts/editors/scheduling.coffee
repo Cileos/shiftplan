@@ -46,7 +46,12 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       return
 
     name = name.replace(/"/, '\\"') # escape quotes so the CSS selector won't break
-    if found = input.find("option:contains(\"#{name}\")").attr('value')
-      input.val( found )
+    if found = input.find("option:contains(\"#{name}\")")
+      value = found.attr('value')
+      text  = found.text()
+      if text is name
+        input.val( value )
+      else
+        input.val( '' ) # prompt
     else
       input.val( '' ) # prompt

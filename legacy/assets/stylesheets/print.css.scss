@@ -92,7 +92,7 @@ table#calendar {
 @mixin pibble-inner {
     border: 1px solid grey;
     background-color: $white;
-    @include border-radius(2px);
+    border-radius: 2px;
     padding: 1px 6px;
     margin-left: 5px;
     display: block; /* do not break if too long */

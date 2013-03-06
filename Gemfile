@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.12'
 gem 'pg'
 
 
@@ -10,7 +10,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.4'
   gem 'uglifier', '>= 1.2.3'
   gem 'jquery-rails', '~> 2.1.3' # latest 1.7, ember whines about >1.7
-  gem 'jquery-ui-rails'
+  gem 'jquery-ui-rails', '~> 2.0.2'
 end
 
 
@@ -26,20 +26,20 @@ end
 
 group :test do
   gem 'cucumber-rails', "~> 1.2.1", :require => false
-  gem 'rspec-rails', "~> 2.11.o"
+  gem 'rspec-rails', "~> 2.12.2"
   gem 'launchy'
   gem "pickle"
   gem "timecop"
-  gem "email_spec"
+  gem "email_spec", '~> 1.4.0'
 
   # TODO for latest chrome-webdriver remove when capybara > 1.1.2 depends on it
-  gem 'selenium-webdriver', '~> 2.26.0'
+  gem 'selenium-webdriver', '~> 2.29.0'
   gem 'chromedriver-helper'
 
-  gem "spork", "1.0.0rc2"
-  gem "guard-rspec", "~> 1.1.0"
-  gem "guard-cucumber", "~> 1.2.0"
-  gem "guard-spork", "~> 1.1.0"
+  gem "spork", "1.0.0rc3"
+  gem "guard-rspec", "~> 2.4.0"
+  gem "guard-cucumber", "~> 1.3.2"
+  gem "guard-spork", "~> 1.4.2"
   gem "guard-bundler", "~> 1.0.0"
   gem "libnotify", :require => false
   gem 'rb-fsevent', '~> 0.9.1', :require => false
@@ -97,8 +97,8 @@ gem 'cancan'
 gem 'simple_form', '~> 2.0.0'
 gem 'haml-rails'
 gem 'inherited_resources'
-gem 'draper', '~> 0.14.0'
-gem 'factory_girl_rails', '~>3.5.0' # we use this for seeds, too
+gem 'draper', '~> 1.1.0'
+gem 'factory_girl_rails', '~>4.2.1' # we use this for seeds, too
 gem 'treetop' # parse quickies
 
 gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults
@@ -121,9 +121,8 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart'
 gem 'gravtastic'
-gem 'ember-rails'
+gem 'ember-rails', '0.7.0'
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
 
-# Use master of strong parameters because of issue https://github.com/rails/strong_parameters/issues/52
-# TODO: remove repo when a new version including the fix was released.
-gem 'strong_parameters', git: 'git://github.com/rails/strong_parameters.git'
+gem 'strong_parameters', '~> 0.1.6'
+gem 'nested_form', :git => 'git@github.com:rwrede/nested_form.git'

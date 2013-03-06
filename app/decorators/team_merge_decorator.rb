@@ -1,4 +1,4 @@
-class TeamMergeDecorator < ApplicationDecorator
+class TeamMergeDecorator < RecordDecorator
   decorates :team_merge
 
   def selector_for(name, resource=nil, extra=nil)

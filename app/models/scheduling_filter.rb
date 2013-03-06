@@ -2,24 +2,21 @@
 # selected date range. It represents a week view of the plan for
 # display in a weekly calendar. It behaves like an ActiveRecord model
 # and can therefor be used in forms to build searches.
-class SchedulingFilter
+class SchedulingFilter < RecordFilter
   include ActiveAttr::Model
   include ActiveAttr::TypecastedAttributes
   include ActiveAttr::AttributeDefaults
-  include Draper::ModelSupport
+  include Draper::Decoratable
 
   class CannotFindMonday < RuntimeError; end
 
   attribute :plan
-  attribute :base, default: Scheduling
   attribute :week, type: Integer
   attribute :day, type: Integer
   attribute :month, type: Integer
   attribute :year, type: Integer
   attribute :cwyear, type: Integer
   attribute :ids #, type: Array # TODO Array cannot be typecasted yet by AA
-
-  delegate :count, to: :base
 
   def range
     if week?
@@ -82,13 +79,6 @@ class SchedulingFilter
     DateTime.civil_from_format(:utc, year, month, day)
   end
 
-  # These _are_ the Schedulings you are looking for
-  def records
-    @records ||= fetch_records
-  end
-
-  delegate :all, to: :records
-
   def before_start_of_plan?(date=last_day)
     plan.starts_at.present? && date.to_date < plan.starts_at.to_date
   end
@@ -99,6 +89,18 @@ class SchedulingFilter
 
   def outside_plan_period?(date)
     before_start_of_plan?(date) || after_end_of_plan?(date)
+  end
+
+  def records
+    sorted_records
+  end
+
+  def sorted_records
+    @sorted_records ||= sort_fields.inject(unsorted_records) { |records, field| records.sort_by(&field) }
+  end
+
+  def unsorted_records
+    fetch_records
   end
 
 
@@ -116,7 +118,16 @@ class SchedulingFilter
           results = results.in_year(year)
         end
       end
-      results.includes(:employee, :team).sort_by(&:start_hour)
+      results = results.includes(*to_include)
+      results
+    end
+
+    def to_include
+      [:employee, :team]
+    end
+
+    def sort_fields
+      [:start_hour, :qualification_name]
     end
 
     def conditions
@@ -131,10 +142,10 @@ class SchedulingFilter
           end
         end
       when :day
+        # FIXME this may not work thanks to timezones, see Scheduling.in_year
         raise ArgumentError, "not enough data to build date" unless date?
         ["starts_at::date = ?::date", date]
       end
     end
-
 
 end

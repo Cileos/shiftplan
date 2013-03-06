@@ -1,11 +1,36 @@
 # Decorator helpers dealing with an (ActiveRecord) model
 class RecordDecorator < ApplicationDecorator
-  def partial_name
-    model.class.model_name.plural
+  delegate_all
+
+  # Models can be called by name, for example :post in the PostDecorator
+  def self.decorates(*a)
+    super
+    alias_method a.first, :source
   end
 
-  def insert_new_form(heading='')
-    append_modal body: h.render('new_form', scheduling: model),
+  def partial_name
+    source.class.model_name.plural
+  end
+
+  def insert_new_form(heading='', model_name)
+    append_modal body: h.render('new_form', model_name => model),
       header: h.content_tag(:h3, heading)
   end
+
+  def metadata
+    {}
+  end
+
+  def error_messages
+    unless errors.empty?
+      errors_for(source)
+    end
+  end
+
+
+  private
+
+    def record
+      model
+    end
 end

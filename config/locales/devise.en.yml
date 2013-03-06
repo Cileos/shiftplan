@@ -20,12 +20,19 @@ en:
       signed_out: "You've logged out. Bye!"
     passwords:
       forgotten: "Forgot your password?"
+      reset_password: "Reset password"
       send_instructions: "You will receive an e-mail with password reset instructions shortly."
       updated: "Password changed - you're now logged in"
+      updated_not_active: 'Your password was changed successfully.'
+      send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
     confirmations:
       not_received: "I haven't received the confirmation e-mail."
+      send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
+      send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
       confirmed: "Account confirmed - you're now logged in"
       updated: "E-mail changed - you're now logged in"
+      user:
+        send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
     registrations:
       signed_up_but_unconfirmed: "You've signed up, nice! Now all you need is to confirm your account - there should be an e-mail in your inbox."
       signed_up_but_inactive: "You've signed up, great! Now someone has to activate your account."
@@ -36,6 +43,11 @@ en:
       not_received: "I haven't received the unlock e-mail."
       send_instructions: "You will receive an unlocking e-mail shortly."
       unlocked: "Your account has been unlocked - you're now logged in."
+      send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
+      unlock: 'Unlock account'
+    omniauth_callbacks:
+      success: 'Successfully authorized from %{kind} account.'
+      failure: 'Could not authorize you from %{kind} because "%{reason}".'
     mailer:
       confirmation_instructions:
         subject: "Confirm your e-mail address."
