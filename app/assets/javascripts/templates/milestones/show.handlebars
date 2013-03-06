@@ -12,6 +12,6 @@
 {{#if tasksEnabled}}
   {{view Clockwork.TaskListView contentBinding="savedAndSortedTasks"}}
   {{#if can_manage}}
-  <a {{action newTask this href=true}} data-icon="&#xf067;" class="button button-small">neue Aufgabe</a>
+  <a {{action newTask this href=true}} data-icon="&#xf067;" class="button button-small">New task</a>
   {{/if}}
 {{/if}}

@@ -16,7 +16,7 @@ Feature: create organizations
   Scenario: Create another organization
     Given I follow "Tepco GmbH" within the navigation
      # user is owner of account "tepco" so he can create new organizations
-     When I follow "Hinzufügen"
+     When I follow "Organisation hinzufügen"
      Then I should be on the new organization page for the account "tepco"
       And I fill in "Name" with "Nuclear Cleanup Inc."
       And I press "Anlegen"

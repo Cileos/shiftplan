@@ -2,7 +2,7 @@
 
 - if can? :manage, Organization.new(account: @account)
   - masterhead_toolbar do
-    =link_to ti(:add), new_account_organization_path(@account),
+    =link_to ti(:add_organization), new_account_organization_path(@account),
       class: 'button', data: { icon: i(:add) }, title: ta(:add_organization)
 
 .row.two-columns.inverted

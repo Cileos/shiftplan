@@ -3,11 +3,16 @@ en:
     attributes:
       invitation:
         email: E-Mail
+    errors:
+      models:
+        invitation:
+          other_user_has_email: "Someone already used this e-mail."
+          other_invitation_has_email: "This e-mail has already been used in an invitation."
   mailer:
     invitation:
-      subject: 'You were invited to Shifplan'
+      subject: "Clockwork welcomes you!"
   invitations:
-    sent_successfully: 'The invitation was sent successfully.'
+    sent_successfully: "Invitation e-mail sent!"
     token_invalid: 'The invitation is not valid. Your invitation could not be accepted.'
     another_employee_already_exists_with_email: "You have already invited the employee %{employee_name} with this email address %{email}."
     accepted: 'Thank you for accepting the invitation to Clockwork.'
@@ -15,4 +20,4 @@ en:
     already_accepted_log_in: 'You have already accepted this invitation. Please log in with your email address and password.'
     already_accepted: 'You have already accepted this invitation.'
     new:
-      invite_employee: "%{employee_name} invite"
+      invite_employee: "Invite %{employee_name}"

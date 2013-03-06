@@ -1,28 +1,122 @@
 en:
   activerecord:
+    errors:
+      models:
+        employee:
+          duplicates_found: "There's already someone with this name, sorry!"
     models:
       employee:
-        one: "employee"
+        one: "Employees"
     attributes:
       employee:
-        first_name: First Name
+        first_name: Name
         last_name: Surname
-        full_name: Full Name
-        weekly_working_time: weekly working time
-        email: email
-        avatar: employee photo
+        full_name: Full name
+        weekly_working_time: Working week
+        email: E-Mail
+        avatar: Photo
+        organization: Unit
+        role: Role
+        force_create_duplicate: "Create anyway?"
   simple_form:
     placeholders:
       employee:
-        first_name: First Name
+        first_name: Name
         last_name: Surname
   employees:
+    roles:
+      planner: Planner
+      owner: Owner
+      none: None
     table:
       action: Action
+      status: Status
     invitation_status:
-      invited: "invited on the %{invited_at}"
-      active: active
-      not_invited_yet: not yet invited
+      invited: "Invited at %{invited_at}"
+      active: Active
+      not_invited_yet: Not yet invited
     index:
-      employees: employees
-      status: status
+      employees: Employee
+      no_employees: "There are no employees in this Unit."
+      adopt_employee: "Import employees from another Unit."
+      add_employee: "Create new employees in this Unit."
+      instructions: >
+        Here's the list of all members of the Unit.
+
+
+        Employees are visible in all plans of this Unit. From here you can plan their schedules.
+      planner_instructions: >
+        Here's the list of all members of the Unit.
+
+
+        Employees are visible in all plans of this Unit. From here you can plan their schedules.
+
+
+        To edit existing employees, click on the employee.
+        
+
+
+        Want to give more rights to an employee? Select the _Planner_ role. _Planner_ can, unlike other employees,
+        manage staff, teams, plans and appointments. The Unit owner cannot be changed and you cannot change your
+        role by yourself. 
+
+
+        If you want an employee to be able to log into Clockwork, then you need to invite them first.
+        Click on the _Invite_ button and enter their e-mail address. The employee must accept the invitation
+        and Clockwork will store that e-mail for future use.
+       
+        All employees who log using their e-mail you provided will have "Active" status on this page.
+
+
+        To create a new user in this Unit, click on _Add_.
+
+        If you need more employees than your Unit has, click _Import_.  
+    new:
+      duplication_warning: "You may be trying to create employees that are already there. Below is a list of employees with the same name that you can add to the Unit, if they're not members already. If you want to create the employee anyway, mark the checkbox _Create anyway_ and click on _Save_."
+      following_duplicates_found_: "Following employees with the same name exist in this account."
+      duplicates_are_all_members: "All employees are already members of this Unit. They cannot be added."
+      already_member: "is already a member."
+      instructions: >
+
+
+        You can add new employees to this Unit here.
+
+
+        After employees are created, they appear in all plans of the Unit and can be scheduled as well.
+
+
+        Want to give more rights to an employee? Select the _Planner_ role. _Planner_ can, unlike other employees,
+        manage staff, teams, plans and appointments. The Unit owner cannot be changed and you cannot change your
+        role by yourself. 
+
+
+        If there is an employee with the same first and last name in this account already, you will get 
+        a notification. This is to prevent you from creating the same employees twice.
+
+
+        If you need more employees than your Unit has, click _Import_. 
+    adopt:
+      no_adoptable_employees: "Currently there are no employees from other Units that aren't already members of this Unit."
+      instructions: >
+        Here you can import people from other Units, so they will become members of your Unit too.
+
+
+        After the employees become members, they will appear in all plans of this Unit and can be scheduled.
+
+
+        Use the search to find employees from other organizations.
+        You can filter by first name, last name, email address and organization.
+
+
+        The employee you wanted does not exist, please click _Add_ to create a new employee.
+      not_member_yet: 'Following employees are not members of this departmeny yet:'
+    search:
+      hint: "Look for staff from other Units:"
+      results: "%{count} employees found."
+      clear: 'Reset search filters'
+      placeholders:
+        first_name: 'Enter first name'
+        last_name: 'Enter surname'
+        email: 'Enter e-mail'
+        organization: 'Select Unit'
+  none: None

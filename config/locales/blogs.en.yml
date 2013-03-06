@@ -1,15 +1,17 @@
 en:
   blogs:
-    meta_data: "%{author} wrote on the %{published_at}:"
-    own_meta_data: "you have written on the %{published_at}"
-    no_posts_present: 'No blog posts have been created.'
-    company_news: News
+    meta_data: "%{author} wrote at %{published_at}:"
+    own_meta_data: "You wrote at %{published_at}:"
+    no_posts_present: "No posts here!"
+    company_news: "News"
   posts:
-    new: 'Create new blog post'
+    new: "Write a new post"
+    show:
+      confirm_to_delete: "Do you want to remove '%{post}' with all the comments?"
     headers:
-      new: 'Create new blog post'
-      edit: 'Edit blog post'
-    post_deleted: 'The blog post was deleted.'
+      new: "Create a new post"
+      edit: "Edit post"
+    post_deleted: "The post was deleted in the meantime."
   activerecord:
     attributes:
       post:
@@ -17,27 +19,19 @@ en:
         body: Text
   helpers:
     actions:
-      more: More ...
-      comments_count:
-        one: '1 comment'
-        other: "%{count} comments"
-      destroy_comment: 'x'
-  comments:
-    comments: comments
-    no_comments_present: 'No comments have been created.'
-    add_comment: 'Add a comment'
+      more: "Read more"
   post_notification_mailer:
     new_post:
       subjects:
-        post: "%{name} has written a new blog post on the %{date}:"
+        post: "%{name} wrote a new post" 
       introductory_texts:
-        post: "%{name} has written a new blog post on the %{date}:"
+        post: "%{name} wrote a new post on %{date} :"
     new_comment:
       subjects:
-        comment_on_post: '%{name} has commented on a blog post'
-        comment_on_post_of_employee: '%{name} has commented on one of your blog posts'
-        comment_on_post_for_commenter: '%{name} has also commented on your blog post'
-    introductory_texts:
-      comment_on_post: "%{author_name} has commented on the blog post '%{post_title}' on the %{date}:"
-      comment_on_post_of_employee: "%{author_name} has commented on your blog post '%{post_title}' on the %{date}:"
-      comment_on_post_for_commenter: "%{author_name} has also commented on the the blog post '%{post_title}' on the %{date}:"
+        comment_on_post: "%{name} commented on a post"
+        comment_on_post_of_employee: "%{name} commented on one of your posts"
+        comment_on_post_for_commenter: "%{name} also commented on a post"
+      introductory_texts:
+        comment_on_post: "%{author_name} commented on '%{post_title}' at %{date} :"
+        comment_on_post_of_employee: "%{author_name} commented on your '%{post_title}' at %{date}:"
+        comment_on_post_for_commenter: "%{author_name} also commented on '%{post_title}' at %{date}:"

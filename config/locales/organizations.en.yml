@@ -1,0 +1,29 @@
+en:
+  dashboard: "Dashboard"
+  notifications:
+    caption: Notifications
+    no_notifications_present: 'No notifications yet.'
+  upcoming_schedulings: Upcoming schedules
+  activerecord:
+    attributes:
+      organization:
+        name: Name
+    models:
+      organization:
+        one: "Unit"
+        other: "Units"
+  helpers:
+    submit:
+      organization:
+        create: "Create"
+  flash:
+    organizations:
+      create:
+        notice: "'%{organization}' Unit created."
+      add_members:
+        notice: "Employee added."
+        alert: "You need to select at least one employee to add."
+
+  organizations:
+    navigation_selector:
+      new_organization: New Unit

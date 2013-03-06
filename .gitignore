@@ -17,4 +17,5 @@ public/uploads/
 *.swn
 *.swo
 rerun.txt
+*~
 .powrc

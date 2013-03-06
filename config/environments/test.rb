@@ -38,4 +38,8 @@ Clockwork::Application.configure do
   config.active_support.deprecation = :stderr
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+
+  # All features and tests drive a German page, if not mentioned otherwise
+  config.i18n.default_locale = :de
 end
