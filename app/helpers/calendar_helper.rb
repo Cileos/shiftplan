@@ -1,5 +1,5 @@
 module CalendarHelper
-  def clickable_class
-    can?(:manage, Scheduling) ? 'clickable' : 'not-clickable'
+  def editable_class
+    can?(:manage, Scheduling) ? 'editable' : 'readonly'
   end
 end

@@ -6,7 +6,7 @@
       %th
         %span.header= ta :teams
       %th
-  %tbody{ class: clickable_class }
+  %tbody{ class: editable_class }
     - filter.teams.each do |team|
       %tr
         %th.team_name= team.name
