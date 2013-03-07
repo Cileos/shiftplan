@@ -27,7 +27,7 @@ Feature: Applying Weekbased Plan Templates to Plans
      When I go to the teams in week page for the plan template
      Then I should see the following calendar:
         | Teams                  | Mo                                | Di                                                      | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     | 22:00-24:00 1 x Brennstabexperte  | 00:00-06:00 1 x Brennstabexperte                        |     |     |     |     |     |
+        | Brennstabkessel(B)     | 22:00-06:00 1 x Brennstabexperte  | 22:00-06:00 1 x Brennstabexperte                        |     |     |     |     |     |
         | Druckwasserreaktor(D)  |                                   | 04:00-12:00 2 x Brennstabexperte 1 x Brennstabpolierer  |     |     |     |     |     |
       And a plan exists with organization: the organization
 
@@ -46,16 +46,16 @@ Feature: Applying Weekbased Plan Templates to Plans
       And I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
       And I should see the following calendar:
         | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     | 22:00-24:00 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Brennstabkessel (B)     | 22:00-06:00 Brennstabexperte  | 22:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
 
-      When I click on the scheduling "22:00-24:00"
+      When I click on the late scheduling "22:00-06:00"
       And I select "Homer Simpson" from "Mitarbeiter"
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Teams                  | Mo                                         | Di                                                                                      | Mi | Do | Fr | Sa | So |
-        | Brennstabkessel (B)    | Homer Simpson 22:00-24:00 Brennstabexperte | Homer Simpson 00:00-06:00 Brennstabexperte                                              |    |    |    |    |    |
+        | Brennstabkessel (B)    | Homer Simpson 22:00-06:00 Brennstabexperte | Homer Simpson 22:00-06:00 Brennstabexperte                                              |    |    |    |    |    |
         | Druckwasserreaktor (D) |                                            | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer |    |    |    |    |    |
 
 
@@ -71,7 +71,7 @@ Feature: Applying Weekbased Plan Templates to Plans
       And I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
       And I should see the following calendar:
         | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     | 22:00-24:00 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Brennstabkessel (B)     | 22:00-06:00 Brennstabexperte  | 22:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
     When I follow ">"
     Then I should be on the teams in week page of the plan for cwyear: 2013, week: 7
@@ -81,7 +81,7 @@ Feature: Applying Weekbased Plan Templates to Plans
     Then I should be on the teams in week page of the plan for cwyear: 2013, week: 7
      And I should see the following calendar:
         | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     | 22:00-24:00 Brennstabexperte  | 00:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Brennstabkessel (B)     | 22:00-06:00 Brennstabexperte  | 22:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
 
 
