@@ -1,5 +1,5 @@
 class EmployeeDecorator < RecordDecorator
-  include EmployeeBaseDecorator
+  include EmployeeDecoratorHelper
   decorates :employee
 
   def selector_for(name, resource=nil, extra=nil)
