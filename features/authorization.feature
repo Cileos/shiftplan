@@ -53,29 +53,13 @@ Feature: Authorization
       And I should see link "Ausloggen" within the user navigation
       And I should see link "Fukushima" within the navigation
       And I should see link "Pläne" within the navigation
-      And I should see link "Mitarbeiter" within the navigation
-      And I should see link "Teams" within the navigation
+      And I should not see link "Mitarbeiter" within the navigation
+      And I should not see link "Teams" within the navigation
 
      When I follow "Brennstäbe wechseln"
      Then I should be authorized to access the page
       But I should not see link "Neue Terminierung"
       And I should not see link "Übernahme aus der letzten Woche"
-
-     When I follow "Mitarbeiter"
-     Then I should be authorized to access the page
-      And I should see "Simpson, Bart"
-      But I should not see link "Simpson, Homer"
-      And I should not see link "Simpson, Bart"
-      And I should not see link "Hinzufügen"
-      And I should not see link "Einladen"
-      But I should see "Noch nicht eingeladen"
-
-     When I follow "Teams"
-     Then I should be authorized to access the page
-      And I should see "Kühlwasser tauschen"
-      And I should not see link "Bearbeiten"
-      And I should not see link "Hinzufügen"
-      And I should not see button "Zusammenlegen"
 
   Scenario: planner
     Given a confirmed user "planner" exists
