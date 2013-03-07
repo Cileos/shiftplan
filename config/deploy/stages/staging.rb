@@ -23,7 +23,8 @@ namespace :deploy do
     run "cd #{current_release} && ruby script/capistrano-done staging"
   end
 
-  after 'deploy:restart', 'deploy:notify'
+  # TODO bot running on gruetz
+  #after 'deploy:restart', 'deploy:notify'
 
 
 end
