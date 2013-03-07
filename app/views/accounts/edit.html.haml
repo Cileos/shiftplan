@@ -6,9 +6,6 @@
       .inputs.edit-account
         = f.input :name, autofocus: true
       .actions
-        = f.responsive_submit_button do
-          %i.icon-ok-circle.icon-white
-          = ta :update
-
+        = f.responsive_submit_button :update
   .secondary.instructions
     = tt '.instructions'
