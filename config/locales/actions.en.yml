@@ -18,6 +18,7 @@ en:
       new_employee: "Create user"
       add_employee: "Add employee"
       add_organization: "Add Unit"
+      edit_organization: Edit unit
       adopt_employee: "Import employee"
       want_to_adopt: "Import this employee?"
       adopt_employees: "Import employees"
