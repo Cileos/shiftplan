@@ -5,6 +5,8 @@ class Account < ActiveRecord::Base
   has_many :invitations, through: :organizations
   has_many :qualifications, order: 'name ASC'
 
+  attr_accessible :name
+
   def self.owners_and_planners
     owners.planners
   end

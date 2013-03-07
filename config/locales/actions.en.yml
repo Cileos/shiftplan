@@ -1,6 +1,7 @@
 en:
   helpers:
     actions:
+      edit_account: Edit account
       profile: Profile
       settings: Preferences
       dashboard: Dashboard
@@ -13,7 +14,7 @@ en:
       employees: Employees
       teams: Teams
       add: Add
-      adopt: Import     
+      adopt: Import
       new_employee: "Create user"
       add_employee: "Add employee"
       add_organization: "Add Unit"

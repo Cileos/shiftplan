@@ -5,6 +5,9 @@ de:
         one: "Account"
         other: "Accounts"
   accounts:
+    edit:
+      instructions: >
+        Hier können Sie Ihren Account bearbeiten.
     show:
       instructions: >
         Hier sehen Sie alle Organisationen des Accounts, in denen Sie Mitglied sind.
@@ -15,3 +18,7 @@ de:
 
         Um eine weitere Organisation anzulegen, klicken Sie bitte rechts oben auf
         _Hinzufügen_.
+
+
+        Um Ihren Account zu bearbeiten, klicken Sie bitte rechts oben auf
+        _Account bearbeiten_.

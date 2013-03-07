@@ -1,4 +1,4 @@
 class AccountsController < InheritedResources::Base
   load_and_authorize_resource
-  actions :show
+  actions :all, except: [:new, :create]
 end
