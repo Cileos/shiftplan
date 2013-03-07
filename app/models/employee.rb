@@ -38,7 +38,7 @@ class Employee < ActiveRecord::Base
   after_create :create_membership
 
   def self.order_by_names
-    order('last_name, first_name')
+    order('last_name, first_name, id')
   end
 
   def role?(asked)
