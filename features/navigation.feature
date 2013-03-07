@@ -233,10 +233,6 @@ Feature: Navigation
        | Neuigkeiten            | false   |
        | Pläne                  | false   |
        | Alle Pläne             | false   |
-       | Mitarbeiter            | false   |
-       | Teams                  | false   |
-       | Planvorlagen           | false   |
-       | Qualifikationen        | false   |
       And I should see the following items in the account dropdown list:
        | Tepco GmbH  |
 
@@ -249,10 +245,6 @@ Feature: Navigation
        | Neuigkeiten            | false   |
        | Pläne                  | false   |
        | Alle Pläne             | false   |
-       | Mitarbeiter            | false   |
-       | Teams                  | false   |
-       | Planvorlagen           | false   |
-       | Qualifikationen        | false   |
       And I should see the following items in the account dropdown list:
        | Tepco GmbH  |
 
@@ -268,9 +260,5 @@ Feature: Navigation
        | Neuigkeiten            | false   |
        | Pläne                  | false   |
        | Alle Pläne             | false   |
-       | Mitarbeiter            | false   |
-       | Teams                  | false   |
-       | Planvorlagen           | false   |
-       | Qualifikationen        | false   |
       And I should see the following items in the account dropdown list:
        | Tepco GmbH  |
