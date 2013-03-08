@@ -1,5 +1,10 @@
 - title :dashboard
 
+- if can? :create, Account
+  - masterhead_toolbar do
+    = link_to ti(:add_account), new_account_path,
+      class: 'button', data: { icon: i(:add) }, title: ta(:add_account)
+
 .row.two-columns.inverted.dashboard
   .primary
     = render 'notifications/for_dashboard', notifications: current_user.notifications

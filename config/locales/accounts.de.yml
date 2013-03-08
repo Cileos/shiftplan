@@ -1,10 +1,19 @@
 de:
   activerecord:
+    attributes:
+      account:
+        first_name: Vorname
+        last_name: Nachname
+        organization_name: Organisationsname
+        name: Accountbezeichnung
     models:
       account:
         one: "Account"
         other: "Accounts"
   accounts:
+    new:
+      instructions: >
+        Hier können Sie einen neuen Account anlegen.
     edit:
       instructions: >
         Hier können Sie Ihren Account bearbeiten.

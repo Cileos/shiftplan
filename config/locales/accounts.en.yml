@@ -1,10 +1,19 @@
 en:
   activerecord:
+    attributes:
+      account:
+        first_name: Vorname
+        last_name: Nachname
+        organization_name: Organisationsname
+        name: Accountbezeichnung
     models:
       account:
         one: "Account"
         other: "Accounts"
   accounts:
+    new:
+      instructions: >
+        Need more accounts? Add a new account on this page.
     show:
       instructions: >
         Accounts of all the Units you're a member of.
@@ -14,4 +23,4 @@ en:
 
         Need more space? Click "Add Units" to create new Units.
 
-        
+

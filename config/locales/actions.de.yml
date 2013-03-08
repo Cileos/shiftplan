@@ -2,6 +2,7 @@ de:
   helpers:
     actions:
       edit_account: Account bearbeiten
+      add_account: Account hinzufügen
       profile: Profil
       settings: Einstellungen
       dashboard: Dashboard
