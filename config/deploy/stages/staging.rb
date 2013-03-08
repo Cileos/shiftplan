@@ -8,7 +8,7 @@ role :web, plock
 role :app, plock
 role :db, plock, :primary => true
 
-namespace :deploy do
+namespace :db do
 
   desc "Seed the Database"
   task :seed, :roles => :db do
@@ -17,6 +17,16 @@ namespace :deploy do
     else
       run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:seed"
     end
+  end
+
+  desc "Seed from Backup"
+  task :seed_from_backup, :roles => :db do
+    if ENV['SEED'].nil?
+      STDERR.puts "set the environment variable SEED to anything to confirm this harmful operation"
+    else
+      run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:seed_from_backup"
+    end
+
   end
 
   task :notify do
