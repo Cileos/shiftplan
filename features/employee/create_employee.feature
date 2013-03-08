@@ -8,7 +8,9 @@ Feature: Create Employees
       And a plan exists with name: "Kühlungsraum säubern", organization: the organization
      When I sign in as the confirmed user
       And I am on the employees page for the organization
-     Then I should see "Es existieren noch keine Mitarbeiter für diese Organisation"
+     Then I should see the following table of employees:
+       | Name          | WAZ  | E-Mail           | Status  |
+       | Burns, Owner  |      | owner@burns.com  | Aktiv   |
 
   @fileupload
   Scenario: Creating an employee
@@ -26,12 +28,14 @@ Feature: Create Employees
      Then I should be on the employees page for the organization
       And I should see flash notice "Mitarbeiter erfolgreich angelegt."
       Then I should see the following table of employees:
-        | Name           | WAZ  | E-Mail  | Status                 |
-        | Carlson, Carl  | 30   |         | Noch nicht eingeladen  |
+        | Name           | WAZ  | E-Mail           | Status                 |
+        | Burns, Owner   |      | owner@burns.com  | Aktiv                  |
+        | Carlson, Carl  | 30   |                  | Noch nicht eingeladen  |
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
      When I go to the page of the plan
       And I should see the following calendar:
         | Mitarbeiter   | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
+        | Owner Burns   |     |     |     |     |     |     |     |
         | Carl Carlson  |     |     |     |     |     |     |     |
 
   # The role owner can not be assigned to other employees
@@ -46,8 +50,9 @@ Feature: Create Employees
       And I press "Anlegen"
       And I should be on the employees page for the organization
      Then I should see the following table of employees:
-       | Name           | Rolle  |
-       | Carlson, Carl  | keine  |
+       | Name           | Rolle           |
+       | Burns, Owner   | Accountinhaber  |
+       | Carlson, Carl  | keine           |
 
   @javascript
   Scenario: Creating a planner
@@ -60,8 +65,9 @@ Feature: Create Employees
       And I press "Anlegen"
       And I should be on the employees page for the organization
      Then I should see the following table of employees:
-       | Name           | WAZ  | E-Mail  | Rolle   | Status                 |
-       | Carlson, Carl  | 40   |         | Planer  | Noch nicht eingeladen  |
+       | Name           | WAZ  | E-Mail           | Rolle           | Status                 |
+       | Burns, Owner   |      | owner@burns.com  | Accountinhaber  | Aktiv                  |
+       | Carlson, Carl  | 40   |                  | Planer          | Noch nicht eingeladen  |
 
      When I inject style "position:relative" into "header"
      When I follow "Carlson, Carl" within the employees table
@@ -71,8 +77,9 @@ Feature: Create Employees
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following table of employees:
-       | Name           | WAZ  |  E-Mail  | Rolle | Status                 |
-       | Carlson, Carl  | 40   |          | keine | Noch nicht eingeladen  |
+       | Name           | WAZ  | E-Mail           | Rolle           | Status                 |
+       | Burns, Owner   |      | owner@burns.com  | Accountinhaber  | Aktiv                  |
+       | Carlson, Carl  | 40   |                  | keine           | Noch nicht eingeladen  |
 
   Scenario: Creating an employee without a weekly working time
     Given I follow "Hinzufügen"
@@ -83,15 +90,18 @@ Feature: Create Employees
       And I press "Anlegen"
      Then I should see flash notice "Mitarbeiter erfolgreich angelegt."
       And I should see the following table of employees:
-        | Name           | WAZ  | E-Mail  | Status                 |
-        | Carlson, Carl  |      |         | Noch nicht eingeladen  |
+        | Name           | WAZ  | E-Mail           | Status                 |
+        | Burns, Owner   |      | owner@burns.com  | Aktiv                  |
+        | Carlson, Carl  |      |                  | Noch nicht eingeladen  |
 
   Scenario: Can only see employees of current organization
     Given another organization "Chefs" exists with account: the account
       And an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account
       And a membership exists with organization: the organization "Chefs", employee: the employee "homer"
       And I am on the employees page for the organization "fukushima"
-     Then I should see "Es existieren noch keine Mitarbeiter für diese Organisation"
+     Then I should see the following table of employees:
+        | Name           | WAZ  | E-Mail           | Status                 |
+        | Burns, Owner   |      | owner@burns.com  | Aktiv                  |
 
      When I go to the employees page for the organization "Chefs"
      Then I should see the following table of employees:
