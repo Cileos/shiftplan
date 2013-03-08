@@ -1,8 +1,9 @@
 Feature:
+  In order to correct typos or show my loyality to the new mother company
   As an owner
-  I want to edit the name of my account
+  I want to edit my account
 
-  Scenario:
+  Scenario: change name
     Given the situation of a just registered user
      When I go to the page of the account
       And I follow "Account bearbeiten"
