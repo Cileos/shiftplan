@@ -10,8 +10,9 @@ Feature: Edit Employee
      When I sign in as the confirmed user
       And I am on the employees page for the organization
      Then I should see the following table of employees:
-        | Name            | WAZ  | E-Mail  | Status                 |
-        | Simpson, Homer  | 40   |         | Noch nicht eingeladen  |
+        | Name            | WAZ  | E-Mail           | Status                 |
+        | Burns, Owner    |      | owner@burns.com  | Aktiv                  |
+        | Simpson, Homer  | 40   |                  | Noch nicht eingeladen  |
 
   Scenario: Editing an employee
      When I follow "Simpson, Homer" within the employees table
@@ -24,13 +25,12 @@ Feature: Edit Employee
       And I should be on the employees page for the organization
       And I should see the following table of employees:
         | Name                    |
+        | Burns, Owner            |
         | Simpson-Carlson, Homer  |
 
   # Planners and owners should not be able to update their own role. We only test this
   # for owners here because specs exist for both planners and owners.
   Scenario: Owner can not update his own role
-    # add owner mr. burns to organization
-    Given a membership exists with organization: the organization, employee: the employee "mr. burns"
      When I go to the employees page for the organization
       And I follow "Burns, Owner"
       And I wait for the modal box to appear
@@ -51,13 +51,12 @@ Feature: Edit Employee
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following table of employees:
-        | Name            | Rolle  |
-        | Simpson, Homer  | keine  |
+        | Name            | Rolle           |
+        | Burns, Owner    | Accountinhaber  |
+        | Simpson, Homer  | keine           |
 
   Scenario: Owner can not be updated by any one else
-    # add owner mr. burns to organization
-    Given a membership exists with organization: the organization, employee: the employee "mr. burns"
-      And a confirmed user "planner bart" exists with email: "bart@thesimpsons.com"
+    Given a confirmed user "planner bart" exists with email: "bart@thesimpsons.com"
       And an employee_planner "planner bart" exists with first_name: "Bart", user: the confirmed user "planner bart", account: the account
       And a membership exists with organization: the organization, employee: the employee "planner bart"
       And I am signed in as the confirmed user "planner bart"
@@ -80,6 +79,7 @@ Feature: Edit Employee
       And I go to the employees page for the organization
      Then I should see the following table of employees:
         | Name            |
+        | Burns, Owner    |
         | Simpson, Bart   |
         | Simpson, Homer  |
       And I should not see link "Simpson, Bart" within the employees table
@@ -93,8 +93,9 @@ Feature: Edit Employee
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following table of employees:
-        | Name            | WAZ  | E-Mail  | Status                 |
-        | Simpson, Homer  |      |         | Noch nicht eingeladen  |
+        | Name            | WAZ  | E-Mail           | Status                 |
+        | Burns, Owner    |      | owner@burns.com  | Aktiv                  |
+        | Simpson, Homer  |      |                  | Noch nicht eingeladen  |
 
      When I inject style "position:relative" into "header"
       And I follow "Simpson, Homer" within the employees table
