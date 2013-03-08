@@ -1,4 +1,4 @@
-Feature:
+Feature: Edit Account
   In order to correct typos or show my loyality to the new mother company
   As an owner
   I want to edit my account
