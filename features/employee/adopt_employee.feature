@@ -61,13 +61,6 @@ Feature: Adopt Employee from other Organization
         | Übernehmen? | Name           | WAZ | E-Mail                | Status | Organisationen       |
         |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv  | Krümmel, Tschernobyl |
 
-     When I go to the page of the plan "kühlungsraum"
-     Then I should see the following calendar:
-        | Mitarbeiter   | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
-        | Owner Burns   |     |     |     |     |     |     |     |
-        | Bart Simpson  |     |     |     |     |     |     |     |
-
-
    @javascript
    Scenario: Search, Clear, refine search to continue to adopt the found employees
      # Fill in (almost?) every field
