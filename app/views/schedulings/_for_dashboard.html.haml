@@ -16,6 +16,10 @@
               %strong.time= "#{scheduling.starts_at.hour} - #{scheduling.ends_at.hour}"
               - if scheduling.team.present?
                 %span.team= scheduling.team.to_quickie
-              %span.plan= link_to scheduling.plan.name, nested_resources_for(scheduling.plan)
+              - plan = scheduling.plan
+              - org = plan.organization
+              %span.plan= link_to plan.name,
+                account_organization_plan_employees_in_week_path(org.account,
+                org, plan, week: scheduling.week, cwyear: scheduling.cwyear)
     - else
       %p= t('schedulings.no_upcoming_schedulings_present')
