@@ -11,7 +11,7 @@
       %thead
         %tr.employee
           %th= Employee.human_attribute_name(:full_name)
-          %th= Employee.human_attribute_name(:organization)
+          %th= Employee.human_attribute_name(:account)
 
       %tbody
         - @employees.each do |employee|
@@ -19,6 +19,5 @@
             %th
               = avatar(employee.user, employee, :tiny)
               = link_to employee.last_and_first_name, edit_profile_employee_path(employee)
-            %td.organization
-              - employee.organizations.order('name').each do |organization|
-                = organization.name
+            %td.account
+              = employee.account.name

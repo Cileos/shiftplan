@@ -1,0 +1,11 @@
+- title :edit_account
+
+.row.two-columns.inverted
+  .primary
+    = simple_form_for resource, html: { class: 'form-horizontal' } do |f|
+      .inputs.edit-account
+        = f.input :name, autofocus: true
+      .actions
+        = f.update_button
+  .secondary.instructions
+    = tt '.instructions'

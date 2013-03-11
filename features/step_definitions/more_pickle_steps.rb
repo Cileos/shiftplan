@@ -36,7 +36,9 @@ Given /^#{capture_model} has joined another account(?: with #{capture_fields})?$
   options = parse_fields(options)
 
   expect(lambda {
-    account      = FactoryGirl.create :account
+    account_attrs = {}
+    account_attrs[:name] = options['name'] if options['name']
+    account = FactoryGirl.create :account, account_attrs
     if organization_name = options['organization_name']
       organization = FactoryGirl.create :organization, account: account, name: organization_name
     else

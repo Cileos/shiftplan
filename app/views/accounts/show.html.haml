@@ -2,8 +2,11 @@
 
 - if can? :manage, Organization.new(account: @account)
   - masterhead_toolbar do
-    =link_to ti(:add_organization), new_account_organization_path(@account),
+    = link_to ti(:add_organization), new_account_organization_path(@account),
       class: 'button', data: { icon: i(:add) }, title: ta(:add_organization)
+    - if can? :update, current_account
+      = link_to ti(:edit_account), edit_account_path(@account),
+        class: 'button', title: ta(:edit_account)
 
 .row.two-columns.inverted
   .primary
