@@ -47,14 +47,28 @@ shared_examples "an employee who can read and update accounts" do
   end
 end
 
-describe "Account permissions:" do
-  subject { ability }
-  let(:ability) { Ability.new(user) }
-  let(:user) { create(:user) }
-  let(:account) { create(:account) }
-  let(:organization) { create(:organization, account: account) }
+shared_examples "a user who can create accounts" do
+  context "for own user" do
+    it "should be able to create accounts" do
+      should be_able_to(:create, Account.new(user_id: user.id))
+    end
+  end
+  context "for other users" do
+    it "should not be able to create accounts" do
+      should_not be_able_to(:create, Account.new(user_id: other_user.id))
+    end
+  end
+end
 
-  let(:other_account) { create(:account) }
+describe "Account permissions:" do
+  subject              { ability }
+  let(:ability)        { Ability.new(user) }
+  let(:user)           { create(:user) }
+  let(:other_user)     { create(:user) }
+  let(:account)        { create(:account) }
+  let(:organization)   { create(:organization, account: account) }
+
+  let(:other_account)  { create(:account) }
 
   before(:each) do
     # simulate before_filter :set_current_employee
@@ -65,38 +79,28 @@ describe "Account permissions:" do
     let(:employee) { create(:employee_owner, account: account, user: user) }
 
     it_behaves_like "an employee who can read and update accounts"
-
-    it "should be able to create accounts" do
-      should be_able_to(:create, Account)
-    end
+    it_behaves_like "a user who can create accounts"
   end
 
   context "A planner" do
     let(:employee) { create(:employee_planner, account: account, user: user) }
 
     it_behaves_like "an employee who can read accounts"
-
-    it "should be able to create accounts" do
-      should be_able_to(:create, Account)
-    end
+    it_behaves_like "a user who can create accounts"
   end
 
   context "An employee" do
     let(:employee) { create(:employee, account: account, user: user) }
 
     it_behaves_like "an employee who can read accounts"
-
-    it "should be able to create accounts" do
-      should be_able_to(:create, Account)
-    end
+    it_behaves_like "a user who can create accounts"
   end
 
   context "An user without employee(not possible but for the case)" do
     let(:employee) { nil }
 
-    it "should be able to create accounts" do
-      should be_able_to(:create, Account)
-    end
+    it_behaves_like "a user who can create accounts"
+
     it "should not be able to read accounts" do
       should_not be_able_to(:read, account)
     end
