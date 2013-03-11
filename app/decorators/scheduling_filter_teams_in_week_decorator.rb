@@ -4,7 +4,7 @@ class SchedulingFilterTeamsInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def cell_metadata(day, team)
-    { :'team-id' => team.id, :date => day.iso8601 }
+    { :'team-id' => team.try(:id) || 'missing', :date => day.iso8601 }
   end
 
   def update_legend
