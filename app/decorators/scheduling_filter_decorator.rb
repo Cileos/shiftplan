@@ -141,14 +141,14 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  # active teams = teams already scheduled in current week
+  # teams already scheduled in current week
   def active_teams
     @active_teams ||= records.map(&:team).compact.uniq.sort_by(&:name)
   end
 
-  # inactive teams = teams of organization not yet scheduled in current week
+  # teams of organization not yet scheduled in current week
   def inactive_teams
-    organization.teams.reject { |t| active_teams.include?(t) }
+    organization.teams - active_teams
   end
 
   def hours_for(employee)
