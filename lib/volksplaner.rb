@@ -4,7 +4,7 @@ module Volksplaner
   autoload :FormButtons, 'volksplaner/form_buttons'
 
   def self.staging?
-    @staging = `hostname` =~ /FTD001/
+    @staging = `hostname` =~ /plock/
   end
 
   def self.hostname
