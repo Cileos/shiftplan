@@ -14,6 +14,17 @@ de:
     new:
       instructions: >
         Hier können Sie einen neuen Account anlegen.
+
+
+        Geben Sie bitten den Namen des neuen Accounts und der ersten
+        Organisation ein.
+
+
+        Für jeden Account wird ein separater Mitarbeiter angelegt. So wird
+        garantiert, dass alle Accounts, zu denen Sie gehören, keine
+        Informationen miteinander teilen.
+        Sie können den Vor- und Nachnamen eines bestehenden Mitarbeiters
+        übernehmen oder etwas anderes als Vor- und Nachnamen eintragen.
     edit:
       instructions: >
         Hier können Sie Ihren Account bearbeiten.
