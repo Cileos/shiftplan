@@ -33,14 +33,14 @@ Feature: Signing in
      When I fill in "E-Mail" with "<email>" within the modal box
       And I fill in "Passwort" with "secret" within the modal box
       And I press "Einloggen"
-     Then I should see flash "<result>"
+     Then <result>
       And I should be on <page>
 
     Examples:
-       | scenario                                                    | email                 | result                                                  | page                                                               |
-       | nothing                                                     | burns@clockwork.local | Erfolgreich eingeloggt.                                 | the employees in week page for the plan for week: 49, cwyear: 2012 |
-       | nothing                                                     | homer@clockwork.local | Erfolgreich eingeloggt.                                 | the employees in week page for the plan for week: 49, cwyear: 2012 |
-       | a confirmed user exists with email: "peter@clockwork.local" | peter@clockwork.local | Sie sind nicht berechtigt, auf diese Seite zuzugreifen. | the dashboard                                                      |
+       | scenario                                                     | email                  | result                                        | page                                                                |
+       | nothing                                                      | burns@clockwork.local  | I should see flash "Erfolgreich eingeloggt."  | the employees in week page for the plan for week: 49, cwyear: 2012  |
+       | nothing                                                      | homer@clockwork.local  | I should see flash "Erfolgreich eingeloggt."  | the employees in week page for the plan for week: 49, cwyear: 2012  |
+       | a confirmed user exists with email: "peter@clockwork.local"  | peter@clockwork.local  | nothing                                       | the dashboard                                                       |
 
 
   @javascript
