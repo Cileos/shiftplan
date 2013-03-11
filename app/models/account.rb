@@ -18,8 +18,8 @@ class Account < ActiveRecord::Base
                 :user_id,
                 :on_new_account
 
-  validates_presence_of :name,
-                        :organization_name,
+  validates_presence_of :name
+  validates_presence_of :organization_name,
                         :first_name,
                         :last_name,
                         :user_id,
