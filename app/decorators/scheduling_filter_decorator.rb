@@ -221,7 +221,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
 
   def update_quickie_completions
-    page << "window.gon.quickie_completions=" + plan.schedulings.quickies.to_json
+    page << "window.gon.quickie_completions=" + quickies_for_completion.to_json
   end
 
   def legend
