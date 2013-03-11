@@ -35,35 +35,6 @@ Feature: create a scheduling
      Then the "Quickie" field should contain "9-17"
 
   @javascript
-  Scenario: creating a scheduling without a team
-    Given I click on cell "Mi"/"Homer S"
-      And I wait for the modal box to appear
-      And I fill in "Quickie" with "9-17"
-      And I press "Anlegen"
-      And I wait for the modal box to disappear
-     Then I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi           | Do  | Fr  | Sa  | So  |
-        | Carl C       |     |     |              |     |     |     |     |
-        | Lenny L      |     |     |              |     |     |     |     |
-        | Homer S      |     |     | 09:00-17:00  |     |     |     |     |
-     When I choose "Teams" from the drop down "Mitarbeiter" within the calendar
-     Then I should see the following calendar:
-        | Teams      | Mo  | Di  | Mi                   | Do  | Fr  | Sa  | So  |
-        | Ohne Team  |     |     | Homer S 09:00-17:00  |     |     |     |     |
-
-  @javascript
-  Scenario: creating a scheduling without a team by clicking in the without team row
-    Given I choose "Teams" from the drop down "Mitarbeiter" within the calendar
-     When I click on cell "Mo"/"Ohne Team"
-      And I wait for the modal box to appear
-      And I fill in "Quickie" with "8-16"
-      And I press "Anlegen"
-      And I wait for the modal box to disappear
-     Then I should see the following calendar:
-        | Teams      | Mo           | Di  | Mi  | Do  | Fr  | Sa  | So  |
-        | Ohne Team  | 08:00-16:00  |     |     |     |     |     |     |
-
-  @javascript
   Scenario: entering timespan until end of day
     Given I inject style "position:relative" into "header"
      When I click on cell "Mi"/"Homer S"
