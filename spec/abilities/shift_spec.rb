@@ -31,10 +31,10 @@ shared_examples "an employee who can manage shifts" do
   end
 end
 
-shared_examples "an employee who can read shifts" do
+shared_examples "an employee who can not read shifts" do
   context "for own accounts" do
-    it "should be able to read shifts" do
-      should be_able_to(:read, create(:shift, plan_template: plan_template))
+    it "should not be able to read shifts" do
+      should_not be_able_to(:read, create(:shift, plan_template: plan_template))
     end
   end
   context "for other accounts" do
@@ -79,7 +79,7 @@ describe "Shift permissions:" do
       membership
     end
 
-    it_behaves_like "an employee who can read shifts" do
+    it_behaves_like "an employee who can not read shifts" do
       let(:employee) { create(:employee, account: account, user: user) }
       # An "normal" employee needs a membership for an organization to do things.
       # This is different from planners or owners which do not need a membership but

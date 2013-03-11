@@ -29,10 +29,10 @@ shared_examples "an employee who can manage qualifications" do
   end
 end
 
-shared_examples "an employee who can read qualifications" do
+shared_examples "an employee who can not read qualifications" do
   context "for own accounts" do
-    it "should be able to read qualifications" do
-      should be_able_to(:read, create(:qualification, account: account))
+    it "should not be able to read qualifications" do
+      should_not be_able_to(:read, create(:qualification, account: account))
     end
   end
   context "for other accounts" do
@@ -72,7 +72,7 @@ describe "Qualification permissions:" do
       membership
     end
 
-    it_behaves_like "an employee who can read qualifications" do
+    it_behaves_like "an employee who can not read qualifications" do
       let(:employee)     { create(:employee, account: account, user: user) }
       # An "normal" employee needs a membership for an organization to do things.
       # This is different from planners or owners which do not need a membership but
