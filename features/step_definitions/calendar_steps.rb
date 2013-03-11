@@ -18,8 +18,10 @@ When /^I click on the #{capture_quoted} row$/ do |row_name|
   EOJS
 end
 
-When /^I click on (?:the )?(shift|scheduling) #{capture_quoted}$/ do |shift_or_scheduling, quickie|
-  shift_or_scheduling = page.find(".#{shift_or_scheduling}", text: quickie)
+When /^I click on (?:the )?(early|late|) ?(shift|scheduling) #{capture_quoted}$/ do |early_or_late, shift_or_scheduling, quickie|
+  selector = ".#{shift_or_scheduling}"
+  selector << ".#{early_or_late}" if early_or_late.present?
+  shift_or_scheduling = page.find(selector, text: quickie)
   begin
     shift_or_scheduling.click()
   rescue Selenium::WebDriver::Error::UnknownError => e # page was maybe still moving, could not hit element
