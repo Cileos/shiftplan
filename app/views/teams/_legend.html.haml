@@ -1,6 +1,9 @@
 -# teams scheduled in current week
-#active-teams
-  = render('teams/team_list', teams: active_teams)
+- unless active_teams.blank?
+  #active-teams.active-teams
+    = render('teams/team_list', teams: active_teams)
+
 -# teams not scheduled in current week
-#inactive-teams
-  = render('teams/team_list', teams: inactive_teams)
+- unless inactive_teams.blank?
+  #inactive-teams.inactive-teams
+    = render('teams/team_list', teams: inactive_teams)
