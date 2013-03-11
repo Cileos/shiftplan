@@ -31,10 +31,10 @@ shared_examples "an employee who can manage plan_templates" do
   end
 end
 
-shared_examples "an employee who can read plan_templates" do
+shared_examples "an employee who can not read plan_templates" do
   context "for own accounts" do
-    it "should be able to read plan_templates" do
-      should be_able_to(:read, create(:plan_template, organization: organization))
+    it "should not be able to read plan_templates" do
+      should_not be_able_to(:read, create(:plan_template, organization: organization))
     end
   end
   context "for other accounts" do
@@ -76,7 +76,7 @@ describe "plan_template permissions:" do
       membership
     end
 
-    it_behaves_like "an employee who can read plan_templates" do
+    it_behaves_like "an employee who can not read plan_templates" do
       let(:employee) { create(:employee, account: account, user: user) }
       # An "normal" employee needs a membership for an organization to do things.
       # This is different from planners or owners which do not need a membership but

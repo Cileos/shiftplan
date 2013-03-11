@@ -2,7 +2,7 @@
 %h3= t(:'comments.comments')
 %ul#comments.comments
   - if comments.empty?
-    %li.no-comments= t(:'comments.no_comments_present')
+    %li.comment.no-comments= t(:'comments.no_comments_present')
   - else
     - comments.each do |comment|
       = render('comments/item', comment: comment, avatar_size: :thumb)

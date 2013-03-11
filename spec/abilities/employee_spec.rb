@@ -155,8 +155,8 @@ describe "Employee permissions:" do
     end
 
     context "for own accounts" do
-      it "should be able to read employees" do
-        should be_able_to(:read, create(:employee, account: account))
+      it "should not be able to read employees" do
+        should_not be_able_to(:read, create(:employee, account: account))
       end
       it "should not be able to create employees" do
         should_not be_able_to(:create, create(:employee, account: account))

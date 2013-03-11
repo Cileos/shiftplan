@@ -18,8 +18,8 @@ when Scheduling
 when Post
   # TODO clean up these page.selects y using CommentDecorator
   if @comment.errors.empty?
+    page.select("ul#comments li.comment:last").after render('comments/item', comment: @comment)
     page.select('li.no-comments').remove()
-    page.select("ul#comments").append render('comments/item', comment: @comment)
     page.select('textarea#comment_body').val('')
     page.select('.comments-count').replace_with render('posts/comments_count', post: @comment.commentable)
   else
