@@ -2,10 +2,10 @@ Feature: As a user
 I want to edit my profile
 
   Background:
-    Given an account exists
-      And an organization "fukushima" exists with name: "Fukushima GmbH", account: the account
+    Given an account "tepco" exists with name: "Tepco GmbH"
+      And an organization "fukushima" exists with name: "Fukushima", account: the account "tepco"
       And a confirmed user exists with email: "marge@thebouviers.com"
-      And an employee exists with user: the confirmed user, first_name: "Marge", last_name: "Bouvier", account: the account
+      And an employee exists with user: the confirmed user, first_name: "Marge", last_name: "Bouvier", account: the account "tepco"
       And the employee is a member of the organization "fukushima"
 
   Scenario: Editing the lastname on the my profile page
@@ -52,16 +52,16 @@ I want to edit my profile
       And I should see the avatar "rails.png" within the user navigation
 
   Scenario: Edit my full name for one of the accounts I joined
-    Given the confirmed user has joined another account with organization_name: "Tschernobyl GmbH", as: "Margeret Bouvier"
+    Given the confirmed user has joined another account with name: "1. FC Springfield", organization_name: "Skateboard", as: "Margeret Bouvier"
       And I am signed in as the confirmed user
       And I am on the dashboard page
 
      When I choose "Einstellungen" from the drop down "marge@thebouviers.com"
      Then I should be on the profile page of my employees
      Then I should see the following table of employees:
-       | Name              | Organisation     |
-       | Bouvier, Marge    | Fukushima GmbH   |
-       | Bouvier, Margeret | Tschernobyl GmbH |
+       | Name              | Account           |
+       | Bouvier, Marge    | Tepco GmbH        |
+       | Bouvier, Margeret | 1. FC Springfield |
      When I follow "Bouvier, Margeret"
       # Margeret Bouvier just married Homer Simpson and needs to change her last name
       And I fill in "Nachname" with "Simpson"
@@ -72,9 +72,9 @@ I want to edit my profile
      When I follow "Zurück"
      Then I should be on the profile page of my employees
      Then I should see the following table of employees:
-       | Name              | Organisation     |
-       | Bouvier, Marge    | Fukushima GmbH   |
-       | Simpson, Margeret | Tschernobyl GmbH |
+       | Name               | Account            |
+       | Bouvier, Marge     | Tepco GmbH         |
+       | Simpson, Margeret  | 1. FC Springfield  |
 
    Scenario: handle employee beeing member in multiple organizations
      Given an organization "Tepco" exists with name: "Tepco"
@@ -82,6 +82,6 @@ I want to edit my profile
       And I am signed in as the confirmed user
      When I go to the profile page of my employees
      Then I should see the following table of employees:
-       | Name           | Organisation          |
-       | Bouvier, Marge | Fukushima GmbH\nTepco |
+       | Name           | Account          |
+       | Bouvier, Marge | Tepco GmbH       |
 
