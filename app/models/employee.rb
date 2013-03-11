@@ -18,6 +18,7 @@ class Employee < ActiveRecord::Base
   validates_presence_of :first_name, :last_name
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
   validates_inclusion_of :role, in: Roles, allow_blank: true
+  validates_format_of :first_name, :last_name, with: Volksplaner::HumanNameRegEx, allow_nil: true
 
   belongs_to :user
   belongs_to :account

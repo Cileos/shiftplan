@@ -2,52 +2,79 @@ require 'spec_helper'
 
 describe Employee do
   context "full name" do
-    it "should be build up by first and last name" do
+    it "is build up by first and last name" do
       employee = build :employee, :first_name => 'Homer', :last_name => 'Simpson'
       employee.name.should == 'Homer Simpson'
     end
+  end
 
-    it "should need a first_name" do
-      build(:employee, :first_name => nil).should be_invalid
-      build(:employee, :first_name => '').should  be_invalid
-      build(:employee, :first_name => ' ').should be_invalid
-
-      build(:employee, :first_name => 'Homer').should be_valid
+  shared_examples 'human name' do
+    it "is needed" do
+      build(:employee, attr => nil).should be_invalid
+      build(:employee, attr => '').should  be_invalid
+      build(:employee, attr => ' ').should be_invalid
     end
 
-    it "should need a last_name" do
-      build(:employee, :last_name => nil).should be_invalid
-      build(:employee, :last_name => '').should  be_invalid
-      build(:employee, :last_name => ' ').should be_invalid
-
-      build(:employee, :last_name => 'Simpson').should be_valid
-    end
-
-    it "should have a value or nil value for weekly_working_time" do
-      build(:employee, :weekly_working_time => -1).should  be_invalid
-      build(:employee, :weekly_working_time => 1.2).should be_valid
-
-      build(:employee, :weekly_working_time => 0).should   be_valid
-      build(:employee, :weekly_working_time => 40).should  be_valid
-      build(:employee, :weekly_working_time => nil).should be_valid
-    end
-
-    context "roles" do
-      it { build(:employee, role: 'planner').should be_valid }
-      it { build(:employee, role: 'owner').should be_valid }
-      it { build(:employee, role: 'planer').should be_invalid }
-      it { build(:employee, role: 'weihnachtsmann').should be_invalid }
-      it { create(:employee, role: 'planner').reload.role.should == 'planner' }
+    it "may not start with a dot" do # causes translate_action
+      build(:employee, attr => '.lookslikeaction').should be_invalid
     end
   end
 
-  context "WAZ in form" do
-    it "is an integer for the time being" do
-      create(:employee, weekly_working_time: 23.5).weekly_working_time_before_type_cast.should == 23
+  context "first name" do
+    let(:attr) { :first_name }
+    it_behaves_like 'human name'
+  end
+
+  context "last name" do
+    let(:attr) { :last_name }
+    it_behaves_like 'human name'
+  end
+
+  context "weekly working time" do
+    it "must have positive numeric value" do
+      build(:employee, :weekly_working_time => 1.2).should be_valid
+      build(:employee, :weekly_working_time => 0).should   be_valid
+      build(:employee, :weekly_working_time => 40).should  be_valid
     end
 
-    it "keeps beeing empty (no accidental 0)" do
-      create(:employee, weekly_working_time: nil).weekly_working_time_before_type_cast.should be_nil
+    it "may be nil" do
+      build(:employee, :weekly_working_time => nil).should be_valid
+    end
+
+    it "may not be negative" do
+      build(:employee, :weekly_working_time => -1).should  be_invalid
+    end
+
+    context "in simple form" do
+      it "is an integer for the time being" do
+        build(:employee, weekly_working_time: 23.5).weekly_working_time_before_type_cast.should == 23
+      end
+
+      it "keeps beeing empty (no accidental 0)" do
+        build(:employee, weekly_working_time: nil).weekly_working_time_before_type_cast.should be_nil
+      end
+    end
+  end
+
+  context "role" do
+    it "can be 'planner'" do
+      build(:employee, role: 'planner').should be_valid
+    end
+
+    it "can be 'owner'" do
+      build(:employee, role: 'owner').should be_valid
+    end
+
+    it "does not correct mistakes in writing plan(n)er" do
+      build(:employee, role: 'planer').should be_invalid
+    end
+
+    it "may not be arbitrary" do
+      build(:employee, role: 'weihnachtsmann').should be_invalid
+    end
+
+    it "is persisted" do
+      create(:employee, role: 'planner').reload.role.should == 'planner'
     end
   end
 
@@ -72,22 +99,19 @@ describe Employee do
       context "with duplicates present" do
         let!(:duplicate) { create :employee, name: 'Helmut Kohl', account: account }
 
-        it "should find them" do
+        it "are found" do
           employee.duplicates.should include(duplicate)
         end
 
-        it "should not find itself" do
+        it "do not include itself" do
           duplicate.duplicates.should be_empty
         end
 
-        it "should have errors" do
+        it "add errors to employee" do
           employee.valid?
           employee.should have_at_least(1).error_on(:duplicates)
         end
-
       end
-
-
     end
   end
 end
