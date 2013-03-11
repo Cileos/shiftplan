@@ -32,7 +32,7 @@ class Ability
   def authorize_signed_in(user)
     can :dashboard, User
     can :create, Account do |account|
-      account.user_id && account.user_id.to_i == user.id
+      account.user == user
     end
     can :read, Account do |account|
       user.accounts.include?(account)
