@@ -48,6 +48,7 @@ de:
         answer_on_comment_for_commenter: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:"
   schedulings:
     missing_team: Ohne Team
+    missing_employee: Ohne Mitarbeiter
     legend: Legende
     information: Plan-Informationen
     no_upcoming_schedulings_present: 'In der nächsten Zeit stehen keine Termine an.'

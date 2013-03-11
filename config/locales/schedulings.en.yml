@@ -43,6 +43,7 @@ en:
         answer_on_comment_for_commenter: "%{author_name} has replied to a comment on schedule of  %{employee_name} on %{date} (%{quickie}). Others also commented on this schedule:"
   schedulings:
     missing_team: Without team
+    missing_employee: Without employee
     legend: Legend
     information: Plan info
     no_upcoming_schedulings_present: 'No upcoming schedules. Hooray!'
