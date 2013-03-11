@@ -25,6 +25,10 @@ class Account < ActiveRecord::Base
                         :user_id,
                         if: Proc.new { |a| a.on_new_account }
 
+  def user
+    User.find(user_id)
+  end
+
   def self.owners_and_planners
     owners.planners
   end
