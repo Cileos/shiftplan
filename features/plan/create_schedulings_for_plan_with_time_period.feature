@@ -29,7 +29,7 @@ Feature: Creating schedulings in a plan with time period
      And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Mitarbeiter  | Mo                       | Di           | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       | 09:00-17:00 22:00-24:00  | 00:00-06:00  |     |     |     |     |     |
+        | Carl C       | 09:00-17:00 22:00-06:00  | 22:00-06:00  |     |     |     |     |     |
         | Lenny L      |                          |              |     |     |     |     |     |
         | Homer S      |                          |              |     |     |     |     |     |
 
@@ -40,7 +40,7 @@ Feature: Creating schedulings in a plan with time period
       And I follow ">" within the toolbar
      Then I should see the following calendar:
         | Mitarbeiter  | Mo                       | Di           | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       | 09:00-17:00 22:00-24:00  | 00:00-06:00  |     |     |     |     |     |
+        | Carl C       | 09:00-17:00 22:00-06:00  | 22:00-06:00  |     |     |     |     |     |
         | Lenny L      |                          |              |     |     |     |     |     |
         | Homer S      |                          |              |     |     |     |     |     |
 
@@ -68,14 +68,14 @@ Feature: Creating schedulings in a plan with time period
       And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So           |
-        | Carl C       |     |     |     |     |     |     | 22:00-24:00  |
+        | Carl C       |     |     |     |     |     |     | 22:00-06:00  |
         | Lenny L      |     |     |     |     |     |     |              |
         | Homer S      |     |     |     |     |     |     |              |
       And I inject style "position:relative" into "header"
      When I follow ">"
      Then I should see the following calendar:
         | Mitarbeiter  | Mo           | Di  | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       | 00:00-06:00  |     |     |     |     |     |     |
+        | Carl C       | 22:00-06:00  |     |     |     |     |     |     |
         | Lenny L      |              |     |     |     |     |     |     |
         | Homer S      |              |     |     |     |     |     |     |
      # go back to first page to really make sure that scheduling filter will fetch
@@ -84,7 +84,7 @@ Feature: Creating schedulings in a plan with time period
      When I follow "<"
      Then I should see the following calendar:
         | Mitarbeiter  | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So           |
-        | Carl C       |     |     |     |     |     |     | 22:00-24:00  |
+        | Carl C       |     |     |     |     |     |     | 22:00-06:00  |
         | Lenny L      |     |     |     |     |     |     |              |
         | Homer S      |     |     |     |     |     |     |              |
 
