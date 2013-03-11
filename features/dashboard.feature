@@ -29,20 +29,24 @@ Feature: Dashboard
     Then I should be on the page for the organization
 
   Scenario: List upcoming schedulings (just the next 7 days for now)
-    Given the employee "Homer" was scheduled in the plan as following:
+    Given a plan "pumpen ölen" exists with name: "Pumpen ölen", organization: the organization
+      And the employee "Homer" was scheduled in the plan "brennstäbe wechseln" as following:
         | week | cwday | quickie                         |
         | 49   | 2     | 9-17 Reaktor Putzen [RP]        |
-        | 50   | 3     | 10-18 Reaktor Fegen [RF]        |
         | 51   | 2     | 22-23 Verantwortung tragen [Vt] |
+      And the employee "Homer" was scheduled in the plan "pumpen ölen" as following:
+        | week | cwday | quickie                         |
+        | 50   | 3     | 10-18 Reaktor Fegen [RF]        |
       And I am signed in as the user "homer"
      When I go to the dashboard
      Then I should see an agenda table with the following rows:
-       | day | day-name | month-year | time    | team                | plan                               |
-       | 4   | Di       | Dez 2012   | 9 - 17  | Reaktor Putzen [RP] | Brennstäbe wechseln in Tschernobyl |
-       | 12  | Mi       | Dez 2012   | 10 - 18 | Reaktor Fegen [RF]  | Brennstäbe wechseln in Tschernobyl |
+       | day  | day-name  | month-year  | time     | team                 | plan                                |
+       | 4    | Di        | Dez 2012    | 9 - 17   | Reaktor Putzen [RP]  | Brennstäbe wechseln in Tschernobyl  |
+       | 12   | Mi        | Dez 2012    | 10 - 18  | Reaktor Fegen [RF]   | Pumpen ölen                         |
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
-     When I follow "Brennstäbe wechseln in Tschernobyl" within the schedulings module
+     When I follow "Pumpen ölen" within the schedulings module
+     Then I should be on the employees in week page of the plan "pumpen ölen" for cwyear: 2012, week: 50
      Then I should be somewhere under the page of the plan
 
    Scenario: List recent news posts of company blogs of organizations I am a member in
