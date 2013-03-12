@@ -6,6 +6,10 @@ class OrganizationsController < InheritedResources::Base
     create! { account_path(current_account) }
   end
 
+  def update
+    update! { account_path(current_account) }
+  end
+
   # OPTIMIZE MembershipsController#create_multiple, using a tableless model like MultipleMembership
   def add_members
     if params[:employees].present?

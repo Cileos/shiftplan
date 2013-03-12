@@ -1,5 +1,5 @@
 class InvitationDecorator < RecordDecorator
-  include EmployeeBaseDecorator
+  include EmployeeDecoratorHelper
   decorates :invitation
 
   protected

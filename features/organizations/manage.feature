@@ -28,6 +28,17 @@ Feature: create organizations
        | Nuclear Cleanup Inc.  |
        | Tschernobyl           |
 
+  Scenario: Edit organization
+    When I go to the page of the account "tepco"
+     And I follow "Bearbeiten" within the first table row
+     And I fill in "Name" with "Fukushima Reaktor 1"
+     And I press "Speichern"
+    Then I should be on the page of the account "tepco"
+     And I should see the following table of organizations:
+       | Name                 |
+       | Fukushima Reaktor 1  |
+       | Tschernobyl          |
+
   Scenario: Normal employee can not create organizations on account page
     Given I follow "Cileos UG" within the navigation
      Then I should be on the page of the account "cileos"

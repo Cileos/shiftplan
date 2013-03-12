@@ -2,8 +2,13 @@
   %thead
     %tr.organization
       %th= t('activerecord.attributes.organization.name')
+      - if can? :edit, Organization
+        %th= t('action')
 
   %tbody
     - organizations.each do |organization|
       %tr
         %th= link_to organization.name, nested_resources_for(organization)
+        - if can? :edit, organization
+          %td= link_to :edit, [:edit] + nested_resources_for(organization),
+            class: 'button button-small'

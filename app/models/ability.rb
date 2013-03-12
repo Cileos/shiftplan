@@ -31,6 +31,9 @@ class Ability
 
   def authorize_signed_in(user)
     can :dashboard, User
+    can :create, Account do |account|
+      account.user == user
+    end
     can :read, Account do |account|
       user.accounts.include?(account)
     end

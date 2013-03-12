@@ -1,4 +1,4 @@
-module EmployeeBaseDecorator
+module EmployeeDecoratorHelper
   def selector_for(name, resource=nil, extra=nil)
     case name
     when :employees
