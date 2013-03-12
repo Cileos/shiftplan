@@ -1,0 +1,2 @@
+class OrganizationDecorator < TabularizedRecordDecorator
+end

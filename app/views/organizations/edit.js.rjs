@@ -1,0 +1,4 @@
+page.decorate resource do |resource|
+  resource.append_modal body: render('form', resource: resource),
+    header: content_tag(:h3, ta(:'edit_organization'))
+end
