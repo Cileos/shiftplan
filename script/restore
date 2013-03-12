@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+# Reads STDIN and feeds the local development database with it.
+
+require 'yaml'
+db_config = YAML.load_file(File.expand_path('../../config/database.yml',  __FILE__))
+
+env = ARGV.shift || 'development'
+STDERR.puts "restoring database for environment #{env}"
+c = db_config[env]
+
+if c['password']
+  ENV['PGPASSWORD'] = c['password']
+  system 'psql',
+    '--host', c['host'].to_s,
+    '--port', c['port'].to_s,
+    '--username', c['username'],
+    '-d', c['database']
+else
+  system 'psql', '-d', c['database']
+end
+
