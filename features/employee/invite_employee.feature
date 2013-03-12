@@ -15,6 +15,7 @@ Feature: Inviting Employees
     Given I am on the employees page for the organization
      Then I should see the following table of employees:
         | Name            |
+        | Burns, Owner    |
         | Simpson, Homer  |
       And I inject style "position:relative" into "header"
      When I follow "Hinzufügen"
@@ -24,6 +25,7 @@ Feature: Inviting Employees
       And I press "Anlegen"
      Then I should see the following table of employees:
         | Name           |
+        | Burns, Owner   |
         | Carlson, Carl  |
         | Simpson, Homer |
 
@@ -134,13 +136,15 @@ Feature: Inviting Employees
     When I go to the employees page for the organization "fukushima"
     Then I should see the following table of employees:
       | Name           | E-Mail               | Status                |
+      | Burns, Owner   | owner@burns.com      | Aktiv                 |
       | Simpson, Homer |                      | Noch nicht eingeladen |
 
     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     Then I should see the following table of employees:
-      | Name           | E-Mail                | Status                                |
-      | Simpson, Homer | homer@thesimpsons.com | Eingeladen am 23.05.2012 um 12:00 Uhr |
+      | Name            | E-Mail                 | Status                                 |
+      | Burns, Owner    | owner@burns.com        | Aktiv                                  |
+      | Simpson, Homer  | homer@thesimpsons.com  | Eingeladen am 23.05.2012 um 12:00 Uhr  |
 
     Given today is "2012-05-24 12:00"
     # need to sign in again because the session has expired
@@ -148,8 +152,9 @@ Feature: Inviting Employees
     When I reinvite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
     Then I should see the following table of employees:
-      | Name           | E-Mail                | Status                                |
-      | Simpson, Homer | homer@thesimpsons.com | Eingeladen am 24.05.2012 um 12:00 Uhr |
+      | Name            | E-Mail                 | Status                                 |
+      | Burns, Owner    | owner@burns.com        | Aktiv                                  |
+      | Simpson, Homer  | homer@thesimpsons.com  | Eingeladen am 24.05.2012 um 12:00 Uhr  |
     And I sign out
 
     When the employee accepts the invitation for the organization "fukushima" with setting a password
@@ -158,8 +163,9 @@ Feature: Inviting Employees
     And I sign in as the confirmed user
     When I go to the employees page for the organization "fukushima"
     Then I should see the following table of employees:
-      | Name           | E-Mail                | Status |
-      | Simpson, Homer | homer@thesimpsons.com | Aktiv  |
+      | Name            | E-Mail                 | Status  |
+      | Burns, Owner    | owner@burns.com        | Aktiv   |
+      | Simpson, Homer  | homer@thesimpsons.com  | Aktiv   |
 
   Scenario: Inviting with an email that's already assigned to an employee of the same organization
    Given an employee "bart" exists with account: the account, first_name: "Bart"

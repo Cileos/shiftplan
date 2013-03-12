@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
                 :on_signup,
                 :confirming_email_change
 
-  validates_presence_of :first_name, 
+  validates_presence_of :first_name,
                         :last_name,
                         :organization_name,
                         :account_name,
@@ -146,12 +146,14 @@ class User < ActiveRecord::Base
         # be entered by the registering user in the signup form.
         organization = Organization.create!(:name => organization_name, :account => account)
         organization.setup # creates the organization's blog
-        employees.create! do |e|
+        e = employees.create! do |e|
           e.first_name  = first_name
           e.last_name   = last_name
           e.account     = account
           e.role        = 'owner'
         end
+        # make the owner member of the first organization
+        e.memberships.create!(organization: organization)
       end
     end
   end
