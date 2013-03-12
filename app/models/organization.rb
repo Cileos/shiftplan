@@ -14,6 +14,8 @@ class Organization < ActiveRecord::Base
 
   validates_presence_of :account_id
 
+  default_scope order(:name)
+
   def company_blog
     blogs.first
   end

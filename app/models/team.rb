@@ -19,6 +19,8 @@ class Team < ActiveRecord::Base
 
   attr_accessible :name, :shortcut, :color
 
+  default_scope order(:name)
+
   # Remove outer and double inner spaces
   def name=(new_name)
     if new_name
