@@ -17,11 +17,5 @@ describe SchedulingFilterEmployeesInWeekDecorator do
     decorator.schedulings_for(day, employee).map(&:start_hour).should == [6,17,23]
   end
 
-  it "find the records through index" do
-    index = stub
-    decorator.stub(:index).and_return(index)
-    index.should_receive(:fetch).with('a', 'b').and_return('lots')
-    decorator.indexed('a', 'b').should == 'lots'
-  end
 end
 
