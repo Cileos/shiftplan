@@ -46,6 +46,18 @@ class Plan < ActiveRecord::Base
     (start_hour .. end_hour)
   end
 
+  def has_period?
+    starts_at.present? || ends_at.present?
+  end
+
+  def starts_after?(given)
+    !starts_at || given < starts_at
+  end
+
+  def ends_before?(given)
+    !ends_at || ends_at < given
+  end
+
   def build_apply_plan_template(attrs={})
     ApplyPlanTemplate.new attrs.merge(plan: self)
   end

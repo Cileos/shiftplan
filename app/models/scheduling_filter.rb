@@ -80,11 +80,11 @@ class SchedulingFilter < RecordFilter
   end
 
   def before_start_of_plan?(date=last_day)
-    plan.starts_at.present? && date.to_date < plan.starts_at.to_date
+    plan.starts_after?(date.to_date)
   end
 
   def after_end_of_plan?(date=first_day)
-    plan.ends_at.present? && date.to_date > plan.ends_at.to_date
+    plan.ends_before?(date.to_date)
   end
 
   def outside_plan_period?(date)

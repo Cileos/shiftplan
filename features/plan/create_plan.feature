@@ -38,52 +38,6 @@ Feature: Creating a plan
       And I should see "30.01." within weeks first date
 
 
-  # in germany, the week with january 4th is the first calendar week
-  # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)
-  Scenario: user gets redirected properly to last cweek of the previous year for 2012-01-01
-    Given today is 2011-12-15
-      And the situation of a nuclear reactor
-      And I am on the page for the organization "Reactor"
-
-     When I choose "Alle Pläne" from the drop down "Pläne"
-      And I inject style "position:relative" into "header"
-      And I follow "Hinzufügen"
-      And I wait for the modal box to appear
-      And I fill in "Name" with "Halloween im Atomkraftwerk"
-     When I fill in "Startdatum" with "2012-01-01"
-      And I fill in "Enddatum" with "2012-01-28"
-      And I close all datepickers
-      And I press "Anlegen"
-      And I wait for the modal box to disappear
-     Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
-
-     When I follow "Halloween im Atomkraftwerk"
-     # as today is before the plan period end the user gets redirected to the first week
-     # view of the plan period (week 52, year 2011)
-     Then I should be on the employees in week page for the plan for week: 52, cwyear: 2011
-
-
-  Scenario: user is locked within the plan period frame when trying to visit a page outside the frame
-    Given the situation of a nuclear reactor
-
-      # 2012-02-27: monday, 9th calendar week
-      # 2012-03-30: friday, 13th calendar week
-      And a plan exists with starts_at: "2012-02-27", ends_at: "2012-03-30", organization: the organization
-      And I go to the page of the plan
-     Then I should be on the employees in week page for the plan for week: 9, cwyear: 2012
-
-     When I go to the employees in week page for the plan for week: 14, cwyear: 2012
-     # user gets redirected to last page of the plan period
-     Then I should be on the employees in week page for the plan for week: 13, cwyear: 2012
-
-     When I go to the employees in week page for the plan for week: 8, cwyear: 2012
-     # user gets redirected to first page of the plan period
-     Then I should be on the employees in week page for the plan for week: 9, cwyear: 2012
-
-     When I go to the employees in week page for the plan for week: 13, cwyear: 2012
-     Then I should be on the employees in week page for the plan for week: 13, cwyear: 2012
-
-
   Scenario: focus first calendar cell which is not outside the plan period
      Given the situation of a nuclear reactor
      # 2012-01-03: tuesday
