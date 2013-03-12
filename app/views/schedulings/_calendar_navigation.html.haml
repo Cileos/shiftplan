@@ -18,7 +18,7 @@
           apply_plan_template: { target_week: filter.week, target_year: filter.cwyear }),
           remote: true, class: '', data: { icon: i(:copy_week)}
         %li= link_to ti(:new_plan_template),
-          [:new] + nested_resources_for(current_organization) + [:plan_template],
+          nested_resources_for(current_organization) + [:plan_templates],
           class: '', data: { icon: i(:add) }
 
 .button-group

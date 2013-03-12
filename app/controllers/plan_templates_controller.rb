@@ -3,6 +3,8 @@ class PlanTemplatesController < InheritedResources::Base
   belongs_to :organization
   load_and_authorize_resource
 
+  respond_to :html, :js
+
   def create
     create! do |success, failure|
       success.html do

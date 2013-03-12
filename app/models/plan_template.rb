@@ -10,6 +10,8 @@ class PlanTemplate < ActiveRecord::Base
 
   attr_accessible :name, :template_type
 
+  default_scope order(:name)
+
   def self.template_type_options
     @template_type_options ||= TEMPLATE_TYPES.map do |tt|
       [I18n.t("plan_templates.template_types.#{tt}"), tt]
