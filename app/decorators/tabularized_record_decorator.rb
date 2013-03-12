@@ -38,7 +38,7 @@ class TabularizedRecordDecorator < ApplicationDecorator
     end
 
     def records
-      base.public_send(pluralized_resource_name).order(:name)
+      base.public_send(pluralized_resource_name)
     end
 
     def base
