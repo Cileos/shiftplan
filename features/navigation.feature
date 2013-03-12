@@ -17,7 +17,6 @@ Feature: Navigation
        | Organisationen            | false   |
        | Tepco GmbH - Fukushima    | false   |
        | Tepco GmbH - Tschernobyl  | false   |
-       | Qualifikationen           | false   |
       And I should see the following items in the organization dropdown list:
         | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
@@ -29,7 +28,6 @@ Feature: Navigation
        | Organisationen            | false   |
        | Tepco GmbH - Fukushima    | false   |
        | Tepco GmbH - Tschernobyl  | false   |
-       | Qualifikationen           | false   |
       And I should see the following items in the organization dropdown list:
         | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
@@ -42,7 +40,6 @@ Feature: Navigation
        | Organisationen            | false   |
        | Tepco GmbH - Fukushima    | false   |
        | Tepco GmbH - Tschernobyl  | false   |
-       | Qualifikationen           | false   |
       And I should see the following items in the organization dropdown list:
         | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
@@ -139,9 +136,14 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Tepco GmbH                | true    |
-       | Organisationen            | false  |
-       | Tepco GmbH - Fukushima    | false  |
+       | Fukushima                 | true    |
        | Tepco GmbH - Tschernobyl  | false   |
+       | Neuigkeiten               | false   |
+       | Pläne                     | false   |
+       | Alle Pläne                | false   |
+       | Mitarbeiter               | false   |
+       | Teams                     | false   |
+       | Planvorlagen              | false   |
        | Qualifikationen           | true    |
 
      # Click on the selected account in the account selector in menu when beeing in the
@@ -154,7 +156,6 @@ Feature: Navigation
        | Organisationen            | false   |
        | Tepco GmbH - Fukushima    | false   |
        | Tepco GmbH - Tschernobyl  | false   |
-       | Qualifikationen           | false   |
       And I should see the following items in the organization dropdown list:
         | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
@@ -191,7 +192,6 @@ Feature: Navigation
        | Organisationen            | false   |
        | Tepco GmbH - Fukushima    | false   |
        | Tepco GmbH - Tschernobyl  | false   |
-       | Qualifikationen           | false   |
       And I should see the following items in the account dropdown list:
        | Cileos UG   |
       And I should see the following items in the organization dropdown list:

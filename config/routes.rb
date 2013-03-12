@@ -56,9 +56,10 @@ Clockwork::Application.routes.draw do
         resources :shifts
         get 'week/teams' => 'shifts#teams_in_week', :as => 'teams_in_week'
       end
-    end # organizations
 
-    resources :qualifications
+      resources :qualifications
+
+    end # organizations
 
   end # accounts
 

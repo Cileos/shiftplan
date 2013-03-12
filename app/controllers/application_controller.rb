@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
       nested_resources_for(resource.blog) + [resource]
     when Blog, Team, Plan, PlanTemplate
       nested_resources_for(resource.organization) + [resource]
-    when Organization, Qualification
+    when Organization
       [ resource.account, resource ]
     when Shift
       nested_resources_for(resource.plan_template) + [resource]
