@@ -36,49 +36,6 @@ Feature: Creating a plan
       And I should see a calendar titled "Halloween im Atomkraftwerk"
       And I should see "KW 05 / 2012" within active week
       And I should see "30.01." within weeks first date
-      And I should see the following calendar:
-        | Mitarbeiter   | Mo | Di | Mi | Do | Fr | Sa | So |
-        | Carl C        |    |    |    |    |    |    |    |
-        | Lenny L       |    |    |    |    |    |    |    |
-        | Homer S       |    |    |    |    |    |    |    |
-
-  Scenario: creating the first plan and then choosing the new plan from the plans drop down
-    Given the situation of a just registered user
-      And 0 plans should exist
-      And I am on the page for the organization "Fukushima"
-
-     When I choose "Alle Pläne" from the drop down "Pläne"
-      And I inject style "position:relative" into "header"
-      And I follow "Hinzufügen"
-      And I wait for the modal box to appear
-      And I fill in "Name" with "Halloween im Atomkraftwerk"
-      And I press "Anlegen"
-      And I wait for the modal box to disappear
-
-     Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
-      And I should see the following table of plans:
-        | Name                        | Beschreibung    | Startdatum  | Enddatum  |
-        | Halloween im Atomkraftwerk  |                 | -           | -         |
-
-     When I choose "Halloween im Atomkraftwerk" from the drop down "Pläne"
-     Then I should be on the employees in week page for the plan for week: 5, cwyear: 2012
-
-  Scenario: plan's start time must be smaller or equal to the plan's end time
-    Given the situation of a nuclear reactor
-      And I am on the page for the organization "Reactor"
-
-     When I choose "Alle Pläne" from the drop down "Pläne"
-      And I inject style "position:relative" into "header"
-      And I follow "Hinzufügen"
-      And I wait for the modal box to appear
-      And I fill in "Name" with "Halloween im Atomkraftwerk"
-      And I fill in "Beschreibung" with "Halloween im Atomkraftwerk"
-      And I fill in "Startdatum" with "2012-01-02"
-      And I fill in "Enddatum" with "2012-01-01"
-      And I close all datepickers
-      And I press "Anlegen"
-     Then I should see "Das Startdatum muss kleiner oder gleich dem Enddatum des Plans sein" within errors
-      And 0 plans should exist with name: "Halloween im Atomkraftwerk"
 
 
   # in germany, the week with january 4th is the first calendar week
