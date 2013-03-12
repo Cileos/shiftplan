@@ -44,7 +44,7 @@ class TabularizedRecordDecorator < ApplicationDecorator
     def base
       if record.respond_to?(:account)
         h.current_account
-      elsif resource.respond_to?(:organization)
+      elsif record.respond_to?(:organization)
         h.current_organization
       else
         raise "could not find base for resource"

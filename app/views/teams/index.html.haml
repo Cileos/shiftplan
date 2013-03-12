@@ -11,9 +11,9 @@
 
 .row.two-columns.inverted
   .primary
-    #teams
+    #teams#records
       - unless collection.empty?
-        = render 'table', teams: collection
+        = render 'table', records: collection
       - else
         %p= t(:'teams.no_teams_present')
 

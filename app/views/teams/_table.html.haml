@@ -11,13 +11,14 @@
         %th= t('action')
 
   %tbody
-    - teams.each do |team|
-      %tr{ id: "team_#{team.id}" }
+    - records.each do |record|
+      %tr{ id: "record_#{record.id}" }
         - if can? :manage, TeamMerge
           %td.checkbox
-            %input(type="checkbox"){ id: "team_#{team.id}", 'data-team-id' => "#{team.id}" }
-        %td= team.name
-        %td= team.shortcut
-        %td= render 'teams/pibble', team: team
-        - if can? :edit, Team
-          %td= link_to :edit, [:edit] + nested_resources_for(team), remote: true, class: 'button button-small'
+            %input(type="checkbox"){ id: "team_#{record.id}", 'data-team-id' => "#{record.id}" }
+        %td= record.name
+        %td= record.shortcut
+        %td= render 'teams/pibble', team: record
+        - if can? :edit, record
+          %td= link_to :edit, [:edit] + nested_resources_for(record),
+            remote: true, class: 'button button-small'
