@@ -3,6 +3,7 @@ set :default_state, 'staging'
 
 set :mett, '89.238.64.208'
 set :gruetz, '89.238.64.209'
+set :plock, '89.238.65.38'
 
 require 'capistrano/ext/multistage'
 
@@ -14,6 +15,9 @@ require 'bundler/capistrano'
 load 'deploy/assets'
 
 # server details
+set :rvm_type, :system
+set(:rvm_ruby_string) { "1.9.3-p194@#{application}" }
+set :user, 'application'
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 set :deploy_via, :remote_cache
@@ -22,6 +26,7 @@ set :use_sudo, false
 set :repository,  "git@github.com:Cileos/shiftplan.git"
 set :local_repository, "."
 set :git_enable_submodules, 1
+set(:deploy_to) { "/home/#{user}/projects/#{application}/production" }
 
 set :scm, :git
 

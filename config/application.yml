@@ -1,0 +1,10 @@
+backup:
+  password: enormoussecretpassword
+cron:
+  mailto:
+    - "nh@cileos.com"
+action_mailer:
+  default_url_options:
+    host: 'clockwork.io'
+staging: false
+developer_contact: "develop@clockwork.io"
