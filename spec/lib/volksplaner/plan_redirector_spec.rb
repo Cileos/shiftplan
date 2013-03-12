@@ -7,7 +7,7 @@ describe Volksplaner::PlanRedirector do
   let(:redirector) { described_class.new(controller, plan) }
 
   def d(date_string)
-    Date.parse(date_string)
+    Time.zone.parse(date_string)
   end
 
   it "uses monday of used date" do
@@ -35,17 +35,20 @@ describe Volksplaner::PlanRedirector do
         plan.stub(:has_period?) { false }
       end
       it "redirects to current week" do
-        redirector.stub(:week_path).with(Date.today).and_return(target)
+        Timecop.freeze
+        redirector.stub(:week_path).with(Time.zone.now).and_return(target)
         redirector.week_within_plan_path.should == target
       end
     end
     context "with period" do
+      let(:period) { stub 'period' }
       before :each do
         plan.stub(:has_period?) { true }
+        plan.stub(:period).and_return(period)
       end
       it "goes to first week if today before period" do
         Timecop.travel '2011-12-15'
-        plan.stub(:starts_after?).with(Date.today) { true }
+        period.stub(:starts_after?) { true }
         plan.stub starts_at: d("2012-01-01")
         redirector.should_receive(:week_path).with(plan.starts_at).and_return(target)
         redirector.week_within_plan_path.should == target
@@ -53,8 +56,8 @@ describe Volksplaner::PlanRedirector do
 
       it "goes to last week if today after period" do
         Timecop.travel '2011-02-01'
-        plan.stub(:starts_after?).with(Date.today) { false }
-        plan.stub(:ends_before?).with(Date.today) { true }
+        period.stub(:starts_after?) { false }
+        period.stub(:ends_before?) { true }
         plan.stub ends_at: d("2012-01-28")
         redirector.should_receive(:week_path).with(plan.ends_at).and_return(target)
         redirector.week_within_plan_path.should == target
@@ -72,6 +75,11 @@ describe Volksplaner::PlanRedirector do
       end
     end
     context "with period" do
+      let(:period) { stub 'period' }
+      before :each do
+        plan.stub(:has_period?) { true }
+        plan.stub(:period).and_return(period)
+      end
       it "redirects to first week if filter before period" do
         plan.stub :has_period? => true, :starts_at => (starts_at = stub)
         filter.stub :before_start_of_plan? => true

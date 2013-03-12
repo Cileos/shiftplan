@@ -50,14 +50,9 @@ class Plan < ActiveRecord::Base
     starts_at.present? || ends_at.present?
   end
 
-  def starts_after?(given)
-    !starts_at || given < starts_at
+  def period
+    Plan::Period.new(starts_at, ends_at)
   end
-
-  def ends_before?(given)
-    !ends_at || ends_at < given
-  end
-
   def build_apply_plan_template(attrs={})
     ApplyPlanTemplate.new attrs.merge(plan: self)
   end

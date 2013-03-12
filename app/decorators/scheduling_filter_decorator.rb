@@ -17,10 +17,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
   end
 
   def plan_period
-    plan_period = []
-    plan_period << plan_period_start_date if plan.starts_at.present?
-    plan_period << plan_period_end_date if plan.ends_at.present?
-    plan_period.join(' ')
+    [].tap do |plan_period|
+      plan_period << plan_period_start_date if plan.starts_at.present?
+      plan_period << plan_period_end_date if plan.ends_at.present?
+    end.join(' ')
   end
 
   def plan_period_start_date
@@ -61,6 +61,22 @@ class SchedulingFilterDecorator < ApplicationDecorator
     unless schedulings.empty?
       h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate), filter: self
     end
+  end
+
+  def period
+    @period ||= plan.period
+  end
+
+  def outside_plan_period?(*a)
+    period.exclude?(*a)
+  end
+
+  def before_start_of_plan?(date=last_day)
+    period.starts_after?(date)
+  end
+
+  def after_end_of_plan?(date=first_day)
+    period.ends_before?(date)
   end
 
   def render_cell_for_day(day, *a)

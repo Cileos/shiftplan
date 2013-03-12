@@ -23,7 +23,7 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
 
   # looks up the index, savely
   def indexed(day, other)
-    index.fetch(day, other)
+    index.fetch(day.iso8601, other)
   end
 
   def previous_step

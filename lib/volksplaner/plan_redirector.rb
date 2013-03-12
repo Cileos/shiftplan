@@ -45,17 +45,19 @@ module Volksplaner
     end
 
     def week_within_plan_path
-      week_path( day_within_plan )
+      week_path( find_day_within_plan_period )
     end
 
-    def day_within_plan(day=Date.today)
+    def find_day_within_plan_period(day=nil)
+      day ||= Time.zone.now
       if plan.has_period?
-        if plan.starts_after?(day)
+        period = plan.period
+        if period.starts_after?(day)
           plan.starts_at
-        elsif plan.ends_before?(day)
+        elsif period.ends_before?(day)
           plan.ends_at
         else
-          raise "plan has period but neither start or end date"
+          day # not limited by the period
         end
       else
         day
