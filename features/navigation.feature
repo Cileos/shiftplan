@@ -32,18 +32,6 @@ Feature: Navigation
         | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
 
-     When I follow "Organisation hinzufügen"
-     Then I should be on the new organization page for the account
-      And I should see the following list of links within the navigation:
-       | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Organisationen            | false   |
-       | Tepco GmbH - Fukushima    | false   |
-       | Tepco GmbH - Tschernobyl  | false   |
-      And I should see the following items in the organization dropdown list:
-        | Tepco GmbH - Fukushima   |
-        | Tepco GmbH - Tschernobyl |
-
      When I follow "Tepco GmbH - Fukushima" within the navigation
      Then I should see the following list of links within the navigation:
        | link                      | active  |
