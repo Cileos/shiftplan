@@ -1,7 +1,9 @@
-%dl
-  - teams.each do |team|
-    %di{class: dom_id(team)}
-      %dt.shortcut
-        .pibble.team-color{style: "background-color: #{team.color};"}
-        %span= team.shortcut
-      %dd.name= team.name
+-# teams scheduled in current week
+- unless active_teams.blank?
+  #active-teams.active-teams
+    = render('teams/team_list', teams: active_teams)
+
+-# teams not scheduled in current week
+- unless inactive_teams.blank?
+  #inactive-teams.inactive-teams
+    = render('teams/team_list', teams: inactive_teams)
