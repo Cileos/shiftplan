@@ -3,10 +3,10 @@ class QualificationsController < InheritedResources::Base
   load_and_authorize_resource
 
   def create
-    create! { [parent, :qualifications] }
+    create! { [current_account, current_organization, :qualifications] }
   end
 
   def update
-    update! { [parent, :qualifications] }
+    update! { [current_account, current_organization, :qualifications] }
   end
 end

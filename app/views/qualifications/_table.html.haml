@@ -10,5 +10,6 @@
       %tr
         %td= qualification.name
         - if can? :edit, Qualification
-          %td= link_to :edit, [:edit] + nested_resources_for(qualification),
+          %td= link_to :edit,
+            [:edit, current_account, current_organization, qualification],
             class: 'button button-small'
