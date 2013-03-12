@@ -6,10 +6,10 @@
         %th= t('action')
 
   %tbody
-    - qualifications.each do |qualification|
-      %tr
-        %td= qualification.name
+    - records.each do |record|
+      %tr{ id: "record_#{record.id}" }
+        %td= record.name
         - if can? :edit, Qualification
           %td= link_to :edit,
-            [:edit, current_account, current_organization, qualification],
-            class: 'button button-small'
+            [:edit, current_account, current_organization, record],
+            remote: true, class: 'button button-small'
