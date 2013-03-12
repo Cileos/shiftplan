@@ -11,7 +11,7 @@
 
 .row.two-columns.inverted
   .primary
-    #organizations#records
+    #organizations
       - organizations = current_user.organizations_for(@account)
       - unless organizations.empty?
         = render('organizations/table', records: organizations)

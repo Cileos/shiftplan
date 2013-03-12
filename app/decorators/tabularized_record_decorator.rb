@@ -21,7 +21,7 @@ class TabularizedRecordDecorator < ApplicationDecorator
     def selector_for(name, record=nil, extra=nil)
       case name
       when :records
-        'div#records'
+        "div##{records_css_class}"
       when :record
         "tr#record_#{record.id}"
       else
@@ -34,7 +34,7 @@ class TabularizedRecordDecorator < ApplicationDecorator
     end
 
     def records_table
-      h.render("#{pluralized_resource_name}/table", records: records)
+      h.render(table_partial_name, records: records)
     end
 
     def records
@@ -61,5 +61,13 @@ class TabularizedRecordDecorator < ApplicationDecorator
 
     def pluralized_resource_name
       resource_name.pluralize
+    end
+
+    def records_css_class
+      pluralized_resource_name.gsub('_','-')
+    end
+
+    def table_partial_name
+      "#{pluralized_resource_name}/table"
     end
 end

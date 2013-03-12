@@ -11,7 +11,7 @@
 
 .row.two-columns.inverted
   .primary
-    #teams#records
+    #teams
       - unless collection.empty?
         = render 'table', records: collection
       - else
