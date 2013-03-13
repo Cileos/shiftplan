@@ -67,15 +67,6 @@ Feature: create a scheduling
      Then I should not see "Tarzan" within the first form
 
   @javascript
-  Scenario: just entering time span with javascript
-     When I schedule "Homer S" on "Do" for "8-18"
-     Then I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi  | Do           | Fr  | Sa  | So  |
-        | Carl C       |     |     |     |              |     |     |     |
-        | Lenny L      |     |     |     |              |     |     |     |
-        | Homer S      |     |     |     | 08:00-18:00  |     |     |     |
-
-  @javascript
   Scenario: Entering the time span wrong
      When I click on cell "Di"/"Carl C"
       And I wait for the new scheduling form to appear
@@ -86,7 +77,7 @@ Feature: create a scheduling
   @wip
   @todo
   @javascript
-  Scenario: schedule only using the keyboard (Enter, n or a)
+  Scenario: schedule only using the keyboard (Enter, n or a), entering just hte timespan into the quickie
     Given I wait for the cursor to appear
      Then the cell "Mo"/"Carl C" should be focus
      When I press return
