@@ -1,12 +1,12 @@
 class QualificationsController < InheritedResources::Base
-  belongs_to :account
+  nested_belongs_to :account, :organization
   load_and_authorize_resource
 
   def create
-    create! { [current_account, current_organization, :qualifications] }
+    create! { [parent.account, parent, :qualifications] }
   end
 
   def update
-    update! { [current_account, current_organization, :qualifications] }
+    update! { [parent.account, parent, :qualifications] }
   end
 end
