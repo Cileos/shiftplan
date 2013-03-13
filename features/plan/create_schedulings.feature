@@ -6,10 +6,10 @@ Feature: create a scheduling
   Background:
     Given today is 2012-02-13
       And the situation of a nuclear reactor
+      And I inject style "position:relative" into "header"
 
   @javascript
   Scenario: just entering time span
-    Given I inject style "position:relative" into "header"
      When I follow "Neue Terminierung"
      Then I should see "9-17 wichtige Arbeit [wA]" within a hint
       And I select "Homer S" from "Mitarbeiter"
@@ -33,30 +33,6 @@ Feature: create a scheduling
       And I press arrow down in the "Quickie" field
       And I press return in the "Quickie" field
      Then the "Quickie" field should contain "9-17"
-
-  @javascript
-  Scenario: entering timespan until end of day
-    Given I inject style "position:relative" into "header"
-     When I click on cell "Mi"/"Homer S"
-      And I fill in "Quickie" with "22-0"
-      And I press "Anlegen"
-     Then I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi           | Do  | Fr  | Sa  | So  |
-        | Carl C       |     |     |              |     |     |     |     |
-        | Lenny L      |     |     |              |     |     |     |     |
-        | Homer S      |     |     | 22:00-24:00  |     |     |     |     |
-      And the employee "Homer S" should have a yellow hours/waz value of "2 / 40"
-
-     When I click on scheduling "22:00-24:00"
-     Then the selected "Startstunde" should be "22"
-      And the selected "Endstunde" should be "24"
-      And I press "Speichern"
-     Then I should see the following calendar:
-         | Mitarbeiter  | Mo  | Di  | Mi           | Do  | Fr  | Sa  | So  |
-         | Carl C       |     |     |              |     |     |     |     |
-         | Lenny L      |     |     |              |     |     |     |     |
-         | Homer S      |     |     | 22:00-24:00  |     |     |     |     |
-      And the employee "Homer S" should have a yellow hours/waz value of "2 / 40"
 
 
   @javascript

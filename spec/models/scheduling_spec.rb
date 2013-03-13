@@ -27,19 +27,48 @@ describe Scheduling do
     it { scheduling.should have_at_least(1).errors_on(:quickie) }
   end
 
-  context "hour accessor" do
+  context "hour" do
     let(:scheduling) { Scheduling.new(date: Date.today) }
+
+    it "is part of TimeRangeComponentsAccessible" do
+      scheduling.should_receive(:compose_time_range_from_components)
+      scheduling.valid?
+    end
 
     context "for start" do
       it "accepts normal numbers" do
         scheduling.start_hour = 8
+        scheduling.valid?
         scheduling.start_hour.should == 8
       end
 
-      it "accepts zero as startof day" do
+      it "accepts zero as start of day" do
         scheduling.start_hour = 0
+        scheduling.valid?
         scheduling.start_hour.should == 0
       end
+    end
+
+    context "for end" do
+      it "accepts normal numbers" do
+        scheduling.end_hour = 17
+        scheduling.valid?
+        scheduling.end_hour.should == 17
+      end
+
+      it "accepts 0 as end of day" do
+        scheduling.end_hour = 0
+        scheduling.valid?
+        scheduling.end_hour.should == 24
+      end
+
+      it "accepts 24 as end of day" do
+        scheduling.end_hour = 24
+        scheduling.valid?
+        scheduling.end_hour.should == 24
+      end
+
+
     end
   end
 
