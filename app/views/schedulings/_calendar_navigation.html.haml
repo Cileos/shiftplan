@@ -7,7 +7,7 @@
       = link_to t('.more_actions'), '#'
       %ul
         - if filter.mode?('week')
-          %li= link_to ti(:copy_week),
+          %li= link_to ti(:new_copy_week),
             new_account_organization_plan_copy_week_path(current_organization.account,
             current_organization, filter.plan,
             copy_week: { target_week: filter.week, target_year: filter.cwyear }),
