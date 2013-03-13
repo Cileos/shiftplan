@@ -1,4 +1,3 @@
 page.decorate resource do |resource|
-  resource.append_modal body: render('form', resource: resource),
-    header: content_tag(:h3, ta(:'new_plan_template'))
+  resource.append_modal_with_form
 end
