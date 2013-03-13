@@ -1,0 +1,15 @@
+en:
+  flash:
+    email_change:
+      accept:
+        token_invalid: "Wrong authentication token. We couldn't change your e-mail address."
+        already_confirmed_sign_in: "We're already confirmed your e-mail address. Please login using it and your password"
+        already_confirmed: "We've already confirmed your e-mail."
+      confirm:
+        accepted: "E-mail changed! From now on, please log in with %{email}."
+        rejected: "We couldn't change your e-mail address, sorry."
+  email_change:
+    accept:
+      instructions: "To change your e-mail address to %{email}, enter your current password."
+      
+      

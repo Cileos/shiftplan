@@ -1,6 +1,6 @@
 en: 
   feedback: 
-    your_feedback: 'Your feedback' 
-    thank_you: 'Thanks! We will attend to your enquiry shortly.' 
+    your_feedback: "We're listening." 
+    thank_you: "Thank's for feedback! Our engineers will receive your message shortly."
     mailer: 
-      subject: "You have received new feedback from %{name}" 
+      subject: "%{name} gave you some feedback." 

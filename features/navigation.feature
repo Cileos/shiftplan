@@ -34,7 +34,7 @@ Feature: Navigation
         | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
 
-     When I follow "Hinzufügen"
+     When I follow "Organisation hinzufügen"
      Then I should be on the new organization page for the account
       And I should see the following list of links within the navigation:
        | link                      | active  |
@@ -233,10 +233,6 @@ Feature: Navigation
        | Neuigkeiten            | false   |
        | Pläne                  | false   |
        | Alle Pläne             | false   |
-       | Mitarbeiter            | false   |
-       | Teams                  | false   |
-       | Planvorlagen           | false   |
-       | Qualifikationen        | false   |
       And I should see the following items in the account dropdown list:
        | Tepco GmbH  |
 
@@ -249,10 +245,6 @@ Feature: Navigation
        | Neuigkeiten            | false   |
        | Pläne                  | false   |
        | Alle Pläne             | false   |
-       | Mitarbeiter            | false   |
-       | Teams                  | false   |
-       | Planvorlagen           | false   |
-       | Qualifikationen        | false   |
       And I should see the following items in the account dropdown list:
        | Tepco GmbH  |
 
@@ -268,9 +260,5 @@ Feature: Navigation
        | Neuigkeiten            | false   |
        | Pläne                  | false   |
        | Alle Pläne             | false   |
-       | Mitarbeiter            | false   |
-       | Teams                  | false   |
-       | Planvorlagen           | false   |
-       | Qualifikationen        | false   |
       And I should see the following items in the account dropdown list:
        | Tepco GmbH  |

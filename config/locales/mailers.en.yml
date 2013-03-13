@@ -1,0 +1,5 @@
+en:
+  mailer:
+    email_change:
+      confirmation:
+        subject: "You've got a new e-mail address!"

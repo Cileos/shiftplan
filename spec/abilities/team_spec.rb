@@ -31,10 +31,10 @@ shared_examples "an employee who can manage teams" do
   end
 end
 
-shared_examples "an employee who can read teams" do
+shared_examples "an employee who can not read teams" do
   context "for own accounts" do
-    it "should be able to read teams" do
-      should be_able_to(:read, create(:team, organization: organization))
+    it "should not be able to read teams" do
+      should_not be_able_to(:read, create(:team, organization: organization))
     end
   end
   context "for other accounts" do
@@ -77,7 +77,7 @@ describe "Team permissions:" do
       membership
     end
 
-    it_behaves_like "an employee who can read teams" do
+    it_behaves_like "an employee who can not read teams" do
       let(:employee) { create(:employee, account: account, user: user) }
       # An "normal" employee needs a membership for an organization to do things.
       # This is different from planners or owners which do not need a membership but

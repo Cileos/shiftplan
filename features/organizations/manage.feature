@@ -16,7 +16,7 @@ Feature: create organizations
   Scenario: Create another organization
     Given I follow "Tepco GmbH" within the navigation
      # user is owner of account "tepco" so he can create new organizations
-     When I follow "Hinzufügen"
+     When I follow "Organisation hinzufügen"
      Then I should be on the new organization page for the account "tepco"
       And I fill in "Name" with "Nuclear Cleanup Inc."
       And I press "Anlegen"
@@ -27,6 +27,17 @@ Feature: create organizations
        | Fukushima             |
        | Nuclear Cleanup Inc.  |
        | Tschernobyl           |
+
+  Scenario: Edit organization
+    When I go to the page of the account "tepco"
+     And I follow "Bearbeiten" within the first table row
+     And I fill in "Name" with "Fukushima Reaktor 1"
+     And I press "Speichern"
+    Then I should be on the page of the account "tepco"
+     And I should see the following table of organizations:
+       | Name                 |
+       | Fukushima Reaktor 1  |
+       | Tschernobyl          |
 
   Scenario: Normal employee can not create organizations on account page
     Given I follow "Cileos UG" within the navigation

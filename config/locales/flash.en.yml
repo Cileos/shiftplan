@@ -1,11 +1,27 @@
 ﻿en:
   flash:
-    create:
-      notice: "%{resource_name} successfully applied."
-      alert: "%{resource_name} could not be applied."
-    update:
-      notice: "%{resource_name} successfully changed."
-      alert: "%{resource_name} could not be changed."
-    destroy:
-      notice: "%{resource_name} successfully deleted."
-      alert: "%{resource_name} could not be deleted."
+    actions:
+      create:
+        notice: "%{resource_name} has been created."
+        alert: "%{resource_name} couldn't be created."
+      update:
+        notice: "%{resource_name} has been created."
+        alert: "%{resource_name} couldn't be created."
+      destroy:
+        notice: "%{resource_name} was deleted."
+        alert: "%{resource_name} couldn't be deleted."
+    profile_employees:
+      update:
+        notice: "Profile saved."
+    user_email:
+      update:
+        notice: "Check your mailbox for instructions how to change your e-mail."
+        alert: "We couldn't change your e-mail address."
+        same_email: "%{email} has the same e-mail address"
+    user_password:
+      update:
+        notice: "Password changed."
+        alert: "We couldn't change your password."
+    copy_week:
+      create:
+        notice: "All apointments created."

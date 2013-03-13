@@ -31,6 +31,9 @@ class Ability
 
   def authorize_signed_in(user)
     can :dashboard, User
+    can :create, Account do |account|
+      account.user == user
+    end
     can :read, Account do |account|
       user.accounts.include?(account)
     end
@@ -51,27 +54,11 @@ class Ability
     can :read, Organization do |organization|
       employee.organizations.include?(organization)
     end
-    can :read, Employee do |e|
-      # TODO
-      e.account == employee.account
-    end
     can :read, Plan do |plan|
       employee.organizations.include?(plan.organization)
     end
     can :read, Scheduling do |scheduling|
       employee.organizations.include?(scheduling.plan.organization)
-    end
-    can :read, Shift do |shift|
-      employee.organizations.include?(shift.plan_template.organization)
-    end
-    can :read, Team do |team|
-      employee.organizations.include?(team.organization)
-    end
-    can :read, Qualification do |qualification|
-      employee.account == qualification.account
-    end
-    can :read, PlanTemplate do |plan_template|
-      employee.organizations.include?(plan_template.organization)
     end
     can [:read, :create], Post do |post|
       employee.organizations.include?(post.blog.organization)

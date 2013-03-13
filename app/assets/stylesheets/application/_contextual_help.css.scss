@@ -30,7 +30,7 @@
 
 .instructions, .help {
   @include box-shadow(0 1px 0 $ci_shadow);
-  
+
   border-radius: 5px;
   padding: 10px 15px;
   background: tint($ci_blue, 90%);
@@ -57,5 +57,11 @@
   dt, .pibble {
     float: left;
     margin-right: 1em;
+  }
+
+  .active-teams + div {
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: 1px solid $ci_midgray;
   }
 }

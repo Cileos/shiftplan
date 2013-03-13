@@ -1,0 +1,16 @@
+- title :add_account
+
+.row.two-columns.inverted
+  .primary
+    = simple_form_for resource, html: { class: 'form-horizontal' } do |f|
+      .inputs.add-account
+        = f.input :on_new_account, as: :hidden
+        = f.input :user_id, as: :hidden
+        = f.input :name, autofocus: true, required: true, hint: true
+        = f.input :organization_name, required: true
+        = f.input :first_name, required: true
+        = f.input :last_name, required: true
+      .actions
+        = f.create_button
+  .secondary.instructions
+    = tt '.instructions'

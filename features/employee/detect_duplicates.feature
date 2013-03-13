@@ -51,6 +51,7 @@ Feature: Detect duplicate Employee
      Then I should be on the employees page for the organization "fukushima"
       And I should see the following table of employees:
         | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
+        | Burns, Owner  |      | owner@burns.com           | Aktiv                  | Fukushima               |
         | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
         | Meier, Heinz  | 40   |                           | Noch nicht eingeladen  | Fukushima               |
 
@@ -73,6 +74,7 @@ Feature: Detect duplicate Employee
      Then I should be on the employees page for the organization "fukushima"
       And I should see the following table of employees:
         | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
+        | Burns, Owner  |      | owner@burns.com           | Aktiv                  | Fukushima               |
         | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
         | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
 
@@ -120,5 +122,6 @@ Feature: Detect duplicate Employee
      Then I should be on the employees page for the organization "fukushima"
       And I should see the following table of employees:
         | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
+        | Burns, Owner  |      | owner@burns.com           | Aktiv                  | Fukushima               |
         | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
         | Meier, Heinz  | 33   |                           | Noch nicht eingeladen  | Fukushima               |

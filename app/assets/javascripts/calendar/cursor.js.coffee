@@ -3,7 +3,10 @@
 #   tds:       which tds do we want to navigate
 #   items:     items within the tds
 class CalendarCursor
-  constructor: (@$calendar, @tds = 'td:not(.wwt_diff):not(.outside_plan_period)', @items = '.scheduling') ->
+  constructor:(
+    @$calendar,
+    @tds = 'tbody.editable td:not(.wwt_diff):not(.outside_plan_period)',
+    @items = '.scheduling') ->
 
     $calendar = @$calendar
     cursor = this
@@ -36,25 +39,28 @@ class CalendarCursor
       false
 
     # focus first calendar data cell which is not outside the plan period
-    @focus @$body().find("tr:nth-child(1) #{@tds}:first")
+    @focus @$calendar.find("#{@tds}:first")
 
     @enable()
 
-    # Disable keydown event handler as we want to press enter in the opening modal window to submit the form.
+    # Disable keydown event handler as we want to press enter in the opening
+    # modal window to submit the form.
     $('body').on 'dialogopen', @disable
 
-    # The keydown event handler 'CalendarCursor#keydown' gets disabled when the modal window for creating
-    # schedulings opens so that the user should can press the "return" key to submit the form.
-    # Therefore we must reenable the keydown event handler when the modal window was hidden:
+    # The keydown event handler 'CalendarCursor#keydown' gets disabled when the
+    # modal window for creating schedulings opens so that the user should can
+    # press the "return" key to submit the form.  Therefore we must reenable the
+    # keydown event handler when the modal window was hidden:
     $('body').on 'dialogclose', @enable
 
     $calendar.addClass 'with_cursor'
 
-  # as we may update the inner HTML of the whole calendar, we may not cache the tbody
+  # as we may update the inner HTML of the whole calendar, we may not cache the
+  # tbody
   $body: -> @$calendar.find('tbody:first')
 
   focussed_cell: ->
-    @$body().find('td.focus')
+    @$calendar.find('td.focus')
 
   focus: ($target, item_select, scroll=true) ->
     if item_select? and $target.has(@items).length > 0
@@ -74,19 +80,26 @@ class CalendarCursor
 
   refocus: ->
     if @$focussed_item? and @$focussed_item.length > 0
-      @focus @$calendar.find('tbody').children('tr').eq(@current_row).children(@tds).eq(@current_column).find(@items).eq(@current_item_index)
+      @focus @$calendar.find('tbody').children('tr').eq(@current_row).
+        children(@tds).eq(@current_column).find(@items).eq(@current_item_index)
     else
-      @focus @$calendar.find('tbody').children('tr').eq(@current_row).children(@tds).eq(@current_column), 'first'
+      @focus @$calendar.find('tbody').children('tr').eq(@current_row).
+        children(@tds).eq(@current_column), 'first'
 
 
   keydown: (event) =>
-    # ignore the ESC key, as it always acts a a shortcut for close (ie modalbox).
-    # This code is reached only in certain browsers (Chromium 20.0.1132.47)
+    # ignore the ESC key, as it always acts a a shortcut for close (ie
+    # modalbox).  This code is reached only in certain browsers (Chromium
+    # 20.0.1132.47)
     if event.which == 27
       return true
 
-    # ignore key pressed in visible input field (some browsers can keep focus on input fields in a closed modal box)
-    if $(event.srcElement).is(':input:visible') or $(event.target).is(':input:visible')
+    # ignore key pressed in visible input field (some browsers can keep focus on
+    # input fields in a closed modal box)
+    if(
+      $(event.srcElement).is(':input:visible') or
+      $(event.target).is(':input:visible')
+    )
       return true
 
     captured = true
@@ -120,15 +133,16 @@ class CalendarCursor
     @scrolling = true
     h = $(window).height() / 3
     $('body').stop().animate(
-        scrollTop: elem.offset().top - h
-    ,200, => @scrolling = false)
+      scrollTop: elem.offset().top - h,200, => @scrolling = false)
 
 
   # sets all the instance vars needed for navigation
   orientate: ->
     @$focussed_cell  = @focussed_cell()
-    @current_column  = @$focussed_cell.closest('tr').children(@tds).index(@$focussed_cell)
-    @current_row     = @$focussed_cell.closest('tbody').children('tr').index(@$focussed_cell.closest('tr'))
+    @current_column  = @$focussed_cell.closest('tr').children(@tds).
+      index(@$focussed_cell)
+    @current_row     = @$focussed_cell.closest('tbody').children('tr').
+      index(@$focussed_cell.closest('tr'))
     @rows_count      = @$focussed_cell.closest('tbody').children('tr').size()
     @columns_count   = @$focussed_cell.closest('tr').children(@tds).size()
     @$items          = @$focussed_cell.find(@items)
@@ -154,11 +168,13 @@ class CalendarCursor
 
   left: ->
     @orientate()
-    @focus @$focussed_cell.closest('tr').children(@tds).eq(@current_column-1), 'first'
+    @focus @$focussed_cell.closest('tr').children(@tds).eq(@current_column-1),
+      'first'
 
   right: ->
     @orientate()
-    @focus @$focussed_cell.closest('tr').children(@tds).eq( (@current_column+1) % @columns_count ), 'first'
+    @focus @$focussed_cell.closest('tr').children(@tds).
+      eq( (@current_column+1) % @columns_count ), 'first'
 
   up: ->
     @orientate()
@@ -174,7 +190,9 @@ class CalendarCursor
       @row_up()
 
   row_up: ->
-    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row-1) % @rows_count ).children(@tds).eq(@current_column), 'last'
+    @focus @$focussed_cell.closest('tbody').children('tr').
+      eq( (@current_row-1) % @rows_count ).children(@tds).eq(@current_column),
+      'last'
 
   down: ->
     @orientate()
@@ -190,7 +208,9 @@ class CalendarCursor
       @row_down()
 
   row_down: ->
-    @focus @$focussed_cell.closest('tbody').children('tr').eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column), 'first'
+    @focus @$focussed_cell.closest('tbody').children('tr').
+      eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column),
+      'first'
 
   enable: =>
     @disable()

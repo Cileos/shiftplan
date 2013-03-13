@@ -1,10 +1,33 @@
 de:
   activerecord:
+    attributes:
+      account:
+        first_name: Vorname
+        last_name: Nachname
+        organization_name: Organisationsname
+        name: Accountbezeichnung
     models:
       account:
         one: "Account"
         other: "Accounts"
   accounts:
+    new:
+      instructions: >
+        Hier können Sie einen neuen Account anlegen.
+
+
+        Geben Sie bitten den Namen des neuen Accounts und der ersten
+        Organisation ein.
+
+
+        Für jeden Account wird ein separater Mitarbeiter angelegt. So wird
+        garantiert, dass alle Accounts, zu denen Sie gehören, keine
+        Informationen miteinander teilen.
+        Sie können den Vor- und Nachnamen eines bestehenden Mitarbeiters
+        übernehmen oder etwas anderes als Vor- und Nachnamen eintragen.
+    edit:
+      instructions: >
+        Hier können Sie Ihren Account bearbeiten.
     show:
       instructions: >
         Hier sehen Sie alle Organisationen des Accounts, in denen Sie Mitglied sind.
@@ -13,5 +36,9 @@ de:
         Hier sehen Sie alle Organisationen des Accounts.
 
 
-        Um eine weiter Organisation anzulegen, klicken Sie bitte rechts oben auf
+        Um eine weitere Organisation anzulegen, klicken Sie bitte rechts oben auf
         _Hinzufügen_.
+
+
+        Um Ihren Account zu bearbeiten, klicken Sie bitte rechts oben auf
+        _Account bearbeiten_.

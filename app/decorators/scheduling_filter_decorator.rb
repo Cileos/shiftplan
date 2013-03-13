@@ -121,7 +121,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def wwt_diff_label_text_for(employee, opts={})
     if employee.weekly_working_time.present?
-      opts[:short].present? ? txt = '/' : txt = 'von'
+      opts[:short].present? ? txt = '/' : txt = 'of'
       "#{hours_for(employee)} #{txt} #{employee.weekly_working_time.to_i}"
     else
       "#{hours_for(employee)}"
@@ -141,12 +141,14 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def teams_of_records
-    records.map(&:team).compact.uniq.sort_by(&:name)
+  # teams already scheduled in current week
+  def active_teams
+    @active_teams ||= records.map(&:team).compact.uniq.sort_by(&:name)
   end
 
-  def teams
-    teams_of_records
+  # teams of organization not yet scheduled in current week
+  def inactive_teams
+    organization.teams - active_teams
   end
 
   def hours_for(employee)
@@ -219,19 +221,21 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
 
   def update_quickie_completions
-    page << "window.gon.quickie_completions=" + plan.schedulings.quickies.to_json
+    page << "window.gon.quickie_completions=" + quickies_for_completion.to_json
   end
 
   def legend
-    h.render('teams/legend', teams: teams)
+    h.render('teams/legend', active_teams: active_teams,
+             inactive_teams: inactive_teams)
   end
 
   def update_legend
     select(:legend).refresh_html legend
   end
 
+  # we only need to update colors of active teams
   def team_colors
-    h.render 'teams/colors', teams: teams
+    h.render 'teams/colors', teams: active_teams
   end
 
   def update_team_colors

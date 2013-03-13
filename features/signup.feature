@@ -26,19 +26,13 @@ Feature: Signing up
      Then I should see "Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen."
       And "me@example.com" should receive an email
 
-      # auto-creation of account, organization, employee and blog
+      # auto-creation of account, organization, employee, membership and blog
       And an account should exist with name: "Fukushima GmbH"
-      And an organization should exist with name: "Reaktor A", account: the account
+      And an organization "reaktor" should exist with name: "Reaktor A", account: the account
       And a blog should exist with organization: the organization
       And a user should exist with email: "me@example.com"
-      And an employee should exist with role: "owner", account: the account, first_name: "Homer", last_name: "Simpson", user: the user
-      # Employees can only be scheduled in organizations for which they have a
-      # membership. The account owner, the employee with role "owner", is
-      # mostly the person who just pays the bills. So we do not create a
-      # membership for him for the first organization on signup.  If the owner
-      # should be scheduled within organizations, he can be added later on the
-      # employees page of the organization.
-      And 0 memberships should exist
+      And an employee "owner" should exist with role: "owner", account: the account, first_name: "Homer", last_name: "Simpson", user: the user
+      And a membership should exist with employee: the employee "owner", organization: the organization "reaktor"
 
      When I open the email
       And I click the first link in the email

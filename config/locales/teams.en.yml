@@ -2,44 +2,69 @@ en:
   activerecord:
     models:
       team:
-        one: "team"
-        other: "%{count} teams"
+        one: "Team"
+        other: "%{count} Teams"
     attributes:
       team:
-        name: name
-        shortcut: quickie
-        color: colour
+        name: Name
+        shortcut: Shortcut
+        color: Colour
   activemodel:
     attributes:
       team_merge:
-        other_team_id: other team
+        other_team_id: Other Team
+        new_team_id: New Team Name
   flash:
-    team_merge:
+    team_merges:
       create:
-        info: "teams were successfully merged."
+        notice: "Teams merged!"
 
+  team_merges:
+    new:
+      instructions: >
+        Do you want to to merge "%{team_name}" and "%{other_team_name}"?
+        If so, please select the name of the new team and Confirm. You can't revert this step. All records of the teams 
+        will be assigned to the new team.
   teams:
     index:
-      team_color: Color
+      no_teams: "No teams yet."
       action: Action
       instructions: >
-        With the help of teams, a variety of workplaces, activities, and assignments can be differentiated.
+        Here you can see all the Teams in a Unit.
 
 
-        In order to create a team, whose name can be used in the plan for the creating of a scheduling.
+        _Teams_ are helpful when distinguishing various jobs, activities or tasks.
+      planner_instructions: >
+        Here are all employees that are members of this Organisation.
 
-        Example: @9-5 clean plates@
+
+        _Teams_ are helpful when distinguishing various jobs, activities or tasks.
 
 
-        Abbreviations will be additionally used to make plans easier to design.
-        Abbreviations are then automatically generated from the beginning letter of the team name,
-        but can also be generated from the first mention of the teams in the plan.
+        To implicitly create a new team, whose names can be used when you create a new schedule used in a Plan.
 
-        Example: @9-5 clean plates [A1]@
+        Example: @9-17 Preparing Ship@
+
+        When you want to create a team directly, click the _Add_ button on this page.
+        
+
+
+        Additionally, shortcuts will be used to fill in the diagrams, to made them easier to design.
+        Shortcuts are made automatically from the inital letters of the team name, but they can also be used
+        in the first mention of a team in the Plan.
+
+        Example: @9-17 Preparing Ship [PS]@
+
+
+        In order to merge two teams, tick the appropriate checkboxes and click _Merge_. 
+        After you chose the name for the merged team, both teams will be assigned to this one. You cannot revert this step.
+       
+    table:  
+      team_color: Colour
     show:
       merge_motivation: >
-        Incase a second team is created through a typing error, the team can later be merged.
+        If a second team has been created by accident, you can merge it like this.
 
   helpers:
     actions:
-      merge: "merge"
+      merge: "Merge"

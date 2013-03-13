@@ -38,7 +38,7 @@ class Employee < ActiveRecord::Base
   after_create :create_membership
 
   def self.order_by_names
-    order('last_name, first_name')
+    order('last_name, first_name, id')
   end
 
   def role?(asked)
@@ -103,7 +103,7 @@ class Employee < ActiveRecord::Base
   end
 
   def to_s
-    %Q~<Employee #{id || 'new'} #{name.inspect} (#{role || 'employee'}) [#{account.try(:name)}]>~
+    %Q~<Employee #{id || 'new'} #{name.inspect} (#{role.presence || 'employee'} #{weekly_working_time.presence || ''}) [#{account.try(:name)}]>~
   end
 
   def inspect

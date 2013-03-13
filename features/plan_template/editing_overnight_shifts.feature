@@ -12,10 +12,10 @@ Feature: Editing overnight shifts of plan templates
      Then I should see the following calendar:
         | Teams                  | Mo  | Di                                     | Mi                                     | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |                                        |                                        |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 22:00-24:00 3 x 2 x Brennstabpolierer  | 00:00-06:00 3 x 2 x Brennstabpolierer  |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 22:00-06:00 3 x 2 x Brennstabpolierer  | 22:00-06:00 3 x 2 x Brennstabpolierer  |     |     |     |     |
 
   Scenario: Editing the timespan of overnight shifts by clicking on the second day
-    Given I click on the shift "00:00-06:00"
+    Given I click on the early shift "22:00-06:00"
       And I wait for the modal box to appear
      Then the selected "Startstunde" should be "22"
       And the selected "Endstunde" should be "6"
@@ -26,21 +26,21 @@ Feature: Editing overnight shifts of plan templates
      Then I should see the following calendar:
         | Teams                  | Mo  | Di                                     | Mi                                     | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |                                        |                                        |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 21:00-24:00 3 x 2 x Brennstabpolierer  | 00:00-07:00 3 x 2 x Brennstabpolierer  |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 21:00-07:00 3 x 2 x Brennstabpolierer  | 21:00-07:00 3 x 2 x Brennstabpolierer  |     |     |     |     |
 
   Scenario: Editing the team of overnight shifts
-    Given I click on the shift "22:00-24:00"
+    Given I click on the late shift "22:00-06:00"
       And I wait for the modal box to appear
      When I select "Brennstabkessel" from "Team"
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Teams                  | Mo  | Di                                     | Mi                                     | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     |     | 22:00-24:00 3 x 2 x Brennstabpolierer  | 00:00-06:00 3 x 2 x Brennstabpolierer  |     |     |     |     |
+        | Brennstabkessel(B)     |     | 22:00-06:00 3 x 2 x Brennstabpolierer  | 22:00-06:00 3 x 2 x Brennstabpolierer  |     |     |     |     |
         | Druckwasserreaktor(D)  |     |                                        |                                        |     |     |     |     |
 
   Scenario: Deleting demands of overnight shifts
-    Given I click on the shift "22:00-24:00"
+    Given I click on the shift "22:00-06:00"
       And I wait for the modal box to appear
       And I follow "Löschen"
       And I press "Speichern"
@@ -48,5 +48,5 @@ Feature: Editing overnight shifts of plan templates
      Then I should see the following calendar:
         | Teams                  | Mo  | Di               | Mi               | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |                  |                  |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 22:00-24:00 3 x  | 00:00-06:00 3 x  |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 22:00-06:00 3 x  | 22:00-06:00 3 x  |     |     |     |     |
 
