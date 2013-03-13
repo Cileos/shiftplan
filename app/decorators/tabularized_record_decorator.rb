@@ -55,14 +55,6 @@ class TabularizedRecordDecorator < ApplicationDecorator
       select(:record, record).effect('highlight', {}, 3000)
     end
 
-    def resource_name
-      @resource_name ||= model.class.name.underscore
-    end
-
-    def pluralized_resource_name
-      resource_name.pluralize
-    end
-
     def records_css_class
       pluralized_resource_name.gsub('_','-')
     end

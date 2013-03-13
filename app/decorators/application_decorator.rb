@@ -90,4 +90,14 @@ class ApplicationDecorator < Draper::Decorator
   #   def updated_at
   #     formatted_timestamp(model.updated_at)
   #   end
+
+  private
+
+    def resource_name
+      @resource_name ||= source.class.name.underscore
+    end
+
+    def pluralized_resource_name
+      resource_name.pluralize
+    end
 end
