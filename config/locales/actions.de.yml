@@ -1,6 +1,8 @@
 de:
   helpers:
     actions:
+      new_post: 'Neuen Blogpost erstellen'
+      edit_post: 'Blogpost bearbeiten'
       edit_account: Account bearbeiten
       add_account: Account hinzufügen
       profile: Profil
@@ -91,4 +93,3 @@ de:
       employees_in_week: "Mitarbeiter"
       teams_in_week: "Teams"
       hours_in_week: "Stunden"
-

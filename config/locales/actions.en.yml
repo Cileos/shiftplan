@@ -1,6 +1,8 @@
 en:
   helpers:
     actions:
+      new_post: "Create a new post"
+      edit_post: "Edit post"
       edit_account: Edit account
       add_account: Add account
       profile: Profile
@@ -75,4 +77,3 @@ en:
       employees_in_week: "Employees"
       teams_in_week: "Teams"
       hours_in_week: "Hours"
-
