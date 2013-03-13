@@ -85,6 +85,11 @@ module TimeRangeWeekBasedAccessible
     def in_week(week)
       where_date_part_equals_in_time_zone('starts_at', 'WEEK', week)
     end
+
+    # In a calendar week (ISO 8601)
+    def on_weekday(dow)
+      where_date_part_equals_in_time_zone('starts_at', 'ISODOW', dow)
+    end
   end
 
 end

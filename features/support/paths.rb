@@ -115,6 +115,15 @@ module NavigationHelpers
       end
     end
   end
+
+  # Put this around compound steps to make sure they do not leave the page
+  # (or at least come back to it)
+  def with_invariant_page_path
+    start = URI.parse(current_url).path
+    yield
+    URI.parse(current_url).path.should eql(start), 'page was changed'
+  end
+
 end
 
 World(NavigationHelpers)

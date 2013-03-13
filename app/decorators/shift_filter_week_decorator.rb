@@ -6,28 +6,14 @@ class ShiftFilterWeekDecorator < ShiftFilterDecorator
 
   # looks up the index, savely
   def indexed(day, other)
-    if at_day = index[day]
-      if at_day.key?(other)
-        at_day[other]
-      else
-        []
-      end
-    else
-      []
-    end
+    index.fetch(day, other)
   end
 
   def index
-    @index ||= index_records
+    @index ||= TwoDimensionalRecordIndex.new(:day, y_attribute).with_records_added(records)
   end
 
   private
-
-    def index_records
-      records.group_by(&:day).map do |day, concurrent|
-        { day => concurrent.group_by(&y_attribute) }
-      end.inject(&:merge) || {}
-    end
 
     def y_attribute
       :team

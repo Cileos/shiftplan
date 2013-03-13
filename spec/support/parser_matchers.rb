@@ -15,7 +15,7 @@ RSpec::Matchers.define :fill_in do |attr, val|
       quickie.fill( target )
       target.send(attr) == val
     else
-      false # not event parsable
+      false # not even parsable
     end
   end
 

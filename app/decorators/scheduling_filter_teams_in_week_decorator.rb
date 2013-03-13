@@ -4,7 +4,7 @@ class SchedulingFilterTeamsInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def cell_metadata(day, team)
-    { :'team-id' => team.id, :date => day.iso8601 }
+    { :'team-id' => team.try(:id) || 'missing', :date => day.iso8601 }
   end
 
   def update_legend
@@ -15,7 +15,7 @@ class SchedulingFilterTeamsInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def cell_selector(scheduling)
-   %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-team-id=#{scheduling.team_id}]~
+   %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-team-id=#{scheduling.try(:team_id) || 'missing'}]~
   end
 
   def coordinates_for_scheduling(scheduling)

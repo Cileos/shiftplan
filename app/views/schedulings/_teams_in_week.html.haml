@@ -16,4 +16,12 @@
           = '(' + team.shortcut + ')'
       - filter.days.each do |day|
         = filter.render_cell_for_day day, team
+  %tr
+    %th.team
+      .pibble
+      .team_name
+        = t(:'schedulings.missing_team')
+    - filter.days.each do |day|
+      = filter.render_cell_for_day day, nil
+
 
