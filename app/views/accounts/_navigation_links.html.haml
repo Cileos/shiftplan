@@ -21,4 +21,3 @@
       - if organization = organizations.first
         = li_link organization.name, nested_resources_for(organization), class: 'organization', data: { icon: i(:organization) }
         = render 'organizations/navigation_links', organization: organization
-  = li_link '.qualifications', [current_account, :qualifications], can: [:show, Qualification]
