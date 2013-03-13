@@ -65,7 +65,7 @@ de:
       reinvite: Erneut einladen
       send_invitation: 'Einladung verschicken'
       copy: "Übernehmen"
-      copy_week: "Übernahme aus der letzten Woche"
+      new_copy_week: "Übernahme aus der letzten Woche"
       new_apply_plan_template: 'Planvorlage anwenden'
       apply: 'Anwenden'
       comment: Kommentieren

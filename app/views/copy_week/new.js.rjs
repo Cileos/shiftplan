@@ -1,4 +1,3 @@
-page.decorate @copy_week do |copy|
-  copy.append_modal body: render('form', copy_week: copy),
-    header: content_tag(:h3, ta(:'copy_week'))
+page.decorate resource do |resource|
+  resource.append_modal_with_form(action: 'new')
 end
