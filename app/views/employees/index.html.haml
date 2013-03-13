@@ -11,7 +11,7 @@
   .primary
     #employees
       - unless collection.empty?
-        = render 'table', employees: collection
+        = render 'table', records: collection
       - else
         %p= t(:'.no_employees')
 
