@@ -19,6 +19,15 @@ module ModalDecoratorHelper
     select(:modal).dialog( options.reverse_merge(modal_default_options).merge(dialog_options) )
   end
 
+  def append_modal_with_form(options = {})
+    action  = source.new_record? ? 'new' : 'edit'
+    form_options = {
+      body: h.render('form', resource: source),
+      header: h.content_tag(:h3, h.ta(:"#{action}_#{resource_name}"))
+    }
+    append_modal(options.reverse_merge(form_options))
+  end
+
   # see http://jqueryui.com/demos/dialog/#modal
   def modal_default_options
     {
