@@ -20,7 +20,7 @@ module ModalDecoratorHelper
   end
 
   def append_modal_with_form(options = {})
-    action  = options.fetch(:action) || source.new_record? ? 'new' : 'edit'
+    action  = options.delete(:action) || source.new_record? ? 'new' : 'edit'
     form_options = {
       body: h.render('form', resource: source),
       header: h.content_tag(:h3, h.ta(:"#{action}_#{resource_name}"))
