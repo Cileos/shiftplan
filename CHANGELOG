@@ -1,6 +1,18 @@
 Changelog
 =========
 
+Release 0.3.1 2013-03-13 11:40
+------------------------------
+* 88725f0 Merge pull request #147 from Cileos/feature/deploy-staging-to-plock
+* 6db88fd Merge pull request #149 from Cileos/feature/show-all-teams-in-legend-and-scheduling-form
+* 3e3218c Merge branch 'feature/make-owner-employee-of-first-organization' into develop
+* a905953 Merge pull request #146 from Cileos/feature/cru-of-all-models
+* 99495c2 Merge branch 'feature/link-to-upcoming-schedulings-on-dashboard' into develop
+* 925790a Merge pull request #145 from Cileos/feature/unify-display-of-overnightable-cells
+* 2a89a69 Merge pull request #143 from Cileos/feature/hide-stammdaten-for-normal-employees
+* 9537590 Merge pull request #141 from Cileos/feature/sticky-flash-messages
+* 0c11566 Merge pull request #142 from Cileos/feature/microcopy
+
 Release 0.3.0 2013-02-19 13:50
 ------------------------------
 * 83697e3 Merge pull request #140 from Cileos/feature/bug-848691-duplicate-warning-when-editing-employee
