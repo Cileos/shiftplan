@@ -21,7 +21,7 @@ module HtmlSelectorsHelpers
 
     when /^the row for employee "([^"]*)"$/
       employee = Employee.find_by_first_name_and_last_name($1.split[0], $1.split[1])
-      "table#employees tr#employee_#{employee.id}"
+      "table#employees tr#record_#{employee.id}"
 
     when /^the ([a-zA-Z ]+) table$/
       "table##{$1.gsub(' ', '-')}"
