@@ -18,6 +18,8 @@ class Plan < ActiveRecord::Base
                   :starts_at,
                   :ends_at
 
+  default_scope order(:name)
+
   # for now, durations are hardcoded, not saved
   Durations = %w(1_week)
   attr_writer :duration
