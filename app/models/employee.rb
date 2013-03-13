@@ -3,15 +3,21 @@ class Employee < ActiveRecord::Base
 
   Roles = %w(owner planner)
 
-  attr_accessible :first_name,
+  AccessibleAttributes = [
+                  :first_name,
                   :last_name,
                   :weekly_working_time,
                   :avatar,
                   :avatar_cache,
                   :organization_id,
                   :account_id,
-                  :role,
                   :force_duplicate
+  ]
+
+  attr_accessible *AccessibleAttributes
+  attr_accessible *(AccessibleAttributes + [:role]), as: 'owner'
+  attr_accessible *(AccessibleAttributes + [:role]), as: 'planner'
+
   attr_accessor :organization_id,
                 :force_duplicate
 
@@ -43,6 +49,13 @@ class Employee < ActiveRecord::Base
 
   def role?(asked)
     role == asked
+  end
+
+  # must give role to update, works only by mass assignment
+  def role=(new_role)
+    if (!persisted? || mass_assignment_options[:as].present?) && new_role.to_s != 'owner'
+      write_attribute :role, new_role
+    end
   end
 
   Roles.each do |given_role|

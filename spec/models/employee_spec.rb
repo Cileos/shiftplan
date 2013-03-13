@@ -31,14 +31,6 @@ describe Employee do
       build(:employee, :weekly_working_time => 40).should  be_valid
       build(:employee, :weekly_working_time => nil).should be_valid
     end
-
-    context "roles" do
-      it { build(:employee, role: 'planner').should be_valid }
-      it { build(:employee, role: 'owner').should be_valid }
-      it { build(:employee, role: 'planer').should be_invalid }
-      it { build(:employee, role: 'weihnachtsmann').should be_invalid }
-      it { create(:employee, role: 'planner').reload.role.should == 'planner' }
-    end
   end
 
   context "WAZ in form" do
