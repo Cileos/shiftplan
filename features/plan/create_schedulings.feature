@@ -9,7 +9,7 @@ Feature: create a scheduling
       And I inject style "position:relative" into "header"
 
   @javascript
-  Scenario: just entering time span
+  Scenario: thorugh the button on the top
      When I follow "Neue Terminierung"
      Then I should see "9-17 wichtige Arbeit [wA]" within a hint
       And I select "Homer S" from "Mitarbeiter"
@@ -33,25 +33,6 @@ Feature: create a scheduling
       And I press arrow down in the "Quickie" field
       And I press return in the "Quickie" field
      Then the "Quickie" field should contain "9-17"
-
-
-  @javascript
-  Scenario: scheduling the same employee twice per day
-    Given the employee "Homer" was scheduled in the plan as following:
-        | date       | quickie |
-        | 2012-02-15 | 9-17    |
-      And I am on the page of the plan
-     When I inject style "position:relative" into "header"
-      And I follow "Neue Terminierung"
-      And I select "Homer S" from "Mitarbeiter"
-      And I select "Mittwoch" from "Wochentag"
-      And I fill in "Quickie" with "18-23"
-      And I press "Anlegen"
-     Then I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi                       | Do  | Fr  | Sa  | So  |
-        | Carl C       |     |     |                          |     |     |     |     |
-        | Lenny L      |     |     |                          |     |     |     |     |
-        | Homer S      |     |     | 09:00-17:00 18:00-23:00  |     |     |     |     |
 
   @javascript
   Scenario: can only select employees being member of the current organization
