@@ -123,5 +123,5 @@ Feature: Detect duplicate Employee
       And I should see the following table of employees:
         | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
         | Burns, Owner  |      | owner@burns.com           | Aktiv                  | Fukushima               |
-        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
         | Meier, Heinz  | 33   |                           | Noch nicht eingeladen  | Fukushima               |
+        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
