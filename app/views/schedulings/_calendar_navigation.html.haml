@@ -12,7 +12,7 @@
             current_organization, filter.plan,
             copy_week: { target_week: filter.week, target_year: filter.cwyear }),
             remote: true, class: '', data: { icon: i(:copy_week)}
-        %li= link_to ti(:apply_plan_template),
+        %li= link_to ti(:new_apply_plan_template),
           new_account_organization_plan_apply_plan_template_path(current_organization.account,
           current_organization, filter.plan,
           apply_plan_template: { target_week: filter.week, target_year: filter.cwyear }),

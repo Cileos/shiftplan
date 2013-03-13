@@ -50,6 +50,7 @@ en:
       send_invitation: "Send invitation"
       copy: "Copy"
       copy_week: "Copy whole week"
+      new_apply_plan_template: "Apply a plan template"
       comment: Comment
       comments: Comments
       reply: "Reply"
