@@ -5,7 +5,7 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.dirname(__FILE__) + "/../config/spork_prefork"
 
-  require 'rspec/rails'
+  require 'rspec'
   require 'draper/test/rspec_integration'
 
   # Must beloaded early to extend RSpec with RSpecLocale.
@@ -47,6 +47,7 @@ Spork.each_run do
   # TODO move this to #prefork when the test suite is stable
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
+  require 'rspec/rails' # spork rspec --diagnose says: this preloads all helpers
   Dir[Rails.root/'spec'/'support'/'**'/'*.rb'].each {|f| require f}
   FactoryGirl.reload
   I18n.reload!
