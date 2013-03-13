@@ -1,11 +1,8 @@
 require 'spec_helper'
 
 describe "schedulings/lists/_employees_in_week.html.haml" do
-  def partial_name
-    subject.sub(%r~/_([^/]+)$~, '/\1').sub(/(\.\w+){2}$/,'')
-  end
   def render_list(list)
-    render partial: partial_name, locals: { schedulings: list }
+    render_partial locals: { schedulings: list }
   end
   # returns a new stub as null object, having ALL methods defined
   def sch(attrs={})

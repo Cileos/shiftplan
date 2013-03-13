@@ -35,19 +35,6 @@ Feature: create a scheduling
      Then the "Quickie" field should contain "9-17"
 
   @javascript
-  Scenario: can only select employees being member of the current organization
-    Given an organization "Jungle" exists with account: the account
-      And an employee "tarzan" exists with first_name: "Tarzan", account: the account
-      And a membership exists with organization: the organization "Jungle", employee: the employee "tarzan"
-     When I go to the page of the plan "clean reactor"
-     Then I should see "Homer S"
-      And I should not see "Tarzan" within the calendar
-     When I inject style "position:relative" into "header"
-      And I follow "Neue Terminierung"
-      And I wait for the new scheduling form to appear
-     Then I should not see "Tarzan" within the first form
-
-  @javascript
   Scenario: Entering the time span wrong
      When I click on cell "Di"/"Carl C"
       And I wait for the new scheduling form to appear

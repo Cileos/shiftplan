@@ -6,7 +6,7 @@
   = f.input :end_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
 
 
-= f.association :employee, as: :select, collection: scheduling.plan.organization.employees
+= f.association :employee, as: :select, collection: employees_for_select(scheduling)
 
 = f.association :qualification, as: :select, collection: current_account.qualifications
 

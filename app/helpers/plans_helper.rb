@@ -16,6 +16,10 @@ module PlansHelper
     end
   end
 
+  def employees_for_select(scheduling)
+    scheduling.plan.organization.employees
+  end
+
   def destroy_link_for_plan(plan, html_options={})
     html_options = {
       class: 'button button-warning button-small',
