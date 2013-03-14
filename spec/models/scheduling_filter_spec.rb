@@ -172,4 +172,17 @@ describe SchedulingFilter do
     end
   end
 
+  context "plan period" do
+
+    context "over turn of the year" do
+      let(:plan) { build :plan, starts_at: '2012-01-01', ends_at: '2012-01-02' }
+      let(:filter) { described_class.new(cwyear: 2012, week: 1, plan: plan) }
+
+      # Hardest corner case: must converts times to dates before comparing
+      it { filter.should_not be_before_start_of_plan }
+      it { filter.should_not be_after_end_of_plan }
+    end
+
+  end
+
 end

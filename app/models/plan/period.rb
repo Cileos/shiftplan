@@ -11,6 +11,11 @@ class Plan::Period < Struct.new(:starts_at, :ends_at) # is almost a Range
       (!ends_at || !_ends_before?(date))
   end
 
+  def include_date?(date)
+    (!starts_at || !(date.to_date < starts_at.to_date)) &&
+    (!ends_at || !(ends_at.to_date < date.to_date))
+  end
+
   def exclude?(date)
     starts_after?(date) || ends_before?(date)
   end
@@ -21,6 +26,14 @@ class Plan::Period < Struct.new(:starts_at, :ends_at) # is almost a Range
 
   def ends_before?(date)
     ends_at && _ends_before?(date)
+  end
+
+  def starts_after_date?(date)
+    starts_at && date.to_date < starts_at.to_date
+  end
+
+  def ends_before_date?(date)
+    ends_at && ends_at.to_date < date.to_date
   end
 
   private

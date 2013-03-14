@@ -63,22 +63,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
-  def period
-    @period ||= plan.period
-  end
-
-  def outside_plan_period?(*a)
-    period.exclude?(*a)
-  end
-
-  def before_start_of_plan?(date=last_day)
-    period.starts_after?(date)
-  end
-
-  def after_end_of_plan?(date=first_day)
-    period.ends_before?(date)
-  end
-
   def render_cell_for_day(day, *a)
     options = a.extract_options!
     options[:data] = cell_metadata(day, *a)

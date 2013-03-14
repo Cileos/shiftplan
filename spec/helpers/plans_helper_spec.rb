@@ -18,8 +18,30 @@ describe PlansHelper do
 
   context "cwdays_for_select" do
     let(:scheduling) { stub('scheduling', date: Time.zone.now.to_date).as_null_object }
-    it "offers all days of the week" do
-      helper.cwdays_for_select(scheduling).should have(7).items
+
+    context "without period" do
+      it "offers all days of the week" do
+        helper.cwdays_for_select(scheduling).should have(7).items
+      end
+    end
+
+    context "with period from sunday to tuesday" do
+      let(:period) { Plan::Period.new(Time.zone.parse('2012-01-01'), Time.zone.parse('2012-01-03')) }
+      before :each do
+        scheduling.stub(:plan).and_return(stub('plan', period: period))
+      end
+      context "for first week" do
+        let(:scheduling) { stub date: period.starts_at.to_date }
+        it "offers only sunday" do
+          helper.cwdays_for_select(scheduling).map(&:last).should == ['2012-01-01']
+        end
+      end
+      context "for second week" do
+        let(:scheduling) { stub date: period.ends_at.to_date }
+        it "offers only monday and tuesday" do
+          helper.cwdays_for_select(scheduling).map(&:last).should == ['2012-01-02', '2012-01-03']
+        end
+      end
     end
   end
 end

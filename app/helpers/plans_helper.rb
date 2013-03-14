@@ -6,7 +6,7 @@ module PlansHelper
     (0..6).
       to_a.
       map    { |more| monday + more.days }.
-      select { |day| scheduling.plan.period.include?(day) }.
+      select { |day| scheduling.plan.period.include_date?(day) }.
       map    { |day| [l(day, :format => format), day.iso8601] }
   end
 

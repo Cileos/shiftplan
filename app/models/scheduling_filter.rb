@@ -91,6 +91,21 @@ class SchedulingFilter < RecordFilter
     fetch_records
   end
 
+  def period
+    @period ||= plan.period
+  end
+
+  def outside_plan_period?(date)
+    before_start_of_plan?(date) || after_end_of_plan?(date)
+  end
+
+  def before_start_of_plan?(date=last_day)
+    period.starts_after_date?(date)
+  end
+
+  def after_end_of_plan?(date=first_day)
+    period.ends_before_date?(date)
+  end
 
   private
     def fetch_records

@@ -15,6 +15,18 @@ describe Plan::Period do
     it "includes date within" do
       period.should include( from + 2.day )
     end
+    it "includes its own start" do
+      period.should include(from)
+    end
+    it "includes its own end" do
+      period.should include(to)
+    end
+    it "includes its own start as date" do
+      period.should be_include_date(from)
+    end
+    it "includes its own end as date" do
+      period.should be_include_date(to)
+    end
   end
 
   context "with start only" do
