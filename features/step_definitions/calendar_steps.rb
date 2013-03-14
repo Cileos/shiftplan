@@ -4,6 +4,12 @@ When /^I click on #{capture_cell}$/ do |cell|
   EOJS
 end
 
+When /^I click on (a .*)$/ do |name|
+  page.execute_script <<-EOJS
+    $("#{selector_for(name)}").click()
+  EOJS
+end
+
 When /^I click on the #{capture_quoted} column$/ do |column_name|
   column = column_index_for(column_name)
   page.execute_script <<-EOJS
