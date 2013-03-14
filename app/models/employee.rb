@@ -15,8 +15,8 @@ class Employee < ActiveRecord::Base
   ]
 
   attr_accessible *AccessibleAttributes
-  attr_accessible *(AccessibleAttributes + [:role]), as: 'owner'
-  attr_accessible *(AccessibleAttributes + [:role]), as: 'planner'
+  attr_accessible *(AccessibleAttributes + [:role_with_protection]), as: 'owner'
+  attr_accessible *(AccessibleAttributes + [:role_with_protection]), as: 'planner'
 
   attr_accessor :organization_id,
                 :force_duplicate
@@ -52,10 +52,15 @@ class Employee < ActiveRecord::Base
   end
 
   # must give role to update, works only by mass assignment
-  def role=(new_role)
+  def role_with_protection=(new_role)
     if (!persisted? || mass_assignment_options[:as].present?) && new_role.to_s != 'owner'
       write_attribute :role, new_role
     end
+  end
+
+  # for edit form
+  def role_with_protection
+    role
   end
 
   Roles.each do |given_role|
