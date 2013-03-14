@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.recent(num=5)
-    order('published_at DESC, updated_at DESC').limit(num)
+    reorder('').order('published_at DESC, updated_at DESC').limit(num)
   end
 
 
