@@ -34,10 +34,6 @@ class EmployeesController < InheritedResources::Base
     current_organization
   end
 
-  def end_of_association_chain
-    super.order_by_names.order(:created_at)
-  end
-
   def resource_params
     [permitted_employee_params]
   end

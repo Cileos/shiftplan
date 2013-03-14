@@ -23,7 +23,7 @@ class EmployeeSearch
   end
 
   def results
-    scope = sorted_base
+    scope = base
     scope = scope.where(first_name: first_name) if first_name.present?
     scope = scope.where(last_name: last_name) if last_name.present?
     if except_employee.present? && except_employee.persisted?
@@ -33,7 +33,7 @@ class EmployeeSearch
   end
 
   def fuzzy_results
-    scope = sorted_base
+    scope = base
     scope = scope.where("first_name ILIKE ?", "#{first_name}%") if first_name.present?
     scope = scope.where("last_name ILIKE ?", "#{last_name}%") if last_name.present?
     scope = scope.joins(:user).where("users.email ILIKE ?", "#{email}%") if email.present?
@@ -49,11 +49,5 @@ class EmployeeSearch
   # Enough parameters given to be actually different from .all
   def search?
     [first_name, last_name, email].any?(&:present?)
-  end
-
-  private
-
-  def sorted_base
-    base.order_by_names.order(:created_at)
   end
 end

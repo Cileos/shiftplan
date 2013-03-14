@@ -20,10 +20,6 @@ class ProfileEmployeesController < InheritedResources::Base
     current_user
   end
 
-  def end_of_association_chain
-    super.order_by_names
-  end
-
   def resource
     super
   rescue
