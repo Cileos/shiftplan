@@ -42,14 +42,24 @@ Then /^I should see a calendar (?:titled|captioned) #{capture_quoted}$/ do |capt
   step %Q~I should see "#{caption}" within the calendar caption~
 end
 
+# Then I should see the following calendar:
+#        | Teams | Mo | Di | Mi | Do | Fr | Sa | So |
+#        | C     |    |    |    |    |    |    |    |
+#        | B     |    |    |    |    |    |    |    |
+#
+# It will fail if there is an A-team or Caturday hidden somewhere
 Then /^I should see the following calendar:$/ do |expected|
-  calendar = find(selector_for('the calendar'))
-  actual = calendar.all("thead:first tr, tbody tr").map do |tr|
-    tr.all('th, td').map do |cell|
-      extract_text_from_cell(cell) || ''
-    end
-  end
-  expected.diff! actual
+  expected.diff! parse_calendar
+end
+
+# Then I should see the following partial calendar:
+#        | Teams | Di | Mi | Do | Fr | Sa | So |
+#        | C     |    |    |    |    |    |    |
+#        | B     |    |    |    |    |    |    |
+#
+# It will not fail if there is an A-team at the end or the Monday is even important
+Then /^I should see the following partial calendar:$/ do |expected|
+  expected.diff! parse_calendar, surplus_row: false, surplus_col: false
 end
 
 Then /^I should see the following time bars:$/ do |raw|

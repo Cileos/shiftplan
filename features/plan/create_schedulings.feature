@@ -16,7 +16,7 @@ Feature: create a scheduling
       And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
-     Then I should see the following calendar:
+     Then I should see the following partial calendar:
         | Mitarbeiter  | Mo  | Di  | Mi           | Do  | Fr  | Sa  | So  |
         | Carl C       |     |     |              |     |     |     |     |
         | Lenny L      |     |     |              |     |     |     |     |

@@ -26,7 +26,7 @@ Feature: Applying Weekbased Plan Templates to Plans
         | shift "Druckwasserreaktor"  | 2         | qualification "Brennstabexperte"   |
         | shift "Brennstabkessel"     | 1         | qualification "Brennstabexperte"   |
      When I go to the teams in week page for the plan template
-     Then I should see the following calendar:
+     Then I should see the following partial calendar:
         | Teams                  | Mo                                | Di                                                      | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     | 22:00-06:00 1 x Brennstabexperte  | 22:00-06:00 1 x Brennstabexperte                        |     |     |     |     |     |
         | Druckwasserreaktor(D)  |                                   | 04:00-12:00 2 x Brennstabexperte 1 x Brennstabpolierer  |     |     |     |     |     |
@@ -39,7 +39,7 @@ Feature: Applying Weekbased Plan Templates to Plans
       And I am on the teams in week page of the plan for cwyear: 2012, week: 49
      When I apply template "Typische Woche" in modalbox
      Then I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
-      And I should see the following calendar:
+      And I should see the following partial calendar:
         | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel (B)     | 22:00-06:00 Brennstabexperte  | 22:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
@@ -53,7 +53,7 @@ Feature: Applying Weekbased Plan Templates to Plans
       And I am on the teams in week page of the plan for cwyear: 2012, week: 49
      When I apply template "Typische Woche" in modalbox
      Then I should see notice "Es konnten nicht alle Schichten der Planvorlage übernommen werden. Einige Schichten liegen außerhalb des Plans."
-      And I should see the following calendar:
+      And I should see the following partial calendar:
         | Teams                   | Mo  | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel (B)     |     |                                                                                          |     |     |     |     |     |
         | Druckwasserreaktor (D)  |     | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |

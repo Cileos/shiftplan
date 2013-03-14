@@ -206,6 +206,15 @@ module HtmlSelectorsHelpers
       cell.text.strip
     end
   end
+
+  def parse_calendar
+    calendar = find(selector_for('the calendar'))
+    calendar.all("thead:first tr, tbody tr").map do |tr|
+      tr.all('th, td').map do |cell|
+        extract_text_from_cell(cell) || ''
+      end
+    end
+  end
 end
 
 World(HtmlSelectorsHelpers)
