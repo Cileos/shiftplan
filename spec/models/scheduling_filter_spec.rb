@@ -155,4 +155,21 @@ describe SchedulingFilter do
 
   it "adds 'outside_plan_period' class to cells out of plan period"
 
+  context "scheduling" do
+    context "ranging over midnight and turn of the year" do
+      # 2012-01-01: sunday
+      # 2012-01-02: monday
+      let(:plan) { create :plan, starts_at: '2012-01-01', ends_at: '2012-01-02' }
+      let!(:scheduling) { create :manual_scheduling, year: 2011, week: 52, cwday: 7, quickie: '22-6', plan: plan }
+
+      it "appears on evening of first day" do
+        described_class.new(week: 52, cwyear: 2011).should have(1).records
+      end
+
+      it "appears on morning of second day" do
+        described_class.new(week: 1, cwyear: 2012).should have(1).records
+      end
+    end
+  end
+
 end
