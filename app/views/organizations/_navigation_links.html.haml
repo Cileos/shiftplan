@@ -7,6 +7,7 @@
   %li{class: "dropdown #{active_or_not}"}
     = link_to t(:'helpers.actions.plans'), base + [:plans], { data: { toggle: 'dropdown', icon: i(:dropdown)}}
     = render 'organizations/plans_list', base: base, organization: organization
-  = li_link '.employees',      base + [:employees],                can: [:show, Employee],      data: { icon: i(:employees) }
-  = li_link '.teams',          base + [:teams],                    can: [:show, Team],          data: { icon: i(:teams) }
-  = li_link '.plan_templates', base + [:plan_templates],           can: [:show, PlanTemplate]
+  = li_link '.employees',      base + [:employees],      can: [:show, Employee],      data: { icon: i(:employees) }
+  = li_link '.teams',          base + [:teams],          can: [:show, Team],          data: { icon: i(:teams) }
+  = li_link '.plan_templates', base + [:plan_templates], can: [:show, PlanTemplate]
+  = li_link '.qualifications', base + [:qualifications], can: [:show, Qualification]

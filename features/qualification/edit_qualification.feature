@@ -8,7 +8,7 @@ Feature: Edit Qualifications
       And a qualification exists with name: "Brennstabpolierer", account: the account
 
      When I follow "Qualifikationen"
-     Then I should be on the qualifications page for the account
+     Then I should be on the qualifications page for the organization
       And I should see the following table of qualifications:
         | Name              |
         | Brennstabpolierer |
@@ -16,7 +16,7 @@ Feature: Edit Qualifications
      When I follow "Bearbeiten" within the first table row
       And I fill in "Name" with "Brennstabexperte"
       And I press "Speichern"
-     Then I should be on the qualifications page for the account
+     Then I should be on the qualifications page for the organization
       And I should see the following table of qualifications:
         | Name             |
         | Brennstabexperte |

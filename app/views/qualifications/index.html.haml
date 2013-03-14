@@ -2,7 +2,8 @@
 
 - masterhead_toolbar do
   - if can? :create, Qualification
-    = link_to ti(:add), [:new, current_account, :qualification],
+    = link_to ti(:add),
+      [:new, current_account, current_organization, :qualification],
       class: 'button', data: { icon: i(:add) }
 
 .row.two-columns.inverted

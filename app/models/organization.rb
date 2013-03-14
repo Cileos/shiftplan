@@ -18,6 +18,10 @@ class Organization < ActiveRecord::Base
     blogs.first
   end
 
+  def qualifications
+    account.qualifications
+  end
+
   def planners
     account.employees.where(role: 'planner')
   end
