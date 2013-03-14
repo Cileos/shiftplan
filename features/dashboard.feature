@@ -40,9 +40,9 @@ Feature: Dashboard
       And I am signed in as the user "homer"
      When I go to the dashboard
      Then I should see an agenda table with the following rows:
-       | day  | day-name  | month-year  | time     | team                 | plan                                |
-       | 4    | Di        | Dez 2012    | 9 - 17   | Reaktor Putzen [RP]  | Brennstäbe wechseln in Tschernobyl  |
-       | 12   | Mi        | Dez 2012    | 10 - 18  | Reaktor Fegen [RF]   | Pumpen ölen                         |
+       | day | day-name | month-year | time    | team                | organization           | plan                               |
+       | 4   | Di       | Dez 2012   | 9 - 17  | Reaktor Putzen [RP] | AKW Tschernobyl GmbH / | Brennstäbe wechseln in Tschernobyl |
+       | 12  | Mi       | Dez 2012   | 10 - 18 | Reaktor Fegen [RF]  | AKW Tschernobyl GmbH / | Pumpen ölen                        |
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
      When I follow "Pumpen ölen" within the schedulings module

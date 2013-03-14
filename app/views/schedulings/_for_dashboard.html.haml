@@ -18,6 +18,9 @@
                 %span.team= scheduling.team.to_quickie
               - plan = scheduling.plan
               - org = plan.organization
+              %span.account
+                = current_user.accounts.count > 1 ? ' / ' + org.account.name + ' / ' : ' / '
+              %span.organization= org.name + ' / '
               %span.plan= link_to plan.name,
                 account_organization_plan_employees_in_week_path(org.account,
                 org, plan, week: scheduling.week, cwyear: scheduling.cwyear)
