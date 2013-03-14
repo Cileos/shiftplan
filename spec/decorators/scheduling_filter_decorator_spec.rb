@@ -72,4 +72,23 @@ describe SchedulingFilterDecorator, 'mode' do
 
   end
 
+  context 'find schedulings' do
+    let(:result) { stub 'result' }
+
+    # schedulings_for must be implemented in subclass
+
+    it "accepts coordinates as criteria" do
+      a, b = stub, stub
+      decorator.should_receive(:schedulings_for).with(a,b).and_return(result)
+      decorator.find_schedulings(a,b).should == result
+    end
+
+    it "calculates coordinates from scheduling as criteria" do
+      scheduling = Scheduling.new
+      coordinates = [stub, stub]
+      decorator.should_receive(:coordinates_for_scheduling).with(scheduling).and_return(coordinates)
+      decorator.should_receive(:schedulings_for).with(*coordinates).and_return(result)
+      decorator.find_schedulings(scheduling).should == result
+    end
+  end
 end
