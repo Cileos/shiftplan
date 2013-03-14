@@ -17,5 +17,22 @@ describe SchedulingFilterEmployeesInWeekDecorator do
     decorator.schedulings_for(day, employee).map(&:start_hour).should == [6,17,23]
   end
 
+  context "cell metadata" do
+    let(:day) { stub 'Date', iso8601: 'in_iso8601' }
+
+    it "sets employee-id and date" do
+      employee = stub 'Employee', id: 23
+      decorator.cell_metadata(day,employee).
+        should be_hash_matching(:'employee-id' => 23,
+                                :date => 'in_iso8601')
+    end
+
+    it "sets employee-id to 'missing' without emplyoee" do
+      decorator.cell_metadata(day,nil).
+        should be_hash_matching(:'employee-id' => 'missing',
+                                :date => 'in_iso8601')
+    end
+  end
+
 end
 

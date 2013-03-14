@@ -1,11 +1,12 @@
 require 'spec_helper'
 
 describe SchedulingFilterTeamsInWeekDecorator do
+  let(:filter)  { Scheduling.filter } # overwritten in most contexts
+  let(:decorator) { described_class.new(filter) }
 
   context 'found schedulings' do
     let(:plan)    { create :plan }
     let(:filter)  { SchedulingFilter.new week: 52, year: 2012, plan: plan }
-    let(:decorator) { described_class.new(filter) }
     let(:us)      { create :team }
     let(:others)  { create :team }
     def scheduling_today(attrs={})
@@ -47,6 +48,23 @@ describe SchedulingFilterTeamsInWeekDecorator do
       it_should_behave_like 'complete results'
     end
 
+  end
+
+  context "cell metadata" do
+    let(:day) { stub 'Date', iso8601: 'in_iso8601' }
+
+    it "sets team-id and date" do
+      team = stub 'Employee', id: 23
+      decorator.cell_metadata(day,team).
+        should be_hash_matching(:'team-id' => 23,
+                                :date => 'in_iso8601')
+    end
+
+    it "sets team-id to 'missing' without emplyoee" do
+      decorator.cell_metadata(day,nil).
+        should be_hash_matching(:'team-id' => 'missing',
+                                :date => 'in_iso8601')
+    end
   end
 
 end

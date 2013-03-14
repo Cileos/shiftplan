@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe SchedulingFilterDecorator, 'mode' do
   let(:filter) { SchedulingFilter.new }
+  let(:decorator) { SchedulingFilterDecorator.new(filter) }
+
   it "selects the decorator by given mode" do
     decorator = mock('Decorator')
     SchedulingFilterEmployeesInWeekDecorator.should_receive(:new).with(filter, {foo: 23}).and_return(decorator)
@@ -35,7 +37,6 @@ describe SchedulingFilterDecorator, 'mode' do
   end
 
   describe 'render_cell_for_day' do
-    let(:decorator) { SchedulingFilterDecorator.new(filter) }
     let(:view)    { mock('View').tap    { |v| decorator.stub(:h).and_return(v) } }
     let(:content) { mock('content').tap { |c| decorator.stub(:cell_content).and_return(c) } }
     before :each do
