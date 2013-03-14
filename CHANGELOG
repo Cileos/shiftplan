@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Release 0.3.2 2013-03-14 10:30
+------------------------------
+* b023605 Merge pull request #151 from Cileos/feature/keep-organization-scope-for-qualifications
+
 Release 0.3.1 2013-03-13 11:40
 ------------------------------
 * 88725f0 Merge pull request #147 from Cileos/feature/deploy-staging-to-plock
