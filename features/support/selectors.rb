@@ -183,20 +183,32 @@ module HtmlSelectorsHelpers
 
   # 0-based index of column headed by given label
   def column_index_for(column_label)
-    columns = page.all('thead tr th').map { |c| extract_text_from_cell c }
-    columns.should include(column_label)
-    columns.index(column_label)
+    headings = page.all('thead tr th')
+    labels = []
+    headings.each_with_index do |cell, index|
+      seen = extract_text_from_cell cell
+      if seen == column_label
+        return index
+      else
+        labels << seen
+      end
+    end
+    raise %Q~could not find column #{column_label} in #{labels.inspect}~
   end
 
   # 0-based index of row (in tbody) headed by given label
   def row_index_for(row_label)
-    rows = page.all("tbody th").map { |c| extract_text_from_cell c }
-    # check if in hours in week view
-    if row_label =~ /\d{1,2}/ && rows.first =~ /^1\n(\d{1,2}\n){21}23$/m
-      row_label = rows.first
+    headings = page.all("tbody th")
+    labels = []
+    headings.each_with_index do |cell, index|
+      seen = extract_text_from_cell cell
+      if seen == row_label
+        return index
+      else
+        labels << seen
+      end
     end
-    rows.should include(row_label)
-    rows.index(row_label)
+    raise %Q~could not find row #{row_label.inspect} in #{labels.inspect}~
   end
 
   SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name',
