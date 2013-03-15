@@ -101,10 +101,7 @@ Then /^I should see the following time bars:$/ do |raw|
 end
 
 Then /^I should see the following WAZ:$/ do |expected|
-  actual = the_calendar.rows.map do |tr|
-    tr.all('th:first span.employee_name, th:first .wwt_diff .badge').map(&:text)
-  end
-  expected.diff! actual
+  expected.diff! the_calendar.employees_with_batches, :surplus_row => false
 end
 
 Then /^the employee #{capture_quoted} should have a (yellow|green|red|grey) hours\/waz value of "(\d+ \/ \d+|\d+)"$/ do |employee_name, color, text|

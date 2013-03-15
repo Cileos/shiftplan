@@ -7,33 +7,46 @@ module CalendarHelpers
       world.find( world.selector_for('the calendar') )
     end
 
-    def columns
+    def column_headings
       element.all('thead tr th')
     end
 
-    def rows
+    def row_headings
       element.all('tbody th')
+    end
+
+    def rows
+      element.all('tbody tr')
+    end
+
+    def employees_with_batches
+      rows.map do |tr|
+        [
+          tr.first('th:first span.employee_name').try(:text),
+          tr.first('th:first .wwt_diff .badge').try(:text)
+        ]
+      end
     end
 
 
     def clear_cache!
-      @columns = nil
-      @rows = nil
+      @column_headings = nil
+      @row_headings = nil
     end
 
     def cache!
       # TODO extract
-      @columns = columns.map {|c| extract_text_from_cell c }
-      @rows = rows.map {|c| extract_text_from_cell c }
+      @column_headings = column_headings.map {|c| extract_text_from_cell c }
+      @row_headings = row_headings.map {|c| extract_text_from_cell c }
     end
 
     # 0-based index of column headed by given label
     def column_index_for(column_label)
-      if cached = lookup_index(@columns, column_label)
+      if cached = lookup_index(@column_headings, column_label)
         return cached
       end
       labels = []
-      columns.each_with_index do |cell, index|
+      column_headings.each_with_index do |cell, index|
         seen = extract_text_from_cell cell
         if seen == column_label
           return index
@@ -46,11 +59,11 @@ module CalendarHelpers
 
     # 0-based index of row (in tbody) headed by given label
     def row_index_for(row_label)
-      if cached = lookup_index(@rows, row_label)
+      if cached = lookup_index(@row_headings, row_label)
         return cached
       end
       labels = []
-      rows.each_with_index do |cell, index|
+      row_headings.each_with_index do |cell, index|
         seen = extract_text_from_cell cell
         if seen == row_label
           return index
