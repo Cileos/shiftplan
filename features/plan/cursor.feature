@@ -23,6 +23,7 @@ Feature: Calendar cursor
        | Lenny L          |    |    |    |                                     |             |    |    |
        | Homer S          |    |    |    | 07:00-11:00 12:00-18:00 19:00-23:00 | 07:00-19:00 |    |    |
        | Ohne Mitarbeiter |    |    |    |                                     |             |    |    |
+      And I assume the calendar will not change
      Then the cell "Mo"/"Carl C" should be focus
 
      # wrap vertically and horizontally

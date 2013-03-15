@@ -11,14 +11,14 @@ When /^I click on (a .*)$/ do |name|
 end
 
 When /^I click on the #{capture_quoted} column$/ do |column_name|
-  column = column_index_for(column_name)
+  column = the_calendar.column_index_for(column_name)
   page.execute_script <<-EOJS
     $("tbody tr:first td:nth-child(#{column +1})").click()
   EOJS
 end
 
 When /^I click on the #{capture_quoted} row$/ do |row_name|
-  row = row_index_for(row_name)
+  row = the_calendar.row_index_for(row_name)
   page.execute_script <<-EOJS
     $("tbody tr:nth-child(#{row +1}) td:last").click()
   EOJS
@@ -55,7 +55,7 @@ end
 #
 # It will fail if there is an A-team or Caturday hidden somewhere
 Then /^I should see the following calendar:$/ do |expected|
-  expected.diff! parse_calendar
+  expected.diff! the_calendar.parsed
 end
 
 # Then I should see the following partial calendar:
@@ -65,7 +65,7 @@ end
 #
 # It will not fail if there is an A-team at the end or the Monday is even important
 Then /^I should see the following partial calendar:$/ do |expected|
-  expected.diff! parse_calendar, surplus_row: false, surplus_col: false
+  expected.diff! the_calendar.parsed, surplus_row: false, surplus_col: false
 end
 
 Then /^I should see the following time bars:$/ do |raw|
@@ -77,7 +77,7 @@ Then /^I should see the following time bars:$/ do |raw|
         team_name = $1
       end
 
-      row = row_index_for(team_name)
+      row = the_calendar.row_index_for(team_name)
       expected_bars = line.scan(/\|[^|]+\|/)
 
       expected_bars.each do |bar|     # |9-"Homer S"-17|
@@ -101,8 +101,7 @@ Then /^I should see the following time bars:$/ do |raw|
 end
 
 Then /^I should see the following WAZ:$/ do |expected|
-  calendar = find(selector_for('the calendar'))
-  actual = calendar.all("tbody tr").map do |tr|
+  actual = the_calendar.rows.map do |tr|
     tr.all('th:first span.employee_name, th:first .wwt_diff .badge').map(&:text)
   end
   expected.diff! actual
@@ -117,8 +116,8 @@ Then /^the employee #{capture_quoted} should have a (yellow|green|red|grey) hour
   }
 
   classes = [ 'badge', color_class_mapping[color]].compact
+  row = the_calendar.row_index_for employee_name
   with_scope 'the calendar' do
-    row = row_index_for employee_name
     within "tbody tr:nth-child(#{row+1}) th" do
       badge = ".wwt_diff .#{classes.join('.')}"
       page.should have_css(badge)
@@ -127,3 +126,8 @@ Then /^the employee #{capture_quoted} should have a (yellow|green|red|grey) hour
   end
 end
 
+# faster lookup
+When /^I assume the calendar will not change$/ do
+  the_calendar.cache!
+  # calendar will be cleared after each scenario
+end

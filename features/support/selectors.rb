@@ -98,8 +98,8 @@ module HtmlSelectorsHelpers
       'td:not(.outside_plan_period)'
 
     when %r~^(?:the )?cell "([^"]+)"/"([^"]+)"$~
-      column = column_index_for($1)
-      row    = row_index_for($2)
+      column = the_calendar.column_index_for($1)
+      row    = the_calendar.row_index_for($2)
       "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
 
     when 'a hint'
@@ -181,58 +181,15 @@ module HtmlSelectorsHelpers
 
   private
 
-  # 0-based index of column headed by given label
-  def column_index_for(column_label)
-    headings = page.all('thead tr th')
-    labels = []
-    headings.each_with_index do |cell, index|
-      seen = extract_text_from_cell cell
-      if seen == column_label
-        return index
-      else
-        labels << seen
-      end
-    end
-    raise %Q~could not find column #{column_label} in #{labels.inspect}~
+
+  # will be cleared after each Scenario
+  def the_calendar
+    @the_calendar ||= CalendarHelpers::Calendar.new(self)
   end
 
-  # 0-based index of row (in tbody) headed by given label
-  def row_index_for(row_label)
-    headings = page.all("tbody th")
-    labels = []
-    headings.each_with_index do |cell, index|
-      seen = extract_text_from_cell cell
-      if seen == row_label
-        return index
-      else
-        labels << seen
-      end
-    end
-    raise %Q~could not find row #{row_label.inspect} in #{labels.inspect}~
-  end
-
-  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name',
-    'a.button.active', 'li.dropdown a.button', '.demand', '.qualification_name']
-
-  # Does only work when parsing HTML manually (with Nokogiri). Used mainly by
-  # the calendar steps to enhance performance.
-  def extract_text_from_cell(cell)
-    found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }
-    if found.present?
-      found.map { |f| cell.all(f).map(&:text).map(&:strip) }.flatten.join(' ')
-    else
-      cell.text.strip
-    end
-  end
-
-  def parse_calendar
-    calendar = find(selector_for('the calendar'))
-    calendar.all("thead:first tr, tbody tr").map do |tr|
-      tr.all('th, td').map do |cell|
-        extract_text_from_cell(cell) || ''
-      end
-    end
-  end
 end
 
 World(HtmlSelectorsHelpers)
+After do
+  @the_calendar = nil
+end
