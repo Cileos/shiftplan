@@ -21,6 +21,10 @@ class SchedulingFilterEmployeesInWeekDecorator < SchedulingFilterWeekDecorator
     super
   end
 
+  def hours_for(employee)
+    records.select {|s| s.employee == employee }.sum(&:length_in_hours).to_i
+  end
+
   def wwt_diff_for(employee)
     h.abbr_tag(wwt_diff_label_text_for(employee, short: true),
                wwt_diff_label_text_for(employee),

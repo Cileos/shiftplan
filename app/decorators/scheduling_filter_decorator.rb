@@ -120,10 +120,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
     teams_of_records
   end
 
-  def hours_for(employee)
-    records.select {|s| s.employee == employee }.sum(&:length_in_hours).to_i
-  end
-
   def employees
     organization.employees.order_by_names
   end
