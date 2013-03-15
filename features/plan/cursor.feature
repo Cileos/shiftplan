@@ -1,5 +1,5 @@
 @javascript
-Feature: Plan cursor
+Feature: Calendar cursor
   In order to never touch the mouse
   As a planner with an affection for the keyboard
   I want to navigate the calendar just by keyboard presses
@@ -9,27 +9,28 @@ Feature: Plan cursor
       And I wait for the calendar to appear
 
   Scenario: navigating through the plan with keystrokes
-    Given today is Monday, the 2012-12-17
-      And the employee "Homer" was scheduled in the plan as following:
+    Given the employee "Homer" was scheduled in the plan as following:
         | date       | quickie |
         | 2012-12-20 | 7-11    |
         | 2012-12-20 | 12-18   |
         | 2012-12-20 | 19-23   |
         | 2012-12-21 | 7-19    |
       And I am signed in as the confirmed user "Burns"
-      And I am on the page for the plan
+      And I am on the employees in week page for the plan for week: 51, cwyear: 2012
       And I should see the following calendar:
-       | Mitarbeiter  | Mo  | Di  | Mi  | Do                                   | Fr           | Sa  | So  |
-       | Carl C       |     |     |     |                                      |              |     |     |
-       | Lenny L      |     |     |     |                                      |              |     |     |
-       | Homer S      |     |     |     | 07:00-11:00 12:00-18:00 19:00-23:00  | 07:00-19:00  |     |     |
+       | Mitarbeiter      | Mo | Di | Mi | Do                                  | Fr          | Sa | So |
+       | Carl C           |    |    |    |                                     |             |    |    |
+       | Lenny L          |    |    |    |                                     |             |    |    |
+       | Homer S          |    |    |    | 07:00-11:00 12:00-18:00 19:00-23:00 | 07:00-19:00 |    |    |
+       | Ohne Mitarbeiter |    |    |    |                                     |             |    |    |
      Then the cell "Mo"/"Carl C" should be focus
 
-     When I press arrow up
+     # wrap vertically and horizontally
+     When I press arrow up 2 times
      Then the cell "Mo"/"Homer S" should be focus
      When I press arrow left
      Then the cell "So"/"Homer S" should be focus
-     When I press arrow down
+     When I press arrow down 2 times
      Then the cell "So"/"Carl C" should be focus
      When I press arrow right
      Then the cell "Mo"/"Carl C" should be focus
@@ -67,7 +68,7 @@ Feature: Plan cursor
      When I press arrow up
      Then the cell "Do"/"Homer S" should be focus
      And the scheduling "12:00-18:00" should be focus within the cell "Do"/"Homer S"
-     When I press arrow down 2 times
+     When I press arrow down 3 times
      Then the cell "Do"/"Carl C" should be focus
 
      # navigate vertically through single scheduling per cell
@@ -75,7 +76,7 @@ Feature: Plan cursor
       And I press arrow down 2 times
      Then the cell "Fr"/"Homer S" should be focus
      And the scheduling "07:00-19:00" should be focus within the cell "Fr"/"Homer S"
-     When I press arrow down
+     When I press arrow down 2 times
      Then the cell "Fr"/"Carl C" should be focus
 
      # navigate horizontally
