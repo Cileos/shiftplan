@@ -109,13 +109,3 @@ Feature: Calendar cursor
     Then the cell "Mo"/"Carl C" should be focus
     When I press arrow right
     Then the cell "Di"/"Carl C" should be focus
-
-  Scenario: opening the modal window by clicking on an empty cell
-    When I click on cell "Mi"/"Carl C"
-     And I wait for the modal box to appear
-     And I press escape
-     And I wait for the modal box to disappear
-    Then the cell "Mi"/"Carl C" should be focus
-    When I press arrow right
-    Then the cell "Do"/"Carl C" should be focus
-
