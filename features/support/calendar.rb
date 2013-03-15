@@ -2,9 +2,13 @@ module CalendarHelpers
   SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name',
     'a.button.active', 'li.dropdown a.button', '.demand', '.qualification_name']
 
-  class Calendar < Struct.new(:world)
+  class Table < Struct.new(:world)
     def element
-      world.find( world.selector_for('the calendar') )
+      world.find( selector )
+    end
+
+    def selector
+      'table'
     end
 
     def column_headings
@@ -19,6 +23,51 @@ module CalendarHelpers
       element.all('tbody tr')
     end
 
+    # 0-based index of column headed by given label
+    def column_index_for(column_label)
+      labels = []
+      column_headings.each_with_index do |cell, index|
+        seen = extract_text_from_cell cell
+        if seen == column_label
+          return index
+        else
+          labels << seen
+        end
+      end
+      raise %Q~could not find column #{column_label} in #{labels.inspect}~
+    end
+
+    # 0-based index of row (in tbody) headed by given label
+    def row_index_for(row_label)
+      labels = []
+      row_headings.each_with_index do |cell, index|
+        seen = extract_text_from_cell cell
+        if seen == row_label
+          return index
+        else
+          labels << seen
+        end
+      end
+      raise %Q~could not find row #{row_label.inspect} in #{labels.inspect}~
+    end
+
+    # THIS is frakking slow, avoid calling it too often
+    def extract_text_from_cell(cell)
+      found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }
+      if found.present?
+        found.map { |f| cell.all(f).map(&:text).map(&:strip) }.flatten.join(' ')
+      else
+        cell.text.strip
+      end
+    end
+
+  end
+
+  class Calendar < Table
+    def selector
+      world.selector_for('the calendar')
+    end
+
     def employees_with_batches
       rows.map do |tr|
         [
@@ -27,7 +76,6 @@ module CalendarHelpers
         ]
       end
     end
-
 
     def clear_cache!
       @column_headings = nil
@@ -45,16 +93,7 @@ module CalendarHelpers
       if cached = lookup_index(@column_headings, column_label)
         return cached
       end
-      labels = []
-      column_headings.each_with_index do |cell, index|
-        seen = extract_text_from_cell cell
-        if seen == column_label
-          return index
-        else
-          labels << seen
-        end
-      end
-      raise %Q~could not find column #{column_label} in #{labels.inspect}~
+      super
     end
 
     # 0-based index of row (in tbody) headed by given label
@@ -62,32 +101,12 @@ module CalendarHelpers
       if cached = lookup_index(@row_headings, row_label)
         return cached
       end
-      labels = []
-      row_headings.each_with_index do |cell, index|
-        seen = extract_text_from_cell cell
-        if seen == row_label
-          return index
-        else
-          labels << seen
-        end
-      end
-      raise %Q~could not find row #{row_label.inspect} in #{labels.inspect}~
+      super
     end
 
     def lookup_index(store,label)
       if store.present? # we have a cached value
         store.index(label)
-      end
-    end
-
-
-    # THIS is frakking slow, avoid calling it too often
-    def extract_text_from_cell(cell)
-      found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }
-      if found.present?
-        found.map { |f| cell.all(f).map(&:text).map(&:strip) }.flatten.join(' ')
-      else
-        cell.text.strip
       end
     end
 

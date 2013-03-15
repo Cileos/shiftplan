@@ -97,6 +97,12 @@ module HtmlSelectorsHelpers
     when /^a cell inside the plan period$/
       'td:not(.outside_plan_period)'
 
+    when %r~^(?:the )?table cell "([^"]+)"/"([^"]+)"$~
+      table = CalendarHelpers::Table.new(self)
+      column = table.column_index_for($1)
+      row    = table.row_index_for($2)
+      "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
+
     when %r~^(?:the )?cell "([^"]+)"/"([^"]+)"$~
       column = the_calendar.column_index_for($1)
       row    = the_calendar.row_index_for($2)
