@@ -266,8 +266,9 @@ class CalendarCursor
       helper: (x,y,z) ->
         $(this)
           .clone()
-          .addClass('scheduling-dragging')
-          .removeClass('scheduling')
+          .addClass('dragging')
+          .css
+            width: $(this).width() * 0.9
       appendTo: @$calendar
       containment: @$calendar
       delay: 300
