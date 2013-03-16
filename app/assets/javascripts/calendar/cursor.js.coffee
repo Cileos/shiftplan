@@ -273,7 +273,6 @@ class CalendarCursor
       containment: @$calendar
       delay: 300
       distance: 5
-      snap: @tds
       scroll: true
       scope: 'schedulings'
 
