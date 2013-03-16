@@ -8,6 +8,9 @@ class CalendarCursor
     @tds = 'tbody.editable td:not(.wwt_diff):not(.outside_plan_period)',
     @items = '.scheduling') ->
 
+    # may receive drop
+    @droppable = @tds + ':not(.ui-droppable)'
+
     $calendar = @$calendar
     cursor = this
     @$calendar.on 'click', @tds, (event) =>
@@ -38,8 +41,11 @@ class CalendarCursor
         cursor.unfocus($(this))
       false
 
-    @$calendar.on 'mousemove', @items + ':not(.ui-draggable)', (event) ->
-      cursor.setupDraggable $(this)
+    if @$calendar.is('.week')
+      @$calendar.on 'mousemove', @items + ':not(.ui-draggable)', (event) ->
+        cursor.setupDraggable $(this)
+      @$calendar.on 'mousemove', @droppable, (event) ->
+        cursor.setupDroppable $(this)
     @$calendar.on 'mouseleave', @items, (event) ->
       unless cursor.scrolling
         cursor.unfocus()
@@ -255,6 +261,7 @@ class CalendarCursor
       'first'
 
   setupDraggable: ($item) ->
+    @setupDroppable $(@droppable)
     $item.draggable
       helper: (x,y,z) ->
         $(this)
@@ -267,6 +274,28 @@ class CalendarCursor
       distance: 5
       snap: @tds
       scroll: true
+      scope: 'schedulings'
+
+  setupDroppable: ($td) ->
+    $td.droppable
+      scope: 'schedulings'
+      accept: @items
+      activeClass: 'drop-invite'
+      hoverClass: 'drop-hover'
+      drop: (event, ui) ->
+        $scheduling = ui.draggable
+        url = $scheduling.data('edit_url').replace(/\/edit$/,'')
+        data = {}
+        for field in ['date', 'employee-id', 'team-id', 'day']
+          if value = $(this).data(field)
+            value = null if value == 'missing' # "our" defined null
+            data[field.replace(/-/g,'_')] = value
+        $.ajax url,
+          type: 'PUT'
+          dataType: 'script'
+          data: $.param(scheduling: data)
+
+
 
 
   enable: =>

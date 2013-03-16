@@ -93,6 +93,29 @@ class Scheduling < ActiveRecord::Base
     self
   end
 
+  def hour_range
+    (start_hour...end_hour)
+  end
+
+  # date of the day the Scheduling starts
+  def date
+    @date || date_part_or_default(:to_date) { date_from_human_date_attributes }
+  end
+
+
+  # we have two ways to clean and re-generate the quickie, parsed#to_s or
+  # the attributes based self#to_quickie. We use the latter here
+  def quickie
+    to_quickie
+  end
+  attr_writer :quickie
+
+  def hour_range_quickie
+    if starts_at.present? && ends_at.present?
+      "#{start_hour}-#{end_hour}"
+    end
+  end
+
   delegate :iso8601, to: :date
 
   # returns 3.25 for 3 hours and 15 minutes

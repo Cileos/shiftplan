@@ -642,4 +642,27 @@ describe Scheduling do
   it_behaves_like :spanning_all_day do
     let(:record) { create :scheduling, all_day: true }
   end
+
+  context 'updates from drop' do
+    let(:created) { create :scheduling, quickie: '9-17' }
+    let(:scheduling) { Scheduling.find(created.id) }
+    let(:reloaded) { Scheduling.find(created.id) }
+    it "can change date" do
+      date = Date.new(1988,5,5)
+      scheduling.update_attributes! date: date.iso8601
+      reloaded.starts_at.to_date.should == date
+    end
+
+    it "can change employee" do
+      employee = create :employee
+      scheduling.update_attributes! employee_id: employee.id
+      reloaded.employee.should == employee
+    end
+
+    it "can move to team-missing" do
+      scheduling.update_attributes! team_id: nil # from Presenter
+      reloaded.team.should be_nil
+      reloaded.team_id.should be_nil
+    end
+  end
 end
