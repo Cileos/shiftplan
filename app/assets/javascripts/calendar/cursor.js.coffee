@@ -38,6 +38,14 @@ class CalendarCursor
         cursor.unfocus($(this))
       false
 
+    @$calendar.on 'mousemove', @items + ':not(.ui-draggable)', (event) ->
+      cursor.setupDraggable $(this)
+    @$calendar.on 'mouseleave', @items, (event) ->
+      unless cursor.scrolling
+        cursor.unfocus()
+        cursor.focus($(this).closest('td'), null, false)
+      false
+
 
     @$calendar.on 'mouseenter', @items, focus
     @$calendar.on 'mouseleave', @items, unfocus
@@ -245,6 +253,21 @@ class CalendarCursor
     @focus @$focussed_cell.closest('tbody').children('tr').
       eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column),
       'first'
+
+  setupDraggable: ($item) ->
+    $item.draggable
+      helper: (x,y,z) ->
+        $(this)
+          .clone()
+          .addClass('scheduling-dragging')
+          .removeClass('scheduling')
+      appendTo: @$calendar
+      containment: @$calendar
+      delay: 300
+      distance: 5
+      snap: @tds
+      scroll: true
+
 
   enable: =>
     @disable()
