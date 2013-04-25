@@ -2,6 +2,7 @@ module Volksplaner
   autoload :Currents, 'volksplaner/currents'
   autoload :Responder, 'volksplaner/responder'
   autoload :FormButtons, 'volksplaner/form_buttons'
+  autoload :IconCompiler, 'volksplaner/icon_compiler'
 
   def self.staging?
     @staging = `hostname` =~ /plock/
