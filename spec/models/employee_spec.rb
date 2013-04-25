@@ -18,6 +18,14 @@ describe Employee do
     it "may not start with a dot" do # causes translate_action
       build(:employee, attr => '.lookslikeaction').should be_invalid
     end
+
+    it "may not start with a dash" do # looks ugly
+      build(:employee, attr => '-in').should be_invalid
+    end
+
+    it "may contain dashes" do
+      build(:employee, attr => 'Hans-Peter').should be_valid
+    end
   end
 
   context "first name" do

@@ -4,7 +4,7 @@ module Volksplaner
   autoload :Responder, 'volksplaner/responder'
   autoload :FormButtons, 'volksplaner/form_buttons'
 
-  HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .]*\z/
+  HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .-]*\z/
 
   def self.staging?
     @staging = `hostname` =~ /plock/
