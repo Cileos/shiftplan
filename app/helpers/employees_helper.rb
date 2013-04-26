@@ -44,6 +44,13 @@ module EmployeesHelper
     end
   end
 
+  def avatar_with_caching(*a)
+    @avatar_cache ||= {}
+    @avatar_cache[a.map(&:to_param).join] ||= avatar_without_caching(*a)
+  end
+
+  alias_method_chain :avatar, :caching
+
   def gravatar(user, version, html_options)
     size = AvatarUploader.const_get("#{version.to_s.camelize}Size")
     gravatar_options = { default: 'mm', size: size }
