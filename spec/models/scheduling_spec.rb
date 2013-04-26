@@ -585,4 +585,24 @@ describe Scheduling do
       Scheduling.upcoming.should_not include(@last_week)
     end
   end
+
+  context '#comments_count' do
+    let(:scheduling) { create :scheduling }
+    it 'defaults to 0' do
+      scheduling.comments_count.should == 0
+    end
+
+    it 'is increased when adding a comment' do
+      expect do
+        create :comment, commentable: scheduling
+      end.to change { scheduling.reload.comments_count }.from(0).to(1)
+    end
+
+    it 'is decreased when deleting a comment' do
+      comment = create :comment, commentable: scheduling
+      expect do
+        comment.destroy
+      end.to change { scheduling.reload.comments_count }.from(1).to(0)
+    end
+  end
 end

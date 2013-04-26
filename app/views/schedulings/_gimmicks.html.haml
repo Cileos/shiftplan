@@ -2,5 +2,3 @@
   - data_icon = (scheduling.comments_count > 0) ? :comment : :no_comment
   - if can? :create, Comment, commentable: scheduling
     = link_to scheduling.comments_count.to_s, [current_account, scheduling.organization, scheduling.plan, scheduling, :comments], title: ta(:comments), remote: true, class: 'comments', data: { icon: i(data_icon) }
-  - if scheduling.comments_count > 0
-    = render 'comments/truncated_list', comments: scheduling.comments
