@@ -50,20 +50,19 @@ class Shift < ActiveRecord::Base
   end
   alias_method_chain :demands, :respecting_previous_day
 
-  # Rails does not put
   def starts_at
-    super.try(:in_time_zone)
+    base_for_time_range_components + super.hour.hours + super.min.minutes
   end
 
   def ends_at
-    super.try(:in_time_zone)
+    base_for_time_range_components + super.hour.hours + super.min.minutes
   end
-
 
   protected
 
+  # we are only interested in the time component and do not want any time zones
   def base_for_time_range_components
-    Time.zone.parse('00:00')
+    Time.utc(1988,5,5,0,0,0)
   end
 end
 
