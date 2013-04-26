@@ -101,3 +101,5 @@ EOYML
 function teardown_database () {
   dropdb $DATABASE
 }
+
+# vim: set ft=sh:
