@@ -21,7 +21,7 @@ class ProfileEmployeesController < InheritedResources::Base
   end
 
   def end_of_association_chain
-    super.order_by_names
+    super.default_sorting
   end
 
   def resource

@@ -37,8 +37,12 @@ class Employee < ActiveRecord::Base
   before_validation :reset_duplicates
   after_create :create_membership
 
-  def self.order_by_names
+  def self.order_by_name
     order('last_name, first_name, id')
+  end
+
+  def self.default_sorting
+    order_by_name.order(:id)
   end
 
   def role?(asked)

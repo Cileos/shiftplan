@@ -3,8 +3,10 @@
 FactoryGirl.define do
   factory :shift do
     plan_template
-    sequence(:starts_at) {|i| Time.zone.parse('1968-01-01') + i.hours }
-    sequence(:ends_at) {|i| Time.zone.parse('1968-01-01') + (i + 2).hours }
+    start_hour 9
+    start_minute 0
+    end_hour 17
+    end_minute 0
     day 1
     team
   end
