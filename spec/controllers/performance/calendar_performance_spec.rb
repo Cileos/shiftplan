@@ -10,7 +10,7 @@ end
 
 describe SchedulingsController, 'Calendar performance' do
 
-  context 'a week with 10 employees, 10 teams, 5 schedulings per cell every day, 10 comments on each' do
+  context 'a week with 10 employees, 10 teams, 5 schedulings per cell every day, a comment on each' do
     render_views
 
     let(:user) { create :confirmed_user }
@@ -61,8 +61,10 @@ describe SchedulingsController, 'Calendar performance' do
 
     it 'runs quickly', benchmark: true do
       expect do
-        10.times { get :teams_in_week, params }
-      end.to take_less_than(5.seconds)
+        get :teams_in_week, params
+      end.to take_less_than(2.seconds)
     end
+
+    it 'has a fast schedulings/lists/_teams_in_week.html.haml < 10ms'
   end
 end
