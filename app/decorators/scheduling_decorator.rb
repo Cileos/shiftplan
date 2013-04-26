@@ -22,7 +22,8 @@ class SchedulingDecorator < RecordDecorator
   def metadata
     super.merge({
       start: start_hour,
-      length: length_in_hours
+      length: length_in_hours,
+      comments_count: comments_count,
     })
   end
 

@@ -1,3 +1,4 @@
+#= require gimmicks
 jQuery(document).ready ->
 
   $.fn.refreshHtml = (content) ->
@@ -29,11 +30,7 @@ jQuery(document).ready ->
       $cell = $(this)
       $cell.find('li.scheduling').each ->
         $scheduling = $(this)
-        $scheduling.find('a.comments:has(~ul.comments)').each ->
-          $link = $(this)
-          # $link.popover
-          #   content: $link.find('~ul.comments').html()
-          #   placement: 'bottom'
+        $scheduling.append Clockwork.buildGimmicks($scheduling)
 
     $calendar.find('td').each refresh_behaviour_of_cell
     $calendar.on 'update', 'td', refresh_behaviour_of_cell

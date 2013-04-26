@@ -27,7 +27,7 @@ class CalendarEditor extends View
   # new_url from table: /accounts/1/organizations/1/plans/1/schedulings/new
   # resulting edit_url: /accounts/1/organizations/1/plans/1/schedulings/5/edit
   edit_url: ->
-    @new_url().replace(/\/new$/, "#{@element.data('cid')}/edit")
+    @new_url().replace(/new$/, "#{@element.data('cid')}/edit")
 
   new_url: ->
     @element.closest('table').data('new_url')

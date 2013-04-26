@@ -1,3 +1,0 @@
-.gimmicks{class: scheduling.css_class}
-  - data_icon = (scheduling.comments_count > 0) ? :comment : :no_comment
-  = link_to scheduling.comments_count.to_s, nested_resources_for(scheduling) + [:comments], title: ta(:comments), remote: true, class: 'comments', data: { icon: i(data_icon) }
