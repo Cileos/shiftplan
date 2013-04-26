@@ -50,18 +50,10 @@ class Shift < ActiveRecord::Base
   end
   alias_method_chain :demands, :respecting_previous_day
 
-  # Though all shifts are saved with the value of base_for_time_range_components
-  # (e.g. 1988-05-05 08:00:00), when fetching starts_at/ends_at from the db,
-  # ActiveRecord does some strange conversion resulting in starts_at/ends_at
-  # having some value like 2000-01-01 08:00:00). This sometimes results in
-  # creating a next day for a next day.
-  #
-  # By overwriting the starts_at and ends_at accessors we make sure that, we
-  # really do not care about dates for shifts, only hours and minutes. All time
-  # values will have the same base date.
   def starts_at
     base_for_time_range_components + super.hour.hours + super.min.minutes
   end
+
   def ends_at
     base_for_time_range_components + super.hour.hours + super.min.minutes
   end
