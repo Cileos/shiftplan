@@ -119,6 +119,7 @@ class SchedulingFilter < RecordFilter
         end
       end
       results = results.includes(*to_include)
+      results = results.includes(:plan => { :organization => :account })
       results
     end
 
