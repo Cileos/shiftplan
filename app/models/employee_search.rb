@@ -54,6 +54,6 @@ class EmployeeSearch
   private
 
   def sorted_base
-    base.order_by_names.order(:created_at)
+    base.default_sorting
   end
 end

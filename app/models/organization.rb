@@ -39,7 +39,7 @@ class Organization < ActiveRecord::Base
     unless employees.empty?
       scope = scope.where("employees.id NOT IN (#{employees.map(&:id).join(',')})")
     end
-    scope.order_by_names
+    scope.default_sorting
   end
 
   def inspect
