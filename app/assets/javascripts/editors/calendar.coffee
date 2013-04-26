@@ -7,11 +7,11 @@ class CalendarEditor extends View
     @element = params.element
     if @element.is('.scheduling') # single scheduling given => edit it
       $.ajax
-        url: @element.data('edit_url')
+        url: @edit_url()
         complete: @setupInputs
     else # cell given, assuming it is empty, => create new
       $.ajax
-        url: @element.closest('table').data('new_url')
+        url: @new_url()
         data: @params_for_new()
         complete: @setupInputs
 
@@ -21,6 +21,17 @@ class CalendarEditor extends View
       @params_for_new_scheduling()
     else if table.is('.shifts')
       @params_for_new_shift()
+
+  # we do not generate URIs on the Rails side as the Router is slow on many records
+  # and we assume the URIs for schedulings are nested under the calendar
+  # new_url from table: /accounts/1/organizations/1/plans/1/schedulings/new
+  # resulting edit_url: /accounts/1/organizations/1/plans/1/schedulings/5/edit
+  edit_url: ->
+    @new_url().replace(/\/new$/, "#{@element.data('cid')}/edit")
+
+  new_url: ->
+    @element.closest('table').data('new_url')
+
 
   params_for_new_scheduling: ->
     scheduling:

@@ -94,7 +94,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
         %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee-id=#{employee_id}]~
       end
     when :scheduling
-      %Q~#calendar tbody .scheduling[data-edit_url="#{resource.decorate.edit_url}"]~
+      %Q~#calendar tbody .scheduling[data-cid="#{resource.decorate.cid}"]~
     when :wwt_diff
       %Q~#calendar tbody tr[data-employee-id=#{resource.id}] th .wwt_diff~
     when :legend

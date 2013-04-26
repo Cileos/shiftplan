@@ -26,8 +26,8 @@ class SchedulingDecorator < RecordDecorator
     })
   end
 
-  def edit_url
-    edit_url_for_overnightable
+  def cid
+    cid_for_overnightable
   end
 
 
