@@ -123,7 +123,7 @@ class SchedulingFilter < RecordFilter
     end
 
     def to_include
-      [:employee, :team]
+      [:employee, :team, :previous_day, :next_day]
     end
 
     def sort_fields
