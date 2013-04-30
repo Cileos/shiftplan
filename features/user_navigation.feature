@@ -87,7 +87,7 @@ Feature: User Navigation
      # Still use the avatar of the first employee having one.
      When the employee "charles m. burns" has the avatar "app/assets/images/rails.png"
       And I go to the dashboard page
-     Then I should see the avatar "rails.png" within the user navigation
+     Then I should see the avatar "barts_avatar.jpg" within the user navigation
 
      When I follow "Tepco GmbH"
      Then I should see the avatar "barts_avatar.jpg" within the user navigation
