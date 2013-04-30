@@ -1,10 +1,11 @@
 - title :dashboard
 
-- if can? :create, Account.new(user_id: current_user.id)
-  - masterhead_toolbar do
-    = link_to ti(:add_account),
-      new_account_path(account: { user_id: current_user.id }),
-      class: 'button', data: { icon: i(:add) }, title: ta(:add_account)
+-# comment in again, when we are able to support multiple accounts/billing
+-# - if can? :create, Account.new(user_id: current_user.id)
+-#   - masterhead_toolbar do
+-#     = link_to ti(:add_account),
+-#       new_account_path(account: { user_id: current_user.id }),
+-#       class: 'button', data: { icon: i(:add) }, title: ta(:add_account)
 
 .row.two-columns.inverted.dashboard
   .primary
