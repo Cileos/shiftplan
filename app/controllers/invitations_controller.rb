@@ -1,4 +1,4 @@
-class InvitationsController < InheritedResources::Base
+class InvitationsController < TabularizedRecordsController
   load_and_authorize_resource
 
   respond_to :html, :js
