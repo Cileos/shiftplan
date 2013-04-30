@@ -4,7 +4,7 @@ class ShiftDecorator < RecordDecorator
   include SchedulableDecoratorHelper
 
   decorates :shift
-  decorates_association :demands, scope: :default_order
+  decorates_association :demands
 
   delegate :is_overnight?, :previous_day, to: :model
 
