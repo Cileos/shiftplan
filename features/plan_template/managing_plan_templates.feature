@@ -13,10 +13,10 @@ Feature: Create Weekbased Plan Template
         | team                | name                | organization      |
         | Brennstabkessel     | Brennstabkessel     | the organization  |
         | Druckwasserreaktor  | Druckwasserreaktor  | the organization  |
-
-     When I go to the plan templates page for the organization
+      And I am on the plan templates page for the organization
       And I inject style "position:relative" into "header"
-      And I follow "Hinzufügen"
+
+     When I follow "Hinzufügen"
       And I wait for the modal box to appear
      When I fill in "Name" with "Typische Woche in der Brennstabpflege"
       And I select "Wochenbasiert" from "Vorlagentyp"

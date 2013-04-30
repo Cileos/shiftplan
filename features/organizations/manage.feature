@@ -15,7 +15,7 @@ Feature: create organizations
       And I go to the dashboard page
 
   Scenario: Create another organization
-    Given I go to the page of the account "tepco"
+    Given I am on the page of the account "tepco"
      # user is owner of account "tepco" so he can create new organizations
      When I follow "Organisation hinzufügen"
       And I wait for the modal box to appear
@@ -31,8 +31,8 @@ Feature: create organizations
        | Tschernobyl           |
 
   Scenario: Edit organization
-    Given I go to the page of the account "tepco"
-      And I follow "Bearbeiten" within the first table row
+    Given I am on the page of the account "tepco"
+     When I follow "Bearbeiten" within the first table row
       And I wait for the modal box to appear
       And I fill in "Name" with "Fukushima Reaktor 1"
       And I press "Speichern"
