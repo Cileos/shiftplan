@@ -11,4 +11,10 @@ class QualificationsController < InheritedResources::Base
   def update
     update! { [parent.account, parent, :qualifications] }
   end
+
+  private
+
+  def end_of_association_chain
+    super.default_sorting
+  end
 end
