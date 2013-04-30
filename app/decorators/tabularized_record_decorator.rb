@@ -34,7 +34,8 @@ class TabularizedRecordDecorator < ApplicationDecorator
     end
 
     def records_table
-      h.render(table_partial_name, records: records)
+      h.render(table_partial_name,
+        records: records.respond_to?(:default_sorting) ? records.default_sorting : records)
     end
 
     def records
