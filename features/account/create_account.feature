@@ -1,3 +1,6 @@
+# remove wip tag and add new account link, when we are able to support multiple
+# accounts/billing
+@wip
 Feature: Create Account
   In order to have more than one account
   As a user
