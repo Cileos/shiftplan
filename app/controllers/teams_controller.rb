@@ -8,4 +8,10 @@ class TeamsController < InheritedResources::Base
   def update
     update! { [parent.account, parent, :teams] }
   end
+
+  private
+
+  def end_of_association_chain
+    super.default_sorting
+  end
 end
