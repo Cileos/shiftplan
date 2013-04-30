@@ -23,7 +23,7 @@ module ModalDecoratorHelper
     action  = options.delete(:action) ||
       !source.respond_to?(:new_record?) || source.new_record? ? 'new' : 'edit'
     form_options = {
-      body: h.render('form', resource: self),
+      body: h.render('form', resource_name.to_sym => self),
       header: h.content_tag(:h3, h.ta(:"#{action}_#{resource_name}"))
     }
     append_modal(options.reverse_merge(form_options))

@@ -1,10 +1,10 @@
-.instructions= tt('team_merges.new.instructions', team_name: resource.team.name, other_team_name: resource.other_team.name)
+.instructions= tt('team_merges.new.instructions', team_name: team_merge.team.name, other_team_name: team_merge.other_team.name)
 
-= simple_form_for resource, url: nested_resources_for(current_organization) + [:team_merges], remote: true do |f|
+= simple_form_for team_merge, url: nested_resources_for(current_organization) + [:team_merges], remote: true do |f|
   .inputs
     = f.input :team_id, as: :hidden
     = f.input :other_team_id, as: :hidden
-    = f.input :new_team_id, collection: [resource.team, resource.other_team], include_blank: false
+    = f.input :new_team_id, collection: [team_merge.team, team_merge.other_team], include_blank: false
   .actions
     = f.responsive_submit_button do
       %i.icon-ok-circle.icon-white

@@ -1,15 +1,15 @@
-= simple_form_for nested_resources_for(resource),
+= simple_form_for nested_resources_for(plan),
   html: { class: 'form-horizontal' }, remote: true do |f|
-  - unless resource.duration.present?
-    = f.input :duration, :collection => durations_for_select(resource), :as => :radio, autofocus: true
+  - unless plan.duration.present?
+    = f.input :duration, :collection => durations_for_select(plan), :as => :radio, autofocus: true
     = f.button :submit, translate_action('.next')
   - else
     .inputs
       = f.input :name, autofocus: true
       = f.input :starts_at, as: :stringy_date, hint: true,
-        input_html: { value: resource.starts_at.present? ? I18n.localize(resource.starts_at.to_date, format: :default) : '' }
+        input_html: { value: plan.starts_at.present? ? I18n.localize(plan.starts_at.to_date, format: :default) : '' }
       = f.input :ends_at, as: :stringy_date, hint: true,
-        input_html: { value: resource.ends_at.present? ? I18n.localize(resource.ends_at.to_date, format: :default) : '' }
+        input_html: { value: plan.ends_at.present? ? I18n.localize(plan.ends_at.to_date, format: :default) : '' }
       = f.input :description, input_html: { rows: 3 }
     .actions
       = f.create_or_update_button
