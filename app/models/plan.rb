@@ -18,8 +18,6 @@ class Plan < ActiveRecord::Base
                   :starts_at,
                   :ends_at
 
-  default_scope order(:name)
-
   # for now, durations are hardcoded, not saved
   Durations = %w(1_week)
   attr_writer :duration
@@ -34,6 +32,10 @@ class Plan < ActiveRecord::Base
 
   def build_copy_week(attrs={})
     CopyWeek.new attrs.merge(plan: self)
+  end
+
+  def self.default_sorting
+    order(:name)
   end
 
   # Valid hour range for Schedulings of this plan
