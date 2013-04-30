@@ -1,8 +1,9 @@
 - if current_organization.plan_templates.present?
-  = simple_form_for resource, url: nested_resources_for(resource.plan) + [:apply_plan_template] do |f|
+  = simple_form_for apply_plan_template,
+    url: nested_resources_for(apply_plan_template.plan) + [:apply_plan_template] do |f|
     .inputs
       = f.input :plan_template_id,
-        collection: resource.plan_templates_for_select,
+        collection: apply_plan_template.plan_templates_for_select,
         include_blank: false
       = f.hidden_field :target_year
       = f.hidden_field :target_week
