@@ -50,4 +50,10 @@ class EmployeeSearch
   def search?
     [first_name, last_name, email].any?(&:present?)
   end
+
+  private
+
+  def sorted_base
+    base.default_sorting
+  end
 end

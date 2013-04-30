@@ -1,12 +1,12 @@
 class Organization < ActiveRecord::Base
   belongs_to :account
   belongs_to :planner,        class_name: 'User'
-  has_many   :employees,      through: :memberships, order: 'last_name ASC, first_name ASC'
+  has_many   :employees,      through: :memberships
   has_many   :plans
   has_many   :teams,          order: 'name ASC'
   has_many   :invitations
   has_many   :blogs
-  has_many   :posts,      through: :blogs
+  has_many   :posts,          through: :blogs
   has_many   :memberships
   has_many   :plan_templates
 
@@ -18,6 +18,10 @@ class Organization < ActiveRecord::Base
 
   def company_blog
     blogs.first
+  end
+
+  def qualifications
+    account.qualifications
   end
 
   def planners
@@ -37,7 +41,7 @@ class Organization < ActiveRecord::Base
     unless employees.empty?
       scope = scope.where("employees.id NOT IN (#{employees.map(&:id).join(',')})")
     end
-    scope
+    scope.default_sorting
   end
 
   def inspect

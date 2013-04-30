@@ -34,6 +34,10 @@ class EmployeesController < InheritedResources::Base
     current_organization
   end
 
+  def end_of_association_chain
+    super.default_sorting
+  end
+
   def resource_params
     [permitted_employee_params]
   end

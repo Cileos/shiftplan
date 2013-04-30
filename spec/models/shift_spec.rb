@@ -64,9 +64,12 @@ describe Shift do
   it "must have a day" do
     build(:shift, day: nil).should_not be_valid
   end
-  it "must have a start_at different from ends_at" do
-    time = Time.zone.parse('08:00')
-    build(:shift, starts_at: time, ends_at: time).should_not be_valid
+  it "must have a start time different from the end time" do
+    build(:shift,
+      start_hour: 8,
+      start_minute: 0,
+      end_hour: 8,
+      end_minute: 0).should_not be_valid
   end
 
   describe "overnight shifts" do
