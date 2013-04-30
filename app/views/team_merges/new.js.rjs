@@ -1,3 +1,0 @@
-page.decorate @team_merge do |team_merge|
-  team_merge.append_modal_with_form(action: 'new')
-end

@@ -1,4 +1,4 @@
-class TeamMergesController < InheritedResources::Base
+class TeamMergesController < TabularizedRecordsController
   respond_to :js
 
   load_and_authorize_resource
