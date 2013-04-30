@@ -1,4 +1,4 @@
-class InvitationsController < TabularizedRecordsController
+class InvitationsController < BaseController
   load_and_authorize_resource
 
   respond_to :html, :js
