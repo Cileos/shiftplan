@@ -1,6 +1,5 @@
 class QualificationsController < BaseController
   nested_belongs_to :account, :organization
-  load_and_authorize_resource
 
   respond_to :html, :js
 

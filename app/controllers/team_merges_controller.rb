@@ -1,8 +1,6 @@
 class TeamMergesController < BaseController
   respond_to :js
 
-  load_and_authorize_resource
-
   def create
     create! do
       set_flash(:notice)

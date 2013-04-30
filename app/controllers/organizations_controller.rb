@@ -1,6 +1,5 @@
 class OrganizationsController < BaseController
   belongs_to :account
-  load_and_authorize_resource
 
   respond_to :html, :js
 

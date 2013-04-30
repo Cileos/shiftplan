@@ -1,6 +1,4 @@
-class EmployeesController < InheritedResources::Base
-  load_and_authorize_resource
-
+class EmployeesController < BaseController
   respond_to :html, :js, :json
 
   before_filter :set_adoptable_employees, only: [:search, :adopt]

@@ -1,6 +1,4 @@
-class SchedulingsController < InheritedResources::Base
-  load_and_authorize_resource
-
+class SchedulingsController < BaseController
   nested_belongs_to :plan
   actions :all, :except => [:show]
   # same as SchedulingFilter.supported_modes - naming explicitly here because of
