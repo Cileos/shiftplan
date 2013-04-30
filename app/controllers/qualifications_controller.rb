@@ -1,4 +1,4 @@
-class QualificationsController < InheritedResources::Base
+class QualificationsController < TableizedRecordsController
   nested_belongs_to :account, :organization
   load_and_authorize_resource
 

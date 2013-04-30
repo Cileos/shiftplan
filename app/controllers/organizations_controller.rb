@@ -1,4 +1,4 @@
-class OrganizationsController < InheritedResources::Base
+class OrganizationsController < TableizedRecordsController
   belongs_to :account
   load_and_authorize_resource
 
