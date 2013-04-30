@@ -1,3 +1,0 @@
-page.decorate @plan do |plan|
-  plan.append_modal_with_form
-end

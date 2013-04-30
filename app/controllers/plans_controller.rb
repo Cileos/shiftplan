@@ -1,4 +1,4 @@
-class PlansController < InheritedResources::Base
+class PlansController < TabularizedRecordsController
   load_and_authorize_resource
 
   respond_to :html, :js
