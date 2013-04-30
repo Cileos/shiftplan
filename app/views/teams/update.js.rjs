@@ -1,3 +1,0 @@
-page.decorate resource do |resource|
-  resource.respond
-end
