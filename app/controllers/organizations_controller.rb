@@ -1,4 +1,4 @@
-class OrganizationsController < TableizedRecordsController
+class OrganizationsController < TabularizedRecordsController
   belongs_to :account
   load_and_authorize_resource
 
