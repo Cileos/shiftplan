@@ -95,13 +95,8 @@ When /^I follow (the .+ link)$/ do |target|
 end
 
 
-Then /^the select field for "(.*?)" should have the following options:$/ do |label, table|
-  select_field = find_field(label)
-  options = table.raw.map &:first
-  options.count.should == select_field.all('option').count
-  table.raw.map(&:first).each do |option|
-    select_field.has_css?('option', :text => option).should be_true
-  end
+Then /^the select field for "(.*?)" should have the following options:$/ do |label, expected|
+  expected.diff! find_field(label).all('option').map(&:text).map { |label| [label] }
 end
 
 When /^I click on (the #{match_nth}\s?\w+\s?\w+)(?!within.*)$/ do |name|

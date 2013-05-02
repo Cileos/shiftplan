@@ -4,11 +4,24 @@ require 'spec_helper'
 describe 'Quickie::parser' do
 
   describe "hour range" do
-    describe '9-17' do
-      it { should parse_successfully }
+    describe '9-23' do
       it { should fill_in(:start_hour, 9) }
-      it { should fill_in(:end_hour, 17) }
-      it { should serialize_to('9-17') }
+      it { should fill_in(:end_hour, 23) }
+      it { should serialize_to('9-23') }
+    end
+
+    describe '9-0' do
+      it { should fill_in(:start_hour, 9) }
+      it { should fill_in(:end_hour, 0) }
+      it "keeps 0/24 midnight handling to filled in object" do
+        should serialize_to('9-0')
+      end
+    end
+
+    describe '9-24' do
+      it { should fill_in(:start_hour, 9) }
+      it { should fill_in(:end_hour, 24) }
+      it { should serialize_to('9-24') }
     end
 
     [
@@ -16,6 +29,7 @@ describe 'Quickie::parser' do
       '0-5',
       '1-2',
       '12-24',
+      '12-0',
       '20-8'
     ].each do |valid_hour_range|
       describe valid_hour_range do

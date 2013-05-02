@@ -78,11 +78,11 @@ describe SchedulingFilter do
   describe "for a week and year" do
     let(:filter) { SchedulingFilter.new week: 52, cwyear: 2012 }
 
-    it "should know the monday" do
+    it "knows the monday" do
       filter.monday.should == Date.new(2012, 12, 24) # third day of lofwyr
     end
 
-    it "should calculate the nth day of the plan" do
+    it "calculates the nth day of the plan" do
       filter.day_at(1).should be_a(Date)
       filter.day_at(1).should == Time.zone.parse("2012-12-24").to_date
       filter.day_at(3).should == Time.zone.parse("2012-12-26").to_date
@@ -90,7 +90,7 @@ describe SchedulingFilter do
       filter.day_at(8).should == Time.zone.parse("2012-12-31").to_date
     end
 
-    it "should depend on duration_in_days" do
+    it "depends on duration_in_days" do
       filter.should_receive(:duration_in_days).and_return(6)
 
       days = filter.days
@@ -98,11 +98,11 @@ describe SchedulingFilter do
       days.map(&:day).should == (24..29).to_a
     end
 
-    it "should durate exactly a week" do
+    it "lasts exactly a week" do
       filter.duration_in_days.should == 7
     end
 
-    context "scheduled a lot" do
+    context "scheduled" do
       let(:plan)   { create :plan }
       let(:filter) { SchedulingFilter.new week: 52, cwyear: 2012, plan: plan }
       let(:me)     { create :employee }
@@ -114,31 +114,25 @@ describe SchedulingFilter do
         @eating2 = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: me
       end
 
-      context "records" do
-        let(:r) { filter.records }
+      let(:r) { filter.records }
 
-        it "should include all records in that week for that plan" do
-          r.should include(@waiting)
-          r.should include(@opening)
-          r.should include(@eating1)
-          r.should include(@eating2)
-        end
-
-        it "should not include records in another week" do
-          drinking = create :manual_scheduling, plan: plan, year: 2012, week: 53, cwday: 2
-          r.should_not include(drinking)
-        end
-
-        it "should not include records from another plan" do
-          snowing = create :manual_scheduling, year: 2012, week: 52, cwday: 2
-          r.should_not include(snowing)
-        end
-
-
+      it "includes all records in that week for that plan" do
+        r.should include(@waiting)
+        r.should include(@opening)
+        r.should include(@eating1)
+        r.should include(@eating2)
       end
 
-    end
+      it "excludes records in another week" do
+        drinking = create :manual_scheduling, plan: plan, year: 2012, week: 53, cwday: 2
+        r.should_not include(drinking)
+      end
 
+      it "excludes records from another plan" do
+        snowing = create :manual_scheduling, year: 2012, week: 52, cwday: 2
+        r.should_not include(snowing)
+      end
+    end
   end
 
   describe "for exactly one day" do
@@ -159,35 +153,36 @@ describe SchedulingFilter do
 
   end
 
-  describe "plan period" do
-    let(:filter) { SchedulingFilter.new cwyear: 2012, week: 26, plan: plan }
+  it "adds 'outside_plan_period' class to cells out of plan period"
 
-    context "for plan without start date" do
-      let(:plan) { create :plan, starts_at: nil }
-      it { filter.should_not be_before_start_of_plan }
+  context "scheduling" do
+    context "ranging over midnight and turn of the year" do
+      # 2012-01-01: sunday
+      # 2012-01-02: monday
+      let(:plan) { create :plan, starts_at: '2012-01-01', ends_at: '2012-01-02' }
+      let!(:scheduling) { create :manual_scheduling, year: 2011, week: 52, cwday: 7, quickie: '22-6', plan: plan }
+
+      it "appears on evening of first day" do
+        described_class.new(week: 52, cwyear: 2011).should have(1).records
+      end
+
+      it "appears on morning of second day" do
+        described_class.new(week: 1, cwyear: 2012).should have(1).records
+      end
     end
-    context "for plan without end date" do
-      let(:plan) { create :plan, ends_at: nil }
+  end
+
+  context "plan period" do
+
+    context "over turn of the year" do
+      let(:plan) { build :plan, starts_at: '2012-01-01', ends_at: '2012-01-02' }
+      let(:filter) { described_class.new(cwyear: 2012, week: 1, plan: plan) }
+
+      # Hardest corner case: must converts times to dates before comparing
+      it { filter.should_not be_before_start_of_plan }
       it { filter.should_not be_after_end_of_plan }
     end
 
-    context "for plan with start date before filter" do
-      let(:plan) { create :plan, starts_at: '2012-01-01' }
-      it { filter.should_not be_before_start_of_plan }
-    end
-    context "for plan with start date after filter" do
-      let(:plan) { create :plan, starts_at: '2012-12-21' }
-      it { filter.should be_before_start_of_plan }
-    end
-
-    context "for plan with end date after filter" do
-      let(:plan) { create :plan, ends_at: '2012-12-21' }
-      it { filter.should_not be_after_end_of_plan }
-    end
-    context "for plan with end date before filter" do
-      let(:plan) { create :plan, ends_at: '2012-01-01' }
-      it { filter.should be_after_end_of_plan }
-    end
   end
 
 end

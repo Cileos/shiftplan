@@ -1,3 +1,4 @@
+@big_screen
 @javascript
 Feature: Calendar navigation
   As a user I want to navigate weekly back and forth
@@ -6,11 +7,11 @@ Feature: Calendar navigation
   Background:
     Given the situation of a nuclear reactor
 
-  # In Germany, the week with January 4th is the first calendar week.
-  # In 2016, January 4th is a monday. Therefore the year 2016 is an edge case for the
-  # calendar navigation and is tested here. The first calendar week for the year 2016
-  # is from monday, January 4th to sunday, January 10th.
-  Scenario Outline: Navigating back and forth weekwise between the years 2015 and 2016
+  # In ISO8601, the week with January 4th is the first calendar week.  In 2016,
+  # January 4th is a monday. Therefore the year 2016 is an edge case; the first
+  # calendar week for the year 2016 is from monday, January 4th to sunday,
+  # January 10th.
+  Scenario Outline: Navigating back and forth weekwis, including between the years 2015 and 2016
     Given today is 2015-12-29
       And I am signed in as the confirmed user "Burns"
       And I go to the page of the plan
@@ -57,10 +58,9 @@ Feature: Calendar navigation
       | hours in week     |
 
 
-  # In Germany, the week with January 4th is the first calendar week.
-  # In 2015, January 4th is a sunday. Therefore the year 2015 is an edge case for the
-  # calendar navigation and is tested here. The first calendar week for the year 2015
-  # is from monday, December 29th to sunday, January 4th.
+  # In ISO8601, the week with January 4th is the first calendar week.  In 2015,
+  # January 4th is a sunday. The first calendar week for the year 2015 is from
+  # monday, December 29th to sunday, January 4th.
   Scenario Outline: Navigating back and forth weekwise between the years 2014 and 2015
     Given today is 2014-12-29
       And I am signed in as the confirmed user "Burns"
@@ -91,6 +91,7 @@ Feature: Calendar navigation
       | teams in week     |
       | hours in week     |
 
+  # no day view yet
   @wip
   Scenario: Navigating back and forth daywise
     Given I go to the teams in day page of the plan for year: 2015, month: 12, day: 31
@@ -137,72 +138,3 @@ Feature: Calendar navigation
      Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
 
 
-  # a basic version of this is tested in every plan/view_*week.feature
-  Scenario: Navigation weekly back and forth
-    Given today is 2012-12-04
-      And I am signed in as the confirmed user "Burns"
-      And the employee "Homer" was scheduled in the plan as following:
-        | week | cwday | quickie |
-        | 48   | 1     | 9-17    |
-        | 49   | 2     | 10-16   |
-        | 50   | 3     | 11-15   |
-        | 51   | 4     | 12-14   |
-
-     When I go to the page of the plan
-     Then I should be on the employees in week page of the plan for week: 49, cwyear: 2012
-      And I should see a calendar titled "Cleaning the Reactor"
-      And I should see "KW 49 / 2012" within active week
-      And I should see "03.12." within weeks first date
-      And I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di           | Mi  | Do  | Fr  |
-        | Carl C       |     |              |     |     |     |
-        | Lenny L      |     |              |     |     |     |
-        | Homer S      |     | 10:00-16:00  |     |     |     |
-
-      And I inject style "position:relative" into "header"
-     When I follow "<" within the toolbar
-     Then I should be on the employees in week page of the plan for week: 48, cwyear: 2012
-      And I should see a calendar titled "Cleaning the Reactor"
-      And I should see "KW 48 / 2012" within active week
-      And I should see "26.11." within weeks first date
-      And I should see the following calendar:
-        | Mitarbeiter  | Mo           | Di  | Mi  | Do  | Fr  |
-        | Carl C       |              |     |     |     |     |
-        | Lenny L      |              |     |     |     |     |
-        | Homer S      | 09:00-17:00  |     |     |     |     |
-
-      And I inject style "position:relative" into "header"
-     When I follow ">" within the toolbar
-     Then I should be on the employees in week page of the plan for week: 49, cwyear: 2012
-      And I should see a calendar titled "Cleaning the Reactor"
-      And I should see "KW 49 / 2012" within active week
-      And I should see "03.12." within weeks first date
-      And I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di           | Mi  | Do  | Fr  |
-        | Carl C       |     |              |     |     |     |
-        | Lenny L      |     |              |     |     |     |
-        | Homer S      |     | 10:00-16:00  |     |     |     |
-
-      And I inject style "position:relative" into "header"
-     When I follow ">" within the toolbar
-     Then I should be on the employees in week page of the plan for week: 50, cwyear: 2012
-      And I should see a calendar titled "Cleaning the Reactor"
-      And I should see "KW 50 / 2012" within active week
-      And I should see "10.12." within weeks first date
-      And I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi           | Do  | Fr  |
-        | Carl C       |     |     |              |     |     |
-        | Lenny L      |     |     |              |     |     |
-        | Homer S      |     |     | 11:00-15:00  |     |     |
-
-      And I inject style "position:relative" into "header"
-     When I follow ">" within the toolbar
-     Then I should be on the employees in week page of the plan for week: 51, cwyear: 2012
-      And I should see a calendar titled "Cleaning the Reactor"
-      And I should see "KW 51 / 2012" within active week
-      And I should see "17.12." within weeks first date
-      And I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi  | Do           | Fr  |
-        | Carl C       |     |     |     |              |     |
-        | Lenny L      |     |     |     |              |     |
-        | Homer S      |     |     |     | 12:00-14:00  |     |

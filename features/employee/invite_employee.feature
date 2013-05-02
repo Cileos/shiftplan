@@ -1,3 +1,4 @@
+# FIXME A major part of these Scenarios should be migrated into controller specs
 @javascript
 Feature: Inviting Employees
   As a planner
@@ -31,7 +32,7 @@ Feature: Inviting Employees
 
     Given a clear email queue
      When I go to the employees page for the organization "fukushima"
-      And I follow "Einladen" within the cell "Aktion"/"Carlson, Carl"
+      And I follow "Einladen" within the table cell "Aktion"/"Carlson, Carl"
       And I wait for the modal box to appear
       And I fill in "E-Mail" with "carl@carlson.com"
       And I press "Einladung verschicken"

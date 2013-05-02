@@ -23,7 +23,7 @@
     = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
 
     - if can?(:update_role, employee)
-      = f.input :role, include_blank: false,
+      = f.input :role_with_protection, include_blank: false,
         collection: [[t('employees.roles.none'), nil], [t('employees.roles.planner'), 'planner']]
 
     = f.input :organization_id, as: :hidden

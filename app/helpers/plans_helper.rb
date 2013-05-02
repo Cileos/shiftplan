@@ -1,18 +1,23 @@
 module PlansHelper
   # needs monday (Date)
-  def cwdays_for_select(monday=nil, format=:week_day)
-    monday = Date.new(2012,1,2) unless monday
+  def cwdays_for_select(scheduling, format=:week_day)
+    monday = scheduling.date || Date.new(2012,1,2)
     monday = monday.beginning_of_week unless monday.cwday == 1
-    (0..6).to_a.map do |more|
-      day = monday + more.days
-      [l(day, :format => format), day.iso8601]
-    end.select { |day_option| !filter.outside_plan_period?(Date.parse(day_option.last)) }
+    (0..6).
+      to_a.
+      map    { |more| monday + more.days }.
+      select { |day| scheduling.plan.period.include_date?(day) }.
+      map    { |day| [l(day, :format => format), day.iso8601] }
   end
 
   def durations_for_select(plan)
     Plan::Durations.map do |duration|
       [translate(duration, :scope => 'activerecord.values.plans.durations'), duration]
     end
+  end
+
+  def employees_for_select(scheduling)
+    scheduling.plan.organization.employees
   end
 
   def destroy_link_for_plan(plan, html_options={})

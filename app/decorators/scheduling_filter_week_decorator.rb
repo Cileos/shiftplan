@@ -23,15 +23,7 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
 
   # looks up the index, savely
   def indexed(day, other)
-    if at_day = index[day.iso8601]
-      if at_day.key?(other)
-        at_day[other]
-      else
-        []
-      end
-    else
-      []
-    end
+    index.fetch(day.iso8601, other)
   end
 
   def previous_step
@@ -55,16 +47,10 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
   #   scheduling.day(iso8601) => scheduling.xxxxxx => []
   #
   def index
-    @index ||= index_records
+    @index ||= TwoDimensionalRecordIndex.new(:iso8601, y_attribute).with_records_added(records)
   end
 
   private
-
-    def index_records
-      records.group_by(&:iso8601).map do |day, concurrent|
-        { day => concurrent.group_by(&y_attribute) }
-      end.inject(&:merge) || {}
-    end
 
     def y_attribute
       raise NotImplementedError, "must define #{self}#y_attribute to return attribute for y axis (ie. :employee)"

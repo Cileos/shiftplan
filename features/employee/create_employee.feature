@@ -33,26 +33,6 @@ Feature: Create Employees
         | Carlson, Carl  | 30   |                  | Noch nicht eingeladen  |
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
      When I go to the page of the plan
-      And I should see the following calendar:
-        | Mitarbeiter   | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
-        | Owner Burns   |     |     |     |     |     |     |     |
-        | Carl Carlson  |     |     |     |     |     |     |     |
-
-  # The role owner can not be assigned to other employees
-  @javascript
-  Scenario: Trying to create an owner
-    Given I inject style "position:relative" into "header"
-      And I follow "Hinzufügen"
-      And I fill in the following:
-        | Vorname           | Carl    |
-        | Nachname          | Carlson |
-     When I manipulate the form "edit_employee" with attribute "employee[role]" and value "owner"
-      And I press "Anlegen"
-      And I should be on the employees page for the organization
-     Then I should see the following table of employees:
-       | Name           | Rolle           |
-       | Burns, Owner   | Accountinhaber  |
-       | Carlson, Carl  | keine           |
 
   @javascript
   Scenario: Creating a planner

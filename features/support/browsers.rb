@@ -3,7 +3,7 @@ module BrowserSupport
   Sizes = {
     mobile: { width: 640 + 8, height: 800 + 57 },
     small:  { width: 990 + 8, height: 800 + 57 },
-    big:    { width: 1280 + 8, height: 800 + 57 }
+    big:    { width: 1680 + 8, height: 800 + 57 }
   }
 
   class << self

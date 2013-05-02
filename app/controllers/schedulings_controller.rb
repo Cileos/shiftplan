@@ -41,14 +41,7 @@ class SchedulingsController < InheritedResources::Base
     end
 
     def validate_plan_period
-      if filter.before_start_of_plan?
-        redirect_to filter.path_to_date( plan.starts_at )
-        return
-      end
-      if filter.after_end_of_plan?
-        redirect_to filter.path_to_date( plan.ends_at )
-        return
-      end
+      VP::PlanRedirector.new(self, plan).validate_and_redirect(filter)
     end
 
     def plan

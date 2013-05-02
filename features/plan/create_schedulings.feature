@@ -6,17 +6,17 @@ Feature: create a scheduling
   Background:
     Given today is 2012-02-13
       And the situation of a nuclear reactor
+      And I inject style "position:relative" into "header"
 
   @javascript
-  Scenario: just entering time span
-    Given I inject style "position:relative" into "header"
+  Scenario: thorugh the button on the top
      When I follow "Neue Terminierung"
      Then I should see "9-17 wichtige Arbeit [wA]" within a hint
       And I select "Homer S" from "Mitarbeiter"
       And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
-     Then I should see the following calendar:
+     Then I should see the following partial calendar:
         | Mitarbeiter  | Mo  | Di  | Mi           | Do  | Fr  | Sa  | So  |
         | Carl C       |     |     |              |     |     |     |     |
         | Lenny L      |     |     |              |     |     |     |     |
@@ -35,71 +35,6 @@ Feature: create a scheduling
      Then the "Quickie" field should contain "9-17"
 
   @javascript
-  Scenario: entering timespan until end of day
-    Given I inject style "position:relative" into "header"
-     When I click on cell "Mi"/"Homer S"
-      And I fill in "Quickie" with "22-0"
-      And I press "Anlegen"
-     Then I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi           | Do  | Fr  | Sa  | So  |
-        | Carl C       |     |     |              |     |     |     |     |
-        | Lenny L      |     |     |              |     |     |     |     |
-        | Homer S      |     |     | 22:00-24:00  |     |     |     |     |
-      And the employee "Homer S" should have a yellow hours/waz value of "2 / 40"
-
-     When I click on scheduling "22:00-24:00"
-     Then the selected "Startstunde" should be "22"
-      And the selected "Endstunde" should be "24"
-      And I press "Speichern"
-     Then I should see the following calendar:
-         | Mitarbeiter  | Mo  | Di  | Mi           | Do  | Fr  | Sa  | So  |
-         | Carl C       |     |     |              |     |     |     |     |
-         | Lenny L      |     |     |              |     |     |     |     |
-         | Homer S      |     |     | 22:00-24:00  |     |     |     |     |
-      And the employee "Homer S" should have a yellow hours/waz value of "2 / 40"
-
-
-  @javascript
-  Scenario: scheduling the same employee twice per day
-    Given the employee "Homer" was scheduled in the plan as following:
-        | date       | quickie |
-        | 2012-02-15 | 9-17    |
-      And I am on the page of the plan
-     When I inject style "position:relative" into "header"
-      And I follow "Neue Terminierung"
-      And I select "Homer S" from "Mitarbeiter"
-      And I select "Mittwoch" from "Wochentag"
-      And I fill in "Quickie" with "18-23"
-      And I press "Anlegen"
-     Then I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi                       | Do  | Fr  | Sa  | So  |
-        | Carl C       |     |     |                          |     |     |     |     |
-        | Lenny L      |     |     |                          |     |     |     |     |
-        | Homer S      |     |     | 09:00-17:00 18:00-23:00  |     |     |     |     |
-
-  @javascript
-  Scenario: can only select employees being member of the current organization
-    Given an organization "Jungle" exists with account: the account
-      And an employee "tarzan" exists with first_name: "Tarzan", account: the account
-      And a membership exists with organization: the organization "Jungle", employee: the employee "tarzan"
-     When I go to the page of the plan "clean reactor"
-     Then I should see "Homer S"
-      And I should not see "Tarzan" within the calendar
-     When I inject style "position:relative" into "header"
-      And I follow "Neue Terminierung"
-      And I wait for the new scheduling form to appear
-     Then I should not see "Tarzan" within the first form
-
-  @javascript
-  Scenario: just entering time span with javascript
-     When I schedule "Homer S" on "Do" for "8-18"
-     Then I should see the following calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi  | Do           | Fr  | Sa  | So  |
-        | Carl C       |     |     |     |              |     |     |     |
-        | Lenny L      |     |     |     |              |     |     |     |
-        | Homer S      |     |     |     | 08:00-18:00  |     |     |     |
-
-  @javascript
   Scenario: Entering the time span wrong
      When I click on cell "Di"/"Carl C"
       And I wait for the new scheduling form to appear
@@ -107,11 +42,11 @@ Feature: create a scheduling
       And I press "Anlegen"
      Then I should see "Quickie ist nicht gültig" within errors within the new scheduling form
 
-  @wip
   @todo
   @javascript
-  Scenario: schedule only using the keyboard (Enter, n or a)
+  Scenario: schedule only using the keyboard (Enter, n or a), entering just the timespan, using autocompletion
     Given I wait for the cursor to appear
+      And I assume the calendar will not change
      Then the cell "Mo"/"Carl C" should be focus
      When I press return
       And I wait for the new scheduling form to appear
@@ -119,7 +54,7 @@ Feature: create a scheduling
      When I fill in "Quickie" with "8-18"
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear
-     Then I should see the following calendar:
+     Then I should see the following partial calendar:
         | Mitarbeiter  | Mo           | Di  | Mi  | Do  | Fr  | Sa  | So  |
         | Carl C       | 08:00-18:00  |     |     |     |     |     |     |
         | Lenny L      |              |     |     |     |     |     |     |
@@ -135,7 +70,7 @@ Feature: create a scheduling
       And I fill in "Quickie" with "7-17"
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear
-     Then I should see the following calendar:
+     Then I should see the following partial calendar:
         | Mitarbeiter  | Mo           | Di           | Mi  | Do  | Fr  | Sa  | So  |
         | Carl C       | 08:00-18:00  |              |     |     |     |     |     |
         | Lenny L      |              | 07:00-17:00  |     |     |     |     |     |
@@ -149,11 +84,13 @@ Feature: create a scheduling
      When I press key "a"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7"
+     When I press arrow down in the "Quickie" field
+      And I press arrow down in the "Quickie" field
       And I press return in the "Quickie" field
      Then the "Quickie" field should contain "7-17"
-     When I press enter in the "Quickie" field
+      And I press enter in the "Quickie" field
       And I wait for the new scheduling form to disappear
-     Then I should see the following calendar:
+     Then I should see the following partial calendar:
         | Mitarbeiter  | Mo           | Di           | Mi           | Do  | Fr  | Sa  | So  |
         | Carl C       | 08:00-18:00  |              |              |     |     |     |     |
         | Lenny L      |              | 07:00-17:00  |              |     |     |     |     |
@@ -166,7 +103,7 @@ Feature: create a scheduling
       And I fill in "Quickie" with "1-3"
      When I press enter in the "Quickie" field
       And I wait for the new scheduling form to disappear
-     Then I should see the following calendar:
+     Then I should see the following partial calendar:
         | Mitarbeiter  | Mo           | Di           | Mi                       | Do  | Fr  | Sa  | So  |
         | Carl C       | 08:00-18:00  |              |                          |     |     |     |     |
         | Lenny L      |              | 07:00-17:00  |                          |     |     |     |     |

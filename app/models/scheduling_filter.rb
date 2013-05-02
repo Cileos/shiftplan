@@ -79,18 +79,6 @@ class SchedulingFilter < RecordFilter
     DateTime.civil_from_format(:utc, year, month, day)
   end
 
-  def before_start_of_plan?(date=last_day)
-    plan.starts_at.present? && date.to_date < plan.starts_at.to_date
-  end
-
-  def after_end_of_plan?(date=first_day)
-    plan.ends_at.present? && date.to_date > plan.ends_at.to_date
-  end
-
-  def outside_plan_period?(date)
-    before_start_of_plan?(date) || after_end_of_plan?(date)
-  end
-
   def records
     sorted_records
   end
@@ -103,6 +91,21 @@ class SchedulingFilter < RecordFilter
     fetch_records
   end
 
+  def period
+    @period ||= plan.period
+  end
+
+  def outside_plan_period?(date)
+    before_start_of_plan?(date) || after_end_of_plan?(date)
+  end
+
+  def before_start_of_plan?(date=last_day)
+    period.starts_after_date?(date)
+  end
+
+  def after_end_of_plan?(date=first_day)
+    period.ends_before_date?(date)
+  end
 
   private
     def fetch_records
