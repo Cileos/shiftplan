@@ -5,13 +5,13 @@ describe Volksplaner::IconCompiler do
   let(:compiler) { described_class }
   context '.compile' do
     let(:instructions) { { icons: {
-      'dirty' => 'pile',
-      'liked' => 'heart'
+      'dirty' => 'f067',
+      'liked' => 'f042'
     }}}
     let(:scss) { compiler.compile(instructions) }
     it "generates scss for each entry from hash" do
-      compiler.stub(:entry).with('dirty', 'pile').and_return('[dirty]')
-      compiler.stub(:entry).with('liked', 'heart').and_return('[liked]')
+      compiler.stub(:entry).with('dirty', 'f067').and_return('[dirty]')
+      compiler.stub(:entry).with('liked', 'f042').and_return('[liked]')
       scss.should include('[dirty]')
       scss.should include('[liked]')
     end
@@ -19,11 +19,12 @@ describe Volksplaner::IconCompiler do
 
   context '.entry' do
     it "generates scss" do
-      scss = compiler.entry('dirty', 'pile')
+      scss = compiler.entry('dirty', 'f067')
       scss.should include_scss(<<-EOSCSS)
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-dirty {
           &:before {
-            content: "pile";
+            content: "\\f067";
           }
         }
       EOSCSS
