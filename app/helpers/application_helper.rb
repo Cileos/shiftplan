@@ -5,7 +5,7 @@ module ApplicationHelper
 
   def collapsible(heading, opts={}, &block)
     content_tag(:div, opts.merge(data:{'toggle' => 'collapsible'})) do
-      content_tag(:div, heading, data:{'toggle' => 'collapsible-heading', 'icon' => icon="&#xf0d7;".html_safe}) +
+      content_tag(:div, heading, data:{'toggle' => 'collapsible-heading'}) +
       content_tag(:div, data:{'toggle' => 'collapsible-content'}) do
         capture(&block)
       end

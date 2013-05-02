@@ -2,10 +2,10 @@
 
 - if can? :create, Employee
   - masterhead_toolbar do
-    =link_to ti(:adopt), [:adopt] + nested_resources_for(current_organization) + [:employees],
-      class: 'button', data: { icon: i(:add) }, title: t('employees.index.adopt_employee')
-    =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:employee],
-      class: 'button', data: { icon: i(:add) }, title: t('employees.index.add_employee')
+    =link_to ta(:adopt), [:adopt] + nested_resources_for(current_organization) + [:employees],
+      class: 'button button-add', title: t('employees.index.adopt_employee')
+    =link_to ta(:add), [:new] + nested_resources_for(current_organization) + [:employee],
+      class: 'button button-add', title: t('employees.index.add_employee')
 
 .row.two-columns.inverted
   .primary

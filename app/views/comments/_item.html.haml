@@ -2,9 +2,9 @@
 - avatar_size ||= :thumb
 %li.comment{id: dom_id(comment)}
   - if comment.commentable.is_a?(Scheduling) and false # TODO fix tree-ish comments when modal box is solidified
-    = link_to ti(:reply), '#' + dom_id(comment), class: 'button button-small reply', 'data-icon' => i(:reply)
+    = link_to ta(:reply), '#' + dom_id(comment), class: 'button button-small reply'
   - if comment.commentable.is_a?(Post) && can?(:destroy, comment)
-    = link_to i(:destroy), nested_resources_for(comment), method: :delete, remote: true, class: 'utility-button icon-button button-warning', confirm: ta(:confirm_destroy_comment), title: ta(:destroy)
+    = link_to '', nested_resources_for(comment), method: :delete, remote: true, class: 'utility-button button-small button-warning icon-destroy', confirm: ta(:confirm_destroy_comment), title: ta(:destroy)
   = avatar(comment.employee.user, comment.employee, avatar_size, :author)
   - if comment.employee == current_user.current_employee
     .own-meta= t(:'blogs.own_meta_data', published_at: l(comment.created_at, format: :tiny))

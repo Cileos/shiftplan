@@ -19,6 +19,13 @@ class ApplicationController < ActionController::Base
   include UrlHelper
   include EmberRailsFlash::FlashInHeader
 
+  unless Rails.env.production?
+    before_filter do
+      Volksplaner::IconCompiler.observe Rails.root/'config/icons.yml', Rails.root/'app/assets/stylesheets/compiled/_icons.css.scss'
+      true
+    end
+  end
+
   protected
 
   helper_method :nested_resources_for

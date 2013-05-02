@@ -20,7 +20,7 @@ module EmployeesHelper
   end
 
   def invitation_link(type, employee)
-    link_to ti(type, :'non-white' => true),
+    link_to ta(type),
       invitation_url(type, employee),
       class: 'button button-small', :remote => true
   end

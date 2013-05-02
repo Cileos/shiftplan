@@ -4,5 +4,4 @@
     = f.input :template_type, collection: PlanTemplate.template_type_options, include_blank: false
   .actions
     = f.responsive_submit_button do
-      %i.icon-ok-circle.icon-white
       = ta create_or_update

@@ -1,5 +1,7 @@
 .flash {
   @include flash-message($ci_green);
+  @extend %with-icon;
+  @extend .icon-notice;
 
   padding: 5px 10px;
   margin: 10px auto;
@@ -8,6 +10,7 @@
   &.error,
   &.errors {
     @include flash-message($ci_darkorange);
+    @extend .icon-error;
   }
 
   .close {
@@ -15,7 +18,7 @@
     cursor: pointer;
   }
 
-  &[data-icon]::before {
+  &:before {
     margin: auto 1em;
   }
 }

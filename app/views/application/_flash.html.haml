@@ -1,6 +1,6 @@
 - unless controller.flash.blank?
   #flash
     - controller.flash.to_hash.symbolize_keys.slice(:info, :notice, :alert, :error).each do |name, msg|
-      .flash{class: name, data: { icon: i(name), target: 'flash'}}
+      .flash{class: name, data: { target: 'flash'}}
         %a.close{data: { dismiss: 'flash'}} ×
         = msg
