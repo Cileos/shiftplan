@@ -4,9 +4,9 @@
   - if can? :manage, TeamMerge
     %button{ :id => 'merge-button',
       'data-url' => new_account_organization_team_merge_path(current_account, current_organization) }
-      = ti(:merge)
+      = ta(:merge)
   - if can? :create, Team
-    = link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:team],
+    = link_to ta(:add), [:new] + nested_resources_for(current_organization) + [:team],
       class: 'button', remote: true, data: { icon: i(:add) }
 
 .row.two-columns.inverted

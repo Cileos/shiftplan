@@ -2,7 +2,7 @@
 
 - masterhead_toolbar do
   - if can? :create, Qualification
-    = link_to ti(:add),
+    = link_to ta(:add),
       [:new, current_account, current_organization, :qualification],
       class: 'button', data: { icon: i(:add) }
 

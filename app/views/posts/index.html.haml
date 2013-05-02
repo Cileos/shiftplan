@@ -2,7 +2,7 @@
 
 - if can? :create, parent.posts.new
   - masterhead_toolbar do
-    = link_to ti(:add, translation_key: 'posts.new'), [:new] + nested_resources_for(parent) + [:post], |
+    = link_to ta(:add, translation_key: 'posts.new'), [:new] + nested_resources_for(parent) + [:post], |
       class: 'button', remote: true, data: { icon: i(:add) }
 
 .posts

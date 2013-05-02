@@ -40,6 +40,6 @@
 
   .actions
     - if create_or_update == :update
-      = link_to ti(:destroy), url, remote: true, method: :delete, class: 'button button-warning delete'
+      = link_to ta(:destroy), url, remote: true, method: :delete, class: 'button button-warning delete'
     = f.responsive_submit_button tabindex: 9 do
       = ta create_or_update

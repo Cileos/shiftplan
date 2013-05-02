@@ -25,15 +25,6 @@ module ActionHelper
     super translate_action(text), *args, &block
   end
 
-  def translate_icon(key, opts={})
-     icon(key, opts) + translate_action(key, opts)
-  end
-  alias ti translate_icon
-
-  def icon(key, opts={})
-    content_tag(:i, '', class: "icon-#{Icons[key] || 'glass'} #{'icon-white' unless opts[:'non-white']}") + ' '
-  end
-
   Icons = {
     add:               '&#xf067;',
     edit:              'edit',
