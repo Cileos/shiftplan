@@ -157,3 +157,9 @@ input[type=submit].utility-button {
     border-radius: 0 $ci_border-radius $ci_border-radius 0;
   }
 }
+
+.button-new,
+.button-add {
+  @extend %with-icon;
+  @extend .icon-add;
+}

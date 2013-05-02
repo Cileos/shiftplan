@@ -1,5 +1,6 @@
 @include font-face(FontAwesome, "/assets/fontawesome/font/fontawesome-webfont");
 
+%with-icon,
 [data-icon],
 [class^="icon-"],
 [class*=" icon-"] {
