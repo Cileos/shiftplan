@@ -29,9 +29,10 @@ class Volksplaner::IconCompiler
 
     def entry(name, displayed)
       return <<-EOSCSS
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-#{name} {
           &:before {
-            content: "#{displayed}";
+            content: "\\#{displayed}";
           }
         }
       EOSCSS

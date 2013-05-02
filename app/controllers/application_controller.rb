@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   unless Rails.env.production?
     before_filter do
-      Volksplaner::IconCompiler.observe Rails.root/'config/icons.yml', Rails.root/'app/assets/stylesheets/config/_icons.css.scss'
+      Volksplaner::IconCompiler.observe Rails.root/'config/icons.yml', Rails.root/'app/assets/stylesheets/compiled/_icons.css.scss'
       true
     end
   end
