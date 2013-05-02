@@ -3,10 +3,10 @@
 - masterhead_toolbar do
   %ul
     - if can? :edit, @post
-      %li= link_to(:edit, [:edit] + nested_resources_for(@post), class: 'button', data: { icon: i(:edit_post)}, remote: true)
+      %li= link_to(:edit, [:edit] + nested_resources_for(@post), class: 'button button-edit', remote: true)
     - if can? :destroy, @post
       -# TODO: Open the confirm dialog in our own modal box.
-      %li= button_to :destroy, nested_resources_for(@post), method: :delete, data: { confirm: t('posts.show.confirm_to_delete', post: @post.title, icon: i(:destroy)) }, class: 'button button-warning', id: 'destroy-post'
+      %li= button_to :destroy, nested_resources_for(@post), method: :delete, data: { confirm: t('posts.show.confirm_to_delete', post: @post.title) }, class: 'button button-warning icon-destroy', id: 'destroy-post'
       -# %li= link_to(ta(:back), [current_organization, @post.blog, :posts], class: 'button', id: 'back')
 
 .post

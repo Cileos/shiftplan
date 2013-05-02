@@ -3,7 +3,7 @@
 - masterhead_toolbar do
   - if can? :create, Shift
     = link_to ta(:add), [:new] + nested_resources_for(@plan_template) + [:shift],
-      class: 'button', data: { icon: i(:add) }, remote: true
+      class: 'button button-add', remote: true
 
 .row.two-columns.inverted
   .primary

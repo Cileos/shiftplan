@@ -29,8 +29,8 @@
             input_html: { tabindex: 8, :class => 'qualification-select' }
           = df.link_to_remove ta(:destroy), class: 'button button-warning button-small'
 
-        = f.link_to_add ta(:add_demand), :demands, class: 'button',
-          model_object: shift.source.demands.new(quantity: 1), data: { icon: i(:add) }
+        = f.link_to_add ta(:add_demand), :demands, class: 'button button-add',
+          model_object: shift.source.demands.new(quantity: 1)
 
       - else
         %p= t(:'qualifications.no_qualifications_present')

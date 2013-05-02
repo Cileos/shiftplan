@@ -1,14 +1,6 @@
 jQuery(document).ready ->
   return if $('#calendar').length == 0
 
-  setIcon = (lnk, id) ->
-    icon_left = ""
-    icon_right  = ""
-    if ((id == 'sidebar' && lnk.hasClass('collapsed')) || (id == 'contextual_help' && !lnk.hasClass('collapsed')))
-      lnk.attr('data-icon', icon_right)
-    else
-      lnk.attr('data-icon', icon_left)
-
   updateWidths = ->
     # sidebar width: 14.70196% # from neat css
     small_width = '65.88078%'  # from neat css
@@ -47,7 +39,6 @@ jQuery(document).ready ->
     e.toggleClass('collapsed')
     lnk.toggleClass('collapsed')
     if e.hasClass('collapsed')
-      setIcon(lnk, id)
       e.css('width', '25px')
        .css('overflow', 'hidden')
       e.children('div').css('width', '191px')
@@ -55,7 +46,6 @@ jQuery(document).ready ->
       $.cookie('clockwork_'+id, 'collapsed', { path: '/' })
       false
     else
-      setIcon(lnk, id)
       e.css('width', '')
        .css('overflow', '')
       e.children('div').css('width', '')
@@ -70,13 +60,12 @@ jQuery(document).ready ->
   $('#sidebar').each ->
     e = $(this)
     id = e.attr('id')
-    $('[role="content"]').prepend('<a href="#" id="toggle_'+id+'" data-toggle="'+id+'" class="toggle-sidebars utility-button" data-icon="x">')
+    $('[role="content"]').prepend('<a href="#" id="toggle_'+id+'" data-toggle="'+id+'" class="toggle-sidebars utility-button">')
     # e.prepend('<a href="#" id="toggle_'+id+'" data-toggle="'+id+'" class="toggle-sidebars utility-button" data-icon="x">')
     lnk = $('[role="content"]').find('#toggle_'+id)
     if $.cookie('clockwork_'+e.attr('id')) == 'collapsed'
       $('[role="content"]').addClass('no-animation')
       toggleSidebars(e)
-    setIcon(lnk, id)
     lnk.click ->
       $('[role="content"]').removeClass('no-animation')
       toggleSidebars(e)

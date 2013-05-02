@@ -169,6 +169,7 @@ small {
       width: 40px;
       white-space: nowrap;
       overflow: hidden;
+
       &[data-icon]:before {
         margin-right: 1.5em;
       }
@@ -363,15 +364,21 @@ small {
   font-size: $ci_font-size;
   font-weight: bold;
   cursor: pointer;
+  @extend %with-icon;
+  @extend .icon-collapse;
 
-  &[data-icon]:before {
+  &:before {
     position: absolute;
     top: 10px;
     left: -1em;
   }
 
-  &.collapsed[data-icon]:before {
-    left: -0.75em;
+  &.collapsed {
+    @extend .icon-expand;
+
+    &:before {
+      left: -0.75em;
+    }
   }
 
   &:hover {
@@ -396,15 +403,18 @@ small {
   line-height: 1;
   font-size: 16px;
   border-bottom: 1px solid $ci_middarkgrey;
+  @extend %with-icon;
+  @extend .icon-hide;
 
   &.collapsed {
+    @extend .icon-expand;
     height: 100%;
     width: 25px;
     border-right: 1px solid $ci_middarkgrey;
-  }
 
-  &:before {
-    margin-right: 0;
+    &:before {
+      margin-right: 0;
+    }
   }
 }
 

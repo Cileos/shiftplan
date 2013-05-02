@@ -6,6 +6,13 @@
         }
 
         // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-edit {
+          &:before {
+            content: "\f044";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-destroy {
           &:before {
             content: "\f00d";
@@ -48,13 +55,6 @@
         }
 
         // THIS HAS BEEN COMPILED, DON'T EDIT!
-        .icon-dropdown {
-          &:before {
-            content: "\f073";
-          }
-        }
-
-        // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-dashboard {
           &:before {
             content: "\f0e4";
@@ -65,6 +65,13 @@
         .icon-organization {
           &:before {
             content: "\f015";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-plans {
+          &:before {
+            content: "\f073";
           }
         }
 
@@ -118,13 +125,6 @@
         }
 
         // THIS HAS BEEN COMPILED, DON'T EDIT!
-        .icon-edit_post {
-          &:before {
-            content: "\f044";
-          }
-        }
-
-        // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-expand {
           &:before {
             content: "\f0da";
@@ -135,6 +135,13 @@
         .icon-collapse {
           &:before {
             content: "\f0d7";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-hide {
+          &:before {
+            content: "\f0d9";
           }
         }
 

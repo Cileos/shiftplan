@@ -3,7 +3,7 @@
 - if can? :create, parent.posts.new
   - masterhead_toolbar do
     = link_to ta(:add, translation_key: 'posts.new'), [:new] + nested_resources_for(parent) + [:post], |
-      class: 'button', remote: true, data: { icon: i(:add) }
+      class: 'button button-add', remote: true
 
 .posts
   = render('posts/posts_with_pagination', posts: @posts)

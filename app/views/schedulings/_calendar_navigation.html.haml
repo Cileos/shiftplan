@@ -11,15 +11,15 @@
             new_account_organization_plan_copy_week_path(current_organization.account,
             current_organization, filter.plan,
             copy_week: { target_week: filter.week, target_year: filter.cwyear }),
-            remote: true, class: '', data: { icon: i(:copy_week)}
+            remote: true, class: 'icon-copy_week'
         %li= link_to ta(:apply_plan_template),
           new_account_organization_plan_apply_plan_template_path(current_organization.account,
           current_organization, filter.plan,
           apply_plan_template: { target_week: filter.week, target_year: filter.cwyear }),
-          remote: true, class: '', data: { icon: i(:copy_week)}
+          remote: true, class: 'icon-copy_week'
         %li= link_to ta(:new_plan_template),
           [:new] + nested_resources_for(current_organization) + [:plan_template],
-          class: '', data: { icon: i(:add) }
+          class: 'icon-add'
 
 .button-group
   - if filter.has_previous?
@@ -35,4 +35,4 @@
 - if can? :create, Scheduling
   = link_to ta(:new_scheduling),
     new_account_organization_plan_scheduling_path(current_organization.account, current_organization, filter.plan, scheduling: { date: filter.monday}),
-    class: 'new_scheduling button', remote: true, data: { icon: i(:add)}
+    class: 'button button-add', remote: true
