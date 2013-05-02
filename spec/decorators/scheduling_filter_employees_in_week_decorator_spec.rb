@@ -24,6 +24,7 @@ describe SchedulingFilterEmployeesInWeekDecorator do
     context "scheduled nothing" do
       context "index accessor" do
         it "should return empty array" do
+          filter.stub date: Time.zone.now
           decorator.indexed(bad_day, 42).should == []
         end
       end
@@ -31,7 +32,7 @@ describe SchedulingFilterEmployeesInWeekDecorator do
 
     context "scheduled a lot" do
       let(:plan)   { create :plan }
-      let(:filter) { SchedulingFilter.new week: 52, year: 2012, plan: plan }
+      let(:filter) { SchedulingFilter.new week: 52, cwyear: 2012, plan: plan }
       let(:me)     { create :employee }
       let(:you)    { create :employee }
       before :each do

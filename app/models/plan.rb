@@ -49,6 +49,10 @@ class Plan < ActiveRecord::Base
   def build_apply_plan_template(attrs={})
     ApplyPlanTemplate.new attrs.merge(plan: self)
   end
+
+  def filter(criteria={})
+    SchedulingFilter.new(criteria.merge(plan: self))
+  end
 end
 
 PlanDecorator

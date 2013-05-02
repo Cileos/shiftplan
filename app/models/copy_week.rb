@@ -40,7 +40,7 @@ class CopyWeek
   end
 
   def source_schedulings
-    plan.schedulings.in_cwyear(source_year).in_week(source_week).reject do |s|
+    plan.filter(cwyear: source_year, week: source_week).records.reject do |s|
       s.previous_day.present?
     end
   end

@@ -4,7 +4,7 @@ describe SchedulingFilterTeamsInWeekDecorator do
 
   context 'found schedulings' do
     let(:plan)    { create :plan }
-    let(:filter)  { SchedulingFilter.new week: 52, year: 2012, plan: plan }
+    let(:filter)  { SchedulingFilter.new week: 52, cwyear: 2012, plan: plan }
     let(:decorator) { described_class.new(filter) }
     let(:us)      { create :team }
     let(:others)  { create :team }

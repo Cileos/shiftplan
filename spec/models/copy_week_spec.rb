@@ -8,10 +8,10 @@ describe CopyWeek do
   let(:target_week) { 49 }
 
   let(:target_schedulings) do
-    plan.schedulings.in_cwyear(target_year).in_week(target_week)
+    plan.filter(cwyear: target_year, week: target_week).unsorted_records
   end
   let(:source_schedulings) do
-    plan.schedulings.in_cwyear(source_year).in_week(source_week)
+    plan.filter(cwyear: source_year, week: source_week).unsorted_records
   end
 
   # For year 2012 and week 49, the monday is 03.12.2012.
