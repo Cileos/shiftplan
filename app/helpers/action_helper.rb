@@ -25,50 +25,12 @@ module ActionHelper
     super translate_action(text), *args, &block
   end
 
-  Icons = {
-    add:               '&#xf067;',
-    edit:              'edit',
-    destroy:           '&#xf00d;',
-    new_plan:          'plus',
-    new_scheduling:    'plus',
-    new_organization:  'plus',
-    copy_week:         '&#xf079',
-    update:            'ok-circle',
-    invite:            'user',
-    reinvite:          'user',
-    comment:           '&#xf075;',
-    no_comment:        '&#xf0e5;',
-    comments_count:    'comment',
-    reply:             '&#xf053;',
-    back:              'arrow-left',
-    send_invitation:   'envelope',
-    feedback_without_screenshot: 'envelope',
-    send:                        'envelope',
-    dropdown:          '&#xf073;',
-    dashboard:         '&#xf0e4;',
-    organization:      '&#xf015;',
-    news:              '&#xf0e7;',
-    employees:         '&#xf007;',
-    teams:             '&#xf0e8;',
-    settings:          '&#xf007;',
-    signup:            '&#xf007;',
-    signout:           '&#xf08b;',
-    signin:            '&#xf090;',
-    edit_post:         '&#xf044;',
-    expand:            '&#xf0da;',
-    collapse:          '&#xf0d7;',
-    left_caret:        '&#xf0d9;',
-    check:             '&#xf00c;',
-    notice:            '&#xf00c;',
-    info:              '&#xf00c;',
-    warning:           '&#xf071;',
-    error:             '&#xf071;',
-    alert:             '&#xf00d;'
-
-  }
+  def entitify(icon)
+    ('&#x' + icon + ';').html_safe
+  end
 
   def i(name)
-    (Icons[name] || 'icon-missing').html_safe
+    entitify(Volksplaner.icons[:icons][name] || 'icon-missing')
   end
 
   # translate with textilize

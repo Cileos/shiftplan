@@ -11,4 +11,8 @@ module Volksplaner
   def self.hostname
     @hostname ||= staging?? 'staging.clockwork.io' : 'app.clockwork.io'
   end
+
+  def self.icons
+    @icons ||= YAML.load_file(Rails.root.join('config/icons.yml')).with_indifferent_access
+  end
 end
