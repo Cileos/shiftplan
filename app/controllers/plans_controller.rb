@@ -24,10 +24,6 @@ class PlansController < BaseController
     current_organization
   end
 
-  def end_of_association_chain
-    super.default_sorting
-  end
-
   def collection
     end_of_association_chain.order(:name)
   end

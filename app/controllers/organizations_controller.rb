@@ -30,10 +30,4 @@ class OrganizationsController < BaseController
   def interpolation_options
     { organization: resource.name }
   end
-
-  private
-
-  def end_of_association_chain
-    super.default_sorting
-  end
 end
