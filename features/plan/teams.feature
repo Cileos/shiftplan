@@ -6,6 +6,7 @@ Feature: Teams in legend of plan
   @javascript
   Scenario: implicitly create a new team with full name and shortcut
     Given the situation of a nuclear reactor
+      And a team exists with name: "Brennstäbe wechseln", organization: the organization
      When I schedule "Homer S" on "Do" for "9-17 Reaktor putzen [OK]"
      Then I should see the following partial calendar:
         | Mitarbeiter  | Do              |
