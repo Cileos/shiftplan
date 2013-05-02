@@ -38,9 +38,27 @@ class SchedulingFilter < RecordFilter
 
   alias first_day monday
 
+  def first_day
+    if week?
+      monday
+    else
+      date
+    end
+  end
+
+  def starts_at
+    first_day.beginning_of_day
+  end
+
+  def ends_at
+    last_day.end_of_day
+  end
+
   def last_day
     if week?
-      Date.commercial(cwyear, week,7)
+      Date.commercial(cwyear, week, 7)
+    else
+      date.to_time
     end
   end
 
@@ -108,16 +126,7 @@ class SchedulingFilter < RecordFilter
     def fetch_records
       results = base
       results = results.where(conditions)
-      if week?
-        results = results.in_week(week)
-        if cwyear?
-          results = results.in_cwyear(cwyear)
-        end
-      else
-        if year?
-          results = results.in_year(year)
-        end
-      end
+      results = results.between( starts_at, ends_at )
       results = results.includes(*to_include)
       results
     end
