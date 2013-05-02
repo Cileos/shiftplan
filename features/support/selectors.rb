@@ -47,6 +47,9 @@ module HtmlSelectorsHelpers
     when "the calendar caption"
       'header h2.calendar-caption'
 
+    when "the legend"
+      '#legend'
+
     when "the active teams legend"
       '#legend #active-teams'
 
