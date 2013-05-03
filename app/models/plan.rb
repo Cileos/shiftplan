@@ -34,6 +34,10 @@ class Plan < ActiveRecord::Base
     CopyWeek.new attrs.merge(plan: self)
   end
 
+  def self.default_sorting
+    order(:name)
+  end
+
   # Valid hour range for Schedulings of this plan
   # TODO: un-hardcode to customize "the workday"
   def start_hour

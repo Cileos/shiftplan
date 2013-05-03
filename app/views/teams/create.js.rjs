@@ -1,3 +1,0 @@
-page.decorate @team do |team|
-  team.respond
-end

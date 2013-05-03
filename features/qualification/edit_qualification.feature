@@ -1,3 +1,4 @@
+@javascript
 Feature: Edit Qualifications
   As a planner
   I want to edit qualifications
@@ -7,15 +8,16 @@ Feature: Edit Qualifications
     Given the situation of a just registered user
       And a qualification exists with name: "Brennstabpolierer", account: the account
 
-     When I follow "Qualifikationen"
-     Then I should be on the qualifications page for the organization
-      And I should see the following table of qualifications:
+     When I go to the qualifications page for the organization
+     Then I should see the following table of qualifications:
         | Name              |
         | Brennstabpolierer |
 
      When I follow "Bearbeiten" within the first table row
+      And I wait for the modal box to appear
       And I fill in "Name" with "Brennstabexperte"
       And I press "Speichern"
+      And I wait for the modal box to disappear
      Then I should be on the qualifications page for the organization
       And I should see the following table of qualifications:
         | Name             |

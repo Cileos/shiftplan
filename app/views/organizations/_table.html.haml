@@ -6,9 +6,9 @@
         %th= t('action')
 
   %tbody
-    - organizations.each do |organization|
-      %tr
-        %th= link_to organization.name, nested_resources_for(organization)
-        - if can? :edit, organization
-          %td= link_to :edit, [:edit] + nested_resources_for(organization),
-            class: 'button button-small'
+    - records.each do |record|
+      %tr{id: "record_#{record.id}"}
+        %th= link_to record.name, nested_resources_for(record)
+        - if can? :edit, record
+          %td= link_to :edit, [:edit] + nested_resources_for(record),
+            remote: true, class: 'button button-small'

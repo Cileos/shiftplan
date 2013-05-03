@@ -1,6 +1,8 @@
 de:
   helpers:
     actions:
+      new_post: 'Neuen Blogpost erstellen'
+      edit_post: 'Blogpost bearbeiten'
       edit_account: Account bearbeiten
       add_account: Account hinzufügen
       profile: Profil
@@ -63,8 +65,8 @@ de:
       reinvite: Erneut einladen
       send_invitation: 'Einladung verschicken'
       copy: "Übernehmen"
-      copy_week: "Übernahme aus der letzten Woche"
-      apply_plan_template: 'Planvorlage anwenden'
+      new_copy_week: "Übernahme aus der letzten Woche"
+      new_apply_plan_template: 'Planvorlage anwenden'
       apply: 'Anwenden'
       comment: Kommentieren
       comments: Kommentare
@@ -91,4 +93,3 @@ de:
       employees_in_week: "Mitarbeiter"
       teams_in_week: "Teams"
       hours_in_week: "Stunden"
-

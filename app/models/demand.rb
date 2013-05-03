@@ -4,9 +4,4 @@ class Demand < ActiveRecord::Base
 
   validates :quantity, presence: true
   validates_numericality_of :quantity, greater_than: 0
-
-  # only added to make the shift features deterministic
-  def self.default_scope
-    order('demands.id')
-  end
 end

@@ -1,4 +1,4 @@
-= simple_form_for [resource.account, resource] do |f|
+= simple_form_for [organization.account, organization], remote: true do |f|
   .inputs
     = f.input :name, autofocus: true
   .actions

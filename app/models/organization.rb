@@ -14,6 +14,10 @@ class Organization < ActiveRecord::Base
 
   validates_presence_of :account_id
 
+  def self.default_sorting
+    order(:name)
+  end
+
   def company_blog
     blogs.first
   end

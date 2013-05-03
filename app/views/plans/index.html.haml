@@ -4,7 +4,8 @@
   - masterhead_toolbar do
     =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:plan], class: 'button', remote: true, data: { icon: i(:add) }
 
-- unless collection.empty?
-  = render 'table', plans: collection
-- else
-  %p#plans= t(:'.no_plans')
+#plans
+  - unless collection.empty?
+    = render 'table', records: collection
+  - else
+    %p#plans= t(:'.no_plans')

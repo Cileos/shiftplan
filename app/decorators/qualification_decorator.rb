@@ -1,0 +1,2 @@
+class QualificationDecorator < TabularizedRecordDecorator
+end

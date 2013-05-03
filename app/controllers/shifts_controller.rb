@@ -1,6 +1,4 @@
-class ShiftsController < InheritedResources::Base
-  load_and_authorize_resource
-
+class ShiftsController < BaseController
   nested_belongs_to :plan_template
   actions :all, :except => [:show]
 

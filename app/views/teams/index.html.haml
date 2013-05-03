@@ -13,7 +13,7 @@
   .primary
     #teams
       - unless collection.empty?
-        = render 'table', teams: collection
+        = render 'table', records: collection
       - else
         %p= t(:'teams.no_teams_present')
 

@@ -1,6 +1,7 @@
-class OrganizationsController < InheritedResources::Base
+class OrganizationsController < BaseController
   belongs_to :account
-  load_and_authorize_resource
+
+  respond_to :html, :js
 
   def create
     create! { account_path(current_account) }

@@ -1,5 +1,4 @@
-class CopyWeekController < InheritedResources::Base
-  load_and_authorize_resource
+class CopyWeekController < BaseController
   belongs_to :plan, :singleton => true
   respond_to :js
 

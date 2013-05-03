@@ -1,7 +1,5 @@
-class TeamMergesController < InheritedResources::Base
+class TeamMergesController < BaseController
   respond_to :js
-
-  load_and_authorize_resource
 
   def create
     create! do

@@ -1,4 +1,0 @@
-page.decorate @team do |team|
-  team.append_modal body: render('form', team: team),
-    header: content_tag(:h3, ta(:'edit_team'))
-end

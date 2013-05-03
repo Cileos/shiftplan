@@ -1,4 +1,9 @@
-page.decorate resource do |resource|
-  resource.append_modal body: render('form'),
-    header: content_tag(:h3, t(:'invitations.new.invite_employee', employee_name: resource.employee.name))
+page.decorate @invitation do |invitation|
+  invitation.append_modal_with_form(
+    header: content_tag(:h3,
+      t(:'invitations.new.invite_employee',
+        employee_name: invitation.employee.name
+      )
+    )
+  )
 end
