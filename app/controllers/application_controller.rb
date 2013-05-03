@@ -31,12 +31,21 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
   def set_locale
-    if user_signed_in?
-      if current_user.locale.present?
-        I18n.locale = current_user.locale.to_sym
-      end
+    if user_signed_in? && current_user.locale.present?
+      I18n.locale = current_user.locale.to_sym
+    elsif (from_header = extract_locale_from_accept_language_header) && I18n.available_locales.map(&:to_s).include?(from_header)
+      I18n.locale = from_header.to_sym
+    else
+      I18n.locale = I18n.default_locale
     end
     true
+  end
+
+  # TODO detect secondary (..) accepted language
+  def extract_locale_from_accept_language_header
+    if header = request.env['HTTP_ACCEPT_LANGUAGE']
+      header.scan(/^[a-z]{2}/).first
+    end
   end
 
   helper_method :nested_resources_for

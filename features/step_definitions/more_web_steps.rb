@@ -134,3 +134,11 @@ Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
     URI.parse(current_url).path.should starts_with(expected)
   end
 end
+
+Given /^I use a german browser$/ do
+  add_headers 'Accept-Language' => 'de-DE'
+end
+
+Before '~@javascript' do # cannot set headers with selenium
+  add_headers 'Accept-Language' => nil # clear
+end

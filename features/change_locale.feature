@@ -1,10 +1,21 @@
+@en
 Feature: Change locale
   In order to understand what is going on
   As a customer not speaking german
   I want to switch my locale
 
-  Scenario: switch from default German to English
-    Given the situation of a just registered user
+  Scenario: determine locale from browser
+    Given I use a german browser
+     When I go to the home page
+     Then I should see "Willkommen"
+
+  Scenario: fallback is English
+     When I go to the home page
+     Then I should see "Welcome"
+
+  Scenario: overwrite browser detected locale with setting
+    Given I use a german browser
+      And the situation of a just registered user
       And I should see "Neuigkeiten"
      When I choose "Einstellungen" from the drop down "owner@burns.com"
       And I follow "Erweitert"

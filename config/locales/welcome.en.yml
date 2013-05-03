@@ -2,3 +2,6 @@ en:
   welcome:
     dashboard:
       organizations: Units
+    landing:
+      greeting: 'Welcome to Clockwork'
+      signin_hint: 'To sign up or log in, check the upper right corner.'
