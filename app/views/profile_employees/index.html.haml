@@ -1,23 +1,20 @@
 - title :settings
-.row.two-columns
-  %nav.secondary
-    = render 'user/settings_menu'
-  .primary.content-form
-    %h3= ta :profile
+= render layout: 'profile/with_menu' do
+  %h3= ta :profile
 
-    %p= t('.instructions')
+  %p= t('.instructions')
 
-    %table#employees
-      %thead
-        %tr.employee
-          %th= Employee.human_attribute_name(:full_name)
-          %th= Employee.human_attribute_name(:account)
+  %table#employees
+    %thead
+      %tr.employee
+        %th= Employee.human_attribute_name(:full_name)
+        %th= Employee.human_attribute_name(:account)
 
-      %tbody
-        - @employees.each do |employee|
-          %tr{ id: "employee_#{employee.id}" }
-            %th
-              = avatar(employee.user, employee, :tiny)
-              = link_to employee.last_and_first_name, edit_profile_employee_path(employee)
-            %td.account
-              = employee.account.name
+    %tbody
+      - @employees.each do |employee|
+        %tr{ id: "employee_#{employee.id}" }
+          %th
+            = avatar(employee.user, employee, :tiny)
+            = link_to employee.last_and_first_name, edit_profile_employee_path(employee)
+          %td.account
+            = employee.account.name

@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
       denied.js   { render 'denied' }
     end
   end
+  layout 'application'
 
   check_authorization :unless => :devise_controller?
 

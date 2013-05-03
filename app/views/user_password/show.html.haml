@@ -1,21 +1,16 @@
 - title :settings
 
-.row.two-columns
+= render layout: 'profile/with_menu' do
+  %h3= ta :change_password
 
-  %nav.secondary
-    = render 'user/settings_menu'
+  %p= t('.instructions')
 
-  .primary.content-form
-    %h3= ta :change_password
+  = simple_form_for @user, url: change_password_path do |f|
 
-    %p= t('.instructions')
+    .inputs
+      = f.input :current_password, required: true, autofocus: true
+      = f.input :password, required: true
+      = f.input :password_confirmation, required: true
 
-    = simple_form_for @user, url: change_password_path do |f|
-
-      .inputs
-        = f.input :current_password, required: true, autofocus: true
-        = f.input :password, required: true
-        = f.input :password_confirmation, required: true
-
-      .actions
-        = f.update_button
+    .actions
+      = f.update_button
