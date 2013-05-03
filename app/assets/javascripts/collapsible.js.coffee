@@ -9,7 +9,6 @@ jQuery(document).ready ->
     coll_cont.toggleClass('collapsed')
 
     if coll_head.hasClass('collapsed')
-      coll_head.attr('data-icon', "")
       if $.cookie('clockwork_'+e.attr('id')) == 'collapsed'
         coll_cont.toggle()
       else
@@ -17,7 +16,6 @@ jQuery(document).ready ->
         $.cookie('clockwork_'+e.attr('id'), 'collapsed', { path: '/' })
       false
     else
-      coll_head.attr('data-icon', "")
       coll_cont.slideToggle()
       $.cookie('clockwork_'+e.attr('id'), 'visible', { path: '/' })
       false

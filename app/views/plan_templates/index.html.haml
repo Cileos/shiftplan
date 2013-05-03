@@ -2,9 +2,9 @@
 
 - masterhead_toolbar do
   - if can? :create, PlanTemplate
-    = link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:plan_template],
+    = link_to ta(:add), [:new] + nested_resources_for(current_organization) + [:plan_template],
       remote: true,
-      class: 'button', data: { icon: i(:add) }
+      class: 'button button-add'
 
 .row.two-columns.inverted
   .primary

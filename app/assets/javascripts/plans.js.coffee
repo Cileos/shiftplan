@@ -38,6 +38,6 @@ jQuery(document).ready ->
     $calendar.find('td').each refresh_behaviour_of_cell
     $calendar.on 'update', 'td', refresh_behaviour_of_cell
 
-  $('nav a.new_scheduling').live 'ajax:success', ->
+  $('nav a#new_scheduling_button').live 'ajax:success', ->
     Clockwork.SchedulingEditor.create element: $('#modalbox form:first')
     true

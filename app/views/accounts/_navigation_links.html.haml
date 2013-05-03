@@ -18,5 +18,5 @@
   - else
     %ul
       - if organization = organizations.first
-        = li_link organization.name, nested_resources_for(organization), class: 'organization', data: { icon: i(:organization) }
+        = li_link organization.name, nested_resources_for(organization)
         = render 'organizations/navigation_links', organization: organization

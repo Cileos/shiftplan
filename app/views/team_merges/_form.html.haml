@@ -7,5 +7,4 @@
     = f.input :new_team_id, collection: [team_merge.team, team_merge.other_team], include_blank: false
   .actions
     = f.responsive_submit_button do
-      %i.icon-ok-circle.icon-white
       = ta :confirm
