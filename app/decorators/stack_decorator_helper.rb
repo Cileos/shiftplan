@@ -6,6 +6,7 @@ module StackDecoratorHelper
   # schedulings overlapping in their runtime are on the same stack,
   def pack_in_stacks(records)
     records.each { |r| r.stack = 0 }
+    # order by start_hour asc and length_in_hours desc
     records.sort_by! { |r| '%02d-%02d' % [ r.start_hour, 24 - r.length_in_hours] }
     [].tap do |stacked|
       records.each do |current|
