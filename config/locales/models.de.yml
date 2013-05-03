@@ -5,21 +5,6 @@ de:
         one: "Benutzer"
         other: "%{count} Benutzer"
     attributes:
-      user:
-        email: "E-Mail"
-        first_name: Vorname
-        last_name: Nachname
-        organization_name: Organisationsname
-        account_name: Accountbezeichnung
-        name: "Name"
-        locale: "Sprache"
-        password: "Passwort"
-        password_confirmation: "Passwort bestätigen"
-        current_password: "Aktuelles Passwort"
-        full_name: "Voller Name"
-        mobile_number: "Mobilfunknummer"
-        remember_me: "angemeldet bleiben"
-        avatar: "Profilbild"
       plan:
         name: Name
         week: Woche

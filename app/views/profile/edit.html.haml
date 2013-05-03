@@ -1,0 +1,11 @@
+- title :settings
+
+= render layout: 'profile/with_menu' do
+  %h3= ta :advanced_settings
+
+  = simple_form_for current_user, url: profile_path do |f|
+    = f.error_notification
+    .inputs
+      = f.input :locale, collection: locales_for_select, include_blank: false
+    .actions
+      = f.responsive_submit_button :update

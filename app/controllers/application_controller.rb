@@ -29,6 +29,16 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  before_filter :set_locale
+  def set_locale
+    if user_signed_in?
+      if current_user.locale.present?
+        I18n.locale = current_user.locale.to_sym
+      end
+    end
+    true
+  end
+
   helper_method :nested_resources_for
   # returns an array to be used in link_to and other helpers containing the full-defined nesting for the given resource
   def nested_resources_for(resource, *extra)

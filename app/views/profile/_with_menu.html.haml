@@ -5,7 +5,7 @@
         = li_link :profile, profile_employees_path
       - else
         = li_link :profile, edit_profile_employee_path(current_user.employees.first)
-      = li_link :settings, edit_profile_path
+      = li_link :advanced_settings, edit_profile_path
       = li_link :change_email, change_email_path
       = li_link :change_password, change_password_path
   .primary.content-form

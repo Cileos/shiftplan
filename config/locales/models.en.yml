@@ -5,21 +5,6 @@ en:
         one: "User"
         other: "%{count} users"
     attributes:
-      user:
-        email: "E-mail"
-        first_name: Name
-        last_name: Surname
-        organization_name: Unit name
-        account_name: Company name
-        name: "Name"
-        locale: "Language"
-        password: "Password"
-        password_confirmation: "Confirm password"
-        current_password: "Current password"
-        full_name: "Full name"
-        mobile_number: "Mobile number"
-        remember_me: "Remember me"
-        avatar: "Photo"
       plan:
         name: Name
         week: Week
