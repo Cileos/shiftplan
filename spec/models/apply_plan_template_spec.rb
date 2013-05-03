@@ -24,7 +24,7 @@ describe ApplyPlanTemplate do
       end
     end
     let(:schedulings_for_year_and_week) do
-      plan.schedulings.in_cwyear(2012).in_week(49)
+      plan.filter(cwyear: 2012, week: 49).unsorted_records # just a relation
     end
     let(:schedulings_for_year_and_month) do
       schedulings_for_year_and_week.select do |s|

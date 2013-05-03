@@ -72,6 +72,20 @@ describe Scheduling do
     end
   end
 
+  context  'from 0 to 0' do
+    let(:the_date)       { '1988-05-05' }
+    let(:scheduling) { build_without_dates(date: the_date, start_hour: 0, end_hour: 0)}
+
+    it 'is valid' do
+      scheduling.should be_valid
+    end
+
+    it 'is 24 hour long' do
+      scheduling.valid?
+      scheduling.length_in_hours.should == 24
+    end
+  end
+
   context "normal time range" do
     # must define "today" here to travel before building anything
     before(:each) { Timecop.travel Time.parse('1988-02-03 23:42') }

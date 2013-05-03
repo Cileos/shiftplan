@@ -5,6 +5,10 @@ describe SchedulingFilterEmployeesInWeekDecorator do
   let(:filter)    { Scheduling.filter }
   let(:decorator) { described_class.new(filter) }
 
+  before(:each) do
+    filter.stub date: Time.zone.now
+  end
+
   it "sorts schedulings by start hour" do
     employee = create :employee
     schedulings = [
