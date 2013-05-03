@@ -9,7 +9,7 @@ Feature: create a scheduling
       And I inject style "position:relative" into "header"
 
   @javascript
-  Scenario: thorugh the button on the top
+  Scenario: through the button on the top
      When I follow "Neue Terminierung"
      Then I should see "9-17 wichtige Arbeit [wA]" within a hint
       And I select "Homer S" from "Mitarbeiter"
@@ -33,6 +33,34 @@ Feature: create a scheduling
       And I press arrow down in the "Quickie" field
       And I press return in the "Quickie" field
      Then the "Quickie" field should contain "9-17"
+
+  @javascript
+  Scenario: through the button on the top with repeating for checked days
+     When I follow "Neue Terminierung"
+      And I select "Homer S" from "Mitarbeiter"
+     Then the "Mittwoch" checkbox should not be checked
+      And the "Donnerstag" checkbox should not be checked
+     When I select "Mittwoch" from "Wochentag"
+     Then the "Mittwoch" checkbox should be checked
+     When I check "Donnerstag"
+      And I fill in "Quickie" with "9-17"
+      And I press "Anlegen"
+     Then I should see the following partial calendar:
+        | Mitarbeiter | Mo | Di | Mi          | Do          | Fr | Sa | So |
+        | Carl C      |    |    |             |             |    |    |    |
+        | Lenny L     |    |    |             |             |    |    |    |
+        | Homer S     |    |    | 09:00-17:00 | 09:00-17:00 |    |    |    |
+     # TODO: editing
+     # When I click on cell "Mi"/"Homer S"
+     # Then the "Mittwoch" checkbox should be checked
+     #  And the "Donnerstag" checkbox should not be checked
+     # When I check "Freitag"
+     #  And I press "Speichern"
+     # Then I should see the following partial calendar:
+     #    | Mitarbeiter | Mo | Di | Mi          | Do          | Fr          | Sa | So |
+     #    | Carl C      |    |    |             |             |             |    |    |
+     #    | Lenny L     |    |    |             |             |             |    |    |
+     #    | Homer S     |    |    | 09:00-17:00 | 09:00-17:00 | 09:00-17:00 |    |    |
 
   @javascript
   Scenario: Entering the time span wrong

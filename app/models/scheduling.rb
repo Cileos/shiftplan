@@ -12,6 +12,7 @@ class Scheduling < ActiveRecord::Base
   delegate :organization, to: :plan
 
   before_validation :parse_quickie_and_fill_in
+  after_save :create_repetitions, if: :repeat_days?
 
   validates_presence_of :plan
   validates_presence_of :quickie
@@ -19,7 +20,9 @@ class Scheduling < ActiveRecord::Base
   validates :starts_at, :ends_at, within_plan_period: true
   validates_with NextDayWithinPlanPeriodValidator
 
-  attr_writer :year
+  attr_writer :year, :repetitions
+  attr_accessor :repeat_days
+
   include TimeRangeWeekBasedAccessible
   include TimeRangeComponentsAccessible
 
@@ -149,6 +152,34 @@ class Scheduling < ActiveRecord::Base
 
   def to_s
     %Q~<Scheduling #{date} #{to_quickie}>~
+  end
+
+  def normalized_repeat_days
+    repeat_days.reject { |d| d.blank? || date.to_s == d }
+  end
+
+  def repeat_days?
+    repeat_days.present?
+  end
+
+  def non_repeatable_attributes
+    ['starts_at', 'ends_at', 'created_at', 'updated_at', 'next_day_id']
+  end
+
+  def repetitions
+    @repetitions || []
+  end
+
+  def create_repetitions
+    schedulings = []
+    normalized_repeat_days.each do |repeat_day|
+      s = Scheduling.new(attributes.except(*non_repeatable_attributes))
+      s.date = repeat_day
+      s.quickie = quickie
+      s.save!
+      schedulings << s
+    end
+    self.repetitions = schedulings
   end
 
   private

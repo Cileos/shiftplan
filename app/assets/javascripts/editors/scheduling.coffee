@@ -14,6 +14,8 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     for field in ['start_hour', 'end_hour', 'team_id']
       @input(field).on 'change', => @fieldChanged()
 
+    @input('date').on 'change', => @dateFieldChanged()
+
   input: (name) ->
     @get('element').find(":input[name=\"scheduling[#{name}]\"]")
 
@@ -27,6 +29,11 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       # Entering '9-17' should not change the selected team
       if parsed.space_before_team? and parsed.space_before_team.length > 0
         @setTeamByName(parsed.team_name)
+
+  dateFieldChanged: ->
+    selected_date = $(event.target).find('option:selected').val()
+    repeat_day_selector = "input#scheduling_repeat_days_" + selected_date
+    $(repeat_day_selector).attr('checked', true)
 
   # sync fields => Quickie
   fieldChanged: ->

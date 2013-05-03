@@ -41,6 +41,9 @@ module ResponderDecoratorHelper
     if resource.next_day
       update_cell_for(resource.next_day)
     end
+    resource.repetitions.each do |r|
+      update_cell_for(r)
+    end
   end
 
   def respond_specially(resource=nil)
