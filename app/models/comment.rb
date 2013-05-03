@@ -13,7 +13,8 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, polymorphic: true
   belongs_to :employee
 
-  after_commit :create_notifications, on: :create
+  after_save :create_notifications, on: :create
+  before_destroy :destroy_notifications
 
   # builds a comment by passing a commentable object, a user_id, and comment
   # text.
@@ -47,6 +48,10 @@ class Comment < ActiveRecord::Base
 
   def create_notifications
     Notification.create_for(self)
+  end
+
+  def destroy_notifications
+    Notification.destroy_for(self)
   end
 end
 

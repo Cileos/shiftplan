@@ -8,13 +8,14 @@ class Post < ActiveRecord::Base
   validates_presence_of :title, :blog, :body, :author, :published_at
 
   before_validation :set_published_at, on: :create
-  after_commit :create_notifications, on: :create
+  after_save :create_notifications, on: :create
+  before_destroy :destroy_notifications
 
   delegate :organization, to: :blog
   delegate :account, to: :organization
 
   def commenters
-    comments.map &:employee
+    comments.map(&:employee)
   end
 
   def self.recent(num=5)
@@ -30,6 +31,10 @@ class Post < ActiveRecord::Base
 
   def create_notifications
     Notification.create_for(self)
+  end
+
+  def destroy_notifications
+    Notification.destroy_for(self)
   end
 end
 
