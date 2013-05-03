@@ -35,4 +35,4 @@
 - if can? :create, Scheduling
   = link_to ta(:new_scheduling),
     new_account_organization_plan_scheduling_path(current_organization.account, current_organization, filter.plan, scheduling: { date: filter.monday}),
-    class: 'button button-add', remote: true
+    class: 'button button-add', remote: true, id: 'new_scheduling_button'
