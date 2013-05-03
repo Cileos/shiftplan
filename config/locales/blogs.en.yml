@@ -8,9 +8,6 @@ en:
     new: "Write a new post"
     show:
       confirm_to_delete: "Do you want to remove '%{post}' with all the comments?"
-    headers:
-      new: "Create a new post"
-      edit: "Edit post"
     post_deleted: "The post was deleted in the meantime."
   activerecord:
     attributes:
@@ -23,7 +20,7 @@ en:
   post_notification_mailer:
     new_post:
       subjects:
-        post: "%{name} wrote a new post" 
+        post: "%{name} wrote a new post"
       introductory_texts:
         post: "%{name} wrote a new post on %{date} :"
     new_comment:

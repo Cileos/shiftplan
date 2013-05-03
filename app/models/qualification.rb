@@ -4,4 +4,8 @@ class Qualification < ActiveRecord::Base
 
   validates :name, :account, presence: true
   validates_uniqueness_of :name, scope: :account_id
+
+  def self.default_sorting
+    order(:name)
+  end
 end

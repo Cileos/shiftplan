@@ -1,6 +1,4 @@
-class InvitationsController < InheritedResources::Base
-  load_and_authorize_resource
-
+class InvitationsController < BaseController
   respond_to :html, :js
 
   before_filter :set_inviter, only: [:create, :update]

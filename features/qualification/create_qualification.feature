@@ -7,15 +7,17 @@ Feature: Create Qualifications
     Given the situation of a just registered user
 
 
+  @javascript
   Scenario: Create qualification
-     When I follow "Qualifikationen"
-     Then I should be on the qualifications page for the organization
-      And I should see "Es existieren noch keine Qualifikationen für diese Organisation."
+    Given I go to the qualifications page for the organization
+     Then I should see "Es existieren noch keine Qualifikationen für diese Organisation."
 
-     When I follow "Hinzufügen"
-     Then I should be on the new qualification page for the organization
-     When I fill in "Name" with "Brennstabpolierer"
+     When I inject style "position:relative" into "header"
+      And I follow "Hinzufügen"
+      And I wait for the modal box to appear
+      And I fill in "Name" with "Brennstabpolierer"
       And I press "Anlegen"
+      And I wait for the modal box to disappear
      Then a qualification should exist with account: the account
       And I should be on the qualifications page for the organization
       And I should see the following table of qualifications:

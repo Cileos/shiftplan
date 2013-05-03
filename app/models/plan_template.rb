@@ -15,4 +15,8 @@ class PlanTemplate < ActiveRecord::Base
       [I18n.t("plan_templates.template_types.#{tt}"), tt]
     end
   end
+
+  def self.default_sorting
+    order(:name)
+  end
 end

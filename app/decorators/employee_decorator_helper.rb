@@ -14,7 +14,7 @@ module EmployeeDecoratorHelper
 
   def employees_table
     h.render('employees/table',
-      employees: h.current_organization.employees.default_sorting)
+      records: h.current_organization.employees.default_sorting)
   end
 
   def respond

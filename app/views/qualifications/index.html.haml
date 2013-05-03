@@ -4,14 +4,15 @@
   - if can? :create, Qualification
     = link_to ti(:add),
       [:new, current_account, current_organization, :qualification],
-      class: 'button', data: { icon: i(:add) }
+      remote: true, class: 'button', data: { icon: i(:add) }
 
 .row.two-columns.inverted
   .primary
-    - unless collection.empty?
-      = render 'table', qualifications: collection
-    - else
-      %p= t(:'qualifications.no_qualifications_present')
+    #qualifications
+      - unless collection.empty?
+        = render 'table', records: collection
+      - else
+        %p= t(:'qualifications.no_qualifications_present')
 
   .secondary.instructions
     - if can? :create, Qualification

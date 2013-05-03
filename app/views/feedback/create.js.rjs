@@ -1,3 +1,0 @@
-page.decorate @feedback do |feedback|
-  feedback.respond
-end

@@ -1,6 +1,4 @@
-class EmployeesController < InheritedResources::Base
-  load_and_authorize_resource
-
+class EmployeesController < BaseController
   respond_to :html, :js, :json
 
   before_filter :set_adoptable_employees, only: [:search, :adopt]
@@ -32,10 +30,6 @@ class EmployeesController < InheritedResources::Base
   # TODO more than one organization per planner
   def begin_of_association_chain
     current_organization
-  end
-
-  def end_of_association_chain
-    super.default_sorting
   end
 
   def resource_params

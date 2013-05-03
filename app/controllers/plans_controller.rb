@@ -1,6 +1,4 @@
-class PlansController < InheritedResources::Base
-  load_and_authorize_resource
-
+class PlansController < BaseController
   respond_to :html, :js
 
   def create
