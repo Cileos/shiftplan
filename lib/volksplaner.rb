@@ -1,8 +1,11 @@
+# encoding: utf-8
 module Volksplaner
   autoload :Currents, 'volksplaner/currents'
   autoload :Responder, 'volksplaner/responder'
   autoload :FormButtons, 'volksplaner/form_buttons'
   autoload :PlanRedirector, 'volksplaner/plan_redirector'
+
+  HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .-]*\z/
 
   def self.staging?
     @staging = `hostname` =~ /plock/
