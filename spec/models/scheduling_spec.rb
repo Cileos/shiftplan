@@ -438,9 +438,11 @@ describe Scheduling do
     #   answer
     #     superanswer
     # comment
-    it "should be destroyable" do
+    it "destroys all comments when destroyed" do
       s = Scheduling.find scheduling.id
-      expect { s.destroy }.to_not raise_error(ActiveRecord::RecordNotFound)
+      expect do
+        s.destroy
+      end.to change { Comment.count }.from(5).to(0)
     end
   end
 
