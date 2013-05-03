@@ -58,6 +58,7 @@ class Comment < ActiveRecord::Base
 
   # updates counter cache of associated model if it has a column for it
   def update_counter(delta=0)
+    return if commentable_type.blank? # may create Comment without a commentable
     klass = commentable_type.constantize
     counter_name = "comments_count"
     if klass.column_names.include?(counter_name)
