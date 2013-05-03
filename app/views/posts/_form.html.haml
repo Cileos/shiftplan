@@ -1,5 +1,5 @@
-- @post.author = current_user.current_employee
-= simple_form_for([current_account, @organization, @blog, @post], remote: true) do |f|
+- post.author = current_user.current_employee
+= simple_form_for(nested_resources_for(post), remote: true) do |f|
   = f.error_notification
 
   .inputs

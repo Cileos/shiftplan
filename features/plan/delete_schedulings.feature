@@ -4,33 +4,27 @@ Feature: Delete schedulings from plan
   I want to delete a single scheduling
 
   Background:
-    # week 49
-    Given today is 2012-12-18
-      And the situation of a nuclear reactor
+    Given the situation of a nuclear reactor
       And the employee "Lenny" was scheduled in the plan as following:
         | date       | quickie |
         | 2012-12-20 | 7-17    |
         | 2012-12-21 | 2-4     |
         | 2012-12-21 | 5-23    |
-      And I am on the page for the plan
+      # week 51
+      And I am on the employees in week page for the plan for week: 51, cwyear: 2012
 
-      And I should see the following calendar:
-        | Mitarbeiter  | Do           | Fr                       |
-        | Carl C       |              |                          |
-        | Lenny L      | 07:00-17:00  | 02:00-04:00 05:00-23:00  |
-        | Homer S      |              |                          |
+      And I should see "07:00-17:00" within the calendar
+      And I should see "02:00-04:00" within the calendar
+      And I should see "05:00-23:00" within the calendar
       And the employee "Lenny L" should have a grey hours/waz value of "30"
 
   @javascript
   Scenario: Delete a single scheduling
-    Given I click on scheduling "5:00-23:00"
+     When I click on scheduling "5:00-23:00"
       And I wait for the modal box to appear
-     Then the "Quickie" field should contain "5-23"
-     When I follow "Löschen" within the modal box
+      And I follow "Löschen" within the modal box
       And I wait for the modal box to disappear
-     Then I should see the following calendar:
-        | Mitarbeiter  | Do           | Fr           |
-        | Carl C       |              |              |
-        | Lenny L      | 07:00-17:00  | 02:00-04:00  |
-        | Homer S      |              |              |
+     Then I should see "07:00-17:00" within the calendar
+      And I should see "02:00-04:00" within the calendar
+      But I should not see "05:00-23:00" within the calendar
       And the employee "Lenny L" should have a grey hours/waz value of "12"

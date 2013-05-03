@@ -13,6 +13,7 @@ de:
         avatar: Mitarbeiterfoto
         organization: Organisation
         role: Rolle
+        role_with_protection: Rolle
         force_create_duplicate: "Trotzdem anlegen?"
         force_update_duplicate: "Trotzdem speichern?"
         duplicates: 'Duplikate'

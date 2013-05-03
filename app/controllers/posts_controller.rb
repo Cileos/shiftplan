@@ -1,5 +1,4 @@
-class PostsController < InheritedResources::Base
-  load_and_authorize_resource
+class PostsController < BaseController
   nested_belongs_to :organization, :blog
 
   before_filter :check_if_post_was_deleted, only: :show

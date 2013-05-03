@@ -1,6 +1,5 @@
-class FeedbackController < InheritedResources::Base
+class FeedbackController < BaseController
   skip_before_filter :authenticate_user!
-  load_and_authorize_resource
 
   respond_to :js
 

@@ -38,6 +38,10 @@ class Notification::Base < ActiveRecord::Base
     order('updated_at DESC').limit(num)
   end
 
+  def self.by_notifiable(notifiable)
+    where(notifiable_id: notifiable.id).where(notifiable_type: notifiable.class.name)
+  end
+
   protected
 
   def deliver!

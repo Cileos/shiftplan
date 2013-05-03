@@ -1,3 +1,0 @@
-page.decorate @post do |post|
-  post.respond
-end

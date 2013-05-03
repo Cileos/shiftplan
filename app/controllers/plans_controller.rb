@@ -1,11 +1,9 @@
-class PlansController < InheritedResources::Base
-  load_and_authorize_resource
-
+class PlansController < BaseController
   respond_to :html, :js
 
   def create
     create! do |success, failure|
-      success.html { redirect_to_current_week }
+      success.html { redirect_to_valid_week }
     end
   end
 
@@ -16,7 +14,7 @@ class PlansController < InheritedResources::Base
   end
 
   def show
-    redirect_to_current_week
+    redirect_to_valid_week
   end
 
   private
@@ -30,11 +28,7 @@ class PlansController < InheritedResources::Base
     end_of_association_chain.order(:name)
   end
 
-  def redirect_to_current_week
-    redirect_to current_week_path
-  end
-
-  def current_week_path
-    account_organization_plan_employees_in_week_path(current_account, current_organization, resource, Date.today.cwyear, Date.today.cweek)
+  def redirect_to_valid_week
+    VP::PlanRedirector.new(self, resource).redirect
   end
 end

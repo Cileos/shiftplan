@@ -7,13 +7,12 @@
           = link_to current_organization.name, nested_resources_for(current_organization),
             class: 'organization', data: { toggle: 'dropdown' }
           %ul.organization-dropdown
-            - (organizations - [current_organization]).each do |org|
-              %li= link_to org.name_with_account, nested_resources_for(org)
+            = render('organizations/menu_items',
+              organizations: organizations - [current_organization])
         - else
           %a{href: '#', 'data-toggle' => 'dropdown'}= Organization.model_name.human count: 9001
           %ul.organization-dropdown
-            - organizations.each do |org|
-              %li= link_to org.name_with_account, nested_resources_for(org)
+            = render('organizations/menu_items', organizations: organizations)
       - if current_organization
         = render 'organizations/navigation_links', organization: current_organization
   - else

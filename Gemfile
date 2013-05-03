@@ -59,6 +59,7 @@ group :test do
   # we send our notifications in after_commit hook, but this normally is not
   # fired in an rSpec test suite with transactionial fixtures
   gem 'test_after_commit'
+  gem 'rspec-html-matchers'
 end
 
 group :development, :test do

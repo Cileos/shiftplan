@@ -34,6 +34,10 @@ class Plan < ActiveRecord::Base
     CopyWeek.new attrs.merge(plan: self)
   end
 
+  def self.default_sorting
+    order(:name)
+  end
+
   # Valid hour range for Schedulings of this plan
   # TODO: un-hardcode to customize "the workday"
   def start_hour
@@ -46,8 +50,19 @@ class Plan < ActiveRecord::Base
     (start_hour .. end_hour)
   end
 
+  def has_period?
+    starts_at.present? || ends_at.present?
+  end
+
+  def period
+    Plan::Period.new(starts_at, ends_at)
+  end
   def build_apply_plan_template(attrs={})
     ApplyPlanTemplate.new attrs.merge(plan: self)
+  end
+
+  def filter(criteria={})
+    SchedulingFilter.new(criteria.merge(plan: self))
   end
 end
 

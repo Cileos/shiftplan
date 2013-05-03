@@ -7,10 +7,10 @@
         %th= t('action')
 
   %tbody
-    - plan_templates.each do |plan_template|
+    - records.each do |record|
       %tr
-        %td= link_to plan_template.name, nested_resources_for(plan_template) + [:teams_in_week]
-        %td= t("plan_templates.template_types.#{plan_template.template_type}")
-        - if can? :edit, PlanTemplate
-          %td= link_to :edit, [:edit] +  nested_resources_for(plan_template),
-            class: 'button button-small'
+        %td= link_to record.name, nested_resources_for(record) + [:teams_in_week]
+        %td= t("plan_templates.template_types.#{record.template_type}")
+        - if can? :edit, record
+          %td= link_to :edit, [:edit] +  nested_resources_for(record),
+            remote: true, class: 'button button-small'

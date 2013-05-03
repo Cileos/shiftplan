@@ -1,9 +1,8 @@
-class TasksController < InheritedResources::Base
+class TasksController < BaseController
   before_filter :inject_milestone_id_into_params
   belongs_to :organization, :plan
-  
+
   belongs_to :milestone, optional: true
-  load_and_authorize_resource
   respond_to :json
 
   private

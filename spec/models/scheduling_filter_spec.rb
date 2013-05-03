@@ -76,69 +76,78 @@ describe SchedulingFilter do
   end
 
   describe "for a week and year" do
-    let(:filter) { SchedulingFilter.new week: 52, cwyear: 2012 }
+    let(:filter) { SchedulingFilter.new week: 15, cwyear: 2013 }
 
     it "should know the monday" do
-      filter.monday.should == Date.new(2012, 12, 24) # third day of lofwyr
+      filter.monday.should == Date.new(2013, 4, 8)
     end
 
-    it "should calculate the nth day of the plan" do
+    it "calculates the nth day of the plan" do
       filter.day_at(1).should be_a(Date)
-      filter.day_at(1).should == Time.zone.parse("2012-12-24").to_date
-      filter.day_at(3).should == Time.zone.parse("2012-12-26").to_date
-      filter.day_at(7).should == Time.zone.parse("2012-12-30").to_date
-      filter.day_at(8).should == Time.zone.parse("2012-12-31").to_date
+      filter.day_at(1).should == Time.zone.parse("2013-04-08").to_date
+      filter.day_at(3).should == Time.zone.parse("2013-04-10").to_date
+      filter.day_at(7).should == Time.zone.parse("2013-04-14").to_date
+      filter.day_at(8).should == Time.zone.parse("2013-04-15").to_date
     end
 
-    it "should depend on duration_in_days" do
+    it "depends on duration_in_days" do
       filter.should_receive(:duration_in_days).and_return(6)
 
       days = filter.days
       days.should have(6).items
-      days.map(&:day).should == (24..29).to_a
+      days.map(&:day).should == (8..13).to_a
     end
 
-    it "should durate exactly a week" do
+    it "lasts exactly a week" do
       filter.duration_in_days.should == 7
     end
 
-    context "scheduled a lot" do
+    context "scheduled" do
       let(:plan)   { create :plan }
-      let(:filter) { SchedulingFilter.new week: 52, cwyear: 2012, plan: plan }
+      let(:filter) { SchedulingFilter.new week: 15, cwyear: 2013, plan: plan }
       let(:me)     { create :employee }
       let(:you)    { create :employee }
-      before :each do
-        @waiting = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 1, employee: you
-        @opening = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 2, employee: you
-        @eating1 = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: you
-        @eating2 = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: me
+
+      def schedule(attrs={})
+        create(:manual_scheduling, attrs.reverse_merge(plan: plan, year: 2013, week: 15, cwday: 1))
       end
 
       context "records" do
-        let(:r) { filter.records }
+        subject { filter.records }
 
-        it "should include all records in that week for that plan" do
-          r.should include(@waiting)
-          r.should include(@opening)
-          r.should include(@eating1)
-          r.should include(@eating2)
+        it "includes all records in that week for that plan" do
+          waiting = schedule cwday: 1, employee: you
+          opening = schedule cwday: 2, employee: you
+          eating1 = schedule cwday: 3, employee: you
+          eating2 = schedule cwday: 3, employee: me
+
+          should include(waiting)
+          should include(opening)
+          should include(eating1)
+          should include(eating2)
         end
 
-        it "should not include records in another week" do
-          drinking = create :manual_scheduling, plan: plan, year: 2012, week: 53, cwday: 2
-          r.should_not include(drinking)
+        it "does not include records in another week" do
+          drinking = schedule week: 16, cwday: 2
+          should_not include(drinking)
         end
 
-        it "should not include records from another plan" do
-          snowing = create :manual_scheduling, year: 2012, week: 52, cwday: 2
-          r.should_not include(snowing)
+        it "does not include records from another plan" do
+          snowing = schedule plan: create(:plan)
+          should_not include(snowing)
         end
 
+        it "includes records starting monday at midnight" do
+          early = schedule cwday: 1, quickie: '0-1'
+          should include(early)
+        end
 
+        it "does not include records starting next monday at midnight" do
+          early_next = schedule week: 16, cwday: 1, quickie: '0-1'
+          should_not include(early_next)
+        end
       end
-
     end
-
   end
 
   describe "for exactly one day" do
@@ -159,34 +168,115 @@ describe SchedulingFilter do
 
   end
 
-  describe "plan period" do
-    let(:filter) { SchedulingFilter.new cwyear: 2012, week: 26, plan: plan }
+  it "adds 'outside_plan_period' class to cells out of plan period"
 
-    context "for plan without start date" do
-      let(:plan) { create :plan, starts_at: nil }
-      it { filter.should_not be_before_start_of_plan }
+  context "scheduling" do
+    context "ranging over midnight and turn of the year" do
+      # 2012-01-01: sunday
+      # 2012-01-02: monday
+      let(:plan) { create :plan, starts_at: '2012-01-01', ends_at: '2012-01-02' }
+      let!(:scheduling) { create :manual_scheduling, year: 2011, week: 52, cwday: 7, quickie: '22-6', plan: plan }
+
+      it "appears on evening of first day" do
+        described_class.new(week: 52, cwyear: 2011).should have(1).records
+      end
+
+      it "appears on morning of second day" do
+        described_class.new(week: 1, cwyear: 2012).should have(1).records
+      end
     end
-    context "for plan without end date" do
-      let(:plan) { create :plan, ends_at: nil }
+  end
+
+  context "plan period" do
+
+    context "over turn of the year" do
+      let(:plan) { build :plan, starts_at: '2012-01-01', ends_at: '2012-01-02' }
+      let(:filter) { described_class.new(cwyear: 2012, week: 1, plan: plan) }
+
+      # Hardest corner case: must converts times to dates before comparing
+      it { filter.should_not be_before_start_of_plan }
       it { filter.should_not be_after_end_of_plan }
     end
 
-    context "for plan with start date before filter" do
-      let(:plan) { create :plan, starts_at: '2012-01-01' }
-      it { filter.should_not be_before_start_of_plan }
-    end
-    context "for plan with start date after filter" do
-      let(:plan) { create :plan, starts_at: '2012-12-21' }
-      it { filter.should be_before_start_of_plan }
-    end
+  end
 
-    context "for plan with end date after filter" do
-      let(:plan) { create :plan, ends_at: '2012-12-21' }
-      it { filter.should_not be_after_end_of_plan }
+  describe '#starts_at' do
+    let(:starts_at) { filter.starts_at }
+
+    context "for week" do
+
+      context 'in winter' do
+        let(:filter) { described_class.new cwyear: 2012, week: 51 }
+
+        it 'is at midnight' do
+          starts_at.hour.should == 0
+        end
+
+        it 'has zone CET' do
+          starts_at.zone.should == 'CET'
+        end
+      end
+
+      context 'in summer' do
+        let(:filter) { described_class.new cwyear: 2013, week: 18 }
+
+        it 'is at midnight' do
+          starts_at.hour.should == 0
+        end
+
+        it 'has zone CEST' do
+          starts_at.zone.should == 'CEST'
+        end
+      end
+
     end
-    context "for plan with end date before filter" do
-      let(:plan) { create :plan, ends_at: '2012-01-01' }
-      it { filter.should be_after_end_of_plan }
+  end
+
+  describe '#ends_at' do
+    let(:ends_at) { filter.ends_at }
+
+    context "for week" do
+
+      context 'in winter' do
+        let(:filter) { described_class.new cwyear: 2012, week: 51 }
+
+        it 'is on last day' do
+          ends_at.year.should == 2012
+          ends_at.month.should == 12
+          ends_at.day.should == 23
+        end
+
+        it 'is one second to midnight' do
+          ends_at.hour.should == 23
+          ends_at.min.should == 59
+          ends_at.sec.should == 59
+        end
+
+        it 'has zone CET' do
+          ends_at.zone.should == 'CET'
+        end
+      end
+
+      context 'in summer' do
+        let(:filter) { described_class.new cwyear: 2013, week: 18 }
+
+        it 'is on last day' do
+          ends_at.year.should == 2013
+          ends_at.month.should == 5
+          ends_at.day.should == 5
+        end
+
+        it 'is one second to midnight' do
+          ends_at.hour.should == 23
+          ends_at.min.should == 59
+          ends_at.sec.should == 59
+        end
+
+        it 'has zone CEST' do
+          ends_at.zone.should == 'CEST'
+        end
+      end
+
     end
   end
 

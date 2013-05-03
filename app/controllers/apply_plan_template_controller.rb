@@ -1,5 +1,4 @@
-class ApplyPlanTemplateController < InheritedResources::Base
-  load_and_authorize_resource
+class ApplyPlanTemplateController < BaseController
   belongs_to :plan, :singleton => true
   respond_to :js
 

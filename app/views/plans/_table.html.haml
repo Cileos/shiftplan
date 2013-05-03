@@ -9,12 +9,15 @@
         %th= t('.action')
 
   %tbody
-    - plans.each do |plan|
-      %tr{ id: "plan_#{plan.id}" }
-        %th= link_to plan.name, [plan.organization.account, plan.organization, plan]
-        %td= truncate(plan.description, length: 60)
-        %td= plan.starts_at.present? ? I18n.localize(plan.starts_at.to_date, format: :default) : '-'
-        %td= plan.ends_at.present? ? I18n.localize(plan.ends_at.to_date, format: :default) : '-'
-        - if can?(:manage, plan)
-          %td= link_to(:edit, [:edit] + nested_resources_for(plan), remote: true,
-            class: 'button button-small', title: ta(:edit)) + ' ' + destroy_link_for_plan(plan)
+    - records.each do |record|
+      %tr{ id: "record_#{record.id}" }
+        %th= link_to record.name, nested_resources_for(record)
+        %td= truncate(record.description, length: 60)
+        - starts_at = record.starts_at
+        %td= starts_at.present? ? l(starts_at.to_date, format: :default) : '-'
+        - ends_at = record.ends_at
+        %td= ends_at.present? ? l(ends_at.to_date, format: :default) : '-'
+        - if can?(:manage, record)
+          %td= link_to(:edit, [:edit] + nested_resources_for(record),
+            remote: true, class: 'button button-small',
+            title: ta(:edit)) + ' ' + destroy_link_for_plan(record)

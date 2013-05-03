@@ -7,7 +7,7 @@ class EmployeeDecorator < RecordDecorator
     when :avatar_and_name
       'span#avatar_and_name'
     when :employee_row
-      "tr#employee_#{resource.id}"
+      "tr#record_#{resource.id}"
     when :edit_employee_form
       'form.edit_employee'
     else

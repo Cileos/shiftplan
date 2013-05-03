@@ -1,4 +1,0 @@
-page.decorate @team_merge do |team_merge|
-  team_merge.append_modal body: render('form', team_merge: team_merge),
-    header: content_tag(:h3, ta(:'new_team_merge'))
-end

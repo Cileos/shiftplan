@@ -21,7 +21,7 @@ module HtmlSelectorsHelpers
 
     when /^the row for employee "([^"]*)"$/
       employee = Employee.find_by_first_name_and_last_name($1.split[0], $1.split[1])
-      "table#employees tr#employee_#{employee.id}"
+      "table#employees tr#record_#{employee.id}"
 
     when /^the ([a-zA-Z ]+) table$/
       "table##{$1.gsub(' ', '-')}"
@@ -46,6 +46,9 @@ module HtmlSelectorsHelpers
 
     when "the calendar caption"
       'header h2.calendar-caption'
+
+    when "the legend"
+      '#legend'
 
     when "the active teams legend"
       '#legend #active-teams'
@@ -94,9 +97,21 @@ module HtmlSelectorsHelpers
     when /^the #{capture_nth} item/
       "li#{Numerals[$1]}"
 
+    when /^a cell outside the plan period$/
+      'td.outside_plan_period'
+
+    when /^a cell inside the plan period$/
+      'td:not(.outside_plan_period)'
+
+    when %r~^(?:the )?table cell "([^"]+)"/"([^"]+)"$~
+      table = CalendarHelpers::Table.new(self)
+      column = table.column_index_for($1)
+      row    = table.row_index_for($2)
+      "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
+
     when %r~^(?:the )?cell "([^"]+)"/"([^"]+)"$~
-      column = column_index_for($1)
-      row    = row_index_for($2)
+      column = the_calendar.column_index_for($1)
+      row    = the_calendar.row_index_for($2)
       "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
 
     when 'a hint'
@@ -178,37 +193,15 @@ module HtmlSelectorsHelpers
 
   private
 
-  # 0-based index of column headed by given label
-  def column_index_for(column_label)
-    columns = page.all('thead tr th').map { |c| extract_text_from_cell c }
-    columns.should include(column_label)
-    columns.index(column_label)
+
+  # will be cleared after each Scenario
+  def the_calendar
+    @the_calendar ||= CalendarHelpers::Calendar.new(self)
   end
 
-  # 0-based index of row (in tbody) headed by given label
-  def row_index_for(row_label)
-    rows = page.all("tbody th").map { |c| extract_text_from_cell c }
-    # check if in hours in week view
-    if row_label =~ /\d{1,2}/ && rows.first =~ /^1\n(\d{1,2}\n){21}23$/m
-      row_label = rows.first
-    end
-    rows.should include(row_label)
-    rows.index(row_label)
-  end
-
-  SelectorsForTextExtraction = ['.day_name', '.employee_name', '.work_time', '.team_name',
-    'a.button.active', 'li.dropdown a.button', '.demand', '.qualification_name']
-
-  # Does only work when parsing HTML manually (with Nokogiri). Used mainly by
-  # the calendar steps to enhance performance.
-  def extract_text_from_cell(cell)
-    found = SelectorsForTextExtraction.select { |s| cell.all(s).count > 0 }
-    if found.present?
-      found.map { |f| cell.all(f).map(&:text).map(&:strip) }.flatten.join(' ')
-    else
-      cell.text.strip
-    end
-  end
 end
 
 World(HtmlSelectorsHelpers)
+After do
+  @the_calendar = nil
+end

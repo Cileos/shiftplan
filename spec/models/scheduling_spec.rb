@@ -27,19 +27,62 @@ describe Scheduling do
     it { scheduling.should have_at_least(1).errors_on(:quickie) }
   end
 
-  context "hour accessor" do
+  context "hour" do
     let(:scheduling) { Scheduling.new(date: Date.today) }
+
+    it "is part of TimeRangeComponentsAccessible" do
+      scheduling.should_receive(:compose_time_range_from_components)
+      scheduling.valid?
+    end
 
     context "for start" do
       it "accepts normal numbers" do
         scheduling.start_hour = 8
+        scheduling.valid?
         scheduling.start_hour.should == 8
       end
 
-      it "accepts zero as startof day" do
+      it "accepts zero as start of day" do
         scheduling.start_hour = 0
+        scheduling.valid?
         scheduling.start_hour.should == 0
       end
+    end
+
+    context "for end" do
+      it "accepts normal numbers" do
+        scheduling.end_hour = 17
+        scheduling.valid?
+        scheduling.end_hour.should == 17
+      end
+
+      it "accepts 0 as end of day" do
+        scheduling.end_hour = 0
+        scheduling.valid?
+        scheduling.end_hour.should == 24
+      end
+
+      it "accepts 24 as end of day" do
+        scheduling.end_hour = 24
+        scheduling.valid?
+        scheduling.end_hour.should == 24
+      end
+
+
+    end
+  end
+
+  context  'from 0 to 0' do
+    let(:the_date)       { '1988-05-05' }
+    let(:scheduling) { build_without_dates(date: the_date, start_hour: 0, end_hour: 0)}
+
+    it 'is valid' do
+      scheduling.should be_valid
+    end
+
+    it 'is 24 hour long' do
+      scheduling.valid?
+      scheduling.length_in_hours.should == 24
     end
   end
 
@@ -395,9 +438,11 @@ describe Scheduling do
     #   answer
     #     superanswer
     # comment
-    it "should be destroyable" do
+    it "destroys all comments when destroyed" do
       s = Scheduling.find scheduling.id
-      expect { s.destroy }.to_not raise_error(ActiveRecord::RecordNotFound)
+      expect do
+        s.destroy
+      end.to change { Comment.count }.from(5).to(0)
     end
   end
 
@@ -442,102 +487,6 @@ describe Scheduling do
     it "should not touch the original record iself" do
       undone
       record.team.should == new_team
-    end
-  end
-
-  context "for plan with start and end time set" do
-    let(:plan) { build :plan,
-                 starts_at: Time.zone.parse('2012-12-12'),
-                 ends_at:   Time.zone.parse('2012-12-13')
-                }
-
-    it "should be valid when start time and end time are within the plan period" do
-      build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-12 8:00'),  ends_at: Time.zone.parse('2012-12-12 17:00')).should be_valid
-    end
-
-    it "should be valid when start time and end time are within the plan period (almost until midnight)" do
-      build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-13 16:00'), ends_at: Time.zone.parse('2012-12-13 23:59')).should be_valid
-    end
-
-    it "should not be valid when the start time is smaller than the plan's start time" do
-      scheduling = build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-11 8:00'), ends_at: Time.zone.parse('2012-12-12 8:00'))
-      scheduling.should_not be_valid
-      scheduling.errors[:starts_at].should == ["ist kleiner als die Startzeit des Plans"]
-    end
-
-    it "should not be valid when start time is greater than the plan's end time" do
-      scheduling = build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-14 8:00'), ends_at: Time.zone.parse('2012-12-13 8:00'))
-      scheduling.should_not be_valid
-      scheduling.errors[:starts_at].should == ["ist größer als die Endzeit des Plans"]
-    end
-
-    it "should not be valid when the end time is smaller than the plan's start time" do
-      scheduling = build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-12 8:00'), ends_at: Time.zone.parse('2012-12-11 8:00'))
-      scheduling.should_not be_valid
-      scheduling.errors[:ends_at].should == ["ist kleiner als die Startzeit des Plans"]
-    end
-
-    it "should not be valid when end time is greater than the plan's end time" do
-      scheduling = build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-12 8:00'), ends_at: Time.zone.parse('2012-12-14 8:00'))
-      scheduling.should_not be_valid
-      scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
-    end
-  end
-
-  context "for plan with only start time set" do
-    let(:plan) { build :plan,
-                 starts_at: Time.zone.parse('2012-12-12'),
-                 ends_at:   nil
-                }
-
-    it "should be valid when start time and end time are >= the plan's start time" do
-      build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-12 8:00'), ends_at: Time.zone.parse('2012-12-13 8:00')).should be_valid
-    end
-
-    it "should not be valid when the start time is smaller than the plan's start time" do
-      scheduling = build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-11 8:00'), ends_at: Time.zone.parse('2012-12-12 8:00'))
-      scheduling.should_not be_valid
-      scheduling.errors[:starts_at].should == ["ist kleiner als die Startzeit des Plans"]
-    end
-
-    it "should not be valid when the end time is smaller than the plan's start time" do
-      scheduling = build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-12 8:00'), ends_at: Time.zone.parse('2012-12-11 8:00'))
-      scheduling.should_not be_valid
-      scheduling.errors[:ends_at].should == ["ist kleiner als die Startzeit des Plans"]
-    end
-  end
-
-  context "for plan with only end time set" do
-    let(:plan) { build :plan,
-                 starts_at:   nil,
-                 ends_at: Time.zone.parse('2012-12-12')
-                }
-
-    it "should be valid when start time and end time are <= the plan's end time" do
-      build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-11 8:00'), ends_at: Time.zone.parse('2012-12-12 8:00')).should be_valid
-    end
-
-    it "should not be valid when the start time is greater than the plan's end time" do
-      scheduling = build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-13 8:00'), ends_at: Time.zone.parse('2012-12-12 8:00'))
-      scheduling.should_not be_valid
-      scheduling.errors[:starts_at].should == ["ist größer als die Endzeit des Plans"]
-    end
-
-    it "should not be valid when the end time is greater than the plan's end time" do
-      scheduling = build(:scheduling, plan: plan, starts_at: Time.zone.parse('2012-12-12 8:00'), ends_at: Time.zone.parse('2012-12-13 8:00'))
-      scheduling.should_not be_valid
-      scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
-    end
-  end
-
-  context "for a plan with end time" do
-    let(:plan) { build :plan, ends_at: Time.zone.parse('2012-12-12') }
-
-    it "should not be valid if the next day is outside the plan period" do
-      scheduling = build_without_dates quickie: '22-6', date: '2012-12-12', plan: plan
-
-      scheduling.should_not be_valid
-      scheduling.errors[:base].should == ["Der nächste Tag endet nach der Endzeit des Plans."]
     end
   end
 

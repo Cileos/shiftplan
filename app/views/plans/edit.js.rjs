@@ -1,4 +1,0 @@
-page.decorate @plan do |plan|
-  plan.append_modal body: render('form', plan: plan),
-    header: content_tag(:h3, ta(:'edit_plan'))
-end

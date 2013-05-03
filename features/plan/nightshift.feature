@@ -7,7 +7,7 @@ Feature: Nightshift
   Scenario: create and edit a nightshift
     Given the situation of a nuclear reactor
      When I schedule "Homer S" on "Do" for "19-6 Daumen drehen"
-     Then I should see the following calendar:
+     Then I should see the following partial calendar:
         | Mitarbeiter  | Mo  | Di  | Mi  | Do              | Fr              | Sa  | So  |
         | Carl C       |     |     |     |                 |                 |     |     |
         | Lenny L      |     |     |     |                 |                 |     |     |
@@ -16,7 +16,7 @@ Feature: Nightshift
 
      When I click on the early scheduling "19:00-06:00"
       And I change the "Quickie" from "19-6 Daumen drehen [Dd]" to "20-5 Kresse halten" and select "Lenny L" as "Mitarbeiter"
-     Then I should see the following calendar:
+     Then I should see the following partial calendar:
         | Mitarbeiter  | Mo  | Di  | Mi  | Do              | Fr              | Sa  | So  |
         | Carl C       |     |     |     |                 |                 |     |     |
         | Lenny L      |     |     |     | 20:00-05:00 Kh  | 20:00-05:00 Kh  |     |     |
@@ -30,7 +30,7 @@ Feature: Nightshift
       And I press "Speichern"
       And I wait for the modal box to disappear
 
-     Then I should see the following calendar:
+     Then I should see the following partial calendar:
         | Mitarbeiter | Mo | Di | Mi             | Do             | Fr | Sa | So |
         | Carl C      |    |    |                |                |    |    |    |
         | Lenny L     |    |    | 20:00-05:00 Kh | 20:00-05:00 Kh |    |    |    |

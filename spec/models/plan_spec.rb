@@ -39,7 +39,17 @@ describe Plan do
         plan.should be_valid
       end
     end
+  end
 
+  context "start_time" do
+    it "must be smaller than the and time" do
+      plan = build :plan, starts_at: '2012-01-02', ends_at: '2012-01-01'
+      I18n.with_locale :de do
+        plan.should_not be_valid
+        plan.should have_at_least(1).error_on(:base)
+        plan.errors[:base].grep(/Startdatum muss kleiner oder gleich dem Enddatum/).should_not be_empty
+      end
+    end
   end
 
 end

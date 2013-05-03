@@ -1,0 +1,2 @@
+class PlanTemplateDecorator < TabularizedRecordDecorator
+end

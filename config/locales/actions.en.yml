@@ -1,6 +1,8 @@
 en:
   helpers:
     actions:
+      new_post: "Create a new post"
+      edit_post: "Edit post"
       edit_account: Edit account
       add_account: Add account
       profile: Profile
@@ -49,7 +51,8 @@ en:
       reinvite: Invite again
       send_invitation: "Send invitation"
       copy: "Copy"
-      copy_week: "Copy whole week"
+      new_copy_week: "Copy whole week"
+      new_apply_plan_template: "Apply a plan template"
       comment: Comment
       comments: Comments
       reply: "Reply"
@@ -74,4 +77,3 @@ en:
       employees_in_week: "Employees"
       teams_in_week: "Teams"
       hours_in_week: "Hours"
-

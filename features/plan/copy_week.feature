@@ -25,7 +25,7 @@ Feature: Plan a week
       And I should see a calendar titled "Cleaning the Reactor"
       And I should see "KW 50 / 2012" within active week
       And I should see "10.12." within weeks first date
-      And I should see the following calendar:
+      And I should see the following partial calendar:
         | Mitarbeiter  | Mo  | Di           | Mi           | Do           | Fr  |
         | Carl C       |     |              |              |              |     |
         | Lenny L      |     |              |              |              |     |

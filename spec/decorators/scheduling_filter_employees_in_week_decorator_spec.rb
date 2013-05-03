@@ -5,6 +5,10 @@ describe SchedulingFilterEmployeesInWeekDecorator do
   let(:filter)    { Scheduling.filter }
   let(:decorator) { described_class.new(filter) }
 
+  before(:each) do
+    filter.stub date: Time.zone.now
+  end
+
   it "sorts schedulings by start hour" do
     employee = create :employee
     schedulings = [
@@ -17,68 +21,97 @@ describe SchedulingFilterEmployeesInWeekDecorator do
     decorator.schedulings_for(day, employee).map(&:start_hour).should == [6,17,23]
   end
 
-  # for performance reasons, we do not want to search through all the available schedulings for each cell, so we index them
-  context "index" do
-    let(:bad_day) { mock('Date', iso8601: '2011-sometimes') }
+  context "cell metadata" do
+    let(:day) { stub 'Date', iso8601: 'in_iso8601' }
 
-    context "scheduled nothing" do
-      context "index accessor" do
-        it "should return empty array" do
-          decorator.indexed(bad_day, 42).should == []
-        end
-      end
+    it "sets employee-id and date" do
+      employee = stub 'Employee', id: 23
+      decorator.cell_metadata(day,employee).
+        should be_hash_matching(:'employee-id' => 23,
+                                :date => 'in_iso8601')
     end
 
-    context "scheduled a lot" do
-      let(:plan)   { create :plan }
-      let(:filter) { SchedulingFilter.new week: 52, year: 2012, plan: plan }
-      let(:me)     { create :employee }
-      let(:you)    { create :employee }
-      before :each do
-        @waiting = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 1, employee: you
-        @opening = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 2, employee: you
-        @eating1 = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: you
-        @eating2 = create :manual_scheduling, plan: plan, year: 2012, week: 52, cwday: 3, employee: me
-      end
-      let(:i) { decorator.index }
-
-      it "should index the records by their date" do
-        i.keys.should include(@waiting.iso8601)
-        i.keys.should include(@opening.iso8601)
-        i.keys.should include(@eating1.iso8601)
-        i.keys.should include(@eating2.iso8601)
-      end
-
-      it "should index by iso8601 and employee" do
-        i[@waiting.iso8601].keys.should have(1).record
-        i[@waiting.iso8601].keys.should include(@waiting.employee)
-        i[@waiting.iso8601][@waiting.employee].should == [@waiting]
-
-        i[@opening.iso8601][@opening.employee].should == [@opening]
-      end
-
-      it "should group to scheduling on the same day" do
-        i[@eating1.iso8601][@eating1.employee].should == [@eating1]
-        i[@eating1.iso8601][@eating2.employee].should == [@eating2]
-        #       ^^^ grouped on 
-      end
-
-      context "index accessor" do
-        it "find the records" do
-          decorator.indexed(@eating1.date, @eating1.employee).should == [@eating1]
-        end
-
-        it "does not break if nothing found" do
-          expect { decorator.indexed(bad_day, 42) }.not_to raise_error
-        end
-
-        it "returns empty array when nothing found" do
-          decorator.indexed(bad_day, 42).should == []
-        end
-      end
-
+    it "sets employee-id to 'missing' without emplyoee" do
+      decorator.cell_metadata(day,nil).
+        should be_hash_matching(:'employee-id' => 'missing',
+                                :date => 'in_iso8601')
     end
-
   end
+
+  context "hours for employee" do
+    let(:employee) { stub 'employee' }
+    it "sums up over schedulings of user, rounding after" do
+      records = [
+        stub(employee: employee, length_in_hours: 5.5),
+        stub(employee: employee, length_in_hours: 10.5),
+        stub(employee: nil, length_in_hours: 100)
+      ]
+      decorator.stub records: records
+      decorator.hours_for(employee).should == 16
+    end
+  end
+
+  context "wwt_diff" do
+    let(:employee) { stub 'employee' }
+    it "sets color by css class" do
+      employee.as_null_object
+      decorator.stub(:wwt_diff_label_class_for).with(employee).and_return('kunterbunt')
+
+      decorator.wwt_diff_for(employee).should have_tag('abbr.kunterbunt')
+    end
+    it "sets long and short label" do
+      employee.as_null_object
+      decorator.stub(:wwt_diff_label_text_for).with(employee).and_return('LONG')
+      decorator.stub(:wwt_diff_label_text_for).with(employee, short: true).and_return('SHORT')
+      decorator.wwt_diff_for(employee).should have_tag('abbr[title="LONG"] span', text: 'SHORT')
+    end
+
+    context 'color' do
+      let(:label_class) { decorator.wwt_diff_label_class_for(employee) }
+
+      it "is grey for employee without wwt" do
+        employee.stub weekly_working_time: nil
+        label_class.should == 'badge-normal'
+      end
+
+      it "is yellow for underscheduled employee" do
+        employee.stub weekly_working_time: 20
+        decorator.stub(:hours_for).with(employee).and_return(10)
+        label_class.should == 'badge-warning'
+      end
+
+      it "is green for exactly scheduled employee" do
+        employee.stub weekly_working_time: 20
+        decorator.stub(:hours_for).with(employee).and_return(20)
+        label_class.should == 'badge-success'
+      end
+
+      it "is read for overscheduled employee" do
+        employee.stub weekly_working_time: 20
+        decorator.stub(:hours_for).with(employee).and_return(30)
+        label_class.should == 'badge-important'
+      end
+    end
+
+    context 'label' do
+      let(:long_label) { decorator.wwt_diff_label_text_for(employee) }
+      let(:short_label) { decorator.wwt_diff_label_text_for(employee, short: true) }
+
+      it "shows hours only for employee without wwt" do
+        employee.stub weekly_working_time: nil
+        decorator.stub(:hours_for).with(employee).and_return(10)
+        short_label.should == '10'
+        long_label.should == '10'
+      end
+
+      it "shows difference for employee with wwt" do
+        employee.stub weekly_working_time: 20
+        decorator.stub(:hours_for).with(employee).and_return(10)
+        short_label.should == '10 / 20'
+        long_label.should == '10 of 20'
+      end
+    end
+  end
+
 end
 

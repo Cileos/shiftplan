@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe CopyWeek do
   let(:plan)          { create(:plan) }
   let(:another_plan)  { create(:plan, organization: plan.organization) }
@@ -7,11 +9,36 @@ describe CopyWeek do
   let(:target_year) { 2012 }
   let(:target_week) { 49 }
 
-  let(:target_schedulings) do
-    plan.schedulings.in_cwyear(target_year).in_week(target_week)
+  def source(attrs)
+    create(:scheduling, {year: source_year, week: source_week, plan: plan}.merge(attrs))
   end
+
+  #   November 2012
+  # Su Mo Tu We Th Fr Sa
+  #              1  2  3
+  #  4  5  6  7  8  9 10
+  # 11 12 13 14 15 16 17
+  # 18 19 20 21 22 23 24 <= 47
+  # 25 26 27 28 29 30
+  #
+  #   December 2012
+  # Su Mo Tu We Th Fr Sa
+  #                    1
+  #  2  3  4  5  6  7  8 <= 49
+
+  let(:copy) {
+    CopyWeek.new( plan: plan,
+      source_year: source_year, source_week: source_week,
+      target_year: target_year, target_week: target_week
+    )
+  }
+
+  let(:target_schedulings) do
+    plan.filter(cwyear: target_year, week: target_week).unsorted_records
+  end
+
   let(:source_schedulings) do
-    plan.schedulings.in_cwyear(source_year).in_week(source_week)
+    plan.filter(cwyear: source_year, week: source_week).unsorted_records
   end
 
   # For year 2012 and week 49, the monday is 03.12.2012.
@@ -33,43 +60,24 @@ describe CopyWeek do
     end
   end
 
-  before(:each) do
-    # both schedulings in week 47, year 2012
-    source_monday_scheduling = create(:scheduling, date: '2012-11-19', quickie: '8-16', plan: plan)
-    # saturday to sunday
-    source_overnight_scheduling = create(:scheduling, date: '2012-11-24', quickie: '22-6', plan: plan)
-
-    # schedulings of other plans should not be copied!
-    scheduling_for_another_plan = create(:scheduling, date: '2012-11-20', quickie: '12-18', plan: another_plan)
-
-    cw = CopyWeek.new(
-      plan:             plan,
-      source_year:      source_year,
-      source_week:      source_week,
-      target_year:      target_year,
-      target_week:      target_week
-    )
-    cw.save
+  it "copies schedulings on monday" do
+    source(cwday: 1, quickie: '8-16')
+    copy.save
+    target_monday_schedulings.should_not be_empty
   end
 
-  it "has 3 schedulings in the source year and week to copy" do
-    source_schedulings.count.should == 3
-  end
-
-  it "creates 3 schedulings in the target week and year" do
-    target_schedulings.count.should == 3
-  end
-
-  it "creates 1 scheduling on monday" do
-    target_monday_schedulings.count.should == 1
-  end
-  it "creates 1 scheduling on saturday" do
-    target_saturday_schedulings.count.should == 1
-  end
-  it "creates 1 scheduling on sunday" do
-    target_sunday_schedulings.count.should == 1
-  end
-  it "sets the next day for overnightables" do
+  it "copies nightshift schedulings on weekends" do
+    source(cwday: 6, quickie: '22-6')
+    copy.save
+    target_saturday_schedulings.should_not be_empty
+    target_sunday_schedulings.should_not be_empty
     target_saturday_schedulings.first.next_day.should == target_sunday_schedulings.first
   end
+
+  it "does not copy schedulings from other plans" do
+    source(cwday: 1, quickie: '12-18', plan: another_plan)
+    copy.save
+    target_schedulings.should be_empty
+  end
+
 end
