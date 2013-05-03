@@ -1,6 +1,18 @@
 Changelog
 =========
 
+Release 0.3.3 2013-05-03 11:40
+------------------------------
+* ed5372d Merge pull request #157 from Cileos/feature/bug-955228-delete-notifcatons-when-parent-is-destroyed
+* 5103d6a Merge branch 'feature/bug-920035-wrong-weektime-calculation' into develop
+* 59450d4 Merge pull request #160 from Cileos/feature/bug-915740-color-picker
+* 4e64c8f Merge pull request #152 from Cileos/feature/edit-and-create-in-modal-boxes
+* 922c913 Merge branch 'feature/add-without-team-and-without-employee-rows' into develop
+* aa71881 Merge pull request #153 from Cileos/feature/hide-new-account-link
+* ae4ee39 Merge pull request #154 from Cileos/feature/list-account-and-org-name-in-upcoming-scheduling
+* 74ed40a Merge pull request #156 from Cileos/feature/fix-locating-of-notification-subclasses
+* 167a5fd Merge branch 'hotfix/fix-wrong-summertime-conversion-for-time-columns' into develop
+
 Release 0.3.2 2013-03-14 10:30
 ------------------------------
 * b023605 Merge pull request #151 from Cileos/feature/keep-organization-scope-for-qualifications
