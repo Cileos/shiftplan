@@ -42,4 +42,6 @@ Clockwork::Application.configure do
 
   # All features and tests drive a German page, if not mentioned otherwise
   config.i18n.default_locale = :de
+
+  Develotest.setup(config)
 end

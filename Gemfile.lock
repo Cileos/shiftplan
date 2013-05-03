@@ -281,6 +281,7 @@ GEM
       activesupport (= 3.2.12)
       bundler (~> 1.0)
       railties (= 3.2.12)
+    rails-develotest (0.0.1)
     railties (3.2.12)
       actionpack (= 3.2.12)
       activesupport (= 3.2.12)
@@ -431,6 +432,7 @@ DEPENDENCIES
   pry
   quiet_assets
   rails (= 3.2.12)
+  rails-develotest
   rb-fsevent (~> 0.9.1)
   rb-inotify (~> 0.8.8)
   remotipart

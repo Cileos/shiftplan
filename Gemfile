@@ -60,6 +60,8 @@ group :test do
   # fired in an rSpec test suite with transactionial fixtures
   gem 'test_after_commit'
   gem 'rspec-html-matchers'
+
+  gem 'rails-develotest'
 end
 
 group :development, :test do
