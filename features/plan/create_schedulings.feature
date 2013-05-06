@@ -63,6 +63,24 @@ Feature: create a scheduling
      #    | Homer S     |    |    | 09:00-17:00 | 09:00-17:00 | 09:00-17:00 |    |    |
 
   @javascript
+  Scenario: through the button on the top with repeating for checked days for overnightable
+     When I follow "Neue Terminierung"
+      And I select "Homer S" from "Mitarbeiter"
+     Then the "Mittwoch" checkbox should not be checked
+      And the "Donnerstag" checkbox should not be checked
+     When I select "Mittwoch" from "Wochentag"
+     Then the "Mittwoch" checkbox should be checked
+     When I check "Donnerstag"
+     When I check "Samstag"
+      And I fill in "Quickie" with "22-6"
+      And I press "Anlegen"
+     Then I should see the following partial calendar:
+        | Mitarbeiter  | Mo  | Di  | Mi           | Do                       | Fr           | Sa           | So           |
+        | Carl C       |     |     |              |                          |              |              |              |
+        | Lenny L      |     |     |              |                          |              |              |              |
+        | Homer S      |     |     | 22:00-06:00  | 22:00-06:00 22:00-06:00  | 22:00-06:00  | 22:00-06:00  | 22:00-06:00  |
+
+  @javascript
   Scenario: Entering the time span wrong
      When I click on cell "Di"/"Carl C"
       And I wait for the new scheduling form to appear

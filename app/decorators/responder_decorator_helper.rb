@@ -42,7 +42,7 @@ module ResponderDecoratorHelper
       update_cell_for(resource.next_day)
     end
     resource.repetitions.each do |r|
-      update_cell_for(r)
+      respond_normally(r)
     end
   end
 
