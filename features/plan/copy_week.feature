@@ -15,8 +15,7 @@ Feature: Plan a week
       | 2012  | 49   | 3     | 11-12   |
       | 2012  | 49   | 4     | 12-13   |
       And I am on the employees in week page of the plan for week: 50, cwyear: 2012
-     When I inject style "position:relative" into "header"
-      And I choose "Übernahme aus der letzten Woche" from the drop down "Weitere Aktionen"
+     When I choose "Übernahme aus der letzten Woche" from the drop down "Weitere Aktionen"
       And I wait for the modal box to appear
       And I select "KW 49 03.12.2012" from "Von"
       And I press "Übernehmen"

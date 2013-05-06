@@ -36,8 +36,7 @@ Feature: Create Employees
 
   @javascript
   Scenario: Creating a planner
-    Given I inject style "position:relative" into "header"
-      And I follow "Hinzufügen"
+    Given I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |
         | Nachname          | Carlson |
@@ -49,7 +48,6 @@ Feature: Create Employees
        | Burns, Owner   |      | owner@burns.com  | Accountinhaber  | Aktiv                  |
        | Carlson, Carl  | 40   |                  | Planer          | Noch nicht eingeladen  |
 
-     When I inject style "position:relative" into "header"
      When I follow "Carlson, Carl" within the employees table
       And I wait for the modal box to appear
      Then the selected "Rolle" should be "Planer"
