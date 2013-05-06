@@ -12,8 +12,7 @@ Feature: Create Qualifications
     Given I go to the qualifications page for the organization
      Then I should see "Es existieren noch keine Qualifikationen für diese Organisation."
 
-     When I inject style "position:relative" into "header"
-      And I follow "Hinzufügen"
+     When I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Brennstabpolierer"
       And I press "Anlegen"
