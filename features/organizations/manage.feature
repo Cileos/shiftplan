@@ -25,9 +25,10 @@ Feature: create organizations
      Then I should see notice "Organisation 'Nuclear Cleanup Inc.' angelegt."
       And I should be on the page of the account "tepco"
       And I should see the following table of organizations:
-       | Name                  |
+       | Cileos UG             |
+       | Clockwork Programming |
+       | Tepco GmbH            |
        | Fukushima             |
-       | Nuclear Cleanup Inc.  |
        | Tschernobyl           |
 
   Scenario: Edit organization

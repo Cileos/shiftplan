@@ -10,5 +10,4 @@ Feature: Edit Account
       And I fill in "Accountbezeichnung" with "Tepco UG"
       And I press "Speichern"
      Then I should be on the page of the account
-      And I should see "Tepco UG" within the navigation
-
+      And I should see "Tepco UG - Fukushima" within the navigation

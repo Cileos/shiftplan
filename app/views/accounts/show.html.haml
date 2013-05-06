@@ -1,7 +1,7 @@
 - title Organization.model_name.human count: 9001
 
 .primary
-  %table#accounts-and-organizations
+  %table#organizations
     %tbody
       - current_user.accounts.order("UPPER(name)").each do |acc|
         %tr
