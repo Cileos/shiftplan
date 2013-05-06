@@ -1,25 +1,43 @@
 - title Organization.model_name.human count: 9001
 
-- if can? :manage, Organization.new(account: @account)
-  - masterhead_toolbar do
-    = link_to ta(:add_organization), new_account_organization_path(@account),
-      remote: true,
-      class: 'button button-add', title: ta(:add_organization)
-    - if can? :update, current_account
-      = link_to ta(:edit_account), edit_account_path(@account),
-        class: 'button button-edit', title: ta(:edit_account)
+.primary
+  %table#accounts-and-organizations
+    %tbody
+      - current_user.accounts.order(:name).each do |acc|
+        %tr
+          %th.heading= acc.name
+          %td
+            .actions
+              - can_org = can? :manage, Organization.new(account: acc)
+              - can_acc = can? :update, acc
+              - org_link = can_org ? link_to(ta(:add_organization), new_account_organization_path(acc),
+                              class: 'button button-add', title: ta(:add_organization), data: { remote: true }) : ''
+              - acc_link = can_acc ? link_to(ta(:edit_account), edit_account_path(acc),
+                              class: 'button button-edit', title: ta(:edit_account)) : ''
 
-.row.two-columns.inverted
-  .primary
-    #organizations
-      - organizations = current_user.organizations_for(@account)
-      - unless organizations.empty?
-        = render('organizations/table', records: organizations)
-      - else
-        %p= t(:'.no_organizations')
+              - if can_org && can_acc
+                .button-group
+                  = org_link
+                  = acc_link
+              - else
+                = org_link
+                = acc_link
 
-  .secondary.instructions
-    - if can? :create, Organization.new(account: @account)
-      = tt '.planner_instructions'
-    - else
-      = tt '.instructions'
+        - organizations = current_user.organizations_for(acc).order(:name)
+        - unless organizations.empty?
+          - organizations.each do |organization|
+            %tr
+              %th= link_to organization.name, nested_resources_for(organization)
+              %td
+                .actions
+                  - if can? :edit, organization
+                    = link_to :edit, [:edit] + nested_resources_for(organization),
+                      class: 'button button-small button-edit', data: { remote: true }
+        - else
+          %p= t(:'.no_organizations')
+
+-#.instructions
+-#  - if can? :create, Organization.new(account: @account)
+-#    = tt '.planner_instructions'
+-#  - else
+-#    = tt '.instructions'
