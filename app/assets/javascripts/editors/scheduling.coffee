@@ -32,7 +32,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
 
   dateFieldChanged: ->
     selected_date = $(event.target).find('option:selected').val()
-    repeat_day_selector = "input#scheduling_repeat_days_" + selected_date
+    repeat_day_selector = "input#scheduling_repeat_for_days_" + selected_date
     $(repeat_day_selector).attr('checked', true)
 
   # sync fields => Quickie

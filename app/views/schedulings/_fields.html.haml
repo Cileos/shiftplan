@@ -5,7 +5,7 @@
   = f.input :start_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
   = f.input :end_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
 
-  = f.collection_check_boxes :repeat_days, cwdays_for_select(scheduling), :last, :first
+  = f.collection_check_boxes :repeat_for_days, cwdays_for_select(scheduling), :last, :first
 
 
 = f.association :employee, as: :select, collection: employees_for_select(scheduling)
