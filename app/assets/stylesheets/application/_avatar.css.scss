@@ -1,10 +1,6 @@
 .avatar {
-  &.tiny {
-    max-height: 16px;
-    width: 16px;
-  }
   &.thumb {
-    border-radius: $ci_border-radius; 
+    border-radius: $ci_border-radius;
     max-height: 50px;
     width: 50px;
   }
@@ -12,15 +8,18 @@
 
 .avatar_and_name {
   margin-bottom: 1.5385em;
+
   label {
     display: block;
     margin-left: 0;
     margin-bottom: 0.25em;
   }
+
   .avatar {
     margin-right: 0.5em;
     vertical-align: middle;
   }
+
   .input {
     display: inline-block;
   }

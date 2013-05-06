@@ -1,0 +1,23 @@
+- if user_signed_in?
+  .where-and-who-am-i
+    .current-account-and-organization
+      - org = current_organization?
+      - if !org
+        = t('activerecord.models.account.one') + ': ' unless !current_account
+      - else
+        = t('activerecord.models.organization.one') + ': '
+      - if current_account
+        = current_account.name
+      - if org
+        = ' - '
+        = current_organization.name
+
+    .username
+      = t('logged_in_as')
+      - if current_employee.present?
+        = current_employee.name
+      - else
+        - if current_user.multiple?
+          = current_user.email
+        - else
+          = current_user.employees.first.try(:name) || current_user.email
