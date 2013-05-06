@@ -36,7 +36,10 @@ module HtmlSelectorsHelpers
       selector_for('the navigation') + " ul.#{$1}-dropdown"
 
     when 'the user navigation'
-      '.user-navigation'
+      '.user-navigation .dropdown'
+
+    when 'the orientation bar'
+      '.where-and-who-am-i'
 
     when 'the content'
       'section[role=content]'

@@ -11,7 +11,7 @@ Feature: As a logged in user
       And I am on my dashboard
 
   Scenario: Changing the email address
-    Given I choose "Einstellungen" from the drop down "Marge Bouvier"
+    Given I choose "Einstellungen" from the user navigation
      When I follow "E-Mail Adresse ändern"
      Then I should be on the change email page
      When I fill in "E-Mail" with "marge@thesimpsons.com"

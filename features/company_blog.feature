@@ -20,8 +20,7 @@ In order to keep my colleagues informed about important news
       And I am on the page for the organization
 
      Then I should see "Es wurden noch keine Blogposts erstellt."
-     When I follow "Neuigkeiten"
-      And I inject style "position:relative" into "header"
+     When I choose "Neuigkeiten" from the drop down "Info"
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
@@ -300,8 +299,7 @@ In order to keep my colleagues informed about important news
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
       And I inject style "position:relative" into "header"
-     When I follow "Neuigkeiten"
-      And I inject style "position:relative" into "header"
+     When I choose "Neuigkeiten" from the drop down "Info"
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Post 10"
@@ -348,7 +346,7 @@ In order to keep my colleagues informed about important news
       | Post 10 | the blog | the employee owner "mr. burns" |
       And I am signed in as the confirmed user "mr. burns"
       And I am on the page for the organization "fukushima"
-     When I follow "Neuigkeiten"
+     When I choose "Neuigkeiten" from the drop down "Info"
      Then I should see "Post 10"
       And I should see "Post 9"
       And I should see "Post 8"
