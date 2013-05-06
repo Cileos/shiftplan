@@ -8,6 +8,7 @@ en:
       profile: Profile
       settings: Preferences
       dashboard: Dashboard
+      info: Info
       news: News
       signin: Log in
       signin_with: "Log in with %{provider}"

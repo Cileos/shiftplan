@@ -11,6 +11,7 @@ de:
         one: "Account"
         other: "Accounts"
   accounts:
+    core_data: Stammdaten
     new:
       instructions: >
         Hier können Sie einen neuen Account anlegen.

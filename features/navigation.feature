@@ -38,9 +38,12 @@ Feature: Navigation
        | Tepco GmbH                | true    |
        | Fukushima                 | true    |
        | Tepco GmbH - Tschernobyl  | false   |
+       | Info                      | false   |
+       | Dashboard                 | false   |
        | Neuigkeiten               | false   |
        | Pläne                     | false   |
        | Alle Pläne                | false   |
+       | Stammdaten                | false   |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
        | Planvorlagen              | false   |
@@ -54,9 +57,12 @@ Feature: Navigation
        | Tepco GmbH                | true    |
        | Fukushima                 | true    |
        | Tepco GmbH - Tschernobyl  | false   |
+       | Info                      | true    |
+       | Dashboard                 | false   |
        | Neuigkeiten               | true    |
        | Pläne                     | false   |
        | Alle Pläne                | false   |
+       | Stammdaten                | false   |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
        | Planvorlagen              | false   |
@@ -70,9 +76,12 @@ Feature: Navigation
        | Tepco GmbH                | true    |
        | Fukushima                 | true    |
        | Tepco GmbH - Tschernobyl  | false   |
+       | Info                      | false   |
+       | Dashboard                 | false   |
        | Neuigkeiten               | false   |
        | Pläne                     | true    |
        | Alle Pläne                | false   |
+       | Stammdaten                | false   |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
        | Planvorlagen              | false   |
@@ -84,9 +93,12 @@ Feature: Navigation
        | Tepco GmbH                | true    |
        | Fukushima                 | true    |
        | Tepco GmbH - Tschernobyl  | false   |
+       | Info                      | false   |
+       | Dashboard                 | false   |
        | Neuigkeiten               | false   |
        | Pläne                     | false   |
        | Alle Pläne                | false   |
+       | Stammdaten                | true    |
        | Mitarbeiter               | true    |
        | Teams                     | false   |
        | Planvorlagen              | false   |
@@ -98,9 +110,12 @@ Feature: Navigation
        | Tepco GmbH                | true    |
        | Fukushima                 | true    |
        | Tepco GmbH - Tschernobyl  | false   |
+       | Info                      | false   |
+       | Dashboard                 | false   |
        | Neuigkeiten               | false   |
        | Pläne                     | false   |
        | Alle Pläne                | false   |
+       | Stammdaten                | true    |
        | Mitarbeiter               | false   |
        | Teams                     | true    |
        | Planvorlagen              | false   |
@@ -112,9 +127,12 @@ Feature: Navigation
        | Tepco GmbH                | true    |
        | Fukushima                 | true    |
        | Tepco GmbH - Tschernobyl  | false   |
+       | Info                      | false   |
+       | Dashboard                 | false   |
        | Neuigkeiten               | false   |
        | Pläne                     | false   |
        | Alle Pläne                | false   |
+       | Stammdaten                | true    |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
        | Planvorlagen              | true    |
@@ -126,9 +144,12 @@ Feature: Navigation
        | Tepco GmbH                | true    |
        | Fukushima                 | true    |
        | Tepco GmbH - Tschernobyl  | false   |
+       | Info                      | false   |
+       | Dashboard                 | false   |
        | Neuigkeiten               | false   |
        | Pläne                     | false   |
        | Alle Pläne                | false   |
+       | Stammdaten                | true    |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
        | Planvorlagen              | false   |
@@ -193,9 +214,12 @@ Feature: Navigation
        | Cileos UG                 | false   |
        | Fukushima                 | true    |
        | Tepco GmbH - Tschernobyl  | false   |
+       | Info                      | false   |
+       | Dashboard                 | false   |
        | Neuigkeiten               | false   |
        | Pläne                     | false   |
        | Alle Pläne                | false   |
+       | Stammdaten                | false   |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
        | Planvorlagen              | false   |
@@ -218,6 +242,8 @@ Feature: Navigation
        | Cileos UG              | true    |
        | Tepco GmbH             | false   |
        | Clockwork Programming  | false   |
+       | Info                   | false   |
+       | Dashboard              | false   |
        | Neuigkeiten            | false   |
        | Pläne                  | false   |
        | Alle Pläne             | false   |
@@ -230,6 +256,8 @@ Feature: Navigation
        | Cileos UG              | true    |
        | Tepco GmbH             | false   |
        | Clockwork Programming  | true    |
+       | Info                   | false   |
+       | Dashboard              | false   |
        | Neuigkeiten            | false   |
        | Pläne                  | false   |
        | Alle Pläne             | false   |
@@ -245,6 +273,8 @@ Feature: Navigation
        | Cileos UG              | true    |
        | Tepco GmbH             | false   |
        | Clockwork Programming  | false   |
+       | Info                   | false   |
+       | Dashboard              | false   |
        | Neuigkeiten            | false   |
        | Pläne                  | false   |
        | Alle Pläne             | false   |
