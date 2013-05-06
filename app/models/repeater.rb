@@ -25,7 +25,11 @@ class Repeater
     self.repetitions = repeat_for_days.inject([]) do |repetitions, day|
       s = ::Scheduling.new(repeatable_attributes)
       s.date = day
-      s.quickie = repeatable.quickie
+      s.team = repeatable.team
+      s.start_hour = repeatable.start_hour
+      # Repetitions must be initialized with the original end hour of the
+      # repeatable so that they will become overnightables, too.
+      s.end_hour = repeatable.is_overnight? ? repeatable.next_day.end_hour : repeatable.end_hour
       s.save!
       repetitions << s
     end
