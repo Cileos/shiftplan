@@ -1,4 +1,4 @@
-.instructions= tt('team_merges.new.instructions', team_name: team_merge.team.name, other_team_name: team_merge.other_team.name)
+.flash.warning= t('team_merges.new.instructions', team_name: team_merge.team.name, other_team_name: team_merge.other_team.name)
 
 = simple_form_for team_merge, url: nested_resources_for(current_organization) + [:team_merges], remote: true do |f|
   .inputs

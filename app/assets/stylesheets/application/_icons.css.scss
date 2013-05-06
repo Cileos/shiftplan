@@ -7,7 +7,7 @@
   /* adding a tiny padding-left is a pretty ugly hack for links containing
      data-icons without declaring them as inline-block (which would destroy
      consistent heights of a, input and button) ... webkit :(  */
-  padding-left: 0.00000000000001em;
+  // padding-left: 0.00000000000001em;
 
   &:before {
     font-family: FontAwesome;
