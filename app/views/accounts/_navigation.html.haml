@@ -1,17 +1,14 @@
 - if user_signed_in?
   %ul
-    - if current_user.multiple?
-      %li.dropdown
-        - if current_account
-          = link_to t('activerecord.models.organization.other'), account_path(current_account), {:class => 'icon-organization', data: { toggle: 'dropdown'}}
-        - else
-          = link_to t('activerecord.models.organization.other'), account_path(current_user.accounts.first), {:class => 'icon-organization', data: { toggle: 'dropdown'}}
-        %ul.organization-dropdown
-          - current_user.accounts.order("UPPER(name)").each do |acc|
-            - current_user.organizations_for(acc).order("UPPER(name)").each do |org|
-              %li= link_to org.name_with_account, nested_resources_for(org)
-    - else
-      %li= link_to t('activerecord.models.organization.other'), account_path(current_account), :class => 'icon-organization'
+    %li.dropdown
+      - if current_account
+        = link_to t('activerecord.models.organization.other'), account_path(current_account), {:class => 'icon-organization', data: { toggle: 'dropdown'}}
+      - else
+        = link_to t('activerecord.models.organization.other'), account_path(current_user.accounts.first), {:class => 'icon-organization', data: { toggle: 'dropdown'}}
+      %ul.organization-dropdown
+        - current_user.accounts.order("UPPER(name)").each do |acc|
+          - current_user.organizations_for(acc).order("UPPER(name)").each do |org|
+            %li= link_to org.name_with_account, nested_resources_for(org)
 
     - if current_organization
       = render 'organizations/navigation_links', organization: current_organization

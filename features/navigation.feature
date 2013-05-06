@@ -30,7 +30,7 @@ Feature: Navigation
         | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
 
-     When I follow "Tepco GmbH - Fukushima" within the navigation
+     When I follow "Tepco GmbH - Fukushima" from the drop down "Organisationen"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
@@ -49,7 +49,7 @@ Feature: Navigation
       And I should see the following items in the organization dropdown list:
         | Tepco GmbH - Tschernobyl |
 
-     When I follow "Neuigkeiten"
+     When I choose "Neuigkeiten" from the drop down "Info"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
@@ -85,7 +85,7 @@ Feature: Navigation
        | Planvorlagen              | false   |
        | Qualifikationen           | false   |
 
-     When I follow "Mitarbeiter"
+     When I choose "Mitarbeiter" from the drop down "Stammdaten"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
@@ -102,7 +102,7 @@ Feature: Navigation
        | Planvorlagen              | false   |
        | Qualifikationen           | false   |
 
-     When I follow "Teams"
+     When I choose "Teams" from the drop down "Stammdaten"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
@@ -119,7 +119,7 @@ Feature: Navigation
        | Planvorlagen              | false   |
        | Qualifikationen           | false   |
 
-     When I follow "Planvorlagen"
+     When I choose "Planvorlagen" from the drop down "Stammdaten"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
@@ -136,7 +136,7 @@ Feature: Navigation
        | Planvorlagen              | true    |
        | Qualifikationen           | false   |
 
-     When I follow "Qualifikationen"
+     When I choose "Qualifikationen" from the drop down "Stammdaten"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
@@ -193,7 +193,7 @@ Feature: Navigation
        | Tepco GmbH - Fukushima            |
        | Tepco GmbH - Tschernobyl          |
 
-     When I follow "Tepco GmbH - Fukushima" within the navigation
+     When I follow "Tepco GmbH - Fukushima" from the drop down "Organisationen"
      Then I should see the following list of links within the navigation:
        | link                              | active |
        | Organisationen                    | false  |
@@ -211,59 +211,7 @@ Feature: Navigation
        | Teams                             | false  |
        | Planvorlagen                      | false  |
        | Qualifikationen                   | false  |
-      And I should see the following items in the account dropdown list:
-       | Cileos UG   |
       And I should see the following items in the organization dropdown list:
-       | Tepco GmbH - Tschernobyl |
-
-      # Now navigate to the other account and check that (normal) employee only sees
-      # organizations in the menu for which he has a membership.
-     When I follow "Cileos UG" within the navigation
-      # We can only access one organization in the cileos account. So no organization
-      # dropdown is shown in the menu in this case. We only show the one organization then.
-      # Also as there is only one organization we can immediately show all links (e.g. plans)
-      # in the menu for the organization, though we are not in the scope of the organization,
-      # yet.
-      And I should see the following list of links within the navigation:
-       | link                   | active  |
-       | Cileos UG              | true    |
-       | Tepco GmbH             | false   |
-       | Clockwork Programming  | false   |
-       | Info                   | false   |
-       | Dashboard              | false   |
-       | Neuigkeiten            | false   |
-       | Pläne                  | false   |
-       | Alle Pläne             | false   |
-      And I should see the following items in the account dropdown list:
-       | Tepco GmbH  |
-
-     When I follow "Clockwork Programming" within the navigation
-     Then I should see the following list of links within the navigation:
-       | link                   | active  |
-       | Cileos UG              | true    |
-       | Tepco GmbH             | false   |
-       | Clockwork Programming  | true    |
-       | Info                   | false   |
-       | Dashboard              | false   |
-       | Neuigkeiten            | false   |
-       | Pläne                  | false   |
-       | Alle Pläne             | false   |
-      And I should see the following items in the account dropdown list:
-       | Tepco GmbH  |
-
-     # Click on the selected account in the account selector in menu when beeing in the
-     # scope of an organization.
-     When I follow "Cileos UG" within the navigation
-     Then I should be on the page of the account "cileos"
-      And I should see the following list of links within the navigation:
-       | link                   | active  |
-       | Cileos UG              | true    |
-       | Tepco GmbH             | false   |
-       | Clockwork Programming  | false   |
-       | Info                   | false   |
-       | Dashboard              | false   |
-       | Neuigkeiten            | false   |
-       | Pläne                  | false   |
-       | Alle Pläne             | false   |
-      And I should see the following items in the account dropdown list:
-       | Tepco GmbH  |
+       | Cileos UG - Clockwork Programming |
+       | Tepco GmbH - Fukushima            |
+       | Tepco GmbH - Tschernobyl          |
