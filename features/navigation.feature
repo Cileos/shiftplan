@@ -13,7 +13,6 @@ Feature: Navigation
      When I am on the dashboard page
      Then I should see the following list of links within the navigation:
        | link                      | active  |
-       | Tepco GmbH                | false   |
        | Organisationen            | false   |
        | Tepco GmbH - Fukushima    | false   |
        | Tepco GmbH - Tschernobyl  | false   |
@@ -21,11 +20,10 @@ Feature: Navigation
         | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
 
-     When I follow "Tepco GmbH"
+     When I follow "Organisationen"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Organisationen            | false   |
+       | Organisationen            | true    |
        | Tepco GmbH - Fukushima    | false   |
        | Tepco GmbH - Tschernobyl  | false   |
       And I should see the following items in the organization dropdown list:
@@ -35,11 +33,11 @@ Feature: Navigation
      When I follow "Tepco GmbH - Fukushima" within the navigation
      Then I should see the following list of links within the navigation:
        | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Fukushima                 | true    |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
-       | Info                      | false   |
-       | Dashboard                 | false   |
+       | Info                      | true    |
+       | Dashboard                 | true    |
        | Neuigkeiten               | false   |
        | Pläne                     | false   |
        | Alle Pläne                | false   |
@@ -54,8 +52,8 @@ Feature: Navigation
      When I follow "Neuigkeiten"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Fukushima                 | true    |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | true    |
        | Dashboard                 | false   |
@@ -73,8 +71,8 @@ Feature: Navigation
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Fukushima                 | true    |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | false   |
        | Dashboard                 | false   |
@@ -90,8 +88,8 @@ Feature: Navigation
      When I follow "Mitarbeiter"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Fukushima                 | true    |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | false   |
        | Dashboard                 | false   |
@@ -107,8 +105,8 @@ Feature: Navigation
      When I follow "Teams"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Fukushima                 | true    |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | false   |
        | Dashboard                 | false   |
@@ -124,8 +122,8 @@ Feature: Navigation
      When I follow "Planvorlagen"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Fukushima                 | true    |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | false   |
        | Dashboard                 | false   |
@@ -141,8 +139,8 @@ Feature: Navigation
      When I follow "Qualifikationen"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Fukushima                 | true    |
+       | Organisationen            | false   |
+       | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | false   |
        | Dashboard                 | false   |
@@ -157,17 +155,17 @@ Feature: Navigation
 
      # Click on the selected account in the account selector in menu when beeing in the
      # scope of an organization.
-     When I follow "Tepco GmbH" within the navigation
-     Then I should be on the page of the account "tepco"
-     Then I should see the following list of links within the navigation:
-       | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Organisationen            | false   |
-       | Tepco GmbH - Fukushima    | false   |
-       | Tepco GmbH - Tschernobyl  | false   |
-      And I should see the following items in the organization dropdown list:
-        | Tepco GmbH - Fukushima   |
-        | Tepco GmbH - Tschernobyl |
+     # When I follow "Tepco GmbH" within the navigation
+     # Then I should be on the page of the account "tepco"
+     # Then I should see the following list of links within the navigation:
+     #   | link                      | active  |
+     #   | Tepco GmbH                | true    |
+     #   | Organisationen            | false   |
+     #   | Tepco GmbH - Fukushima    | false   |
+     #   | Tepco GmbH - Tschernobyl  | false   |
+     #  And I should see the following items in the organization dropdown list:
+     #    | Tepco GmbH - Fukushima   |
+     #    | Tepco GmbH - Tschernobyl |
 
 
   # 1.) The user has an employee with role "owner" in the account "fukushima" and therefore can
@@ -185,45 +183,34 @@ Feature: Navigation
 
      When I go to the dashboard page
      Then I should see the following list of links within the navigation:
-       | link             | active  |
-       | Accounts         | false   |
-       | Cileos UG        | false   |
-       | Tepco GmbH       | false   |
-      And I should see the following items in the account dropdown list:
-       | Cileos UG   |
-       | Tepco GmbH  |
-
-     When I follow "Tepco GmbH" within the navigation
-     Then I should see the following list of links within the navigation:
-       | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Cileos UG                 | false   |
-       | Organisationen            | false   |
-       | Tepco GmbH - Fukushima    | false   |
-       | Tepco GmbH - Tschernobyl  | false   |
-      And I should see the following items in the account dropdown list:
-       | Cileos UG   |
+       | link                              | active |
+       | Organisationen                    | false  |
+       | Cileos UG - Clockwork Programming | false  |
+       | Tepco GmbH - Fukushima            | false  |
+       | Tepco GmbH - Tschernobyl          | false  |
       And I should see the following items in the organization dropdown list:
-       | Tepco GmbH - Fukushima   |
-       | Tepco GmbH - Tschernobyl |
+       | Cileos UG - Clockwork Programming |
+       | Tepco GmbH - Fukushima            |
+       | Tepco GmbH - Tschernobyl          |
 
      When I follow "Tepco GmbH - Fukushima" within the navigation
      Then I should see the following list of links within the navigation:
-       | link                      | active  |
-       | Tepco GmbH                | true    |
-       | Cileos UG                 | false   |
-       | Fukushima                 | true    |
-       | Tepco GmbH - Tschernobyl  | false   |
-       | Info                      | false   |
-       | Dashboard                 | false   |
-       | Neuigkeiten               | false   |
-       | Pläne                     | false   |
-       | Alle Pläne                | false   |
-       | Stammdaten                | false   |
-       | Mitarbeiter               | false   |
-       | Teams                     | false   |
-       | Planvorlagen              | false   |
-       | Qualifikationen           | false   |
+       | link                              | active |
+       | Organisationen                    | false  |
+       | Cileos UG - Clockwork Marketing   | false  |
+       | Cileos UG - Clockwork Programming | false  |
+       | Tepco GmbH - Fukushima            | true   |
+       | Tepco GmbH - Tschernobyl          | false  |
+       | Info                              | true   |
+       | Dashboard                         | true   |
+       | Neuigkeiten                       | false  |
+       | Pläne                             | false  |
+       | Alle Pläne                        | false  |
+       | Stammdaten                        | false  |
+       | Mitarbeiter                       | false  |
+       | Teams                             | false  |
+       | Planvorlagen                      | false  |
+       | Qualifikationen                   | false  |
       And I should see the following items in the account dropdown list:
        | Cileos UG   |
       And I should see the following items in the organization dropdown list:
