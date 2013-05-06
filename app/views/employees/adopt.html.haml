@@ -5,14 +5,13 @@
     =link_to ta(:add), [:new] + nested_resources_for(current_organization) + [:employee],
       class: 'button button-add', title: t('employees.index.add_employee')
 
-.row.two-columns.inverted
-  .primary
-    - unless @adoptable_employees.empty?
-      = render 'search_form'
-      %p= t('.not_member_yet')
-      = render 'organizations/add_members_form', employees: @adoptable_employees
-    - else
-      %p= t('.no_adoptable_employees')
+.primary
+  - unless @adoptable_employees.empty?
+    = render 'search_form'
+    %p= t('.not_member_yet')
+    = render 'organizations/add_members_form', employees: @adoptable_employees
+  - else
+    %p= t('.no_adoptable_employees')
 
-  .secondary.instructions
-    = tt '.instructions'
+#instructions.instructions
+  = tt '.instructions'

@@ -3,7 +3,7 @@
 .primary
   %table#accounts-and-organizations
     %tbody
-      - current_user.accounts.order(:name).each do |acc|
+      - current_user.accounts.order("UPPER(name)").each do |acc|
         %tr
           %th.heading= acc.name
           %td
@@ -23,7 +23,7 @@
                 = org_link
                 = acc_link
 
-        - organizations = current_user.organizations_for(acc).order(:name)
+        - organizations = current_user.organizations_for(acc).order("UPPER(name)")
         - unless organizations.empty?
           - organizations.each do |organization|
             %tr
@@ -36,8 +36,8 @@
         - else
           %p= t(:'.no_organizations')
 
--#.instructions
--#  - if can? :create, Organization.new(account: @account)
--#    = tt '.planner_instructions'
--#  - else
--#    = tt '.instructions'
+#instructions.instructions
+  - if can? :create, Organization.new(account: @account)
+    = tt '.planner_instructions'
+  - else
+    = tt '.instructions'

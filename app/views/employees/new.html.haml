@@ -5,12 +5,11 @@
     =link_to ta(:adopt), [:adopt] + nested_resources_for(current_organization) + [:employees],
       class: 'button button-add', title: t('employees.index.adopt_employee')
 
-.row.two-columns.inverted
-  .primary
-    = render 'form', employee: @employee.decorate
+.primary
+  = render 'form', employee: @employee.decorate
 
-    - if @employee.sufficient_details_to_search_duplicates?
-      = render('duplication_warning', duplicate_employees: @employee.duplicates)
+  - if @employee.sufficient_details_to_search_duplicates?
+    = render('duplication_warning', duplicate_employees: @employee.duplicates)
 
-  .secondary.instructions
-    = tt '.instructions'
+#instructions.instructions
+  = tt '.instructions'
