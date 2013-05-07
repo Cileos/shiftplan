@@ -1,17 +1,21 @@
 - defined?(organization) or raise(ArgumentError, "must provide :organization")
 - if organization.present? and organization.persisted?
   - base = [organization.account, organization]
-  %li.dropdown
+  - company_blog = organization.company_blog
+  - # OPTIMIZE for more than 2 links, consider View Object
+  - entry_urls = [ nested_resources_for(current_organization) ]
+  - entry_urls << base + [company_blog, :posts] if company_blog.present?
+  %li.dropdown{class: entry_urls.any? { |p| below_path?(p) } && 'active'  }
     = link_to :info, nested_resources_for(current_organization), {:class =>  'icon-news', data: { toggle: 'dropdown'}}
     %ul
-      %li= link_to :dashboard, nested_resources_for(current_organization), :class => 'icon-dashboard'
-      - if (company_blog = organization.company_blog).present?
-        = li_link '.news', base + [company_blog, :posts], can: [:read, organization], :class => 'icon-news'
+      = li_link :dashboard, nested_resources_for(current_organization), :class => 'icon-dashboard'
+      - if company_blog.present?
+        = li_link :news, base + [company_blog, :posts], can: [:read, organization], :class => 'icon-news'
 
 
   - active_or_not = dropdown_class polymorphic_path(base + [:plans])
   %li{class: "dropdown #{active_or_not}"}
-    = link_to t(:'helpers.actions.plans'), base + [:plans], {:class =>  'icon-plans', data: { toggle: 'dropdown'}}
+    = link_to :plans, base + [:plans], {:class =>  'icon-plans', data: { toggle: 'dropdown'}}
     = render 'organizations/plans_list', base: base, organization: organization
 
   -if (can? :show, Employee) || (can? :show, Team) || (can? :show, PlanTemplate) || (can? :show, Qualification)

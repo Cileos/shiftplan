@@ -34,7 +34,7 @@ Feature: Navigation
         | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
 
-     When I follow "Tepco GmbH - Fukushima" from the drop down "Organisationen"
+     When I choose "Tepco GmbH - Fukushima" from the drop down "Organisationen"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
@@ -208,12 +208,11 @@ Feature: Navigation
        | Tepco GmbH - Fukushima            |
        | Tepco GmbH - Tschernobyl          |
 
-     When I follow "Tepco GmbH - Fukushima" from the drop down "Organisationen"
+     When I choose "Tepco GmbH - Fukushima" from the drop down "Organisationen"
      Then I should see the following list of links within the navigation:
        | link                              | active |
        | Organisationen                    | false  |
        | Alle Organisationen               | false  |
-       | Cileos UG - Clockwork Marketing   | false  |
        | Cileos UG - Clockwork Programming | false  |
        | Tepco GmbH - Fukushima            | true   |
        | Tepco GmbH - Tschernobyl          | false  |
