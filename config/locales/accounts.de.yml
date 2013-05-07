@@ -29,7 +29,7 @@ de:
     edit:
       instructions: >
         Hier können Sie Ihren Account bearbeiten.
-    show:
+    index:
       instructions: >
         Hier sehen Sie alle Organisationen des Accounts, in denen Sie Mitglied sind.
 
