@@ -16,6 +16,12 @@ module PageLoadSupport
     unless e.message =~ /An open modal dialog blocked the operation/
       raise e
     end
+  rescue Capybara::TimeoutError => e
+    if page.text =~ /Internal Server Error/
+      raise page.text.sub(/(Internal Server Error)/, '\1 (full trace in log/capybara_test.log)')
+    else
+      raise e
+    end
   end
 
 end
