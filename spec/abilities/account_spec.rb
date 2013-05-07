@@ -96,19 +96,38 @@ describe "Account permissions:" do
     it_behaves_like "a user who can create accounts"
   end
 
-  context "An user without employee(not possible but for the case)" do
-    let(:employee) { nil }
-
-    it_behaves_like "a user who can create accounts"
-
-    it "should not be able to read accounts" do
-      should_not be_able_to(:read, account)
+  context "A User" do
+    before(:each) do
+      # We test abilities when not being in the scope of an account here.
+      # E.g. this is the case when visiting the /dashboard or /accounts.
+      # When being in the global scope the current employee can not be
+      # determined, therefore it is set to nil here.
+      user.current_employee = nil
     end
-    it "should not be able to update accounts" do
-      should_not be_able_to(:update, account)
+
+    context "with an employee without roles" do
+      before(:each) do
+        membership
+      end
+      let(:employee) { create(:employee, account: account, user: user) }
+      let(:membership) { create(:membership, employee: employee, organization: organization) }
+
+      it_behaves_like "an employee who can read accounts"
+      it_behaves_like "a user who can create accounts"
     end
-    it "should not be able to destroy accounts" do
-      should_not be_able_to(:destroy, account)
+
+    context "with an employee beeing planner" do
+      let(:employee) { create(:employee_planner, account: account, user: user) }
+
+      it_behaves_like "an employee who can read accounts"
+      it_behaves_like "a user who can create accounts"
+    end
+
+    context "with an employee beeing owner" do
+      let(:employee) { create(:employee_owner, account: account, user: user) }
+
+      it_behaves_like "an employee who can read and update accounts"
+      it_behaves_like "a user who can create accounts"
     end
   end
 end

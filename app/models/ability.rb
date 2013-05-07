@@ -31,11 +31,27 @@ class Ability
 
   def authorize_signed_in(user)
     can :dashboard, User
+    can :read, Account do |account|
+      user.accounts.include?(account)
+    end
     can :create, Account do |account|
       account.user == user
     end
-    can :read, Account do |account|
-      user.accounts.include?(account)
+    can :update, Account do |account|
+      e = user.employees.find_by_account_id(account.id)
+      e.present? && e.role.present? && e.owner?
+    end
+    can :read, Organization do |organization|
+      e = user.employees.find_by_account_id(organization.account.id)
+      e.present? && e.organizations.include?(organization)
+    end
+    can :update, Organization do |organization|
+      e = user.employees.find_by_account_id(organization.account.id)
+      e.present? && e.role.present? && (e.owner? || e.planner?)
+    end
+    can :create, Organization do |organization|
+      e = user.employees.find_by_account_id(organization.account.id)
+      e.present? && e.role.present? && e.owner?
     end
     can [:update_self], Employee do |employee|
       user == employee.user
@@ -48,12 +64,6 @@ class Ability
   def authorize_employee(employee)
     authorize_signed_in(employee.user)
 
-    can :read, Account do |account|
-      employee.account == account
-    end
-    can :read, Organization do |organization|
-      employee.organizations.include?(organization)
-    end
     can :read, Plan do |plan|
       employee.organizations.include?(plan.organization)
     end
