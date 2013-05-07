@@ -14,9 +14,11 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
+       | Alle Organisationen       | false   |
        | Tepco GmbH - Fukushima    | false   |
        | Tepco GmbH - Tschernobyl  | false   |
       And I should see the following items in the organization dropdown list:
+        | Alle Organisationen      |
         | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
 
@@ -24,9 +26,11 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | true    |
+       | Alle Organisationen       | true    |
        | Tepco GmbH - Fukushima    | false   |
        | Tepco GmbH - Tschernobyl  | false   |
       And I should see the following items in the organization dropdown list:
+        | Alle Organisationen      |
         | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
 
@@ -34,6 +38,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
+       | Alle Organisationen       | false   |
        | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | true    |
@@ -47,12 +52,14 @@ Feature: Navigation
        | Planvorlagen              | false   |
        | Qualifikationen           | false   |
       And I should see the following items in the organization dropdown list:
+        | Alle Organisationen      |
         | Tepco GmbH - Tschernobyl |
 
      When I choose "Neuigkeiten" from the drop down "Info"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
+       | Alle Organisationen       | false   |
        | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | true    |
@@ -66,12 +73,14 @@ Feature: Navigation
        | Planvorlagen              | false   |
        | Qualifikationen           | false   |
       And I should see the following items in the organization dropdown list:
+        | Alle Organisationen      |
         | Tepco GmbH - Tschernobyl |
 
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
+       | Alle Organisationen       | false   |
        | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | false   |
@@ -89,6 +98,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
+       | Alle Organisationen       | false   |
        | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | false   |
@@ -106,6 +116,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
+       | Alle Organisationen       | false   |
        | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | false   |
@@ -123,6 +134,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
+       | Alle Organisationen       | false   |
        | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | false   |
@@ -140,6 +152,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link                      | active  |
        | Organisationen            | false   |
+       | Alle Organisationen       | false   |
        | Tepco GmbH - Fukushima    | true    |
        | Tepco GmbH - Tschernobyl  | false   |
        | Info                      | false   |
@@ -185,10 +198,12 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link                              | active |
        | Organisationen                    | false  |
+       | Alle Organisationen               | false  |
        | Cileos UG - Clockwork Programming | false  |
        | Tepco GmbH - Fukushima            | false  |
        | Tepco GmbH - Tschernobyl          | false  |
       And I should see the following items in the organization dropdown list:
+       | Alle Organisationen               |
        | Cileos UG - Clockwork Programming |
        | Tepco GmbH - Fukushima            |
        | Tepco GmbH - Tschernobyl          |
@@ -197,6 +212,7 @@ Feature: Navigation
      Then I should see the following list of links within the navigation:
        | link                              | active |
        | Organisationen                    | false  |
+       | Alle Organisationen               | false  |
        | Cileos UG - Clockwork Marketing   | false  |
        | Cileos UG - Clockwork Programming | false  |
        | Tepco GmbH - Fukushima            | true   |
@@ -212,6 +228,7 @@ Feature: Navigation
        | Planvorlagen                      | false  |
        | Qualifikationen                   | false  |
       And I should see the following items in the organization dropdown list:
+       | Alle Organisationen               |
        | Cileos UG - Clockwork Programming |
        | Tepco GmbH - Fukushima            |
        | Tepco GmbH - Tschernobyl          |

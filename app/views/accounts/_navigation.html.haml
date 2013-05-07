@@ -4,6 +4,7 @@
       = link_to t('activerecord.models.organization.other'), accounts_path,
         {:class => 'icon-organization', data: { toggle: 'dropdown'}}
       %ul.organization-dropdown
+        %li= link_to t('helpers.actions.all_organizations'), accounts_path
         - current_user.accounts.order("UPPER(name)").each do |acc|
           - current_user.organizations_for(acc).order("UPPER(name)").each do |org|
             %li= link_to org.name_with_account, nested_resources_for(org)
