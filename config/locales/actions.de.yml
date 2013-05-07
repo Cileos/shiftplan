@@ -84,6 +84,7 @@ de:
       show_legend_long: "Legende anzeigen"
       show_help: "Hilfe"
       show_help_long: "Hilfe anzeigen"
+      core_data: Stammdaten
   schedulings:
     calendar_navigation:
       day: "Tag"

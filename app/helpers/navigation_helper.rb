@@ -29,4 +29,9 @@ module NavigationHelper
     path = polymorphic_path(path) unless path.is_a?(String)
     request.path.starts_with?( path )
   end
+
+  def on_path?(path)
+    path = polymorphic_path(path) unless path.is_a?(String)
+    request.path == path
+  end
 end

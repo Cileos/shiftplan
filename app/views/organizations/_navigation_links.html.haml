@@ -3,12 +3,14 @@
   - base = [organization.account, organization]
   - company_blog = organization.company_blog
   - # OPTIMIZE for more than 2 links, consider View Object
-  - entry_urls = [ nested_resources_for(current_organization) ]
-  - entry_urls << base + [company_blog, :posts] if company_blog.present?
-  %li.dropdown{class: entry_urls.any? { |p| below_path?(p) } && 'active'  }
+  - actives = {}
+  - actives[:dashboard] = on_path?(nested_resources_for(current_organization))
+  - actives[:news]      = below_path?(base + [company_blog, :posts]) if company_blog.present?
+  %li.dropdown{class: actives.values.any? && 'active'  }
     = link_to :info, nested_resources_for(current_organization), {:class =>  'icon-news', data: { toggle: 'dropdown'}}
     %ul
-      = li_link :dashboard, nested_resources_for(current_organization), :class => 'icon-dashboard'
+      %li{class: actives[:dashboard] && 'active'}
+        = link_to :dashboard, nested_resources_for(current_organization), :class => 'icon-dashboard'
       - if company_blog.present?
         = li_link :news, base + [company_blog, :posts], can: [:read, organization], :class => 'icon-news'
 
@@ -19,8 +21,9 @@
     = render 'organizations/plans_list', base: base, organization: organization
 
   -if (can? :show, Employee) || (can? :show, Team) || (can? :show, PlanTemplate) || (can? :show, Qualification)
-    %li.dropdown
-      = link_to t('accounts.core_data'), nested_resources_for(current_organization), {:class =>  'icon-settings', data: { toggle: 'dropdown'}}
+    - any_active = [:employees, :teams, :plan_templates, :qualifications].any? { |c| below_path?(base + [c]) }
+    %li.dropdown{class: any_active && 'active'}
+      = link_to :core_data, nested_resources_for(current_organization), {:class =>  'icon-settings', data: { toggle: 'dropdown'}}
       %ul
         = li_link '.employees',      base + [:employees],      can: [:show, Employee],      :class => 'icon-employees'
         = li_link '.teams',          base + [:teams],          can: [:show, Team],          :class => 'icon-teams'

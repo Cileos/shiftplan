@@ -53,6 +53,7 @@ Feature: Navigation
        | Qualifikationen           | false   |
       And I should see the following items in the organization dropdown list:
         | Alle Organisationen      |
+        | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
 
      When I choose "Neuigkeiten" from the drop down "Info"
@@ -74,6 +75,7 @@ Feature: Navigation
        | Qualifikationen           | false   |
       And I should see the following items in the organization dropdown list:
         | Alle Organisationen      |
+        | Tepco GmbH - Fukushima   |
         | Tepco GmbH - Tschernobyl |
 
      When I choose "Alle Pläne" from the drop down "Pläne"
