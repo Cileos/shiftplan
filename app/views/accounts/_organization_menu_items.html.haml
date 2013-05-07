@@ -1,0 +1,3 @@
+- accounts.each do |account|
+  - current_user.organizations_for(account).default_sorting.each do |organization|
+    %li= link_to organization.name_with_account, nested_resources_for(organization)
