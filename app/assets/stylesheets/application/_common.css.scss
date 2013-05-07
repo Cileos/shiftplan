@@ -169,7 +169,7 @@ small {
 
   .dropdown {
     > ul {
-      top: $banner_top_padding - 1px;
+      top: $banner_top_padding - 2px;
       border-top: 1px solid darken($ci_blue, 7.5%);
     }
 
