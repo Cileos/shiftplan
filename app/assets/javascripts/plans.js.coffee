@@ -28,12 +28,13 @@ jQuery(document).ready ->
 
     refresh_behaviour_of_cell = ->
       $cell = $(this)
-      $cell.find('li.scheduling').each ->
+      $cell.find('.scheduling').each ->
         $scheduling = $(this)
         $scheduling.append Clockwork.buildGimmicks($scheduling)
 
     $calendar.find('td').each refresh_behaviour_of_cell
     $calendar.on 'update', 'td', refresh_behaviour_of_cell
+    $calendar.on 'update', -> $calendar.find('td').each refresh_behaviour_of_cell
 
   $('nav a.new_scheduling').live 'ajax:success', ->
     Clockwork.SchedulingEditor.create element: $('#modalbox form:first')
