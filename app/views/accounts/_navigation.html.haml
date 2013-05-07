@@ -1,10 +1,8 @@
 - if user_signed_in?
   %ul
     %li.dropdown
-      - if current_account
-        = link_to t('activerecord.models.organization.other'), account_path(current_account), {:class => 'icon-organization', data: { toggle: 'dropdown'}}
-      - else
-        = link_to t('activerecord.models.organization.other'), account_path(current_user.accounts.first), {:class => 'icon-organization', data: { toggle: 'dropdown'}}
+      = link_to t('activerecord.models.organization.other'), accounts_path,
+        {:class => 'icon-organization', data: { toggle: 'dropdown'}}
       %ul.organization-dropdown
         - current_user.accounts.order("UPPER(name)").each do |acc|
           - current_user.organizations_for(acc).order("UPPER(name)").each do |org|
