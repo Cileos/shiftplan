@@ -135,8 +135,13 @@ Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
   end
 end
 
-Given /^I use a german browser$/ do
-  add_headers 'Accept-Language' => 'de-DE'
+Given /^I use a (german|english) browser$/ do |lang|
+  case lang
+  when 'english'
+    add_headers 'Accept-Language' => 'en-GB'
+  when 'german'
+    add_headers 'Accept-Language' => 'de-DE'
+  end
 end
 
 Before '~@javascript' do # cannot set headers with selenium
