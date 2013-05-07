@@ -15,20 +15,21 @@ Feature: create organizations
       And I go to the dashboard page
 
   Scenario: Create another organization
-    Given I am on the page of the account "tepco"
+    Given I am on the accounts page
      # user is owner of account "tepco" so he can create new organizations
-     When I follow "Organisation hinzufügen"
+     When I follow "Organisation hinzufügen" for the account "tepco"
       And I wait for the modal box to appear
       And I fill in "Name" with "Nuclear Cleanup Inc."
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see notice "Organisation 'Nuclear Cleanup Inc.' angelegt."
-      And I should be on the page of the account "tepco"
+      And I should be on the accounts page
       And I should see the following table of organizations:
        | Cileos UG             |
        | Clockwork Programming |
        | Tepco GmbH            |
        | Fukushima             |
+       | Nuclear Cleanup Inc.  |
        | Tschernobyl           |
 
   Scenario: Edit organization
