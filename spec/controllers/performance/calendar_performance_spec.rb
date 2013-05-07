@@ -61,7 +61,7 @@ describe SchedulingsController, 'Calendar performance' do
     let(:employees_count) { 10 }
     let(:teams_count) { 1 }
     let(:schedulings_per) { 1 }
-    let(:max) { 1.second }
+    let(:max) { 2.second }
     it_should_behave_like 'quick calendar for teams in week'
   end
 
@@ -69,7 +69,7 @@ describe SchedulingsController, 'Calendar performance' do
     let(:employees_count) { 5 }
     let(:teams_count) { 5 }
     let(:schedulings_per) { 2 }
-    let(:max) { 2.seconds }
+    let(:max) { 3.seconds }
     it_should_behave_like 'quick calendar for teams in week'
   end
 
@@ -77,7 +77,7 @@ describe SchedulingsController, 'Calendar performance' do
     let(:employees_count) { 10 }
     let(:teams_count) { 10 }
     let(:schedulings_per) { 5 }
-    let(:max) { 8.seconds }
+    let(:max) { 12.seconds }
     it_should_behave_like 'quick calendar for teams in week'
   end
 end
