@@ -49,6 +49,6 @@
 
   .actions
     - if shift.persisted?
-      = link_to ta(:destroy), url, remote: true, method: :delete, class: 'button button-warning delete'
+      = link_to ta(:destroy), url, remote: true, method: :delete,
         class: 'button button-warning delete'
     = f.create_or_update_button(tabindex: 9)
