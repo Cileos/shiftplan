@@ -14,6 +14,7 @@ Clockwork.buildGimmicks = ($scheduling) ->
   $gimmicks.clone()
     .find('a')
       .addClass(if comments_count > 0 then 'comments' else 'no-comments')
+      .addClass(if comments_count > 0 then 'icon-comments' else 'icon-comment')
       .text(comments_count)
       .attr('href', url)
     .end()
