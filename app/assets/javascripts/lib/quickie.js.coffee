@@ -11,7 +11,19 @@ exp.quickie       = XRegExp.build '(?x)^ \\s* ({{hour_range}}) ? (?<space_before
 class Quickie
   @parse: (string) ->
     XRegExp.exec string, exp.quickie
+  # warning: toString is not an method on the parsed
   toString: ->
-    "#{@start_hour}-#{@end_hour} #{@team_name}"
+    q = ''
+    if @start_minute? and @start_minute.length > 0
+      q += "#{@start_hour}:#{@start_minute}"
+    else
+      q += "#{@start_hour}"
+    q+='-'
+    if @end_minute? and @end_minute.length > 0
+      q += "#{@end_hour}:#{@end_minute}"
+    else
+      q += "#{@end_hour}"
+    q+= " #{@team_name}"
+    q
 
 window.Quickie = Quickie

@@ -11,8 +11,10 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       .on('change autocompleteclose', => @quickieChanged())
       .bindWithDelay('keyup', (=> @quickieChanged()), 150)
 
-    for field in ['start_hour', 'end_hour', 'team_id']
+    @syncedFields = ['start_hour', 'start_minute', 'end_hour', 'end_minute']
+    for field in @syncedFields
       @input(field).on 'change', => @fieldChanged()
+    @input('team_id').on 'change', => @fieldChanged()
 
   input: (name) ->
     @get('element').find(":input[name=\"scheduling[#{name}]\"]")
@@ -21,8 +23,8 @@ Clockwork.SchedulingEditor = Ember.Object.extend
   # sync Quickie => fields
   quickieChanged: ->
     if parsed = Quickie.parse @input('quickie').val()
-      @input('start_hour').val(parsed.start_hour)
-      @input('end_hour').val(parsed.end_hour)
+      for field in @syncedFields
+        @input(field).val(parsed[field])
 
       # Entering '9-17' should not change the selected team
       if parsed.space_before_team? and parsed.space_before_team.length > 0
@@ -31,8 +33,8 @@ Clockwork.SchedulingEditor = Ember.Object.extend
   # sync fields => Quickie
   fieldChanged: ->
     quickie = new Quickie()
-    quickie.start_hour = @input('start_hour').val()
-    quickie.end_hour = @input('end_hour').val()
+    for field in @syncedFields
+      quickie[field] = @input(field).val()
     teamField = @input('team_id')
     quickie.team_name = teamField.find("option[value=#{teamField.val()}]").text()
 

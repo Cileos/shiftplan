@@ -26,6 +26,9 @@ describe 'Quickie', ->
     it "should detect team shortcut", ->
       expect(@parsed.team_shortcut).toEqual('Bw')
 
+    xit 'can be reserialized', ->
+      expect(@parsed.toString()).toEqual('9-17 Brennstäbe wechseln')
+
   it "should parse lonely hour range", ->
     parsed = Quickie.parse('9-17')
     expect( parsed ).not.toBeNull()
@@ -57,6 +60,27 @@ describe 'Quickie', ->
     expect( parsed.end_hour ).toEqual('20')
     expect( parsed.end_minute ).toEqual('13')
     expect( parsed.hour_range ).toEqual('12:05-20:13')
+
+
+  describe 'serialization', ->
+    beforeEach ->
+      @quickie = new Quickie()
+
+    it 'handles hours', ->
+      @quickie.start_hour = '12'
+      @quickie.start_minute = ''
+      @quickie.end_hour = '20'
+      @quickie.end_minute = ''
+      @quickie.team_name = 'Brennstäbe wechseln'
+      expect( @quickie.toString() ).toEqual('12-20 Brennstäbe wechseln')
+
+    it 'handles minutes', ->
+      @quickie.start_hour = '12'
+      @quickie.start_minute = '05'
+      @quickie.end_hour = '20'
+      @quickie.end_minute = '13'
+      @quickie.team_name = 'Brennstäbe wechseln'
+      expect( @quickie.toString() ).toEqual('12:05-20:13 Brennstäbe wechseln')
 
 
 

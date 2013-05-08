@@ -3,7 +3,9 @@
   = f.input :date, :collection => cwdays_for_select(scheduling), :include_blank => false
 
   = f.input :start_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
+  = f.input :start_minute, as: :select, collection: scheduling.plan.minute_range, include_blank: false
   = f.input :end_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
+  = f.input :end_minute, as: :select, collection: scheduling.plan.minute_range, include_blank: false
 
 
 = f.association :employee, as: :select, collection: employees_for_select(scheduling)
