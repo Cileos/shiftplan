@@ -50,3 +50,8 @@ Given /^the account of #{capture_model} has been locked$/ do |user|
   model!(user).lock_access!
 end
 
+When /^I sign in with #{capture_quoted} (?:and )?#{capture_quoted}$/ do |email, password|
+  fill_in 'user_email', with: email
+  fill_in 'user_password', with: password
+  first('input[name=commit]').click
+end
