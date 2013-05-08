@@ -49,6 +49,15 @@ describe 'Quickie', ->
     expect( parsed.hour_range ).toEqual('9-17')
     expect( parsed.space_before_team ).toEqual(' ')
 
+  it "parses time range with minutes", ->
+    parsed = Quickie.parse('12:05-20:13')
+    expect( parsed ).not.toBeNull()
+    expect( parsed.start_hour ).toEqual('12')
+    expect( parsed.start_minute ).toEqual('05')
+    expect( parsed.end_hour ).toEqual('20')
+    expect( parsed.end_minute ).toEqual('13')
+    expect( parsed.hour_range ).toEqual('12:05-20:13')
+
 
 
   valid_quickies = [
@@ -56,7 +65,10 @@ describe 'Quickie', ->
       '0-5'
       '1-2'
       '12-24'
-      '20-8'
+      '20-8',
+      '20:01-8:55',
+      '20:01-08:55',
+      '20:01-8'
     ]
 
   for valid_quickie in valid_quickies
@@ -68,7 +80,9 @@ describe 'Quickie', ->
       '1-'
       '-23'
       '9-25'
-      '1-88'
+      '1-88',
+      '10:66-18',
+      '10-18:66'
   ]
 
   for invalid_quickie in invalid_quickies
