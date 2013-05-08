@@ -54,8 +54,6 @@ module NavigationHelpers
         account_organization_path(model.account, model)
       when User
         user_path
-      when Account
-        account_path(model)
       else
         raise ArgumentError, "cannot find page for #{$1}, please add it in #{__FILE__}:#{__LINE__}"
       end
@@ -72,6 +70,9 @@ module NavigationHelpers
 
     when /^(?:my|the) dashboard$/
       dashboard_path
+
+    when /^accounts page$/
+      accounts_path
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

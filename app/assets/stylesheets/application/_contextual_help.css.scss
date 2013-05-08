@@ -28,11 +28,19 @@
   background: none;
 }
 
-.instructions, .help {
+.instructions-dialog {
+  position: absolute;
+  top: 30px !important;
+  right: 70px !important;
+  left: auto !important;
+}
+
+.help {
   @include box-shadow(0 1px 0 $ci_shadow);
 
-  border-radius: 5px;
   padding: 10px 15px;
+  border: 1px solid $ci_darkgray;
+  border-radius: 5px;
   background: tint($ci_blue, 90%);
   color: darken($ci_blue, 30%);
 }

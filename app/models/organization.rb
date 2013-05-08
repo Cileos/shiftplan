@@ -15,7 +15,7 @@ class Organization < ActiveRecord::Base
   validates_presence_of :account_id
 
   def self.default_sorting
-    order(:name)
+    order('UPPER(name)')
   end
 
   def company_blog

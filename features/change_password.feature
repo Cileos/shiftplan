@@ -11,7 +11,7 @@ Feature: As a logged in user
       And I am on my dashboard
 
   Scenario: Changing the password
-    Given I choose "Einstellungen" from the drop down "Marge Bouvier"
+    Given I choose "Einstellungen" from the user navigation
       And I follow "Passwort ändern"
      Then I should be on the change password page
      When I fill in the following:

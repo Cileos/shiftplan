@@ -109,9 +109,8 @@ input[type=submit].utility-button {
     background: $ci_blue;
   }
 
-  &.icon-button {
-    font-family: "FontAwesome";
-    padding: 3px 5px 0;
+  &.button-small {
+    padding: 2px 1px 1px 5px;
     line-height: 15px;
     font-size: 10px;
   }
@@ -156,4 +155,19 @@ input[type=submit].utility-button {
   :last-child {
     border-radius: 0 $ci_border-radius $ci_border-radius 0;
   }
+}
+
+.button-add {
+  @extend %with-icon;
+  @extend .icon-add;
+}
+
+.button-edit {
+  @extend %with-icon;
+  @extend .icon-edit;
+}
+
+.button.reply {
+  @extend %with-icon;
+  @extend .icon-reply;
 }

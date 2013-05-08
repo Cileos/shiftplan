@@ -28,7 +28,9 @@ de:
     edit:
       instructions: >
         Hier können Sie Ihren Account bearbeiten.
-    show:
+    organization_rows:
+      no_organizations: Keine Organisationen vorhanden.
+    index:
       instructions: >
         Hier sehen Sie alle Organisationen des Accounts, in denen Sie Mitglied sind.
 

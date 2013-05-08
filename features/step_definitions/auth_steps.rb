@@ -3,11 +3,11 @@
 # On the other hand a user with just one account can only have one employee. So we show
 # the employee's name in the user navigation in this case.
 Then /^I should be signed in as "([^"]*)"$/ do |email_or_name|
-  step %Q~I should see "#{email_or_name}" within the user navigation~
+  step %Q~I should see "#{email_or_name}" within the orientation bar~
 end
 
 Then /^I should be signed in as "([^"]*)" for #{capture_model}$/ do |email_or_name, organisation|
-  step %Q~I should see "#{email_or_name}" within the user navigation~
+  step %Q~I should see "#{email_or_name}" within the orientation bar~
   step %Q~I should see "#{model!(organisation).name}" within the navigation~
 end
 
@@ -34,12 +34,7 @@ Given /^I am signed out$/ do
 end
 
 When /^I sign out$/ do
-  name = nil
-  with_scope 'the user navigation' do
-    name = page.first( '.name' ).text
-  end
-  step %~I open "#{name}" menu~
-  step %~I follow "Ausloggen"~
+  step %~I choose "Ausloggen" from the user navigation~
   step %~I should see "Erfolgreich ausgeloggt."~
 end
 

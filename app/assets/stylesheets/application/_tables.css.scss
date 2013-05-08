@@ -14,6 +14,22 @@ table {
     }
   }
 
+  th.heading {
+    @extend thead;
+
+    padding-top: 1em;
+    font-size: $ci_big-font;
+
+    & ~ td {
+      @extend thead;
+    }
+  }
+
+
+  td .actions {
+    float: right;
+  }
+
   td, th {
     padding: $table_cell_padding;
     text-align: left;

@@ -12,23 +12,15 @@ Feature: User Navigation
      # the employee instead of the users email address
      Then I should see the following list of links within the user navigation:
        | link            | active |
-       | Owner Burns     | false  |
+       | ?               | false  |
+       # avatar has no text
+       |                 | false  |
        | Einstellungen   | false  |
        | Ausloggen       | false  |
 
-     When I follow "Tepco GmbH"
-      And I should see the following list of links within the user navigation:
-       | link            | active |
-       | Owner Burns     | false  |
-       | Einstellungen   | false  |
-       | Ausloggen       | false  |
-
-     When I follow "Tepco GmbH - Fukushima" within the navigation
-     Then I should see the following list of links within the user navigation:
-       | link            | active |
-       | Owner Burns     | false  |
-       | Einstellungen   | false  |
-       | Ausloggen       | false  |
+     When I choose "Tepco GmbH - Tschernobyl" from the drop down "Organisationen"
+     Then I should see "Tepco GmbH - Tschernobyl" within the orientation bar
+      And I should see "Owner Burns" within the orientation bar
 
   Scenario: a user beeing an employee for two accounts
     Given an organization "tschernobyl" exists with name: "Tschernobyl", account: the account
@@ -42,32 +34,20 @@ Feature: User Navigation
      # The user "owner@burns.com" is not in the scope of an account, yet, when
      # going to the dashboard.  So instead of showing the name of one of his
      # employees, we show the email address "owner@burns.com" in the
-     # navigation.
-     Then I should see the following list of links within the user navigation:
-       | link            | active |
-       | owner@burns.com | false  |
-       | Einstellungen   | false  |
-       | Ausloggen       | false  |
+     # orientation bar.
+     Then I should see "owner@burns.com" within the orientation bar
 
-     When I follow "Tepco GmbH" within the navigation
+     When I follow "Tepco GmbH - Fukushima" within the navigation
       # Within the scope of the account, we are now able to determine the current
       # employee and therefore display the name of the employee rather than only the
       # email address of the current user
-     Then I should see the following list of links within the user navigation:
-       | link                | active |
-       | Owner Burns         | false  |
-       | Einstellungen       | false  |
-       | Ausloggen           | false  |
+     Then I should see "Owner Burns" within the orientation bar
 
       # Within the scope of the account, we are now able to determine the current
       # employee and therefore display the name of the employee rather than only the
       # email address of the current user.
-     When I follow "Cileos UG" within the navigation
-     Then I should see the following list of links within the user navigation:
-       | link                | active |
-       | Charles M. Burns    | false  |
-       | Einstellungen       | false  |
-       | Ausloggen           | false  |
+     When I follow "Cileos UG - Clockwork Programming" within the navigation
+     Then I should see "Charles M. Burns" within the orientation bar
 
   @fileupload
   Scenario: avatar of the first employee having one is shown when outside of the scope of an account
@@ -98,6 +78,5 @@ Feature: User Navigation
   Scenario: (Default) gravatar for the user's email is shown in the navigation if no other avatar has been uploaded
     Given I am on the dashboard
       And I should see a tiny gravatar within the user navigation
-
-     When I follow "Fukushima"
-      And I should see a tiny gravatar within the user navigation
+     When I choose "Tepco GmbH - Fukushima" from the drop down "Organisationen"
+     Then I should see a tiny gravatar within the user navigation

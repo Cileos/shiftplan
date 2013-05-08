@@ -12,54 +12,37 @@ Feature: create organizations
       And an organization "clockwork marketing" exists with name: "Clockwork Marketing", account: the account "cileos"
       And an employee "charles m. burns" exists with first_name: "Charles M.", last_name: "Burns", account: the account "cileos", user: the confirmed user
       And a membership exists with organization: the organization "clockwork programming", employee: the employee "charles m. burns"
-      And I go to the dashboard page
+      And I am on the accounts page
 
   Scenario: Create another organization
-    Given I am on the page of the account "tepco"
      # user is owner of account "tepco" so he can create new organizations
-     When I follow "Organisation hinzufügen"
+     When I follow "Organisation hinzufügen" for the account "tepco"
       And I wait for the modal box to appear
       And I fill in "Name" with "Nuclear Cleanup Inc."
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see notice "Organisation 'Nuclear Cleanup Inc.' angelegt."
-      And I should be on the page of the account "tepco"
-      And I should see the following table of organizations:
-       | Name                  |
+      And I should be on the accounts page
+      And I should see the following table for the account "cileos":
+       | Cileos UG             |
+       | Clockwork Programming |
+      And I should see the following table for the account "tepco":
+       | Tepco GmbH            |
        | Fukushima             |
        | Nuclear Cleanup Inc.  |
        | Tschernobyl           |
+     Then I should see link "Organisation hinzufügen" within the table for the account "tepco"
+     # can not create organizations in other accounts as non-owner
+      But I should not see link "Organisation hinzufügen" within the table for the account "cileos"
 
   Scenario: Edit organization
-    Given I am on the page of the account "tepco"
-     When I follow "Bearbeiten" within the first table row
+     When I follow "Bearbeiten" within the first table row within the table for the account "tepco"
       And I wait for the modal box to appear
       And I fill in "Name" with "Fukushima Reaktor 1"
       And I press "Speichern"
       And I wait for the modal box to disappear
-     Then I should be on the page of the account "tepco"
-      And I should see the following table of organizations:
-        | Name                 |
-        | Fukushima Reaktor 1  |
-        | Tschernobyl          |
-
-  Scenario: Normal employee can not create organizations on account page
-    Given I go to the page of the account "cileos"
-      But I should not see link "Hinzufügen"
-
-  Scenario: Show all organizations on account page for an owner
-    Given I go to the page of the account "tepco"
-      And I should see the following table of organizations:
-       | Name         |
-       | Fukushima    |
-       | Tschernobyl  |
-     When I follow "Fukushima"
-     Then I should be on the page of the organization "Fukushima"
-
-  Scenario: Only show organizations on account page where employee is a member
-    Given I go to the page of the account "cileos"
-      And I should see the following table of organizations:
-       | Name                   |
-       | Clockwork Programming  |
-     When I follow "Clockwork Programming"
-     Then I should be on the page of the organization "clockwork programming"
+     Then I should be on the accounts page
+      And I should see the following table for the account "tepco":
+        | Tepco GmbH          |
+        | Fukushima Reaktor 1 |
+        | Tschernobyl         |

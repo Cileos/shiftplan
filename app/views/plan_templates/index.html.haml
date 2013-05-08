@@ -2,20 +2,19 @@
 
 - masterhead_toolbar do
   - if can? :create, PlanTemplate
-    = link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:plan_template],
+    = link_to ta(:add), [:new] + nested_resources_for(current_organization) + [:plan_template],
       remote: true,
-      class: 'button', data: { icon: i(:add) }
+      class: 'button button-add'
 
-.row.two-columns.inverted
-  .primary
-    #plan-templates
-      - unless collection.empty?
-        = render 'table', records: collection
-      - else
-        %p= t(:'.no_plan_templates')
-
-  .secondary.instructions
-    - if can? :create, PlanTemplate
-      = tt '.planner_instructions'
+.primary
+  #plan-templates
+    - unless collection.empty?
+      = render 'table', records: collection
     - else
-      = tt '.instructions'
+      %p= t(:'.no_plan_templates')
+
+#instructions.instructions
+  - if can? :create, PlanTemplate
+    = tt '.planner_instructions'
+  - else
+    = tt '.instructions'

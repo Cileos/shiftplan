@@ -6,7 +6,7 @@
         %th= t('action')
 
   %tbody
-    - records.each do |record|
+    - records.order("UPPER(name)").each do |record|
       %tr{id: "record_#{record.id}"}
         %th= link_to record.name, nested_resources_for(record)
         - if can? :edit, record

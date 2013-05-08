@@ -8,6 +8,7 @@ en:
       profile: Profile
       settings: Preferences
       dashboard: Dashboard
+      info: Info
       news: News
       signin: Log in
       signin_with: "Log in with %{provider}"
@@ -67,6 +68,7 @@ en:
       show_legend_long: "Expand legend"
       show_help: "Help"
       show_help_long: "Expand help"
+      core_data: "Core Data"
   schedulings:
     calendar_navigation:
       day: "Day"

@@ -1,0 +1,12 @@
+- unless organizations.empty?
+  - organizations.each do |organization|
+    %tr{id: "organization_#{organization.id}"}
+      %th= link_to organization.name, nested_resources_for(organization)
+      %td
+        .actions
+          - if can? :edit, organization
+            = link_to :edit, [:edit] + nested_resources_for(organization),
+              class: 'button button-small button-edit', data: { remote: true }
+- else
+  %tr
+    %th{colspan: 2}= t(:'.no_organizations')

@@ -1,4 +1,5 @@
 de:
+  logged_in_as: 'Eingeloggt als: '
   activerecord:
     models:
       employee:

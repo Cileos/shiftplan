@@ -1,2 +1,2 @@
 .comments-count
-  = link_to ti(:'comments_count', count: post.comments.count, :'non-white' => true), nested_resources_for(post), anchor: '#comments', data: { icon: i(:comment) }
+  = link_to ta(:'comments_count', count: post.comments.count), nested_resources_for(post), anchor: '#comments', :class => 'icon-comment'

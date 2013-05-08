@@ -75,6 +75,13 @@ Then /^I should see the following table of (.+):$/ do |plural, expected|
   expected.diff! actual
 end
 
+Then /^I should see the following table for #{capture_model}:$/ do |ref, table|
+  model = model!(ref)
+  id = selector_for("the table for #{ref}").sub(/^table#/,'')
+  step "I should see the following table of #{id}:", table
+end
+
+
 # The difference between this step and the previous is: THIS one can handle multiple values per cell properly, for example
 # %table.overview
 #   %tr

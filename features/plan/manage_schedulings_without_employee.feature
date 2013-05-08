@@ -9,8 +9,7 @@ Feature: Manage schedulings without employees
       And the situation of a nuclear reactor
 
   Scenario: create and update a scheduling without an employee
-    Given I inject style "position:relative" into "header"
-      And I follow "Neue Terminierung"
+     Given I follow "Neue Terminierung"
       And I wait for the modal box to appear
       And I select "" from "Mitarbeiter"
       And I select "Mittwoch" from "Wochentag"

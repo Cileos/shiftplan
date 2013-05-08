@@ -27,8 +27,11 @@ end
 
 shared_examples "an owner managing organizations" do
   context "for own accounts" do
-    it "should be able to manage organizations" do
-      should be_able_to(:manage, organization)
+    it "should be able to create organizations" do
+      should be_able_to(:create, organization)
+    end
+    it "should be able to update organizations" do
+      should be_able_to(:update, organization)
     end
   end
   context "for other accounts" do
@@ -110,13 +113,57 @@ describe "Organization permissions:" do
     end
   end
 
-  context "As an user without employee(not possible but for the case)" do
-    it_behaves_like "an employee who is not able to manage organizations" do
-      let(:employee) { nil }
-      # other_organization belongs to same account as organization but the
-      # employee is not member of other_organization and therefore can not
-      # even read it
-      let(:other_organization) { create(:organization, account: account) }
+  context "A User" do
+    before(:each) do
+      membership
+      # We test abilities when not being in the scope of an account here.
+      # E.g. this is the case when visiting the /dashboard or /accounts.
+      # When being in the global scope the current employee can not be
+      # determined, therefore it is set to nil here.
+      user.current_employee = nil
+    end
+    let(:membership) { create(:membership, employee: employee, organization: organization) }
+
+    context "with an employee without roles" do
+      let(:employee) { create(:employee, account: account, user: user) }
+
+      context "for own organizations" do
+        context "for own organization" do
+          it "should be able to read organizations" do
+            should be_able_to(:read, organization)
+          end
+          it "should not be able to create organizations" do
+            should_not be_able_to(:create, organization)
+          end
+          it "should not be able to update organizations" do
+            should_not be_able_to(:update, organization)
+          end
+          it "should not be able to destroy organizations" do
+            should_not be_able_to(:destroy, organization)
+          end
+        end
+      end
+
+    context "for other organizations" do
+      it_behaves_like "an employee who is not able to manage organizations" do
+        # other_organization belongs to same account as organization but the
+        # employee is not member of other_organization and therefore can not
+        # even read it
+        let(:other_organization) { create(:organization, account: account) }
+      end
+    end
+    end
+
+    context "with an employee beeing planner" do
+      it_behaves_like "a planner managing organizations" do
+        let(:employee) { create(:employee_planner, account: account, user: user) }
+      end
+    end
+
+    context "with an employee beeing owner" do
+      it_behaves_like "an owner managing organizations" do
+        let(:employee) { create(:employee_owner, account: account, user: user) }
+      end
     end
   end
 end
