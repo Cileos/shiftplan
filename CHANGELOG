@@ -3,11 +3,11 @@ Changelog
 
 Release 0.3.4 2013-05-08 03:52
 ------------------------------
-98666b6 Merge branch 'feature/main_navigation' into develop
-55ffa15 Merge branch 'feature/generate-scss-from-yaml-for-icons' into develop
-182edb2 Merge branch 'feature/bug-594210-dots-in-employee-names' into develop
-d37f764 Merge branch 'feature/bug-882752-cannot-reach-short-scheduling-in-hours-view-stack' into develop
-1ece36c Merge branch 'feature/develotest' into develop
+* 98666b6 Merge branch 'feature/main_navigation' into develop
+* 55ffa15 Merge branch 'feature/generate-scss-from-yaml-for-icons' into develop
+* 182edb2 Merge branch 'feature/bug-594210-dots-in-employee-names' into develop
+* d37f764 Merge branch 'feature/bug-882752-cannot-reach-short-scheduling-in-hours-view-stack' into develop
+* 1ece36c Merge branch 'feature/develotest' into develop
 
 Release 0.3.3 2013-05-03 11:40
 ------------------------------
