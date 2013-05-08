@@ -135,7 +135,7 @@ Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
   end
 end
 
-Given /^I use a (german|english) browser$/ do |lang|
+Given /^I use an? (german|english) browser$/ do |lang|
   case lang
   when 'english'
     add_headers 'Accept-Language' => 'en-GB'

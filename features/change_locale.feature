@@ -6,7 +6,7 @@ Feature: Change locale
   # In test env, default_locale is :de, in production is :en. So in your mind, you must exchange English vs German
 
   Scenario: determine locale from browser
-    Given I use a english browser
+    Given I use an english browser
      When I go to the home page
      Then I should see "Welcome"
 
@@ -17,7 +17,9 @@ Feature: Change locale
   Scenario: overwrite browser detected locale with setting
     Given I use a english browser
       And the situation of a just registered user
-      And I should see "News"
+      And the locale attribute of the confirmed user is changed to nil
+     When I go to the dashboard page
+     Then I should see "News"
      When I choose "Preferences" from the drop down "owner@burns.com"
       And I follow "Advanced"
       And I select "Deutsch" from "Language"
