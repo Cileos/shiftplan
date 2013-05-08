@@ -6,16 +6,15 @@
       [:new, current_account, current_organization, :qualification],
       remote: true, class: 'button button-add'
 
-.row.two-columns.inverted
-  .primary
-    #qualifications
-      - unless collection.empty?
-        = render 'table', records: collection
-      - else
-        %p= t(:'qualifications.no_qualifications_present')
-
-  .secondary.instructions
-    - if can? :create, Qualification
-      = tt '.planner_instructions'
+.primary
+  #qualifications
+    - unless collection.empty?
+      = render 'table', records: collection
     - else
-      = tt '.instructions'
+      %p= t(:'qualifications.no_qualifications_present')
+
+#instructions.instructions
+  - if can? :create, Qualification
+    = tt '.planner_instructions'
+  - else
+    = tt '.instructions'

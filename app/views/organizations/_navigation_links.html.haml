@@ -1,13 +1,31 @@
 - defined?(organization) or raise(ArgumentError, "must provide :organization")
 - if organization.present? and organization.persisted?
   - base = [organization.account, organization]
-  - if (company_blog = organization.company_blog).present?
-    = li_link '.news', base + [company_blog, :posts], can: [:read, organization], :class => 'icon-news'
+  - company_blog = organization.company_blog
+  - # OPTIMIZE for more than 2 links, consider View Object
+  - actives = {}
+  - actives[:dashboard] = on_path?(nested_resources_for(current_organization))
+  - actives[:news]      = below_path?(base + [company_blog, :posts]) if company_blog.present?
+  %li.dropdown{class: actives.values.any? && 'active'  }
+    = link_to :info, nested_resources_for(current_organization), {:class =>  'icon-news', data: { toggle: 'dropdown'}}
+    %ul
+      %li{class: actives[:dashboard] && 'active'}
+        = link_to :dashboard, nested_resources_for(current_organization), :class => 'icon-dashboard'
+      - if company_blog.present?
+        = li_link :news, base + [company_blog, :posts], can: [:read, organization], :class => 'icon-news'
+
+
   - active_or_not = dropdown_class polymorphic_path(base + [:plans])
   %li{class: "dropdown #{active_or_not}"}
-    = link_to t(:'helpers.actions.plans'), base + [:plans], {:class =>  'icon-plans', data: { toggle: 'dropdown'}}
+    = link_to :plans, base + [:plans], {:class =>  'icon-plans', data: { toggle: 'dropdown'}}
     = render 'organizations/plans_list', base: base, organization: organization
-  = li_link '.employees',      base + [:employees],      can: [:show, Employee],      :class => 'icon-employees'
-  = li_link '.teams',          base + [:teams],          can: [:show, Team],          :class => 'icon-teams'
-  = li_link '.plan_templates', base + [:plan_templates], can: [:show, PlanTemplate]
-  = li_link '.qualifications', base + [:qualifications], can: [:show, Qualification]
+
+  -if (can? :show, Employee) || (can? :show, Team) || (can? :show, PlanTemplate) || (can? :show, Qualification)
+    - any_active = [:employees, :teams, :plan_templates, :qualifications].any? { |c| below_path?(base + [c]) }
+    %li.dropdown{class: any_active && 'active'}
+      = link_to :core_data, nested_resources_for(current_organization), {:class =>  'icon-settings', data: { toggle: 'dropdown'}}
+      %ul
+        = li_link '.employees',      base + [:employees],      can: [:show, Employee],      :class => 'icon-employees'
+        = li_link '.teams',          base + [:teams],          can: [:show, Team],          :class => 'icon-teams'
+        = li_link '.plan_templates', base + [:plan_templates], can: [:show, PlanTemplate],  :class => 'icon-templates'
+        = li_link '.qualifications', base + [:qualifications], can: [:show, Qualification], :class => 'icon-qualifications'

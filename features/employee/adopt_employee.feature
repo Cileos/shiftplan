@@ -28,7 +28,6 @@ Feature: Adopt Employee from other Organization
 
      When I sign in as the confirmed user "mr. burns"
       And I am on the employees page for the organization "fukushima"
-      And I inject style "position:relative" into "header"
       And I follow "Übernehmen"
      Then I should be on the adopt employees page for the organization "fukushima"
       And I should see the following table of employees:
@@ -51,8 +50,7 @@ Feature: Adopt Employee from other Organization
         | Burns, Owner  |     | owner@burns.com | Aktiv                 | Fukushima          |
         | Simpson, Bart |     |                 | Noch nicht eingeladen | Fukushima, Krümmel |
 
-     When I inject style "position:relative" into "header"
-      And I follow "Übernehmen"
+     When I follow "Übernehmen"
      Then I should see the following table of employees:
         | Übernehmen? | Name           | WAZ | E-Mail                | Status | Organisationen       |
         |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv  | Krümmel, Tschernobyl |

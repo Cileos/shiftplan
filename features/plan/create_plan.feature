@@ -11,10 +11,8 @@ Feature: Creating a plan
   Scenario: creating a plan by name for the current organization
     Given the situation of a nuclear reactor
       And I am on the page for the organization "Reactor"
-      And I inject style "position:relative" into "header"
 
      When I choose "Alle Pläne" from the drop down "Pläne"
-      And I inject style "position:relative" into "header"
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Halloween im Atomkraftwerk"

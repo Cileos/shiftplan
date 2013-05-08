@@ -8,7 +8,7 @@
         // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-edit {
           &:before {
-            content: "\f044";
+            content: "\f0ad";
           }
         }
 
@@ -55,6 +55,13 @@
         }
 
         // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-info_link {
+          &:before {
+            content: "\f015";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-dashboard {
           &:before {
             content: "\f0e4";
@@ -64,7 +71,7 @@
         // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-organization {
           &:before {
-            content: "\f015";
+            content: "\f024";
           }
         }
 
@@ -97,9 +104,23 @@
         }
 
         // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-templates {
+          &:before {
+            content: "\f044";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-qualifications {
+          &:before {
+            content: "\f0f4";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-settings {
           &:before {
-            content: "\f007";
+            content: "\f013";
           }
         }
 
@@ -183,6 +204,6 @@
         // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-alert {
           &:before {
-            content: "\f00d";
+            content: "\f071";
           }
         }

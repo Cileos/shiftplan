@@ -18,7 +18,6 @@ Feature: Inviting Employees
         | Name            |
         | Burns, Owner    |
         | Simpson, Homer  |
-      And I inject style "position:relative" into "header"
      When I follow "Hinzufügen"
       And I fill in the following:
         | Vorname           | Carl    |

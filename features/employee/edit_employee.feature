@@ -82,7 +82,6 @@ Feature: Edit Employee
         | Burns, Owner    |      | owner@burns.com  | Aktiv                  |
         | Simpson, Homer  |      |                  | Noch nicht eingeladen  |
 
-     When I inject style "position:relative" into "header"
-      And I follow "Simpson, Homer" within the employees table
+     When I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
      Then the "Wochenarbeitszeit" field should be empty

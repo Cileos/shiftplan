@@ -29,6 +29,10 @@ class Account < ActiveRecord::Base
     User.find(user_id)
   end
 
+  def self.default_sorting
+    order('UPPER(name)')
+  end
+
   def self.owners_and_planners
     owners.planners
   end

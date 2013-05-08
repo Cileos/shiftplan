@@ -6,9 +6,9 @@
       %th= t('activerecord.attributes.employee.email')
       %th= t('activerecord.attributes.employee.role')
       %th= t('.status')
+      %th= Organization.model_name.human(count: 9001)
       - if can?(:manage, Invitation)
         %th= t('.action')
-      %th= Organization.model_name.human(count: 9001)
 
   %tbody
     - records.each do |record|
@@ -29,7 +29,7 @@
         %td= record.try(:user).try(:email) || record.try(:invitation).try(:email)
         %td= t("employees.roles.#{record.role.present? ? record.role : 'none' }")
         %td.status= invitation_status(record)
-        - if can?(:manage, Invitation)
-          %td.action= invitation_status_link(record)
         - organizations = record.organizations
         %td= organizations.present? ? organizations.order(:name).map(&:name).join(', ') : t('none')
+        - if can?(:manage, Invitation)
+          %td.action= invitation_status_link(record)

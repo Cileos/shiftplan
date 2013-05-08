@@ -1,0 +1,6 @@
+%li{class: request.path == accounts_path && 'active'}
+  = link_to :all_organizations, accounts_path
+- accounts.each do |account|
+  - current_user.organizations_for(account).default_sorting.each do |organization|
+    %li{class: (current_organization == organization) && 'active'}
+      = link_to organization.name_with_account, nested_resources_for(organization)

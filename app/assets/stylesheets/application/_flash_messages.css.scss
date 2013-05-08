@@ -4,6 +4,7 @@
   @extend .icon-notice;
 
   padding: 5px 10px;
+  padding-left: 2.5em;
   margin: 10px auto;
 
   &.alert,
@@ -13,12 +14,18 @@
     @extend .icon-error;
   }
 
+  &.warning {
+    @include flash-message($ci_yellow);
+    @extend .icon-warning;
+  }
+
   .close {
     float: right;
     cursor: pointer;
   }
 
   &:before {
-    margin: auto 1em;
+    margin: auto 1em auto -1.8em;
+    padding-right: 0.4em;
   }
 }

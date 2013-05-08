@@ -1,0 +1,19 @@
+%table{id: "account_#{account.id}", class: 'account'}
+  %thead
+    %tr
+      %th.heading= account.name
+      %td
+        .actions
+          .button-group
+            - if can? :create, Organization.new(account: account)
+              = link_to(ta(:add_organization),
+                new_account_organization_path(account),
+                class: 'button button-add', title: ta(:add_organization),
+                data: { remote: true })
+            - if can? :edit, account
+              = link_to(ta(:edit_account), edit_account_path(account),
+                class: 'button button-edit', title: ta(:edit_account))
+
+  %tbody
+    = render 'organization_rows',
+      organizations: current_user.organizations_for(account).default_sorting

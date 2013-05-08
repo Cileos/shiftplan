@@ -14,7 +14,6 @@ Feature: Create Weekbased Plan Template
         | Brennstabkessel     | Brennstabkessel     | the organization  |
         | Druckwasserreaktor  | Druckwasserreaktor  | the organization  |
       And I am on the plan templates page for the organization
-      And I inject style "position:relative" into "header"
 
      When I follow "Hinzufügen"
       And I wait for the modal box to appear
