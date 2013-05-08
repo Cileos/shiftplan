@@ -40,6 +40,18 @@ Feature: create a scheduling
       And I press "Anlegen"
      Then I should see "Quickie ist nicht gültig" within errors within the new scheduling form
 
+  @javascript
+  Scenario: Entering time span with minutes
+     When I click on cell "Di"/"Carl C"
+      And I wait for the new scheduling form to appear
+      And I fill in "Quickie" with "12:05-20:13"
+      And I press "Anlegen"
+     Then I should see the following partial calendar:
+        | Mitarbeiter | Mo | Di          | Mi | Do | Fr | Sa | So |
+        | Carl C      |    | 12:05-20:13 |    |    |    |    |    |
+        | Lenny L     |    |             |    |    |    |    |    |
+        | Homer S     |    |             |    |    |    |    |    |
+
   @todo
   @javascript
   Scenario: schedule only using the keyboard (Enter, n or a), entering just the timespan, using autocompletion
