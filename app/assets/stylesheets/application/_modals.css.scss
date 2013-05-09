@@ -85,6 +85,13 @@
       min-width: 400px;
     }
 
+    .weekdays {
+      span {
+        display: inline-block;
+        width: 2.25em;
+      }
+    }
+
     .weekday-and-time, .qualification-fields .fields {
       & > .input {
         display: inline-block;
