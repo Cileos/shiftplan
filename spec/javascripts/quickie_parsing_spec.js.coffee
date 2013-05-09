@@ -66,7 +66,7 @@ describe 'Quickie', ->
     beforeEach ->
       @quickie = new Quickie()
 
-    it 'handles hours', ->
+    it 'handles full hours', ->
       @quickie.start_hour = '12'
       @quickie.start_minute = ''
       @quickie.end_hour = '20'
@@ -76,7 +76,7 @@ describe 'Quickie', ->
 
     it 'handles minutes', ->
       @quickie.start_hour = '12'
-      @quickie.start_minute = '05'
+      @quickie.start_minute = '5'
       @quickie.end_hour = '20'
       @quickie.end_minute = '13'
       @quickie.team_name = 'Brennstäbe wechseln'

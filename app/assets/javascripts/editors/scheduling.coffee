@@ -16,7 +16,11 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       @input(field).on 'change', => @fieldChanged()
     @input('team_id').on 'change', => @fieldChanged()
 
+    @set 'start_minute_field', Clockwork.MinuteField.create element: @input('start_minute')
+    @set 'end_minute_field', Clockwork.MinuteField.create element: @input('end_minute')
+
   input: (name) ->
+    @get("#{name}_field") ||
     @get('element').find(":input[name=\"scheduling[#{name}]\"]")
 
 
