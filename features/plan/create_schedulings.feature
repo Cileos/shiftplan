@@ -33,43 +33,18 @@ Feature: create a scheduling
      Then the "Quickie" field should contain "9-17"
 
   @javascript
-  Scenario: through the button on the top with repeating for checked days
-     When I follow "Neue Terminierung"
-      And I select "Homer S" from "Mitarbeiter"
-     Then the "Mittwoch" checkbox should not be checked
-      And the "Donnerstag" checkbox should not be checked
-     When I select "Mittwoch" from "Wochentag"
-     Then the "Mittwoch" checkbox should be checked
-     When I check "Donnerstag"
-      And I fill in "Quickie" with "9-17"
-      And I press "Anlegen"
-     Then I should see the following partial calendar:
-        | Mitarbeiter | Mo | Di | Mi          | Do          | Fr | Sa | So |
-        | Carl C      |    |    |             |             |    |    |    |
-        | Lenny L     |    |    |             |             |    |    |    |
-        | Homer S     |    |    | 09:00-17:00 | 09:00-17:00 |    |    |    |
-     # TODO: editing
-     # When I click on cell "Mi"/"Homer S"
-     # Then the "Mittwoch" checkbox should be checked
-     #  And the "Donnerstag" checkbox should not be checked
-     # When I check "Freitag"
-     #  And I press "Speichern"
-     # Then I should see the following partial calendar:
-     #    | Mitarbeiter | Mo | Di | Mi          | Do          | Fr          | Sa | So |
-     #    | Carl C      |    |    |             |             |             |    |    |
-     #    | Lenny L     |    |    |             |             |             |    |    |
-     #    | Homer S     |    |    | 09:00-17:00 | 09:00-17:00 | 09:00-17:00 |    |    |
-
-  @javascript
   Scenario: through the button on the top with repeating for checked days for overnightable
      When I follow "Neue Terminierung"
       And I select "Homer S" from "Mitarbeiter"
-     Then the "Mittwoch" checkbox should not be checked
-      And the "Donnerstag" checkbox should not be checked
-     When I select "Mittwoch" from "Wochentag"
-     Then the "Mittwoch" checkbox should be checked
-     When I check "Donnerstag"
-     When I check "Samstag"
+      And the "Wochentag" field should contain "2012-02-13"
+     Then the "Mo" checkbox should be checked
+     When I uncheck "Mo"
+     Then the "Wochentag" field should contain ""
+      And I check "Mi"
+      And the "Wochentag" field should contain "2012-02-15"
+      And I check "Do"
+      And the "Wochentag" field should contain "2012-02-15"
+      And I check "Sa"
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
      Then I should see the following partial calendar:

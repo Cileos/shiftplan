@@ -14,7 +14,9 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     for field in ['start_hour', 'end_hour', 'team_id']
       @input(field).on 'change', => @fieldChanged()
 
-    @input('date').on 'change', => @dateFieldChanged()
+    @checkWeekday()
+
+    $('.weekdays input').on 'change', => @updateCurrentDate()
 
   input: (name) ->
     @get('element').find(":input[name=\"scheduling[#{name}]\"]")
@@ -30,10 +32,22 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       if parsed.space_before_team? and parsed.space_before_team.length > 0
         @setTeamByName(parsed.team_name)
 
-  dateFieldChanged: ->
-    selected_date = $(event.target).find('option:selected').val()
-    repeat_day_selector = "input#scheduling_repeat_for_days_" + selected_date
-    $(repeat_day_selector).attr('checked', true)
+  checkWeekday: ->
+    current_date = @currentDate().val()
+    weekday_selector = "input#scheduling_repeat_for_days_" + current_date
+    $(weekday_selector).attr('checked', true)
+
+  updateCurrentDate: ->
+    checked_weekdays = $('.weekdays input:checked').map((index, checkbox) ->
+      checkbox.value
+    )
+    if checked_weekdays.length > 0
+      @currentDate().val(checked_weekdays.sort()[0]) # set to min date
+    else
+      @currentDate().val('')
+
+  currentDate: ->
+    @input('date')
 
   # sync fields => Quickie
   fieldChanged: ->
