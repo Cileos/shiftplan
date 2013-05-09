@@ -4,21 +4,20 @@
   - if can? :manage, TeamMerge
     %button{ :id => 'merge-button',
       'data-url' => new_account_organization_team_merge_path(current_account, current_organization) }
-      = ti(:merge)
+      = ta(:merge)
   - if can? :create, Team
-    = link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:team],
-      class: 'button', remote: true, data: { icon: i(:add) }
+    = link_to ta(:add), [:new] + nested_resources_for(current_organization) + [:team],
+      class: 'button button-add', remote: true
 
-.row.two-columns.inverted
-  .primary
-    #teams
-      - unless collection.empty?
-        = render 'table', records: collection
-      - else
-        %p= t(:'teams.no_teams_present')
-
-  .secondary.instructions
-    - if can? :create, Team
-      = tt '.planner_instructions'
+.primary
+  #teams
+    - unless collection.empty?
+      = render 'table', records: collection
     - else
-      = tt '.instructions'
+      %p= t(:'teams.no_teams_present')
+
+#instructions.instructions
+  - if can? :create, Team
+    = tt '.planner_instructions'
+  - else
+    = tt '.instructions'

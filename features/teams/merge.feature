@@ -17,7 +17,6 @@ Feature: Merge Teams
         | 2012-12-22 | 3-4 Reaktor putzen    |
       And a team exists with name: "Überwachen", organization: the organization
       And I am on the page for teams of the organization
-      And I inject style "position:relative" into "header"
       And I should see the following table of teams:
        | Name              | Kürzel |
        | Reaktor putzen    | Rp     |

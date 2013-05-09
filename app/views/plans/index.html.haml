@@ -2,7 +2,7 @@
 
 - if can? :create, Plan
   - masterhead_toolbar do
-    =link_to ti(:add), [:new] + nested_resources_for(current_organization) + [:plan], class: 'button', remote: true, data: { icon: i(:add) }
+    =link_to ta(:add), [:new] + nested_resources_for(current_organization) + [:plan], class: 'button button-add', remote: true
 
 #plans
   - unless collection.empty?

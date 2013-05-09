@@ -15,6 +15,7 @@
  * your cat. */
 
 @import "bourbon";
+@import "compiled/icons";
 @import "config/defaults";
 @import "config/*";
 @import "neat/neat";
@@ -48,13 +49,3 @@
 @import "calendar/scheduling";
 @import "calendar/hours";
 @import "calendar/todo_list";
-
-
-// here comes the ugly part ...
-
-// FIXME delete this as soon as the old icon helper
-//       which renders <i class='icon-[whatever]></i>'
-//       is recoded to use [data-icon]
-i[class^="icon-"] {
-    @include _hidden();
-}

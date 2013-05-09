@@ -8,6 +8,7 @@ html {
 }
 
 body {
+  padding-top: $banner_top_padding;
   background: $ci_bg-color;
   color: $ci_text-color;
 }
@@ -108,6 +109,11 @@ small {
     white-space: nowrap;
   }
 
+  .account-organization {
+    padding: 2px $banner_link_padding_lr;
+    border-bottom: 1px solid darken($ci_blue, 7.5%);
+  }
+
   a {
     @include transition(color, background .5s ease);
 
@@ -118,8 +124,15 @@ small {
   }
 
   h1 a,
-  .user-navigation a {
-    border-left: 0;
+  .user-navigation {
+    .user {
+      padding: 11px 10px 12px;
+    }
+
+    .help-faq {
+      padding: 11px 20px 12px;
+      font-size: 18px;
+    }
   }
 
   [role=navigation] {
@@ -140,7 +153,9 @@ small {
   }
 
   .avatar {
-    vertical-align: -4px;
+    vertical-align: -10px;
+    border: 1px solid $ci_grey;
+    height: 27px;
   }
 
   .active {
@@ -154,12 +169,17 @@ small {
 
   .dropdown {
     > ul {
-      top: $ci_font_size * $ci_line_height + 2 * $banner_link_padding_tb;
+      top: $banner_top_padding - 2px;
+      border-top: 1px solid darken($ci_blue, 7.5%);
     }
 
     > ul a {
       color: $ci_blue;
       border-left: none;
+    }
+
+    li.active a {
+      color: lighten($ci_blue, 50%);
     }
   }
 
@@ -169,6 +189,7 @@ small {
       width: 40px;
       white-space: nowrap;
       overflow: hidden;
+
       &[data-icon]:before {
         margin-right: 1.5em;
       }
@@ -185,8 +206,25 @@ small {
   }
 }
 
+.where-and-who-am-i {
+  @include clearfix;
+  margin-bottom: 15px;
+  padding: 5px $banner_link_padding_lr;
+  color: $ci_darkgrey;
+  background: $ci_darkwhite;
+  border-bottom: 1px solid $ci_grey;
+
+  .current-account-and-organization {
+    float: left;
+  }
+
+  .username {
+    float: right;
+  }
+}
+
 [role=content] {
-  padding: $banner_top_padding $banner_link_padding_lr 0px;
+  padding: 0 $banner_link_padding_lr 25px;
   margin-bottom: 40px;
 
   .wrap.expanded & {
@@ -363,15 +401,21 @@ small {
   font-size: $ci_font-size;
   font-weight: bold;
   cursor: pointer;
+  @extend %with-icon;
+  @extend .icon-collapse;
 
-  &[data-icon]:before {
+  &:before {
     position: absolute;
     top: 10px;
     left: -1em;
   }
 
-  &.collapsed[data-icon]:before {
-    left: -0.75em;
+  &.collapsed {
+    @extend .icon-expand;
+
+    &:before {
+      left: -0.75em;
+    }
   }
 
   &:hover {
@@ -391,20 +435,23 @@ small {
   top: 48px;
   display: block;
   width: 190px;
-  padding: 6px 0 0;
+  padding: 11px 0 4px;
   text-align: center;
   line-height: 1;
   font-size: 16px;
   border-bottom: 1px solid $ci_middarkgrey;
+  @extend %with-icon;
+  @extend .icon-hide;
 
   &.collapsed {
+    @extend .icon-expand;
     height: 100%;
     width: 25px;
     border-right: 1px solid $ci_middarkgrey;
-  }
 
-  &:before {
-    margin-right: 0;
+    &:before {
+      margin-right: 0;
+    }
   }
 }
 

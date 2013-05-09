@@ -10,7 +10,7 @@
     - unless notifications.empty?
       %ul
         - notifications.recent(23).each do |notification|
-          %li{ data: { icon: i(:comment) }}
+          %li.icon-comment
             = avatar notification.acting_employee.user, notification.acting_employee, :thumb
             = notification.introductory_text
     - else

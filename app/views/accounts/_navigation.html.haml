@@ -1,23 +1,10 @@
 - if user_signed_in?
+  %ul
+    %li.dropdown{class: request.path == accounts_path && 'active'}
+      = link_to t('activerecord.models.organization.other'), accounts_path,
+        {:class => 'icon-organization', data: { toggle: 'dropdown'}}
+      %ul.organization-dropdown
+        = render 'accounts/organization_menu_items', accounts: current_user.accounts.default_sorting
 
-  - if current_user.accounts.count > 1
-    %ul
-      %li{class: "dropdown #{current_account ? dropdown_class(account_path(current_account)) : ''}"}
-        - if current_account
-          = link_to current_account.name, account_path(current_account),
-            class: 'account', data: { toggle: 'dropdown' }
-          %ul.account-dropdown
-            - (current_user.accounts - [current_account]).each do |account|
-              %li= link_to account.name, account_path(account)
-        - else
-          %a{href: '#', 'data-toggle' => 'dropdown'}= Account.model_name.human count: 9001
-          %ul.account-dropdown
-            - current_user.accounts.order(:name).each do |account|
-              %li= link_to account.name, account_path(account)
-      - if current_account
-        = render 'accounts/navigation_links', account: current_account
-  - else
-    %ul
-      - if account = current_user.accounts.first
-        = li_link account.name, account_path(account), class: 'account'
-        = render 'accounts/navigation_links', account: account
+    - if current_organization
+      = render 'organizations/navigation_links', organization: current_organization

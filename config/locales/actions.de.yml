@@ -5,9 +5,11 @@ de:
       edit_post: 'Blogpost bearbeiten'
       edit_account: Account bearbeiten
       add_account: Account hinzufügen
+      help: Hilfe
       profile: Profil
       settings: Einstellungen
       dashboard: Dashboard
+      info: Info
       news: Neuigkeiten
       signin: Einloggen
       signin_with: "Einloggen mit %{provider}"
@@ -35,6 +37,7 @@ de:
       edit_plan_template: Planvorlage bearbeiten
       new_team_merge: Teams zusammenlegen
       edit_employee: Mitarbeiter bearbeiten
+      all_organizations: Alle Organisationen
       plans: Pläne
       all_plans: Alle Pläne
       all_posts: "Alle Neuigkeiten anzeigen"
@@ -82,6 +85,7 @@ de:
       show_legend_long: "Legende anzeigen"
       show_help: "Hilfe"
       show_help_long: "Hilfe anzeigen"
+      core_data: Stammdaten
   schedulings:
     calendar_navigation:
       day: "Tag"

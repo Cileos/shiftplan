@@ -4,6 +4,7 @@ module Volksplaner
   autoload :Responder, 'volksplaner/responder'
   autoload :FormButtons, 'volksplaner/form_buttons'
   autoload :PlanRedirector, 'volksplaner/plan_redirector'
+  autoload :IconCompiler, 'volksplaner/icon_compiler'
 
   HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .-]*\z/
 
@@ -13,6 +14,10 @@ module Volksplaner
 
   def self.hostname
     @hostname ||= staging?? 'staging.clockwork.io' : 'app.clockwork.io'
+  end
+
+  def self.icons
+    @icons ||= YAML.load_file(Rails.root.join('config/icons.yml')).with_indifferent_access
   end
 end
 

@@ -1,16 +1,18 @@
 %ul
   - if user_signed_in?
+    %li= link_to '?', '#', {:class => 'help-faq', :id => 'help', :title => t('helpers.actions.help')}
     %li.dropdown
       - if current_user.multiple? || current_user.employees.empty?
-        = link_to render('avatar_and_name'), profile_employees_path, { data: { toggle: 'dropdown' }}
+        = link_to avatar(current_user, current_employee, :tiny), profile_employees_path, :class => 'user'
       - else
-        = link_to render('avatar_and_name'), edit_profile_employee_path(current_user.employees.first), { data: { toggle: 'dropdown' }}
+        = link_to avatar(current_user, current_employee, :tiny), edit_profile_employee_path(current_user.employees.first), :class => 'user'
+
       %ul
         - if current_user.multiple? || current_user.employees.empty?
-          %li= link_to :settings, profile_employees_path, data: { icon: i(:settings) }
+          %li= link_to :settings, profile_employees_path, :class => 'icon-settings'
         - else
-          %li= link_to :settings, edit_profile_employee_path(current_user.employees.first), data: { icon: i(:settings) }
-        %li= link_to :signout, destroy_user_session_path, :method => :delete, data: { icon: i(:signout) }
+          %li= link_to :settings, edit_profile_employee_path(current_user.employees.first), :class => 'icon-settings'
+        %li= link_to :signout, destroy_user_session_path, :method => :delete, :class => 'icon-signout'
   - else
-    %li= link_to :signup, new_user_registration_path, data: { icon: i(:signup) }
-    %li= link_to :signin, new_user_session_path,      data: { icon: i(:signin) }
+    %li= link_to :signup, new_user_registration_path, :class => 'icon-signup'
+    %li= link_to :signin, new_user_session_path, :class => 'icon-signin'

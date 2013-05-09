@@ -1,4 +1,9 @@
 .has-calendar[role="content"].two-columns.inverted {
+  .where-and-who-am-i {
+    margin-top: 0;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
 
   .primary {
     margin-left: -211px;
@@ -9,8 +14,7 @@
   }
 
   .secondary {
-    margin-top: -20px;
-    padding: 22px 0 0 0;
+    padding: 27px 0 0 0;
     margin-left: -$banner_link_padding_lr;
     margin-right: 20px;
     background: $ci_sidebar_bg-color;
@@ -79,6 +83,11 @@
 
   .team .pibble {
     margin-bottom: 6px; // prevent text beyond due to linebreak
+  }
+
+  .avatar.tiny {
+    max-height: 16px;
+    max-width: 16px;
   }
 
   .wwt_diff {

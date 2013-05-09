@@ -11,23 +11,23 @@ I want to edit my profile
   Scenario: Editing the lastname on the my profile page
     Given I am signed in as the confirmed user
       And I am on the page for the organization "fukushima"
-     Then I should see "Marge Bouvier" within the user navigation
+     Then I should see "Marge Bouvier" within the orientation bar
 
-     When I choose "Einstellungen" from the drop down "Marge Bouvier"
+     When I choose "Einstellungen" from the user navigation
      Then I should be on the profile page of the employee
       # Marge Bouvier just married Homer Simpson and needs to change her last name
      When I fill in "Nachname" with "Simpson"
       And I press "Speichern"
      Then I should be on the profile page of the employee
       And I should see "Profil gespeichert."
-      And I should see "Marge Simpson" within the user navigation
+      And I should see "Marge Simpson" within the orientation bar
       But I should not see "Zurück"
 
   @javascript
   Scenario: Trying to promote myself to owner by manipulating the profile form
     Given I am signed in as the confirmed user
       And I am on the page for the organization "fukushima"
-      And I choose "Einstellungen" from the drop down "Marge Bouvier"
+      And I choose "Einstellungen" from the user navigation
       And I manipulate the form "edit_employee" with attribute "employee[role]" and value "owner"
       And I press "Speichern"
      Then 1 employees should exist with first_name: "Marge", last_name: "Bouvier", role: ""
@@ -38,7 +38,7 @@ I want to edit my profile
       And I am on the page for the organization "fukushima"
      Then I should see a tiny gravatar within the user navigation
 
-     When I choose "Einstellungen" from the drop down "Marge Bouvier"
+     When I choose "Einstellungen" from the user navigation
      Then I should be on the profile page of the employee
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
@@ -51,7 +51,7 @@ I want to edit my profile
       And I am signed in as the confirmed user
       And I am on the dashboard page
 
-     When I choose "Einstellungen" from the drop down "marge@thebouviers.com"
+     When I choose "Einstellungen" from the user navigation
      Then I should be on the profile page of my employees
      Then I should see the following table of employees:
        | Name              | Account           |
@@ -62,7 +62,7 @@ I want to edit my profile
       And I fill in "Nachname" with "Simpson"
       And I press "Speichern"
      Then I should see "Profil gespeichert."
-      And I should see "Margeret Simpson" within the user navigation
+      And I should see "Margeret Simpson" within the orientation bar
 
      When I follow "Zurück"
      Then I should be on the profile page of my employees

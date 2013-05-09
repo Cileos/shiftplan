@@ -76,7 +76,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
-  gem 'notes', :require => false, :git => 'git://github.com/v0n/notes.git'
+  gem 'notes', :require => false, :git => 'git://github.com/niklas/notes.git'
   gem 'quiet_assets'
 
   # see http://railscasts.com/episodes/402-better-errors-railspanel

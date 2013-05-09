@@ -38,6 +38,9 @@ module HtmlSelectorsHelpers
     when 'the user navigation'
       '.user-navigation'
 
+    when 'the orientation bar'
+      '.where-and-who-am-i'
+
     when 'the content'
       'section[role=content]'
 
@@ -82,7 +85,11 @@ module HtmlSelectorsHelpers
       ".tabbable#{Numerals[$1]} .tab-pane.active"
 
     when /^the #{capture_nth} table row$/
-      "table tbody tr#{Numerals[$1]}"
+      "tbody tr#{Numerals[$1]}"
+
+    when /^the table for #{capture_model}$/
+      model = model!($1)
+      "table##{model.class.model_name.singular}_#{model.id}"
 
     # The following links are decorated with tipsy, which uses the @title attribute and moves it to @original-title
     when /^the comments? link$/

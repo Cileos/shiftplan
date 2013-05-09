@@ -6,7 +6,6 @@ Feature: create a scheduling
   Background:
     Given today is 2012-02-13
       And the situation of a nuclear reactor
-      And I inject style "position:relative" into "header"
 
   @javascript
   Scenario: through the button on the top
@@ -24,8 +23,7 @@ Feature: create a scheduling
      And the employee "Homer S" should have a yellow hours/waz value of "8 / 40"
 
      # completion
-     When I inject style "position:relative" into "header"
-      And I follow "Neue Terminierung"
+     When I follow "Neue Terminierung"
       And I select "Lenny L" from "Mitarbeiter"
       And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9"

@@ -12,6 +12,7 @@
 //= require collapsible
 //= require sidebars
 //= require lib/tooltips
+//= require instructions
 // always last!
 //= require lib/loaded_page
 //= require jquery_nested_form

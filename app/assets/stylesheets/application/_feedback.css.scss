@@ -10,6 +10,9 @@
     background: $ci_blue;
     color: white;
 
+    @extend %with-icon;
+    @extend .icon-envelope;
+
     &:hover {
         bottom: 0px;
         background: $ci_blue_hover_dark;
