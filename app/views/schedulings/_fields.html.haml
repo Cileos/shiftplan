@@ -1,11 +1,15 @@
 - scheduling = f.object
 .weekday-and-time
-  = f.input :date, :collection => cwdays_for_select(scheduling), :include_blank => false
-
+  = f.input :date, input_html: { class: 'disabled', :disabled => true }
   = f.input :start_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
   = f.input :end_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
 
-  = f.collection_check_boxes :repeat_for_days, cwdays_for_select(scheduling), :last, :first
+-# TODO: move to disabled input for date above and change css so that float left
+-# is preserved.
+= f.input :date, as: :hidden
+
+.weekdays
+  = f.collection_check_boxes :repeat_for_days, cwdays_for_select(scheduling, :abbr_week_day), :last, :first
 
 
 = f.association :employee, as: :select, collection: employees_for_select(scheduling)
