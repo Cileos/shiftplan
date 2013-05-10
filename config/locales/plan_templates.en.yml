@@ -1,0 +1,37 @@
+en:
+  activerecord:
+    attributes:
+      plan_template:
+        name: Name
+        template_type: Template type
+    models:
+      plan_template:
+        one: "template"
+        other: "%{count} templates^"
+  plan_templates:
+    template_types:
+      weekbased: 'week based'
+    index:
+      no_plan_templates: "There are no templates for the organization yet."
+      planner_instructions: >
+        Here you find all currently existing templates for this organization.
+
+
+        To add a new template, press above _Add_.
+
+
+        Templates give you the ability to define typical, recurring shifts
+        within a week. A Shift is the number of demands and possibly needed
+        qualifications.
+
+
+        Example 1: @08:00-16:00 2 x cook in team kitchen@
+
+
+        Example 2: @14:00-22:00 2 x in team service@
+
+
+        After the creation of a template you can use it in every plan to
+        easily fill your plan with the predefined demands.
+      instructions: >
+        Here you see all currently existing templates for this organization.
