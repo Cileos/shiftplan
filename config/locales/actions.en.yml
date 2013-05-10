@@ -5,6 +5,7 @@ en:
       edit_post: "Edit post"
       edit_account: Edit account
       add_account: Add account
+      help: Help
       profile: Profile
       settings: Preferences
       dashboard: Dashboard
@@ -17,29 +18,44 @@ en:
       set_your_password: "Set your password"
       employees: Employees
       teams: Teams
+      qualifications: Qualifications
+      plan_templates: Plan Templates
       add: Add
-      adopt: Import
+      adopt: Adopt
       new_employee: "Create user"
       add_employee: "Add employee"
       add_organization: "Add Unit"
       edit_organization: Edit unit
-      adopt_employee: "Import employee"
-      want_to_adopt: "Import this employee?"
-      adopt_employees: "Import employees"
+      adopt_employee: "Adopt employee"
+      want_to_adopt: "Adopt this employee?"
+      adopt_employees: "Adopt employees"
       new_team: "New team"
       edit_team: "Edit team"
+      new_qualification: Add Qualification
+      edit_qualification: Edit Qualification
+      new_plan_template: Add Plan Template
+      edit_plan_template: Edit Plan Template
       new_team_merge: "Merge teams"
       edit_employee: "Edit employee"
+      all_organizations: All Organisations
       plans: Plans
       all_plans: "All plans"
       all_posts: "All posts"
       new_plan: "New plan"
       edit_plan: "Edit plan"
       new_scheduling: "New scheduling"
+      new_shift: New Shift
+      edit_shift: Edit Shift
+      demands: Demands
+      add_demand: "add demand"
+      remove_demand: "remove demand"
+      new_plan_template: New Plan Template
       new_organization: "Create another Unit"
       next: Next
       create: Create
+      create_busy: Create ...
       update: Update
+      update_busy: Update ...
       hours: Hours
       wwt_short: WWT
       wwt_long: Weekly Working Time
@@ -54,6 +70,7 @@ en:
       copy: "Copy"
       new_copy_week: "Copy whole week"
       new_apply_plan_template: "Apply a plan template"
+      apply: 'Apply'
       comment: Comment
       comments: Comments
       reply: "Reply"
@@ -75,6 +92,7 @@ en:
       previous: '<'
       today: "Today"
       next: '>'
+      more_actions: More Actions
     week_switch:
       employees_in_week: "Employees"
       teams_in_week: "Teams"

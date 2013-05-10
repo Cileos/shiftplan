@@ -26,8 +26,9 @@ en:
         If so, please select the name of the new team and Confirm. You can't revert this step. All records of the teams 
         will be assigned to the new team.
   teams:
+    no_teams_present: "Es existieren noch keine Teams für diese Organisation."
+    goto_teams: 'Hier können Sie Teams anlegen.'
     index:
-      no_teams: "No teams yet."
       action: Action
       instructions: >
         Here you can see all the Teams in a Unit.
