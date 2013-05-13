@@ -12,7 +12,7 @@ Feature: Tasks of milestones
       And a task exists with name: "Kill the King", milestone: the milestone, due_at: "2012-12-22"
       And I am on the page for the plan
 
-  @wip
+  # TODO i18n in js
   Scenario: create tasks for milestone
      When I follow "neue Aufgabe"
       And I fill in "Name" with "become famous"
@@ -40,15 +40,12 @@ Feature: Tasks of milestones
       And the employee "Homer" should be the task's responsible
       # sort by due_at asc, undef at bottom
       And I should see a list of the following tasks:
-        | name          | employee_name | due_on     |
-        | Kill the King |               | 2012-12-22 |
-        | become rich   | Homer S       | 2012-12-31 |
-        | become famous |               |            |
-      # descriptions are not listed, only shown in modal box
-      But I should not see "need money" within the milestones list
+        | name          | employee_name | due_on     | description |
+        | Kill the King |               | 2012-12-22 |             |
+        | become rich   | Homer S       | 2012-12-31 | need money  |
+        | become famous |               |            |             |
 
 
-  @wip
   Scenario: start to create, cancel, try again (Bender mode)
      When I follow "neue Aufgabe"
       And I fill in "Name" with "Kill all humans"

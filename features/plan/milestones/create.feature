@@ -1,6 +1,5 @@
 @javascript
 @big_screen
-@wip
 Feature: create Milestones for a plan
   In order to achieve the goal of the plan
   As a planner
@@ -35,7 +34,7 @@ Feature: create Milestones for a plan
      And the milestone's description should be "must take over now!"
      And the employee "Homer" should be the milestone's responsible
      And I should see "Homer S" within the milestones list
-     But I should not see "must take over now" within the milestones list
+     And I should see "must take over now" within the milestones list
 
   Scenario: Failing to enter name shows validation error message
     When I press "Anlegen"
