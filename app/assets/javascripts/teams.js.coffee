@@ -6,7 +6,7 @@ jQuery(document).ready ->
     $teams = $(this)
     $elmMergeButton = $('#merge-button')
 
-    $elmMergeButton.click ->
+    $elmMergeButton.click (event) ->
       event.preventDefault()
       $.ajax
         url: $(this).data('url')
