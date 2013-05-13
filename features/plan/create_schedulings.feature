@@ -44,13 +44,15 @@ Feature: create a scheduling
   Scenario: Entering time span with minutes
      When I click on cell "Di"/"Carl C"
       And I wait for the new scheduling form to appear
-      And I fill in "Quickie" with "12:05-20:13"
-      And I press "Anlegen"
+      And I fill in "Startzeit" with "09:00"
+      And I fill in "Endzeit" with "20:13"
+     Then the "Quickie" field should contain "9-20:13"
+     When I press "Anlegen"
      Then I should see the following partial calendar:
-        | Mitarbeiter | Mo | Di          | Mi | Do | Fr | Sa | So |
-        | Carl C      |    | 12:05-20:13 |    |    |    |    |    |
-        | Lenny L     |    |             |    |    |    |    |    |
-        | Homer S     |    |             |    |    |    |    |    |
+        | Mitarbeiter | Mo | Di      | Mi | Do | Fr | Sa | So |
+        | Carl C      |    | 9-20:13 |    |    |    |    |    |
+        | Lenny L     |    |         |    |    |    |    |    |
+        | Homer S     |    |         |    |    |    |    |    |
 
   @todo
   @javascript

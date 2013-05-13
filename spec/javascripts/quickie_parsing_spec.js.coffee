@@ -15,10 +15,10 @@ describe 'Quickie', ->
       expect(@parsed.hour_range).toEqual('9-17')
 
     it "should detect start hour", ->
-      expect(@parsed.start_hour).toEqual('9')
+      expect(@parsed.start_time).toEqual('9')
 
     it "should detect end hour", ->
-      expect(@parsed.end_hour).toEqual('17')
+      expect(@parsed.end_time).toEqual('17')
 
     it "should detect full unicode team name", ->
       expect(@parsed.team_name).toEqual('Brennstäbe wechseln')
@@ -53,34 +53,41 @@ describe 'Quickie', ->
     expect( parsed.space_before_team ).toEqual(' ')
 
   it "parses time range with minutes", ->
-    parsed = Quickie.parse('12:05-20:13')
+    parsed = Quickie.parse('12:05-20:13 Brennstäbe wechseln')
     expect( parsed ).not.toBeNull()
-    expect( parsed.start_hour ).toEqual('12')
-    expect( parsed.start_minute ).toEqual('05')
-    expect( parsed.end_hour ).toEqual('20')
-    expect( parsed.end_minute ).toEqual('13')
+    expect( parsed.start_time ).toEqual('12:05')
+    expect( parsed.end_time ).toEqual('20:13')
     expect( parsed.hour_range ).toEqual('12:05-20:13')
+    expect( parsed.toString() ).toEqual('12:05-20:13 Brennstäbe wechseln')
 
 
   describe 'serialization', ->
     beforeEach ->
       @quickie = new Quickie()
 
+    it 'handles one-digit full hours', ->
+      @quickie.start_time = '06:00'
+      @quickie.end_time = '09:00'
+      @quickie.team_name = 'Brennstäbe wechseln'
+      expect( @quickie.toString() ).toEqual('6-9 Brennstäbe wechseln')
+
     it 'handles full hours', ->
-      @quickie.start_hour = '12'
-      @quickie.start_minute = ''
-      @quickie.end_hour = '20'
-      @quickie.end_minute = ''
+      @quickie.start_time = '12:00'
+      @quickie.end_time = '20:00'
       @quickie.team_name = 'Brennstäbe wechseln'
       expect( @quickie.toString() ).toEqual('12-20 Brennstäbe wechseln')
 
     it 'handles minutes', ->
-      @quickie.start_hour = '12'
-      @quickie.start_minute = '5'
-      @quickie.end_hour = '20'
-      @quickie.end_minute = '13'
+      @quickie.start_time = '12:05'
+      @quickie.end_time = '20:13'
       @quickie.team_name = 'Brennstäbe wechseln'
       expect( @quickie.toString() ).toEqual('12:05-20:13 Brennstäbe wechseln')
+
+    it 'handles one-digit hours and minutes', ->
+      @quickie.start_time = '06:23'
+      @quickie.end_time = '09:42'
+      @quickie.team_name = 'Brennstäbe wechseln'
+      expect( @quickie.toString() ).toEqual('06:23-09:42 Brennstäbe wechseln')
 
 
 

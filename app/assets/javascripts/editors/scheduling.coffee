@@ -11,18 +11,20 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       .on('change autocompleteclose', => @quickieChanged())
       .bindWithDelay('keyup', (=> @quickieChanged()), 150)
 
-    @syncedFields = ['start_hour', 'start_minute', 'end_hour', 'end_minute']
+    @syncedFields = ['start_time', 'end_time']
     for field in @syncedFields
       @input(field).on 'change', => @fieldChanged()
     @input('team_id').on 'change', => @fieldChanged()
 
-    @set 'start_minute_field', Clockwork.MinuteField.create element: @input('start_minute')
-    @set 'end_minute_field', Clockwork.MinuteField.create element: @input('end_minute')
+    timeoptions =
+      show24Hours: true
+      showSeconds: false
+
+    @input('start_time').timeEntry(timeoptions)
+    @input('end_time').timeEntry(timeoptions)
 
   input: (name) ->
-    @get("#{name}_field") ||
     @get('element').find(":input[name=\"scheduling[#{name}]\"]")
-
 
   # sync Quickie => fields
   quickieChanged: ->
