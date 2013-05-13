@@ -10,10 +10,11 @@ Feature: create a scheduling
   @javascript
   Scenario: through the button on the top
      When I follow "Neue Terminierung"
-     Then I should see "9-17 wichtige Arbeit [wA]" within a hint
-      And I select "Homer S" from "Mitarbeiter"
-      And I uncheck "Mo"
+     Then the "Mo" checkbox should be checked
+      And I should see "9-17 wichtige Arbeit [wA]" within a hint
+     When I uncheck "Mo"
       And I check "Mi"
+      And I select "Homer S" from "Mitarbeiter"
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
      Then I should see the following partial calendar:
@@ -33,18 +34,17 @@ Feature: create a scheduling
      Then the "Quickie" field should contain "9-17"
 
   @javascript
-  Scenario: through the button on the top with repeating for checked days for overnightable
-     When I follow "Neue Terminierung"
-      And I select "Homer S" from "Mitarbeiter"
-      And the "Wochentag" field should contain "13.02.2012"
-     Then the "Mo" checkbox should be checked
-     When I uncheck "Mo"
+  Scenario: by clicking in a cell and using repetition
+     When I click on cell "Do"/"Homer S"
+     Then the "Wochentag" field should contain "16.02.2012"
+      And the "Do" checkbox should be checked
+     When I uncheck "Do"
      Then the "Wochentag" field should equal ""
-      And I check "Mi"
-      And the "Wochentag" field should contain "15.02.2012"
-      And I check "Do"
-      And the "Wochentag" field should contain "15.02.2012"
-      And I check "Sa"
+     When I check "Mi"
+     Then the "Wochentag" field should contain "15.02.2012"
+     When I check "Do"
+     Then the "Wochentag" field should contain "15.02.2012"
+     When I check "Sa"
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
      Then I should see the following partial calendar:
