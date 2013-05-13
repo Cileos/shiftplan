@@ -7,7 +7,7 @@ module PlansHelper
       to_a.
       map    { |more| monday + more.days }.
       select { |day| scheduling.plan.period.include_date?(day) }.
-      map    { |day| [l(day, :format => format), day.iso8601] }
+      map    { |day| [l(day, :format => format), l(day)] }
   end
 
   def durations_for_select(plan)

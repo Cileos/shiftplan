@@ -34,7 +34,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
 
   checkWeekday: ->
     current_date = @currentDate().val()
-    weekday_selector = "input#scheduling_repeat_for_days_" + current_date
+    weekday_selector = ".weekdays input[type=checkbox][value='#{current_date}']"
     $(weekday_selector).attr('checked', true)
 
   updateCurrentDate: ->

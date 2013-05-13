@@ -1,6 +1,6 @@
 - scheduling = f.object
 .weekday-and-time
-  = f.input :date, input_html: { class: 'disabled', :disabled => true }
+  = f.input :date, input_html: { value: l(scheduling.date), class: 'disabled', :disabled => true }
   = f.input :start_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
   = f.input :end_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
 

@@ -12,7 +12,8 @@ Feature: create a scheduling
      When I follow "Neue Terminierung"
      Then I should see "9-17 wichtige Arbeit [wA]" within a hint
       And I select "Homer S" from "Mitarbeiter"
-      And I select "Mittwoch" from "Wochentag"
+      And I uncheck "Mo"
+      And I check "Mi"
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
      Then I should see the following partial calendar:
@@ -25,7 +26,6 @@ Feature: create a scheduling
      # completion
      When I follow "Neue Terminierung"
       And I select "Lenny L" from "Mitarbeiter"
-      And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9"
       And I wait for the completion list to appear
       And I press arrow down in the "Quickie" field
@@ -36,14 +36,14 @@ Feature: create a scheduling
   Scenario: through the button on the top with repeating for checked days for overnightable
      When I follow "Neue Terminierung"
       And I select "Homer S" from "Mitarbeiter"
-      And the "Wochentag" field should contain "2012-02-13"
+      And the "Wochentag" field should contain "13.02.2012"
      Then the "Mo" checkbox should be checked
      When I uncheck "Mo"
      Then the "Wochentag" field should contain ""
       And I check "Mi"
-      And the "Wochentag" field should contain "2012-02-15"
+      And the "Wochentag" field should contain "15.02.2012"
       And I check "Do"
-      And the "Wochentag" field should contain "2012-02-15"
+      And the "Wochentag" field should contain "15.02.2012"
       And I check "Sa"
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"

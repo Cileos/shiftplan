@@ -23,22 +23,20 @@ module Repeatable
   end
 
   def repeat_for_days!
-    repeat_for_days.each do |day|
-      unless day.blank? || date.to_s == day
-        repetition = self.class.new(repeatable_attributes)
-        repetition.date = day
-        repetition.start_hour = start_hour
-        # Repetitions must be initialized with the original end hour of the
-        # repeatable so that they will become overnightables, too.
-        repetition.end_hour = is_overnight? ? next_day.end_hour : end_hour
-        repetition.save!
-        self.repetitions << repetition
-      end
+    repeat_for_days.reject {|day| day.blank? || date == day.to_date }.each do |day|
+      repetition = self.class.new(repeatable_attributes)
+      repetition.date = day
+      repetition.start_hour = start_hour
+      # Repetitions must be initialized with the original end hour of the
+      # repeatable so that they will become overnightables, too.
+      repetition.end_hour = is_overnight? ? next_day.end_hour : end_hour
+      repetition.save!
+      self.repetitions << repetition
     end
   end
 
   def non_repeatable_attributes
-    ['starts_at', 'ends_at', 'created_at', 'updated_at', 'next_day_id']
+    ['starts_at', 'ends_at', 'created_at', 'updated_at', 'next_day_id', 'id']
   end
 
   def repeatable_attributes
