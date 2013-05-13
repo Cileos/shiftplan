@@ -20,63 +20,68 @@ module TimeRangeComponentsAccessible
   def self.included(model)
     model.class_eval do
       before_validation :compose_time_range_from_components
+      alias_method_chain :end_minute, :respecting_end_of_day
+      alias_method_chain :end_hour, :respecting_end_of_day
     end
   end
 
-  def start_hour=(hour)
-    @start_hour = hour.present?? hour.to_i : nil
+
+  class TimeComponent < Struct.new(:record, :start_or_end)
+    TimeExp = /\A (?<hour> \d{1,2}) : (?<minute> \d{1,2}) \z/x
+
+    def hour=(hour)
+      @hour = hour.present?? hour.to_i : nil
+    end
+
+    def attr_name
+      :"#{start_or_end}s_at"
+    end
+
+    def hour
+      @hour || (record.public_send(attr_name).present? && record.public_send(attr_name).hour)
+    end
+
+    def time=(time)
+      if m = TimeExp.match(time)
+        self.hour = m[:hour]
+        self.minute = m[:minute]
+      end
+    end
+
+    def time
+      "#{hour}:#{'%02d' % minute}"
+    end
+
+    def minute
+      @minute || (record.public_send(attr_name).present? && record.public_send(attr_name).min) || 0
+    end
+
+    def minute=(minute)
+      @minute = minute.present?? minute.to_i : nil
+    end
   end
 
-  def start_hour
-    @start_hour || starts_at.present? && starts_at.hour
-  end
 
-  def start_minute=(minute)
-    @start_minute = minute.present?? minute.to_i : nil
-  end
-
-  def start_minute
-    @start_minute || starts_at.present? && starts_at.min || 0
-  end
-
-  TimeExp = /\A (?<hour> \d{1,2}) : (?<minute> \d{1,2}) \z/x
-
-  def self.time_attr_writer(*names)
+  # Enables access to all components of the given times
+  #
+  # For example, given :start it will use the Record#starts_at to give access to #start_minute etc
+  def self.time_attrs(*names)
     names.each do |name|
       module_eval <<-EOEVAL, __FILE__, __LINE__
-        def #{name}_time=(time)
-          if m = TimeExp.match(time)
-            self.#{name}_hour = m[:hour]
-            self.#{name}_minute = m[:minute]
-          end
+        def #{name}_component
+          @#{name}_component ||= TimeComponent.new(self, :#{name})
         end
-
-        def #{name}_time
-          "\#{#{name}_hour}:\#{'%02d' % #{name}_minute}"
-        end
+        delegate :hour, :hour=,
+                 :minute, :minute=,
+                 :time, :time=,
+                 to: :#{name}_component, prefix: :#{name}
       EOEVAL
     end
   end
 
-  time_attr_writer :start
-  time_attr_writer :end
+  time_attrs :start
+  time_attrs :end
 
-
-  def end_hour=(hour)
-    @end_hour = hour.present?? hour.to_i : nil
-  end
-
-  def end_hour
-    @end_hour || (ends_at.present? && end_hour_respecting_end_of_day)
-  end
-
-  def end_minute=(minute)
-    @end_minute = minute.present?? minute.to_i : nil
-  end
-
-  def end_minute
-    @end_minute || (ends_at.present? && end_minute_respecting_end_of_day) || 0
-  end
 
   def base_for_time_range_components
     @date || (starts_at.present? && starts_at.to_date)
@@ -106,20 +111,21 @@ module TimeRangeComponentsAccessible
   end
 
   # DateTime#end_of_day returns 23:59:59, which we show as 24 o'clock
-  def end_hour_respecting_end_of_day
-    if ends_at.min >= 59 and ends_at.hour == 23
+  def end_hour_with_respecting_end_of_day
+    if end_minute_without_respecting_end_of_day >= 59 and end_hour_without_respecting_end_of_day == 23
       24
     else
-      ends_at.hour
+      end_hour_without_respecting_end_of_day
     end
   end
 
   # DateTime#end_of_day returns 23:59:59, which we show as 24 o'clock
-  def end_minute_respecting_end_of_day
-    if ends_at.min >= 59 and ends_at.hour == 23
+  def end_minute_with_respecting_end_of_day
+    if end_minute_without_respecting_end_of_day >= 59 and end_hour_without_respecting_end_of_day == 23
       0
     else
-      ends_at.min
+      end_minute_without_respecting_end_of_day
     end
   end
+
 end
