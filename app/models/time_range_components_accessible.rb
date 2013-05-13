@@ -39,6 +39,29 @@ module TimeRangeComponentsAccessible
     @start_minute || starts_at.present? && starts_at.min || 0
   end
 
+  TimeExp = /\A (?<hour> \d{1,2}) : (?<minute> \d{1,2}) \z/x
+
+  def self.time_attr_writer(*names)
+    names.each do |name|
+      module_eval <<-EOEVAL, __FILE__, __LINE__
+        def #{name}_time=(time)
+          if m = TimeExp.match(time)
+            self.#{name}_hour = m[:hour]
+            self.#{name}_minute = m[:minute]
+          end
+        end
+
+        def #{name}_time
+          "\#{#{name}_hour}:\#{'%02d' % #{name}_minute}"
+        end
+      EOEVAL
+    end
+  end
+
+  time_attr_writer :start
+  time_attr_writer :end
+
+
   def end_hour=(hour)
     @end_hour = hour.present?? hour.to_i : nil
   end
@@ -61,6 +84,7 @@ module TimeRangeComponentsAccessible
 
   protected
 
+  # FIXME test this!
   def compose_time_range_from_components
     date = base_for_time_range_components
     if [date, @start_hour].all?(&:present?)

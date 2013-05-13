@@ -16,3 +16,6 @@
 [submodule "vendor/assets/javascripts/bindWithDelay"]
 	path = vendor/assets/javascripts/bindWithDelay
 	url = git://github.com/bgrins/bindWithDelay.git
+[submodule "vendor/assets/mixed/jquery.timeentry"]
+	path = vendor/assets/mixed/jquery.timeentry
+	url = https://github.com/kbwood/timeentry
