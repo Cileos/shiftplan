@@ -39,7 +39,7 @@ Feature: create a scheduling
       And the "Wochentag" field should contain "13.02.2012"
      Then the "Mo" checkbox should be checked
      When I uncheck "Mo"
-     Then the "Wochentag" field should contain ""
+     Then the "Wochentag" field should equal ""
       And I check "Mi"
       And the "Wochentag" field should contain "15.02.2012"
       And I check "Do"
