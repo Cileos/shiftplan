@@ -39,7 +39,7 @@ Feature: create a scheduling
      Then the "Datum" field should contain "16.02.2012"
       And the "Do" checkbox should be checked
      When I uncheck "Do"
-     Then the "Datum" field should equal ""
+     Then the "Datum" field should contain "16.02.2012"
      When I check "Mi"
      Then the "Datum" field should contain "15.02.2012"
      When I check "Do"

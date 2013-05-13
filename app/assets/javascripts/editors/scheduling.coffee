@@ -43,8 +43,6 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     )
     if checked_weekdays.length > 0
       @currentDate().val(checked_weekdays.sort()[0]) # set to min date
-    else
-      @currentDate().val('')
 
   currentDate: ->
     @input('date')
