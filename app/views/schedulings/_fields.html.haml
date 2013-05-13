@@ -9,7 +9,7 @@
 = f.input :date, as: :hidden
 
 .weekdays
-  = f.collection_check_boxes :repeat_for_days, cwdays_for_select(scheduling, :abbr_week_day), :last, :first
+  = f.collection_check_boxes :days, cwdays_for_select(scheduling, :abbr_week_day), :last, :first
 
 
 = f.association :employee, as: :select, collection: employees_for_select(scheduling)

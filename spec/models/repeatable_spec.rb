@@ -21,7 +21,7 @@ describe Repeatable do
       qualification: qualification,
       date: '12.12.2012', # wednesday
       quickie: "#{start_hour}-#{end_hour} Putzen",
-      repeat_for_days: [
+      days: [
         '13.12.2012', # thursday
         '15.12.2012'] # saturday
      )

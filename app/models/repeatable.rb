@@ -2,11 +2,11 @@ module Repeatable
 
   def self.included(model)
     model.class_eval do
-      after_save :create_repetitions
+      after_save :repeat!
 
       attr_writer :repetitions
 
-      attr_accessor :repeat_for_days # TODO: :repeat_for_employees, :repeat_for_teams
+      attr_accessor :days # TODO: :employees, :teams
     end
   end
 
@@ -14,27 +14,32 @@ module Repeatable
     @repetitions || []
   end
 
-  def create_repetitions
-    repeat!
-  end
-
   def repeat!
-    repeat_for_days! if repeat_for_days.present?
+    repeat_for_days! if days.present?
     # TODO
     # repeat_for_employees!
     # repeat_for_teams!
   end
 
   def repeat_for_days!
-    self.repetitions = repeat_for_days.reject {|day| day.blank? || date == day.to_date }.map do |day|
-      repetition = self.class.new(repeatable_attributes)
+    # As a checkbox group is used for days, the blank value is always included
+    # in the parameters and needs to be rejected.  The day for the scheduling
+    # itself will also be included in the parameters as the weekday for it it
+    # will always we checked along with the repetitions. It needs to be rejected
+    # from the repetition creation, too.
+    self.repetitions = days.reject {|day| day.blank? || date == day.to_date }.map do |day|
+      repeat_for_day!(day)
+    end
+  end
+
+  def repeat_for_day!(day)
+    self.class.new(repeatable_attributes).tap do |repetition|
       repetition.date = day
       repetition.start_hour = start_hour
       # Repetitions must be initialized with the original end hour of the
       # repeatable so that they will become overnightables, too.
       repetition.end_hour = is_overnight? ? next_day.end_hour : end_hour
       repetition.save!
-      repetition
     end
   end
 

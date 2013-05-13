@@ -62,7 +62,7 @@ module Overnightable
         tomorrow.starts_at = ends_at.tomorrow.beginning_of_day
         tomorrow.ends_at = ends_at + 1.day
         tomorrow.next_day = nil # prevents that a next day for the next day will be created
-        tomorrow.repeat_for_days = [] if tomorrow.respond_to?(:repeat_for_days) # prevents that the next day is repeated, only first day should be repeated
+        tomorrow.days = [] if tomorrow.respond_to?(:days) # prevents that the next day is repeated, only first day should be repeated
       end
       self.ends_at = ends_at.end_of_day # split at midnight, end_of_day returns 23:59
     end
