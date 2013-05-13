@@ -36,14 +36,14 @@ Feature: create a scheduling
   @javascript
   Scenario: by clicking in a cell and using repetition
      When I click on cell "Do"/"Homer S"
-     Then the "Wochentag" field should contain "16.02.2012"
+     Then the "Datum" field should contain "16.02.2012"
       And the "Do" checkbox should be checked
      When I uncheck "Do"
-     Then the "Wochentag" field should equal ""
+     Then the "Datum" field should equal ""
      When I check "Mi"
-     Then the "Wochentag" field should contain "15.02.2012"
+     Then the "Datum" field should contain "15.02.2012"
      When I check "Do"
-     Then the "Wochentag" field should contain "15.02.2012"
+     Then the "Datum" field should contain "15.02.2012"
      When I check "Sa"
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
