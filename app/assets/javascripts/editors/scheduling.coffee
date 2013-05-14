@@ -14,6 +14,8 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     timeoptions =
       show24Hours: true
       showSeconds: false
+      spinnerImage: ''
+      timeSteps: [1, 15, 0]
 
     @input('start_time')
       .timeEntry(timeoptions)

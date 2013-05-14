@@ -41,7 +41,7 @@ Feature: create a scheduling
      Then I should see "Quickie ist nicht gültig" within errors within the new scheduling form
 
   @javascript
-  Scenario: Entering time span with minutes
+  Scenario: Entering time span with minutes (15 minute intervals)
      When I click on cell "Di"/"Carl C"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "9-17"
@@ -51,8 +51,10 @@ Feature: create a scheduling
      When I fill in "Startzeit" with "08:00"
       And I fill in "Endzeit" with "20:13"
       And I finish typing in the "Endzeit" field
-     Then the "Quickie" field should contain "8-20:13"
+     Then the "Quickie" field should contain "8-20:15"
+      And the "Endzeit" field should contain "20:15"
      When I press "Anlegen"
+      And I wait for the modal box to disappear
      Then I should see the following partial calendar:
         | Mitarbeiter | Mo | Di      | Mi | Do | Fr | Sa | So |
         | Carl C      |    | 8-20:13 |    |    |    |    |    |
