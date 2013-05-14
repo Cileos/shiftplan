@@ -13,7 +13,7 @@ Feature: Comment on Schedulings
 
   Scenario: planner writes the first comment
     Given I am on the page for the plan
-     When I follow the comments link within cell "Fr"/"Homer S"
+     When I follow the no-comments link within cell "Fr"/"Homer S"
       And I comment "Excellent!"
      Then I should see "1" within the comment link within cell "Fr"/"Homer S"
 

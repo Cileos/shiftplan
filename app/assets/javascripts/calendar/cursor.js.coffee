@@ -111,7 +111,7 @@ class CalendarCursor
         @activate()
       when 67 # _c_omments
         @orientate()
-        @$focussed_item.find('a.comments').trigger('click.rails')
+        @$focussed_item.find('a.no-comments,a.comments').first().trigger('click.rails')
       when 37, 72 # arrow left
         @left()
       when 39, 76 # arrow right

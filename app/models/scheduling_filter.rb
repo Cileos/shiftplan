@@ -131,11 +131,12 @@ class SchedulingFilter < RecordFilter
       results = results.where(conditions)
       results = results.between( starts_at, ends_at )
       results = results.includes(*to_include)
+      results = results.includes(:plan => { :organization => :account })
       results
     end
 
     def to_include
-      [:employee, :team]
+      [:employee, :team, :previous_day, :next_day]
     end
 
     def sort_fields

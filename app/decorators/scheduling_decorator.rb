@@ -22,12 +22,13 @@ class SchedulingDecorator < RecordDecorator
   def metadata
     super.merge({
       start: start_hour,
-      length: length_in_hours
+      length: length_in_hours,
+      comments_count: comments_count,
     })
   end
 
-  def edit_url
-    edit_url_for_overnightable
+  def cid
+    cid_for_overnightable
   end
 
 

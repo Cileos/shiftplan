@@ -14,6 +14,7 @@ Spork.prefork do
 
   RSpec.configure do |config|
     include FactoryGirl::Syntax::Default
+    config.include Devise::TestHelpers, :type => :controller
     config.before(:all) do
       DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.clean_with(:truncation)

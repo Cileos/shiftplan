@@ -72,6 +72,6 @@ Feature: View Teams over weekdays in plan
         | year | week | cwday | quickie             |
         | 2012 | 49   | 2     | 9-17 Reaktor putzen |
       And I am on the teams in week page of the plan for cwyear: 2012, week: 49
-     When I follow the comments link within cell "Di"/"Reaktor putzen (Rp)"
+     When I follow the no-comments link within cell "Di"/"Reaktor putzen (Rp)"
       And I comment "Excellent!"
      Then I should see "1" within the comment link within cell "Di"/"Reaktor putzen (Rp)"

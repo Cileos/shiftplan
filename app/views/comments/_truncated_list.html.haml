@@ -1,6 +1,0 @@
-- length ||= 23
-%ul.comments
-  - comments.each do |comment|
-    %li
-      %span.employee= comment.employee.name
-      .body= truncate comment.body, length: length
