@@ -14,12 +14,24 @@ removeZeroes = (time) ->
   else
     time
 
+addZeroes = (time) ->
+  return unless time?
+  time = "0#{time}" if time < 10
+  if time.length > 2
+    time
+  else
+    "#{time}:00"
+
+
 class Quickie
   @parse: (string) ->
     parsed = XRegExp.exec string, exp.quickie
-    parsed.toString = Quickie::toString if parsed?
+    if parsed?
+      parsed.toString = Quickie::toString
+      parsed.verbose_start_time = addZeroes parsed.start_time
+      parsed.verbose_end_time = addZeroes parsed.end_time
     parsed
-  # warning: toString is not an method on the parsed
+
   toString: ->
     q = ''
     q += removeZeroes(@start_time) if @start_time?

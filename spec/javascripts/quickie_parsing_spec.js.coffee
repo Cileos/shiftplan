@@ -20,6 +20,12 @@ describe 'Quickie', ->
     it "should detect end hour", ->
       expect(@parsed.end_time).toEqual('17')
 
+    it "formats start hour", ->
+      expect(@parsed.verbose_start_time).toEqual('09:00')
+
+    it "formats end hour", ->
+      expect(@parsed.verbose_end_time).toEqual('17:00')
+
     it "should detect full unicode team name", ->
       expect(@parsed.team_name).toEqual('Brennstäbe wechseln')
 
