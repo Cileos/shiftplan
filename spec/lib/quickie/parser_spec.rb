@@ -5,32 +5,28 @@ describe 'Quickie::parser' do
 
   describe "hour range" do
     describe '9-23' do
-      it { should fill_in(:start_hour, 9) }
-      it { should fill_in(:end_hour, 23) }
+      it { should fill_in(:start_time, '9') }
+      it { should fill_in(:end_time, '23') }
       it { should serialize_to('9-23') }
     end
 
     describe '9-0' do
-      it { should fill_in(:start_hour, 9) }
-      it { should fill_in(:end_hour, 0) }
+      it { should fill_in(:start_time, '9') }
+      it { should fill_in(:end_time, '0') }
       it "keeps 0/24 midnight handling to filled in object" do
         should serialize_to('9-0')
       end
     end
 
     describe '9-24' do
-      it { should fill_in(:start_hour, 9) }
-      it { should fill_in(:end_hour, 24) }
-      it { should fill_in(:start_minute, 0) }
-      it { should fill_in(:end_minute, 0) }
+      it { should fill_in(:start_time, '9') }
+      it { should fill_in(:end_time, '24') }
       it { should serialize_to('9-24') }
     end
 
     describe '12:05-20:13' do
-      it { should fill_in(:start_hour, 12) }
-      it { should fill_in(:start_minute, 5) }
-      it { should fill_in(:end_hour, 20) }
-      it { should fill_in(:end_minute, 13) }
+      it { should fill_in(:start_time, '12:05') }
+      it { should fill_in(:end_time, '20:13') }
       it { should serialize_to('12:05-20:13') }
     end
 

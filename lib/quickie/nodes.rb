@@ -22,11 +22,8 @@ module Quickie
 
   class HourRangeNode < BaseNode
     def fill(scheduling)
-      scheduling.start_hour = start_hour.text_value.to_i
-      scheduling.end_hour = end_hour.text_value.to_i
-      # must ignore the leading ':'
-      scheduling.start_minute = start_minute.text_value.scan(/\d+/).first.to_i
-      scheduling.end_minute = end_minute.text_value.scan(/\d+/).first.to_i
+      scheduling.start_time = start_time.text_value
+      scheduling.end_time = end_time.text_value
     end
   end
 

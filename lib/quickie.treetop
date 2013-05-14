@@ -5,7 +5,7 @@ grammar Quickie
   end
 
   rule hour_range
-    start_hour:hour start_minute:(':' minute)? '-' end_hour:hour end_minute:(':' minute)? <Quickie::HourRangeNode>
+    start_time:(hour (':' minute)?) '-' end_time:(hour (':' minute)?) <Quickie::HourRangeNode>
   end
 
   # at least two characters, first is not a number, multiple words

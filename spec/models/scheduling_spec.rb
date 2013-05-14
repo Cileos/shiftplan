@@ -158,7 +158,18 @@ describe Scheduling do
           })
         end
       end
+    end
 
+    describe 'given as date and times' do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          build_without_dates({
+            date: starts_at_date,
+            start_time: '09:00',
+            end_time: '17:00'
+          })
+        end
+      end
     end
 
     describe "given as date only" do
