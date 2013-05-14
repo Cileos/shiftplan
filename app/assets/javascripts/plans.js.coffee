@@ -30,7 +30,7 @@ jQuery(document).ready ->
       $cell = $(this)
       $cell.find('.scheduling').each ->
         $scheduling = $(this)
-        $scheduling.append Clockwork.buildGimmicks($scheduling)
+        Clockwork.appendGimmicks($scheduling)
 
     $calendar.find('td').each refresh_behaviour_of_cell
     $calendar.on 'update', 'td', refresh_behaviour_of_cell
