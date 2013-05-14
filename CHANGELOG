@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Release 0.3.5 2013-05-14 11:40
+------------------------------
+* 7c4bcf2 Merge branch 'feature/benchmark-calendar' into develop
+* b576e2c Merge pull request #166 from Cileos/feature/bug-team-merge-in-windoze
+* a1da260 Merge pull request #165 from Cileos/feature/bug-cannot-create-task
+
 Release 0.3.4 2013-05-08 03:52
 ------------------------------
 * 98666b6 Merge branch 'feature/main_navigation' into develop
