@@ -1,17 +1,17 @@
 module OvernightableDecoratorHelper
+  # Canonical id
   # Makes sure that always the first day of an overnightable is edited.
   # The second day, if present, gets updated in after callbacks accordingly.
-  def edit_url_for_overnightable
-    record_or_previous_day_record = if record.previous_day.present?
-      record.previous_day
+  def cid_for_overnightable
+    if record.previous_day
+      record.previous_day.id
     else
-      record
+      record.id
     end
-    h.url_for([:edit] + h.nested_resources_for(record_or_previous_day_record))
   end
 
   def metadata
-    super.merge(edit_url: edit_url_for_overnightable, pairing: pairing_id)
+    super.merge(cid: cid_for_overnightable, pairing: pairing_id)
   end
 
   def nightshift_class

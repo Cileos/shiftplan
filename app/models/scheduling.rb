@@ -143,10 +143,6 @@ class Scheduling < ActiveRecord::Base
       .map(&:quickie)
   end
 
-  def comments_count
-    comments.count
-  end
-
   def to_s
     %Q~<Scheduling #{date} #{to_quickie}>~
   end

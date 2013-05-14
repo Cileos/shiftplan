@@ -95,6 +95,9 @@ module HtmlSelectorsHelpers
     when /^the comments? link$/
       %Q~a.comments[original-title]~ # check only for presence of o-t; it is pluralized, depending on number of comments
 
+    when /^the no-comments? link$/
+      %Q~a.no-comments[original-title]~
+
     when /^the delete link$/
       %Q~a[data-method="delete"][original-title="#{I18n.translate('helpers.actions.destroy')}"]~
 

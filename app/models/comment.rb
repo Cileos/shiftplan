@@ -13,8 +13,10 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, polymorphic: true
   belongs_to :employee
 
-  after_save :create_notifications, on: :create
+  after_save     :create_notifications, on: :create
   before_destroy :destroy_notifications
+  after_create   :increment_counter
+  after_destroy  :decrement_counter
 
   # builds a comment by passing a commentable object, a user_id, and comment
   # text.
@@ -42,6 +44,26 @@ class Comment < ActiveRecord::Base
 
   def author_name
     author.name
+  end
+
+  private
+
+  def increment_counter
+    update_counter 1
+  end
+
+  def decrement_counter
+    update_counter -1
+  end
+
+  # updates counter cache of associated model if it has a column for it
+  def update_counter(delta=0)
+    return if commentable_type.blank? # may create Comment without a commentable
+    klass = commentable_type.constantize
+    counter_name = "comments_count"
+    if klass.column_names.include?(counter_name)
+      klass.update_counters(commentable_id, counter_name => delta)
+    end
   end
 
   protected
