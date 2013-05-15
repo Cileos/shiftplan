@@ -19,11 +19,11 @@ describe Repeatable do
       plan: plan,
       employee: employee,
       qualification: qualification,
-      date: '12.12.2012', # wednesday
+      date: '2012-12-12', # wednesday
       quickie: "#{start_hour}-#{end_hour} Putzen",
       days: [
-        '13.12.2012', # thursday
-        '15.12.2012'] # saturday
+        '2012-12-13', # thursday
+        '2012-12-15'] # saturday
      )
   end
 

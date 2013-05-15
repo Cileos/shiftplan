@@ -33,13 +33,13 @@ describe PlansHelper do
       context "for first week" do
         let(:scheduling) { stub date: period.starts_at.to_date }
         it "offers only sunday" do
-          helper.cwdays_for_select(scheduling).map(&:last).should == ['01.01.2012']
+          helper.cwdays_for_select(scheduling).map(&:last).should == ['2012-01-01']
         end
       end
       context "for second week" do
         let(:scheduling) { stub date: period.ends_at.to_date }
         it "offers only monday and tuesday" do
-          helper.cwdays_for_select(scheduling).map(&:last).should == ['02.01.2012', '03.01.2012']
+          helper.cwdays_for_select(scheduling).map(&:last).should == ['2012-01-02', '2012-01-03']
         end
       end
     end
