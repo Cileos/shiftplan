@@ -16,7 +16,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
 
     @checkWeekdayForDate()
 
-    $('.weekdays input').on 'change', => @updateDate()
+    $('.weekday-and-time input[type=checkbox]').on 'change', => @updateDate()
 
   input: (name) ->
     @get('element').find(":input[name=\"scheduling[#{name}]\"]")
@@ -33,11 +33,11 @@ Clockwork.SchedulingEditor = Ember.Object.extend
         @setTeamByName(parsed.team_name)
 
   checkWeekdayForDate: ->
-    weekday_selector = ".weekdays input[type=checkbox][value='#{@date().val()}']"
+    weekday_selector = ".weekday-and-time input[type=checkbox][value='#{@date().val()}']"
     $(weekday_selector).attr('checked', true)
 
   updateDate: ->
-    checked_weekdays = $('.weekdays input:checked').map((index, checkbox) ->
+    checked_weekdays = $('.weekday-and-time input:checked').map((index, checkbox) ->
       checkbox.value
     )
     if checked_weekdays.length > 0

@@ -36,15 +36,11 @@ Feature: create a scheduling
   @javascript
   Scenario: by clicking in a cell and using repetition
      When I click on cell "Do"/"Homer S"
-     Then the "Datum" field should contain "16.02.2012"
-      And the "Do" checkbox should be checked
+     Then the "Do" checkbox should be checked
      When I uncheck "Do"
-     Then the "Datum" field should contain "16.02.2012"
-     When I check "Mi"
-     Then the "Datum" field should contain "15.02.2012"
-     When I check "Do"
-     Then the "Datum" field should contain "15.02.2012"
-     When I check "Sa"
+      And I check "Mi"
+      And I check "Do"
+      And I check "Sa"
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
      Then I should see the following partial calendar:
