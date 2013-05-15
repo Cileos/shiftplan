@@ -1,6 +1,9 @@
 Changelog
 =========
 
+Release 0.3.6 2013-05-15 22:22
+* eec136c Merge branch 'feature/bug-968876-gimmicks-injected-multiple-times' into develop
+
 Release 0.3.5 2013-05-14 11:40
 ------------------------------
 * 7c4bcf2 Merge branch 'feature/benchmark-calendar' into develop
