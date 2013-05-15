@@ -22,6 +22,7 @@ class Scheduling < ActiveRecord::Base
   attr_writer :year
   include TimeRangeWeekBasedAccessible
   include TimeRangeComponentsAccessible
+  include TimePeriodFormatter # for quickie generation
 
   include Overnightable
 
@@ -97,12 +98,6 @@ class Scheduling < ActiveRecord::Base
   end
   attr_writer :quickie
 
-  def hour_range_quickie
-    if starts_at.present? && ends_at.present?
-      "#{start_hour}-#{end_hour}"
-    end
-  end
-
   delegate :iso8601, to: :date
 
   def length_in_hours
@@ -171,7 +166,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def to_quickie
-    [ hour_range_quickie, team.try(:to_quickie) ].compact.join(' ')
+    [ TimePeriodFormatter.period(starts_at, ends_at), team.try(:to_quickie) ].compact.join(' ')
   end
 
 
