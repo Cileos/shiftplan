@@ -2,12 +2,7 @@ case @comment.commentable
 when Scheduling
   if @comment.errors.empty?
     page.decorate @comment do |comment|
-      if comment.parent_id
-        comment.update_parent
-      else
-        comment.append_to_comments_list(parent)
-      end
-      comment.reset_form
+      comment.remove_modal
     end
     page.decorate @comment.commentable.concurrent do |filter|
       filter.respond_for_update @comment.commentable
