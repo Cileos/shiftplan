@@ -134,3 +134,37 @@ Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
     URI.parse(current_url).path.should starts_with(expected)
   end
 end
+
+
+# THe following steps are inspired by web_steps, but modified to wait a bit (for JS to change the values)
+
+Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
+  with_scope(parent) do
+    field = find_field(field)
+    field_value = nil
+    begin
+      wait_until do
+        field_value = (field.tag_name == 'textarea') ? field.text : field.value
+        field_value =~ /#{value}/
+      end
+    rescue Capybara::TimeoutError
+      field_value.should =~ /#{value}/
+    end
+  end
+end
+
+Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |field, parent, value|
+  with_scope(parent) do
+    field = find_field(field)
+    field_value = nil
+    begin
+      wait_until do
+        field_value = (field.tag_name == 'textarea') ? field.text : field.value
+        field_value !~ /#{value}/
+      end
+    rescue Capybara::TimeoutError
+      field_value.should_not =~ /#{value}/
+    end
+  end
+end
+

@@ -26,13 +26,3 @@ When /^I close all colorpickers$/ do
   page.execute_script("$('input.miniColors').miniColors('destroy')")
   sleep 0.5
 end
-
-# Filling in fields with capybara does not trigger keyup itself
-When /^I finish typing in the #{capture_quoted} field$/ do |label|
-  field = find_field label
-  id = field[:id]
-  id.should_not be_nil, "field has no id, but need it for triggering keyup"
-  page.execute_script <<-EOJS
-    jQuery('#{id}').trigger('keyup');
-  EOJS
-end

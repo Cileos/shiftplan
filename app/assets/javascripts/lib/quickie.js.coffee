@@ -28,16 +28,20 @@ class Quickie
     parsed = XRegExp.exec string, exp.quickie
     if parsed?
       parsed.toString = Quickie::toString
+      parsed.isValid = Quickie::isValid
       parsed.verbose_start_time = addZeroes parsed.start_time
       parsed.verbose_end_time = addZeroes parsed.end_time
     parsed
+
+  isValid: ->
+    @start_time? and @end_time?
 
   toString: ->
     q = ''
     q += removeZeroes(@start_time) if @start_time?
     q+='-'
     q += removeZeroes(@end_time) if @end_time?
-    q+= " #{@team_name}"
+    q+= " #{@team_name}" if @team_name?
     q
 
 window.Quickie = Quickie
