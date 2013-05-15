@@ -42,6 +42,10 @@ module TimeRangeComponentsAccessible
       @hour || (record.public_send(attr_name).present? && record.public_send(attr_name).hour) || 0
     end
 
+    def hour_present?
+      @hour.present?
+    end
+
     def time=(time)
       if m = FullTimeExp.match(time)
         self.hour = m[:hour]
@@ -75,9 +79,14 @@ module TimeRangeComponentsAccessible
         def #{name}_component
           @#{name}_component ||= TimeComponent.new(self, :#{name})
         end
+        def reset_#{name}_components!
+          @date = nil
+          @#{name}_component = nil
+        end
         delegate :hour, :hour=,
                  :minute, :minute=,
                  :time, :time=,
+                 :hour_present?,
                  to: :#{name}_component, prefix: :#{name}
       EOEVAL
     end
@@ -96,21 +105,19 @@ module TimeRangeComponentsAccessible
   # FIXME test this!
   def compose_time_range_from_components
     date = base_for_time_range_components
-    if [date, @start_hour].all?(&:present?)
-      self.starts_at = date + @start_hour.hours + start_minute.minutes
+    if date.present? && start_hour_present?
+      self.starts_at = date + start_hour.hours + start_minute.minutes
 
-      # reset
-      @date = @start_hour = @start_minute = nil
+      reset_start_components!
     end
-    if [date, @end_hour].all?(&:present?)
-      if @end_hour == 0 || @end_hour == 24
+    if date.present? && end_hour_present?
+      if end_hour == 0 || end_hour == 24
         self.ends_at = date.end_of_day
       else
-        self.ends_at = date + @end_hour.hours + end_minute.minutes
+        self.ends_at = date + end_hour.hours + end_minute.minutes
       end
 
-      # reset
-      @date = @end_hour = @end_minute = nil
+      reset_end_components!
     end
   end
 
