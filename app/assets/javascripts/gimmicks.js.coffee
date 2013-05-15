@@ -8,13 +8,16 @@ $gimmicks = $('<div></div>')
       .attr('data-remote', true)
   )
 
-Clockwork.buildGimmicks = ($scheduling) ->
+buildGimmicks = ($scheduling) ->
   comments_count = $scheduling.data('comments_count')
   url = $scheduling.closest('table').data('new_url').replace(/new$/, "#{$scheduling.data('cid')}/comments")
   $gimmicks.clone()
     .find('a')
       .addClass(if comments_count > 0 then 'comments' else 'no-comments')
-      .addClass(if comments_count > 0 then 'icon-comments' else 'icon-comment')
       .text(comments_count)
       .attr('href', url)
     .end()
+
+Clockwork.appendGimmicks = ($scheduling) ->
+  if $scheduling.find('div.gimmicks').length is 0
+    $scheduling.append buildGimmicks($scheduling)
