@@ -11,9 +11,7 @@ $gimmicks = $('<div></div>')
 buildGimmicks = ($scheduling) ->
   comments_count = $scheduling.data('comments_count')
   url = $scheduling.closest('table').data('new_url').replace(/new$/, "#{$scheduling.data('cid')}/comments")
-  team_class = $scheduling.find('.work_time').attr('class').match(/\bteam_\S+/g)[0]
   $gimmicks.clone()
-    .addClass(team_class)
     .find('a')
       .addClass(if comments_count > 0 then 'comments' else 'no-comments')
       .text(comments_count)
