@@ -49,8 +49,8 @@ Feature: Navigation
        | Stammdaten                | false   |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
-       | Planvorlagen              | false   |
        | Qualifikationen           | false   |
+       | Planvorlagen              | false   |
       And I should see the following items in the organization dropdown list:
         | Alle Organisationen      |
         | Tepco GmbH - Fukushima   |
@@ -71,8 +71,8 @@ Feature: Navigation
        | Stammdaten                | false   |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
-       | Planvorlagen              | false   |
        | Qualifikationen           | false   |
+       | Planvorlagen              | false   |
       And I should see the following items in the organization dropdown list:
         | Alle Organisationen      |
         | Tepco GmbH - Fukushima   |
@@ -93,8 +93,8 @@ Feature: Navigation
        | Stammdaten                | false   |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
-       | Planvorlagen              | false   |
        | Qualifikationen           | false   |
+       | Planvorlagen              | false   |
 
      When I choose "Mitarbeiter" from the drop down "Stammdaten"
      Then I should see the following list of links within the navigation:
@@ -111,8 +111,8 @@ Feature: Navigation
        | Stammdaten                | true    |
        | Mitarbeiter               | true    |
        | Teams                     | false   |
-       | Planvorlagen              | false   |
        | Qualifikationen           | false   |
+       | Planvorlagen              | false   |
 
      When I choose "Teams" from the drop down "Stammdaten"
      Then I should see the following list of links within the navigation:
@@ -129,8 +129,8 @@ Feature: Navigation
        | Stammdaten                | true    |
        | Mitarbeiter               | false   |
        | Teams                     | true    |
-       | Planvorlagen              | false   |
        | Qualifikationen           | false   |
+       | Planvorlagen              | false   |
 
      When I choose "Planvorlagen" from the drop down "Stammdaten"
      Then I should see the following list of links within the navigation:
@@ -147,8 +147,8 @@ Feature: Navigation
        | Stammdaten                | true    |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
-       | Planvorlagen              | true    |
        | Qualifikationen           | false   |
+       | Planvorlagen              | true    |
 
      When I choose "Qualifikationen" from the drop down "Stammdaten"
      Then I should see the following list of links within the navigation:
@@ -165,8 +165,8 @@ Feature: Navigation
        | Stammdaten                | true    |
        | Mitarbeiter               | false   |
        | Teams                     | false   |
-       | Planvorlagen              | false   |
        | Qualifikationen           | true    |
+       | Planvorlagen              | false   |
 
      # Click on the selected account in the account selector in menu when beeing in the
      # scope of an organization.
@@ -226,8 +226,8 @@ Feature: Navigation
        | Stammdaten                        | false  |
        | Mitarbeiter                       | false  |
        | Teams                             | false  |
-       | Planvorlagen                      | false  |
        | Qualifikationen                   | false  |
+       | Planvorlagen                      | false  |
       And I should see the following items in the organization dropdown list:
        | Alle Organisationen               |
        | Cileos UG - Clockwork Programming |

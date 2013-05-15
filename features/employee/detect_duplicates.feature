@@ -37,7 +37,7 @@ Feature: Detect duplicate Employee
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
         | Übernehmen?           | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
-        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
         |                       | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Tschernobyl             |
       And the "Trotzdem anlegen" checkbox should not be checked
 
@@ -52,7 +52,7 @@ Feature: Detect duplicate Employee
       And I should see the following table of employees:
         | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
         | Burns, Owner  |      | owner@burns.com           | Aktiv                  | Fukushima               |
-        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
         | Meier, Heinz  | 40   |                           | Noch nicht eingeladen  | Fukushima               |
 
   Scenario: Adopt duplicate employee Heinz Meier after trying to create
@@ -64,7 +64,7 @@ Feature: Detect duplicate Employee
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
         | Übernehmen?           | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
-        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
         |                       | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Tschernobyl             |
       But I should not see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
 
@@ -75,8 +75,8 @@ Feature: Detect duplicate Employee
       And I should see the following table of employees:
         | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
         | Burns, Owner  |      | owner@burns.com           | Aktiv                  | Fukushima               |
-        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
-        | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
+        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
+        | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima\nTschernobyl  |
 
   Scenario: with all duplicates beeing already member of organization
     Given a membership exists with employee: the employee "heinz2", organization: the organization "fukushima"
@@ -89,8 +89,8 @@ Feature: Detect duplicate Employee
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
         | Übernehmen?           | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
-        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
-        | ist bereits Mitglied  | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima, Tschernobyl  |
+        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
+        | ist bereits Mitglied  | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima\nTschernobyl  |
       And I should see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
       And the adopt employee button should be disabled
 
@@ -123,5 +123,5 @@ Feature: Detect duplicate Employee
       And I should see the following table of employees:
         | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
         | Burns, Owner  |      | owner@burns.com           | Aktiv                  | Fukushima               |
-        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima, Tschernobyl  |
+        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
         | Meier, Heinz  | 33   |                           | Noch nicht eingeladen  | Fukushima               |

@@ -11,7 +11,7 @@ Feature: Feedback without Screenshot
   Scenario: Owner sends feedback
     Given I am on the page of the organization "Reactor"
 
-     When I follow "Feedback ohne Bildschirmfoto"
+     When I follow "Feedback"
       And I wait for the modal box to appear
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
@@ -33,7 +33,7 @@ Feature: Feedback without Screenshot
       And I am on the home page
       And I should be on the dashboard page
 
-     When I follow "Feedback ohne Bildschirmfoto"
+     When I follow "Feedback"
       And I wait for the modal box to appear
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
@@ -53,7 +53,7 @@ Feature: Feedback without Screenshot
       And I sign out
       And I am signed in as confirmed user "Homer"
       And I am on the home page
-     When I follow "Feedback ohne Bildschirmfoto"
+     When I follow "Feedback"
       And I wait for the modal box to appear
       And I fill in "Name" with "not Mr Burns"
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
@@ -73,7 +73,7 @@ Feature: Feedback without Screenshot
      When I sign out
       And I go to the home page
 
-      And I follow "Feedback ohne Bildschirmfoto"
+      And I follow "Feedback"
       And I wait for the modal box to appear
       And I fill in "Name" with "Hein Blöd"
       And I fill in "E-Mail" with "guest@example.xyz"
@@ -94,7 +94,7 @@ Feature: Feedback without Screenshot
      When I sign out
       And I go to the home page
 
-      And I follow "Feedback ohne Bildschirmfoto"
+      And I follow "Feedback"
       And I wait for the modal box to appear
       And I fill in "E-Mail" with "guest@example.xyz"
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
