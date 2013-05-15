@@ -37,8 +37,20 @@
     padding: 0 5px;
     text-align: right;
 
-    a.comments {
+    a.comments,
+    a.no-comments {
       padding-left: 15px;
+      @extend %with-icon;
+      @extend .icon-comment;
+    }
+
+    a.no-comments {
+      color: $ci_blue;
+      @extend .icon-no_comment;
+
+      &:hover {
+        color: $ci_blue_hover;
+      }
     }
   }
 
