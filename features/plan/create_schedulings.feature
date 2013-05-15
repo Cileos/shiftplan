@@ -70,10 +70,10 @@ Feature: create a scheduling
      When I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following partial calendar:
-        | Mitarbeiter | Mo | Di      | Mi | Do | Fr | Sa | So |
-        | Carl C      |    | 8-20:15 |    |    |    |    |    |
-        | Lenny L     |    |         |    |    |    |    |    |
-        | Homer S     |    |         |    |    |    |    |    |
+        | Mitarbeiter | Mo | Di          | Mi | Do | Fr | Sa | So |
+        | Carl C      |    | 08:00-20:15 |    |    |    |    |    |
+        | Lenny L     |    |             |    |    |    |    |    |
+        | Homer S     |    |             |    |    |    |    |    |
 
   @todo
   @javascript

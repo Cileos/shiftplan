@@ -95,6 +95,12 @@ describe 'Quickie', ->
       @quickie.team_name = 'Brennstäbe wechseln'
       expect( @quickie.toString() ).toEqual('06:23-09:42 Brennstäbe wechseln')
 
+    it 'handles times only (without team)', ->
+      @quickie.start_time = '06:23'
+      @quickie.end_time = '09:42'
+      @quickie.team_name = ''
+      expect( @quickie.toString() ).toEqual('06:23-09:42')
+
 
 
   valid_quickies = [

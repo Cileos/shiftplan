@@ -41,7 +41,7 @@ class Quickie
     q += removeZeroes(@start_time) if @start_time?
     q+='-'
     q += removeZeroes(@end_time) if @end_time?
-    q+= " #{@team_name}" if @team_name?
+    q+= " #{@team_name}" if @team_name? and @team_name.length > 0
     q
 
 window.Quickie = Quickie

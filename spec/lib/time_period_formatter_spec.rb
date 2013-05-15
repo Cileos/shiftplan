@@ -17,19 +17,19 @@ describe TimePeriodFormatter do
   end
 
   context '#duration' do
-
+    it 'normalizes minutes and hour'
   end
 
   context "#period" do
 
-    context "for regular daytime records" do
+    context "for regular daytime records with minutes" do
       let(:record) { stub "regular",
                      starts_at: Time.zone.parse('8:15'),
                      ends_at: Time.zone.parse('16:45'),
                      next_day: nil, previous_day: nil
       }
 
-      it "correctly computes the period with duration" do
+      it "displays minutes" do
         decorator.period.should == "08:15-16:45"
       end
     end
@@ -61,7 +61,7 @@ describe TimePeriodFormatter do
       context "having a next day" do
         let(:record) { overnightable }
 
-        it "correctly computes the period with duration" do
+        it "starts today, ends at next day" do
           decorator.period.should == expected_period
         end
       end
@@ -71,7 +71,7 @@ describe TimePeriodFormatter do
           next_day.stub previous_day: overnightable # avoid recursion for let()
         end
 
-        it "correctly computes the period with duration" do
+        it "starts yesterday, ends today" do
           decorator.period.should == expected_period
         end
       end

@@ -41,7 +41,6 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       # Entering '9-17' should not change the selected team
       if parsed.space_before_team? and parsed.space_before_team.length > 0
         @setTeamByName(parsed.team_name)
-      @fieldChanged() # sync back for full cycle
 
   # sync fields => Quickie
   fieldChanged: ->
