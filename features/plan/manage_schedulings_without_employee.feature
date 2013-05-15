@@ -26,7 +26,6 @@ Feature: Manage schedulings without employees
 
      When I click on scheduling "22:00-06:00"
       And I wait for the modal box to appear
-     Then the "Datum" field should equal "15.02.2012"
      When I fill in "Quickie" with "21-7"
       And I press "Speichern"
       And I wait for the modal box to disappear
