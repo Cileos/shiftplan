@@ -1,27 +1,28 @@
 %head
   %meta{'http-equiv' => "Content-Type", 'content' => "text/html;charset=utf-8"}
   %meta{name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.4"}
+  = csrf_meta_tags
+
   %title
     - if content_for?(:title)
       = yield(:title)
       \-
     Clockwork
   = stylesheet_link_tag 'application'
-  = javascript_include_tag 'lib'
-  = javascript_include_tag 'application'
-  = csrf_meta_tags
-  -# just set something so gon is always present
-  - controller.gon.controller_name = controller.controller_name
-  = include_gon
   - if current_organization?
     = render 'teams/colors', teams: current_organization.teams
-
-  %script{ :type => "text/javascript",  :src => "http://use.typekit.com/gye8xts.js" }
-
-  :javascript
-    try{Typekit.load();}catch(e){}
 
   - if Rails.env.development?
     :css
       *.translation_missing { color: pink !important; background: #f700ff !important; font-weight: bold !important; }
 
+  = javascript_include_tag 'lib'
+  = javascript_include_tag 'application'
+  -# just set something so gon is always present
+  - controller.gon.controller_name = controller.controller_name
+  = include_gon
+
+  %script{ :type => "text/javascript",  :src => "http://use.typekit.com/gye8xts.js" }
+
+  :javascript
+    try{Typekit.load();}catch(e){}
