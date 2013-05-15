@@ -3,7 +3,7 @@
 = render layout: 'profile/with_menu' do
   %h3= ta :change_email
 
-  %p= t('.instructions')
+  %p= t('user_email.show.instructions')
 
   = simple_form_for @user, url: change_email_path do |f|
 

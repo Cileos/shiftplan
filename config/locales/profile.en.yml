@@ -1,5 +1,8 @@
 en:
+  profile:
+    edit:
+      instructions: "Select your language."
   profile_employees:
     index:
       instructions: "Select an employee."
-      
+
