@@ -1,3 +1,4 @@
+require_dependency 'time_component'
 # We want our planners only to have to give the date once and specify the start/end hour
 # separately. The user specifies time ranges using inputs for the time components
 # start_hour and end_hour. (start_minute and end_minute are optional, atm)
@@ -25,54 +26,9 @@ module TimeRangeComponentsAccessible
     end
   end
 
-
-  class TimeComponent < Struct.new(:record, :start_or_end)
-    FullTimeExp = /\A (?<hour> \d{1,2}) : (?<minute> \d{1,2}) \z/x
-    ShortTimeExp = /\A (?<hour> \d{1,2}) \z/x
-
-    def hour=(hour)
-      @hour = hour.present?? hour.to_i : nil
-    end
-
-    def attr_name
-      :"#{start_or_end}s_at"
-    end
-
-    def hour
-      @hour || (record.public_send(attr_name).present? && record.public_send(attr_name).hour) || 0
-    end
-
-    def hour_present?
-      @hour.present?
-    end
-
-    def time=(time)
-      if m = FullTimeExp.match(time)
-        self.hour = m[:hour]
-        self.minute = m[:minute]
-      elsif m = ShortTimeExp.match(time)
-        self.hour = m[:hour]
-        self.minute = 0
-      end
-    end
-
-    def time
-      '%02d:%02d' % [hour, minute]
-    end
-
-    def minute
-      @minute || (record.public_send(attr_name).present? && record.public_send(attr_name).min) || 0
-    end
-
-    def minute=(minute)
-      @minute = minute.present?? minute.to_i : nil
-    end
-  end
-
-
-  # Enables access to all components of the given times
-  #
-  # For example, given :start it will use the Record#starts_at to give access to #start_minute etc
+  # Gives access to all components of the given times
+  # For example, given :start it will use the Record#starts_at to create
+  # readers and writers for #start_minute, #start_hour, #start_time etc
   def self.time_attrs(*names)
     names.each do |name|
       module_eval <<-EOEVAL, __FILE__, __LINE__
