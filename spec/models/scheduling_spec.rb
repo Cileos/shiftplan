@@ -373,10 +373,10 @@ describe Scheduling do
         scheduling.team.organization.should == team.organization
       end
 
-      it "should be included in the quickie" do
+      it "is included in the quickie" do
         scheduling.team = team
         scheduling.team.stub(:to_quickie).and_return('<team quickie part>')
-        scheduling.quickie.should == '1-23 <team quickie part>'
+        scheduling.quickie.should =~ /<team quickie part>$/
       end
 
       context "with team" do
