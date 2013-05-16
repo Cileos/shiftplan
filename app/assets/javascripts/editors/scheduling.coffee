@@ -17,40 +17,44 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       spinnerImage: ''
       timeSteps: [1, 15, 0]
 
+    # holds the state, there should be only ONE here
+    @quickie = new Quickie()
+
     @input('start_time')
       .timeEntry(timeoptions)
-      .on 'change', => @fieldChanged()
+      .bindWithDelay('change', (=> @fieldChanged()), 150)
     @input('end_time')
       .timeEntry(timeoptions)
-      .on 'change', => @fieldChanged()
+      .bindWithDelay('change', (=> @fieldChanged()), 150)
 
     @input('team_id')
-      .on 'change', => @fieldChanged()
+      .bindWithDelay('change', (=> @fieldChanged()), 150)
 
   input: (name) ->
     @get('element').find(":input[name=\"scheduling[#{name}]\"]")
 
   # sync Quickie => fields
   quickieChanged: ->
-    quickie = @input('quickie').val()
-    parsed = Quickie.parse(quickie)
-    if parsed and parsed.isValid()
-      @input('start_time').timeEntry('setTime', parsed.verbose_start_time)
-      @input('end_time').timeEntry('setTime', parsed.verbose_end_time)
+    @quickie.parse( @input('quickie').val() )
+    if @quickie.isValid()
+      @input('start_time').timeEntry('setTime', @quickie.verbose_start_time)
+      @input('end_time').timeEntry('setTime', @quickie.verbose_end_time)
 
       # Entering '9-17' should not change the selected team
-      if parsed.space_before_team? and parsed.space_before_team.length > 0
-        @setTeamByName(parsed.team_name)
+      if @quickie.space_before_team? and @quickie.space_before_team.length > 0
+        @setTeamByName(@quickie.team_name)
 
   # sync fields => Quickie
   fieldChanged: ->
-    quickie = new Quickie()
-    quickie.start_time = @input('start_time').val()
-    quickie.end_time = @input('end_time').val()
+    @quickie.start_time = @input('start_time').val()
+    @quickie.end_time = @input('end_time').val()
     teamField = @input('team_id')
-    quickie.team_name = teamField.find("option[value=#{teamField.val()}]").text()
+    if teamField.val().length > 0
+      selected = teamField.find("option[value=#{teamField.val()}]")
+      if selected.length > 0
+        @quickie.team_name = selected.text()
 
-    @input('quickie').val(quickie.toString())
+    @input('quickie').val(@quickie.toString())
 
   setTeamByName: (name) ->
     input = @input('team_id')

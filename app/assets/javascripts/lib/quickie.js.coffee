@@ -32,13 +32,19 @@ addZeroes = (time) ->
 
 class Quickie
   @parse: (string) ->
-    parsed = XRegExp.exec string, exp.quickie
-    if parsed?
-      parsed.toString = Quickie::toString
-      parsed.isValid = Quickie::isValid
-      parsed.verbose_start_time = addZeroes parsed.start_time
-      parsed.verbose_end_time = addZeroes parsed.end_time
-    parsed
+    quickie = new Quickie()
+    if quickie.parse(string)
+      quickie
+    else
+      null
+
+  parse: (string) ->
+    @parsed = XRegExp.exec string, exp.quickie
+    if @parsed?
+      for field in ['start_time', 'end_time', 'hour_range', 'team_name', 'team_shortcut', 'space_before_team']
+        this[field] = @parsed[field]
+        @verbose_start_time = addZeroes @parsed.start_time
+        @verbose_end_time = addZeroes @parsed.end_time
 
   isValid: ->
     @start_time? and @end_time?
