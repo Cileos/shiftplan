@@ -393,6 +393,8 @@ describe Scheduling do
       create :scheduling, date: '2011-11-02', plan: plan, quickie: '9-17 Schuften'
       create :scheduling, date: '2011-11-02', plan: plan, quickie: '11-19 Schuften'
       create :scheduling, date: '2011-11-02', plan: plan, quickie: '20-23 Glotzen'
+      create :scheduling, date: '2011-11-02', plan: plan, quickie: '8:15-20:45 Glotzen'
+      create :scheduling, date: '2011-11-02', quickie: '11-12 Managen'
     end
 
     let(:completions) { plan.schedulings.quickies }
@@ -401,10 +403,12 @@ describe Scheduling do
       completions.should include('9-17 Schuften [S]')
       completions.should include('11-19 Schuften [S]')
       completions.should include('20-23 Glotzen [G]')
+      completions.should include('08:15-20:45 Glotzen [G]')
+      completions.should_not include('11-12 Managen [M]')
     end
 
     it "should not include doubles" do
-      completions.should have(3).records
+      completions.should have(4).records
     end
   end
 
