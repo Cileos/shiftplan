@@ -1,6 +1,6 @@
 - schedulings.each do |scheduling|
   %div.vertical.scheduling{class: scheduling.css_class, data: scheduling.metadata.merge(filter.stack_metadata_for(scheduling))}
-    = abbr_tag scheduling.period, scheduling.period_with_duration, class: 'work_time ' + scheduling.css_class
+    = abbr_tag scheduling.period_with_zeros, scheduling.period_with_duration, class: 'work_time ' + scheduling.css_class
     - if scheduling.employee
       %span.employee_name= scheduling.employee.name
     - if qualification = scheduling.try(:qualification)

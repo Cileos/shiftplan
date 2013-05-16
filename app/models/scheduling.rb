@@ -166,7 +166,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def to_quickie
-    [ TimePeriodFormatter.period(starts_at, ends_at), team.try(:to_quickie) ].compact.join(' ')
+    [ period, team.try(:to_quickie) ].compact.join(' ')
   end
 
 

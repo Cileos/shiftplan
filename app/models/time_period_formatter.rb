@@ -26,7 +26,7 @@ module TimePeriodFormatter
   end
 
   def period_with_duration
-    period + ' (' + duration + 'h)'
+    period_with_zeros + ' (' + duration + 'h)'
   end
 
   def duration
@@ -34,6 +34,10 @@ module TimePeriodFormatter
   end
 
   def period
+    TimePeriodFormatter.period self_or_prev_day.starts_at, self_or_next_day.ends_at
+  end
+
+  def period_with_zeros
     TimePeriodFormatter.period_with_zeros self_or_prev_day.starts_at, self_or_next_day.ends_at
   end
 
