@@ -2,7 +2,7 @@
 exp               = {}
 exp.hour          = /2[0-4]|1[0-9]|0[0-9]|[0-9]/
 exp.minute        = /[0-5][0-9]|[0-9]/
-exp.hour_range    = XRegExp.build '(?x)^ (?<start_time>{{hour}}(:{{minute}})?)-(?<end_time>{{hour}}(:{{minute}})?) $', exp
+exp.hour_range    = XRegExp.build '(?x)^ (?<start_time>{{hour}}(:?{{minute}})?)-(?<end_time>{{hour}}(:?{{minute}})?) $', exp
 exp.team_name     = XRegExp.build '(?x)^ \\p{Letter} [\\p{Letter} ]+?$'
 exp.team_shortcut = XRegExp.build '(?x)^ \\p{Letter}+ $'
 exp.team_shortcut_in_brackets = XRegExp.build '(?x)^ \\[ ({{team_shortcut}}) \\] $', exp
@@ -12,13 +12,20 @@ removeZeroes = (time) ->
   if time.slice(-2) is '00'
     parseInt time.slice(0,2), 10 # remove leading zeroes for full hours
   else
+    addColon time
+
+addColon = (time) ->
+  if time.indexOf(':') < 0
+    time.replace(/(\d\d)$/,':$1')
+  else
     time
+
 
 addZeroes = (time) ->
   return unless time?
   time = "0#{time}" if time < 10
   if time.length > 2
-    time
+    addColon time
   else
     "#{time}:00"
 

@@ -66,6 +66,13 @@ describe 'Quickie', ->
     expect( parsed.hour_range ).toEqual('12:05-20:13')
     expect( parsed.toString() ).toEqual('12:05-20:13 Brennstäbe wechseln')
 
+  it "parses time range with minutes without colons", ->
+    parsed = Quickie.parse('1205-2013 Brennstäbe wechseln')
+    expect( parsed ).not.toBeNull()
+    expect( parsed.start_time ).toEqual('1205')
+    expect( parsed.end_time ).toEqual('2013')
+    expect( parsed.hour_range ).toEqual('1205-2013')
+    expect( parsed.toString() ).toEqual('12:05-20:13 Brennstäbe wechseln')
 
   describe 'serialization', ->
     beforeEach ->
