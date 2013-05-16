@@ -92,6 +92,7 @@ module Overnightable
   def save_next_day_for_overnightable
     if next_day.present?
       next_day.save!
+      next_day.previous_day(true)
     end
   end
 
