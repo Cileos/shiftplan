@@ -10,8 +10,8 @@ describe TimePeriodFormatter do
   let(:record) { stub }
 
   context "#period_with_duration" do
-    it 'is composed of period and duration' do
-      decorator.stub period: '12-noon', duration: 'less than 1'
+    it 'is composed of period_with_zeros and duration' do
+      decorator.stub period_with_zeros: '12-noon', duration: 'less than 1'
       decorator.period_with_duration.should == '12-noon (less than 1h)'
     end
   end
@@ -20,7 +20,7 @@ describe TimePeriodFormatter do
     it 'normalizes minutes and hour'
   end
 
-  context "#period" do
+  context "#period_with_zeros" do
 
     context "for regular daytime records with minutes" do
       let(:record) { stub "regular",
@@ -30,7 +30,7 @@ describe TimePeriodFormatter do
       }
 
       it "displays minutes" do
-        decorator.period.should == "08:15-16:45"
+        decorator.period_with_zeros.should == "08:15-16:45"
       end
     end
 
@@ -42,7 +42,7 @@ describe TimePeriodFormatter do
       }
 
       it "displays zeros for minutes" do
-        decorator.period.should == "08:00-16:45"
+        decorator.period_with_zeros.should == "08:00-16:45"
       end
     end
 
@@ -62,7 +62,7 @@ describe TimePeriodFormatter do
         let(:record) { overnightable }
 
         it "starts today, ends at next day" do
-          decorator.period.should == expected_period
+          decorator.period_with_zeros.should == expected_period
         end
       end
       context "having a previous day" do
@@ -72,7 +72,7 @@ describe TimePeriodFormatter do
         end
 
         it "starts yesterday, ends today" do
-          decorator.period.should == expected_period
+          decorator.period_with_zeros.should == expected_period
         end
       end
     end
