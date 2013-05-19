@@ -56,6 +56,10 @@
   overflow: visible;
   max-width: 50%;
 
+  .inputs {
+    width: 525px;
+  }
+
   h3 {
     padding: 0;
   }
@@ -85,29 +89,59 @@
       min-width: 400px;
     }
 
-    .weekday-and-time, .qualification-fields .fields {
+    input[type='checkbox'] {
+      width: auto;
+    }
+
+    .weekday-and-time,
+    .qualification-fields .fields {
       & > .input {
         display: inline-block;
-        width: 25%;
         position: relative;
+      }
 
-        &:first-child {
-          width: 45%;
-          padding-right: 1em;
+      .weekday {
+        width: 65%;
+
+        input {
+          display: block;
+          margin: 0 0 3px 8px;
         }
 
-        &:last-child {
-          label, select {
-            margin-left: 0.5em;
-          }
+        label {
+          float: left;
+          margin-right: 5px;
+          padding: 5px;
+          text-align: center;
+          line-height: 1;
 
-          &:before {
-            content: "-";
-            position: absolute;
-            bottom: 0;
+          &:hover {
+            cursor: pointer;
           }
+        }
+
+        .weekday-date {
+          color: $ci_darkgray;
+          font-size: $ci_small-font;
         }
       }
+
+      .start-time,
+      .end-time {
+        width: 15%;
+
+        input {
+          text-align: center;
+        }
+      }
+
+      .start-time {
+        margin-left: 5%;
+      }
+    }
+
+    .weekday-and-time {
+      overflow: hidden;
     }
 
     .qualification-fields {
