@@ -2,7 +2,8 @@
 exp               = {}
 exp.hour          = /2[0-4]|1[0-9]|0[0-9]|[0-9]/
 exp.minute        = /[0-5][0-9]|[0-9]/
-exp.hour_range    = XRegExp.build '(?x)^ (?<start_time>{{hour}}(:{{minute}})?)-(?<end_time>{{hour}}(:{{minute}})?) $', exp
+exp.time          = XRegExp.build '(?x)^{{hour}}(:{{minute}})?$', exp
+exp.hour_range    = XRegExp.build '(?x)^ (?<start_time>{{time}})-(?<end_time>{{time}}) $', exp
 exp.team_name     = XRegExp.build '(?x)^ \\p{Letter} [\\p{Letter} ]+?$'
 exp.team_shortcut = XRegExp.build '(?x)^ \\p{Letter}+ $'
 exp.team_shortcut_in_brackets = XRegExp.build '(?x)^ \\[ ({{team_shortcut}}) \\] $', exp
