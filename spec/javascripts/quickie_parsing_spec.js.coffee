@@ -109,8 +109,17 @@ describe 'Quickie', ->
       expect( @quickie.toString() ).toEqual('06:23-09:42')
 
 
+  it_should_parse = (q) ->
+    it "parses '#{q}'", ->
+      parsed = Quickie.parse(q)
+      expect( parsed ).not.toBeNull()
 
-  valid_quickies = [
+  it_should_not_parse = (q) ->
+    it "does not parse '#{q}'", ->
+      parsed = Quickie.parse(q)
+      expect( parsed ).toBeNull()
+
+  it_should_parse quickie for quickie in [
       '9-23'
       '0-5'
       '1-2'
@@ -118,15 +127,11 @@ describe 'Quickie', ->
       '20-8',
       '20:01-8:55',
       '20:01-08:55',
-      '20:01-8'
+      '20:01-8',
+      '8-10 team 2'
     ]
 
-  for valid_quickie in valid_quickies
-    it "should parse '#{valid_quickie}'", ->
-      parsed = Quickie.parse(valid_quickie)
-      expect( parsed ).not.toBeNull()
-
-  invalid_quickies = [
+  it_should_not_parse quickie for quickie in [
       '1-'
       '-23'
       '9-25'
@@ -134,8 +139,3 @@ describe 'Quickie', ->
       '10:66-18',
       '10-18:66'
   ]
-
-  for invalid_quickie in invalid_quickies
-    it "should not parse '#{invalid_quickie}'", ->
-      parsed = Quickie.parse(invalid_quickie)
-      expect( parsed ).toBeNull()
