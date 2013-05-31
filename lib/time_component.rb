@@ -2,6 +2,8 @@ class TimeComponent < Struct.new(:record, :start_or_end)
   FullTimeExp = /\A (?<hour> \d{1,2}) : (?<minute> \d{1,2}) \z/x
   ShortTimeExp = /\A (?<hour> \d{1,2}) \z/x
 
+  MinuteInterval = 15
+
   def hour=(hour)
     @hour = hour.present?? hour.to_i : nil
   end
@@ -37,7 +39,28 @@ class TimeComponent < Struct.new(:record, :start_or_end)
   end
 
   def minute=(minute)
-    @minute = minute.present?? minute.to_i : nil
+    @minute =
+      if minute.present?
+        minute = minute.to_i
+        rounded = round_minute minute
+        if minute - rounded > MinuteInterval # overflow
+          self.hour = hour + 1 # must be assigned first, obviously
+        end
+        rounded
+      else
+        nil
+      end
+  end
+
+  def round_minute(minute, int=MinuteInterval)
+    (
+      (
+        (
+          minute +
+          int / 2 # rounding up
+        ) / int
+      ) * int
+    ) % 60
   end
 end
 
