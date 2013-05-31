@@ -9,8 +9,9 @@ grammar Quickie
   end
 
   # at least two characters, first is not a number, multiple words
+  # must correspond with Team#name validation
   rule team_name
-    [\p{Letter}] [\p{Letter} ]+ <Quickie::TeamNameNode>
+    [\p{Letter}] [\p{Letter}\d ]+ <Quickie::TeamNameNode>
   end
 
   rule team_shortcut

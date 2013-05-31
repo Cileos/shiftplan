@@ -39,7 +39,8 @@ describe 'Quickie::parser' do
       '20-8',
       '20:01-8:55',
       '20:01-08:55',
-      '20:01-8'
+      '20:01-8',
+      '8-10 team 2'
     ].each do |valid_hour_range|
       describe valid_hour_range do
         it { should parse_successfully }
