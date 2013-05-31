@@ -16,12 +16,13 @@ Feature: Edit Schedulings of a Plan
      When I click on the scheduling "07:00-23:00"
       And I wait for the modal box to appear
      Then I should see "9-17 wichtige Arbeit [wA]" within a hint
-     Then I should be able to change the "Quickie" from "7-23" to "1-23" and select "Homer S" as "Mitarbeiter"
-      And I should see the following partial calendar:
-        | Mitarbeiter | Fr          |
-        | Carl C      |             |
-        | Lenny L     |             |
-        | Homer S     | 01:00-23:00 |
+     When I choose "Do"
+      And I should be able to change the "Quickie" from "7-23" to "1-23" and select "Homer S" as "Mitarbeiter"
+     Then I should see the following partial calendar:
+        | Mitarbeiter | Do          | Fr |
+        | Carl C      |             |    |
+        | Lenny L     |             |    |
+        | Homer S     | 01:00-23:00 |    |
       And the employee "Lenny L" should have a grey hours/waz value of "0"
       And the employee "Homer S" should have a yellow hours/waz value of "22 / 40"
 
