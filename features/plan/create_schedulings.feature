@@ -56,7 +56,7 @@ Feature: create a scheduling
       And the "Endzeit" field should contain "17:00"
 
       # minute quickie rounded to 15-minute intervals
-     When I fill in "Quickie" with "9:16-1742"
+     When I fill in "Quickie" with "9:16-17:42"
      Then the "Quickie" field should contain "09:15-17:45"
       And the "Startzeit" field should contain "09:15"
       And the "Endzeit" field should contain "17:45"
