@@ -105,7 +105,11 @@
 
         input {
           display: block;
-          margin: 0 0 3px 8px;
+          margin: 0 0 5px 8px;
+
+          &[type="radio"] {
+            margin-left: 6px;
+          }
         }
 
         label {
