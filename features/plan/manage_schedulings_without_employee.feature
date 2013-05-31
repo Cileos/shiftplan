@@ -12,7 +12,8 @@ Feature: Manage schedulings without employees
      Given I follow "Neue Terminierung"
       And I wait for the modal box to appear
       And I select "" from "Mitarbeiter"
-      And I select "Mittwoch" from "Wochentag"
+      And I uncheck "Mo"
+      And I check "Mi"
       And I fill in "Quickie" with "22-6"
       And I press "Anlegen"
       And I wait for the modal box to disappear
@@ -25,7 +26,7 @@ Feature: Manage schedulings without employees
 
      When I click on scheduling "22:00-06:00"
       And I wait for the modal box to appear
-      And I fill in "Quickie" with "21-7"
+     When I fill in "Quickie" with "21-7"
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:

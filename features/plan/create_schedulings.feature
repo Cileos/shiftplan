@@ -8,11 +8,13 @@ Feature: create a scheduling
       And the situation of a nuclear reactor
 
   @javascript
-  Scenario: thorugh the button on the top
+  Scenario: through the button on the top
      When I follow "Neue Terminierung"
-     Then I should see "9-17 wichtige Arbeit [wA]" within a hint
+     Then the "Mo" checkbox should be checked
+      And I should see "9-17 wichtige Arbeit [wA]" within a hint
+     When I uncheck "Mo"
+      And I check "Mi"
       And I select "Homer S" from "Mitarbeiter"
-      And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
      Then I should see the following partial calendar:
@@ -25,12 +27,27 @@ Feature: create a scheduling
      # completion
      When I follow "Neue Terminierung"
       And I select "Lenny L" from "Mitarbeiter"
-      And I select "Mittwoch" from "Wochentag"
       And I fill in "Quickie" with "9"
       And I wait for the completion list to appear
       And I press arrow down in the "Quickie" field
       And I press return in the "Quickie" field
      Then the "Quickie" field should contain "9-17"
+
+  @javascript
+  Scenario: by clicking in a cell and using repetition
+     When I click on cell "Do"/"Homer S"
+     Then the "Do" checkbox should be checked
+     When I uncheck "Do"
+      And I check "Mi"
+      And I check "Do"
+      And I check "Sa"
+      And I fill in "Quickie" with "22-6"
+      And I press "Anlegen"
+     Then I should see the following partial calendar:
+        | Mitarbeiter  | Mo  | Di  | Mi           | Do                       | Fr           | Sa           | So           |
+        | Carl C       |     |     |              |                          |              |              |              |
+        | Lenny L      |     |     |              |                          |              |              |              |
+        | Homer S      |     |     | 22:00-06:00  | 22:00-06:00 22:00-06:00  | 22:00-06:00  | 22:00-06:00  | 22:00-06:00  |
 
   @javascript
   Scenario: Entering the time span wrong
