@@ -16,16 +16,17 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       showSeconds: false
       spinnerImage: ''
       timeSteps: [1, 15, 0]
+      useMouseWheel: true
 
     # holds the state, there should be only ONE here
     @quickie = new Quickie()
 
     @input('start_time')
       .timeEntry(timeoptions)
-      .bindWithDelay('change', (=> @fieldChanged()), 150)
+      .bindWithDelay('keyup mousewheel', (=> @fieldChanged()), 150)
     @input('end_time')
       .timeEntry(timeoptions)
-      .bindWithDelay('change', (=> @fieldChanged()), 150)
+      .bindWithDelay('keyup mousewheel', (=> @fieldChanged()), 150)
 
     @input('team_id')
       .bindWithDelay('change', (=> @fieldChanged()), 150)
