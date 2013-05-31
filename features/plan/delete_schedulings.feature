@@ -19,7 +19,7 @@ Feature: Delete schedulings from plan
       And the employee "Lenny L" should have a grey hours/waz value of "30"
 
   @javascript
-  Scenario: Delete a single scheduling
+  Scenario: Delete a single scheduling in normal calendar
      When I click on scheduling "5:00-23:00"
       And I wait for the modal box to appear
       And I follow "Löschen" within the modal box
@@ -28,3 +28,12 @@ Feature: Delete schedulings from plan
       And I should see "02:00-04:00" within the calendar
       But I should not see "05:00-23:00" within the calendar
       And the employee "Lenny L" should have a grey hours/waz value of "12"
+
+  @javascript
+  Scenario: Delete a single scheduling in hour view
+    Given I am on the hours in week page for the plan for week: 51, cwyear: 2012
+     When I click on scheduling "5:00-23:00"
+      And I wait for the modal box to appear
+      And I follow "Löschen" within the modal box
+      And I wait for the modal box to disappear
+     Then I should not see "05:00-23:00" within the calendar

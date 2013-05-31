@@ -1,9 +1,15 @@
 - scheduling = f.object
 .weekday-and-time
-  = f.input :date, :collection => cwdays_for_select(scheduling), :include_blank => false
-
-  = f.input :start_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
-  = f.input :end_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false
+  .weekday
+    - if scheduling.persisted?
+      = f.collection_radio_buttons(:date, cwdays_for_select(scheduling, :abbr_week_day), :last, :first) do |b|
+        - b.label { b.radio_button + b.text + content_tag(:div, class: 'weekday-date') { l(b.object.last.to_date, format: :yearless_date) } }
+    - else
+      = f.collection_check_boxes(:days, cwdays_for_select(scheduling, :abbr_week_day), :last, :first) do |b|
+        - b.label { b.check_box + b.text + content_tag(:div, class: 'weekday-date') { l(b.object.last.to_date, format: :yearless_date) } }
+      = f.input :date, as: :hidden
+  = f.input :start_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false, :wrapper_html => {:class => 'start-time'}
+  = f.input :end_hour, as: :select, collection: scheduling.plan.hour_range, include_blank: false, :wrapper_html => {:class => 'end-time'}
 
 
 = f.association :employee, as: :select, collection: employees_for_select(scheduling)

@@ -14,6 +14,10 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     for field in ['start_hour', 'end_hour', 'team_id']
       @input(field).on 'change', => @fieldChanged()
 
+    @checkWeekdayForDate()
+
+    $('.weekday-and-time input[type=checkbox]').on 'change', => @updateDate()
+
   input: (name) ->
     @get('element').find(":input[name=\"scheduling[#{name}]\"]")
 
@@ -27,6 +31,20 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       # Entering '9-17' should not change the selected team
       if parsed.space_before_team? and parsed.space_before_team.length > 0
         @setTeamByName(parsed.team_name)
+
+  checkWeekdayForDate: ->
+    weekday_selector = ".weekday-and-time input[type=checkbox][value='#{@date().val()}']"
+    $(weekday_selector).attr('checked', true)
+
+  updateDate: ->
+    checked_weekdays = $('.weekday-and-time input:checked').map((index, checkbox) ->
+      checkbox.value
+    )
+    if checked_weekdays.length > 0
+      @date().val(checked_weekdays.sort()[0]) # set to min date
+
+  date: ->
+    @input('date')
 
   # sync fields => Quickie
   fieldChanged: ->

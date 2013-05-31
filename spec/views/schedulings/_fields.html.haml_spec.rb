@@ -1,8 +1,8 @@
-require 'rspec'
+require 'spec_helper'
 
 describe 'schedulings/_fields.html.haml' do
   let(:form_builder) { stub('form builder', object: scheduling).as_null_object }
-  let(:scheduling)   { stub('scheduling', date: nil).as_null_object }
+  let(:scheduling)   { stub('scheduling', date: Date.today).as_null_object }
 
   before :each do
     view.stub(:current_account).and_return(stub.as_null_object)

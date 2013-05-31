@@ -3,6 +3,7 @@ require_dependency 'with_previous_changes_undone'
 
 class Scheduling < ActiveRecord::Base
   include WithPreviousChangesUndone
+  include Repeatable
 
   belongs_to :plan
   belongs_to :employee
@@ -20,6 +21,7 @@ class Scheduling < ActiveRecord::Base
   validates_with NextDayWithinPlanPeriodValidator
 
   attr_writer :year
+
   include TimeRangeWeekBasedAccessible
   include TimeRangeComponentsAccessible
 
