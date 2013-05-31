@@ -26,3 +26,10 @@ When /^I close all colorpickers$/ do
   page.execute_script("$('input.miniColors').miniColors('destroy')")
   sleep 0.5
 end
+
+When /^I leave #{capture_quoted} field$/ do |label|
+  field = find_field(label)
+  field[:id].should_not be_nil, "cannot leave '#{label}' field because it has no id"
+
+  page.execute_script("$('##{field[:id]}').trigger('blur')")
+end

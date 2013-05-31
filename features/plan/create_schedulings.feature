@@ -57,6 +57,8 @@ Feature: create a scheduling
 
       # minute quickie rounded to 15-minute intervals
      When I fill in "Quickie" with "9:16-17:42"
+      # updating Quickie while typing it causes timing bugs and may be confiusing
+      And I leave "Quickie" field
      Then the "Quickie" field should contain "09:15-17:45"
       And the "Startzeit" field should contain "09:15"
       And the "Endzeit" field should contain "17:45"
@@ -67,11 +69,15 @@ Feature: create a scheduling
      Then the "Quickie" field should contain "8-20:15"
       And the "Endzeit" field should contain "20:15"
 
+
+      # can submit unrounded times, but thay will be rounded on the server side (or invisibly fixed on client)
+     When I fill in "Quickie" with "9:16-17:42"
+
      When I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following partial calendar:
         | Mitarbeiter | Mo | Di          | Mi | Do | Fr | Sa | So |
-        | Carl C      |    | 08:00-20:15 |    |    |    |    |    |
+        | Carl C      |    | 09:15-17:45 |    |    |    |    |    |
         | Lenny L     |    |             |    |    |    |    |    |
         | Homer S     |    |             |    |    |    |    |    |
 
