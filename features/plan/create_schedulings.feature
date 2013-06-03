@@ -44,11 +44,12 @@ Feature: create a scheduling
   Scenario: Entering time span with minutes (15 minute intervals)
      When I click on cell "Di"/"Carl C"
       And I wait for the new scheduling form to appear
-      # empty Quickie does not cause update of fields
+      # empty/invalid Quickie clears date fields to reflect even these changes
+      # and not to sync back wrong value
       And I press arrow down in the "Quickie" field
       And I press arrow down in the "Quickie" field
-     Then the "Startzeit" field should contain "00:00"
-      And the "Endzeit" field should contain "00:00"
+     Then the "Startzeit" field should contain ""
+      And the "Endzeit" field should contain ""
 
       # full hour quickie
      When I fill in "Quickie" with "9-17"

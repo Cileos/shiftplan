@@ -9,7 +9,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
         .edit_quickie()
       .end()
       .on('change autocompleteclose blur', => @updateFields())
-      .on('autocompleteclose blur', => @updateQuickie())
+      .on('blur', => @updateQuickie())
       .bindWithDelay('keyup', (=> @updateFields()), 150)
 
     timeoptions =
@@ -44,8 +44,13 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       # Entering '9-17' should not change the selected team
       if @quickie.space_before_team? and @quickie.space_before_team.length > 0
         @setTeamByName(@quickie.team_name)
+    else
+      @input('start_time').val('')
+      @input('end_time').val('')
+
 
   recalculateQuickie: ->
+    @quickie.clear()
     @quickie.start_time = @input('start_time').val()
     @quickie.end_time = @input('end_time').val()
     teamField = @input('team_id')
@@ -56,7 +61,8 @@ Clockwork.SchedulingEditor = Ember.Object.extend
 
   updateQuickie: ->
     @recalculateQuickie()
-    @input('quickie').val(@quickie.toString())
+    if @quickie.isValid()
+      @input('quickie').val(@quickie.toString())
 
   setTeamByName: (name) ->
     input = @input('team_id')

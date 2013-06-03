@@ -23,6 +23,7 @@ addZeroes = (time) ->
   else
     "#{time}:00"
 
+fields = ['start_time', 'end_time', 'hour_range', 'team_name', 'team_shortcut', 'space_before_team']
 
 class Quickie
   @parse: (string) ->
@@ -33,15 +34,20 @@ class Quickie
       null
 
   parse: (string) ->
+    @clear()
     @parsed = XRegExp.exec string, exp.quickie
     if @parsed?
-      for field in ['start_time', 'end_time', 'hour_range', 'team_name', 'team_shortcut', 'space_before_team']
+      for field in fields
         this[field] = @parsed[field]
-        @verbose_start_time = addZeroes @parsed.start_time
-        @verbose_end_time = addZeroes @parsed.end_time
+      @verbose_start_time = addZeroes @parsed.start_time
+      @verbose_end_time = addZeroes @parsed.end_time
+
+  clear: ->
+    for field in fields
+      this[field] = null
 
   isValid: ->
-    @start_time? and @end_time?
+    @start_time? and @end_time? and @start_time.length > 0 and @end_time.length > 0
 
   toString: ->
     q = ''
