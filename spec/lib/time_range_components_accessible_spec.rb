@@ -69,4 +69,26 @@ describe TimeComponent do
         it("rounds #{min} => #{rounded}") { subject.round_minute(min).should == rounded }
       end
   end
+
+  context '#metric_hour' do
+    it "does not touch full hours" do
+      subject.stub hour: 4, minute: 0
+      subject.metric_hour.should eq(4)
+    end
+
+    it "adds .25 for 15 minutes" do
+      subject.stub hour: 4, minute: 15
+      subject.metric_hour.should == 4.25
+    end
+
+    it "adds .5 for 30 minutes" do
+      subject.stub hour: 4, minute: 30
+      subject.metric_hour.should == 4.5
+    end
+
+    it "adds .75 for 45 minutes" do
+      subject.stub hour: 4, minute: 45
+      subject.metric_hour.should == 4.75
+    end
+  end
 end

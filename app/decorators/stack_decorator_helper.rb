@@ -23,7 +23,7 @@ module StackDecoratorHelper
 
   def stack_metadata_for(scheduling)
     {
-      start: scheduling.start_hour,
+      start: scheduling.start_metric_hour,
       length: scheduling.length_in_hours,
       stack: scheduling.stack,
       remaining: scheduling.remaining_stack,

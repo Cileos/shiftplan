@@ -40,6 +40,7 @@ module TimeRangeComponentsAccessible
           @#{name}_component = nil
         end
         delegate :hour, :hour=,
+                 :metric_hour,
                  :minute, :minute=,
                  :time, :time=,
                  :hour_present?,
@@ -51,6 +52,9 @@ module TimeRangeComponentsAccessible
   time_attrs :start
   time_attrs :end
 
+  def time_range
+    (starts_at..ends_at)
+  end
 
   def base_for_time_range_components
     @date || (starts_at.present? && starts_at.to_date)

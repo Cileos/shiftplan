@@ -58,10 +58,6 @@ class Scheduling < ActiveRecord::Base
 
   include Stackable
 
-  def hour_range
-    (start_hour...end_hour)
-  end
-
   # date of the day the Scheduling starts
   def date
     @date || date_part_or_default(:to_date) { date_from_human_date_attributes }

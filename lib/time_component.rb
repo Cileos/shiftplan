@@ -20,6 +20,10 @@ class TimeComponent < Struct.new(:record, :start_or_end)
     @hour.present?
   end
 
+  def metric_hour
+    hour + (0.25 * minute / 15)
+  end
+
   def time=(time)
     if m = FullTimeExp.match(time)
       self.hour = m[:hour]

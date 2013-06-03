@@ -22,6 +22,9 @@ FactoryGirl.define do
 
     factory :scheduling_by_quickie do
       date { Date.today }
+      after :build do |s|
+        s.valid?
+      end
     end
   end
 end
