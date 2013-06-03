@@ -1,6 +1,3 @@
-require_dependency 'quickie'
-require_dependency 'with_previous_changes_undone'
-
 class Scheduling < ActiveRecord::Base
   include WithPreviousChangesUndone
 
