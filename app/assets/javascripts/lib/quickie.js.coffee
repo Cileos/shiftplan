@@ -55,6 +55,7 @@ class Quickie
     q+='-'
     q += removeZeroes(@end_time) if @end_time?
     q+= " #{@team_name}" if @team_name? and @team_name.length > 0
+    q+= " [#{@team_shortcut}]" if @team_shortcut? and @team_shortcut.length > 0
     q
 
 window.Quickie = Quickie

@@ -51,6 +51,8 @@ Clockwork.SchedulingEditor = Ember.Object.extend
 
 
   recalculateQuickie: ->
+    previousTeamName = @quickie.team_name
+    previousTeamShortcut = @quickie.team_shortcut
     @quickie.clear()
     @quickie.start_time = @input('start_time').val()
     @quickie.end_time = @input('end_time').val()
@@ -59,6 +61,9 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       selected = teamField.find("option[value=#{teamField.val()}]")
       if selected.length > 0
         @quickie.team_name = selected.text()
+    # do not clear name of not-yet existing Team
+    @quickie.team_name = previousTeamName if !@quickie.team_name? or @quickie.team_name.length == 0
+    @quickie.team_shortcut = previousTeamShortcut if !@quickie.team_shortcut? or @quickie.team_shortcut.length == 0
 
   updateQuickie: ->
     @recalculateQuickie()
