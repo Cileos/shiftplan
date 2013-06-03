@@ -1,26 +1,27 @@
 class WwtDiffWidget < Struct.new(:h, :employee, :records)
 
   def to_html
-    h.abbr_tag(wwt_diff_label_text_for(employee, short: true),
-               wwt_diff_label_text_for(employee),
-               class: "badge #{wwt_diff_label_class_for(employee)}")
+    h.abbr_tag(label_text(short: true),
+               label_text,
+               class: "badge #{label_class}")
   end
 
-  def wwt_diff_label_text_for(employee, opts={})
+  # TODO i18n 'of'
+  def label_text(opts={})
     if employee.weekly_working_time.present?
-      opts[:short].present? ? txt = '/' : txt = 'of'
-      "#{hours_for(employee)} #{txt} #{employee.weekly_working_time.to_i}"
+      txt = opts[:short] ? '/' : 'of'
+      "#{hours} #{txt} #{employee.weekly_working_time.to_i}"
     else
-      "#{hours_for(employee)}"
+      "#{hours}"
     end
   end
 
-  def hours_for(employee)
+  def hours
     records.select {|s| s.employee == employee }.sum(&:length_in_hours).to_i
   end
 
   # the 'badge-normal' class is not actually used by bootstrap, but we cannot test for absent class
-  def wwt_diff_label_class_for(employee)
+  def label_class
     return 'badge-normal' unless employee.weekly_working_time.present?
     difference = employee.weekly_working_time - hours_for(employee)
     if difference > 0
