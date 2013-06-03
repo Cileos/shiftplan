@@ -11,6 +11,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       .on('change autocompleteclose blur', => @updateFields())
       .on('blur', => @updateQuickie())
       .bindWithDelay('keyup', (=> @updateFields()), 150)
+      .closest('form').on('submit', => @updateQuickie()).end()
 
     timeoptions =
       show24Hours: true
