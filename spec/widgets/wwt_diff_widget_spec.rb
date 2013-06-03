@@ -15,4 +15,14 @@ describe WwtDiffWidget do
     view.should_receive(:abbr_tag).with(short, long, class: "badge wwt_class").and_return('tag')
     subject.to_html.should == 'tag'
   end
+
+  context '#hours' do
+    it "sums up full hours" do
+      records << stub('s1', employee: employee, length_in_hours: 4)
+      records << stub('s2', employee: employee, length_in_hours: 8)
+      records << stub('s3', employee: employee, length_in_hours: 15)
+
+      subject.hours.should == 4 + 8 + 15
+    end
+  end
 end
