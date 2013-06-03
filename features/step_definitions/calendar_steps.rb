@@ -104,7 +104,7 @@ Then /^I should see the following WAZ:$/ do |expected|
   expected.diff! the_calendar.employees_with_batches, :surplus_row => false
 end
 
-Then /^the employee #{capture_quoted} should have a (yellow|green|red|grey) hours\/waz value of "(\d+ \/ \d+|\d+)"$/ do |employee_name, color, text|
+Then /^the employee #{capture_quoted} should have a (yellow|green|red|grey) hours\/waz value of "(\d+.? \/ \d+|\d+)"$/ do |employee_name, color, text|
   color_class_mapping = {
     'yellow' => 'badge-warning',
     'green'  => 'badge-success',
