@@ -53,7 +53,7 @@ module TimeRangeComponentsAccessible
   time_attrs :end
 
   def time_range
-    (starts_at..ends_at)
+    (starts_at...ends_at)
   end
 
   def base_for_time_range_components
