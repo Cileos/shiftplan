@@ -97,8 +97,10 @@ class Scheduling < ActiveRecord::Base
 
   delegate :iso8601, to: :date
 
+  # returns 3.25 for 3 hours and 15 minutes
+  # OPTIMIZE rounding
   def length_in_hours
-    end_hour - start_hour
+    (ends_at - starts_at) / (60*60)
   end
 
   def self.filter(params={})

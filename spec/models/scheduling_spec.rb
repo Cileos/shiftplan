@@ -320,6 +320,14 @@ describe Scheduling do
     end
   end
 
+  context "with time specified in 15-minute intervals" do
+    let(:sch) { build(:scheduling_by_quickie, quickie: '11:15-13:45').tap(&:valid?) }
+
+    it "does not round #length_in_hours" do
+      sch.length_in_hours.should == 2.5
+    end
+  end
+
   context "team" do
     let(:team)        { create :team, :name => 'The A Team' }
     let(:plan)        { create :plan, :organization => team.organization }

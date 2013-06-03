@@ -19,5 +19,9 @@ FactoryGirl.define do
     sequence(:cwday) { |i| i % 6 }
     year             2011
     quickie          '9-17'
+
+    factory :scheduling_by_quickie do
+      date { Date.today }
+    end
   end
 end
