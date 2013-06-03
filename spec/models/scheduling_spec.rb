@@ -321,10 +321,33 @@ describe Scheduling do
   end
 
   context "with time specified in 15-minute intervals" do
-    let(:sch) { build(:scheduling_by_quickie, quickie: '11:15-13:45').tap(&:valid?) }
+    let(:sch) { build(:scheduling_by_quickie, quickie: '11:15-13:45')}
 
     it "does not round #length_in_hours" do
       sch.length_in_hours.should == 2.5
+    end
+  end
+
+
+  # TimeRangeComponentsAccessible
+  context 'fractal hour after midnight ( 0-0:15 )' do
+    let(:sch) { build(:scheduling_by_quickie, quickie: '0-0:15') }
+    it 'starts at midnight' do
+      sch.start_hour.should == 0
+      sch.start_minute.should == 0
+    end
+
+    it 'ends 15 minutes after midnight' do
+      sch.end_hour.should == 0
+      sch.end_minute.should == 15
+    end
+
+    it 'lasts only a quarter of an hour' do
+      sch.length_in_hours.should == 0.25
+    end
+
+    it 'has period reflecting it' do
+      sch.period.should == '0-00:15'
     end
   end
 

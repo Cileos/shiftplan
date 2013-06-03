@@ -71,7 +71,9 @@ module TimeRangeComponentsAccessible
       reset_start_components!
     end
     if date.present? && end_hour_present?
-      if end_hour == 0 || end_hour == 24
+      if end_hour == 24
+        self.ends_at = date.end_of_day
+      elsif end_hour == 0 && start_minute >= end_minute
         self.ends_at = date.end_of_day
       else
         self.ends_at = date + end_hour.hours + end_minute.minutes
