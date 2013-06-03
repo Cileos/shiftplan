@@ -255,6 +255,10 @@ describe Scheduling do
       nightwatch.end_hour.should == 24
     end
 
+    # reload to force AR to re-init the dates and really delete all our state
+    let(:first) { nightwatch.class.find(nightwatch.id) }
+    let(:second) { nightwatch.class.find(nightwatch.next_day_id) }
+
     context "pairing_id" do
       before(:each) { nightwatch.save! }
 
@@ -271,11 +275,15 @@ describe Scheduling do
       before(:each) { nightwatch.save! }
 
       it "should hold hours until midnight" do
-        nightwatch.length_in_hours.should == 5
+        first.length_in_hours.should == 5  # is ~ 4.99999999903 without reloading the record
       end
 
       it "should move rest of the length to the next day" do
-        nightwatch.next_day.length_in_hours.should == 6
+        second.length_in_hours.should == 6
+      end
+
+      it "has next day assiciated" do
+        second.should == nightwatch.next_day
       end
     end
 

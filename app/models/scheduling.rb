@@ -96,7 +96,7 @@ class Scheduling < ActiveRecord::Base
   # returns 3.25 for 3 hours and 15 minutes
   # OPTIMIZE rounding
   def length_in_hours
-    (ends_at - starts_at) / (60*60)
+    (end_hour - start_hour) + (end_minute-start_minute).to_f / 60
   end
 
   def self.filter(params={})
