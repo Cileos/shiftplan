@@ -15,7 +15,7 @@ FactoryGirl.define do
     # starts_at and ends_at must be calculated
     plan
     employee
-    sequence(:week)  { |i| i % 52 }
+    sequence(:week)  { |i| i % 51 }
     sequence(:cwday) { |i| i % 6 }
     year             2011
     quickie          '9-17'
