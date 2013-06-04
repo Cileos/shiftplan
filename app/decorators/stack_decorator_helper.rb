@@ -23,11 +23,11 @@ module StackDecoratorHelper
 
   def stack_metadata_for(scheduling)
     {
-      start: scheduling.start_metric_hour,
-      length: scheduling.length_in_hours,
-      stack: scheduling.stack,
-      remaining: scheduling.remaining_stack,
-      total: scheduling.total_stack
+      start:     Volksplaner::Formatter.metric_hour_string(scheduling.start_metric_hour),
+      length:    Volksplaner::Formatter.metric_hour_string(scheduling.length_in_hours),
+      stack:     scheduling.stack.to_s,
+      remaining: scheduling.remaining_stack.to_s,
+      total:     scheduling.total_stack.to_s
     }
   end
 end
