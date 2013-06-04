@@ -46,8 +46,12 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       if @quickie.space_before_team? and @quickie.space_before_team.length > 0
         @setTeamByName(@quickie.team_name)
     else
-      @input('start_time').val('')
-      @input('end_time').val('')
+      if @input('quickie').val().length > 0 # entered ANY thing
+        @input('start_time').val('')
+        @input('end_time').val('')
+      else
+        @input('start_time').timeEntry('setTime', '0:00')
+        @input('end_time').timeEntry('setTime', '0:00')
 
 
   recalculateQuickie: ->
