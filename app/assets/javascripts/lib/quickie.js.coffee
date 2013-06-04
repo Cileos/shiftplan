@@ -17,7 +17,8 @@ removeZeroes = (time) ->
 
 addZeroes = (time) ->
   return unless time?
-  time = "0#{time}" if time < 10
+  return if time.length == 0
+  time = "0#{parseInt time, 10}" if time < 10
   if time.length > 2
     time
   else
@@ -41,6 +42,7 @@ class Quickie
         this[field] = @parsed[field]
       @verbose_start_time = addZeroes @parsed.start_time
       @verbose_end_time = addZeroes @parsed.end_time
+      @parsed
 
   clear: ->
     for field in fields

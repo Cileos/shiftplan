@@ -40,6 +40,12 @@ describe 'Quickie', ->
     expect( parsed ).not.toBeNull()
     expect( parsed.hour_range ).toEqual('9-17')
 
+  it "does not add extra leading zero to times", ->
+    parsed = Quickie.parse '08-1'
+    expect( parsed ).not.toBeNull()
+    expect(parsed.verbose_start_time).toEqual('08:00')
+    expect(parsed.verbose_end_time).toEqual('01:00')
+
   it "should parse lonely team name", ->
     parsed = Quickie.parse('Brennstäbe wechseln')
     expect( parsed ).not.toBeNull()
