@@ -16,7 +16,7 @@ end unless ENV['NO_SPORK']
 group :test, :halt_on_fail => true do
 
   guard 'rspec', :cli => '--drb --color --format nested --tag ~benchmark', :run_all => false, :all_on_start => false do
-    watch(%r{^factories/.+$})       { "spec" }
+    #watch(%r{^factories/.+$})       { "spec" }
 
     # Rails example
     watch(%r{^spec/.+_spec\.rb$})
@@ -25,6 +25,8 @@ group :test, :halt_on_fail => true do
     watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
     # we (will) use cucumber extensivly
     # watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}_spec.rb"] }
+    #watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
+    #watch('spec/spec_helper.rb')                        { "spec" }
     watch('config/routes.rb')                           { "spec/routing" }
     watch('app/models/ability.rb')                      { "spec/abilities" }
     # Capybara request specs

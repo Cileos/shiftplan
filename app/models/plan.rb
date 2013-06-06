@@ -50,6 +50,10 @@ class Plan < ActiveRecord::Base
     (start_hour .. end_hour)
   end
 
+  def minute_range
+    [0,15,30,45]
+  end
+
   def has_period?
     starts_at.present? || ends_at.present?
   end

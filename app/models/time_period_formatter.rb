@@ -1,26 +1,47 @@
 module TimePeriodFormatter
+  def self.period_with_zeros(from, to)
+    [time_with_zeros(from), time_with_zeros(to)].compact.join('-')
+  end
+
+  def self.period_without_zeros(from, to)
+    [time_without_zeros(from), time_without_zeros(to)].compact.join('-')
+  end
+
+  # show zeros only if neccessary
+  def self.period(from, to)
+    [time(from), time(to)].compact.join('-')
+  end
+
+  def self.time_with_zeros(time)
+    time && time.strftime('%H:%M')
+  end
+
+  def self.time_without_zeros(time)
+    time && time.hour
+  end
+
+  def self.time(t)
+    return unless t
+    t.min == 0 ? time_without_zeros(t) : time_with_zeros(t)
+  end
+
   def period_with_duration
-    period + ' (' + duration + 'h)'
+    period_with_zeros + ' (' + duration + 'h)'
   end
 
   def duration
-    "#{hours}:#{minutes}"
+    '%d:%02d' % [ length_in_minutes / 60, length_in_minutes % 60 ]
   end
 
   def period
-    "#{formatted_start_time}-#{formatted_end_time}"
+    TimePeriodFormatter.period self_or_prev_day.starts_at, self_or_next_day.ends_at
+  end
+
+  def period_with_zeros
+    TimePeriodFormatter.period_with_zeros self_or_prev_day.starts_at, self_or_next_day.ends_at
   end
 
   private
-
-    def formatted_start_time
-      formatted_time(self_or_prev_day.starts_at.hour,
-                     self_or_prev_day.starts_at.min)
-    end
-
-    def formatted_end_time
-      formatted_time(self_or_next_day.end_hour, self_or_next_day.end_minute)
-    end
 
     def self_or_prev_day
       @self_or_prev_day ||= previous_day ? previous_day : self
@@ -28,23 +49,6 @@ module TimePeriodFormatter
 
     def self_or_next_day
       @self_or_next_day ||= next_day ? next_day : self
-    end
-
-    def formatted_time(hour, minute)
-      "#{normalize(hour)}:#{normalize(minute)}"
-    end
-
-    def normalize(number)
-      number = 0 if number.nil?
-      "%02d" % number
-    end
-
-    def hours
-      @hours ||= normalize((length_in_minutes / 60).to_i)
-    end
-
-    def minutes
-      @minutes ||= normalize((length_in_minutes % 60).to_i)
     end
 
     def length_in_minutes

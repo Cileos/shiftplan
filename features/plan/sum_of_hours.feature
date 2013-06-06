@@ -28,10 +28,17 @@ Feature: Sum of hours in plan
         | Lenny L       | 0       |
         | Homer S       | 40 / 40 |
 
-     When I schedule "Homer S" on "Sa" for "10-17"
-      And I schedule "Homer S" on "So" for "12-17"
+     When the employee "Homer" was scheduled in the plan as following:
+        | year | week | cwday | quickie |
+        | 2012 | 6    | 6     | 10-17    |
+        | 2012 | 6    | 7     | 12-17    |
+      And the employee "Carl" was scheduled in the plan as following:
+        | year | week | cwday | quickie  |
+        | 2012 | 6    | 1     | 12-12:30 |
+        | 2012 | 6    | 2     | 12-13:45 |
+      And I go to the employees in week page for the plan for cwyear: 2012, week: 6
      Then I should see the following WAZ:
-        | Carl C        | 0       |
+        | Carl C        | 2¼      |
         | Lenny L       | 0       |
         | Homer S       | 52 / 40 |
 

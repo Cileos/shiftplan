@@ -158,7 +158,18 @@ describe Scheduling do
           })
         end
       end
+    end
 
+    describe 'given as date and times' do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          build_without_dates({
+            date: starts_at_date,
+            start_time: '09:00',
+            end_time: '17:00'
+          })
+        end
+      end
     end
 
     describe "given as date only" do
@@ -244,6 +255,10 @@ describe Scheduling do
       nightwatch.end_hour.should == 24
     end
 
+    # reload to force AR to re-init the dates and really delete all our state
+    let(:first) { nightwatch.class.find(nightwatch.id) }
+    let(:second) { nightwatch.class.find(nightwatch.next_day_id) }
+
     context "pairing_id" do
       before(:each) { nightwatch.save! }
 
@@ -260,11 +275,15 @@ describe Scheduling do
       before(:each) { nightwatch.save! }
 
       it "should hold hours until midnight" do
-        nightwatch.length_in_hours.should == 5
+        first.length_in_hours.should == 5  # is ~ 4.99999999903 without reloading the record
       end
 
       it "should move rest of the length to the next day" do
-        nightwatch.next_day.length_in_hours.should == 6
+        second.length_in_hours.should == 6
+      end
+
+      it "has next day assiciated" do
+        second.should == nightwatch.next_day
       end
     end
 
@@ -306,6 +325,37 @@ describe Scheduling do
         it { subject.week.should == 1 }
         it { subject.previous_day.should == nightwatch }
       end
+    end
+  end
+
+  context "with time specified in 15-minute intervals" do
+    let(:sch) { build(:scheduling_by_quickie, quickie: '11:15-13:45')}
+
+    it "does not round #length_in_hours" do
+      sch.length_in_hours.should == 2.5
+    end
+  end
+
+
+  # TimeRangeComponentsAccessible
+  context 'fractal hour after midnight ( 0-0:15 )' do
+    let(:sch) { build(:scheduling_by_quickie, quickie: '0-0:15') }
+    it 'starts at midnight' do
+      sch.start_hour.should == 0
+      sch.start_minute.should == 0
+    end
+
+    it 'ends 15 minutes after midnight' do
+      sch.end_hour.should == 0
+      sch.end_minute.should == 15
+    end
+
+    it 'lasts only a quarter of an hour' do
+      sch.length_in_hours.should == 0.25
+    end
+
+    it 'has period reflecting it' do
+      sch.period.should == '0-00:15'
     end
   end
 
@@ -362,10 +412,10 @@ describe Scheduling do
         scheduling.team.organization.should == team.organization
       end
 
-      it "should be included in the quickie" do
+      it "is included in the quickie" do
         scheduling.team = team
         scheduling.team.stub(:to_quickie).and_return('<team quickie part>')
-        scheduling.quickie.should == '1-23 <team quickie part>'
+        scheduling.quickie.should =~ /<team quickie part>$/
       end
 
       context "with team" do
@@ -382,6 +432,8 @@ describe Scheduling do
       create :scheduling, date: '2011-11-02', plan: plan, quickie: '9-17 Schuften'
       create :scheduling, date: '2011-11-02', plan: plan, quickie: '11-19 Schuften'
       create :scheduling, date: '2011-11-02', plan: plan, quickie: '20-23 Glotzen'
+      create :scheduling, date: '2011-11-02', plan: plan, quickie: '8:15-20:45 Glotzen'
+      create :scheduling, date: '2011-11-02', quickie: '11-12 Managen'
     end
 
     let(:completions) { plan.schedulings.quickies }
@@ -390,10 +442,12 @@ describe Scheduling do
       completions.should include('9-17 Schuften [S]')
       completions.should include('11-19 Schuften [S]')
       completions.should include('20-23 Glotzen [G]')
+      completions.should include('08:15-20:45 Glotzen [G]')
+      completions.should_not include('11-12 Managen [M]')
     end
 
     it "should not include doubles" do
-      completions.should have(3).records
+      completions.should have(4).records
     end
   end
 

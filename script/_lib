@@ -15,8 +15,8 @@ function run_suite () {
       bundle exec rake spec:ci --backtrace
       ;;
     jasmine)
-      header "Jasmine"
-      xvfb-run --auto-servernum bundle exec guard-jasmine
+      header "Jasmine disabled"
+      #xvfb-run --auto-servernum bundle exec guard-jasmine
       ;;
     cucumber)
       header "Cucumber (non-javascript)"

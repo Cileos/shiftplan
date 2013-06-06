@@ -16,12 +16,11 @@ table.hours-in-week {
   }
 
   tbody tr {
-  background: image-url('grid2.png') repeat 0px 2px;
+    background: image-url('grid4.png') repeat 0px 2px;
 
   }
   tr:last-child th, .calendar tr:last-child td {
     border-bottom: none;
-
   }
 
 
@@ -75,14 +74,26 @@ table.hours-in-week {
         &[data-start="#{$hour}"] {
           top: $row_height * $hour + 1px;
         }
+        &[data-start="#{$hour}.25"] {
+          top: $row_height * ($hour + 0.25) + 1px;
+        }
         &[data-start="#{$hour}.5"] {
           top: $row_height * ($hour + 0.5) + 1px;
+        }
+        &[data-start="#{$hour}.75"] {
+          top: $row_height * ($hour + 0.75) + 1px;
         }
         &[data-length="#{$hour}"] {
           height: $row_height * $hour + 1px;
         }
+        &[data-length="#{$hour}.25"] {
+          height: $row_height * ($hour + 0.25) + 1px;
+        }
         &[data-length="#{$hour}.5"] {
           height: $row_height * ($hour + 0.5) + 1px;
+        }
+        &[data-length="#{$hour}.75"] {
+          height: $row_height * ($hour + 0.75) + 1px;
         }
       }
 

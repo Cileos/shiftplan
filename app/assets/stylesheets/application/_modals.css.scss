@@ -58,6 +58,7 @@
 
   .inputs {
     width: 525px;
+    //max-width: 400px; (15-minutes-of-fame)
   }
 
   h3 {
@@ -124,10 +125,6 @@
           }
         }
 
-        .weekday-date {
-          color: $ci_darkgray;
-          font-size: $ci_small-font;
-        }
       }
 
       .start-time,
@@ -142,10 +139,16 @@
       .start-time {
         margin-left: 5%;
       }
+
+      .start-time {
+        margin-left: 5%;
+      }
     }
 
     .weekday-and-time {
       overflow: hidden;
+      color: $ci_darkgray;
+      font-size: $ci_small-font;
     }
 
     .qualification-fields {
