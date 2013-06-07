@@ -22,7 +22,7 @@ Feature: Edit Schedulings of a Plan
         | Mitarbeiter | Do          | Fr |
         | Carl C      |             |    |
         | Lenny L     |             |    |
-        | Homer S     | 01:00-23:45 |
+        | Homer S     | 01:00-23:45 |    |
       And the employee "Lenny L" should have a grey hours/waz value of "0"
       And the employee "Homer S" should have a yellow hours/waz value of "22¾ / 40"
 
