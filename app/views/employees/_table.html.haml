@@ -29,10 +29,10 @@
         %td= record.try(:user).try(:email) || record.try(:invitation).try(:email)
         %td= t("employees.roles.#{record.role.present? ? record.role : 'none' }")
         %td.status= invitation_status(record)
-        - organizations = record.organizations
+        - organizations = record.organizations.order(:name)
         %td
           - if organizations.present?
-            - organizations.order(:name).each do |org|
+            - organizations.each do |org|
               %div= org.name
           - else
             = t('none')
