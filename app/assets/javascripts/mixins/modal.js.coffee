@@ -1,6 +1,6 @@
 Clockwork.ModalMixin = Ember.Mixin.create
   classNames: ['modalor']
-  layout: Ember.Handlebars.compile("{{view Clockwork.FlashMessagesView}}{{yield}}")
+  layout: Ember.Handlebars.compile("{{yield}}")
   heading: '<set a `heading` in your View>'
   didInsertElement: ->
     dialog = @$().dialog
