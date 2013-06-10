@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
                   :remember_me,
                   :employee_id,
                   :confirmed_at,
+                  :locale,
 
                   :first_name,
                   :last_name,
@@ -39,6 +40,7 @@ class User < ActiveRecord::Base
                         :account_name,
                         if: Proc.new { |u| u.on_signup }
   validates :email, :email => true
+  validates_inclusion_of :locale, in: lambda { |u| I18n.available_locales.map(&:to_s) }, allow_blank: true
 
   has_many :employees # but just one employee per account
   has_many :invitations

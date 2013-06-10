@@ -1,4 +1,7 @@
 de:
+  profile:
+    edit:
+      instructions: "Wählen Sie Ihre Spracheinstellungen."
   profile_employees:
     index:
       instructions: "Wählen Sie einen Mitarbeiter."

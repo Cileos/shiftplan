@@ -78,6 +78,7 @@ Clockwork::Application.routes.draw do
   scope 'profile', as: 'profile' do
     resources :employees, only: [:edit, :update, :index], controller: 'profile_employees'
   end
+  resource :profile, only: [:edit, :update], controller: 'profile'
 
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
   get "dashboard" => 'welcome#dashboard', :as => 'user_root'

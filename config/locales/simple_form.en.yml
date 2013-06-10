@@ -1,5 +1,7 @@
 en:
   simple_form:
+    error_notification:
+      default_message: "There was an error. See below for more details."
     labels:
       user:
         show:

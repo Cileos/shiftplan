@@ -14,7 +14,21 @@ en:
     new:
       instructions: >
         Need more accounts? Add a new account on this page.
-    show:
+
+
+        Please enter the name of the new account and name the first
+        of your units.
+
+
+        For every account we create a separate employee. So we can guarantee,
+        that all your accounts don't share information.
+        You can either copy an existing name or just use a different one.
+    edit:
+      instructions: >
+        Here you can edit your account data.
+    organization_rows:
+      no_organizations: No unit present.
+    index:
       instructions: >
         Accounts of all the Units you're a member of.
 
@@ -22,5 +36,3 @@ en:
         Here are all the Units you're a member of.
 
         Need more space? Click "Add Units" to create new Units.
-
-

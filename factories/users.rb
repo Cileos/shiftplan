@@ -17,5 +17,7 @@ FactoryGirl.define do
     end
 
     factory :owner # of Account
+
+    locale 'de'
   end
 end

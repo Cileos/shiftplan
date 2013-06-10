@@ -56,6 +56,9 @@ class Ability
     can [:update_self], Employee do |employee|
       user == employee.user
     end
+    can [:update_self], User do |other_user|
+      user == other_user
+    end
     can [:read, :update], User do |u|
       user == u
     end

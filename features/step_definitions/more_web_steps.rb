@@ -135,8 +135,7 @@ Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
   end
 end
 
-
-# THe following steps are inspired by web_steps, but modified to wait a bit (for JS to change the values)
+# The following steps are inspired by web_steps, but modified to wait a bit (for JS to change the values)
 
 Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
   with_scope(parent) do
@@ -179,4 +178,17 @@ Then /^the "([^"]*)" field(?: within (.*))? should equal "([^"]*)"$/ do |field, 
       assert_equal value, field_value
     end
   end
+end
+
+Given /^I use an? (german|english) browser$/ do |lang|
+  case lang
+  when 'english'
+    add_headers 'Accept-Language' => 'en-GB'
+  when 'german'
+    add_headers 'Accept-Language' => 'de-DE'
+  end
+end
+
+Before '~@javascript' do # cannot set headers with selenium
+  add_headers 'Accept-Language' => nil # clear
 end

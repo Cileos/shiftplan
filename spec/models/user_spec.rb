@@ -155,4 +155,15 @@ describe User do
       it { user.should be_multiple }
     end
   end
+
+  describe '#locale' do
+    it 'accepts available locales' do
+      build(:user, locale: 'de').should be_valid
+    end
+
+    it 'does not accept imaginary locale' do
+      # kg is not available, but may be used for klingon
+      build(:user, locale: 'kg').should_not be_valid
+    end
+  end
 end

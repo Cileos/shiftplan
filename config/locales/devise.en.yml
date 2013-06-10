@@ -27,6 +27,7 @@ en:
       send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
     confirmations:
       not_received: "I haven't received the confirmation e-mail."
+      resend_instructions: 'Resend Instructions'
       send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
       send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
       confirmed: "Account confirmed - you're now logged in"

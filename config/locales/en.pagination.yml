@@ -1,5 +1,7 @@
 en:
   views:
     pagination:
-      next: '>>'
+      first: 'First'
       previous: '<<'
+      next: '>>'
+      last: 'Last'

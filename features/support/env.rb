@@ -1,4 +1,7 @@
 ENV["RAILS_ENV"] = "test"
+# switch chrome to german for @javascript tests
+ENV['LANGUAGE'] = 'de'
+ENV['LANG'] = 'de_DE.UTF-8'
 require 'rubygems'
 require 'spork'
 

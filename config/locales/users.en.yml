@@ -5,3 +5,20 @@ en:
   user_password:
     show:
       instructions: "It's very easy to change your password: enter your current password once and the new one twice."
+  activerecord:
+    attributes:
+      user:
+        email: "E-mail"
+        first_name: Name
+        last_name: Surname
+        organization_name: Unit name
+        account_name: Company name
+        name: "Name"
+        locale: "Language"
+        password: "Password"
+        password_confirmation: "Confirm password"
+        current_password: "Current password"
+        full_name: "Full name"
+        mobile_number: "Mobile number"
+        remember_me: "Remember me"
+        avatar: "Photo"

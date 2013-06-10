@@ -1,22 +1,17 @@
 - title :settings
 
-.row.two-columns
+= render layout: 'profile/with_menu' do
+  %h3= ta :change_email
 
-  %nav.secondary
-    = render 'user/settings_menu'
+  %p= t('user_email.show.instructions')
 
-  .primary.content-form
-    %h3= ta :change_email
+  = simple_form_for @user, url: change_email_path do |f|
 
-    %p= t('.instructions')
+    .inputs
+      = f.input :email, input_html: { class: 'mailcheck',
+        data: { :'mailcheck-hint' => t('hint.did_you_mean') } },
+        required: true, autofocus: true
+      = f.input :current_password, required: true
 
-    = simple_form_for @user, url: change_email_path do |f|
-
-      .inputs
-        = f.input :email, input_html: { class: 'mailcheck',
-          data: { :'mailcheck-hint' => t('hint.did_you_mean') } },
-          required: true, autofocus: true
-        = f.input :current_password, required: true
-
-      .actions
-        = f.update_button
+    .actions
+      = f.update_button

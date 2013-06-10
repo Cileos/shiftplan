@@ -5,8 +5,8 @@
         notice: "%{resource_name} has been created."
         alert: "%{resource_name} couldn't be created."
       update:
-        notice: "%{resource_name} has been created."
-        alert: "%{resource_name} couldn't be created."
+        notice: "%{resource_name} has been updated."
+        alert: "%{resource_name} couldn't be updated."
       destroy:
         notice: "%{resource_name} was deleted."
         alert: "%{resource_name} couldn't be deleted."

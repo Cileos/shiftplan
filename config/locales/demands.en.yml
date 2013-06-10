@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    attributes:
+      demand:
+        quantity: quantity
+        qualification: qualification
+    models:
+      demand:
+        one: "demand"
+        other: "%{count} demands"
