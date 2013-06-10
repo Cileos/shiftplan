@@ -1,5 +1,4 @@
-= simple_form_for nested_resources_for(plan_template), remote: true,
-  html: { class: 'form-horizontal' } do |f|
+= simple_form_for nested_resources_for(plan_template), remote: true do |f|
   .inputs.edit-team
     = f.input :name, autofocus: true
     = f.input :template_type, collection: PlanTemplate.template_type_options, include_blank: false

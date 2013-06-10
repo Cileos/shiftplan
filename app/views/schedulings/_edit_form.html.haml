@@ -1,6 +1,6 @@
 - scheduling ||= record
 - url = account_organization_plan_scheduling_path(current_account, current_organization, scheduling.plan, scheduling)
-= simple_form_for scheduling, url: url, remote: true, html: { class: 'form-horizontal edit_scheduling' } do |f|
+= simple_form_for scheduling, url: url, remote: true, html: { class: 'edit_scheduling' } do |f|
 
   .inputs
     = f.input :quickie, hint: true, wrapper_html: { class: 'quickie' }

@@ -1,7 +1,7 @@
 - title :add_account
 
 .primary
-  = simple_form_for @account, html: { class: 'form-horizontal' } do |f|
+  = simple_form_for @account do |f|
     .inputs.add-account
       = f.input :on_new_account, as: :hidden
       = f.input :user_id, as: :hidden

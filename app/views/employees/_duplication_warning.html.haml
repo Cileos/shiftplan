@@ -7,7 +7,7 @@
     - if adoptable_employees.empty?
       %p= t('employees.new.duplicates_are_all_members')
 
-    = form_tag([:add_members, current_account, current_organization], { id: 'add-members', class: 'form-horizontal add-employee' }) do |f|
+    = form_tag([:add_members, current_account, current_organization], { id: 'add-members', class: 'add-employee' }) do |f|
       = render 'adoptable_employees_table', employees: duplicate_employees
 
       .actions
