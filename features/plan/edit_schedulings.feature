@@ -17,7 +17,7 @@ Feature: Edit Schedulings of a Plan
       And I wait for the modal box to appear
      Then I should see "9-17 wichtige Arbeit [wA]" within a hint
      When I choose "Do"
-      And I should be able to change the "Quickie" from "7-23:15" to "1-23:34" and select "Homer S" as "Mitarbeiter"
+      And I should be able to change the "Quickie" from "7-23:15" to "1-23:44" and select "Homer S" as "Mitarbeiter"
      Then I should see the following partial calendar:
         | Mitarbeiter | Do          | Fr |
         | Carl C      |             |    |
