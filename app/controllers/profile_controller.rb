@@ -14,6 +14,11 @@ class ProfileController < InheritedResources::Base
     current_user
   end
 
+  # flash messages should be in the new locale
+  def update_resource(*)
+    super.tap { set_locale }
+  end
+
   def authorize_update_self
     authorize! :update_self, resource
   end
