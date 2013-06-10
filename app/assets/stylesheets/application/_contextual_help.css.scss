@@ -58,11 +58,35 @@
 .calendar-legend {
   di {
     display: block;
+    position: relative;
+    line-height: 1.2;
+    margin-bottom: 1px;
   }
 
-  dt, .pibble {
-    float: left;
-    margin-right: 1em;
+  .pibble {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -7px;
+  }
+
+  .shortcut {
+    margin-left: 25px;
+    span {
+      font-weight: bold;
+
+      &:before {
+        content: "[";
+      }
+
+      &:after {
+        content: "]";
+      }
+    }
+  }
+
+  .name {
+    margin-left: 25px;
   }
 
   .active-teams + div {
