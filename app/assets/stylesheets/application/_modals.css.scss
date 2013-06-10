@@ -58,11 +58,13 @@
 
   .inputs {
     width: 475px;
-    //max-width: 400px; (15-minutes-of-fame)
   }
 
-  .ember-view .inputs {
-    width: auto;
+  .new_comment,
+  .ember-view {
+    .inputs {
+      width: auto;
+    }
   }
 
   h3 {
