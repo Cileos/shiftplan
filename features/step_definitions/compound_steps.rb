@@ -46,16 +46,16 @@ end
 
 When /^I comment #{capture_quoted}$/ do |comment|
   field = "Kommentar"
-  within_modal_box(true) do
+  within_modal_box do
     find_field(field).text.should be_empty
     fill_in field, with: comment
     click_button 'Kommentieren'
     step %Q~I wait for the spinner to disappear~
-    find_field(field).text.should be_empty
-    page.should have_content(comment)
-    with_scope 'comments' do
-      all('div.own-meta').map(&:text).join(' ').should =~ /Sie haben am #{match_date_with_time} geschrieben:/
-    end
+    # model box auto-closes since eecfa7cca96872cfc9
+    #find_field(field).text.should be_empty
+    #with_scope 'comments' do
+    #  all('div.own-meta').map(&:text).join(' ').should =~ /Sie haben am #{match_date_with_time} geschrieben:/
+    #end
   end
 end
 
