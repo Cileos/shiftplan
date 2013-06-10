@@ -23,11 +23,11 @@ en:
     new:
       instructions: >
         Do you want to to merge "%{team_name}" and "%{other_team_name}"?
-        If so, please select the name of the new team and Confirm. You can't revert this step. All records of the teams 
+        If so, please select the name of the new team and Confirm. You can't revert this step. All records of the teams
         will be assigned to the new team.
   teams:
-    no_teams_present: "Es existieren noch keine Teams für diese Organisation."
-    goto_teams: 'Hier können Sie Teams anlegen.'
+    no_teams_present: "For this Organization no Teams are existing yet."
+    goto_teams: 'Here you can create Teams.'
     index:
       action: Action
       instructions: >
@@ -57,10 +57,10 @@ en:
         Example: @9-17 Preparing Ship [PS]@
 
 
-        In order to merge two teams, tick the appropriate checkboxes and click _Merge_. 
+        In order to merge two teams, tick the appropriate checkboxes and click _Merge_.
         After you chose the name for the merged team, both teams will be assigned to this one. You cannot revert this step.
-       
-    table:  
+
+    table:
       team_color: Colour
     show:
       merge_motivation: >
