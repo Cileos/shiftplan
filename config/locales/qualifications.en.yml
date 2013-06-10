@@ -1,0 +1,30 @@
+en:
+  activerecord:
+    models:
+      qualification:
+        one: "qualification"
+        other: "%{count} qualifications"
+  qualifications:
+    no_qualifications_present: "There are currently no qualifications for this organization."
+    goto_qualifications: 'If you need qualifications to define your plans shift demands, you can add them here:'
+    index:
+      instructions: >
+        Here you see all current qualifications of this organization.
+
+      planner_instructions: >
+        Here you see all current qualifications of this organization.
+
+
+        You can add new qualifications by using the _Add_ button on this page.
+    new:
+      instructions:
+        Here you can add new qualifications for this organization.
+
+
+        Please add a name for the qualification and press than the button _Add_.
+    edit:
+      instructions:
+        Here you can edit the qualifications.
+
+
+        Please add a name for the qualification and press than the button _Save_.
