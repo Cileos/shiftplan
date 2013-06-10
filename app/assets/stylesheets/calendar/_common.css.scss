@@ -62,6 +62,7 @@
   }
 
   td {
+    position: relative;
     width: 12%; // == 84%
 
     &.focus {
@@ -69,9 +70,23 @@
 
       outline: 1px solid $ci_blue;
     }
+
     &.outside_plan_period {
       background-color: $ci_lightgray;
       border-color: $ci_lightgray;
+    }
+
+    &:hover {
+      @extend %with-icon;
+      @extend .icon-add;
+      &:before {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        margin-left: -0.5em;
+        color: $ci_green;
+        text-shadow: 1px 1px $ci_shadow;
+      }
     }
   }
 
