@@ -8,6 +8,7 @@
   = simple_form_for current_user, url: profile_path do |f|
     = f.error_notification
     .inputs
-      = f.input :locale, collection: locales_for_select, include_blank: false, :wrapper_html => { :class => 'form-horizontal' }
+      - users_locale = current_user.locale.present? ? current_user.locale : I18n.locale
+      = f.input :locale, collection: locales_for_select, include_blank: false, :selected => users_locale, :wrapper_html => { :class => 'form-horizontal' }
     .actions
       = f.responsive_submit_button :update
