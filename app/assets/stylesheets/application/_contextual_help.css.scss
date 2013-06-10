@@ -29,10 +29,8 @@
 }
 
 .instructions-dialog {
-  position: absolute;
-  top: 30px !important;
-  right: 70px !important;
-  left: auto !important;
+  margin-right: 20px;
+  @include box-shadow(0 0 15px $ci_shadow);
 }
 
 .help {
