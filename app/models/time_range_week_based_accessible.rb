@@ -23,6 +23,8 @@ module TimeRangeWeekBasedAccessible
   # calculates the date manually from #year, #week and #cwday
   def build_date_from_human_attributes(year, week, cwday)
     Date.commercial(year.to_i, week.to_i, cwday.to_i)
+  rescue ArgumentError => e
+    raise ArgumentError, "#{e.message} from (#{year}, #{week}, #{cwday}"
   end
 
   def date_from_human_date_attributes

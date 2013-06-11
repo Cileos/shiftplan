@@ -1,5 +1,5 @@
 - url = account_organization_plan_schedulings_path(current_account, current_organization, scheduling.plan)
-= simple_form_for scheduling, url: url, remote: true, html: { class: 'form-horizontal' } do |f|
+= simple_form_for scheduling, url: url, remote: true do |f|
 
   .inputs
     - if current_plan_mode.teams_in_week? or current_plan_mode.teams_in_day?

@@ -1,8 +1,6 @@
-require_dependency 'quickie'
-require_dependency 'with_previous_changes_undone'
-
 class Scheduling < ActiveRecord::Base
   include WithPreviousChangesUndone
+  include Repeatable
 
   belongs_to :plan
   belongs_to :employee
@@ -20,8 +18,10 @@ class Scheduling < ActiveRecord::Base
   validates_with NextDayWithinPlanPeriodValidator
 
   attr_writer :year
+
   include TimeRangeWeekBasedAccessible
   include TimeRangeComponentsAccessible
+  include TimePeriodFormatter # for quickie generation
 
   include Overnightable
 
@@ -60,10 +60,6 @@ class Scheduling < ActiveRecord::Base
 
   include Stackable
 
-  def hour_range
-    (start_hour...end_hour)
-  end
-
   # date of the day the Scheduling starts
   def date
     @date || date_part_or_default(:to_date) { date_from_human_date_attributes }
@@ -97,16 +93,12 @@ class Scheduling < ActiveRecord::Base
   end
   attr_writer :quickie
 
-  def hour_range_quickie
-    if starts_at.present? && ends_at.present?
-      "#{start_hour}-#{end_hour}"
-    end
-  end
-
   delegate :iso8601, to: :date
 
+  # returns 3.25 for 3 hours and 15 minutes
+  # OPTIMIZE rounding
   def length_in_hours
-    end_hour - start_hour
+    (end_hour - start_hour) + (end_minute-start_minute).to_f / 60
   end
 
   def self.filter(params={})
@@ -136,10 +128,22 @@ class Scheduling < ActiveRecord::Base
 
   # TODO save start_hour and end_hour or even cache the whole quickie
   def self.quickies
-    # select the maximal dates because psql wants aggregations and we are just interested in the hours anyway
-    includes(:team)
-      .select(%q~max(starts_at) AS starts_at, max(ends_at) AS ends_at, team_id~)
-      .group(%q~date_part('hour', starts_at), date_part('hour', ends_at), team_id~)
+    id = "#{table_name}.id"
+    # in a subselect, find the distinct values for quickies in the current scope
+    # (MAX works, too - must be aggregated)
+    samples = select("MIN(#{id}) AS id")
+      .group(%q~date_part('hour', starts_at),
+                date_part('minute', starts_at),
+                date_part('hour', ends_at),
+                date_part('minute', ends_at),
+                team_id~
+            )
+    # fetch only needed fields to build quickies
+    unscoped
+      .includes(:team)
+      .includes(:next_day)
+      .select(%q~id, starts_at, ends_at, team_id~)
+      .where("#{id} IN (#{samples.to_sql})")
       .map(&:quickie)
   end
 
@@ -167,7 +171,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def to_quickie
-    [ hour_range_quickie, team.try(:to_quickie) ].compact.join(' ')
+    [ period, team.try(:to_quickie) ].compact.join(' ')
   end
 
 

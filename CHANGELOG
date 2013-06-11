@@ -1,7 +1,17 @@
 Changelog
 =========
 
+Release 0.4.0 2013-06-11 14:27
+------------------------------
+* 850b240 Merge pull request #173 from Cileos/feature/mohr-schtails
+* 6c2d2f9 Merge branch 'feature/select-locale' into develop
+* 78944e7 Merge branch 'feature/style-fixes' into develop
+* c141147 Merge branch 'feature/close-modalbox-after-commenting' into develop
+* 54bb21d Merge branch 'feature/15-minutes-of-fame' into develop
+* 550dcf0 Merge pull request #167 from Cileos/feature/repeat-for-schedulings
+
 Release 0.3.6 2013-05-15 22:22
+------------------------------
 * eec136c Merge branch 'feature/bug-968876-gimmicks-injected-multiple-times' into develop
 
 Release 0.3.5 2013-05-14 11:40

@@ -1,0 +1,43 @@
+en:
+  activerecord:
+    errors:
+      models:
+        shift:
+          start_time_must_be_different_from_end_time: "Start and end of shift are identical."
+    attributes:
+      shift:
+        day: day
+        start_hour: hour of start
+        start_minute: minute of start
+        end_hour: hour of end
+        end_minute: minute of end
+      shift/demands:
+        quantity: quantity
+        qualification: qualification
+    models:
+      shift:
+        one: "shift"
+        other: "%{count} shifts"
+  shifts:
+    teams_in_week:
+      teams_required_for_templates: 'To create plan templates, you have to create teams first.'
+      planner_instructions: >
+        Here you see all shifts defined for that template.
+
+
+        To add a new shift click above on _Add_ or just click into a cell of the calendar.
+
+
+        With plan templates you are able to define typical recurring shifts within a week.
+        Shifts are made of demands and their needed quantity and eventually needed qaulifications.
+
+
+        Example 1: @08:00-16:00 2 x cook in team kitchen@
+
+
+        Example 2: @14:00-22:00 2 x in team service@
+
+
+        You can use these defined plan templates on every plan.
+      instructions: >
+        Here you see all shifts defined for that template.

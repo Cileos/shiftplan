@@ -51,11 +51,15 @@ class Shift < ActiveRecord::Base
   alias_method_chain :demands, :respecting_previous_day
 
   def starts_at
-    base_for_time_range_components + super.hour.hours + super.min.minutes
+    if super.present?
+      base_for_time_range_components + super.hour.hours + super.min.minutes
+    end
   end
 
   def ends_at
-    base_for_time_range_components + super.hour.hours + super.min.minutes
+    if super.present?
+      base_for_time_range_components + super.hour.hours + super.min.minutes
+    end
   end
 
   protected

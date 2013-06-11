@@ -7,6 +7,12 @@ if ENV['CI'].to_s == 'true'
     namespace :spec do
       RSpec::Core::RakeTask.new({:ci => :'ci:setup:rspec'}) do |t|
         t.pattern = "./spec/**/*_spec.rb"
+        t.rspec_opts = '--tag ~benchmark'
+      end
+
+      RSpec::Core::RakeTask.new({:ci_benchmark => :'ci:setup:rspec'}) do |t|
+        t.pattern = "./spec/**/*_spec.rb"
+        t.rspec_opts = '--tag benchmark'
       end
     end
   end

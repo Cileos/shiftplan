@@ -33,7 +33,7 @@ Feature: Adopt Employee from other Organization
       And I should see the following table of employees:
         | Übernehmen? | Name           | WAZ | E-Mail                | Status                | Organisationen       |
         |             | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
-        |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
+        |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel\nTschernobyl |
 
   Scenario: Adopting employees
      When I press "Mitarbeiter übernehmen"
@@ -48,12 +48,12 @@ Feature: Adopt Employee from other Organization
       And I should see the following table of employees:
         | Name          | WAZ | E-Mail          | Status                | Organisationen     |
         | Burns, Owner  |     | owner@burns.com | Aktiv                 | Fukushima          |
-        | Simpson, Bart |     |                 | Noch nicht eingeladen | Fukushima, Krümmel |
+        | Simpson, Bart |     |                 | Noch nicht eingeladen | Fukushima\nKrümmel |
 
      When I follow "Übernehmen"
      Then I should see the following table of employees:
         | Übernehmen? | Name           | WAZ | E-Mail                | Status | Organisationen       |
-        |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv  | Krümmel, Tschernobyl |
+        |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv  | Krümmel\nTschernobyl |
 
    @javascript
    Scenario: Search, Clear, refine search to continue to adopt the found employees
@@ -65,7 +65,7 @@ Feature: Adopt Employee from other Organization
       And I wait a bit
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
-        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
+        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel\nTschernobyl |
 
      # Clear
      When I follow "Suchfilter zurücksetzen"
@@ -73,7 +73,7 @@ Feature: Adopt Employee from other Organization
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
         | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
-        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
+        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel\nTschernobyl |
       And I should see "2 Mitarbeiter gefunden."
 
      # search that yields no results
@@ -91,6 +91,6 @@ Feature: Adopt Employee from other Organization
      Then I should see the following table of employees:
         | Name           | WAZ | E-Mail                | Status                | Organisationen       |
         | Simpson, Bart  |     |                       | Noch nicht eingeladen | Krümmel              |
-        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel, Tschernobyl |
+        | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Krümmel\nTschernobyl |
       And I should see "2 Mitarbeiter gefunden."
       And the adopt employee button should not be disabled

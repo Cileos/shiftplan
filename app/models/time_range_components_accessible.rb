@@ -1,3 +1,4 @@
+require_dependency 'time_component'
 # We want our planners only to have to give the date once and specify the start/end hour
 # separately. The user specifies time ranges using inputs for the time components
 # start_hour and end_hour. (start_minute and end_minute are optional, atm)
@@ -20,39 +21,39 @@ module TimeRangeComponentsAccessible
   def self.included(model)
     model.class_eval do
       before_validation :compose_time_range_from_components
+      alias_method_chain :end_minute, :respecting_end_of_day
+      alias_method_chain :end_hour, :respecting_end_of_day
     end
   end
 
-  def start_hour=(hour)
-    @start_hour = hour.present?? hour.to_i : nil
+  # Gives access to all components of the given times
+  # For example, given :start it will use the Record#starts_at to create
+  # readers and writers for #start_minute, #start_hour, #start_time etc
+  def self.time_attrs(*names)
+    names.each do |name|
+      module_eval <<-EOEVAL, __FILE__, __LINE__
+        def #{name}_component
+          @#{name}_component ||= TimeComponent.new(self, :#{name})
+        end
+        def reset_#{name}_components!
+          @date = nil
+          @#{name}_component = nil
+        end
+        delegate :hour, :hour=,
+                 :metric_hour,
+                 :minute, :minute=,
+                 :time, :time=,
+                 :hour_present?,
+                 to: :#{name}_component, prefix: :#{name}
+      EOEVAL
+    end
   end
 
-  def start_hour
-    @start_hour || starts_at.present? && starts_at.hour
-  end
+  time_attrs :start
+  time_attrs :end
 
-  def start_minute=(minute)
-    @start_minute = minute.present?? minute.to_i : nil
-  end
-
-  def start_minute
-    @start_minute || starts_at.present? && starts_at.min || 0
-  end
-
-  def end_hour=(hour)
-    @end_hour = hour.present?? hour.to_i : nil
-  end
-
-  def end_hour
-    @end_hour || (ends_at.present? && end_hour_respecting_end_of_day)
-  end
-
-  def end_minute=(minute)
-    @end_minute = minute.present?? minute.to_i : nil
-  end
-
-  def end_minute
-    @end_minute || (ends_at.present? && end_minute_respecting_end_of_day) || 0
+  def time_range
+    (starts_at...ends_at)
   end
 
   def base_for_time_range_components
@@ -61,41 +62,43 @@ module TimeRangeComponentsAccessible
 
   protected
 
+  # FIXME test this!
   def compose_time_range_from_components
     date = base_for_time_range_components
-    if [date, @start_hour].all?(&:present?)
-      self.starts_at = date + @start_hour.hours + start_minute.minutes
+    if date.present? && start_hour_present?
+      self.starts_at = date + start_hour.hours + start_minute.minutes
 
-      # reset
-      @date = @start_hour = @start_minute = nil
+      reset_start_components!
     end
-    if [date, @end_hour].all?(&:present?)
-      if @end_hour == 0 || @end_hour == 24
+    if date.present? && end_hour_present?
+      if end_hour == 24
+        self.ends_at = date.end_of_day
+      elsif end_hour == 0 && start_minute >= end_minute
         self.ends_at = date.end_of_day
       else
-        self.ends_at = date + @end_hour.hours + end_minute.minutes
+        self.ends_at = date + end_hour.hours + end_minute.minutes
       end
 
-      # reset
-      @date = @end_hour = @end_minute = nil
+      reset_end_components!
     end
   end
 
   # DateTime#end_of_day returns 23:59:59, which we show as 24 o'clock
-  def end_hour_respecting_end_of_day
-    if ends_at.min >= 59 and ends_at.hour == 23
+  def end_hour_with_respecting_end_of_day
+    if end_minute_without_respecting_end_of_day >= 59 and end_hour_without_respecting_end_of_day == 23
       24
     else
-      ends_at.hour
+      end_hour_without_respecting_end_of_day
     end
   end
 
   # DateTime#end_of_day returns 23:59:59, which we show as 24 o'clock
-  def end_minute_respecting_end_of_day
-    if ends_at.min >= 59 and ends_at.hour == 23
+  def end_minute_with_respecting_end_of_day
+    if end_minute_without_respecting_end_of_day >= 59 and end_hour_without_respecting_end_of_day == 23
       0
     else
-      ends_at.min
+      end_minute_without_respecting_end_of_day
     end
   end
+
 end

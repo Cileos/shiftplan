@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426160625) do
+ActiveRecord::Schema.define(:version => 20130503153820) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(:version => 20130426160625) do
     t.datetime "created_at",                                             :null => false
     t.datetime "updated_at",                                             :null => false
     t.string   "roles",                  :limit => 1024
+    t.string   "locale"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

@@ -25,7 +25,7 @@ In order to keep my colleagues informed about important news
       And I wait for the modal box to appear
       And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
       And I fill in "Text" with "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
-      And I press "Speichern"
+      And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see a flash notice "Post erfolgreich angelegt."
       And a post should exist with title: "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
@@ -43,9 +43,7 @@ In order to keep my colleagues informed about important news
      Then I should see "Owner Burns hat am 24.05.2012 um 12:00 Uhr einen neuen Blogpost geschrieben" in the email body
       And I should see "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern." in the email body
      When I click on the first link in the email
-      And I fill in "E-Mail" with "heinz@example.com"
-      And I fill in "Passwort" with "secret"
-      And I press "Einloggen"
+      And I sign in with "heinz@example.com" "secret"
      Then I should see "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
 
      # the blog post gets deleted
@@ -74,7 +72,7 @@ In order to keep my colleagues informed about important news
      When I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Text" with "Da der Umweltminister kommt, denkt bitte daran, alle Kontrollräume gründlich zu säubern."
-      And I press "Speichern"
+      And I press "Anlegen"
      Then I should see "Titel muss ausgefüllt werden"
       And 0 posts should exist
 
@@ -84,7 +82,7 @@ In order to keep my colleagues informed about important news
       And I follow "Neuen Blogpost erstellen"
       And I wait for the modal box to appear
       And I fill in "Titel" with "Umweltminister Dr. Norbert Röttgen am Freitag zu Besuch"
-      And I press "Speichern"
+      And I press "Anlegen"
      Then I should see "Text muss ausgefüllt werden"
       And 0 posts should exist
 
@@ -203,9 +201,7 @@ In order to keep my colleagues informed about important news
      Then I should see "Lisa Simpson hat Ihren Blogpost 'Umweltminister zu Besuch' am 24.05.2012 um 12:00 Uhr kommentiert" in the email body
       And I should see "Ich backe einen Kuchen für den Umweltminister" in the email body
      When I click on the first link in the email
-      And I fill in "E-Mail" with "owner@burns.com"
-      And I fill in "Passwort" with "secret"
-      And I press "Einloggen"
+      And I sign in with "owner@burns.com" "secret"
      Then I should be on the page of the post
       And I should see "Ich backe einen Kuchen für den Umweltminister"
       And I sign out
@@ -232,9 +228,7 @@ In order to keep my colleagues informed about important news
      Then I should see "Bart Simpson hat Ihren Blogpost 'Umweltminister zu Besuch' am 24.05.2012 um 12:00 Uhr kommentiert" in the email body
       And I should see "Ich werde einen Blumenstrauß mitbringen" in the email body
      When I click on the first link in the email
-      And I fill in "E-Mail" with "owner@burns.com"
-      And I fill in "Passwort" with "secret"
-      And I press "Einloggen"
+      And I sign in with "owner@burns.com" "secret"
      Then I should be on the page of the post
       And I should see "Ich werde einen Blumenstrauß mitbringen"
       And I sign out
@@ -243,9 +237,7 @@ In order to keep my colleagues informed about important news
      Then I should see "Bart Simpson hat den Blogpost 'Umweltminister zu Besuch' am 24.05.2012 um 12:00 Uhr ebenfalls kommentiert" in the email body
       And I should see "Ich werde einen Blumenstrauß mitbringen" in the email body
      When I click on the first link in the email
-      And I fill in "E-Mail" with "lisa@thesimpsons.com"
-      And I fill in "Passwort" with "secret"
-      And I press "Einloggen"
+      And I sign in with "lisa@thesimpsons.com" "secret"
      Then I should be on the page of the post
       And I should see "Ich werde einen Blumenstrauß mitbringen"
 
@@ -299,7 +291,7 @@ In order to keep my colleagues informed about important news
       And I wait for the modal box to appear
       And I fill in "Titel" with "Post 10"
       And I fill in "Text" with "Text von Post 4"
-      And I press "Speichern"
+      And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see "Post 10"
       And I should see "Post 9"

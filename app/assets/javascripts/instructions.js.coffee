@@ -4,9 +4,11 @@ jQuery(document).ready ->
     autoOpen: false
     dialogClass: 'instructions-dialog'
     title: title
-    resizable: false
+    resizable: true
     width: 300
-    draggable: false
+    draggable: true
+    height: 400
+    position: ['right',65]
 
   $('#help').click ->
     $('#instructions').dialog( "open" )

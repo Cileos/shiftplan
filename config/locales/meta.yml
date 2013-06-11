@@ -1,0 +1,7 @@
+# the names of the available_locales in the respective language
+de:
+  meta:
+    name: Deutsch
+en:
+  meta:
+    name: English

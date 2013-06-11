@@ -8,7 +8,9 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def remove_focus(resource)
-    select(:scheduling, resource).removeClass('focus')
+    if resource.persisted? # if record was just deleted, we cannot build polymorphic_path for it
+      select(:scheduling, resource).removeClass('focus')
+    end
   end
 
   # TODO make configurable

@@ -13,12 +13,12 @@ describe "schedulings/lists/_employees_in_week.html.haml" do
     view.stub(:nested_resources_for).and_return('/')
   end
 
-  it "displays period of one scheduling" do
-    render_list [sch(period: 'forever')]
+  it "displays period_with_zeros of one scheduling" do
+    render_list [sch(period_with_zeros: 'forever')]
     rendered.should include('forever')
   end
-  it "displays period of multiple schedulings" do
-    render_list [sch(period: 'forever'), sch(period: "and ever"), sch(period: "and never ever")]
+  it "displays period_with_zeros of multiple schedulings" do
+    render_list [sch(period_with_zeros: 'forever'), sch(period_with_zeros: "and ever"), sch(period_with_zeros: "and never ever")]
     rendered.should include('forever')
     rendered.should include('and ever')
     rendered.should include('and never ever')

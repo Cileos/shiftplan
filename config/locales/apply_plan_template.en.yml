@@ -1,0 +1,15 @@
+en:
+  simple_form:
+    labels:
+      apply_plan_template:
+        new:
+          plan_template_id: 'Plan Template'
+  flash:
+    apply_plan_template:
+      create:
+        notice: 'All shifts of the template are successfully created.'
+        some_shifts_outside_plan_period: 'Not able to create all shifts of the template. Some shifts are out of the plan period.'
+  apply_plan_template:
+    form:
+      no_plan_template_present: 'There are no templates for the organization yet.'
+      goto_plan_templates: 'Here you can create plan templates:'

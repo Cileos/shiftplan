@@ -8,6 +8,7 @@ de:
       help: Hilfe
       profile: Profil
       settings: Einstellungen
+      advanced_settings: Erweitert
       dashboard: Dashboard
       info: Info
       news: Neuigkeiten
@@ -75,7 +76,7 @@ de:
       comments: Kommentare
       reply: 'Antworten'
       set_password: 'Passwort setzen'
-      feedback_without_screenshot: 'Feedback ohne Bildschirmfoto'
+      feedback_without_screenshot: 'Feedback'
       send: Abschicken
       confirm_email_change: 'Änderung Ihrer E-Mail Adresse bestätigen'
       confirm: 'Bestätigen'

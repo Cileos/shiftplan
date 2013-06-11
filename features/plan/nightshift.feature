@@ -26,7 +26,7 @@ Feature: Nightshift
 
      When I click on the late scheduling "20:00-05:00"
       And I wait for the modal box to appear
-      And I select "Mittwoch" from "Wochentag"
+      And I choose "Mi"
       And I press "Speichern"
       And I wait for the modal box to disappear
 

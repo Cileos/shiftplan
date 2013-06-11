@@ -23,9 +23,9 @@
   -if (can? :show, Employee) || (can? :show, Team) || (can? :show, PlanTemplate) || (can? :show, Qualification)
     - any_active = [:employees, :teams, :plan_templates, :qualifications].any? { |c| below_path?(base + [c]) }
     %li.dropdown{class: any_active && 'active'}
-      = link_to :core_data, nested_resources_for(current_organization), {:class =>  'icon-settings', data: { toggle: 'dropdown'}}
+      = link_to :core_data, '#', {:class =>  'icon-settings', data: { toggle: 'dropdown'}}
       %ul
         = li_link '.employees',      base + [:employees],      can: [:show, Employee],      :class => 'icon-employees'
         = li_link '.teams',          base + [:teams],          can: [:show, Team],          :class => 'icon-teams'
-        = li_link '.plan_templates', base + [:plan_templates], can: [:show, PlanTemplate],  :class => 'icon-templates'
         = li_link '.qualifications', base + [:qualifications], can: [:show, Qualification], :class => 'icon-qualifications'
+        = li_link '.plan_templates', base + [:plan_templates], can: [:show, PlanTemplate],  :class => 'icon-templates'

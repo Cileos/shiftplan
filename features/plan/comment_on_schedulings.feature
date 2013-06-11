@@ -57,9 +57,7 @@ Feature: Comment on Schedulings
      Then I should see "Homer S hat auf Ihren Kommentar zu einer Schicht von Homer S am Freitag, den 21.12.2012 (7-23 Reaktor putzen [Rp]) geantwortet:" in the email body
       And I should see "D'ooh!" in the email body
      When I follow the first link in the email
-     Then I fill in "E-Mail" with "burns@clockwork.local"
-      And I fill in "Passwort" with "secret"
-      And I press "Einloggen"
+      And I sign in with "burns@clockwork.local" "secret"
      Then I should be on the employees in week page of the plan for week: 51, cwyear: 2012
       And I should see "7-23 Rp"
 

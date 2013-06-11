@@ -3,7 +3,7 @@
 
 
 = simple_form_for([current_account, current_organization, employee], remote: employee.persisted? == true,
-  html: { class: 'form-horizontal edit_employee' }) do |f|
+  html: { class: 'edit_employee' }) do |f|
 
   = employee.error_messages
 

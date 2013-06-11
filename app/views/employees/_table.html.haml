@@ -29,7 +29,12 @@
         %td= record.try(:user).try(:email) || record.try(:invitation).try(:email)
         %td= t("employees.roles.#{record.role.present? ? record.role : 'none' }")
         %td.status= invitation_status(record)
-        - organizations = record.organizations
-        %td= organizations.present? ? organizations.order(:name).map(&:name).join(', ') : t('none')
+        - organizations = record.organizations.order(:name)
+        %td
+          - if organizations.present?
+            - organizations.each do |org|
+              %div= org.name
+          - else
+            = t('none')
         - if can?(:manage, Invitation)
           %td.action= invitation_status_link(record)

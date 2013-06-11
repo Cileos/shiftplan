@@ -11,7 +11,7 @@ de:
         qualification: Qualifikation
         employee: Mitarbeiter
         day: Tag
-        date: Wochentag
+        date: Datum
         quickie: Quickie
         start_hour: Startstunde
         start_minute: Startminute
@@ -19,6 +19,8 @@ de:
         end_minute: Endminute
         starts_at: Startzeit
         ends_at: Endzeit
+        start_time: Startzeit
+        end_time: Endzeit
   simple_form:
     labels:
       defaults:

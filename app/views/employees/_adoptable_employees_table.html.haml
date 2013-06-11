@@ -24,5 +24,10 @@
         %td= employee.try(:user).try(:email) || employee.try(:invitation).try(:email)
         %td= t("employees.roles.#{employee.role.present? ? employee.role : 'none' }")
         %td.status= invitation_status(employee)
-        - organizations = employee.organizations
-        %td= organizations.present? ? organizations.order(:name).map(&:name).join(', ') : t('none')
+        - organizations = employee.organizations.order(:name)
+        %td
+          - if organizations.present?
+            - organizations.each do |org|
+              %div= org.name
+          - else
+            = t('none')
