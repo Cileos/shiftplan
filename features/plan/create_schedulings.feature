@@ -41,13 +41,13 @@ Feature: create a scheduling
       And I check "Mi"
       And I check "Do"
       And I check "Sa"
-      And I fill in "Quickie" with "22-6"
+      And I fill in "Quickie" with "22:15-6:45"
       And I press "Anlegen"
      Then I should see the following partial calendar:
         | Mitarbeiter  | Mo  | Di  | Mi           | Do                       | Fr           | Sa           | So           |
         | Carl C       |     |     |              |                          |              |              |              |
         | Lenny L      |     |     |              |                          |              |              |              |
-        | Homer S      |     |     | 22:00-06:00  | 22:00-06:00 22:00-06:00  | 22:00-06:00  | 22:00-06:00  | 22:00-06:00  |
+        | Homer S      |     |     | 22:15-06:45  | 22:15-06:45 22:15-06:45  | 22:15-06:45  | 22:15-06:45  | 22:15-06:45  |
 
   @javascript
   Scenario: Entering the time span wrong

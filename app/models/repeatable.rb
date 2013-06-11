@@ -32,13 +32,14 @@ module Repeatable
     end
   end
 
+  # TODO use dup or clone
   def repeat_for_day!(day)
     self.class.new(repeatable_attributes).tap do |repetition|
       repetition.date = day
-      repetition.start_hour = start_hour
+      repetition.start_time = start_time
       # Repetitions must be initialized with the original end hour of the
       # repeatable so that they will become overnightables, too.
-      repetition.end_hour = is_overnight? ? next_day.end_hour : end_hour
+      repetition.end_time = is_overnight? ? next_day.end_time : end_time
       repetition.save!
     end
   end
