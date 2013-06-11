@@ -8,6 +8,8 @@ set :plock, '89.238.65.38'
 require 'capistrano/ext/multistage'
 
 # RVM bootstrap
+set :rvm_type, :system
+set(:rvm_ruby_string) { "1.9.3-p194@#{application}" }
 require 'rvm/capistrano'
 
 # bundler bootstrap
@@ -15,8 +17,6 @@ require 'bundler/capistrano'
 load 'deploy/assets'
 
 # server details
-set :rvm_type, :system
-set(:rvm_ruby_string) { "1.9.3-p194@#{application}" }
 set :user, 'application'
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
