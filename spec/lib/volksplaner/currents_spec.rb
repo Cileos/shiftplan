@@ -11,6 +11,14 @@ describe Volksplaner::Currents do
   let!(:account_2)         { create(:account) }
   let!(:employee_1)        { create(:employee, user: user, account: account_1) }
   let!(:employee_2)        { create(:employee, user: user, account: account_2) }
+  let!(:organization_1)    { create(:organization, account: account_1) }
+  let!(:organization_2)    { create(:organization, account: account_1) }
+  let!(:membership_1)      do
+    create(:membership, employee: employee_1, organization: organization_1)
+  end
+  let!(:membership_2)      do
+    create(:membership, employee: employee_1, organization: organization_2)
+  end
   let(:params)             {{}}
 
   before(:each) do
@@ -88,14 +96,6 @@ describe Volksplaner::Currents do
   end
 
   context "#current_organization" do
-    let!(:organization_1)    { create(:organization, account: account_1) }
-    let!(:organization_2)    { create(:organization, account: account_1) }
-    let!(:membership_1)      do
-      create(:membership, employee: employee_1, organization: organization_1)
-    end
-    let!(:membership_2)      do
-      create(:membership, employee: employee_1, organization: organization_2)
-    end
 
     context "with current account set" do
       before(:each) do
@@ -208,6 +208,59 @@ describe Volksplaner::Currents do
       before(:each) { controller.stub(:current_employee).and_return(nil) }
 
       it { controller.current_employee?.should be_false }
+    end
+  end
+
+  context "#current_membership" do
+    shared_examples :a_controller_without_a_current_membership do
+      it "does not set the current membership" do
+        controller.current_membership.should be_nil
+      end
+    end
+    context "when user is signed in and the current account is set" do
+      before(:each) { controller.stub(:current_account).and_return(account_1)}
+
+      context "with organization params" do
+
+        shared_examples :a_controller_with_a_current_membership do
+          it "sets the current membership to the membership for the organization" do
+            controller.current_membership.should == membership_1
+          end
+          it "set the current membership on the current user" do
+            controller.current_membership
+            controller.current_user.current_membership.should == membership_1
+          end
+        end
+
+        context "when in the scope of an organization" do
+          it_behaves_like :a_controller_with_a_current_membership do
+            let(:params) { { controller: 'organizations', id: organization_1.id} }
+          end
+        end
+
+        context "when in an subordinate scope of an organization" do
+          it_behaves_like :a_controller_with_a_current_membership do
+            let(:params) { { organization_id: organization_1.id} }
+          end
+        end
+      end
+
+      context "without organization params" do
+        it_behaves_like :a_controller_without_a_current_membership
+      end
+
+    end
+
+    context "when user is not signed in" do
+      before(:each) { controller.stub(:current_user).and_return(nil)}
+
+      it_behaves_like :a_controller_without_a_current_membership
+    end
+
+    context "when the current account is not set" do
+      before(:each) { controller.stub(:current_account).and_return(nil)}
+
+      it_behaves_like :a_controller_without_a_current_membership
     end
   end
 

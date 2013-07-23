@@ -48,6 +48,17 @@ module Volksplaner::Currents
     current_employee.present?
   end
 
+  def current_membership
+    if user_signed_in?
+      return @current_membership if defined?(@current_membership)
+      current_user.current_membership = @current_membership = find_current_membership
+    end
+  end
+
+  def current_membership?
+    current_membership.present?
+  end
+
   ######################################################################
   # etc
   ######################################################################
@@ -99,8 +110,10 @@ module Volksplaner::Currents
   end
 
   def find_current_membership
-    if current_organization_by_params.present?
-      current_employee.memberships.find_by_organization_id(current_organization_by_params.id)
+    if current_account?
+      if current_organization_by_params.present?
+        current_employee.memberships.find_by_organization_id(current_organization_by_params.id)
+      end
     end
   end
 
@@ -116,11 +129,6 @@ module Volksplaner::Currents
 
   def current_organization_by_params
     @current_organization_by_params ||= find_current_organization_by_params
-  end
-
-  def current_membership
-    return @current_membership if defined?(@current_membership)
-    current_user.current_membership = @current_membership = find_current_membership
   end
 
   # TODO load dynamically
