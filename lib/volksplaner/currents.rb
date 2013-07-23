@@ -14,16 +14,11 @@ module Volksplaner::Currents
       helper_method :current_organization
       helper_method :current_organization?
       helper_method :current_employee
+      helper_method :current_employee?
+      helper_method :current_membership
+      helper_method :current_membership?
       helper_method :current_plan_mode
     end
-  end
-
-  def prefetch_current_employee
-    current_employee || true
-  end
-
-  def prefetch_current_membership
-    current_membership || true
   end
 
   def current_account
