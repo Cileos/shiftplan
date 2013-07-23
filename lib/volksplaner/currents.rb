@@ -86,26 +86,26 @@ module Volksplaner::Currents
   end
 
   def find_current_organization
-    if current_unambigous_organization.present?
-      current_unambigous_organization
-    elsif possible_organizations? && possible_organizations.count == 1
-      possible_organizations.first
-    end
-  end
-
-  def find_current_unambigous_organization
     if current_account?
-      if params[:organization_id]
-        possible_organizations.find(params[:organization_id])
-      elsif params[:controller] == 'organizations' && params[:id]
-        possible_organizations.find(params[:id])
+      if current_organization_by_params.present?
+        current_organization_by_params
+      elsif possible_organizations? && possible_organizations.count == 1
+        possible_organizations.first
       end
     end
   end
 
+  def find_current_organization_by_params
+    if params[:organization_id]
+      possible_organizations.find(params[:organization_id])
+    elsif params[:controller] == 'organizations' && params[:id]
+      possible_organizations.find(params[:id])
+    end
+  end
+
   def find_current_membership
-    if current_unambigous_organization.present?
-      current_employee.memberships.find_by_organization_id(current_unambigous_organization.id)
+    if current_organization_by_params.present?
+      current_employee.memberships.find_by_organization_id(current_organization_by_params.id)
     end
   end
 
@@ -119,8 +119,8 @@ module Volksplaner::Currents
     possible_organizations.present?
   end
 
-  def current_unambigous_organization
-    @current_unambigous_organization ||= find_current_unambigous_organization
+  def current_organization_by_params
+    @current_organization_by_params ||= find_current_organization_by_params
   end
 
   def current_membership
