@@ -198,6 +198,19 @@ describe Volksplaner::Currents do
     end
   end
 
+  context "#current_employee?" do
+    context "when controller has a current employee" do
+      before(:each) { controller.stub(:current_employee).and_return(employee_1) }
+
+      it { controller.current_employee?.should be_true }
+    end
+    context "when controller has no current employee" do
+      before(:each) { controller.stub(:current_employee).and_return(nil) }
+
+      it { controller.current_employee?.should be_false }
+    end
+  end
+
 
   # describe 'included into a controller' do
   #   before :each do
