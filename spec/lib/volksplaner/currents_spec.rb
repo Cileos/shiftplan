@@ -264,6 +264,19 @@ describe Volksplaner::Currents do
     end
   end
 
+  context "#current_membership?" do
+    context "when controller has a current membership" do
+      before(:each) { controller.stub(:current_membership).and_return(membership_1) }
+
+      it { controller.current_membership?.should be_true }
+    end
+    context "when controller has no current membership" do
+      before(:each) { controller.stub(:current_membership).and_return(nil) }
+
+      it { controller.current_membership?.should be_false }
+    end
+  end
+
 
   # describe 'included into a controller' do
   #   before :each do
