@@ -11,14 +11,9 @@ describe Volksplaner::Currents do
   let!(:employee_1)        { create(:employee, user: user, account: account_1) }
   let!(:employee_2)        { create(:employee, user: user, account: account_2) }
 
-  it "should set some helper methods on including controller" do
-    controller_class.should_receive(:helper_method).at_least(6).times
-    controller_class.send :include, described_class
-  end
+  before(:each) { controller_class.send :include, described_class }
 
   context "#current_account" do
-    before(:each) { controller_class.send :include, described_class }
-
     context "when logged in" do
       before(:each) do
         controller.stub(:current_user).and_return(user)
@@ -76,9 +71,21 @@ describe Volksplaner::Currents do
         controller.current_account.should be_nil
       end
     end
-
-
   end
+
+  context "#current_account?" do
+    context "when controller has a current account" do
+      before(:each) { controller.stub(:current_account).and_return(account_1) }
+
+      it { controller.current_account?.should be_true }
+    end
+    context "when controller has no current account" do
+      before(:each) { controller.stub(:current_account).and_return(nil) }
+
+      it { controller.current_account?.should be_false }
+    end
+  end
+
 
   # describe 'included into a controller' do
   #   before :each do
