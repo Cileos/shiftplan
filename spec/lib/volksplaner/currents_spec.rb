@@ -152,6 +152,21 @@ describe Volksplaner::Currents do
 
   end
 
+  context "#current_organization?" do
+    context "when controller has a current organization" do
+      let!(:organization_1) { create(:organization, account: account_1) }
+
+      before(:each) { controller.stub(:current_organization).and_return(organization_1) }
+
+      it { controller.current_organization?.should be_true }
+    end
+    context "when controller has no current organization" do
+      before(:each) { controller.stub(:current_organization).and_return(nil) }
+
+      it { controller.current_organization?.should be_false }
+    end
+  end
+
 
   # describe 'included into a controller' do
   #   before :each do
