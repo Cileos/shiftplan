@@ -130,8 +130,8 @@ module Volksplaner::Currents
 
   # TODO load dynamically
   def find_current_employee
-    if current_account?
-      current_user.current_employee = current_user.employee_for_account(current_account)
+    if user_signed_in? && current_account?
+      current_user.employee_for_account(current_account)
     end
   end
 

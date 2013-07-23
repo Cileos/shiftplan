@@ -167,6 +167,37 @@ describe Volksplaner::Currents do
     end
   end
 
+  context "#current_employee" do
+    context "when signed in and current account is set" do
+      before(:each) { controller.stub(:current_account).and_return(account_1) }
+
+      it "sets the current employee to the employee of the user for the account" do
+        controller.current_employee.should == employee_1
+      end
+
+      it "sets the current employee on the current user" do
+        controller.current_employee
+        controller.current_user.current_employee.should == employee_1
+      end
+    end
+
+    context "when not signed in" do
+      before(:each) { controller.stub(:current_user).and_return(nil) }
+
+      it "does not set the current employee" do
+        controller.current_employee.should be_nil
+      end
+    end
+
+    context "when current account is not set" do
+      before(:each) { controller.stub(:current_account).and_return(nil) }
+
+      it "does not set the current employee" do
+        controller.current_employee.should be_nil
+      end
+    end
+  end
+
 
   # describe 'included into a controller' do
   #   before :each do
