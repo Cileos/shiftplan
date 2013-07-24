@@ -21,6 +21,12 @@ module Volksplaner::Currents
     end
   end
 
+  # Overwrite CanCan's current_ability method to make it use
+  # current_user_with_context instead of the default current_user.
+  def current_ability
+    @current_ability ||= Ability.new(current_user_with_context)
+  end
+
   def current_account
     @current_account ||= find_current_account
   end
