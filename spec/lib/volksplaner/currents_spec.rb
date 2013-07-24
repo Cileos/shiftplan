@@ -277,4 +277,29 @@ describe Volksplaner::Currents do
     end
   end
 
+  # this is needed by the authorization gem CanCan
+  context "#current_user_with_context" do
+    context "when signed and in the scope of an organization" do
+      let(:params)  do
+        {
+          account_id: account_1,
+          controller: 'organizations',
+          id: organization_1.id
+        }
+      end
+      let(:current_user_with_context) do
+        controller.current_user_with_context
+      end
+
+      it "sets the current employee on the current user" do
+        current_user_with_context.current_employee.should == employee_1
+      end
+
+      it "sets the current membership on the current user" do
+        current_user_with_context.current_membership.should == membership_1
+      end
+    end
+
+  end
+
 end

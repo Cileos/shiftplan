@@ -59,6 +59,12 @@ module Volksplaner::Currents
     current_membership.present?
   end
 
+  def current_user_with_context
+    current_employee
+    current_membership
+    current_user
+  end
+
   ######################################################################
   # etc
   ######################################################################
