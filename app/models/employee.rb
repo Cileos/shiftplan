@@ -1,8 +1,6 @@
 class Employee < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
-  Roles = %w(owner planner)
-
   AccessibleAttributes = [
                   :first_name,
                   :last_name,
@@ -15,15 +13,12 @@ class Employee < ActiveRecord::Base
   ]
 
   attr_accessible *AccessibleAttributes
-  attr_accessible *(AccessibleAttributes + [:role_with_protection]), as: 'owner'
-  attr_accessible *(AccessibleAttributes + [:role_with_protection]), as: 'planner'
 
   attr_accessor :organization_id,
                 :force_duplicate
 
   validates_presence_of :first_name, :last_name
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
-  validates_inclusion_of :role, in: Roles, allow_blank: true
   validates_format_of :first_name, :last_name, with: Volksplaner::HumanNameRegEx, allow_nil: true
 
   belongs_to :user
@@ -52,32 +47,8 @@ class Employee < ActiveRecord::Base
     order_by_name.order(:id)
   end
 
-  def role?(asked)
-    role == asked
-  end
-
-  # must give role to update, works only by mass assignment
-  def role_with_protection=(new_role)
-    if (!persisted? || mass_assignment_options[:as].present?) && new_role.to_s != 'owner'
-      write_attribute :role, new_role
-    end
-  end
-
-  # for edit form
-  def role_with_protection
-    role
-  end
-
-  Roles.each do |given_role|
-    define_method :"#{given_role}?" do
-      role?(given_role)
-    end
-
-    scope given_role.pluralize.to_sym, where(role: given_role)
-  end
-
-  def self.planners_and_owners
-    where(role: %w(planner owner))
+  def owner?
+    Account.find_by_owner_id(id).present?
   end
 
   def active?
@@ -126,7 +97,7 @@ class Employee < ActiveRecord::Base
   end
 
   def to_s
-    %Q~<Employee #{id || 'new'} #{name.inspect} (#{role.presence || 'employee'} #{weekly_working_time.presence || ''}) [#{account.try(:name)}]>~
+    %Q~<Employee #{id || 'new'} #{name.inspect} (#{weekly_working_time.presence || ''}) [#{account.try(:name)}]>~
   end
 
   def inspect

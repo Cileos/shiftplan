@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
                   :confirming_email_change
 
   attr_reader :current_employee
+  attr_reader :current_membership
+
   # Virtual attributes for registration purposes. On registration the auto-created organization
   # and employee get useful values.
   attr_accessor :first_name,
@@ -63,7 +65,7 @@ class User < ActiveRecord::Base
     # If the employee is the/an owner of the account then he should be allowed to see/do things
     # in all the organizations of the account. If the user is no owner, then only list
     # organizations for which he has a membership (has many through membership)
-    employee.owner? || employee.planner? ? account.organizations : employee.organizations
+    employee.owner? ? account.organizations : employee.organizations
   end
 
   def employee_for_account(account)
@@ -84,6 +86,14 @@ class User < ActiveRecord::Base
       @current_employee = wanted_employee
     else
       raise ArgumentError, "given employee #{wanted_employee} does not belong to #{self}"
+    end
+  end
+
+  def current_membership=(wanted_membership)
+    if wanted_membership.nil? || wanted_membership.employee.user == self
+      @current_membership = wanted_membership
+    else
+      raise ArgumentError, "given membership #{wanted_membership} does not exist for #{self}"
     end
   end
 

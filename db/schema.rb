@@ -11,13 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503153820) do
+ActiveRecord::Schema.define(:version => 20130722163201) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "name"
+    t.integer  "owner_id"
   end
+
+  add_index "accounts", ["owner_id"], :name => "index_accounts_on_owner_id"
 
   create_table "blogs", :force => true do |t|
     t.integer  "organization_id"
@@ -106,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20130503153820) do
     t.decimal  "organization_weekly_working_time"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
+    t.string   "role"
   end
 
   add_index "memberships", ["employee_id"], :name => "index_memberships_on_employee_id"

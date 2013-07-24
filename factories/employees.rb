@@ -6,12 +6,12 @@ FactoryGirl.define do
     role ''
     force_duplicate "1"
 
-    factory :employee_planner do
-      role 'planner'
-    end
-
     factory :employee_owner do
-      role 'owner'
+      after(:create) do |e|
+        account = e.account
+        account.owner_id = e.id
+        account.save!
+      end
     end
   end
 end
