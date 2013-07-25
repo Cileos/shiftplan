@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
 
   # A Planner or Owner does not need a membership
   def organizations
-    (joined_organizations.all + employees.planners_and_owners.map(&:account).map(&:organizations)).flatten.uniq.sort_by(&:created_at)
+    joined_organizations
   end
 
   def label

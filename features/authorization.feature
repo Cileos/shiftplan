@@ -34,23 +34,22 @@ Feature: Authorization
      Then I should be on the signin page
 
   Scenario: employee
-    Given a confirmed user "employee" exists
-      And an employee "employee" exists with user: the confirmed user "employee", first_name: "Homer", account: the account
-      And the employee "employee" is a member in the organization
-      And an employee "bart" exists with first_name: "Bart", account: the account
+    Given a confirmed user "bart" exists
+      And an employee "bart" exists with user: the confirmed user "bart", first_name: "Bart", account: the account
       And the employee "bart" is a member in the organization
-      And I am signed in as the confirmed user "employee"
+      And another organization "tschernobyl" exists with name: "Tschernobyl", account: the account
+      And I am signed in as the confirmed user "bart"
 
      When I go to the dashboard page
      Then I should be authorized to access the page
-      And I should see link "Ausloggen" within the user navigation
-      But I should not see link "Einloggen"
+
+      # not a member of Tschernobyl
+      And I should not see link "Tschernobyl" within the navigation
 
      When I follow "Fukushima"
       And I choose "Alle Pläne" from the drop down "Pläne"
      Then I should be authorized to access the page
       But I should not see link "Hinzufügen"
-      And I should see link "Ausloggen" within the user navigation
       And I should see link "Fukushima" within the navigation
       And I should see link "Pläne" within the navigation
       And I should not see link "Mitarbeiter" within the navigation
@@ -60,16 +59,79 @@ Feature: Authorization
      Then I should be authorized to access the page
       But I should not see link "Neue Terminierung"
       And I should not see link "Übernahme aus der letzten Woche"
+      And I should not see link "Planvorlage anwenden"
 
   Scenario: planner
-    Given a confirmed user "planner" exists
-      And an employee planner exists with user: the confirmed user "planner", account: the account
-      And I am signed in as the confirmed user "planner"
+    Given a confirmed user "bart" exists
+      And an employee "bart" exists with user: the confirmed user "bart", account: the account
+      And a membership exists with role: "planner", organization: the organization "fukushima", employee: the employee "bart"
+      And another organization "tschernobyl" exists with name: "Tschernobyl", account: the account
+      And a membership exists with organization: the organization "tschernobyl", employee: the employee "bart"
+      And a plan exists with name: "Frühjahrsputz", organization: the organization "tschernobyl"
+      And I am signed in as the confirmed user "bart"
 
       And the situation of what a planner can do
 
+      # only normal member/employee of Tschernobyl. so acts like an employee
+      # here
+     When I follow "Tschernobyl"
+     Then I should see link "Pläne" within the navigation
+     When I choose "Alle Pläne" from the drop down "Pläne"
+     Then I should be authorized to access the page
+      But I should not see link "Hinzufügen"
+
+      And I should not see link "Mitarbeiter" within the navigation
+      And I should not see link "Teams" within the navigation
+      And I should not see link "Qualifikationen" within the navigation
+      And I should not see link "Planvorlagen" within the navigation
+
+     When I follow "Frühjahrsputz"
+     Then I should be authorized to access the page
+      But I should not see link "Neue Terminierung"
+      And I should not see link "Übernahme aus der letzten Woche"
+      And I should not see link "Planvorlage anwenden"
+
   Scenario: owner
       Given I am signed in as the confirmed user "mr. burns"
+        And another organization "tschernobyl" exists with name: "Tschernobyl", account: the account
+        And a plan exists with name: "Wasser", organization: the organization "tschernobyl"
+        And a team exists with name: "Kühlwasser nachfüllen", organization: the organization "tschernobyl"
+        And another team exists with name: "Kühlwasser filtern", organization: the organization "tschernobyl"
 
-    # an owner can do everything a planner can do and maybe more some time
-      Then the situation of what a planner can do
+        And the situation of what a planner can do
+
+       # For the organization Tschernobyl the employee does not even have a
+       # membership. But as he is the owner of the account, he is allowed to
+       # do everything there, too.
+       When I follow "Tschernobyl"
+       Then I should be authorized to access the page
+        And I choose "Alle Pläne" from the drop down "Pläne"
+       Then I should be authorized to access the page
+        And I should see link "Hinzufügen"
+        And I should see link "Pläne" within the navigation
+        And I should see link "Mitarbeiter" within the navigation
+        And I should see link "Teams" within the navigation
+
+       When I follow "Wasser"
+       Then I should be authorized to access the page
+        And I should see link "Neue Terminierung"
+        And I should see link "Übernahme aus der letzten Woche"
+        And I should see link "Planvorlage anwenden"
+
+       When I follow "Mitarbeiter"
+       Then I should be authorized to access the page
+        And I should see link "Hinzufügen"
+
+       When I follow "Teams"
+       Then I should be authorized to access the page
+        And I should see link "Hinzufügen"
+        And I should see link "Bearbeiten"
+        And I should see button "Zusammenlegen"
+
+       When I follow "Qualifikationen"
+       Then I should be authorized to access the page
+        And I should see link "Hinzufügen"
+
+       When I follow "Planvorlagen"
+       Then I should be authorized to access the page
+        And I should see link "Hinzufügen"
