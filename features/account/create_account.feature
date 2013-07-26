@@ -7,7 +7,7 @@ Feature: Create Account
   I want to create accounts
 
   Scenario: Create account
-    Given the situation of a just registered user
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
       And a confirmed user "bart" exists with email: "bart@thesimpsons.com"
       And an employee "bart" exists with first_name: "Bart", account: the account "tepco", user: the confirmed user "bart"
       And the employee "bart" is a member of the organization "fukushima"
