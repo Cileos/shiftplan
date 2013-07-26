@@ -44,17 +44,31 @@ namespace :backup do
 
   ## END OF MAIN METHODS
 
+
+  # on servers, backup is directly accessible per ftp.
+  # On dev machines, we have to ssh into server first
+  def backup_ftp(lftp_command, rest='')
+    command = "backup_ftp '#{lftp_command}' #{rest}"
+    if system('which backup_ftp')
+      command
+    else
+      server = 'application@gruetz.clockwork.io'
+      %Q{ssh #{server} "#{command}"}
+    end
+  end
+
   desc "Download 'tmp/backup.tar.gpg' from backup-server"
   task :download => [:backup_symbol, :rails_root] do
-    server = 'application@gruetz.clockwork.io'
+    find_latest = backup_ftp("ls ~/backups/clockwork/*/*.gpg", " | sed -r 's_^.*\s__' | sort | tail -n1")
+    latest = %x{#{find_latest}}.chomp
 
-    last = %x{ssh #{server} "backup_ftp 'ls ~/backups/clockwork/*/*.gpg' | sed -r 's_^.*\s__' | sort | tail -n1"}.chomp
     target = @rails_root.join("tmp", "backup.tar.gpg")
 
-    puts "Latest remote backup location is: #{last}"
+    puts "Latest remote backup location is: #{latest}"
     puts "Downloading backup to: #{target}"
 
-    sh %Q~ssh #{server} "backup_ftp 'cat #{last}'" > #{target}~
+    get = backup_ftp("cat #{latest}")
+    sh %Q~#{get} > #{target}~
   end
 
   desc "Ensure that a file 'tmp/backup.tar' is present, downloading and decrypting one if necessary"
