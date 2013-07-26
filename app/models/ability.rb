@@ -216,10 +216,15 @@ class Ability
       curr_account == employee.account
     end
     can [:update, :create], Employee do |employee|
-      curr_account == employee.account
+      # organization_id is a virtual attribute of employee and is used to create the
+      # membership for the current organization after create of the employee. So the
+      # following line makes sure that memberships for orgs of other account can not be
+      # created.
+      employee.organization_id.nil? ||
+        curr_account == employee.account
     end
     can :update_role, Employee do |employee|
-      curr_employee != employee && # no one can update her/his own role
+      owner != employee && # no one can update her/his own role
         employee.account == curr_account
     end
     can :manage, Plan do |plan|

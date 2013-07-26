@@ -4,13 +4,13 @@ Feature: Create Employees
   I want to manage employees
 
   Background:
-    Given the situation of a just registered user
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
       And a plan exists with name: "Kühlungsraum säubern", organization: the organization
-     When I sign in as the confirmed user
+      And I am signed in as the user "mr burns"
       And I am on the employees page for the organization
      Then I should see the following table of employees:
        | Name          | WAZ  | E-Mail           | Status  |
-       | Burns, Owner  |      | owner@burns.com  | Aktiv   |
+       | Burns, Charles  |      | c.burns@npp-springfield.com  | Aktiv   |
 
   @fileupload
   Scenario: Creating an employee
@@ -28,9 +28,9 @@ Feature: Create Employees
      Then I should be on the employees page for the organization
       And I should see flash notice "Mitarbeiter erfolgreich angelegt."
       Then I should see the following table of employees:
-        | Name           | WAZ  | E-Mail           | Status                 |
-        | Burns, Owner   |      | owner@burns.com  | Aktiv                  |
-        | Carlson, Carl  | 30   |                  | Noch nicht eingeladen  |
+        | Name            | WAZ  | E-Mail                       | Status                 |
+        | Burns, Charles  |      | c.burns@npp-springfield.com  | Aktiv                  |
+        | Carlson, Carl   | 30   |                              | Noch nicht eingeladen  |
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
      When I go to the page of the plan
 
@@ -44,9 +44,9 @@ Feature: Create Employees
       And I press "Anlegen"
       And I should be on the employees page for the organization
      Then I should see the following table of employees:
-       | Name           | WAZ  | E-Mail           | Rolle           | Status                 |
-       | Burns, Owner   |      | owner@burns.com  | Accountinhaber  | Aktiv                  |
-       | Carlson, Carl  | 40   |                  | Planer          | Noch nicht eingeladen  |
+       | Name            | WAZ  | E-Mail                       | Rolle           | Status                 |
+       | Burns, Charles  |      | c.burns@npp-springfield.com  | Accountinhaber  | Aktiv                  |
+       | Carlson, Carl   | 40   |                              | Planer          | Noch nicht eingeladen  |
 
      When I follow "Carlson, Carl" within the employees table
       And I wait for the modal box to appear
@@ -55,9 +55,9 @@ Feature: Create Employees
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following table of employees:
-       | Name           | WAZ  | E-Mail           | Rolle           | Status                 |
-       | Burns, Owner   |      | owner@burns.com  | Accountinhaber  | Aktiv                  |
-       | Carlson, Carl  | 40   |                  | keine           | Noch nicht eingeladen  |
+       | Name            | WAZ  | E-Mail                       | Rolle           | Status                 |
+       | Burns, Charles  |      | c.burns@npp-springfield.com  | Accountinhaber  | Aktiv                  |
+       | Carlson, Carl   | 40   |                              | keine           | Noch nicht eingeladen  |
 
   Scenario: Creating an employee without a weekly working time
     Given I follow "Hinzufügen"
@@ -68,18 +68,18 @@ Feature: Create Employees
       And I press "Anlegen"
      Then I should see flash notice "Mitarbeiter erfolgreich angelegt."
       And I should see the following table of employees:
-        | Name           | WAZ  | E-Mail           | Status                 |
-        | Burns, Owner   |      | owner@burns.com  | Aktiv                  |
-        | Carlson, Carl  |      |                  | Noch nicht eingeladen  |
+        | Name            | WAZ  | E-Mail                       | Status                 |
+        | Burns, Charles  |      | c.burns@npp-springfield.com  | Aktiv                  |
+        | Carlson, Carl   |      |                              | Noch nicht eingeladen  |
 
   Scenario: Can only see employees of current organization
     Given another organization "Chefs" exists with account: the account
       And an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account
       And a membership exists with organization: the organization "Chefs", employee: the employee "homer"
-      And I am on the employees page for the organization "fukushima"
+      And I am on the employees page for the organization "sector 7g"
      Then I should see the following table of employees:
-        | Name           | WAZ  | E-Mail           | Status                 |
-        | Burns, Owner   |      | owner@burns.com  | Aktiv                  |
+        | Name            | WAZ  | E-Mail                       | Status  |
+        | Burns, Charles  |      | c.burns@npp-springfield.com  | Aktiv   |
 
      When I go to the employees page for the organization "Chefs"
      Then I should see the following table of employees:

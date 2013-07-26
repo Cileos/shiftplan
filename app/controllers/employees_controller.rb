@@ -34,7 +34,15 @@ class EmployeesController < BaseController
 
   def resource_params
     super.tap do |params_and_extra|
-      params_and_extra[1] = {as: current_employee.role}
+      params_and_extra[1] = {as: role }
+    end
+  end
+
+  def role
+    if current_employee.owner?
+      'owner'
+    elsif current_membership.role == 'planner'
+      'planner'
     end
   end
 
