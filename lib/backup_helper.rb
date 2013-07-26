@@ -63,7 +63,8 @@ class BackupHelper
               path = `tar -tPf #{file.basename} | head -n1`.chomp
 
               # extract only the backupped directory, not the whole structure below
-              dirs = path.scan(/^(.*\/)*#{archive_name}/).flatten.first.scan('/').size - 1
+              dirname = path.scan(/^(.*\/)*#{archive_name}/).flatten.first
+              dirs = dirname.present? ? dirname.scan('/').size - 1 : 0
               sh "tar --strip-components=#{dirs} -xjPf #{file.basename}"
 
               src_dir = restore_dir.join(file.dirname).join(archive_name).to_s
