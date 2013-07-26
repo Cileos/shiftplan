@@ -83,7 +83,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
-  gem 'backup', :require => false # just for restore
 end
 
 group :production do
@@ -130,3 +129,5 @@ gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', r
 
 gem 'strong_parameters', '~> 0.1.6'
 gem 'nested_form', :git => 'git@github.com:rwrede/nested_form.git'
+
+gem 'backup', :require => false # just for restore
