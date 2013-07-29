@@ -7,6 +7,7 @@ FactoryGirl.define do
     sequence(:email) { |i| "user-#{i}@example.com" }
     password FactoryGirl::Password
     password_confirmation FactoryGirl::Password
+    locale 'de'
 
     factory :confirmed_user do
       after(:create) { |u| u.confirm! }
@@ -37,7 +38,5 @@ FactoryGirl.define do
         end
       end
     end
-
-    locale 'de'
   end
 end

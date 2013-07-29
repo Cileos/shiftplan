@@ -7,16 +7,16 @@ Feature: Inviting Employees
 
   Background:
     Given today is "2012-05-23 12:00"
-      And the situation of a just registered user
+      And mr burns, owner of the Springfield Nuclear Power Plant exists
+      And I am signed in as the user "mr burns"
       And an employee "homer" exists with account: the account, first_name: "Homer"
       And a membership exists with organization: the organization, employee: the employee "homer"
-      And I sign in as the confirmed user
 
   Scenario: Adding an then inviting an employee with an email address that does not exist yet (full roundtrip for adding employees and inviting them)
     Given I am on the employees page for the organization
      Then I should see the following table of employees:
         | Name            |
-        | Burns, Owner    |
+        | Burns, Charles  |
         | Simpson, Homer  |
      When I follow "Hinzufügen"
       And I fill in the following:
@@ -24,18 +24,18 @@ Feature: Inviting Employees
         | Nachname          | Carlson |
       And I press "Anlegen"
      Then I should see the following table of employees:
-        | Name           |
-        | Burns, Owner   |
-        | Carlson, Carl  |
-        | Simpson, Homer |
+        | Name            |
+        | Burns, Charles  |
+        | Carlson, Carl   |
+        | Simpson, Homer  |
 
     Given a clear email queue
-     When I go to the employees page for the organization "fukushima"
+     When I go to the employees page for the organization "sector 7g"
       And I follow "Einladen" within the table cell "Aktion"/"Carlson, Carl"
       And I wait for the modal box to appear
       And I fill in "E-Mail" with "carl@carlson.com"
       And I press "Einladung verschicken"
-     Then I should see that the invitation for "carl@carlson.com" and organization "fukushima" was successful
+     Then I should see that the invitation for "carl@carlson.com" and organization "sector 7g" was successful
      When I sign out
 
      When I open the email with subject "Sie wurden zu Clockwork eingeladen"
@@ -46,20 +46,20 @@ Feature: Inviting Employees
       And I press "Passwort setzen"
 
   Scenario: Inviting an employee with an email address that does not exist yet
-     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "sector 7g"
+     Then I should see that the invitation for "homer@thesimpsons.com" and organization "sector 7g" was successful
      When I sign out
-     And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
+     And the employee "homer" accepts the invitation for the organization "sector 7g" with setting a password
 
   Scenario: Inviting an employee without entering an email address
-    When I invite the employee "homer" with the email address "" for the organization "fukushima"
+    When I invite the employee "homer" with the email address "" for the organization "sector 7g"
     Then I should see "muss ausgefüllt werden"
 
   Scenario: Accepting the same invitation a second time
-    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-    Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "sector 7g"
+    Then I should see that the invitation for "homer@thesimpsons.com" and organization "sector 7g" was successful
     When I sign out
-     And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
+     And the employee "homer" accepts the invitation for the organization "sector 7g" with setting a password
 
    # accept invitation again, still being logged in
    When I open the email with subject "Sie wurden zu Clockwork eingeladen"
@@ -80,8 +80,8 @@ Feature: Inviting Employees
     Then I should see "Der Einladungstoken ist nicht gültig. Ihre Einladung konnte nicht akzeptiert werden."
 
   Scenario: Accepting an invitation by providing an invalid password confirmation
-    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-    Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "sector 7g"
+    Then I should see that the invitation for "homer@thesimpsons.com" and organization "sector 7g" was successful
     When I sign out
 
     When I open the email with subject "Sie wurden zu Clockwork eingeladen"
@@ -104,10 +104,10 @@ Feature: Inviting Employees
       And an employee "homer 2" exists with user: the confirmed user "homer 2", account: the account "tschernobyl"
       And a membership exists with organization: the organization "überwachungszentrale", employee: the employee "homer 2"
 
-     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "sector 7g"
+     Then I should see that the invitation for "homer@thesimpsons.com" and organization "sector 7g" was successful
      When I sign out
-      And the employee "homer" accepts the invitation for the organization "fukushima" without setting a password
+      And the employee "homer" accepts the invitation for the organization "sector 7g" without setting a password
 
   Scenario: Inviting an employee with an email address of an unconfirmed user which has not been invited yet
     Given an account "tschernobyl" exists with name: "Tschernobyl GmbH"
@@ -117,66 +117,66 @@ Feature: Inviting Employees
       And a membership exists with organization: the organization "überwachungszentrale", employee: the employee "homer 2"
      Then the user "homer 2" should not be confirmed
 
-     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-     Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+     When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "sector 7g"
+     Then I should see that the invitation for "homer@thesimpsons.com" and organization "sector 7g" was successful
      When I sign out
-      And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
+      And the employee "homer" accepts the invitation for the organization "sector 7g" with setting a password
      Then the user "homer 2" should be confirmed
 
   Scenario: Reinviting an employee which has not accepted the invitation yet
-    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-    Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "sector 7g"
+    Then I should see that the invitation for "homer@thesimpsons.com" and organization "sector 7g" was successful
 
-    When I reinvite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-    Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+    When I reinvite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "sector 7g"
+    Then I should see that the invitation for "homer@thesimpsons.com" and organization "sector 7g" was successful
     When I sign out
-    And the employee "homer" accepts the invitation for the organization "fukushima" with setting a password
+    And the employee "homer" accepts the invitation for the organization "sector 7g" with setting a password
 
   Scenario: Displaying the e-mail address or the invitation status on the employees page
-    When I go to the employees page for the organization "fukushima"
+    When I go to the employees page for the organization "sector 7g"
     Then I should see the following table of employees:
-      | Name           | E-Mail               | Status                |
-      | Burns, Owner   | owner@burns.com      | Aktiv                 |
-      | Simpson, Homer |                      | Noch nicht eingeladen |
+      | Name            | E-Mail                       | Status                 |
+      | Burns, Charles  | c.burns@npp-springfield.com  | Aktiv                  |
+      | Simpson, Homer  |                              | Noch nicht eingeladen  |
 
-    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-    Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "sector 7g"
+    Then I should see that the invitation for "homer@thesimpsons.com" and organization "sector 7g" was successful
     Then I should see the following table of employees:
-      | Name            | E-Mail                 | Status                                 |
-      | Burns, Owner    | owner@burns.com        | Aktiv                                  |
-      | Simpson, Homer  | homer@thesimpsons.com  | Eingeladen am 23.05.2012 um 12:00 Uhr  |
+      | Name            | E-Mail                       | Status                                 |
+      | Burns, Charles  | c.burns@npp-springfield.com  | Aktiv                                  |
+      | Simpson, Homer  | homer@thesimpsons.com        | Eingeladen am 23.05.2012 um 12:00 Uhr  |
 
     Given today is "2012-05-24 12:00"
     # need to sign in again because the session has expired
-    And I sign in as the confirmed user
-    When I reinvite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-    Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+    And I am signed in as the user "mr burns"
+    When I reinvite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "sector 7g"
+    Then I should see that the invitation for "homer@thesimpsons.com" and organization "sector 7g" was successful
     Then I should see the following table of employees:
-      | Name            | E-Mail                 | Status                                 |
-      | Burns, Owner    | owner@burns.com        | Aktiv                                  |
-      | Simpson, Homer  | homer@thesimpsons.com  | Eingeladen am 24.05.2012 um 12:00 Uhr  |
+      | Name            | E-Mail                       | Status                                 |
+      | Burns, Charles  | c.burns@npp-springfield.com  | Aktiv                                  |
+      | Simpson, Homer  | homer@thesimpsons.com        | Eingeladen am 24.05.2012 um 12:00 Uhr  |
     And I sign out
 
-    When the employee accepts the invitation for the organization "fukushima" with setting a password
+    When the employee accepts the invitation for the organization "sector 7g" with setting a password
     And I sign out
 
-    And I sign in as the confirmed user
-    When I go to the employees page for the organization "fukushima"
+    And I am signed in as the user "mr burns"
+    When I go to the employees page for the organization "sector 7g"
     Then I should see the following table of employees:
       | Name            | E-Mail                 | Status  |
-      | Burns, Owner    | owner@burns.com        | Aktiv   |
-      | Simpson, Homer  | homer@thesimpsons.com  | Aktiv   |
+      | Burns, Charles  | c.burns@npp-springfield.com  | Aktiv  |
+      | Simpson, Homer  | homer@thesimpsons.com        | Aktiv  |
 
   Scenario: Inviting with an email that's already assigned to an employee of the same organization
    Given an employee "bart" exists with account: the account, first_name: "Bart"
      And a membership exists with organization: the organization, employee: the employee "bart"
-    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "fukushima"
-    Then I should see that the invitation for "homer@thesimpsons.com" and organization "fukushima" was successful
+    When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "sector 7g"
+    Then I should see that the invitation for "homer@thesimpsons.com" and organization "sector 7g" was successful
 
-    When I invite the employee "bart" with the email address "homer@thesimpsons.com" for the organization "fukushima"
+    When I invite the employee "bart" with the email address "homer@thesimpsons.com" for the organization "sector 7g"
     Then I should see "ist bereits vergeben"
      And "homer@thesimpsons.com" should receive no email
 
-    When I invite the employee "bart" with the email address "bart@thesimpsons.com" for the organization "fukushima"
-    Then I should see that the invitation for "bart@thesimpsons.com" and organization "fukushima" was successful
+    When I invite the employee "bart" with the email address "bart@thesimpsons.com" for the organization "sector 7g"
+    Then I should see that the invitation for "bart@thesimpsons.com" and organization "sector 7g" was successful
 
