@@ -33,22 +33,51 @@ describe "Milestone permissions" do
     it { should_not be_able_to(:destroy, milestone) }
   end
 
-  context "a planner of the same account" do
+  context "an owner of the same account" do
     it_behaves_like 'can manage milestones' do
-      let(:employee) { create(:employee_planner, account: account, user: user) }
+      let(:employee) { create(:employee_owner, account: account, user: user) }
+    end
+  end
+
+  context "a planner of the same account" do
+    before(:each) do
+      # The planner role is set on the membership, so a planner can only be
+      # a planner for a certain membership/organization.
+      # Simulate CanCan's current_ability method by setting the current
+      # membership manually here.
+      user.current_membership = membership
+    end
+
+    it_behaves_like 'can manage milestones' do
+      let(:employee) { create(:employee, account: account, user: user) }
+      let(:membership) do
+        create(:membership,
+          role: 'planner',
+          employee: employee,
+          organization: organization)
+      end
     end
   end
 
   context "a planner of another account" do
     it_behaves_like 'cannot manage milestones' do
-      let(:employee) { create(:employee_planner, account: other_account, user: user) }
+      let(:employee) { create(:employee, account: other_account, user: user) }
+      let(:membership) do
+        create(:membership,
+          role: 'planner',
+          employee: employee,
+          organization: other_organization)
+      end
     end
   end
 
   context 'a normal employee of the same account' do
-    it_behaves_like 'cannot manage milestones' do
-      let(:employee) { create(:employee, account: account, user: user) }
-    end
+    let(:employee) { create(:employee, account: account, user: user) }
+    let!(:membership) { create(:membership, employee: employee, organization: organization) }
+
+    it { should_not be_able_to(:update, milestone) }
+    it { should_not be_able_to(:create, new_milestone) }
+    it { should_not be_able_to(:destroy, milestone) }
   end
 
 end

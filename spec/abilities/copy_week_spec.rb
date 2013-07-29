@@ -69,22 +69,32 @@ describe "CopyWeek permissions:" do
   end
 
   context "A planner" do
+    before(:each) do
+      # The planner role is set on the membership, so a planner can only be
+      # a planner for a certain membership/organization.
+      # Simulate CanCan's current_ability method by setting the current
+      # membership manually here.
+      user.current_membership = membership
+    end
+
     it_behaves_like "a planner that copies weeks" do
-      let(:employee) { create(:employee_planner, account: account, user: user) }
+      let(:employee) { create(:employee, account: account, user: user) }
+      let(:membership) do
+        create(:membership,
+          role: 'planner',
+          employee: employee,
+          organization: organization)
+      end
     end
   end
 
   context "An employee" do
-    before(:each) do
-      membership
-    end
-
     it_behaves_like "an employee who can not copy weeks" do
       let(:employee)   { create(:employee, account: account, user: user) }
       # An "normal" employee needs a membership for an organization to do things.
       # This is different from planners or owners which do not need a membership but
       # just the role "planner" or "owner" and belong to the acccount.
-      let(:membership) { create(:membership, employee: employee, organization: organization) }
+      let!(:membership) { create(:membership, employee: employee, organization: organization) }
     end
   end
 end

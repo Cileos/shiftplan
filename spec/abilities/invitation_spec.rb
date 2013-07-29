@@ -68,19 +68,29 @@ describe "Invitation permissions:" do
   end
 
   context "As a planner" do
+    before(:each) do
+      # The planner role is set on the membership, so a planner can only be
+      # a planner for a certain membership/organization.
+      # Simulate CanCan's current_ability method by setting the current
+      # membership manually here.
+      user.current_membership = membership
+    end
+
     it_behaves_like "a planner inviting employees" do
-      let(:employee) { create(:employee_planner, account: account, user: user) }
+      let(:employee) { create(:employee, account: account, user: user) }
+      let(:membership) do
+        create(:membership,
+          role: 'planner',
+          employee: employee,
+          organization: organization)
+      end
     end
   end
 
   context "As an employee" do
-    before(:each) do
-      membership
-    end
-
     it_behaves_like "an employee that is not able to invite" do
       let(:employee) { create(:employee, account: account, user: user) }
-      let(:membership) { create(:membership, employee: employee, organization: organization) }
+      let!(:membership) { create(:membership, employee: employee, organization: organization) }
       let(:invitation) { build(:invitation, organization: organization, employee: some_employee)}
     end
   end

@@ -92,7 +92,7 @@ describe "Plan permissions:" do
 
     it_behaves_like :a_planning_planner do
       let(:employee) { create(:employee, account: account, user: user) }
-      let!(:membership) do
+      let(:membership) do
         create(:membership,
           role: 'planner',
           employee: employee,
