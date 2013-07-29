@@ -43,24 +43,20 @@ class Ability
     can :read, Account do |account|
       user.accounts.include?(account)
     end
+    can :update, Account do |account|
+      employee = user.employee_for_account(account)
+      employee.owner?
+    end
     can :create, Account do |account|
       account.user == user
     end
-    can :update, Account do |account|
-      e = user.employees.find_by_account_id(account.id)
-      e.present? && e.role.present? && e.owner?
-    end
     can :read, Organization do |organization|
-      e = user.employees.find_by_account_id(organization.account.id)
-      e.present? && e.organizations.include?(organization)
+      employee = user.employee_for_account(organization.account)
+      employee.organizations.include?(organization)
     end
-    can :update, Organization do |organization|
-      e = user.employees.find_by_account_id(organization.account.id)
-      e.present? && e.role.present? && (e.owner? || e.planner?)
-    end
-    can :create, Organization do |organization|
-      e = user.employees.find_by_account_id(organization.account.id)
-      e.present? && e.role.present? && e.owner?
+    can [:update, :create], Organization do |organization|
+      employee = user.employee_for_account(organization.account)
+      employee.owner?
     end
     can [:update_self], Employee do |employee|
       user == employee.user
