@@ -6,7 +6,8 @@ Feature: Applying Weekbased Plan Templates to Plans
   In order to create schedulings for demands which exist for a typical work week in my organization
 
   Background:
-    Given the situation of a just registered user
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+     When I am signed in as the user "mr burns"
       And a plan template exists with name: "Typische Woche", template_type: "weekbased", organization: the organization
       And the following teams exist:
         | team                | name                | organization      |

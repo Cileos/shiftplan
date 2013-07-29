@@ -5,7 +5,8 @@ Feature: Create Weekbased Plan Template
   In order to be able to define demands which exist for a typical work week in my organization
 
   Background:
-    Given the situation of a just registered user
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+      And I am signed in as the user "mr burns"
 
   Scenario: Create weekbased plan template
     Given a plan exists with name: "Brennstabpflege", organization: the organization

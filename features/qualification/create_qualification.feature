@@ -4,7 +4,8 @@ Feature: Create Qualifications
   In order to be able to assign them to employees and to demands of plan templates
 
   Background:
-    Given the situation of a just registered user
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+      And I am signed in as the user "mr burns"
 
 
   @javascript
@@ -27,7 +28,7 @@ Feature: Create Qualifications
   Scenario: List qualifications of own accounts only
     Given an account "cileos" exists
       And a qualification exists with name: "Brennstabexperte", account: the account "cileos"
-      And a qualification exists with name: "Brennstabpolierer", account: the account "tepco"
+      And a qualification exists with name: "Brennstabpolierer", account: the account "springfield"
 
      When I go to the qualifications page for the organization
      Then I should see the following table of qualifications:

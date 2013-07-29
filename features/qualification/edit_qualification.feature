@@ -5,8 +5,9 @@ Feature: Edit Qualifications
   In order to be able fix typos in the name
 
   Scenario: Edit qualification
-    Given the situation of a just registered user
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
       And a qualification exists with name: "Brennstabpolierer", account: the account
+      And I am signed in as the user "mr burns"
 
      When I go to the qualifications page for the organization
      Then I should see the following table of qualifications:
