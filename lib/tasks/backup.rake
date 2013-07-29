@@ -48,8 +48,9 @@ namespace :backup do
   # on servers, backup is directly accessible per ftp.
   # On dev machines, we have to ssh into server first
   def backup_ftp(lftp_command, rest='')
-    command = "backup_ftp '#{lftp_command}' #{rest}"
-    if system('which backup_ftp')
+    binary = '/usr/local/bin/backup_ftp'
+    command = "#{binary} '#{lftp_command}' #{rest}"
+    if File.exist?(binary)
       command
     else
       server = 'application@gruetz.clockwork.io'
