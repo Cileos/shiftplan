@@ -74,7 +74,7 @@ namespace :backup do
 
   desc "Ensure that a file 'tmp/backup.tar' is present, downloading and decrypting one if necessary"
   file :'tmp/backup.tar' => [:'tmp/backup.tar.gpg'] do |t|
-    sh %Q~bundle exec backup decrypt --encryptor gpg --in #{t.prerequisites.first} --out #{t.name}~
+    sh %Q~gpg --use-agent --no-tty -o '#{t.name}' -d '#{t.prerequisites.first}'~
   end
 
   desc "Ensure that a file 'tmp/backup.tar.gpg' is present, downloading one if necessary"
