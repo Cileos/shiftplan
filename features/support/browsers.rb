@@ -18,7 +18,7 @@ module BrowserSupport
     end
 
     def setup_firefox
-      setup_selenium :firefox, 
+      setup_selenium :firefox,
         :startpage => 'about:buildconfig'
     end
 
@@ -26,13 +26,24 @@ module BrowserSupport
       unless [:chrome, :firefox].include?(browser)
         raise ArgumentError, "unsupported browser: #{browser}"
       end
+      # Set the browsers default language to German by using a profile as the
+      # environment variables like LANG used on linux systems will be ignored on
+      # MacOs.
+      profile = if browser == :chrome
+        Selenium::WebDriver::Chrome::Profile.new
+      else
+        Selenium::WebDriver::Firefox::Profile.new
+      end
+      profile["intl.accept_languages"] = "de-DE"
+
       # arbitrary window decorations?
       width = (opts.delete(:width) || 640) + 8
       height = (opts.delete(:height) || 800) + 57
       startpage = opts.delete(:startpage)
 
+
       Capybara.register_driver :selenium do |app|
-        Capybara::Selenium::Driver.new(app, opts.merge(:browser => browser)).tap do |driver|
+        Capybara::Selenium::Driver.new(app, opts.merge(:browser => browser, :profile => profile)).tap do |driver|
           # Resize window. In Firefox and Chrome, must create a new window to do this.
           # http://groups.google.com/group/webdriver/browse_thread/thread/e4e987eeedfdb586
           browser = driver.browser
