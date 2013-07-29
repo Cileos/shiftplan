@@ -208,9 +208,6 @@ class Ability
     can :manage, Organization do |organization|
       curr_account == organization.account
     end
-    can [:read, :update], Organization do |organization|
-      curr_account == organization.account
-    end
     can [:adopt, :search], Employee
     can [:read], Employee do |employee|
       curr_account == employee.account
