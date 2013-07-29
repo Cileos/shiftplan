@@ -70,7 +70,7 @@ class BackupHelper
               src_dir = restore_dir.join(file.dirname).join(archive_name).to_s
               dest_dir = rails_root.join('public/').to_s
               puts "  moving #{src_dir} to #{dest_dir}"
-              cp_r  src_dir, dest_dir
+              system("rsync -a #{src_dir} #{dest_dir}")
               rm_rf src_dir
               puts ""
             rescue
