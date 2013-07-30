@@ -51,6 +51,7 @@ jQuery(document).ready ->
       false
     $picker.datepick
       showOnFocus: false
+      onShow: $.datepick.highlightWeek
       renderer: $.extend {}, $.datepick.weekOfYearRenderer,
         picker: $.datepick.weekOfYearRenderer.picker.
           # hide "clear"
