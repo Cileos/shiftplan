@@ -35,13 +35,12 @@ describe "User permissions:" do
   let(:organization)  {  create(:organization, account: account) }
 
   before(:each) do
-    # simulate before_filter :set_current_employee
-    user.current_employee = employee if employee
     # The planner role is set on the membership, so a planner can only be
     # a planner for a certain membership/organization.
     # Simulate CanCan's current_ability method by setting the current
-    # membership manually here.
+    # membership and employee manually here.
     user.current_membership = membership if membership
+    user.current_employee = employee if employee
   end
 
   context "An owner" do

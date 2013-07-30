@@ -88,25 +88,22 @@ describe "Post permissions:" do
   let(:other_blog) { create(:blog, organization: other_organization) }
 
   before(:each) do
-    # simulate before_filter :set_current_employee
+    # The planner role is set on the membership, so a planner can only be
+    # a planner for a certain membership/organization.
+    # Simulate CanCan's current_ability method by setting the current
+    # membership and employee manually here.
+    user.current_membership = membership if membership
     user.current_employee = employee if employee
   end
 
   context "An owner" do
-    it_behaves_like "an employee managing posts" do
-      let(:employee) { create(:employee_owner, account: account, user: user) }
-    end
+    let(:employee)    {  create(:employee_owner, account: account, user: user) }
+    let(:membership)  {  nil }
+
+    it_behaves_like "an employee managing posts"
   end
 
   context "A planner" do
-    before(:each) do
-      # The planner role is set on the membership, so a planner can only be
-      # a planner for a certain membership/organization.
-      # Simulate CanCan's current_ability method by setting the current
-      # membership manually here.
-      user.current_membership = membership
-    end
-
     let(:employee) { create(:employee, account: account, user: user) }
     let(:membership) do
       create(:membership,
@@ -122,7 +119,7 @@ describe "Post permissions:" do
 
   context "An employee" do
     let(:employee) { create(:employee, account: account, user: user) }
-    let!(:membership) { create(:membership, employee: employee, organization: organization) }
+    let(:membership) { create(:membership, employee: employee, organization: organization) }
 
     it_behaves_like "an employee managing posts" do
       # The employee only is member of organization but not of
@@ -137,6 +134,7 @@ describe "Post permissions:" do
 
   context "As an user without employee(not possible but for the case)" do
     let(:employee) { nil }
+    let(:membership)  {  nil }
 
     it "should not be able to create posts" do
       should_not be_able_to(:create, build(:post, blog: blog))

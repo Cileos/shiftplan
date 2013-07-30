@@ -71,12 +71,17 @@ describe "Account permissions:" do
   let(:other_account)  { create(:account) }
 
   before(:each) do
-    # simulate before_filter :set_current_employee
+    # The planner role is set on the membership, so a planner can only be
+    # a planner for a certain membership/organization.
+    # Simulate CanCan's current_ability method by setting the current
+    # membership and employee manually here.
+    user.current_membership = membership if membership
     user.current_employee = employee if employee
   end
 
   context "An owner" do
-    let(:employee) { create(:employee_owner, account: account, user: user) }
+    let(:employee)    {  create(:employee_owner, account: account, user: user) }
+    let(:membership)  {  nil }
 
     it_behaves_like "an employee who can read and update accounts"
     it_behaves_like "a user who can create accounts"

@@ -125,44 +125,39 @@ describe "Comment permissions:" do
   let(:other_scheduling) { create(:scheduling, plan: other_plan) }
 
   before(:each) do
-    # simulate before_filter :set_current_employee
+    # The planner role is set on the membership, so a planner can only be
+    # a planner for a certain membership/organization.
+    # Simulate CanCan's current_ability method by setting the current
+    # membership and employee manually here.
+    user.current_membership = membership if membership
     user.current_employee = employee if employee
   end
 
   context "An owner" do
-    it_behaves_like "a commenting employee" do
-      let(:employee) { create(:employee_owner, account: account, user: user) }
-    end
+    let(:employee)    {  create(:employee_owner, account: account, user: user) }
+    let(:membership)  {  nil }
+    it_behaves_like "a commenting employee"
   end
 
   context "A planner" do
-    before(:each) do
-      # The planner role is set on the membership, so a planner can only be
-      # a planner for a certain membership/organization.
-      # Simulate CanCan's current_ability method by setting the current
-      # membership manually here.
-      user.current_membership = membership
+    let(:employee) { create(:employee, account: account, user: user) }
+    let(:membership) do
+      create(:membership,
+        role: 'planner',
+        employee: employee,
+        organization: organization)
     end
 
-    it_behaves_like "a commenting employee" do
-      let(:employee) { create(:employee, account: account, user: user) }
-      let(:membership) do
-        create(:membership,
-          role: 'planner',
-          employee: employee,
-          organization: organization)
-      end
-    end
+    it_behaves_like "a commenting employee"
   end
 
   context "An employee" do
-    it_behaves_like "a commenting employee" do
-      let(:employee) { create(:employee, account: account, user: user) }
-      # An "normal" employee needs a membership for an organization to do things.
-      # This is different from planners or owners which do not need a membership but
-      # just the role "planner" or "owner" and belong to the acccount.
-      let!(:membership) { create(:membership, employee: employee, organization: organization) }
-    end
+    let(:employee) { create(:employee, account: account, user: user) }
+    # An "normal" employee needs a membership for an organization to do things.
+    # This is different from planners or owners which do not need a membership but
+    # just the role "planner" or "owner" and belong to the acccount.
+    let(:membership) { create(:membership, employee: employee, organization: organization) }
+    it_behaves_like "a commenting employee"
   end
 end
 
