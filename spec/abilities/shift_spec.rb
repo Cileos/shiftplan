@@ -51,7 +51,7 @@ describe "Shift permissions:" do
 
     context "for own accounts" do
       it "should be able to manage shifts" do
-        should be_able_to(:manage, create(:shift, plan_template: plan_template))
+        should be_able_to(:manage, build(:shift, plan_template: plan_template))
       end
     end
     context "for other accounts" do
@@ -70,7 +70,7 @@ describe "Shift permissions:" do
 
     context "for organizations with planner membership" do
       it "should be able to manage shifts" do
-        should be_able_to(:manage, create(:shift, plan_template: plan_template))
+        should be_able_to(:manage, build(:shift, plan_template: plan_template))
       end
     end
 

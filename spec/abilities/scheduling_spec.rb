@@ -71,7 +71,7 @@ describe "Scheduling permissions:" do
 
     context "for organizations with planner membership" do
       it "should be able to manage schedulings" do
-        should be_able_to(:manage, create(:scheduling, plan: plan))
+        should be_able_to(:manage, build(:scheduling, plan: plan))
       end
     end
 
