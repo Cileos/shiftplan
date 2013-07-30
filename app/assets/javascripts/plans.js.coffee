@@ -46,7 +46,13 @@ jQuery(document).ready ->
       $s = $(this)
       $s.attr('name', $s.attr('title'))
 
+  parseIso8601 = (str) ->
+    return null unless str?
+    $.datepick.parseDate('yyyy-mm-dd', str)
+
+
   $('a#goto').show().each ->
+    $cal = $('#calendar')
     $link = $(this)
     # picker must not be :hidden for offset calculation
     $picker = $('<input type="text" />').addClass('invisibleNotHidden').insertAfter($link)
@@ -57,6 +63,9 @@ jQuery(document).ready ->
       false
     $picker.datepick
       showOnFocus: false
+      defaultDate: parseIso8601( $cal.data('monday') )
+      minDate: parseIso8601( $cal.data('starts_at') )
+      maxDate: parseIso8601( $cal.data('ends_at') )
       onShow: $.datepick.multipleEvents(
         $.datepick.highlightWeek,
         addNamesToDatepickerSelects

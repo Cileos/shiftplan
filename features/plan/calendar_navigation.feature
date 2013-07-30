@@ -48,7 +48,9 @@ Feature: Calendar navigation
       And I should see "21.12." within weeks first date
 
      When I follow "Gehe zu" within the toolbar
-      And I select "2017" from "anderes Jahr anzeigen" within the datepicker
+     Then the selected "anderes Jahr anzeigen" should be "2015" within the datepicker
+      And the selected "anderen Monat anzeigen" should be "Dezember" within the datepicker
+     When I select "2017" from "anderes Jahr anzeigen" within the datepicker
       And I select "Oktober" from "anderen Monat anzeigen" within the datepicker
       And I follow "19" within the datepicker
      Then I should be on the <view> page of the plan for cwyear: 2017, week: 42
