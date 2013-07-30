@@ -52,7 +52,6 @@ describe "Invitation permissions:" do
   let(:other_membership) { create(:membership, employee: other_employee, organization: other_organization) }
 
   before(:each) do
-    # simulate before_filter :set_current_employee
     user.current_employee = employee if employee
     # unfortunately some_membership and other_membership must be called
     # explicitely, to make sure that some_employee and other_employee really

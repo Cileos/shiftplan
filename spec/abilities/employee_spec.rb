@@ -101,7 +101,6 @@ describe "Employee permissions:" do
   let(:other_account) { create(:account) }
 
   before(:each) do
-    # simulate before_filter :set_current_employee
     user.current_employee = employee if employee
   end
 

@@ -63,34 +63,30 @@ describe "Organization permissions:" do
   let(:organization) { create(:organization, account: account) }
 
   before(:each) do
-    # simulate before_filter :set_current_employee
-    user.current_employee = employee
+    # The planner role is set on the membership, so a planner can only be
+    # a planner for a certain membership/organization.
+    # Simulate CanCan's current_ability method by setting the current
+    # membership and employee manually here.
+    user.current_membership = membership if membership
+    user.current_employee = employee if employee
   end
 
   context "An owner" do
-    it_behaves_like "an owner managing organizations" do
-      let(:employee) { create(:employee_owner, account: account, user: user) }
-    end
+    let(:employee)    {  create(:employee_owner, account: account, user: user) }
+    let(:membership)  {  nil }
+
+    it_behaves_like "an owner managing organizations"
   end
 
   context "A planner" do
-    before(:each) do
-      # The planner role is set on the membership, so a planner can only be
-      # a planner for a certain membership/organization.
-      # Simulate CanCan's current_ability method by setting the current
-      # membership manually here.
-      user.current_membership = membership
+    let(:employee) { create(:employee, account: account, user: user) }
+    let(:membership) do
+      create(:membership,
+        role: 'planner',
+        employee: employee,
+        organization: organization)
     end
-
-    it_behaves_like "an employee who can only read organizations" do
-      let(:employee) { create(:employee, account: account, user: user) }
-      let(:membership) do
-        create(:membership,
-          role: 'planner',
-          employee: employee,
-          organization: organization)
-      end
-    end
+    it_behaves_like "an employee who can only read organizations"
   end
 
   context "An employee" do
