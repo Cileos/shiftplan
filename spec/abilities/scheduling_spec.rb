@@ -1,32 +1,32 @@
 require 'spec_helper'
 require "cancan/matchers"
 
-shared_examples  "an employee for foreign accounts" do
-  let(:foreign_plan)        {  create(:plan, organization: create(:organization)) }
-  let(:foreign_scheduling)  {  build(:scheduling, plan: foreign_plan) }
-
-  it "should not be able to CRUD schedulings" do
-    should_not be_able_to(:create, foreign_scheduling)
-    should_not be_able_to(:read, foreign_scheduling)
-    should_not be_able_to(:update, foreign_scheduling)
-    should_not be_able_to(:destroy, foreign_scheduling)
-  end
-end
-
-shared_examples "an employee without a membership" do
-  let(:another_organization)  {  create(:organization, account: account) }
-  let(:another_plan)          {  create(:plan, organization: another_organization) }
-  let(:another_scheduling)    {  build(:scheduling, plan: another_plan) }
-
-  it "should not be able to CRUD schedulings" do
-    should_not be_able_to(:create, another_scheduling)
-    should_not be_able_to(:read, another_scheduling)
-    should_not be_able_to(:update, another_scheduling)
-    should_not be_able_to(:destroy, another_scheduling)
-  end
-end
-
 describe "Scheduling permissions:" do
+  shared_examples  "an employee with scheduling permissions for foreign accounts" do
+    let(:foreign_plan)        {  create(:plan, organization: create(:organization)) }
+    let(:foreign_scheduling)  {  build(:scheduling, plan: foreign_plan) }
+
+    it "should not be able to CRUD schedulings" do
+      should_not be_able_to(:create, foreign_scheduling)
+      should_not be_able_to(:read, foreign_scheduling)
+      should_not be_able_to(:update, foreign_scheduling)
+      should_not be_able_to(:destroy, foreign_scheduling)
+    end
+  end
+
+  shared_examples "an employee with scheduling permissions without a membership" do
+    let(:another_organization)  {  create(:organization, account: account) }
+    let(:another_plan)          {  create(:plan, organization: another_organization) }
+    let(:another_scheduling)    {  build(:scheduling, plan: another_plan) }
+
+    it "should not be able to CRUD schedulings" do
+      should_not be_able_to(:create, another_scheduling)
+      should_not be_able_to(:read, another_scheduling)
+      should_not be_able_to(:update, another_scheduling)
+      should_not be_able_to(:destroy, another_scheduling)
+    end
+  end
+
   subject             {  ability }
   let(:ability)       {  Ability.new(user) }
   let(:user)          {  create(:user) }
@@ -56,7 +56,7 @@ describe "Scheduling permissions:" do
       end
     end
     context "for other accounts" do
-      it_behaves_like "an employee for foreign accounts"
+      it_behaves_like "an employee with scheduling permissions for foreign accounts"
     end
   end
 
@@ -76,11 +76,11 @@ describe "Scheduling permissions:" do
     end
 
     context "for organizations without membership" do
-      it_behaves_like "an employee without a membership"
+      it_behaves_like "an employee with scheduling permissions without a membership"
     end
 
     context "for other accounts" do
-      it_behaves_like "an employee for foreign accounts"
+      it_behaves_like "an employee with scheduling permissions for foreign accounts"
     end
   end
 
@@ -104,11 +104,11 @@ describe "Scheduling permissions:" do
     end
 
     context "for organizations without membership" do
-      it_behaves_like "an employee without a membership"
+      it_behaves_like "an employee with scheduling permissions without a membership"
     end
 
     context "for other accounts" do
-      it_behaves_like "an employee for foreign accounts"
+      it_behaves_like "an employee with scheduling permissions for foreign accounts"
     end
   end
 end
