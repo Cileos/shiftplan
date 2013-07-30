@@ -25,11 +25,24 @@ Feature: Creating shifts for plan templates
         | Brennstabkessel(B)    |     |     |     |     |     |     |     |
         | Druckwasserreaktor(D) |     |     |     |     |     |     |     |
 
-  Scenario: Creating shifts for a plan template
+  Scenario: Creating shifts for a plan template without a qualification
+    Given I am on the teams in week page for the plan template
+      And I click on cell "Di"/"Druckwasserreaktor(D)"
+      And I wait for the modal box to appear
+      And I select "9" from "Startstunde"
+      And I select "17" from "Endstunde"
+      And I wait for the modal box to appear
+      And I press "Anlegen"
+      And I wait for the modal box to disappear
+     Then I should see the following calendar:
+        | Teams                  | Mo  | Di           | Mi  | Do  | Fr  | Sa  | So  |
+        | Brennstabkessel(B)     |     |              |     |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 09:00-17:00  |     |     |     |     |     |
+
+  Scenario: Creating shifts for a plan template with a qualification
     Given the following qualifications exist:
         | qualification      | name               | account      |
         | Brennstabpolierer  | Brennstabpolierer  | the account  |
-        | Brennstabexperte   | Brennstabexperte   | the account  |
 
      When I go to the teams in week page for the plan template
       And I click on cell "Di"/"Druckwasserreaktor(D)"
