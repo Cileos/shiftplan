@@ -39,3 +39,15 @@ jQuery(document).ready ->
   $('nav a#new_scheduling_button').live 'ajax:success', ->
     Clockwork.SchedulingEditor.create element: $('#modalbox form:first')
     true
+
+  $('a#goto').show().each ->
+    $link = $(this)
+    # picker must not be :hidden for offset calculation
+    $picker = $('<input type="text" />').addClass('invisibleNotHidden').insertAfter($link)
+    $link.click (e) ->
+      e.stopPropagation()
+      e.preventDefault()
+      $picker.datepick 'show', e
+      false
+    $picker.datepick
+      showOnFocus: false
