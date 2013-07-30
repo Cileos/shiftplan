@@ -45,7 +45,7 @@ class Ability
     end
     can :update, Account do |account|
       employee = user.employee_for_account(account)
-      employee.owner?
+      employee && employee.owner?
     end
     can :create, Account do |account|
       account.user == user

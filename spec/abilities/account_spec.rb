@@ -88,7 +88,13 @@ describe "Account permissions:" do
   end
 
   context "A planner" do
-    let(:employee) { create(:employee_planner, account: account, user: user) }
+    let(:employee) { create(:employee, account: account, user: user) }
+    let(:membership) do
+      create(:membership,
+        role: 'planner',
+        employee: employee,
+        organization: organization)
+    end
 
     it_behaves_like "an employee who can read accounts"
     it_behaves_like "a user who can create accounts"
@@ -96,6 +102,10 @@ describe "Account permissions:" do
 
   context "An employee" do
     let(:employee) { create(:employee, account: account, user: user) }
+    # An "normal" employee needs a membership for an organization to do things.
+    # This is different from planners or owners which do not need a membership but
+    # just the role "planner" or "owner" and belong to the acccount.
+    let!(:membership)  {  create(:membership, employee: employee, organization: organization) }
 
     it_behaves_like "an employee who can read accounts"
     it_behaves_like "a user who can create accounts"
@@ -108,28 +118,33 @@ describe "Account permissions:" do
       # When being in the global scope the current employee can not be
       # determined, therefore it is set to nil here.
       user.current_employee = nil
+      user.current_membership = nil
     end
 
     context "with an employee without roles" do
-      before(:each) do
-        membership
-      end
-      let(:employee) { create(:employee, account: account, user: user) }
-      let(:membership) { create(:membership, employee: employee, organization: organization) }
+      let(:employee)     {  create(:employee, account: account, user: user) }
+      let!(:membership)  {  create(:membership, employee: employee, organization: organization) }
 
       it_behaves_like "an employee who can read accounts"
       it_behaves_like "a user who can create accounts"
     end
 
     context "with an employee beeing planner" do
-      let(:employee) { create(:employee_planner, account: account, user: user) }
+      let(:employee) { create(:employee, account: account, user: user) }
+      let!(:membership) do
+        create(:membership,
+          role: 'planner',
+          employee: employee,
+          organization: organization)
+      end
 
       it_behaves_like "an employee who can read accounts"
       it_behaves_like "a user who can create accounts"
     end
 
     context "with an employee beeing owner" do
-      let(:employee) { create(:employee_owner, account: account, user: user) }
+      let(:employee)    {  create(:employee_owner, account: account, user: user) }
+      let(:membership)  {  nil }
 
       it_behaves_like "an employee who can read and update accounts"
       it_behaves_like "a user who can create accounts"
