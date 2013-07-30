@@ -6,7 +6,7 @@ describe "Shift permissions:" do
     let(:foreign_plan_template) {  create(:plan_template, organization: create(:organization)) }
     let(:foreign_shift)         {  build(:shift, plan_template: foreign_plan_template) }
 
-    it "should not be able to CRUD schedulings" do
+    it "should not be able to CRUD shifts" do
       should_not be_able_to(:create, foreign_shift)
       should_not be_able_to(:read, foreign_shift)
       should_not be_able_to(:update, foreign_shift)
@@ -19,7 +19,7 @@ describe "Shift permissions:" do
     let(:another_plan_template) { create(:plan_template, organization: another_organization) }
     let(:another_shift)         { build(:shift, plan_template: another_plan_template) }
 
-    it "should not be able to CRUD schedulings" do
+    it "should not be able to CRUD shifts" do
       should_not be_able_to(:create,  another_shift)
       should_not be_able_to(:read,    another_shift)
       should_not be_able_to(:update,  another_shift)
@@ -92,7 +92,7 @@ describe "Shift permissions:" do
     let(:shift)        {  build(:shift, plan_template: plan_template) }
 
     context "for organizations with membership" do
-      it "should not be able to CRUD schedulings" do
+      it "should not be able to CRUD shifts" do
         should_not be_able_to(:create,  shift)
         should_not be_able_to(:read,    shift)
         should_not be_able_to(:update,  shift)
