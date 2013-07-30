@@ -52,11 +52,11 @@ class Ability
     end
     can :read, Organization do |organization|
       employee = user.employee_for_account(organization.account)
-      employee.organizations.include?(organization)
+      employee && employee.organizations.include?(organization)
     end
-    can [:update, :create], Organization do |organization|
+    can [:update, :create, :destroy], Organization do |organization|
       employee = user.employee_for_account(organization.account)
-      employee.owner?
+      employee && employee.owner?
     end
     can [:update_self], Employee do |employee|
       user == employee.user
@@ -119,7 +119,7 @@ class Ability
     curr_account      = curr_employee.account
     curr_organization = user.current_membership.try(:organization)
 
-    can [:read, :update], Organization do |organization|
+    can [:read], Organization do |organization|
       curr_account == organization.account
     end
     can [:adopt, :search], Employee

@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
   end
 
   def employee_for_account(account)
-    employees.find_by_account_id!(account.id)
+    employees.find_by_account_id(account.id)
   end
 
   # A Planner or Owner does not need a membership
