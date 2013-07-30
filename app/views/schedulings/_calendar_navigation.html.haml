@@ -27,7 +27,7 @@
   -# - else
   -#  %span.button.disabled= t('.previous')
   = link_to t('.today'), filter.today_path,         class: 'button'
-  = link_to t('.goto'), nested_resources_for(filter.plan), class: 'button', id: 'goto', style: 'display: none'
+  = link_to t('.goto'), filter.today_path, class: 'button', id: 'goto', style: 'display: none'
   - if filter.has_next?
     = link_to t('.next'), filter.next_path,         class: 'button'
   -#- else

@@ -59,3 +59,9 @@ jQuery(document).ready ->
       firstDay: 1
       showOtherMonths: true
       yearRange: 'c-5:c+8'
+      onSelect: (dates) ->
+        date = dates[0]
+        year = date.getFullYear()
+        week = $.datepick.iso8601Week(date)
+        url = $link.attr('href').replace(/\d+\/\d+$/, "#{year}/#{week}")
+        window.location.assign url
