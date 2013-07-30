@@ -40,6 +40,12 @@ jQuery(document).ready ->
     Clockwork.SchedulingEditor.create element: $('#modalbox form:first')
     true
 
+
+  addNamesToDatepickerSelects = (picker, inst) ->
+    picker.find('select.datepick-month-year').each ->
+      $s = $(this)
+      $s.attr('name', $s.attr('title'))
+
   $('a#goto').show().each ->
     $link = $(this)
     # picker must not be :hidden for offset calculation
@@ -51,7 +57,10 @@ jQuery(document).ready ->
       false
     $picker.datepick
       showOnFocus: false
-      onShow: $.datepick.highlightWeek
+      onShow: $.datepick.multipleEvents(
+        $.datepick.highlightWeek,
+        addNamesToDatepickerSelects
+      )
       renderer: $.extend {}, $.datepick.weekOfYearRenderer,
         picker: $.datepick.weekOfYearRenderer.picker.
           # hide "clear"
