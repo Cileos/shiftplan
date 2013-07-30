@@ -95,6 +95,15 @@ describe Invitation do
           invitation_for_bart.should have(1).errors_on(:email)
           invitation_for_bart.errors[:email].should == ['ist bereits einem Ihrer Mitarbeiter zugeordnet.']
         end
+
+        context 'using different case on email' do
+          it 'is not valid' do
+            invitation_for_bart.email = 'TheSimpsons@springfield.com' # like email, but with CAPS
+            invitation_for_bart.should_not be_valid
+            invitation_for_bart.should have(1).errors_on(:email)
+            invitation_for_bart.errors[:email].should == ['ist bereits einem Ihrer Mitarbeiter zugeordnet.']
+          end
+        end
       end
 
       context 'within different account' do

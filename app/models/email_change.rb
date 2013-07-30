@@ -5,6 +5,7 @@ class EmailChange < ActiveRecord::Base
 
   attr_accessible :confirmed_at,
                   :email
+  include Volksplaner::CaseInsensitiveEmailAttribute
 
   before_validation :set_token, on: :create
   after_commit :send_confirmation_mail, on: :create

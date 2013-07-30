@@ -6,6 +6,7 @@ module Volksplaner
   autoload :PlanRedirector, 'volksplaner/plan_redirector'
   autoload :IconCompiler, 'volksplaner/icon_compiler'
   autoload :Formatter, 'volksplaner/formatter'
+  autoload :CaseInsensitiveEmailAttribute, 'volksplaner/case_insensitive_email_attribute'
 
   HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .-]*\z/
 
