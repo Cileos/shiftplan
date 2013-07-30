@@ -1,83 +1,113 @@
 require 'spec_helper'
 require "cancan/matchers"
 
-describe "Milestone permissions" do
-  subject { ability }
-  let(:ability) { Ability.new(user) }
-  let(:user) { create(:user) }
+describe "Milestone permissions:" do
+  shared_examples  "an employee with milestone permissions for foreign accounts" do
+    let(:foreign_plan)        {  create(:plan, organization: create(:organization)) }
+    let(:foreign_milestone)  {  build(:milestone, plan: foreign_plan) }
 
-  let(:account) { create(:account) }
-  let(:organization) { create(:organization, account: account) }
+    it "should not be able to CRUD milestones" do
+      should_not be_able_to(:create, foreign_milestone)
+      should_not be_able_to(:read, foreign_milestone)
+      should_not be_able_to(:update, foreign_milestone)
+      should_not be_able_to(:destroy, foreign_milestone)
+    end
+  end
 
-  let(:other_account) { create(:account) }
-  let(:other_organization) { create(:organization, account: other_account) }
+  shared_examples "an employee with milestone permissions without a membership" do
+    let(:another_organization)  {  create(:organization, account: account) }
+    let(:another_plan)          {  create(:plan, organization: another_organization) }
+    let(:another_milestone)    {  build(:milestone, plan: another_plan) }
 
-  let(:plan) { create :plan, organization: organization }
+    it "should not be able to CRUD milestones" do
+      should_not be_able_to(:create, another_milestone)
+      should_not be_able_to(:read, another_milestone)
+      should_not be_able_to(:update, another_milestone)
+      should_not be_able_to(:destroy, another_milestone)
+    end
+  end
+
+  subject             {  ability }
+  let(:ability)       {  Ability.new(user) }
+  let(:user)          {  create(:user) }
+  let(:account)       {  create(:account) }
+  let(:organization)  {  create(:organization, account: account) }
+  let(:plan)          {  create(:plan, organization: organization) }
+
 
   before(:each) do
-    # simulate before_filter :set_current_employee
+    # The planner role is set on the membership, so a planner can only be
+    # a planner for a certain membership/organization.
+    # Simulate CanCan's current_ability method by setting the current
+    # membership and employee manually here.
+    user.current_membership = membership if membership
     user.current_employee = employee if employee
   end
 
-  let(:new_milestone) { build :milestone, plan: plan }
-  let(:milestone) { create :milestone, plan: plan }
+  context "An owner" do
+    let(:employee) { create(:employee_owner, account: account, user: user) }
+    # an owner does not need a membership for an organization to do things
+    let(:membership) { nil }
 
-  shared_examples 'can manage milestones' do
-    it { should be_able_to(:manage, milestone )}
-  end
-
-  shared_examples 'cannot manage milestones' do
-    it { should_not be_able_to(:read, milestone) }
-    it { should_not be_able_to(:update, milestone) }
-    it { should_not be_able_to(:create, new_milestone) }
-    it { should_not be_able_to(:destroy, milestone) }
-  end
-
-  context "an owner of the same account" do
-    it_behaves_like 'can manage milestones' do
-      let(:employee) { create(:employee_owner, account: account, user: user) }
-    end
-  end
-
-  context "a planner of the same account" do
-    before(:each) do
-      # The planner role is set on the membership, so a planner can only be
-      # a planner for a certain membership/organization.
-      # Simulate CanCan's current_ability method by setting the current
-      # membership manually here.
-      user.current_membership = membership
-    end
-
-    it_behaves_like 'can manage milestones' do
-      let(:employee) { create(:employee, account: account, user: user) }
-      let(:membership) do
-        create(:membership,
-          role: 'planner',
-          employee: employee,
-          organization: organization)
+    context "for own accounts" do
+      it "should be able to manage milestones" do
+        should be_able_to(:manage, create(:milestone, plan: plan))
       end
     end
-  end
-
-  context "a planner of another account" do
-    it_behaves_like 'cannot manage milestones' do
-      let(:employee) { create(:employee, account: other_account, user: user) }
-      let(:membership) do
-        create(:membership,
-          role: 'planner',
-          employee: employee,
-          organization: other_organization)
-      end
+    context "for other accounts" do
+      it_behaves_like "an employee with milestone permissions for foreign accounts"
     end
   end
 
-  context 'a normal employee of the same account' do
+  context "A planner" do
     let(:employee) { create(:employee, account: account, user: user) }
-    let!(:membership) { create(:membership, employee: employee, organization: organization) }
+    let(:membership) do
+      create(:membership,
+        role: 'planner',
+        employee: employee,
+        organization: organization)
+    end
 
-    it { should_not be_able_to(:update, milestone) }
-    it { should_not be_able_to(:create, new_milestone) }
-    it { should_not be_able_to(:destroy, milestone) }
+    context "for organizations with planner membership" do
+      it "should be able to manage milestones" do
+        should be_able_to(:manage, build(:milestone, plan: plan))
+      end
+    end
+
+    context "for organizations without membership" do
+      it_behaves_like "an employee with milestone permissions without a membership"
+    end
+
+    context "for other accounts" do
+      it_behaves_like "an employee with milestone permissions for foreign accounts"
+    end
   end
 
+  context "An employee" do
+    let(:employee) { create(:employee, account: account, user: user) }
+    # An "normal" employee needs a membership for an organization to do things.
+    # This is different from planners or owners which do not need a membership but
+    # just the role "planner" or "owner" and belong to the acccount.
+    let!(:membership) { create(:membership, employee: employee, organization: organization) }
+    let(:milestone)  { build(:milestone, plan: plan) }
+
+    context "for organizations with membership" do
+      it "should be able to read milestones" do
+        should be_able_to(:read, milestone)
+      end
+      it "should not be able to CUD milestones" do
+        should_not be_able_to(:create, milestone)
+        should_not be_able_to(:update, milestone)
+        should_not be_able_to(:destroy, milestone)
+      end
+    end
+
+    context "for organizations without membership" do
+      it_behaves_like "an employee with milestone permissions without a membership"
+    end
+
+    context "for other accounts" do
+      it_behaves_like "an employee with milestone permissions for foreign accounts"
+    end
+  end
 end
