@@ -43,7 +43,7 @@
         %p= t(:'qualifications.no_qualifications_present')
         %p
           = t(:'qualifications.goto_qualifications')
-          = link_to ta(:qualifications), [current_account, :qualifications],
+          = link_to ta(:qualifications), [current_account, current_organization, :qualifications],
             :class => 'link'
 
   .actions
