@@ -51,3 +51,7 @@ jQuery(document).ready ->
       false
     $picker.datepick
       showOnFocus: false
+      # hide "clear"
+      renderer: $.extend {}, $.datepick.defaultRenderer,
+        picker: $.datepick.defaultRenderer.picker.
+          replace(/\{link:clear\}/, '')
