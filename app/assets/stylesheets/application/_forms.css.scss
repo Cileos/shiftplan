@@ -69,6 +69,11 @@ input.invisibleNotHidden {
   z-index: -1000;
 }
 
+// display block breaks jquery.datepick
+select.datepick-month-year {
+  display: inline-block;
+}
+
 form div {
   & > label {
     margin-left: 0.25em;

@@ -58,3 +58,4 @@ jQuery(document).ready ->
           replace(/\{link:clear\}/, '')
       firstDay: 1
       showOtherMonths: true
+      yearRange: 'c-5:c+8'
