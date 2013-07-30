@@ -36,7 +36,6 @@ describe "Task permissions" do
   let(:organization)        {  create(:organization, account: account) }
   let(:plan)                {  create :plan, organization: organization }
   let(:milestone)           {  create :milestone, plan: plan }
-  let(:new_task)            {  build :task, milestone: milestone }
   let(:task)                {  build :task, milestone: milestone }
 
   let(:other_account)       {  create(:account) }
