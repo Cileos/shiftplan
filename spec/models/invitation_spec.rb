@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Invitation do
   describe 'associate employee with user' do
-    it 'should link the employee to the user on save if user is set' do
+    it 'links the employee to the user on save if user is set' do
       employee = create :employee
       user = create :user
       invitation = create(:invitation, employee: employee, organization: create(:organization))
@@ -63,7 +63,7 @@ describe Invitation do
         # organization within same account
         let(:organization_2) { create :organization, account: account_1 }
 
-        it 'should not be valid' do
+        it 'is not valid' do
           invitation_for_bart.should_not be_valid
           invitation_for_bart.should have(1).errors_on(:email)
           invitation_for_bart.errors[:email].should == ['wurde bereits in einer Einladung verwendet.']
@@ -75,7 +75,7 @@ describe Invitation do
         # organization of a different account
         let(:organization_2) { create :organization, account: account_2 }
 
-        it 'should be valid' do
+        it 'is valid' do
           invitation_for_bart.should be_valid
         end
       end
@@ -90,7 +90,7 @@ describe Invitation do
         # organization within same account
         let(:organization_2) { create :organization, account: account_1 }
 
-        it 'should not be valid' do
+        it 'is not valid' do
           invitation_for_bart.should_not be_valid
           invitation_for_bart.should have(1).errors_on(:email)
           invitation_for_bart.errors[:email].should == ['ist bereits einem Ihrer Mitarbeiter zugeordnet.']
@@ -102,7 +102,7 @@ describe Invitation do
         # organization of a different account
         let(:organization_2) { create :organization, account: account_2 }
 
-        it 'should be valid' do
+        it 'is valid' do
           invitation_for_bart.should be_valid
         end
       end
