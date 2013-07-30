@@ -51,7 +51,9 @@ jQuery(document).ready ->
       false
     $picker.datepick
       showOnFocus: false
-      # hide "clear"
-      renderer: $.extend {}, $.datepick.defaultRenderer,
-        picker: $.datepick.defaultRenderer.picker.
+      renderer: $.extend {}, $.datepick.weekOfYearRenderer,
+        picker: $.datepick.weekOfYearRenderer.picker.
+          # hide "clear"
           replace(/\{link:clear\}/, '')
+      firstDay: 1
+      showOtherMonths: true
