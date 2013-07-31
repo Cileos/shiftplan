@@ -107,14 +107,21 @@ describe "Employee permissions:" do
   context "An owner" do
     let(:employee) { create(:employee_owner, account: account, user: user) }
 
+    context "updating roles" do
+      it_behaves_like "an employee who cannot update his own role"
+      it_behaves_like "an employee who can update roles of other employees"
+    end
+
     it_behaves_like "an employee who can read, update, create, adopt and search employees"
-    it_behaves_like "an employee who cannot update his own role"
-    it_behaves_like "an employee who can update roles of other employees"
+
     # owners can not be updated by anyone except by themselves
     it "can update himself" do
       should be_able_to(:update, employee)
     end
-    it_behaves_like "an employee who can update his profile"
+
+    context "updating profiles" do
+      it_behaves_like "an employee who can update his profile"
+    end
   end
 
   context "A planner" do
@@ -134,34 +141,41 @@ describe "Employee permissions:" do
         organization: organization)
     end
 
-    it_behaves_like "an employee who cannot update his own role"
-
-    let(:another_employee) { create(:employee, account: account) }
-    let(:another_membership) do
-      create(:membership, employee: another_employee, organization: organization)
+    context "updating roles" do
+      it_behaves_like "an employee who cannot update his own role"
     end
 
-    it "can CRU employees for own organizations" do
-      another_membership
-      another_employee.organization_id = organization.id
+    context "for own organizations" do
+      let(:another_employee) { create(:employee, account: account) }
+      let!(:another_membership) do
+        create(:membership, employee: another_employee, organization: organization)
+      end
 
-      should be_able_to(:create, another_employee)
-      should be_able_to(:read, another_employee)
-      should be_able_to(:update, another_employee)
+      it "can CRU employees for own organizations" do
+        another_employee.organization_id = organization.id
+
+        should be_able_to(:create, another_employee)
+        should be_able_to(:read, another_employee)
+        should be_able_to(:update, another_employee)
+      end
     end
 
     it "can not update owners" do
       should_not be_able_to(:update, create(:employee_owner, account: account))
     end
 
-    it_behaves_like "an employee who can update his profile"
+    context "updating profiles" do
+      it_behaves_like "an employee who can update his profile"
+    end
   end
 
   context "An employee" do
     let(:employee) { create(:employee, account: account, user: user) }
     let!(:membership) { create(:membership, employee: employee, organization: organization) }
 
-    it_behaves_like "an employee who cannot update his own role"
+    context "updating roles" do
+      it_behaves_like "an employee who cannot update his own role"
+    end
 
     it "should not be able to adopt employees" do
       should_not be_able_to :adopt, Employee
@@ -169,8 +183,6 @@ describe "Employee permissions:" do
     it "should not be able to search employees" do
       should_not be_able_to :search, Employee
     end
-
-    it_behaves_like "an employee who can update his profile"
 
     context "for own accounts" do
       it "should not be able to read employees" do
@@ -207,6 +219,10 @@ describe "Employee permissions:" do
       it "should not be able to update roles of employees of other accounts" do
         should_not be_able_to(:update_role, build(:employee, account: other_account))
       end
+    end
+
+    context "updating profiles" do
+      it_behaves_like "an employee who can update his profile"
     end
   end
 
