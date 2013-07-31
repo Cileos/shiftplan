@@ -1,19 +1,27 @@
 class WwtDiffWidget < Struct.new(:h, :employee, :records)
 
   def to_html
-    h.abbr_tag(label_text(short: true),
-               label_text,
+    h.abbr_tag(short_label_text,
+               long_label_text,
                class: "badge #{label_class}")
   end
 
-  # TODO i18n 'of'
-  def label_text(opts={})
+  def short_label_text(opts={})
     if employee.weekly_working_time.present?
-      txt = opts[:short] ? '/' : 'of'
-      "#{human_hours} #{txt} #{employee.weekly_working_time.to_i}"
+      "#{human_hours} / #{employee.weekly_working_time.to_i}"
     else
       "#{human_hours}"
     end
+  end
+
+  # TODO i18n 'of'
+  def long_label_text(opts={})
+    if employee.weekly_working_time.present?
+      "#{human_hours} of #{employee.weekly_working_time.to_i}"
+    else
+      "#{human_hours}"
+    end
+
   end
 
   def hours

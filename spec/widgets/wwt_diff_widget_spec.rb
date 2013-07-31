@@ -9,8 +9,8 @@ describe WwtDiffWidget do
   it "uses abbr tag to hide data on small displays" do
     short = stub 'short'
     long  = stub 'long'
-    subject.stub(:label_text).with(short: true).and_return(short)
-    subject.stub(:label_text).with().and_return(long)
+    subject.stub(:short_label_text).with().and_return(short)
+    subject.stub(:long_label_text).with().and_return(long)
     # color
     subject.stub(:label_class).and_return('wwt_class')
     view.should_receive(:abbr_tag).with(short, long, class: "badge wwt_class").and_return('tag')
@@ -77,8 +77,9 @@ describe WwtDiffWidget do
   end
 
   context 'label' do
-    let(:long_label) { subject.label_text }
-    let(:short_label) { subject.label_text(short: true) }
+    in_locale :de
+    let(:long_label) { subject.long_label_text }
+    let(:short_label) { subject.short_label_text }
 
     it "shows hours only for employee without wwt" do
       employee.stub weekly_working_time: nil
