@@ -7,8 +7,8 @@ class WwtDiffWidget < Struct.new(:h, :employee, :records)
   end
 
   def short_label_text(opts={})
-    if employee.weekly_working_time.present?
-      "#{human_hours} / #{employee.weekly_working_time.to_i}"
+    if wwt?
+      "#{human_hours} / #{wwt.to_i}"
     else
       "#{human_hours}"
     end
@@ -16,8 +16,8 @@ class WwtDiffWidget < Struct.new(:h, :employee, :records)
 
   # TODO i18n 'of'
   def long_label_text(opts={})
-    if employee.weekly_working_time.present?
-      "#{human_hours} of #{employee.weekly_working_time.to_i}"
+    if wwt?
+      "#{human_hours} of #{wwt.to_i}"
     else
       "#{human_hours}"
     end
@@ -34,8 +34,8 @@ class WwtDiffWidget < Struct.new(:h, :employee, :records)
 
   # the 'badge-normal' class is not actually used by bootstrap, but we cannot test for absent class
   def label_class
-    return 'badge-normal' unless employee.weekly_working_time.present?
-    difference = employee.weekly_working_time - hours
+    return 'badge-normal' unless wwt?
+    difference = wwt - hours
     if difference > 0
       'badge-warning'
     elsif difference < 0
@@ -43,6 +43,16 @@ class WwtDiffWidget < Struct.new(:h, :employee, :records)
     else
       'badge-success'
     end
+  end
+
+  private
+
+  def wwt
+    employee.weekly_working_time
+  end
+
+  def wwt?
+    employee.weekly_working_time.present?
   end
 
 end
