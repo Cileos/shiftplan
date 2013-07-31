@@ -125,14 +125,15 @@ class Ability
     end
     can [:update, :create], Employee do |employee|
       (!employee.owner? || curr_employee == employee) &&
-        # organization_id is a virtual attribute of employee and is used to create the
-        # membership for the current organization after create of the employee. So the
-        # following line makes sure that memberships for orgs of other account can not be
-        # created.
-        (employee.organization_id.nil? || curr_organization.employees.include?(employee))
+        # organization_id is a virtual attribute of employee and is used to
+        # create the membership for the current organization after create of the
+        # employee. So the following line makes sure that memberships for orgs
+        # of other account can not be created.
+        (employee.organization_id.nil? || employee.organization_id == curr_organization.id)
     end
     can :update_role, Employee do |employee|
-      curr_organization.employees.include?(employee) && curr_employee != employee
+      curr_employee != employee && # no one can update her/his own role
+        curr_organization.employees.include?(employee)
     end
     can :manage, Plan do |plan|
       curr_organization == plan.organization

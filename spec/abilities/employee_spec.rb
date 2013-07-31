@@ -117,102 +117,115 @@ describe "Employee permissions:" do
     end
   end
 
-  # context "A planner" do
-  #   before(:each) do
-  #     # The planner role is set on the membership, so a planner can only be
-  #     # a planner for a certain membership/organization.
-  #     # Simulate CanCan's current_ability method by setting the current
-  #     # membership manually here.
-  #     user.current_membership = membership
-  #   end
+  context "A planner" do
+    before(:each) do
+      # The planner role is set on the membership, so a planner can only be
+      # a planner for a certain membership/organization.
+      # Simulate CanCan's current_ability method by setting the current
+      # membership manually here.
+      user.current_membership = membership
+    end
 
-  #   let(:employee) { create(:employee, account: account, user: user) }
-  #   let(:membership) do
-  #     create(:membership,
-  #       role: 'planner',
-  #       employee: employee,
-  #       organization: organization)
-  #   end
+    let(:employee) { create(:employee, account: account, user: user) }
+    let(:membership) do
+      create(:membership,
+        role: 'planner',
+        employee: employee,
+        organization: organization)
+    end
 
-  #   it_behaves_like "an employee who can update itself"
-  #   it_behaves_like "an employee who can read, update, create, adopt and search employees"
-  #   it_behaves_like "an employee who cannot update his own role"
-  #   it_behaves_like "an employee who can update roles of other employees"
-  #   it "can not update owners" do
-  #     should_not be_able_to(:update, create(:employee_owner, account: account))
-  #   end
-  # end
+    it_behaves_like "an employee who can update itself"
+    it_behaves_like "an employee who cannot update his own role"
 
-  # context "An employee" do
-  #   let(:employee) { create(:employee, account: account, user: user) }
-  #   let!(:membership) { create(:membership, employee: employee, organization: organization) }
+    let(:another_employee) { create(:employee, account: account) }
+    let(:another_membership) do
+      create(:membership, employee: another_employee, organization: organization)
+    end
 
-  #   it_behaves_like "an employee who can update itself"
+    it "can CRU employees for own organizations" do
+      another_membership
+      another_employee.organization_id = organization.id
 
-  #   it_behaves_like "an employee who cannot update his own role"
+      should be_able_to(:create, another_employee)
+      should be_able_to(:read, another_employee)
+      should be_able_to(:update, another_employee)
+    end
 
-  #   it "should not be able to adopt employees" do
-  #     should_not be_able_to :adopt, Employee
-  #   end
-  #   it "should not be able to search employees" do
-  #     should_not be_able_to :search, Employee
-  #   end
+    it "can not update owners" do
+      should_not be_able_to(:update, create(:employee_owner, account: account))
+    end
+  end
 
-  #   context "for own accounts" do
-  #     it "should not be able to read employees" do
-  #       should_not be_able_to(:read, create(:employee, account: account))
-  #     end
-  #     it "should not be able to create employees" do
-  #       should_not be_able_to(:create, create(:employee, account: account))
-  #     end
-  #     it "should not be able to update employees" do
-  #       should_not be_able_to(:update, create(:employee, account: account))
-  #     end
-  #     it "should not be able to destroy employees" do
-  #       should_not be_able_to(:destroy, create(:employee, account: account))
-  #     end
-  #     it "should not be able to adopt employees" do
-  #       should_not be_able_to(:adopt, Employee)
-  #     end
-  #     it "should not be able to search employees" do
-  #       should_not be_able_to(:search, Employee)
-  #     end
-  #     it "should not be able to change roles" do
-  #       should_not be_able_to(:change_role, employee)
-  #     end
-  #     it "should not be able to update roles of other employees" do
-  #       should_not be_able_to(:update_role, build(:employee, account: account))
-  #     end
-  #   end
+  context "An employee" do
+    let(:employee) { create(:employee, account: account, user: user) }
+    let!(:membership) { create(:membership, employee: employee, organization: organization) }
 
-  #   context "for other accounts" do
-  #     let(:another_employee) { build(:employee, account: other_account) }
+    it_behaves_like "an employee who can update itself"
 
-  #     it_behaves_like "an employee who cannot read, update and create employees"
+    it_behaves_like "an employee who cannot update his own role"
 
-  #     it "should not be able to update roles of employees of other accounts" do
-  #       should_not be_able_to(:update_role, build(:employee, account: other_account))
-  #     end
-  #   end
-  # end
+    it "should not be able to adopt employees" do
+      should_not be_able_to :adopt, Employee
+    end
+    it "should not be able to search employees" do
+      should_not be_able_to :search, Employee
+    end
 
-  # context "As an user without employee(not possible but for the case)" do
-  #   let(:employee) { nil }
+    context "for own accounts" do
+      it "should not be able to read employees" do
+        should_not be_able_to(:read, create(:employee, account: account))
+      end
+      it "should not be able to create employees" do
+        should_not be_able_to(:create, create(:employee, account: account))
+      end
+      it "should not be able to update employees" do
+        should_not be_able_to(:update, create(:employee, account: account))
+      end
+      it "should not be able to destroy employees" do
+        should_not be_able_to(:destroy, create(:employee, account: account))
+      end
+      it "should not be able to adopt employees" do
+        should_not be_able_to(:adopt, Employee)
+      end
+      it "should not be able to search employees" do
+        should_not be_able_to(:search, Employee)
+      end
+      it "should not be able to change roles" do
+        should_not be_able_to(:change_role, employee)
+      end
+      it "should not be able to update roles of other employees" do
+        should_not be_able_to(:update_role, build(:employee, account: account))
+      end
+    end
 
-  #   it "should not be able to read employees" do
-  #     should_not be_able_to(:read, create(:employee, account: account))
-  #   end
+    context "for other accounts" do
+      let(:another_employee) { build(:employee, account: other_account) }
 
-  #   it "should not be able to destroy employees" do
-  #     should_not be_able_to(:destroy, create(:employee, account: account))
-  #   end
+      it_behaves_like "an employee who cannot read, update and create employees"
 
-  #   it "should not be able to create employees" do
-  #     should_not be_able_to(:create, create(:employee, account: account))
-  #   end
+      it "should not be able to update roles of employees of other accounts" do
+        should_not be_able_to(:update_role, build(:employee, account: other_account))
+      end
+    end
+  end
 
-  #   it "should not be able to update employees" do
-  #     should_not be_able_to(:update, create(:employee, account: account))
-  #   end
-  # end
+  context "As an user without employee(not possible but for the case)" do
+    let(:employee) { nil }
+
+    it "should not be able to read employees" do
+      should_not be_able_to(:read, create(:employee, account: account))
+    end
+
+    it "should not be able to destroy employees" do
+      should_not be_able_to(:destroy, create(:employee, account: account))
+    end
+
+    it "should not be able to create employees" do
+      should_not be_able_to(:create, create(:employee, account: account))
+    end
+
+    it "should not be able to update employees" do
+      should_not be_able_to(:update, create(:employee, account: account))
+    end
+  end
 end
