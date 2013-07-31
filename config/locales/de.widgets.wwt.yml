@@ -2,4 +2,5 @@ de:
   widgets:
     wwt:
       long_label: '%{hours} von %{wwt}'
+      long_label_with_adds: '%{hours} (%{additional_hours} in anderen Plänen) von %{wwt}'
 

@@ -82,6 +82,10 @@ describe WwtDiffWidget do
     let(:long_label) { subject.long_label_text }
     let(:short_label) { subject.short_label_text }
 
+    before :each do
+      subject.stub additional_hours: 0
+    end
+
     it "shows hours only for employee without wwt" do
       employee.stub weekly_working_time: nil
       subject.stub hours: 10
