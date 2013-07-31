@@ -22,8 +22,8 @@ shared_examples "an employee who can update roles of other employees" do
   end
 end
 
-shared_examples "an employee who can update itself" do
-  it "should be able to update itself" do
+shared_examples "an employee who can update his profile" do
+  it "should be able to update his profile" do
     should be_able_to(:update_self, employee)
   end
 end
@@ -107,7 +107,6 @@ describe "Employee permissions:" do
   context "An owner" do
     let(:employee) { create(:employee_owner, account: account, user: user) }
 
-    it_behaves_like "an employee who can update itself"
     it_behaves_like "an employee who can read, update, create, adopt and search employees"
     it_behaves_like "an employee who cannot update his own role"
     it_behaves_like "an employee who can update roles of other employees"
@@ -115,6 +114,7 @@ describe "Employee permissions:" do
     it "can update himself" do
       should be_able_to(:update, employee)
     end
+    it_behaves_like "an employee who can update his profile"
   end
 
   context "A planner" do
@@ -134,7 +134,6 @@ describe "Employee permissions:" do
         organization: organization)
     end
 
-    it_behaves_like "an employee who can update itself"
     it_behaves_like "an employee who cannot update his own role"
 
     let(:another_employee) { create(:employee, account: account) }
@@ -154,13 +153,13 @@ describe "Employee permissions:" do
     it "can not update owners" do
       should_not be_able_to(:update, create(:employee_owner, account: account))
     end
+
+    it_behaves_like "an employee who can update his profile"
   end
 
   context "An employee" do
     let(:employee) { create(:employee, account: account, user: user) }
     let!(:membership) { create(:membership, employee: employee, organization: organization) }
-
-    it_behaves_like "an employee who can update itself"
 
     it_behaves_like "an employee who cannot update his own role"
 
@@ -170,6 +169,8 @@ describe "Employee permissions:" do
     it "should not be able to search employees" do
       should_not be_able_to :search, Employee
     end
+
+    it_behaves_like "an employee who can update his profile"
 
     context "for own accounts" do
       it "should not be able to read employees" do
