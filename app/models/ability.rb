@@ -121,7 +121,7 @@ class Ability
     end
     can [:adopt, :search], Employee
     can [:read], Employee do |employee|
-      curr_account == employee.account
+      employee.organizations.include?(curr_organization)
     end
     can [:update, :create], Employee do |employee|
       (!employee.owner? || curr_employee == employee) &&
@@ -129,7 +129,8 @@ class Ability
         # create the membership for the current organization after create of the
         # employee. So the following line makes sure that memberships for orgs
         # of other account can not be created.
-        (employee.organization_id.nil? || employee.organization_id == curr_organization.id)
+        (employee.organization_id.nil? || employee.organization_id == curr_organization.id) &&
+        curr_account == employee.account
     end
     can :update_role, Employee do |employee|
       curr_employee != employee && # no one can update her/his own role

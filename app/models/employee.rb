@@ -50,7 +50,7 @@ class Employee < ActiveRecord::Base
   end
 
   def owner?
-    Account.find_by_owner_id(id).present?
+    id && Account.find_by_owner_id(id).present?
   end
 
   # must give role to update, works only by mass assignment
