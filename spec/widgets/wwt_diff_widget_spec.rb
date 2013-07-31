@@ -46,8 +46,7 @@ describe WwtDiffWidget do
     let(:formatted) { stub 'formatted hours' }
     it "uses helper" do
       Volksplaner::Formatter.stub(:human_hours).with(4.5).and_return(formatted)
-      subject.stub hours: 4.5
-      subject.human_hours.should == formatted
+      subject.human(4.5).should == formatted
     end
   end
 

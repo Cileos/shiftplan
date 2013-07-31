@@ -11,12 +11,12 @@ class WwtDiffWidget < Struct.new(:filter, :employee, :records)
   def short_label_text(opts={})
     if wwt?
       if additional_hours?
-        "#{human_hours} (+#{additional_hours}) / #{wwt.to_i}"
+        "#{human hours} (+#{human additional_hours}) / #{wwt.to_i}"
       else
-        "#{human_hours} / #{wwt.to_i}"
+        "#{human hours} / #{wwt.to_i}"
       end
     else
-      "#{human_hours}"
+      "#{human hours}"
     end
   end
 
@@ -24,12 +24,12 @@ class WwtDiffWidget < Struct.new(:filter, :employee, :records)
   def long_label_text(opts={})
     if wwt?
       if additional_hours?
-        t 'long_label_with_adds', wwt: wwt.to_i, hours: human_hours, additional_hours: additional_hours
+        t 'long_label_with_adds', wwt: wwt.to_i, hours: human(hours), additional_hours: human(additional_hours)
       else
-        t 'long_label', wwt: wwt.to_i, hours: human_hours
+        t 'long_label', wwt: wwt.to_i, hours: human(hours)
       end
     else
-      "#{human_hours}"
+      "#{human hours}"
     end
 
   end
@@ -48,9 +48,8 @@ class WwtDiffWidget < Struct.new(:filter, :employee, :records)
       sum(&:length_in_hours) - hours
   end
 
-
-  def human_hours
-    Volksplaner::Formatter.human_hours(hours)
+  def human(numeric_hours)
+    Volksplaner::Formatter.human_hours numeric_hours
   end
 
   # the 'badge-normal' class is not actually used by bootstrap, but we cannot test for absent class
