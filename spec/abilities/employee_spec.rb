@@ -22,12 +22,6 @@ shared_examples "an employee who can update roles of other employees" do
   end
 end
 
-shared_examples "an employee who can update his profile" do
-  it "should be able to update his profile" do
-    should be_able_to(:update_profile, employee)
-  end
-end
-
 shared_examples "an employee who cannot create, update and destroy employees" do
   it "should not be able to create other employees" do
     should_not be_able_to(:create, another_employee)
@@ -118,10 +112,6 @@ describe "Employee permissions:" do
     it "can update himself" do
       should be_able_to(:update, employee)
     end
-
-    context "updating profiles" do
-      it_behaves_like "an employee who can update his profile"
-    end
   end
 
   context "A planner" do
@@ -162,10 +152,6 @@ describe "Employee permissions:" do
 
     it "can not update owners" do
       should_not be_able_to(:update, create(:employee_owner, account: account))
-    end
-
-    context "updating profiles" do
-      it_behaves_like "an employee who can update his profile"
     end
   end
 
@@ -219,10 +205,6 @@ describe "Employee permissions:" do
       it "should not be able to update roles of employees of other accounts" do
         should_not be_able_to(:update_role, build(:employee, account: other_account))
       end
-    end
-
-    context "updating profiles" do
-      it_behaves_like "an employee who can update his profile"
     end
   end
 
