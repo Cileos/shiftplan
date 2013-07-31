@@ -36,9 +36,17 @@ Feature: Sum of hours in plan
         | year | week | cwday | quickie  |
         | 2012 | 6    | 1     | 12-12:30 |
         | 2012 | 6    | 2     | 12-13:45 |
+
+      And an organization "Private" exists with name: "Private", account: the account
+      And a plan "Lunch" exists with organization: organization "Private"
+      And the employee "Homer" is a member in the organization "Private"
+      And the employee "Homer" was scheduled in the plan "Lunch" as following:
+        | year | week | cwday | quickie  |
+        | 2012 | 6    | 1     | 12-12:30 |
+        | 2012 | 6    | 2     | 12-13:00 |
+
       And I go to the employees in week page for the plan for cwyear: 2012, week: 6
      Then I should see the following WAZ:
-        | Carl C        | 2¼      |
-        | Lenny L       | 0       |
-        | Homer S       | 52 / 40 |
-
+        | Carl C  | 2¼            |
+        | Lenny L | 0             |
+        | Homer S | 52 (+1½) / 40 |

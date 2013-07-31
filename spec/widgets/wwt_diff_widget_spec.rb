@@ -4,8 +4,9 @@ require 'spec_helper'
 describe WwtDiffWidget do
   let(:view) { stub 'View' }
   let(:employee) { stub 'Employee', weekly_working_time: nil }
+  let(:filter) { stub 'SchedulingFilter', h: view }
   let(:records) { [] }
-  subject { described_class.new(view, employee, records) }
+  subject { described_class.new(filter, employee, records) }
 
   it "uses abbr tag to hide data on small displays" do
     short = stub 'short'
@@ -103,9 +104,33 @@ describe WwtDiffWidget do
     it "shows hours in other plans" do
       employee.stub weekly_working_time: 20
       subject.stub hours: 10
-      subject.stub additional_hours_in_account: 6
+      subject.stub additional_hours: 6
       short_label.should == '10 (+6) / 20'
       long_label.should == '10 (6 in anderen Plänen) von 20'
     end
+  end
+
+  context 'additional hours' do
+    let(:year) { 2012 }
+    let(:week) { 52 }
+    def sch(attrs={})
+      create :manual_scheduling, attrs.reverse_merge(plan: plan, year: year, week: week, cwday: 1)
+    end
+    let(:employee) { create :employee }
+    let(:plan) { create :plan }
+    let(:other_plan) { create :plan }
+    let(:filter) { SchedulingFilter.new plan: plan, week: week, cwyear: year }
+
+    it 'includes hours from plans in the same account' do
+      sch plan: other_plan, employee: employee, quickie: '2-4'
+      sch plan: other_plan, employee: employee, quickie: '4-8'
+
+      subject.additional_hours.should == 6
+    end
+
+
+    it 'excludes hours from plan in foreign accounts'
+    it 'excludes hours from current plan'
+    it 'excludes hours from other employees'
   end
 end

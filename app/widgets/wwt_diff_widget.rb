@@ -1,4 +1,6 @@
-class WwtDiffWidget < Struct.new(:h, :employee, :records)
+class WwtDiffWidget < Struct.new(:filter, :employee, :records)
+
+  delegate :h, to: :filter
 
   def to_html
     h.abbr_tag(short_label_text,
@@ -35,6 +37,17 @@ class WwtDiffWidget < Struct.new(:h, :employee, :records)
   def hours
     records.select {|s| s.employee == employee }.sum(&:length_in_hours)
   end
+
+  def additional_hours
+    @additional_hours = filter.clone.tap do |f|
+      f.plan = nil
+    end.
+    unsorted_records.
+    where(employee_id: employee.id).
+    to_a.
+    sum(&:length_in_hours)
+  end
+
 
   def human_hours
     Volksplaner::Formatter.human_hours(hours)
