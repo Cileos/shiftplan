@@ -17,7 +17,7 @@ class WwtDiffWidget < Struct.new(:h, :employee, :records)
   # TODO i18n 'of'
   def long_label_text(opts={})
     if wwt?
-      "#{human_hours} of #{wwt.to_i}"
+      t 'long_label', wwt: wwt.to_i, hours: human_hours
     else
       "#{human_hours}"
     end
@@ -53,6 +53,10 @@ class WwtDiffWidget < Struct.new(:h, :employee, :records)
 
   def wwt?
     employee.weekly_working_time.present?
+  end
+
+  def t(key, opts={})
+    I18n.translate key, opts.merge(scope: 'widgets.wwt')
   end
 
 end

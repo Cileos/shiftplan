@@ -1,0 +1,5 @@
+de:
+  widgets:
+    wwt:
+      long_label: '%{hours} von %{wwt}'
+

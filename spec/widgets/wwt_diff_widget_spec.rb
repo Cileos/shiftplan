@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe WwtDiffWidget do
@@ -92,7 +93,15 @@ describe WwtDiffWidget do
       employee.stub weekly_working_time: 20
       subject.stub hours: 10
       short_label.should == '10 / 20'
-      long_label.should == '10 of 20'
+      long_label.should == '10 von 20'
+    end
+
+    it "shows hours in other plans" do
+      employee.stub weekly_working_time: 20
+      subject.stub hours: 10
+      subject.stub additional_hours_in_account: 6
+      short_label.should == '10 (+6) / 20'
+      long_label.should == '10 (6 in anderen Plänen) von 20'
     end
   end
 end
