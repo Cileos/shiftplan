@@ -1,27 +1,6 @@
 require 'spec_helper'
 require "cancan/matchers"
 
-shared_examples "an employee who cannot update his own role" do
-  it "should not be able to update own role" do
-    should_not be_able_to(:update_role, employee)
-  end
-end
-
-shared_examples "an employee who can update roles of other employees" do
-  context "for own accounts" do
-    let(:another_employee) { build(:employee, account: account) }
-    it "should be able to update role" do
-      should be_able_to(:update_role, another_employee)
-    end
-  end
-  context "for other accounts" do
-    let(:other_employee) { build(:employee, account: other_account) }
-    it "should not be able to update role" do
-      should_not be_able_to(:update_role, other_employee)
-    end
-  end
-end
-
 shared_examples "an employee who cannot create, update and destroy employees" do
   it "should not be able to create other employees" do
     should_not be_able_to(:create, another_employee)
@@ -101,11 +80,6 @@ describe "Employee permissions:" do
   context "An owner" do
     let(:employee) { create(:employee_owner, account: account, user: user) }
 
-    context "updating roles" do
-      it_behaves_like "an employee who cannot update his own role"
-      it_behaves_like "an employee who can update roles of other employees"
-    end
-
     it_behaves_like "an employee who can read, update, create, adopt and search employees"
 
     # owners can not be updated by anyone except by themselves
@@ -131,10 +105,6 @@ describe "Employee permissions:" do
         organization: organization)
     end
 
-    context "updating roles" do
-      it_behaves_like "an employee who cannot update his own role"
-    end
-
     context "for own organizations" do
       let(:another_employee) { create(:employee, account: account) }
       let!(:another_membership) do
@@ -158,10 +128,6 @@ describe "Employee permissions:" do
   context "An employee" do
     let(:employee) { create(:employee, account: account, user: user) }
     let!(:membership) { create(:membership, employee: employee, organization: organization) }
-
-    context "updating roles" do
-      it_behaves_like "an employee who cannot update his own role"
-    end
 
     it "should not be able to adopt employees" do
       should_not be_able_to :adopt, Employee
@@ -189,22 +155,12 @@ describe "Employee permissions:" do
       it "should not be able to search employees" do
         should_not be_able_to(:search, Employee)
       end
-      it "should not be able to change roles" do
-        should_not be_able_to(:change_role, employee)
-      end
-      it "should not be able to update roles of other employees" do
-        should_not be_able_to(:update_role, build(:employee, account: account))
-      end
     end
 
     context "for other accounts" do
       let(:another_employee) { build(:employee, account: other_account) }
 
       it_behaves_like "an employee who cannot read, update and create employees"
-
-      it "should not be able to update roles of employees of other accounts" do
-        should_not be_able_to(:update_role, build(:employee, account: other_account))
-      end
     end
   end
 
