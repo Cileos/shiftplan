@@ -7,10 +7,12 @@ shared_examples "a user that can only update his own profile" do
   end
 
   it "cannot update profiles of employees of same organization" do
+    another_membership # create membership
     should_not be_able_to(:update_profile, another_employee)
   end
 
   it "cannot update profiles of employees of foreign accounts" do
+    foreign_membership # create membership
     should_not be_able_to(:update_profile, foreign_employee)
   end
 end
@@ -23,7 +25,7 @@ describe "Profile employee permissions:" do
   let(:organization)          { create(:organization, account: account) }
 
   let(:another_employee)      { create(:employee, account: account) }
-  let!(:another_membership) do
+  let(:another_membership) do
     create(:membership,
       employee: another_employee,
       organization: organization)
@@ -32,7 +34,7 @@ describe "Profile employee permissions:" do
   let(:foreign_account)       { create(:account) }
   let(:foreign_organization)  { create(:organization, account: foreign_account) }
   let(:foreign_employee)      { create(:employee, account: foreign_account) }
-  let!(:foreign_membership) do
+  let(:foreign_membership) do
     create(:membership,
       employee: foreign_employee,
       organization: foreign_organization)

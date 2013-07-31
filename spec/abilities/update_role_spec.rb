@@ -9,7 +9,7 @@ describe "Updating roles of employees permissions:" do
   let(:organization)          { create(:organization, account: account) }
 
   let(:another_employee)      { create(:employee, account: account) }
-  let!(:another_membership) do
+  let(:another_membership) do
     create(:membership,
       employee: another_employee,
       organization: organization)
@@ -17,7 +17,7 @@ describe "Updating roles of employees permissions:" do
 
   let(:another_organization)              {  create(:organization, account: account) }
   let(:employee_of_another_organization)  {  create(:employee, account: account) }
-  let!(:membership_of_employee_of_another_organization) do
+  let(:membership_of_employee_of_another_organization) do
     create(:membership,
       employee: employee_of_another_organization,
       organization: another_organization)
@@ -26,7 +26,7 @@ describe "Updating roles of employees permissions:" do
   let(:foreign_account)       { create(:account) }
   let(:foreign_organization)  { create(:organization, account: foreign_account) }
   let(:foreign_employee)      { create(:employee, account: foreign_account) }
-  let!(:foreign_membership) do
+  let(:foreign_membership) do
     create(:membership,
       employee: foreign_employee,
       organization: foreign_organization)
@@ -52,10 +52,12 @@ describe "Updating roles of employees permissions:" do
     it "can update roles of employees of the same account" do
       # owner does not even have a membership, still he can edit employees of
       # the same account
+      another_membership # create membership
       should be_able_to(:update_role, another_employee)
     end
 
     it "cannot update roles of employees of foreign accounts" do
+      foreign_membership # create membership
       should_not be_able_to(:update_role, foreign_employee)
     end
   end
@@ -74,14 +76,17 @@ describe "Updating roles of employees permissions:" do
     end
 
     it "can update roles of employees of the same organization" do
+      another_membership # create membership
       should be_able_to(:update_role, another_employee)
     end
 
     it "cannot update roles of employees of other organizations" do
+      membership_of_employee_of_another_organization # create membership
       should_not be_able_to(:update_role, employee_of_another_organization)
     end
 
     it "cannot update roles of employees of foreign accounts" do
+      foreign_membership # create membership
       should_not be_able_to(:update_role, foreign_employee)
     end
   end
@@ -95,14 +100,17 @@ describe "Updating roles of employees permissions:" do
     end
 
     it "cannot update roles of employees of the same organization" do
+      another_membership # create membership
       should_not be_able_to(:update_role, another_employee)
     end
 
     it "cannot update roles of employees of other organizations" do
+      membership_of_employee_of_another_organization # create membership
       should_not be_able_to(:update_role, employee_of_another_organization)
     end
 
     it "cannot update roles of employees of foreign accounts" do
+      foreign_membership # create membership
       should_not be_able_to(:update_role, foreign_employee)
     end
   end
