@@ -45,7 +45,7 @@ Feature: Sum of hours in plan
         | 2012 | 6    | 1     | 12-12:30 |
         | 2012 | 6    | 2     | 12-13:00 |
 
-      And I go to the employees in week page for the plan for cwyear: 2012, week: 6
+      And I go to the employees in week page for the plan "clean reactor" for cwyear: 2012, week: 6
      Then I should see the following WAZ:
         | Carl C  | 2¼            |
         | Lenny L | 0             |

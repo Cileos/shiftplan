@@ -39,13 +39,13 @@ class WwtDiffWidget < Struct.new(:filter, :employee, :records)
   end
 
   def additional_hours
-    @additional_hours ||= filter.clone.tap do |f|
-      f.plan = nil
-    end.
-    unsorted_records.
-    where(employee_id: employee.id).
-    to_a.
-    sum(&:length_in_hours) - hours
+    @additional_hours ||=
+      filter.
+      without(:plan).
+      unsorted_records.
+      where(employee_id: employee.id).
+      to_a.
+      sum(&:length_in_hours) - hours
   end
 
 
