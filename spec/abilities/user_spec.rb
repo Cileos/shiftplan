@@ -7,7 +7,7 @@ shared_examples "an user who can read and update itself" do
   end
   it "should be able to update itself" do
     should be_able_to(:update, user)
-    should be_able_to(:update_self, user)
+    should be_able_to(:update_profile, user)
   end
 
   it "should not be able to read other users" do
@@ -15,7 +15,7 @@ shared_examples "an user who can read and update itself" do
   end
   it "should be able to update other users" do
     should_not be_able_to(:update, other_user)
-    should_not be_able_to(:update_self, other_user)
+    should_not be_able_to(:update_profile, other_user)
   end
 
   it "should not be able to create users" do

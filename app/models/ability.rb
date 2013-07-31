@@ -58,10 +58,10 @@ class Ability
       employee = user.employee_for_account(organization.account)
       employee && employee.owner?
     end
-    can [:update_self], Employee do |employee|
+    can [:update_profile], Employee do |employee|
       user == employee.user
     end
-    can [:read, :update, :update_self], User do |u|
+    can [:read, :update, :update_profile], User do |u|
       user == u
     end
   end

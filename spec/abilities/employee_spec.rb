@@ -24,7 +24,7 @@ end
 
 shared_examples "an employee who can update his profile" do
   it "should be able to update his profile" do
-    should be_able_to(:update_self, employee)
+    should be_able_to(:update_profile, employee)
   end
 end
 

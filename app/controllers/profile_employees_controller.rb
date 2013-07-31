@@ -4,7 +4,7 @@ class ProfileEmployeesController < InheritedResources::Base
   load_resource :employee
   skip_authorization_check
 
-  before_filter :authorize_update_self
+  before_filter :authorize_update_profile
 
   def update
     update! { edit_profile_employee_path(@employee) }
@@ -30,8 +30,8 @@ class ProfileEmployeesController < InheritedResources::Base
     nil
   end
 
-  def authorize_update_self
-    authorize! :update_self, resource || Employee
+  def authorize_update_profile
+    authorize! :update_profile, resource || Employee
   end
 
   private
