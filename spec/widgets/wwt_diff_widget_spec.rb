@@ -114,12 +114,15 @@ describe WwtDiffWidget do
     let(:year) { 2012 }
     let(:week) { 52 }
     def sch(attrs={})
-      create :manual_scheduling, attrs.reverse_merge(plan: plan, year: year, week: week, cwday: 1)
+      create :manual_scheduling, attrs.reverse_merge(year: year, week: week, cwday: 1)
     end
     let(:employee) { create :employee }
+    let(:other_employee) { create :employee }
     let(:plan) { create :plan }
     let(:other_plan) { create :plan }
     let(:filter) { SchedulingFilter.new plan: plan, week: week, cwyear: year }
+
+    subject { described_class.new(filter, employee, filter.unsorted_records) }
 
     it 'includes hours from plans in the same account' do
       sch plan: other_plan, employee: employee, quickie: '2-4'
@@ -129,8 +132,19 @@ describe WwtDiffWidget do
     end
 
 
-    it 'excludes hours from plan in foreign accounts'
-    it 'excludes hours from current plan'
-    it 'excludes hours from other employees'
+    it 'excludes hours from plan in foreign accounts' do
+      sch plan: other_plan, employee: other_employee, quickie: '2-5'
+      subject.additional_hours.should == 0
+    end
+
+    it 'excludes hours from current plan' do
+      sch plan: plan, employee: employee, quickie: '2-5'
+      subject.additional_hours.should == 0
+    end
+
+    it 'excludes hours from other employees' do
+      sch plan: plan, employee: other_employee, quickie: '2-5'
+      subject.additional_hours.should == 0
+    end
   end
 end
