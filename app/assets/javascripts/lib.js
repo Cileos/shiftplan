@@ -25,4 +25,7 @@
 //= require jquery.cookie
 //= require jquery.mousewheel
 //= require jquery.timeentry
+//= require datepicker/jquery.datepick
+//= require datepicker/jquery.datepick.ext.js
+//= require datepicker/jquery.datepick-de
 //= require bindWithDelay/bindWithDelay

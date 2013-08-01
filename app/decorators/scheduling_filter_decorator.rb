@@ -44,7 +44,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
       organization_id: h.current_organization.id,
       plan_id:         plan.id,
       new_url:         h.new_account_organization_plan_scheduling_path(h.current_account, h.current_organization, plan),
-      mode:            mode
+      mode:            mode,
+      monday:          monday.iso8601,
+      starts_at:       plan.starts_at.try(:to_date),
+      ends_at:         plan.ends_at.try(:to_date),
     }
   end
 

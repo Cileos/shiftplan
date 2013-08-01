@@ -11,7 +11,7 @@ Feature: Calendar navigation
   # January 4th is a monday. Therefore the year 2016 is an edge case; the first
   # calendar week for the year 2016 is from monday, January 4th to sunday,
   # January 10th.
-  Scenario Outline: Navigating back and forth weekwis, including between the years 2015 and 2016
+  Scenario Outline: Navigating back and forth weekwise, including between the years 2015 and 2016, goto 2017
     Given today is 2015-12-29
       And I am signed in as the confirmed user "Burns"
       And I go to the page of the plan
@@ -46,6 +46,14 @@ Feature: Calendar navigation
      Then I should be on the <view> page of the plan for cwyear: 2015, week: 52
       And I should see "KW 52 / 2015" within active week
       And I should see "21.12." within weeks first date
+
+     When I follow "Gehe zu" within the toolbar
+     Then the selected "anderes Jahr anzeigen" should be "2015" within the datepicker
+      And the selected "anderen Monat anzeigen" should be "Dezember" within the datepicker
+     When I select "2017" from "anderes Jahr anzeigen" within the datepicker
+      And I select "Oktober" from "anderen Monat anzeigen" within the datepicker
+      And I follow "19" within the datepicker
+     Then I should be on the <view> page of the plan for cwyear: 2017, week: 42
 
     Examples:
       | view              |
