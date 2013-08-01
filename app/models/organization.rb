@@ -27,15 +27,15 @@ class Organization < ActiveRecord::Base
   end
 
   def planners
-    account.employees.where(role: 'planner')
+    employees.includes(:memberships).where("memberships.role = 'planner'")
   end
 
-  def owners
-    account.employees.where(role: 'owner')
+  def owner
+    account.owner
   end
 
-  def employees_plus_owners_and_planners
-    (employees.all + planners.all + owners.all).uniq
+  def employees_plus_owner_and_planners
+    (employees.all + planners.all + [owner]).uniq
   end
 
   def adoptable_employees
