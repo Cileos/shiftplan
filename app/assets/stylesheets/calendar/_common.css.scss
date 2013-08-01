@@ -71,6 +71,19 @@
       height: 100%;
       width: 100%;
       position: relative;
+
+      &:hover {
+        @extend %with-icon;
+        @extend .icon-add;
+        &:before {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          margin-left: -0.5em;
+          color: $ci_green;
+          text-shadow: 1px 1px $ci_shadow;
+        }
+      }
     }
 
 
@@ -85,20 +98,6 @@
       border-color: $ci_lightgray;
     }
 
-    // FIXME Firefox does not support position: relative on td. Thus the
-    // add-icon appears below the table instead of in the hovered cell.
-    //&:hover {
-    //  @extend %with-icon;
-    //  @extend .icon-add;
-    //  &:before {
-    //    position: absolute;
-    //    bottom: 0;
-    //    left: 50%;
-    //    margin-left: -0.5em;
-    //    color: $ci_green;
-    //    text-shadow: 1px 1px $ci_shadow;
-    //  }
-    //}
   }
 
   .employee,
