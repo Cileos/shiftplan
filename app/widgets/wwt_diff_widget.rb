@@ -34,18 +34,24 @@ class WwtDiffWidget < Struct.new(:filter, :employee, :records)
 
   end
 
+  # hours in this calendar (week)
   def hours
     @hours ||= records.select {|s| s.employee == employee }.sum(&:length_in_hours)
   end
 
-  def additional_hours
-    @additional_hours ||=
+  # hours in all plans of the same account in the week described y filter
+  def all_hours
+    @all_hours ||=
       filter.
       without(:plan).
       unsorted_records.
       where(employee_id: employee.id).
       to_a.
-      sum(&:length_in_hours) - hours
+      sum(&:length_in_hours)
+  end
+
+  def additional_hours
+    all_hours - hours
   end
 
   def human(numeric_hours)
@@ -55,7 +61,7 @@ class WwtDiffWidget < Struct.new(:filter, :employee, :records)
   # the 'badge-normal' class is not actually used by bootstrap, but we cannot test for absent class
   def label_class
     return 'badge-normal' unless wwt?
-    difference = wwt - hours
+    difference = wwt - all_hours
     if difference > 0
       'badge-warning'
     elsif difference < 0

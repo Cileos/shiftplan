@@ -60,19 +60,19 @@ describe WwtDiffWidget do
 
     it "is yellow for underscheduled employee" do
       employee.stub weekly_working_time: 20
-      subject.stub hours: 10
+      subject.stub all_hours: 10
       label_class.should == 'badge-warning'
     end
 
     it "is green for exactly scheduled employee" do
       employee.stub weekly_working_time: 20
-      subject.stub hours: 20
+      subject.stub all_hours: 20
       label_class.should == 'badge-success'
     end
 
     it "is read for overscheduled employee" do
       employee.stub weekly_working_time: 20
-      subject.stub hours: 30
+      subject.stub all_hours: 30
       label_class.should == 'badge-important'
     end
   end
