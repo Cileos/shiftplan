@@ -25,7 +25,10 @@ describe SchedulingNotificationMailer do
 
     @employee_owner =                   create :employee_owner, account: account, user: @user_owner, first_name: 'Owner'
     @employee_owner_2 =                 create :employee_owner, account: account, user: @user_owner_2, first_name: 'Owner 2'
-    @employee_planner =                 create :employee_planner, account: account, user: @user_planner, first_name: 'Planner'
+
+    @employee_planner =                 create :employee, account: account, user: @user_planner, first_name: 'Planner'
+    create(:membership, employee: @employee_planner, organization: organization, role: 'planner')
+
     @employee_homer =                   create :employee, account: account, user: @user_employee_homer, first_name: 'Homer'
     @employee_bart =                    create :employee, account: account, user: @user_employee_bart, first_name: 'Bart'
     @employee_lisa_without_user =       create :employee, account: account, first_name: 'Lisa'
