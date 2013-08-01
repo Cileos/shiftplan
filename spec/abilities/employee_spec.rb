@@ -92,6 +92,8 @@ describe "Employee permissions:" do
 
     # owners can not be updated by anyone except by themselves
     it "can update himself" do
+      employee.organization_id = organization.id
+
       should be_able_to(:update, employee)
     end
   end
@@ -152,12 +154,17 @@ describe "Employee permissions:" do
     end
 
     it "can update himself" do
+      employee.organization_id = organization.id
+
       should be_able_to(:update, employee)
     end
 
     it "cannot create and update owners" do
-      should_not be_able_to(:update, create(:employee_owner, account: account))
-      should_not be_able_to(:create, create(:employee_owner, account: account))
+      owner = create(:employee_owner, account: account)
+      owner.organization_id = organization.id
+
+      should_not be_able_to(:update, owner)
+      should_not be_able_to(:create, owner)
     end
   end
 

@@ -46,4 +46,13 @@ class EmployeesController < BaseController
     end
   end
 
+  private
+
+  def build_resource
+    @employee = super.tap do |e|
+      e.organization_id = current_organization.id
+      e.account = current_account
+    end
+  end
+
 end

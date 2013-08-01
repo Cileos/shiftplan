@@ -129,7 +129,7 @@ class Ability
         # create the membership for the current organization after create of the
         # employee. So the following line makes sure that memberships for orgs
         # of other account can not be created.
-        (employee.organization_id.nil? || employee.organization_id == curr_organization.id) &&
+        employee.organization_id.to_i == curr_organization.id &&
         curr_account == employee.account
     end
     can :update_role, Employee do |employee|
@@ -212,10 +212,7 @@ class Ability
       # membership for the current organization after create of the employee. So the
       # following line makes sure that memberships for orgs of other account can not be
       # created.
-      (
-        employee.organization_id.nil? ||
-        curr_account.organizations.map(&:id).include?(employee.organization_id)
-      ) &&
+      curr_account.organizations.map(&:id).include?(employee.organization_id.to_i) &&
         curr_account == employee.account
     end
     can :update_role, Employee do |employee|
