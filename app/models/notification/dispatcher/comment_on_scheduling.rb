@@ -23,12 +23,12 @@ class Notification::Dispatcher::CommentOnScheduling < Notification::Dispatcher::
     scheduling = comment.commentable
     organization = scheduling.organization
     (
-      organization.owners +
+      [organization.owner] +
       organization.planners +
       [scheduling.employee] + # sent mail to the employee of the scheduling
       scheduling.commenters - # sent mail to all employees who commented the scheduling before
       [comment.employee] # do not sent mail to the commenter itself
-    ).select { |e| e.user.present? }.uniq # do not try to sent mails to employees without a user/a mail address
+    ).compact.select { |e| e.user.present? }.uniq # do not try to sent mails to employees without a user/a mail address
   end
 
   def self.notification_class_for(comment, employee)
