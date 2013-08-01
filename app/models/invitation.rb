@@ -15,6 +15,8 @@ class Invitation < ActiveRecord::Base
 
   accepts_nested_attributes_for :user
 
+  include Volksplaner::CaseInsensitiveEmailAttribute
+
   def accepted?
     accepted_at.present?
   end
