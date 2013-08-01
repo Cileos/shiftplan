@@ -9,7 +9,7 @@ Feature: Create Employees
       And I am signed in as the user "mr burns"
       And I am on the employees page for the organization
      Then I should see the following table of employees:
-       | Name          | WAZ  | E-Mail           | Status  |
+       | Name            | WAZ  | E-Mail                       | Status  |
        | Burns, Charles  |      | c.burns@npp-springfield.com  | Aktiv   |
 
   @fileupload

@@ -1,23 +1,9 @@
 class Employee < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
-  AccessibleAttributes = [
-                  :first_name,
-                  :last_name,
-                  :weekly_working_time,
-                  :avatar,
-                  :avatar_cache,
-                  :organization_id,
-                  :account_id,
-                  :force_duplicate
-  ]
-
-  attr_accessible *AccessibleAttributes
-  attr_accessible *(AccessibleAttributes + [:role_with_protection]), as: 'owner'
-  attr_accessible *(AccessibleAttributes + [:role_with_protection]), as: 'planner'
-
   attr_accessor :organization_id,
-                :force_duplicate
+                :force_duplicate,
+                :membership_role
 
   validates_presence_of :first_name, :last_name
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
@@ -39,7 +25,7 @@ class Employee < ActiveRecord::Base
     if: Proc.new { |e| e.sufficient_details_to_search_duplicates? and !e.force_duplicate? }
 
   before_validation :reset_duplicates
-  after_create :create_membership
+  after_save :update_or_create_membership
 
   def self.order_by_name
     order('last_name, first_name')
@@ -51,18 +37,6 @@ class Employee < ActiveRecord::Base
 
   def owner?
     id && Account.find_by_owner_id(id).present?
-  end
-
-  # must give role to update, works only by mass assignment
-  def role_with_protection=(new_role)
-    if (!persisted? || mass_assignment_options[:as].present?) && new_role.to_s != 'owner'
-      write_attribute :role, new_role
-    end
-  end
-
-  # for edit form
-  def role_with_protection
-    role
   end
 
   def active?
@@ -100,6 +74,13 @@ class Employee < ActiveRecord::Base
     %Q~#{last_name}, #{first_name}~
   end
 
+  def membership_role
+    if organization_id
+      @membership_role ||
+      memberships.find_by_organization_id(organization_id).try(:role)
+    end
+  end
+
   # TODO remove when we want fractioned working time
   def weekly_working_time_before_type_cast
     pure = read_attribute(:weekly_working_time)
@@ -120,10 +101,19 @@ class Employee < ActiveRecord::Base
 
   private
 
-  def create_membership
+  def update_or_create_membership
     if organization_id
-      memberships.create!(organization_id: organization_id)
+      m = find_or_build_membership
+      if membership_role.to_s != 'owner'
+        m.role = membership_role
+      end
+      m.save!
     end
+  end
+
+  def find_or_build_membership
+    memberships.find_by_organization_id(organization_id) ||
+      memberships.build(organization_id: organization_id)
   end
 
   def reset_duplicates
