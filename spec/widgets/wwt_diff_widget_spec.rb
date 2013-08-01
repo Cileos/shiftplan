@@ -3,10 +3,10 @@ require 'spec_helper'
 
 describe WwtDiffWidget do
   let(:view) { stub 'View' }
-  let(:employee) { stub 'Employee', weekly_working_time: nil }
+  let(:row_record) { stub 'Record in Row', weekly_working_time: nil }
   let(:filter) { stub 'SchedulingFilter', h: view }
   let(:records) { [] }
-  subject { described_class.new(filter, employee, records) }
+  subject { described_class.new(filter, row_record, records) }
 
   it "uses abbr tag to hide data on small displays" do
     short = stub 'short'
@@ -19,30 +19,7 @@ describe WwtDiffWidget do
     subject.to_html.should == 'tag'
   end
 
-  context '#hours' do
-    it "sums up records with full hours" do
-      records << stub('s1', employee: employee, length_in_hours: 4)
-      records << stub('s2', employee: employee, length_in_hours: 8)
-      records << stub('s3', employee: employee, length_in_hours: 15)
-
-      subject.hours.should == 4 + 8 + 15
-    end
-
-    it "ignores records by other employees" do
-      records << stub('s4', employee: stub('other'), length_in_hours: 9000)
-
-      subject.hours.should == 0
-    end
-
-    it "sums up records with 15-minute intervals" do
-      records << stub('s1', employee: employee, length_in_hours: 4.5)
-      records << stub('s2', employee: employee, length_in_hours: 8.75)
-
-      subject.hours.should == 13.25
-    end
-  end
-
-  describe '#human_hours' do
+  describe '#human' do
     let(:formatted) { stub 'formatted hours' }
     it "uses helper" do
       Volksplaner::Formatter.stub(:human_hours).with(4.5).and_return(formatted)
@@ -52,26 +29,29 @@ describe WwtDiffWidget do
 
   context 'color' do
     let(:label_class) { subject.label_class }
+    before :each do
+      subject.stub wwt?: true
+    end
 
-    it "is grey for employee without wwt" do
-      employee.stub weekly_working_time: nil
+    it "is grey for record without wwt" do
+      subject.stub wwt?: false
       label_class.should == 'badge-normal'
     end
 
-    it "is yellow for underscheduled employee" do
-      employee.stub weekly_working_time: 20
+    it "is yellow for underscheduled record" do
+      subject.stub wwt: 20
       subject.stub all_hours: 10
       label_class.should == 'badge-warning'
     end
 
-    it "is green for exactly scheduled employee" do
-      employee.stub weekly_working_time: 20
+    it "is green for exactly scheduled record" do
+      subject.stub wwt: 20
       subject.stub all_hours: 20
       label_class.should == 'badge-success'
     end
 
-    it "is read for overscheduled employee" do
-      employee.stub weekly_working_time: 20
+    it "is read for overscheduled record" do
+      subject.stub wwt: 20
       subject.stub all_hours: 30
       label_class.should == 'badge-important'
     end
@@ -86,64 +66,18 @@ describe WwtDiffWidget do
       subject.stub additional_hours: 0
     end
 
-    it "shows hours only for employee without wwt" do
-      employee.stub weekly_working_time: nil
+    it "shows only hours for record without wwt" do
       subject.stub hours: 10
       short_label.should == '10'
       long_label.should == '10'
     end
 
-    it "shows difference for employee with wwt" do
-      employee.stub weekly_working_time: 20
-      subject.stub hours: 10
-      short_label.should == '10 / 20'
-      long_label.should == '10 von 20'
-    end
-
     it "shows hours in other plans" do
-      employee.stub weekly_working_time: 20
       subject.stub hours: 10
       subject.stub additional_hours: 6
-      short_label.should == '10 (+6) / 20'
-      long_label.should == '10 (6 in anderen Plänen) von 20'
+      short_label.should == '10 (+6)'
+      long_label.should == '10 (6 in anderen Plänen)'
     end
   end
 
-  context 'additional hours' do
-    let(:year) { 2012 }
-    let(:week) { 52 }
-    def sch(attrs={})
-      create :manual_scheduling, attrs.reverse_merge(year: year, week: week, cwday: 1)
-    end
-    let(:employee) { create :employee }
-    let(:other_employee) { create :employee }
-    let(:plan) { create :plan }
-    let(:other_plan) { create :plan }
-    let(:filter) { SchedulingFilter.new plan: plan, week: week, cwyear: year }
-
-    subject { described_class.new(filter, employee, filter.unsorted_records) }
-
-    it 'includes hours from plans in the same account' do
-      sch plan: other_plan, employee: employee, quickie: '2-4'
-      sch plan: other_plan, employee: employee, quickie: '4-8'
-
-      subject.additional_hours.should == 6
-    end
-
-
-    it 'excludes hours from plan in foreign accounts' do
-      sch plan: other_plan, employee: other_employee, quickie: '2-5'
-      subject.additional_hours.should == 0
-    end
-
-    it 'excludes hours from current plan' do
-      sch plan: plan, employee: employee, quickie: '2-5'
-      subject.additional_hours.should == 0
-    end
-
-    it 'excludes hours from other employees' do
-      sch plan: plan, employee: other_employee, quickie: '2-5'
-      subject.additional_hours.should == 0
-    end
-  end
 end
