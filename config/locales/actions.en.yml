@@ -94,6 +94,7 @@ en:
       today: "Today"
       next: '>'
       more_actions: More Actions
+      goto: 'Go to'
     week_switch:
       employees_in_week: "Employees"
       teams_in_week: "Teams"

@@ -60,6 +60,20 @@ input.miniColors {
   }
 }
 
+// jquery.datepick needs a visible input to calculate the offset for the popup.
+// We hide it the strange way.
+input.invisibleNotHidden {
+  position: absolute;
+  height: 0;
+  width: 0;
+  z-index: -1000;
+}
+
+// display block breaks jquery.datepick
+select.datepick-month-year {
+  display: inline-block;
+}
+
 form div {
   & > label {
     margin-left: 0.25em;
