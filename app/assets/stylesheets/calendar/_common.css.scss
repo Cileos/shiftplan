@@ -62,8 +62,17 @@
   }
 
   td {
-    position: relative;
     width: 12%; // == 84%
+
+    // FF cannot position: relative td, so we have to wrap it in a div
+    // it is undefined by W3C spec anyway
+    .cellwrap {
+      padding: 2px;
+      height: 100%;
+      width: 100%;
+      position: relative;
+    }
+
 
     &.focus {
       @include z-index(30);

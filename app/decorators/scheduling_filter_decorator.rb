@@ -56,11 +56,15 @@ class SchedulingFilterDecorator < ApplicationDecorator
     { }
   end
 
+  # FF cannot position: relative td, so we have to wrap it in a div
+  # it is undefined by W3C spec anyway
   def cell_content(*a)
     schedulings = find_schedulings(*a)
+    content = ''
     unless schedulings.empty?
-      h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate), filter: self
+      content = h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate), filter: self
     end
+    h.content_tag :div, content, class: 'cellwrap'
   end
 
   def render_cell_for_day(day, *a)
