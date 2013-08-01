@@ -34,21 +34,12 @@ class Account < ActiveRecord::Base
     order('UPPER(name)')
   end
 
-  def self.owners_and_planners
-    owners.planners
-  end
-
-  # WTF should these not be included in and  access employees?
-  def self.owners
-    where(:role => 'planner')
-  end
-
-  def self.planners
-    where(:role => 'owner')
-  end
-
   def to_s
     %Q~<Account #{id} "#{name}">~
+  end
+
+  def owner
+    Employee.find_by_id(owner_id)
   end
 
   def setup
