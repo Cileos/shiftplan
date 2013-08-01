@@ -74,7 +74,15 @@ class User < ActiveRecord::Base
 
   # A Planner or Owner does not need a membership
   def organizations
-    joined_organizations
+    orgs = joined_organizations
+
+    accounts.each do |a|
+      e = employee_for_account(a)
+      if e.owner?
+        orgs += a.organizations
+      end
+    end
+    orgs.uniq
   end
 
   def label
