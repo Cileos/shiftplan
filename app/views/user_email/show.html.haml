@@ -11,7 +11,7 @@
       = f.input :email, input_html: { class: 'mailcheck',
         data: { :'mailcheck-hint' => t('hint.did_you_mean') } },
         required: true, autofocus: true
-      = f.input :current_password, required: true
+      = f.uncompleted_password :current_password, required: true, autofocus: true
 
     .actions
       = f.update_button
