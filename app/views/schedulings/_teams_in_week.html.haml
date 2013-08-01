@@ -14,6 +14,10 @@
         .team_name
           = team.name
           = '(' + team.shortcut + ')'
+        .wwt_diff
+          %span.weekly_working_time
+            = translate_action(:hours)
+          = filter.wwt_diff_for(team)
       - filter.days.each do |day|
         = filter.render_cell_for_day day, team
   %tr
