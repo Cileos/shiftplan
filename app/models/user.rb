@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
                         :organization_name,
                         :account_name,
                         if: Proc.new { |u| u.on_signup }
+
+  include Volksplaner::CaseInsensitiveEmailAttribute
   validates :email, :email => true
   validates_inclusion_of :locale, in: lambda { |u| I18n.available_locales.map(&:to_s) }, allow_blank: true
 
