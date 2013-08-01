@@ -64,28 +64,6 @@ describe Employee do
     end
   end
 
-  context "role" do
-    it "can be 'planner'" do
-      build(:employee, role: 'planner').should be_valid
-    end
-
-    it "can be 'owner'" do
-      build(:employee, role: 'owner').should be_valid
-    end
-
-    it "does not correct mistakes in writing plan(n)er" do
-      build(:employee, role: 'planer').should be_invalid
-    end
-
-    it "may not be arbitrary" do
-      build(:employee, role: 'weihnachtsmann').should be_invalid
-    end
-
-    it "is persisted" do
-      create(:employee, role: 'planner').reload.role.should == 'planner'
-    end
-  end
-
   context "duplicates" do
     let(:account) { create :account }
 
