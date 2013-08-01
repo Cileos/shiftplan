@@ -18,12 +18,14 @@ Feature: Sum of hours in plan
     # Homer had his full 12-annual holiday in week 5. Missed a lot of work
      When I go to the employees in week page for the plan for cwyear: 2012, week: 5
      Then I should see the following WAZ:
+        | Planner Burns | 0      |
         | Carl C        | 0      |
         | Lenny L       | 0      |
         | Homer S       | 0 / 40 |
 
      When I go to the employees in week page for the plan for cwyear: 2012, week: 6
      Then I should see the following WAZ:
+        | Planner Burns | 0       |
         | Carl C        | 0       |
         | Lenny L       | 0       |
         | Homer S       | 40 / 40 |
@@ -38,6 +40,7 @@ Feature: Sum of hours in plan
         | 2012 | 6    | 2     | 12-13:45 |
       And I go to the employees in week page for the plan for cwyear: 2012, week: 6
      Then I should see the following WAZ:
+        | Planner Burns | 0       |
         | Carl C        | 2¼      |
         | Lenny L       | 0       |
         | Homer S       | 52 / 40 |

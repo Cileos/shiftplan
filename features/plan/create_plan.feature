@@ -44,4 +44,4 @@ Feature: Creating a plan
        And a plan exists with starts_at: "2012-01-03", ends_at: "2012-01-04", organization: the organization
        And I go to the page of the plan
       Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
-       And the cell "Di"/"Carl C" should be focus
+       And the cell "Di"/"Planner Burns" should be focus
