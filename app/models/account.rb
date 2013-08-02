@@ -5,6 +5,9 @@ class Account < ActiveRecord::Base
   has_many :invitations, through: :organizations
   has_many :qualifications, order: 'name ASC'
 
+  include FriendlyId
+  friendly_id :name, use: :slugged
+
   attr_accessible :name,
                   :organization_name,
                   :first_name,
