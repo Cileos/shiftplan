@@ -33,8 +33,6 @@ FactoryGirl.define do
           FactoryGirl.create(:membership,
             employee: mr_burns,
             organization: sector_7_g)
-          FactoryGirl.create(:blog,
-            organization: sector_7_g)
         end
       end
     end
