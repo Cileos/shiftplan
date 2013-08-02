@@ -29,6 +29,11 @@ When /^I wait for (.+) to disappear$/ do |name|
   end
 end
 
+Then /^I should not see (.+)$/ do |name|
+  selector = selector_for name
+  page.should have_no_css(selector)
+end
+
 Then /^(.+) should be visible/ do |name|
   step %Q~I wait for #{name} to appear~
 end
