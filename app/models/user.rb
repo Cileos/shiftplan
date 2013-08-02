@@ -170,10 +170,11 @@ class User < ActiveRecord::Base
           e.first_name  = first_name
           e.last_name   = last_name
           e.account     = account
-          e.role        = 'owner'
         end
         # make the owner member of the first organization
         e.memberships.create!(organization: organization)
+        account.owner_id = e.id
+        account.save!
       end
     end
   end
