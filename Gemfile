@@ -131,3 +131,4 @@ gem 'strong_parameters', '~> 0.2.1'
 gem 'nested_form', :git => 'git@github.com:rwrede/nested_form.git'
 
 gem 'backup', :require => false # just for restore
+gem 'friendly_id', '~> 4.0' # for rails 3
