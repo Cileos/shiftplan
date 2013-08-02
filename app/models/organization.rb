@@ -10,7 +10,8 @@ class Organization < ActiveRecord::Base
   has_many   :memberships
   has_many   :plan_templates
 
-  validates_presence_of :name
+  include FriendlyId
+  friendly_id :name, use: :slugged
 
   validates_format_of :name, with: Volksplaner::NameRegEx
   validates_presence_of :name
