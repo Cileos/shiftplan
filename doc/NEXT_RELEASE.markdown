@@ -1,6 +1,6 @@
-
 some employees chose names name which is not valid anymore
 
+* bundle exec rake friendly_id:generate
 
 Employee.find( 9).tap {|e| e.last_name = 'X.' }.save!
 Employee.find(32).tap {|e| e.first_name = 'Łukasz' }.save!
@@ -68,4 +68,3 @@ Further reading:
         To really persist the changes, please issue:
 
         $ bundle exec rake repair:owners_and_planners:run[true] RAILS_ENV=<env>
-
