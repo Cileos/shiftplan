@@ -1,4 +1,6 @@
 class Employee < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   mount_uploader :avatar, AvatarUploader
 
   attr_accessor :organization_id,
