@@ -4,7 +4,7 @@ class Account < ActiveRecord::Base
   has_many   :users, through: :employees
   has_many   :invitations, through: :organizations
   has_many   :qualifications, order: 'name ASC'
-  has_one    :owner, class_name: 'Employee', foreign_key: :owner_id
+  belongs_to :owner, class_name: 'Employee'
 
   attr_accessible :name,
                   :organization_name,
