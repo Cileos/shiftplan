@@ -62,8 +62,30 @@
   }
 
   td {
-    position: relative;
     width: 12%; // == 84%
+
+    // FF cannot position: relative td, so we have to wrap it in a div
+    // it is undefined by W3C spec anyway
+    .cellwrap {
+      padding: 2px;
+      min-height: 100%;
+      width: 100%;
+      position: relative;
+
+      &:hover {
+        @extend %with-icon;
+        @extend .icon-add;
+        &:before {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          margin-left: -0.5em;
+          color: $ci_green;
+          text-shadow: 1px 1px $ci_shadow;
+        }
+      }
+    }
+
 
     &.focus {
       @include z-index(30);
@@ -76,18 +98,6 @@
       border-color: $ci_lightgray;
     }
 
-    &:hover {
-      @extend %with-icon;
-      @extend .icon-add;
-      &:before {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        margin-left: -0.5em;
-        color: $ci_green;
-        text-shadow: 1px 1px $ci_shadow;
-      }
-    }
   }
 
   .employee,
