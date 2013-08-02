@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :organization do
     account
-    sequence(:name) { |i| "#{i.ordinalize} Organization" }
+    sequence(:name) { |i| "The #{i.ordinalize} Organization" }
   end
 end

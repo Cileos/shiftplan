@@ -12,6 +12,8 @@ class Organization < ActiveRecord::Base
 
   validates_presence_of :name
 
+  validates_format_of :name, with: Volksplaner::NameRegEx
+  validates_presence_of :name
   validates_presence_of :account_id
 
   def self.default_sorting

@@ -176,3 +176,14 @@ describe "Organization permissions:" do
     end
   end
 end
+
+describe Organization do
+  context '#name' do
+    it 'may contain numbers' do
+      build(:organization, name: 'The21JumpStreet').should be_valid
+    end
+    it 'may not start with a number (for friendly id)' do
+      build(:organization, name: '21JumpStreet').should_not be_valid
+    end
+  end
+end
