@@ -108,7 +108,7 @@ describe Volksplaner::Currents do
         let(:params) { {controller: 'organizations', id: 77} }
         it "should provide current_organization" do
           controller.stub(:current_account).and_return(account)
-          possibilities = mock 'relation', find: organization
+          possibilities = mock 'relation', find_by_slug: organization
           user.should_receive(:organizations_for).with(account).and_return(possibilities)
           controller.current_organization.should == organization
         end
@@ -118,7 +118,7 @@ describe Volksplaner::Currents do
         let(:params) { {organization_id: 77} }
         it "should provide current_organization" do
           controller.stub(:current_account).and_return(account)
-          possibilities = mock 'relation', find: organization
+          possibilities = mock 'relation', find_by_slug: organization
           user.should_receive(:organizations_for).with(account).and_return(possibilities)
           controller.current_organization.should == organization
         end

@@ -53,9 +53,9 @@ module Volksplaner::Currents
     if current_account?
       possibilities = current_user.organizations_for(current_account)
       if params[:organization_id]
-        possibilities.find(params[:organization_id])
+        possibilities.find_by_slug(params[:organization_id])
       elsif params[:controller] == 'organizations' && params[:id]
-        possibilities.find(params[:id])
+        possibilities.find_by_slug(params[:id])
       elsif possibilities.count == 1
         possibilities.first
       end
