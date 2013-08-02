@@ -129,3 +129,4 @@ gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', r
 
 gem 'strong_parameters', '~> 0.1.6'
 gem 'nested_form', :git => 'git@github.com:rwrede/nested_form.git'
+gem 'friendly_id', '~> 4.0' # for rails 3
