@@ -7,6 +7,9 @@ class Plan < ActiveRecord::Base
   # just for ember, lacking nested URLs
   has_many :tasks, through: :milestones
 
+  include FriendlyId
+  friendly_id :name, use: :slugged
+
   validates_with PlanPeriodValidator
   validates_with PlanPeriodSurroundsSchedulingsValidator
   validates_presence_of :name
