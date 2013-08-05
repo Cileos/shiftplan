@@ -22,7 +22,7 @@ class SchedulingFilterEmployeesInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def wwt_diff_for(employee)
-    WwtDiffWidget.new(h, employee, records).to_html
+    WwtDiffWidget.new(self, employee, records).to_html
   end
 
 
