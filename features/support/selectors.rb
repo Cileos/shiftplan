@@ -78,6 +78,13 @@ module HtmlSelectorsHelpers
     when 'errors'
       '.errors.alert.flash'
 
+    when /^a flash( alert | notice | )message$/
+      if (kind = $1.strip).present?
+        "div.flash.#{kind}"
+      else
+        'div.flash'
+      end
+
     when 'the spinner'
       '#spinner'
 

@@ -2,6 +2,3 @@ de:
   welcome:
     dashboard:
       organizations: Organisationen
-    landing:
-      greeting: 'Willkommen bei Clockwork'
-      signin_hint: 'Um sich zu registrieren oder einzuloggen benutzen Sie bitte die Links in der oberen rechten Ecke.'

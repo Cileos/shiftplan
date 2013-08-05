@@ -25,8 +25,10 @@ Feature: Signing in
       And I should be on the page for the organization "fukushima"
       And I should be signed in as "Bart Simpson"
      When I follow "Ausloggen"
-     Then I should be on the home page
+     Then I should be on the sign in page
       And I should see "Einloggen"
+      And I should see a flash notice "Erfolgreich ausgeloggt."
+      But I should not see a flash alert message
 
   Scenario: User with two employees signing in successfully
     Given an organization "tschernobyl" exists with name: "Tschernobyl GmbH"
