@@ -10,7 +10,7 @@ module Volksplaner
   autoload :CaseInsensitiveEmailAttribute, 'volksplaner/case_insensitive_email_attribute'
 
   HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .-]*\z/
-  NameRegEx = /\A[\p{Letter}][\p{Letter}\d .-§&()]*\z/
+  NameRegEx = /\A[\p{Letter}][\p{Letter}\d .§&()-]*\z/
 
   def self.staging?
     @staging = `hostname` =~ /plock/
