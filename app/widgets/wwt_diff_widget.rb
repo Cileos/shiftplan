@@ -82,7 +82,7 @@ class WwtDiffWidget < Struct.new(:filter, :employee, :records)
   end
 
   def wwt?
-    employee.weekly_working_time.present?
+    wwt.present?
   end
 
   def t(key, opts={})
