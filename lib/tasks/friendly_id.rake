@@ -4,7 +4,7 @@ namespace :friendly_id do
     # migrations should UPDATE the slug = id so the index is uniq. Here we change the numbers to real human slugs.
     ActiveRecord::Base.transaction do
       ActiveRecord::Base.without_timestamps do
-        [Organization, Account].each do |model|
+        [Organization, Account, Plan].each do |model|
           STDERR.puts "reslugging #{model}"
           model.where("slug ~ '\d*'").each do |record|
             STDERR.puts "  #{record.id} #{record.name.inspect}"
