@@ -100,8 +100,13 @@ Then /^I should see the following time bars:$/ do |raw|
   end
 end
 
-Then /^I should see the following WAZ:$/ do |expected|
-  expected.diff! the_calendar.employees_with_batches, :surplus_row => false
+Then /^I should see the following (employee|team) WAZ:$/ do |kind, expected|
+  case kind
+  when 'employee'
+    expected.diff! the_calendar.employees_with_batches, :surplus_row => false
+  when 'team'
+    expected.diff! the_calendar.teams_with_batches, :surplus_row => false
+  end
 end
 
 Then /^the employee #{capture_quoted} should have a (yellow|green|red|grey) hours\/waz value of "(\d+.? \/ \d+|\d+)"$/ do |employee_name, color, text|
