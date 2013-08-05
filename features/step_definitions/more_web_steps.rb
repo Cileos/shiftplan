@@ -29,7 +29,7 @@ When /^I wait for (.+) to disappear$/ do |name|
   end
 end
 
-Then /^I should not see (.+)$/ do |name|
+Then /^I should not see ([\w ]+)$/ do |name|
   selector = selector_for name
   page.should have_no_css(selector)
 end
