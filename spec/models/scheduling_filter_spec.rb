@@ -280,4 +280,28 @@ describe SchedulingFilter do
     end
   end
 
+  # active_attr does not support clone. Changes on clone affect the orgiginal
+  context '#without' do
+    let(:plan) { stub 'Plan' }
+    let(:week) { 23 }
+    let(:filter) { described_class.new(plan: plan, week: week) }
+
+    let(:cloned) { filter.without(:plan) }
+
+    it 'keeps unnamed attributes' do
+      cloned.week.should == week
+    end
+
+    it 'clears named attributes' do
+      cloned.plan.should be_nil
+    end
+
+    it 'does not change original' do
+      cloned
+      filter.week.should == week
+      filter.plan.should == plan
+    end
+
+  end
+
 end

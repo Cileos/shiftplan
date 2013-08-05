@@ -125,6 +125,10 @@ class SchedulingFilter < RecordFilter
     period.ends_before_date?(date)
   end
 
+  def without(*unwanted)
+    self.class.new attributes.except(*unwanted.map(&:to_s))
+  end
+
   private
     def fetch_records
       results = base
