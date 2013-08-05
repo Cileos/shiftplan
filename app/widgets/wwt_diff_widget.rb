@@ -20,7 +20,6 @@ class WwtDiffWidget < Struct.new(:filter, :employee, :records)
     end
   end
 
-  # TODO i18n 'of'
   def long_label_text(opts={})
     if wwt?
       if additional_hours?
