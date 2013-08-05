@@ -14,6 +14,7 @@ class Employee < ActiveRecord::Base
   belongs_to :user
   belongs_to :account
   has_one    :invitation
+  has_one    :owned_account, class_name: 'Account', foreign_key: 'owner_id', inverse_of: :owner
   has_many   :posts, foreign_key: :author_id
   has_many   :comments
   has_many   :schedulings
@@ -38,7 +39,7 @@ class Employee < ActiveRecord::Base
   end
 
   def owner?
-    id && Account.find_by_owner_id(id).present?
+    owned_account.present?
   end
 
   def active?
