@@ -1,4 +1,4 @@
-class WwtDiffWidget < Struct.new(:filter, :employee, :records)
+class WwtDiffWidget < Struct.new(:filter, :row_record, :records)
 
   delegate :h, to: :filter
 
@@ -11,42 +11,44 @@ class WwtDiffWidget < Struct.new(:filter, :employee, :records)
   def short_label_text(opts={})
     if wwt?
       if additional_hours?
-        "#{human hours} (+#{human additional_hours}) / #{wwt.to_i}"
+        "#{human hours} (+#{human additional_hours}) / #{human(wwt)}"
       else
-        "#{human hours} / #{wwt.to_i}"
+        "#{human hours} / #{human wwt}"
       end
     else
-      "#{human hours}"
+      if additional_hours?
+        "#{human hours} (+#{human additional_hours})"
+      else
+        "#{human hours}"
+      end
     end
   end
 
   def long_label_text(opts={})
     if wwt?
       if additional_hours?
-        t 'long_label_with_adds', wwt: wwt.to_i, hours: human(hours), additional_hours: human(additional_hours)
+        t 'long_label_with_adds_and_wwt', wwt: human(wwt), hours: human(hours), additional_hours: human(additional_hours)
       else
-        t 'long_label', wwt: wwt.to_i, hours: human(hours)
+        t 'long_label', wwt: human(wwt), hours: human(hours)
       end
     else
-      "#{human hours}"
+      if additional_hours?
+        t 'long_label_with_adds', hours: human(hours), additional_hours: human(additional_hours)
+      else
+        "#{human hours}"
+      end
     end
 
   end
 
   # hours in this calendar (week)
   def hours
-    @hours ||= records.select {|s| s.employee == employee }.sum(&:length_in_hours)
+    raise NotImplementedError
   end
 
   # hours in all plans of the same account in the week described y filter
   def all_hours
-    @all_hours ||=
-      filter.
-      without(:plan).
-      unsorted_records.
-      where(employee_id: employee.id).
-      to_a.
-      sum(&:length_in_hours)
+    raise NotImplementedError
   end
 
   def additional_hours
@@ -76,12 +78,8 @@ class WwtDiffWidget < Struct.new(:filter, :employee, :records)
     additional_hours.present? && additional_hours > 0
   end
 
-  def wwt
-    employee.weekly_working_time
-  end
-
   def wwt?
-    wwt.present?
+    false
   end
 
   def t(key, opts={})

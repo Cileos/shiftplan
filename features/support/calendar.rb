@@ -77,6 +77,15 @@ module CalendarHelpers
       end
     end
 
+    def teams_with_batches
+      rows.map do |tr|
+        [
+          tr.first('th:first .team_name').try(:text),
+          tr.first('th:first .wwt_diff .badge').try(:text) || ''
+        ]
+      end
+    end
+
     def clear_cache!
       @column_headings = nil
       @row_headings = nil
