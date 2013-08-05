@@ -1,3 +1,11 @@
+
+some employees chose names name which is not valid anymore
+
+
+Employee.find( 9).tap {|e| e.last_name = 'X.' }.save!
+Employee.find(32).tap {|e| e.first_name = 'Łukasz' }.save!
+
+
 Planners and owners must be repaired because the data model has changed.
 In order to do this the following rake task needs to be run:
 
