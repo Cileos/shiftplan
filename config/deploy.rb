@@ -47,7 +47,7 @@ namespace :deploy do
     run "ln -sf #{deploy_to}/shared/config/database.yml #{latest_release}/config/database.yml"
     #run "rm -f #{current_release}/config/application.yml"
     #run "ln -sf #{deploy_to}/shared/config/application.yml #{current_release}/config/application.yml"
-    #run "ln -sf #{deploy_to}/shared/system #{current_release}/public/"
+    run "ln -sf #{deploy_to}/shared/uploads #{current_release}/public/uploads"
   end
 
   before "deploy:assets:precompile", "deploy:symlink_static_directories"
