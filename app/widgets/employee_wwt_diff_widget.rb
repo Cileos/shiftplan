@@ -20,7 +20,7 @@ class EmployeeWwtDiffWidget < WwtDiffWidget
   end
 
   def wwt?
-    employee.weekly_working_time.present?
+    wwt.present?
   end
 
   def wwt
