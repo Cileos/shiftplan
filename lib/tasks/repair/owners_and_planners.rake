@@ -1,18 +1,14 @@
+require 'repair_stats'
 
-some employees chose names name which is not valid anymore
+namespace :repair do
+  namespace :owners_and_planners do
 
+    def log(message)
+      STDERR.puts "  #{message}"
+      Rails.logger.info message
+    end
 
-Employee.find( 9).tap {|e| e.last_name = 'X.' }.save!
-Employee.find(32).tap {|e| e.first_name = 'Łukasz' }.save!
-
-
-Planners and owners must be repaired because the data model has changed.
-In order to do this the following rake task needs to be run:
-
-$ bundle exec rake repair:owners_and_planners:run RAILS_ENV=<env>
-
-Further reading:
-
+    desc <<-EODESC
       Owners:
       -------
       Formerly, employees were owners (account wide) if they had the role
@@ -69,3 +65,58 @@ Further reading:
 
         $ bundle exec rake repair:owners_and_planners:run[true] RAILS_ENV=<env>
 
+    EODESC
+
+
+    task :run, [:really] => :environment do |t,args|
+      args.with_defaults(:really => false)
+      stats = RepairStats.new do |s|
+
+        s.dim 'Old data model: number of owners' do
+          Employee.where(role: 'owner').count
+        end
+        s.dim 'New data model: number of owners' do
+          Account.joins(:owner).count
+        end
+
+        s.dim 'Old data model: number of planners for orgs' do
+          planners = Employee.where(role: 'planner')
+          planners.map {|p| p.account.organizations.count }.inject(0) do |sum, n|
+            sum + n
+          end
+        end
+        s.dim 'New data model: number of planners for orgs' do
+          Membership.where(role: 'planner').count
+        end
+      end
+
+      stats.run(args[:really]) do
+        employees = Employee.all
+
+        employees.each do |employee|
+          if employee.role == 'owner'
+            account = employee.account
+            account.owner_id = employee.id
+            account.save!
+          elsif employee.role == 'planner'
+            account = employee.account
+            account.organizations.each do |organization|
+              membership = employee.memberships.find_by_organization_id(organization.id)
+              if membership
+                membership.role = 'planner'
+                membership.save!
+              else
+                employee.memberships.create!(organization: organization, role: 'planner')
+              end
+            end
+          end
+
+          employee.role = nil
+          employee.save!
+        end
+
+        log "fixed #{employees.size} employee(s)"
+      end
+    end
+  end
+end

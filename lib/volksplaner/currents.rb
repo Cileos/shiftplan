@@ -14,27 +14,17 @@ module Volksplaner::Currents
       helper_method :current_organization
       helper_method :current_organization?
       helper_method :current_employee
+      helper_method :current_employee?
+      helper_method :current_membership
+      helper_method :current_membership?
       helper_method :current_plan_mode
     end
   end
 
-  ######################################################################
-  # Account
-  ######################################################################
-
-  def find_current_account
-    if user_signed_in?
-      possibilities = current_user.accounts
-      if params[:account_id]
-        possibilities.find(params[:account_id])
-      elsif params[:controller] == 'accounts' && params[:id]
-        possibilities.find(params[:id])
-      elsif possibilities.count == 1
-        possibilities.first
-      end
-    end
-  rescue ActiveRecord::RecordNotFound => e
-    return nil
+  # Overwrite CanCan's current_ability method to make it use
+  # current_user_with_context instead of the default current_user.
+  def current_ability
+    @current_ability ||= Ability.new(current_user_with_context)
   end
 
   def current_account
@@ -45,41 +35,12 @@ module Volksplaner::Currents
     current_account.present?
   end
 
-  ######################################################################
-  # Organization
-  ######################################################################
-
-  def find_current_organization
-    if current_account?
-      possibilities = current_user.organizations_for(current_account)
-      if params[:organization_id]
-        possibilities.find(params[:organization_id])
-      elsif params[:controller] == 'organizations' && params[:id]
-        possibilities.find(params[:id])
-      elsif possibilities.count == 1
-        possibilities.first
-      end
-    end
-  end
-
   def current_organization
     @current_organization ||= find_current_organization
   end
 
   def current_organization?
     current_organization.present?
-  end
-
-
-  ######################################################################
-  # Employee
-  ######################################################################
-
-  # TODO load dynamically
-  def find_current_employee
-    if current_account?
-      current_user.current_employee = current_user.employee_for_account(current_account)
-    end
   end
 
   def current_employee
@@ -93,8 +54,21 @@ module Volksplaner::Currents
     current_employee.present?
   end
 
-  def prefetch_current_employee
-    current_employee || true
+  def current_membership
+    if user_signed_in?
+      return @current_membership if defined?(@current_membership)
+      current_user.current_membership = @current_membership = find_current_membership
+    end
+  end
+
+  def current_membership?
+    current_membership.present?
+  end
+
+  def current_user_with_context
+    current_employee
+    current_membership
+    current_user
   end
 
   ######################################################################
@@ -111,4 +85,69 @@ module Volksplaner::Currents
       nil
     end
   end
+
+  private
+
+  def find_current_account
+    if user_signed_in?
+      possibilities = current_user.accounts
+      if params[:controller] == 'accounts' && params[:id]
+        possibilities.find(params[:id])
+      elsif params[:account_id]
+        possibilities.find(params[:account_id])
+      elsif possibilities.count == 1
+        possibilities.first
+      end
+    end
+  rescue ActiveRecord::RecordNotFound => e
+    return nil
+  end
+
+  def find_current_organization
+    if current_account?
+      if current_organization_by_params.present?
+        current_organization_by_params
+      elsif possible_organizations? && possible_organizations.count == 1
+        possible_organizations.first
+      end
+    end
+  end
+
+  def find_current_organization_by_params
+    if params[:organization_id]
+      possible_organizations.find(params[:organization_id])
+    elsif params[:controller] == 'organizations' && params[:id]
+      possible_organizations.find(params[:id])
+    end
+  end
+
+  def find_current_membership
+    if current_account?
+      if current_organization_by_params.present?
+        current_employee.memberships.find_by_organization_id(current_organization_by_params.id)
+      end
+    end
+  end
+
+  def possible_organizations
+    if current_account?
+      @possible_organizations ||= current_user.organizations_for(current_account)
+    end
+  end
+
+  def possible_organizations?
+    possible_organizations.present?
+  end
+
+  def current_organization_by_params
+    @current_organization_by_params ||= find_current_organization_by_params
+  end
+
+  # TODO load dynamically
+  def find_current_employee
+    if user_signed_in? && current_account?
+      current_user.employee_for_account(current_account)
+    end
+  end
+
 end

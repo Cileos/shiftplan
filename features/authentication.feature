@@ -5,12 +5,11 @@ Feature: Authentication
   Scenario: Redirect to log in form with return to
     # week 49
     Given today is 2011-12-04
-      And the situation of a just registered user
-      And I sign out
+      And mr burns, owner of the Springfield Nuclear Power Plant exists
      # redirected to sign in page
      When I go to the page of the organization
      Then I should be on the signin page
-     When I fill in "E-Mail" with "owner@burns.com"
+     When I fill in "E-Mail" with "c.burns@npp-springfield.com"
       And I fill in "Passwort" with "secret"
       And I press "Einloggen"
      # redirected to initially requested page

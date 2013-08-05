@@ -1,15 +1,16 @@
 require 'spec_helper'
 
 describe SchedulingFilterHoursInWeekDecorator do
-  let(:filter)    { SchedulingFilter.new }
+  let(:filter)    { stub 'Filter' }
   let(:decorator) { described_class.new filter }
   def build_shifts(*quickies)
-    quickies.map { |q| create :scheduling, quickie: q }
+    quickies.map { |q| create :manual_scheduling, quickie: q, week: 23, cwday: 1 }
   end
   
   context 'stacks of' do
-    let(:stacks) { decorator.pack_in_stacks( build_shifts(*shifts) ).map(&:stack) }
-    let(:remaining_stacks) { decorator.pack_in_stacks( build_shifts(*shifts) ).map(&:remaining_stack) }
+    let(:packed) { decorator.pack_in_stacks( build_shifts(*shifts) ) }
+    let(:stacks) { packed.map(&:stack) }
+    let(:remaining_stacks) { packed.map(&:remaining_stack) }
 
     context "non-overlapping shifts" do
       let(:shifts) { %w(9-10 10-11 12-14) }

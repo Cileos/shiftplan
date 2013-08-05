@@ -3,16 +3,17 @@ And an organization "Reactor" exists with name: "Reactor", account: the account
   And a confirmed user "Burns" exists with email: "burns@clockwork.local"
   And a confirmed user "Homer" exists with email: "homer@clockwork.local"
   And the following employees exist:
-    | account     | employee | role    | first_name | last_name | user                   | weekly_working_time |
-    | the account | Burns    | planner | Planner    | Burns     | confirmed user "Burns" |                     |
-    | the account | Homer    |         | Homer      | S         | confirmed user "Homer" | 40                  |
-    | the account | Lenny    |         | Lenny      | L         |                        |                     |
-    | the account | Carl     |         | Carl       | C         |                        |                     |
+    | account     | employee | first_name | last_name | user                   | weekly_working_time |
+    | the account | Burns    | Planner    | Burns     | confirmed user "Burns" |                     |
+    | the account | Homer    | Homer      | S         | confirmed user "Homer" | 40                  |
+    | the account | Lenny    | Lenny      | L         |                        |                     |
+    | the account | Carl     | Carl       | C         |                        |                     |
   And the following memberships exist:
-    | organization      | employee              |
-    | the organization  | the employee "Homer"  |
-    | the organization  | the employee "Lenny"  |
-    | the organization  | the employee "Carl"   |
+    | organization      | employee              | role     |
+    | the organization  | the employee "Burns"  | planner  |
+    | the organization  | the employee "Homer"  |          |
+    | the organization  | the employee "Lenny"  |          |
+    | the organization  | the employee "Carl"   |          |
   And a plan "clean reactor" exists with organization: organization "Reactor", name: "Cleaning the Reactor"
   And I am signed in as the confirmed user "Burns"
   And I am on the page of the plan "clean reactor"

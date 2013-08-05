@@ -33,9 +33,37 @@ class EmployeesController < BaseController
   end
 
   def resource_params
-    super.tap do |params_and_extra|
-      params_and_extra[1] = {as: current_employee.role}
+    if [:update, :create].include?(params[:action].to_sym)
+      [permitted_employee_params]
+    else
+      super
     end
   end
 
+  def permitted_employee_params
+    permitted_attributes = [
+      :first_name,
+      :last_name,
+      :weekly_working_time,
+      :avatar,
+      :avatar_cache,
+      :organization_id,
+      :account_id,
+      :force_duplicate
+    ]
+    permitted_attributes << :membership_role if planner_or_owner?
+    params.require(:employee).permit(*permitted_attributes)
+  end
+
+  def planner_or_owner?
+    ['planner', 'owner'].include?(role)
+  end
+
+  def role
+    if current_employee.owner?
+      'owner'
+    elsif current_membership.role == 'planner'
+      'planner'
+    end
+  end
 end

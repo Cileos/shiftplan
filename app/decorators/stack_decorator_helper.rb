@@ -7,16 +7,16 @@ module StackDecoratorHelper
   def pack_in_stacks(records)
     records.each { |r| r.stack = 0 }
     # order by start_hour asc and length_in_hours desc
-    records.sort_by! { |r| '%02d-%02d' % [ r.start_hour, 24 - r.length_in_hours] }
+    sorted = records.sort_by { |r| '%02d-%02d' % [ r.start_hour, 24 - r.length_in_hours] }
     [].tap do |stacked|
-      records.each do |current|
+      sorted.each do |current|
         until stacked.none? { |s| s.overlap?(current) }
           current.stack += 1
         end
         stacked << current
       end
       stacked.each do |s|
-        s.remaining_stack = records.select { |o| o.overlap_ignoring_stack?(s) }.group_by(&:stack).count - s.stack - 1
+        s.remaining_stack = sorted.select { |o| o.overlap_ignoring_stack?(s) }.group_by(&:stack).count - s.stack - 1
       end
     end
   end

@@ -53,10 +53,11 @@ Feature: Merge Teams
      # Schedulings were re-assigned
      When I go to the page of the plan
      Then I should see the following partial calendar:
-        | Mitarbeiter  | Fr              | Sa              |
-        | Carl C       |                 |                 |
-        | Lenny L      | 02:00-03:00 Rs  | 03:00-04:00 Rs  |
-        | Homer S      | 01:00-02:00 Rs  | 02:00-03:00 Rs  |
+        | Mitarbeiter    | Fr              | Sa              |
+        | Planner Burns  |                 |                 |
+        | Carl C         |                 |                 |
+        | Lenny L        | 02:00-03:00 Rs  | 03:00-04:00 Rs  |
+        | Homer S        | 01:00-02:00 Rs  | 02:00-03:00 Rs  |
       And I should see "Reaktor schrubben" within the legend
       But I should not see "Reaktor putzen" within the legend
 

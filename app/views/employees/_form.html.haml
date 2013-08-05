@@ -8,7 +8,8 @@
   = employee.error_messages
 
   - employee.organization_id = current_organization.id
-  - employee.account_id = current_account.id
+  - employee.account = current_account
+
   .inputs
 
     .avatar_and_name
@@ -23,7 +24,7 @@
     = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
 
     - if can?(:update_role, employee)
-      = f.input :role_with_protection, include_blank: false,
+      = f.input :membership_role, include_blank: false,
         collection: [[t('employees.roles.none'), nil], [t('employees.roles.planner'), 'planner']]
 
     = f.input :organization_id, as: :hidden

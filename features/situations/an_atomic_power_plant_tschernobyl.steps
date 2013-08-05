@@ -1,7 +1,0 @@
-And an organization "tschernobyl" exists with name: "AKW Tschernobyl GmbH", account: the account
-And a confirmed user "mr. carlson" exists
-And an employee planner "Carlson" exists with first_name: "Planner", last_name: "Carlson", user: the confirmed user "mr. carlson", account: the account
-And the employee planner "Carlson" is a member of the organization "tschernobyl"
-And an employee "Homer" exists with first_name: "Homer", user: user "homer", account: the account
-And the employee "Homer" is a member of the organization "tschernobyl"
-And a plan "brennstäbe wechseln" exists with organization: organization "tschernobyl", name: "Brennstäbe wechseln in Tschernobyl"

@@ -19,6 +19,7 @@ Feature: Manage schedulings without employees
       And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Mitarbeiter       | Mo  | Di  | Mi           | Do           | Fr  | Sa  | So  |
+        | Planner Burns     |     |     |              |              |     |     |     |
         | Carl C            |     |     |              |              |     |     |     |
         | Lenny L           |     |     |              |              |     |     |     |
         | Homer S           |     |     |              |              |     |     |     |
@@ -31,6 +32,7 @@ Feature: Manage schedulings without employees
       And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Mitarbeiter       | Mo  | Di  | Mi           | Do           | Fr  | Sa  | So  |
+        | Planner Burns     |     |     |              |              |     |     |     |
         | Carl C            |     |     |              |              |     |     |     |
         | Lenny L           |     |     |              |              |     |     |     |
         | Homer S           |     |     |              |              |     |     |     |

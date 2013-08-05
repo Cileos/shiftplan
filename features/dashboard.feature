@@ -4,11 +4,13 @@ Feature: Dashboard
   In order to be able to choose from one of them
 
   Background:
-    Given a confirmed user "homer" exists with email: "homer@thesimpsons.de"
-    And an account "main" exists with name: "Main"
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+      And a confirmed user "homer" exists with email: "homer@thesimpsons.de"
+      And an employee "Homer" exists with first_name: "Homer", user: user "homer", account: the account
+      And the employee "Homer" is a member of the organization
+      And a plan "brennstäbe wechseln" exists with organization: the organization, name: "Brennstäbe wechseln"
       # week 49
       And today is 2012-12-04 06:00
-      And the situation of an atomic power plant tschernobyl
 
   Scenario: Lists recent notifications
     Given a notification exists with employee: the employee "Homer"
@@ -17,15 +19,15 @@ Feature: Dashboard
      # full introductory_text of dummy notification
      Then I should see "You did something awesome"
 
-    When I follow "Brennstäbe wechseln in Tschernobyl"
+    When I follow "Brennstäbe wechseln"
     Then I should be on the employees in week page of the plan for week: 49, cwyear: 2012
 
     When I go to the dashboard
-     And I follow "Brennstäbe wechseln in Tschernobyl"
+     And I follow "Brennstäbe wechseln"
     Then I should be on the employees in week page of the plan "brennstäbe wechseln" for week: 49, cwyear: 2012
 
     When I go to the dashboard
-     And I follow "AKW Tschernobyl GmbH"
+     And I follow "Springfield Nuclear Power Plant - Sector 7-G"
     Then I should be on the page for the organization
 
   Scenario: List upcoming schedulings (just the next 7 days for now)
@@ -40,9 +42,9 @@ Feature: Dashboard
       And I am signed in as the user "homer"
      When I go to the dashboard
      Then I should see an agenda table with the following rows:
-       | day | day-name | month-year | time    | team                | organization           | plan                               |
-       | 4   | Di       | Dez 2012   | 9 - 17  | Reaktor Putzen [RP] | AKW Tschernobyl GmbH / | Brennstäbe wechseln in Tschernobyl |
-       | 12  | Mi       | Dez 2012   | 10 - 18 | Reaktor Fegen [RF]  | AKW Tschernobyl GmbH / | Pumpen ölen                        |
+       | day  | day-name  | month-year  | time     | team                 | organization  | plan                 |
+       | 4    | Di        | Dez 2012    | 9 - 17   | Reaktor Putzen [RP]  | Sector 7-G /  | Brennstäbe wechseln  |
+       | 12   | Mi        | Dez 2012    | 10 - 18  | Reaktor Fegen [RF]   | Sector 7-G /  | Pumpen ölen          |
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
      When I follow "Pumpen ölen" within the schedulings module
@@ -50,16 +52,15 @@ Feature: Dashboard
      Then I should be somewhere under the page of the plan
 
    Scenario: List recent news posts of company blogs of organizations I am a member in
-    Given an organization "fukushima" exists with name: "AKW Fukushima GmbH", account: the account
-      And a blog "fukushima" exists with organization: organization "fukushima"
-      And the employee "Homer" is a member of the organization "fukushima"
-      And a blog "tschernobyl" exists with organization: organization "tschernobyl"
+    Given an organization "cooling towers" exists with name: "Cooling Towers", account: the account
+      And a blog "cooling towers" exists with organization: organization "cooling towers"
+      And the employee "Homer" is a member of the organization "cooling towers"
       And the following posts exist:
-        | blog               | title       | published_at |
-        | blog "fukushima"   | No Danger   | 11.03.2011   |
-        | blog "fukushima"   | Level 7     | 11.04.2011   |
-        | blog "tschernobyl" | Oops        | 26.04.1986   |
-        | blog "tschernobyl" | Liquidators | 01.12.1986   |
+        | blog                   | title        | published_at  |
+        | blog "sector 7g"       | No Danger    | 11.03.2011    |
+        | blog "sector 7g"       | Level 7      | 11.04.2011    |
+        | blog "cooling towers"  | Oops         | 26.04.1986    |
+        | blog "cooling towers"  | Liquidators  | 01.12.1986    |
       And I am signed in as the user "homer"
      When I go to the dashboard
      Then I should see a list of the following posts:

@@ -18,7 +18,7 @@ en:
         avatar: Photo
         organization: Unit
         role: Role
-        role_with_protection: Role
+        membership_role: Role
         force_create_duplicate: "Create anyway?"
   simple_form:
     placeholders:

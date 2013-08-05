@@ -23,10 +23,11 @@ Feature: Creating schedulings in a plan with time period
 
      Then I should see "Der nächste Tag endet nach der Endzeit des Plans."
       And I should see the following partial calendar:
-        | Mitarbeiter  | Mo   | Di  | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       |      |     |     |     |     |     |     |
-        | Lenny L      |      |     |     |     |     |     |     |
-        | Homer S      |      |     |     |     |     |     |     |
+        | Mitarbeiter    | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
+        | Planner Burns  |     |     |     |     |     |     |     |
+        | Carl C         |     |     |     |     |     |     |     |
+        | Lenny L        |     |     |     |     |     |     |     |
+        | Homer S        |     |     |     |     |     |     |     |
       And 0 schedulings should exist
 
   Scenario: click outside plan period does not open modal box
