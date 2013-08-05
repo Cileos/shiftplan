@@ -6,7 +6,7 @@ namespace :friendly_id do
       ActiveRecord::Base.without_timestamps do
         [Organization, Account, Plan].each do |model|
           STDERR.puts "reslugging #{model}"
-          model.where("slug ~ '\d*'").each do |record|
+          model.where("slug ~ '^[0-9]+$'").each do |record|
             STDERR.puts "  #{record.id} #{record.name.inspect}"
             record.slug = nil
             record.save!
