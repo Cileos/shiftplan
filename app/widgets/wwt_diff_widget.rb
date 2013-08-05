@@ -11,9 +11,9 @@ class WwtDiffWidget < Struct.new(:filter, :row_record, :records)
   def short_label_text(opts={})
     if wwt?
       if additional_hours?
-        "#{human hours} (+#{human additional_hours}) / #{wwt.to_i}"
+        "#{human hours} (+#{human additional_hours}) / #{human(wwt)}"
       else
-        "#{human hours} / #{wwt.to_i}"
+        "#{human hours} / #{human wwt}"
       end
     else
       if additional_hours?
@@ -27,9 +27,9 @@ class WwtDiffWidget < Struct.new(:filter, :row_record, :records)
   def long_label_text(opts={})
     if wwt?
       if additional_hours?
-        t 'long_label_with_adds_and_wwt', wwt: wwt.to_i, hours: human(hours), additional_hours: human(additional_hours)
+        t 'long_label_with_adds_and_wwt', wwt: human(wwt), hours: human(hours), additional_hours: human(additional_hours)
       else
-        t 'long_label', wwt: wwt.to_i, hours: human(hours)
+        t 'long_label', wwt: human(wwt), hours: human(hours)
       end
     else
       if additional_hours?
