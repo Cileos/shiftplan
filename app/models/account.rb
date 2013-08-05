@@ -5,6 +5,9 @@ class Account < ActiveRecord::Base
   has_many :invitations, through: :organizations
   has_many :qualifications, order: 'name ASC'
 
+  include FriendlyId
+  friendly_id :name, use: :slugged
+
   attr_accessible :name,
                   :organization_name,
                   :first_name,
@@ -18,6 +21,7 @@ class Account < ActiveRecord::Base
                 :user_id,
                 :on_new_account
 
+  validates_format_of :name, with: Volksplaner::NameRegEx
   validates_presence_of :name
   validates_presence_of :organization_name,
                         :first_name,

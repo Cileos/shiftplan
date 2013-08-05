@@ -10,8 +10,11 @@ class Organization < ActiveRecord::Base
   has_many   :memberships
   has_many   :plan_templates
 
-  validates_presence_of :name
+  include FriendlyId
+  friendly_id :name, use: [:scoped, :slugged], scope: :account
 
+  validates_format_of :name, with: Volksplaner::NameRegEx
+  validates_presence_of :name
   validates_presence_of :account_id
 
   def self.default_sorting

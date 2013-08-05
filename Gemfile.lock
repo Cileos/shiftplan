@@ -166,6 +166,7 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.0)
     formatador (0.2.4)
+    friendly_id (4.0.9)
     fuubar-cucumber (0.0.18)
       cucumber (~> 1.2.0)
       ruby-progressbar (~> 1.0.0)
@@ -409,6 +410,7 @@ DEPENDENCIES
   ember-rails-flash!
   exception_notification
   factory_girl_rails (~> 4.2.1)
+  friendly_id (~> 4.0)
   fuubar-cucumber
   gon
   gravtastic

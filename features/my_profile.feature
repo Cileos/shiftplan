@@ -47,7 +47,7 @@ I want to edit my profile
       And I should see the avatar "rails.png" within the user navigation
 
   Scenario: Edit my full name for one of the accounts I joined
-    Given the confirmed user has joined another account with name: "1. FC Springfield", organization_name: "Skateboard", as: "Margeret Bouvier"
+    Given the confirmed user has joined another account with name: "I. FC Springfield", organization_name: "Skateboard", as: "Margeret Bouvier"
       And I am signed in as the confirmed user
       And I am on the dashboard page
 
@@ -56,7 +56,7 @@ I want to edit my profile
      Then I should see the following table of employees:
        | Name              | Account           |
        | Bouvier, Marge    | Tepco GmbH        |
-       | Bouvier, Margeret | 1. FC Springfield |
+       | Bouvier, Margeret | I. FC Springfield |
      When I follow "Bouvier, Margeret"
       # Margeret Bouvier just married Homer Simpson and needs to change her last name
       And I fill in "Nachname" with "Simpson"
@@ -69,7 +69,7 @@ I want to edit my profile
      Then I should see the following table of employees:
        | Name               | Account            |
        | Bouvier, Marge     | Tepco GmbH         |
-       | Simpson, Margeret  | 1. FC Springfield  |
+       | Simpson, Margeret  | I. FC Springfield  |
 
    Scenario: handle employee beeing member in multiple organizations
      Given an organization "Tepco" exists with name: "Tepco"
