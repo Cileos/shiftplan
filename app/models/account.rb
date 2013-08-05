@@ -38,10 +38,6 @@ class Account < ActiveRecord::Base
     %Q~<Account #{id} "#{name}">~
   end
 
-  def owner
-    Employee.find_by_id(owner_id)
-  end
-
   def setup
     if persisted? and on_new_account
       organization = organizations.create!(:name => organization_name)
