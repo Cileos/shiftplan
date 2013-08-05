@@ -54,10 +54,6 @@ describe Employee do
     end
 
     context "in simple form" do
-      it "is an integer for the time being" do
-        build(:employee, weekly_working_time: 23.5).weekly_working_time_before_type_cast.should == 23
-      end
-
       it "keeps beeing empty (no accidental 0)" do
         build(:employee, weekly_working_time: nil).weekly_working_time_before_type_cast.should be_nil
       end
