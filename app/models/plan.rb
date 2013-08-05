@@ -8,7 +8,7 @@ class Plan < ActiveRecord::Base
   has_many :tasks, through: :milestones
 
   include FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:scoped, :slugged], scope: :organization
 
   validates_with PlanPeriodValidator
   validates_with PlanPeriodSurroundsSchedulingsValidator
