@@ -7,6 +7,7 @@ class SchedulingFilterEmployeesInWeekDecorator < SchedulingFilterWeekDecorator
       super
     end
   end
+
   def cell_metadata(day, employee)
     { :'employee-id' => employee.try(:id) || 'missing', :date => day.iso8601 }
   end
@@ -22,7 +23,7 @@ class SchedulingFilterEmployeesInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def wwt_diff_for(employee)
-    WwtDiffWidget.new(h, employee, records).to_html
+    EmployeeWwtDiffWidget.new(self, employee, records).to_html
   end
 
 

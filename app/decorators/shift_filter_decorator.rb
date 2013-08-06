@@ -1,5 +1,6 @@
 # This decorator has multiple `modes` to act in. These correspond to the
 # different actions and views of the ShiftsController.
+# OPTIMIZE unify with SchedulingFilterDecorator (by superclass)
 class ShiftFilterDecorator < ApplicationDecorator
   decorates :shift_filter
   delegate_all
@@ -34,9 +35,11 @@ class ShiftFilterDecorator < ApplicationDecorator
 
   def cell_content(*a)
     shifts = find_shifts(*a)
+    content = ''
     unless shifts.empty?
-      h.render "shifts/lists/teams_in_week", shifts: shifts.map(&:decorate), filter: self
+      content = h.render "shifts/lists/teams_in_week", shifts: shifts.map(&:decorate), filter: self
     end
+    h.content_tag :div, content, class: 'cellwrap'
   end
 
   # can give

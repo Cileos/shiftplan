@@ -19,3 +19,5 @@ jQuery(document).ready ->
   $('body').on 'dialogopen', (e, ui) ->
     $(e.target).find('input.stringy_date').datepicker($.datepicker.regional[language])
     $(':input#team_color').miniColors()
+
+  $.datepick.setDefaults $.datepick.regional[ if language is 'en' then '' else language]

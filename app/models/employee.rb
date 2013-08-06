@@ -1,34 +1,20 @@
 class Employee < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   mount_uploader :avatar, AvatarUploader
 
-  Roles = %w(owner planner)
-
-  AccessibleAttributes = [
-                  :first_name,
-                  :last_name,
-                  :weekly_working_time,
-                  :avatar,
-                  :avatar_cache,
-                  :organization_id,
-                  :account_id,
-                  :force_duplicate
-  ]
-
-  attr_accessible *AccessibleAttributes
-  attr_accessible *(AccessibleAttributes + [:role_with_protection]), as: 'owner'
-  attr_accessible *(AccessibleAttributes + [:role_with_protection]), as: 'planner'
-
   attr_accessor :organization_id,
-                :force_duplicate
+                :force_duplicate,
+                :membership_role
 
   validates_presence_of :first_name, :last_name
   validates_numericality_of :weekly_working_time, allow_nil: true, greater_than_or_equal_to: 0
-  validates_inclusion_of :role, in: Roles, allow_blank: true
   validates_format_of :first_name, :last_name, with: Volksplaner::HumanNameRegEx, allow_nil: true
 
   belongs_to :user
   belongs_to :account
   has_one    :invitation
+  has_one    :owned_account, class_name: 'Account', foreign_key: 'owner_id', inverse_of: :owner
   has_many   :posts, foreign_key: :author_id
   has_many   :comments
   has_many   :schedulings
@@ -42,7 +28,7 @@ class Employee < ActiveRecord::Base
     if: Proc.new { |e| e.sufficient_details_to_search_duplicates? and !e.force_duplicate? }
 
   before_validation :reset_duplicates
-  after_create :create_membership
+  after_save :update_or_create_membership
 
   def self.order_by_name
     order('last_name, first_name')
@@ -52,32 +38,8 @@ class Employee < ActiveRecord::Base
     order_by_name.order(:id)
   end
 
-  def role?(asked)
-    role == asked
-  end
-
-  # must give role to update, works only by mass assignment
-  def role_with_protection=(new_role)
-    if (!persisted? || mass_assignment_options[:as].present?) && new_role.to_s != 'owner'
-      write_attribute :role, new_role
-    end
-  end
-
-  # for edit form
-  def role_with_protection
-    role
-  end
-
-  Roles.each do |given_role|
-    define_method :"#{given_role}?" do
-      role?(given_role)
-    end
-
-    scope given_role.pluralize.to_sym, where(role: given_role)
-  end
-
-  def self.planners_and_owners
-    where(role: %w(planner owner))
+  def owner?
+    owned_account.present?
   end
 
   def active?
@@ -115,10 +77,11 @@ class Employee < ActiveRecord::Base
     %Q~#{last_name}, #{first_name}~
   end
 
-  # TODO remove when we want fractioned working time
-  def weekly_working_time_before_type_cast
-    pure = read_attribute(:weekly_working_time)
-    pure.blank?? nil : pure.to_i
+  def membership_role
+    if organization_id
+      @membership_role ||
+      memberships.find_by_organization_id(organization_id).try(:role)
+    end
   end
 
   def force_duplicate?
@@ -126,7 +89,7 @@ class Employee < ActiveRecord::Base
   end
 
   def to_s
-    %Q~<Employee #{id || 'new'} #{name.inspect} (#{role.presence || 'employee'} #{weekly_working_time.presence || ''}) [#{account.try(:name)}]>~
+    %Q~<Employee #{id || 'new'} #{name.inspect} (#{weekly_working_time.presence || ''}) [#{account.try(:name)}]>~
   end
 
   def inspect
@@ -135,10 +98,19 @@ class Employee < ActiveRecord::Base
 
   private
 
-  def create_membership
+  def update_or_create_membership
     if organization_id
-      memberships.create!(organization_id: organization_id)
+      m = find_or_build_membership
+      if membership_role.to_s != 'owner'
+        m.role = membership_role
+      end
+      m.save!
     end
+  end
+
+  def find_or_build_membership
+    memberships.find_by_organization_id(organization_id) ||
+      memberships.build(organization_id: organization_id)
   end
 
   def reset_duplicates

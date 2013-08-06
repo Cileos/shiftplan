@@ -1,8 +1,0 @@
-Given an account "tepco" exists with name: "Tepco GmbH"
-  And an organization "fukushima" exists with name: "Fukushima", account: the account
- Then a blog should exist with organization: the organization
-  And a confirmed user "mr. burns" exists with email: "owner@burns.com"
-  And an employee_owner "mr. burns" exists with first_name: "Owner", last_name: "Burns", user: the confirmed user "mr. burns", account: the account
-  And the employee_owner is a member of the organization "fukushima"
-  And I am signed in as the confirmed user "mr. burns"
-  And I am on the dashboard page

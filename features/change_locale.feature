@@ -8,19 +8,20 @@ Feature: Change locale
   Scenario: determine locale from browser
     Given I use an english browser
      When I go to the home page
-     Then I should see "Welcome"
+     Then I should see "Register or log in to continue."
 
   Scenario: fallback is German
      When I go to the home page
-     Then I should see "Willkommen"
+     Then I should see "Du musst Dich registrieren oder anmelden, um fortfahren zu können"
 
   Scenario: overwrite browser detected locale with setting
     Given I use a english browser
-      And the situation of a just registered user
-      And the locale attribute of the confirmed user is changed to nil
+      And mr burns, owner of the Springfield Nuclear Power Plant exists
+      And I am signed in as the user "mr burns"
+      And the locale attribute of the user is changed to nil
      When I go to the dashboard page
      Then I should see "News"
-     When I choose "Preferences" from the drop down "owner@burns.com"
+     When I choose "Preferences" from the drop down "c.burns@npp-springfield.com"
       And I follow "Advanced"
       And I select "Deutsch" from "Language"
       And I press "Update"

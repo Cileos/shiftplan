@@ -44,7 +44,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
       organization_id: h.current_organization.id,
       plan_id:         plan.id,
       new_url:         h.new_account_organization_plan_scheduling_path(h.current_account, h.current_organization, plan),
-      mode:            mode
+      mode:            mode,
+      monday:          monday.iso8601,
+      starts_at:       plan.starts_at.try(:to_date),
+      ends_at:         plan.ends_at.try(:to_date),
     }
   end
 
@@ -56,11 +59,15 @@ class SchedulingFilterDecorator < ApplicationDecorator
     { }
   end
 
+  # FF cannot position: relative td, so we have to wrap it in a div
+  # it is undefined by W3C spec anyway
   def cell_content(*a)
     schedulings = find_schedulings(*a)
+    content = ''
     unless schedulings.empty?
-      h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate), filter: self
+      content = h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate), filter: self
     end
+    h.content_tag :div, content, class: 'cellwrap'
   end
 
   def render_cell_for_day(day, *a)

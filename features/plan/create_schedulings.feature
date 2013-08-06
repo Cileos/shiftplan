@@ -18,10 +18,11 @@ Feature: create a scheduling
       And I fill in "Quickie" with "9-17"
       And I press "Anlegen"
      Then I should see the following partial calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi           | Do  | Fr  | Sa  | So  |
-        | Carl C       |     |     |              |     |     |     |     |
-        | Lenny L      |     |     |              |     |     |     |     |
-        | Homer S      |     |     | 09:00-17:00  |     |     |     |     |
+        | Mitarbeiter    | Mo  | Di  | Mi           | Do  | Fr  | Sa  | So  |
+        | Planner Burns  |     |     |              |     |     |     |     |
+        | Carl C         |     |     |              |     |     |     |     |
+        | Lenny L        |     |     |              |     |     |     |     |
+        | Homer S        |     |     | 09:00-17:00  |     |     |     |     |
      And the employee "Homer S" should have a yellow hours/waz value of "8 / 40"
 
      # completion
@@ -44,10 +45,11 @@ Feature: create a scheduling
       And I fill in "Quickie" with "22:15-6:45"
       And I press "Anlegen"
      Then I should see the following partial calendar:
-        | Mitarbeiter  | Mo  | Di  | Mi           | Do                       | Fr           | Sa           | So           |
-        | Carl C       |     |     |              |                          |              |              |              |
-        | Lenny L      |     |     |              |                          |              |              |              |
-        | Homer S      |     |     | 22:15-06:45  | 22:15-06:45 22:15-06:45  | 22:15-06:45  | 22:15-06:45  | 22:15-06:45  |
+        | Mitarbeiter    | Mo  | Di  | Mi           | Do                       | Fr           | Sa           | So           |
+        | Planner Burns  |     |     |              |                          |              |              |              |
+        | Carl C         |     |     |              |                          |              |              |              |
+        | Lenny L        |     |     |              |                          |              |              |              |
+        | Homer S        |     |     | 22:15-06:45  | 22:15-06:45 22:15-06:45  | 22:15-06:45  | 22:15-06:45  | 22:15-06:45  |
 
   @javascript
   Scenario: Entering the time span wrong
@@ -94,17 +96,18 @@ Feature: create a scheduling
      When I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following partial calendar:
-        | Mitarbeiter | Mo | Di          | Mi | Do | Fr | Sa | So |
-        | Carl C      |    | 09:15-17:45 |    |    |    |    |    |
-        | Lenny L     |    |             |    |    |    |    |    |
-        | Homer S     |    |             |    |    |    |    |    |
+        | Mitarbeiter    | Mo  | Di           | Mi  | Do  | Fr  | Sa  | So  |
+        | Planner Burns  |     |              |     |     |     |     |     |
+        | Carl C         |     | 09:15-17:45  |     |     |     |     |     |
+        | Lenny L        |     |              |     |     |     |     |     |
+        | Homer S        |     |              |     |     |     |     |     |
 
   @todo
   @javascript
   Scenario: schedule only using the keyboard (Enter, n or a), entering just the timespan, using autocompletion
     Given I wait for the cursor to appear
       And I assume the calendar will not change
-     Then the cell "Mo"/"Carl C" should be focus
+     Then the cell "Mo"/"Planner Burns" should be focus
      When I press return
       And I wait for the new scheduling form to appear
      Then I should see "9-17 wichtige Arbeit [wA]" within a hint
@@ -112,32 +115,34 @@ Feature: create a scheduling
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear
      Then I should see the following partial calendar:
-        | Mitarbeiter  | Mo           | Di  | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       | 08:00-18:00  |     |     |     |     |     |     |
-        | Lenny L      |              |     |     |     |     |     |     |
-        | Homer S      |              |     |     |     |     |     |     |
-      And the cell "Mo"/"Carl C" should be focus
+        | Mitarbeiter    | Mo           | Di  | Mi  | Do  | Fr  | Sa  | So  |
+        | Planner Burns  | 08:00-18:00  |     |     |     |     |     |     |
+        | Carl C         |              |     |     |     |     |     |     |
+        | Lenny L        |              |     |     |     |     |     |     |
+        | Homer S        |              |     |     |     |     |     |     |
+      And the cell "Mo"/"Planner Burns" should be focus
 
     # navigate to another cell and press enter again
      When I press arrow down
       And I press arrow right
-     Then the cell "Di"/"Lenny L" should be focus
+     Then the cell "Di"/"Carl C" should be focus
      When I press key "n"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7-17"
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear
      Then I should see the following partial calendar:
-        | Mitarbeiter  | Mo           | Di           | Mi  | Do  | Fr  | Sa  | So  |
-        | Carl C       | 08:00-18:00  |              |     |     |     |     |     |
-        | Lenny L      |              | 07:00-17:00  |     |     |     |     |     |
-        | Homer S      |              |              |     |     |     |     |     |
-      And the cell "Di"/"Lenny L" should be focus
+        | Mitarbeiter    | Mo           | Di           | Mi  | Do  | Fr  | Sa  | So  |
+        | Planner Burns  | 08:00-18:00  |              |     |     |     |     |     |
+        | Carl C         |              | 07:00-17:00  |     |     |     |     |     |
+        | Lenny L        |              |              |     |     |     |     |     |
+        | Homer S        |              |              |     |     |     |     |     |
+      And the cell "Di"/"Carl C" should be focus
 
       # navigate further and use the typeahead
      When I press arrow down
       And I press arrow right
-     Then the cell "Mi"/"Homer S" should be focus
+     Then the cell "Mi"/"Lenny L" should be focus
      When I press key "a"
       And I wait for the new scheduling form to appear
       And I fill in "Quickie" with "7"
@@ -148,11 +153,12 @@ Feature: create a scheduling
       And I press enter in the "Quickie" field
       And I wait for the new scheduling form to disappear
      Then I should see the following partial calendar:
-        | Mitarbeiter  | Mo           | Di           | Mi           | Do  | Fr  | Sa  | So  |
-        | Carl C       | 08:00-18:00  |              |              |     |     |     |     |
-        | Lenny L      |              | 07:00-17:00  |              |     |     |     |     |
-        | Homer S      |              |              | 07:00-17:00  |     |     |     |     |
-      And the scheduling "07:00-17:00" should be focus within the cell "Mi"/"Homer S"
+        | Mitarbeiter    | Mo           | Di           | Mi           | Do  | Fr  | Sa  | So  |
+        | Planner Burns  | 08:00-18:00  |              |              |     |     |     |     |
+        | Carl C         |              | 07:00-17:00  |              |     |     |     |     |
+        | Lenny L        |              |              | 07:00-17:00  |     |     |     |     |
+        | Homer S        |              |              |              |     |     |     |     |
+      And the scheduling "07:00-17:00" should be focus within the cell "Mi"/"Lenny L"
 
      When I press arrow right
       And I press arrow left
@@ -161,8 +167,9 @@ Feature: create a scheduling
      When I press enter in the "Quickie" field
       And I wait for the new scheduling form to disappear
      Then I should see the following partial calendar:
-        | Mitarbeiter  | Mo           | Di           | Mi                       | Do  | Fr  | Sa  | So  |
-        | Carl C       | 08:00-18:00  |              |                          |     |     |     |     |
-        | Lenny L      |              | 07:00-17:00  |                          |     |     |     |     |
-        | Homer S      |              |              | 01:00-03:00 07:00-17:00  |     |     |     |     |
-      And the cell "Mi"/"Homer S" should be focus
+        | Mitarbeiter    | Mo           | Di           | Mi                       | Do  | Fr  | Sa  | So  |
+        | Planner Burns  | 08:00-18:00  |              |                          |     |     |     |     |
+        | Carl C         |              | 07:00-17:00  |                          |     |     |     |     |
+        | Lenny L        |              |              | 01:00-03:00 07:00-17:00  |     |     |     |     |
+        | Homer S        |              |              |                          |     |     |     |     |
+      And the cell "Mi"/"Lenny L" should be focus

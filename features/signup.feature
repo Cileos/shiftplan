@@ -13,7 +13,7 @@ Feature: Signing up
       And 0 employees should exist
       And 0 memberships should exist
      When I follow "Registrieren"
-     Then I should see "Veridian Dynamics" within a hint
+     Then I should see "Veridian Dynamics (muss mit Buchstaben beginnen)" within a hint
       And I fill in the following:
         | Accountbezeichnung  | Fukushima GmbH |
         | Organisationsname   | Reaktor A      |
@@ -27,18 +27,25 @@ Feature: Signing up
       And "me@example.com" should receive an email
 
       # auto-creation of account, organization, employee, membership and blog
-      And an account should exist with name: "Fukushima GmbH"
+      And an account "fukushima" should exist with name: "Fukushima GmbH"
       And an organization "reaktor" should exist with name: "Reaktor A", account: the account
       And a blog should exist with organization: the organization
       And a user should exist with email: "me@example.com"
-      And an employee "owner" should exist with role: "owner", account: the account, first_name: "Homer", last_name: "Simpson", user: the user
+      And an employee "owner" should exist with account: the account, first_name: "Homer", last_name: "Simpson", user: the user
       And a membership should exist with employee: the employee "owner", organization: the organization "reaktor"
+      Then the employee "owner" should be account "fukushima"'s owner
 
      When I open the email
       And I click the first link in the email
      Then I should see "bestätigt"
       And I should be signed in as "Homer Simpson"
-      And I should be on the dashboard page
+      And I should be on the page of the organization
+     When I follow "Alle Organisationen"
+     # Check if the registered user is really an owner:
+     # - only owners can edit accounts
+     Then I should see link "Account bearbeiten"
+     # - only owners can create organizations
+      And I should see link "Organisation hinzufügen"
 
 
   @javascript

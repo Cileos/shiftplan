@@ -1,0 +1,9 @@
+.wwt_diff
+  %span.weekly_working_time
+    = translate_action(:hours) + '/'
+    %abbr{title: translate_action(:wwt_long)}
+      = translate_action(:wwt_short)
+  %abbr.weekly_working_time{title: translate_action(:hours) + '/' + translate_action(:wwt_long)}
+    ='h/' + translate_action(:wwt_short)
+  = filter.wwt_diff_for(row)
+

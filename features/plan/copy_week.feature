@@ -25,7 +25,8 @@ Feature: Plan a week
       And I should see "KW 50 / 2012" within active week
       And I should see "10.12." within weeks first date
       And I should see the following partial calendar:
-        | Mitarbeiter  | Mo  | Di           | Mi           | Do           | Fr  |
-        | Carl C       |     |              |              |              |     |
-        | Lenny L      |     |              |              |              |     |
-        | Homer S      |     | 10:00-11:00  | 11:00-12:00  | 12:00-13:00  |     |
+        | Mitarbeiter    | Mo  | Di           | Mi           | Do           | Fr  |
+        | Planner Burns  |     |              |              |              |     |
+        | Carl C         |     |              |              |              |     |
+        | Lenny L        |     |              |              |              |     |
+        | Homer S        |     | 10:00-11:00  | 11:00-12:00  | 12:00-13:00  |     |

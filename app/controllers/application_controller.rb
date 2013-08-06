@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate_user!
   include Volksplaner::Currents
-  before_filter :prefetch_current_employee, if: :user_signed_in? # to set it on current_user
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.debug('Access denied')
@@ -29,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  before_filter :set_locale
+  prepend_before_filter :set_locale
   def set_locale
     if user_signed_in? && current_user.locale.present?
       I18n.locale = current_user.locale.to_sym
@@ -102,5 +101,9 @@ class ApplicationController < ActionController::Base
     else
       root_path
     end
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    new_user_session_path
   end
 end

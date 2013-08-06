@@ -11,13 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503153820) do
+ActiveRecord::Schema.define(:version => 20130805112215) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "name"
+    t.string   "slug"
+    t.integer  "owner_id"
   end
+
+  add_index "accounts", ["owner_id"], :name => "index_accounts_on_owner_id"
+  add_index "accounts", ["slug"], :name => "index_accounts_on_slug"
 
   create_table "blogs", :force => true do |t|
     t.integer  "organization_id"
@@ -81,6 +86,17 @@ ActiveRecord::Schema.define(:version => 20130503153820) do
   add_index "employees", ["account_id"], :name => "index_employees_on_account_id"
   add_index "employees", ["user_id"], :name => "index_employees_on_user_id"
 
+  create_table "friendly_id_slugs", :force => true do |t|
+    t.string   "slug",                         :null => false
+    t.integer  "sluggable_id",                 :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
   create_table "invitations", :force => true do |t|
     t.string   "token"
     t.datetime "sent_at"
@@ -106,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20130503153820) do
     t.decimal  "organization_weekly_working_time"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
+    t.string   "role"
   end
 
   add_index "memberships", ["employee_id"], :name => "index_memberships_on_employee_id"
@@ -142,7 +159,10 @@ ActiveRecord::Schema.define(:version => 20130503153820) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "account_id"
+    t.string   "slug"
   end
+
+  add_index "organizations", ["slug"], :name => "index_organizations_on_slug"
 
   create_table "plan_templates", :force => true do |t|
     t.string   "name"
@@ -162,9 +182,11 @@ ActiveRecord::Schema.define(:version => 20130503153820) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.text     "description"
+    t.string   "slug"
   end
 
   add_index "plans", ["organization_id"], :name => "index_plans_on_organization_id"
+  add_index "plans", ["slug"], :name => "index_plans_on_slug"
 
   create_table "posts", :force => true do |t|
     t.integer  "blog_id"

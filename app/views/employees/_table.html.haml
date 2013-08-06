@@ -27,7 +27,7 @@
         %td.waz.numeric= number_with_precision(record.weekly_working_time,
           :precision => 2, :strip_insignificant_zeros => true)
         %td= record.try(:user).try(:email) || record.try(:invitation).try(:email)
-        %td= t("employees.roles.#{record.role.present? ? record.role : 'none' }")
+        %td= record.decorate.translated_role
         %td.status= invitation_status(record)
         - organizations = record.organizations.order(:name)
         %td

@@ -3,13 +3,6 @@ require 'spec_helper'
 
 describe User do
 
-  describe 'having role planner' do
-    let(:planner) { create(:employee_planner, user: create(:user)) }
-
-    it { planner.should be_a_planner }
-    it { planner.should be_role('planner') }
-  end
-
   it 'must have a valid email' do
     user = build(:user, email: 'fnørd..d.@p0x.asdt')
 
@@ -112,16 +105,6 @@ describe User do
       it { user.should_not be_multiple }
     end
 
-    describe 'the user is a planner for' do
-      before(:each) { create :employee_planner, user: user, account: account }
-
-      it "are listed" do
-        user.organizations.should include(organization)
-      end
-
-      it { user.should_not be_multiple }
-    end
-
     describe 'the user is an owner for' do
       before(:each) { create :employee_owner, user: user, account: account }
 
@@ -150,6 +133,38 @@ describe User do
       before(:each) do
         create :employee_owner, user: user, account: account
         create :membership, employee: create(:employee, user: user)
+      end
+
+      it { user.should be_multiple }
+    end
+
+    describe 'the user is planner for' do
+      before(:each) do
+        e = create :employee, user: user, account: account
+        create :membership, employee: e, organization: organization, role: 'planner'
+      end
+
+      it "are listed" do
+        user.organizations.should == [organization]
+      end
+
+      it { user.should_not be_multiple }
+    end
+
+    describe 'the user is planner for and member in another org' do
+      let(:another_organization) { create(:organization) }
+
+      before(:each) do
+        e = create :employee, user: user, account: account
+        create :membership, employee: e, organization: organization, role: 'planner'
+
+        create(:membership, employee: e, organization: another_organization)
+      end
+
+      it "are listed" do
+        user.organizations.count.should == 2
+        user.organizations.should include(organization)
+        user.organizations.should include(another_organization)
       end
 
       it { user.should be_multiple }

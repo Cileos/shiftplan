@@ -18,6 +18,7 @@ Feature: Full dates in week plan headers
         | Mo           | Di  | Mi  | Do  | Fr  | Sa  | So  |
         |              |     |     |     |     |     |     |
         |              |     |     |     |     |     |     |
+        |              |     |     |     |     |     |     |
         | 09:00-17:00  |     |     |     |     |     |     |
 
 

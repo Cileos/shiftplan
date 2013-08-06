@@ -1,5 +1,5 @@
 %header{:role => 'banner'}
-  %h1.logo= link_to "Clockwork", root_path, class: 'brand', id: 'logo'
+  %h1.logo= link_to "Clockwork", user_signed_in?? root_path : static_landing_page_url, class: 'brand', id: 'logo'
   %nav{:role => 'navigation'}
     = render 'accounts/navigation'
   %nav.user-navigation

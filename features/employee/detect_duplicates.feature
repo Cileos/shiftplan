@@ -4,22 +4,22 @@ Feature: Detect duplicate Employee
   I want to see a warning
 
   Background:
-    Given the situation of a just registered user
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+     When I am signed in as the user "mr burns"
 
-      # employee heinz meier 1 (heinz.meier@fukushima.de) of same organization(fukushima)
-      And a confirmed user "heinz1" exists with email: "heinz.meier@fukushima.de"
-      And an employee "heinz1" exists with first_name: "Heinz", last_name: "Meier", account: the account "tepco", user: the confirmed user "heinz1"
-      And a membership exists with employee: the employee "heinz1", organization: the organization "fukushima"
+      # employee heinz meier 1 (heinz.meier@npp-springfield.de) of same organization(sector 7g)
+      And a confirmed user "heinz1" exists with email: "heinz.meier@npp-springfield.de"
+      And an employee "heinz1" exists with first_name: "Heinz", last_name: "Meier", account: the account "springfield", user: the confirmed user "heinz1"
+      And a membership exists with employee: the employee "heinz1", organization: the organization "sector 7g"
 
-      # employee heinz meier 2 without email of other organization(tschernobyl)
-      And an organization "tschernobyl" exists with name: "Tschernobyl", account: the account "tepco"
-      And an employee "heinz2" exists with first_name: "Heinz", last_name: "Meier", account: the account "tepco"
-      And a membership exists with employee: the employee "heinz2", organization: the organization "tschernobyl"
-      # heinz 1 is also member of organizaion tschernobyl
-      And a membership exists with employee: the employee "heinz1", organization: the organization "tschernobyl"
+      # employee heinz meier 2 without email of other organization(cooling towers)
+      And an organization "cooling towers" exists with name: "Cooling Towers", account: the account "springfield"
+      And an employee "heinz2" exists with first_name: "Heinz", last_name: "Meier", account: the account "springfield"
+      And a membership exists with employee: the employee "heinz2", organization: the organization "cooling towers"
+      # heinz 1 is also member of organizaion cooling towers
+      And a membership exists with employee: the employee "heinz1", organization: the organization "cooling towers"
 
-     When I sign in as the confirmed user "mr. burns"
-      And I am on the employees page for the organization "fukushima"
+      And I am on the employees page for the organization "sector 7g"
 
   Scenario: Entering no details should inhibit duplication detection
     Given I follow "Hinzufügen"
@@ -36,9 +36,9 @@ Feature: Detect duplicate Employee
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
-        | Übernehmen?           | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
-        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
-        |                       | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Tschernobyl             |
+        | Übernehmen?           | Name          | WAZ  | E-Mail                          | Status                 | Organisationen              |
+        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
+        |                       | Meier, Heinz  |      |                                 | Noch nicht eingeladen  | Cooling Towers              |
       And the "Trotzdem anlegen" checkbox should not be checked
 
      When I press "Anlegen"
@@ -48,12 +48,12 @@ Feature: Detect duplicate Employee
      # create employee anyway
       And I press "Anlegen"
 
-     Then I should be on the employees page for the organization "fukushima"
+     Then I should be on the employees page for the organization "sector 7g"
       And I should see the following table of employees:
-        | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
-        | Burns, Owner  |      | owner@burns.com           | Aktiv                  | Fukushima               |
-        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
-        | Meier, Heinz  | 40   |                           | Noch nicht eingeladen  | Fukushima               |
+        | Name            | WAZ  | E-Mail                          | Status                 | Organisationen              |
+        | Burns, Charles  |      | c.burns@npp-springfield.com     | Aktiv                  | Sector 7-G                  |
+        | Meier, Heinz    |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
+        | Meier, Heinz    | 40   |                                 | Noch nicht eingeladen  | Sector 7-G                  |
 
   Scenario: Adopt duplicate employee Heinz Meier after trying to create
     Given I follow "Hinzufügen"
@@ -63,23 +63,23 @@ Feature: Detect duplicate Employee
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
-        | Übernehmen?           | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
-        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
-        |                       | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Tschernobyl             |
+        | Übernehmen?           | Name          | WAZ  | E-Mail                          | Status                 | Organisationen              |
+        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
+        |                       | Meier, Heinz  |      |                                 | Noch nicht eingeladen  | Cooling Towers              |
       But I should not see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
 
      When I check the checkbox within the second table row
       And I press "Mitarbeiter übernehmen"
 
-     Then I should be on the employees page for the organization "fukushima"
+     Then I should be on the employees page for the organization "sector 7g"
       And I should see the following table of employees:
-        | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
-        | Burns, Owner  |      | owner@burns.com           | Aktiv                  | Fukushima               |
-        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
-        | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima\nTschernobyl  |
+        | Name            | WAZ  | E-Mail                          | Status                 | Organisationen              |
+        | Burns, Charles  |      | c.burns@npp-springfield.com     | Aktiv                  | Sector 7-G                  |
+        | Meier, Heinz    |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
+        | Meier, Heinz    |      |                                 | Noch nicht eingeladen  | Cooling Towers\nSector 7-G  |
 
   Scenario: with all duplicates beeing already member of organization
-    Given a membership exists with employee: the employee "heinz2", organization: the organization "fukushima"
+    Given a membership exists with employee: the employee "heinz2", organization: the organization "sector 7g"
 
      When I follow "Hinzufügen"
       And I fill in "Vorname" with "Heinz"
@@ -88,9 +88,9 @@ Feature: Detect duplicate Employee
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
-        | Übernehmen?           | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
-        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
-        | ist bereits Mitglied  | Meier, Heinz  |      |                           | Noch nicht eingeladen  | Fukushima\nTschernobyl  |
+        | Übernehmen?           | Name          | WAZ  | E-Mail                          | Status                 | Organisationen              |
+        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
+        | ist bereits Mitglied  | Meier, Heinz  |      |                                 | Noch nicht eingeladen  | Cooling Towers\nSector 7-G  |
       And I should see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
       And the adopt employee button should be disabled
 
@@ -98,8 +98,8 @@ Feature: Detect duplicate Employee
   @javascript
   Scenario: generate duplicate by editing existing employee
     Given an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account, weekly_working_time: 33
-      And the employee "homer" is a member in the organization "fukushima"
-      And I am on the employees page for the organization "fukushima"
+      And the employee "homer" is a member in the organization "sector 7g"
+      And I am on the employees page for the organization "sector 7g"
      When I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
      Then I should not see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
@@ -119,9 +119,9 @@ Feature: Detect duplicate Employee
       And I press "Speichern"
       And I wait for the modal box to disappear
 
-     Then I should be on the employees page for the organization "fukushima"
+     Then I should be on the employees page for the organization "sector 7g"
       And I should see the following table of employees:
-        | Name          | WAZ  | E-Mail                    | Status                 | Organisationen          |
-        | Burns, Owner  |      | owner@burns.com           | Aktiv                  | Fukushima               |
-        | Meier, Heinz  |      | heinz.meier@fukushima.de  | Aktiv                  | Fukushima\nTschernobyl  |
-        | Meier, Heinz  | 33   |                           | Noch nicht eingeladen  | Fukushima               |
+        | Name            | WAZ  | E-Mail                          | Status                 | Organisationen              |
+        | Burns, Charles  |      | c.burns@npp-springfield.com     | Aktiv                  | Sector 7-G                  |
+        | Meier, Heinz    |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
+        | Meier, Heinz    | 33   |                                 | Noch nicht eingeladen  | Sector 7-G                  |

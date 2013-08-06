@@ -54,35 +54,9 @@ describe Employee do
     end
 
     context "in simple form" do
-      it "is an integer for the time being" do
-        build(:employee, weekly_working_time: 23.5).weekly_working_time_before_type_cast.should == 23
-      end
-
       it "keeps beeing empty (no accidental 0)" do
         build(:employee, weekly_working_time: nil).weekly_working_time_before_type_cast.should be_nil
       end
-    end
-  end
-
-  context "role" do
-    it "can be 'planner'" do
-      build(:employee, role: 'planner').should be_valid
-    end
-
-    it "can be 'owner'" do
-      build(:employee, role: 'owner').should be_valid
-    end
-
-    it "does not correct mistakes in writing plan(n)er" do
-      build(:employee, role: 'planer').should be_invalid
-    end
-
-    it "may not be arbitrary" do
-      build(:employee, role: 'weihnachtsmann').should be_invalid
-    end
-
-    it "is persisted" do
-      create(:employee, role: 'planner').reload.role.should == 'planner'
     end
   end
 

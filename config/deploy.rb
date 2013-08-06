@@ -8,6 +8,8 @@ set :plock, '89.238.65.38'
 require 'capistrano/ext/multistage'
 
 # RVM bootstrap
+set :rvm_type, :system
+set(:rvm_ruby_string) { "1.9.3-p194@#{application}" }
 require 'rvm/capistrano'
 
 # bundler bootstrap
@@ -15,8 +17,6 @@ require 'bundler/capistrano'
 load 'deploy/assets'
 
 # server details
-set :rvm_type, :system
-set(:rvm_ruby_string) { "1.9.3-p194@#{application}" }
 set :user, 'application'
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
@@ -47,7 +47,7 @@ namespace :deploy do
     run "ln -sf #{deploy_to}/shared/config/database.yml #{latest_release}/config/database.yml"
     #run "rm -f #{current_release}/config/application.yml"
     #run "ln -sf #{deploy_to}/shared/config/application.yml #{current_release}/config/application.yml"
-    #run "ln -sf #{deploy_to}/shared/system #{current_release}/public/"
+    run "ln -sf #{deploy_to}/shared/uploads #{current_release}/public/uploads"
   end
 
   before "deploy:assets:precompile", "deploy:symlink_static_directories"

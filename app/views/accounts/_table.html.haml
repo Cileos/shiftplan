@@ -1,4 +1,4 @@
-%table{id: "account_#{account.id}", class: 'account'}
+%table{id: dom_id(account), class: 'account'}
   %thead
     %tr
       %th.heading= account.name
@@ -12,7 +12,7 @@
                 data: { remote: true })
             - if can? :edit, account
               = link_to(ta(:edit_account), edit_account_path(account),
-                class: 'button button-edit', title: ta(:edit_account))
+                class: 'button button-edit', title: ta(:edit_account), data: {remote: true})
 
   %tbody
     = render 'organization_rows',

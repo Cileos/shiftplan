@@ -1,33 +1,68 @@
-class WwtDiffWidget < Struct.new(:h, :employee, :records)
+class WwtDiffWidget < Struct.new(:filter, :row_record, :records)
+
+  delegate :h, to: :filter
 
   def to_html
-    h.abbr_tag(label_text(short: true),
-               label_text,
+    h.abbr_tag(short_label_text,
+               long_label_text,
                class: "badge #{label_class}")
   end
 
-  # TODO i18n 'of'
-  def label_text(opts={})
-    if employee.weekly_working_time.present?
-      txt = opts[:short] ? '/' : 'of'
-      "#{human_hours} #{txt} #{employee.weekly_working_time.to_i}"
+  def short_label_text(opts={})
+    if wwt?
+      if additional_hours?
+        "#{human hours} (+#{human additional_hours}) / #{human(wwt)}"
+      else
+        "#{human hours} / #{human wwt}"
+      end
     else
-      "#{human_hours}"
+      if additional_hours?
+        "#{human hours} (+#{human additional_hours})"
+      else
+        "#{human hours}"
+      end
     end
   end
 
-  def hours
-    records.select {|s| s.employee == employee }.sum(&:length_in_hours)
+  def long_label_text(opts={})
+    if wwt?
+      if additional_hours?
+        t 'long_label_with_adds_and_wwt', wwt: human(wwt), hours: human(hours), additional_hours: human(additional_hours)
+      else
+        t 'long_label', wwt: human(wwt), hours: human(hours)
+      end
+    else
+      if additional_hours?
+        t 'long_label_with_adds', hours: human(hours), additional_hours: human(additional_hours)
+      else
+        "#{human hours}"
+      end
+    end
+
   end
 
-  def human_hours
-    Volksplaner::Formatter.human_hours(hours)
+  # hours in this calendar (week)
+  def hours
+    raise NotImplementedError
+  end
+
+  # hours in all plans of the same account in the week described y filter
+  def all_hours
+    raise NotImplementedError
+  end
+
+  def additional_hours
+    all_hours - hours
+  end
+
+  def human(numeric_hours)
+    Volksplaner::Formatter.human_hours numeric_hours
   end
 
   # the 'badge-normal' class is not actually used by bootstrap, but we cannot test for absent class
   def label_class
-    return 'badge-normal' unless employee.weekly_working_time.present?
-    difference = employee.weekly_working_time - hours
+    return 'badge-normal' unless wwt?
+    difference = wwt - all_hours
     if difference > 0
       'badge-warning'
     elsif difference < 0
@@ -35,6 +70,20 @@ class WwtDiffWidget < Struct.new(:h, :employee, :records)
     else
       'badge-success'
     end
+  end
+
+  private
+
+  def additional_hours?
+    additional_hours.present? && additional_hours > 0
+  end
+
+  def wwt?
+    false
+  end
+
+  def t(key, opts={})
+    I18n.translate key, opts.merge(scope: 'widgets.wwt')
   end
 
 end

@@ -20,7 +20,7 @@ group :test, :halt_on_fail => true do
 
     # Rails example
     watch(%r{^spec/.+_spec\.rb$})
-    watch(%r{^app/(?:models|helpers)(.+)\.rb$})         { |m| "spec/#{m[1]}_spec.rb" }
+    watch(%r{^app/((?:models|helpers|widgets)/.+)\.rb$})         { |m| "spec/#{m[1]}_spec.rb" }
     watch(%r{^lib/(.+)\.treetop$})                      { |m| "spec/lib/#{m[1]}_parser_spec.rb" }
     watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
     # we (will) use cucumber extensivly
@@ -28,7 +28,7 @@ group :test, :halt_on_fail => true do
     #watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
     #watch('spec/spec_helper.rb')                        { "spec" }
     watch('config/routes.rb')                           { "spec/routing" }
-    watch('app/models/ability.rb')                      { "spec/abilities" }
+    # watch('app/models/ability.rb')                      { "spec/abilities" }
     # Capybara request specs
     watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
   end
@@ -41,7 +41,7 @@ group :test, :halt_on_fail => true do
 
   ENV['CUCUMBER_FORMAT'] = 'fuubar'
   ENV['CAPYBARA_CHROME'] = 'yes'
-#                                                         V --no-drb skip spork to run simplecov 
+#                                                         V --no-drb skip spork to run simplecov
   guard 'cucumber',
     :cli => "--drb --no-source --no-profile --strict --format pretty --format rerun --out rerun.txt --tags ~@wip",
     :keep_failed => false,

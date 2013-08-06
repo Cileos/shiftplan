@@ -8,9 +8,9 @@
   = simple_form_for @user, url: change_password_path do |f|
 
     .inputs
-      = f.input :current_password, required: true, autofocus: true
-      = f.input :password, required: true
-      = f.input :password_confirmation, required: true
+      = f.uncompleted_password :current_password, required: true, autofocus: true
+      = f.uncompleted_password :password, required: true
+      = f.uncompleted_password :password_confirmation, required: true
 
     .actions
       = f.update_button

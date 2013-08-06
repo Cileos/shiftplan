@@ -21,11 +21,15 @@ Then /^#{capture_model} (should|should not) be done/ do |subject, should_not_not
 end
 
 # Given the employee "Homer" is a member in the organization "Simpson Family"
-Given /^#{capture_model} is a member (?:of|in) #{capture_model}$/ do |employee, organization|
+Given /^#{capture_model} is a (member|planner) (?:of|in) #{capture_model}$/ do |employee, role, organization|
   employee = model! employee
   organization = model! organization
 
-  Membership.create! employee: employee, organization: organization
+  Membership.create!(
+    employee: employee,
+    organization: organization,
+    role: (role == 'planner' ? 'planner' : nil)
+  )
 end
 
 # Given the confirmed user "Homer" has joined another account
@@ -65,4 +69,14 @@ Given /^#{capture_model} has joined another organization of #{capture_model}$/ d
     organization = FactoryGirl.create :organization, account: account
     membership   = FactoryGirl.create :membership, employee: employee, organization: organization
   }).to change(Account, :count).by(0)
+end
+
+
+Given /^mr burns, owner of the Springfield Nuclear Power Plant exists$/ do
+  step %{a mr burns exists}
+  step %{a user "mr burns" should exist}
+  step %{a employee_owner "mr burns" should exist}
+  step %{an account "springfield" should exist}
+  step %{a organization "sector 7g" should exist}
+  step %{a blog "sector 7g" should exist}
 end

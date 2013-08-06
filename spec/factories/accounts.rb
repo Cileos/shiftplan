@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :account do
-    sequence(:name) { |i| "Account#{i} GmbH" }
+    sequence(:name) { |i| "The #{i.ordinalize} Account GmbH" }
   end
 
   factory :new_account, parent: :account do

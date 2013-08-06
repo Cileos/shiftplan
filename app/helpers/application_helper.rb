@@ -15,4 +15,8 @@ module ApplicationHelper
   def masterhead_toolbar(&block)
     content_for :masterhead_toolbar, &block
   end
+
+  def static_landing_page_url
+    'http://clockwork.io'
+  end
 end

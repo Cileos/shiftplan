@@ -78,6 +78,13 @@ module HtmlSelectorsHelpers
     when 'errors'
       '.errors.alert.flash'
 
+    when /^a flash( alert | notice | )message$/
+      if (kind = $1.strip).present?
+        "div.flash.#{kind}"
+      else
+        'div.flash'
+      end
+
     when 'the spinner'
       '#spinner'
 
@@ -167,6 +174,9 @@ module HtmlSelectorsHelpers
 
     when 'the duplication warning'
       'div#duplication-warning'
+
+    when /the date\s?picker/
+      'div.datepick-popup div.datepick'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

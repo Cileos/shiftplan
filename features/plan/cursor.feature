@@ -19,19 +19,20 @@ Feature: Calendar cursor
       And I am on the employees in week page for the plan for week: 51, cwyear: 2012
       And I should see the following calendar:
        | Mitarbeiter      | Mo | Di | Mi | Do                                  | Fr          | Sa | So |
+       | Planner Burns    |    |    |    |                                     |             |    |    |
        | Carl C           |    |    |    |                                     |             |    |    |
        | Lenny L          |    |    |    |                                     |             |    |    |
        | Homer S          |    |    |    | 07:00-11:00 12:00-18:00 19:00-23:00 | 07:00-19:00 |    |    |
        | Ohne Mitarbeiter |    |    |    |                                     |             |    |    |
       And I assume the calendar will not change
-     Then the cell "Mo"/"Carl C" should be focus
+     Then the cell "Mo"/"Planner Burns" should be focus
 
      # wrap vertically and horizontally
      When I press arrow up 2 times
      Then the cell "Mo"/"Homer S" should be focus
      When I press arrow left
      Then the cell "So"/"Homer S" should be focus
-     When I press arrow down 2 times
+     When I press arrow down 3 times
      Then the cell "So"/"Carl C" should be focus
      When I press arrow right
      Then the cell "Mo"/"Carl C" should be focus
@@ -69,7 +70,7 @@ Feature: Calendar cursor
      When I press arrow up
      Then the cell "Do"/"Homer S" should be focus
      And the scheduling "12:00-18:00" should be focus within the cell "Do"/"Homer S"
-     When I press arrow down 3 times
+     When I press arrow down 4 times
      Then the cell "Do"/"Carl C" should be focus
 
      # navigate vertically through single scheduling per cell
@@ -77,7 +78,7 @@ Feature: Calendar cursor
       And I press arrow down 2 times
      Then the cell "Fr"/"Homer S" should be focus
      And the scheduling "07:00-19:00" should be focus within the cell "Fr"/"Homer S"
-     When I press arrow down 2 times
+     When I press arrow down 3 times
      Then the cell "Fr"/"Carl C" should be focus
 
      # navigate horizontally
@@ -107,6 +108,6 @@ Feature: Calendar cursor
      And I wait for the modal box to appear
      And I press escape
      And I wait for the modal box to disappear
-    Then the cell "Mo"/"Carl C" should be focus
+    Then the cell "Mo"/"Planner Burns" should be focus
     When I press arrow right
-    Then the cell "Di"/"Carl C" should be focus
+    Then the cell "Di"/"Planner Burns" should be focus

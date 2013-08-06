@@ -7,8 +7,7 @@ Feature: Authorization
   # considered in other features
 
   Background:
-    Given the situation of a just registered user
-      And I sign out
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
       And a plan exists with name: "Brennstäbe wechseln", organization: the organization
       And a team "kühlwasser wechseln" exists with name: "Kühlwasser wechseln", organization: the organization
       And another team "kühlwasser tauschen" exists with name: "Kühlwasser tauschen", organization: the organization
@@ -34,42 +33,47 @@ Feature: Authorization
      Then I should be on the signin page
 
   Scenario: employee
-    Given a confirmed user "employee" exists
-      And an employee "employee" exists with user: the confirmed user "employee", first_name: "Homer", account: the account
-      And the employee "employee" is a member in the organization
-      And an employee "bart" exists with first_name: "Bart", account: the account
-      And the employee "bart" is a member in the organization
-      And I am signed in as the confirmed user "employee"
+    Given a confirmed user "homer" exists
+      And an employee "homer" exists with user: the confirmed user "homer", first_name: "homer", account: the account
+      And the employee "homer" is a member in the organization "sector 7g"
+      And another organization "cooling towers" exists with name: "Cooling Towers", account: the account
+      And I am signed in as the confirmed user "homer"
 
      When I go to the dashboard page
      Then I should be authorized to access the page
-      And I should see link "Ausloggen" within the user navigation
-      But I should not see link "Einloggen"
 
-     When I follow "Fukushima"
-      And I choose "Alle Pläne" from the drop down "Pläne"
-     Then I should be authorized to access the page
-      But I should not see link "Hinzufügen"
-      And I should see link "Ausloggen" within the user navigation
-      And I should see link "Fukushima" within the navigation
-      And I should see link "Pläne" within the navigation
-      And I should not see link "Mitarbeiter" within the navigation
-      And I should not see link "Teams" within the navigation
+      And the user should have the abilities of an employee in the organization "sector 7g"
+      # not a member of "Cooling Towers"
+      But I should not see link "Cooling Towers" within the navigation
 
-     When I follow "Brennstäbe wechseln"
-     Then I should be authorized to access the page
-      But I should not see link "Neue Terminierung"
-      And I should not see link "Übernahme aus der letzten Woche"
 
   Scenario: planner
-    Given a confirmed user "planner" exists
-      And an employee planner exists with user: the confirmed user "planner", account: the account
-      And I am signed in as the confirmed user "planner"
+    Given a confirmed user "homer" exists
+      And an employee "homer" exists with user: confirmed user "homer", account: the account
+      And the employee "homer" is a planner of the organization "sector 7g"
+      And another organization "cooling towers" exists with name: "Cooling Towers", account: the account
+      And the employee "homer" is a member of the organization "cooling towers"
+      And a plan exists with name: "Frühjahrsputz", organization: the organization "cooling towers"
+      And I am signed in as the confirmed user "homer"
 
-      And the situation of what a planner can do
+     Then the user should have the abilities of a planner in the organization "sector 7g"
+      # Homer is only a normal member/employee of "Cooling Towers". So he acts
+      # like an employee here.
+      And the user should have the abilities of an employee in the organization "cooling towers"
+      But the user should not have the ability to crud the account or organizations
 
   Scenario: owner
-      Given I am signed in as the confirmed user "mr. burns"
+      Given another organization "cooling towers" exists with name: "Cooling Towers", account: the account
+        And a plan exists with name: "Wasser", organization: the organization "cooling towers"
+        And a team exists with name: "Kühlwasser nachfüllen", organization: the organization "cooling towers"
+        And another team exists with name: "Kühlwasser filtern", organization: the organization "cooling towers"
 
-    # an owner can do everything a planner can do and maybe more some time
-      Then the situation of what a planner can do
+       When I am signed in as the user "mr burns"
+        And I go to the dashboard page
+
+       Then the user should have the ability to crud the account or organizations
+        And the user should have the abilities of a planner in the organization "sector 7g"
+       # For the organization "Cooling Towers" Mr Burns does not even have a
+       # membership. But as he is the owner of the account, he is allowed to
+       # do everything there, too.
+        And the user should have the abilities of a planner in the organization "cooling towers"

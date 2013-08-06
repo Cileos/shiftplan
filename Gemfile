@@ -127,5 +127,10 @@ gem 'gravtastic'
 gem 'ember-rails', '0.7.0'
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
 
-gem 'strong_parameters', '~> 0.1.6'
+gem 'strong_parameters', '~> 0.2.1'
 gem 'nested_form', :git => 'git@github.com:rwrede/nested_form.git'
+
+gem 'backup', :require => false # just for restore
+gem 'friendly_id', '~> 4.0' # for rails 3
+# mitigate BREACH and CRIME https attack
+gem 'breach-mitigation-rails'
