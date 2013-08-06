@@ -1,4 +1,6 @@
 class InvitationsController < BaseController
+  nested_belongs_to :account, :organization
+
   respond_to :html, :js
 
   before_filter :set_inviter, only: [:create, :update]
@@ -21,9 +23,5 @@ class InvitationsController < BaseController
     flash[:notice] = t(:'invitations.sent_successfully')
     resource.send_email if resource.errors.empty?
     account_organization_employees_path(current_account, current_organization)
-  end
-
-  def begin_of_association_chain
-    current_organization
   end
 end

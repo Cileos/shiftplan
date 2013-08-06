@@ -1,3 +1,3 @@
 class SchedulingCommentsController < CommentsController
-  belongs_to :scheduling
+  belongs_to :account, :organization, :plan, :scheduling
 end

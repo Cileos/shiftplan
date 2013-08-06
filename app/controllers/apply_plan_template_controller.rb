@@ -1,5 +1,5 @@
 class ApplyPlanTemplateController < BaseController
-  belongs_to :plan, :singleton => true
+  nested_belongs_to :account, :organization, :plan, :singleton => true
   respond_to :js
 
   def create

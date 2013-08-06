@@ -1,5 +1,5 @@
 class PostsController < BaseController
-  nested_belongs_to :organization, :blog
+  nested_belongs_to :account, :organization, :blog
 
   before_filter :check_if_post_was_deleted, only: :show
 

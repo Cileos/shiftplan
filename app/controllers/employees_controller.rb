@@ -1,4 +1,5 @@
 class EmployeesController < BaseController
+  nested_belongs_to :account, :organization
   respond_to :html, :js, :json
 
   before_filter :set_adoptable_employees, only: [:search, :adopt]
@@ -25,11 +26,6 @@ class EmployeesController < BaseController
     search_attrs = { base: current_organization.adoptable_employees }
     search_attrs.merge!(params[:query]) if params[:query].present?
     @adoptable_employees = EmployeeSearch.new(search_attrs.symbolize_keys).fuzzy_results
-  end
-
-  # TODO more than one organization per planner
-  def begin_of_association_chain
-    current_organization
   end
 
   def resource_params
