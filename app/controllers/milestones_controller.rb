@@ -1,5 +1,5 @@
 class MilestonesController < BaseController
-  belongs_to :organization, :plan
+  nested_belongs_to :account, :organization, :plan
   self.responder = Volksplaner::Responder
   respond_to :json
 

@@ -1,5 +1,5 @@
 class ShiftsController < BaseController
-  nested_belongs_to :plan_template
+  nested_belongs_to :account, :organization, :plan_template
   actions :all, :except => [:show]
 
   before_filter :merge_time_components_from_next_day, only: :edit

@@ -1,4 +1,5 @@
 class PlansController < BaseController
+  nested_belongs_to :account, :organization
   respond_to :html, :js
 
   def create
@@ -18,11 +19,6 @@ class PlansController < BaseController
   end
 
   private
-
-  def begin_of_association_chain
-    authorize! :read, Plan
-    current_organization
-  end
 
   def collection
     end_of_association_chain.order(:name)

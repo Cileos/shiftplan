@@ -1,3 +1,3 @@
 class PostCommentsController < CommentsController
-  belongs_to :post
+  nested_belongs_to :account, :organization, :blog, :post
 end

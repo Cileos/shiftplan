@@ -1,5 +1,5 @@
 class SchedulingsController < BaseController
-  nested_belongs_to :plan
+  nested_belongs_to :account, :organization, :plan
   actions :all, :except => [:show]
   # same as SchedulingFilter.supported_modes - naming explicitly here because of
   # decoupling and we don't want eagler preloading here
