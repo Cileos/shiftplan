@@ -105,7 +105,7 @@ Feature: Comments in Company blog
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
      Then I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
-      And I should see a delete button
+      And there should be a delete button on the page
       And I sign out
 
     Given a confirmed user "bart" exists
@@ -115,5 +115,4 @@ Feature: Comments in Company blog
       And I am on the page for the organization "sector 7g"
      When I follow "Umweltminister zu Besuch"
      Then I should see "Charles Burns schrieb am 24.05.2012 um 12:00 Uhr:" within the comments
-      But I should not see a delete button
-
+      But there should not be a delete button on the page

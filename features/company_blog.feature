@@ -262,7 +262,7 @@ In order to keep my colleagues informed about important news
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
      Then I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
-      And I should see a delete button
+      And there should be a delete button on the page
       And I sign out
 
     Given a confirmed user "bart" exists
@@ -271,7 +271,7 @@ In order to keep my colleagues informed about important news
       And I am signed in as the confirmed user "bart"
      When I go to the page for the post
      Then I should see "Charles Burns schrieb am 24.05.2012 um 12:00 Uhr:" within the comments
-      But I should not see a delete button
+      But there should not be a delete button on the page
 
   Scenario: User paginates through blog posts
     Given the following posts exist:

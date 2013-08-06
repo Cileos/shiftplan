@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  before_filter :set_locale
+  prepend_before_filter :set_locale
   def set_locale
     if user_signed_in? && current_user.locale.present?
       I18n.locale = current_user.locale.to_sym
@@ -101,5 +101,9 @@ class ApplicationController < ActionController::Base
     else
       root_path
     end
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    new_user_session_path
   end
 end

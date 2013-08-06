@@ -39,7 +39,7 @@ Feature: Signing up
       And I click the first link in the email
      Then I should see "bestätigt"
       And I should be signed in as "Homer Simpson"
-      And I should be on the dashboard page
+      And I should be on the page of the organization
      When I follow "Alle Organisationen"
      # Check if the registered user is really an owner:
      # - only owners can edit accounts

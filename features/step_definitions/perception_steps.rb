@@ -132,7 +132,7 @@ Then /^the team color should be "([^"]*)"$/ do |color|
   first(selector)['style'].should include("background-color: #{color}")
 end
 
-Then /^I (should|should not) see a delete button$/ do |should_or_should_not|
+Then /^there (should|should not) be a delete button on the page$/ do |should_or_should_not|
   if should_or_should_not.include?('not')
     page.should have_no_css('input[name="_method"][value="delete"]')
   else

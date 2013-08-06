@@ -76,9 +76,10 @@ Feature: Feedback without Screenshot
       And I follow "Feedback"
       And I wait for the modal box to appear
       And I fill in "Name" with "Hein Blöd"
-      And I fill in "E-Mail" with "guest@example.xyz"
+      And I fill in "E-Mail" with "guest@example.xyz" within the modal box
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
+
       And I wait for the modal box to disappear
      Then I should see a flash notice "Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten"
 
@@ -96,7 +97,7 @@ Feature: Feedback without Screenshot
 
       And I follow "Feedback"
       And I wait for the modal box to appear
-      And I fill in "E-Mail" with "guest@example.xyz"
+      And I fill in "E-Mail" with "guest@example.xyz" within the modal box
       And I fill in "Problembeschreibung oder Verbesserungsvorschlag" with "Fehler beim Anlegen eines Mitarbeiters"
       And I press "Abschicken"
       And I wait for the modal box to disappear

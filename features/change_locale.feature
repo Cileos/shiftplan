@@ -8,11 +8,11 @@ Feature: Change locale
   Scenario: determine locale from browser
     Given I use an english browser
      When I go to the home page
-     Then I should see "Welcome"
+     Then I should see "Register or log in to continue."
 
   Scenario: fallback is German
      When I go to the home page
-     Then I should see "Willkommen"
+     Then I should see "Du musst Dich registrieren oder anmelden, um fortfahren zu können"
 
   Scenario: overwrite browser detected locale with setting
     Given I use a english browser
