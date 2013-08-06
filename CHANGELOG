@@ -1,8 +1,12 @@
 Changelog
 =========
 
-Release 1.0 2013-08-06 15:50
-----------------------------
+Release 1.0.1 2013-08-06 19:20
+------------------------------
+* 2feb326 Merge branch 'feature/repair-controller-nesting' into develop
+
+Release 1.0.0 2013-08-06 15:50
+------------------------------
 * f5c8bb8 Merge branch 'feature/static-landing-page-integration' into develop
 * 8238614 Merge pull request #185 from Cileos/feature/hide-quickie-label
 * 54755da Merge branch 'feature/wwt-of-teams' into develop
