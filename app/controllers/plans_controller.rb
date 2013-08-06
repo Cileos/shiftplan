@@ -20,11 +20,6 @@ class PlansController < BaseController
 
   private
 
-  def begin_of_association_chain
-    authorize! :read, Plan
-    current_organization
-  end
-
   def collection
     end_of_association_chain.order(:name)
   end
