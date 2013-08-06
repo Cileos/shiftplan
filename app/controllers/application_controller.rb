@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  before_filter :set_locale
+  prepend_before_filter :set_locale
   def set_locale
     if user_signed_in? && current_user.locale.present?
       I18n.locale = current_user.locale.to_sym
