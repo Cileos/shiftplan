@@ -1,6 +1,22 @@
 Changelog
 =========
 
+Release 1.0 2013-08-06 15:50
+----------------------------
+* f5c8bb8 Merge branch 'feature/static-landing-page-integration' into develop
+* 8238614 Merge pull request #185 from Cileos/feature/hide-quickie-label
+* 54755da Merge branch 'feature/wwt-of-teams' into develop
+* bbebee6 Merge branch 'feature/move-role-to-membership' into develop
+* 309ebef Merge pull request #175 from Cileos/feature/restore-from-backup
+* dcc42c1 Merge pull request #179 from Cileos/feature/wwt-over-all-plans
+* e786ae8 Merge pull request #181 from Cileos/feature/firefox-styles
+* ab687c2 Merge pull request #178 from Cileos/feature/jump-within-plan-using-datepicker
+* c88ddd5 Merge pull request #176 from Cileos/feature/case-insensitive-email-addresses
+* aabe814 Merge pull request #177 from Cileos/feature/edit-account-in-modalbox
+* 64cccb2 Merge pull request #174 from Cileos/feature/bug-prefilled-password-field
+* a259767 Merge branch 'hotfix/fix-creating-shifts-without-existing-qualifications' into develop
+* 4b092b9 Merge branch 'hotfix/repeat-with-minutes' into develop
+
 Release 0.4.0 2013-06-11 14:27
 ------------------------------
 * 850b240 Merge pull request #173 from Cileos/feature/mohr-schtails
