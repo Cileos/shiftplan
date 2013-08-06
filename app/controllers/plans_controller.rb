@@ -1,4 +1,5 @@
 class PlansController < BaseController
+  nested_belongs_to :account, :organization
   respond_to :html, :js
 
   def create

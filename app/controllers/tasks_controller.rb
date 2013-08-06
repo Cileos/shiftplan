@@ -1,6 +1,6 @@
 class TasksController < BaseController
   before_filter :inject_milestone_id_into_params
-  belongs_to :organization, :plan
+  nested_belongs_to :account, :organization, :plan
 
   belongs_to :milestone, optional: true
   respond_to :json

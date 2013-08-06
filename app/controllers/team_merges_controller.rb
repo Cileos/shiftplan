@@ -1,4 +1,5 @@
 class TeamMergesController < BaseController
+  nested_belongs_to :account, :organization
   respond_to :js
 
   def create
