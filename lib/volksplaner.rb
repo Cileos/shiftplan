@@ -13,7 +13,7 @@ module Volksplaner
   NameRegEx = /\A[\p{Letter}][\p{Letter}\d .§&()-]*\z/
 
   def self.staging?
-    @staging = `hostname` =~ /plock/
+    @staging ||= `hostname` =~ /plock/
   end
 
   def self.hostname

@@ -63,7 +63,7 @@ Clockwork::Application.configure do
 
   config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "You May Not Pass") do |u, p|
     [u, p] == ['timtest', 'mug6Ue7i']
-  end
+  end if Volksplaner.staging?
 
   config.action_mailer.delivery_method = :sendmail
   config.middleware.use ExceptionNotifier,
