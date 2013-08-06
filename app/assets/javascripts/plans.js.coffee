@@ -28,7 +28,7 @@ jQuery(document).ready ->
 
     refresh_behaviour_of_cell = ->
       $cell = $(this)
-      $cell.find('.scheduling').each ->
+      $cell.find('.scheduling:not(.shift)').each ->
         $scheduling = $(this)
         Clockwork.appendGimmicks($scheduling)
 
