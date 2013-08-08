@@ -1,3 +1,4 @@
 en:
   hint:
+    javascript_required: 'Javascript needs to be activated in your browser to be able to use Clockwork.'
     did_you_mean: "Did you mean"
