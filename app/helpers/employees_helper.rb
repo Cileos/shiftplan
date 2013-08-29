@@ -35,13 +35,7 @@ module EmployeesHelper
   end
 
   def avatar(user, employee, version, html_classes = "")
-    html_options = { :class => "avatar #{version} #{html_classes}" }
-    employee = user.find_employee_with_avatar if user && employee.nil?
-    if employee && employee.avatar?
-      image_tag(employee.avatar.url(version), html_options)
-    else
-      gravatar(user, version, html_options)
-    end
+    AvatarWidget.new(self, user, employee, version, class: html_classes).to_html
   end
 
   def avatar_with_caching(*a)
@@ -51,13 +45,4 @@ module EmployeesHelper
 
   alias_method_chain :avatar, :caching
 
-  def gravatar(user, version, html_options)
-    size = AvatarUploader.const_get("#{version.to_s.camelize}Size")
-    gravatar_options = { default: 'mm', size: size }
-    if user.present?
-      image_tag user.gravatar_url(gravatar_options), html_options
-    else
-      image_tag User.new.gravatar_url(gravatar_options.merge(forcedefault: 'y')), html_options
-    end
-  end
 end
