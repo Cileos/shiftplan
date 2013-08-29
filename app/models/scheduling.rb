@@ -33,8 +33,15 @@ class Scheduling < ActiveRecord::Base
   end
 
   def self.upcoming
-    t = table_name
-    where("#{t}.starts_at > :now AND #{t}.starts_at < TIMESTAMP :now + INTERVAL '14 days'", now: Time.zone.now).order("#{t}.starts_at ASC")
+    where("#{table_name}.starts_at > :now", now: Time.zone.now).order("#{table_name}.starts_at ASC")
+  end
+
+  def self.upcoming_in_the_next_14_days
+    upcoming.where("#{table_name}.starts_at < TIMESTAMP :now + INTERVAL '14 days'", now: Time.zone.now)
+  end
+
+  def self.upcoming_in_the_next_24_hours
+    upcoming.where("#{table_name}.starts_at < TIMESTAMP :now + INTERVAL '24 hours'", now: Time.zone.now)
   end
 
   def self.for_organization(organization)

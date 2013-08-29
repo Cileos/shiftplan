@@ -544,7 +544,7 @@ describe Scheduling do
     end
   end
 
-  context "upcoming" do
+  context ".upcoming_in_the_next_14_days" do
     before :each do
 
       @in5      = create :scheduling, starts_at: 5.minutes.from_now
@@ -556,24 +556,24 @@ describe Scheduling do
       @last_week = create :scheduling, starts_at: 1.week.ago
     end
     it "should contain the ones starting within the next cigarette break" do
-      Scheduling.upcoming.should include(@in5)
+      Scheduling.upcoming_in_the_next_14_days.should include(@in5)
     end
     it "should contain all within the next 7 days" do
-      Scheduling.upcoming.should include(@tomorrow)
-      Scheduling.upcoming.should include(@tdat)
+      Scheduling.upcoming_in_the_next_14_days.should include(@tomorrow)
+      Scheduling.upcoming_in_the_next_14_days.should include(@tdat)
     end
 
     it "should contain all within the next 14 days" do
-      Scheduling.upcoming.should include(@in8days)
+      Scheduling.upcoming_in_the_next_14_days.should include(@in8days)
     end
 
     it "should not contain any farther than 15 days away" do
-      Scheduling.upcoming.should_not include(@in15days)
+      Scheduling.upcoming_in_the_next_14_days.should_not include(@in15days)
     end
 
     it "should not contain any from the past" do
-      Scheduling.upcoming.should_not include(@yesterday)
-      Scheduling.upcoming.should_not include(@last_week)
+      Scheduling.upcoming_in_the_next_14_days.should_not include(@yesterday)
+      Scheduling.upcoming_in_the_next_14_days.should_not include(@last_week)
     end
   end
 
