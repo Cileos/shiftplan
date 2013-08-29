@@ -139,6 +139,11 @@ GEM
       nokogiri (>= 1.5.0)
     daemons (1.1.9)
     database_cleaner (0.9.1)
+    delayed_job (4.0.0)
+      activesupport (>= 3.0, < 4.1)
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -408,6 +413,8 @@ DEPENDENCIES
   coffee-rails (~> 3.2.2)
   cucumber-rails (~> 1.2.1)
   database_cleaner
+  delayed_job
+  delayed_job_active_record
   devise
   diff_matcher
   draper (~> 1.1.0)

@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130805112215) do
+ActiveRecord::Schema.define(:version => 20130829141121) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "name"
-    t.string   "slug"
     t.integer  "owner_id"
+    t.string   "slug"
   end
 
   add_index "accounts", ["owner_id"], :name => "index_accounts_on_owner_id"
@@ -47,6 +47,22 @@ ActiveRecord::Schema.define(:version => 20130805112215) do
 
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["employee_id"], :name => "index_comments_on_employee_id"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0, :null => false
+    t.integer  "attempts",   :default => 0, :null => false
+    t.text     "handler",                   :null => false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "demands", :force => true do |t|
     t.integer  "quantity"
