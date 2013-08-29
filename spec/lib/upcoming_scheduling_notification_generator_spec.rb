@@ -39,5 +39,12 @@ describe UpcomingSchedulingNotificationGenerator do
       notification.notifiable.should == scheduling_beginning_in_less_than_24_hours
       notification.employee.should == bart
     end
+
+    it "does not generate a notification if it already exists" do
+      expect do
+        described_class.generate!
+        described_class.generate!
+      end.to change(Notification::UpcomingScheduling, :count).from(0).to(1)
+    end
   end
 end
