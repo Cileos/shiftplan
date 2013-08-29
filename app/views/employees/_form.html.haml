@@ -21,6 +21,8 @@
     = f.input :first_name, autofocus: true
     = f.input :last_name
 
+    = f.input :shortcut
+
     = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
 
     - if can?(:update_role, employee)

@@ -21,6 +21,7 @@ Feature: Create Employees
         | Vorname           | Carl    |
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30      |
+        | Kürzel            | Cc      |
       And I should see a thumb default gravatar within the new employee form
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Anlegen"
@@ -28,9 +29,9 @@ Feature: Create Employees
      Then I should be on the employees page for the organization
       And I should see flash notice "Mitarbeiter erfolgreich angelegt."
       Then I should see the following table of employees:
-        | Name            | WAZ  | E-Mail                       | Status                 |
-        | Burns, Charles  |      | c.burns@npp-springfield.com  | Aktiv                  |
-        | Carlson, Carl   | 30   |                              | Noch nicht eingeladen  |
+        | Name           | Kürzel | WAZ | E-Mail                      | Status                |
+        | Burns, Charles | CB     |     | c.burns@npp-springfield.com | Aktiv                 |
+        | Carlson, Carl  | Cc     | 30  |                             | Noch nicht eingeladen |
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
      When I go to the page of the plan
 
