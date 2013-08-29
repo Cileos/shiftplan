@@ -45,10 +45,7 @@ class Notification::Base < ActiveRecord::Base
   protected
 
   def deliver!
-    unless sent_at.present?
-      self.class.mailer_class.public_send(self.class.mailer_action, self).deliver
-      touch :sent_at
-    end
+    self.class.mailer_class.public_send(self.class.mailer_action, self).deliver
+    touch :sent_at
   end
-  handle_asynchronously :deliver!
 end

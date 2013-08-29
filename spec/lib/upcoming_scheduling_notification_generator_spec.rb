@@ -56,21 +56,10 @@ describe UpcomingSchedulingNotificationGenerator do
       end.to change(Notification::UpcomingScheduling, :count).from(0).to(2)
     end
 
-    it "delivers an email for each notification via delayed job" do
-      expect do
-        described_class.generate!
-      end.to change(Delayed::Job, :count).from(0).to(1)
-
-      payload_object = Delayed::Job.first.payload_object
-      payload_object.object.should == Notification::UpcomingScheduling.last
-      payload_object.method_name.should == :deliver_without_delay!
-    end
-
-    it "only delivers the email once" do
-      expect do
-        described_class.generate!
-        described_class.generate!
-      end.to change(Delayed::Job, :count).from(0).to(1)
+    it "delivers an email for each notification exactly once" do
+      Notification::UpcomingScheduling.any_instance.should_receive(:deliver!).once
+      described_class.generate!
+      described_class.generate!
     end
   end
 end
