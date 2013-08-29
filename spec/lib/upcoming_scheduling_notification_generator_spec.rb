@@ -40,11 +40,37 @@ describe UpcomingSchedulingNotificationGenerator do
       notification.employee.should == bart
     end
 
-    it "does not generate a notification if it already exists" do
+    it "does not create another notification if the scheduling has not changed" do
       expect do
         described_class.generate!
         described_class.generate!
       end.to change(Notification::UpcomingScheduling, :count).from(0).to(1)
+    end
+
+    it "creates another notification if the scheduling has changed" do
+      expect do
+        described_class.generate!
+        Timecop.freeze(current_time + 1.minute)
+        scheduling_beginning_in_less_than_24_hours.touch(:updated_at)
+        described_class.generate!
+      end.to change(Notification::UpcomingScheduling, :count).from(0).to(2)
+    end
+
+    it "delivers an email for each notification via delayed job" do
+      expect do
+        described_class.generate!
+      end.to change(Delayed::Job, :count).from(0).to(1)
+
+      payload_object = Delayed::Job.first.payload_object
+      payload_object.object.should == Notification::UpcomingScheduling.last
+      payload_object.method_name.should == :deliver!
+    end
+
+    it "only delivers the email once" do
+      expect do
+        described_class.generate!
+        described_class.generate!
+      end.to change(Delayed::Job, :count).from(0).to(1)
     end
   end
 end
