@@ -7,14 +7,19 @@ class AvatarWidget < Struct.new(:h, :user, :employee, :version)
     super(*a)
 
     @html_options[:class] = "avatar #{version} #{@html_options[:class]}"
+    if user && employee.nil?
+      employee = user.find_employee_with_avatar
+    end
   end
 
   def to_html
-    employee = user.find_employee_with_avatar if user && employee.nil?
     if employee && employee.avatar?
       h.image_tag(employee.avatar.url(version), html_options)
+    elsif cached = user.gravatar
+      # render frikking gravatar
+      "gravatar"
     else
-      gravatar(user, version, html_options)
+      h.content_tag(:i, employee.shortcut, html_options)
     end
   end
 

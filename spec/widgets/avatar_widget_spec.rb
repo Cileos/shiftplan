@@ -8,11 +8,34 @@ describe AvatarWidget do
   let(:options)  { {class: :author} }
   let(:widget)   { described_class.new(view, user, employee, version, options) }
 
+  describe '#employee' do
+    it 'finds an employee with avatar when none given'
+  end
+
   describe '#html_options :class' do
     subject { widget.html_options[:class] }
     it { should include('avatar') }
     it { should include('tiny') }
     it { should include('author') }
+  end
+
+  describe '#to_html' do
+    let(:html_options) { stub 'calculated options' }
+    before :each do
+      widget.stub html_options: html_options
+    end
+    it 'uses uploaded avatar when present' do
+      employee.stub avatar?: true, avatar: stub(url: (url = stub))
+      view.should_receive(:image_tag).with(url, html_options)
+      widget.to_html
+    end
+    it 'uses gravatar when cached'
+    it 'uses employee initials as fallback' do
+      employee.stub avatar?: false, shortcut: 'ThC'
+      user.stub gravatar: nil
+      view.should_receive(:content_tag).with(:i, 'ThC', html_options)
+      widget.to_html
+    end
   end
 
 end
