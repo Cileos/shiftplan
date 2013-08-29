@@ -6,7 +6,7 @@ class UpcomingSchedulingNotificationGenerator
         Notification::UpcomingScheduling.create!(
           notifiable: scheduling,
           employee: scheduling.employee
-        ).delay.deliver!
+        )
       end
     end
   end

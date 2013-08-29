@@ -63,7 +63,7 @@ describe UpcomingSchedulingNotificationGenerator do
 
       payload_object = Delayed::Job.first.payload_object
       payload_object.object.should == Notification::UpcomingScheduling.last
-      payload_object.method_name.should == :deliver!
+      payload_object.method_name.should == :deliver_without_delay!
     end
 
     it "only delivers the email once" do
