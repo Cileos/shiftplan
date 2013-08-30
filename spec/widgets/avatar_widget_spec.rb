@@ -21,18 +21,26 @@ describe AvatarWidget do
 
   describe '#to_html' do
     let(:html_options) { stub 'calculated options' }
+    let(:avatar_url) { stub 'avatar_url' }
+    let(:avatar) { stub 'AvatarUploader file', url: avatar_url }
     before :each do
       widget.stub html_options: html_options
     end
     it 'uses uploaded avatar when present' do
-      employee.stub avatar?: true, avatar: stub(url: (url = stub))
-      view.should_receive(:image_tag).with(url, html_options)
+      employee.stub avatar?: true, avatar: avatar
+      view.should_receive(:image_tag).with(avatar_url, html_options)
       widget.to_html
     end
-    it 'uses gravatar when cached'
+    it 'uses user#avatar when cached' do
+      employee.stub avatar?: false
+      user.stub avatar?: true, avatar: avatar
+      view.should_receive(:image_tag).with(avatar_url, html_options)
+      widget.to_html
+    end
+
     it 'uses employee initials as fallback' do
       employee.stub avatar?: false, shortcut: 'ThC'
-      user.stub gravatar: nil
+      user.stub avatar?: false
       view.should_receive(:content_tag).with(:i, 'ThC', html_options)
       widget.to_html
     end
