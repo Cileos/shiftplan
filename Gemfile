@@ -26,7 +26,7 @@ end
 
 group :test do
   gem 'cucumber-rails', "~> 1.2.1", :require => false
-  gem 'rspec-rails', "~> 2.12.2"
+  gem 'rspec-rails', '~> 2.14.0'
   gem 'rspec-fire'
   gem 'launchy'
   gem "pickle"
