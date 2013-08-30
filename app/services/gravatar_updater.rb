@@ -1,4 +1,7 @@
 class GravatarUpdater
+  def run(*)
+    update_all User.where(avatar: nil)
+  end
 
   # updates the avatar of the given record using Gravatar by the record#email
   def update(record, options={})
