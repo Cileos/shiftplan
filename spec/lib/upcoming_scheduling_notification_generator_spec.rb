@@ -62,6 +62,14 @@ describe UpcomingSchedulingNotificationGenerator do
       described_class.generate!
     end
 
+    shared_examples :a_generator_creating_no_upcoming_scheduling_notifications do
+      it "does not create a notification" do
+        expect do
+          described_class.generate!
+        end.to_not change(Notification::UpcomingScheduling, :count)
+      end
+    end
+
     context "when scheduling has no employee" do
       let!(:scheduling_beginning_in_less_than_24_hours) do
         super().tap do |s|
@@ -70,21 +78,19 @@ describe UpcomingSchedulingNotificationGenerator do
         end
       end
 
-      it "does not create a notification" do
-        expect do
-          described_class.generate!
-        end.to_not change(Notification::UpcomingScheduling, :count)
-      end
+      it_behaves_like :a_generator_creating_no_upcoming_scheduling_notifications
     end
 
     context "when scheduling has an employee without user" do
       let(:bart) { create(:employee, user: nil) }
 
-      it "does not create a notification" do
-        expect do
-          described_class.generate!
-        end.to_not change(Notification::UpcomingScheduling, :count)
-      end
+      it_behaves_like :a_generator_creating_no_upcoming_scheduling_notifications
+    end
+
+    context "when scheduling has an employee with an unconfirmed user" do
+      let(:bart) { create(:employee, user: create(:user)) }
+
+      it_behaves_like :a_generator_creating_no_upcoming_scheduling_notifications
     end
   end
 end
