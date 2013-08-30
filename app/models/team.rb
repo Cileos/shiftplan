@@ -19,7 +19,7 @@ class Team < ActiveRecord::Base
   validates_format_of :name, with: /\A[\p{Letter}][\p{Letter}\d ]+\z/
   validates_uniqueness_of :name, scope: :organization_id
 
-  attr_accessible :name, :color
+  attr_accessible :name, :shortcut, :color
 
   def self.default_sorting
     order(:name)
