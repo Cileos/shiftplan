@@ -1,6 +1,4 @@
-class InvitationMailer < ActionMailer::Base
-  default from: "Clockwork <no-reply@#{Volksplaner.hostname}>"
-  default :charset => "UTF-8"
+class InvitationMailer < ClockworkMailer
 
   def invitation(invitation)
     @invitation = invitation

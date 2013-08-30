@@ -1,6 +1,4 @@
-class UpcomingSchedulingNotificationMailer < ActionMailer::Base
-  default charset: 'UTF-8'
-  default from: "Clockwork <no-reply@#{Volksplaner.hostname}>"
+class UpcomingSchedulingNotificationMailer < ClockworkMailer
 
   def upcoming_scheduling(notification)
   end
