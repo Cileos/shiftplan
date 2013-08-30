@@ -6,6 +6,7 @@ Spork.prefork do
   require File.dirname(__FILE__) + "/../config/spork_prefork"
 
   require 'rspec'
+  require 'rspec/fire'
   require 'draper/test/rspec_integration'
 
   # Must beloaded early to extend RSpec with RSpecLocale.
@@ -14,6 +15,7 @@ Spork.prefork do
 
   RSpec.configure do |config|
     include FactoryGirl::Syntax::Default
+    config.include(RSpec::Fire)
     config.include Devise::TestHelpers, :type => :controller
     config.before(:all) do
       DatabaseCleaner.strategy = :transaction
