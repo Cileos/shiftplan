@@ -7,7 +7,7 @@ describe UpcomingSchedulingNotificationGenerator do
   let(:current_time_string)  { "#{current_date_string} 14:30:00" }
   let(:current_date)         { Date.parse(current_date_string) }
   let(:current_time)         { Time.parse(current_time_string) }
-  let(:bart)                 { create(:employee, first_name: 'Bart') }
+  let(:bart)                 { create(:employee, first_name: 'Bart', user: create(:confirmed_user)) }
 
   before(:each) do
     Timecop.freeze(current_time)
@@ -60,6 +60,31 @@ describe UpcomingSchedulingNotificationGenerator do
       Notification::UpcomingScheduling.any_instance.should_receive(:deliver!).once
       described_class.generate!
       described_class.generate!
+    end
+
+    context "when scheduling has no employee" do
+      let!(:scheduling_beginning_in_less_than_24_hours) do
+        super().tap do |s|
+          s.employee = nil
+          s.save!
+        end
+      end
+
+      it "does not create a notification" do
+        expect do
+          described_class.generate!
+        end.to_not change(Notification::UpcomingScheduling, :count)
+      end
+    end
+
+    context "when scheduling has an employee without user" do
+      let(:bart) { create(:employee, user: nil) }
+
+      it "does not create a notification" do
+        expect do
+          described_class.generate!
+        end.to_not change(Notification::UpcomingScheduling, :count)
+      end
     end
   end
 end
