@@ -12,12 +12,21 @@ describe UpcomingSchedulingNotificationMailer do
 
 
   context "#upcoming_scheduling" do
-    it "has the clockwork no reply email address in the senders list" do
-      mail.from.should == [ 'no-reply@app.clockwork.io' ]
+
+    context "mail headers" do
+      it "has the clockwork no reply email address in the senders list" do
+        mail.from.should == [ 'no-reply@app.clockwork.io' ]
+      end
+
+      it "has mr burns' email address in the recipients list" do
+        mail.to.should == [ 'c.burns@npp-springfield.com' ]
+      end
     end
 
-    it "has mr burns' email address in the recipients list" do
-      mail.to.should == [ 'c.burns@npp-springfield.com' ]
+    context "mail subject" do
+      it "has a descriptive subject" do
+        mail.subject.should == 'Erinnerung: Anstehender Termin'
+      end
     end
 
   end
