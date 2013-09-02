@@ -39,32 +39,29 @@ describe UpcomingSchedulingNotificationMailer do
       end
     end
 
-    context "mail subject" do
-
-      context "when the user has no locale set" do
-
-        it "has a german subject" do
-          mail.subject.should == 'Erinnerung: Anstehende Schicht'
-        end
+    context "when the user has no locale set" do
+      it "has a german subject" do
+        mail.subject.should == 'Erinnerung: Anstehende Schicht'
       end
 
-      context "when the user has the english locale set" do
-
-        let(:mr_burns) do
-          create(:mr_burns, locale: 'en')
-        end
-
-        it "has an english subject" do
-          mail.subject.should == 'Reminder: Upcoming shift'
-        end
-      end
-    end
-
-    context "mail body" do
-      it "includes infos about the upcoming scheduling" do
+      it "has a german body" do
         expect(mail.body).to include('Sie sind für eine eine Schicht am Mittwoch, den 12.12.2012 (12:15-18:30 Reaktor fegen [Rf]) eingeteilt')
       end
     end
 
+    context "when the user has the english locale set" do
+
+      let(:mr_burns) do
+        create(:mr_burns, locale: 'en')
+      end
+
+      it "has an english subject" do
+        mail.subject.should == 'Reminder: Upcoming shift'
+      end
+
+      it "has an english body" do
+        expect(mail.body).to include('You are scheduled for a shift on Wednesday, the 12.12.2012 (12:15-18:30 Reaktor fegen [Rf]).')
+      end
+    end
   end
 end
