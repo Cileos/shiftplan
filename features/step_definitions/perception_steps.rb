@@ -61,11 +61,11 @@ Then /^I should see the following table of (.+):$/ do |plural, expected|
   actual = find("table##{plural}").all('tr').map do |tr|
     # tr.all('th,td').map(&:text).map(&:strip)
     tr.all('th, td').map do |cell|
-    if cell.tag_name == 'th' or cell.all('*').empty? # a text-only cell ader
+    if cell.all('*').empty? # a text-only cell ader
       cell.text
     else # remove the text of all included buttons and links, they gonna be clicked anyway
       text = cell.text
-      cell.all('a.button,a.comments,button').each do |e|
+      cell.all('a.button,a.comments,button,.avatar').each do |e|
         text = text.sub(e.text, '')
       end
       text
