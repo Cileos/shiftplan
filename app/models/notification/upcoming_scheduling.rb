@@ -13,6 +13,10 @@ class Notification::UpcomingScheduling < Notification::Base
       format: :default_with_week_day), quickie: scheduling.quickie)
   end
 
+  def acting_employee
+    employee
+  end
+
   private
 
   def scheduling
