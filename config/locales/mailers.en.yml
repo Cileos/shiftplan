@@ -5,4 +5,4 @@ en:
         subject: "You've got a new e-mail address!"
     upcoming_scheduling_notification:
       upcoming_scheduling:
-        subject: 'Reminder: Upcoming scheduling'
+        subject: 'Reminder: Upcoming shift'
