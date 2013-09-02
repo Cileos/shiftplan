@@ -45,7 +45,7 @@ describe UpcomingSchedulingNotificationMailer do
       end
 
       it "has a german body" do
-        expect(mail.body).to include('Sie sind für eine Schicht am Mittwoch, den 12.12.2012 (12:15-18:30 Reaktor fegen [Rf]) eingeteilt')
+        expect(mail.body).to include('Sie sind für eine Schicht am Mittwoch, 12.12.2012 (12:15-18:30 Reaktor fegen [Rf]) eingeteilt')
       end
     end
 
@@ -60,7 +60,7 @@ describe UpcomingSchedulingNotificationMailer do
       end
 
       it "has an english body" do
-        expect(mail.body).to include('You are scheduled for a shift on Wednesday, the 12.12.2012 (12:15-18:30 Reaktor fegen [Rf]).')
+        expect(mail.body).to include('You are scheduled for a shift on Wednesday, 12.12.2012 (12:15-18:30 Reaktor fegen [Rf]).')
       end
     end
   end
