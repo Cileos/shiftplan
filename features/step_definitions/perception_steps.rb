@@ -147,20 +147,6 @@ Then /^I should see the avatar "([^"]*)"$/ do |file_name|
   assert File.exists?(path), "File '#{path}' does not exist."
 end
 
-Then /^I should see a (tiny|thumb) (gravatar|default gravatar)$/ do |version, gravatar_or_default_gravatar|
-  image_tag = page.find("img.avatar.#{version}")
-  url, params = image_tag['src'].split('?')
-
-  url.should match(%r~https://secure.gravatar.com/avatar/[0-9abcdef]{32}\.png~)
-
-  size = AvatarUploader.const_get("#{version.to_s.camelize}Size")
-  if gravatar_or_default_gravatar == 'gravatar'
-    params.should == "d=mm&r=PG&s=#{size}"
-  else
-    params.should == "d=mm&forcedefault=y&r=PG&s=#{size}"
-  end
-end
-
 Then /^I should not see a field labeled #{capture_quoted}$/ do |label|
   page.should have_no_xpath( XPath::HTML.field(label) )
 end

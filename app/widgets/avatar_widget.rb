@@ -7,18 +7,18 @@ class AvatarWidget < Struct.new(:h, :user, :employee, :version)
     super(*a)
 
     @html_options[:class] = "avatar #{version} #{@html_options[:class]}"
-    if user && employee.nil?
-      employee = user.find_employee_with_avatar
-    end
   end
 
   def to_html
-    if employee && employee.avatar?
-      avatar_tag employee.avatar, version, html_options
-    elsif user.avatar?
+    empl = find_employee
+    if empl && empl.avatar?
+      avatar_tag empl.avatar, version, html_options
+    elsif user && user.avatar?
       avatar_tag user.avatar, version, html_options
+    elsif empl
+      h.content_tag(:i, empl.shortcut, html_options)
     else
-      h.content_tag(:i, employee.shortcut, html_options)
+      ''
     end
   end
 
@@ -37,5 +37,9 @@ class AvatarWidget < Struct.new(:h, :user, :employee, :version)
 
   def avatar_tag(avatar, version, options)
     h.image_tag avatar.url(version), options
+  end
+
+  def find_employee
+    employee.presence || (user && user.find_employee_with_avatar)
   end
 end

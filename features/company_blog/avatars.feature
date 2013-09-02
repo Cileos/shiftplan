@@ -17,5 +17,4 @@ Feature: Avatars in company blog
       And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
       And I am on the page for the organization "sector 7g"
      When I follow "Umweltminister zu Besuch"
-     Then I should see a thumb gravatar within the first post
-      And I should see the avatar "rails.png" within the comment
+     Then I should see the avatar "rails.png" within the comment
