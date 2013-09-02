@@ -42,7 +42,7 @@ module CalendarHelpers
       labels = []
       row_headings.each_with_index do |cell, index|
         seen = extract_text_from_cell cell
-        if seen == row_label
+        if seen.include?(row_label)
           return index
         else
           labels << seen
