@@ -30,7 +30,7 @@ de:
         quickie: "z. B.: 9-17 wichtige Arbeit [wA]"
   upcoming_scheduling_notification_mailer:
     upcoming_scheduling:
-      introductory_text: "Sie sind für eine eine Schicht am %{date} (%{quickie}) eingeteilt."
+      introductory_text: "Sie sind für eine Schicht am %{date} (%{quickie}) eingeteilt."
   scheduling_notification_mailer:
     new_comment:
       subjects:
