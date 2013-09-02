@@ -2,7 +2,7 @@
 describe UpcomingSchedulingNotificationMailer do
 
   let(:mr_burns) do
-    create(:mr_burns)
+    create(:mr_burns, locale: nil)
   end
   let(:employee_mr_burns) do
     mr_burns.employees.first
@@ -40,8 +40,23 @@ describe UpcomingSchedulingNotificationMailer do
     end
 
     context "mail subject" do
-      it "has a descriptive subject" do
-        mail.subject.should == 'Erinnerung: Anstehende Schicht'
+
+      context "when the user has no locale set" do
+
+        it "has a german subject" do
+          mail.subject.should == 'Erinnerung: Anstehende Schicht'
+        end
+      end
+
+      context "when the user has the english locale set" do
+
+        let(:mr_burns) do
+          create(:mr_burns, locale: 'en')
+        end
+
+        it "has an english subject" do
+          mail.subject.should == 'Reminder: Upcoming shift'
+        end
       end
     end
 
