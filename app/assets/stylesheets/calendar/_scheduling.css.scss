@@ -39,7 +39,7 @@
 
     a.comments,
     a.no-comments {
-      padding-left: 15px;
+      padding-left: 2px;
       @extend %with-icon;
       @extend .icon-comment;
     }
