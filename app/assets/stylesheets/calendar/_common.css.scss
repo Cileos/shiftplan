@@ -112,10 +112,12 @@
     margin-bottom: 6px; // prevent text beyond due to linebreak
   }
 
-  // .avatar.tiny {
-  //   max-height: 16px;
-  //   max-width: 16px;
-  // }
+  img.avatar.tiny {
+    float: left;
+    margin-right: 0.25em;
+    max-height: 20px;
+    max-width:  20px;
+  }
 
   .wwt_diff {
     margin-top: 5px;
