@@ -16,6 +16,10 @@ require 'rvm/capistrano'
 require 'bundler/capistrano'
 load 'deploy/assets'
 
+set :whenever_command, "bundle exec whenever"
+set :whenever_environment, defer { stage }
+require "whenever/capistrano"
+
 # server details
 set :user, 'application'
 default_run_options[:pty] = true

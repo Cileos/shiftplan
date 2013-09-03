@@ -137,3 +137,4 @@ gem 'friendly_id', '~> 4.0' # for rails 3
 gem 'breach-mitigation-rails'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
+gem 'whenever', :require => false
