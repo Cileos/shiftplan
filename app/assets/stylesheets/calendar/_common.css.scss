@@ -64,33 +64,14 @@
   td {
     width: 12%; // == 84%
 
-    // FF cannot position: relative td, so we have to wrap it in a div
-    // it is undefined by W3C spec anyway
-    .cellwrap {
-      padding: 2px;
-      min-height: 100%;
-      width: 100%;
-      position: relative;
-
-      &:hover {
-        @extend %with-icon;
-        @extend .icon-add;
-        &:before {
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          margin-left: -0.5em;
-          color: $ci_green;
-          text-shadow: 1px 1px $ci_shadow;
-        }
-      }
+    &:hover {
+      @include z-index(30);
+      background: #ABC6D8 image-url('plus.png') bottom center no-repeat;
+      @include transition(background-color 0.3s ease-in-out);
     }
-
 
     &.focus {
       @include z-index(30);
-
-      outline: 1px solid $ci_blue;
     }
 
     &.outside_plan_period {
