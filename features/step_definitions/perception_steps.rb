@@ -57,22 +57,24 @@ end
 #     %td.name
 #     %td.age
 Then /^I should see the following table of (.+):$/ do |plural, expected|
-  # table is a Cucumber::Ast::Table
-  actual = find("table##{plural}").all('tr').map do |tr|
-    # tr.all('th,td').map(&:text).map(&:strip)
-    tr.all('th, td').map do |cell|
-    if cell.all('*').empty? # a text-only cell ader
-      cell.text
-    else # remove the text of all included buttons and links, they gonna be clicked anyway
-      text = cell.text
-      cell.all('a.button,a.comments,button,.avatar').each do |e|
-        text = text.sub(e.text, '')
+  retrying_once Selenium::WebDriver::Error::WebDriverError do
+    # table is a Cucumber::Ast::Table
+    actual = find("table##{plural}").all('tr').map do |tr|
+      # tr.all('th,td').map(&:text).map(&:strip)
+      tr.all('th, td').map do |cell|
+        if cell.all('*').empty? # a text-only cell ader
+          cell.text
+        else # remove the text of all included buttons and links, they gonna be clicked anyway
+          text = cell.text
+          cell.all('a.button,a.comments,button,.avatar').each do |e|
+            text = text.sub(e.text, '')
+          end
+          text
+        end.strip.squeeze(' ')
       end
-      text
-    end.strip.squeeze(' ')
     end
+    expected.diff! actual
   end
-  expected.diff! actual
 end
 
 Then /^I should see the following table for #{capture_model}:$/ do |ref, table|
