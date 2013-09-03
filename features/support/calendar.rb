@@ -71,8 +71,8 @@ module CalendarHelpers
     def employees_with_batches
       rows.map do |tr|
         [
-          tr.first('th:first span.employee_name').try(:text),
-          tr.first('th:first .wwt_diff .badge').try(:text)
+          tr.first('th:first .employee > .name').try(:text),
+          tr.first('th:first .wwt_diff .badge').try(:text) || ''
         ]
       end
     end

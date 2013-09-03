@@ -40,7 +40,7 @@ Feature: Sum of hours in plan
         | 2012 | 6    | 1     | 12-12:30 |
         | 2012 | 6    | 2     | 12-13:45 |
       And I go to the employees in week page for the plan for cwyear: 2012, week: 6
-     Then I should see the following WAZ:
+     Then I should see the following employee WAZ:
         | Planner Burns | 0       |
         | Carl C        | 2¼      |
         | Lenny L       | 0       |
@@ -56,9 +56,11 @@ Feature: Sum of hours in plan
 
       And I go to the employees in week page for the plan "clean reactor" for cwyear: 2012, week: 6
      Then I should see the following employee WAZ:
-        | Carl C  | 2¼            |
-        | Lenny L | 0             |
-        | Homer S | 52 (+1½) / 40 |
+        | Planner Burns    | 0             |
+        | Carl C           | 2¼            |
+        | Lenny L          | 0             |
+        | Homer S          | 52 (+1½) / 40 |
+        | Ohne Mitarbeiter |               |
 
   Scenario: Weekly working time badges for teams
     Given the employee "Homer" was scheduled in the plan as following:
