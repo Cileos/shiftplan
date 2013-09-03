@@ -153,9 +153,9 @@ small {
   }
 
   .avatar {
-    vertical-align: -10px;
-    border: 1px solid $ci_grey;
-    height: 27px;
+    // vertical-align: -10px;
+    // border: 1px solid $ci_grey;
+    // height: 27px;
   }
 
   .active {
@@ -221,6 +221,11 @@ small {
 
   .username {
     float: right;
+  }
+
+  .current-account-and-organization,
+  .username {
+    white-space: nowrap;
   }
 }
 
