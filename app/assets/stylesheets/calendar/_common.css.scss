@@ -100,10 +100,12 @@
 
   }
 
-  .employee,
-  .team {
-    width: 16%;
-    padding: 8px 5px;
+  td, th {
+    &.employee,
+    &.team {
+      width: 16%;
+      padding: 8px 5px;
+    }
   }
 
   .team .pibble {

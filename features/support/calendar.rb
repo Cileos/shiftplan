@@ -1,5 +1,5 @@
 module CalendarHelpers
-  SelectorsForTextExtraction = ['.day_name', '.employee_name > .name', '.employee_name', '.work_time', '.team_name',
+  SelectorsForTextExtraction = ['.day_name', '.employee > .name', '.work_time', '.team_name',
     'a.button.active', 'li.dropdown a.button', '.demand', '.qualification_name']
 
   class Table < Struct.new(:world)
