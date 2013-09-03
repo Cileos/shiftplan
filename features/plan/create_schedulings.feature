@@ -102,6 +102,8 @@ Feature: create a scheduling
         | Lenny L        |     |              |     |     |     |     |     |
         | Homer S        |     |              |     |     |     |     |     |
 
+  @quickie
+  @wip
   @todo
   @javascript
   Scenario: schedule only using the keyboard (Enter, n or a), entering just the timespan, using autocompletion
