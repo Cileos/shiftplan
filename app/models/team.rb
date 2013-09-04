@@ -8,6 +8,7 @@ require 'digest/md5'
 
 class Team < ActiveRecord::Base
   include Draper::Decoratable
+  include Volksplaner::ShortcutAttribute
 
   belongs_to :organization
   has_many :schedulings
@@ -43,19 +44,6 @@ class Team < ActiveRecord::Base
 
   def color_before_type_cast
     color
-  end
-
-  def shortcut
-    super.presence || shortcut_from_name
-  end
-
-  # display unsaved default value in form
-  def shortcut_before_type_cast
-    shortcut
-  end
-
-  def shortcut_from_name
-    name.split.map(&:first).join if name
   end
 
   def color_from_name

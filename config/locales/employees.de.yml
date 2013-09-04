@@ -18,6 +18,7 @@ de:
         force_create_duplicate: "Trotzdem anlegen?"
         force_update_duplicate: "Trotzdem speichern?"
         duplicates: 'Duplikate'
+        shortcut: Kürzel
     errors:
       models:
         employee:

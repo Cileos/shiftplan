@@ -1,5 +1,6 @@
 class Employee < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
+  include Volksplaner::ShortcutAttribute
 
   mount_uploader :avatar, AvatarUploader
 
