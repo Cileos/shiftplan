@@ -16,7 +16,7 @@ module StackDecoratorHelper
         stacked << current
       end
       stacked.each do |s|
-        s.remaining_stack = sorted.select { |o| o.overlap_ignoring_stack?(s) }.group_by(&:stack).count - s.stack - 1
+        s.remaining_stack = [0, sorted.select { |o| o.overlap_ignoring_stack?(s) }.group_by(&:stack).count - s.stack - 1].max
       end
     end
   end
@@ -24,11 +24,22 @@ module StackDecoratorHelper
   def stack_metadata_for(scheduling)
     {
       start:     Volksplaner::Formatter.metric_hour_string(scheduling.start_metric_hour),
-      length:    Volksplaner::Formatter.metric_hour_string(scheduling.length_in_hours),
+      length:    Volksplaner::Formatter.metric_hour_string(handle_zero_length scheduling.length_in_hours),
       stack:     scheduling.stack.to_s,
       remaining: scheduling.remaining_stack.to_s,
       total:     scheduling.total_stack.to_s
     }
+  end
+
+  private
+
+  # In hours view, 0-length schedulings should be shown without quirks
+  def handle_zero_length(hours)
+    if hours == 0
+      0.25
+    else
+      hours
+    end
   end
 end
 

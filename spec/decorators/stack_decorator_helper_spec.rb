@@ -60,6 +60,24 @@ describe StackDecoratorHelper do
       m[:start].should == '9.25'
       m[:length].should == '2.5'
     end
+
+    context '0-length scheduling' do
+      let(:scheduling) { build :scheduling_by_quickie, quickie: '8-8' }
+      before :each do
+        decorator.pack_in_stacks [scheduling]
+      end
+      it 'is shown with length of 0.25' do
+        metadata[:length].should == '0.25'
+      end
+
+      it 'has no stack remaining' do
+        metadata[:remaining].should == '0'
+      end
+
+      it 'has 1 stack total' do
+        metadata[:total].should == '1'
+      end
+    end
   end
 
 end
