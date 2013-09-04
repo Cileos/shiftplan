@@ -98,9 +98,9 @@ module HtmlSelectorsHelpers
       model = model!($1)
       "table##{model.class.model_name.singular}_#{model.id}"
 
-    # The following links are decorated with tipsy, which uses the @title attribute and moves it to @original-title
+    # The following links use the @title attribute
     when /^the comments? link$/
-      %Q~a.comments[original-title]~ # check only for presence of o-t; it is pluralized, depending on number of comments
+      %Q~a.comments[title]~ # check only for presence of o-t; it is pluralized, depending on number of comments
 
     when /^the no-comments? link$/
       %Q~a.no-comments[original-title]~
