@@ -6,7 +6,7 @@ class CalendarCursor
   constructor:(
     @$calendar,
     @tds = 'tbody.editable td:not(.wwt_diff):not(.outside_plan_period)',
-    @items = 'td, .scheduling') ->
+    @items = '.scheduling') ->
 
     $calendar = @$calendar
     cursor = this
@@ -28,15 +28,24 @@ class CalendarCursor
 
     # call .trigger('focus') on a .scheduling to focus it externally
     @$calendar.on 'focus', @items, (event) => @focus $(event.target)
-    @$calendar.on 'mouseenter', @items, (event) ->
+
+    focus =  (event) ->
       unless cursor.scrolling
         cursor.focus($(this), null, false)
       false
-    @$calendar.on 'mouseleave', @items, (event) ->
+    unfocus = (event) ->
       unless cursor.scrolling
         cursor.unfocus()
         cursor.focus($(this).closest('td'), null, false)
       false
+
+
+    @$calendar.on 'mouseenter', @items, focus
+    @$calendar.on 'mouseleave', @items, unfocus
+
+    # hover over ALL tds for visual buzzness
+    @$calendar.on 'mouseenter', 'td', focus
+    @$calendar.on 'mouseleave', 'td', unfocus
 
     # focus first calendar data cell which is not outside the plan period
     @focus @$calendar.find("#{@tds}:first")
