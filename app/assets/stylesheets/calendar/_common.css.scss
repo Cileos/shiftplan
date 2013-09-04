@@ -63,10 +63,12 @@
 
   td {
     width: 12%; // == 84%
+    @include transition(background-color 0.5s ease-in-out);
 
     &.focus {
       @include z-index(30);
       background: #ABC6D8;
+      @include transition(background-color 0.1s ease-in-out);
     }
 
     &.outside_plan_period {
@@ -78,7 +80,6 @@
   tbody.editable {
     td.focus {
       background: #ABC6D8 image-url('plus.png') bottom center no-repeat;
-      @include transition(background-color 0.3s ease-in-out);
     }
 
     .scheduling:hover,
