@@ -19,8 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :job_template, "bash -c ':job'"
-
 every :hour do
   rake 'notification:generate_upcoming_scheduling_notifications'
 end
