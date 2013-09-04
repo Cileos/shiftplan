@@ -4,7 +4,8 @@ FactoryGirl.define do
     employee
   end
 
-  factory :sent_notification, parent: :notification do
-    sequence(:sent_at) { 1.day.ago }
+  factory :upcoming_scheduling_notification, class: 'Notification::UpcomingScheduling' do
+    employee
+    association :notifiable, factory: :upcoming_scheduling_in_the_next_24_hours
   end
 end

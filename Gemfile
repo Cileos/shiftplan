@@ -26,7 +26,8 @@ end
 
 group :test do
   gem 'cucumber-rails', "~> 1.2.1", :require => false
-  gem 'rspec-rails', "~> 2.12.2"
+  gem 'rspec-rails', '~> 2.14.0'
+  gem 'rspec-fire'
   gem 'launchy'
   gem "pickle"
   gem "timecop"
@@ -134,3 +135,6 @@ gem 'backup', :require => false # just for restore
 gem 'friendly_id', '~> 4.0' # for rails 3
 # mitigate BREACH and CRIME https attack
 gem 'breach-mitigation-rails'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'whenever', :require => false

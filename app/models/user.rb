@@ -116,6 +116,10 @@ class User < ActiveRecord::Base
     organizations.count > 1
   end
 
+  def confirmed?
+    confirmed_at.present?
+  end
+
   def confirming_email_change?
     email_change and confirming_email_change
   end

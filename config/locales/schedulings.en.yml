@@ -21,6 +21,9 @@ en:
     hints:
       scheduling:
         quickie: "e.g. 9-17 Awesome Job [AJ]"
+  upcoming_scheduling_notification_mailer:
+    upcoming_scheduling:
+      introductory_text: "You are scheduled for a shift on %{date} (%{quickie})."
   scheduling_notification_mailer:
     new_comment:
       subjects:
