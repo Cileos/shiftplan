@@ -1,6 +1,10 @@
 // you cant mix media queries with selectors
 // so it has to be a mixin
 @mixin calendar_detail_condensed {
+  .date-without-year {
+    display: block;
+  }
+
   abbr {
     &.day_name, &.badge, &.weekly_working_time,
     &.team_name, &.work_time {
