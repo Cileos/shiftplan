@@ -59,7 +59,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
     { }
   end
 
-  # TODO: not longer needed, remove pls
   # FF cannot position: relative td, so we have to wrap it in a div
   # it is undefined by W3C spec anyway
   def cell_content(*a)

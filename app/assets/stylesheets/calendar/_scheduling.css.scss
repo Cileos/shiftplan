@@ -105,6 +105,11 @@
       background: #fff;
     }
   }
+
+  &:hover,
+  abbr:hover {
+    cursor: pointer;
+  }
 }
 
 div[class*="team_"].scheduling,

@@ -6,7 +6,7 @@ class CalendarCursor
   constructor:(
     @$calendar,
     @tds = 'tbody.editable td:not(.wwt_diff):not(.outside_plan_period)',
-    @items = '.scheduling') ->
+    @items = 'td, .scheduling') ->
 
     $calendar = @$calendar
     cursor = this

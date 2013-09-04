@@ -64,7 +64,7 @@
   td {
     width: 12%; // == 84%
 
-    &:hover {
+    &.focus {
       @include z-index(30);
       background: #ABC6D8 image-url('plus.png') bottom center no-repeat;
       @include transition(background-color 0.3s ease-in-out);
@@ -79,6 +79,10 @@
       border-color: $ci_lightgray;
     }
 
+  }
+
+  .cellwrap {
+    position: relative;
   }
 
   .employee,
