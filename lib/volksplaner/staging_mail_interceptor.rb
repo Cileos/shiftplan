@@ -13,17 +13,22 @@ module Volksplaner
 
       def intercept?(mail)
         Array(mail.to).any? do |address|
-          address.include?(clockwork_mail_suffix) ||
+          address.include?(cileos_mail_suffix) ||
             intercepted_mail_addresses.include?(address)
         end
       end
 
-      def clockwork_mail_suffix
-        'clockwork.io'
+      def cileos_mail_suffix
+        'cileos.com'
       end
 
       def intercepted_mail_addresses
-        ['mdz@emtrax.net']
+        [
+          'mdz@emtrax.net',
+          'support@staging.clockwork.io',
+          'support@app.clockwork.io', # for unit test
+          'application@clockwork.io'
+        ]
       end
 
     end

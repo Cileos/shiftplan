@@ -34,7 +34,8 @@ describe Volksplaner::StagingMailInterceptor do
 
   context "when recipient is not included in whitelist of intercepted mail addresses" do
     before(:each) do
-      Volksplaner::StagingMailInterceptor.stub(:clockwork_mail_suffix).and_return('blubber.com')
+      Volksplaner::StagingMailInterceptor.stub(:intercepted_mail_addresses).
+        and_return(['test@blubber.com'])
     end
 
     it "does not perform the delivery of the mail" do
