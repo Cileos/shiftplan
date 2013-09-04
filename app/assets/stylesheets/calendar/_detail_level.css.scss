@@ -11,6 +11,10 @@
         @include _unhidden();
       }
     }
+
+    &:hover {
+      cursor: help !important;
+    }
   }
   abbr.weekly_working_time {
     @include _unhidden();
