@@ -45,6 +45,7 @@ class EmployeesController < BaseController
       :avatar_cache,
       :organization_id,
       :account_id,
+      :shortcut,
       :force_duplicate
     ]
     permitted_attributes << :membership_role if planner_or_owner?
