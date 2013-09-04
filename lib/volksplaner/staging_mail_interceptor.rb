@@ -2,9 +2,30 @@ module Volksplaner
   class StagingMailInterceptor
     class << self
       def delivering_email(mail)
-        mail.headers( 'X-Intercepted-To' => Array(mail.to).join(',') )
-        mail.to = 'develop@clockwork.io'
+        if intercept?(mail)
+          mail.headers( 'X-Intercepted-To' => Array(mail.to).join(',') )
+          mail.to = 'staging@clockwork.io'
+        else
+          mail.perform_deliveries = false
+          Rails.logger.debug "Interceptor prevented sending mail #{mail.inspect}!"
+        end
       end
+
+      def intercept?(mail)
+        Array(mail.to).any? do |address|
+          address.include?(clockwork_mail_suffix) ||
+            intercepted_mail_addresses.include?(address)
+        end
+      end
+
+      def clockwork_mail_suffix
+        'clockwork.io'
+      end
+
+      def intercepted_mail_addresses
+        ['mdz@emtrax.net']
+      end
+
     end
   end
 end

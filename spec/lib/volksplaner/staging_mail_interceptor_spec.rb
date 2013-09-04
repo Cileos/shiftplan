@@ -18,11 +18,32 @@ describe Volksplaner::StagingMailInterceptor do
     FeedbackMailer.notification(feedback).deliver
   end
 
-  it "intercepts mails to always be sent to the mailing list" do
-    mail.to.should include('develop@clockwork.io')
+  context "when recipient is included in the whitelist of intercepted mail addresses" do
+    it "performs the delivery of the mail" do
+      expect { mail }.to change(ActionMailer::Base.deliveries, :count).by(1)
+    end
+
+    it "sends the mail to the mailing list" do
+      mail.to.should include('staging@clockwork.io')
+    end
+
+    it "mentions the original recipient in X-Intercepted-To header" do
+      mail.header.field_summary.should =~ /X-Intercepted-To: support@app.clockwork.io/
+    end
   end
 
-  it "mentiones the original recipient in X-Intercepted-To header" do
-    mail.header.field_summary.should =~ /X-Intercepted-To: support@app.clockwork.io/
+  context "when recipient is not included in whitelist of intercepted mail addresses" do
+    before(:each) do
+      Volksplaner::StagingMailInterceptor.stub(:clockwork_mail_suffix).and_return('blubber.com')
+    end
+
+    it "does not perform the delivery of the mail" do
+      expect { mail }.not_to change(ActionMailer::Base.deliveries, :count)
+    end
+
+    it "does not change the recipients of the mail" do
+      mail.to.should == ['support@app.clockwork.io']
+    end
   end
+
 end
