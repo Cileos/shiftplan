@@ -2,8 +2,8 @@
   %tr
     %th
       = render 'schedulings/week_switch', filter: filter
-    - filter.formatted_days.each do |full, date, abbr|
-      %th
+    - filter.formatted_days.each do |full, date, abbr, opts|
+      %th{opts}
         = abbr_tag(abbr, full, class: 'day_name')
         %div.date-without-year= date
 %tbody{ class: editable_class }
