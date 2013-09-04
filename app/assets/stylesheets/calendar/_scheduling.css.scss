@@ -17,14 +17,14 @@
   @include transition (height 0.25s ease, width 0.25s ease, left 0.25s ease, right 0.25s ease);
 
   .team_name,
-  .employee_name,
+  .employee,
   .work_time {
     display: block;
     padding: 0 3px;
   }
 
   .team_name,
-  .employee_name {
+  .employee {
     background: $ci_darkwhite;
     border-top:    1px solid $ci_midgrey;
     border-bottom: 1px solid $ci_midgrey;
@@ -100,7 +100,7 @@
     @include box-shadow($ci_darkgrey 0px 0px 20px 3px);
 
     .team_name,
-    .employee_name {
+    .employee {
       background: #fff;
     }
   }

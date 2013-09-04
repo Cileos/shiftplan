@@ -57,22 +57,24 @@ end
 #     %td.name
 #     %td.age
 Then /^I should see the following table of (.+):$/ do |plural, expected|
-  # table is a Cucumber::Ast::Table
-  actual = find("table##{plural}").all('tr').map do |tr|
-    # tr.all('th,td').map(&:text).map(&:strip)
-    tr.all('th, td').map do |cell|
-    if cell.tag_name == 'th' or cell.all('*').empty? # a text-only cell ader
-      cell.text
-    else # remove the text of all included buttons and links, they gonna be clicked anyway
-      text = cell.text
-      cell.all('a.button,a.comments,button').each do |e|
-        text = text.sub(e.text, '')
+  retrying_once Selenium::WebDriver::Error::WebDriverError do
+    # table is a Cucumber::Ast::Table
+    actual = find("table##{plural}").all('tr').map do |tr|
+      # tr.all('th,td').map(&:text).map(&:strip)
+      tr.all('th, td').map do |cell|
+        if cell.all('*').empty? # a text-only cell ader
+          cell.text
+        else # remove the text of all included buttons and links, they gonna be clicked anyway
+          text = cell.text
+          cell.all('a.button,a.comments,button,.avatar').each do |e|
+            text = text.sub(e.text, '')
+          end
+          text
+        end.strip.squeeze(' ')
       end
-      text
-    end.strip.squeeze(' ')
     end
+    expected.diff! actual
   end
-  expected.diff! actual
 end
 
 Then /^I should see the following table for #{capture_model}:$/ do |ref, table|
@@ -145,20 +147,6 @@ Then /^I should see the avatar "([^"]*)"$/ do |file_name|
   assert image_tag['src'].split('/').last.include?(file_name), "No image tag with src including '#{file_name}' found"
   path = [Rails.root, 'features', image_tag['src'].split('/features/')[1]].join('/')
   assert File.exists?(path), "File '#{path}' does not exist."
-end
-
-Then /^I should see a (tiny|thumb) (gravatar|default gravatar)$/ do |version, gravatar_or_default_gravatar|
-  image_tag = page.find("img.avatar.#{version}")
-  url, params = image_tag['src'].split('?')
-
-  url.should match(%r~https://secure.gravatar.com/avatar/[0-9abcdef]{32}\.png~)
-
-  size = AvatarUploader.const_get("#{version.to_s.camelize}Size")
-  if gravatar_or_default_gravatar == 'gravatar'
-    params.should == "d=mm&r=PG&s=#{size}"
-  else
-    params.should == "d=mm&forcedefault=y&r=PG&s=#{size}"
-  end
 end
 
 Then /^I should not see a field labeled #{capture_quoted}$/ do |label|

@@ -40,10 +40,10 @@ Feature: Tasks of milestones
       And the employee "Homer" should be the task's responsible
       # sort by due_at asc, undef at bottom
       And I should see a list of the following tasks:
-        | name          | employee_name | due_on     | description |
-        | Kill the King |               | 2012-12-22 |             |
-        | become rich   | Homer S       | 2012-12-31 | need money  |
-        | become famous |               |            |             |
+        | name          | employee | due_on     | description |
+        | Kill the King |          | 2012-12-22 |             |
+        | become rich   | Homer S  | 2012-12-31 | need money  |
+        | become famous |          |            |             |
 
 
   Scenario: start to create, cancel, try again (Bender mode)

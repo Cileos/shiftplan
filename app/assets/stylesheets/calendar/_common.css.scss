@@ -87,19 +87,23 @@
 
   }
 
-  .employee,
-  .team {
-    width: 16%;
-    padding: 8px 5px;
+  td, th {
+    &.employee,
+    &.team {
+      width: 16%;
+      padding: 8px 5px;
+    }
   }
 
   .team .pibble {
     margin-bottom: 6px; // prevent text beyond due to linebreak
   }
 
-  .avatar.tiny {
-    max-height: 16px;
-    max-width: 16px;
+  img.avatar.tiny {
+    float: left;
+    margin-right: 0.25em;
+    max-height: 20px;
+    max-width:  20px;
   }
 
   .wwt_diff {

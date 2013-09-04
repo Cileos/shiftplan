@@ -22,7 +22,6 @@ Feature: Create Employees
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30      |
         | Kürzel            | Cc      |
-      And I should see a thumb default gravatar within the new employee form
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Anlegen"
 

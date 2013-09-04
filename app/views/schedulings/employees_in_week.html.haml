@@ -13,8 +13,7 @@
     - filter.employees.each do |employee|
       %tr{data: { :'employee-id' => employee.id }}
         %th.employee
-          = avatar(employee.user, employee, :tiny)
-          %span.employee_name= employee.name
+          = render 'employees/tiny', employee: employee
           .wwt_diff
             %span.weekly_working_time
               = translate_action(:hours) + '/'
@@ -27,7 +26,8 @@
           = filter.render_cell_for_day day, employee
     %tr
       %th.employee
-        %span.employee_name= t(:'schedulings.missing_employee')
+        .employee
+          %span.name= t(:'schedulings.missing_employee')
       - filter.days.each do |day|
         = filter.render_cell_for_day day, nil
 
