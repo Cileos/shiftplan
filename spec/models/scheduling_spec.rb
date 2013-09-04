@@ -86,6 +86,13 @@ describe Scheduling do
     end
   end
 
+  context 'from 1 to 1' do
+    let(:scheduling) { build :scheduling_by_quickie, quickie: '1-1' }
+    it 'is invalid' do
+      scheduling.should_not be_valid
+    end
+  end
+
   context "normal time range" do
     # must define "today" here to travel before building anything
     before(:each) { Timecop.travel Time.parse('1988-02-03 23:42') }
