@@ -16,4 +16,12 @@ describe Membership do
       m.should_not be_valid
     end
   end
+
+  it 'builds successfully from factory' do
+    build(:membership).should be_valid
+  end
+
+  it 'needs non-arbitrary role' do
+    build(:membership, role: 'spaghettimonster').should_not be_valid
+  end
 end
