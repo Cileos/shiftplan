@@ -36,7 +36,6 @@ I want to edit my profile
   Scenario: Editing the avatar on the my profile page
     Given I am signed in as the confirmed user
       And I am on the page for the organization "fukushima"
-     Then I should see a tiny gravatar within the user navigation
 
      When I choose "Einstellungen" from the user navigation
      Then I should be on the profile page of the employee

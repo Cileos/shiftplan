@@ -127,6 +127,7 @@ small {
   .user-navigation {
     .user {
       padding: 11px 10px 12px;
+      height: 50px;
     }
 
     .help-faq {
@@ -153,8 +154,13 @@ small {
   }
 
   .avatar {
+    margin-top: 5px;
+  }
+
+  img.avatar {
+    margin-top: 0;
     vertical-align: -10px;
-    border: 1px solid $ci_grey;
+    // border: 1px solid $ci_grey;
     height: 27px;
   }
 
@@ -221,6 +227,11 @@ small {
 
   .username {
     float: right;
+  }
+
+  .current-account-and-organization,
+  .username {
+    white-space: nowrap;
   }
 }
 

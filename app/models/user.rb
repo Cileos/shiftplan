@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include Gravtastic
   gravtastic
+  mount_uploader :avatar, AvatarUploader
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
