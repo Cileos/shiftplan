@@ -185,12 +185,14 @@ Then /^the "([^"]*)" field(?: within (.*))? should equal "([^"]*)"$/ do |field, 
   end
 end
 
-Given /^I use an? (german|english) browser$/ do |lang|
+Given /^I use an? (german|english|polish) browser$/ do |lang|
   case lang
   when 'english'
     add_headers 'Accept-Language' => 'en-GB'
   when 'german'
     add_headers 'Accept-Language' => 'de-DE'
+  when 'polish' # not supported yet
+    add_headers 'Accept-Language' => 'pl-PL'
   end
 end
 

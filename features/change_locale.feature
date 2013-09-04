@@ -5,14 +5,28 @@ Feature: Change locale
 
   # In test env, default_locale is :de, in production is :en. So in your mind, you must exchange English vs German
 
-  Scenario: determine locale from browser
-    Given I use an english browser
+  Scenario Outline: determine locale from browser and set user's locale
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+      And the locale attribute of the user is changed to nil
+      And I use an <language> browser
+     When I go to the home page
+     Then I should see "Register or log in to continue."
+      And I fill in "E-mail" with "c.burns@npp-springfield.com"
+      And I fill in "Password" with "secret"
+      And I press "Log in"
+     Then a user should exist with locale: "en"
+      And I should see "You've logged in"
+
+    Examples:
+      | language |
+      | english  |
+      | polish   |
+
+
+  Scenario: fallback is English when no browser language is present
      When I go to the home page
      Then I should see "Register or log in to continue."
 
-  Scenario: fallback is German
-     When I go to the home page
-     Then I should see "Du musst Dich registrieren oder anmelden, um fortfahren zu können"
 
   Scenario: overwrite browser detected locale with setting
     Given I use a english browser
