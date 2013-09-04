@@ -23,7 +23,7 @@ module Stackable
   end
 
   def overlap_ignoring_stack?(other)
-    time_range.cover?(other.starts_at) || other.time_range.cover?(starts_at)
+    time_range.cover?(other.starts_at) || other.time_range.cover?(starts_at) || starts_at == other.starts_at
   end
 end
 

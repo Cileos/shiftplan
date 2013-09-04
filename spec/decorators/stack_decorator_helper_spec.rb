@@ -63,8 +63,9 @@ describe StackDecoratorHelper do
 
     context '0-length scheduling' do
       let(:scheduling) { build :scheduling_by_quickie, quickie: '8-8' }
+      let(:records) { [scheduling] }
       before :each do
-        decorator.pack_in_stacks [scheduling]
+        decorator.pack_in_stacks records
       end
       it 'is shown with length of 0.25' do
         metadata[:length].should == '0.25'
@@ -76,6 +77,20 @@ describe StackDecoratorHelper do
 
       it 'has 1 stack total' do
         metadata[:total].should == '1'
+      end
+    end
+
+    context 'two 0-length schedulings at the same time' do
+      before :each do
+        decorator.pack_in_stacks records
+      end
+      let(:scheduling) { build :scheduling_by_quickie, quickie: '8-8' }
+      let(:scheduling2) { build :scheduling_by_quickie, quickie: '8-8' }
+      let(:records) { [scheduling, scheduling2] }
+      let(:metadata2) { decorator.stack_metadata_for(scheduling2) }
+
+      it 'are packed in two different stacks' do
+        metadata[:stack].should_not == metadata2[:stack]
       end
     end
   end
