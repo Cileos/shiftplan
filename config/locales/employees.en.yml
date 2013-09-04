@@ -20,6 +20,7 @@ en:
         role: Role
         membership_role: Role
         force_create_duplicate: "Create anyway?"
+        shortcut: Shortcut
   simple_form:
     placeholders:
       employee:
