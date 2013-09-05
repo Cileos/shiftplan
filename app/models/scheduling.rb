@@ -16,6 +16,7 @@ class Scheduling < ActiveRecord::Base
   validates_presence_of :starts_at, :ends_at, :year, :week, if: :quickie_parsable?
   validates :starts_at, :ends_at, within_plan_period: true
   validates_with NextDayWithinPlanPeriodValidator
+  validates_with ShiftPeriodValidator, unless: ->(s) { s.start_hour == 0 && s.start_minute == 0 }
 
   attr_writer :year
 
