@@ -26,7 +26,10 @@ Feature: View Teams over weekdays in plan
     Given a team exists with name: "Reaktor putzen", organization: the organization
       And I am on the teams in week page of the plan for cwyear: 2012, week: 49
      When I click on cell "Di"/"Reaktor putzen (Rp)"
-      And I reschedule "9-17" and select "Homer S" as "Mitarbeiter"
+      And I schedule "9-17"
+      And I select "Homer S" from "Mitarbeiter"
+      And I press "Anlegen"
+      And I wait for the modal box to disappear
 
      Then I should be on the teams in week page of the plan for cwyear: 2012, week: 49
       And I should see the following partial calendar:
