@@ -76,6 +76,9 @@ class SchedulingFilterDecorator < ApplicationDecorator
     if outside_plan_period?(day)
       options[:class] = "outside_plan_period #{options[:class]}".strip
     end
+    if day.respond_to?(:today?) && day.today?
+      options[:class] = "today #{options[:class]}"
+    end
 
     h.content_tag :td, cell_content(day, *a), options
   end
