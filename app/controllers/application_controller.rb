@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
     if browser_locale && browser_locale_supported?
       I18n.locale = browser_locale.to_sym
     else
-      I18n.locale = 'en'
+      I18n.locale = :en
     end
   end
 
