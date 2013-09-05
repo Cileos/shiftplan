@@ -30,4 +30,4 @@ jQuery ->
 
   $('#keyboard-shortcuts [data-toggle="collapsible-heading"]').click()  unless $.cookie("clockwork_keyboard-shortcuts")
 
-  $('nav[role=navigation] li.dropdown').doubleTapToGo()
+  $('header[role=banner] li.dropdown').doubleTapToGo()
