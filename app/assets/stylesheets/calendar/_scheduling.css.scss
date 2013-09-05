@@ -97,12 +97,18 @@
   }
 
   &.focus {
-    @include box-shadow($ci_darkgrey 0px 0px 20px 3px);
+    @include box-shadow(white 0px 0px 1px 3px, $ci_darkgrey 0px 0px 20px 5px);
+    @include z-index(31);
 
     .team_name,
     .employee {
       background: #fff;
     }
+  }
+
+  &:hover,
+  abbr:hover {
+    cursor: default;
   }
 }
 

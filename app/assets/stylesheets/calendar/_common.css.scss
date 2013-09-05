@@ -63,28 +63,33 @@
 
   td {
     width: 12%; // == 84%
-
-    // FF cannot position: relative td, so we have to wrap it in a div
-    // it is undefined by W3C spec anyway
-    .cellwrap {
-      padding: 2px;
-      min-height: 100%;
-      width: 100%;
-      position: relative;
-    }
-
+    @include transition(background-color 0.5s ease-in-out);
 
     &.focus {
       @include z-index(30);
-
-      outline: 1px solid $ci_blue;
+      background: #ABC6D8;
+      @include transition(background-color 0.1s ease-in-out);
     }
 
     &.outside_plan_period {
       background-color: $ci_lightgray;
       border-color: $ci_lightgray;
     }
+  }
 
+  tbody.editable {
+    td.focus {
+      background: #ABC6D8 image-url('plus.png') bottom center no-repeat;
+    }
+
+    .scheduling:hover,
+    .scheduling abbr:hover {
+      cursor: pointer;
+    }
+  }
+
+  .cellwrap {
+    position: relative;
   }
 
   td, th {
@@ -123,7 +128,8 @@
     padding: 2px 6px 1px;
     background: $ci_darkgrey;
     color: #fff;
-    text-shadow: 0 0px 0 rgba(0, 0, 0, 0.25);
+    text-shadow: -1px 0px 0 rgba(0, 0, 0, 0.25);
+    font-weight: normal;
 
     &.badge-success {
       background: $ci_green;
