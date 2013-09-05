@@ -55,8 +55,7 @@ Feature: create a scheduling
 
       # minute quickie rounded to 15-minute intervals
      When I schedule "9:16-17:42"
-     Then the "Quickie" field should contain "09:15-17:45"
-      And the "Startzeit" field should contain "09:15"
+     Then the "Startzeit" field should contain "09:15"
       And the "Endzeit" field should contain "17:45"
 
       # can submit unrounded times, but thay will be rounded on the server side (or invisibly fixed on client)

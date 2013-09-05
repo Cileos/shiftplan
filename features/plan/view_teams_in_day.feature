@@ -66,7 +66,7 @@ Feature: View teams over hours of a day in plan
       And a team exists with name: "Brennstäbe wechseln", organization: the organization
       And I am on the teams in day page of the plan for year: 2012, month: 12, day: 04
      When I click on the scheduling "9-17"
-      And I change the "Quickie" from "9-17 Reaktor putzen [Rp]" to "10-18 Brennstäbe wechseln" and select "Homer S" as "Mitarbeiter"
+      And I schedule "10-18 Brennstäbe wechseln" and select "Homer S" as "Mitarbeiter"
      Then I should see the following time bars:
       """
       "Reaktor putzen"
