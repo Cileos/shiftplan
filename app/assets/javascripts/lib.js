@@ -29,3 +29,4 @@
 //= require datepicker/jquery.datepick.ext.js
 //= require datepicker/jquery.datepick-de
 //= require bindWithDelay/bindWithDelay
+//= require doubletaptogo
