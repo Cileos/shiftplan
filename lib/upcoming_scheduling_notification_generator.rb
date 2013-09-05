@@ -1,6 +1,6 @@
 class UpcomingSchedulingNotificationGenerator
   def self.generate!
-    Scheduling.upcoming_in_the_next_24_hours.each do |scheduling|
+    Scheduling.upcoming.starting_in_the_next('24 hours').each do |scheduling|
       user = scheduling.employee.try(:user)
       if user.present? && user.confirmed?
         last_notification = Notification::UpcomingScheduling.by_notifiable(scheduling).order('created_at desc').first

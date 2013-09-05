@@ -36,12 +36,9 @@ class Scheduling < ActiveRecord::Base
     where("#{table_name}.starts_at > :now", now: Time.zone.now).order("#{table_name}.starts_at ASC")
   end
 
-  def self.upcoming_in_the_next_14_days
-    upcoming.where("#{table_name}.starts_at < TIMESTAMP :now + INTERVAL '14 days'", now: Time.zone.now)
-  end
-
-  def self.upcoming_in_the_next_24_hours
-    upcoming.where("#{table_name}.starts_at < TIMESTAMP :now + INTERVAL '24 hours'", now: Time.zone.now)
+  def self.starting_in_the_next(interval)
+    raise ArgumentError unless interval =~ /\A\d+ [a-z]+\z/
+    where("#{table_name}.starts_at < TIMESTAMP :now + INTERVAL '#{interval}'", now: Time.zone.now)
   end
 
   def self.for_organization(organization)

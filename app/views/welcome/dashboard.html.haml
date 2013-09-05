@@ -10,7 +10,7 @@
 .row.two-columns.inverted.dashboard
   .primary
     = render 'notifications/for_dashboard', notifications: current_user.notifications
-    = render 'schedulings/for_dashboard', schedulings: current_user.schedulings.upcoming_in_the_next_14_days
+    = render 'schedulings/for_dashboard', schedulings: current_user.schedulings.upcoming.starting_in_the_next('14 days')
   .secondary
     = render 'posts/for_dashboard', posts: current_user.posts_of_joined_organizations.recent(23)
 

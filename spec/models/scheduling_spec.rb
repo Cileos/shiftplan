@@ -544,36 +544,23 @@ describe Scheduling do
     end
   end
 
-  context ".upcoming_in_the_next_14_days" do
-    before :each do
+  context ".upcoming" do
+    it "is a working scope" do
+      expect { Scheduling.upcoming }.to_not raise_error
+    end
+  end
 
-      @in5      = create :scheduling, starts_at: 5.minutes.from_now
-      @tomorrow = create :scheduling, starts_at: 1.day.from_now
-      @tdat     = create :scheduling, starts_at: 2.days.from_now
-      @in8days  = create :scheduling, starts_at: 8.days.from_now
-      @in15days = create :scheduling, starts_at: 15.days.from_now
-      @yesterday = create :scheduling, starts_at: 1.day.ago
-      @last_week = create :scheduling, starts_at: 1.week.ago
-    end
-    it "should contain the ones starting within the next cigarette break" do
-      Scheduling.upcoming_in_the_next_14_days.should include(@in5)
-    end
-    it "should contain all within the next 7 days" do
-      Scheduling.upcoming_in_the_next_14_days.should include(@tomorrow)
-      Scheduling.upcoming_in_the_next_14_days.should include(@tdat)
+  context ".starting_in_the_next" do
+    context "with a valid interval argument" do
+      it "does not raise an argument error" do
+        expect { Scheduling.starting_in_the_next('1 days') }.to_not raise_error
+      end
     end
 
-    it "should contain all within the next 14 days" do
-      Scheduling.upcoming_in_the_next_14_days.should include(@in8days)
-    end
-
-    it "should not contain any farther than 15 days away" do
-      Scheduling.upcoming_in_the_next_14_days.should_not include(@in15days)
-    end
-
-    it "should not contain any from the past" do
-      Scheduling.upcoming_in_the_next_14_days.should_not include(@yesterday)
-      Scheduling.upcoming_in_the_next_14_days.should_not include(@last_week)
+    context "with an invalid interval argument" do
+      it "raises an argument error" do
+        expect { Scheduling.starting_in_the_next('1') }.to raise_error(ArgumentError)
+      end
     end
   end
 
