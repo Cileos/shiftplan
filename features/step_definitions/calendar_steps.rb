@@ -133,3 +133,14 @@ When /^I assume the calendar will not change$/ do
   the_calendar.cache!
   # calendar will be cleared after each scenario
 end
+
+When /^(?:I|they) schedule #{capture_quoted}$/ do |quickie_string|
+  quickie = Quickie.parse(quickie_string)
+
+  holder = OpenStruct.new
+  quickie.fill(holder)
+
+  fill_in('scheduling_start_time', with: holder.start_time) if holder.start_time.present?
+  fill_in('scheduling_end_time', with: holder.end_time) if holder.end_time.present?
+  select(holder.team_name, :from => 'scheduling_team') if holder.team_name.present?
+end

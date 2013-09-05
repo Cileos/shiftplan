@@ -12,7 +12,7 @@ Feature: Manage schedulings without teams
     Given I choose "Teams" from the drop down "Mitarbeiter" within the calendar
      When I click on cell "Mo"/"Ohne Team"
       And I wait for the modal box to appear
-      And I fill in "Quickie" with "22-6"
+      And I schedule "22-6"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:

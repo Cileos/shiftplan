@@ -26,7 +26,7 @@ Feature: View hours over weekdays in plan
     Given I am on the hours in week page of the plan for cwyear: 2012, week: 49
      When I click on the "Di" column
       And I wait for the new scheduling form to appear
-      And I fill in "Quickie" with "9-17 Reaktor putzen"
+      And I schedule "9-17 Reaktor putzen"
       And I select "Lenny L" from "Mitarbeiter"
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear

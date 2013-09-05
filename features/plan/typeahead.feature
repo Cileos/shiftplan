@@ -17,7 +17,7 @@ Feature: Typeahead autocompletion for Quickies
       And I am on the employees in week page for the plan for cwyear: 2012, week: 49
      When I click on cell "Mo"/"Homer S"
       And I wait for the modal box to appear
-      And I fill in "Quickie" with "9"
+      And I schedule "9"
       And I press return in the "Quickie" field
      Then the "Quickie" field should contain "9-17"
 
@@ -28,7 +28,7 @@ Feature: Typeahead autocompletion for Quickies
       And I am on the employees in week page for the plan for cwyear: 2012, week: 49
      When I click on cell "Mo"/"Homer S"
       And I wait for the modal box to appear
-      And I fill in "Quickie" with "9"
+      And I schedule "9"
       And I press tab in the "Quickie" field
      Then the "Quickie" field should contain "9-17"
 
@@ -41,7 +41,7 @@ Feature: Typeahead autocompletion for Quickies
       And I am on the employees in week page for the plan for cwyear: 2012, week: 49
      When I click on cell "Mo"/"Homer S"
       And I wait for the modal box to appear
-      And I fill in "Quickie" with "Reak"
+      And I schedule "Reak"
      Then I should see the following typeahead items:
         | 9-17 Reaktor ausschalten [Ra] | active |
         | 9-17 Reaktor einschalten [Re] |        |
