@@ -93,6 +93,10 @@
   }
 
   td, th {
+    &.today {
+      background: lighten(#ABC6D8, 15%);
+    }
+
     &.employee,
     &.team {
       width: 16%;
