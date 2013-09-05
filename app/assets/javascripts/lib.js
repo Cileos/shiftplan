@@ -20,7 +20,6 @@
 //= require fix_iOS_rotation
 //= require StickyTableHeaders
 //= require jquery.autosize
-//= require jquery.tipsy
 //= require locales/jquery.ui.datepicker-de.js
 //= require jquery.cookie
 //= require jquery.mousewheel
