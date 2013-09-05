@@ -5,7 +5,8 @@ Feature: Signing up
   And I want to become the owner of my account
 
   Scenario: Signup by filling in information for all signup fields
-    Given I am on the home page
+    Given I use a german browser
+      And I am on the home page
       And 0 accounts should exist
       And 0 organizations should exist
       And 0 blogs should exist
@@ -52,25 +53,25 @@ Feature: Signing up
   Scenario: Show mail address suggestion if typo in email address
     Given I am on the signup page
       And I fill in the following:
-        | E-Mail              | bart.simpson@yaho.com |
-        | Passwort            | secret                |
-     Then I should see "Meinten Sie bart.simpson@yahoo.com?"
+        | E-mail              | bart.simpson@yaho.com |
+        | Password            | secret                |
+     Then I should see "Did you mean bart.simpson@yahoo.com?"
 
      When I follow "bart.simpson@yahoo.com"
-     Then the "E-Mail" field should contain "bart.simpson@yahoo.com"
-      And I should not see "Meinten Sie bart.simpson@yahoo.com?"
+     Then the "E-mail" field should contain "bart.simpson@yahoo.com"
+      And I should not see "Did you mean Sie bart.simpson@yahoo.com?"
 
   @javascript
   Scenario: New mail address suggestion clears previous suggestion
     Given I am on the signup page
       And I fill in the following:
-        | E-Mail              | bart.simpson@yaho.com |
-        | Passwort            | secret                |
-     Then I should see "Meinten Sie bart.simpson@yahoo.com?"
+        | E-mail              | bart.simpson@yaho.com |
+        | Password            | secret                |
+     Then I should see "Did you mean bart.simpson@yahoo.com?"
 
      When I fill in the following:
-        | E-Mail              | bart.simpson@gnail.com |
-        | Passwort            | secret                 |
-     Then I should not see "Meinten Sie bart.simpson@yahoo.com?"
-      But I should see "Meinten Sie bart.simpson@gmail.com?"
+        | E-mail              | bart.simpson@gnail.com |
+        | Password            | secret                 |
+     Then I should not see "Did you mean bart.simpson@yahoo.com?"
+      But I should see "Did you mean bart.simpson@gmail.com?"
 

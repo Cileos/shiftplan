@@ -29,8 +29,8 @@ Feature: Change locale
 
 
   Scenario: overwrite browser detected locale with setting
-    Given I use a english browser
-      And mr burns, owner of the Springfield Nuclear Power Plant exists
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+      And I use an english browser
       And I am signed in as the user "mr burns"
       And the locale attribute of the user is changed to nil
      When I go to the dashboard page

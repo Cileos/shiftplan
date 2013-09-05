@@ -79,4 +79,9 @@ Given /^mr burns, owner of the Springfield Nuclear Power Plant exists$/ do
   step %{an account "springfield" should exist}
   step %{a organization "sector 7g" should exist}
   step %{a blog "sector 7g" should exist}
+  if Capybara.current_session.driver.respond_to?(:rack_server)
+    puts "WARNING: can not set accept language header in javascript feature"
+  else
+    step %{I use a german browser}
+  end
 end
