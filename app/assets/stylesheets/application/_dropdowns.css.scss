@@ -32,6 +32,7 @@ nav {
     background: #fff;
     border: 1px solid $ci_lightgray;
     border-top: none;
+    z-index: 200;
   }
 
   > ul a {
