@@ -70,7 +70,6 @@ Feature: create a scheduling
         | Lenny L        |     |              |     |     |     |     |     |
         | Homer S        |     |              |     |     |     |     |     |
 
-  @quickie
   @wip
   @todo
   @javascript
@@ -107,38 +106,3 @@ Feature: create a scheduling
         | Lenny L        |              |              |     |     |     |     |     |
         | Homer S        |              |              |     |     |     |     |     |
       And the cell "Di"/"Carl C" should be focus
-
-      # navigate further and use the typeahead
-     When I press arrow down
-      And I press arrow right
-     Then the cell "Mi"/"Lenny L" should be focus
-     When I press key "a"
-      And I wait for the new scheduling form to appear
-      And I schedule "7"
-     When I press arrow down in the "Quickie" field
-      And I press arrow down in the "Quickie" field
-      And I press return in the "Quickie" field
-     Then the "Quickie" field should contain "7-17"
-      And I press enter in the "Quickie" field
-      And I wait for the new scheduling form to disappear
-     Then I should see the following partial calendar:
-        | Mitarbeiter    | Mo           | Di           | Mi           | Do  | Fr  | Sa  | So  |
-        | Planner Burns  | 08:00-18:00  |              |              |     |     |     |     |
-        | Carl C         |              | 07:00-17:00  |              |     |     |     |     |
-        | Lenny L        |              |              | 07:00-17:00  |     |     |     |     |
-        | Homer S        |              |              |              |     |     |     |     |
-      And the scheduling "07:00-17:00" should be focus within the cell "Mi"/"Lenny L"
-
-     When I press arrow right
-      And I press arrow left
-      And I press key "n"
-      And I schedule "1-3"
-     When I press enter in the "Quickie" field
-      And I wait for the new scheduling form to disappear
-     Then I should see the following partial calendar:
-        | Mitarbeiter    | Mo           | Di           | Mi                       | Do  | Fr  | Sa  | So  |
-        | Planner Burns  | 08:00-18:00  |              |                          |     |     |     |     |
-        | Carl C         |              | 07:00-17:00  |                          |     |     |     |     |
-        | Lenny L        |              |              | 01:00-03:00 07:00-17:00  |     |     |     |     |
-        | Homer S        |              |              |                          |     |     |     |     |
-      And the cell "Mi"/"Lenny L" should be focus

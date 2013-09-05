@@ -1,24 +1,6 @@
 # encoding: utf-8
 #
 
-# I fill in the empty "Quickie" with "9-17" and select "Homer S" as "Mitarbeiter"
-When /^I fill in the empty #{capture_quoted} with #{capture_quoted} and select #{capture_quoted} as #{capture_quoted}$/ do |quickie_field, quickie, employee, employee_field|
-  within_modal_box do
-    find_field(quickie_field).value.should be_empty
-
-    fill_in quickie_field, with: '1-'
-    click_button "Anlegen"
-    with_scope 'errors' do
-      page.should have_content("#{quickie_field} ist nicht gültig")
-    end
-
-    fill_in quickie_field, with: quickie
-    select employee, from: employee_field
-    click_button "Anlegen"
-  end
-end
-
-
 When /^I comment #{capture_quoted}$/ do |comment|
   field = "Kommentar"
   within_modal_box do
