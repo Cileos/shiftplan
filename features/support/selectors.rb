@@ -103,10 +103,10 @@ module HtmlSelectorsHelpers
       %Q~a.comments[title]~ # check only for presence of o-t; it is pluralized, depending on number of comments
 
     when /^the no-comments? link$/
-      %Q~a.no-comments[original-title]~
+      %Q~a.no-comments[title]~
 
     when /^the delete link$/
-      %Q~a[data-method="delete"][original-title="#{I18n.translate('helpers.actions.destroy')}"]~
+      %Q~a[data-method="delete"][title="#{I18n.translate('helpers.actions.destroy')}"]~
 
     when /^the #{capture_nth} form$/
       "form#{Numerals[$1]}"
