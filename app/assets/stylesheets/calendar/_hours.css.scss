@@ -30,7 +30,6 @@ table.hours-in-week {
   th.hours {
     width: 2%;
 
-
     div {
       height: $row_height + ($ci_font-size * $ci_line-height / 2);
       padding: 0 15px 0 0;
@@ -48,6 +47,10 @@ table.hours-in-week {
 
   td {
     outline: none;
+
+    &.today {
+      background: rgba(70, 127, 168, 0.18);
+    }
 
     .vertical {
       position: absolute;

@@ -12,7 +12,8 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
       [
         I18n.localize(day, format: :week_day),      # day
         I18n.localize(day, format: :yearless_date), # date
-        I18n.localize(day, format: :abbr_week_day)  # abbr
+        I18n.localize(day, format: :abbr_week_day), # abbr
+        { class: day.today? && 'today' },
       ]
     end
   end

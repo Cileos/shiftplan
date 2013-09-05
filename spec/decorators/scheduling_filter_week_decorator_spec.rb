@@ -15,4 +15,11 @@ describe SchedulingFilterWeekDecorator do
     index.should_receive(:fetch).with('iso8601', 'b').and_return('lots')
     decorator.indexed(day, 'b').should == 'lots'
   end
+
+  describe '#formatted_days' do
+    it 'provides class for today' do # false is skipped by haml
+      filter.stub days: [1.day.ago, 0.day.ago, 1.day.from_now].map(&:to_date)
+      decorator.formatted_days.map { |f| f.last[:class] }.should == [false, 'today', false]
+    end
+  end
 end

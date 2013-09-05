@@ -63,6 +63,12 @@ describe SchedulingFilterDecorator, 'mode' do
         decorator.render_cell_for_day(23, 42, class: "day")
       end
 
+      it "adds today class for current day" do
+        today_date = stub 'Date', today?: true
+        view.should_receive(:content_tag).with(:td, content, class: "today day", data: 'none')
+        decorator.render_cell_for_day(today_date, 42, class: 'day')
+      end
+
       it "joins an extra class with outside plan period" do
         decorator.stub(:outside_plan_period?).and_return(true)
         view.should_receive(:content_tag).with(:td, content, class: "outside_plan_period day", data: 'none')
