@@ -4,7 +4,7 @@
       = render 'schedulings/week_switch', filter: filter
     - filter.formatted_days.each do |full, date, abbr|
       %th
-        = abbr
+        %span.day_name= abbr
         %span.date-without-year= date
 %tbody{ class: editable_class }
   - filter.teams.each do |team|
