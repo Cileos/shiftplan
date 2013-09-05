@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
   end
 
   def confirmed?
-    confirmed_at.present?
+    !confirmed_at.nil?
   end
 
   def confirming_email_change?
