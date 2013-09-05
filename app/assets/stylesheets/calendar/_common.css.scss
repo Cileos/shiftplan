@@ -71,7 +71,8 @@
       @include transition(background-color 0.1s ease-in-out);
     }
 
-    &.outside_plan_period {
+    &.outside_plan_period,
+    &.outside_plan_period.focus {
       background-color: $ci_lightgray;
       border-color: $ci_lightgray;
     }
@@ -80,6 +81,9 @@
   tbody.editable {
     td.focus {
       background: #ABC6D8 image-url('plus.png') bottom center no-repeat;
+    }
+    td.outside_plan_period.focus {
+      background: $ci_lightgray;
     }
 
     .scheduling:hover,
@@ -176,25 +180,6 @@
       display: none;
     }
 
-  }
-
-  tbody.editable {
-    td {
-      .cellwrap {
-        &:hover {
-          @extend %with-icon;
-          @extend .icon-add;
-          &:before {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            margin-left: -0.5em;
-            color: $ci_green;
-            text-shadow: 1px 1px $ci_shadow;
-          }
-        }
-      }
-    }
   }
 }
 
