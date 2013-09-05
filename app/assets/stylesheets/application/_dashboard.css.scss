@@ -1,6 +1,14 @@
 .dashboard {
   .module {
     margin-bottom: 20px;
+    width: 47.4%;
+    margin-right: 5%;
+    float: left;
+
+    &:nth-child(2n) {
+      float: right;
+      margin-right: 0;
+    }
 
     header {
       border-bottom: 1px solid $ci_lightgray;
@@ -105,6 +113,17 @@
       &:nth-child(even) {
         background: $ci_darkwhite;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .dashboard {
+    .module,
+    .module:nth-child(2n) {
+      width: auto;
+      margin-right: 0;
+      float: none;
     }
   }
 }
