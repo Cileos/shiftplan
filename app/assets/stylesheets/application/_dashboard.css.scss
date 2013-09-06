@@ -61,6 +61,12 @@
     }
   }
 
+  .account-organization,
+  .icon-comment {
+    font-size: 12px;
+    color: $ci_darkgray;
+  }
+
   .agenda {
     border: none;
     border-collapse: separate;
@@ -69,11 +75,6 @@
     th {
       background: $ci_darkwhite;
       border-right: 1px solid $ci_lightgray;
-    }
-
-    .account-organization {
-      font-size: 12px;
-      color: $ci_darkgray;
     }
 
     .date {
@@ -121,6 +122,10 @@
       img {
         vertical-align: middle;
       }
+    }
+
+    .title {
+      font-size: 14px;
     }
 
     li {

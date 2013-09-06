@@ -17,7 +17,7 @@
                 - plan = scheduling.plan
                 - org = plan.organization
                 %span.account
-                  = current_user.accounts.count > 1 ? org.account.name + ' / ' : ''
+                  = org.account.name + ' / ' unless current_user.accounts.count <= 1
                 %span.organization= org.name + ' / '
                 %span.plan= plan.name
               %span.time
