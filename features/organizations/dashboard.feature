@@ -32,7 +32,7 @@ Feature: Organisation Dashboard
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
       And I should not see "Illuminate" within the schedulings module
-     When I follow "Cleaning the Reactor" within the schedulings module
+     When I follow "Reaktor Putzen [RP]" within the schedulings module
      Then I should be somewhere under the page of the plan "clean reactor"
 
   Scenario: List recent news posts

@@ -13,15 +13,17 @@
               %span.day-name= l scheduling.starts_at, format: :abbr_week_day
               %span.month-year= l scheduling.starts_at, format: :short_month_and_year
             %td
-              %strong.time= "#{scheduling.starts_at.hour} - #{scheduling.ends_at.hour}"
+              .account-organization
+                - plan = scheduling.plan
+                - org = plan.organization
+                %span.account
+                  = current_user.accounts.count > 1 ? org.account.name + ' / ' : ''
+                %span.organization= org.name + ' / '
+                %span.plan= plan.name
+              %span.time
+                = "#{scheduling.starts_at.hour} - #{scheduling.ends_at.hour}"
               - if scheduling.team.present?
-                %span.team= scheduling.team.to_quickie
-              - plan = scheduling.plan
-              - org = plan.organization
-              %span.account
-                = current_user.accounts.count > 1 ? ' / ' + org.account.name + ' / ' : ' / '
-              %span.organization= org.name + ' / '
-              %span.plan= link_to plan.name,
+                %span.team= link_to scheduling.team.to_quickie,
                 account_organization_plan_employees_in_week_path(org.account,
                 org, plan, week: scheduling.week, cwyear: scheduling.cwyear)
     - else

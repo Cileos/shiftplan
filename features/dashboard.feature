@@ -47,7 +47,7 @@ Feature: Dashboard
        | 12   | Mi        | Dez 2012    | 10 - 18  | Reaktor Fegen [RF]   | Sector 7-G /  | Pumpen ölen          |
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
-     When I follow "Pumpen ölen" within the schedulings module
+     When I follow "Reaktor Fegen [RF]" within the schedulings module
      Then I should be on the employees in week page of the plan "pumpen ölen" for cwyear: 2012, week: 50
      Then I should be somewhere under the page of the plan
 

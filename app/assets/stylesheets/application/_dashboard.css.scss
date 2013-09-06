@@ -64,11 +64,16 @@
   .agenda {
     border: none;
     border-collapse: separate;
-    border-spacing: 5px;
+    border-spacing: 0px 5px;
 
     th {
       background: $ci_darkwhite;
       border-right: 1px solid $ci_lightgray;
+    }
+
+    .account-organization {
+      font-size: 12px;
+      color: $ci_darkgray;
     }
 
     .date {
@@ -88,18 +93,23 @@
       line-height: 1.25;
     }
 
+    .day-name {
+      margin-top: 0.2em;
+    }
+
     .month-year {
       color: $ci_darkgray;
       font-size: 12px;
       font-weight: normal;
     }
 
-    td {
-      font-size: 14px;
+    .time {
+      font-weight: bold;
     }
 
-    tfoot td {
-      text-align: center;
+    .team {
+      margin-left: 0.25em;
+      font-weight: normal;
     }
   }
 
