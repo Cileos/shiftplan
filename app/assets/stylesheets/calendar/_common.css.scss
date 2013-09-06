@@ -28,9 +28,13 @@
   }
 
   thead {
-    th:not(:first-child) {
-      border-left: 1px solid $ci_midgrey;
-      text-align: center;
+    th {
+      white-space: nowrap;
+
+      &:not(:first-child) {
+        border-left: 1px solid $ci_midgrey;
+        text-align: center;
+      }
     }
 
     &.tableFloatingHeader {
@@ -148,6 +152,12 @@
     &.badge-warning {
       background: $ci_darkyellow;
     }
+  }
+
+  .date-without-year {
+    margin-left: 0.25em;
+    font-weight: normal;
+    color: $ci_darkgrey;
   }
 
   ul {
