@@ -1,6 +1,14 @@
 .dashboard {
   .module {
     margin-bottom: 20px;
+    width: 47.4%;
+    margin-right: 5%;
+    float: left;
+
+    &:nth-child(2n) {
+      float: right;
+      margin-right: 0;
+    }
 
     header {
       border-bottom: 1px solid $ci_lightgray;
@@ -16,12 +24,15 @@
     }
 
     .count {
-      border-radius: 10px;
-      padding: 3px 5px 3px 4px;
+      display: inline-block;
+      border-radius: 20px;
+      padding: 2px 6px 1px 5px;
       margin: 0 0.25em;
       font-size: 0.8em;
       background: $ci_lightgray;
       color: $ci_darkgray;
+      text-align: center;
+      min-width: 24px;
     }
 
     .tag {
@@ -50,10 +61,16 @@
     }
   }
 
+  .account-organization,
+  .icon-comment {
+    font-size: 12px;
+    color: $ci_darkgray;
+  }
+
   .agenda {
     border: none;
     border-collapse: separate;
-    border-spacing: 5px;
+    border-spacing: 0px 5px;
 
     th {
       background: $ci_darkwhite;
@@ -77,14 +94,23 @@
       line-height: 1.25;
     }
 
+    .day-name {
+      margin-top: 0.2em;
+    }
+
     .month-year {
       color: $ci_darkgray;
       font-size: 12px;
       font-weight: normal;
     }
 
-    td {
-      font-size: 14px;
+    .time {
+      font-weight: bold;
+    }
+
+    .team {
+      margin-left: 0.25em;
+      font-weight: normal;
     }
   }
 
@@ -98,6 +124,10 @@
       }
     }
 
+    .title {
+      font-size: 14px;
+    }
+
     li {
       margin-bottom: 5px;
       padding: 5px;
@@ -105,6 +135,17 @@
       &:nth-child(even) {
         background: $ci_darkwhite;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .dashboard {
+    .module,
+    .module:nth-child(2n) {
+      width: auto;
+      margin-right: 0;
+      float: none;
     }
   }
 }
