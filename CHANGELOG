@@ -1,6 +1,22 @@
 Changelog
 =========
 
+Release 1.0.3 2013-09-09 17:41
+------------------------------
+9604d12 Merge pull request #200 from Cileos/feature/hide-help-button-when-no-help
+82f682e Merge branch 'feature/reorder-dashboard' into develop
+313ae59 Merge branch 'feature/remove-tipsy' into develop
+c5d158a Merge pull request #198 from Cileos/feature/hover-menues-on-mobile
+499da0b Merge pull request #192 from Cileos/feature/bug-schedulings-with-extreme-length
+1901244 Merge pull request #196 from Cileos/feature/mark-today-in-calendar
+11a82ee Merge branch 'feature/cleanup-calendar' into develop
+2298316 Merge pull request #197 from Cileos/feature/google-bot-no-feedback
+4c45e9f Merge pull request #190 from Cileos/feature/remove-typekit
+a8ad7ca Merge pull request #191 from Cileos/feature/prefetch-gravatars
+2c1f29e Merge pull request #187 from Cileos/feature/employee-shortcuts
+dfc2120 Merge pull request #189 from Cileos/feature/hide-plus-sign-on-readonly-calendars
+7a2b3f6 Merge pull request #188 from Cileos/feature/validate-roles-of-membership
+
 Release 1.0.2 2013-08-08 16:45
 ------------------------------
 fdca403 Merge branch 'feature/show-js-required-msg' into develop
