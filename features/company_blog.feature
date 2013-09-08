@@ -395,16 +395,3 @@ In order to keep my colleagues informed about important news
       And I should see "Post 2"
       And I should see "Post 1"
       But I should not see "Post 0"
-
-  @fileupload
-  Scenario: Avatars of authors of posts and comments
-    Given a confirmed user "bart" exists
-      And an employee "bart" exists with first_name: "Bart", account: the account, user: the confirmed user "bart"
-      And a membership exists with organization: the organization, employee: the employee "bart"
-      And the employee "bart" has the avatar "app/assets/images/rails.png"
-      And a post exists with blog: the blog, author: employee "mr burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
-      And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
-      And I am signed in as the user "mr burns"
-      And I am on the page for the post
-     Then I should see a thumb gravatar within the first post
-      And I should see the avatar "rails.png" within the comment

@@ -30,7 +30,6 @@ table.hours-in-week {
   th.hours {
     width: 2%;
 
-
     div {
       height: $row_height + ($ci_font-size * $ci_line-height / 2);
       padding: 0 15px 0 0;
@@ -48,6 +47,10 @@ table.hours-in-week {
 
   td {
     outline: none;
+
+    &.today {
+      background: rgba(70, 127, 168, 0.18);
+    }
 
     .vertical {
       position: absolute;
@@ -69,7 +72,7 @@ table.hours-in-week {
         opacity: 0.9;
       }
 
-      @for $hour from 1 to 24 {
+      @for $hour from 0 to 25 { //  runs til n-1 (24)
         &[data-start="#{$hour}"] {
           top: $row_height * $hour + 1px;
         }
@@ -82,6 +85,7 @@ table.hours-in-week {
         &[data-start="#{$hour}.75"] {
           top: $row_height * ($hour + 0.75) + 1px;
         }
+
         &[data-length="#{$hour}"] {
           height: $row_height * $hour + 1px;
         }
@@ -94,14 +98,20 @@ table.hours-in-week {
         &[data-length="#{$hour}.75"] {
           height: $row_height * ($hour + 0.75) + 1px;
         }
+
+        // for schedulings <2h, blow up to 2h to show all information
+        @if $hour <= 1 {
+          &[data-length="#{$hour}"],
+          &[data-length="#{$hour}.25"],
+          &[data-length="#{$hour}.5"],
+          &[data-length="#{$hour}.75"] {
+            &.focus, &:hover, &:focus {
+              height: $row_height * 2 + 1px !important;
+            }
+          }
+        }
       }
 
-      // set min-height (==2h) to show all information
-      &.focus[data-length="1"],
-      &[data-length="1"]:hover,
-      &[data-length="1"]:focus {
-        height: $row_height * 2 + 1px !important;
-      }
 
     }
   }

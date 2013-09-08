@@ -19,12 +19,15 @@ FactoryGirl.define do
     sequence(:cwday) { |i| 1 + (i % 7) }
     year             2011
     quickie          '9-17'
+  end
 
-    factory :scheduling_by_quickie do
-      date { Date.today }
-      after :build do |s|
-        s.valid?
-      end
+  factory :scheduling_by_quickie, class: 'Scheduling' do
+    quickie '9-17'
+    plan
+    employee
+    date { Date.today }
+    after :build do |s|
+      s.valid?
     end
   end
 end

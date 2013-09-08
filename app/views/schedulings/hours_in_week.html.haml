@@ -12,10 +12,10 @@
     %tr
       %th
         = render 'week_switch', filter: filter
-      - filter.formatted_days.each do |full, date, abbr|
-        %th
-          = abbr_tag(abbr, full, class: 'day_name')
-          %div.date-without-year= date
+      - filter.formatted_days.each do |full, date, abbr, opts|
+        %th{opts}
+          %span.day_name= abbr
+          %span.date-without-year= date
   %tbody{ class: editable_class }
     %tr
       %th.hours

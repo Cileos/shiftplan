@@ -26,13 +26,13 @@ Feature: Organisation Dashboard
         | 49   | 2     | 17-23 Illuminate |
      When I go to the page for the organization "Reactor"
      Then I should see an agenda table with the following rows:
-       | day | day-name | month-year | time    | team                | plan                               |
+       | day | day-name | month-year | time    | team                | plan                 |
        | 4   | Di       | Dez 2012   | 9 - 17  | Reaktor Putzen [RP] | Cleaning the Reactor |
        | 12  | Mi       | Dez 2012   | 10 - 18 | Reaktor Fegen [RF]  | Cleaning the Reactor |
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
       And I should not see "Illuminate" within the schedulings module
-     When I follow "Cleaning the Reactor" within the schedulings module
+     When I follow "Reaktor Putzen [RP]" within the schedulings module
      Then I should be somewhere under the page of the plan "clean reactor"
 
   Scenario: List recent news posts

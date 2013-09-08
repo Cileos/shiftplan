@@ -1,6 +1,10 @@
 // you cant mix media queries with selectors
 // so it has to be a mixin
 @mixin calendar_detail_condensed {
+  .date-without-year {
+    display: block;
+  }
+
   abbr {
     &.day_name, &.badge, &.weekly_working_time,
     &.team_name, &.work_time {
@@ -10,6 +14,10 @@
       span {
         @include _unhidden();
       }
+    }
+
+    &:hover {
+      cursor: help !important;
     }
   }
   abbr.weekly_working_time {
@@ -24,7 +32,7 @@
   abbr {
     // show full description
     &:before {
-      content: attr(original-title);
+      content: attr(title);
     }
     // hide the shortened stuff (will be shown wenn width < 1000px)
     span {

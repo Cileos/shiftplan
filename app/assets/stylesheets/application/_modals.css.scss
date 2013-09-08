@@ -135,6 +135,11 @@
           text-align: center;
           min-width: 55px;
         }
+
+        label {
+          margin-left: 0;
+          white-space: nowrap;
+        }
       }
 
       .start-time {

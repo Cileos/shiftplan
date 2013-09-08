@@ -3,4 +3,4 @@
     - feedback_params = current_account ? { account_id: current_account.id } : {}
     - feedback_params.merge!({ organization_id: current_organization.id }) if current_organization
     = link_to ta(:feedback_without_screenshot), new_feedback_path(feedback_params), |
-        class: 'feedback-without-screenshot', remote: true
+        class: 'feedback-without-screenshot', remote: true, rel: 'nofollow'

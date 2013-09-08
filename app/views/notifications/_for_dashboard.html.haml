@@ -9,7 +9,7 @@
   .content
     - unless notifications.empty?
       %ul
-        - notifications.recent(23).each do |notification|
+        - notifications.recent(15).each do |notification|
           %li.icon-comment
             = avatar notification.acting_employee.user, notification.acting_employee, :thumb
             = notification.introductory_text

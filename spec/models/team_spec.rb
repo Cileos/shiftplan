@@ -37,17 +37,13 @@ describe Team do
   end
 
   context 'shortcut' do
-    let(:team) { build(:team, name: "Reaktor putzen" ) }
+    let(:record) { build(:team, name: "Reaktor putzen" ) }
+    let(:shortcut) { 'Rp' }
+    it_should_behave_like :record_with_shortcut
 
-    it "should be set automatically" do
-      team.shortcut.should_not be_blank
-    end
-    it "should be generated automatically" do
-      team.shortcut.should == 'Rp'
-    end
-    it "should be put in quickie in square brackets" do
-      team.stub(:shortcut).and_return('TT')
-      team.to_quickie.should == 'Reaktor putzen [TT]'
+    it "is wrapped in square brackets for quickie" do
+      record.stub(:shortcut).and_return('TT')
+      record.to_quickie.should == 'Reaktor putzen [TT]'
     end
   end
 end

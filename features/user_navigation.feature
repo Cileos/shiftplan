@@ -11,11 +11,11 @@ Feature: User Navigation
 
      # Only one employee exists for the current user. So we display the name of
      # the employee instead of the users email address
+     # avatar are the initials of the employee
      Then I should see the following list of links within the user navigation:
        | link            | active |
        | ?               | false  |
-       # avatar has no text
-       |                 | false  |
+       | CB              | false  |
        | Einstellungen   | false  |
        | Ausloggen       | false  |
 
@@ -74,10 +74,3 @@ Feature: User Navigation
      Then I should see the avatar "barts_avatar.jpg" within the user navigation
      When I follow "Cileos UG"
      Then I should see the avatar "rails.png" within the user navigation
-
-  @javascript
-  Scenario: (Default) gravatar for the user's email is shown in the navigation if no other avatar has been uploaded
-    Given I am on the dashboard
-      And I should see a tiny gravatar within the user navigation
-     When I choose "Springfield Nuclear Power Plant - Sector 7-G" from the drop down "Organisationen"
-     Then I should see a tiny gravatar within the user navigation

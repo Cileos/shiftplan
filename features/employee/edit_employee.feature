@@ -6,7 +6,7 @@ Feature: Edit Employee
   Background:
     Given mr burns, owner of the Springfield Nuclear Power Plant exists
      When I am signed in as the user "mr burns"
-      And an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account, weekly_working_time: 40
+      And an employee "homer" exists with first_name: "Homer", last_name: "Simpson", account: the account, weekly_working_time: 40, shortcut: "HS"
       And a membership exists with organization: the organization, employee: the employee "homer"
       And I am on the employees page for the organization
      Then I should see the following table of employees:
@@ -19,14 +19,15 @@ Feature: Edit Employee
       And I wait for the modal box to appear
       And I fill in the following:
         | Nachname | Simpson-Carlson |
+        | Kürzel   | HSC             |
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see flash notice "Mitarbeiter erfolgreich geändert."
       And I should be on the employees page for the organization
       And I should see the following table of employees:
-        | Name                    |
-        | Burns, Charles          |
-        | Simpson-Carlson, Homer  |
+        | Name                   | Kürzel |
+        | Burns, Charles         | CB     |
+        | Simpson-Carlson, Homer | HSC    |
 
   # Planners and owners should not be able to update their own role. We only test this
   # for owners here because specs exist for both planners and owners.

@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130805112215) do
+ActiveRecord::Schema.define(:version => 20130830111449) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "name"
-    t.string   "slug"
     t.integer  "owner_id"
+    t.string   "slug"
   end
 
   add_index "accounts", ["owner_id"], :name => "index_accounts_on_owner_id"
@@ -74,13 +74,14 @@ ActiveRecord::Schema.define(:version => 20130805112215) do
   create_table "employees", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.decimal  "weekly_working_time"
     t.integer  "user_id"
     t.string   "role"
     t.string   "avatar"
     t.integer  "account_id"
+    t.string   "shortcut",            :limit => 4
   end
 
   add_index "employees", ["account_id"], :name => "index_employees_on_account_id"
@@ -288,6 +289,7 @@ ActiveRecord::Schema.define(:version => 20130805112215) do
     t.datetime "updated_at",                                             :null => false
     t.string   "roles",                  :limit => 1024
     t.string   "locale"
+    t.string   "avatar"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

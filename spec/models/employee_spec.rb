@@ -96,4 +96,10 @@ describe Employee do
       end
     end
   end
+
+  context 'shortcut' do
+    let(:record) { build(:employee, name: "Homer J Simpson" ) }
+    let(:shortcut) { 'HJS' }
+    it_should_behave_like :record_with_shortcut
+  end
 end

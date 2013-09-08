@@ -43,11 +43,11 @@ Feature: Dashboard
      When I go to the dashboard
      Then I should see an agenda table with the following rows:
        | day  | day-name  | month-year  | time     | team                 | organization  | plan                 |
-       | 4    | Di        | Dez 2012    | 9 - 17   | Reaktor Putzen [RP]  | Sector 7-G /  | Brennstäbe wechseln  |
-       | 12   | Mi        | Dez 2012    | 10 - 18  | Reaktor Fegen [RF]   | Sector 7-G /  | Pumpen ölen          |
+       | 4    | Di        | Dez 2012    | 9 - 17   | Reaktor Putzen [RP]  | Sector 7-G    | Brennstäbe wechseln  |
+       | 12   | Mi        | Dez 2012    | 10 - 18  | Reaktor Fegen [RF]   | Sector 7-G    | Pumpen ölen          |
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
-     When I follow "Pumpen ölen" within the schedulings module
+     When I follow "Reaktor Fegen [RF]" within the schedulings module
      Then I should be on the employees in week page of the plan "pumpen ölen" for cwyear: 2012, week: 50
      Then I should be somewhere under the page of the plan
 
