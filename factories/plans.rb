@@ -22,6 +22,7 @@ FactoryGirl.define do
   end
 
   factory :scheduling_by_quickie, class: 'Scheduling' do
+    quickie '9-17'
     plan
     employee
     date { Date.today }
