@@ -52,6 +52,12 @@ Spork.prefork do
   Capybara.default_wait_time = 8
 
   DatabaseCleaner.clean_with :truncation
+
+  # Remember current locale to be able to reset the I18n locale to that
+  # value after each scenario. This prevents side effects between scenarios
+  # that change locale settings.
+  Before { @old_locale = I18n.locale }
+  After  { I18n.locale = @old_locale }
 end
 
 Spork.each_run do
