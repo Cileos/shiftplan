@@ -24,10 +24,18 @@ Spork.prefork do
 
     config.before(:each) do
       DatabaseCleaner.start
+      # Remember current locale to be able to reset the I18n locale to that
+      # value after each test case. This prevents side effects between specs
+      # that change locale settings.
+      @old_locale = I18n.locale
     end
 
     config.after(:each) do
       DatabaseCleaner.clean
+      # Remember current locale to be able to reset the I18n locale to that
+      # value after each test case. This prevents side effects between specs
+      # that change locale settings.
+      I18n.locale = @old_locale
     end
 
     config.after(:each) do

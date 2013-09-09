@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 describe UpcomingSchedulingNotificationMailer do
 
   let(:mr_burns) do
