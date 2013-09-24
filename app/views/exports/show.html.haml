@@ -1,0 +1,8 @@
+- title :export
+
+- if @ical_export.active?
+  = link_to 'ICAL', 'TODO'
+  %p= t '.is_active'
+- else
+  %p= t '.is_inactive'
+  = button_to t('.export_my_scheduling'), profile_export_path, method: 'POST'

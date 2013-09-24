@@ -20,6 +20,9 @@ module NavigationHelpers
     when /^the change (email|password) page$/
       send("change_#{$1}_path")
 
+    when /^my profile page$/
+      profile_path
+
     when /^the profile page of #{capture_model}$/
       case model = model!($1)
       when Employee
