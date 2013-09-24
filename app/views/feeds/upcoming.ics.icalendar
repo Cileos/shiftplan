@@ -1,8 +1,0 @@
-@schedulings.each do |s|
-  cal.event do
-    dtstart      s.starts_at
-    dtend        s.ends_at
-    summary      [s.plan, s.team].reject(&:nil?).map(&:name).join(' ')
-    klass       "PRIVATE"
-  end
-end

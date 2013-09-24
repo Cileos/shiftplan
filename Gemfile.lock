@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/KonaTeam/ri_cal.git
+  revision: 1e1b74f609e0eb82fe5f9d0a835b13728f48b4f0
+  specs:
+    ri_cal (0.8.8p)
+
+GIT
   remote: git://github.com/condor/versatile_rjs.git
   revision: 6a52e849ab113819cc8a457996d07bb87ab53ad6
   specs:
@@ -221,7 +227,6 @@ GEM
     highline (1.6.18)
     hike (1.2.3)
     i18n (0.6.4)
-    icalendar (1.4.3)
     inherited_resources (1.3.1)
       has_scope (~> 0.5.0)
       responders (~> 0.6)
@@ -446,7 +451,6 @@ DEPENDENCIES
   guard-rspec (~> 2.4.0)
   guard-spork (~> 1.4.2)
   haml-rails
-  icalendar
   inherited_resources
   jasminerice
   jquery-rails (~> 2.1.3)
@@ -469,6 +473,7 @@ DEPENDENCIES
   rb-fsevent (~> 0.9.1)
   rb-inotify (~> 0.8.8)
   remotipart
+  ri_cal!
   rspec-fire
   rspec-html-matchers
   rspec-rails (~> 2.14.0)

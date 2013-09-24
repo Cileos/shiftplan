@@ -141,4 +141,5 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'whenever', :require => false
 
-gem 'icalendar' # feeds
+# feeds, fork for proper DateTime parsing, see https://github.com/rubyredrick/ri_cal/pull/12
+gem 'ri_cal', git: 'git://github.com/KonaTeam/ri_cal.git'

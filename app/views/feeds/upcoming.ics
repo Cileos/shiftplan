@@ -1,0 +1,7 @@
+@schedulings.map(&:decorate).each do |s|
+  cal.event do
+    dtstart      s.starts_at
+    dtend        s.ends_at
+    summary      s.summary
+  end
+end
