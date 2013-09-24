@@ -24,6 +24,17 @@ module Volksplaner
   def self.icons
     @icons ||= YAML.load_file(Rails.root.join('config/icons.yml')).with_indifferent_access
   end
+
+  #################################################
+  #  Dependency Injection Hub                     #
+  #                                               #
+  #  returned handlers should respond to #call    #
+  #################################################
+
+  # Generates a random, type/url-friendly string of 20 chars
+  def self.token_generator_20
+    Devise.method(:friendly_token)
+  end
 end
 
 VP = Volksplaner

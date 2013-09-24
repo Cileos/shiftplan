@@ -1,0 +1,6 @@
+de:
+  exports:
+    show:
+      is_inactive: "Im Moment wird keiner Deiner Termine exportiert."
+      is_active: "Dies ist die Privatadresse für Deine Termine. Gib diese Adresse nur für andere Personen frei, wenn Du möchtest, das diese alle Deine Termine sehen können."
+      export_my_scheduling: "meine Termine exportieren"
