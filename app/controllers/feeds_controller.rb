@@ -1,7 +1,11 @@
-class FeedsController < BaseController
+class FeedsController < ApplicationController
+  skip_before_filter :authenticate_user!
+  skip_authorization_check
+
+  respond_to :ics
 
   def upcoming
-    render text: current_user.schedulings.upcoming.count.to_s
+    @schedulings = current_user.schedulings.upcoming
   end
 
   private
