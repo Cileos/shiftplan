@@ -6,7 +6,7 @@ describe 'routes for feeds' do
       controller: 'feeds',
       action:     'upcoming',
       email:      'foo@example.com',
-      token:      'XYZ2342'
+      private_token: 'XYZ2342'
     )
   end
 end

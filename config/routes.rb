@@ -88,7 +88,7 @@ Clockwork::Application.routes.draw do
   get "user/:user_id/employees" => 'employees#list', :as => 'list_employees'
 
 
-  scope '/feeds/:email/private-:token' do
+  scope '/feeds/:email/private-:private_token' do
     get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'
   end
 
