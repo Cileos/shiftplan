@@ -94,7 +94,7 @@ Clockwork::Application.routes.draw do
   get "user/:user_id/employees" => 'employees#list', :as => 'list_employees'
 
 
-  scope '/feeds/:email/private-:private_token' do
+  scope '/feeds/:email/private-:private_token', constraints: { email: %r~[^/]+~i, private_token: /[\w]{20}/i  }  do
     get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'
   end
 
