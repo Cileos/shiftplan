@@ -93,6 +93,12 @@ Clockwork::Application.routes.draw do
 
   get "user/:user_id/employees" => 'employees#list', :as => 'list_employees'
 
+
+  scope '/feeds/:email/private-:token' do
+    get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'
+  end
+
+
   devise_for :users, :controllers => { registrations: 'owners/registrations', sessions: 'sessions'}
 
   if Rails.env.test?

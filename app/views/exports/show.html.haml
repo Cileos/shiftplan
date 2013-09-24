@@ -1,7 +1,7 @@
 - title :export
 
 - if @ical_export.active?
-  = link_to 'ICAL', 'TODO'
+  = link_to 'ICAL', upcoming_feed_url(@ical_export.email, @ical_export.private_token, format: 'ics')
   %p= t '.is_active'
   = button_to t('.reset_export'), profile_export_path, method: :delete
 - else

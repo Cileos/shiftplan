@@ -1,5 +1,9 @@
 class IcalExport < Struct.new(:user)
 
+  delegate :email,
+           :private_token,
+           to: :user
+
   def active?
     user.private_token.present?
   end
