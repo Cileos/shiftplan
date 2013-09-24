@@ -3,6 +3,7 @@
 - if @ical_export.active?
   = link_to 'ICAL', 'TODO'
   %p= t '.is_active'
+  = button_to t('.reset_export'), profile_export_path, method: :delete
 - else
   %p= t '.is_inactive'
-  = button_to t('.export_my_scheduling'), profile_export_path, method: 'POST'
+  = button_to t('.create_export'), profile_export_path, method: :post

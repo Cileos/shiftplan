@@ -29,4 +29,13 @@ describe IcalExport do
       subject.save
     end
   end
+
+  describe '#destroy' do
+    it 'clears private token of user' do
+      user.should_receive(:private_token=).with(nil)
+      user.should_receive(:save!)
+
+      subject.destroy
+    end
+  end
 end

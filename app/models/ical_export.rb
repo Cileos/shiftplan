@@ -9,4 +9,9 @@ class IcalExport < Struct.new(:user)
     user.save!
   end
 
+  def destroy
+    user.private_token = nil
+    user.save!
+  end
+
 end

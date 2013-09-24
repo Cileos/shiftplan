@@ -3,7 +3,6 @@ Feature: Ical settings
   As a user
   I want to subscribe to my upcoming schedulings per iCal
 
-  #@javascript
   Scenario: create private ICAL URL
     Given I am signed in as a confirmed user
       And I am on the profile page of my employees
@@ -14,12 +13,12 @@ Feature: Ical settings
       And I should see link "ICAL"
 
 
-  @wip
   Scenario: reset private ICAL URL
-    Given a confirmed user with ical subscription exists
-      And I am signed in as the confirmed user
+    Given a confirmed user with private token exists
+      And I am signed in as the confirmed user with private token
       And I am on the profile page of my employees
-      And I should see "Dies ist die Privatadresse für Deine Termine."
+     When I follow "Export"
+     Then I should see "Dies ist die Privatadresse für Deine Termine."
      When I press "Private URL zurücksetzen"
      Then I should not see link "ICAL"
 
