@@ -1,9 +1,12 @@
 Feature: Teams in legend of plan
   Um verschiedene Tätigkeiten oder Arbeitsplätze zu unterscheiden, und diese daraus erzeugen Kürzel zu verwenden und eine Legende anzuzeigen.
   Als Planer
-  Möchte ich im Plan Teamnamen/Beschreibungen verwenden,
+  Möchte ich im Plan Teamnamen/Beschreibungen verwenden
 
+  # Cannot specify name of team since removal of Quickie field
   @javascript
+  @wip
+  @quickie
   Scenario: implicitly create a new team with full name and shortcut
     Given the situation of a nuclear reactor
       And a team exists with name: "Brennstäbe wechseln", organization: the organization
