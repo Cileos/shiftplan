@@ -5,6 +5,10 @@ class ExportsController < InheritedResources::Base
     create! { profile_export_path }
   end
 
+  def destroy
+    destroy! { profile_export_path }
+  end
+
   protected
 
   def resource

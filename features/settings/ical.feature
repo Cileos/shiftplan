@@ -20,5 +20,6 @@ Feature: Ical settings
      When I follow "Export"
      Then I should see "Dies ist die Privatadresse für Deine Termine."
      When I press "Private URL zurücksetzen"
-     Then I should not see link "ICAL"
+     Then I should see "Im Moment wird keiner Deiner Termine exportiert."
+      And I should not see link "ICAL"
 
