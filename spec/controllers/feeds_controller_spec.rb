@@ -65,9 +65,16 @@ describe FeedsController do
       event.summary.should == 'The A Team (Hero Work)'
     end
 
-    it 'defined calendar name' do
+    it 'defines calendar name' do
       fetch
       parsed.x_wr_calname.first.should =~ /Clockwork/
+    end
+
+    it 'shows intent to publish the events' do
+      fetch
+      # OPTIMIZE ri_cal does not add ':' delimiter on generation, and recognizes it on parsing
+      parsed.method_property.to_s.should == ':PUBLISH'
+      response.body.should include('METHOD:PUBLISH')
     end
 
   end
