@@ -17,7 +17,8 @@ describe FeedsController do
     end
 
     # parse again
-    let(:events) { RiCal.parse_string(response.body).first.events }
+    let(:parsed) { RiCal.parse_string(response.body).first }
+    let(:events) { parsed.events }
     let(:event) { events.first }
 
     let(:team) { build_stubbed :team, name: 'The A Team' }
@@ -62,6 +63,11 @@ describe FeedsController do
       stub_schedulings plan: plan, team: team
       fetch
       event.summary.should == 'The A Team (Hero Work)'
+    end
+
+    it 'defined calendar name' do
+      fetch
+      parsed.x_wr_calname.first.should =~ /Clockwork/
     end
 
   end

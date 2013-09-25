@@ -1,3 +1,4 @@
+cal.add_x_property 'X-WR-CALNAME', 'Clockwork'
 @schedulings.map(&:decorate).each do |s|
   cal.event do
     dtstart      s.starts_at
