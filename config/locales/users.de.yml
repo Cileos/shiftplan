@@ -15,6 +15,7 @@ de:
         account_name: Accountbezeichnung
         name: "Name"
         locale: "Sprache"
+        receive_notification_emails: "E-Mail Benachrichtigungen erhalten"
         password: "Passwort"
         password_confirmation: "Passwort bestätigen"
         current_password: "Aktuelles Passwort"

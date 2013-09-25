@@ -29,6 +29,9 @@ module NavigationHelpers
     when /^the profile page of my employees$/
       profile_employees_path
 
+    when /^the edit profile page$/
+      edit_profile_path
+
     # the page for teams of the organization "Reactor"
     when /^the page for (\w+) of #{capture_model}$/
       sub = $1

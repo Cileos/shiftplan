@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
                   :employee_id,
                   :confirmed_at,
                   :locale,
+                  :receive_notification_emails,
 
                   :first_name,
                   :last_name,

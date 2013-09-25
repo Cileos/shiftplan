@@ -15,6 +15,7 @@ en:
         account_name: Company name
         name: "Name"
         locale: "Language"
+        receive_notification_emails: "Receive notification emails"
         password: "Password"
         password_confirmation: "Confirm password"
         current_password: "Current password"
