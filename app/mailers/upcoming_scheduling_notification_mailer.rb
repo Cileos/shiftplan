@@ -2,11 +2,11 @@ class UpcomingSchedulingNotificationMailer < ClockworkMailer
 
   def upcoming_scheduling(notification)
     set_locale(notification)
-    @notification = notification
-    @scheduling = notification.notifiable
-    plan = @scheduling.plan
-    organization = plan.organization
-    account = organization.account
+    @notification             = notification
+    @scheduling               = notification.notifiable
+    plan                      = @scheduling.plan
+    organization              = plan.organization
+    account                   = organization.account
 
     mail to: notification.employee.user.email,
       subject: t(:'mailer.upcoming_scheduling_notification.upcoming_scheduling.subject',

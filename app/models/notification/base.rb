@@ -45,7 +45,9 @@ class Notification::Base < ActiveRecord::Base
   protected
 
   def deliver!
-    self.class.mailer_class.public_send(self.class.mailer_action, self).deliver
-    touch :sent_at
+    if employee.user && employee.user.receive_notification_emails
+      self.class.mailer_class.public_send(self.class.mailer_action, self).deliver
+      touch :sent_at
+    end
   end
 end
