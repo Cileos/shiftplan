@@ -70,6 +70,7 @@ group :development, :test do
   gem "guard-jasmine"
   gem "jasminerice"
   gem 'rb-inotify', '~> 0.8.8', :require => false
+  gem 'zeus'
 end
 
 group :development do
