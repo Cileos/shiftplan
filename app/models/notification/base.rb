@@ -42,6 +42,11 @@ class Notification::Base < ActiveRecord::Base
     where(notifiable_id: notifiable.id).where(notifiable_type: notifiable.class.name)
   end
 
+  def user_locale
+    locale = employee.user.try(:locale)
+    locale.present? ? locale.to_sym : I18n.default_locale
+  end
+
   protected
 
   def deliver!
