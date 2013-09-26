@@ -61,9 +61,9 @@ Clockwork::Application.configure do
 
   config.action_mailer.default_url_options = { :host => Volksplaner.hostname }
 
-  config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "You May Not Pass") do |u, p|
-    [u, p] == ['timtest', 'mug6Ue7i']
-  end if Volksplaner.staging?
+  #config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "You May Not Pass") do |u, p|
+  #  [u, p] == ['timtest', 'mug6Ue7i']
+  #end if Volksplaner.staging?
 
   config.action_mailer.delivery_method = :sendmail
   config.middleware.use ExceptionNotifier,

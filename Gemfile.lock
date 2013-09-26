@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/KonaTeam/ri_cal.git
+  revision: 1e1b74f609e0eb82fe5f9d0a835b13728f48b4f0
+  specs:
+    ri_cal (0.8.8p)
+
+GIT
   remote: git://github.com/condor/versatile_rjs.git
   revision: 6a52e849ab113819cc8a457996d07bb87ab53ad6
   specs:
@@ -451,6 +457,7 @@ DEPENDENCIES
   rb-fsevent (~> 0.9.1)
   rb-inotify (~> 0.8.8)
   remotipart
+  ri_cal!
   rspec-html-matchers
   rspec-rails (~> 2.12.2)
   rvm-capistrano

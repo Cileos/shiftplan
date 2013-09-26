@@ -1,0 +1,10 @@
+- title :export
+
+- if @ical_export.active?
+  = link_to 'ICAL', upcoming_feed_url(CGI.escape(@ical_export.email), @ical_export.private_token, format: 'ics'), class: 'button'
+  = link_to 'ICAL (iPhone)', upcoming_feed_url(CGI.escape(@ical_export.email), @ical_export.private_token, format: 'ics', protocol: 'webcal'), class: 'button'
+  %p= t '.is_active'
+  = button_to t('.reset_export'), profile_export_path, method: :delete
+- else
+  %p= t '.is_inactive'
+  = button_to t('.create_export'), profile_export_path, method: :post

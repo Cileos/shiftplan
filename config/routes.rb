@@ -78,12 +78,20 @@ Clockwork::Application.routes.draw do
   scope 'profile', as: 'profile' do
     resources :employees, only: [:edit, :update, :index], controller: 'profile_employees'
   end
-  resource :profile, only: [:edit, :update], controller: 'profile'
+  resource :profile, only: [:edit, :update], controller: 'profile' do
+    resource :export, only: [:show, :create, :destroy]
+  end
 
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
   get "dashboard" => 'welcome#dashboard', :as => 'user_root'
 
   get "user/:user_id/employees" => 'employees#list', :as => 'list_employees'
+
+
+  scope '/feeds/:email/private-:private_token', constraints: { email: %r~[^/]+~i, private_token: /[\w]{20}/i  }  do
+    get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'
+  end
+
 
   devise_for :users, :controllers => { registrations: 'owners/registrations', sessions: 'sessions'}
 

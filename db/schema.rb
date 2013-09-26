@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130830111449) do
+ActiveRecord::Schema.define(:version => 20130924143542) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "name"
-    t.integer  "owner_id"
     t.string   "slug"
+    t.integer  "owner_id"
   end
 
   add_index "accounts", ["owner_id"], :name => "index_accounts_on_owner_id"
@@ -290,6 +290,7 @@ ActiveRecord::Schema.define(:version => 20130830111449) do
     t.string   "roles",                  :limit => 1024
     t.string   "locale"
     t.string   "avatar"
+    t.string   "private_token",          :limit => 20
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

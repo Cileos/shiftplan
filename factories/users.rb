@@ -16,6 +16,10 @@ FactoryGirl.define do
         after(:create) { |u| FactoryGirl.create :employee, user: u }
       end
 
+      factory :confirmed_user_with_private_token do
+        sequence(:private_token) { |i| '%020d' % i }
+      end
+
       factory :mr_burns do
         email 'c.burns@npp-springfield.com'
 

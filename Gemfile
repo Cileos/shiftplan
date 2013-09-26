@@ -134,3 +134,6 @@ gem 'backup', :require => false # just for restore
 gem 'friendly_id', '~> 4.0' # for rails 3
 # mitigate BREACH and CRIME https attack
 gem 'breach-mitigation-rails'
+
+# feeds, fork for proper DateTime parsing, see https://github.com/rubyredrick/ri_cal/pull/12
+gem 'ri_cal', git: 'git://github.com/KonaTeam/ri_cal.git'

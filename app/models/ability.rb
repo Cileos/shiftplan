@@ -64,6 +64,10 @@ class Ability
     can [:read, :update, :update_profile], User do |u|
       user == u
     end
+
+    can [:read, :create, :destroy], IcalExport do |ie|
+      user == ie.user
+    end
   end
 
   def authorize_employee(user)
