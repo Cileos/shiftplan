@@ -91,6 +91,18 @@ describe FeedsController do
       event.last_modified.should == time
     end
 
-    it 'sets SEQUENCE for external programs to detect updates'
+    it 'sets SEQUENCE for external programs to detect updates' do
+      # RFC 5455 says:
+      # "When a calendar component is created, its sequence number is zero
+      # [..]. It is monotonically incremented [..] each time the "Organizer"
+      # makes a significant revision to the calendar component."
+      #
+      # It does not say by how much. As time is monotonically increasing, we
+      # just use the seconds since epoch as a sequence
+      time = Time.zone.parse('2013-05-05 07:23')
+      stub_schedulings updated_at: time
+      fetch
+      event.sequence.should == time.to_i
+    end
   end
 end
