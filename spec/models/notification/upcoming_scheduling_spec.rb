@@ -1,7 +1,7 @@
 describe Notification::UpcomingScheduling do
 
   let(:scheduling) do
-    build(:scheduling, employee: build(:employee))
+    build(:scheduling, employee: build(:employee, user: build(:user)))
   end
   let(:subject) do
     described_class.new(notifiable: scheduling, employee: scheduling.employee)
