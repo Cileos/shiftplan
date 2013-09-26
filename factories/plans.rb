@@ -9,6 +9,11 @@ FactoryGirl.define do
     employee
     sequence(:starts_at) {|i| Time.zone.parse('1968-01-01') + i.hours }
     sequence(:ends_at) {|i| Time.zone.parse('1968-01-01') + (i + 2).hours }
+
+    factory :upcoming_scheduling_in_the_next_24_hours do
+      starts_at { Time.zone.now + 23.hours }
+      ends_at   { Time.zone.now + 30.hours }
+    end
   end
 
   factory :manual_scheduling, class: 'Scheduling' do

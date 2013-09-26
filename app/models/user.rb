@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
                   :employee_id,
                   :confirmed_at,
                   :locale,
+                  :receive_notification_emails,
 
                   :first_name,
                   :last_name,
@@ -115,6 +116,10 @@ class User < ActiveRecord::Base
   # Works at multiple organizations or accounts
   def multiple?
     organizations.count > 1
+  end
+
+  def confirmed?
+    !confirmed_at.nil?
   end
 
   def confirming_email_change?

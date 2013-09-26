@@ -3,3 +3,6 @@ de:
     email_change:
       confirmation:
         subject: 'E-Mail Adresse ändern'
+    upcoming_scheduling_notification:
+      upcoming_scheduling:
+        subject: "Erinnerung: Anstehende Schicht (%{account} / %{organization} / %{plan})"

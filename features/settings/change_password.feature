@@ -2,12 +2,8 @@ Feature: As a logged in user
   I want to change my password
 
   Background:
-    Given an account exists with name: "Tepco GmbH"
-      And an organization "fukushima" exists with name: "Fukushima", account: the account
-      And a confirmed user exists with email: "marge@thesimpsons.com"
-      And an employee exists with user: the confirmed user, account: the account, first_name: "Marge", last_name: "Bouvier"
-      And a membership exists with organization: the organization, employee: the employee
-      And I am signed in as the confirmed user
+    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+      And I am signed in as the user "mr burns"
       And I am on my dashboard
 
   Scenario: Changing the password
@@ -25,7 +21,7 @@ Feature: As a logged in user
      When I sign out
       And I am on the home page
       And I follow "Einloggen"
-      And I fill in "E-Mail" with "marge@thesimpsons.com"
+      And I fill in "E-Mail" with "c.burns@npp-springfield.com"
       And I fill in "Passwort" with "topsecret"
       And I press "Einloggen"
       And I should see "Erfolgreich eingeloggt."

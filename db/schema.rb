@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130830111449) do
+ActiveRecord::Schema.define(:version => 20130925152800) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -47,6 +47,22 @@ ActiveRecord::Schema.define(:version => 20130830111449) do
 
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["employee_id"], :name => "index_comments_on_employee_id"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0, :null => false
+    t.integer  "attempts",   :default => 0, :null => false
+    t.text     "handler",                   :null => false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "demands", :force => true do |t|
     t.integer  "quantity"
@@ -268,12 +284,12 @@ ActiveRecord::Schema.define(:version => 20130830111449) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                  :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128,  :default => ""
+    t.string   "email",                                       :default => "",   :null => false
+    t.string   "encrypted_password",          :limit => 128,  :default => ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                          :default => 0
+    t.integer  "sign_in_count",                               :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -281,15 +297,16 @@ ActiveRecord::Schema.define(:version => 20130830111449) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.integer  "failed_attempts",                        :default => 0
+    t.integer  "failed_attempts",                             :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
-    t.datetime "created_at",                                             :null => false
-    t.datetime "updated_at",                                             :null => false
-    t.string   "roles",                  :limit => 1024
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
+    t.string   "roles",                       :limit => 1024
     t.string   "locale"
     t.string   "avatar"
+    t.boolean  "receive_notification_emails",                 :default => true
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

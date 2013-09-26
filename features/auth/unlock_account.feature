@@ -15,6 +15,7 @@ Feature: Unlocking account
 
   Scenario: Unlock account
     Given I open the email
+      And I use a german browser
       And I follow the first link in the email
      Then I should see notice "Ihr Konto wurde erfolgreich entsperrt. Bitten loggen Sie sich nun ein."
       And I should see notice "Falls Sie Ihr Passwort vergessen haben, klicken Sie bitte auf 'Passwort vergessen?'"

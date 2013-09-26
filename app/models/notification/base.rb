@@ -42,10 +42,17 @@ class Notification::Base < ActiveRecord::Base
     where(notifiable_id: notifiable.id).where(notifiable_type: notifiable.class.name)
   end
 
+  def user_locale
+    locale = employee.user.try(:locale)
+    locale.present? ? locale.to_sym : I18n.default_locale
+  end
+
   protected
 
   def deliver!
-    self.class.mailer_class.public_send(self.class.mailer_action, self).deliver
-    touch :sent_at
+    if employee.user && employee.user.receive_notification_emails
+      self.class.mailer_class.public_send(self.class.mailer_action, self).deliver
+      touch :sent_at
+    end
   end
 end

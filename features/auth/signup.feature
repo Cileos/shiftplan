@@ -5,7 +5,8 @@ Feature: Signing up
   And I want to become the owner of my account
 
   Scenario: Signup by filling in information for all signup fields
-    Given I am on the home page
+    Given I use a german browser
+      And I am on the home page
       And 0 accounts should exist
       And 0 organizations should exist
       And 0 blogs should exist

@@ -19,6 +19,7 @@ en:
       signed_in: "You've logged in. Welcome!"
       signed_out: "You've logged out. Bye!"
     passwords:
+      change: "Change password"
       forgotten: "Forgot your password?"
       reset_password: "Reset password"
       send_instructions: "You will receive an e-mail with password reset instructions shortly."

@@ -3,7 +3,8 @@ Feature: Resetting Password
   I want to reset my password
 
   Background:
-    Given an account exists
+    Given I use a german browser
+      And an account exists
       And an organization exists with name: "Fukushima GmbH", account: the account
       And a confirmed user exists with email: "bart@thesimpsons.com"
       And an employee exists with user: the confirmed user, account: the account

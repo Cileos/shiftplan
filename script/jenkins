@@ -16,6 +16,13 @@ DATABASE="clockwork_test_${BRANCH}_$$"
 RAILS_ENV=test
 export RAILS_ENV
 
+# Ruby GC tuning, as seen on eurucamp 2013
+export RUBY_HEAP_MIN_SLOTS=2000000
+export RUBY_HEAP_SLOTS_INCREMENT=500000
+export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+export RUBY_GC_MALLOC_LIMIT=70000000    # 70 MB, default is 8 MB
+export RUBY_HEAP_FREE_MIN=100000
+
 APP_DIR=`pwd`
 
 export CI_REPORTS="log/reports/"

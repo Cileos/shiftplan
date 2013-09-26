@@ -1,11 +1,13 @@
-%p= "Hallo #{@notification.employee.name}!"
+%p= "Hello #{@notification.employee.name}!"
 
 %p= @notification.introductory_text
 
 %p= '"' + @post.body + '"'
 
-%p Klicken Sie auf den folgenden Link um den Blogpost zu lesen oder zu kommentieren:
+%p Please, click on the following link to read the blog post or to comment on it:
 
-%p= link_to "Blogpost lesen >>", account_organization_blog_post_url(@post.organization.account, @post.organization, @post.blog, @post)
+%p= link_to "Read blog post >>", account_organization_blog_post_url(@post.organization.account, @post.organization, @post.blog, @post)
 
-%p Ihr Clockwork Team
+%p Your Clockwork Team
+
+= render 'clockwork_mailer/turn_off_notification_emails_hint'

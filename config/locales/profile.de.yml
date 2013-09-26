@@ -1,7 +1,8 @@
 de:
   profile:
     edit:
-      instructions: "Wählen Sie Ihre Spracheinstellungen."
+      change_locale_instructions: "Wählen Sie Ihre Spracheinstellungen:"
+      change_notification_instructions: "Wählen Sie Ihre Benachrichtigungseinstellungen:"
   profile_employees:
     index:
       instructions: "Wählen Sie einen Mitarbeiter."

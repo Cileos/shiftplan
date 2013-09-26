@@ -1,0 +1,14 @@
+%p= "Hallo #{@notification.employee.name}!"
+
+%p= @notification.introductory_text
+
+%p Klicken Sie auf den folgenden Link, um zur Wochenansicht für diese Schicht zu gelangen.
+
+%p= link_to "Zur Wochenansicht >>",
+  account_organization_plan_employees_in_week_url(@scheduling.organization.account,
+  @scheduling.organization, @scheduling.plan, cwyear: @scheduling.cwyear, week: @scheduling.week)
+
+
+%p Ihr Clockwork Team
+
+= render 'clockwork_mailer/turn_off_notification_emails_hint'
