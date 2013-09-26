@@ -8,8 +8,8 @@ class Notification::CommentOnScheduling < Notification::Comment
     :new_comment
   end
 
-  def subject
-    t(:'subjects.comment_on_scheduling', name: comment.author_name)
+  def mail_subject
+    t(:'mail_subjects.comment_on_scheduling', name: comment.author_name)
   end
 
   def scheduling

@@ -1,6 +1,6 @@
 class Notification::CommentOnPostOfEmployee < Notification::CommentOnPost
-  def subject
-    t(:'subjects.comment_on_post_of_employee', name: comment.author_name)
+  def mail_subject
+    t(:'mail_subjects.comment_on_post_of_employee', name: comment.author_name)
   end
 
   def introductory_text

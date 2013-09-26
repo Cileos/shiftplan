@@ -16,8 +16,8 @@ class Notification::Base < ActiveRecord::Base
     raise NotImplementedError, "must return the mailer action name of your ActionMailer::Base class used to send out mails for notifications of type #{name}"
   end
 
-  def subject
-    raise NotImplementedError, "must implement #{self.class.name}#subject containing a short description of what happened"
+  def mail_subject
+    raise NotImplementedError, "must implement #{self.class.name}#mail_subject containing a short description of what happened"
   end
 
   def introductory_text

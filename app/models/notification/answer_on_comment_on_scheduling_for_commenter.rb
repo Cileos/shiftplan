@@ -1,6 +1,6 @@
 class Notification::AnswerOnCommentOnSchedulingForCommenter < Notification::CommentOnScheduling
-  def subject
-    t(:'subjects.answer_on_comment_for_commenter', name: comment.author_name)
+  def mail_subject
+    t(:'mail_subjects.answer_on_comment_for_commenter', name: comment.author_name)
   end
 
   def introductory_text

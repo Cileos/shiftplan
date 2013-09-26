@@ -12,8 +12,8 @@ class Notification::CommentOnPost < Notification::Comment
     comment.commentable
   end
 
-  def subject
-    t(:'subjects.comment_on_post', name: comment.author_name)
+  def mail_subject
+    t(:'mail_subjects.comment_on_post', name: comment.author_name)
   end
 
 

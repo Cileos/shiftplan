@@ -13,7 +13,7 @@ class Notification::Dummy < Notification::Base
     employee
   end
 
-  def subject
+  def mail_subject
     "You did something"
   end
 

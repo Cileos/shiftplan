@@ -33,7 +33,7 @@ de:
       introductory_text: "Sie sind für eine Schicht am %{date} (%{quickie}) eingeteilt."
   scheduling_notification_mailer:
     new_comment:
-      subjects:
+      mail_subjects:
         comment_on_scheduling: "%{name} hat eine Schicht kommentiert"
         comment_on_scheduling_of_employee: "%{name} hat eine Ihrer Schichten kommentiert"
         comment_for_commenter: "%{name} hat eine Schicht kommentiert, die Sie auch kommentiert haben"

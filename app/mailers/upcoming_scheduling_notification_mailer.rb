@@ -9,7 +9,7 @@ class UpcomingSchedulingNotificationMailer < ClockworkMailer
 
     I18n.with_locale(notification.user_locale) do
       mail to: notification.employee.user.email,
-        subject: t(:'mailer.upcoming_scheduling_notification.upcoming_scheduling.subject',
+        subject: t(:'mailer.upcoming_scheduling_notification.upcoming_scheduling.mail_subject',
                   account: account.name,
                   organization: organization.name,
                   plan: plan.name)

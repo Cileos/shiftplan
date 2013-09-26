@@ -19,12 +19,12 @@ en:
       more: "Read more"
   post_notification_mailer:
     new_post:
-      subjects:
+      mail_subjects:
         post: "%{name} wrote a new post"
       introductory_texts:
         post: "%{name} wrote a new post on %{date} :"
     new_comment:
-      subjects:
+      mail_subjects:
         comment_on_post: "%{name} commented on a post"
         comment_on_post_of_employee: "%{name} commented on one of your posts"
         comment_on_post_for_commenter: "%{name} also commented on a post"

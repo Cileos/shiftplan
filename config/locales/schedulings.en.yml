@@ -26,7 +26,7 @@ en:
       introductory_text: "You are scheduled for a shift on %{date} (%{quickie})."
   scheduling_notification_mailer:
     new_comment:
-      subjects:
+      mail_subjects:
         comment_on_scheduling: "%{name} commented on your schedules."
         comment_on_scheduling_of_employee: "%{name} commented on one of your schedules."
         comment_for_commenter: "%{name} also commented on a schedule."

@@ -12,8 +12,8 @@ class Notification::Post < Notification::Base
     notifiable
   end
 
-  def subject
-    t(:'subjects.post', name: acting_employee.name)
+  def mail_subject
+    t(:'mail_subjects.post', name: acting_employee.name)
   end
 
   def acting_employee

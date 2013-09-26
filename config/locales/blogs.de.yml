@@ -19,12 +19,12 @@ de:
       more: 'Mehr ...'
   post_notification_mailer:
     new_post:
-      subjects:
+      mail_subjects:
         post: '%{name} hat einen neuen Blogpost geschrieben'
       introductory_texts:
         post: "%{name} hat am %{date} einen neuen Blogpost geschrieben:"
     new_comment:
-      subjects:
+      mail_subjects:
         comment_on_post: '%{name} hat einen Blogpost kommentiert'
         comment_on_post_of_employee: '%{name} hat einen Ihrer Blogposts kommentiert'
         comment_on_post_for_commenter: '%{name} hat einen Blogpost ebenfalls kommentiert'
