@@ -4,7 +4,8 @@ Feature: Change locale
   I want to switch my locale
 
   # In test env, default_locale is :de, in production is :en. So in your mind, you must exchange English vs German
-
+  
+  # we do not support polish (yet), so we fallback to the default
   Scenario Outline: determine locale from browser and set user's locale
     Given mr burns, owner of the Springfield Nuclear Power Plant exists
       And the locale attribute of the user is changed to nil
