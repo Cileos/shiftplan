@@ -77,5 +77,13 @@ describe FeedsController do
       response.body.should include('METHOD:PUBLISH')
     end
 
+
+    it 'sets UID for the event to be identified' do
+      stub_schedulings id: 23
+      fetch
+      event.uid.should_not be_blank
+    end
+
+    it 'sets SEQUENCE for external programs to detect updates'
   end
 end
