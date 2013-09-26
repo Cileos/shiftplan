@@ -26,7 +26,7 @@ describe FeedsController do
 
     def stub_schedulings(*attrss)
       build = attrss.map do |attrs|
-        build_stubbed(:scheduling, attrs)
+        build_stubbed(:scheduling, attrs.reverse_merge(updated_at: Time.zone.now) )
       end
 
       user.stub_chain(:schedulings, :upcoming).and_return(build)
@@ -82,6 +82,13 @@ describe FeedsController do
       stub_schedulings id: 23
       fetch
       event.uid.should_not be_blank
+    end
+
+    it 'sets LAST-MODIFIED for unknown reasons' do
+      time = Time.zone.parse('2013-05-05 07:23')
+      stub_schedulings updated_at: time
+      fetch
+      event.last_modified.should == time
     end
 
     it 'sets SEQUENCE for external programs to detect updates'

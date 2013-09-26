@@ -6,5 +6,6 @@ cal.add_x_property 'X-WR-CALNAME', 'Clockwork'
     dtend        s.ends_at
     summary      s.summary
     uid          "#{s.class.name}-#{s.id}@#{Volksplaner.hostname}"
+    last_modified s.updated_at
   end
 end
