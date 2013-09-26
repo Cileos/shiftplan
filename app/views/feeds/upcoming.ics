@@ -7,5 +7,6 @@ cal.add_x_property 'X-WR-CALNAME', 'Clockwork'
     summary      s.summary
     uid          "#{s.class.name}-#{s.id}@#{Volksplaner.hostname}"
     last_modified s.updated_at
+    sequence      s.updated_at.to_i
   end
 end
