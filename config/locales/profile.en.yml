@@ -1,7 +1,8 @@
 en:
   profile:
     edit:
-      instructions: "Select your language."
+      change_locale_instructions: "Select your language:"
+      change_notification_instructions: "Select your notification settings:"
   profile_employees:
     index:
       instructions: "Select an employee."

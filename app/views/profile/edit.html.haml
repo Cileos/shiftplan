@@ -3,13 +3,15 @@
 = render layout: 'profile/with_menu' do
   %h3= ta :advanced_settings
 
-  %p= t('profile.edit.instructions')
-
   = simple_form_for current_user, url: profile_path do |f|
     = f.error_notification
     .inputs
+
+      %p= t('profile.edit.change_locale_instructions')
       - users_locale = current_user.locale.present? ? current_user.locale : I18n.locale
       = f.input :locale, collection: locales_for_select, include_blank: false, :selected => users_locale, :wrapper_html => { :class => 'form-horizontal' }
+
+      %p= t('profile.edit.change_notification_instructions')
       = f.input :receive_notification_emails
     .actions
       = f.responsive_submit_button :update
