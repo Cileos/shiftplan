@@ -156,6 +156,10 @@ class Scheduling < ActiveRecord::Base
     %Q~<Scheduling #{date} #{to_quickie}>~
   end
 
+  def conflicting?
+    false
+  end
+
   private
 
   def parse_quickie_and_fill_in
