@@ -110,6 +110,13 @@
   abbr:hover {
     cursor: default;
   }
+
+  .conflict {
+    color: red;
+    position: absolute;
+    top: 0;
+    right: 0.5em;
+  }
 }
 
 div[class*="team_"].scheduling,
