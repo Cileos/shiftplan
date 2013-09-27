@@ -1,6 +1,8 @@
 - schedulings.each do |scheduling|
   %div.vertical.scheduling{class: scheduling.css_class, data: scheduling.metadata.merge(filter.stack_metadata_for(scheduling))}
     = abbr_tag scheduling.period_with_zeros, scheduling.period_with_duration, class: 'work_time'
+    - if scheduling.conflicting?
+      %a.conflict !
     - if scheduling.employee
       = render 'employees/tiny', employee: scheduling.employee
     - if qualification = scheduling.try(:qualification)

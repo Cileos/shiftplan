@@ -156,8 +156,9 @@ class Scheduling < ActiveRecord::Base
     %Q~<Scheduling #{date} #{to_quickie}>~
   end
 
+  attr_accessor :conflicts
   def conflicting?
-    false
+    conflicts.present?
   end
 
   private
