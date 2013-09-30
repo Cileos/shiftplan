@@ -1,10 +1,10 @@
 html {
-  @include font-smoothing(subpixel-antialiased);
+  // @include font-smoothing(subpixel-antialiased);
 
-  font-family: "proxima-nova",Helvetica,Arial,sans-serif;
+  font-family: $font-family;
   font-size: $ci_font-size;
   line-height: $ci_line-height;
-  text-rendering: optimizeLegibility;
+  // text-rendering: optimizeLegibility;
 }
 
 body {
