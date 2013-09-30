@@ -134,6 +134,9 @@ module HtmlSelectorsHelpers
     when 'a hint'
       '.hint'
 
+    when /conflict icon$/
+      'a.conflict'
+
     when 'the pagination'
       '.pagination'
 

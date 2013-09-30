@@ -1,11 +1,28 @@
 class ConflictFinder < Struct.new(:schedulings)
 
+  attr_reader :conflicts
+
+  def initialize(*)
+    super
+    @conflicts = []
+  end
+
   def call
+    conflicts.clear
     schedulings.each do |me|
-      me.conflicts = they.select do |it|
+      found = they.select do |it|
         overlapping?(it, me)
       end
+      me.conflicts = found
+      unless found.empty?
+        conflicts << Conflict.new(me, found)
+      end
     end
+  end
+
+
+  def self.find_conflict_for(scheduling)
+    self.new([scheduling]).tap(&:call).conflicts.first
   end
 
   private

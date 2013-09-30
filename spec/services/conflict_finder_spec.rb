@@ -13,6 +13,7 @@ describe ConflictFinder do
 
     it 'does not find any conflicts' do
       scheduling.conflicts.should be_blank
+      subject.conflicts.should be_blank
     end
   end
 
@@ -22,6 +23,21 @@ describe ConflictFinder do
     it 'finds the conflict' do
       scheduling.conflicts.should_not be_blank
       scheduling.conflicts.should include(other)
+    end
+
+    it 'builds conflict objects' do
+      subject.conflicts.should have(1).record
+    end
+
+    describe 'the found conflict' do
+      let(:conflict) { subject.conflicts.first }
+      it 'has input scheduling as provoker' do
+        conflict.provoker.should == scheduling
+      end
+
+      it 'has conflicting schedulings as established' do
+        conflict.established.should include(other)
+      end
     end
   end
 
@@ -58,5 +74,32 @@ describe ConflictFinder do
     let!(:other) { s '10-13', employee }
     let(:scheduling) { s '11-12', employee }
     it_should_behave_like :conflict_finder_finding_conflict
+  end
+
+  describe '.find_conflict_for' do
+    let(:other) { instance_double 'Scheduling' }
+    let(:scheduling) { instance_double 'Scheduling', :conflicts= => true }
+    let!(:finder) { described_class.new([scheduling]) }
+    before :each do
+      described_class.should_receive(:new).with([scheduling]).and_return(finder)
+    end
+
+    describe 'scheduling with conflict' do
+      before :each do
+        finder.stub they: [other], overlapping?: true
+      end
+      let(:conflict) { ConflictFinder.find_conflict_for(scheduling) }
+
+      it 'finds a single conflict for given scheduling' do
+        conflict.should be_a(Conflict)
+      end
+      it 'assigns provoker' do
+        conflict.provoker.should == scheduling
+      end
+      it 'assigns established' do
+        conflict.established.should == [other]
+      end
+    end
+
   end
 end

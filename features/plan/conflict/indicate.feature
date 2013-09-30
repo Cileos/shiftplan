@@ -15,6 +15,11 @@ Feature: Indicate conflicts on Schedulings
         | date       | quickie  |
         | 2012-02-15 | 13:15-14 |
 
+     When I go to the teams in week page of the plan "clean reactor" for cwyear: 2012, week: 7
+     Then I should see the following calendar:
+        | Teams     | Mo | Di | Mi                    | Do | Fr | Sa | So |
+        | Ohne Team |    |    | Homer S 10:00-18:00 ! |    |    |    |    |
+
      When I go to the employees in week page of the plan "clean reactor" for cwyear: 2012, week: 7
      Then I should see the following calendar:
         | Mitarbeiter      | Mo | Di | Mi            | Do | Fr | Sa | So |
@@ -24,8 +29,9 @@ Feature: Indicate conflicts on Schedulings
         | Homer S          |    |    | 10:00-18:00 ! |    |    |    |    |
         | Ohne Mitarbeiter |    |    |               |    |    |    |    |
 
-     When I go to the teams in week page of the plan "clean reactor" for cwyear: 2012, week: 7
-     Then I should see the following calendar:
-        | Teams     | Mo | Di | Mi                    | Do | Fr | Sa | So |
-        | Ohne Team |    |    | Homer S 10:00-18:00 ! |    |    |    |    |
+     When I follow "!" within the cell "Mi"/"Homer S"
+      And I wait for the modal box to appear
+     Then I should see "10:00-18:00" within the left column within the modal box
+      And I should see "13:15-14:00" within the right column within the modal box
+
 
