@@ -33,3 +33,7 @@ When /^I leave #{capture_quoted} field$/ do |label|
 
   page.execute_script("$('##{field[:id]}').trigger('blur')")
 end
+
+When /^the time interval for updating the notification hub elapses$/ do
+  page.execute_script("$('body').trigger('tick')")
+end

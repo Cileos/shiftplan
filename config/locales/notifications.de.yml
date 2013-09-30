@@ -1,0 +1,46 @@
+de:
+  notifications:
+    subjects:
+      upcoming_scheduling: 'Anstehende Schicht'
+    blurbs:
+      post: 'hat "%{title}" geschrieben: "%{body}"'
+      comment_on_post: 'hat "%{post_title}" kommentiert: "%{body}"'
+      comment_on_post_of_employee: 'hat "%{post_title}" kommentiert: "%{body}"'
+      comment_on_post_for_commenter: 'hat "%{post_title}" kommentiert: "%{body}"'
+      comment_on_scheduling: 'hat eine Schicht kommentiert: "%{body}"'
+      comment_on_scheduling_of_employee: 'hat Ihre Schicht kommentiert: "%{body}"'
+      comment_for_commenter: 'hat eine Schicht kommentiert: "%{body}"'
+      answer_on_comment: 'hat eine Schicht kommentiert: "%{body}"'
+      answer_on_comment_of_employee: 'hat eine Schicht kommentiert: "%{body}"'
+      answer_on_comment_on_scheduling_of_employee: 'hat Ihre Schicht kommentiert: "%{body}"'
+      answer_on_comment_of_employee_on_scheduling_of_employee: 'hat Ihre Schicht kommentiert: "%{body}"'
+      answer_on_comment_for_commenter: 'hat eine Schicht kommentiert: "%{body}"'
+      upcoming_scheduling: "%{date} %{quickie} (%{account} / %{organization} / %{plan})"
+    mail_subjects:
+      post: '%{name} hat einen neuen Blogpost geschrieben'
+      comment_on_post: '%{name} hat einen Blogpost kommentiert'
+      comment_on_post_of_employee: '%{name} hat einen Ihrer Blogposts kommentiert'
+      comment_on_post_for_commenter: '%{name} hat einen Blogpost ebenfalls kommentiert'
+      comment_on_scheduling: "%{name} hat eine Schicht kommentiert"
+      comment_on_scheduling_of_employee: "%{name} hat eine Ihrer Schichten kommentiert"
+      comment_for_commenter: "%{name} hat eine Schicht kommentiert, die Sie auch kommentiert haben"
+      answer_on_comment: "%{name} hat auf einen Kommentar zu einer Schicht geantwortet"
+      answer_on_comment_of_employee: "%{name} hat auf Ihren Kommentar zu einer Schicht geantwortet"
+      answer_on_comment_on_scheduling_of_employee: "%{name} hat auf einen Kommentar zu einer Ihrer Schichten geantwortet"
+      answer_on_comment_of_employee_on_scheduling_of_employee: "%{name} hat auf Ihren Kommentar zu einer Ihrer Schichten geantwortet"
+      answer_on_comment_for_commenter: "%{name} hat auf einen Kommentar zu einer Schicht geantwortet, die Sie auch kommentiert haben"
+      upcoming_scheduling: "Erinnerung: Anstehende Schicht (%{account} / %{organization} / %{plan})"
+    introductory_texts:
+      post: "%{name} hat am %{date} einen neuen Blogpost geschrieben:"
+      comment_on_post: "%{author_name} hat einen Blogpost '%{post_title}' am %{date} kommentiert:"
+      comment_on_post_of_employee: "%{author_name} hat Ihren Blogpost '%{post_title}' am %{date} kommentiert:"
+      comment_on_post_for_commenter: "%{author_name} hat den Blogpost '%{post_title}' am %{date} ebenfalls kommentiert:"
+      comment_on_scheduling: "%{author_name} hat eine Schicht von %{employee_name} am %{date} (%{quickie}) kommentiert:"
+      comment_on_scheduling_of_employee: "%{author_name} hat eine Ihrer Schichten am %{date} (%{quickie}) kommentiert:"
+      comment_for_commenter: "%{author_name} hat eine Schicht von %{employee_name} am %{date} (%{quickie}) kommentiert, die Sie auch kommentiert haben:"
+      answer_on_comment: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet:"
+      answer_on_comment_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet:"
+      answer_on_comment_on_scheduling_of_employee: "%{author_name} hat auf einen Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
+      answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} hat auf Ihren Kommentar zu einer Ihrer Schichten am %{date} (%{quickie}) geantwortet:"
+      answer_on_comment_for_commenter: "%{author_name} hat auf einen Kommentar zu einer Schicht von %{employee_name} am %{date} (%{quickie}) geantwortet. Diese Schicht haben Sie ebenfalls kommentiert:"
+      upcoming_scheduling: "Sie sind für eine Schicht am %{date} (%{quickie}) eingeteilt."

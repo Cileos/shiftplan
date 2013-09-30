@@ -3,6 +3,3 @@ en:
     email_change:
       confirmation:
         subject: "You've got a new e-mail address!"
-    upcoming_scheduling_notification:
-      upcoming_scheduling:
-        mail_subject: "Reminder: Upcoming shift (%{account} / %{organization} / %{plan})"

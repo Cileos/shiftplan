@@ -20,4 +20,12 @@ class Notification::Dummy < Notification::Base
   def introductory_text
     "You did something awesome"
   end
+
+  def subject
+    "You did something"
+  end
+
+  def blurb
+    "You did something awesome"
+  end
 end

@@ -1,0 +1,10 @@
+%li#notification-hub.dropdown
+  = link_to notifications.count, notifications_path,
+    {:class => 'icon-news', data: { toggle: 'dropdown'}}
+  %ul.notifications
+    - notifications.each do |notification|
+      %li
+        %subject.subject
+          = notification.subject
+        %blurb.blurb
+          = notification.blurb

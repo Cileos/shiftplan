@@ -15,9 +15,10 @@ When /^I choose "([^"]*)" from the user navigation$/ do |item|
 end
 
 When /^I open (?:the )?#{capture_quoted} menu$/ do |menu|
+  menu = menu.gsub(" ", "-")
   begin
     page.execute_script <<-EOJS
-      $('li:contains("#{menu}")').addClass('open')
+      $("nav li##{menu}").addClass('open')
     EOJS
   rescue Capybara::NotSupportedByDriverError => e
     # in rack server, menu opens you

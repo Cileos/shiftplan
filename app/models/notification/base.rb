@@ -8,6 +8,23 @@ class Notification::Base < ActiveRecord::Base
 
   after_commit :deliver!, on: :create
 
+  def self.default_sorting
+    order('created_at desc')
+  end
+
+  def translation_key
+    self.class.translation_key
+  end
+  alias_method :tkey, :translation_key
+
+  def self.translation_key
+    name.split('::').last.underscore.to_sym
+  end
+
+  def self.decorator_class
+    NotificationDecorator
+  end
+
   def self.mailer_class
     raise NotImplementedError, "must return a your ActionMailer::Base class used to send out mails for notifications of type #{name}"
   end
@@ -17,7 +34,16 @@ class Notification::Base < ActiveRecord::Base
   end
 
   def mail_subject
-    raise NotImplementedError, "must implement #{self.class.name}#mail_subject containing a short description of what happened"
+    t(:"mail_subjects.#{tkey}",
+      name: acting_employee.name)
+  end
+
+  def subject
+    raise NotImplementedError, "must implement #{self.class.name}#subject containing a short text of what happened"
+  end
+
+  def blurb
+    raise NotImplementedError, "must implement #{self.class.name}#blurb containing a short description of what happened"
   end
 
   def introductory_text
@@ -28,10 +54,8 @@ class Notification::Base < ActiveRecord::Base
     raise NotImplementedError, "must implement #{self.class.name}#acting_employee returning the employee who caused the reason for the notification"
   end
 
-  # for mailer_class: PostNotificationMailer and mailer_action: new_comment, it looks up
-  #    post_notification_mailer.new_comment.#{key}
   def t(key, opts={})
-    I18n.t(:"#{self.class.mailer_class.name.underscore}.#{self.class.mailer_action}.#{key}", opts)
+    I18n.t(:"notifications.#{key}", opts)
   end
 
   def self.recent(num=5)

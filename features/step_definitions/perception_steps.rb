@@ -32,6 +32,12 @@ Then /^I should see a list of the following (.+):$/ do |plural, expected|
   expected.diff! actual
 end
 
+Then /^I should see an empty (.+) list$/ do |list_name|
+  list_selector = "ul.#{list_name}"
+  page.should have_css(list_selector)
+  page.first(list_selector).all('li').should be_empty
+end
+
 Then /^I should see the following list of links:$/ do |expected|
   expected.column_names.should == %w(link active)
   actual = all('ul li:has(a)').map do |li|
@@ -152,4 +158,3 @@ end
 Then /^I should not see a field labeled #{capture_quoted}$/ do |label|
   page.should have_no_xpath( XPath::HTML.field(label) )
 end
-

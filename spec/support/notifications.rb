@@ -13,12 +13,20 @@ shared_examples 'Notification for Dashboard' do
     expect { notification.acting_employee }.to_not raise_error(NotImplementedError)
   end
 
-  it "should have a subject" do
-    notification.subject.should be_present
+  it "should have a mail subject" do
+    notification.mail_subject.should be_present
   end
 
   it "should have a introductory_text" do
     notification.introductory_text.should be_present
+  end
+
+  it "should have a subject" do
+    notification.subject.should be_present
+  end
+
+  it "should have a blurb" do
+    notification.blurb.should be_present
   end
 
   it "should have a acting_employee" do

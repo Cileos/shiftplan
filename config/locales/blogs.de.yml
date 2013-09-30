@@ -17,18 +17,3 @@ de:
   helpers:
     actions:
       more: 'Mehr ...'
-  post_notification_mailer:
-    new_post:
-      mail_subjects:
-        post: '%{name} hat einen neuen Blogpost geschrieben'
-      introductory_texts:
-        post: "%{name} hat am %{date} einen neuen Blogpost geschrieben:"
-    new_comment:
-      mail_subjects:
-        comment_on_post: '%{name} hat einen Blogpost kommentiert'
-        comment_on_post_of_employee: '%{name} hat einen Ihrer Blogposts kommentiert'
-        comment_on_post_for_commenter: '%{name} hat einen Blogpost ebenfalls kommentiert'
-      introductory_texts:
-        comment_on_post: "%{author_name} hat einen Blogpost '%{post_title}' am %{date} kommentiert:"
-        comment_on_post_of_employee: "%{author_name} hat Ihren Blogpost '%{post_title}' am %{date} kommentiert:"
-        comment_on_post_for_commenter: "%{author_name} hat den Blogpost '%{post_title}' am %{date} ebenfalls kommentiert:"

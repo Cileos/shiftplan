@@ -8,3 +8,4 @@
 
     - if current_organization
       = render 'organizations/navigation_links', organization: current_organization
+    = render 'application/notification_hub', notifications: current_user.notifications.default_sorting

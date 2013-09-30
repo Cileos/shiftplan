@@ -40,6 +40,9 @@ class Ability
 
   def authorize_signed_in(user)
     can :dashboard, User
+    can :read, Notification do |notification|
+      user.notifications.include?(notification)
+    end
     can :read, Account do |account|
       user.accounts.include?(account)
     end
