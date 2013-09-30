@@ -134,6 +134,12 @@ module HtmlSelectorsHelpers
     when 'a hint'
       '.hint'
 
+    when /^the left column$/
+      '.col:nth-child(1)'
+
+    when /^the right column$/
+      '.col:nth-child(2)'
+
     when /conflict icon$/
       'a.conflict'
 

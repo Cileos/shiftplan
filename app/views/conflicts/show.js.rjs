@@ -1,0 +1,3 @@
+page.decorate resource do |f|
+  f.append_modal header: ta(:conflicts), body: render('conflicts/two_columns', conflict: resource)
+end
