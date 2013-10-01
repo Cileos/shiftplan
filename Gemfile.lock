@@ -91,8 +91,9 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.6.8)
-    bourbon (2.1.1)
-      sass (>= 3.1)
+    bourbon (3.1.8)
+      sass (>= 3.2.0)
+      thor
     breach-mitigation-rails (0.0.2)
     builder (3.0.4)
     cancan (1.6.8)
@@ -413,7 +414,7 @@ DEPENDENCIES
   backup
   better_errors
   binding_of_caller
-  bourbon
+  bourbon (~> 3.1)
   breach-mitigation-rails
   cancan
   capistrano
