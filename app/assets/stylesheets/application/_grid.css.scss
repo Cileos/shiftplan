@@ -108,14 +108,18 @@
 }
 
 // two-column anno 2013-09-30
-.col {
-  margin-bottom: 20px;
-  width: 47.4%;
-  margin-right: 5%;
-  float: left;
+.two-cols {
+  overflow: hidden;
 
-  &:nth-child(2n) {
-    float: right;
-    margin-right: 0;
+  .col {
+    margin-bottom: 20px;
+    width: 47.4%;
+    margin-right: 5%;
+    float: left;
+
+    &:nth-child(2) {
+      float: right;
+      margin-right: 0;
+    }
   }
 }
