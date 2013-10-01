@@ -29,6 +29,7 @@ icons:
   warning:           'f071'
   error:             'f071'
   alert:             'f071'
+  bell:              'f0f3'
 #
 # deprecated icons:
 #   new_plan:          'plus'
