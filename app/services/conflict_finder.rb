@@ -1,3 +1,4 @@
+# Answers: "What are conflicts in the list of schedulings at the same time?"
 class ConflictFinder < Struct.new(:schedulings)
 
   attr_reader :conflicts
@@ -30,10 +31,16 @@ class ConflictFinder < Struct.new(:schedulings)
   def they
     return [] if schedulings.empty?
 
-    schedulings.first.class.between(
-                                    schedulings.map(&:starts_at).min - 1.day,
-                                    schedulings.map(&:ends_at).max + 1.day
-    )
+    schedulings.first.class.
+      between(
+        schedulings.map(&:starts_at).min - 1.day,
+        schedulings.map(&:ends_at).max + 1.day
+      ).
+      where(employee_id: employee_ids)
+  end
+
+  def employee_ids
+    schedulings.map(&:employee_id).uniq
   end
 
   def overlapping?(x,y)
