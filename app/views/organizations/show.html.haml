@@ -1,6 +1,6 @@
 - title @organization.name_with_account + " " + t(:dashboard)
 
 .row.two-columns.inverted.dashboard
-  = render 'schedulings/for_dashboard', schedulings: current_employee.schedulings.upcoming.starting_in_the_next('14 days').for_organization(@organization)
-  = render 'notifications/for_dashboard', notifications: current_employee.notifications
-  = render 'posts/for_dashboard', posts: @organization.posts.recent(15)
+  = render 'schedulings/for_dashboard', schedulings: @upcoming
+  = render 'notifications/for_dashboard', notifications: @notifications
+  = render 'posts/for_dashboard', posts: @posts

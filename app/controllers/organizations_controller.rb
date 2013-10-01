@@ -11,6 +11,14 @@ class OrganizationsController < BaseController
     update! { account_path(current_account) }
   end
 
+  def show
+    @upcoming      = current_employee.schedulings.upcoming.starting_in_the_next('14 days').for_organization(@organization)
+    @notifications = current_employee.notifications
+    @posts         = @organization.posts.recent(15)
+
+    UserConflictFinder.new(@upcoming).call
+  end
+
   # OPTIMIZE MembershipsController#create_multiple, using a tableless model like MultipleMembership
   def add_members
     if params[:employees].present?
