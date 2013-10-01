@@ -136,7 +136,7 @@ Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
   begin
     wait_until { URI.parse(current_url).path.starts_with? expected }
   rescue Capybara::TimeoutError => e
-    URI.parse(current_url).path.should starts_with(expected)
+    URI.parse(current_url).path.should start_with(expected)
   end
 end
 

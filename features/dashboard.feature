@@ -31,25 +31,40 @@ Feature: Dashboard
     Then I should be on the page for the organization
 
   Scenario: List upcoming schedulings (just the next 7 days for now)
-    Given a plan "pumpen ölen" exists with name: "Pumpen ölen", organization: the organization
+    Given a plan "Pumpen ölen" exists with name: "Pumpen ölen", organization: the organization
+      # out-of-account plan for conflicts
+    Given an account "Home" exists with name: "Home"
+      And an organization "Garten" exists with name: "Garten", account: account "Home"
+      And an employee "Daddy" exists with first_name: "Daddy", user: user "homer", account: account "Home"
+      And the employee "Daddy" is a member of the organization "Garten"
+      And a plan "Spazieren" exists with organization: organization "Garten", name: "Spazieren"
+
       And the employee "Homer" was scheduled in the plan "brennstäbe wechseln" as following:
         | week | cwday | quickie                         |
         | 49   | 2     | 9-17 Reaktor Putzen [RP]        |
+        | 49   | 3     | 9-17 Links abbiegen [La]        |
         | 51   | 2     | 22-23 Verantwortung tragen [Vt] |
-      And the employee "Homer" was scheduled in the plan "pumpen ölen" as following:
+      And the employee "Homer" was scheduled in the plan "Pumpen ölen" as following:
         | week | cwday | quickie                         |
+        | 49   | 3     | 10-18 Rechts abbiegen [Ra]      |
         | 50   | 3     | 10-18 Reaktor Fegen [RF]        |
+      And the employee "Daddy" was scheduled in the plan "Spazieren" as following:
+        | week | cwday | quickie                  |
+        | 49   | 3     | 12-20 Kreise laufen [Kl] |
       And I am signed in as the user "homer"
      When I go to the dashboard
      Then I should see an agenda table with the following rows:
-       | day  | day-name  | month-year  | time     | team                 | organization  | plan                 |
-       | 4    | Di        | Dez 2012    | 9 - 17   | Reaktor Putzen [RP]  | Sector 7-G    | Brennstäbe wechseln  |
-       | 12   | Mi        | Dez 2012    | 10 - 18  | Reaktor Fegen [RF]   | Sector 7-G    | Pumpen ölen          |
+        | day | day-name | month-year | time    | team                 | organization | plan                |
+        | 4   | Di       | Dez 2012   | 9 - 17  | Reaktor Putzen [RP]  | Sector 7-G   | Brennstäbe wechseln |
+        | 5   | Mi !     | Dez 2012   | 9 - 17  | Links abbiegen [La]  | Sector 7-G   | Brennstäbe wechseln |
+        | 5   | Mi !     | Dez 2012   | 10 - 18 | Rechts abbiegen [Ra] | Sector 7-G   | Pumpen ölen         |
+        | 5   | Mi !     | Dez 2012   | 12 - 20 | Kreise laufen [Kl]   | Garten       | Spazieren           |
+        | 12  | Mi       | Dez 2012   | 10 - 18 | Reaktor Fegen [RF]   | Sector 7-G   | Pumpen ölen         |
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
      When I follow "Reaktor Fegen [RF]" within the schedulings module
-     Then I should be on the employees in week page of the plan "pumpen ölen" for cwyear: 2012, week: 50
-     Then I should be somewhere under the page of the plan
+     Then I should be on the employees in week page of the plan "Pumpen ölen" for cwyear: 2012, week: 50
+     Then I should be somewhere under the page of the plan "Pumpen ölen"
 
    Scenario: List recent news posts of company blogs of organizations I am a member in
     Given an organization "cooling towers" exists with name: "Cooling Towers", account: the account
