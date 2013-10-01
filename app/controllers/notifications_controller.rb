@@ -1,5 +1,5 @@
 class NotificationsController < BaseController
-  actions :index
+  actions :index, :update
 
   respond_to :js, :html
 

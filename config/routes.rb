@@ -5,7 +5,7 @@ Clockwork::Application.routes.draw do
   get 'email_change/accept'  => 'email_change#accept',        :as => :accept_email_change
   put 'email_change/confirm' => 'email_change#confirm',       :as => :confirm_email_change
 
-  resources :notifications
+  resources :notifications, only: [:index, :update]
 
   resources :accounts, except: [:show] do
     resources :organizations do
