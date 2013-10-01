@@ -44,7 +44,11 @@ class ConflictFinder < Struct.new(:schedulings)
   end
 
   def overlapping?(x,y)
-    x != y && x.employee_id == y.employee_id && x.cover?(y)
+    x != y &&
+      x.employee_id &&
+      y.employee_id &&
+      x.employee_id == y.employee_id &&
+      x.cover?(y)
   end
 
 end

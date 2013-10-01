@@ -61,6 +61,12 @@ shared_examples :conflict_finder_scoped_to_employee do
     it_should_behave_like :conflict_finder_not_finding_conflicts
   end
 
+  describe 'for identical schedulings without employees' do
+    let!(:other) { s '7-9', nil }
+    let(:scheduling) { s '7-9', nil }
+    it_should_behave_like :conflict_finder_not_finding_conflicts
+  end
+
   describe 'for scheduling having start covered' do
     let!(:other) { s '9-11', employee }
     let(:scheduling) { s '10-12', employee }
