@@ -1,16 +1,6 @@
-@keyframes warn {
-  0%   { color: red; }
-  100% { color: transparent; }
-}
-
-@-webkit-keyframes warn {
-  0%   { color: red; }
-  100% { color: transparent; }
-}
-
 .scheduling {
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   margin-bottom: 5px;
   padding: 0px;
   font-size: 10px;
@@ -49,7 +39,7 @@
 
     a.comments,
     a.no-comments {
-      padding-left: 2px;
+      padding: 2px;
       @extend %with-icon;
       @extend .icon-comment;
     }
@@ -119,22 +109,6 @@
   &:hover,
   abbr:hover {
     cursor: default;
-  }
-
-  a.conflict {
-    -webkit-animation: warn 1.2s linear 5;;
-    animation: warn 1.2s linear 5;;
-    font-weight: bold;
-    color: red;
-    position: absolute;
-    display: block;
-    top: 0;
-    right: 0.5em;
-    padding: 0px 5px;
-    &:hover {
-      background: red;
-      color: white;
-    }
   }
 }
 
