@@ -64,6 +64,9 @@ class Ability
     can [:read, :update, :update_profile], User do |u|
       user == u
     end
+    can :show, Conflict do |conflict|
+      user == conflict.provoker.employee.user
+    end
   end
 
   def authorize_employee(user)

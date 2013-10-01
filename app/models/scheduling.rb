@@ -7,6 +7,7 @@ class Scheduling < ActiveRecord::Base
   belongs_to :team
   belongs_to :qualification
 
+  delegate :user, to: :employee
   delegate :organization, to: :plan
 
   before_validation :parse_quickie_and_fill_in

@@ -30,6 +30,7 @@ Feature: Dashboard
      And I follow "Springfield Nuclear Power Plant - Sector 7-G"
     Then I should be on the page for the organization
 
+  @javascript
   Scenario: List upcoming schedulings (just the next 7 days for now)
     Given a plan "Pumpen ölen" exists with name: "Pumpen ölen", organization: the organization
       # out-of-account plan for conflicts
@@ -62,6 +63,14 @@ Feature: Dashboard
         | 12  | Mi       | Dez 2012   | 10 - 18 | Reaktor Fegen [RF]   | Sector 7-G   | Pumpen ölen         |
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
+
+     When I follow "!" within the second table row within the agenda table
+      And I wait for the modal box to appear
+      Then I should see "9:00-17:00 Links abbiegen" within the left column within the modal box
+      And I should see "10:00-18:00 Rechts abbiegen" within the right column within the modal box
+      And I should see "12:00-20:00 Kreise laufen" within the right column within the modal box
+     When I close the modal box
+
      When I follow "Reaktor Fegen [RF]" within the schedulings module
      Then I should be on the employees in week page of the plan "Pumpen ölen" for cwyear: 2012, week: 50
      Then I should be somewhere under the page of the plan "Pumpen ölen"

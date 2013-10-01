@@ -5,6 +5,14 @@ class ConflictsController < BaseController
   private
 
   def resource
-    @conflict ||= ConflictFinder.find_conflict_for(parent)
+    @conflict ||= conflict_finder_class.find_conflict_for(parent)
+  end
+
+  def conflict_finder_class
+    if parent.user == current_user
+      UserConflictFinder
+    else
+      ConflictFinder
+    end
   end
 end
