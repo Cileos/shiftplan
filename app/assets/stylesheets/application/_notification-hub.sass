@@ -1,0 +1,21 @@
+[role=banner]
+  ul.notifications
+    display: block
+    width: 350px
+
+    a
+      // padding: 0.25em 1em
+      border-bottom: 1px solid $ci_lightgray
+      white-space: normal
+
+    li
+      &:first-child a
+        padding-top: 0
+
+      &:last-child a
+        padding-bottom: 0
+        border-bottom: none
+
+    .subject,
+    .blurb
+      display: block

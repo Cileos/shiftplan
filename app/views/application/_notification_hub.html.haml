@@ -4,7 +4,8 @@
   %ul.notifications
     - notifications.each do |notification|
       %li
-        %subject.subject
-          = notification.subject
-        %blurb.blurb
-          = notification.blurb
+        %a
+          %subject.subject
+            = notification.subject
+          %blurb.blurb
+            = notification.blurb
