@@ -24,9 +24,10 @@ Feature: View hours over weekdays in plan
 
   Scenario: creating a new scheduling by clicking in the day column and filling out the modal form
     Given I am on the hours in week page of the plan for cwyear: 2012, week: 49
+      And a team exists with name: "Reaktor putzen", shortcut: "Rp", organization: the organization "Reactor"
      When I click on the "Di" column
       And I wait for the new scheduling form to appear
-      And I fill in "Quickie" with "9-17 Reaktor putzen"
+      And I schedule "9-17 Reaktor putzen"
       And I select "Lenny L" from "Mitarbeiter"
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear
@@ -41,7 +42,7 @@ Feature: View hours over weekdays in plan
       And I am on the hours in week page of the plan for cwyear: 2012, week: 49
 
      When I click on the scheduling "09:00-17:00"
-     Then I should be able to change the "Quickie" from "9-17 Reaktor putzen [Rp]" to "1-23" and select "Lenny L" as "Mitarbeiter"
+     Then I reschedule "1-23" and select "Lenny L" as "Mitarbeiter"
       And I should see the following calendar:
        | Mo  | Di                      | Mi  | Do  | Fr  |
        |     | Lenny L 01:00-23:00 Rp  |     |     |     |

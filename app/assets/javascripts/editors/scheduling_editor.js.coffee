@@ -1,17 +1,19 @@
 # Attributes:
 #   element: the jQuery element of a form used to edit a Scheduling
 #
+#   be aware, that the Quickie input was removed, rendering half the code in here dead.
+#
 Clockwork.SchedulingEditor = Ember.Object.extend
   init: ->
     @_super()
-    @input('quickie')
-      .filter(':not(.autocomplete)')
-        .edit_quickie()
-      .end()
-      .on('change autocompleteclose blur', => @updateFields())
-      .on('blur', => @updateQuickie())
-      .bindWithDelay('keyup', (=> @updateFields()), 150)
-      .closest('form').on('submit', => @updateQuickie()).end()
+    #@input('quickie')
+    #  .filter(':not(.autocomplete)')
+    #    .edit_quickie()
+    #  .end()
+    #  .on('change autocompleteclose blur', => @updateFields())
+    #  .on('blur', => @updateQuickie())
+    #  .bindWithDelay('keyup', (=> @updateFields()), 150)
+    #  .closest('form').on('submit', => @updateQuickie()).end()
 
     timeoptions =
       show24Hours: true
@@ -54,6 +56,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
   date: ->
     @input('date')
 
+  # DEAD (Quickie readonly)
   updateFields: ->
     @quickie.parse( @input('quickie').val() )
     if @quickie.isValid()
@@ -91,6 +94,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     @recalculateQuickie()
     if @quickie.isValid()
       @input('quickie').val(@quickie.toString())
+      @get('element').find(".quickie_preview").text(@quickie.toString())
 
   setTeamByName: (name) ->
     input = @input('team_id')

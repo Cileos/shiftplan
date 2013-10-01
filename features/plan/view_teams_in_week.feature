@@ -26,7 +26,10 @@ Feature: View Teams over weekdays in plan
     Given a team exists with name: "Reaktor putzen", organization: the organization
       And I am on the teams in week page of the plan for cwyear: 2012, week: 49
      When I click on cell "Di"/"Reaktor putzen (Rp)"
-      And I fill in the empty "Quickie" with "9-17" and select "Homer S" as "Mitarbeiter"
+      And I schedule "9-17"
+      And I select "Homer S" from "Mitarbeiter"
+      And I press "Anlegen"
+      And I wait for the modal box to disappear
 
      Then I should be on the teams in week page of the plan for cwyear: 2012, week: 49
       And I should see the following partial calendar:
@@ -41,24 +44,10 @@ Feature: View Teams over weekdays in plan
 
      When I click on the scheduling "09:00-17:00"
      # TODO should not show team in quickie?
-     Then I should be able to change the "Quickie" from "9-17 Reaktor putzen [Rp]" to "1-23" and select "Lenny L" as "Mitarbeiter"
+     Then I reschedule "1-23" and select "Lenny L" as "Mitarbeiter"
       And I should see the following partial calendar:
        | Teams                | Mo  | Di                   | Mi  | Do  | Fr  |
        | Reaktor putzen (Rp)  |     | Lenny L 01:00-23:00  |     |     |     |
-
-  Scenario: creating a scheduling with a new or unused team, implying a new row in the calendar
-    Given a team exists with name: "Reaktor putzen", organization: the organization
-      And I am on the teams in week page of the plan for cwyear: 2012, week: 49
-     When I click on cell "Di"/"Reaktor putzen (Rp)"
-      And I fill in the empty "Quickie" with "9-17 Kühlwasser tauschen" and select "Homer S" as "Mitarbeiter"
-     Then I should be on the teams in week page of the plan for cwyear: 2012, week: 49
-      And I should see the following partial calendar:
-       | Teams                    | Mo | Di                  | Mi | Do | Fr |
-       | Kühlwasser tauschen (Kt) |    | Homer S 09:00-17:00 |    |    |    |
-       | Reaktor putzen (Rp)      |    |                     |    |    |    |
-     When I click on the scheduling "09:00-17:00"
-      And I wait for the modal box to appear
-     Then the "Quickie" field should contain "9-17 Kühlwasser tauschen"
 
   @todo
   Scenario: change team? How? clear it by just entering "1-23" as quickie?

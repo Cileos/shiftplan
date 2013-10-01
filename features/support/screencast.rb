@@ -52,11 +52,11 @@ module Cucumber::Screencast
   end
 
   def screencasts_path
-    Rails.root.join('screencasts')
+    Rails.root.join('log/screencasts')
   end
 
   def screenshots_path
-    Rails.root.join('screenshots')
+    Rails.root.join('log/screenshots')
   end
 
   def feature_screencast_path

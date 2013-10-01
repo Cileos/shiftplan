@@ -3,8 +3,6 @@
 = simple_form_for scheduling, url: url, remote: true, html: { class: 'edit_scheduling' } do |f|
 
   .inputs
-    = f.input :quickie, hint: true, wrapper_html: { class: 'quickie' }
-
     = render 'schedulings/fields', f: f
 
   .actions

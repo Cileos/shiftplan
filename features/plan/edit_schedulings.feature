@@ -15,9 +15,8 @@ Feature: Edit Schedulings of a Plan
 
      When I click on the scheduling "07:00-23:15"
       And I wait for the modal box to appear
-     Then I should see "9-17 wichtige Arbeit [wA]" within a hint
-     When I choose "Do"
-      And I should be able to change the "Quickie" from "7-23:15" to "1-23:44" and select "Homer S" as "Mitarbeiter"
+      And I choose "Do"
+      And I reschedule "1-23:44" and select "Homer S" as "Mitarbeiter"
      Then I should see the following partial calendar:
         | Mitarbeiter    | Do           | Fr  |
         | Planner Burns  |              |     |
@@ -38,14 +37,8 @@ Feature: Edit Schedulings of a Plan
       And I press arrow down 3 times
      Then the scheduling "04:00-10:00" should be focus within the cell "Fr"/"Lenny L"
 
-     When I press return
-      And I wait for the modal box to appear
-     Then the "Quickie" field should contain "4-10" within the modal box
-
-     When I press escape
-      And I wait for the modal box to disappear
-      And I press key "e"
-     Then I should be able to change the "Quickie" from "4-10" to "4-11" and select "Lenny L" as "Mitarbeiter"
+     When I press key "e"
+     Then I reschedule "4-11" and select "Lenny L" as "Mitarbeiter"
       And I should see the following partial calendar:
         | Mitarbeiter    | Fr                                   |
         | Planner Burns  |                                      |
