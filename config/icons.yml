@@ -34,6 +34,7 @@ icons:
   bell_empty:        'f0a2'
   scheduling:        'f073'
   post:              'f036'
+  export:            'f14d'
 #
 # deprecated icons:
 #   new_plan:          'plus'
