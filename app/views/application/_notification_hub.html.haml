@@ -1,11 +1,7 @@
 %li#notification-hub.dropdown
-  = link_to notifications.count, notifications_path,
-    {:class => 'icon-bell', data: { toggle: 'dropdown'}}
+  = render "notifications/count", count: notifications.count
   %ul.notifications
+    - if notifications.empty?
+      = render "notifications/all_done"
     - notifications.each do |notification|
-      %li
-        %a
-          %subject.subject
-            = notification.subject
-          %blurb.blurb
-            = notification.blurb
+      = render "notifications/notification", notification: notification

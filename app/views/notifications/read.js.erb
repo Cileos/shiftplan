@@ -1,0 +1,6 @@
+$('<%= "li##{dom_id(resource)}" %>').remove();
+<% notifications = current_user.unread_notifications %>
+$("a#notifications-count").replaceWith('<%= j render("notifications/count", count: notifications.count) %>');
+<% if notifications.empty? %>
+  $("ul.notifications").append('<%= j render("notifications/all_done") %>');
+<% end %>

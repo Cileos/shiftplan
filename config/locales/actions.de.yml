@@ -87,6 +87,7 @@ de:
       show_help: "Hilfe"
       show_help_long: "Hilfe anzeigen"
       core_data: Stammdaten
+      mark_as_read: "Als gelesen markieren"
   schedulings:
     calendar_navigation:
       day: "Tag"

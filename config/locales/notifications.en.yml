@@ -1,5 +1,6 @@
 en:
   notifications:
+    all_done: "All done."
     subjects:
       upcoming_scheduling: 'Upcoming scheduling'
     blurbs:

@@ -1,5 +1,6 @@
 class NotificationsController < InheritedResources::Base
   actions :index, :update
+  custom_actions resource: :read
 
   defaults resource_class: Notification::Base,
     collection_name: 'notifications',
@@ -9,6 +10,12 @@ class NotificationsController < InheritedResources::Base
 
   respond_to :js, :html
 
+
+  def read
+    resource.read_at = Time.zone.now
+    resource.save!
+  end
+
   protected
 
   def begin_of_association_chain
@@ -16,6 +23,6 @@ class NotificationsController < InheritedResources::Base
   end
 
   def end_of_association_chain
-    super.default_sorting
+    super.unread.default_sorting
   end
 end

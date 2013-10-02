@@ -175,6 +175,12 @@ module HtmlSelectorsHelpers
     when 'the duplication warning'
       'div#duplication-warning'
 
+    when 'the notification hub'
+      'li#notification-hub'
+
+    when 'the notifications count'
+      'a#notifications-count'
+
     when /the date\s?picker/
       'div.datepick-popup div.datepick'
 

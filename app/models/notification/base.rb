@@ -12,6 +12,10 @@ class Notification::Base < ActiveRecord::Base
     order('created_at desc')
   end
 
+  def self.unread
+    where(read_at: nil)
+  end
+
   def translation_key
     self.class.translation_key
   end

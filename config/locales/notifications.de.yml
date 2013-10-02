@@ -1,5 +1,6 @@
 de:
   notifications:
+    all_done: "Alles erledigt."
     subjects:
       upcoming_scheduling: 'Anstehende Schicht'
     blurbs:
