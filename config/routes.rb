@@ -17,6 +17,7 @@ Clockwork::Application.routes.draw do
       end
 
       resources :plans do
+        resources :attached_documents, only: [:new, :create, :destroy]
         resources :schedulings do
           resources :comments, only: [:index, :create, :destroy], controller: 'scheduling_comments'
           resource :conflicts, only: :show

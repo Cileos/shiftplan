@@ -1,0 +1,10 @@
+de:
+  activerecord:
+    attributes:
+      attached_document:
+        file: Datei
+    models:
+      attached_document:
+        one: "Dokument"
+        other: "Dokumente"
+

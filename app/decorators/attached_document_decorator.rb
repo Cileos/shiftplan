@@ -1,0 +1,3 @@
+class AttachedDocumentDecorator < RecordDecorator
+
+end

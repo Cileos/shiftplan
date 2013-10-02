@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
       [ resource.account, resource ]
     when Shift
       nested_resources_for(resource.plan_template) + [resource]
-    when Scheduling
+    when Scheduling, AttachedDocument
       nested_resources_for(resource.plan) + [resource]
     end + extra
   end

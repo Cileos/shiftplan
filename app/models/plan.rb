@@ -3,6 +3,7 @@ class Plan < ActiveRecord::Base
   belongs_to :organization
   has_many :schedulings
   has_many :milestones
+  has_many :attached_documents
 
   # just for ember, lacking nested URLs
   has_many :tasks, through: :milestones
