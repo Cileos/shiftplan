@@ -23,7 +23,7 @@ Feature: Notification Hub
 
      When the time interval for updating the notification hub elapses
       And I wait for 2 seconds
-      And I open the "notification hub" menu
+      And I open the notification hub menu
      Then I should see a list of the following notifications:
        | subject       | blurb                                                                     |
        | Bart Simpson  | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."            |

@@ -14,11 +14,21 @@ When /^I choose "([^"]*)" from the user navigation$/ do |item|
   step %~I follow "#{item}"~
 end
 
+When /^I open the notification hub menu$/ do
+  begin
+    page.execute_script <<-EOJS
+      $("nav li#notification-hub").addClass('open')
+    EOJS
+  rescue Capybara::NotSupportedByDriverError => e
+    # in rack server, menu opens you
+  end
+end
+
 When /^I open (?:the )?#{capture_quoted} menu$/ do |menu|
   menu = menu.gsub(" ", "-")
   begin
     page.execute_script <<-EOJS
-      $("nav li##{menu}").addClass('open')
+      $('li:contains("#{menu}")').addClass('open')
     EOJS
   rescue Capybara::NotSupportedByDriverError => e
     # in rack server, menu opens you
