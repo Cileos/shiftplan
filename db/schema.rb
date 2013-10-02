@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131007134535) do
-
+ActiveRecord::Schema.define(:version => 20131002155337) do
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -23,6 +22,14 @@ ActiveRecord::Schema.define(:version => 20131007134535) do
 
   add_index "accounts", ["owner_id"], :name => "index_accounts_on_owner_id"
   add_index "accounts", ["slug"], :name => "index_accounts_on_slug"
+
+  create_table "attached_documents", :force => true do |t|
+    t.string   "file"
+    t.string   "name"
+    t.integer  "plan_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "blogs", :force => true do |t|
     t.integer  "organization_id"

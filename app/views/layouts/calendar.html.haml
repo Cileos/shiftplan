@@ -8,22 +8,7 @@
     %section{:role => 'content', :class => content_class(2) + ' inverted has-calendar'}
 
       #sidebar.secondary
-        = collapsible(t('schedulings.information'), id: 'calendar-information', class: 'calendar-information') do
-          .calendar-active-week= filter.formatted_range
-          .calendar-description!= filter.plan.description
-          .calendar-period-dates
-            %div= filter.plan_period_start_date
-            %div= filter.plan_period_end_date
-
-        - current_role = current_employee.owner? ? 'owner' : current_membership.role
-        = collapsible( Milestone.model_name.human(count: 9001), id: 'milestones-toggle') do
-          #milestones.milestones-list{data: { role: current_role }}
-
-        = yield(:sidebar)
-
-        = collapsible(t('help.calendar.keyboard_heading'), id: 'keyboard-shortcuts', class: 'keyboard-shortcuts') do
-          = help_tag 'calendar.keyboard'
-
+        = render 'sidebar'
 
       .primary
         = render 'where_and_who_am_i'

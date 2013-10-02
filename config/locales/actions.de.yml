@@ -93,6 +93,7 @@ de:
       conflicts: 'Konflikte'
       mark_as_read: "Als gelesen markieren"
       mark_all_as_read: "Alle als gelesen markieren"
+      upload_attached_document: "Dokument hochladen"
   schedulings:
     calendar_navigation:
       day: "Tag"
