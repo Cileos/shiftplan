@@ -9,6 +9,9 @@ Clockwork::Application.routes.draw do
     member do
       put :read
     end
+    collection do
+      put :multiple_read
+    end
   end
 
   resources :accounts, except: [:show] do

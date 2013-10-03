@@ -16,6 +16,10 @@ class Notification::Base < ActiveRecord::Base
     where(read_at: nil)
   end
 
+  def self.for_hub
+    unread.default_sorting.limit(5)
+  end
+
   def translation_key
     self.class.translation_key
   end

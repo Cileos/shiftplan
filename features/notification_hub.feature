@@ -27,14 +27,18 @@ Feature: Notification Hub
       And a comment exists with commentable: the scheduling, employee: the employee "bart", body: "Bitte Reaktor abschließen nach Dienstende"
 
      When the time interval for updating the notification hub elapses
-      And I wait for 2 seconds
+      And I wait for 1 seconds
      Then I should see "3" within the notifications count
      When I open the notification hub menu
+      # The first line of the step`s table argument corresponds to the first
+      # list item which only includes the "Mark all as read" link.
+      # TODO: This first line should be removed when tatze changes the html.
      Then I should see a list of the following notifications:
-       | subject       | blurb                                                                     |
-       | Bart Simpson  | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."            |
-       | Bart Simpson  | hat "Umweltminister zu Besuch" kommentiert: "Ich bringe einen Besen mit"  |
-       | Bart Simpson  | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"                |
+       | subject      | blurb                                                                    |
+       |              |                                                                          |
+       | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
+       | Bart Simpson | hat "Umweltminister zu Besuch" kommentiert: "Ich bringe einen Besen mit" |
+       | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"               |
 
 
   @javascript
@@ -42,11 +46,61 @@ Feature: Notification Hub
     Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I go to the home page
       And I open the notification hub menu
+      # The first line of the step`s table argument corresponds to the first
+      # list item which only includes the "Mark all as read" link.
+      # TODO: This first line should be removed when tatze changes the html.
      Then I should see a list of the following notifications:
-       | subject       | blurb                                                       |
-       | Bart Simpson  | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"  |
+       | subject      | blurb                                                      |
+       |              |                                                            |
+       | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen" |
      When I follow "Als gelesen markieren" within the notification hub
      Then should not see "Umweltminister zu Besuch" within the notification hub
       And I should see "0" within the notifications count
       And I should see "Alles erledigt" within the notification hub
 
+
+  @javascript
+  Scenario: Mark all notifications as read
+    Given the following posts exist:
+      | blog     | author          | title        | body         | created_at |
+      | the blog | employee "bart" | Hallo        | Hallo        | 2012-12-12 |
+      | the blog | employee "bart" | Buenos dias  | Buenos dias  | 2012-12-13 |
+      | the blog | employee "bart" | Good morning | Good morning | 2012-12-14 |
+      | the blog | employee "bart" | Grüß Gott    | Grüß Gott    | 2012-12-15 |
+      | the blog | employee "bart" | Bonjour      | Bonjour      | 2012-12-16 |
+      | the blog | employee "bart" | Buongiorno   | Buongiorno   | 2012-12-17 |
+     When I go to the home page
+     Then I should see "6" within the notifications count
+     When I open the notification hub menu
+      # The first line of the step`s table argument corresponds to the first
+      # list item which only includes the "Mark all as read" link.
+      # TODO: This first line should be removed when tatze changes the html.
+     Then I should see a list of the following notifications:
+       | subject      | blurb                                          |
+       |              |                                                |
+       | Bart Simpson | hat "Buongiorno" geschrieben: "Buongiorno"     |
+       | Bart Simpson | hat "Bonjour" geschrieben: "Bonjour"           |
+       | Bart Simpson | hat "Grüß Gott" geschrieben: "Grüß Gott"       |
+       | Bart Simpson | hat "Good morning" geschrieben: "Good morning" |
+       | Bart Simpson | hat "Buenos dias" geschrieben: "Buenos dias"   |
+
+     When I follow "Alle als gelesen markieren"
+      And I wait for 1 seconds
+     Then I should see "1" within the notifications count
+      And I open the notification hub menu
+      # The first line of the step`s table argument corresponds to the first
+      # list item which only includes the "Mark all as read" link.
+      # TODO: This first line should be removed when tatze changes the html.
+      #
+      # Only the notifications currently displayed in the hub get marked as read.
+     Then I should see a list of the following notifications:
+       | subject      | blurb                            |
+       |              |                                  |
+       | Bart Simpson | hat "Hallo" geschrieben: "Hallo" |
+      And I should see "1" within the notifications count
+
+     When I follow "Alle als gelesen markieren"
+      And I wait for 1 seconds
+      And I should see "0" within the notifications count
+      And I open the notification hub menu
+      And I should see "Alles erledigt" within the notification hub

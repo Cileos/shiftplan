@@ -66,6 +66,10 @@ class User < ActiveRecord::Base
     notifications.unread
   end
 
+  def notifications_for_hub
+    notifications.for_hub
+  end
+
   # unsure about the naming of this method.. rather call it organizations_for_account ?
   def organizations_for(account)
     # a user only has one employee per account but can have several employees across accounts

@@ -1,7 +1,11 @@
 %li#notification-hub.dropdown
-  = render "notifications/count", count: notifications.count
+  = render "notifications/count", count: current_user.unread_notifications.count
   %ul.notifications
     - if notifications.empty?
       = render "notifications/all_done"
+    - else
+      %li= link_to :mark_all_as_read,
+        multiple_read_notifications_path(notifications: notifications.map(&:id).join(',')),
+        method: :put, remote: true
     - notifications.each do |notification|
       = render "notifications/notification", notification: notification
