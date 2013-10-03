@@ -1,8 +1,9 @@
 %li{id: dom_id(notification) }
-  %subject.subject
-    = notification.subject
-  %blurb.blurb
-    = notification.blurb
-  %actions.actions
-    = link_to :mark_as_read, read_notification_path(notification),
-      method: :put, remote: true, remote: true
+  %a
+    %subject.subject
+      = notification.subject
+    %blurb.blurb
+      = notification.blurb
+    %actions.actions
+      = link_to :mark_as_read, mark_notification_as_read_path(notification),
+        method: :put, remote: true, remote: true

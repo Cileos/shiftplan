@@ -1,4 +1,4 @@
-$('<%= "li##{dom_id(resource)}" %>').remove();
+$('<%= "li##{dom_id(@notification)}" %>').remove();
 <% notifications = current_user.unread_notifications %>
 $("a#notifications-count").replaceWith('<%= j render("notifications/count", count: notifications.count) %>');
 <% if notifications.empty? %>
