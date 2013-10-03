@@ -6,6 +6,7 @@ Clockwork::Application.routes.draw do
   put 'email_change/confirm' => 'email_change#confirm',       :as => :confirm_email_change
 
   resources :notifications, only: [:index]
+  get 'count_notifications'           => 'count_notifications#count',           as: 'count_notifications'
   put 'mark_notification_as_read/:id' => 'mark_notifications_as_read#one',      as: 'mark_notification_as_read'
   put 'mark_notifications_as_read'    => 'mark_notifications_as_read#multiple', as: 'mark_notifications_as_read'
 

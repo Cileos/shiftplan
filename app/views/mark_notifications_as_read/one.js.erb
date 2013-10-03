@@ -1,7 +1,7 @@
 $('<%= "li##{dom_id(@notification)}" %>').remove();
-<% notifications = current_user.unread_notifications %>
-$("a#notifications-count").replaceWith('<%= j render("notifications/count", count: notifications.count) %>');
-<% if notifications.empty? %>
+<% count = current_user.unread_notifications.count %>
+$("a#notifications-count").replaceAndRefreshWith('<%= j render("notifications/count", count: count) %>');
+<% if count <= 0 %>
   $("li#notification-hub").removeClass('has_new');
   $("ul.notifications").append('<%= j render("notifications/all_done") %>');
 <% end %>

@@ -4,6 +4,11 @@ jQuery(document).ready ->
   $.fn.refreshHtml = (content) ->
     $(this).html(content).trigger('update')
 
+  $.fn.replaceAndRefreshWith = (content) ->
+    $(this).replaceWith(content)
+    #= TODO: can we only trigger update on content somehow?
+    $('body').trigger('update')
+
   $.fn.scrollTo = ->
     h = $(window).height() / 3
     $('html, body').animate({

@@ -15,6 +15,7 @@ Feature: Notification Hub
      When I go to the home page
      Then the notification hub should have "0" new notifications
 
+
   @javascript
   Scenario: Notification hub is updated
      When I go to the home page
@@ -24,9 +25,10 @@ Feature: Notification Hub
       And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
       And a comment exists with commentable: the scheduling, employee: the employee "bart", body: "Bitte Reaktor abschließen nach Dienstende"
 
-     When the time interval for updating the notification hub elapses
-      And I wait for 1 seconds
-     When I open the notification hub menu
+     When the time interval for updating the count of the notification hub elapses
+     Then I should see "3" within the notifications count
+     When I hover over the notification hub menu item
+      And I open the notification hub menu
      Then the notification hub should have "3" new notifications
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
@@ -83,6 +85,8 @@ Feature: Notification Hub
        | Bart Simpson | hat "Buenos dias" geschrieben: "Buenos dias"   |
 
      When I follow "Alle als gelesen markieren"
+      # We need to wait in order to prevent
+      # Selenium::WebDriver::Error::StaleElementReferenceError errors
       And I wait for 1 seconds
       And I open the notification hub menu
      Then the notification hub should have "1" new notifications
@@ -98,6 +102,8 @@ Feature: Notification Hub
       And I should see "1" within the notifications count
 
      When I follow "Alle als gelesen markieren"
+      # We need to wait in order to prevent
+      # Selenium::WebDriver::Error::StaleElementReferenceError errors
       And I wait for 1 seconds
       And I open the notification hub menu
      Then the notification hub should have "0" new notifications
