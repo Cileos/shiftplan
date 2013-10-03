@@ -158,3 +158,24 @@ end
 Then /^I should not see a field labeled #{capture_quoted}$/ do |label|
   page.should have_no_xpath( XPath::HTML.field(label) )
 end
+
+Then /^the notification hub should have #{capture_quoted} new notifications$/ do |number|
+  step %~I should see "#{number}" within the notifications count~
+  if number.to_i > 0
+    step %~the notification hub should have class "has_new"~
+    step %~I should not see "Alles erledigt" within the notification hub~
+  else
+    step %~the notification hub should not have class "has_new"~
+    step %~I should see "Alles erledigt" within the notification hub~
+  end
+end
+
+
+Then /^the notification hub (should|should not) have class #{capture_quoted}$/ do |or_not, css_class|
+  if or_not.include?('not')
+    page.has_no_css?("li#notification-hub.#{css_class}").should be_true
+  else
+    page.has_css?("li#notification-hub.#{css_class}").should be_true
+  end
+end
+
