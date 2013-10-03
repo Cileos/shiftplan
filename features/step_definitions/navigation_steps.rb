@@ -25,7 +25,6 @@ When /^I open the notification hub menu$/ do
 end
 
 When /^I open (?:the )?#{capture_quoted} menu$/ do |menu|
-  menu = menu.gsub(" ", "-")
   begin
     page.execute_script <<-EOJS
       $('li:contains("#{menu}")').addClass('open')
