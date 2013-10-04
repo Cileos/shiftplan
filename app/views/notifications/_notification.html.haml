@@ -1,9 +1,9 @@
-%li{id: dom_id(notification) }
-  %a
+%li{id: dom_id(notification)}
+  %actions.actions
+    = link_to :mark_as_read, mark_notification_as_read_path(notification),
+      method: :put, remote: true, remote: true, class: 'utility-button'
+  %a{class: 'icon-' + notification.notifiable_type.downcase}
     %subject.subject
       = notification.subject
     %blurb.blurb
       = notification.blurb
-    %actions.actions
-      = link_to :mark_as_read, mark_notification_as_read_path(notification),
-        method: :put, remote: true, remote: true
