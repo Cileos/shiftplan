@@ -25,11 +25,13 @@ jQuery(document).ready ->
     $hub().addClass('open')
     enableCloseOnEsc()
 
-  $openDropdown = -> $('li.dropdown.open')
+  $openedHub = -> $('li#notification-hub.open')
 
-  $('a#notifications-count').on 'click', (event) ->
-    event.preventDefault()
-    event.stopPropagation()
+  hubIsOpen = -> $openedHub().length > 0
+
+  $('a#notifications-count').on 'click', (e) ->
+    e.preventDefault()
+    e.stopPropagation()
     if $hub().hasClass('open')
       closeHub()
     else
@@ -38,19 +40,19 @@ jQuery(document).ready ->
     false
 
   $(document).click (e) ->
-    if $openDropdown().length > 0
+    if hubIsOpen()
       e.preventDefault()
       e.stopPropagation()
       closeHub()
 
-  $openDropdown().click (e) ->
+  $openedHub().click (e) ->
     e.stopPropagation()
 
-  handleKeydown = (event) ->
-    if event.which == 27 # ESC
+  handleKeydown = (e) ->
+    if e.which == 27 # ESC
       if $hub().hasClass('open')
-        event.stopPropagation()
-        event.preventDefault()
+        e.stopPropagation()
+        e.preventDefault()
         closeHub()
         false
       else
