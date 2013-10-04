@@ -16,17 +16,24 @@ jQuery(document).ready ->
     $('body').unbind 'keydown', handleKeydown
 
   $hub = -> $('li#notification-hub')
+
+  closeHub = ->
+    $hub().removeClass('open')
+    disableCloseOnEsc()
+
+  openHub = ->
+    $hub().addClass('open')
+    enableCloseOnEsc()
+
   $openDropdown = -> $('li.dropdown.open')
 
   $('a#notifications-count').on 'click', (event) ->
     event.preventDefault()
     event.stopPropagation()
     if $hub().hasClass('open')
-      $hub().removeClass('open')
-      disableCloseOnEsc()
+      closeHub()
     else
-      $hub().addClass('open')
-      enableCloseOnEsc()
+      openHub()
       $('body').trigger 'tack'
     false
 
@@ -34,7 +41,7 @@ jQuery(document).ready ->
     if $openDropdown().length > 0
       e.preventDefault()
       e.stopPropagation()
-      $openDropdown().removeClass('open')
+      closeHub()
 
   $openDropdown().click (e) ->
     e.stopPropagation()
@@ -44,8 +51,7 @@ jQuery(document).ready ->
       if $hub().hasClass('open')
         event.stopPropagation()
         event.preventDefault()
-        $hub().removeClass('open')
-        disableCloseOnEsc()
+        closeHub()
         false
       else
         true
