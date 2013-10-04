@@ -30,6 +30,8 @@ icons:
   error:             'f071'
   alert:             'f071'
   bell:              'f0f3'
+  bell_empty:        'f0a2'
+  scheduling:        'f073'
 #
 # deprecated icons:
 #   new_plan:          'plus'
