@@ -12,8 +12,12 @@ jQuery(document).ready ->
   $('a#notifications-count').on 'click', (event) ->
     event.preventDefault()
     event.stopPropagation()
-    $('li#notification-hub').addClass('open')
-    $('body').trigger 'tack'
+    $hub = $('li#notification-hub')
+    if $hub.hasClass('open')
+      $hub.removeClass('open')
+    else
+      $('li#notification-hub').addClass('open')
+      $('body').trigger 'tack'
     false
 
   $(document).click (e) ->
