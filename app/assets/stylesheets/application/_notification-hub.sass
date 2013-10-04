@@ -38,11 +38,19 @@
     min-height: 300px
     max-height: 500px
     overflow-y: auto
+    font-size: 10px
 
     a
       // padding: 0.25em 1em
       border-bottom: 1px solid $ci_lightgray
       white-space: normal
+
+      &:before
+        float: left
+        font-size: 25px
+
+      &.icon-comment
+        @extend .icon-no_comment
 
     li
       &:first-child a
@@ -55,3 +63,6 @@
     .subject,
     .blurb
       display: block
+
+    .actions
+      float: right
