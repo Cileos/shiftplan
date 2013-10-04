@@ -15,36 +15,36 @@ jQuery(document).ready ->
   disableCloseOnEsc = ->
     $('body').unbind 'keydown', handleKeydown
 
+  $hub = -> $('li#notification-hub')
+  $openDropdown = -> $('li.dropdown.open')
+
   $('a#notifications-count').on 'click', (event) ->
     event.preventDefault()
     event.stopPropagation()
-    $hub = $('li#notification-hub')
-    if $hub.hasClass('open')
-      $hub.removeClass('open')
+    if $hub().hasClass('open')
+      $hub().removeClass('open')
       disableCloseOnEsc()
     else
-      $('li#notification-hub').addClass('open')
+      $hub().addClass('open')
       enableCloseOnEsc()
       $('body').trigger 'tack'
     false
 
   $(document).click (e) ->
-    $dropdown = $('li.dropdown.open')
-    if $dropdown.length > 0
+    if $openDropdown().length > 0
       e.preventDefault()
       e.stopPropagation()
-      $dropdown.removeClass('open')
+      $openDropdown().removeClass('open')
 
-  $('li.dropdown.open').click (e) ->
+  $openDropdown().click (e) ->
     e.stopPropagation()
 
   handleKeydown = (event) ->
     if event.which == 27 # ESC
-      $hub = $('li#notification-hub')
-      if $hub.hasClass('open')
+      if $hub().hasClass('open')
         event.stopPropagation()
         event.preventDefault()
-        $hub.removeClass('open')
+        $hub().removeClass('open')
         disableCloseOnEsc()
         false
       else
