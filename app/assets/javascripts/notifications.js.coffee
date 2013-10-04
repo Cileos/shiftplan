@@ -9,41 +9,41 @@ jQuery(document).ready ->
     $('body').trigger 'tick'
   , 60 * 1000
 
-  enableCloseOnEsc = ->
+  enable_close_on_esc = ->
     $('body').bind 'keydown', handleKeydown
 
-  disableCloseOnEsc = ->
+  disable_close_on_esc = ->
     $('body').unbind 'keydown', handleKeydown
 
   $hub = -> $('li#notification-hub')
 
-  closeHub = ->
+  close_hub = ->
     $hub().removeClass('open')
-    disableCloseOnEsc()
+    disable_close_on_esc()
 
-  openHub = ->
+  open_hub = ->
     $hub().addClass('open')
-    enableCloseOnEsc()
+    enable_close_on_esc()
 
   $openedHub = -> $('li#notification-hub.open')
 
-  hubIsOpen = -> $openedHub().length > 0
+  hub_is_open = -> $openedHub().length > 0
 
   $('a#notifications-count').on 'click', (e) ->
     e.preventDefault()
     e.stopPropagation()
     if $hub().hasClass('open')
-      closeHub()
+      close_hub()
     else
-      openHub()
+      open_hub()
       $('body').trigger 'tack'
     false
 
   $(document).click (e) ->
-    if hubIsOpen()
+    if hub_is_open()
       e.preventDefault()
       e.stopPropagation()
-      closeHub()
+      close_hub()
 
   $openedHub().click (e) ->
     e.stopPropagation()
@@ -53,7 +53,7 @@ jQuery(document).ready ->
       if $hub().hasClass('open')
         e.stopPropagation()
         e.preventDefault()
-        closeHub()
+        close_hub()
         false
       else
         true
