@@ -1,6 +1,6 @@
 <% count = current_user.unread_notifications.count %>
 <% if count > 0 %>
-  $("li#notification-hub").addClass('has_new');
+  <%= render 'notifications/update_hub_for_has_new' %>
 <% else %>
   <%= render 'notifications/update_hub_for_all_done' %>
 <% end %>
