@@ -1,0 +1,3 @@
+$("li#notification-hub").removeClass('has_new');
+$("li#mark_all_as_read").remove();
+$("ul.notifications").append('<%= j render("notifications/all_done") %>');
