@@ -10,10 +10,10 @@ jQuery(document).ready ->
   , 60 * 1000
 
   enable_close_on_esc = ->
-    $('body').bind 'keydown', handleKeydown
+    $('body').bind 'keydown', handle_keydown
 
   disable_close_on_esc = ->
-    $('body').unbind 'keydown', handleKeydown
+    $('body').unbind 'keydown', handle_keydown
 
   $hub = -> $('li#notification-hub')
 
@@ -25,9 +25,9 @@ jQuery(document).ready ->
     $hub().addClass('open')
     enable_close_on_esc()
 
-  $openedHub = -> $('li#notification-hub.open')
+  $opened_hub = -> $('li#notification-hub.open')
 
-  hub_is_open = -> $openedHub().length > 0
+  hub_is_open = -> $opened_hub().length > 0
 
   $('a#notifications-count').on 'click', (e) ->
     e.preventDefault()
@@ -45,10 +45,10 @@ jQuery(document).ready ->
       e.stopPropagation()
       close_hub()
 
-  $openedHub().click (e) ->
+  $opened_hub().click (e) ->
     e.stopPropagation()
 
-  handleKeydown = (e) ->
+  handle_keydown = (e) ->
     if e.which == 27 # ESC
       if $hub().hasClass('open')
         e.stopPropagation()
