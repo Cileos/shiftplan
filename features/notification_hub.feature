@@ -27,8 +27,7 @@ Feature: Notification Hub
 
      When the time interval for updating the count of the notification hub elapses
      Then I should see "3" within the notifications count
-     When I hover over the notification hub menu item
-      And I open the notification hub menu
+     When I follow "3" within the notification hub
      Then the notification hub should have "3" new notifications
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
@@ -85,10 +84,6 @@ Feature: Notification Hub
        | Bart Simpson | hat "Buenos dias" geschrieben: "Buenos dias"   |
 
      When I follow "Alle als gelesen markieren"
-      And I open the notification hub menu
-      # We need to wait in order to prevent
-      # Selenium::WebDriver::Error::StaleElementReferenceError errors
-      And I wait for 1 seconds
      Then the notification hub should have "1" new notifications
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
@@ -102,8 +97,4 @@ Feature: Notification Hub
       And I should see "1" within the notifications count
 
      When I follow "Alle als gelesen markieren"
-      And I open the notification hub menu
-      # We need to wait in order to prevent
-      # Selenium::WebDriver::Error::StaleElementReferenceError errors
-      And I wait for 1 seconds
      Then the notification hub should have "0" new notifications

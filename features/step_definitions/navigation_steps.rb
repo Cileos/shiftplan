@@ -17,7 +17,7 @@ end
 When /^I open the notification hub menu$/ do
   begin
     page.execute_script <<-EOJS
-      $("nav li#notification-hub").addClass('open')
+      $("a#notifications-count").click()
     EOJS
   rescue Capybara::NotSupportedByDriverError => e
     # in rack server, menu opens you

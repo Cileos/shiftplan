@@ -17,7 +17,7 @@ nav {
     font-size: .8em;
   }
 
-  &:hover > ul, &.open > ul {
+  &:hover > ul:not(.no-hover), &.open > ul {
     display: block;
   }
 

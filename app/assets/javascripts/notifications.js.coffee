@@ -9,5 +9,17 @@ jQuery(document).ready ->
     $('body').trigger 'tick'
   , 60 * 1000
 
-  $('li#notification-hub').mouseenter  ->
+  $('a#notifications-count').on 'click', (event) ->
+    event.preventDefault()
+    event.stopPropagation()
+    $('li#notification-hub').addClass('open')
     $('body').trigger 'tack'
+    false
+
+  $(document).click (e) ->
+    $('li.dropdown.open').removeClass('open')
+
+  $('li.dropdown.open').click (e) ->
+    e.stopPropagation()
+
+
