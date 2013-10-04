@@ -17,7 +17,7 @@ class Notification::Base < ActiveRecord::Base
   end
 
   def self.for_hub
-    unread.default_sorting.limit(5)
+    unread.default_sorting.limit(10)
   end
 
   def translation_key
