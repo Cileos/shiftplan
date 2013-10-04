@@ -21,9 +21,11 @@ jQuery(document).ready ->
     false
 
   $(document).click (e) ->
-    $('li.dropdown.open').removeClass('open')
+    $dropdown = $('li.dropdown.open')
+    if $dropdown.length > 0
+      e.preventDefault()
+      e.stopPropagation()
+      $dropdown.removeClass('open')
 
   $('li.dropdown.open').click (e) ->
     e.stopPropagation()
-
-
