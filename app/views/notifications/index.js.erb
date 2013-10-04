@@ -1,10 +1,1 @@
-<% count = current_user.unread_notifications.count %>
-<% if count > 0 %>
-  $("li#notification-hub").addClass('has_new');
-  $("li.all-done").remove();
-<% else %>
-  $("li#notification-hub").removeClass('has_new');
-  $("ul.notifications").append('<%= j render("notifications/all_done") %>');
-<% end %>
-$("a#notifications-count").text(<%= count %>);
-$('ul.notifications').replaceWith('<%= j render("notifications/notifications_list", notifications: @notifications) %>');
+<%= render 'notifications/update_hub', notifications: @notifications %>
