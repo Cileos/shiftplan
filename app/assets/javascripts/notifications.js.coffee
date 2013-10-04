@@ -41,12 +41,10 @@ jQuery(document).ready ->
 
   $(document).click (e) ->
     if hub_is_open()
-      e.preventDefault()
-      e.stopPropagation()
-      close_hub()
-
-  $opened_hub().click (e) ->
-    e.stopPropagation()
+      if $(e.target).parents('#notification-hub').length == 0
+        e.preventDefault()
+        e.stopPropagation()
+        close_hub()
 
   handle_keydown = (e) ->
     if e.which == 27 # ESC

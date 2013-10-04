@@ -41,6 +41,8 @@ Feature: Notification Hub
        | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
        | Bart Simpson | hat "Umweltminister zu Besuch" kommentiert: "Ich bringe einen Besen mit" |
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"               |
+     When I follow "Umweltminister zu Besuch" within the notification hub
+     Then I should be on the page of the post
 
 
   @javascript
