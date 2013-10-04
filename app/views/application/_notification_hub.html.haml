@@ -1,4 +1,5 @@
 - count = current_user.unread_notifications.count
 %li#notification-hub.dropdown{class: count > 0 ? 'has_new' : '' }
-  = render "notifications/count", count: count
+  = link_to count, notifications_path,
+    { id: 'notifications-count', :class => 'icon-bell', data: { toggle: 'dropdown'}}
   = render 'notifications/notifications_list', notifications: notifications

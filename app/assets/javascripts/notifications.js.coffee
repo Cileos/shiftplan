@@ -9,10 +9,5 @@ jQuery(document).ready ->
     $('body').trigger 'tick'
   , 60 * 1000
 
-  addMouseEnterListener = ->
-    $('a#notifications-count').mouseenter  ->
-      $('body').trigger 'tack'
-
-  $('body').on 'update', => addMouseEnterListener()
-
-  addMouseEnterListener()
+  $('li#notification-hub').mouseenter  ->
+    $('body').trigger 'tack'

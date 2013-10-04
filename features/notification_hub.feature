@@ -85,10 +85,10 @@ Feature: Notification Hub
        | Bart Simpson | hat "Buenos dias" geschrieben: "Buenos dias"   |
 
      When I follow "Alle als gelesen markieren"
+      And I open the notification hub menu
       # We need to wait in order to prevent
       # Selenium::WebDriver::Error::StaleElementReferenceError errors
       And I wait for 1 seconds
-      And I open the notification hub menu
      Then the notification hub should have "1" new notifications
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
@@ -102,8 +102,8 @@ Feature: Notification Hub
       And I should see "1" within the notifications count
 
      When I follow "Alle als gelesen markieren"
+      And I open the notification hub menu
       # We need to wait in order to prevent
       # Selenium::WebDriver::Error::StaleElementReferenceError errors
       And I wait for 1 seconds
-      And I open the notification hub menu
      Then the notification hub should have "0" new notifications
