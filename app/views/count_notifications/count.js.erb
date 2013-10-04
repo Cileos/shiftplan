@@ -1,4 +1,4 @@
-$("a#notifications-count").text(<%= @count %>);
+<%= render 'notifications/update_count', count: @count %>
 <% if @count > 0 %>
   $("li#notification-hub").addClass('has_new');
 <% else %>
