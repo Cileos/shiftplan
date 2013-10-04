@@ -2,7 +2,7 @@
   - if notifications.empty?
     = render "notifications/all_done"
   - else
-    %li= link_to :mark_all_as_read,
+    %li#mark_all_as_read= link_to :mark_all_as_read,
       mark_notifications_as_read_path(notifications: notifications.map(&:id).join(',')),
       method: :put, remote: true
   - notifications.each do |notification|
