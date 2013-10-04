@@ -2,5 +2,5 @@
 <% if @count > 0 %>
   <%= render 'notifications/update_hub_for_has_new' %>
 <% else %>
-  $("li#notification-hub").removeClass('has_new');
+  <%= render 'notifications/update_hub_for_has_no_new' %>
 <% end %>
