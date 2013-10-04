@@ -1,7 +1,7 @@
 %li{id: dom_id(notification)}
   %actions.actions
     = link_to :mark_as_read, mark_notification_as_read_path(notification),
-      method: :put, remote: true, remote: true, class: 'utility-button'
+      method: :put, remote: true, remote: true, class: 'icon-destroy'
   %a{href: url_for_notifiable(notification.notifiable), class: 'icon-' + notification.notifiable_type.downcase}
     %subject.subject
       = notification.subject

@@ -32,6 +32,7 @@ icons:
   bell:              'f0f3'
   bell_empty:        'f0a2'
   scheduling:        'f073'
+  post:              'f0e7'
 #
 # deprecated icons:
 #   new_plan:          'plus'

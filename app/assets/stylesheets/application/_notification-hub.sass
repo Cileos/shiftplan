@@ -1,3 +1,5 @@
+$notification-hub_font-size: 10px
+
 +keyframes(attention-seek)
   0%
     +transform(rotate(0deg))
@@ -35,14 +37,41 @@
 [role=banner]
   ul.notifications
     width: 350px
-    min-height: 300px
-    max-height: 500px
+    min-height: 150px
+    max-height: 350px
     overflow-y: auto
-    font-size: 10px
+    padding: 0
+    font-size: $notification-hub_font-size
+
+    #mark_all_as_read
+      background: $ci_lightgray
+      padding-top: 0.25em
+      padding-bottom: 0.25em
+      text-align: center
+
+      &:hover a
+        color: $ci_darkorange
+
+    li
+      position: relative
+      border-bottom: 1px solid $ci_lightgray
+
+      &:first-child
+        padding-top: 0
+
+      &:last-child
+        padding-bottom: 0
+        border-bottom: none
+
+      &:hover
+        a
+          background: $ci_darkwhite
+
+        > a
+          color: $ci_blue
 
     a
-      // padding: 0.25em 1em
-      border-bottom: 1px solid $ci_lightgray
+      padding-right: 30px
       white-space: normal
 
       &:before
@@ -52,17 +81,35 @@
       &.icon-comment
         @extend .icon-no_comment
 
-    li
-      &:first-child a
-        padding-top: 0
+        &:before
+          margin-top: -5px
 
-      &:last-child a
-        padding-bottom: 0
-        border-bottom: none
+      &.icon-post:before
+        margin-left: 6px
+        margin-right: 15px
 
     .subject,
     .blurb
       display: block
 
     .actions
-      float: right
+      position: absolute
+      top: 50%
+      right: 5px
+      padding: 0
+      margin-top: -8px
+
+      a
+        display: block
+        width: 15px
+        overflow: hidden
+        padding: 0
+        white-space: nowrap
+        color: $ci_grey
+
+        &:before
+          font-size: 15px
+
+        &:hover
+          color: $ci_darkorange
+          background: none
