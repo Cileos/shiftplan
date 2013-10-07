@@ -23,18 +23,6 @@
       padding: 0;
     }
 
-    .count {
-      display: inline-block;
-      border-radius: 20px;
-      padding: 2px 6px 1px 5px;
-      margin: 0 0.25em;
-      font-size: 0.8em;
-      background: $ci_lightgray;
-      color: $ci_darkgray;
-      text-align: center;
-      min-width: 24px;
-    }
-
     .tag {
       border-radius: 10px;
       padding: 3px 5px;
@@ -137,6 +125,21 @@
       }
     }
   }
+}
+
+.count {
+  display: inline-block;
+  border-radius: 20px;
+  padding: 2px 6px 1px 5px;
+  margin: 0 0.25em;
+  font-size: 0.8em;
+  background: $ci_lightgray;
+  color: $ci_darkgray;
+  text-align: center;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  vertical-align: baseline;
+  min-width: 24px;
 }
 
 @media screen and (max-width: 800px) {
