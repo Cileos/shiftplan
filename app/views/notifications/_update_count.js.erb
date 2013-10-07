@@ -1,5 +1,5 @@
 <% if (count = current_user.new_notifications_count) > 0 %>
-  $("li#notification-hub").addClass('has_new');
+  $("li#notification-hub").addClass('has_new has_unread');
   $('a#notifications-count span.count').remove();
   $('a#notifications-count').append('<span class="count"><%= count %></span>')
 <% else %>

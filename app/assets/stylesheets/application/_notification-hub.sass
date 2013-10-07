@@ -37,6 +37,8 @@ $notification-hub_font-size: 10px
 
   &.has_unread > a div
     @extend .icon-bell
+
+  &.has_new > a div
     +animation(attention-seek 2.0s linear infinite)
     +transform-origin(center top)
 
@@ -75,6 +77,12 @@ $notification-hub_font-size: 10px
 
         > a
           color: $ci_blue
+
+      &.all-done
+        padding: 2em 0
+        color: $ci_gray
+        font-size: $ci_bigger-font
+        text-align: center
 
     a
       padding-right: 30px
