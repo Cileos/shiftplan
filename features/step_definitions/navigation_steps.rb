@@ -3,10 +3,10 @@ When /^I choose "([^"]*)" from the drop down "([^"]*)"$/ do |item, dropdown|
   step %~I follow "#{item}"~
 end
 
-When /^I choose "([^"]*)" from the user navigation$/ do |item|
+When /^I choose "([^"]*)" from the session and settings menu item/ do |item|
   begin
     page.execute_script <<-EOJS
-      $('.user-navigation .dropdown').addClass('open')
+      $('#session-and-settings').addClass('open')
     EOJS
   rescue Capybara::NotSupportedByDriverError => e
     # in rack server, menu opens you

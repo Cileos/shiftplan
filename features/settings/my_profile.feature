@@ -13,7 +13,7 @@ I want to edit my profile
       And I am on the page for the organization "fukushima"
      Then I should see "Marge Bouvier" within the orientation bar
 
-     When I choose "Einstellungen" from the user navigation
+     When I choose "Einstellungen" from the session and settings menu item
      Then I should be on the profile page of the employee
       # Marge Bouvier just married Homer Simpson and needs to change her last name
      When I fill in "Nachname" with "Simpson"
@@ -27,7 +27,7 @@ I want to edit my profile
   Scenario: Trying to promote myself to owner by manipulating the profile form
     Given I am signed in as the confirmed user
       And I am on the page for the organization "fukushima"
-      And I choose "Einstellungen" from the user navigation
+      And I choose "Einstellungen" from the session and settings menu item
       And I manipulate the form "edit_employee" with attribute "employee[role]" and value "owner"
       And I press "Speichern"
      Then 1 employees should exist with first_name: "Marge", last_name: "Bouvier", role: ""
@@ -37,7 +37,7 @@ I want to edit my profile
     Given I am signed in as the confirmed user
       And I am on the page for the organization "fukushima"
 
-     When I choose "Einstellungen" from the user navigation
+     When I choose "Einstellungen" from the session and settings menu item
      Then I should be on the profile page of the employee
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
@@ -50,7 +50,7 @@ I want to edit my profile
       And I am signed in as the confirmed user
       And I am on the dashboard page
 
-     When I choose "Einstellungen" from the user navigation
+     When I choose "Einstellungen" from the session and settings menu item
      Then I should be on the profile page of my employees
      Then I should see the following table of employees:
        | Name              | Account           |

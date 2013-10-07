@@ -7,7 +7,7 @@ Feature: As a logged in user
       And I am on my dashboard
 
   Scenario: Changing the password
-    Given I choose "Einstellungen" from the user navigation
+    Given I choose "Einstellungen" from the session and settings menu item
       And I follow "Passwort ändern"
      Then I should be on the change password page
      When I fill in the following:
