@@ -285,7 +285,7 @@ ActiveRecord::Schema.define(:version => 20131007134535) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                       :default => "",    :null => false
+    t.string   "email",                                       :default => "",   :null => false
     t.string   "encrypted_password",          :limit => 128,  :default => ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -302,13 +302,13 @@ ActiveRecord::Schema.define(:version => 20131007134535) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
-    t.datetime "created_at",                                                     :null => false
-    t.datetime "updated_at",                                                     :null => false
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
     t.string   "roles",                       :limit => 1024
     t.string   "locale"
     t.string   "avatar"
     t.boolean  "receive_notification_emails",                 :default => true
-    t.boolean  "has_new_notifications",                       :default => false
+    t.integer  "new_notifications_count",                     :default => 0
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

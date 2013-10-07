@@ -8,7 +8,7 @@ describe Notification::CommentOnScheduling do
 
   it_should_behave_like 'Notification for Dashboard'
 
-  it_behaves_like :updating_has_new_notifications_state_for_user do
+  it_behaves_like :updating_new_notifications_count_for_user do
     let(:notifiable) { comment }
   end
 

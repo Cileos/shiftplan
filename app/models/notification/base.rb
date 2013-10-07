@@ -93,7 +93,7 @@ class Notification::Base < ActiveRecord::Base
 
   def set_has_new_notifications_on_user
     if u = employee.user
-      u.has_new_notifications = true
+      u.new_notifications_count += 1
       u.save!
     end
   end

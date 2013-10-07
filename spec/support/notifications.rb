@@ -34,14 +34,15 @@ shared_examples 'Notification for Dashboard' do
   end
 end
 
-shared_examples :updating_has_new_notifications_state_for_user do
+shared_examples :updating_new_notifications_count_for_user do
   context "on creation" do
     let(:user)     { create(:user) }
     let(:employee) { create(:employee, user: user) }
     it "sets the users's 'has_new_notifications' flag to true" do
       expect do
         described_class.create!(employee: employee, notifiable: notifiable)
-      end.to change { user.has_new_notifications }.from(false).to(true)
+        described_class.create!(employee: employee, notifiable: notifiable)
+      end.to change { user.new_notifications_count }.from(0).to(2)
     end
   end
 end
