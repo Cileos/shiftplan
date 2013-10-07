@@ -1,9 +1,12 @@
 jQuery(document).ready ->
   $('body').on 'tick', ->
-    $.getScript('/count_notifications')
+    # dont use the global spinner (global: false)
+    $.ajax('/count_notifications', dataType: "script", global: false)
 
   $('body').on 'tack', ->
-    $.getScript('/notifications')
+    # dont use the global spinner (global: false)
+    # spinner will be automatically removed through ul replacement
+    $.ajax('/notifications', dataType: "script", global: false, beforeSend: -> clearAndSpin())
 
   setInterval ->
     $('body').trigger 'tick'
@@ -17,6 +20,8 @@ jQuery(document).ready ->
 
   $hub = -> $('li#notification-hub')
 
+  $notifications_list = ->$('li#notification-hub .notifications')
+
   close_hub = ->
     $hub().removeClass('open')
     disable_close_on_esc()
@@ -28,6 +33,12 @@ jQuery(document).ready ->
   $opened_hub = -> $('li#notification-hub.open')
 
   hub_is_open = -> $opened_hub().length > 0
+
+  clearAndSpin = ->
+    $notifications_list()
+      .empty()
+      .append($notif_spin = $('<li id="notifications-spinner"></li>'))
+    $notif_spin.spin()
 
   $('a#notifications-count').on 'click', (e) ->
     e.preventDefault()
