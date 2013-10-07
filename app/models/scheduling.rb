@@ -10,6 +10,8 @@ class Scheduling < ActiveRecord::Base
   delegate :organization, to: :plan
 
   before_validation :parse_quickie_and_fill_in
+  before_destroy    :destroy_notifications
+
 
   validates_presence_of :plan
   validates_presence_of :quickie
@@ -190,6 +192,9 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
+  def destroy_notifications
+    Notification.destroy_for(self)
+  end
 end
 
 SchedulingDecorator

@@ -16,4 +16,16 @@ describe Notification::UpcomingScheduling do
       subject.save!
     end
   end
+
+  context "destroyed with its scheduling" do
+    let(:scheduling)    { create(:scheduling, employee: employee) }
+    let(:employee)      { create(:employee, user: create(:user)) }
+    let!(:notification)  { described_class.create(notifiable: scheduling, employee: employee) }
+
+    it 'is destroyed with its post' do
+      expect do
+        scheduling.destroy
+      end.to change { Notification::UpcomingScheduling.count }.from(1).to(0)
+    end
+  end
 end
