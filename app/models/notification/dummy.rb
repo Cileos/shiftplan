@@ -28,4 +28,8 @@ class Notification::Dummy < Notification::Base
   def blurb
     "You did something awesome"
   end
+
+  def notifiable_type
+    'Dummy'
+  end
 end
