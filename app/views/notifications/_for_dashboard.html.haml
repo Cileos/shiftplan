@@ -10,7 +10,7 @@
     - unless notifications.empty?
       %ul
         - notifications.for_dashboard.each do |notification|
-          %li
+          %li{class: notification.read_at ? 'read' : 'unread' }
             = avatar notification.acting_employee.user, notification.acting_employee, :thumb
             = render 'notifications/subject_and_blurb', notification: notification
     - else
