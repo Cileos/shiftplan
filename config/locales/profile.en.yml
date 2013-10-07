@@ -2,6 +2,13 @@ en:
   profile:
     edit:
       instructions: "Select your language."
+  export:
+    is_inactive: "None of your schedulings is exported right now."
+    is_active: "This is the private address for your schedulings. Please be aware that sharing this link gives others the possibility to see your schedulings."
+    webcal: "Please use this link if you're using a Mac or iPhone/iPad/iPod or systems supporting webcal:"
+    deactivate: "Disable Export? Click this button:"
+    create_export: "Export my schedulings"
+    reset_export: "Reset private URL"
   profile_employees:
     index:
       instructions: "Select an employee."
