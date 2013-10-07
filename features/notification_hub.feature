@@ -35,6 +35,7 @@ Feature: Notification Hub
        | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
        | Bart Simpson | hat "Umweltminister zu Besuch" kommentiert: "Ich bringe einen Besen mit" |
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"               |
+       |              |                                                                          |
      When I follow "Umweltminister zu Besuch" within the notification hub
      Then I should be on the page of the post
 
@@ -52,6 +53,7 @@ Feature: Notification Hub
        | subject      | blurb                                                      |
        |              |                                                            |
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen" |
+       |              |                                                            |
       But should not see "Alles erledigt" within the notification hub
      When I follow "Als gelesen markieren" within the notification hub
      Then should not see "Umweltminister zu Besuch" within the notification hub
@@ -92,6 +94,7 @@ Feature: Notification Hub
        | Bart Simpson  | hat "Post 4" geschrieben: "Post 4"    |
        | Bart Simpson  | hat "Post 3" geschrieben: "Post 3"    |
        | Bart Simpson  | hat "Post 2" geschrieben: "Post 2"    |
+       |               |                                       |
 
      When I follow "Alle als gelesen markieren"
       And I wait for the spinner to disappear
@@ -104,6 +107,7 @@ Feature: Notification Hub
        | subject       | blurb                               |
        |               |                                     |
        | Bart Simpson  | hat "Post 1" geschrieben: "Post 1"  |
+       |               |                                     |
 
      When I follow "Alle als gelesen markieren"
      Then should see "Alles erledigt" within the notification hub

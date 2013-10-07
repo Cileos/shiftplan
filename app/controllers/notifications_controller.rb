@@ -18,7 +18,7 @@ class NotificationsController < InheritedResources::Base
   end
 
   def end_of_association_chain
-    super.for_hub
+    super.default_sorting.page(params[:page]).per(30)
   end
 
   def reset_new_notifications_count_for_user

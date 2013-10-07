@@ -7,12 +7,6 @@
       -# TODO ticket #505710
       %a.side-link{style: 'display: none'} See all
   .content
-    - unless notifications.empty?
-      %ul
-        - notifications.for_dashboard.each do |notification|
-          %li{class: notification.read_at ? 'read' : 'unread' }
-            = avatar notification.acting_employee.user, notification.acting_employee, :thumb
-            = render 'notifications/subject_and_blurb', notification: notification
-    - else
-      %p= t('notifications.no_notifications_present')
+    = render 'notifications/list', notifications: notifications.for_dashboard
+    = link_to :show_all, notifications_path
 

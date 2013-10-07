@@ -7,3 +7,4 @@
       method: :put, remote: true
   - notifications.each do |notification|
     = render "notifications/notification", notification: notification
+  %li= link_to :show_all, notifications_path

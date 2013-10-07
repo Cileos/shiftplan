@@ -1,6 +1,8 @@
 de:
   helpers:
     actions:
+      show_all: 'Alle anzeigen'
+      notifications: 'Benachrichtigungen'
       new_post: 'Neuen Blogpost erstellen'
       edit_post: 'Blogpost bearbeiten'
       edit_account: Account bearbeiten

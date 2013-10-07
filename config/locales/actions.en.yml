@@ -1,6 +1,8 @@
 en:
   helpers:
     actions:
+      show_all: 'Show all'
+      notifications: 'Notifications'
       new_post: "Create a new post"
       edit_post: "Edit post"
       edit_account: Edit account
