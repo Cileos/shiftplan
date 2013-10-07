@@ -1,6 +1,5 @@
 $('<%= "li##{dom_id(@notification)}" %>').remove();
-<% count = current_user.unread_notifications.count %>
-<%= render 'notifications/update_count', count: count %>
-<% if count <= 0 %>
+<%= render 'notifications/update_count' %>
+<% unless current_user.unread_notifications.count > 0 %>
   <%= render 'notifications/update_hub_for_all_done' %>
 <% end %>

@@ -161,13 +161,12 @@ end
 
 Then /^the notification hub should have #{capture_quoted} new notifications$/ do |number|
   step %~I should see "#{number}" within the notifications count~
-  if number.to_i > 0
-    step %~the notification hub should have class "has_new"~
-    step %~I should not see "Alles erledigt" within the notification hub~
-  else
-    step %~the notification hub should not have class "has_new"~
-    step %~I should see "Alles erledigt" within the notification hub~
-  end
+  step %~the notification hub should have class "has_new"~
+end
+
+Then /^the notification hub should have no new notifications$/ do
+  step %~the notification hub should not have class "has_new"~
+  page.has_css?("a#notifications-count span", text: '')
 end
 
 

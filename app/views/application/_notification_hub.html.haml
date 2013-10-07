@@ -1,5 +1,5 @@
-- count = current_user.unread_notifications.count
+- count = current_user.new_notifications_count
 %li#notification-hub.dropdown{class: count > 0 ? 'has_new' : '' }
-  = link_to content_tag(:div, '', :class => 'icon-bell_empty') + content_tag(:span, count.to_s), notifications_path,
+  = link_to content_tag(:div, '', :class => 'icon-bell_empty') + content_tag(:span, count > 0 ? count.to_s : ''), notifications_path,
     { id: 'notifications-count', data: { toggle: 'dropdown'}}
   %ul.notifications.no-hover

@@ -7,6 +7,8 @@ class NotificationsController < InheritedResources::Base
 
   load_and_authorize_resource class: Notification::Base
 
+  before_filter :reset_new_notifications_count_for_user
+
   respond_to :js, :html
 
   protected
@@ -17,5 +19,10 @@ class NotificationsController < InheritedResources::Base
 
   def end_of_association_chain
     super.for_hub
+  end
+
+  def reset_new_notifications_count_for_user
+    current_user.new_notifications_count = 0
+    current_user.save!
   end
 end

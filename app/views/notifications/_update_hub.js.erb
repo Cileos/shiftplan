@@ -1,8 +1,5 @@
-<% count = current_user.unread_notifications.count %>
-<% if count > 0 %>
-  <%= render 'notifications/update_hub_for_has_new' %>
-<% else %>
+<% unless current_user.unread_notifications.count > 0 %>
   <%= render 'notifications/update_hub_for_all_done' %>
 <% end %>
-<%= render 'notifications/update_count', count: count %>
+<%= render 'notifications/update_count' %>
 $('ul.notifications').replaceWith('<%= j render("notifications/notifications_list", notifications: notifications) %>');

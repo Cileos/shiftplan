@@ -19,18 +19,17 @@ Feature: Notification Hub
       And a scheduling exists with employee: employee "mr burns", plan: the plan
       And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
       And a comment exists with commentable: the scheduling, employee: the employee "bart", body: "Bitte Reaktor abschließen nach Dienstende"
+      And the notification hub should have no new notifications
 
      When the time interval for updating the count of the notification hub elapses
-     Then I should see "3" within the notifications count
-     When I follow "3" within the notification hub
      Then the notification hub should have "3" new notifications
-     # We have to wait a bit to prevent
-     # Selenium::WebDriver::Error::StaleElementReferenceError errors
-     When I wait for 1 seconds
+     When I follow "3" within the notification hub
+      And I wait for the spinner to disappear
+     Then the notification hub should have no new notifications
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
       # TODO: This first line should be removed when tatze changes the html.
-     Then I should see a list of the following notifications:
+      And I should see a list of the following notifications:
        | subject      | blurb                                                                    |
        |              |                                                                          |
        | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
@@ -43,11 +42,9 @@ Feature: Notification Hub
   Scenario: Marking notifications as read
     Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I go to the home page
-      And I open the notification hub menu
      Then the notification hub should have "1" new notifications
-     # We have to wait a bit to prevent
-     # Selenium::WebDriver::Error::StaleElementReferenceError errors
-     When I wait for 1 seconds
+     When I open the notification hub menu
+      And I wait for the spinner to disappear
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
       # TODO: This first line should be removed when tatze changes the html.
@@ -55,9 +52,10 @@ Feature: Notification Hub
        | subject      | blurb                                                      |
        |              |                                                            |
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen" |
+      But should not see "Alles erledigt" within the notification hub
      When I follow "Als gelesen markieren" within the notification hub
      Then should not see "Umweltminister zu Besuch" within the notification hub
-      And the notification hub should have "0" new notifications
+      But should see "Alles erledigt" within the notification hub
 
 
   Scenario: Mark all notifications as read
@@ -75,11 +73,9 @@ Feature: Notification Hub
       | the blog  | employee "bart"  | Post 10  | Post 10  | 2012-12-21  |
       | the blog  | employee "bart"  | Post 11  | Post 11  | 2012-12-22  |
      When I go to the home page
-      And I open the notification hub menu
      Then the notification hub should have "11" new notifications
-     # We have to wait a bit to prevent
-     # Selenium::WebDriver::Error::StaleElementReferenceError errors
-     When I wait for 1 seconds
+     When I open the notification hub menu
+      And I wait for the spinner to disappear
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
       # TODO: This first line should be removed when tatze changes the html.
@@ -98,10 +94,7 @@ Feature: Notification Hub
        | Bart Simpson  | hat "Post 2" geschrieben: "Post 2"    |
 
      When I follow "Alle als gelesen markieren"
-     Then the notification hub should have "1" new notifications
-     # We have to wait a bit to prevent
-     # Selenium::WebDriver::Error::StaleElementReferenceError errors
-     When I wait for 1 seconds
+      And I wait for the spinner to disappear
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
       # TODO: This first line should be removed when tatze changes the html.
@@ -111,7 +104,6 @@ Feature: Notification Hub
        | subject       | blurb                               |
        |               |                                     |
        | Bart Simpson  | hat "Post 1" geschrieben: "Post 1"  |
-      And I should see "1" within the notifications count
 
      When I follow "Alle als gelesen markieren"
-     Then the notification hub should have "0" new notifications
+     Then should see "Alles erledigt" within the notification hub
