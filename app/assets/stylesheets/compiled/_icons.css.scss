@@ -69,6 +69,13 @@
         }
 
         // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-blog {
+          &:before {
+            content: "\f036";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-organization {
           &:before {
             content: "\f024";
@@ -232,6 +239,6 @@
         // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-post {
           &:before {
-            content: "\f0e7";
+            content: "\f036";
           }
         }
