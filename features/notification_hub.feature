@@ -1,3 +1,4 @@
+@javascript
 Feature: Notification Hub
   As a user
   I want to see all my notification in the notification hub
@@ -11,12 +12,6 @@ Feature: Notification Hub
       And I am signed in as the user "mr burns"
 
 
-  Scenario: Notifications all done
-     When I go to the home page
-     Then the notification hub should have "0" new notifications
-
-
-  @javascript
   Scenario: Notification hub is updated
      When I go to the home page
       And a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
@@ -45,7 +40,6 @@ Feature: Notification Hub
      Then I should be on the page of the post
 
 
-  @javascript
   Scenario: Marking notifications as read
     Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I go to the home page
@@ -66,7 +60,6 @@ Feature: Notification Hub
       And the notification hub should have "0" new notifications
 
 
-  @javascript
   Scenario: Mark all notifications as read
     Given the following posts exist:
       | blog      | author           | title    | body     | created_at  |
