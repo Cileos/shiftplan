@@ -9,10 +9,10 @@
   .content
     - unless notifications.empty?
       %ul
-        - notifications.recent(15).each do |notification|
-          %li.icon-comment
+        - notifications.for_dashboard.each do |notification|
+          %li
             = avatar notification.acting_employee.user, notification.acting_employee, :thumb
-            = notification.introductory_text
+            = render 'notifications/subject_and_blurb', notification: notification
     - else
       %p= t('notifications.no_notifications_present')
 
