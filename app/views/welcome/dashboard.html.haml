@@ -9,5 +9,5 @@
 
 .row.two-columns.inverted.dashboard
   = render 'schedulings/for_dashboard', schedulings: current_user.schedulings.upcoming.starting_in_the_next('14 days')
-  = render 'notifications/for_dashboard', notifications: current_user.notifications.unread
+  = render 'notifications/for_dashboard', notifications: current_user.notifications
   = render 'posts/for_dashboard', posts: current_user.posts_of_joined_organizations.recent(15)

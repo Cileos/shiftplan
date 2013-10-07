@@ -22,7 +22,7 @@ class Notification::Base < ActiveRecord::Base
   end
 
   def self.for_dashboard
-    unread.default_sorting.limit(15)
+    default_sorting.limit(15)
   end
 
   def translation_key
