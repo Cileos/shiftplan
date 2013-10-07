@@ -7,7 +7,7 @@ class Notification::Base < ActiveRecord::Base
   validates_presence_of :employee
 
   after_commit :deliver!, on: :create
-  after_create :set_has_new_notifications_on_user
+  after_create :increase_notifications_count_on_user
 
   def self.default_sorting
     order('created_at desc')
@@ -95,7 +95,7 @@ class Notification::Base < ActiveRecord::Base
 
   private
 
-  def set_has_new_notifications_on_user
+  def increase_notifications_count_on_user
     if u = employee.user
       u.new_notifications_count += 1
       u.save!
