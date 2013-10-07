@@ -16,7 +16,6 @@ Feature: User Navigation
        | link            | active |
        | ?               | false  |
        | 0               | false  |
-       | Alles erledigt. | false  |
        | CB              | false  |
        | Einstellungen   | false  |
        | Ausloggen       | false  |
