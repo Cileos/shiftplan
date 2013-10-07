@@ -18,10 +18,10 @@ Feature: Creating schedulings in a plan with time period
   Scenario: display error message when creating schedulings with next day outside the plan period
      When I click on cell "Mo"/"Carl C"
       And I wait for the new scheduling form to appear
-      And I fill in "Quickie" with "22-6"
+      And I schedule "22-6"
       And I press "Anlegen"
 
-     Then I should see "Der nächste Tag endet nach der Endzeit des Plans."
+     Then I should see flash alert "Der nächste Tag endet nach der Endzeit des Plans."
       And I should see the following partial calendar:
         | Mitarbeiter    | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |
         | Planner Burns  |     |     |     |     |     |     |     |

@@ -12,7 +12,7 @@ Feature: Manage schedulings without teams
     Given I choose "Teams" from the drop down "Mitarbeiter" within the calendar
      When I click on cell "Mo"/"Ohne Team"
       And I wait for the modal box to appear
-      And I fill in "Quickie" with "22-6"
+      And I schedule "22-6"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
@@ -29,9 +29,10 @@ Feature: Manage schedulings without teams
         | Ohne Team  |     |     | Homer S 22:00-06:00  | Homer S 22:00-06:00  |     |     |     |
      When I click on scheduling "22:00-06:00"
       And I wait for the modal box to appear
-      And I fill in "Endzeit" with "7"
+      And I fill in "Endzeit" with "07:00"
+      And I select "Lenny L" from "Mitarbeiter"
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Teams      | Mo  | Di  | Mi                   | Do                   | Fr  | Sa  | So  |
-        | Ohne Team  |     |     | Homer S 22:00-07:00  | Homer S 22:00-07:00  |     |     |     |
+        | Ohne Team  |     |     | Lenny L 22:00-07:00  | Lenny L 22:00-07:00  |     |     |     |

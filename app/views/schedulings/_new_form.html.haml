@@ -2,11 +2,6 @@
 = simple_form_for scheduling, url: url, remote: true do |f|
 
   .inputs
-    - if current_plan_mode.teams_in_week? or current_plan_mode.teams_in_day?
-      = f.input :quickie, hint: true, input_html: { value: '' }
-    - else
-      = f.input :quickie, hint: true
-
     = render 'schedulings/fields', f: f
 
   .actions
