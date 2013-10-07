@@ -7,6 +7,7 @@ class Notification::Base < ActiveRecord::Base
   validates_presence_of :employee
 
   after_commit :deliver!, on: :create
+  after_create :set_has_new_notifications_on_user
 
   def self.default_sorting
     order('created_at desc')
@@ -85,6 +86,15 @@ class Notification::Base < ActiveRecord::Base
     if employee.user && employee.user.receive_notification_emails
       self.class.mailer_class.public_send(self.class.mailer_action, self).deliver
       touch :sent_at
+    end
+  end
+
+  private
+
+  def set_has_new_notifications_on_user
+    if u = employee.user
+      u.has_new_notifications = true
+      u.save!
     end
   end
 end

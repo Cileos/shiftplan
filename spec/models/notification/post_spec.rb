@@ -2,10 +2,14 @@ require 'spec_helper'
 
 describe Notification::Post do
   let(:notification) { described_class.new notifiable: create(:post) }
-  it_should_behave_like 'Notification for Dashboard'
+  let(:post)         { create :post }
+
+  it_behaves_like 'Notification for Dashboard'
+  it_behaves_like :updating_has_new_notifications_state_for_user do
+    let(:notifiable) { post }
+  end
 
   context "destroyed with its post" do
-    let(:post) { create :post }
     let(:employee) { create :employee }
     let(:notification) { described_class.new notifiable: post, employee: employee }
 

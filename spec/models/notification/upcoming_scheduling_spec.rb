@@ -7,6 +7,10 @@ describe Notification::UpcomingScheduling do
     described_class.new(notifiable: scheduling, employee: scheduling.employee)
   end
 
+  it_behaves_like :updating_has_new_notifications_state_for_user do
+    let(:notifiable) { scheduling }
+  end
+
   context "on create" do
     it "sends an upcoming scheduling mail" do
       mail = instance_double('Mail::Message')
