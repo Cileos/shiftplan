@@ -1,16 +1,19 @@
 - title :export
 
-- if @ical_export.active?
-  %div= t '.is_active'
-  - ical_link = upcoming_feed_url(CGI.escape(@ical_export.email), @ical_export.private_token, format: 'ics')
-  .export-link= link_to ical_link, ical_link
-  %div
-    = t '.webcal'
-    = link_to 'webcal (Mac, iOS)', upcoming_feed_url(CGI.escape(@ical_export.email), @ical_export.private_token, format: 'ics', protocol: 'webcal'), class: 'button icon-export'
-  .deactivate-export
-    = t '.deactivate'
-    = button_to t('.reset_export'), profile_export_path, method: :delete
-- else
-  .enable-export
-    = t '.is_inactive'
-    = button_to t('.create_export'), profile_export_path, method: :post
+= render layout: 'profile/with_menu' do
+  - if @ical_export.active?
+    %div= t 'export.is_active'
+    - ical_link = upcoming_feed_url(CGI.escape(@ical_export.email), @ical_export.private_token, format: 'ics')
+    .export-link= link_to ical_link, ical_link
+
+    %div= t 'export.webcal'
+    - webcal_link = upcoming_feed_url(CGI.escape(@ical_export.email), @ical_export.private_token, format: 'ics', protocol: 'webcal')
+    .export-link= link_to webcal_link, webcal_link
+
+    .deactivate-export
+      = t 'export.deactivate'
+      = button_to t('export.reset_export'), profile_export_path, method: :delete
+  - else
+    .enable-export
+      = t 'export.is_inactive'
+      = button_to t('export.create_export'), profile_export_path, method: :post
