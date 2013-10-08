@@ -39,6 +39,14 @@ Feature: Notification Hub
        |              |                                                                          |
      When I follow "Umweltminister zu Besuch" within the notification hub
      Then I should be on the page of the post
+     When I open the notification hub menu
+      And I wait for the notifications spinner to disappear
+     Then I should see a list of the following notifications:
+       | subject      | blurb                                                                    |
+       |              |                                                                          |
+       | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
+       | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"               |
+       |              |                                                                          |
 
 
   Scenario: Marking notifications as read
