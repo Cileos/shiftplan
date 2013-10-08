@@ -9,11 +9,11 @@ Feature: Plan a week
   # TODO do not copy schedulings of deactivated employee
   Scenario: copy from last week
     Given the employee "Homer" was scheduled in the plan as following:
-      | year  | week | cwday | quickie |
-      | 2012  | 48   | 1     | 5-7     |
-      | 2012  | 49   | 2     | 10-11   |
-      | 2012  | 49   | 3     | 11-12   |
-      | 2012  | 49   | 4     | 12-13   |
+      | year | week | cwday | quickie  |
+      | 2012 | 48   | 1     | 5-7      |
+      | 2012 | 49   | 2     | 10-10:15 |
+      | 2012 | 49   | 3     | 11-12:45 |
+      | 2012 | 49   | 4     | 12-13    |
       And I am on the employees in week page of the plan for week: 50, cwyear: 2012
      When I choose "Übernahme aus der letzten Woche" from the drop down "Weitere Aktionen"
       And I wait for the modal box to appear
@@ -29,4 +29,4 @@ Feature: Plan a week
         | Planner Burns  |     |              |              |              |     |
         | Carl C         |     |              |              |              |     |
         | Lenny L        |     |              |              |              |     |
-        | Homer S        |     | 10:00-11:00  | 11:00-12:00  | 12:00-13:00  |     |
+        | Homer S        |     | 10:00-10:15  | 11:00-12:45  | 12:00-13:00  |     |
