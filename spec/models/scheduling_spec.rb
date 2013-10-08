@@ -590,4 +590,57 @@ describe Scheduling do
       end.to change { scheduling.reload.comments_count }.from(1).to(0)
     end
   end
+
+  context '#move_to_week_and_year' do
+    let(:moving) { lambda {
+      scheduling.move_to_week_and_year!(23, 2002)
+    } }
+
+    shared_examples :move_to_week_and_year_changer do
+      it 'changes year' do
+        expect(&moving).to change { scheduling.year }.to(2002)
+      end
+
+      it 'changes week' do
+        expect(&moving).to change { scheduling.week }.to(23)
+      end
+    end
+    shared_examples :move_to_week_and_year_time_preserver do
+      it 'preserves start hour' do
+        expect(&moving).not_to change { scheduling.start_hour }
+      end
+
+      it 'preserves start minute' do
+        expect(&moving).not_to change { scheduling.start_minute }
+      end
+
+      it 'preserves end hour' do
+        expect(&moving).not_to change { scheduling.end_hour }
+      end
+
+      it 'preserves end minute' do
+        expect(&moving).not_to change { scheduling.end_minute }
+      end
+    end
+
+    describe 'for regular scheduling' do
+      let(:scheduling) { build :scheduling_by_quickie, quickie: '10:15-11:45' }
+      it_should_behave_like :move_to_week_and_year_changer
+      it_should_behave_like :move_to_week_and_year_time_preserver
+    end
+    describe 'for overnight scheduling' do
+      let(:scheduling) { build :scheduling_by_quickie, quickie: '10:15-6:45' }
+      it_should_behave_like :move_to_week_and_year_changer
+      it_should_behave_like :move_to_week_and_year_time_preserver
+
+      it 'does not create other schedilings' do
+        scheduling.save!
+        expect(&moving).not_to change(Scheduling, :count)
+      end
+
+      it 'preserves quckie' do
+        expect(&moving).not_to change { scheduling.quickie }
+      end
+    end
+  end
 end
