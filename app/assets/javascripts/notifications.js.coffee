@@ -11,10 +11,7 @@ jQuery(document).ready ->
     send_update_notification_hub_request('/notifications', 'get')
 
   register_mark_as_read_event_listeners = ->
-    $('a.mark_as_read').click (e) ->
-      handle_mark_as_read_link_clicked(e)
-
-    $('li#mark_all_as_read a').click (e) ->
+    $('a.mark_as_read,li#mark_all_as_read a').click (e) ->
       handle_mark_as_read_link_clicked(e)
 
   handle_mark_as_read_link_clicked = (e) ->
