@@ -1,0 +1,41 @@
++keyframes(jump)
+  0%
+    top: -20px
+    +transform(scale(1,0.7) rotate(90deg))
+
+  30%
+    +transform(scale(1,1) rotate(90deg))
+    padding-right: 0px
+
+  100%
+    top: -40px
+    padding-right: 10px
+
+.smily
+  position: relative
+  height: 50px
+  width: 40px
+  display: inline-block
+  margin: 0 5px 10px
+
+  div
+    position: absolute
+    top: -20px
+    left: 0
+    right: 0
+    line-height: 30px
+    text-align: center
+    height: 40px
+    width: 40px
+    border: 3px solid #ccc
+    color: #ccc
+    padding: 0 0 8px
+    border-radius: 50%
+    margin: 50px auto
+    font-size: 20px
+    font-family: "comic sans ms"
+    font-weight: bold
+    +transform(rotate(90deg))
+
+    &:hover
+      content: ":D"

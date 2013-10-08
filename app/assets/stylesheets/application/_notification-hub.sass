@@ -64,9 +64,6 @@ $notification-hub_font-size: 10px
       position: relative
       border-bottom: 1px solid $ci_lightgray
 
-      &:first-child
-        padding-top: 0
-
       &:last-child
         padding-bottom: 0
         border-bottom: none
@@ -79,10 +76,14 @@ $notification-hub_font-size: 10px
           color: $ci_blue
 
       &.all-done
-        padding: 2em 0
+        padding: 0.5em 0 1.5em 0
         color: $ci_gray
         font-size: $ci_bigger-font
         text-align: center
+
+        &:hover
+          .smily div
+            +animation(jump 0.5s infinite alternate)
 
     a
       padding-right: 30px
