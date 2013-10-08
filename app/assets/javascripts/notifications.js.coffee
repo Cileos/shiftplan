@@ -3,14 +3,37 @@ jQuery(document).ready ->
     # dont use the global spinner (global: false)
     $.ajax('/count_notifications', dataType: "script", global: false)
 
-  $('body').on 'tack', ->
-    # dont use the global spinner (global: false)
-    # spinner will be automatically removed through ul replacement
-    $.ajax('/notifications', dataType: "script", global: false, beforeSend: -> clearAndSpin())
-
   setInterval ->
     $('body').trigger 'tick'
   , 60 * 1000
+
+  $('body').on 'tack', ->
+    send_update_notification_hub_request('/notifications', 'get')
+
+  register_mark_as_read_event_listeners = ->
+    $('a.mark_as_read').click (e) ->
+      handle_mark_as_read_link_clicked(e)
+
+    $('li#mark_all_as_read a').click (e) ->
+      handle_mark_as_read_link_clicked(e)
+
+  handle_mark_as_read_link_clicked = (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    $link = $(e.target)
+    url = $link.attr('href')
+    http_method = $link.data('method')
+    send_update_notification_hub_request(url, http_method)
+
+  send_update_notification_hub_request = (url, http_method) ->
+    # dont use the global spinner (global: false)
+    # spinner will be automatically removed through ul replacement
+    $.ajax(url,
+      type: http_method,
+      dataType: "script",
+      global: false,
+      beforeSend: -> clearAndSpin(),
+      complete: -> register_mark_as_read_event_listeners())
 
   enable_close_on_esc = ->
     $('body').bind 'keydown', handle_keydown
@@ -36,7 +59,6 @@ jQuery(document).ready ->
 
   clearAndSpin = ->
     $notifications_list()
-      .empty()
       .append($notif_spin = $('<li id="notifications-spinner"></li>'))
     $notif_spin.spin()
 

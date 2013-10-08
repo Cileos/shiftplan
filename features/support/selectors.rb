@@ -88,6 +88,9 @@ module HtmlSelectorsHelpers
     when 'the spinner'
       '#spinner'
 
+    when 'the notifications spinner'
+      '#notifications-spinner'
+
     when /^the #{capture_nth} active tab$/
       ".tabbable#{Numerals[$1]} .tab-pane.active"
 

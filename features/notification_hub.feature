@@ -24,7 +24,7 @@ Feature: Notification Hub
      When the time interval for updating the count of the notification hub elapses
      Then the notification hub should have "3" new notifications
      When I follow "3" within the notification hub
-      And I wait for the spinner to disappear
+      And I wait for the notifications spinner to disappear
      Then the notification hub should have no new notifications
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
@@ -45,7 +45,7 @@ Feature: Notification Hub
      When I go to the home page
      Then the notification hub should have "1" new notifications
      When I open the notification hub menu
-      And I wait for the spinner to disappear
+      And I wait for the notifications spinner to disappear
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
       # TODO: This first line should be removed when tatze changes the html.
@@ -77,7 +77,7 @@ Feature: Notification Hub
      When I go to the home page
      Then the notification hub should have "11" new notifications
      When I open the notification hub menu
-      And I wait for the spinner to disappear
+      And I wait for the notifications spinner to disappear
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
       # TODO: This first line should be removed when tatze changes the html.
@@ -97,7 +97,7 @@ Feature: Notification Hub
        |               |                                       |
 
      When I follow "Alle als gelesen markieren"
-      And I wait for the spinner to disappear
+      And I wait for the notifications spinner to disappear
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
       # TODO: This first line should be removed when tatze changes the html.
