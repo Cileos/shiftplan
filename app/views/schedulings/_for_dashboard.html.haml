@@ -6,11 +6,13 @@
   .content
     - unless schedulings.empty?
       %table.agenda
-        - schedulings.each do |scheduling|
+        - schedulings.map(&:decorate).each do |scheduling|
           %tr
             %th.date
               %span.day= scheduling.starts_at.day
-              %span.day-name= l scheduling.starts_at, format: :abbr_week_day
+              %span.day-name
+                = l scheduling.starts_at, format: :abbr_week_day
+                = scheduling.link_to_conflicts
               %span.month-year= l scheduling.starts_at, format: :short_month_and_year
             %td
               - plan = scheduling.plan

@@ -1,0 +1,6 @@
+.two-cols
+  .col.provoker
+    = render 'conflicts/scheduling', scheduling: conflict.provoker.decorate
+  .col.established
+    - conflict.established.map(&:decorate).each do |est|
+      = render 'conflicts/scheduling', scheduling: est

@@ -106,3 +106,20 @@
     }
   }
 }
+
+// two-column anno 2013-09-30
+.two-cols {
+  overflow: hidden;
+
+  .col {
+    margin-bottom: 20px;
+    width: 47.4%;
+    margin-right: 5%;
+    float: left;
+
+    &:nth-child(2) {
+      float: right;
+      margin-right: 0;
+    }
+  }
+}

@@ -98,7 +98,7 @@ Then /^I should see an? (\w+) table with the following rows:$/ do |name, expecte
   selectors = expected.column_names.map {|s| ".#{s}" }
   actual = find("table.#{name}").all('tr').map do |tr|
     selectors.map do |column|
-      tr.find(column).try(:text).try(:strip)
+      tr.find(column).text.strip.gsub(/\s+/, ' ')
     end
   end
   actual.unshift expected.column_names

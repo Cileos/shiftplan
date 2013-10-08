@@ -16,7 +16,7 @@ module StackDecoratorHelper
         stacked << current
       end
       stacked.each do |s|
-        s.remaining_stack = [0, sorted.select { |o| o.overlap_ignoring_stack?(s) }.group_by(&:stack).count - s.stack - 1].max
+        s.remaining_stack = [0, sorted.select { |o| o.cover?(s) }.group_by(&:stack).count - s.stack - 1].max
       end
     end
   end

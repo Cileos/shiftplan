@@ -1,6 +1,6 @@
 .scheduling {
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   margin-bottom: 5px;
   padding: 0px;
   font-size: 10px;
@@ -39,7 +39,7 @@
 
     a.comments,
     a.no-comments {
-      padding-left: 2px;
+      padding: 2px;
       @extend %with-icon;
       @extend .icon-comment;
     }

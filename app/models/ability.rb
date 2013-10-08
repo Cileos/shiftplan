@@ -64,6 +64,9 @@ class Ability
     can [:read, :update, :update_profile], User do |u|
       user == u
     end
+    can :show, Conflict do |conflict|
+      user == conflict.provoker.employee.user
+    end
   end
 
   def authorize_employee(user)
@@ -197,6 +200,10 @@ class Ability
       curr_organization == task.milestone.plan.organization
     end
 
+    can :show, Conflict do |conflict|
+      current_organization == conflict.provoker.plan.organization
+    end
+
     authorize_employee(user)
   end
 
@@ -285,6 +292,11 @@ class Ability
     can :manage, Task do |task|
       curr_account == task.milestone.plan.organization.account
     end
+
+    can :show, Conflict do |conflict|
+      current_organization == conflict.provoker.plan.organization
+    end
+
 
     authorize_employee(user)
   end

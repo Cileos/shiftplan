@@ -1,0 +1,3 @@
+class ConflictDecorator < RecordDecorator
+
+end
