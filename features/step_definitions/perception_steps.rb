@@ -169,6 +169,9 @@ Then /^the notification hub should have no new notifications$/ do
   page.has_css?("a#notifications-count span", text: '')
 end
 
+Then /^the notification hub (should|should not) have unread notifications$/ do |or_not|
+  step %~the notification hub #{or_not} have class "has_unread"~
+end
 
 Then /^the notification hub (should|should not) have class #{capture_quoted}$/ do |or_not, css_class|
   if or_not.include?('not')

@@ -26,6 +26,7 @@ Feature: Notification Hub
      When I follow "3" within the notification hub
       And I wait for the notifications spinner to disappear
      Then the notification hub should have no new notifications
+      But the notification hub should have unread notifications
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.
       # TODO: This first line should be removed when tatze changes the html.
@@ -44,6 +45,7 @@ Feature: Notification Hub
     Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I go to the home page
      Then the notification hub should have "1" new notifications
+      And the notification hub should have unread notifications
      When I open the notification hub menu
       And I wait for the notifications spinner to disappear
       # The first line of the step`s table argument corresponds to the first
@@ -54,10 +56,11 @@ Feature: Notification Hub
        |              |                                                            |
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen" |
        |              |                                                            |
-      But should not see "Alles erledigt" within the notification hub
+      But I should not see "Alles erledigt" within the notification hub
      When I follow "Als gelesen markieren" within the notification hub
-     Then should not see "Umweltminister zu Besuch" within the notification hub
-      But should see "Alles erledigt" within the notification hub
+     Then the notification hub should not have unread notifications
+      And I should not see "Umweltminister zu Besuch" within the notification hub
+      But I should see "Alles erledigt" within the notification hub
 
 
   Scenario: Mark all notifications as read
@@ -76,6 +79,7 @@ Feature: Notification Hub
       | the blog  | employee "bart"  | Post 11  | Post 11  | 2012-12-22  |
      When I go to the home page
      Then the notification hub should have "11" new notifications
+      And the notification hub should have unread notifications
      When I open the notification hub menu
       And I wait for the notifications spinner to disappear
       # The first line of the step`s table argument corresponds to the first
@@ -108,6 +112,8 @@ Feature: Notification Hub
        |               |                                     |
        | Bart Simpson  | hat "Post 1" geschrieben: "Post 1"  |
        |               |                                     |
+      And the notification hub should have unread notifications
 
      When I follow "Alle als gelesen markieren"
-     Then should see "Alles erledigt" within the notification hub
+     Then I should see "Alles erledigt" within the notification hub
+      And the notification hub should not have unread notifications
