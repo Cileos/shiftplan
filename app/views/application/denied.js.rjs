@@ -1,2 +1,2 @@
 page['flash'].remove()
-page.select('.navbar:first').after render('flash')
+page.select('header.masterhead').before render('flash')

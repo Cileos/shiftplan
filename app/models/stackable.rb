@@ -19,10 +19,11 @@ module Stackable
 
   # ignores real date, just checks hours
   def overlap?(other)
-    other.stack == stack && overlap_ignoring_stack?(other)
+    other.stack == stack && cover?(other)
   end
 
-  def overlap_ignoring_stack?(other)
+  # OPTIMIZE also used in ConflictFinder
+  def cover?(other)
     time_range.cover?(other.starts_at) || other.time_range.cover?(starts_at) || starts_at == other.starts_at
   end
 end

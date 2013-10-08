@@ -24,7 +24,8 @@ module HtmlSelectorsHelpers
       "table#employees tr#record_#{employee.id}"
 
     when /^the ([a-zA-Z ]+) table$/
-      "table##{$1.gsub(' ', '-')}"
+      sel = $1.gsub(' ', '-')
+      "table##{sel}, table.#{sel}"
 
     when 'the navigation'
       'nav[role=navigation]'
@@ -136,6 +137,15 @@ module HtmlSelectorsHelpers
 
     when 'a hint'
       '.hint'
+
+    when /^the left column$/
+      '.col:nth-child(1)'
+
+    when /^the right column$/
+      '.col:nth-child(2)'
+
+    when /conflict icon$/
+      'a.conflict'
 
     when 'the pagination'
       '.pagination'

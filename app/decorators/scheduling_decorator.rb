@@ -31,6 +31,12 @@ class SchedulingDecorator < RecordDecorator
     cid_for_overnightable
   end
 
+  def link_to_conflicts
+    if conflicting?
+      h.link_to '!', h.nested_resources_for(scheduling, :conflicts), class: 'conflict', remote: true
+    end
+  end
+
 
   private
   def scheduling

@@ -95,7 +95,7 @@ end
 gem 'thin' # webrick must die
 
 gem 'coffee-rails', '~> 3.2.2'
-gem 'bourbon'
+gem 'bourbon', '~> 3.1'
 gem 'devise'
 gem 'spectator-validates_email', :require => 'validates_email'
 gem 'cancan'

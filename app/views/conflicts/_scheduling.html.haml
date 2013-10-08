@@ -1,0 +1,10 @@
+%heading
+  .org-name= scheduling.plan.organization.name
+  .plan-name= scheduling.plan.name
+%section.scheduling{class: scheduling.css_class}
+  = abbr_tag scheduling.period_with_zeros, scheduling.period_with_duration, class: 'work_time'
+  - if qualification = scheduling.try(:qualification)
+    %span.qualification_name
+      = qualification.name
+  - if scheduling.team
+    = abbr_tag scheduling.team_name, scheduling.team_name, class: 'team_name'

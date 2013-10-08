@@ -1,0 +1,48 @@
++keyframes(conflict-warning)
+  0%
+    color: $ci_darkorange
+
+  50%
+    color: $ci_yellow
+
+  100%
+    color: $ci_darkorange
+
+.conflict
+  position: relative
+  display: block
+  color: $ci_yellow
+  +animation(conflict-warning 1.0s linear infinite)
+  @extend %with-icon
+  @extend .icon-alert
+  overflow: hidden
+  width: 1.6em
+  padding-left: 3px
+  padding-right: 5px
+  // text-shadow: black 0 0 1px
+
+  &:before
+    padding-right: 1em
+
+  &:hover
+    font-size: 1.5em
+    color: $ci_darkorange
+    // text-shadow: black 0 0 5px
+
+  .scheduling &
+    position: absolute
+    bottom: 0
+    left: 1px
+
+    &:hover
+      bottom: -4px
+      left: -2px
+
+  .agenda &
+    position: absolute
+    top: -5px
+    right: -5px
+
+    &:hover
+      top: -9px
+      right: -11px

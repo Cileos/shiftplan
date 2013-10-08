@@ -7,7 +7,10 @@ class SchedulingsController < BaseController
   # FIXME obviously the custom actions are not neccessary if a view with the name exists
   layout 'calendar'
 
-  before_filter :validate_plan_period, except: [:new, :create, :edit, :update, :destroy] # but all the collections
+  with_options except: [:new, :create, :edit, :update, :destroy] do |only_collections|
+    only_collections.before_filter :validate_plan_period
+    only_collections.before_filter :find_conflicts
+  end
   before_filter :merge_time_components_from_next_day, only: :edit
 
   respond_to :html, :js
@@ -40,6 +43,10 @@ class SchedulingsController < BaseController
 
     def validate_plan_period
       VP::PlanRedirector.new(self, plan).validate_and_redirect(filter)
+    end
+
+    def find_conflicts
+      ConflictFinder.new( filter.records ).call
     end
 
     def plan

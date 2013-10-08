@@ -6,6 +6,11 @@ class WelcomeController < ApplicationController
   end
 
   def dashboard
+    @upcoming      = current_user.schedulings.upcoming.starting_in_the_next('14 days')
+    @notifications = current_user.notifications
+    @posts         = current_user.posts_of_joined_organizations.recent(15)
+
+    UserConflictFinder.new(@upcoming).call
   end
 
   protected

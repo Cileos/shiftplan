@@ -14,6 +14,7 @@ Clockwork::Application.routes.draw do
       resources :plans do
         resources :schedulings do
           resources :comments, only: [:index, :create, :destroy], controller: 'scheduling_comments'
+          resource :conflicts, only: :show
         end
 
         # The names should correspond with the controller actions and modes of the SchedulingFilter
