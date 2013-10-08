@@ -79,6 +79,15 @@ class Notification::Base < ActiveRecord::Base
     where(notifiable_id: notifiable.id).where(notifiable_type: notifiable.class.name)
   end
 
+  def self.not_upcoming
+    where("type != 'Notification::UpcomingScheduling'")
+  end
+
+  def self.older_than(interval)
+    raise ArgumentError unless interval =~ /\A\d+ [a-z]+\z/
+    where("#{table_name}.created_at < TIMESTAMP :now - INTERVAL '#{interval}'", now: Time.zone.now)
+  end
+
   def user_locale
     locale = employee.user.try(:locale)
     locale.present? ? locale.to_sym : I18n.default_locale

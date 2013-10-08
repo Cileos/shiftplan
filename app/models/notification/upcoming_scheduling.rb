@@ -37,6 +37,12 @@ class Notification::UpcomingScheduling < Notification::Base
     employee
   end
 
+  def self.with_scheduling_ended
+    all.select do |n|
+      n.notifiable.ends_at < Time.zone.now
+    end
+  end
+
   private
 
   def scheduling

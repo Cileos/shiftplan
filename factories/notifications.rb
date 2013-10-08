@@ -4,14 +4,9 @@ FactoryGirl.define do
     employee
   end
 
-  factory :comment_on_scheduling_notification, class: "Notification::CommentOnScheduling" do
+  factory :post_notification, class: "Notification::Post" do
     employee
-    association :notifiable, factory: :scheduling
-  end
-
-  factory :comment_on_post_notification, class: "Notification::CommentOnPost" do
-    employee
-    association :notifiable, factory: :scheduling
+    association :notifiable, factory: :post
   end
 
   factory :upcoming_scheduling_notification, class: 'Notification::UpcomingScheduling' do
