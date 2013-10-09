@@ -17,5 +17,3 @@
 = f.association :qualification, as: :select, collection: current_account.qualifications
 
 = f.association :team, as: :select, include_blank: true, collection: scheduling.plan.organization.teams
-
-%p.quickie_preview

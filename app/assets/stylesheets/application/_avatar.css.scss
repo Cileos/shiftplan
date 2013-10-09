@@ -29,6 +29,7 @@
   vertical-align: middle;
   text-align: center;
   overflow: hidden;
+  text-shadow: none;
 
   &.tiny {
     max-height: $tiny_size;
