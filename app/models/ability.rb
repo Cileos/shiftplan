@@ -65,8 +65,13 @@ class Ability
     can [:read, :update, :update_profile], User do |u|
       user == u
     end
+
     can :show, Conflict do |conflict|
       user == conflict.provoker.employee.user
+    end
+
+    can [:read, :create, :destroy], IcalExport do |ie|
+      user == ie.user
     end
   end
 

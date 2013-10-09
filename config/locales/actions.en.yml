@@ -12,6 +12,7 @@ en:
       settings: Preferences
       advanced_settings: Advanced
       dashboard: Dashboard
+      export: Export
       info: Info
       news: News
       signin: Log in

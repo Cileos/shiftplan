@@ -37,6 +37,18 @@ class SchedulingDecorator < RecordDecorator
     end
   end
 
+  def summary
+    if team
+      if plan
+        "#{team.name} (#{plan.name})"
+      else
+        team.name
+      end
+    elsif plan
+      plan.name
+    end
+  end
+
 
   private
   def scheduling
