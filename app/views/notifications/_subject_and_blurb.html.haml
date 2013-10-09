@@ -1,4 +1,5 @@
 %a{href: url_for_notifiable(notification.notifiable), class: 'notifiable-link icon-' + notification.notifiable_type.downcase}
+  = avatar notification.acting_employee.user, notification.acting_employee, :thumb, 'small'
   %subject.subject
     = notification.subject
   %blurb.blurb
