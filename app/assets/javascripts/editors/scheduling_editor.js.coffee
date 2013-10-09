@@ -28,6 +28,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     @input('start_time')
       .timeEntry(timeoptions)
       .bindWithDelay('keyup mousewheel', (=> @updateQuickie()), 150)
+      .focus()
     @input('end_time')
       .timeEntry(timeoptions)
       .bindWithDelay('keyup mousewheel', (=> @updateQuickie()), 150)
