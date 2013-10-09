@@ -40,7 +40,7 @@
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-  font-family: "proxima-nova",Helvetica,Arial,sans-serif;
+  font-family: $font-family;
 }
 
 .ui-widget input:not(.button):not(.boolean),
@@ -285,5 +285,27 @@
 
   .buttons {
     text-align:center;
+  }
+}
+
+.provoker,
+.established {
+  .plan-name,
+  .org-name {
+    line-height: 1.3;
+    font-size: $ci_font-size;
+  }
+
+  .plan-name {
+    min-width: 200px;
+    margin-bottom: 0.3em;
+  }
+
+  .org-name {
+    font-size: $ci_small-font;
+  }
+
+  .scheduling {
+    margin-bottom: 2em;
   }
 }

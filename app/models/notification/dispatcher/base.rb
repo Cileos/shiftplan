@@ -2,9 +2,9 @@ class Notification::Dispatcher::Base
 
   def self.create_notifications_for(thingy)
     case thingy
-    when Comment
+    when ::Comment
       Notification::Dispatcher::Comment.create_notifications_for(thingy)
-    when Post
+    when ::Post
       Notification::Dispatcher::Post.create_notifications_for(thingy)
     end
   end

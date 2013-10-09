@@ -11,7 +11,7 @@ input,
 button,
 label,
 textarea {
-  font-family:"proxima-nova",Helvetica,Arial,sans-serif;
+  font-family: $font-family;
 }
 
 $all-text-inputs: append($all-text-inputs, unquote('input[type="stringy_date"]'), comma);

@@ -18,7 +18,8 @@ class AvatarWidget < Struct.new(:h, :user, :employee, :version)
     elsif empl
       h.content_tag(:i, empl.shortcut, html_options)
     else
-      ''
+      html_options[:class] = "#{html_options[:class]} fallback"
+      h.content_tag(:i, '', html_options)
     end
   end
 

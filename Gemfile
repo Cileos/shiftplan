@@ -26,7 +26,8 @@ end
 
 group :test do
   gem 'cucumber-rails', "~> 1.2.1", :require => false
-  gem 'rspec-rails', "~> 2.12.2"
+  gem 'rspec-rails', '~> 2.14.0'
+  gem 'rspec-fire'
   gem 'launchy'
   gem "pickle"
   gem "timecop"
@@ -69,6 +70,7 @@ group :development, :test do
   gem "guard-jasmine"
   gem "jasminerice"
   gem 'rb-inotify', '~> 0.8.8', :require => false
+  gem 'zeus'
 end
 
 group :development do
@@ -93,7 +95,7 @@ end
 gem 'thin' # webrick must die
 
 gem 'coffee-rails', '~> 3.2.2'
-gem 'bourbon'
+gem 'bourbon', '~> 3.1'
 gem 'devise'
 gem 'spectator-validates_email', :require => 'validates_email'
 gem 'cancan'
@@ -134,3 +136,10 @@ gem 'backup', :require => false # just for restore
 gem 'friendly_id', '~> 4.0' # for rails 3
 # mitigate BREACH and CRIME https attack
 gem 'breach-mitigation-rails'
+
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'whenever', :require => false
+
+# feeds, fork for proper DateTime parsing, see https://github.com/rubyredrick/ri_cal/pull/12
+gem 'ri_cal', git: 'git://github.com/KonaTeam/ri_cal.git'

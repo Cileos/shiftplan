@@ -33,8 +33,7 @@ class CopyWeek
     Plan.transaction do
       source_schedulings.each do |s|
         t = s.dup
-        t.move_to_week_and_year target_week, target_year
-        t.save!
+        t.move_to_week_and_year! target_week, target_year
       end
     end
   end

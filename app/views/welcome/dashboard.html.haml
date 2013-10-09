@@ -8,6 +8,6 @@
 -#       class: 'button button-add', title: ta(:add_account)
 
 .row.two-columns.inverted.dashboard
-  = render 'schedulings/for_dashboard', schedulings: current_user.schedulings.upcoming
-  = render 'notifications/for_dashboard', notifications: current_user.notifications
-  = render 'posts/for_dashboard', posts: current_user.posts_of_joined_organizations.recent(15)
+  = render 'schedulings/for_dashboard', schedulings: @upcoming
+  = render 'notifications/for_dashboard', notifications: @notifications
+  = render 'posts/for_dashboard', posts: @posts

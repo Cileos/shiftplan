@@ -1,0 +1,6 @@
+- title :notifications
+
+.notifications.elements-list
+  = render 'notifications/list', notifications: @notifications
+
+= paginate @notifications

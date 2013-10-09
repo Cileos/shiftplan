@@ -17,18 +17,3 @@ en:
   helpers:
     actions:
       more: "Read more"
-  post_notification_mailer:
-    new_post:
-      subjects:
-        post: "%{name} wrote a new post"
-      introductory_texts:
-        post: "%{name} wrote a new post on %{date} :"
-    new_comment:
-      subjects:
-        comment_on_post: "%{name} commented on a post"
-        comment_on_post_of_employee: "%{name} commented on one of your posts"
-        comment_on_post_for_commenter: "%{name} also commented on a post"
-      introductory_texts:
-        comment_on_post: "%{author_name} commented on '%{post_title}' at %{date} :"
-        comment_on_post_of_employee: "%{author_name} commented on your '%{post_title}' at %{date}:"
-        comment_on_post_for_commenter: "%{author_name} also commented on '%{post_title}' at %{date}:"

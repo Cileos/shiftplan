@@ -1,10 +1,10 @@
 html {
-  @include font-smoothing(subpixel-antialiased);
+  // @include font-smoothing(subpixel-antialiased);
 
-  font-family: "proxima-nova",Helvetica,Arial,sans-serif;
+  font-family: $font-family;
   font-size: $ci_font-size;
   line-height: $ci_line-height;
-  text-rendering: optimizeLegibility;
+  // text-rendering: optimizeLegibility;
 }
 
 body {
@@ -72,6 +72,7 @@ small {
 
 [role=banner] {
   background: $ci_blue;
+  @include background(linear-gradient(lighten($ci_blue, 2%), darken($ci_blue, 3%)));
   border-bottom: 1px solid darken($ci_blue, 7.5%);
   color: lighten($ci_blue, 50%);
   display: inline-block;
@@ -127,7 +128,7 @@ small {
   .user-navigation {
     .user {
       padding: 11px 10px 12px;
-      height: 50px;
+      height: 49px;
     }
 
     .help-faq {
@@ -136,8 +137,16 @@ small {
     }
   }
 
+  > nav > ul > li > a {
+    text-shadow: $ci_blue_hover_dark -1px -1px 0px;
+  }
+
   [role=navigation] {
     float:left;
+
+    > ul > li:last-child > a {
+      border-right: 1px solid darken($ci_blue, 7.5%);
+    }
   }
 
   .user-navigation {
@@ -154,14 +163,7 @@ small {
   }
 
   .avatar {
-    margin-top: 5px;
-  }
-
-  img.avatar {
-    margin-top: 0;
-    vertical-align: -10px;
-    // border: 1px solid $ci_grey;
-    height: 27px;
+    margin-top: -4px;
   }
 
   .active {
@@ -472,4 +474,27 @@ small {
 }
 .toggle-sidebars[data-toggle="contextual_help"] {
   right: 0;
+}
+
+.export-link {
+  display: inline-block;
+  margin: 1em;
+  padding: 1em;
+  background: $ci_darkwhite;
+  @extend %with-icon;
+  @extend .icon-export;
+}
+
+.enable-export,
+.deactivate-export {
+  margin-top: 2em;
+
+  form,
+  form div {
+    display: inline;
+  }
+}
+
+.deactivate-export {
+  font-weight: bold;
 }

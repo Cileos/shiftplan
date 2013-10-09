@@ -59,10 +59,12 @@ describe AvatarWidget do
     end
 
     context 'without employee and user' do
+      let(:html_options) { {class: 'given'} }
       let(:user) { nil }
       let(:employee) { nil }
-      it 'renders nothing' do
-        widget.to_html.should be_blank
+      it 'renders blank fallback user icon' do
+        view.should_receive(:content_tag).with(:i, '', class: 'given fallback')
+        widget.to_html
       end
     end
 

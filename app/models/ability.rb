@@ -40,6 +40,7 @@ class Ability
 
   def authorize_signed_in(user)
     can :dashboard, User
+    can [:read, :update], Notification::Base, employee: { user_id: user.id }
     can :read, Account do |account|
       user.accounts.include?(account)
     end
@@ -63,6 +64,14 @@ class Ability
     end
     can [:read, :update, :update_profile], User do |u|
       user == u
+    end
+
+    can :show, Conflict do |conflict|
+      user == conflict.provoker.employee.user
+    end
+
+    can [:read, :create, :destroy], IcalExport do |ie|
+      user == ie.user
     end
   end
 
@@ -197,6 +206,10 @@ class Ability
       curr_organization == task.milestone.plan.organization
     end
 
+    can :show, Conflict do |conflict|
+      current_organization == conflict.provoker.plan.organization
+    end
+
     authorize_employee(user)
   end
 
@@ -285,6 +298,11 @@ class Ability
     can :manage, Task do |task|
       curr_account == task.milestone.plan.organization.account
     end
+
+    can :show, Conflict do |conflict|
+      current_organization == conflict.provoker.plan.organization
+    end
+
 
     authorize_employee(user)
   end

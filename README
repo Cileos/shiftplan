@@ -7,19 +7,3 @@ Use it. Enjoy it. Love it.
 === Forms
 
 See Volksplaner::FormButtons for buttons to use in you forms.
-
-=== Cucumber stepfinder ===
-
-Usage examples for stepfinder thor task:
-
-$ bundle exec thor cucumber:find_step --search='the following'
-Finds step definitions including the string 'the following'.
-
-$ bundle exec thor cucumber:find_step --search='the following' --refresh_steps
-Fetches/refreshes stepsdefinition found in this app and in all other adva gems to be searched in.
-All step definitions are written to a file 'features/support/stepdefs.txt'.
-Then it finds step definitions including the string 'the following'.
-
-$ bundle exec thor cucumber:find_step --search='I should see the "Leckerhonig" page' --regex
-Finds step definitions which match the string 'I should see the "Leckerhonig" page'.
-

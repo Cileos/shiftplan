@@ -69,6 +69,13 @@
         }
 
         // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-blog {
+          &:before {
+            content: "\f036";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
         .icon-organization {
           &:before {
             content: "\f024";
@@ -205,5 +212,47 @@
         .icon-alert {
           &:before {
             content: "\f071";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-bell {
+          &:before {
+            content: "\f0f3";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-bell_empty {
+          &:before {
+            content: "\f0a2";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-scheduling {
+          &:before {
+            content: "\f073";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-post {
+          &:before {
+            content: "\f036";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-export {
+          &:before {
+            content: "\f14d";
+          }
+        }
+
+        // THIS HAS BEEN COMPILED, DON'T EDIT!
+        .icon-user {
+          &:before {
+            content: "\f007";
           }
         }

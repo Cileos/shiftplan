@@ -2,6 +2,7 @@
   - schedulings.each do |scheduling|
     %li.scheduling{class: scheduling.css_class, data: scheduling.metadata}
       = abbr_tag scheduling.period_with_zeros, scheduling.period_with_duration, class: 'work_time'
+      = scheduling.link_to_conflicts
       - if qualification = scheduling.try(:qualification)
         %span.qualification_name
           = qualification.name

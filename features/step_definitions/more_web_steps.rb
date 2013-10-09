@@ -136,7 +136,7 @@ Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
   begin
     wait_until { URI.parse(current_url).path.starts_with? expected }
   rescue Capybara::TimeoutError => e
-    URI.parse(current_url).path.should starts_with(expected)
+    URI.parse(current_url).path.should start_with(expected)
   end
 end
 
@@ -185,12 +185,14 @@ Then /^the "([^"]*)" field(?: within (.*))? should equal "([^"]*)"$/ do |field, 
   end
 end
 
-Given /^I use an? (german|english) browser$/ do |lang|
+Given /^I use an? (german|english|polish) browser$/ do |lang|
   case lang
   when 'english'
     add_headers 'Accept-Language' => 'en-GB'
   when 'german'
     add_headers 'Accept-Language' => 'de-DE'
+  when 'polish' # not supported yet
+    add_headers 'Accept-Language' => 'pl-PL'
   end
 end
 

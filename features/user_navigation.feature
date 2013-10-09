@@ -15,6 +15,7 @@ Feature: User Navigation
      Then I should see the following list of links within the user navigation:
        | link            | active |
        | ?               | false  |
+       |                 | false  |
        | CB              | false  |
        | Einstellungen   | false  |
        | Ausloggen       | false  |

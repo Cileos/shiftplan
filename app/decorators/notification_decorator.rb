@@ -1,0 +1,2 @@
+class NotificationDecorator < ApplicationDecorator
+end

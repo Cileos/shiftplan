@@ -232,6 +232,20 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  def respond_for_update(*)
+    conflict_finder.call
+    super
+  end
+
+  def respond_for_create(*)
+    conflict_finder.call
+    super
+  end
+
+  def conflict_finder
+    @conflict_finder ||= ConflictFinder.new(records)
+  end
+
   def respond_specially(resource=nil)
     update_legend
     update_team_colors

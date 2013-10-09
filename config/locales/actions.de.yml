@@ -1,6 +1,8 @@
 de:
   helpers:
     actions:
+      show_all: 'Alle anzeigen'
+      notifications: 'Benachrichtigungen'
       new_post: 'Neuen Blogpost erstellen'
       edit_post: 'Blogpost bearbeiten'
       edit_account: Account bearbeiten
@@ -10,6 +12,7 @@ de:
       settings: Einstellungen
       advanced_settings: Erweitert
       dashboard: Dashboard
+      export: Export
       info: Info
       news: Neuigkeiten
       signin: Einloggen
@@ -87,6 +90,9 @@ de:
       show_help: "Hilfe"
       show_help_long: "Hilfe anzeigen"
       core_data: Stammdaten
+      conflicts: 'Konflikte'
+      mark_as_read: "Als gelesen markieren"
+      mark_all_as_read: "Alle als gelesen markieren"
   schedulings:
     calendar_navigation:
       day: "Tag"

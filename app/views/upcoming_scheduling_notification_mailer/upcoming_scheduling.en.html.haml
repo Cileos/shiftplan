@@ -1,0 +1,14 @@
+%p= "Hello #{@notification.employee.name}!"
+
+%p= @notification.introductory_text
+
+%p Click on the following link to see the shift's details:
+
+%p= link_to "Shift details >>",
+  account_organization_plan_employees_in_week_url(@scheduling.organization.account,
+  @scheduling.organization, @scheduling.plan, cwyear: @scheduling.cwyear, week: @scheduling.week)
+
+
+%p Your Clockwork Team
+
+= render 'clockwork_mailer/turn_off_notification_emails_hint'

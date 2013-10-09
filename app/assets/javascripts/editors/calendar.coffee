@@ -56,7 +56,7 @@ class CalendarEditor extends View
 
   addTabIndices: ->
     tabIndex = 1
-    for input in @modal().find('input[type=text],select,button')
+    for input in @modal().find('input,select,button')
       $(input).attr('autofocus', 'true') if tabIndex == 1
       $(input).attr('tabIndex', tabIndex)
       tabIndex++

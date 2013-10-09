@@ -1,4 +1,4 @@
-.module.list.notifications
+.module.elements-list.notifications
   %header
     %h2
       = t('notifications.caption')
@@ -7,12 +7,5 @@
       -# TODO ticket #505710
       %a.side-link{style: 'display: none'} See all
   .content
-    - unless notifications.empty?
-      %ul
-        - notifications.recent(15).each do |notification|
-          %li.icon-comment
-            = avatar notification.acting_employee.user, notification.acting_employee, :thumb
-            = notification.introductory_text
-    - else
-      %p= t('notifications.no_notifications_present')
-
+    = render 'notifications/list', notifications: notifications.for_dashboard
+    = link_to :show_all, notifications_path

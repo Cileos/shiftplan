@@ -24,7 +24,8 @@ module HtmlSelectorsHelpers
       "table#employees tr#record_#{employee.id}"
 
     when /^the ([a-zA-Z ]+) table$/
-      "table##{$1.gsub(' ', '-')}"
+      sel = $1.gsub(' ', '-')
+      "table##{sel}, table.#{sel}"
 
     when 'the navigation'
       'nav[role=navigation]'
@@ -34,6 +35,9 @@ module HtmlSelectorsHelpers
 
     when /the (account|organization) dropdown list/
       selector_for('the navigation') + " ul.#{$1}-dropdown"
+
+    when /^the quickie preview$/
+      '.quickie_preview'
 
     when 'the user navigation'
       '.user-navigation'
@@ -88,6 +92,9 @@ module HtmlSelectorsHelpers
     when 'the spinner'
       '#spinner'
 
+    when 'the notifications spinner'
+      '#notifications-spinner'
+
     when /^the #{capture_nth} active tab$/
       ".tabbable#{Numerals[$1]} .tab-pane.active"
 
@@ -134,6 +141,15 @@ module HtmlSelectorsHelpers
     when 'a hint'
       '.hint'
 
+    when /^the left column$/
+      '.col:nth-child(1)'
+
+    when /^the right column$/
+      '.col:nth-child(2)'
+
+    when /conflict icon$/
+      'a.conflict'
+
     when 'the pagination'
       '.pagination'
 
@@ -174,6 +190,12 @@ module HtmlSelectorsHelpers
 
     when 'the duplication warning'
       'div#duplication-warning'
+
+    when 'the notification hub'
+      'li#notification-hub'
+
+    when 'the notifications count'
+      'a#notifications-count'
 
     when /the date\s?picker/
       'div.datepick-popup div.datepick'

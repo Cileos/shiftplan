@@ -133,3 +133,32 @@ When /^I assume the calendar will not change$/ do
   the_calendar.cache!
   # calendar will be cleared after each scenario
 end
+
+When /^(?:I|they) schedule #{capture_quoted}$/ do |quickie_string|
+  quickie = Quickie.parse(quickie_string)
+
+  holder = OpenStruct.new
+  quickie.fill(holder)
+
+  fill_in('scheduling_start_time', with: holder.start_time) if holder.start_time.present?
+  fill_in('scheduling_end_time', with: holder.end_time) if holder.end_time.present?
+  select(holder.team_name, :from => 'scheduling_team_id') if holder.team_name.present?
+end
+
+# TODO same as "I fill in the empty" ?
+When /^I schedule #{capture_quoted} on #{capture_quoted} for #{capture_quoted}$/ do |employee, day, quickie|
+  step %Q~I click on cell "#{day}"/"#{employee}"~
+  within_modal_box do
+    step %Q~I schedule "#{quickie}"~
+    click_button "Anlegen"
+  end
+end
+
+# Assuming we just clicked on a scheduling in one of the views, a modal box should open..
+Then /^I reschedule #{capture_quoted} and select #{capture_quoted} as #{capture_quoted}$/ do |quickie, employee, employee_field|
+  within_modal_box do
+    step %Q~I schedule "#{quickie}"~
+    select employee, from: employee_field
+    click_button "Speichern"
+  end
+end

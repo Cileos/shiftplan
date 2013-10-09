@@ -460,20 +460,20 @@ describe Scheduling do
 
   describe "overlapping" do
     it "does happen with at least one common hour" do
-      one = create :scheduling, quickie: '9-12'
-      two = create :scheduling, quickie: '11-17'
+      one = create :scheduling_by_quickie, quickie: '9-12'
+      two = create :scheduling_by_quickie, quickie: '11-17'
       one.should be_overlap(two)
       two.should be_overlap(one)
     end
     it "does not happen without common hours" do
-      one = create :scheduling, quickie: '9-11'
-      two = create :scheduling, quickie: '11-17'
+      one = create :scheduling_by_quickie, quickie: '9-11'
+      two = create :scheduling_by_quickie, quickie: '11-17'
       one.should_not be_overlap(two)
       two.should_not be_overlap(one)
     end
     it "does not happen on different stacks" do
-      one = create :scheduling, quickie: '9-17', stack: 0
-      two = create :scheduling, quickie: '9-17', stack: 1
+      one = create :scheduling_by_quickie, quickie: '9-17', stack: 0
+      two = create :scheduling_by_quickie, quickie: '9-17', stack: 1
       one.should_not be_overlap(two)
       two.should_not be_overlap(one)
     end
@@ -551,36 +551,23 @@ describe Scheduling do
     end
   end
 
-  context "upcoming" do
-    before :each do
+  context ".upcoming" do
+    it "is a working scope" do
+      expect { Scheduling.upcoming }.to_not raise_error
+    end
+  end
 
-      @in5      = create :scheduling, starts_at: 5.minutes.from_now
-      @tomorrow = create :scheduling, starts_at: 1.day.from_now
-      @tdat     = create :scheduling, starts_at: 2.days.from_now
-      @in8days  = create :scheduling, starts_at: 8.days.from_now
-      @in15days = create :scheduling, starts_at: 15.days.from_now
-      @yesterday = create :scheduling, starts_at: 1.day.ago
-      @last_week = create :scheduling, starts_at: 1.week.ago
-    end
-    it "should contain the ones starting within the next cigarette break" do
-      Scheduling.upcoming.should include(@in5)
-    end
-    it "should contain all within the next 7 days" do
-      Scheduling.upcoming.should include(@tomorrow)
-      Scheduling.upcoming.should include(@tdat)
+  context ".starting_in_the_next" do
+    context "with a valid interval argument" do
+      it "does not raise an argument error" do
+        expect { Scheduling.starting_in_the_next('1 days') }.to_not raise_error
+      end
     end
 
-    it "should contain all within the next 14 days" do
-      Scheduling.upcoming.should include(@in8days)
-    end
-
-    it "should not contain any farther than 15 days away" do
-      Scheduling.upcoming.should_not include(@in15days)
-    end
-
-    it "should not contain any from the past" do
-      Scheduling.upcoming.should_not include(@yesterday)
-      Scheduling.upcoming.should_not include(@last_week)
+    context "with an invalid interval argument" do
+      it "raises an argument error" do
+        expect { Scheduling.starting_in_the_next('1') }.to raise_error(ArgumentError)
+      end
     end
   end
 
@@ -601,6 +588,61 @@ describe Scheduling do
       expect do
         comment.destroy
       end.to change { scheduling.reload.comments_count }.from(1).to(0)
+    end
+  end
+
+  context '#move_to_week_and_year' do
+    let(:moving) { lambda {
+      scheduling.move_to_week_and_year!(23, 2002)
+    } }
+
+    shared_examples :move_to_week_and_year_changer do
+      it 'changes year' do
+        expect(&moving).to change { scheduling.year }.to(2002)
+      end
+
+      it 'changes week' do
+        expect(&moving).to change { scheduling.week }.to(23)
+      end
+    end
+    shared_examples :move_to_week_and_year_time_preserver do
+      it 'preserves start hour' do
+        expect(&moving).not_to change { scheduling.start_hour }
+      end
+
+      it 'preserves start minute' do
+        expect(&moving).not_to change { scheduling.start_minute }
+      end
+
+      it 'preserves end hour' do
+        expect(&moving).not_to change { scheduling.end_hour }
+      end
+
+      it 'preserves end minute' do
+        expect(&moving).not_to change { scheduling.end_minute }
+      end
+
+      it 'preserves week day' do
+        expect(&moving).not_to change { scheduling.cwday }
+      end
+    end
+
+    describe 'for regular scheduling' do
+      let(:scheduling) { build :scheduling_by_quickie, quickie: '10:15-11:45', date: '2012-11-25' }
+      it_should_behave_like :move_to_week_and_year_changer
+      it_should_behave_like :move_to_week_and_year_time_preserver
+    end
+    describe 'for overnight scheduling' do
+      let(:scheduling) { build :scheduling_by_quickie, quickie: '10:15-6:45', date: '2012-11-25'  }
+
+      it 'is not accepted, side effects of prev day create next day' do
+        scheduling.save!
+        expect(&moving).not_to change(Scheduling, :count)
+      end
+
+      it 'preserves quckie' do
+        expect(&moving).not_to change { scheduling.quickie }
+      end
     end
   end
 end

@@ -1,7 +1,15 @@
 de:
   profile:
     edit:
-      instructions: "Wählen Sie Ihre Spracheinstellungen."
+      change_locale_instructions: "Wählen Sie Ihre Spracheinstellungen:"
+      change_notification_instructions: "Wählen Sie Ihre Benachrichtigungseinstellungen:"
+  export:
+    is_inactive: "Im Moment wird keiner Deiner Termine exportiert."
+    is_active: "Dies ist die Privatadresse für Deine Termine. Gib diese Adresse nur für andere Personen frei, wenn Du möchtest, das diese alle Deine Termine sehen können."
+    webcal: "Für Macs oder iPhone/iPad/iPods oder andere Systeme, die webcal unterstützen, benutz bitte folgendenen Link:"
+    deactivate: "Export beenden? Klicke diesen Button:"
+    create_export: "Meine Termine exportieren"
+    reset_export: "Private URL zurücksetzen"
   profile_employees:
     index:
       instructions: "Wählen Sie einen Mitarbeiter."

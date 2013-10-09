@@ -30,20 +30,42 @@ class ApplicationController < ActionController::Base
 
   prepend_before_filter :set_locale
   def set_locale
-    if user_signed_in? && current_user.locale.present?
-      I18n.locale = current_user.locale.to_sym
-    elsif (from_header = extract_locale_from_accept_language_header) && I18n.available_locales.map(&:to_s).include?(from_header)
-      I18n.locale = from_header.to_sym
+    if user_signed_in?
+      if current_user.locale.present?
+        I18n.locale = current_user.locale.to_sym
+      else
+        save_browser_or_english_locale_for_user
+      end
     else
-      I18n.locale = I18n.default_locale
+       set_browser_or_english_locale
     end
     true
   end
 
   # TODO detect secondary (..) accepted language
-  def extract_locale_from_accept_language_header
-    if header = request.env['HTTP_ACCEPT_LANGUAGE']
+  def browser_locale
+    @browser_locale ||= if header = request.env['HTTP_ACCEPT_LANGUAGE']
       header.scan(/^[a-z]{2}/).first
+    end
+  end
+
+  def browser_locale_supported?
+    I18n.available_locales.map(&:to_s).include?(browser_locale)
+  end
+
+  def save_browser_or_english_locale_for_user
+    if browser_locale && browser_locale_supported?
+      current_user.update_attributes!(locale: browser_locale.to_s)
+    else
+      current_user.update_attributes!(locale: 'en')
+    end
+  end
+
+  def set_browser_or_english_locale
+    if browser_locale && browser_locale_supported?
+      I18n.locale = browser_locale.to_sym
+    else
+      I18n.locale = :en
     end
   end
 

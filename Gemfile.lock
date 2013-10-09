@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/KonaTeam/ri_cal.git
+  revision: 1e1b74f609e0eb82fe5f9d0a835b13728f48b4f0
+  specs:
+    ri_cal (0.8.8p)
+
+GIT
   remote: git://github.com/condor/versatile_rjs.git
   revision: 6a52e849ab113819cc8a457996d07bb87ab53ad6
   specs:
@@ -91,8 +97,9 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.6.8)
-    bourbon (2.1.1)
-      sass (>= 3.1)
+    bourbon (3.1.8)
+      sass (>= 3.2.0)
+      thor
     breach-mitigation-rails (0.0.2)
     builder (3.0.4)
     cancan (1.6.8)
@@ -117,6 +124,7 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     chromedriver-helper (0.0.5)
       nokogiri
+    chronic (0.10.1)
     ci_reporter (1.7.3)
       builder (>= 2.1.2)
     coderay (1.0.8)
@@ -138,12 +146,17 @@ GEM
       nokogiri (>= 1.5.0)
     daemons (1.1.9)
     database_cleaner (0.9.1)
+    delayed_job (4.0.0)
+      activesupport (>= 3.0, < 4.1)
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
-    diff-lcs (1.1.3)
+    diff-lcs (1.2.4)
     diff_matcher (2.4.0)
     draper (1.1.0)
       actionpack (>= 3.0)
@@ -307,24 +320,26 @@ GEM
     request_store (1.0.5)
     responders (0.9.3)
       railties (~> 3.1)
-    rspec (2.12.0)
-      rspec-core (~> 2.12.0)
-      rspec-expectations (~> 2.12.0)
-      rspec-mocks (~> 2.12.0)
-    rspec-core (2.12.2)
-    rspec-expectations (2.12.1)
-      diff-lcs (~> 1.1.3)
+    rspec (2.14.1)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
+    rspec-core (2.14.5)
+    rspec-expectations (2.14.2)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-fire (1.2.0)
+      rspec (~> 2.11)
     rspec-html-matchers (0.4.0)
       nokogiri (>= 1.4.4)
       rspec (>= 2.0.0)
-    rspec-mocks (2.12.2)
-    rspec-rails (2.12.2)
+    rspec-mocks (2.14.3)
+    rspec-rails (2.14.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 2.12.0)
-      rspec-expectations (~> 2.12.0)
-      rspec-mocks (~> 2.12.0)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
     ruby-progressbar (1.0.2)
     rubyzip (0.9.9)
     rvm-capistrano (1.2.7)
@@ -386,8 +401,13 @@ GEM
     warden (1.2.1)
       rack (>= 1.0)
     websocket (1.0.7)
+    whenever (0.8.4)
+      activesupport (>= 2.3.4)
+      chronic (>= 0.6.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
+    zeus (0.13.3)
+      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -400,7 +420,7 @@ DEPENDENCIES
   backup
   better_errors
   binding_of_caller
-  bourbon
+  bourbon (~> 3.1)
   breach-mitigation-rails
   cancan
   capistrano
@@ -411,6 +431,8 @@ DEPENDENCIES
   coffee-rails (~> 3.2.2)
   cucumber-rails (~> 1.2.1)
   database_cleaner
+  delayed_job
+  delayed_job_active_record
   devise
   diff_matcher
   draper (~> 1.1.0)
@@ -451,8 +473,10 @@ DEPENDENCIES
   rb-fsevent (~> 0.9.1)
   rb-inotify (~> 0.8.8)
   remotipart
+  ri_cal!
+  rspec-fire
   rspec-html-matchers
-  rspec-rails (~> 2.12.2)
+  rspec-rails (~> 2.14.0)
   rvm-capistrano
   sass-rails (~> 3.2.4)
   selenium-webdriver (~> 2.35.1)
@@ -469,3 +493,5 @@ DEPENDENCIES
   treetop
   uglifier (>= 1.2.3)
   versatile_rjs!
+  whenever
+  zeus

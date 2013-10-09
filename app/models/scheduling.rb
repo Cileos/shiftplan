@@ -7,9 +7,12 @@ class Scheduling < ActiveRecord::Base
   belongs_to :team
   belongs_to :qualification
 
+  delegate :user, to: :employee
   delegate :organization, to: :plan
 
   before_validation :parse_quickie_and_fill_in
+  before_destroy    :destroy_notifications
+
 
   validates_presence_of :plan
   validates_presence_of :quickie
@@ -30,12 +33,16 @@ class Scheduling < ActiveRecord::Base
   has_many :comments, as: :commentable, order: 'comments.lft, comments.id' # FIXME gets ALL comments, tree structure is ignored
 
   def commenters
-    comments.map &:employee
+    comments.map(&:employee)
   end
 
   def self.upcoming
-    t = table_name
-    where("#{t}.starts_at > :now AND #{t}.starts_at < TIMESTAMP :now + INTERVAL '14 days'", now: Time.zone.now).order("#{t}.starts_at ASC")
+    where("#{table_name}.starts_at > :now", now: Time.zone.now).order("#{table_name}.starts_at ASC")
+  end
+
+  def self.starting_in_the_next(interval)
+    raise ArgumentError unless interval =~ /\A\d+ [a-z]+\z/
+    where("#{table_name}.starts_at < TIMESTAMP :now + INTERVAL '#{interval}'", now: Time.zone.now)
   end
 
   def self.for_organization(organization)
@@ -68,12 +75,24 @@ class Scheduling < ActiveRecord::Base
 
   # Because Date and Times are immutable, we have to situps to just change the week and year.
   # must be used on a valid record.
-  def move_to_week_and_year(week, year)
-    end_hour_or_end_hour_of_next_day = next_day ? next_day.end_hour : end_hour
-    *saved = start_hour, end_hour_or_end_hour_of_next_day
-    @date = Date.commercial(year, week, cwday)
+  # FIXME this is the reason to refactor Overnightable
+  def move_to_week_and_year!(week, year)
+    raise(ArgumentError, "please move previous day instead") if previous_day.present?
+    wday = cwday
+    wday = 7 if wday == 0 # sunday. bloody sunday
+    # next day was set by dup!?
+    *saved_hours = start_hour,
+                   next_day ? next_day.end_hour : end_hour
+    *saved_minutes = start_minute,
+                     next_day ? next_day.end_minute : end_minute
+
+    @date = Date.commercial(year, week, wday)
+    next_day.destroy if next_day.present? && next_day.persisted?
     self.next_day_id = self.starts_at = self.ends_at = self.week = self.year = nil
-    self.start_hour, self.end_hour = *saved
+    self.start_hour, self.end_hour = *saved_hours
+    self.start_minute, self.end_minute = *saved_minutes
+    save!
+    self
   end
 
   def date=(new_date)
@@ -149,7 +168,16 @@ class Scheduling < ActiveRecord::Base
   end
 
   def to_s
-    %Q~<Scheduling #{date} #{to_quickie}>~
+    %Q~<Scheduling #{id || 'new'} #{date} #{to_quickie}>~
+  end
+
+  def inspect
+    to_s
+  end
+
+  attr_accessor :conflicts
+  def conflicting?
+    conflicts.present?
   end
 
   private
@@ -186,6 +214,9 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
+  def destroy_notifications
+    Notification.destroy_for(self)
+  end
 end
 
 SchedulingDecorator
