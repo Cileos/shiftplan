@@ -47,21 +47,22 @@
   }
 }
 
+// no image but employee's abbreviation
 i.avatar {
   &.tiny {
-    padding: ($tiny_size - $ci_small-font) / 2  0;
+    padding: (($tiny_size - $ci_small-font) / 2 + 1px) 0 (($tiny_size - $ci_small-font) / 2 - 1px);
     font-size: $ci_smaller-font;
   }
 
   &.medium,
   &.thumb {
     padding: ($thumb_size - $ci_font-size) / 2 0;
-    font-size: $ci_small-font;
+    font-size: $ci_font-size;
   }
 
   &.small {
     padding: ($small_size - $ci_font-size) / 2  0;
-    font-size: $ci_font-size;
+    font-size: $ci_small-font;
   }
 }
 
