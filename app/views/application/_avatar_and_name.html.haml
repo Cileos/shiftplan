@@ -1,0 +1,9 @@
+%span#avatar_and_name
+  = avatar(current_user, current_employee, :tiny)
+  - if current_employee.present?
+    %span.name= current_employee.name
+  - else
+    - if current_user.multiple?
+      %span.name= current_user.email
+    - else
+      %span.name= current_user.employees.first.try(:name) || current_user.email
