@@ -65,6 +65,41 @@ i.avatar {
     padding: ($small_size - $ci_font-size) / 2  0;
     font-size: $ci_small-font;
   }
+
+  &.fallback {
+    @extend %with-icon;
+    @extend .icon-user;
+
+    &:before {
+      margin: 0;
+    }
+
+    &.tiny {
+      padding-top: 4px;
+
+      &:before {
+        font-size: 14px;
+      }
+    }
+
+    &.thumb {
+      padding-top: 12px;
+      padding-left: 11px;
+
+      &:before {
+        font-size: 30px;
+      }
+    }
+
+    &.small {
+      padding-top: 8px;
+      padding-left: 6px;
+
+      &:before {
+        font-size: 20px;
+      }
+    }
+  }
 }
 
 img.avatar {

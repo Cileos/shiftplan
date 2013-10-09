@@ -35,6 +35,7 @@ icons:
   scheduling:        'f073'
   post:              'f036'
   export:            'f14d'
+  user:              'f007'
 #
 # deprecated icons:
 #   new_plan:          'plus'
