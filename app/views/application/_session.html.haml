@@ -1,11 +1,12 @@
 %ul
   - if user_signed_in?
     %li= link_to '?', '#', {:class => 'help-faq', :id => 'help', :title => t('helpers.actions.help')}
-    %li.dropdown
+    = render 'application/notification_hub', notifications: current_user.notifications_for_hub
+    %li#session-and-settings.dropdown
       - if current_user.multiple? || current_user.employees.empty?
-        = link_to avatar(current_user, current_employee, :tiny), profile_employees_path, :class => 'user'
+        = link_to avatar(current_user, current_employee, :thumb, 'small'), profile_employees_path, :class => 'user'
       - else
-        = link_to avatar(current_user, current_employee, :tiny), edit_profile_employee_path(current_user.employees.first), :class => 'user'
+        = link_to avatar(current_user, current_employee, :thumb, 'small'), edit_profile_employee_path(current_user.employees.first), :class => 'user'
 
       %ul
         - if current_user.multiple? || current_user.employees.empty?

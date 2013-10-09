@@ -62,6 +62,18 @@ class User < ActiveRecord::Base
 
   has_many :posts_of_joined_organizations, source: :posts, through: :joined_organizations
 
+  def unread_notifications
+    notifications.unread
+  end
+
+  def notifications_for_hub
+    notifications.for_hub
+  end
+
+  def notifications_for_dashboard
+    notifications.for_dashboard
+  end
+
   # unsure about the naming of this method.. rather call it organizations_for_account ?
   def organizations_for(account)
     # a user only has one employee per account but can have several employees across accounts

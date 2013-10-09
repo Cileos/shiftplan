@@ -1,6 +1,8 @@
 en:
   helpers:
     actions:
+      show_all: 'Show all'
+      notifications: 'Notifications'
       new_post: "Create a new post"
       edit_post: "Edit post"
       edit_account: Edit account
@@ -87,6 +89,8 @@ en:
       show_help: "Help"
       show_help_long: "Expand help"
       core_data: "Core Data"
+      mark_as_read: "Mark as read"
+      mark_all_as_read: "Mark all as read"
   schedulings:
     calendar_navigation:
       day: "Day"

@@ -11,6 +11,8 @@ class Scheduling < ActiveRecord::Base
   delegate :organization, to: :plan
 
   before_validation :parse_quickie_and_fill_in
+  before_destroy    :destroy_notifications
+
 
   validates_presence_of :plan
   validates_presence_of :quickie
@@ -31,7 +33,7 @@ class Scheduling < ActiveRecord::Base
   has_many :comments, as: :commentable, order: 'comments.lft, comments.id' # FIXME gets ALL comments, tree structure is ignored
 
   def commenters
-    comments.map &:employee
+    comments.map(&:employee)
   end
 
   def self.upcoming
@@ -199,6 +201,9 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
+  def destroy_notifications
+    Notification.destroy_for(self)
+  end
 end
 
 SchedulingDecorator

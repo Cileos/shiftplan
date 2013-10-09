@@ -12,7 +12,7 @@
       %li{class: actives[:dashboard] && 'active'}
         = link_to :dashboard, nested_resources_for(current_organization), :class => 'icon-dashboard'
       - if company_blog.present?
-        = li_link :news, base + [company_blog, :posts], can: [:read, organization], :class => 'icon-news'
+        = li_link :news, base + [company_blog, :posts], can: [:read, organization], :class => 'icon-blog'
 
 
   - active_or_not = dropdown_class polymorphic_path(base + [:plans])

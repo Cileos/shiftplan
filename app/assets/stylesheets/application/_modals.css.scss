@@ -40,7 +40,7 @@
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-  font-family: "proxima-nova",Helvetica,Arial,sans-serif;
+  font-family: $font-family;
 }
 
 .ui-widget input:not(.button):not(.boolean),

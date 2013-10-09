@@ -27,6 +27,7 @@
 /* import application/mixins */
 @import "application/common";
 @import "application/conflict";
+@import "application/lists";
 @import "application/avatar";
 @import "application/wrap";
 @import "application/grid";
@@ -43,6 +44,9 @@
 @import "application/comments";
 @import "application/contextual_help";
 @import "application/dashboard";
+@import "application/notifications";
+@import "application/notification-hub";
+@import "application/smily";
 
 /* import calendar specific styles */
 @import "calendar/common";

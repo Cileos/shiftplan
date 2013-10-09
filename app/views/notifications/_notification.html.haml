@@ -1,0 +1,5 @@
+%li{id: dom_id(notification)}
+  %actions.actions
+    = link_to :mark_as_read, mark_notification_as_read_path(notification),
+      method: :put, remote: true, class: 'icon-destroy mark_as_read'
+  = render 'notifications/subject_and_blurb', notification: notification

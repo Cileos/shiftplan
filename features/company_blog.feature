@@ -195,8 +195,8 @@ In order to keep my colleagues informed about important news
 
      # notification for author of blog post(mr. burns)
      Then "c.burns@npp-springfield.com" should receive an email with subject "Lisa Simpson hat einen Ihrer Blogposts kommentiert"
+      And "bart@thesimpsons.com" should receive an email with subject "Lisa Simpson hat einen Blogpost kommentiert"
       But "lisa@thesimpsons.com" should receive no email
-      And "bart@thesimpsons.com" should receive no email
      When "c.burns@npp-springfield.com" opens the email
      Then I should see "Lisa Simpson hat Ihren Blogpost 'Umweltminister zu Besuch' am 24.05.2012 um 12:00 Uhr kommentiert" in the email body
       And I should see "Ich backe einen Kuchen für den Umweltminister" in the email body

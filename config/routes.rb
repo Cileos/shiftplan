@@ -5,6 +5,11 @@ Clockwork::Application.routes.draw do
   get 'email_change/accept'  => 'email_change#accept',        :as => :accept_email_change
   put 'email_change/confirm' => 'email_change#confirm',       :as => :confirm_email_change
 
+  resources :notifications, only: [:index]
+  get 'count_notifications'           => 'count_notifications#count',           as: 'count_notifications'
+  put 'mark_notification_as_read/:id' => 'mark_notifications_as_read#one',      as: 'mark_notification_as_read'
+  put 'mark_notifications_as_read'    => 'mark_notifications_as_read#multiple', as: 'mark_notifications_as_read'
+
   resources :accounts, except: [:show] do
     resources :organizations do
       member do

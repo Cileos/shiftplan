@@ -31,6 +31,10 @@ class Employee < ActiveRecord::Base
   before_validation :reset_duplicates
   after_save :update_or_create_membership
 
+  def notifications_for_dashboard
+    notifications.for_dashboard
+  end
+
   def self.order_by_name
     order('last_name, first_name')
   end

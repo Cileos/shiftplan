@@ -21,29 +21,6 @@ en:
     hints:
       scheduling:
         quickie: "e.g. 9-17 Awesome Job [AJ]"
-  upcoming_scheduling_notification_mailer:
-    upcoming_scheduling:
-      introductory_text: "You are scheduled for a shift on %{date} (%{quickie})."
-  scheduling_notification_mailer:
-    new_comment:
-      subjects:
-        comment_on_scheduling: "%{name} commented on your schedules."
-        comment_on_scheduling_of_employee: "%{name} commented on one of your schedules."
-        comment_for_commenter: "%{name} also commented on a schedule."
-        answer_on_comment: "%{name} replied to a comment on a schedule."
-        answer_on_comment_of_employee: "%{name} has replied to your comment on a schedule."
-        answer_on_comment_on_scheduling_of_employee: "%{name} replied to a comment on one of your scheduls."
-        answer_on_comment_of_employee_on_scheduling_of_employee: "%{name} has replied to your comment on your schedule."
-        answer_on_comment_for_commenter: "%{name} replied to a comment on a schedule you've commented on."
-      introductory_texts:
-        comment_on_scheduling: "%{author_name} commented on a schedule of %{employee_name} on %{date} (%{quickie}):"
-        comment_on_scheduling_of_employee: "%{author_name} commented on one of your schedules on %{date} (%{quickie}) :"
-        comment_for_commenter: "%{author_name} has also commented on the shift of %{employee_name} on %{date} (%{quickie}) :"
-        answer_on_comment: "%{author_name} replied to a comment on a schedule of %{employee_name} on %{date} (%{quickie}):"
-        answer_on_comment_of_employee: "%{author_name} replied to your comment on the schedule of %{employee_name} on %{date} (%{quickie}) :"
-        answer_on_comment_on_scheduling_of_employee: "%{author_name} replied to a comment on one of your schedules %{date} (%{quickie}) :"
-        answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} has replied on your comment on one of your schedules on %{date} (%{quickie}):"
-        answer_on_comment_for_commenter: "%{author_name} has replied to a comment on schedule of  %{employee_name} on %{date} (%{quickie}). Others also commented on this schedule:"
   schedulings:
     missing_team: Without team
     missing_employee: Without employee

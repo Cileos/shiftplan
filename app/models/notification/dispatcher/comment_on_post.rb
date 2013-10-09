@@ -11,7 +11,7 @@ class Notification::Dispatcher::CommentOnPost < Notification::Dispatcher::Commen
   def self.notification_recipients_for(comment)
     post = comment.commentable
     post.organization.employees_plus_owner_and_planners.compact.select do |e|
-      e.user.present? && comment.employee != e && (post.author == e || post.commenters.include?(e))
+      e.user.present? && comment.employee != e
     end
   end
 

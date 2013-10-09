@@ -13,15 +13,36 @@ shared_examples 'Notification for Dashboard' do
     expect { notification.acting_employee }.to_not raise_error(NotImplementedError)
   end
 
-  it "should have a subject" do
-    notification.subject.should be_present
+  it "should have a mail subject" do
+    notification.mail_subject.should be_present
   end
 
   it "should have a introductory_text" do
     notification.introductory_text.should be_present
   end
 
+  it "should have a subject" do
+    notification.subject.should be_present
+  end
+
+  it "should have a blurb" do
+    notification.blurb.should be_present
+  end
+
   it "should have a acting_employee" do
     notification.acting_employee.should be_a(Employee)
+  end
+end
+
+shared_examples :updating_new_notifications_count_for_user do
+  context "on creation" do
+    let(:user)     { create(:user) }
+    let(:employee) { create(:employee, user: user) }
+    it "sets the users's 'has_new_notifications' flag to true" do
+      expect do
+        described_class.create!(employee: employee, notifiable: notifiable)
+        described_class.create!(employee: employee, notifiable: notifiable)
+      end.to change { user.new_notifications_count }.from(0).to(2)
+    end
   end
 end

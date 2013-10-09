@@ -116,14 +116,13 @@
     margin-bottom: 6px; // prevent text beyond due to linebreak
   }
 
-  img.avatar.tiny {
+  .avatar {
     float: left;
-    margin-right: 0.25em;
-    max-height: 20px;
-    max-width:  20px;
+    margin-right: 0.5em;
   }
 
   .wwt_diff {
+    clear: left;
     margin-top: 5px;
     padding-top: 5px;
     border-top: 1px solid $ci_lightgrey;

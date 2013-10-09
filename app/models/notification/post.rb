@@ -12,15 +12,33 @@ class Notification::Post < Notification::Base
     notifiable
   end
 
+  def introductory_text
+    t(:"introductory_texts.#{tkey}",
+      name: acting_employee.name,
+      date: I18n.l(post.published_at, format: :tiny))
+  end
+
   def subject
-    t(:'subjects.post', name: acting_employee.name)
+    acting_employee.name
+  end
+
+  def blurb
+    t(:"blurbs.#{tkey}",
+      title: truncated_title,
+      body: truncated_body)
   end
 
   def acting_employee
     post.author
   end
 
-  def introductory_text
-    t(:'introductory_texts.post', name: acting_employee.name, date: I18n.l(post.published_at, format: :tiny))
+  private
+
+  def truncated_title
+    post.title.truncate(25, omission: "...")
+  end
+
+  def truncated_body
+    post.body.truncate(30, omission: "...")
   end
 end

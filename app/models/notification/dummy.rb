@@ -13,11 +13,23 @@ class Notification::Dummy < Notification::Base
     employee
   end
 
-  def subject
+  def mail_subject
     "You did something"
   end
 
   def introductory_text
     "You did something awesome"
+  end
+
+  def subject
+    "You did something"
+  end
+
+  def blurb
+    "You did something awesome"
+  end
+
+  def notifiable_type
+    'Dummy'
   end
 end

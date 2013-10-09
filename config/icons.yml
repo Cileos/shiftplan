@@ -9,6 +9,7 @@ icons:
   envelope:          'f0e0'
   info_link:         'f015'
   dashboard:         'f0e4'
+  blog:              'f036'
   organization:      'f024'
   plans:             'f073'
   news:              'f0e7'
@@ -29,6 +30,10 @@ icons:
   warning:           'f071'
   error:             'f071'
   alert:             'f071'
+  bell:              'f0f3'
+  bell_empty:        'f0a2'
+  scheduling:        'f073'
+  post:              'f036'
 #
 # deprecated icons:
 #   new_plan:          'plus'

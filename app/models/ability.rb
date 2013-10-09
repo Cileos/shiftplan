@@ -40,6 +40,7 @@ class Ability
 
   def authorize_signed_in(user)
     can :dashboard, User
+    can [:read, :update], Notification::Base, employee: { user_id: user.id }
     can :read, Account do |account|
       user.accounts.include?(account)
     end

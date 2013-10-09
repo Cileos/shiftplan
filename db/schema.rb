@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130925152800) do
+ActiveRecord::Schema.define(:version => 20131007134535) do
 
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20130925152800) do
     t.datetime "sent_at"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.datetime "read_at"
   end
 
   add_index "notifications", ["employee_id"], :name => "index_notifications_on_employee_id"
@@ -307,6 +308,7 @@ ActiveRecord::Schema.define(:version => 20130925152800) do
     t.string   "locale"
     t.string   "avatar"
     t.boolean  "receive_notification_emails",                 :default => true
+    t.integer  "new_notifications_count",                     :default => 0
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

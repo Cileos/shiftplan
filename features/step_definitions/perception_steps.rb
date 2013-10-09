@@ -32,6 +32,12 @@ Then /^I should see a list of the following (.+):$/ do |plural, expected|
   expected.diff! actual
 end
 
+Then /^I should see an empty (.+) list$/ do |list_name|
+  list_selector = "ul.#{list_name}"
+  page.should have_css(list_selector)
+  page.first(list_selector).all('li').should be_empty
+end
+
 Then /^I should see the following list of links:$/ do |expected|
   expected.column_names.should == %w(link active)
   actual = all('ul li:has(a)').map do |li|
@@ -151,5 +157,27 @@ end
 
 Then /^I should not see a field labeled #{capture_quoted}$/ do |label|
   page.should have_no_xpath( XPath::HTML.field(label) )
+end
+
+Then /^the notification hub should have #{capture_quoted} new notifications$/ do |number|
+  step %~I should see "#{number}" within the notifications count~
+  step %~the notification hub should have class "has_new"~
+end
+
+Then /^the notification hub should have no new notifications$/ do
+  step %~the notification hub should not have class "has_new"~
+  page.has_css?("a#notifications-count span", text: '')
+end
+
+Then /^the notification hub (should|should not) have unread notifications$/ do |or_not|
+  step %~the notification hub #{or_not} have class "has_unread"~
+end
+
+Then /^the notification hub (should|should not) have class #{capture_quoted}$/ do |or_not, css_class|
+  if or_not.include?('not')
+    page.has_no_css?("li#notification-hub.#{css_class}").should be_true
+  else
+    page.has_css?("li#notification-hub.#{css_class}").should be_true
+  end
 end
 

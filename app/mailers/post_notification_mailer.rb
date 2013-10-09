@@ -5,7 +5,7 @@ class PostNotificationMailer < ClockworkMailer
     @post         = notification.post
 
     I18n.with_locale(notification.user_locale) do
-      mail to: notification.employee.user.email, subject: notification.subject
+      mail to: notification.employee.user.email, subject: notification.mail_subject
     end
   end
 

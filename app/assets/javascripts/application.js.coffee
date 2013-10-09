@@ -15,6 +15,7 @@
 # always last!
 #= require lib/loaded_page
 #= require jquery_nested_form
+#= require notifications
 
 #= require_self
 

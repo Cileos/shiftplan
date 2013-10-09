@@ -1,11 +1,16 @@
 require 'spec_helper'
 
 describe Notification::CommentOnScheduling do
-  it_should_behave_like 'Notification for Dashboard'
   let(:author)  { create(:employee, user: create(:confirmed_user)) }
   let(:comment) { Comment.build_from(create(:scheduling), author, body: 'Mein Senf dazu!').tap(&:save!) }
   let(:recipient) { create(:employee, user: create(:confirmed_user)) }
   let(:notification) { described_class.new(employee: recipient, notifiable: comment) }
+
+  it_should_behave_like 'Notification for Dashboard'
+
+  it_behaves_like :updating_new_notifications_count_for_user do
+    let(:notifiable) { comment }
+  end
 
   before(:each) do
     Timecop.freeze(Time.parse('2012-12-12 12:23:00'))

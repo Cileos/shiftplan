@@ -34,7 +34,7 @@ Given /^I am signed out$/ do
 end
 
 When /^I sign out$/ do
-  step %~I choose "Ausloggen" from the user navigation~
+  step %~I choose "Ausloggen" from the session and settings menu item~
   step %~I should see "Erfolgreich ausgeloggt."~
 end
 

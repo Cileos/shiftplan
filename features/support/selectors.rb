@@ -92,6 +92,9 @@ module HtmlSelectorsHelpers
     when 'the spinner'
       '#spinner'
 
+    when 'the notifications spinner'
+      '#notifications-spinner'
+
     when /^the #{capture_nth} active tab$/
       ".tabbable#{Numerals[$1]} .tab-pane.active"
 
@@ -187,6 +190,12 @@ module HtmlSelectorsHelpers
 
     when 'the duplication warning'
       'div#duplication-warning'
+
+    when 'the notification hub'
+      'li#notification-hub'
+
+    when 'the notifications count'
+      'a#notifications-count'
 
     when /the date\s?picker/
       'div.datepick-popup div.datepick'
