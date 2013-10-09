@@ -1,6 +1,16 @@
 Changelog
 =========
 
+Release 1.0.4 2013-10-09 21:43
+------------------------------
+15436b2 Merge branch 'feature/ical-export' into develop
+773c9f0 Merge branch 'feature/fix-sunday' into develop
+0d4970e Merge branch 'feature/notification-hub' into develop
+501910f Merge branch 'feature/conflict-indication' into develop
+5a9ac06 Merge branch 'feature/copy-week-with-15-minutes' into develop
+48b7282 Merge pull request #201 from Cileos/feature/remove-quickie-field
+45434b2 Merge branch 'feature/upcoming-scheduling-reminder' into develop
+
 Release 1.0.3 2013-09-09 17:41
 ------------------------------
 9604d12 Merge pull request #200 from Cileos/feature/hide-help-button-when-no-help
