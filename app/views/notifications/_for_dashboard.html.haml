@@ -1,4 +1,4 @@
-.module.list.notifications
+.module.elements-list.notifications
   %header
     %h2
       = t('notifications.caption')
@@ -9,4 +9,3 @@
   .content
     = render 'notifications/list', notifications: notifications.for_dashboard
     = link_to :show_all, notifications_path
-
