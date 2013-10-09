@@ -621,19 +621,21 @@ describe Scheduling do
       it 'preserves end minute' do
         expect(&moving).not_to change { scheduling.end_minute }
       end
+
+      it 'preserves week day' do
+        expect(&moving).not_to change { scheduling.cwday }
+      end
     end
 
     describe 'for regular scheduling' do
-      let(:scheduling) { build :scheduling_by_quickie, quickie: '10:15-11:45' }
+      let(:scheduling) { build :scheduling_by_quickie, quickie: '10:15-11:45', date: '2012-11-25' }
       it_should_behave_like :move_to_week_and_year_changer
       it_should_behave_like :move_to_week_and_year_time_preserver
     end
     describe 'for overnight scheduling' do
-      let(:scheduling) { build :scheduling_by_quickie, quickie: '10:15-6:45' }
-      it_should_behave_like :move_to_week_and_year_changer
-      it_should_behave_like :move_to_week_and_year_time_preserver
+      let(:scheduling) { build :scheduling_by_quickie, quickie: '10:15-6:45', date: '2012-11-25'  }
 
-      it 'does not create other schedilings' do
+      it 'is not accepted, side effects of prev day create next day' do
         scheduling.save!
         expect(&moving).not_to change(Scheduling, :count)
       end
