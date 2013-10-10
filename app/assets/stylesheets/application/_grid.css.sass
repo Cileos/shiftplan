@@ -1,0 +1,91 @@
+.row,
+.wrap [role=content]
+  +outer-container
+
+.wrap [role=content],
+.wrap [role=content] .row
+  &.two-columns
+    .secondary
+      +span-columns(3)
+
+    .primary
+      +span-columns(9)
+
+[role=content]:not(.no-animation)
+  &.two-columns,
+  &.three-columns
+    .primary,
+    .secondary,
+    .tertiary
+      // @include transition(0.5s width ease);
+
+      &:not(:last-child)
+        padding-right: 20px
+        border-right: 1px solid $ci_grey
+
+    .secondary,
+    .tertiary
+      overflow: hidden
+
+.row,
+[role=content]
+  &.two-columns
+    .secondary
+      +span-columns(2)
+      float: right
+
+    .primary
+      +span-columns(10)
+      float: left
+
+    &.inverted
+      .primary
+        +span-columns(10)
+        +omega
+      .secondary
+        +span-columns(2)
+
+    &.exact
+      .primary,
+      .secondary
+        +span-columns(6)
+
+  &.three-columns
+    .primary
+      +span-columns(8)
+
+    .secondary,
+    .tertiary
+      +span-columns(2)
+
+    .secondary
+      padding-top: 30px
+
+    .tertiary
+      float: right
+      margin-top: 30px
+
+.row
+  &.two-columns
+    .secondary
+      float: left
+
+    &.exact
+      .primary,
+      .secondary,
+      .tertiary
+        +span-columns(4)
+
+// two-column anno 2013-09-30
+.two-cols
+  overflow: hidden
+
+  .col
+    margin-bottom: 20px
+    width: 47.4%
+    margin-right: 5%
+    float: left
+
+    &:nth-child(2)
+      float: right
+      margin-right: 0

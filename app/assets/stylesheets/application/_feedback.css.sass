@@ -1,0 +1,17 @@
+.feedback-without-screenshot
+  +transition(all 0.25s)
+  +box-shadow(rgba(0, 0, 0, 0.29688) 0px 0px 5px)
+  border-radius: $ci_border-radius $ci_border-radius 0 0
+  position: fixed
+  bottom: -7px
+  right: 0
+  padding: 5px 10px 10px
+  background: $ci_blue
+  color: white
+  @extend %with-icon
+  @extend .icon-envelope
+
+  &:hover
+    bottom: 0px
+    background: $ci_blue_hover_dark
+    color: white

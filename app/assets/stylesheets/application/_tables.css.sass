@@ -1,0 +1,41 @@
+table
+  margin-bottom: 2em
+
+  thead
+    border-bottom: 1px solid $ci_anthracite
+    background: white
+
+  tbody tr
+    background: white
+
+    &:nth-child(even)
+      background: $ci_table-zebra
+
+  th.heading
+    @extend thead
+    padding-top: 1em
+    font-size: $ci_big-font
+
+    & ~ td
+      @extend thead
+
+  td .actions
+    float: right
+
+  td,
+  th
+    padding: $table_cell_padding
+    text-align: left
+
+  img
+    vertical-align: middle
+
+  .numeric
+    text-align: right
+
+  .checkbox
+    width: 20px
+    text-align: center
+
+  &:not(.table-condensed)
+    width: 100%
