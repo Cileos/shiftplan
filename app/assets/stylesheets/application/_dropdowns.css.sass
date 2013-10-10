@@ -14,11 +14,7 @@ nav
     margin-left: .35em
     font-size: .8em
 
-  &:hover > ul:not(.no-hover),
-  &.open > ul
-    display: block
-
-  > ul
+  > .dropdown-menu
     +box-shadow(0 2px 3px rgba(0, 0, 0, 0.1))
     display: none
     position: absolute
@@ -30,7 +26,7 @@ nav
     border-top: none
     z-index: 200
 
-  > ul a
+  > .dropdown-menu a
     +transition(none)
     padding: 3px 15px
     display: block
@@ -39,6 +35,9 @@ nav
     &:hover
       color: #fff
       background: $ci_blue
+
+  &.open > .dropdown-menu
+    display: block
 
   li
     display: block

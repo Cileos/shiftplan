@@ -4,11 +4,11 @@
     = render 'application/notification_hub', notifications: current_user.notifications_for_hub
     %li#session-and-settings.dropdown
       - if current_user.multiple? || current_user.employees.empty?
-        = link_to avatar(current_user, current_employee, :thumb, 'small'), profile_employees_path, :class => 'user'
+        = link_to avatar(current_user, current_employee, :thumb, 'small'), profile_employees_path, {:class => 'user', data: {toggle: 'dropdown'}}
       - else
         = link_to avatar(current_user, current_employee, :thumb, 'small'), edit_profile_employee_path(current_user.employees.first), :class => 'user'
 
-      %ul
+      %ul.dropdown-menu
         - if current_user.multiple? || current_user.employees.empty?
           %li= link_to :settings, profile_employees_path, :class => 'icon-settings'
         - else

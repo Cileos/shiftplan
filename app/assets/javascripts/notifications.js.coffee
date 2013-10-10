@@ -7,9 +7,6 @@ jQuery(document).ready ->
     $('body').trigger 'tick'
   , 60 * 1000
 
-  $('body').on 'tack', ->
-    send_update_notification_hub_request('/notifications', 'get')
-
   register_mark_as_read_event_listeners = ->
     $('a.mark_as_read,li#mark_all_as_read a').click (e) ->
       handle_mark_as_read_link_clicked(e)
@@ -41,27 +38,9 @@ jQuery(document).ready ->
       beforeSend: -> clearAndSpin(),
       complete: -> register_mark_as_read_event_listeners())
 
-  enable_close_on_esc = ->
-    $('body').bind 'keydown', handle_keydown
-
-  disable_close_on_esc = ->
-    $('body').unbind 'keydown', handle_keydown
-
   $hub = -> $('li#notification-hub')
 
   $notifications_list = ->$('li#notification-hub .notifications')
-
-  close_hub = ->
-    $hub().removeClass('open')
-    disable_close_on_esc()
-
-  open_hub = ->
-    $hub().addClass('open')
-    enable_close_on_esc()
-
-  $opened_hub = -> $('li#notification-hub.open')
-
-  hub_is_open = -> $opened_hub().length > 0
 
   clearAndSpin = ->
     $notifications_list()
@@ -69,28 +48,4 @@ jQuery(document).ready ->
     $notif_spin.spin()
 
   $('a#notifications-count').on 'click', (e) ->
-    e.preventDefault()
-    e.stopPropagation()
-    if $hub().hasClass('open')
-      close_hub()
-    else
-      open_hub()
-      $('body').trigger 'tack'
-    false
-
-  $(document).click (e) ->
-    if hub_is_open()
-      if $(e.target).parents('#notification-hub').length == 0
-        e.preventDefault()
-        e.stopPropagation()
-        close_hub()
-
-  handle_keydown = (e) ->
-    if e.which == 27 # ESC
-      if $hub().hasClass('open')
-        e.stopPropagation()
-        e.preventDefault()
-        close_hub()
-        false
-      else
-        true
+    send_update_notification_hub_request('/notifications', 'get')

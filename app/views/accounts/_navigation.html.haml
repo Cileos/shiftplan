@@ -3,7 +3,7 @@
     %li.dropdown{class: request.path == accounts_path && 'active'}
       = link_to t('activerecord.models.organization.other'), accounts_path,
         {:class => 'icon-organization', data: { toggle: 'dropdown'}}
-      %ul.organization-dropdown
+      %ul.organization-dropdown.dropdown-menu
         = render 'accounts/organization_menu_items', accounts: current_user.accounts.default_sorting
 
     - if current_organization

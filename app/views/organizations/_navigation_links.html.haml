@@ -8,7 +8,7 @@
   - actives[:news]      = below_path?(base + [company_blog, :posts]) if company_blog.present?
   %li.dropdown{class: actives.values.any? && 'active'  }
     = link_to :info, nested_resources_for(current_organization), {:class =>  'icon-news', data: { toggle: 'dropdown'}}
-    %ul
+    %ul.dropdown-menu
       %li{class: actives[:dashboard] && 'active'}
         = link_to :dashboard, nested_resources_for(current_organization), :class => 'icon-dashboard'
       - if company_blog.present?
@@ -24,7 +24,7 @@
     - any_active = [:employees, :teams, :plan_templates, :qualifications].any? { |c| below_path?(base + [c]) }
     %li.dropdown{class: any_active && 'active'}
       = link_to :core_data, '#', {:class =>  'icon-settings', data: { toggle: 'dropdown'}}
-      %ul
+      %ul.dropdown-menu
         = li_link '.employees',      base + [:employees],      can: [:show, Employee],      :class => 'icon-employees'
         = li_link '.teams',          base + [:teams],          can: [:show, Team],          :class => 'icon-teams'
         = li_link '.qualifications', base + [:qualifications], can: [:show, Qualification], :class => 'icon-qualifications'
