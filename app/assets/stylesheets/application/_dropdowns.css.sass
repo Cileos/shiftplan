@@ -8,6 +8,9 @@ nav
 .dropdown
   position: relative
 
+  a
+    outline: 0
+
   > a:after
     font-family: FontAwesome
     content: '\f078'
@@ -18,13 +21,15 @@ nav
     +box-shadow(0 2px 3px rgba(0, 0, 0, 0.1))
     display: none
     position: absolute
+    top: 100%
     left: 0
-    margin-top: auto
+    margin-top: 3px
     padding: 10px 0
     background: #fff
-    border: 1px solid $ci_lightgray
-    border-top: none
+    border: 1px solid $ci_gray
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2)
     z-index: 200
+    +_triangle($ci_gray, white, 'top')
 
   > .dropdown-menu a
     +transition(none)

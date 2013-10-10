@@ -137,9 +137,18 @@ small
   .user-navigation
     float: right
 
-    .dropdown > ul
+    .dropdown > .dropdown-menu
       left: auto
       right: 0
+
+      &:before
+        left: auto
+        right: 15px
+
+      &:after
+        left: auto
+        right: 16px
+
 
   .brand img
     vertical-align: middle
@@ -155,11 +164,7 @@ small
     background: $ci_blue_hover_dark
 
   .dropdown
-    > ul
-      top: $banner_top_padding - 2px
-      border-top: 1px solid darken($ci_blue, 7.5%)
-
-    > ul a
+    > .dropdown-menu a
       color: $ci_blue
       border-left: none
 

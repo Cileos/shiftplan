@@ -2,7 +2,7 @@
 - current = filter.mode.to_sym
 %ul.weekswitch
   %li.dropdown
-    %a.button{data: { toggle: 'dropdown' }, href: '#'}
+    %a{data: { toggle: 'dropdown' }, href: '#'}
       = t ".#{current}"
     %ul.dropdown-menu
       - (supported - [current]).each do |mode|
