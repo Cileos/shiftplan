@@ -1,0 +1,45 @@
+nav
+  padding: 0
+
+  li
+    display: inline-block
+    float: left
+
+.dropdown
+  position: relative
+
+  > a:after
+    font-family: FontAwesome
+    content: '\f078'
+    margin-left: .35em
+    font-size: .8em
+
+  &:hover > ul:not(.no-hover),
+  &.open > ul
+    display: block
+
+  > ul
+    +box-shadow(0 2px 3px rgba(0, 0, 0, 0.1))
+    display: none
+    position: absolute
+    left: 0
+    margin-top: auto
+    padding: 10px 0
+    background: #fff
+    border: 1px solid $ci_lightgray
+    border-top: none
+    z-index: 200
+
+  > ul a
+    +transition(none)
+    padding: 3px 15px
+    display: block
+    white-space: nowrap
+
+    &:hover
+      color: #fff
+      background: $ci_blue
+
+  li
+    display: block
+    float: none

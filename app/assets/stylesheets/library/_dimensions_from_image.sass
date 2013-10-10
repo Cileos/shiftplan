@@ -1,0 +1,12 @@
+=_dimensions_from_image($filename, $x_corr: false, $y_corr: false)
+  @if $x_corr
+    width: image-width($filename) + $x_corr
+
+  @else
+    width: image-width($filename)
+
+  @if $y_corr
+    height: image-height($filename) + $y_corr
+
+  @else
+    height: image-height($filename)
