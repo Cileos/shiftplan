@@ -3,7 +3,7 @@
 	url = git://github.com/nathansobo/space-pen.git
 [submodule "vendor/assets/mixed/jquery-miniColors"]
 	path = vendor/assets/mixed/jquery-miniColors
-	url = git://github.com/claviska/jquery-miniColors.git
+	url = git://github.com/claviska/jquery-minicolors.git
 [submodule "vendor/assets/stylesheets/normalize.css"]
 	path = vendor/assets/stylesheets/normalize.css
 	url = git://github.com/necolas/normalize.css.git
