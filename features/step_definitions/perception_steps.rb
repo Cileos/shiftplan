@@ -181,3 +181,10 @@ Then /^the notification hub (should|should not) have class #{capture_quoted}$/ d
   end
 end
 
+Then /^there (should|should not) be an ics export link on the page$/ do |should_or_should_not|
+  if should_or_should_not.include?('not')
+    page.should have_no_css('a#ics-export-link')
+  else
+    page.should have_css('a#ics-export-link')
+  end
+end
