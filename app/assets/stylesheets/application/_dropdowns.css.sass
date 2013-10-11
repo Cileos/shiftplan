@@ -1,3 +1,10 @@
++keyframes(here_i_am)
+  70%
+    +transform(scale(1.05))
+
+  100%
+    +transform(scale(1))
+
 nav
   padding: 0
 
@@ -43,6 +50,7 @@ nav
 
   &.open > .dropdown-menu
     display: block
+    +animation(here_i_am 0.15s)
 
   li
     display: block
