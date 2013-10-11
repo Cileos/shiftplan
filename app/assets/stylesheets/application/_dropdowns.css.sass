@@ -50,7 +50,9 @@ nav
 
   &.open > .dropdown-menu
     display: block
-    +animation(here_i_am 0.15s)
+
+    &:not(.no-animation)
+      +animation(here_i_am 0.15s)
 
   li
     display: block
