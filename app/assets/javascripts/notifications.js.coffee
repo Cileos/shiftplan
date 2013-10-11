@@ -8,7 +8,7 @@ jQuery(document).ready ->
   , 60 * 1000
 
   register_mark_as_read_event_listeners = ->
-    $('a.mark_as_read,li#mark_all_as_read a').click (e) ->
+    $('a.mark_as_read, #mark_all_as_read a').click (e) ->
       handle_mark_as_read_link_clicked(e)
     $('a.notifiable-link').click (e) ->
       handle_notifiable_link_clicked(e)
@@ -42,9 +42,10 @@ jQuery(document).ready ->
 
   $notifications_list = ->$('li#notification-hub .notifications')
 
-  clearAndSpin = ->
-    $notifications_list()
-      .append($notif_spin = $('<li id="notifications-spinner"></li>'))
+  clearAndSpin = (clear=false) ->
+    if clear
+      $notifications_list().empty()
+    $notifications_list().append($notif_spin = $('<div id="notifications-spinner"></div>'))
     $notif_spin.spin()
 
   $('a#notifications-count').on 'click', (e) ->

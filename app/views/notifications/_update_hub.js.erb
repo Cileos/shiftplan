@@ -2,4 +2,4 @@
   <%= render 'notifications/update_hub_for_all_done' %>
 <% end %>
 <%= render 'notifications/update_count' %>
-$('ul.notifications').replaceWith('<%= j render("notifications/list_for_hub", notifications: notifications) %>');
+$('#notification-hub .dropdown-menu').replaceWith('<%= j render("notifications/list_for_hub", notifications: notifications) %>');

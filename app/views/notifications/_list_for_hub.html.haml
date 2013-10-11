@@ -1,10 +1,12 @@
-%ul.notifications.dropdown-menu
+.dropdown-menu
   - if notifications.empty?
-    = render "notifications/all_done"
+    %ul.notifications
+      = render "notifications/all_done"
   - else
-    %li#mark_all_as_read.global-action= link_to :mark_all_as_read,
+    #mark_all_as_read.global-action= link_to :mark_all_as_read,
       mark_notifications_as_read_path(notifications: notifications.map(&:id).join(',')),
       method: :put, remote: true
-  - notifications.each do |notification|
-    = render "notifications/notification", notification: notification
-  %li.global-action= link_to :show_all, notifications_path
+    %ul.notifications
+      - notifications.each do |notification|
+        = render "notifications/notification", notification: notification
+  .global-action= link_to :show_all, notifications_path
