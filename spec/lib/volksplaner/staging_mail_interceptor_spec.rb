@@ -14,6 +14,7 @@ describe Volksplaner::StagingMailInterceptor do
       name_or_email: 'Bart Simpson', name: 'Bart Simpson', browser: 'FF', body: 'putt!')
   end
 
+  # TODO test without using a mailer of the application
   let(:mail) do
     FeedbackMailer.notification(feedback).deliver
   end
@@ -28,7 +29,7 @@ describe Volksplaner::StagingMailInterceptor do
     end
 
     it "mentions the original recipient in X-Intercepted-To header" do
-      mail.header.field_summary.should =~ /X-Intercepted-To: support@app.clockwork.io/
+      mail.header.field_summary.should =~ /X-Intercepted-To: support@clockwork.io/
     end
   end
 
@@ -43,7 +44,7 @@ describe Volksplaner::StagingMailInterceptor do
     end
 
     it "does not change the recipients of the mail" do
-      mail.to.should == ['support@app.clockwork.io']
+      mail.to.should == ['support@clockwork.io']
     end
   end
 
