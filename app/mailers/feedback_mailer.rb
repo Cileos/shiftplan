@@ -1,5 +1,5 @@
 class FeedbackMailer < ClockworkMailer
-  default to: "support@#{Volksplaner.hostname}"
+  default to: "support@clockwork.io"
 
   def notification(feedback)
     @feedback = feedback

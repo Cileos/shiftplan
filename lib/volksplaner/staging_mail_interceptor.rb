@@ -26,7 +26,7 @@ module Volksplaner
         [
           'mdz@emtrax.net',
           'support@staging.clockwork.io',
-          'support@app.clockwork.io', # for unit test
+          'support@clockwork.io', # for unit test
           'application@clockwork.io'
         ]
       end
