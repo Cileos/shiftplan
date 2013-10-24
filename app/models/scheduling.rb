@@ -37,7 +37,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def self.upcoming
-    where("#{table_name}.starts_at > :now", now: Time.zone.now).order("#{table_name}.starts_at ASC")
+    where("#{table_name}.starts_at >= :now", now: Time.zone.now.beginning_of_day).order("#{table_name}.starts_at ASC")
   end
 
   def self.starting_in_the_next(interval)

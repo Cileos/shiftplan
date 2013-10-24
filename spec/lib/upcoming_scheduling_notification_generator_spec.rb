@@ -26,7 +26,7 @@ describe UpcomingSchedulingNotificationGenerator do
     end
 
     let!(:scheduling_beginning_in_the_past) do
-      start = current_time - 1.minute
+      start = Time.zone.now.yesterday
       create(:scheduling, starts_at: start, ends_at: start + 8.hours, employee: bart)
     end
 
