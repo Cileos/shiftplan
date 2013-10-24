@@ -555,6 +555,13 @@ describe Scheduling do
     it "is a working scope" do
       expect { Scheduling.upcoming }.to_not raise_error
     end
+
+    it 'includes the current day' do
+      Timecop.freeze Time.zone.now.beginning_of_day + 9.hours do # it's 9 o'clock
+        at_today = create :scheduling, starts_at: 2.hours.ago    # work started at 7
+        Scheduling.upcoming.should include(at_today)
+      end
+    end
   end
 
   context ".starting_in_the_next" do
