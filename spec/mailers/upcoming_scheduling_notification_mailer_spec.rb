@@ -32,7 +32,7 @@ describe UpcomingSchedulingNotificationMailer do
 
     context "mail headers" do
       it "has the clockwork 'no-reply' email address in the senders list" do
-        mail.from.should == [ 'no-reply@app.clockwork.io' ]
+        mail.from.first.should =~ /^no-reply@.*clockwork.io$/
       end
 
       it "has mr burns' email address in the recipients list" do
