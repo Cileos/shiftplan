@@ -106,8 +106,7 @@ class Notification::Base < ActiveRecord::Base
 
   def increase_notifications_count_on_user
     if u = employee.user
-      u.new_notifications_count += 1
-      u.save!
+      u.increment!(:new_notifications_count)
     end
   end
 end
