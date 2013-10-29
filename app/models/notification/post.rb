@@ -13,7 +13,7 @@ class Notification::Post < Notification::Base
   end
 
   def introductory_text
-    t(:"introductory_texts.#{tkey}",
+    t(:'introductory_text', scope: tscope,
       name: acting_employee.name,
       date: I18n.l(post.published_at, format: :tiny))
   end
@@ -23,7 +23,7 @@ class Notification::Post < Notification::Base
   end
 
   def blurb
-    t(:"blurbs.#{tkey}",
+    t(:'blurb', scope: tscope,
       title: truncated_title,
       body: truncated_body)
   end

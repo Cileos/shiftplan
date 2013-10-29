@@ -8,24 +8,24 @@ class Notification::UpcomingScheduling < Notification::Base
   end
 
   def mail_subject
-    t(:"mail_subjects.#{tkey}",
+    t(:'mail_subject', scope: tscope,
       account: account.name,
       organization: organization.name,
       plan: plan.name)
   end
 
   def introductory_text
-    t(:"introductory_texts.#{tkey}",
+    t(:'introductory_text', scope: tscope,
       date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day),
       quickie: scheduling.quickie)
   end
 
   def subject
-    t(:"subjects.#{tkey}")
+    t(:'subject', scope: tscope)
   end
 
   def blurb
-    t(:"blurbs.#{tkey}",
+    t(:'blurb', scope: tscope,
       date: I18n.l(scheduling.starts_at.to_date),
       quickie: scheduling.quickie,
       account: account.name,

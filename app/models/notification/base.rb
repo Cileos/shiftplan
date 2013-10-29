@@ -46,8 +46,13 @@ class Notification::Base < ActiveRecord::Base
     raise NotImplementedError, "must return the mailer action name of your ActionMailer::Base class used to send out mails for notifications of type #{name}"
   end
 
+  # translation scope
+  def tscope
+    "notifications.#{tkey}"
+  end
+
   def mail_subject
-    t(:"mail_subjects.#{tkey}",
+    t(:'mail_subject', scope: tscope,
       name: acting_employee.name)
   end
 
@@ -68,7 +73,7 @@ class Notification::Base < ActiveRecord::Base
   end
 
   def t(key, opts={})
-    I18n.t(:"notifications.#{key}", opts)
+    I18n.t(key, opts)
   end
 
   def self.recent(num=5)
