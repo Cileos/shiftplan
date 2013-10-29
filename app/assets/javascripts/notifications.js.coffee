@@ -9,11 +9,11 @@ jQuery(document).ready ->
 
   register_mark_as_read_event_listeners = ->
     $('a.mark_as_read, #mark_all_as_read a').click (e) ->
-      handle_mark_as_read_link_clicked(e)
+      update_hub_on_mark_as_read_link_clicked(e)
     $('a.notifiable-link').click (e) ->
-      handle_notifiable_link_clicked(e)
+      mark_as_read_on_notifiable_link_clicked(e)
 
-  handle_mark_as_read_link_clicked = (e) ->
+  update_hub_on_mark_as_read_link_clicked = (e) ->
     e.preventDefault()
     e.stopPropagation()
     $link = $(e.target)
@@ -21,7 +21,7 @@ jQuery(document).ready ->
     http_method = $link.data('method')
     send_update_notification_hub_request(url, http_method)
 
-  handle_notifiable_link_clicked = (e) ->
+  mark_as_read_on_notifiable_link_clicked = (e) ->
     $link = $(e.target)
     $mark_as_read_link = $link.closest('li').find('a.mark_as_read')
     url = $mark_as_read_link.attr('href')
