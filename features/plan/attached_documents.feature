@@ -9,9 +9,24 @@ Feature: Attached documents
        And I am on the page of the plan
       When I follow "Dokument hochladen"
        And I wait for the modal box to appear
+      Then I should see "Neues Dokument hochladen" within the modal box title
        And I attach the file "factories/attached_documents/howto.docx" to "Datei"
        And I press "Hochladen"
        And I wait for the modal box to disappear
       Then I should see a list of the following attached_documents:
         | Name       | Size   |
         | howto.docx | 3,6 KB |
+
+  Scenario: Upload to plan, attach to milestone
+     Given the situation of a nuclear reactor
+       And a milestone exists with name: "Weltherrschaft", plan: the plan
+       And I am on the page of the plan
+      When I follow "Dokument hochladen"
+       And I wait for the modal box to appear
+       And I attach the file "factories/attached_documents/howto.docx" to "Datei"
+       And I select "Weltherrschaft" from "Meilenstein"
+       And I press "Hochladen"
+       And I wait for the modal box to disappear
+      Then I should see a list of the following attached_documents:
+        | Name       | Size   | Milestone      |
+        | howto.docx | 3,6 KB | Weltherrschaft |

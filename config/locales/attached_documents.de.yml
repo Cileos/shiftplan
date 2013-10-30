@@ -3,6 +3,7 @@ de:
     attributes:
       attached_document:
         file: Datei
+        milestone_id: Meilenstein
     models:
       attached_document:
         one: "Dokument"

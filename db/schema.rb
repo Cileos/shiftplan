@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131002155337) do
+ActiveRecord::Schema.define(:version => 20131030170029) do
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -27,9 +27,12 @@ ActiveRecord::Schema.define(:version => 20131002155337) do
     t.string   "file"
     t.string   "name"
     t.integer  "plan_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "milestone_id"
   end
+
+  add_index "attached_documents", ["milestone_id"], :name => "index_attached_documents_on_milestone_id"
 
   create_table "blogs", :force => true do |t|
     t.integer  "organization_id"
@@ -314,6 +317,7 @@ ActiveRecord::Schema.define(:version => 20131002155337) do
     t.string   "roles",                       :limit => 1024
     t.string   "locale"
     t.string   "avatar"
+    t.string   "private_token",               :limit => 20
     t.boolean  "receive_notification_emails",                 :default => true
     t.integer  "new_notifications_count",                     :default => 0
     t.string   "private_token",          :limit => 20

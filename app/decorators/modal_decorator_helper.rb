@@ -25,7 +25,7 @@ module ModalDecoratorHelper
     end
     form_options = {
       body: h.render('form', resource_name.to_sym => self),
-      header: h.content_tag(:h3, h.ta(:"#{action}_#{resource_name}"))
+      header: h.content_tag(:h3, h.ta(".#{action}_#{resource_name}"))
     }
     append_modal(options.reverse_merge(form_options))
   end
