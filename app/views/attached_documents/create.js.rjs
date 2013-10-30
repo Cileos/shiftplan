@@ -1,0 +1,5 @@
+page.decorate resource do |decorated|
+  decorated.update_list resource.siblings
+  decorated.remove_modal
+end
+
