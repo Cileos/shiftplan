@@ -5,7 +5,7 @@ describe SchedulingFilterDecorator, 'mode' do
   let(:decorator) { SchedulingFilterDecorator.new(filter) }
 
   it "selects the decorator by given mode" do
-    decorator = mock('Decorator')
+    decorator = double('Decorator')
     SchedulingFilterEmployeesInWeekDecorator.should_receive(:new).with(filter, {foo: 23}).and_return(decorator)
     SchedulingFilterHoursInWeekDecorator.should_not_receive(:new)
     SchedulingFilterDecorator.decorate(filter, {foo: 23, mode: 'employees_in_week'}).should == decorator
@@ -37,8 +37,8 @@ describe SchedulingFilterDecorator, 'mode' do
   end
 
   describe 'render_cell_for_day' do
-    let(:view)    { mock('View').tap    { |v| decorator.stub(:h).and_return(v) } }
-    let(:content) { mock('content').tap { |c| decorator.stub(:cell_content).and_return(c) } }
+    let(:view)    { double('View').tap    { |v| decorator.stub(:h).and_return(v) } }
+    let(:content) { double('content').tap { |c| decorator.stub(:cell_content).and_return(c) } }
     before :each do
       decorator.stub(:outside_plan_period?).and_return(false)
       decorator.stub(:cell_metadata).and_return('none')
