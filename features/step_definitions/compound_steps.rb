@@ -4,6 +4,8 @@
 When /^I comment #{capture_quoted}$/ do |comment|
   field = "Kommentar"
   within_modal_box do
+    STDERR.puts "saved page for broken comment: #{save_page}"
+    STDERR.puts "saved broken comment screenshot: #{screenshot}"
     find_field(field).text.should be_empty
     fill_in field, with: comment
     click_button 'Kommentieren'
