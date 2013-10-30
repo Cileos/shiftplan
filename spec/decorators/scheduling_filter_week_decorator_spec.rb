@@ -9,9 +9,9 @@ describe SchedulingFilterWeekDecorator do
   it "groups records by week and y axis"
 
   it "indexes records their date#iso8601" do
-    index = stub
+    index = double
     decorator.stub(:index).and_return(index)
-    day = stub iso8601: 'iso8601'
+    day = double iso8601: 'iso8601'
     index.should_receive(:fetch).with('iso8601', 'b').and_return('lots')
     decorator.indexed(day, 'b').should == 'lots'
   end

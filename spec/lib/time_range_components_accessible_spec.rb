@@ -45,7 +45,7 @@ describe TimeRangeComponentsAccessible do
 end
 
 describe TimeComponent do
-  let(:record) { stub 'record' }
+  let(:record) { double 'record' }
   subject { described_class.new(record, :start) }
 
   context '#round_minute' do

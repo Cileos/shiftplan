@@ -7,10 +7,10 @@ describe StackDecoratorHelper do
     end
   end
   let(:decorator) { DecoratorForStackableRecords.new(records) }
-  let(:records) { stub }
+  let(:records) { double }
 
   context '#stack_metadata_for scheduling' do
-    let(:scheduling) { stub('Scheduling').as_null_object }
+    let(:scheduling) { double('Scheduling').as_null_object }
     let(:metadata) { decorator.stack_metadata_for(scheduling) }
 
     it "includes whole start hour" do

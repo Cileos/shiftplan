@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Volksplaner::PlanRedirector do
-  let(:controller) { stub('controller').as_null_object }
-  let(:plan)   { stub 'plan' }
-  let(:target) { stub 'redirect target' }
+  let(:controller) { double('controller').as_null_object }
+  let(:plan)   { double 'plan' }
+  let(:target) { double 'redirect target' }
   let(:redirector) { described_class.new(controller, plan) }
 
   def d(date_string)
@@ -16,8 +16,8 @@ describe Volksplaner::PlanRedirector do
   end
 
   it "defaults to employees in week" do
-    plan.stub organization: (organization = stub)
-    organization.stub account: (account = stub)
+    plan.stub organization: (organization = double)
+    organization.stub account: (account = double)
     controller.stub(:account_organization_plan_employees_in_week_path).
                with( account, organization, plan, 2063, 19).
                and_return(target)
@@ -41,7 +41,7 @@ describe Volksplaner::PlanRedirector do
       end
     end
     context "with period" do
-      let(:period) { stub 'period' }
+      let(:period) { double 'period' }
       before :each do
         plan.stub(:has_period?) { true }
         plan.stub(:period).and_return(period)
@@ -66,29 +66,29 @@ describe Volksplaner::PlanRedirector do
   end
 
   context "validate and redirect with filter" do
-    let(:filter)     { stub 'filter' }
+    let(:filter)     { double 'filter' }
     context "without period" do
       it "does not redirect" do
         plan.stub :has_period? => false
         controller.should_not_receive(:redirect_to)
-        redirector.validate_and_redirect(stub)
+        redirector.validate_and_redirect(double)
       end
     end
     context "with period" do
-      let(:period) { stub 'period' }
+      let(:period) { double 'period' }
       before :each do
         plan.stub(:has_period?) { true }
         plan.stub(:period).and_return(period)
       end
       it "redirects to first week if filter before period" do
-        plan.stub :has_period? => true, :starts_at => (starts_at = stub)
+        plan.stub :has_period? => true, :starts_at => (starts_at = double)
         filter.stub :before_start_of_plan? => true
         filter.stub(:path_to_date).with(starts_at) { target }
         controller.should_receive(:redirect_to).with(target)
         redirector.validate_and_redirect filter
       end
       it "redirects to last week if filter after period" do
-        plan.stub :has_period? => true, :ends_at => (ends_at = stub)
+        plan.stub :has_period? => true, :ends_at => (ends_at = double)
         filter.stub :before_start_of_plan? => false
         filter.stub :after_end_of_plan? => true
 
