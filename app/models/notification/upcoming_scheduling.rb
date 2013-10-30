@@ -38,9 +38,8 @@ class Notification::UpcomingScheduling < Notification::Base
   end
 
   def self.with_scheduling_ended
-    all.select do |n|
-      n.notifiable.ends_at < Time.zone.now
-    end
+    joins("INNER JOIN schedulings ON schedulings.id = notifications.notifiable_id").
+      where("schedulings.ends_at < '#{Time.zone.now}'")
   end
 
   private
