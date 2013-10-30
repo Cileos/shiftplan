@@ -52,6 +52,10 @@ Feature: View hours over weekdays in plan
         | week | cwday | quickie            |
         | 49   | 2     | 1-8 Reaktor putzen |
       And I am on the hours in week page of the plan for cwyear: 2012, week: 49
-     When I follow the no-comments link within the calendar
+      # We have to click with jQuery to prevent that the scheduling's hover
+      # effect interferes with clicking on the no comments link.  When using the
+      # standard "I follow ..." step, the scheduling itself was clicked and the
+      # modal box of the scheduling opened instead of the comments modal box.
+     When I click on the no-comments link with jQuery
       And I comment "Excellently short!"
      Then I should see "1" within the comment link within the calendar
