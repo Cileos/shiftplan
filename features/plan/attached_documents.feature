@@ -14,8 +14,8 @@ Feature: Attached documents
        And I press "Hochladen"
        And I wait for the modal box to disappear
       Then I should see a list of the following attached_documents:
-        | Name       | Size   |
-        | howto.docx | 3,6 KB |
+        | Name       | Size   | Uploader      |
+        | howto.docx | 3,6 KB | Planner Burns |
 
   Scenario: Upload to plan, attach to milestone
      Given the situation of a nuclear reactor
@@ -28,5 +28,5 @@ Feature: Attached documents
        And I press "Hochladen"
        And I wait for the modal box to disappear
       Then I should see a list of the following attached_documents:
-        | Name       | Size   | Milestone      |
-        | howto.docx | 3,6 KB | Weltherrschaft |
+        | Name       | Size   | Milestone      | Uploader      |
+        | howto.docx | 3,6 KB | Weltherrschaft | Planner Burns |

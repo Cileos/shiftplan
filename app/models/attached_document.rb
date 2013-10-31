@@ -1,6 +1,7 @@
 class AttachedDocument < ActiveRecord::Base
   belongs_to :plan
   belongs_to :milestone #optional
+  belongs_to :uploader, class_name: 'Employee'
   mount_uploader :file, AttachedDocumentUploader
   attr_accessible :file, :name, :milestone_id
 

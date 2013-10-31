@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131030170029) do
+ActiveRecord::Schema.define(:version => 20131031153031) do
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -30,9 +30,11 @@ ActiveRecord::Schema.define(:version => 20131030170029) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "milestone_id"
+    t.integer  "uploader_id"
   end
 
   add_index "attached_documents", ["milestone_id"], :name => "index_attached_documents_on_milestone_id"
+  add_index "attached_documents", ["uploader_id"], :name => "index_attached_documents_on_uploader_id"
 
   create_table "blogs", :force => true do |t|
     t.integer  "organization_id"

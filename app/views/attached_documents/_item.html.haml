@@ -3,3 +3,5 @@
   .size=number_to_human_size item.file.size, precision: 2, si: true
   - if item.milestone
     .milestone= item.milestone.name
+  - if item.uploader
+    .uploader= item.uploader.name
