@@ -13,6 +13,7 @@ Feature: Attached documents
        And I attach the file "factories/attached_documents/howto.docx" to "Datei"
        And I press "Hochladen"
        And I wait for the modal box to disappear
+      Then I should see flash notice "Dokument howto.docx erfolgreich hochgeladen"
       Then I should see a list of the following attached_documents:
         | Name       | Size   | Uploader      |
         | howto.docx | 3,6 KB | Planner Burns |

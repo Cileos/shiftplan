@@ -7,4 +7,8 @@ class AttachedDocumentsController < BaseController
       doc.uploader = current_employee
     end
   end
+
+  def interpolation_options
+    { name: resource.name }
+  end
 end

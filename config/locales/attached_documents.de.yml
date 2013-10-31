@@ -8,4 +8,8 @@ de:
       attached_document:
         one: "Dokument"
         other: "Dokumente"
+  flash:
+    attached_documents:
+      create:
+        notice: "Dokument %{name} erfolgreich hochgeladen"
 
