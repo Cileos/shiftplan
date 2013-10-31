@@ -7,30 +7,33 @@ class Notification::UpcomingScheduling < Notification::Base
     :upcoming_scheduling
   end
 
-  def mail_subject
-    t(:'mail_subject', scope: tscope,
+  def mail_subject_options
+    {
       account: account.name,
       organization: organization.name,
-      plan: plan.name)
+      plan: plan.name
+    }
   end
 
-  def introductory_text
-    t(:'introductory_text', scope: tscope,
+  def introductory_text_options
+    {
       date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day),
-      quickie: scheduling.quickie)
+      quickie: scheduling.quickie
+    }
   end
 
-  def subject
-    t(:'subject', scope: tscope)
+  def subject_options
+    {}
   end
 
-  def blurb
-    t(:'blurb', scope: tscope,
+  def blurb_options
+    {
       date: I18n.l(scheduling.starts_at.to_date),
       quickie: scheduling.quickie,
       account: account.name,
       organization: organization.name,
-      plan: plan.name)
+      plan: plan.name
+    }
   end
 
   def acting_employee

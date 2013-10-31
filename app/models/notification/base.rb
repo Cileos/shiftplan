@@ -46,26 +46,39 @@ class Notification::Base < ActiveRecord::Base
     raise NotImplementedError, "must return the mailer action name of your ActionMailer::Base class used to send out mails for notifications of type #{name}"
   end
 
-  # translation scope
-  def tscope
-    "notifications.#{tkey}"
-  end
-
   def mail_subject
-    t(:'mail_subject', scope: tscope,
-      name: acting_employee.name)
+    t(:mail_subject, mail_subject_options)
   end
 
-  def subject
-    raise NotImplementedError, "must implement #{self.class.name}#subject containing a short text of what happened"
-  end
-
-  def blurb
-    raise NotImplementedError, "must implement #{self.class.name}#blurb containing a short description of what happened"
+  def mail_subject_options
+    { name: acting_employee.name }
   end
 
   def introductory_text
-    raise NotImplementedError, "must implement #{self.class.name}#introductory_text containing a longer description of what happened"
+    t(:introductory_text, introductory_text_options)
+  end
+
+  def introductory_text_options
+    {
+      name: acting_employee.name,
+      date: I18n.l(post.published_at, format: :tiny)
+    }
+  end
+
+  def subject
+    t(:subject, subject_options)
+  end
+
+  def subject_options
+    {}
+  end
+
+  def blurb
+    t(:subject, blurb_options)
+  end
+
+  def blurb_options
+    {}
   end
 
   def acting_employee
@@ -73,7 +86,7 @@ class Notification::Base < ActiveRecord::Base
   end
 
   def t(key, opts={})
-    I18n.t(key, opts)
+    I18n.t(key, opts.merge(scope: "notifications.#{tkey}"))
   end
 
   def self.recent(num=5)
