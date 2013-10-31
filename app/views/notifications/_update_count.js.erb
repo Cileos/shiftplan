@@ -1,5 +1,5 @@
-current_title = $('title').text();
-count_substr_match = $.trim(current_title).match(/^\(\d+\)/);
+var current_title = $('title').text();
+var count_substr_match = $.trim(current_title).match(/^\(\d+\)/);
 if (count_substr_match) {
   $('title').text(current_title.replace(count_substr_match[0], ''));
 }
