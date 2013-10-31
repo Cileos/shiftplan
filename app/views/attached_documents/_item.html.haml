@@ -5,3 +5,5 @@
     .milestone= item.milestone.name
   - if item.uploader
     .uploader= item.uploader.name
+  - if can?(:destroy, item)
+    = link_to '.destroy', nested_resources_for(item), method: :delete, class: 'button button-small button-warning'

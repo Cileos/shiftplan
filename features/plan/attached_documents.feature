@@ -31,3 +31,11 @@ Feature: Attached documents
       Then I should see a list of the following attached_documents:
         | Name       | Size   | Milestone      | Uploader      |
         | howto.docx | 3,6 KB | Weltherrschaft | Planner Burns |
+
+  Scenario: Delete an attached document
+     Given the situation of a nuclear reactor
+       And an attached howto document exists with plan: the plan
+       And I am on the page of the plan
+       And I deactivate all confirm dialogs
+      When I follow "Löschen" within the attached_documents list
+      Then I should see flash notice "Dokument howto.docx gelöscht"

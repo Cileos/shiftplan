@@ -12,4 +12,6 @@ de:
     attached_documents:
       create:
         notice: "Dokument %{name} erfolgreich hochgeladen"
+      destroy:
+        notice: "Dokument %{name} gelöscht"
 
