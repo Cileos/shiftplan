@@ -12,10 +12,6 @@ class Notification::CommentOnPost < Notification::Comment
     comment.commentable
   end
 
-  def mail_subject_options
-    { name: comment.author_name }
-  end
-
   def introductory_text_options
     {
       author_name: comment.author_name,
@@ -25,10 +21,7 @@ class Notification::CommentOnPost < Notification::Comment
   end
 
   def blurb_options
-    {
-      post_title: truncated_post_title,
-      body: truncated_body
-    }
+    super.merge(post_title: truncated_post_title)
   end
 
   def truncated_post_title

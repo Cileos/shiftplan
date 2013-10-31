@@ -7,8 +7,16 @@ class Notification::Comment < Notification::Base
     comment.author
   end
 
+  def mail_subject_options
+    { name: comment.author_name }
+  end
+
   def subject
     comment.author_name
+  end
+
+  def blurb_options
+    { body: truncated_body }
   end
 
   def truncated_body
