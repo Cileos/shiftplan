@@ -74,7 +74,7 @@ class Notification::Base < ActiveRecord::Base
   end
 
   def blurb
-    t(:subject, blurb_options)
+    t(:blurb, blurb_options)
   end
 
   def blurb_options
