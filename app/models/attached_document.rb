@@ -6,6 +6,7 @@ class AttachedDocument < ActiveRecord::Base
   attr_accessible :file, :name, :milestone_id
 
   validates_presence_of :file
+  validate :file, file_size: { maximum: 10.megabyte }
 
   before_create :set_name_from_file
 
