@@ -22,10 +22,6 @@ class Notification::UpcomingScheduling < Notification::Base
     }
   end
 
-  def subject_options
-    {}
-  end
-
   def blurb_options
     {
       date: I18n.l(scheduling.starts_at.to_date),
