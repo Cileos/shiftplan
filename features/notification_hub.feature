@@ -26,6 +26,7 @@ Feature: Notification Hub
      When I follow "3" within the notification hub
       And I wait for the notifications spinner to disappear
      Then the notification hub should have no new notifications
+      And I should not see "(3)" within the page title
       But the notification hub should have unread notifications
       # The first line of the step`s table argument corresponds to the first
       # list item which only includes the "Mark all as read" link.

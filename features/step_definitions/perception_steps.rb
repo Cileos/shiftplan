@@ -161,6 +161,7 @@ end
 
 Then /^the notification hub should have #{capture_quoted} new notifications$/ do |number|
   step %~I should see "#{number}" within the notifications count~
+  step %~I should see "(#{number})" within the page title~
   step %~the notification hub should have class "has_new"~
 end
 
