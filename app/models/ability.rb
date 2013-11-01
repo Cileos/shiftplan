@@ -211,6 +211,7 @@ class Ability
     end
 
     authorize_owner_and_planner(user)
+    authorize_employee(user)
   end
 
   def authorize_owner(user)
@@ -304,6 +305,7 @@ class Ability
     end
 
     authorize_owner_and_planner(user)
+    authorize_employee(user)
   end
 
   private

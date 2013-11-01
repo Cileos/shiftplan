@@ -12,12 +12,13 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20131031153031) do
+
   create_table "accounts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "name"
-    t.string   "slug"
     t.integer  "owner_id"
+    t.string   "slug"
   end
 
   add_index "accounts", ["owner_id"], :name => "index_accounts_on_owner_id"
@@ -322,7 +323,6 @@ ActiveRecord::Schema.define(:version => 20131031153031) do
     t.string   "private_token",               :limit => 20
     t.boolean  "receive_notification_emails",                 :default => true
     t.integer  "new_notifications_count",                     :default => 0
-    t.string   "private_token",          :limit => 20
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
