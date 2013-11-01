@@ -7,30 +7,29 @@ class Notification::UpcomingScheduling < Notification::Base
     :upcoming_scheduling
   end
 
-  def mail_subject
-    t(:"mail_subjects.#{tkey}",
+  def mail_subject_options
+    {
       account: account.name,
       organization: organization.name,
-      plan: plan.name)
+      plan: plan.name
+    }
   end
 
-  def introductory_text
-    t(:"introductory_texts.#{tkey}",
+  def introductory_text_options
+    {
       date: I18n.l(scheduling.starts_at.to_date, format: :default_with_week_day),
-      quickie: scheduling.quickie)
+      quickie: scheduling.quickie
+    }
   end
 
-  def subject
-    t(:"subjects.#{tkey}")
-  end
-
-  def blurb
-    t(:"blurbs.#{tkey}",
+  def blurb_options
+    {
       date: I18n.l(scheduling.starts_at.to_date),
       quickie: scheduling.quickie,
       account: account.name,
       organization: organization.name,
-      plan: plan.name)
+      plan: plan.name
+    }
   end
 
   def acting_employee
@@ -38,9 +37,8 @@ class Notification::UpcomingScheduling < Notification::Base
   end
 
   def self.with_scheduling_ended
-    all.select do |n|
-      n.notifiable.ends_at < Time.zone.now
-    end
+    joins("INNER JOIN schedulings ON schedulings.id = notifications.notifiable_id").
+      where("schedulings.ends_at < '#{Time.zone.now}'")
   end
 
   private

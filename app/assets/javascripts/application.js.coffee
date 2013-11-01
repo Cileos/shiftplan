@@ -29,5 +29,3 @@ jQuery ->
     elmTextarea.autosize()
 
   $('#keyboard-shortcuts [data-toggle="collapsible-heading"]').click()  unless $.cookie("clockwork_keyboard-shortcuts")
-
-  $('header[role=banner] li.dropdown').doubleTapToGo()

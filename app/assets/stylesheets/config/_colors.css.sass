@@ -29,6 +29,8 @@ $ci_sidebar_bg-color: #f0f0f6
 $ci_text-color: #121812
 $ci_table-zebra: #f5f5f8
 
+$global_border-color: $ci_gray
+
 $ci_shadow: rgba(10, 0, 0, 0.25)
 $ci_glow: rgba(255, 255, 255, 0.35)
 $ci_blaze: rgba(255, 255, 255, 0.65)
@@ -42,33 +44,33 @@ $ci_darkorange_hover: lighten($ci_darkorange, 5%)
 $gradient_1: #ececec
 $gradient_2: #f0f4f8
 
-.colors li
-  border-radius: $ci_border-radius
-  margin-bottom: 5px
-  width: 250px
-  display: block
-  padding: 5px 10px
+// .colors li
+//   border-radius: $ci_border-radius
+//   margin-bottom: 5px
+//   width: 250px
+//   display: block
+//   padding: 5px 10px
 
-[data-color]:after
-  content: attr(data-color)
+// [data-color]:after
+//   content: attr(data-color)
 
-// This is a pretty freaking hacky way to do this,
-// but we'll have to wait with a better solution until
-// Sass implements maps / lookup tables.
+// // This is a pretty freaking hacky way to do this,
+// // but we'll have to wait with a better solution until
+// // Sass implements maps / lookup tables.
 
-$ci_color-names: ci_blue, ci_darkblue, ci_darkpurple, ci_purple, ci_pink, ci_darkorange, ci_orange, ci_darkyellow, ci_yellow, ci_lime, ci_green, ci_teal, ci_gray, ci_darkgray, ci_anthracite, ci_blue_hover, ci_blue_hover_dark, ci_gray_hover, ci_green_hover, ci_darkorange_hover
+// $ci_color-names: ci_blue, ci_darkblue, ci_darkpurple, ci_purple, ci_pink, ci_darkorange, ci_orange, ci_darkyellow, ci_yellow, ci_lime, ci_green, ci_teal, ci_gray, ci_darkgray, ci_anthracite, ci_blue_hover, ci_blue_hover_dark, ci_gray_hover, ci_green_hover, ci_darkorange_hover
 
-$ci_color-values: $ci_blue, $ci_darkblue, $ci_darkpurple, $ci_purple, $ci_pink, $ci_darkorange, $ci_orange, $ci_darkyellow, $ci_yellow, $ci_lime, $ci_green, $ci_teal, $ci_gray, $ci_darkgray, $ci_anthracite, $ci_blue_hover, $ci_blue_hover_dark, $ci_gray_hover, $ci_green_hover, $ci_darkorange_hover
+// $ci_color-values: $ci_blue, $ci_darkblue, $ci_darkpurple, $ci_purple, $ci_pink, $ci_darkorange, $ci_orange, $ci_darkyellow, $ci_yellow, $ci_lime, $ci_green, $ci_teal, $ci_gray, $ci_darkgray, $ci_anthracite, $ci_blue_hover, $ci_blue_hover_dark, $ci_gray_hover, $ci_green_hover, $ci_darkorange_hover
 
-@function color-for($name)
-  @return nth($ci_color-values, index($ci_color-names, $name))
+// @function color-for($name)
+//   @return nth($ci_color-values, index($ci_color-names, $name))
 
-@each $color in $ci_color-names
-  [data-color=#{$color}]
-    @if lightness(color-for($color)) < 50
-      color: #fff
+// @each $color in $ci_color-names
+//   [data-color=#{$color}]
+//     @if lightness(color-for($color)) < 50
+//       color: #fff
 
-    @else
-      color: $ci_anthracite
+//     @else
+//       color: $ci_anthracite
 
-    background: color-for($color)
+//     background: color-for($color)

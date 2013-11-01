@@ -14,6 +14,7 @@
 //= require xregexp/build
 
 //= require_tree './lib'
+//= require bootstrap/dropdown
 //= require spinner
 //= require jquery.remotipart
 //= require jquery.mailcheck.min
@@ -28,4 +29,3 @@
 //= require datepicker/jquery.datepick.ext.js
 //= require datepicker/jquery.datepick-de
 //= require bindWithDelay/bindWithDelay
-//= require doubletaptogo

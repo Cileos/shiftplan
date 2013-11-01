@@ -32,21 +32,17 @@ Feature: Notification Hub
       # TODO: This first line should be removed when tatze changes the html.
       And I should see a list of the following notifications:
        | subject      | blurb                                                                    |
-       |              |                                                                          |
        | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
        | Bart Simpson | hat "Umweltminister zu Besuch" kommentiert: "Ich bringe einen Besen mit" |
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"               |
-       |              |                                                                          |
      When I follow "Umweltminister zu Besuch" within the notification hub
      Then I should be on the page of the post
      When I open the notification hub menu
       And I wait for the notifications spinner to disappear
      Then I should see a list of the following notifications:
        | subject      | blurb                                                                    |
-       |              |                                                                          |
        | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"               |
-       |              |                                                                          |
 
 
   Scenario: Marking notifications as read
@@ -61,9 +57,7 @@ Feature: Notification Hub
       # TODO: This first line should be removed when tatze changes the html.
      Then I should see a list of the following notifications:
        | subject      | blurb                                                      |
-       |              |                                                            |
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen" |
-       |              |                                                            |
       But I should not see "Alles erledigt" within the notification hub
      When I follow "Als gelesen markieren" within the notification hub
      Then the notification hub should not have unread notifications
@@ -95,7 +89,6 @@ Feature: Notification Hub
       # TODO: This first line should be removed when tatze changes the html.
      Then I should see a list of the following notifications:
        | subject       | blurb                                 |
-       |               |                                       |
        | Bart Simpson  | hat "Post 11" geschrieben: "Post 11"  |
        | Bart Simpson  | hat "Post 10" geschrieben: "Post 10"  |
        | Bart Simpson  | hat "Post 9" geschrieben: "Post 9"    |
@@ -106,7 +99,6 @@ Feature: Notification Hub
        | Bart Simpson  | hat "Post 4" geschrieben: "Post 4"    |
        | Bart Simpson  | hat "Post 3" geschrieben: "Post 3"    |
        | Bart Simpson  | hat "Post 2" geschrieben: "Post 2"    |
-       |               |                                       |
 
      When I follow "Alle als gelesen markieren"
       And I wait for the notifications spinner to disappear
@@ -117,9 +109,7 @@ Feature: Notification Hub
       # Only the notifications currently displayed in the hub get marked as read.
      Then I should see a list of the following notifications:
        | subject       | blurb                               |
-       |               |                                     |
        | Bart Simpson  | hat "Post 1" geschrieben: "Post 1"  |
-       |               |                                     |
       And the notification hub should have unread notifications
 
      When I follow "Alle als gelesen markieren"

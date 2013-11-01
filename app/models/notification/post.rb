@@ -12,20 +12,22 @@ class Notification::Post < Notification::Base
     notifiable
   end
 
-  def introductory_text
-    t(:"introductory_texts.#{tkey}",
+  def introductory_text_options
+    {
       name: acting_employee.name,
-      date: I18n.l(post.published_at, format: :tiny))
+      date: I18n.l(post.published_at, format: :tiny)
+    }
   end
 
   def subject
     acting_employee.name
   end
 
-  def blurb
-    t(:"blurbs.#{tkey}",
+  def blurb_options
+    {
       title: truncated_title,
-      body: truncated_body)
+      body: truncated_body
+    }
   end
 
   def acting_employee

@@ -4,8 +4,8 @@
 - if can? :create, Scheduling
   %ul
     %li.dropdown
-      = link_to t('.more_actions'), '#'
-      %ul
+      = link_to t('.more_actions'), '#', data: { toggle: 'dropdown'}
+      %ul.dropdown-menu
         - if filter.mode?('week')
           %li= link_to ta(:new_copy_week),
             new_account_organization_plan_copy_week_path(current_organization.account,
