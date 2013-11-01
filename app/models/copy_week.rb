@@ -33,6 +33,7 @@ class CopyWeek
     Plan.transaction do
       source_schedulings.each do |s|
         t = s.dup
+        t.comments_count = 0 # do not copy the comments_count of the original
         t.move_to_week_and_year! target_week, target_year
       end
     end
