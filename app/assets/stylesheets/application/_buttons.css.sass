@@ -1,0 +1,149 @@
+=button-colors($color: $ci_lightgray, $color_hover: lighten($ci_lightgray, 2.5%))
+  background: $color
+  // fallback for e.g. iOS 4
+  +background-image(linear-gradient(lighten($color, 7.5%), $color))
+  +adaptive-color(color, $color)
+  +adaptive-color(text-shadow, $color)
+  border: 1px solid darken($color, 5%)
+
+  &:hover,
+  &:focus
+    +background-image(linear-gradient(lighten($color_hover, 7.5%), $color_hover))
+    +adaptive-color(color, $color_hover)
+    +adaptive-color(text-shadow, $color_hover)
+
+  &.disabled
+    background: $color
+    cursor: default
+
+input[type=submit],
+.button,
+button
+  +button-colors
+  +box-shadow(inset 0 1px 0 $ci_glow)
+  // @include transition(all .25s $ci_easing);
+  border-radius: $ci_border-radius
+  padding: .4em .5em .35em
+  text-decoration: none
+  white-space: nowrap
+
+  &:hover,
+  &:focus
+    //@include box-shadow(0 0 .35em transparentize($ci_blue, .2));
+    //border-color: $ci_blue;
+    color: $ci_anthracite
+
+  &:not(.disabled):active
+    +box-shadow(inset 0 0 0.35em $ci_shadow)
+
+  &:disabled
+    background: transparent
+    color: $ci_gray
+    border: 1px solid $ci_gray
+
+  &.button-small
+    font-size: .85em
+    padding-top: .35em
+    padding-bottom: .3em
+
+  &[data-icon]
+    padding: .4em .5em .35em
+
+.button-green,
+input[type=submit].button-green,
+.button-success,
+input[type=submit].button-success
+  +button-colors(darken($ci_green, 12.5%), darken($ci_green, 7.5%))
+
+  &:hover,
+  &:focus
+    +box-shadow(0 0 0.35em transparentize($ci_green, 0.2))
+
+  &:active
+    +box-shadow(inset 0 0 0.35em $ci_shadow)
+
+.button-red,
+input[type=submit].button-red,
+.button-warning,
+input[type=submit].button-warning
+  border: 1px solid $ci_lightgray
+  background: transparent
+  color: $ci_darkorange
+  text-decoration: none
+
+  &:hover,
+  &:focus
+    +adaptive-color(color, $ci_darkorange)
+    +adaptive-color(text-shadow, $ci_darkorange)
+    background: $ci_darkorange
+    border: 1px solid $ci_darkorange
+
+.utility-button,
+input[type=submit].utility-button
+  +transition(background 0.5s $ci_easing)
+  border-radius: 10px
+  background: $ci_gray
+  color: #fff
+  padding: 3px 5px
+  border-width: 0
+  text-shadow: none
+
+  &.button-warning:hover,
+  &.button-warning:focus
+    background: $ci_darkorange
+
+  &:hover,
+  &:focus
+    color: #fff
+    background: $ci_blue
+
+  &.button-small
+    padding: 2px 1px 1px 5px
+    line-height: 15px
+    font-size: 10px
+
+.button-cancel
+  float: left
+
+.button-ok
+  float: right
+
+.button-group
+  padding: 0
+  margin: 0 5px 0 0
+  word-wrap: nowrap
+  // prevents inner linebreaks
+  float: left
+
+  input[type=submit],
+  .button,
+  button
+    border-radius: 0
+    display: inline
+    float: left
+    margin: 0
+
+    &:not(:last-child)
+      border-right: none
+
+    &:hover,
+    &:focus
+      +z-index(1)
+
+  \:first-child
+    border-radius: $ci_border-radius 0 0 $ci_border-radius
+
+  \:last-child
+    border-radius: 0 $ci_border-radius $ci_border-radius 0
+
+.button-add
+  @extend %with-icon
+  @extend .icon-add
+
+.button-edit
+  @extend %with-icon
+  @extend .icon-edit
+
+.button.reply
+  @extend %with-icon
+  @extend .icon-reply

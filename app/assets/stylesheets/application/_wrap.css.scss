@@ -1,9 +1,0 @@
-.wrap {
-    margin: 0 auto;
-    //max-width: $wrapper_width;
-    min-width: $min_wrapper_width;
-
-    &.calendar.effect {
-        @include transition(all 1s);
-    }
-}

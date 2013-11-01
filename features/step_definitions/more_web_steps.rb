@@ -110,6 +110,12 @@ When /^I click on (the #{match_nth}\s?\w+\s?\w+)(?!within.*)$/ do |name|
   page.first( selector ).click
 end
 
+When /^I click on (.+) with jQuery$/ do |name|
+  page.execute_script <<-EOJS
+    $("#{selector_for(name)}").click()
+  EOJS
+end
+
 When /^I check the checkbox$/ do
   check page.first('input[type=checkbox]')['id']
 end

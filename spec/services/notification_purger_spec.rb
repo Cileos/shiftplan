@@ -2,31 +2,10 @@ describe NotificationPurger do
 
   context ".purge!" do
 
-    let!(:old_post_notification) do
-      create(:post_notification, created_at: (3.months.ago - 5.minute))
-    end
-    let!(:post_notification) do
-      create(:post_notification, created_at: (3.months.ago + 5.minute))
-    end
-
-    let!(:scheduling_of_the_past) do
-      now = Time.zone.now
-      create(:scheduling, starts_at: now - 8.hours, ends_at: now - 5.minute)
-    end
-    let!(:outdated_upcoming_notification) do
-      create(:upcoming_scheduling_notification, notifiable: scheduling_of_the_past)
-    end
-    let!(:upcoming_notification) do
-      create(:upcoming_scheduling_notification)
-    end
-
-    it "purges 2 of 4" do
-      expect do
-        NotificationPurger.purge!
-      end.to change(Notification::Base, :count ).from(4).to(2)
-    end
-
     it "purges notifications older than 3 months" do
+      post_notification     = create(:post_notification, created_at: (3.months.ago + 1.day))
+      old_post_notification = create(:post_notification, created_at: (3.months.ago - 1.day))
+
       NotificationPurger.purge!
 
       Notification::Base.find_by_id(old_post_notification.id).should be_nil
@@ -34,6 +13,11 @@ describe NotificationPurger do
     end
 
     it "purges upcoming scheduling notifications with scheduling that ended already" do
+      now = Time.zone.now
+      scheduling_of_the_past         = create(:scheduling, starts_at: now - 8.hours, ends_at: now - 5.minutes)
+      outdated_upcoming_notification = create(:upcoming_scheduling_notification, notifiable: scheduling_of_the_past)
+      upcoming_notification          = create(:upcoming_scheduling_notification)
+
       NotificationPurger.purge!
 
       Notification::Base.find_by_id(outdated_upcoming_notification.id).should be_nil

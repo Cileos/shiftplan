@@ -47,20 +47,38 @@ class Notification::Base < ActiveRecord::Base
   end
 
   def mail_subject
-    t(:"mail_subjects.#{tkey}",
-      name: acting_employee.name)
+    t(:mail_subject, mail_subject_options)
   end
 
-  def subject
-    raise NotImplementedError, "must implement #{self.class.name}#subject containing a short text of what happened"
-  end
-
-  def blurb
-    raise NotImplementedError, "must implement #{self.class.name}#blurb containing a short description of what happened"
+  def mail_subject_options
+    { name: acting_employee.name }
   end
 
   def introductory_text
-    raise NotImplementedError, "must implement #{self.class.name}#introductory_text containing a longer description of what happened"
+    t(:introductory_text, introductory_text_options)
+  end
+
+  def introductory_text_options
+    {
+      name: acting_employee.name,
+      date: I18n.l(post.published_at, format: :tiny)
+    }
+  end
+
+  def subject
+    t(:subject, subject_options)
+  end
+
+  def subject_options
+    {}
+  end
+
+  def blurb
+    t(:blurb, blurb_options)
+  end
+
+  def blurb_options
+    {}
   end
 
   def acting_employee
@@ -68,7 +86,7 @@ class Notification::Base < ActiveRecord::Base
   end
 
   def t(key, opts={})
-    I18n.t(:"notifications.#{key}", opts)
+    I18n.t(key, opts.merge(scope: "notifications.#{tkey}"))
   end
 
   def self.recent(num=5)
@@ -106,8 +124,7 @@ class Notification::Base < ActiveRecord::Base
 
   def increase_notifications_count_on_user
     if u = employee.user
-      u.new_notifications_count += 1
-      u.save!
+      u.increment!(:new_notifications_count)
     end
   end
 end

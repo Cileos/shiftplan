@@ -1,0 +1,62 @@
+// you cant mix media queries with selectors
+// so it has to be a mixin
+=calendar_detail_condensed
+  .date-without-year
+    display: block
+
+  abbr
+    &.day_name,
+    &.badge,
+    &.weekly_working_time,
+    &.team_name,
+    &.work_time
+      &:before
+        content: ''
+
+      span
+        +_unhidden
+
+    &:hover
+      cursor: help !important
+
+  abbr.weekly_working_time
+    +_unhidden
+
+  span.weekly_working_time
+    +_hidden
+
+.calendar
+  abbr
+    // show full description
+    &:before
+      content: attr(title)
+
+    // hide the shortened stuff (will be shown wenn width < 1000px)
+    span
+      +_hidden
+
+  // this one is a nested abbr, so treat it special
+  abbr.weekly_working_time
+    +_hidden
+
+  span.weekly_working_time
+    +_unhidden
+
+    abbr:before
+      content: ''
+
+  &.detail_condensed
+    +calendar_detail_condensed
+
+  @media screen and (max-width: 1000px)
+    +calendar_detail_condensed
+
+  @media screen and (max-width: 800px)
+    abbr
+      &.team_name,
+      &.work_time
+        &:before
+          content: ''
+
+        span
+          +_unhidden

@@ -161,12 +161,13 @@ end
 
 Then /^the notification hub should have #{capture_quoted} new notifications$/ do |number|
   step %~I should see "#{number}" within the notifications count~
+  step %~I should see "(#{number})" within the page title~
   step %~the notification hub should have class "has_new"~
 end
 
 Then /^the notification hub should have no new notifications$/ do
   step %~the notification hub should not have class "has_new"~
-  page.has_css?("a#notifications-count span", text: '')
+  page.should have_css("a#notifications-count div.icon-bell_empty", text: '')
 end
 
 Then /^the notification hub (should|should not) have unread notifications$/ do |or_not|
@@ -175,9 +176,9 @@ end
 
 Then /^the notification hub (should|should not) have class #{capture_quoted}$/ do |or_not, css_class|
   if or_not.include?('not')
-    page.has_no_css?("li#notification-hub.#{css_class}").should be_true
+    page.should have_no_css("li#notification-hub.#{css_class}")
   else
-    page.has_css?("li#notification-hub.#{css_class}").should be_true
+    page.should have_css("li#notification-hub.#{css_class}")
   end
 end
 

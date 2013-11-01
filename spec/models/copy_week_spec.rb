@@ -74,6 +74,14 @@ describe CopyWeek do
     target_saturday_schedulings.first.next_day.should == target_sunday_schedulings.first
   end
 
+  it "does not copy the comments_count of schedulings" do
+    source(cwday: 1, quickie: '8-16', comments_count: 3)
+    copy.save
+
+    target_monday_schedulings.count.should == 1
+    target_monday_schedulings.first.comments_count.should == 0
+  end
+
   it "does not copy schedulings from other plans" do
     source(cwday: 1, quickie: '12-18', plan: another_plan)
     copy.save

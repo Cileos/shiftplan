@@ -1,0 +1,39 @@
+@mixin _triangle($border_color, $background_color, $pos_arr: 'left') {
+    $outer_pos: right;
+    $triangle_pos: top;
+    @if($pos_arr == 'right') {
+        $outer_pos: left;
+        $triangle_pos: top;
+    }
+    @else if($pos_arr == 'top') {
+        $outer_pos: bottom;
+        $triangle_pos: left;
+    }
+    @else if($pos_arr == 'bottom') {
+        $outer_pos: top;
+        $triangle_pos: left;
+    }
+    &:before, &:after {
+        content: "";
+        position: absolute;
+        #{$outer_pos}: 100%;
+        display: block;
+        width: 0;
+        border-style: solid;
+        border-color: transparent;
+        border-#{$pos_arr}: none;
+    }
+    /* outer triangle (= border) */
+    &:before {
+        #{$triangle_pos}: 15px;
+        border-width: 9px;
+        border-#{$outer_pos}-color: $border_color;
+    }
+
+    /* inner triangle (= background) */
+    &:after {
+        #{$triangle_pos}: 16px;
+        border-width: 8px;
+        border-#{$outer_pos}-color: $background_color;
+    }
+}

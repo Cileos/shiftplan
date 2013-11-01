@@ -1,0 +1,4 @@
+=_image-block($filename, $position: top left, $display_type: block)
+  display: $display_type
+  +_dimensions_from_image($filename)
+  background: image-url($filename) unquote($position) no-repeat

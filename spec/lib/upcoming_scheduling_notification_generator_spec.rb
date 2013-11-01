@@ -26,11 +26,12 @@ describe UpcomingSchedulingNotificationGenerator do
     end
 
     let!(:scheduling_beginning_in_the_past) do
-      start = Time.zone.now.yesterday
-      create(:scheduling, starts_at: start, ends_at: start + 8.hours, employee: bart)
+      now = Time.zone.now
+      start = now - 4.hours
+      create(:scheduling, starts_at: start, ends_at: now + 1.hour, employee: bart)
     end
 
-    it "creates notifications for all schedulings beginning in the next 24 hours" do
+    it "creates notifications for all schedulings of the future beginning in the next 24 hours" do
       expect do
         described_class.generate!
       end.to change(Notification::UpcomingScheduling, :count).from(0).to(1)

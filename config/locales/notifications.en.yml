@@ -1,47 +1,56 @@
 en:
   notifications:
     all_done: "All done."
-    subjects:
-      upcoming_scheduling: 'Upcoming scheduling'
-    blurbs:
-      post: 'wrote "%{title}": "%{body}"'
-      comment_on_post: 'commented "%{post_title}": "%{body}"'
-      comment_on_post_of_employee: 'commented "%{post_title}": "%{body}"'
-      comment_on_post_for_commenter: 'commented "%{post_title}": "%{body}"'
-      comment_on_scheduling: 'commented on a shift: "%{body}"'
-      comment_on_scheduling_of_employee: 'commented on your shift: "%{body}"'
-      comment_for_commenter: 'commented on a shift: "%{body}"'
-      answer_on_comment: 'commented on a shift: "%{body}"'
-      answer_on_comment_of_employee: 'commented on a shift: "%{body}"'
-      answer_on_comment_on_scheduling_of_employee: 'commented on your shift: "%{body}"'
-      answer_on_comment_of_employee_on_scheduling_of_employee: 'commented on your shift: "%{body}"'
-      answer_on_comment_for_commenter: 'commented on a shift: "%{body}"'
-      upcoming_scheduling: "%{date} %{quickie} (%{account} / %{organization} / %{plan})"
-    mail_subjects:
-      post: "%{name} wrote a new post"
-      comment_on_post: "%{name} commented on a post"
-      comment_on_post_of_employee: "%{name} commented on one of your posts"
-      comment_on_post_for_commenter: "%{name} also commented on a post"
-      comment_on_scheduling: "%{name} commented on your schedules."
-      comment_on_scheduling_of_employee: "%{name} commented on one of your schedules."
-      comment_for_commenter: "%{name} also commented on a schedule."
-      answer_on_comment: "%{name} replied to a comment on a schedule."
-      answer_on_comment_of_employee: "%{name} has replied to your comment on a schedule."
-      answer_on_comment_on_scheduling_of_employee: "%{name} replied to a comment on one of your scheduls."
-      answer_on_comment_of_employee_on_scheduling_of_employee: "%{name} has replied to your comment on your schedule."
-      answer_on_comment_for_commenter: "%{name} replied to a comment on a schedule you've commented on."
-      upcoming_scheduling: "Reminder: Upcoming shift (%{account} / %{organization} / %{plan})"
-    introductory_texts:
-      post: "%{name} wrote a new post on %{date} :"
-      comment_on_post: "%{author_name} commented on '%{post_title}' at %{date} :"
-      comment_on_post_of_employee: "%{author_name} commented on your '%{post_title}' at %{date}:"
-      comment_on_post_for_commenter: "%{author_name} also commented on '%{post_title}' at %{date}:"
-      comment_on_scheduling: "%{author_name} commented on a schedule of %{employee_name} on %{date} (%{quickie}):"
-      comment_on_scheduling_of_employee: "%{author_name} commented on one of your schedules on %{date} (%{quickie}) :"
-      comment_for_commenter: "%{author_name} has also commented on the shift of %{employee_name} on %{date} (%{quickie}) :"
-      answer_on_comment: "%{author_name} replied to a comment on a schedule of %{employee_name} on %{date} (%{quickie}):"
-      answer_on_comment_of_employee: "%{author_name} replied to your comment on the schedule of %{employee_name} on %{date} (%{quickie}) :"
-      answer_on_comment_on_scheduling_of_employee: "%{author_name} replied to a comment on one of your schedules %{date} (%{quickie}) :"
-      answer_on_comment_of_employee_on_scheduling_of_employee: "%{author_name} has replied on your comment on one of your schedules on %{date} (%{quickie}):"
-      answer_on_comment_for_commenter: "%{author_name} has replied to a comment on schedule of  %{employee_name} on %{date} (%{quickie}). Others also commented on this schedule:"
-      upcoming_scheduling: "You are scheduled for a shift on %{date} (%{quickie})."
+    post:
+      blurb: 'wrote "%{title}": "%{body}"'
+      mail_subject: "%{name} wrote a new post"
+      introductory_text: "%{name} wrote a new post on %{date} :"
+    comment_on_post:
+      blurb: 'commented "%{post_title}": "%{body}"'
+      mail_subject: "%{name} commented on a post"
+      introductory_text: "%{author_name} commented on '%{post_title}' at %{date} :"
+    comment_on_post_of_employee:
+      blurb: 'commented "%{post_title}": "%{body}"'
+      mail_subject: "%{name} commented on one of your posts"
+      introductory_text: "%{author_name} commented on your '%{post_title}' at %{date}:"
+    comment_on_post_for_commenter:
+      blurb: 'commented "%{post_title}": "%{body}"'
+      mail_subject: "%{name} also commented on a post"
+      introductory_text: "%{author_name} also commented on '%{post_title}' at %{date}:"
+    comment_on_scheduling:
+      blurb: 'commented on a shift: "%{body}"'
+      mail_subject: "%{name} commented on your schedules."
+      introductory_text: "%{author_name} commented on a schedule of %{employee_name} on %{date} (%{quickie}):"
+    comment_on_scheduling_of_employee:
+      blurb: 'commented on your shift: "%{body}"'
+      mail_subject: "%{name} commented on one of your schedules."
+      introductory_text: "%{author_name} commented on one of your schedules on %{date} (%{quickie}) :"
+    comment_for_commenter:
+      blurb: 'commented on a shift: "%{body}"'
+      mail_subject: "%{name} also commented on a schedule."
+      introductory_text: "%{author_name} has also commented on the shift of %{employee_name} on %{date} (%{quickie}) :"
+    answer_on_comment:
+      blurb: 'commented on a shift: "%{body}"'
+      mail_subject: "%{name} replied to a comment on a schedule."
+      introductory_text: "%{author_name} replied to a comment on a schedule of %{employee_name} on %{date} (%{quickie}):"
+    answer_on_comment_of_employee:
+      blurb: 'commented on a shift: "%{body}"'
+      mail_subject: "%{name} has replied to your comment on a schedule."
+      introductory_text: "%{author_name} replied to your comment on the schedule of %{employee_name} on %{date} (%{quickie}) :"
+    answer_on_comment_on_scheduling_of_employee:
+      blurb: 'commented on your shift: "%{body}"'
+      mail_subject: "%{name} replied to a comment on one of your scheduls."
+      introductory_text: "%{author_name} replied to a comment on one of your schedules %{date} (%{quickie}) :"
+    answer_on_comment_of_employee_on_scheduling_of_employee:
+      blurb: 'commented on your shift: "%{body}"'
+      mail_subject: "%{name} has replied to your comment on your schedule."
+      introductory_text: "%{author_name} has replied on your comment on one of your schedules on %{date} (%{quickie}):"
+    answer_on_comment_for_commenter:
+      blurb: 'commented on a shift: "%{body}"'
+      mail_subject: "%{name} replied to a comment on a schedule you've commented on."
+      introductory_text: "%{author_name} has replied to a comment on schedule of  %{employee_name} on %{date} (%{quickie}). Others also commented on this schedule:"
+    upcoming_scheduling:
+      subject: 'Upcoming scheduling'
+      blurb: "%{date} %{quickie} (%{account} / %{organization} / %{plan})"
+      mail_subject: "Reminder: Upcoming shift (%{account} / %{organization} / %{plan})"
+      introductory_text: "You are scheduled for a shift on %{date} (%{quickie})."
