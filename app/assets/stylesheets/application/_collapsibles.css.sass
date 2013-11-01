@@ -1,0 +1,32 @@
+[data-toggle='collapsible']
+  +background-image(linear-gradient(lighten($ci_sidebar_bg-color, 3%), $ci_sidebar_bg-color 30px))
+
+[data-toggle='collapsible-heading']
+  +transition(0.25s color ease)
+  position: relative
+  margin: 0
+  padding: 10px 0
+  font-size: $font-size
+  font-weight: bold
+  cursor: pointer
+  @extend %with-icon
+  @extend .icon-collapse
+
+  &:before
+    position: absolute
+    top: 10px
+    left: -1em
+
+  &.collapsed
+    @extend .icon-expand
+
+    &:before
+      left: -0.75em
+
+  &:hover
+    color: $ci_blue
+
+[data-toggle="collapsible-content"]
+  margin-top: 0.5em
+  padding-right: 10px
+

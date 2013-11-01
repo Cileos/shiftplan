@@ -14,20 +14,27 @@
 @import bourbon
 @import compiled/icons
 @import config/defaults
-@import config/*
-@import neat/neat
-@import extendables/*
+@import config/colors
+@import config/sizes
 
 /* custom library */
 @import library/*
 
+@import extendables/*
+
 /* application styles */
 @import application/common
+@import application/structure
+@import application/header
+@import application/pibble
+@import application/collapsibles
+@import application/export_links
 @import application/logo
+@import application/where_and_who_am_i
+@import application/masterhead
 @import application/conflict
 @import application/lists
 @import application/avatar
-@import application/wrap
 @import application/grid
 @import application/flash_messages
 @import application/icons
@@ -38,6 +45,7 @@
 @import application/feedback
 @import application/tables
 @import application/toolbar
+@import application/pagination
 @import application/blog
 @import application/comments
 @import application/contextual_help
@@ -53,3 +61,6 @@
 @import calendar/hours
 @import calendar/todo_list
 @import calendar/attached-documents
+
+@media screen and (max-width: 800px)
+  @import 800px/*
