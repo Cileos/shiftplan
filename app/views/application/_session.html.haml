@@ -6,7 +6,7 @@
       - if current_user.multiple? || current_user.employees.empty?
         = link_to avatar(current_user, current_employee, :thumb, 'small'), profile_employees_path, {:class => 'user', data: {toggle: 'dropdown'}}
       - else
-        = link_to avatar(current_user, current_employee, :thumb, 'small'), edit_profile_employee_path(current_user.employees.first), :class => 'user'
+        = link_to avatar(current_user, current_employee, :thumb, 'small'), edit_profile_employee_path(current_user.employees.first), {:class => 'user', data: {toggle: 'dropdown'}}
 
       %ul.dropdown-menu
         - if current_user.multiple? || current_user.employees.empty?
