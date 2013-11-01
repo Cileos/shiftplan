@@ -14,4 +14,7 @@ de:
         notice: "Dokument %{name} erfolgreich hochgeladen"
       destroy:
         notice: "Dokument %{name} gelöscht"
-
+  attached_documents:
+    item:
+      uploader: "von %{name}"
+      confirm_to_delete: "Wollen Sie das Dokument '%{name}' löschen?"

@@ -78,6 +78,7 @@ de:
       time: "%H:%M"
       abbr_week_day: "%a"
       short_month_and_year: "%b %Y"
+      micro: "%d.%m.%Y, %H:%M"
 
     am: "vormittags"
     pm: "nachmittags"

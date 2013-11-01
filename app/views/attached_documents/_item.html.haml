@@ -1,9 +1,10 @@
-%li.attached_documents
-  .name= item.name
+%li
+  - if can?(:destroy, item)
+    = link_to '.destroy', nested_resources_for(item), method: :delete, data: { confirm: t('.confirm_to_delete', name: item.name) }, class: 'destroy-button'
   .size=number_to_human_size item.file.size, precision: 2, si: true
+  .date= l item.updated_at, format: :micro
+  - if item.uploader
+    .uploader= t '.uploader', name: item.uploader.name
+  .name= link_to item.name, item.file.url
   - if item.milestone
     .milestone= item.milestone.name
-  - if item.uploader
-    .uploader= item.uploader.name
-  - if can?(:destroy, item)
-    = link_to '.destroy', nested_resources_for(item), method: :delete, class: 'button button-small button-warning'
