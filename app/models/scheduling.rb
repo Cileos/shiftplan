@@ -42,7 +42,9 @@ class Scheduling < ActiveRecord::Base
 
   def self.starting_in_the_next(interval)
     raise ArgumentError unless interval =~ /\A\d+ [a-z]+\z/
-    where("#{table_name}.starts_at < TIMESTAMP :now + INTERVAL '#{interval}'", now: Time.zone.now)
+    now = Time.zone.now
+    where("#{table_name}.starts_at >= :now", now: now).
+      where("#{table_name}.starts_at < TIMESTAMP :now + INTERVAL '#{interval}'", now: now)
   end
 
   def self.for_organization(organization)
