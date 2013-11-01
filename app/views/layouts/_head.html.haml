@@ -6,7 +6,10 @@
 
   %title
     - if content_for?(:title)
-      = yield(:title)
+      - page_title = yield(:title)
+      - if current_user && count = current_user.new_notifications_count
+        - page_title = ["(#{count})", page_title].join(' ') if count > 0
+      = page_title
       \-
     Clockwork
   = stylesheet_link_tag 'application'

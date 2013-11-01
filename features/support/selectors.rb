@@ -72,6 +72,9 @@ module HtmlSelectorsHelpers
     when /^the modal box (?:header|title)$/
       '.ui-dialog .ui-dialog-title'
 
+    when /^the page title$/
+      'title'
+
    # the "done" milestone checkbox
    when /^#{capture_quoted} (\w+) checkbox$/
      %Q~input.#{$2}[name="#{$1}"]~
