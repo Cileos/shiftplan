@@ -1,6 +1,16 @@
 Changelog
 =========
 
+Release 1.0.5 2013-11-01 14:45
+------------------------------
+
+ab849c9 Merge pull request #210 from Cileos/feature/only-create-notifications-for-schedulings-starting-in-the-future
+98850d0 Merge pull request #211 from Cileos/feature/do-not-copy-comments_count-for-copy-week
+1d41dc6 Merge branch 'feature/only-update-hub-if-user-signed-in' into develop
+3e894ec Merge branch 'feature/show-number-of-new-notifications-in-page-title' into develop
+1229d5f Merge pull request #207 from Cileos/feature/mainstream_dropdowns
+
+
 Release 1.0.4 2013-10-09 21:43
 ------------------------------
 15436b2 Merge branch 'feature/ical-export' into develop
