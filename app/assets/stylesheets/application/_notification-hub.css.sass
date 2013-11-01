@@ -122,19 +122,7 @@ $notification-hub_font-size: 10px
       margin-top: -8px
 
       a
-        display: block
-        width: 15px
-        overflow: hidden
-        padding: 0
-        white-space: nowrap
-        color: $ci_grey
-
-        &:before
-          font-size: 15px
-
-        &:hover
-          color: $ci_darkorange
-          background: none
+        @extend %destroy-button
 
 #notifications-spinner
   @include z-index(1000, absolute)

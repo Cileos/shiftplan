@@ -1,0 +1,16 @@
+%destroy-button
+  display: block
+  width: 15px
+  overflow: hidden
+  padding: 0
+  white-space: nowrap
+  color: $ci_grey
+  @extend %with-icon
+  @extend .icon-destroy
+
+  &:before
+    font-size: 15px
+
+  &:hover
+    color: $ci_darkorange
+    background: none
