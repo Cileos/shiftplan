@@ -57,7 +57,7 @@ class ApplicationDecorator < Draper::Decorator
 
   def update_flash
     page['flash'].remove()
-    page.select('section[role=content]').prepend render_flash
+    page.select('.where-and-who-am-i').after render_flash
   end
 
   def render_flash
