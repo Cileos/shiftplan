@@ -3,7 +3,7 @@
 //= require jquery.ui.all
 //= require jquery.scrollTo-1.4.2
 //= require space-pen/space-pen
-//= require jquery.miniColors
+//= require jquery.minicolors
 //= require handlebars
 //= require ember-latest
 //= require ember-data-latest

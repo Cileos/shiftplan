@@ -23,7 +23,7 @@ Then /^I deactivate all alert dialogs$/ do
 end
 
 When /^I close all colorpickers$/ do
-  page.execute_script("$('input.miniColors').miniColors('destroy')")
+  page.execute_script("$('input.minicolors').minicolors('destroy')")
   sleep 0.5
 end
 
