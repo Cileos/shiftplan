@@ -5,11 +5,16 @@ class MarkNotificationsAsReadController < ApplicationController
   before_filter :authorize_one,      only: :one
   before_filter :authorize_multiple, only: :multiple
 
-  respond_to :js
+  respond_to :js, :html
 
   def one
     notification.read_at = Time.zone.now
     notification.save!
+
+    respond_to do |format|
+      format.html  { redirect_to url_for_notifiable(notification.notifiable) }
+      format.js    { }
+    end
   end
 
   def multiple
@@ -41,6 +46,36 @@ class MarkNotificationsAsReadController < ApplicationController
 
   def authorize_one
     authorize! :update, notification
+  end
+
+  # TODO: try to move to nested_resources_for helper
+  def url_for_notifiable(notifiable)
+    case notifiable
+    when Comment
+      url_for_comment(notifiable)
+    when Post
+      url_for(nested_resources_for(notifiable))
+    when Scheduling
+      url_for_scheduling(notifiable)
+    end
+  end
+
+  def url_for_comment(comment)
+    if comment.commentable_type == 'Scheduling'
+      url_for_scheduling(comment.commentable)
+    elsif comment.commentable_type == 'Post'
+      url_for(nested_resources_for(comment.commentable))
+    end
+  end
+
+  def url_for_scheduling(scheduling)
+    plan = scheduling.plan
+    organization = plan.organization
+    account_organization_plan_employees_in_week_path(
+      organization.account,
+      organization,
+      plan,
+      cwyear: scheduling.cwyear, week: scheduling.week)
   end
 
 end
