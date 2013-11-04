@@ -15,8 +15,8 @@ Feature: Attached documents
        And I wait for the modal box to disappear
       Then I should see flash notice "Dokument howto.docx erfolgreich hochgeladen"
       Then I should see a list of the following attached_documents:
-        | Name       | Size   | Uploader      |
-        | howto.docx | 3,6 KB | Planner Burns |
+        | Name       | Size   | Uploader          |
+        | howto.docx | 3,6 KB | von Planner Burns |
 
   Scenario: Upload to plan, attach to milestone
      Given the situation of a nuclear reactor
@@ -29,8 +29,8 @@ Feature: Attached documents
        And I press "Hochladen"
        And I wait for the modal box to disappear
       Then I should see a list of the following attached_documents:
-        | Name       | Size   | Milestone      | Uploader      |
-        | howto.docx | 3,6 KB | Weltherrschaft | Planner Burns |
+        | Name       | Size   | Milestone      | Uploader          |
+        | howto.docx | 3,6 KB | Weltherrschaft | von Planner Burns |
 
   Scenario: Delete an attached document
      Given the situation of a nuclear reactor
