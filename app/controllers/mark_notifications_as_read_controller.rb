@@ -48,13 +48,12 @@ class MarkNotificationsAsReadController < ApplicationController
     authorize! :update, notification
   end
 
-  # TODO: try to move to nested_resources_for helper
   def url_for_notifiable(notifiable)
     case notifiable
     when Comment
       url_for_comment(notifiable)
     when Post
-      url_for(nested_resources_for(notifiable))
+      nested_resources_for(notifiable)
     when Scheduling
       url_for_scheduling(notifiable)
     end
@@ -64,7 +63,7 @@ class MarkNotificationsAsReadController < ApplicationController
     if comment.commentable_type == 'Scheduling'
       url_for_scheduling(comment.commentable)
     elsif comment.commentable_type == 'Post'
-      url_for(nested_resources_for(comment.commentable))
+      nested_resources_for(comment.commentable) # post
     end
   end
 
