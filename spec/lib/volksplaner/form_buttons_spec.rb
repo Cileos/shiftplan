@@ -3,13 +3,13 @@ require 'spec_helper'
 
 describe Volksplaner::FormButtons do
   let(:template) do
-   mock('template').tap do |t|
+   double('template').tap do |t|
      t.extend ActionView::Helpers::TagHelper
      t.stub(ta: 'Äktschn', translate_action!: 'KATT')
    end
   end
   let(:form) do
-    mock('form').tap do |f|
+    double('form').tap do |f|
       f.extend described_class
       f.stub(template: template)
     end

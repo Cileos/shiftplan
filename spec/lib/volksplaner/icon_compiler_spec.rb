@@ -32,10 +32,10 @@ describe Volksplaner::IconCompiler do
   end
 
   context '.observe' do
-    let(:yaml_path) { stub 'path to yaml' }
-    let(:scss_path) { stub 'path to scss' }
-    let(:hash) { stub 'parsed yaml' }
-    let(:scss) { stub 'compiled scss' }
+    let(:yaml_path) { double 'path to yaml' }
+    let(:scss_path) { double 'path to scss' }
+    let(:hash) { double 'parsed yaml' }
+    let(:scss) { double 'compiled scss' }
 
     def expect_compilation
       compiler.should_receive(:read_and_parse).with(yaml_path).and_return(hash)
@@ -70,8 +70,8 @@ describe Volksplaner::IconCompiler do
 
   context '.uptodate?' do
     let(:now) { 1.minute.ago }
-    let(:source) { stub 'source' }
-    let(:result) { stub 'result' }
+    let(:source) { double 'source' }
+    let(:result) { double 'result' }
 
     it 'is false if source file is newer' do
       File.stub(:mtime).with(source).and_return(now+1)

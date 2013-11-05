@@ -121,7 +121,10 @@ gem 'database_cleaner'
 # oh noes, niklas wants kaminari
 # gem 'will_paginate', '~> 3.0'
 gem 'kaminari'
-gem 'acts_as_commentable_with_threading', '~> 1.1.2'
+# until merge of https://github.com/elight/acts_as_commentable_with_threading/pull/32
+#             or https://github.com/elight/acts_as_commentable_with_threading/pull/52
+gem 'acts_as_commentable_with_threading', '~> 1.1.2', git: 'git://github.com/niklas/acts_as_commentable_with_threading.git', branch: 'feature/nested_destruction_first_try'
+
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart'

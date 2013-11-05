@@ -5,7 +5,7 @@ describe SchedulingFilterDecorator, 'mode' do
   let(:decorator) { SchedulingFilterDecorator.new(filter) }
 
   it "selects the decorator by given mode" do
-    decorator = mock('Decorator')
+    decorator = double('Decorator')
     SchedulingFilterEmployeesInWeekDecorator.should_receive(:new).with(filter, {foo: 23}).and_return(decorator)
     SchedulingFilterHoursInWeekDecorator.should_not_receive(:new)
     SchedulingFilterDecorator.decorate(filter, {foo: 23, mode: 'employees_in_week'}).should == decorator
@@ -37,8 +37,8 @@ describe SchedulingFilterDecorator, 'mode' do
   end
 
   describe 'render_cell_for_day' do
-    let(:view)    { mock('View').tap    { |v| decorator.stub(:h).and_return(v) } }
-    let(:content) { mock('content').tap { |c| decorator.stub(:cell_content).and_return(c) } }
+    let(:view)    { double('View').tap    { |v| decorator.stub(:h).and_return(v) } }
+    let(:content) { double('content').tap { |c| decorator.stub(:cell_content).and_return(c) } }
     before :each do
       decorator.stub(:outside_plan_period?).and_return(false)
       decorator.stub(:cell_metadata).and_return('none')
@@ -64,7 +64,7 @@ describe SchedulingFilterDecorator, 'mode' do
       end
 
       it "adds today class for current day" do
-        today_date = stub 'Date', today?: true
+        today_date = double 'Date', today?: true
         view.should_receive(:content_tag).with(:td, content, class: "today day", data: 'none')
         decorator.render_cell_for_day(today_date, 42, class: 'day')
       end
@@ -79,19 +79,19 @@ describe SchedulingFilterDecorator, 'mode' do
   end
 
   context 'find schedulings' do
-    let(:result) { stub 'result' }
+    let(:result) { double 'result' }
 
     # schedulings_for must be implemented in subclass
 
     it "accepts coordinates as criteria" do
-      a, b = stub, stub
+      a, b = double, double
       decorator.should_receive(:schedulings_for).with(a,b).and_return(result)
       decorator.find_schedulings(a,b).should == result
     end
 
     it "calculates coordinates from scheduling as criteria" do
       scheduling = Scheduling.new
-      coordinates = [stub, stub]
+      coordinates = [double, double]
       decorator.should_receive(:coordinates_for_scheduling).with(scheduling).and_return(coordinates)
       decorator.should_receive(:schedulings_for).with(*coordinates).and_return(result)
       decorator.find_schedulings(scheduling).should == result

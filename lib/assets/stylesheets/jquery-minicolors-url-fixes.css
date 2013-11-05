@@ -1,0 +1,25 @@
+/* patch the relative urls from vendor/assets/stylesheets/jquery-minicolors for
+ * the asset pipeline to find the images for the color picker */
+
+.minicolors-trigger {
+	background: url(/assets/jquery-minicolors/trigger.png) center no-repeat;
+}
+
+
+.minicolors-colors {
+	background: url(/assets/jquery-minicolors/gradient.png) center no-repeat;
+}
+
+.minicolors-hues {
+	background: url(/assets/jquery-minicolors/rainbow.png) center no-repeat;
+}
+
+.minicolors-colorPicker {
+	background: url(/assets/jquery-minicolors/circle.gif) center no-repeat;
+}
+
+.minicolors-huePicker {
+	background: url(/assets/jquery-minicolors/line.gif) center no-repeat;
+}
+
+

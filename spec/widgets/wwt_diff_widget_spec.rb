@@ -2,15 +2,15 @@
 require 'spec_helper'
 
 describe WwtDiffWidget do
-  let(:view) { stub 'View' }
-  let(:row_record) { stub 'Record in Row', weekly_working_time: nil }
-  let(:filter) { stub 'SchedulingFilter', h: view }
+  let(:view) { double 'View' }
+  let(:row_record) { double 'Record in Row', weekly_working_time: nil }
+  let(:filter) { double 'SchedulingFilter', h: view }
   let(:records) { [] }
   subject { described_class.new(filter, row_record, records) }
 
   it "uses abbr tag to hide data on small displays" do
-    short = stub 'short'
-    long  = stub 'long'
+    short = double 'short'
+    long  = double 'long'
     subject.stub(:short_label_text).with().and_return(short)
     subject.stub(:long_label_text).with().and_return(long)
     # color
@@ -20,7 +20,7 @@ describe WwtDiffWidget do
   end
 
   describe '#human' do
-    let(:formatted) { stub 'formatted hours' }
+    let(:formatted) { double 'formatted hours' }
     it "uses helper" do
       Volksplaner::Formatter.stub(:human_hours).with(4.5).and_return(formatted)
       subject.human(4.5).should == formatted

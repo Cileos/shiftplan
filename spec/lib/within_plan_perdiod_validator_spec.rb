@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe WithinPlanPeriodValidator do
-  let(:plan) { mock 'Plan', starts_at: 1.day.from_now }
-  let(:record) { mock('Record', plan: plan) }
+  let(:plan) { double 'Plan', starts_at: 1.day.from_now }
+  let(:record) { double('Record', plan: plan) }
   let(:validator) { described_class.new(attributes: [:starts_at]) }
 
   def validate!

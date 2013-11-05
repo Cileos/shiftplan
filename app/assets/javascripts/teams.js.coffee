@@ -1,6 +1,6 @@
 jQuery(document).ready ->
 
-  $(':input#team_color').miniColors()
+  $(':input#team_color').minicolors()
 
   $('div#teams').each ->
     $teams = $(this)

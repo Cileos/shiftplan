@@ -282,7 +282,7 @@ describe SchedulingFilter do
 
   # active_attr does not support clone. Changes on clone affect the orgiginal
   context '#without' do
-    let(:plan) { stub 'Plan' }
+    let(:plan) { double 'Plan' }
     let(:week) { 23 }
     let(:filter) { described_class.new(plan: plan, week: week) }
 

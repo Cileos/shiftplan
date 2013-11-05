@@ -13,8 +13,10 @@ module Volksplaner
   HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .-]*\z/
   NameRegEx = /\A[\p{Letter}][\p{Letter}\d .§&()-]*\z/
 
+
+  # staging and CI are on the same machine
   def self.staging?
-    @staging ||= `hostname` =~ /plock/
+    @staging ||= `hostname` =~ /plock/ && ENV['USER'] != 'jenkins'
   end
 
   def self.hostname

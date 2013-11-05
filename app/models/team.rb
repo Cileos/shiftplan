@@ -42,6 +42,14 @@ class Team < ActiveRecord::Base
     super.presence || color_from_name
   end
 
+  def color=(new_color)
+    if new_color
+      super new_color.upcase
+    else
+      super
+    end
+  end
+
   def color_before_type_cast
     color
   end

@@ -40,7 +40,7 @@ describe Plan::Period do
     end
 
     it "does not end after anything (cannot tell)" do
-      period.should_not be_ends_before( stub )
+      period.should_not be_ends_before( double )
     end
 
     it "excludes earlier dates" do
@@ -63,7 +63,7 @@ describe Plan::Period do
     end
 
     it "does not start after anything (cannot tell)" do
-      period.should_not be_starts_after( stub )
+      period.should_not be_starts_after( double )
     end
 
     it "excludes later dates" do
@@ -78,7 +78,7 @@ describe Plan::Period do
   context "without any restriction" do
     let(:period) { described_class.new(nil, nil) }
     it "includes any date" do
-      date = stub 'any date'
+      date = double 'any date'
       period.should include(date)
     end
   end
