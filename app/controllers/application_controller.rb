@@ -71,22 +71,8 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :nested_resources_for
-  # returns an array to be used in link_to and other helpers containing the full-defined nesting for the given resource
-  def nested_resources_for(resource, *extra)
-    case resource
-    when Comment
-      nested_resources_for(resource.commentable.blog) + [ resource.commentable, resource]
-    when Post
-      nested_resources_for(resource.blog) + [resource]
-    when Blog, Team, Plan, PlanTemplate
-      nested_resources_for(resource.organization) + [resource]
-    when Organization
-      [ resource.account, resource ]
-    when Shift
-      nested_resources_for(resource.plan_template) + [resource]
-    when Scheduling, AttachedDocument
-      nested_resources_for(resource.plan) + [resource]
-    end + extra
+  def nested_resources_for(*a)
+    Volksplaner.nested_resource_dispatcher.resources_for(*a)
   end
 
   helper_method :year_for_cweek_at
