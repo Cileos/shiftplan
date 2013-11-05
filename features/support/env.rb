@@ -58,6 +58,13 @@ Spork.prefork do
   # that change locale settings.
   Before { @old_locale = I18n.locale }
   After  { I18n.locale = @old_locale }
+
+  Before '@no_delay' do
+    Delayed::Worker.delay_jobs = false
+  end
+  After '@no_delay' do
+    Delayed::Worker.delay_jobs = true
+  end
 end
 
 Spork.each_run do

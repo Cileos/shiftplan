@@ -8,6 +8,7 @@ In order to keep my colleagues informed about important news
       And mr burns, owner of the Springfield Nuclear Power Plant exists
      Then 0 posts should exist
 
+  @no_delay
   Scenario: Creating a first blog post
     Given a confirmed user "heinz" exists with email: "heinz@example.com"
       And an employee "heinz" exists with first_name: "Heinz", last_name: "Müller", user: the confirmed user "heinz", account: the account
