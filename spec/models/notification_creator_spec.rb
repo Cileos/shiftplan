@@ -16,14 +16,31 @@ describe NotificationCreator do
 
     context "for a comment on a scheduling" do
       it_behaves_like :delegating_notification_creation_to_dispatcher do
-        let(:origin) { Comment.build_from(create(:scheduling), Employee.new, body: 'some text') }
+        let(:origin) do
+          Comment.build_from(create(:scheduling), Employee.new, body: 'some text')
+        end
         let(:dispatcher_class) { Notification::Dispatcher::CommentOnScheduling }
+      end
+    end
+
+    context "for an answer on a comment on a scheduling" do
+      it_behaves_like :delegating_notification_creation_to_dispatcher do
+        let(:parent_comment) do
+          Comment.build_from(create(:scheduling), Employee.new, body: 'some text')
+        end
+        let(:origin) do
+          Comment.build_from(create(:scheduling), Employee.new,
+            body: 'some text', parent: parent_comment)
+        end
+        let(:dispatcher_class) { Notification::Dispatcher::AnswerOnCommentOnScheduling }
       end
     end
 
     context "for a comment on a post" do
       it_behaves_like :delegating_notification_creation_to_dispatcher do
-        let(:origin) { Comment.build_from(create(:post), Employee.new, body: 'some text') }
+        let(:origin) do
+          Comment.build_from(create(:post), Employee.new, body: 'some text')
+        end
         let(:dispatcher_class) { Notification::Dispatcher::CommentOnPost }
       end
     end

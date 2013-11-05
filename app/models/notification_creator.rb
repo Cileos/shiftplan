@@ -23,9 +23,17 @@ class NotificationCreator
   def comment_notification_dispatcher
     case origin.commentable
     when ::Scheduling
-      Notification::Dispatcher::CommentOnScheduling.new(origin)
+      comment_on_scheduling_notification_dispatcher
     when ::Post
       Notification::Dispatcher::CommentOnPost.new(origin)
+    end
+  end
+
+  def comment_on_scheduling_notification_dispatcher
+    unless origin.is_answer?
+      Notification::Dispatcher::CommentOnScheduling.new(origin)
+    else
+      Notification::Dispatcher::AnswerOnCommentOnScheduling.new(origin)
     end
   end
 end
