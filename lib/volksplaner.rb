@@ -38,6 +38,14 @@ module Volksplaner
   def self.token_generator_20
     Devise.method(:friendly_token)
   end
+
+  def self.notification_creator
+    lambda { |origin| Notification.delay.create_for(origin)}
+  end
+
+  def self.notification_destroyer
+    lambda { |origin| Notification.delay.destroy_for(origin)}
+  end
 end
 
 VP = Volksplaner

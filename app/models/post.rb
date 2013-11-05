@@ -30,11 +30,11 @@ class Post < ActiveRecord::Base
   end
 
   def create_notifications
-    Notification.create_for(self)
+    Volksplaner.notification_creator[self]
   end
 
   def destroy_notifications
-    Notification.destroy_for(self)
+    Volksplaner.notification_destroyer[self]
   end
 end
 
