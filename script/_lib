@@ -79,6 +79,8 @@ function setup_ruby () {
 
   which bundle || gem install bundler -v 1.0.21 --no-ri --no-rdoc || exit 128
   bundle check || bundle install
+
+  bundle exec chromedriver-update
 }
 
 function migrate_database () {
