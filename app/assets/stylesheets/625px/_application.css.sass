@@ -1,0 +1,48 @@
+// 625px
+
+$header_height: 40px
+
+
+body
+  padding-top: $header_height
+
+[role=banner]
+  .logo a
+    height: $header_height
+    +image-2x("clockwork-logo-32px.png", 181px, 17px)
+    background: image-url("clockwork-logo-16px.png") 50% 12px no-repeat
+
+  > nav > ul > li
+    height: $header_height
+
+    & > a
+      height: $header_height
+      width: $header_height
+      padding: 9px $banner_link_padding_lr - 4px 0 9px
+
+  .user-navigation
+    .help-faq
+      padding: 7px 14px
+
+    .user
+      padding: 7px 2px
+
+  ul.notifications
+    max-height: 200px
+
+[role=aside],
+[role=content],
+.scheduling
+  font-size: $font-size_small
+
+[role=content]
+  padding-left:  5px
+  padding-right: 5px
+
+table
+  th,
+  td
+    padding: 5px
+
+.tableFloatingHeader
+  top: $header_height !important

@@ -1,0 +1,27 @@
+.toggle-sidebars
+  border-radius: 0
+  display: inline-block
+  width: $logo_width + 1px
+  padding: 11px 0 4px
+  margin: -7px 15px -7px -15px
+  float: left
+  text-align: center
+  line-height: 1
+  font-size: 16px
+  border-bottom: 1px solid $ci_grey
+  border-right: 1px solid  $ci_grey
+  @extend %with-icon
+  @extend .icon-hide
+
+  &.collapsed
+    @extend .icon-expand
+    // position: absolute
+    // height: 100%
+    width: 25px
+    border-right: 1px solid $ci_middarkgrey
+
+    &:before
+      margin-right: 0
+
+    // & ~ div
+    //   margin-left: 25px

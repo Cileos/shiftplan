@@ -1,5 +1,6 @@
 [role=content]
-  padding: 0 $banner_link_padding_lr 25px
+  padding: 0 $content_padding_lr 25px
+  margin-top: 15px
   margin-bottom: 40px
 
   .wrap.expanded &
@@ -18,3 +19,21 @@
     margin: 0 auto
     max-width: 988px
     +clearfix
+
+[role="aside"]
+  padding: 0 $sidebar_padding_lr
+  background: $ci_sidebar_bg-color
+  width: $logo_width + 1px
+  float: left
+  border-right: 1px solid $ci_grey
+
+  [data-toggle="collapsible"]:first-child [data-toggle="collapsible-heading"]
+    border-top: none
+
+  ~ [role="content"]
+    margin-left: - ($logo_width + 1px)
+    padding-left: $logo_width + 1px + $content_padding_lr
+    width: 100%
+    position: relative
+    z-index: -1
+    float: left

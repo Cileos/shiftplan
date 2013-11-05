@@ -19,10 +19,15 @@ a.link,
   +transition(color 0.25s ease)
   color: $ci_blue
   text-decoration: none
-  outline: 0
 
   &:hover
     color: $ci_blue_hover
+
+a,
+button,
+input[type=submit]
+  &:focus
+    outline: 0
 
 h1,
 h2,
@@ -115,33 +120,3 @@ small
   margin-top: 20px
   padding-top: 10px
   border-top: 1px solid $ci_midgray
-
-.utility-button.toggle-sidebars
-  border-radius: 0
-  position: absolute
-  z-index: 1
-  top: 48px
-  display: block
-  width: $logo_width
-  padding: 11px 0 4px
-  text-align: center
-  line-height: 1
-  font-size: 16px
-  border-bottom: 1px solid $ci_middarkgrey
-  @extend %with-icon
-  @extend .icon-hide
-
-  &.collapsed
-    @extend .icon-expand
-    height: 100%
-    width: 25px
-    border-right: 1px solid $ci_middarkgrey
-
-    &:before
-      margin-right: 0
-
-.toggle-sidebars[data-toggle="sidebar"]
-  left: 0
-
-.toggle-sidebars[data-toggle="contextual_help"]
-  right: 0

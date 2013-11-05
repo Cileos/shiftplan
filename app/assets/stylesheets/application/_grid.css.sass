@@ -11,22 +11,6 @@
     .primary
       +span-columns(9)
 
-[role=content]:not(.no-animation)
-  &.two-columns,
-  &.three-columns
-    .primary,
-    .secondary,
-    .tertiary
-      // @include transition(0.5s width ease);
-
-      &:not(:last-child)
-        padding-right: 20px
-        border-right: 1px solid $ci_grey
-
-    .secondary,
-    .tertiary
-      overflow: hidden
-
 .row,
 [role=content]
   &.two-columns

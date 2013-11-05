@@ -1,17 +1,21 @@
-.secondary,
-.tertiary
-  +clearfix
+[role="aside"]
+  border-bottom: 1px solid $ci_midgray
 
   > div
+    padding-bottom: 1em
     color: $ci_anthracite
-    padding: 0 0px 1em 15px
-    border-bottom: 1px solid $ci_midgray
-
-    // &:not(:first-child)
-      border-top: 1px solid white
 
     &.collapsed
       padding-bottom: 0
+
+  [data-toggle='collapsible-heading']
+    margin: (0px) (-$sidebar_padding_lr)
+    border-top: 1px solid $ci_midgray
+    +background-image(linear-gradient(lighten($ci_sidebar_bg-color, 3%), $ci_sidebar_bg-color 30px))
+
+  [data-toggle="collapsible"]
+    +background-image(linear-gradient(lighten($ci_sidebar_bg-color, 3%), $ci_sidebar_bg-color 30px))
+
 
 .keyboard-shortcuts,
 .calendar-legend
