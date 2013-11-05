@@ -1,11 +1,7 @@
 class Notification::Dispatcher::Base
+  attr_reader :origin
 
-  def self.create_notifications_for(thingy)
-    case thingy
-    when ::Comment
-      Notification::Dispatcher::Comment.create_notifications_for(thingy)
-    when ::Post
-      Notification::Dispatcher::Post.create_notifications_for(thingy)
-    end
+  def initialize(origin)
+    @origin = origin
   end
 end

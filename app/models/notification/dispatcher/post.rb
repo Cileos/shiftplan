@@ -1,9 +1,4 @@
 class Notification::Dispatcher::Post < Notification::Dispatcher::Base
-  attr_reader :origin
-
-  def initialize(origin)
-    @origin = origin
-  end
 
   def create_notifications!
     recipients.each do |employee|
