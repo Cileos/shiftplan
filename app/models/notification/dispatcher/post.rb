@@ -1,5 +1,10 @@
 class Notification::Dispatcher::Post < Notification::Dispatcher::Base
 
+  # TODO: implement
+  def create_notifications!
+
+  end
+
   def self.create_notifications_for(post)
     notification_recipients_for(post).each do |employee|
       notification_class = notification_class_for(post, employee)

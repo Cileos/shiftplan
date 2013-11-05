@@ -1,6 +1,11 @@
 require 'notification/comment_on_scheduling'
 class Notification::Dispatcher::CommentOnScheduling < Notification::Dispatcher::Comment
 
+  # TODO: implement
+  def create_notifications!
+
+  end
+
   def self.create_notifications_for(comment)
     if comment.is_answer? # is the comment an answer on a comment?
       notification_recipients_for(comment).each do |employee|

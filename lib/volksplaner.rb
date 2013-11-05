@@ -40,7 +40,7 @@ module Volksplaner
   end
 
   def self.notification_creator
-    lambda { |origin| Notification.delay.create_for(origin)}
+    lambda { |origin| NotificationCreator.new(origin).delay.create!
   end
 
   def self.notification_destroyer

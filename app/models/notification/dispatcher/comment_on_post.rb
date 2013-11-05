@@ -1,6 +1,11 @@
 require 'notification/comment_on_post'
 class Notification::Dispatcher::CommentOnPost < Notification::Dispatcher::Comment
 
+  # TODO: implement
+  def create_notifications!
+
+  end
+
   def self.create_notifications_for(comment)
     notification_recipients_for(comment).each do |employee|
       notification_class = notification_class_for(comment, employee)
