@@ -1,22 +1,26 @@
 class Notification::Dispatcher::Post < Notification::Dispatcher::Base
+  attr_reader :origin
 
-  # TODO: implement
-  def create_notifications!
-
+  def initialize(origin)
+    @origin = origin
   end
 
-  def self.create_notifications_for(post)
-    notification_recipients_for(post).each do |employee|
-      notification_class = notification_class_for(post, employee)
-      notification_class.create!(notifiable: post, employee: employee)
+  def create_notifications!
+    recipients.each do |employee|
+      Notification::Post.create!(notifiable: post, employee: employee)
     end
   end
 
-  def self.notification_recipients_for(post)
-    post.organization.employees.select {|e| e.user.present? && post.author != e }
+  private
+
+  def post
+    origin
   end
 
-  def self.notification_class_for(post, employee)
-    Notification::Post
+  def recipients
+    post.organization.employees.select do |e|
+      e.user.present? && e.user.confirmed? &&
+        post.author != e
+    end
   end
 end
