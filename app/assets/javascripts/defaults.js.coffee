@@ -18,6 +18,6 @@ jQuery(document).ready ->
   language = $('html').attr('lang')
   $('body').on 'dialogopen', (e, ui) ->
     $(e.target).find('input.stringy_date').datepicker($.datepicker.regional[language])
-    $(':input#team_color').minicolors()
+    $(':input#team_color').minicolors({position: 'top left'})
 
   $.datepick.setDefaults $.datepick.regional[ if language is 'en' then '' else language]

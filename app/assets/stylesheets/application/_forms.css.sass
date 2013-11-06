@@ -41,12 +41,14 @@ input[type=checkbox],
 input[type=radio]
   margin-right: .35em
 
-input.minicolors
-  padding-left: 30px
+.minicolors-theme-default
+  margin-left: 1em
 
-  + .minicolors-trigger
-    position: relative
-    top: -27px
+  .minicolors-input
+    height: initial
+
+  .minicolors-swatch
+    top: 8px
 
 // jquery.datepick needs a visible input to calculate the offset for the popup.
 // We hide it the strange way.
