@@ -2,15 +2,14 @@ class Notification::Dispatcher::AnswerOnCommentOnScheduling < Notification::Disp
 
   def create_notifications!
     recipients.each do |employee|
-      notification_class = notification_class_for(comment, employee)
+      notification_class = notification_class_for(employee)
       notification_class.create!(notifiable: comment, employee: employee)
     end
   end
 
   private
 
-  def notification_class_for(comment, employee)
-    scheduling = comment.commentable
+  def notification_class_for(employee)
     if scheduling.employee == employee # is it a scheduling of the employee?
       if comment.parent.employee == employee # is the parent comment from the employee?
         Notification::AnswerOnCommentOfEmployeeOnSchedulingOfEmployee
