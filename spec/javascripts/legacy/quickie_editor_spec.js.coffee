@@ -1,6 +1,6 @@
-describe 'QuickieEditor', ->
+xdescribe 'QuickieEditor', ->
   it 'is defined', ->
-    expect(QuickieEditor).not.toBeNull
+    expect(QuickieEditor).not.toBeNull()
 
   beforeEach ->
     setFixtures sandbox
