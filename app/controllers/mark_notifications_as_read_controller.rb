@@ -48,6 +48,8 @@ class MarkNotificationsAsReadController < ApplicationController
     authorize! :update, notification
   end
 
+  # FIXME: try extend nested_resources_for to implement context specific urls
+  # for notification hub
   def url_for_notifiable(notifiable)
     case notifiable
     when Comment
