@@ -92,6 +92,8 @@ en:
       core_data: "Core Data"
       mark_as_read: "Mark as read"
       mark_all_as_read: "Mark all as read"
+      upload_attached_document: "Upload Document"
+      upload: "Upload"
   schedulings:
     calendar_navigation:
       day: "Day"

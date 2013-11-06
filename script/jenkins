@@ -9,7 +9,7 @@ export CI=true
 #  for APP: libpq-dev postgresql libcurl4-openssl-dev freetds-dev imagemagick libjpeg-progs
 #  for CI: firefox chromium-browser xvfb phantomjs ~> 1.6.1
 
-RUBY='ruby-1.9.3-p194'
+RUBY='ruby-1.9.3-p448'
 GEMSET='clockwork'
 BRANCH=`git log -1 HEAD --format=format:%h`
 DATABASE="clockwork_test_${BRANCH}_$$"

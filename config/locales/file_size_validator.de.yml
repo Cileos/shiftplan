@@ -1,0 +1,6 @@
+en:
+  errors:
+    messages:
+      wrong_size: "hat die falsche Größe (sollte %{file_size} sein)"
+      size_too_small: "ist zu klein (sollte mindestens %{file_size} sein)"
+      size_too_big: "ist zu groß (sollte höchstens %{file_size} sein)"

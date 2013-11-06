@@ -39,6 +39,7 @@ de:
       edit_qualification: Qualifikation bearbeiten
       new_plan_template: Planvorlage anlegen
       edit_plan_template: Planvorlage bearbeiten
+      new_attached_document: Neues Dokument hochladen
       new_team_merge: Teams zusammenlegen
       edit_employee: Mitarbeiter bearbeiten
       all_organizations: Alle Organisationen
@@ -93,6 +94,8 @@ de:
       conflicts: 'Konflikte'
       mark_as_read: "Als gelesen markieren"
       mark_all_as_read: "Alle als gelesen markieren"
+      upload_attached_document: "Dokument hochladen"
+      upload: "Hochladen"
   schedulings:
     calendar_navigation:
       day: "Tag"

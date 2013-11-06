@@ -210,6 +210,7 @@ class Ability
       current_organization == conflict.provoker.plan.organization
     end
 
+    authorize_owner_and_planner(user)
     authorize_employee(user)
   end
 
@@ -303,7 +304,21 @@ class Ability
       current_organization == conflict.provoker.plan.organization
     end
 
-
+    authorize_owner_and_planner(user)
     authorize_employee(user)
+  end
+
+  private
+
+  # What owner and planner have in common
+  def authorize_owner_and_planner(user)
+    curr_employee     = user.current_employee
+    curr_account      = curr_employee.account
+    curr_organization = user.current_membership.try(:organization)
+
+    can :manage, AttachedDocument do |doc|
+      curr_organization == doc.plan.organization
+    end
+
   end
 end

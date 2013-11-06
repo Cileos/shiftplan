@@ -1,0 +1,20 @@
+en:
+  activerecord:
+    attributes:
+      attached_document:
+        file: File
+        milestone_id: Milestone
+    models:
+      attached_document:
+        one: "Document"
+        other: "Documents"
+  flash:
+    attached_documents:
+      create:
+        notice: "Document %{name} uploaded successfully"
+      destroy:
+        notice: "Document %{name} deleted"
+  attached_documents:
+    item:
+      uploader: "by %{name}"
+      confirm_to_delete: "Do you want to delete document '%{name}'?"

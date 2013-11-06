@@ -1,0 +1,7 @@
+= simple_form_for nested_resources_for(attached_document), remote: true do |f|
+  .inputs
+    = f.input :file
+    = f.input :milestone_id, collection: attached_document.plan.milestones, include_blank: true
+  .actions
+    = f.responsive_submit_button :upload
+
