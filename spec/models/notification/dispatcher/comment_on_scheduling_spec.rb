@@ -126,4 +126,13 @@ describe Notification::Dispatcher::CommentOnScheduling do
       it_behaves_like :not_creating_a_comment_on_scheduling_notification_for_the_employee
     end
   end
+
+  context "#recipients" do
+    it "does not return duplicates" do
+      org = instance_double('Organization')
+      dispatcher.stub(:organization).and_return(org)
+      org.stub(planners: [planner, planner], owner: nil)
+      dispatcher.send(:recipients).should == [planner, scheduled_employee]
+    end
+  end
 end
