@@ -1,5 +1,5 @@
 describe Notification::Dispatcher::Post do
-  shared_examples :not_creating_a_notification_for_the_employee do
+  shared_examples :not_creating_a_post_notification_for_the_employee do
     it "does not create a notification" do
       dispatcher.create_notifications!
 
@@ -75,22 +75,22 @@ describe Notification::Dispatcher::Post do
 
     context "for the author of the post" do
       let!(:the_employee) { author }
-      it_behaves_like :not_creating_a_notification_for_the_employee
+      it_behaves_like :not_creating_a_post_notification_for_the_employee
     end
 
     context "for an unconfirmed coworker" do
       let!(:the_employee) { unconfirmed_coworker }
-      it_behaves_like :not_creating_a_notification_for_the_employee
+      it_behaves_like :not_creating_a_post_notification_for_the_employee
     end
 
     context "for a coworker without a user" do
       let!(:the_employee) { coworker_without_user }
-      it_behaves_like :not_creating_a_notification_for_the_employee
+      it_behaves_like :not_creating_a_post_notification_for_the_employee
     end
 
     context "for an employee of a different organization" do
       let!(:the_employee) { other_employee }
-      it_behaves_like :not_creating_a_notification_for_the_employee
+      it_behaves_like :not_creating_a_post_notification_for_the_employee
     end
   end
 end
