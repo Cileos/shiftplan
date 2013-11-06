@@ -14,7 +14,7 @@ FactoryGirl.define do
       end
     end
 
-    factory :employee_with_user do
+    factory :employee_with_unconfirmed_user do
       after(:create) do |e|
         u = FactoryGirl.create(:user)
         e.user = u

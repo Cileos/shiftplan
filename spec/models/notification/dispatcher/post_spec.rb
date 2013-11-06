@@ -28,7 +28,7 @@ describe Notification::Dispatcher::Post do
     end
   end
   let(:unconfirmed_coworker) do
-    create(:employee_with_user, account: account).tap do |e|
+    create(:employee_with_unconfirmed_user, account: account).tap do |e|
       create(:membership, organization: organization, employee: e)
     end
   end
@@ -62,7 +62,6 @@ describe Notification::Dispatcher::Post do
         dispatcher.create_notifications!
       end.to change(Notification::Post, :count).from(0).to(1)
     end
-
 
     context "for a confirmed coworker" do
       let!(:the_employee) { coworker }
