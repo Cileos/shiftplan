@@ -1,27 +1,33 @@
-require 'notification/comment_on_post'
 class Notification::Dispatcher::CommentOnPost < Notification::Dispatcher::Comment
 
-  # TODO: implement
   def create_notifications!
-
-  end
-
-  def self.create_notifications_for(comment)
-    notification_recipients_for(comment).each do |employee|
-      notification_class = notification_class_for(comment, employee)
+    recipients.each do |employee|
+      notification_class = notification_class_for(employee)
       notification_class.create!(notifiable: comment, employee: employee)
     end
   end
 
-  def self.notification_recipients_for(comment)
-    post = comment.commentable
-    post.organization.employees_plus_owner_and_planners.compact.select do |e|
-      e.user.present? && comment.employee != e
-    end
+  private
+
+  def post
+    @post ||= comment.commentable
   end
 
-  def self.notification_class_for(comment, employee)
-    post = comment.commentable
+  def author
+    comment.employee
+  end
+
+  def recipients
+    # An owner not being a member but the author or a commenter of the post,
+    # should be notified. All other employees who are able to write posts and
+    # comments are employees of the organization anyway.
+    (post.organization.employees + [post.author] + post.commenters).select do |e|
+      e.user.present? && e.user.confirmed? &&
+        author != e
+    end.uniq
+  end
+
+  def notification_class_for(employee)
     if post.author == employee
       Notification::CommentOnPostOfEmployee
     elsif post.commenters.include? employee
