@@ -1,4 +1,3 @@
-require 'notification/comment_on_scheduling'
 class Notification::Dispatcher::CommentOnScheduling < Notification::Dispatcher::Comment
 
   def create_notifications!
