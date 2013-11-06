@@ -49,3 +49,13 @@ describe 'Calendar Cursor', ->
         @$calendar.trigger @event
         expect( @cursor.create ).not.toHaveBeenCalled()
 
+  describe '#findByCid', ->
+    it 'finds an item within the calendar', ->
+      cid = "2342"
+      content = 'the correct item' # just to match more beautiful
+      $item = $('<div></div>').
+                addClass('scheduling').
+                text(content).
+                attr('data-cid', cid).
+                appendTo( @$calendar )
+      expect( @cursor.findByCid(cid).text() ).toEqual(content)

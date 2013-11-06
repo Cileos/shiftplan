@@ -26,6 +26,13 @@ jQuery(document).ready ->
 
     cursor = new CalendarCursor $calendar
 
+    # OPTIMIZE over long time, transfer this to ember?
+    routie 'scheduling /scheduling/:id', (id)->
+      $scheduling = cursor.findByCid(id)
+      if $scheduling.length == 1
+        cursor.focus($scheduling)
+        cursor.activate()
+
     refresh_behaviour_of_cell = ->
       $cell = $(this)
       $cell.find('.scheduling:not(.shift)').each ->

@@ -95,6 +95,11 @@ class CalendarCursor
       @focus @$calendar.find('tbody').children('tr').eq(@current_row).
         children(@tds).eq(@current_column), 'first'
 
+  # finds an $item by its canonical id
+  findByCid: (cid)->
+    @$calendar.find(@items).filter("[data-cid=#{cid}]:first")
+
+
 
   keydown: (event) =>
     # ignore the ESC key, as it always acts a a shortcut for close (ie
