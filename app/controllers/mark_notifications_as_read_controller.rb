@@ -13,7 +13,7 @@ class MarkNotificationsAsReadController < ApplicationController
 
     respond_to do |format|
       format.html  { redirect_to url_for_notifiable(notification.notifiable) }
-      format.js    { }
+      format.js
     end
   end
 
