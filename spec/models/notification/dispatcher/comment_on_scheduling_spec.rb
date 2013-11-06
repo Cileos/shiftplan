@@ -71,6 +71,21 @@ describe Notification::Dispatcher::CommentOnScheduling do
 
   let(:another_comment) { nil } # no other comment needed for most examples
 
+  it "creates the expected total number of notifications" do
+    author
+    scheduled_employee
+    owner
+    planner
+    commenter
+    Comment.build_from(scheduling, commenter, body: 'some text').tap(&:save!)
+    planner_without_user
+    planner_with_unconfirmed_user
+
+    expect do
+      dispatcher.create_notifications!
+    end.to change(Notification::CommentOnScheduling, :count).from(0).to(4)
+  end
+
   context "#create_notifications!" do
 
     before(:each) do
