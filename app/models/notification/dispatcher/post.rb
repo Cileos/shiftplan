@@ -12,14 +12,4 @@ class Notification::Dispatcher::Post < Notification::Dispatcher::Base
     origin
   end
 
-  def author
-    post.author
-  end
-
-  def recipients
-    post.organization.employees.select do |e|
-      e.user.present? && e.user.confirmed? &&
-        author != e
-    end
-  end
 end
