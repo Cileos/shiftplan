@@ -1,5 +1,5 @@
 jQuery(document).ready ->
-  return if $('#calendar').length == 0
+  return if $('#sidebar').length == 0
 
   updateWidths = ->
     if $('#toggle_sidebar').hasClass('collapsed')
@@ -9,30 +9,30 @@ jQuery(document).ready ->
       $('[role=content]').css('margin-left', '')
                          .css('padding-left', '')
 
-  toggleSidebars = (e) ->
-    id = e.attr('id')
+  toggleSidebars = ($elem) ->
+    id = $elem.attr('id')
     lnk = $('body').find('#toggle_'+id)
-    e.toggleClass('collapsed')
+    $elem.toggleClass('collapsed')
     lnk.toggleClass('collapsed')
-    if e.hasClass('collapsed')
-      e.hide()
-      updateWidths(e)
+    if $elem.hasClass('collapsed')
+      $elem.hide()
+      updateWidths()
       $.cookie('clockwork_'+id, 'collapsed', { path: '/' })
       false
     else
-      e.show()
-      updateWidths(e, 'restore')
+      $elem.show()
+      updateWidths()
       $.cookie('clockwork_'+id, 'visible', { path: '/' })
       false
 
   $('#sidebar').each ->
-    e = $(this)
-    id = e.attr('id')
+    $elem = $(this)
+    id = $elem.attr('id')
     $('[role=aside]').after('<a href="#" id="toggle_'+id+'" data-toggle="'+id+'" class="toggle-sidebars utility-button button-inverted">')
     lnk = $('body').find('#toggle_'+id)
-    if $.cookie('clockwork_'+e.attr('id')) == 'collapsed'
+    if $.cookie('clockwork_'+$elem.attr('id')) == 'collapsed'
       $('[role="content"]').addClass('no-animation')
-      toggleSidebars(e)
+      toggleSidebars($elem)
     lnk.click ->
       $('[role="content"]').removeClass('no-animation')
-      toggleSidebars(e)
+      toggleSidebars($elem)
