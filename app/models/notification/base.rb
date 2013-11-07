@@ -111,6 +111,13 @@ class Notification::Base < ActiveRecord::Base
     locale.present? ? locale.to_sym : I18n.default_locale
   end
 
+  def mark_as_read!
+    unless read_at
+      self.read_at = Time.zone.now
+      save!
+    end
+  end
+
   protected
 
   def deliver!

@@ -62,10 +62,6 @@ class User < ActiveRecord::Base
 
   has_many :posts_of_joined_organizations, source: :posts, through: :joined_organizations
 
-  def unread_notifications
-    notifications.unread
-  end
-
   def notifications_for_hub
     notifications.for_hub
   end

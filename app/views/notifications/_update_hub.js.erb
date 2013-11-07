@@ -1,4 +1,4 @@
-<% unless current_user.unread_notifications.count > 0 %>
+<% unless current_user.notifications.unread.count > 0 %>
   <%= render 'notifications/update_hub_for_all_done' %>
 <% end %>
 <%= render 'notifications/update_count' %>

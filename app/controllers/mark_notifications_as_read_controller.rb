@@ -8,8 +8,7 @@ class MarkNotificationsAsReadController < ApplicationController
   respond_to :js, :html
 
   def one
-    notification.read_at = Time.zone.now
-    notification.save!
+    notification.mark_as_read!
 
     respond_to do |format|
       format.html  { redirect_to url_for_notifiable(notification.notifiable) }
@@ -27,11 +26,11 @@ class MarkNotificationsAsReadController < ApplicationController
   protected
 
   def notification
-    @notification ||= current_user.unread_notifications.find(params[:id])
+    @notification = current_user.notifications.find(params[:id])
   end
 
   def notifications
-    @notifications ||=  current_user.unread_notifications.where(id: notification_ids)
+    @notifications ||=  current_user.notifications.unread.where(id: notification_ids)
   end
 
   def notification_ids
