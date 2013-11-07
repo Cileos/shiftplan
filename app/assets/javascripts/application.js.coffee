@@ -20,7 +20,10 @@
 #= require_self
 
 jQuery ->
-  $("#calendar").stickyTableHeaders fixedOffset: 50
+  if parseInt($('#browser-width-detection').css('max-width')) <= 525 || (parseInt($('#browser-width-detection').css('max-width')) <= 625 && $('#browser-width-detection').css('content') == 'landscape')
+    $("#calendar").stickyTableHeaders fixedOffset: 0
+  else
+    $("#calendar").stickyTableHeaders fixedOffset: 50
   $("textarea").autosize()
   $("body").on "dialogopen", ->
     elmTextarea = $(".ui-widget textarea")
