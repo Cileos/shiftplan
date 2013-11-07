@@ -156,6 +156,15 @@ describe Notification::RecipientsFinder do
           recipients.should_not include(planner_with_unconfirmed_user)
         end
 
+        it "does not include duplicates" do
+          # The planner is member of the organization and additionally
+          # a commenter of the scheduling. This test makes sure that the planner
+          # will be notified only once.
+          Comment.build_from(scheduling, planner, body: 'some text').tap(&:save!)
+
+          recipients.should == [planner, scheduled_employee]
+        end
+
       end
 
       context "when a post was commented" do
