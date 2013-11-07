@@ -8,18 +8,21 @@ describe Notification::RecipientsFinder do
       finder.find(notifiable)
     end
 
+    let!(:author) do
+      create(:employee_with_confirmed_user, account: account, first_name: 'Author').tap do |e|
+        create(:membership, organization: organization, employee: e)
+      end
+    end
+
+    let!(:organization)        { create(:organization, account: account) }
+    let!(:account)             { create(:account) }
+    let(:other_organization)  { create(:organization) }
+
+
     context "when the notifiable is a post" do
 
       let!(:notifiable)          { create(:post, blog: blog, author: author) }
       let!(:blog)                { create(:blog, organization: organization) }
-      let!(:organization)        { create(:organization, account: account) }
-      let!(:account)             { create(:account) }
-
-      let!(:author) do
-        create(:employee_with_confirmed_user, account: account, first_name: 'Author').tap do |e|
-          create(:membership, organization: organization, employee: e)
-        end
-      end
 
       # coworker is a member of the organization of the post
       let(:coworker) do
@@ -73,6 +76,75 @@ describe Notification::RecipientsFinder do
 
     context "when the notifiable is a comment" do
       context "when a scheduling was commented" do
+        let(:notifiable) do
+          Comment.build_from(scheduling, author, body: 'some text').tap(&:save!)
+        end
+
+        let(:scheduling) do
+          create(:scheduling, employee: scheduled_employee, plan: plan)
+        end
+
+        let(:plan)                { create(:plan, organization: organization) }
+
+        let(:scheduled_employee) do
+          create(:employee_with_confirmed_user, account: account, first_name: 'Scheduled employee').tap do |e|
+            create(:membership, organization: organization, employee: e)
+          end
+        end
+
+        let(:planner) do
+          create(:employee_with_confirmed_user, account: account, first_name: 'Planner').tap do |e|
+            create(:membership, organization: organization, employee: e, role: 'planner')
+          end
+        end
+
+        let(:commenter) do
+          create(:employee_with_confirmed_user, account: account, first_name: 'Commenter').tap do |e|
+            create(:membership, organization: organization, employee: e)
+            Comment.build_from(scheduling, e, body: 'some text').tap(&:save!)
+          end
+        end
+
+        let(:planner_without_user) do
+          create(:employee, account: account, first_name: 'Planner without user').tap do |e|
+            create(:membership, organization: organization, employee: e, role: 'planner')
+          end
+        end
+
+        let(:planner_with_unconfirmed_user) do
+          e = create(:employee_with_unconfirmed_user, account: account,
+            first_name: 'Planner with unconfirmed user', shortcut: 'Pu')
+          create(:membership, organization: organization, employee: e, role: 'planner')
+          e
+        end
+
+        it "includes the scheduled employee but not the author" do
+          recipients.should == [scheduled_employee]
+        end
+
+        it "includes planners" do
+          planner
+
+          recipients.should include(planner)
+        end
+
+        it "includes commenter" do
+          commenter
+
+          recipients.should include(commenter)
+        end
+
+        it "does not include planners without user" do
+          planner_without_user
+
+          recipients.should_not include(planner_without_user)
+        end
+
+        it "does not include planners with unconfirmed user" do
+          planner_with_unconfirmed_user
+
+          recipients.should_not include(planner_with_unconfirmed_user)
+        end
 
       end
 
