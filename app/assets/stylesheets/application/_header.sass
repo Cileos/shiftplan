@@ -1,0 +1,88 @@
+[role=banner]
+  display: inline-block
+  width: 100%
+  background: $ci_blue
+  +background(linear-gradient(lighten($ci_blue, 2%), darken($ci_blue, 3%)))
+  border-bottom: 1px solid darken($ci_blue, 7.5%)
+  color: lighten($ci_blue, 50%)
+  +z-index("103", "fixed")
+  top: 0
+  left: 0
+
+  h1
+    float: left
+    font-size: 1em
+
+  h1,
+  h1 a,
+  ul,
+  li
+    margin: 0
+    padding: 0
+    white-space: nowrap
+
+  a
+    display: inline-block
+    padding: $banner_link_padding_tb $banner_link_padding_lr
+    border-left: 1px solid darken($ci_blue, 7.5%)
+    color: lighten($ci_blue, 50%)
+    text-shadow: $ci_blue_hover_dark -1px -1px 0px
+    +transition(color, background 0.5s ease)
+
+  .active
+    background: darken($ci_blue, 5%)
+
+  li:hover > a
+    color: #fff
+    background: $ci_blue_hover_dark
+
+  .dropdown
+    > .dropdown-menu a
+      color: $ci_blue
+      border-left: none
+
+    li.active a
+      color: lighten($ci_blue, 50%)
+
+  .dropdown-menu a
+    text-shadow: none
+
+  nav > ul > li > a
+    padding: $banner_link_padding_tb $banner_link_padding_lr 0
+    height: 50px
+
+  // main navigation
+  [role=navigation]
+    float: left
+
+    > ul > li:last-child > a
+      border-right: 1px solid darken($ci_blue, 7.5%)
+
+
+  // help, notification-center, avatar
+  .user-navigation
+    float: right
+
+    .help-faq
+      padding: 11px 20px
+      font-size: 18px
+
+    // contains avatar
+    .user
+      padding: 11px 10px 7px
+
+    // align the triangle on the right side
+    .dropdown-menu
+      left: auto
+      right: 0
+
+      &:before
+        left: auto
+        right: 15px
+
+      &:after
+        left: auto
+        right: 16px
+
+  .avatar
+    margin-top: -4px

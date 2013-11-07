@@ -1,0 +1,21 @@
+.toggle-sidebars
+  position: absolute
+  left: $logo_width + 1px
+  z-index: 102
+  height: 100px
+  width: 15px
+  display: inline-block
+  margin-top: 5px
+  padding: 33px 3px
+  float: left
+  border-radius: 0 5px 5px 0
+  font-size: $font-size_huge
+  @extend %with-icon
+  @extend .icon-hide
+
+  &:hover
+    background-color: $ci_blue_hover_dark
+
+  &.collapsed
+    @extend .icon-expand
+    left: 0

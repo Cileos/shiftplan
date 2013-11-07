@@ -13,21 +13,29 @@
 
 @import bourbon
 @import compiled/icons
-@import config/defaults
-@import config/*
 @import neat/neat
-@import extendables/*
+@import config/defaults
+@import config/colors
+@import config/sizes
 
 /* custom library */
 @import library/*
 
+@import extendables/*
+
 /* application styles */
 @import application/common
+@import application/structure
+@import application/header
+@import application/pibble
+@import application/collapsibles
+@import application/export_links
 @import application/logo
+@import application/where_and_who_am_i
+@import application/masterhead
 @import application/conflict
 @import application/lists
 @import application/avatar
-@import application/wrap
 @import application/grid
 @import application/flash_messages
 @import application/icons
@@ -38,9 +46,11 @@
 @import application/feedback
 @import application/tables
 @import application/toolbar
+@import application/pagination
 @import application/blog
 @import application/comments
-@import application/contextual_help
+@import application/aside
+@import application/toggle_sidebars
 @import application/dashboard
 @import application/notifications
 @import application/notification-hub
@@ -53,3 +63,33 @@
 @import calendar/hours
 @import calendar/todo_list
 @import calendar/attached-documents
+
+// widths from common mobile devices + 25 pixels
+// see http://www.mobitest.me/devices/
+
+@media (max-width: 1024px) and (orientation: landscape)
+  @import 1024px_landscape/*
+
+@media (max-width: 865px)
+  @import 865px/*
+
+@media (max-width: 865px) and (orientation: landscape)
+  @import 865px_landscape/*
+
+@media (max-width: 625px)
+  @import 625px/*
+
+@media (max-width: 625px) and (orientation: landscape)
+  @import 625px_landscape/*
+
+@media (max-width: 525px)
+  @import 525px/*
+
+@media (max-width: 525px) and (orientation: landscape)
+  @import 525px_landscape/*
+
+@media (max-width: 425px)
+  @import 425px/*
+
+@media (max-width: 425px) and (orientation: landscape)
+  @import 425px_landscape/*

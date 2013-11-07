@@ -10,23 +10,19 @@
         = render 'javascript_required'
         = render 'flash'
 
-        - if content_for? :sidebar
-          #sidebar.secondary
-            = yield(:sidebar)
+        %header.masterhead
+          - if show_title?
+            %h2#title= yield(:title)
+          - if content_for? :masterhead_toolbar
+            %nav{role: 'toolbar'}= yield(:masterhead_toolbar)
 
-        .primary
-          %header.masterhead
-            - if show_title?
-              %h2#title= yield(:title)
-            - if content_for? :masterhead_toolbar
-              %nav{role: 'toolbar'}= yield(:masterhead_toolbar)
-
-          = yield
+        = yield
 
         -if content_for? :contextual_help
           #contextual_help{:class => contextual_help_class}
             = yield(:contextual_help)
 
       = render 'layouts/footer'
+      #browser-width-detection
 
   = render 'layouts/foot'

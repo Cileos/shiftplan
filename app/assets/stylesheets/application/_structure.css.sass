@@ -1,0 +1,48 @@
+[role=content]
+  padding: 1em $content_padding_lr 25px
+  margin-bottom: 40px
+
+  .wrap.expanded &
+    padding-left: 20px
+    padding-right: 20px
+
+  h2
+    margin-top: 0
+
+[role=footer]
+  clear: both
+  float: right
+
+.wrap
+  [role=content]
+    margin: 0 auto
+    max-width: 988px
+    +clearfix
+
+[role="aside"]
+  padding: 0 $sidebar_padding_lr
+  background: $ci_sidebar_bg-color
+  width: $logo_width + 1px
+  float: left
+  border-right: 1px solid $ci_grey
+
+  [data-toggle="collapsible"]:first-child [data-toggle="collapsible-heading"]
+    border-top: none
+
+  a.button
+    display: block
+    width: 100%
+    padding: 0.4em .5em .3em
+    text-align: center
+    line-height: 1
+
+  ~ [role="content"]
+    margin-left: - ($logo_width + 1px)
+    padding-left: $logo_width + 1px + $content_padding_lr
+    width: 100%
+    position: relative
+    z-index: -1
+    float: left
+
+    .masterhead
+      margin-left: 10px

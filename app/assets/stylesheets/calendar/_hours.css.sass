@@ -27,10 +27,10 @@ table.hours-in-week
     width: 2%
 
     div
-      height: $row_height + $ci_font-size * $ci_line-height / 2
+      height: $row_height + $font-size * $line-height / 2
       padding: 0 15px 0 0
       text-align: right
-      margin-top: -($ci_font-size * $ci_line-height / 2)
+      margin-top: -($font-size * $line-height / 2)
 
       &:first-child
         visibility: hidden
@@ -55,7 +55,7 @@ table.hours-in-week
       &.focus,
       &:focus,
       &:hover
-        +box-shadow(black 0px 0px 20px 1px)
+        box-shadow: black 0px 0px 20px 1px
         // override inline styles set by JS
         width: 100% !important
         left: 0 !important

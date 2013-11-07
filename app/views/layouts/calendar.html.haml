@@ -4,25 +4,21 @@
   = render 'layouts/head'
   %body
     = render 'layouts/top'
+    = render 'where_and_who_am_i'
 
-    %section{:role => 'content', :class => content_class(2) + ' inverted has-calendar'}
+    %section#sidebar{:role => 'aside'}
+      = render 'sidebar'
 
-      #sidebar.secondary
-        = render 'sidebar'
+    %section{:role => 'content', :class => content_class(2) + ' has-calendar'}
+      = render 'javascript_required'
+      = render 'flash'
 
-      .primary
-        = render 'where_and_who_am_i'
-        = render 'javascript_required'
-        = render 'flash'
+      %header.masterhead
+        %h2#title.calendar-caption= filter.plan.name
+        %nav{role: 'toolbar'}
+          = render 'schedulings/calendar_navigation', filter: filter
 
-        %header.masterhead
-          %h2#title.calendar-caption= filter.plan.name
-          %nav{role: 'toolbar'}
-            = render 'schedulings/calendar_navigation', filter: filter
-
-        = yield
-
-      -# #contextual_help{:class => contextual_help_class(3)}
-      -#   = yield(:contextual_help)
+      = yield
 
     = render 'layouts/footer'
+    #browser-width-detection

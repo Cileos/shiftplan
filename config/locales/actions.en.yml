@@ -39,6 +39,7 @@ en:
       edit_qualification: Edit Qualification
       new_plan_template: Add Plan Template
       edit_plan_template: Edit Plan Template
+      new_attached_document: Upload new document
       new_team_merge: "Merge teams"
       edit_employee: "Edit employee"
       all_organizations: "All units"
