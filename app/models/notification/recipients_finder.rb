@@ -26,6 +26,8 @@ class Notification::RecipientsFinder
     case notifiable.commentable
     when ::Scheduling
       recipients_for_comment_on_scheduling
+    when ::Post
+      recipients_for_comment_on_post
     end
   end
 
@@ -39,6 +41,17 @@ class Notification::RecipientsFinder
      [comment.employee]
     ).compact.select do |e|
       e.user.present? && e.user.confirmed?
+    end.uniq
+  end
+
+  def recipients_for_comment_on_post
+    # An owner not being a member but the author or a commenter of the post,
+    # should be notified. All other employees who are able to write posts and
+    # comments are employees of the organization anyway.
+    post = notifiable.commentable
+    (post.organization.employees + [post.author] + post.commenters).select do |e|
+      e.user.present? && e.user.confirmed? &&
+        notifiable.author != e
     end.uniq
   end
 
