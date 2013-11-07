@@ -108,6 +108,12 @@ class CalendarCursor
     if event.which == 27
       return true
 
+    if event.ctrlKey or
+       event.altKey or
+       event.metaKey or
+       event.shiftKey
+      return true
+
     # ignore key pressed in visible input field (some browsers can keep focus on
     # input fields in a closed modal box)
     if(
