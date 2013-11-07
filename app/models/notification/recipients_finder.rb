@@ -10,15 +10,16 @@ class Notification::RecipientsFinder
       recipients_for_post
     when ::Comment
       recipients_for_comment
-    end
+    end.select do |r|
+      r.user.present? && r.user.confirmed?
+    end.compact.uniq
   end
 
   private
 
   def recipients_for_post
     notifiable.organization.employees.select do |e|
-      e.user.present? && e.user.confirmed? &&
-        notifiable.author != e
+      notifiable.author != e
     end
   end
 
@@ -38,10 +39,7 @@ class Notification::RecipientsFinder
     (organization.planners +
      [scheduling.employee] +
      scheduling.commenters -
-     [comment.employee]
-    ).compact.select do |e|
-      e.user.present? && e.user.confirmed?
-    end.uniq
+     [comment.employee])
   end
 
   def recipients_for_comment_on_post
@@ -50,9 +48,8 @@ class Notification::RecipientsFinder
     # comments are employees of the organization anyway.
     post = notifiable.commentable
     (post.organization.employees + [post.author] + post.commenters).select do |e|
-      e.user.present? && e.user.confirmed? &&
-        notifiable.author != e
-    end.uniq
+      notifiable.author != e
+    end
   end
 
 end
