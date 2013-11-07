@@ -1,27 +1,21 @@
 .toggle-sidebars
-  border-radius: 0
+  position: absolute
+  left: $logo_width + 1px
+  z-index: 102
+  height: 100px
+  width: 15px
   display: inline-block
-  width: $logo_width + 1px
-  padding: 11px 0 4px
-  margin: -7px 15px -7px -15px
+  margin-top: 5px
+  padding: 33px 3px
   float: left
-  text-align: center
-  line-height: 1
-  font-size: 16px
-  border-bottom: 1px solid $ci_grey
-  border-right: 1px solid  $ci_grey
+  border-radius: 0 5px 5px 0
+  font-size: $font-size_huge
   @extend %with-icon
   @extend .icon-hide
 
+  &:hover
+    background-color: $ci_blue_hover_dark
+
   &.collapsed
     @extend .icon-expand
-    // position: absolute
-    // height: 100%
-    width: 25px
-    border-right: 1px solid $ci_middarkgrey
-
-    &:before
-      margin-right: 0
-
-    // & ~ div
-    //   margin-left: 25px
+    left: 0

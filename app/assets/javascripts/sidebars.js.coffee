@@ -2,11 +2,6 @@ jQuery(document).ready ->
   return if $('#calendar').length == 0
 
   updateWidths = ->
-    # sidebar width: 14.70196% # from neat css
-    small_width = '65.88078%'  # from neat css
-    medium_width = '80%'
-    full_width = '99%'
-
     if $('#toggle_sidebar').hasClass('collapsed')
       $('[role=content]').css('margin-left', '0')
                          .css('padding-left', '15px')
@@ -33,7 +28,7 @@ jQuery(document).ready ->
   $('#sidebar').each ->
     e = $(this)
     id = e.attr('id')
-    $('.where-and-who-am-i').prepend('<a href="#" id="toggle_'+id+'" data-toggle="'+id+'" class="toggle-sidebars utility-button">')
+    $('[role=aside]').after('<a href="#" id="toggle_'+id+'" data-toggle="'+id+'" class="toggle-sidebars utility-button button-inverted">')
     lnk = $('body').find('#toggle_'+id)
     if $.cookie('clockwork_'+e.attr('id')) == 'collapsed'
       $('[role="content"]').addClass('no-animation')
