@@ -43,4 +43,23 @@ describe Notification::Base do
       end
     end
   end
+
+  context '#mark_as_read!' do
+    let(:notification) { create :notification }
+    it 'marks unread notification as read' do
+      notification.read_at.should be_nil
+      notification.mark_as_read!
+      notification.read_at.should_not be_nil
+    end
+
+    it 'saves the notification' do
+      notification.mark_as_read!
+      notification.should_not be_changed # all saved
+    end
+
+    it 'is idempotent' do
+      notification.mark_as_read!
+      expect { notification.mark_as_read! }.not_to raise_error
+    end
+  end
 end

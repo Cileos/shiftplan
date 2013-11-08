@@ -17,8 +17,8 @@ module PageLoadSupport
       raise e
     end
   rescue Capybara::TimeoutError => e
-    if page.text =~ /Internal Server Error/
-      raise page.text.sub(/(Internal Server Error)/, '\1 (full trace in log/capybara_test.log)')
+    if page.body =~ /Internal Server Error/
+      raise page.body.sub(/(Internal Server Error)/, '\1 (full trace in log/capybara_test.log)')
     else
       raise e
     end

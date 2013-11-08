@@ -14,7 +14,7 @@ class CountNotificationsController < ApplicationController
   protected
 
   def set_notifications
-    @notifications ||=  current_user.unread_notifications
+    @notifications ||=  current_user.notifications.unread
   end
 
   def authorize_notifications
