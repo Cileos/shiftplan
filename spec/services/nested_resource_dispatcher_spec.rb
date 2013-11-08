@@ -1,19 +1,19 @@
 require 'spec_helper'
 
 describe NestedResourceDispatcher do
+  let(:account)       { stub_model Account }
+  let(:organization)  { stub_model Organization, account: account }
+  let(:blog)          { stub_model Blog, organization: organization }
+  let(:team)          { stub_model Team, organization: organization }
+  let(:plan)          { stub_model Plan, organization: organization }
+  let(:plan_template) { stub_model PlanTemplate, organization: organization }
+  let(:blog_post)     { stub_model Post, blog: blog }
+  let(:shift)         { stub_model Shift, plan_template: plan_template }
+  let(:scheduling)    { stub_model Scheduling, plan: plan }
+  let(:attached_doc)  { stub_model AttachedDocument, plan: plan }
 
   describe '#resources_for' do
 
-    let(:account)       { stub_model Account }
-    let(:organization)  { stub_model Organization, account: account }
-    let(:blog)          { stub_model Blog, organization: organization }
-    let(:team)          { stub_model Team, organization: organization }
-    let(:plan)          { stub_model Plan, organization: organization }
-    let(:plan_template) { stub_model PlanTemplate, organization: organization }
-    let(:blog_post)     { stub_model Post, blog: blog }
-    let(:shift)         { stub_model Shift, plan_template: plan_template }
-    let(:scheduling)    { stub_model Scheduling, plan: plan }
-    let(:attached_doc)  { stub_model AttachedDocument, plan: plan }
 
 
 
@@ -90,6 +90,25 @@ describe NestedResourceDispatcher do
       end
     end
 
+  end
+
+  describe '#show_resources_for' do
+    describe 'for Scheduling' do
+      it 'points to employee calendar with anchor' do
+        scheduling.stub cid: 23, # currently only in decorator
+                        week: 42,
+                        cwyear: 2012
+        subject.show_resources_for(scheduling).should == [
+          [account, organization, plan, :employees_in_week],
+          {
+            week: 42,
+            cwyear: 2012,
+            anchor: '/scheduling/23'
+          }
+        ]
+      end
+
+    end
   end
 
 end

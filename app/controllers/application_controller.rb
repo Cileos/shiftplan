@@ -75,6 +75,11 @@ class ApplicationController < ActionController::Base
     Volksplaner.nested_resource_dispatcher.resources_for(*a)
   end
 
+  helper_method :nested_show_resources_for
+  def nested_show_resources_for(*a)
+    Volksplaner.nested_resource_dispatcher.show_resources_for(*a)
+  end
+
   helper_method :year_for_cweek_at
   def year_for_cweek_at(date)
     if date.month == 1 && date.cweek > 5
