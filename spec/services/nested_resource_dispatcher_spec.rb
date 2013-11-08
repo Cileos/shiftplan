@@ -94,10 +94,12 @@ describe NestedResourceDispatcher do
 
   describe '#show_resources_for' do
     describe 'for Scheduling' do
-      it 'points to employee calendar with anchor' do
+      before do
         scheduling.stub cid: 23, # currently only in decorator
                         week: 42,
                         cwyear: 2012
+      end
+      it 'points to employee calendar with anchor' do
         subject.show_resources_for(scheduling).should == [
           [account, organization, plan, :employees_in_week],
           {
@@ -108,6 +110,16 @@ describe NestedResourceDispatcher do
         ]
       end
 
+      it 'can point to comments of the scheduling' do
+        subject.show_resources_for(scheduling, :comments).should == [
+          [account, organization, plan, :employees_in_week],
+          {
+            week: 42,
+            cwyear: 2012,
+            anchor: '/scheduling/23/comments'
+          }
+        ]
+      end
     end
   end
 
