@@ -1,0 +1,31 @@
+.attached_documents
+  margin: -0.5em 0 1em
+  font-size: $font-size_small
+  line-height: 1
+
+  .size,
+  .uploader,
+  .date
+    color: $ci_darkgrey
+
+  .name
+    margin: 0.25em 0
+    @extend %with-icon
+    @extend .icon-document
+
+    &:before
+      margin-left: -1em
+      color: $ci_blue
+      +transition(color 0.5s linear)
+
+    &:hover:before
+      color: black
+
+  .size
+    float: right
+    margin-left: 0.25em
+
+  .destroy-button
+    float: right
+    @extend %destroy-button
+    margin: -0.3em 0 0 1em

@@ -1,9 +1,9 @@
 require 'avatar_widget'
 
 describe AvatarWidget do
-  let(:view)     { stub('View').as_null_object }
-  let(:user)     { stub('User') }
-  let(:employee) { stub('employee') }
+  let(:view)     { double('View').as_null_object }
+  let(:user)     { double('User') }
+  let(:employee) { double('employee') }
   let(:version)  { :tiny }
   let(:options)  { {class: :author} }
   let(:widget)   { described_class.new(view, user, employee, version, options) }
@@ -20,9 +20,9 @@ describe AvatarWidget do
   end
 
   describe '#to_html' do
-    let(:html_options) { stub 'calculated options' }
-    let(:avatar_url) { stub 'avatar_url' }
-    let(:avatar) { stub 'AvatarUploader file', url: avatar_url }
+    let(:html_options) { double 'calculated options' }
+    let(:avatar_url) { double 'avatar_url' }
+    let(:avatar) { double 'AvatarUploader file', url: avatar_url }
     before :each do
       widget.stub html_options: html_options
     end

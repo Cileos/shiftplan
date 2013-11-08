@@ -1,4 +1,4 @@
 page.decorate resource do |user|
-  user.append_modal body: render('form'), header: content_tag(:h3, ta(:'signin'))
+  user.append_modal body: render('form'), header: ta(:'signin')
   user.prepend_to_modal user.render_flash
 end

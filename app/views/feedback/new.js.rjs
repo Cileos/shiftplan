@@ -1,4 +1,4 @@
 page.decorate @feedback do |feedback|
-  feedback.append_modal body: render('form'), header: content_tag(:h3, t(:'feedback.your_feedback'))
+  feedback.append_modal body: render('form'), header: t(:'feedback.your_feedback')
   page.select('input#feedback_browser').val(page << 'navigator.userAgent')
 end

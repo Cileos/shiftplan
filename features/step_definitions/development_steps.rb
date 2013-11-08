@@ -27,3 +27,15 @@ end
 When /^I wait for (\d+) seconds$/ do |num|
   sleep num.to_i
 end
+
+Before do |scenario|
+  if scenario.respond_to?(:title) && scenario.respond_to?(:file_colon_line)
+    Rails.logger.debug { "oooooo BEGIN Scenario #{scenario.title.inspect} (#{scenario.file_colon_line})" }
+  end
+end
+
+After do |scenario|
+  if scenario.respond_to?(:title) && scenario.respond_to?(:file_colon_line)
+    Rails.logger.debug { "oooooo END Scenario #{scenario.title.inspect} (#{scenario.file_colon_line})" }
+  end
+end

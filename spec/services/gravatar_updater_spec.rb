@@ -1,11 +1,11 @@
 require 'gravatar_updater'
 
 describe GravatarUpdater do
-  let(:record) { stub 'Record' }
+  let(:record) { double 'Record' }
 
   describe '#update' do
     before :each do
-      record.stub gravatar_url: (gravatar_url = stub('gravatar_url'))
+      record.stub gravatar_url: (gravatar_url = double('gravatar_url'))
       record.should_receive(:remote_avatar_url=).with(gravatar_url)
     end
     it 'fetches and stores gravatar when one of record#email exists' do
@@ -14,9 +14,9 @@ describe GravatarUpdater do
     end
 
     it 'catches 404 from gravatar.com' do
-      error = OpenURI::HTTPError.new('not found', stub)
+      error = OpenURI::HTTPError.new('not found', double)
       record.should_receive(:save!).and_raise( error )
-      logger = stub "Logger"
+      logger = double "Logger"
       logger.should_receive(:warn)
       expect {
         subject.update(record, size: 400, logger: logger)

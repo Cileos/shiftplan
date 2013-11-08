@@ -23,8 +23,12 @@ Then /^I deactivate all alert dialogs$/ do
 end
 
 When /^I close all colorpickers$/ do
-  page.execute_script("$('input.miniColors').miniColors('destroy')")
+  page.execute_script("$('input.minicolors').minicolors('destroy')")
   sleep 0.5
+end
+
+When /^I disable (?:all )?jquery animations$/ do
+  page.execute_script %Q~jQuery.fx.off = true~
 end
 
 When /^I leave #{capture_quoted} field$/ do |label|

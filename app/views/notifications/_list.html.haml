@@ -1,5 +1,5 @@
 - unless notifications.empty?
-  %ul
+  %ul.lines
     - notifications.for_dashboard.each do |notification|
       %li{class: notification.read_at ? 'read' : 'unread' }
         = render 'notifications/subject_and_blurb', notification: notification

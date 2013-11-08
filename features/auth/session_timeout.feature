@@ -29,6 +29,7 @@ Feature: Signing in
       And I wait for the modal box to appear
       And 2 hours pass
       And I press "Speichern"
+      And I wait for a flash alert message to appear
      Then I should see flash alert "Deine Sitzung ist abgelaufen, bitte melde Dich neu an." within the modal box
      When I fill in "E-Mail" with "<email>" within the modal box
       And I fill in "Passwort" with "secret" within the modal box
@@ -51,6 +52,7 @@ Feature: Signing in
       And I fill in "Name" with "World Domination"
       And 2 hours pass
       And I press "Speichern"
+      And I wait for a flash alert message to appear
      Then I should see flash alert "Deine Sitzung ist abgelaufen, bitte melde Dich neu an." within the modal box
      When I fill in "E-Mail" with "homer@clockwork.local" within the modal box
       And I fill in "Passwort" with "secret" within the modal box

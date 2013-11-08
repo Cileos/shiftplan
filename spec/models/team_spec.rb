@@ -9,6 +9,14 @@ describe Team do
 
     it { team.color.should_not be_blank }
     it { team.color.should =~ /^#[0-9A-F]{6}$/ }
+
+    it 'may be upper case' do
+      build(:team, color: '#AFFE23').should be_valid
+    end
+
+    it 'may be lower case' do
+      build(:team, color: '#affe23').should be_valid
+    end
   end
 
   context 'name' do

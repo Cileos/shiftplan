@@ -1,0 +1,48 @@
+// 865px
+
+#browser-width-detection
+  max-width: 825px
+  content: ''
+
++disable_css3_beauties
+
+[role=banner]
+  > nav > ul > li
+    height: 50px
+
+    & > a
+      width: 50px
+      white-space: nowrap
+      overflow: hidden
+      // padding: $banner_link_padding_tb - 2px $banner_link_padding_lr - 1px 0
+      // text-indent: 500px
+      // height: 50px
+
+      &:before,
+      .icon-bell,
+      .icon-bell_empty
+        margin-left: 0.2em
+        margin-right: 1.5em
+        font-size: 16px
+
+      &.icon-news:before
+        margin-left: 0.35em
+
+      .icon-bell,
+      .icon-bell_empty,
+      .user
+        &:after
+          display: none
+
+    .user-navigation .user
+      padding: 11px 8px 7px
+
+      &:after
+        display: none
+
+[role=content]
+  text-shadow: none !important
+
+.feedback-without-screenshot
+  position: relative
+  bottom: 0

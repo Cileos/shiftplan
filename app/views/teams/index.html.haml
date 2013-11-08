@@ -9,14 +9,13 @@
     = link_to ta(:add), [:new] + nested_resources_for(current_organization) + [:team],
       class: 'button button-add', remote: true
 
-.primary
-  #teams
-    - unless collection.empty?
-      = render 'table', records: collection
-    - else
-      %p= t(:'teams.no_teams_present')
+#teams
+  - unless collection.empty?
+    = render 'table', records: collection
+  - else
+    %p= t(:'teams.no_teams_present')
 
-#instructions.instructions
+#instructions
   - if can? :create, Team
     = tt '.planner_instructions'
   - else

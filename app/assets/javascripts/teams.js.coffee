@@ -1,6 +1,7 @@
 jQuery(document).ready ->
 
-  $(':input#team_color').miniColors()
+  # TODO is this needed? already defined in defaults.js.coffee
+  $(':input#team_color').minicolors({position: 'top left'})
 
   $('div#teams').each ->
     $teams = $(this)

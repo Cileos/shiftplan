@@ -1,8 +1,8 @@
 html
   // @include font-smoothing(subpixel-antialiased);
   font-family: $font-family
-  font-size: $ci_font-size
-  line-height: $ci_line-height
+  font-size: $font-size
+  line-height: $line-height
   // text-rendering: optimizeLegibility;
 
 body
@@ -23,6 +23,12 @@ a.link,
   &:hover
     color: $ci_blue_hover
 
+a,
+button,
+input[type=submit]
+  &:focus
+    outline: 0
+
 h1,
 h2,
 h3,
@@ -30,22 +36,21 @@ h4,
 h5,
 h6
   margin: 0
-  letter-spacing: -.05em
   line-height: 1.2
 
 h1.huge
-  font-size: $ci_biggest-font
+  font-size: $font-size_massive
   line-height: 1.1236em
   padding: 0.22472em 0 0.44944em
 
 h1,
 h2
-  font-size: $ci_bigger-font
+  font-size: $font-size_larger
   line-height: 1.17647em
   padding: 1.17647em 0 1.17647em
 
 h3
-  font-size: $ci_big-font
+  font-size: $font-size_large
   padding: 0.9524em 0 0
 
 h4,
@@ -60,215 +65,13 @@ small,
 
 small
   color: $ci_gray
-  font-size: $ci_font-size
+  font-size: $font-size
 
 .side-link
   font-size: 12px
   float: right
   font-weight: normal
   letter-spacing: 0
-
-[role=banner]
-  background: $ci_blue
-  +background(linear-gradient(lighten($ci_blue, 2%), darken($ci_blue, 3%)))
-  border-bottom: 1px solid darken($ci_blue, 7.5%)
-  color: lighten($ci_blue, 50%)
-  display: inline-block
-  width: 100%
-  +z-index("103", "fixed")
-  top: 0
-  // white shadow to fade away scrolled content smoothly
-  // @include box-shadow($ci_bg-color 0 1px 20px 10px);
-
-  h1
-    float: left
-    font-size: 1em
-
-  h1,
-  ul,
-  li
-    margin: 0
-    padding: 0
-    white-space: nowrap
-
-  .account-organization
-    padding: 2px $banner_link_padding_lr
-    border-bottom: 1px solid darken($ci_blue, 7.5%)
-
-  a
-    +transition(color, background 0.5s ease)
-    border-left: 1px solid darken($ci_blue, 7.5%)
-    color: lighten($ci_blue, 50%)
-    padding: $banner_link_padding_tb $banner_link_padding_lr
-    display: inline-block
-
-  h1 a,
-  .user-navigation
-    .user
-      padding: 11px 10px 12px
-      height: 49px
-
-    .help-faq
-      padding: 11px 20px 12px
-      font-size: 18px
-
-  > nav > ul > li > a
-    text-shadow: $ci_blue_hover_dark -1px -1px 0px
-
-  [role=navigation]
-    float: left
-
-    > ul > li:last-child > a
-      border-right: 1px solid darken($ci_blue, 7.5%)
-
-  .user-navigation
-    float: right
-
-    .dropdown > .dropdown-menu
-      left: auto
-      right: 0
-
-      &:before
-        left: auto
-        right: 15px
-
-      &:after
-        left: auto
-        right: 16px
-
-
-  .brand img
-    vertical-align: middle
-
-  .avatar
-    margin-top: -4px
-
-  .active
-    background: darken($ci_blue, 5%)
-
-  li:hover > a
-    color: #fff
-    background: $ci_blue_hover_dark
-
-  .dropdown
-    > .dropdown-menu a
-      color: $ci_blue
-      border-left: none
-
-    li.active a
-      color: lighten($ci_blue, 50%)
-
-  @media screen and (max-width: 800px)
-    nav:not(.user-navigation) ul li a
-      width: 50px
-      height: 50px
-      white-space: nowrap
-      overflow: hidden
-
-      &:before
-        margin-left: 0.2em
-        margin-right: 1.5em
-        font-size: $ci_large-font
-
-      &.icon-news:before
-        margin-left: 0.35em
-
-    nav ul li.dropdown li a
-      width: auto
-
-.where-and-who-am-i
-  +clearfix
-  margin-bottom: 15px
-  padding: 5px $banner_link_padding_lr
-  color: $ci_darkgrey
-  background: $ci_darkwhite
-  border-bottom: 1px solid $ci_grey
-
-  .current-account-and-organization
-    float: left
-
-  .username
-    float: right
-
-  .current-account-and-organization,
-  .username
-    white-space: nowrap
-
-[role=content]
-  padding: 0 $banner_link_padding_lr 25px
-  margin-bottom: 40px
-
-  .wrap.expanded &
-    padding-left: 20px
-    padding-right: 20px
-
-  h2
-    margin-top: 0
-
-[role=footer]
-  clear: both
-  float: right
-
-.pagination
-  +clearfix
-  text-align: center
-
-  span
-    display: inline-block
-    margin-right: 5px
-
-  a
-    +transition(all 0.3s $ci_easing)
-    padding: 3px 5px
-
-    &:hover
-      background: $ci_blue
-      color: #fff
-
-  .current
-    padding: 3px 5px
-    color: $ci_blue
-    border-bottom: 2px solid $ci_blue
-    font-weight: bold
-
-.masterhead
-  +clearfix
-  padding: 10px 0
-  margin: 0 0 20px
-  border-bottom: 1px solid $ci_midgray
-
-  h1,
-  h2,
-  h3,
-  #title
-    display: inline
-    padding: 0
-    font-size: $ci_header-size
-  nav
-    display: inline
-    float: right
-    padding: 0
-    white-space: nowrap
-
-    > ul,
-    .button-group + .button
-      float: left
-
-    .dropdown
-      margin: .6em 1.5em .35em
-
-  ul,
-  form,
-  form div
-    margin: 0
-    padding: 0
-
-  li
-    margin-right: 5px
-    float: none
-
-    &:not(.dropdown):last-child
-      margin-right: 0
 
 .nav-pills
   list-style: none
@@ -317,92 +120,6 @@ small
   padding-top: 10px
   border-top: 1px solid $ci_midgray
 
-.pibble
-  +box-shadow(white 1px 1px 5px inset)
-  border-radius: 9px
-  display: inline-block
-  height: 13px
-  width: 13px
-  float: left
-  border: 1px solid $ci_anthracite
-  margin: 2px 5px 3px
-
-[data-toggle='collapsible']
-  +background-image(linear-gradient(lighten($ci_sidebar_bg-color, 3%), $ci_sidebar_bg-color 30px))
-
-[data-toggle='collapsible-heading']
-  +transition(0.25s color ease)
-  position: relative
-  margin: 0
-  padding: 10px 0
-  font-size: $ci_font-size
-  font-weight: bold
-  cursor: pointer
-  @extend %with-icon
-  @extend .icon-collapse
-
-  &:before
-    position: absolute
-    top: 10px
-    left: -1em
-
-  &.collapsed
-    @extend .icon-expand
-
-    &:before
-      left: -0.75em
-
-  &:hover
-    color: $ci_blue
-
-[data-toggle="collapsible-content"]
-  margin-top: 0.5em
-  padding-right: 10px
-
-.utility-button.toggle-sidebars
-  border-radius: 0
-  position: absolute
-  z-index: 1
-  top: 48px
-  display: block
-  width: $logo_width
-  padding: 11px 0 4px
-  text-align: center
-  line-height: 1
-  font-size: 16px
-  border-bottom: 1px solid $ci_middarkgrey
-  @extend %with-icon
-  @extend .icon-hide
-
-  &.collapsed
-    @extend .icon-expand
-    height: 100%
-    width: 25px
-    border-right: 1px solid $ci_middarkgrey
-
-    &:before
-      margin-right: 0
-
-.toggle-sidebars[data-toggle="sidebar"]
-  left: 0
-
-.toggle-sidebars[data-toggle="contextual_help"]
-  right: 0
-
-.export-link
-  display: inline-block
-  margin: 1em
-  padding: 1em
-  background: $ci_darkwhite
-  @extend %with-icon
-  @extend .icon-export
-
-.enable-export,
-.deactivate-export
-  margin-top: 2em
-  form,
-  form div
-    display: inline
-
-.deactivate-export
-  font-weight: bold
+#browser-width-detection
+  display: none
+  visibility: hidden

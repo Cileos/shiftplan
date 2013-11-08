@@ -1,10 +1,10 @@
-.module.list.news
+.module.news
   %header
     %h2
       = t(:'blogs.company_news')
   .content
     - unless posts.empty?
-      %ul.posts
+      %ul.posts.lines
         - posts.each do |post|
           %li
             .account-organization

@@ -47,7 +47,8 @@ Feature: Calendar navigation
       And I should see "KW 52 / 2015" within active week
       And I should see "21.12." within weeks first date
 
-     When I follow "Gehe zu" within the toolbar
+     When I disable all jquery animations
+      And I follow "Gehe zu" within the toolbar
      Then the selected "anderes Jahr anzeigen" should be "2015" within the datepicker
       And the selected "anderen Monat anzeigen" should be "Dezember" within the datepicker
      When I select "2017" from "anderes Jahr anzeigen" within the datepicker

@@ -26,7 +26,7 @@
     background: $ci_darkwhite
     border-top: 1px solid $ci_midgrey
     border-bottom: 1px solid $ci_midgrey
-    // @include box-shadow($ci_midgrey 0px 1px 5px 0px inset);
+    // box-shadow: $ci_midgrey 0px 1px 5px 0px inset
     padding: 2px 4px 3px 4px
     line-height: 14px
 
@@ -83,7 +83,7 @@
     height: 5px
 
   &.focus
-    +box-shadow(white 0px 0px 1px 3px, $ci_darkgrey 0px 0px 20px 5px)
+    box-shadow: white 0px 0px 1px 3px, $ci_darkgrey 0px 0px 20px 5px
     +z-index(31)
 
     .team_name,

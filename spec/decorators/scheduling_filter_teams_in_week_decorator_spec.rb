@@ -29,10 +29,10 @@ describe SchedulingFilterTeamsInWeekDecorator do
   end
 
   context "cell metadata" do
-    let(:day) { stub 'Date', iso8601: 'in_iso8601' }
+    let(:day) { double 'Date', iso8601: 'in_iso8601' }
 
     it "sets team-id and date" do
-      team = stub 'Employee', id: 23
+      team = double 'Employee', id: 23
       decorator.cell_metadata(day,team).
         should be_hash_matching(:'team-id' => 23,
                                 :date => 'in_iso8601')

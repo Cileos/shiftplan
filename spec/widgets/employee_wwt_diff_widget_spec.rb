@@ -2,30 +2,30 @@
 require 'spec_helper'
 
 describe EmployeeWwtDiffWidget do
-  let(:view) { stub 'View' }
-  let(:employee) { stub 'Employee', weekly_working_time: nil }
-  let(:filter) { stub 'SchedulingFilter', h: view }
+  let(:view) { double 'View' }
+  let(:employee) { double 'Employee', weekly_working_time: nil }
+  let(:filter) { double 'SchedulingFilter', h: view }
   let(:records) { [] }
   subject { described_class.new(filter, employee, records) }
 
   context '#hours' do
     it "sums up records with full hours" do
-      records << stub('s1', employee: employee, length_in_hours: 4)
-      records << stub('s2', employee: employee, length_in_hours: 8)
-      records << stub('s3', employee: employee, length_in_hours: 15)
+      records << double('s1', employee: employee, length_in_hours: 4)
+      records << double('s2', employee: employee, length_in_hours: 8)
+      records << double('s3', employee: employee, length_in_hours: 15)
 
       subject.hours.should == 4 + 8 + 15
     end
 
     it "ignores records by other employees" do
-      records << stub('s4', employee: stub('other'), length_in_hours: 9000)
+      records << double('s4', employee: stub('other'), length_in_hours: 9000)
 
       subject.hours.should == 0
     end
 
     it "sums up records with 15-minute intervals" do
-      records << stub('s1', employee: employee, length_in_hours: 4.5)
-      records << stub('s2', employee: employee, length_in_hours: 8.75)
+      records << double('s1', employee: employee, length_in_hours: 4.5)
+      records << double('s2', employee: employee, length_in_hours: 8.75)
 
       subject.hours.should == 13.25
     end

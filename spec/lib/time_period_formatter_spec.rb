@@ -7,7 +7,7 @@ describe TimePeriodFormatter do
     end
   end
   let(:decorator) { DecoratorForRecordWithTimes.new(record) }
-  let(:record) { stub }
+  let(:record) { double }
 
   context "#period_with_duration" do
     it 'is composed of period_with_zeros and duration' do
@@ -23,7 +23,7 @@ describe TimePeriodFormatter do
   context "#period_with_zeros" do
 
     context "for regular daytime records with minutes" do
-      let(:record) { stub "regular",
+      let(:record) { double "regular",
                      starts_at: Time.zone.parse('8:15'),
                      ends_at: Time.zone.parse('16:45'),
                      next_day: nil, previous_day: nil
@@ -35,7 +35,7 @@ describe TimePeriodFormatter do
     end
 
     context "for regular daytime records with full hours" do
-      let(:record) { stub "regular",
+      let(:record) { double "regular",
                      starts_at: Time.zone.parse('8:00'),
                      ends_at: Time.zone.parse('16:45'),
                      next_day: nil, previous_day: nil
@@ -47,12 +47,12 @@ describe TimePeriodFormatter do
     end
 
     context "for overnightables" do
-      let(:overnightable) { stub 'overnightable',
+      let(:overnightable) { double 'overnightable',
                             starts_at: Time.zone.parse('22:15'),
                             ends_at: Time.zone.parse('06:45'),
                             next_day: next_day, previous_day: nil
       }
-      let(:next_day) { stub 'next day',
+      let(:next_day) { double 'next day',
                        next_day: nil,
                        ends_at: Time.zone.parse('06:45')
       }

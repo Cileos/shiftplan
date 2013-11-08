@@ -1,0 +1,7 @@
+%ul.lines.attached_documents
+  = render partial: 'attached_documents/item', collection: filter.plan.attached_documents
+
+- if can?(:create, AttachedDocument)
+  = link_to :upload_attached_document, [:new] + nested_resources_for(filter.plan, :attached_document),
+    class: 'button button-add',
+    remote: true

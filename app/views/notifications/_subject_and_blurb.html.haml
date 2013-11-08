@@ -1,4 +1,4 @@
-%a{href: url_for_notifiable(notification.notifiable), class: 'notifiable-link'}
+= link_to(mark_notification_as_read_path(notification), class: 'notifiable-link', method: :put) do
   = avatar notification.acting_employee.user, notification.acting_employee, :thumb, 'small'
   %subject.subject{class: 'icon-' + notification.notifiable_type.downcase}
     = notification.subject

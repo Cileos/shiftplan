@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SchedulingFilterHoursInWeekDecorator do
-  let(:filter)    { stub 'Filter' }
+  let(:filter)    { double 'Filter' }
   let(:decorator) { described_class.new filter }
   def build_shifts(*quickies)
     quickies.map { |q| create :manual_scheduling, quickie: q, week: 23, cwday: 1 }

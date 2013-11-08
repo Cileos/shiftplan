@@ -45,11 +45,11 @@ describe SchedulingNotificationMailer do
     clear_mails
   end
 
-  it 'should set sender address no-reply@app.clockwork.io' do
+  it 'should set sender address no-reply@' do
     comment(@scheduling_for_homer, @employee_owner, 'Homer, denk bitte daran, bei Feierabend den Reaktor zu putzen')
 
     mail = SchedulingNotificationMailer.new_comment(Notification::Base.last)
-    mail.from.should == ['no-reply@app.clockwork.io']
+    mail.from.first.should =~ /^no-reply@.*clockwork.io$/
   end
 
   describe "new comment by account owner" do

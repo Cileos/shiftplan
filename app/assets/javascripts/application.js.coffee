@@ -20,7 +20,6 @@
 #= require_self
 
 jQuery ->
-  $("#calendar").stickyTableHeaders fixedOffset: 50
   $("textarea").autosize()
   $("body").on "dialogopen", ->
     elmTextarea = $(".ui-widget textarea")

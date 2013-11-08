@@ -65,6 +65,10 @@ Feature: Notification Hub
       And I should not see "Umweltminister zu Besuch" within the notification hub
       But I should see "Alles erledigt" within the notification hub
 
+     # the notification on the dashboard is still there and _looks_ unread
+     When I follow "Umweltminister zu Besuch" within the notifications module
+     Then I should be on the page of the post
+
 
   Scenario: Mark all notifications as read
     Given the following posts exist:

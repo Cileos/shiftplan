@@ -39,6 +39,7 @@ en:
       edit_qualification: Edit Qualification
       new_plan_template: Add Plan Template
       edit_plan_template: Edit Plan Template
+      new_attached_document: Upload new document
       new_team_merge: "Merge teams"
       edit_employee: "Edit employee"
       all_organizations: "All units"
@@ -92,6 +93,8 @@ en:
       core_data: "Core Data"
       mark_as_read: "Mark as read"
       mark_all_as_read: "Mark all as read"
+      upload_attached_document: "Upload Document"
+      upload: "Upload"
   schedulings:
     calendar_navigation:
       day: "Day"

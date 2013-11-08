@@ -34,8 +34,9 @@ group :test do
   gem "email_spec", '~> 1.4.0'
 
   # TODO for latest chrome-webdriver remove when capybara > 1.1.2 depends on it
-  gem 'selenium-webdriver', '~> 2.35.1'
-  gem 'chromedriver-helper'
+  gem 'selenium-webdriver', '~> 2.37.0'
+  # until it fetches from the new location: https://github.com/flavorjones/chromedriver-helper/pull/8
+  gem 'chromedriver-helper', git: 'git://github.com/mars/chromedriver-helper.git', branch: 'download-via-bucket-xml'
 
   gem "spork", "1.0.0rc3"
   gem "guard-rspec", "~> 2.4.0"
@@ -121,7 +122,10 @@ gem 'database_cleaner'
 # oh noes, niklas wants kaminari
 # gem 'will_paginate', '~> 3.0'
 gem 'kaminari'
-gem 'acts_as_commentable_with_threading', '~> 1.1.2'
+# until merge of https://github.com/elight/acts_as_commentable_with_threading/pull/32
+#             or https://github.com/elight/acts_as_commentable_with_threading/pull/52
+gem 'acts_as_commentable_with_threading', '~> 1.1.2', git: 'git://github.com/niklas/acts_as_commentable_with_threading.git', branch: 'feature/nested_destruction_first_try'
+
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart'

@@ -15,14 +15,14 @@ $all-text-inputs: append($all-text-inputs, unquote('input[type="stringy_date"]')
 
 #{$all-text-inputs},
 textarea
-  +box-shadow(inset 0 0 3px rgba(0, 0, 0, 0.25))
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.25)
   +box-sizing(border-box)
-  border-radius: $ci_border-radius
+  border-radius: $global_border-radius
   border: 1px solid $ci_gray
   padding: .5em
 
   &:focus
-    +box-shadow(inset 0 0 3px $ci_blue)
+    box-shadow: inset 0 0 3px $ci_blue
     border: 1px solid $ci_blue
     background: lighten($ci_yellow, 47%)
     color: $ci_text-color
@@ -41,15 +41,14 @@ input[type=checkbox],
 input[type=radio]
   margin-right: .35em
 
-.inputs.edit-team input
-  width: 325px
+.minicolors-theme-default
+  margin-left: 1em
 
-input.miniColors
-  padding-left: 30px
+  .minicolors-input
+    height: initial
 
-  + .miniColors-trigger
-    position: relative
-    top: -27px
+  .minicolors-swatch
+    top: 8px
 
 // jquery.datepick needs a visible input to calculate the offset for the popup.
 // We hide it the strange way.

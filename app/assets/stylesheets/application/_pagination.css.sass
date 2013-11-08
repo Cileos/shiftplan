@@ -1,0 +1,21 @@
+.pagination
+  +clearfix
+  text-align: center
+
+  span
+    display: inline-block
+    margin-right: 5px
+
+  a
+    +transition(all 0.3s $ci_easing)
+    padding: 3px 5px
+
+    &:hover
+      background: $ci_blue
+      color: #fff
+
+  .current
+    padding: 3px 5px
+    color: $ci_blue
+    border-bottom: 2px solid $ci_blue
+    font-weight: bold
