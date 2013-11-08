@@ -37,6 +37,17 @@ class SchedulingDecorator < RecordDecorator
     end
   end
 
+  def link_to_calendar(name, opts={})
+    h.link_to(name,
+              h.account_organization_plan_employees_in_week_path(
+                *h.nested_resources_for(model.plan),
+                week: week,
+                cwyear: cwyear,
+                anchor: "/scheduling/#{cid}"
+              )
+    )
+  end
+
   def summary
     if team
       if plan

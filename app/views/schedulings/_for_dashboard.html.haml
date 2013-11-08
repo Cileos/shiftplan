@@ -27,8 +27,6 @@
               %span.time
                 = scheduling.wide_period
               - if scheduling.team.present?
-                %span.team= link_to scheduling.team.to_quickie,
-                account_organization_plan_employees_in_week_path(org.account,
-                org, plan, week: scheduling.week, cwyear: scheduling.cwyear, anchor: "/scheduling/#{scheduling.cid}")
+                %span.team= scheduling.link_to_calendar scheduling.team.to_quickie
     - else
       %p= t('schedulings.no_upcoming_schedulings_present')
