@@ -1,6 +1,15 @@
 Changelog
 =========
 
+Release 1.0.6 2013-11-08 14:25
+------------------------------
+
+4dac456 Merge pull request #216 from Cileos/feature/bug-mark-notification-as-read-twice
+732caf4 Merge pull request #214 from Cileos/feature/cleanup_markup_and_stylesheets
+1b85bd2 Merge pull request #209 from Cileos/feature/attached_documents
+fd938f5 Merge pull request #212 from Cileos/feature/reliable-mark-notification-as-read-when-visiting-notifiable
+89c2816 Merge pull request #213 from Cileos/feature/trigger-testing-plock-ci
+
 Release 1.0.5 2013-11-01 14:45
 ------------------------------
 
