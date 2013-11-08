@@ -31,7 +31,7 @@ jQuery(document).ready ->
       $scheduling = cursor.findByCid(id)
       if $scheduling.length == 1
         cursor.focus($scheduling)
-        cursor.activate()
+        cursor.activate() unless cursor.isReadonly()
 
     refresh_behaviour_of_cell = ->
       $cell = $(this)

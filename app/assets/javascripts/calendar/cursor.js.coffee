@@ -186,6 +186,9 @@ class CalendarCursor
   create: ->
     new CalendarEditor element: @$focussed_cell
 
+  isReadonly: ->
+    @$body().is('.readonly')
+
   left: ->
     @orientate()
     @focus @$focussed_cell.closest('tr').children(@tds).eq(@current_column-1),
