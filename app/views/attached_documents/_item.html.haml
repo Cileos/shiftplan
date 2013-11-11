@@ -5,6 +5,6 @@
   .date= l item.updated_at, format: :micro
   - if item.uploader
     .uploader= t '.uploader', name: item.uploader.name
-  .name= link_to item.name, item.file.url
+  .name= link_to item.name, item.file.url, target: dom_id(item)
   - if item.milestone
     .milestone= item.milestone.name
