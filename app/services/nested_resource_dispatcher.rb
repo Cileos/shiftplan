@@ -23,13 +23,15 @@ class NestedResourceDispatcher
   # @returns components usable with polymorphic_path(*this) to link directly to the given resource
   #
   # Note:  May be different from #resources_for for resources without a designated 'show' page.
-  def show_resources_for(resource, *extras)
-    extra = extras.reject(&:nil?).join('/')
+  def show_resources_for(resource, *extras_and_options)
+    options = extras_and_options.extract_options!
+    extra = extras_and_options.reject(&:nil?).join('/')
     extra = '/' + extra unless extra.blank?
 
     case resource
     when Scheduling, SchedulingDecorator
-      [ resources_for(resource.plan, :employees_in_week),
+      mode = options.fetch(:mode) { :employees_in_week }
+      [ resources_for(resource.plan, mode),
         {
           cwyear: resource.cwyear,
           week: resource.week,
