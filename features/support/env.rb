@@ -59,10 +59,10 @@ Spork.prefork do
   Before { @old_locale = I18n.locale }
   After  { I18n.locale = @old_locale }
 
-  Before '@no_delay' do
+  Before '@instant_jobs' do
     Delayed::Worker.delay_jobs = false
   end
-  After '@no_delay' do
+  After '@instant_jobs' do
     Delayed::Worker.delay_jobs = true
   end
 end
