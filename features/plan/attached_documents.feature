@@ -40,3 +40,4 @@ Feature: Attached documents
       When I follow "Löschen" within the attached_documents list
       Then I should see flash notice "Dokument howto.docx gelöscht"
        And I should be somewhere under the page of the plan
+       And I should not see "howto.docx" within the sidebar
