@@ -9,6 +9,7 @@ In order to keep my colleagues informed about important news
      Then 0 posts should exist
 
 
+  # Most common path
   @instant_jobs
   Scenario: Creating a first blog post
     Given a confirmed user "heinz" exists with email: "heinz@example.com"
@@ -87,30 +88,15 @@ In order to keep my colleagues informed about important news
 
 
   # TODO: Open the confirm dialog in our own modal box.
-  @wip
-  Scenario: Deleting a blog post by pressing confirm in the dialog box
+  Scenario: Deleting a blog post
     Given a post exists with blog: the blog, author: employee "mr burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the user "mr burns"
      When I go to the page of the post
      Then I should see "Umweltminister zu Besuch"
-     When I press "Löschen"
-     Then I should see "Wollen Sie den Blogpost 'Umweltminister zu Besuch' mit allen Kommentaren wirklich löschen?" in the alert box
-     When I accept the popup
+     When I deactivate all confirm dialogs
+      And I press "Löschen"
      Then I should see a flash notice "Post erfolgreich gelöscht."
       And I should see "Es wurden noch keine Blogposts erstellt."
-
-
-  # TODO: Open the confirm dialog in our own modal box.
-  @wip
-  Scenario: Aborting the deletion of a blog post by pressing cancel in the dialog box
-    Given a post exists with blog: the blog, author: employee "mr burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
-      And I am signed in as the user "mr burns"
-     When I go to the page of the post
-     Then I should see "Umweltminister zu Besuch"
-     When I press "Löschen"
-     Then I should see "Wollen Sie den Blogpost 'Umweltminister zu Besuch' mit allen Kommentaren wirklich löschen?" in the alert box
-     When I dismiss the popup
-     Then I should see "Umweltminister zu Besuch"
 
 
   Scenario: User edits a post
