@@ -1,6 +1,7 @@
 # encoding: utf-8
 module Volksplaner
   autoload :Currents, 'volksplaner/currents'
+  autoload :ControllerCaching, 'volksplaner/controller_caching'
   autoload :Responder, 'volksplaner/responder'
   autoload :FormButtons, 'volksplaner/form_buttons'
   autoload :FormFields, 'volksplaner/form_fields'
