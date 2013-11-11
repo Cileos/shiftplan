@@ -1,4 +1,3 @@
-@javascript
 Feature: As a user
 I want to create blog posts
 In order to keep my colleagues informed about important news
@@ -10,6 +9,7 @@ In order to keep my colleagues informed about important news
 
 
   # Most common path
+  @javascript
   @instant_jobs
   Scenario: Creating a first blog post
     Given a confirmed user "heinz" exists with email: "heinz@example.com"
@@ -70,6 +70,7 @@ In order to keep my colleagues informed about important news
       And I should see "Bitte putzen"
 
 
+  @javascript
   Scenario: Editing a blog post
     Given a post exists with blog: the blog, author: employee "mr burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the user "mr burns"
@@ -88,6 +89,7 @@ In order to keep my colleagues informed about important news
 
 
   # TODO: Open the confirm dialog in our own modal box.
+  @javascript
   Scenario: Deleting a blog post
     Given a post exists with blog: the blog, author: employee "mr burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the user "mr burns"
@@ -99,6 +101,7 @@ In order to keep my colleagues informed about important news
       And I should see "Es wurden noch keine Blogposts erstellt."
 
 
+  @javascript
   Scenario: User edits a post
     Given a post exists with blog: the blog, author: employee "mr burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
       And I am signed in as the user "mr burns"
@@ -118,6 +121,7 @@ In order to keep my colleagues informed about important news
       And I should see "Besuch des Umweltministers"
 
 
+  @javascript
   Scenario: User paginates through blog posts
     Given the following posts exist:
       | title   | blog      | author               |
