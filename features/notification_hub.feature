@@ -12,6 +12,7 @@ Feature: Notification Hub
       And I am signed in as the user "mr burns"
 
 
+  @instant_jobs
   Scenario: Notification hub is updated
      When I go to the home page
       And a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
@@ -46,6 +47,7 @@ Feature: Notification Hub
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"               |
 
 
+  @instant_jobs
   Scenario: Marking notifications as read
     Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When I go to the home page
@@ -70,6 +72,7 @@ Feature: Notification Hub
      Then I should be on the page of the post
 
 
+  @instant_jobs
   Scenario: Mark all notifications as read
     Given the following posts exist:
       | blog      | author           | title    | body     | created_at  |
