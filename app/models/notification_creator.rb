@@ -1,39 +1,24 @@
 class NotificationCreator
-  attr_reader :origin
+  attr_reader :notifiable
+  attr_reader :klass_finder
+  attr_reader :recipients_finder
 
-  def initialize(origin)
-    @origin = origin
+  def initialize(notifiable, opts={})
+    @notifiable = notifiable
+    @klass_finder = opts.fetch(:klass_finder) { Volksplaner.notification_klass_finder }
+    @recipients_finder = opts.fetch(:recipients_finder) { Volksplaner.notification_recipients_finder }
   end
 
   def create!
-    notification_dispatcher.create_notifications!
-  end
-
-  private
-
-  def notification_dispatcher
-    case origin
-    when ::Comment
-      comment_notification_dispatcher
-    when ::Post
-      Notification::Dispatcher::Post.new(origin)
+    recipients_finder[notifiable].each do |employee|
+      notification_class = klass_finder[notifiable, employee]
+      notification = notification_class.create!(notifiable: notifiable, employee: employee)
+      # TODO: separate persistence of notifications from delivering mails
+      # if employee.wants?(notificatuin)
+      #   notification.delay.deliver_mail
+      # end
     end
   end
 
-  def comment_notification_dispatcher
-    case origin.commentable
-    when ::Scheduling
-      comment_on_scheduling_notification_dispatcher
-    when ::Post
-      Notification::Dispatcher::CommentOnPost.new(origin)
-    end
-  end
-
-  def comment_on_scheduling_notification_dispatcher
-    unless origin.is_answer?
-      Notification::Dispatcher::CommentOnScheduling.new(origin)
-    else
-      Notification::Dispatcher::AnswerOnCommentOnScheduling.new(origin)
-    end
-  end
 end
+

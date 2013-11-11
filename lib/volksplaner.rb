@@ -40,11 +40,21 @@ module Volksplaner
   end
 
   def self.notification_creator
-    lambda { |origin| NotificationCreator.new(origin).delay.create! }
+    lambda do |notifiable|
+      NotificationCreator.new(notifiable).delay.create!
+    end
   end
 
   def self.notification_destroyer
-    lambda { |origin| Notification.delay.destroy_for(origin)}
+    lambda { |notifiable| Notification.delay.destroy_for(notifiable)}
+  end
+
+  def self.notification_klass_finder
+    Notification::KlassFinder.new.method(:find)
+  end
+
+  def self.notification_recipients_finder
+    Notification::RecipientsFinder.new.method(:find)
   end
 end
 
