@@ -16,3 +16,6 @@
 [submodule "vendor/assets/mixed/jquery.timeentry"]
 	path = vendor/assets/mixed/jquery.timeentry
 	url = https://github.com/kbwood/timeentry
+[submodule "vendor/assets/mixed/jquery-minicolors"]
+	path = vendor/assets/mixed/jquery-minicolors
+	url = git@github.com:claviska/jquery-minicolors.git
