@@ -217,7 +217,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def destroy_notifications
-    Notification.destroy_for(self)
+    Volksplaner.notification_destroyer[self]
   end
 end
 

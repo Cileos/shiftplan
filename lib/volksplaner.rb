@@ -46,7 +46,9 @@ module Volksplaner
   end
 
   def self.notification_destroyer
-    lambda { |notifiable| Notification.delay.destroy_for(notifiable)}
+    lambda do |notifiable|
+      NotificationDestroyer.new(notifiable).destroy!
+    end
   end
 
   def self.notification_klass_finder
