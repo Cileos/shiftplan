@@ -14,6 +14,7 @@ class SchedulingsController < BaseController
   before_filter :merge_time_components_from_next_day, only: :edit
 
   respond_to :html, :js
+  force_no_cache
 
   private
     def collection

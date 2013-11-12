@@ -1,0 +1,3 @@
+page.decorate resource do |decorated|
+  decorated.update_flash
+end

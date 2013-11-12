@@ -10,6 +10,10 @@ module HtmlSelectorsHelpers
 
     when "the page"
       "html > body"
+
+    when 'the sidebar'
+      '#sidebar'
+
     when "my list of recent achievements"
       "ul.achievements"
 

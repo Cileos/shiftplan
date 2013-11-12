@@ -13,7 +13,11 @@ class AttachedDocumentDecorator < RecordDecorator
   end
 
   def list_items(items)
-    h.render partial: 'attached_documents/item', collection: items
+    if items.empty?
+      ''
+    else
+      h.render partial: 'attached_documents/item', collection: items
+    end
   end
 
 end
