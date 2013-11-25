@@ -1,10 +1,10 @@
 %li
   - if can?(:destroy, item)
-    = link_to '.destroy', nested_resources_for(item), method: :delete, data: { confirm: t('.confirm_to_delete', name: item.name) }, class: 'destroy-button'
+    = link_to '.destroy', nested_resources_for(item), method: :delete, data: { confirm: t('.confirm_to_delete', name: item.name) }, class: 'destroy-button', remote: true
   .size=number_to_human_size item.file.size, precision: 2, si: true
   .date= l item.updated_at, format: :micro
   - if item.uploader
     .uploader= t '.uploader', name: item.uploader.name
-  .name= link_to item.name, item.file.url
+  .name= link_to item.name, item.file.url, target: dom_id(item)
   - if item.milestone
     .milestone= item.milestone.name

@@ -1,0 +1,4 @@
+page.decorate resource do |decorated|
+  decorated.update_flash
+  decorated.update_list parent.attached_documents
+end
