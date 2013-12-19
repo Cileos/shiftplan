@@ -10,6 +10,7 @@ de:
         last_name: Nachname
         full_name: Name
         weekly_working_time: Wochenarbeitszeit
+        qualifications: Qualifikationen
         email: E-Mail
         avatar: Mitarbeiterfoto
         organization: Organisation

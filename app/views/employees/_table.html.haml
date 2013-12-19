@@ -8,6 +8,7 @@
       %th= Employee.human_attribute_name(:role)
       %th= t('.status')
       %th= Organization.model_name.human(count: 9001)
+      %th= Employee.human_attribute_name(:qualifications)
       - if can?(:manage, Invitation)
         %th= t('.action')
 
@@ -36,6 +37,13 @@
           - if organizations.present?
             - organizations.each do |org|
               %div= org.name
+          - else
+            = t('none')
+        - qualifications = record.qualifications
+        %td
+          - if qualifications.present?
+            - qualifications.each do |quali|
+              %div= quali.name
           - else
             = t('none')
         - if can?(:manage, Invitation)

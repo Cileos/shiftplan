@@ -14,6 +14,7 @@ en:
         last_name: Surname
         full_name: Full name
         weekly_working_time: Working week
+        qualifications: Qualifications
         email: E-Mail
         avatar: Photo
         organization: Unit
