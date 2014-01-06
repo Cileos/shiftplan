@@ -9,22 +9,16 @@ describe Scheduling do
   context "with illegal characters in team name (quickie)" do
     let(:scheduling) { Scheduling.new quickie: "9-17 work 'hard'" }
     it { scheduling.should_not be_valid }
-
-    it "should not have errors on start time" do
-      scheduling.valid?
-      scheduling.should have(:no).errors_on(:starts_at)
-    end
-
-    it "should not have errors on end time" do
-      scheduling.valid?
-      scheduling.should have(:no).errors_on(:ends_at)
-    end
   end
 
   context "without start date and quickie" do
     let(:scheduling) { build :scheduling, starts_at: nil, ends_at: nil, quickie: '', week: nil, year: nil }
     it { scheduling.should_not be_valid }
     it { scheduling.should have_at_least(1).errors_on(:quickie) }
+  end
+
+  it 'needs start time' do
+    build(:scheduling, starts_at: nil).should_not be_valid
   end
 
   context "hour" do
@@ -173,6 +167,18 @@ describe Scheduling do
           build_without_dates({
             date: starts_at_date,
             start_time: '09:00',
+            end_time: '17:00'
+          })
+        end
+      end
+    end
+
+    describe 'given as date and times without minute-zeros' do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          build_without_dates({
+            date: starts_at_date,
+            start_time: '09:',
             end_time: '17:00'
           })
         end
