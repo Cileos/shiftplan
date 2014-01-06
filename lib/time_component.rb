@@ -1,6 +1,6 @@
 class TimeComponent < Struct.new(:record, :start_or_end)
   FullTimeExp = /\A (?<hour> \d{1,2}) : (?<minute> \d{1,2}) \z/x
-  ShortTimeExp = /\A (?<hour> \d{1,2}) \z/x
+  ShortTimeExp = /\A (?<hour> \d{1,2}) /x # interpret the first 2 digits as hour, discard the rest
 
   MinuteInterval = 15
 

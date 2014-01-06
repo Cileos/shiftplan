@@ -179,6 +179,18 @@ describe Scheduling do
       end
     end
 
+    describe 'given as date and times without minute-zeros' do
+      it_behaves_like 'completely defined' do
+        let :scheduling do
+          build_without_dates({
+            date: starts_at_date,
+            start_time: '09:',
+            end_time: '17:00'
+          })
+        end
+      end
+    end
+
     describe "given as date only" do
       let :scheduling do
         build_without_dates( date: the_date)
