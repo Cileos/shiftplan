@@ -27,4 +27,9 @@ jQuery ->
     elmTextarea.css "max-height", windowH + "px"
     elmTextarea.autosize()
 
+    $('.chosen-select').chosen
+      allow_single_deselect: true
+      no_results_text: 'No results matched'
+      width: '200px'
+
   $('#keyboard-shortcuts [data-toggle="collapsible-heading"]').click()  unless $.cookie("clockwork_keyboard-shortcuts")

@@ -24,7 +24,7 @@ Feature: Edit Employee
       And I fill in the following:
         | Nachname        | Simpson-Carlson |
         | Kürzel          | HSC             |
-      And I select "Koch" from "Qualifikationen"
+      And I type "Koch" in the "Qualifikationen" chosen search field
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see flash notice "Mitarbeiter erfolgreich geändert."

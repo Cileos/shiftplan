@@ -236,3 +236,11 @@ Then /^I should see the following validation errors:$/ do |expected_errors|
   end
   expected_errors.diff! found
 end
+
+When /^I type "(.*?)" in the "(.*?)" chosen search field$/ do |text,label|
+  page.execute_script <<-EOJS
+    $("label:contains('#{label}') ~ div.chosen-container li.search-field input").focus()
+  EOJS
+  find("div.chosen-container li", text:text).click
+end
+
