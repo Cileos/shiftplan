@@ -23,8 +23,8 @@ describe NotificationCreator do
       klass_2.should_receive(:create!).with(notifiable: notifiable, employee: bart_simpson).
         and_return(notification_2 = instance_double("Notification::Base"))
 
-      notification_1.should_receive(:deliver!)
-      notification_2.should_receive(:deliver!)
+      notification_1.should_receive(:send_mail)
+      notification_2.should_receive(:send_mail)
 
       creator.create!
     end

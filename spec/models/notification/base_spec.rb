@@ -1,12 +1,12 @@
 describe Notification::Base do
 
-  context "#deliver!" do
+  context "#send_mail" do
 
     shared_examples :a_notification_not_sending_an_email do
       it "does not deliver an email" do
         mailer_class.should_receive(:my_mailer_action).never
 
-        notification.deliver!
+        notification.send_mail
       end
     end
 
@@ -39,7 +39,7 @@ describe Notification::Base do
         mailer_class.should_receive(:my_mailer_action).once.and_return(mail)
         mail.should_receive(:deliver)
 
-        notification.deliver!
+        notification.send_mail
       end
     end
   end
