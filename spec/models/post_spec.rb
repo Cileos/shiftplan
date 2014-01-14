@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe Post do
 
-  context "on destroy" do
+  context "when destroyed" do
 
     let(:post) { create(:post) }
 
