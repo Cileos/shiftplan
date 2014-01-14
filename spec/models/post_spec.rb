@@ -30,4 +30,17 @@ describe Post do
     end
 
   end
+
+  context "when created" do
+
+    let(:post) { build(:post) }
+
+    it "notifications are created" do
+      creator = instance_double("NotificationCreator")
+      NotificationCreator.should_receive(:new).with(post).and_return(creator)
+      creator.should_receive(:create!)
+
+      post.save!
+    end
+  end
 end
