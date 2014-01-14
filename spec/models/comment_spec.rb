@@ -20,10 +20,12 @@ describe Comment do
 
   context "when created" do
 
-    it "notifications are created" do
-      creator = instance_double("NotificationCreator")
+    it "notifications are created in the background" do
+      creator        = instance_double("NotificationCreator")
+      delayed_proxy  = double("Delayed Proxy")
       NotificationCreator.should_receive(:new).with(comment).and_return(creator)
-      creator.should_receive(:create!)
+      creator.should_receive(:delay).and_return(delayed_proxy)
+      delayed_proxy.should_receive(:create!)
 
       comment.save!
     end
