@@ -33,13 +33,23 @@ describe Notification::Base do
 
     context "when the user has notification emails turned on" do
       let(:user) { build(:user, receive_notification_emails: true) }
+      let(:mail) { mail = double('Mail') }
+
+      before(:each) do
+        mailer_class.should_receive(:my_mailer_action).once.and_return(mail)
+      end
 
       it "delivers an email" do
-        mail = double('Mail')
-        mailer_class.should_receive(:my_mailer_action).once.and_return(mail)
         mail.should_receive(:deliver)
 
         notification.send_mail
+      end
+
+      it "sets the timestamp" do
+        mail.stub(:deliver)
+        Timecop.freeze(Time.parse('2012-12-12 12:23:00'))
+
+        expect { notification.send_mail }.to change(notification, :sent_at).from(nil).to(Time.zone.now)
       end
     end
   end
