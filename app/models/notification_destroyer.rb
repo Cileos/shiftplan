@@ -7,6 +7,6 @@ class NotificationDestroyer
   end
 
   def destroy!
-    Notification::Base.by_notifiable(notifiable).each(&:destroy)
+    Notification::Base.by_notifiable(notifiable).delete_all
   end
 end
