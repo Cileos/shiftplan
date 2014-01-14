@@ -47,13 +47,3 @@ shared_examples :updating_new_notifications_count_for_user do
   end
 end
 
-shared_examples :not_double_notifying_employees do
-  context "#recipients" do
-    it "does not return duplicates" do
-      org = instance_double('Organization')
-      dispatcher.stub(:organization).and_return(org)
-      org.stub(planners: [planner, planner], owner: nil)
-      dispatcher.send(:recipients).should == expected_recipients
-    end
-  end
-end
