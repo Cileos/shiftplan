@@ -13,10 +13,7 @@ class NotificationCreator
     recipients_finder[notifiable].each do |employee|
       notification_class = klass_finder[notifiable, employee]
       notification = notification_class.create!(notifiable: notifiable, employee: employee)
-      # TODO: separate persistence of notifications from delivering mails
-      # if employee.wants?(notificatuin)
-      #   notification.delay.deliver_mail
-      # end
+      notification.deliver! # send mail
     end
   end
 

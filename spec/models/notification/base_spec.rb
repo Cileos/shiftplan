@@ -6,7 +6,7 @@ describe Notification::Base do
       it "does not deliver an email" do
         mailer_class.should_receive(:my_mailer_action).never
 
-        notification.send(:deliver!)
+        notification.deliver!
       end
     end
 
@@ -39,7 +39,7 @@ describe Notification::Base do
         mailer_class.should_receive(:my_mailer_action).once.and_return(mail)
         mail.should_receive(:deliver)
 
-        notification.send(:deliver!)
+        notification.deliver!
       end
     end
   end

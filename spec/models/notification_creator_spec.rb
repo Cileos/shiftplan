@@ -12,14 +12,19 @@ describe NotificationCreator do
   let(:klass_2)                { double('Another notification class') }
 
   shared_examples :each_notification_creator do
-    it "creates notifications of the right type for each recipient with expected finders" do
+    it "creates expected notifications and delivers an email for each of them" do
       recipients_finder.stub(:[]).with(notifiable).and_return(recipients)
 
       klass_finder.stub(:[]).with(notifiable, homer_simpson).and_return(klass_1)
       klass_finder.stub(:[]).with(notifiable, bart_simpson).and_return(klass_2)
 
-      klass_1.should_receive(:create!).with(notifiable: notifiable, employee: homer_simpson)
-      klass_2.should_receive(:create!).with(notifiable: notifiable, employee: bart_simpson)
+      klass_1.should_receive(:create!).with(notifiable: notifiable, employee: homer_simpson).
+        and_return(notification_1 = instance_double("Notification::Base"))
+      klass_2.should_receive(:create!).with(notifiable: notifiable, employee: bart_simpson).
+        and_return(notification_2 = instance_double("Notification::Base"))
+
+      notification_1.should_receive(:deliver!)
+      notification_2.should_receive(:deliver!)
 
       creator.create!
     end

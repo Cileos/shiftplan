@@ -6,7 +6,6 @@ class Notification::Base < ActiveRecord::Base
 
   validates_presence_of :employee
 
-  after_commit :deliver!, on: :create
   after_create :increase_notifications_count_on_user
 
   def self.default_sorting
