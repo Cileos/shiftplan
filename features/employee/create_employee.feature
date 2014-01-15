@@ -1,3 +1,4 @@
+@javascript
 Feature: Create Employees
   In order to assign my employees to their shift
   As a planner
@@ -17,9 +18,8 @@ Feature: Create Employees
     Given the following qualifications exist:
       | name    | account     |
       | Koch    | the account |
-      | Kellner | the account |
 
-    Given I follow "Hinzufügen"
+      And I follow "Hinzufügen"
      Then I should be on the new employee page for the organization
       And the "Wochenarbeitszeit" field should contain "40"
      When I fill in the following:
@@ -27,8 +27,7 @@ Feature: Create Employees
         | Nachname          | Carlson |
         | Wochenarbeitszeit | 30      |
         | Kürzel            | Cc      |
-      And I select "Koch" from "Qualifikationen"
-      And I select "Kellner" from "Qualifikationen"
+      And I select "Koch" from the "Qualifikationen" multiple-select box
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Anlegen"
 
@@ -37,11 +36,10 @@ Feature: Create Employees
       Then I should see the following table of employees:
         | Name           | Kürzel | WAZ | E-Mail                      | Status                | Qualifikationen |
         | Burns, Charles | CB     |     | c.burns@npp-springfield.com | Aktiv                 | keine           |
-        | Carlson, Carl  | Cc     | 30  |                             | Noch nicht eingeladen | Koch\nKellner   |
+        | Carlson, Carl  | Cc     | 30  |                             | Noch nicht eingeladen | Koch            |
      Then I should see the avatar "rails.png" within the row for employee "Carl Carlson"
      When I go to the page of the plan
 
-  @javascript
   Scenario: Creating a planner
     Given I follow "Hinzufügen"
       And I fill in the following:

@@ -1,3 +1,4 @@
+@javascript
 Feature: create a scheduling
   In order for my employees not to miss any of their shifts
   As a planner
@@ -7,13 +8,12 @@ Feature: create a scheduling
     Given today is 2012-02-13
       And the situation of a nuclear reactor
 
-  @javascript
   Scenario: through the button on the top
      When I follow "Neue Terminierung"
      Then the "Mo" checkbox should be checked
      When I uncheck "Mo"
       And I check "Mi"
-      And I select "Homer S" from "Mitarbeiter"
+      And I select "Homer S" from the "Mitarbeiter" single-select box
       And I schedule "9-17"
       And I press "Anlegen"
      Then I should see the following partial calendar:
@@ -24,7 +24,6 @@ Feature: create a scheduling
         | Homer S        |     |     | 09:00-17:00  |     |     |     |     |
      And the employee "Homer S" should have a yellow hours/waz value of "8 / 40"
 
-  @javascript
   Scenario: by clicking in a cell and using repetition
      When I click on cell "Do"/"Homer S"
      Then the "Do" checkbox should be checked
@@ -41,7 +40,6 @@ Feature: create a scheduling
         | Lenny L        |     |     |              |                          |              |              |              |
         | Homer S        |     |     | 22:15-06:45  | 22:15-06:45 22:15-06:45  | 22:15-06:45  | 22:15-06:45  | 22:15-06:45  |
 
-  @javascript
   Scenario: Entering time span with minutes (15 minute intervals)
      When I click on cell "Di"/"Carl C"
       And I wait for the new scheduling form to appear
@@ -72,9 +70,7 @@ Feature: create a scheduling
         | Lenny L        |     |              |     |     |     |     |     |
         | Homer S        |     |              |     |     |     |     |     |
 
-  @wip
   @todo
-  @javascript
   Scenario: schedule only using the keyboard (Enter, n or a), entering just the timespan, using autocompletion
     Given I wait for the cursor to appear
       And I assume the calendar will not change
@@ -108,3 +104,4 @@ Feature: create a scheduling
         | Lenny L        |              |              |     |     |     |     |     |
         | Homer S        |              |              |     |     |     |     |     |
       And the cell "Di"/"Carl C" should be focus
+

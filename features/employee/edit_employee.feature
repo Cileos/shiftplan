@@ -5,7 +5,7 @@ Feature: Edit Employee
 
   Background:
     Given mr burns, owner of the Springfield Nuclear Power Plant exists
-    Given the following qualifications exist:
+    And the following qualifications exist:
       | name    | account     |
       | Koch    | the account |
       | Kellner | the account |
@@ -24,7 +24,7 @@ Feature: Edit Employee
       And I fill in the following:
         | Nachname        | Simpson-Carlson |
         | Kürzel          | HSC             |
-      And I type "Koch" in the "Qualifikationen" chosen search field
+      And I select "Koch" from the "Qualifikationen" multiple-select box
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see flash notice "Mitarbeiter erfolgreich geändert."
@@ -75,7 +75,6 @@ Feature: Edit Employee
       And I should see link "Simpson, Homer"
       But I should not see link "Burns, Charles"
 
-  @javascript
   Scenario: removing WAZ from an employee
     Given I follow "Simpson, Homer" within the employees table
       And I wait for the modal box to appear
