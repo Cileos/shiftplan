@@ -10,7 +10,6 @@ In order to keep my colleagues informed about important news
 
   # Most common path
   @javascript
-  @instant_jobs
   Scenario: Creating a first blog post
     Given a confirmed user "heinz" exists with email: "heinz@example.com"
       And an employee "heinz" exists with first_name: "Heinz", last_name: "Müller", user: the confirmed user "heinz", account: the account
@@ -39,7 +38,9 @@ In order to keep my colleagues informed about important news
       And I sign out
 
       # notifications
-      And "heinz@example.com" should receive an email with subject "Charles Burns hat einen neuen Blogpost geschrieben"
+     When all the delayed jobs are invoked
+     Then a post notification should exist with notifiable: the post, employee: employee "heinz"
+     Then "heinz@example.com" should receive an email with subject "Charles Burns hat einen neuen Blogpost geschrieben"
       And "kurt@example.com" should receive an email with subject "Charles Burns hat einen neuen Blogpost geschrieben"
       But "c.burns@npp-springfield.com" should receive no email
      When "heinz@example.com" opens the email with subject "Charles Burns hat einen neuen Blogpost geschrieben"

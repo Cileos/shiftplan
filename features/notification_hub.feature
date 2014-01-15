@@ -12,7 +12,6 @@ Feature: Notification Hub
       And I am signed in as the user "mr burns"
 
 
-  @instant_jobs
   Scenario: Notification hub is updated
      When I go to the home page
       And a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
@@ -22,7 +21,8 @@ Feature: Notification Hub
       And a comment exists with commentable: the scheduling, employee: the employee "bart", body: "Bitte Reaktor abschließen nach Dienstende"
       And the notification hub should have no new notifications
 
-     When the time interval for updating the count of the notification hub elapses
+     When all the delayed jobs are invoked
+      And the time interval for updating the count of the notification hub elapses
      Then the notification hub should have "3" new notifications
      When I follow "3" within the notification hub
       And I wait for the notifications spinner to disappear
@@ -47,10 +47,10 @@ Feature: Notification Hub
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"               |
 
 
-  @instant_jobs
   Scenario: Marking notifications as read
     Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
-     When I go to the home page
+     When all the delayed jobs are invoked
+      And I go to the home page
      Then the notification hub should have "1" new notifications
       And the notification hub should have unread notifications
      When I open the notification hub menu
@@ -72,7 +72,6 @@ Feature: Notification Hub
      Then I should be on the page of the post
 
 
-  @instant_jobs
   Scenario: Mark all notifications as read
     Given the following posts exist:
       | blog      | author           | title    | body     | created_at  |
@@ -87,7 +86,8 @@ Feature: Notification Hub
       | the blog  | employee "bart"  | Post 9   | Post 9   | 2012-12-20  |
       | the blog  | employee "bart"  | Post 10  | Post 10  | 2012-12-21  |
       | the blog  | employee "bart"  | Post 11  | Post 11  | 2012-12-22  |
-     When I go to the home page
+     When all the delayed jobs are invoked
+      And I go to the home page
      Then the notification hub should have "11" new notifications
       And the notification hub should have unread notifications
      When I open the notification hub menu

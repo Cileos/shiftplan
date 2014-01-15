@@ -9,7 +9,6 @@ Feature: Comments in Company blog
       And mr burns, owner of the Springfield Nuclear Power Plant exists
 
 
-  @instant_jobs
   Scenario: Commenting blog posts
     # a post of mr. burns
     Given a post exists with blog: the blog, author: employee "mr burns", title: "Umweltminister zu Besuch", body: "Bitte putzen"
@@ -25,7 +24,8 @@ Feature: Comments in Company blog
      When I fill in "Kommentar" with "Ich backe einen Kuchen für den Umweltminister"
       And I press "Kommentieren"
       And I wait for the spinner to disappear
-     Then I should not see "Es wurden noch keine Kommentare erstellt"
+     Then a comment should exist with body: "Ich backe einen Kuchen für den Umweltminister"
+      And I should not see "Es wurden noch keine Kommentare erstellt"
       And I should see "Sie haben am 24.05.2012 um 12:00 Uhr geschrieben:" within the comments
       And I should see "Ich backe einen Kuchen für den Umweltminister"
       And I should see "1 Kommentar"
@@ -33,7 +33,9 @@ Feature: Comments in Company blog
       And I sign out
 
      # notification for author of blog post(mr. burns)
-     Then "c.burns@npp-springfield.com" should receive an email with subject "Lisa Simpson hat einen Ihrer Blogposts kommentiert"
+     When all the delayed jobs are invoked
+     Then a comment on post of employee notification should exist with notifiable: the comment, employee: employee_owner "mr burns"
+      And "c.burns@npp-springfield.com" should receive an email with subject "Lisa Simpson hat einen Ihrer Blogposts kommentiert"
      When "c.burns@npp-springfield.com" opens the email
      Then I should see "Lisa Simpson hat Ihren Blogpost 'Umweltminister zu Besuch' am 24.05.2012 um 12:00 Uhr kommentiert" in the email body
       And I should see "Ich backe einen Kuchen für den Umweltminister" in the email body
