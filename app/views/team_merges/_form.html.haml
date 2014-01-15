@@ -4,7 +4,8 @@
   .inputs
     = f.input :team_id, as: :hidden
     = f.input :other_team_id, as: :hidden
-    = f.input :new_team_id, collection: [team_merge.team, team_merge.other_team], include_blank: false
+    = f.input :new_team_id, collection: [team_merge.team, team_merge.other_team],
+      include_blank: true, input_html: { class: 'chosen-select' }
   .actions
     = f.responsive_submit_button do
       = ta :confirm

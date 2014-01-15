@@ -21,7 +21,8 @@
     = f.input :first_name, autofocus: true
     = f.input :last_name
 
-    = f.association :qualifications, collection: current_account.qualifications(order: 'name'), include_blank: true, input_html: { class: 'chosen-select' }
+    = f.association :qualifications, collection: current_account.qualifications(order: 'name'),
+      include_blank: true, input_html: { class: 'chosen-select' }
 
     = f.input :shortcut
 
