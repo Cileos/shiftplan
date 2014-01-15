@@ -12,8 +12,7 @@ class NotificationCreator
   def create!
     recipients_finder[notifiable].each do |employee|
       notification_class = klass_finder[notifiable, employee]
-      notification = notification_class.create!(notifiable: notifiable, employee: employee)
-      notification.send_mail
+      notification = notification_class.delay.create!(notifiable: notifiable, employee: employee)
     end
   end
 

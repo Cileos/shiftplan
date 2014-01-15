@@ -41,7 +41,7 @@ module Volksplaner
 
   def self.notification_creator
     lambda do |notifiable|
-      NotificationCreator.new(notifiable).delay.create!
+      NotificationCreator.new(notifiable).create!
     end
   end
 
