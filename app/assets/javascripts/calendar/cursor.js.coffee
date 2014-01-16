@@ -46,6 +46,8 @@ class CalendarCursor
     @$calendar.on 'mouseenter', 'td', focus
     @$calendar.on 'mouseleave', 'td', unfocus
 
+    @$calendar.on 'mouseleave', => @unfocusAll()
+
     # focus first calendar data cell which is not outside the plan period
     @focus @$calendar.find("#{@tds}:first")
 
@@ -87,7 +89,13 @@ class CalendarCursor
     if $target? and $target.length > 0
       $target.removeClass('focus')
     else
-      @$calendar.find('.focus').removeClass('focus')
+      @unfocusAll()
+
+  # When a user moves the mouse too quick, we may miss some events, leaving
+  # trails of the cursor.
+  unfocusAll: ->
+    @$calendar.find('.focus').removeClass('focus')
+
 
   refocus: ->
     if @$focussed_item? and @$focussed_item.length > 0
