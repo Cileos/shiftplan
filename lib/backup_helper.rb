@@ -67,9 +67,10 @@ class BackupHelper
               dirs = dirname.present? ? dirname.scan('/').size - 1 : 0
               sh "tar --strip-components=#{dirs} -xjPf #{file.basename}"
 
-              src_dir = restore_dir.join(file.dirname).join(archive_name).to_s
-              dest_dir = rails_root.join('public/').to_s
-              puts "  moving #{src_dir} to #{dest_dir}"
+              # trailing slashes are for rsync to sync the two directories' content
+              src_dir = restore_dir.join(file.dirname).join(archive_name).to_s + '/'
+              dest_dir = rails_root.join('public').join(archive_name).to_s + '/'
+              puts "  syncing #{src_dir} to #{dest_dir}"
               system("rsync -a #{src_dir} #{dest_dir}")
               rm_rf src_dir
               puts ""
