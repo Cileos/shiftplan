@@ -144,7 +144,7 @@ When /^(?:I|they) schedule (shift |)#{capture_quoted}$/ do |kind, quickie_string
 
   fill_in("#{kind}_start_time", with: holder.start_time) if holder.start_time.present?
   fill_in("#{kind}_end_time", with: holder.end_time) if holder.end_time.present?
-  select(holder.team_name, :from => "#{kind}_team_id") if holder.team_name.present?
+  step %Q~I select "#{holder.team_name}" from the "Team" single-select box~ if holder.team_name.present?
 end
 
 # TODO same as "I fill in the empty" ?
@@ -161,6 +161,14 @@ Then /^I reschedule #{capture_quoted} and select #{capture_quoted} as #{capture_
   within_modal_box do
     step %Q~I schedule "#{quickie}"~
     select employee, from: employee_field
+    click_button "Speichern"
+  end
+end
+
+Then /^I reschedule #{capture_quoted} and select #{capture_quoted} as #{capture_quoted} in the single-select box$/ do |quickie, employee, employee_field|
+  within_modal_box do
+    step %Q~I schedule "#{quickie}"~
+    step %Q~I select "#{employee}" from the "#{employee_field}" single-select box~
     click_button "Speichern"
   end
 end

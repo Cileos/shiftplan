@@ -34,7 +34,7 @@ Feature: Merge Teams
 
      When I press "Zusammenlegen"
       And I wait for the modal box to appear
-      And I select "Reaktor schrubben" from "Neuer Teamname"
+      And I select "Reaktor schrubben" from the "Neuer Teamname" single-select box
       And I press "Bestätigen"
       And I wait for the modal box to disappear
      Then I should be on the page for teams of the organization

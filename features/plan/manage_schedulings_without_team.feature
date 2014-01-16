@@ -30,7 +30,7 @@ Feature: Manage schedulings without teams
      When I click on scheduling "22:00-06:00"
       And I wait for the modal box to appear
       And I fill in "Endzeit" with "07:00"
-      And I select "Lenny L" from "Mitarbeiter"
+      And I select "Lenny L" from the "Mitarbeiter" single-select box
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:

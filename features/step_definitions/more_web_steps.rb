@@ -4,6 +4,13 @@ Then /^the selected "([^"]*)" should be "([^"]*)"$/ do |field, value|
   selected.text.should =~ /#{value}/
 end
 
+Then /^the selected "([^"]*)" of the single-select box should be "([^"]*)"$/ do |field, value|
+  select_id = field_labeled(field)["id"]
+  selected = page.find("div##{select_id}_chosen a.chosen-single span")
+  selected.should be_present
+  selected.text.should =~ /#{value}/
+end
+
 When /^I wait for (.+) to appear$/ do |name|
   selector = selector_for name
   begin
