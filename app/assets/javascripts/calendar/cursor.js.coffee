@@ -35,8 +35,7 @@ class CalendarCursor
       false
     unfocus = (event) ->
       unless cursor.scrolling
-        cursor.unfocus()
-        cursor.focus($(this).closest('td'), null, false)
+        cursor.unfocus($(this))
       false
 
 
@@ -84,8 +83,11 @@ class CalendarCursor
       if scroll
         @scroll_to($target)
 
-  unfocus: ->
-    @$calendar.find('.focus').removeClass('focus')
+  unfocus: ($target) ->
+    if $target? and $target.length > 0
+      $target.removeClass('focus')
+    else
+      @$calendar.find('.focus').removeClass('focus')
 
   refocus: ->
     if @$focussed_item? and @$focussed_item.length > 0
