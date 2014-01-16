@@ -25,7 +25,7 @@
                 = ' / '
                 %span.plan= plan.name
               %span.time
-                = "#{scheduling.starts_at.hour} - #{scheduling.ends_at.hour}"
+                = scheduling.wide_period
               - if scheduling.team.present?
                 %span.team= link_to scheduling.team.to_quickie,
                 account_organization_plan_employees_in_week_path(org.account,
