@@ -22,5 +22,5 @@
 every :hour do
   rake 'notification:generate_upcoming_scheduling_notifications'
   rake 'notification:purge_old_notifications'
+  rake 'gravatars:update'
 end
-
