@@ -35,6 +35,7 @@ Feature: Manage Teams
         | organization "Reactor"    | Jodausschank   |
         | organization "Government" | Entsorgung     |
       And I am on the page for the organization "Reactor"
+      And I follow "Stammdaten"
      When I follow "Teams"
      Then I should be on the page for teams of the organization "Reactor"
       And I should see the following table of teams:
@@ -44,7 +45,6 @@ Feature: Manage Teams
        | Uran rangieren | Ur     |
       But I should not see "Entsorgung"
       And I should not see "Es existieren noch keine Teams für diese Organisation."
-
 
   Scenario: Modify the color of a team
     Given a team exists with organization: organization: "Reactor"

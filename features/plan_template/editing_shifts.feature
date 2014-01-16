@@ -13,7 +13,7 @@ Feature: Editing shifts of plan templates
       And I click on the shift "04:00-12:00"
       And I wait for the modal box to appear
       And I fill in "Endzeit" with "13"
-      And I select "Brennstabkessel" from "Team"
+      And I select "Brennstabkessel" from the "Team" single-select box
       And I select "Mittwoch" from "Tag"
       And I fill in the 1st "Anzahl" with "1"
       And I fill in the 2nd "Anzahl" with "3"
