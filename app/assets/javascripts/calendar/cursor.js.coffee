@@ -72,7 +72,7 @@ class CalendarCursor
     @$calendar.find('td.focus')
 
   focus: ($target, item_select, scroll=true) ->
-    if item_select? and $target.has(@items).length > 0
+    if item_select? and $target.find(@items).length > 0
       $target = $target.find(@items)[item_select]()
     if $target.length > 0
       @unfocus()
