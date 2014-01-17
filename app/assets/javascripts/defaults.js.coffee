@@ -1,3 +1,8 @@
+addNamesToDatepickerSelects = (picker, inst) ->
+  picker.find('select.datepick-month-year').each ->
+    $s = $(this)
+    $s.attr('name', $s.attr('title'))
+
 jQuery(document).ready ->
   $.ajaxSetup
     dataType: 'script'
@@ -20,5 +25,12 @@ jQuery(document).ready ->
     $(e.target).find('input.stringy_date').rails_datepick()
     $(':input#team_color').minicolors({position: 'top left'})
 
-  $.datepick.setDefaults $.datepick.regional[ if language is 'en' then '' else language]
-
+  $.datepick.setDefaults $.extend( {},
+    $.datepick.regional[ if language is 'en' then '' else language],
+    {
+      onShow: $.datepick.multipleEvents(
+        $.datepick.highlightWeek,
+        addNamesToDatepickerSelects
+      )
+    }
+  )

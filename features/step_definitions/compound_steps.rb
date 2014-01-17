@@ -18,7 +18,9 @@ end
 
 When /^I pick "(\d{1,2})\.\s*([a-zA-Z]+)\s+(\d{4})" from "(.*?)"$/ do |day, month, year, label|
   step %Q~I disable all jquery animations~
-  step %Q~I click on the "#{label}" label~
+  page.execute_script <<-EOJS
+    $("label:contains('#{label}') ~ input").add("input[placeholder='#{label}']").first().focus()
+  EOJS
   step %Q~I select "#{year}" from "anderes Jahr anzeigen" within the datepicker~
   step %Q~I select "#{month}" from "anderen Monat anzeigen" within the datepicker~
   step %Q~I follow "#{day}" within the datepicker~
