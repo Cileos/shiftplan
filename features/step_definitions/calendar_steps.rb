@@ -10,6 +10,12 @@ When /^I click on (a .*)$/ do |name|
   EOJS
 end
 
+When /^I click on the #{capture_quoted} label$/ do |name|
+  page.execute_script <<-EOJS
+    $("label:contains('#{name}')").click()
+  EOJS
+end
+
 When /^I click on the #{capture_quoted} column$/ do |column_name|
   column = the_calendar.column_index_for(column_name)
   page.execute_script <<-EOJS

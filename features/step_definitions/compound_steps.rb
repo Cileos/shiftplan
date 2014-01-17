@@ -16,6 +16,13 @@ When /^I comment #{capture_quoted}$/ do |comment|
   end
 end
 
+When /^I pick "(\d{1,2})\.\s*([a-zA-Z]+)\s+(\d{4})" from "(.*?)"$/ do |day, month, year, label|
+  step %Q~I disable all jquery animations~
+  step %Q~I click on the "#{label}" label~
+  step %Q~I select "#{year}" from "anderes Jahr anzeigen" within the datepicker~
+  step %Q~I select "#{month}" from "anderen Monat anzeigen" within the datepicker~
+  step %Q~I follow "#{day}" within the datepicker~
+end
 
 module ModalBoxHelper
   def within_appearing(name, close=false)
