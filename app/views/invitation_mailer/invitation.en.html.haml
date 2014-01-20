@@ -1,11 +1,11 @@
-%p= "Hallo #{@invitation.employee.name}!"
+%p= "Hello #{@invitation.employee.name}!"
 
-%p= "#{@invitation.inviter.name} hat Sie zu #{root_url} eingeladen. Sie können die Einladung bestätigen, indem Sie auf den folgenden Link klicken."
+%p= "#{@invitation.inviter.name} invited you to #{root_url}. You can confirm the invitation by following the link below."
 
-%p= link_to 'Einladung akzeptieren', accept_invitation_url(token: @invitation.token)
+%p= link_to 'Accept invitation', accept_invitation_url(token: @invitation.token)
 
 - user = User.find_by_email(@invitation.email)
 - unless user.present? && user.confirmed?
-  %p Falls Sie die Einladung nicht bestätigen wollen, ignorieren Sie diese E-Mail bitte. Ihr Account wird nicht angelegt, solange Sie nicht auf den 'Einladung akzeptieren' Link geklickt und Ihr Passwort gesetzt haben.
+  %p In case you do not want to confirm this invitation, please ignore this E-Mail. Your account will not be created until you have clicked the 'Accept invitation' link and set your password.
 
-%p Ihr Clockwork Team
+%p Your Clockwork Team
