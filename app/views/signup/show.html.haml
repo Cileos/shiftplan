@@ -1,0 +1,16 @@
+- title :signup
+
+= simple_form_for @signup, :url => signup_path do |f|
+  .inputs
+    = f.input :account_name, autofocus: true, required: true, hint: true
+    = f.input :organization_name, required: true
+    = f.input :first_name, required: true
+    = f.input :last_name, required: true
+    = f.input :email, required: true, input_html: { class: 'mailcheck',
+      data: { :'mailcheck-hint' => t('hint.did_you_mean') } }
+    = f.input :password, required: true
+    = f.input :password_confirmation, required: true
+
+  .actions
+    = f.button :submit, ta(:signup), class: ''
+

@@ -1,0 +1,12 @@
+en:
+  simple_form:
+    labels:
+      signup:
+        account_name: Company name
+        organization_name: Unit name
+        first_name: Name
+        last_name: Surname
+        email: "E-Mail"
+        password: "Password"
+        password_confirmation: "Confirm password"
+
