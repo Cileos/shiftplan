@@ -18,9 +18,9 @@ Feature: Applying Weekbased Plan Templates to Plans
         | Brennstabpolierer  | Brennstabpolierer  | the account  |
         | Brennstabexperte   | Brennstabexperte   | the account  |
       And the following shifts exists:
-        | shift               | plan_template      | day | start_hour  | end_hour  | team                       |
+        | shift               | plan_template      | day | start_time  | end_time  | team                       |
         | Druckwasserreaktor  | the plan template  | 1   | 4           | 12        | team "Druckwasserreaktor"  |
-        | Brennstabkessel     | the plan template  | 0   | 22          | 6         | team "Brennstabkessel"     |
+        | Brennstabkessel     | the plan template  | 0   | 22          | 6:15      | team "Brennstabkessel"     |
       And the following demands exist:
         | shift                       | quantity  | qualification                      |
         | shift "Druckwasserreaktor"  | 1         | qualification "Brennstabpolierer"  |
@@ -29,7 +29,7 @@ Feature: Applying Weekbased Plan Templates to Plans
      When I go to the teams in week page for the plan template
      Then I should see the following partial calendar:
         | Teams                  | Mo                                | Di                                                      | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel(B)     | 22:00-06:00 1 x Brennstabexperte  | 22:00-06:00 1 x Brennstabexperte                        |     |     |     |     |     |
+        | Brennstabkessel(B)     | 22:00-06:15 1 x Brennstabexperte  | 22:00-06:15 1 x Brennstabexperte                        |     |     |     |     |     |
         | Druckwasserreaktor(D)  |                                   | 04:00-12:00 2 x Brennstabexperte 1 x Brennstabpolierer  |     |     |     |     |     |
       And a plan exists with organization: the organization
 
@@ -42,7 +42,7 @@ Feature: Applying Weekbased Plan Templates to Plans
      Then I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
       And I should see the following partial calendar:
         | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
-        | Brennstabkessel (B)     | 22:00-06:00 Brennstabexperte  | 22:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
+        | Brennstabkessel (B)     | 22:00-06:15 Brennstabexperte  | 22:00-06:15 Brennstabexperte                                                             |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
 
 
