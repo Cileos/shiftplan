@@ -24,12 +24,24 @@ jQuery(document).ready ->
     send_update_notification_hub_request = (url, http_method) ->
       # dont use the global spinner (global: false)
       # spinner will be automatically removed through ul replacement
-      $.ajax(url,
+
+      fetch = $.ajax(url,
         type: http_method,
         dataType: "script",
         global: false,
-        beforeSend: -> clearAndSpin(),
-        complete: -> register_mark_as_read_event_listeners())
+        beforeSend: -> clearAndSpin()
+      )
+
+      fetch.then -> register_mark_as_read_event_listeners()
+      fetch.error (request) ->
+        if request.status >= 400
+          $flash = $("<div></div>").addClass('flash').addClass('alert').addClass('alert-notice').text(request.responseText)
+          $.getScript '/users/sign_in', ->
+            $('#modalbox').prepend $flash
+            $('#modalbox input[type=hidden].return_to').val window.location.pathname
+          $notifications_list()
+            .empty()
+
 
     $hub = -> $('li#notification-hub')
 
