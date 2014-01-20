@@ -9,4 +9,8 @@ en:
         email: "E-Mail"
         password: "Password"
         password_confirmation: "Confirm password"
+    hints:
+      signup:
+        account_name: 'e.g. Yellow Submarine Inc. (must start with a letter)'
+        organization_name: 'e.g. Engineering Beetles (must start with a letter)'
 

@@ -24,9 +24,18 @@ class Signup
 
   def save!
     # create user, account, organization, and first employee
+    User.transaction do
+      user.save!
+    end
   end
 
   def persisted?
     false
+  end
+
+  def user
+    @user ||= User.new email: email,
+                       password: password,
+                       password_confirmation: password_confirmation
   end
 end
