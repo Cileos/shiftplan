@@ -41,11 +41,6 @@ jQuery(document).ready ->
     true
 
 
-  addNamesToDatepickerSelects = (picker, inst) ->
-    picker.find('select.datepick-month-year').each ->
-      $s = $(this)
-      $s.attr('name', $s.attr('title'))
-
   parseIso8601 = (str) ->
     return null unless str?
     $.datepick.parseDate('yyyy-mm-dd', str)
@@ -66,17 +61,7 @@ jQuery(document).ready ->
       defaultDate: parseIso8601( $cal.data('monday') )
       minDate: parseIso8601( $cal.data('starts_at') )
       maxDate: parseIso8601( $cal.data('ends_at') )
-      onShow: $.datepick.multipleEvents(
-        $.datepick.highlightWeek,
-        addNamesToDatepickerSelects
-      )
-      renderer: $.extend {}, $.datepick.weekOfYearRenderer,
-        picker: $.datepick.weekOfYearRenderer.picker.
-          # hide "clear"
-          replace(/\{link:clear\}/, '')
-      firstDay: 1
       showOtherMonths: true
-      yearRange: 'c-5:c+8'
       onSelect: (dates) ->
         date = dates[0]
         year = date.getFullYear()

@@ -17,15 +17,14 @@ Feature: Creating a plan
       And I wait for the modal box to appear
       And I fill in "Name" with "Halloween im Atomkraftwerk"
      When I fill in "Beschreibung" with "5 eyes minimum"
-      And I fill in "Enddatum" with "2063-12-23"
-      And I close all datepickers
+      And I pick "23. Dezember 2016" from "Enddatum"
       And I press "Anlegen"
       And I wait for the modal box to disappear
 
      Then I should see the following table of plans:
         | Name                       | Beschreibung   | Startdatum | Enddatum   |
         | Cleaning the Reactor       |                | -          | -          |
-        | Halloween im Atomkraftwerk | 5 eyes minimum | -          | 23.12.2063 |
+        | Halloween im Atomkraftwerk | 5 eyes minimum | -          | 23.12.2016 |
       And a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
 
      When I follow "Halloween im Atomkraftwerk"

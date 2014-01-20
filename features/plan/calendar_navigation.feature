@@ -107,25 +107,10 @@ Feature: Calendar navigation
   Scenario: the calendar navigation toolbar locks the user in the plan period
     Given today is 2012-02-01
       And I am signed in as the confirmed user "Burns"
-      And I am on the page for the organization "Reactor"
-     When I choose "Alle Pläne" from the drop down "Pläne"
-      And I follow "Hinzufügen"
-      And I wait for the modal box to appear
-      And I fill in "Name" with "Halloween im Atomkraftwerk"
-     When I fill in "Startdatum" with "2012-01-01"
-      And I fill in "Enddatum" with "2012-01-02"
-      And I close all datepickers
-      And I press "Anlegen"
-      And I wait for the modal box to disappear
-     Then a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
-
-     When I follow "Halloween im Atomkraftwerk"
-     # as today is after the plan period end the user gets redirected to the last week
-     # view of the plan period (week 1, year 2012)
-     Then I should be on the employees in week page for the plan for week: 1, cwyear: 2012
-      And I should see "<" within the toolbar
+      And a plan exists with organization: organization "Reactor", starts_at: "2012-01-01", ends_at: "2012-01-02"
+     When I go to the employees in week page for the plan for week: 1, cwyear: 2012
+     Then I should see "<" within the toolbar
       But I should not see ">" within the toolbar
-
      When I follow "<" within the toolbar
      # in Germany, the week with january 4th is the first calendar week
      # in 2012, the January 1st is a sunday, so January 1st is in week 52 (of year 2011)

@@ -50,6 +50,12 @@ describe Plan do
         plan.errors[:base].grep(/Startdatum muss kleiner oder gleich dem Enddatum/).should_not be_empty
       end
     end
+
+    it 'rejects illegal iso8601 dates' do
+      # to be sure when rails gets too clever parsing dates
+      plan = described_class.new starts_at: '2014-13-12'
+      plan.starts_at.should be_nil
+    end
   end
 
 end

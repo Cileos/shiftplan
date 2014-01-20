@@ -22,9 +22,7 @@ Feature: create Milestones for a plan
 
   Scenario: create a milestone with name, due date, responsible and description
     When I fill in "Name" with "World Domination"
-     And I fill in "Fällig am" with "2012-12-31"
-     # to close the date picker
-     And I press escape in the "Fällig am" field
+     And I pick "31. Dezember 2012" from "Fällig am"
      And I select "Homer S" from "Verantwortlicher"
      And I fill in "Beschreibung" with "must take over now!"
      And I press "Anlegen"
