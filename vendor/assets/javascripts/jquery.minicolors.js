@@ -1,1 +1,1 @@
-../mixed/jquery-miniColors/jquery.minicolors.js
+../mixed/jquery-minicolors/jquery.minicolors.js
