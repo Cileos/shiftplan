@@ -46,21 +46,21 @@ Feature: Dashboard
         | 49   | 3     | 9-17 Links abbiegen [La]        |
         | 51   | 2     | 22-23 Verantwortung tragen [Vt] |
       And the employee "Homer" was scheduled in the plan "Pumpen ölen" as following:
-        | week | cwday | quickie                         |
-        | 49   | 3     | 10-18 Rechts abbiegen [Ra]      |
-        | 50   | 3     | 10-18 Reaktor Fegen [RF]        |
+        | week | cwday | quickie                     |
+        | 49   | 3     | 10-18 Rechts abbiegen [Ra]  |
+        | 50   | 3     | 10-18:30 Reaktor Fegen [RF] |
       And the employee "Daddy" was scheduled in the plan "Spazieren" as following:
         | week | cwday | quickie                  |
         | 49   | 3     | 12-20 Kreise laufen [Kl] |
       And I am signed in as the user "homer"
      When I go to the dashboard
      Then I should see an agenda table with the following rows:
-        | day | day-name | month-year | time    | team                 | organization | plan                |
-        | 4   | Di       | Dez 2012   | 9 - 17  | Reaktor Putzen [RP]  | Sector 7-G   | Brennstäbe wechseln |
-        | 5   | Mi !     | Dez 2012   | 9 - 17  | Links abbiegen [La]  | Sector 7-G   | Brennstäbe wechseln |
-        | 5   | Mi !     | Dez 2012   | 10 - 18 | Rechts abbiegen [Ra] | Sector 7-G   | Pumpen ölen         |
-        | 5   | Mi !     | Dez 2012   | 12 - 20 | Kreise laufen [Kl]   | Garten       | Spazieren           |
-        | 12  | Mi       | Dez 2012   | 10 - 18 | Reaktor Fegen [RF]   | Sector 7-G   | Pumpen ölen         |
+        | day | day-name | month-year | time       | team                 | organization | plan                |
+        | 4   | Di       | Dez 2012   | 9 - 17     | Reaktor Putzen [RP]  | Sector 7-G   | Brennstäbe wechseln |
+        | 5   | Mi !     | Dez 2012   | 9 - 17     | Links abbiegen [La]  | Sector 7-G   | Brennstäbe wechseln |
+        | 5   | Mi !     | Dez 2012   | 10 - 18    | Rechts abbiegen [Ra] | Sector 7-G   | Pumpen ölen         |
+        | 5   | Mi !     | Dez 2012   | 12 - 20    | Kreise laufen [Kl]   | Garten       | Spazieren           |
+        | 12  | Mi       | Dez 2012   | 10 - 18:30 | Reaktor Fegen [RF]   | Sector 7-G   | Pumpen ölen         |
       But I should not see "22 - 23" within the schedulings module
       And I should not see "Verantwortung tragen" within the schedulings module
 
