@@ -114,6 +114,7 @@ class Notification::Base < ActiveRecord::Base
     unless read_at
       self.read_at = Time.zone.now
       save!
+      decrease_notifications_count_on_user!
     end
   end
 
@@ -125,6 +126,15 @@ class Notification::Base < ActiveRecord::Base
   end
 
   private
+
+  def decrease_notifications_count_on_user!
+    if u = employee.user
+      # Do not use User#decrement! (bang) method, to make sure validations are
+      # run. Makes sure that the count does not get a value < 0.
+      u.decrement(:new_notifications_count)
+      u.save!
+    end
+  end
 
   def increase_notifications_count_on_user
     if u = employee.user

@@ -56,6 +56,7 @@ describe Notification::Base do
 
   context '#mark_as_read!' do
     let(:notification) { create :notification }
+
     it 'marks unread notification as read' do
       notification.read_at.should be_nil
       notification.mark_as_read!
@@ -70,6 +71,15 @@ describe Notification::Base do
     it 'is idempotent' do
       notification.mark_as_read!
       expect { notification.mark_as_read! }.not_to raise_error
+    end
+
+    it "decreases the user's new_notifications_count" do
+      n = create(:notification, employee: create(:employee_with_confirmed_user))
+
+      expect do
+        n.mark_as_read!
+        n.mark_as_read! # to check if only decreased once
+      end.to change { n.employee.user.new_notifications_count }.from(1).to(0)
     end
   end
 end

@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   include Volksplaner::CaseInsensitiveEmailAttribute
   validates :email, :email => true
   validates_inclusion_of :locale, in: lambda { |u| I18n.available_locales.map(&:to_s) }, allow_blank: true
+  validates_numericality_of :new_notifications_count, greater_than_or_equal_to: 0
 
   has_many :employees # but just one employee per account
   has_many :invitations

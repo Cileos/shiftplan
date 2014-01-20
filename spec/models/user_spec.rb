@@ -3,11 +3,22 @@ require 'spec_helper'
 
 describe User do
 
-  it 'must have a valid email' do
-    user = build(:user, email: 'fnørd..d.@p0x.asdt')
+  context "validations" do
 
-    user.should_not be_valid
-    user.should have(1).errors_on(:email)
+    it 'must have a valid email' do
+      user = build(:user, email: 'fnørd..d.@p0x.asdt')
+
+      user.should_not be_valid
+      user.should have(1).errors_on(:email)
+    end
+
+    it "has a new_notifications_count >= 0" do
+      user = create(:user, new_notifications_count: 0)
+      user.should be_valid
+
+      user.new_notifications_count = -1
+      user.should_not be_valid
+    end
   end
 
   context "current_employee" do
