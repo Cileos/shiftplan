@@ -8,9 +8,9 @@ Clockwork.Doable = Ember.Mixin.create
   formatted_due_on: ( (key,value) ->
     format = Clockwork.get('settings.dateFormat')
     if arguments.length is 1 # getter
-      $.datepicker.formatDate format, @get('due_at')
+      $.datepick.formatDate format, @get('due_at')
     else
-      @set('due_at', $.datepicker.parseDate(format, value))
+      @set('due_at', $.datepick.parseDate(format, value))
       return value
   ).property('due_at', 'Clockwork.settings.dateFormat')
 

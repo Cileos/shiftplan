@@ -23,7 +23,7 @@ Clockwork.store = DS.Store.create
     #  directory: 'directories'
 
 Clockwork.settings = Ember.Object.create
-  dateFormat: 'yy-mm-dd' # TODO globalize
+  dateFormat: 'yyyy-mm-dd' # TODO globalize
 
 # FIXME: cheap way of re-implementing abilities.
 #
