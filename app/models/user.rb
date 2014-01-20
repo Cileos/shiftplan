@@ -38,11 +38,17 @@ class User < ActiveRecord::Base
                 :on_signup,
                 :confirming_email_change
 
-  validates_presence_of :first_name,
-                        :last_name,
-                        :organization_name,
-                        :account_name,
-                        if: Proc.new { |u| u.on_signup }
+  # TODO extract to Signup
+  with_options if: Proc.new { |u| u.on_signup } do |on_signup|
+    on_signup.validates_presence_of :first_name,
+                                    :last_name,
+                                    :organization_name,
+                                    :account_name
+
+    on_signup.validates_format_of :account_name, with: Volksplaner::NameRegEx
+    on_signup.validates_format_of :organization_name, with: Volksplaner::NameRegEx
+    on_signup.validates_format_of :first_name, :last_name, with: Volksplaner::HumanNameRegEx, allow_nil: true
+  end
 
   include Volksplaner::CaseInsensitiveEmailAttribute
   validates :email, :email => true

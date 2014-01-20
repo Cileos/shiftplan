@@ -48,6 +48,27 @@ Feature: Signing up
      # - only owners can create organizations
       And I should see link "Organisation hinzufügen"
 
+  Scenario: Signup by filling in malformed information
+    Given I use a german browser
+      And I am on the signup page
+     When I fill in the following:
+        | Accountbezeichnung  | Enemy #1   |
+        | Organisationsname   | 50¢        |
+        | Vorname             | ....       |
+        | Nachname            | (((((      |
+        | E-Mail              | won't tell |
+        | Passwort            | secret     |
+        | Passwort bestätigen | secret     |
+      And I press "Registrieren"
+     Then I should not see "erfolgreich"
+      And I should see the following validation errors:
+        | Accountbezeichnung | ist nicht gültig |
+        | Organisationsname  | ist nicht gültig |
+        | Vorname            | ist nicht gültig |
+        | Nachname           | ist nicht gültig |
+        | E-Mail             | ist nicht gültig |
+        | Password           |                  |
+
 
   @javascript
   Scenario: Show mail address suggestion if typo in email address
