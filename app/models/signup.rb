@@ -14,13 +14,23 @@ class Signup
   validates_presence_of :organization_name,
                         :account_name,
                         :first_name,
-                        :last_name,
-                        :email
+                        :last_name
 
   validates_format_of :account_name, with: Volksplaner::NameRegEx
   validates_format_of :organization_name, with: Volksplaner::NameRegEx
   validates_format_of :first_name, :last_name, with: Volksplaner::HumanNameRegEx
   validates :email, :email => true
+
+  validates_each :user do |signup, _, user|
+    unless user.valid?
+      # copy errors from user to signup
+      user.errors.messages.each do |field, msgs|
+        msgs.each do |msg|
+          signup.errors.add field, msg
+        end
+      end
+    end
+  end
 
   # Sets up the basic structure:
   #  1) creates the user, sending out confirmation mail

@@ -44,6 +44,13 @@ describe Signup do
   end
 
   describe '#valid?' do
-    it 'complains when password does not equal confirmation'
+    it 'accepts correctly looking information' do
+      signup.should be_valid
+    end
+    it 'complains when password does not equal confirmation' do
+      signup.password_confirmation = 'something completely different'
+      signup.should_not be_valid
+      signup.should have(1).error_on(:password)
+    end
   end
 end
