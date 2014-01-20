@@ -134,15 +134,17 @@ When /^I assume the calendar will not change$/ do
   # calendar will be cleared after each scenario
 end
 
-When /^(?:I|they) schedule #{capture_quoted}$/ do |quickie_string|
+When /^(?:I|they) schedule (shift |)#{capture_quoted}$/ do |kind, quickie_string|
+  kind = 'scheduling' if kind.blank?
+  kind = kind.strip
   quickie = Quickie.parse(quickie_string)
 
   holder = OpenStruct.new
   quickie.fill(holder)
 
-  fill_in('scheduling_start_time', with: holder.start_time) if holder.start_time.present?
-  fill_in('scheduling_end_time', with: holder.end_time) if holder.end_time.present?
-  select(holder.team_name, :from => 'scheduling_team_id') if holder.team_name.present?
+  fill_in("#{kind}_start_time", with: holder.start_time) if holder.start_time.present?
+  fill_in("#{kind}_end_time", with: holder.end_time) if holder.end_time.present?
+  select(holder.team_name, :from => "#{kind}_team_id") if holder.team_name.present?
 end
 
 # TODO same as "I fill in the empty" ?
