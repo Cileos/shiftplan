@@ -1,0 +1,5 @@
+de:
+  volksplaner:
+    undo:
+      title: 'Rückgängig machen: %{what}'
+      flash: 'Rückgängig gemacht: %{what}'

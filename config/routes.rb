@@ -99,6 +99,8 @@ Clockwork::Application.routes.draw do
     get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'
   end
 
+  put "undo" => 'undo#update', as: 'undo'
+
 
   devise_for :users, :controllers => { registrations: 'owners/registrations', sessions: 'sessions'}
 

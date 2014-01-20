@@ -63,7 +63,13 @@ class ApplyPlanTemplate
       else
         raise ApplyPlanTemplateError
       end
+    ensure
+      created_schedulings << scheduling
     end
+  end
+
+  def created_schedulings
+    @created_schedulings ||= []
   end
 
   class ApplyPlanTemplateError < StandardError; end

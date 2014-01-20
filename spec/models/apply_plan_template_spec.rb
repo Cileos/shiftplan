@@ -68,6 +68,15 @@ describe ApplyPlanTemplate do
         }.should change(schedulings_for_year_and_week, :count).from(0).to(9)
       end
 
+      it "remembers all created_schedulings (for undo)" do
+        apply_plan_template.save
+        apply_plan_template.created_schedulings.should have(9).records
+        apply_plan_template.created_schedulings.each do |s|
+          s.should be_a(Scheduling)
+        end
+        apply_plan_template.created_schedulings.map(&:id).uniq.should have(9).items
+      end
+
       it "creates 3 schedulings on monday" do
         apply_plan_template.save
 

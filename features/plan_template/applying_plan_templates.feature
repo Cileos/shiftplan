@@ -40,10 +40,20 @@ Feature: Applying Weekbased Plan Templates to Plans
       And I am on the teams in week page of the plan for cwyear: 2012, week: 49
      When I apply template "Typische Woche" in modalbox
      Then I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
+      And 5 schedulings should exist with plan: the plan
       And I should see the following partial calendar:
         | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel (B)     | 22:00-06:00 Brennstabexperte  | 22:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
+
+     When I follow "Rückgängig machen"
+     Then I should see notice "Rückgängig gemacht: Alle Schichten der Planvorlage wurden erfolgreich übernommen"
+      And I should see the following partial calendar:
+        | Teams                  | Mo | Di | Mi | Do | Fr | Sa | So |
+        | Brennstabkessel (B)    |    |    |    |    |    |    |    |
+        | Druckwasserreaktor (D) |    |    |    |    |    |    |    |
+      And 0 schedulings should exist
+      And I should not see "Rückgängig machen"
 
 
 

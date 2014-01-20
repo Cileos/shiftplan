@@ -1,0 +1,4 @@
+- if respond_to?(:has_undo?)
+  - if has_undo?
+    .undo
+      = link_to :undo, undo_path, method: 'PUT', class: 'button', title: last_undo.human_title

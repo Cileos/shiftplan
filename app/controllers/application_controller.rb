@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   include Volksplaner::Currents
   include Volksplaner::ControllerCaching
+  include Volksplaner::Undo::ControllerHelpers
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.debug('Access denied')

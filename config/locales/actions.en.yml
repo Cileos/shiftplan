@@ -95,6 +95,7 @@ en:
       mark_all_as_read: "Mark all as read"
       upload_attached_document: "Upload Document"
       upload: "Upload"
+      undo: "Undo"
   schedulings:
     calendar_navigation:
       day: "Day"
