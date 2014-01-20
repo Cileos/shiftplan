@@ -47,6 +47,7 @@ class CalendarCursor
     @$calendar.on 'mouseleave', 'td', unfocus
 
     @$calendar.on 'mouseleave', => @unfocusAll()
+    @$calendar.on 'mouseenter', 'th', => @unfocusAll()
 
     # focus first calendar data cell which is not outside the plan period
     @focus @$calendar.find("#{@tds}:first")
