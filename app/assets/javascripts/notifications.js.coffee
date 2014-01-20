@@ -35,14 +35,12 @@ jQuery(document).ready ->
       fetch.then -> register_mark_as_read_event_listeners()
       fetch.error (request) ->
         if request.status >= 400
-          $message = $('<li></li>').append(
-            $('<div></div>')
-              .addClass('flash error')
-              .text(request.responseText)
-          )
+          $flash = $("<div></div>").addClass('flash').addClass('alert').addClass('alert-notice').text(request.responseText)
+          $.getScript '/users/sign_in', ->
+            $('#modalbox').prepend $flash
+            $('#modalbox input[type=hidden].return_to').val window.location.pathname
           $notifications_list()
             .empty()
-            .append $message
 
 
     $hub = -> $('li#notification-hub')
