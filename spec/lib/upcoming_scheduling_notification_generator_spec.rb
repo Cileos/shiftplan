@@ -57,8 +57,8 @@ describe UpcomingSchedulingNotificationGenerator do
       end.to change(Notification::UpcomingScheduling, :count).from(0).to(2)
     end
 
-    it "delivers an email for each notification exactly once" do
-      Notification::UpcomingScheduling.any_instance.should_receive(:deliver!).once
+    it "sends an email for each notification exactly once" do
+      Notification::UpcomingScheduling.any_instance.should_receive(:send_mail).once
       described_class.generate!
       described_class.generate!
     end

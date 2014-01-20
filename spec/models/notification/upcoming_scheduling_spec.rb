@@ -11,16 +11,6 @@ describe Notification::UpcomingScheduling do
     let(:notifiable) { scheduling }
   end
 
-  context "on create" do
-    it "sends an upcoming scheduling mail" do
-      mail = instance_double('Mail::Message')
-      UpcomingSchedulingNotificationMailer.should_receive(:upcoming_scheduling).with(subject).and_return(mail)
-      mail.should_receive(:deliver)
-
-      subject.save!
-    end
-  end
-
   context "destroyed with its scheduling" do
     let(:scheduling)    { create(:scheduling, employee: employee) }
     let(:employee)      { create(:employee, user: create(:user)) }

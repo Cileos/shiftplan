@@ -19,6 +19,9 @@ load 'deploy/assets'
 set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
 
+# delayed job
+require "delayed/recipes"
+
 # server details
 set :user, 'application'
 default_run_options[:pty] = true
@@ -71,3 +74,7 @@ namespace :deploy do
   end
 
 end
+
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
