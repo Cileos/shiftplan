@@ -156,36 +156,6 @@ class User < ActiveRecord::Base
     true
   end
   before_save :create_email_change
-
-  # This method gets called on successful signup. It was successful, if
-  # the user got saved (persisted?) and we know, we are in signup mode if the
-  # virtual attribute 'on_signup' is set on the user model. 'on_signup' is a
-  # hidden field in the registration form.
-  #
-  # If called on successful signup, an account, an organization, an employee with role
-  # "owner" (the account owner) which belongs the just created user and an
-  # organization blog get created here.
-  def setup
-    if persisted? and on_signup
-      # The account_name is a virtual attribute of the user model and needs to
-      # be entered by the registering user in the signup form.
-      Account.create!(:name => account_name).tap do |account|
-        # The organization_name is a virtual attribute of the user model and needs to
-        # be entered by the registering user in the signup form.
-        organization = Organization.create!(:name => organization_name, :account => account)
-        organization.setup # creates the organization's blog
-        e = employees.create! do |e|
-          e.first_name  = first_name
-          e.last_name   = last_name
-          e.account     = account
-        end
-        # make the owner member of the first organization
-        e.memberships.create!(organization: organization)
-        account.owner_id = e.id
-        account.save!
-      end
-    end
-  end
 end
 
 UserDecorator

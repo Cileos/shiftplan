@@ -22,10 +22,31 @@ class Signup
   validates_format_of :first_name, :last_name, with: Volksplaner::HumanNameRegEx
   validates :email, :email => true
 
+  # Sets up the basic structure:
+  #  1) creates the user, sending out confirmation mail
+  #  2) creates an Account
+  #  3) creates an Organization (and sets it up)
+  #  4) creates an Employee
+  #      a) being owner of the Account
+  #      b) and member of the Organization
   def save!
     # create user, account, organization, and first employee
     User.transaction do
       user.save!
+
+      Account.create!(name: account_name).tap do |account|
+        organization = Organization.create!(name: organization_name, account: account)
+        organization.setup # creates the organization's blog
+        e = user.employees.create! do |e|
+          e.first_name  = first_name
+          e.last_name   = last_name
+          e.account     = account
+        end
+        # make the owner member of the first organization
+        e.memberships.create!(organization: organization)
+        account.owner_id = e.id
+        account.save!
+      end
     end
   end
 

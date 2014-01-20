@@ -4,7 +4,13 @@ describe Signup do
   let(:email) { 'me@example.com' }
   let(:signup) do
     described_class.new(
-      email: email
+      first_name: 'Monty',
+      last_name: 'Burns',
+      account_name: 'Monty Enterprises',
+      organization_name: 'Power Plant',
+      email: email,
+      password: 'secret',
+      password_confirmation: 'secret'
     )
   end
 
@@ -19,6 +25,22 @@ describe Signup do
   end
 
   describe '#save!' do
+    it 'creates user' do
+      expect { signup.save! }.to change { User.count }.from(0).to(1)
+    end
+
+    it 'creates an account' do
+      expect { signup.save! }.to change { Account.count }.from(0).to(1)
+    end
+
+    it 'creates an organization' do
+      expect { signup.save! }.to change { Organization.count }.from(0).to(1)
+    end
+
+    it 'creates an employee' do
+      expect { signup.save! }.to change { Employee.count }.from(0).to(1)
+    end
+
   end
 
   describe '#valid?' do
