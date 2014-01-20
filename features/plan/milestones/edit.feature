@@ -15,6 +15,7 @@ Feature: edit Milestones for a plan
    Given I should see "Meilenstein bearbeiten" within the modal box header
     When I fill in "Name" with "World Domination"
      And I press "Speichern"
+     And I wait for the modal box to disappear
      #Then I should see flash notice "Meilenstein erfolgreich geändert"
     Then I should see "World Domination" within the milestones list
      But I should not see "Global Domination" within the milestones list
@@ -38,11 +39,13 @@ Feature: edit Milestones for a plan
   Scenario: making the milestone invalid
     When I fill in "Name" with ""
      And I press "Speichern"
+     And I wait for the modal box to disappear
     Then I should see flash alert "Meilenstein konnte nicht geändert werden"
      And a milestone should exist with name: "Global Domination"
      And I should see "muss ausgefüllt werden"
      And the "Name" field should contain ""
     When I fill "Name" with "World Domination"
      And I press "Speichern"
+     And I wait for the modal box to disappear
     Then a milestone should exist with name: "Global Domination"
      And I should not see "muss ausgefüllt werden"
