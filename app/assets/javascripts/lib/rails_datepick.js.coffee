@@ -7,11 +7,6 @@ parseIso8601 = (str) ->
   return null unless str?
   $.datepick.parseDate('yyyy-mm-dd*', str)
 
-addNamesToDatepickerSelects = (picker, inst) ->
-  picker.find('select.datepick-month-year').each ->
-    $s = $(this)
-    $s.attr('name', $s.attr('title'))
-
 $.fn.rails_datepick = ->
   $(this).each ->
     $stringy = $(this)
@@ -26,10 +21,6 @@ $.fn.rails_datepick = ->
     $stringy
       .attr('readonly', 'readonly')
       .datepick
-        onShow: $.datepick.multipleEvents(
-          $.datepick.highlightWeek,
-          addNamesToDatepickerSelects
-        )
         onSelect: (dates) ->
           date = dates[0]
           $iso.val($.datepick.formatDate($.datepick.ISO_8601, date))
