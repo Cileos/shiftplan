@@ -117,8 +117,6 @@ class Notification::Base < ActiveRecord::Base
     end
   end
 
-  protected
-
   def send_mail
     if employee.user && employee.user.receive_notification_emails
       self.class.mailer_class.public_send(self.class.mailer_action, self).deliver
