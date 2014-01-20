@@ -61,7 +61,7 @@ Feature: Creating shifts for plan templates
         | Brennstabkessel(B)     |     |                                        |     |     |     |     |     |
         | Druckwasserreaktor(D)  |     | 09:00-17:00 3 x 2 x Brennstabpolierer  |     |     |     |     |     |
 
-  Scenario: Creating overnight shifts for a plan template
+  Scenario: Creating overnight shifts with 15 minute accuracy for a plan template
     Given the following qualifications exist:
         | qualification      | name               | account      |
         | Brennstabpolierer  | Brennstabpolierer  | the account  |
@@ -70,7 +70,7 @@ Feature: Creating shifts for plan templates
      When I go to the teams in week page for the plan template
       And I click on cell "Di"/"Druckwasserreaktor(D)"
       And I wait for the modal box to appear
-     When I schedule shift "22-6"
+      When I schedule shift "22-6:15"
       And I fill in "Anzahl" with "2"
       And I select "Brennstabpolierer" from "Qualifikation"
       And I press "Anlegen"
@@ -79,4 +79,4 @@ Feature: Creating shifts for plan templates
      Then I should see the following calendar:
         | Teams                  | Mo  | Di                                 | Mi                                 | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |                                    |                                    |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 22:00-06:00 2 x Brennstabpolierer  | 22:00-06:00 2 x Brennstabpolierer  |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 22:00-06:15 2 x Brennstabpolierer  | 22:00-06:15 2 x Brennstabpolierer  |     |     |     |     |
