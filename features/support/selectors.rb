@@ -40,9 +40,6 @@ module HtmlSelectorsHelpers
     when /the (account|organization) dropdown list/
       selector_for('the navigation') + " ul.#{$1}-dropdown"
 
-    when /^the quickie preview$/
-      '.quickie_preview'
-
     when 'the user navigation'
       '.user-navigation'
 
