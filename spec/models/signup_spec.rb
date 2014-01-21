@@ -25,22 +25,35 @@ describe Signup do
   end
 
   describe '#save!' do
-    it 'creates user' do
-      expect { signup.save! }.to change { User.count }.from(0).to(1)
-    end
+    describe 'after' do
+      before :each do
+        signup.save!
+      end
+      let(:account) { Account.first }
+      let(:organization) { Organization.first }
+      let(:employee) { Employee.first }
 
-    it 'creates an account' do
-      expect { signup.save! }.to change { Account.count }.from(0).to(1)
-    end
+      describe 'the created acount' do
+        it 'has the employee as owner' do
+          account.owner.should == employee
+        end
+      end
 
-    it 'creates an organization' do
-      expect { signup.save! }.to change { Organization.count }.from(0).to(1)
-    end
+      describe 'the created employee' do
+        it 'belongs to the account (regardless of being owner)' do
+          employee.account.should == account
+        end
 
-    it 'creates an employee' do
-      expect { signup.save! }.to change { Employee.count }.from(0).to(1)
-    end
+        it 'belongs to the user signing up' do
+          signup.user.employees.should include(employee)
+        end
 
+        it 'is member in the organization' do
+          employee.should have(1).memberships
+          employee.memberships.first.organization.should == organization
+        end
+      end
+    end
   end
 
   describe '#valid?' do
