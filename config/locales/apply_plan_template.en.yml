@@ -9,6 +9,7 @@ en:
       create:
         notice: 'All shifts of the template are successfully created.'
         some_shifts_outside_plan_period: 'Not able to create all shifts of the template. Some shifts are out of the plan period.'
+        undo: 'The applied shifts by the templates were elim.. elemi.. deleted.'
   apply_plan_template:
     form:
       no_plan_template_present: 'There are no templates for the organization yet.'

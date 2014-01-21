@@ -14,7 +14,7 @@ module Volksplaner
     end
 
     def store_undo(tracts)
-      session[UndoSessionKey] = Undo::Step.build tracts.merge(flash: flash.to_hash)
+      session[UndoSessionKey] = Undo::Step.build tracts.merge(default_undo_options)
     end
 
     def last_undo
@@ -30,6 +30,13 @@ module Volksplaner
 
     def load_undo
       session[UndoSessionKey]
+    end
+
+    def default_undo_options
+      {
+        flash: flash.to_hash,
+        flash_message: generate_flash_message(:undo)
+      }
     end
   end
 end
