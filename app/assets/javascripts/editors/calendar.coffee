@@ -48,6 +48,9 @@ class CalendarEditor extends View
     $('#modalbox')
 
   setupInputs: =>
+    # FIXME HACK notify ember router when closing modal box
+    @modal().one 'dialogclose', -> window.location.hash = '#'
+
     @setupForm()
     @addTabIndices()
 
