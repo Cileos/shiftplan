@@ -84,3 +84,20 @@ Feature: Dashboard
         | No Danger   |
         | Liquidators |
         | Oops        |
+
+  Scenario: List milestones and tasks for an employee
+    Given today is 2013-01-11
+      And the following milestones exist:
+        | name        | plan     | due_at     | responsible          |
+        | Alpha       | the plan | 2012-12-01 | the employee "Homer" |
+        | Closed Beta | the plan | 2012-12-05 | the employee "Homer" |
+        | Beta        | the plan |            | the employee "Homer" |
+      And I am signed in as the user "homer"
+     When I go to the dashboard
+     Then I should see a list of the following milestones:
+        | name        |
+        | Closed Beta |
+        | Beta        |
+        # Alpha is in the past
+
+
