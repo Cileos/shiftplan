@@ -37,10 +37,13 @@ class SchedulingDecorator < RecordDecorator
     end
   end
 
-  def link_to_calendar(name, opts={})
-    h.link_to name,
-              h.polymorphic_path( *h.nested_show_resources_for(self) ),
-              opts
+  def link_to_calendar(name = nil, opts={}, &block)
+    path = h.polymorphic_path( *h.nested_show_resources_for(self) )
+    if block_given?
+      h.link_to path, opts, &block
+    else
+      h.link_to name, path, opts
+    end
   end
 
   def summary

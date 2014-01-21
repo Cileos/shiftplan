@@ -24,9 +24,10 @@
                 %span.organization= org.name
                 = ' / '
                 %span.plan= plan.name
-              %span.time
-                = scheduling.wide_period
-              - if scheduling.team.present?
-                %span.team= scheduling.link_to_calendar scheduling.team.to_quickie
+              = scheduling.link_to_calendar do
+                %span.time
+                  = scheduling.wide_period
+                - if scheduling.team.present?
+                  %span.team= scheduling.team.to_quickie
     - else
       %p= t('schedulings.no_upcoming_schedulings_present')
