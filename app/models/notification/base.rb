@@ -131,8 +131,10 @@ class Notification::Base < ActiveRecord::Base
     if u = employee.user
       # Do not use User#decrement! (bang) method, to make sure validations are
       # run. Makes sure that the count does not get a value < 0.
-      u.decrement(:new_notifications_count)
-      u.save!
+      if u.new_notifications_count > 0
+        u.decrement(:new_notifications_count)
+        u.save!
+      end
     end
   end
 

@@ -82,4 +82,17 @@ describe Notification::Base do
       end.to change { n.employee.user.new_notifications_count }.from(1).to(0)
     end
   end
+
+  context "#decrease_notifications_count_on_user" do
+    let(:notification) do
+      create(:notification, employee: create(:employee_with_confirmed_user))
+    end
+
+    it "does only decrement the user's new_notifications_count to 0" do
+      expect do
+        3.times { notification.send(:decrease_notifications_count_on_user!) }
+      end.to change { notification.employee.user.new_notifications_count }.from(1).to(0)
+    end
+
+  end
 end
