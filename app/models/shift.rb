@@ -1,5 +1,3 @@
-require_dependency 'with_previous_changes_undone'
-
 class Shift < ActiveRecord::Base
   include WithPreviousChangesUndone
   include TimeRangeComponentsAccessible
@@ -15,6 +13,8 @@ class Shift < ActiveRecord::Base
                   :end_hour,
                   :start_minute,
                   :end_minute,
+                  :start_time,
+                  :end_time,
                   :day,
                   :team_id,
                   :demands_attributes

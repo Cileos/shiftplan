@@ -30,9 +30,7 @@ Feature: Creating shifts for plan templates
     Given I am on the teams in week page for the plan template
       And I click on cell "Di"/"Druckwasserreaktor(D)"
       And I wait for the modal box to appear
-      And I select "9" from "Startstunde"
-      And I select "17" from "Endstunde"
-      And I wait for the modal box to appear
+      And I schedule shift "9-17"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
@@ -50,8 +48,7 @@ Feature: Creating shifts for plan templates
       And I wait for the modal box to appear
      Then the selected "Team" should be "Druckwasserreaktor"
       And the selected "Tag" should be "Di"
-     When I select "9" from "Startstunde"
-      And I select "17" from "Endstunde"
+     When I schedule shift "9-17"
       And I fill in "Anzahl" with "2"
       And I select "Brennstabpolierer" from "Qualifikation"
       And I follow "Anforderung hinzufügen"
@@ -64,7 +61,7 @@ Feature: Creating shifts for plan templates
         | Brennstabkessel(B)     |     |                                        |     |     |     |     |     |
         | Druckwasserreaktor(D)  |     | 09:00-17:00 3 x 2 x Brennstabpolierer  |     |     |     |     |     |
 
-  Scenario: Creating overnight shifts for a plan template
+  Scenario: Creating overnight shifts with 15 minute accuracy for a plan template
     Given the following qualifications exist:
         | qualification      | name               | account      |
         | Brennstabpolierer  | Brennstabpolierer  | the account  |
@@ -73,8 +70,7 @@ Feature: Creating shifts for plan templates
      When I go to the teams in week page for the plan template
       And I click on cell "Di"/"Druckwasserreaktor(D)"
       And I wait for the modal box to appear
-     When I select "22" from "Startstunde"
-      And I select "6" from "Endstunde"
+      When I schedule shift "22-6:15"
       And I fill in "Anzahl" with "2"
       And I select "Brennstabpolierer" from "Qualifikation"
       And I press "Anlegen"
@@ -83,4 +79,4 @@ Feature: Creating shifts for plan templates
      Then I should see the following calendar:
         | Teams                  | Mo  | Di                                 | Mi                                 | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     |                                    |                                    |     |     |     |     |
-        | Druckwasserreaktor(D)  |     | 22:00-06:00 2 x Brennstabpolierer  | 22:00-06:00 2 x Brennstabpolierer  |     |     |     |     |
+        | Druckwasserreaktor(D)  |     | 22:00-06:15 2 x Brennstabpolierer  | 22:00-06:15 2 x Brennstabpolierer  |     |     |     |     |

@@ -20,10 +20,9 @@ Feature: Editing overnight shifts of plan templates
 
      When I click on the early shift "22:00-06:00"
       And I wait for the modal box to appear
-     Then the selected "Startstunde" should be "22"
-      And the selected "Endstunde" should be "6"
-     When I select "7" from "Endstunde"
-      And I select "21" from "Startstunde"
+     Then the "Startzeit" field should contain "22:00"
+      And the "Endzeit" field should contain "06:00"
+     When I schedule shift "21-7"
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
