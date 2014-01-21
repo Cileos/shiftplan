@@ -3,6 +3,7 @@ class EmployeesController < BaseController
   respond_to :html, :js, :json
 
   before_filter :set_adoptable_employees, only: [:search, :adopt]
+  before_filter :set_organization_id_on_employee, only: [:new, :create, :edit, :update]
 
   def create
     create! { account_organization_employees_path(current_account, current_organization) }
@@ -36,6 +37,22 @@ class EmployeesController < BaseController
     end
   end
 
+  def collection
+    super.tap do |employees|
+      unless @_current_org_set
+        employees.each do |employee|
+          set_organization_id_on_employee(employee)
+        end
+        @_current_org_set = true
+      end
+    end
+  end
+
+  # we want to use Employee#current_membership in views
+  def set_organization_id_on_employee(employee = resource)
+    employee.organization_id ||= current_organization.id
+  end
+
   def permitted_employee_params
     permitted_attributes = [
       :first_name,
@@ -45,6 +62,7 @@ class EmployeesController < BaseController
       :avatar_cache,
       :organization_id,
       :account_id,
+      :planable,
       :shortcut,
       :force_duplicate,
       { qualification_ids: [] }

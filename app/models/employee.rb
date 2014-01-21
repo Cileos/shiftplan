@@ -58,6 +58,15 @@ class Employee < ActiveRecord::Base
     invitation.present?
   end
 
+  def planable?
+    ! current_membership.suspended?
+  end
+  alias_method :planable, :planable?
+
+  def planable=(new_val)
+    current_membership.suspended = new_val.to_i != 1
+  end
+
   def duplicates_search
     @duplicates_search ||= EmployeeSearch.duplicates_for_employee(self)
   end
@@ -88,9 +97,20 @@ class Employee < ActiveRecord::Base
   def membership_role
     if organization_id
       @membership_role ||
-      memberships.find_by_organization_id(organization_id).try(:role)
+        current_membership.try(:role)
     end
   end
+
+  def membership_for_organization(org)
+    org = org.id if org.is_a?(ActiveRecord::Base)
+    raise ArgumentError, "no organization/id given" if org.nil?
+    memberships.where(organization_id: org).first!
+  end
+
+  def current_membership
+    @current_membership ||= membership_for_organization(organization_id)
+  end
+
 
   def force_duplicate?
     force_duplicate.in?(['1', 1, true])
@@ -117,7 +137,7 @@ class Employee < ActiveRecord::Base
   end
 
   def find_or_build_membership
-    memberships.find_by_organization_id(organization_id) ||
+    current_membership ||
       memberships.build(organization_id: organization_id)
   end
 

@@ -5,6 +5,7 @@
       %th= Employee.human_attribute_name(:shortcut)
       %th.numeric= abbr_tag(ta(:wwt_short), ta(:wwt_long))
       %th= Employee.human_attribute_name(:email)
+      %th= Employee.human_attribute_name(:planable)
       %th= Employee.human_attribute_name(:role)
       %th= t('.status')
       %th= Organization.model_name.human(count: 9001)
@@ -30,6 +31,7 @@
         %td.waz.numeric= number_with_precision(record.weekly_working_time,
           :precision => 2, :strip_insignificant_zeros => true)
         %td= record.try(:user).try(:email) || record.try(:invitation).try(:email)
+        %td= yes_or_no_tag record.planable?
         %td= record.decorate.translated_role
         %td.status= invitation_status(record)
         - organizations = record.organizations.order(:name)

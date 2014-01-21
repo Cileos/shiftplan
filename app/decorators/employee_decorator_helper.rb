@@ -1,4 +1,10 @@
 module EmployeeDecoratorHelper
+  def initialize(*)
+    super
+    if h.current_organization?
+      model.organization_id ||= h.current_organization.id
+    end
+  end
   def selector_for(name, resource=nil, extra=nil)
     case name
     when :employees
@@ -14,7 +20,7 @@ module EmployeeDecoratorHelper
 
   def employees_table
     h.render('employees/table',
-      records: h.current_organization.employees.default_sorting)
+      records: h.current_organization.employees.default_sorting.map(&:decorate))
   end
 
   def respond

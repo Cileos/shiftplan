@@ -20,6 +20,7 @@ de:
         force_update_duplicate: "Trotzdem speichern?"
         duplicates: 'Duplikate'
         shortcut: Kürzel
+        planable: 'planbar'
     errors:
       models:
         employee:

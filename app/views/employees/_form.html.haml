@@ -7,7 +7,6 @@
 
   = employee.error_messages
 
-  - employee.organization_id = current_organization.id
   - employee.account = current_account
 
   .inputs
@@ -20,6 +19,8 @@
 
     = f.input :first_name, autofocus: true
     = f.input :last_name
+
+    = f.input :planable, as: :boolean
 
     = f.association :qualifications, collection: current_account.qualifications(order: 'name'),
       include_blank: true, input_html: { class: 'chosen-select' }
