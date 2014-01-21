@@ -23,15 +23,6 @@ describe Volksplaner::Undo::Step do
       )
     end
 
-    it 'stores first flash message' do
-      flash = {}
-      flash[:notice] = 'success'
-      flash[:error] = 'fail'
-      undo = described_class.build flash: flash
-      undo.flash.should == 'success'
-    end
-
-
     it 'stores redirect location when given' do
       path = double 'Path'
       undo = described_class.build redirect: path
@@ -42,6 +33,16 @@ describe Volksplaner::Undo::Step do
     it 'denies redirect when none given' do
       undo = described_class.build
       undo.should_not be_redirectable
+    end
+  end
+
+  describe '#flash' do
+    it 'contains notice when .build with flash.to_hash' do
+      flash = {}
+      flash[:notice] = 'success'
+      flash[:error] = 'fail'
+      undo = described_class.build flash: flash
+      undo.flash.should == 'success'
     end
   end
 
@@ -59,7 +60,8 @@ describe Volksplaner::Undo::Step do
   end
 
   describe '#flash_message' do
-    it 'uses stored flash and i18n' do
+    it 'can be provided by i18n'
+    it 'falls back to composing from stored #flash and i18n' do
       undo = described_class.build
       undo.stub flash: 'Tür geöffnet'
       I18n.with_locale :de do

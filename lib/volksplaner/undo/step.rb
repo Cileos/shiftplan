@@ -22,7 +22,7 @@ class Volksplaner::Undo::Step
       when :create
         things.flatten.each { |m| create_record m }
       when :flash
-        @flash = things.values.flatten.first
+        @flash = things[:notice]
       when :redirect
         @location = things
       end
