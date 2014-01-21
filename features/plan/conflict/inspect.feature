@@ -39,7 +39,9 @@ Feature: Inspect conflicts on Schedulings
 
 
      When I close the modal box
+      And I wait for the modal box to disappear
       And I click on the scheduling "10:00-18:00"
+      And I wait for the modal box to appear
       And I select "Lenny L" from "Mitarbeiter"
       And I press "Speichern"
       And I wait for the modal box to disappear
@@ -49,6 +51,7 @@ Feature: Inspect conflicts on Schedulings
         | Ohne Team | Lenny L 10:00-18:00 |
 
      When I click on the scheduling "10:00-18:00"
+      And I wait for the modal box to appear
       And I select "Homer S" from "Mitarbeiter"
       And I press "Speichern"
       And I wait for the modal box to disappear

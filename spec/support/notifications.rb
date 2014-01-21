@@ -46,3 +46,4 @@ shared_examples :updating_new_notifications_count_for_user do
     end
   end
 end
+

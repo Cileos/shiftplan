@@ -8,6 +8,7 @@ Clockwork.ModalMixin = Ember.Mixin.create
       modal: true
       title: @get('heading')
       close: @dialogclose
+      zIndex: 500
 
     # jQueryIU attaches a dialog box to the body by default. we want to react
     # to events in it and have to move it within our application.

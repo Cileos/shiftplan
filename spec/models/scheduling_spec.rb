@@ -6,6 +6,50 @@ describe Scheduling do
 
   in_locale :de
 
+  context "when destroyed" do
+
+    let(:scheduling) { create :scheduling }
+
+    it "notifications are destroyed" do
+      destroyer = instance_double("NotificationDestroyer")
+      NotificationDestroyer.should_receive(:new).with(scheduling).and_return(destroyer)
+      destroyer.should_receive(:destroy!)
+
+      scheduling.destroy
+    end
+
+    context "when having deeply nested comments" do
+
+      let(:employee)   { create :employee } # just talking to himself
+
+      def create_comment(attrs={})
+        Comment.build_from(scheduling, employee, attrs).tap(&:save!)
+      end
+
+      before do
+        c1   = create_comment body: "One"
+        c2   = create_comment body: "Two"
+        c21  = create_comment body: "Two-one", parent: c2
+        c211 = create_comment body: "Two-one-one", parent: c21
+        c3   = create_comment body: "Three"
+      end
+
+      # acts_as_commentable_with_threading 1.1.2 (pure) tries to fetch comments
+      # which are already deleted. Almost minimal version:
+      # comment
+      # comment
+      #   answer
+      #     superanswer
+      # comment
+      it "all comments are destroyed" do
+        s = Scheduling.find scheduling.id
+        expect do
+          s.destroy
+        end.to change { Comment.count }.from(5).to(0)
+      end
+    end
+  end
+
   context "with illegal characters in team name (quickie)" do
     let(:scheduling) { Scheduling.new quickie: "9-17 work 'hard'" }
     it { scheduling.should_not be_valid }
@@ -482,34 +526,6 @@ describe Scheduling do
       two = create :scheduling_by_quickie, quickie: '9-17', stack: 1
       one.should_not be_overlap(two)
       two.should_not be_overlap(one)
-    end
-  end
-
-  context "with a deeply nested comments" do
-    let(:scheduling) { create :scheduling }
-    let(:employee)   { create :employee } # just talking to himself
-
-    def create_comment(attrs={})
-      Comment.build_from(scheduling, employee, attrs).tap(&:save!)
-    end
-    before do
-      c1   = create_comment body: "One"
-      c2   = create_comment body: "Two"
-      c21  = create_comment body: "Two-one", parent: c2
-      c211 = create_comment body: "Two-one-one", parent: c21
-      c3   = create_comment body: "Three"
-    end
-    # acts_as_commentable_with_threading 1.1.2 (pure) tries to fetch comments which are already deleted. Almost minimal version:
-    # comment
-    # comment
-    #   answer
-    #     superanswer
-    # comment
-    it "destroys all comments when destroyed" do
-      s = Scheduling.find scheduling.id
-      expect do
-        s.destroy
-      end.to change { Comment.count }.from(5).to(0)
     end
   end
 

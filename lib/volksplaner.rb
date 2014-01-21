@@ -38,6 +38,26 @@ module Volksplaner
   def self.token_generator_20
     Devise.method(:friendly_token)
   end
+
+  def self.notification_creator
+    lambda do |notifiable|
+      NotificationCreator.new(notifiable).delay.create!
+    end
+  end
+
+  def self.notification_destroyer
+    lambda do |notifiable|
+      NotificationDestroyer.new(notifiable).destroy!
+    end
+  end
+
+  def self.notification_klass_finder
+    Notification::KlassFinder.new.method(:find)
+  end
+
+  def self.notification_recipients_finder
+    Notification::RecipientsFinder.new.method(:find)
+  end
 end
 
 VP = Volksplaner

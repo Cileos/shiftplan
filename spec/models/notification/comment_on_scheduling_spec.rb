@@ -11,12 +11,4 @@ describe Notification::CommentOnScheduling do
   it_behaves_like :updating_new_notifications_count_for_user do
     let(:notifiable) { comment }
   end
-
-  before(:each) do
-    Timecop.freeze(Time.parse('2012-12-12 12:23:00'))
-  end
-
-  it 'should set the sent_at field to the current time after delivering the notification mail' do
-    expect { notification.save! }.to change(notification, :sent_at).from(nil).to(Time.zone.now)
-  end
 end

@@ -1,9 +1,6 @@
 [submodule "vendor/assets/javascripts/space-pen"]
 	path = vendor/assets/javascripts/space-pen
 	url = git://github.com/nathansobo/space-pen.git
-[submodule "vendor/assets/mixed/jquery-miniColors"]
-	path = vendor/assets/mixed/jquery-miniColors
-	url = git://github.com/claviska/jquery-minicolors.git
 [submodule "vendor/assets/stylesheets/normalize.css"]
 	path = vendor/assets/stylesheets/normalize.css
 	url = git://github.com/necolas/normalize.css.git
@@ -19,3 +16,6 @@
 [submodule "vendor/assets/mixed/jquery.timeentry"]
 	path = vendor/assets/mixed/jquery.timeentry
 	url = https://github.com/kbwood/timeentry
+[submodule "vendor/assets/mixed/jquery-minicolors"]
+	path = vendor/assets/mixed/jquery-minicolors
+	url = git@github.com:claviska/jquery-minicolors.git

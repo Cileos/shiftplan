@@ -12,5 +12,5 @@ en:
         account_name: 'e.g. Yellow Submarine Inc. (must start with a letter)'
         organization_name: 'e.g. Engineering Beetles (must start with a letter)'
       plan:
-        starts_at: 'e.g. 01.02.2013'
-        ends_at: 'e.g. 10.02.2013'
+        starts_at: 'e.g. 02/01/2013 (mm/dd/yyyy)'
+        ends_at: 'e.g. 02/10/2013 (mm/dd/yyyy)'

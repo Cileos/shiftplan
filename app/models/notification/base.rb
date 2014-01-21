@@ -6,7 +6,6 @@ class Notification::Base < ActiveRecord::Base
 
   validates_presence_of :employee
 
-  after_commit :deliver!, on: :create
   after_create :increase_notifications_count_on_user
 
   def self.default_sorting
@@ -118,9 +117,7 @@ class Notification::Base < ActiveRecord::Base
     end
   end
 
-  protected
-
-  def deliver!
+  def send_mail
     if employee.user && employee.user.receive_notification_emails
       self.class.mailer_class.public_send(self.class.mailer_action, self).deliver
       touch :sent_at

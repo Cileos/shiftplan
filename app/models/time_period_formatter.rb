@@ -1,3 +1,4 @@
+# Basically a model-layer decorator
 module TimePeriodFormatter
   def self.period_with_zeros(from, to)
     [time_with_zeros(from), time_with_zeros(to)].compact.join('-')
@@ -10,6 +11,10 @@ module TimePeriodFormatter
   # show zeros only if neccessary
   def self.period(from, to)
     [time(from), time(to)].compact.join('-')
+  end
+
+  def self.wide_period(from, to)
+    [time(from), time(to)].compact.join(' - ')
   end
 
   def self.time_with_zeros(time)
@@ -35,6 +40,10 @@ module TimePeriodFormatter
 
   def period
     TimePeriodFormatter.period self_or_prev_day.starts_at, self_or_next_day.ends_at
+  end
+
+  def wide_period
+    TimePeriodFormatter.wide_period self_or_prev_day.starts_at, self_or_next_day.ends_at
   end
 
   def period_with_zeros
