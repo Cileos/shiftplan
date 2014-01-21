@@ -23,6 +23,8 @@ class Volksplaner::Undo::Step
         things.flatten.each { |m| create_record m }
       when :flash
         @flash = things[:notice]
+      when :flash_message
+        @flash_message = things unless things.blank? # I18n may return nil
       when :redirect
         @location = things
       end
@@ -30,7 +32,7 @@ class Volksplaner::Undo::Step
   end
 
   def flash_message
-    I18n.translate 'flash', scope: i18n_scope, what: flash
+    @flash_message || I18n.translate('flash', scope: i18n_scope, what: flash)
   end
 
   def human_title

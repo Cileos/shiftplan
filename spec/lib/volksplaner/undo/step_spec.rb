@@ -60,7 +60,14 @@ describe Volksplaner::Undo::Step do
   end
 
   describe '#flash_message' do
-    it 'can be provided by i18n'
+    it 'can be provided on build' do
+      undo = described_class.build flash_message: 'go back'
+      undo.flash_message.should == 'go back'
+    end
+    it 'ignores blank provided values' do
+      undo = described_class.build flash_message: ''
+      undo.flash_message.should_not be_blank
+    end
     it 'falls back to composing from stored #flash and i18n' do
       undo = described_class.build
       undo.stub flash: 'Tür geöffnet'
