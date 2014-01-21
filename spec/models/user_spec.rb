@@ -12,7 +12,7 @@ describe User do
       user.should have(1).errors_on(:email)
     end
 
-    it "has a new_notifications_count >= 0" do
+    it "needs a new_notifications_count >= 0" do
       user = create(:user, new_notifications_count: 0)
       user.should be_valid
 
