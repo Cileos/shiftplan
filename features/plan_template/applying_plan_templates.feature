@@ -46,7 +46,7 @@ Feature: Applying Weekbased Plan Templates to Plans
         | Brennstabkessel (B)     | 22:00-06:00 Brennstabexperte  | 22:00-06:00 Brennstabexperte                                                             |     |     |     |     |     |
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
 
-     When I follow "Rückgängig machen"
+     When I press "Rückgängig machen"
      Then I should see notice "Rückgängig gemacht: Alle Schichten der Planvorlage wurden erfolgreich übernommen"
       And I should see the following partial calendar:
         | Teams                  | Mo | Di | Mi | Do | Fr | Sa | So |
