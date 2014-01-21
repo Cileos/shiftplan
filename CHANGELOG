@@ -1,6 +1,16 @@
 Changelog
 =========
 
+Release 1.0.10 2014-01-21 10:25
+------------------------------
+092aa17 Merge branch 'feature/add-datepicker-hints-in-correct-english-date-format' into develop
+3da8510 Merge branch 'feature/session-timeout-in-notification-hub' into develop
+38e8f91 Merge branch 'feature/schedule-gravatar-updater' into develop
+07b1847 Merge pull request #225 from Cileos/feature/translate-missing-mailer-templates-to-english
+a8ad78a Merge pull request #224 from Cileos/feature/show-minutes-on-dashboard
+0324ade Merge pull request #220 from Cileos/feature/create-and-send-notifications-asynchronously
+f91e3cb Merge pull request #223 from Cileos/feature/backup-restore-uploads-on-symlinked-dir
+
 Release 1.0.9 2014-01-07 15:25
 ------------------------------
 e271279 Merge pull request #218 from Cileos/feature/bug-start_time-ends-with-colon
