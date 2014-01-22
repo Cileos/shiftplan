@@ -16,14 +16,9 @@
 #= require lib/loaded_page
 #= require jquery_nested_form
 #= require notifications
+#= require chosen
 
 #= require_self
-init_chosen = ->
-  $ ->
-    $(".chosen-select").chosen
-      allow_single_deselect: true
-      no_results_text: "No results matched"
-      width: "200px"
 
 jQuery ->
   $("textarea").autosize()
@@ -33,8 +28,4 @@ jQuery ->
     elmTextarea.css "max-height", windowH + "px"
     elmTextarea.autosize()
 
-    init_chosen()
-
   $('#keyboard-shortcuts [data-toggle="collapsible-heading"]').click()  unless $.cookie("clockwork_keyboard-shortcuts")
-
-init_chosen()
