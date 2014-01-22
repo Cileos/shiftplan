@@ -1,3 +1,4 @@
+# TODO: I18n
 chosen_default_texts =
   de:
     no_results_text: "Keine Ergebnisse gefunden"
