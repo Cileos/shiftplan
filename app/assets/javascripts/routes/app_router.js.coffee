@@ -33,3 +33,9 @@ Clockwork.Router = Ember.Router.extend
 
     editMilestone: Ember.Router.transitionTo 'milestones.edit'
     editTask: Ember.Router.transitionTo 'milestones.tasks.edit'
+
+    # these are handled by routie and are just here to not confuse Ember
+    scheduling: Ember.Route.extend
+      route: '/scheduling/:id'
+    schedulingComments: Ember.Route.extend
+      route: '/scheduling/:id/comments'

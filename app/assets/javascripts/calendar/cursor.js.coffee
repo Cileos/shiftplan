@@ -106,12 +106,23 @@ class CalendarCursor
       @focus @$calendar.find('tbody').children('tr').eq(@current_row).
         children(@tds).eq(@current_column), 'first'
 
+  # finds an $item by its canonical id
+  findByCid: (cid)->
+    @$calendar.find(@items).filter("[data-cid=#{cid}]:first")
+
+
 
   keydown: (event) =>
     # ignore the ESC key, as it always acts a a shortcut for close (ie
     # modalbox).  This code is reached only in certain browsers (Chromium
     # 20.0.1132.47)
     if event.which == 27
+      return true
+
+    if event.ctrlKey or
+       event.altKey or
+       event.metaKey or
+       event.shiftKey
       return true
 
     # ignore key pressed in visible input field (some browsers can keep focus on
@@ -185,6 +196,9 @@ class CalendarCursor
 
   create: ->
     new CalendarEditor element: @$focussed_cell
+
+  isReadonly: ->
+    @$body().is('.readonly')
 
   left: ->
     @orientate()
