@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   include Volksplaner::Currents
   include Volksplaner::ControllerCaching
+  include Volksplaner::Undo::ControllerHelpers
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.debug('Access denied')
@@ -92,10 +93,14 @@ class ApplicationController < ActionController::Base
   end
 
   def set_flash(severity, key=nil, opts={})
+    flash[severity] = generate_flash_message(severity, key, opts)
+  end
+
+  def generate_flash_message(severity, key=nil, opts={})
     key ||= severity
-    action = opts.delete(:action) || params[:action]
+    action     = opts.delete(:action) || params[:action]
     controller = opts.delete(:controller) || params[:controller]
-    flash[severity] = t("flash.#{controller}.#{action}.#{key}", opts)
+    t("flash.#{controller}.#{action}.#{key}", opts)
   end
 
   # TODO test

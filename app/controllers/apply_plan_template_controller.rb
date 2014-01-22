@@ -9,7 +9,10 @@ class ApplyPlanTemplateController < BaseController
       else
         set_flash(:notice)
       end
-      plan_week_mode_path(plan, 'teams_in_week', resource.monday)
+
+      path = plan_week_mode_path(plan, 'teams_in_week', resource.monday)
+      store_undo create: resource.created_schedulings, redirect: path
+      path
     end
   end
 

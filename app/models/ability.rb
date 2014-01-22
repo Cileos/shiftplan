@@ -73,6 +73,8 @@ class Ability
     can [:read, :create, :destroy], IcalExport do |ie|
       user == ie.user
     end
+
+    can :update, Volksplaner::Undo::Step
   end
 
   def authorize_employee(user)

@@ -1,0 +1,6 @@
+en:
+  volksplaner:
+    undo:
+      title: 'Undo: %{what}'
+      flash: 'Undone: %{what}'
+

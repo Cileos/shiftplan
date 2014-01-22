@@ -96,6 +96,7 @@ de:
       mark_all_as_read: "Alle als gelesen markieren"
       upload_attached_document: "Dokument hochladen"
       upload: "Hochladen"
+      undo: "Rückgängig machen"
   schedulings:
     calendar_navigation:
       day: "Tag"

@@ -10,6 +10,7 @@ module Volksplaner
   autoload :Formatter, 'volksplaner/formatter'
   autoload :CaseInsensitiveEmailAttribute, 'volksplaner/case_insensitive_email_attribute'
   autoload :ShortcutAttribute, 'volksplaner/shortcut_attribute'
+  autoload :Undo, 'volksplaner/undo'
 
   HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .-]*\z/
   NameRegEx = /\A[\p{Letter}][\p{Letter}\d .§&()-]*\z/

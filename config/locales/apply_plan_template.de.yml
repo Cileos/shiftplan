@@ -9,6 +9,7 @@ de:
       create:
         notice: 'Alle Schichten der Planvorlage wurden erfolgreich übernommen.'
         some_shifts_outside_plan_period: 'Es konnten nicht alle Schichten der Planvorlage übernommen werden. Einige Schichten liegen außerhalb des Plans.'
+        undo: 'Die aus der Planvorlage übernommene Schichten wurden wieder gelöscht.'
   apply_plan_template:
     form:
       no_plan_template_present: 'Es wurden noch keine Planvorlagen für diese Organisation angelegt.'

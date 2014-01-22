@@ -1,0 +1,5 @@
+- if respond_to?(:has_undo?)
+  - if has_undo?
+    .undo
+      = button_to :undo, undo_path, method: :put, class: 'button', title: last_undo.human_title, disable_with: ta(:undo) + '...'
+      = last_undo.human_title
