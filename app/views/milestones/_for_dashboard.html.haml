@@ -1,0 +1,5 @@
+- unless milestones.blank?
+  %ul.milestones
+    - milestones.each do |ms|
+      %li
+        %span.name= ms.name

@@ -10,6 +10,7 @@ class Organization < ActiveRecord::Base
   has_many   :posts,          through: :blogs
   has_many   :memberships
   has_many   :plan_templates
+  has_many   :milestones,     through: :plans
 
   include FriendlyId
   friendly_id :name, use: [:scoped, :slugged, :finders], scope: :account
