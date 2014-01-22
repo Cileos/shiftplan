@@ -16,6 +16,7 @@ class OrganizationsController < BaseController
     @upcoming      = current_employee.schedulings.upcoming.starting_in_the_next('14 days').for_organization(@organization)
     @notifications = current_employee.notifications
     @posts         = @organization.posts.recent(15)
+    @milestones    = @organization.milestones.todo
 
     UserConflictFinder.new(@upcoming).call
   end

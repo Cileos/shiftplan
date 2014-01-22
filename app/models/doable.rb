@@ -15,7 +15,7 @@ module Doable
 
   module ClassMethods
     def todo
-      where('due_at is NULL OR ? < due_at', Time.zone.now).where(done: false)
+      where('due_at is NULL OR ? < due_at', Time.zone.now).where(done: false).order('updated_at DESC')
     end
   end
 end

@@ -4,11 +4,11 @@ Feature: Dashboard
   In order to be able to choose from one of them
 
   Background:
-    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+    Given Mr Burns, owner of the Springfield Nuclear Power Plant exists
       And a confirmed user "homer" exists with email: "homer@thesimpsons.de"
       And an employee "Homer" exists with first_name: "Homer", user: user "homer", account: the account
       And the employee "Homer" is a member of the organization
-      And a plan "brennstäbe wechseln" exists with organization: the organization, name: "Brennstäbe wechseln"
+      And a plan "Brennstäbe" exists with organization: the organization, name: "Brennstäbe wechseln"
       # week 49
       And today is 2012-12-04 06:00
 
@@ -18,6 +18,17 @@ Feature: Dashboard
      When I go to the dashboard
      # full introductory_text of dummy notification
      Then I should see "You did something awesome"
+
+     When I follow "Brennstäbe wechseln"
+     Then I should be on the employees in week page of the plan for week: 49, cwyear: 2012
+ 
+     When I go to the dashboard
+      And I follow "Brennstäbe wechseln"
+     Then I should be on the employees in week page of the plan "Brennstäbe" for week: 49, cwyear: 2012
+ 
+     When I go to the dashboard
+      And I follow "Springfield Nuclear Power Plant - Sector 7-G"
+     Then I should be on the page for the organization
 
   @javascript
   Scenario: List upcoming schedulings (just the next 7 days for now)
@@ -29,7 +40,7 @@ Feature: Dashboard
       And the employee "Daddy" is a member of the organization "Garten"
       And a plan "Spazieren" exists with organization: organization "Garten", name: "Spazieren"
 
-      And the employee "Homer" was scheduled in the plan "brennstäbe wechseln" as following:
+      And the employee "Homer" was scheduled in the plan "Brennstäbe" as following:
         | week | cwday | quickie                         |
         | 49   | 2     | 9-17 Reaktor Putzen [RP]        |
         | 49   | 3     | 9-17 Links abbiegen [La]        |
@@ -86,21 +97,33 @@ Feature: Dashboard
         | Oops        |
 
   Scenario: List milestones and tasks for an employee
+    Given another organization "Sweets" exists with account: the account
+      And the employee "Homer" is a member of the organization "Sweets"
+      And a plan "Doughnuts" exists with organization: the organization
     Given the following milestones exist:
-        | name        | plan     | due_at     | responsible          | done  |
-        | Null        | the plan |            | the employee "Homer" | true  |
-        | Alpha       | the plan | 2012-12-01 | the employee "Homer" | false |
-        | Closed Beta | the plan | 2012-12-05 | the employee "Homer" | false |
-        | Beta        | the plan |            | the employee "Homer" | false |
-        | Gamma       | the plan |            |                      | false |
+        | name        | plan                  | due_at     | responsible          | done  |
+        | Null        | the plan "Brennstäbe" |            | the employee "Homer" | true  |
+        | Alpha       | the plan "Brennstäbe" | 2012-12-01 | the employee "Homer" | false |
+        | Closed Beta | the plan "Brennstäbe" | 2012-12-05 | the employee "Homer" | false |
+        | Beta        | the plan "Brennstäbe" |            | the employee "Homer" | false |
+        | Gamma       | the plan "Brennstäbe" |            |                      | false |
+        | Imma        | the plan "Doughnuts"  |            |                      | false |
       And I am signed in as the user "homer"
      When I go to the dashboard
      Then I should see a list of the following milestones:
         | name        |
-        | Closed Beta |
-        | Beta        |
+        | Imma        |
         | Gamma       |
+        | Beta        |
+        | Closed Beta |
         # Null is already completed
         # Alpha is in the past
 
+     When I go to the page of the organization "sector 7g"
+     Then I should see a list of the following milestones:
+        | name        |
+        | Gamma       |
+        | Beta        |
+        | Closed Beta |
+        # Imma is in another org
 
