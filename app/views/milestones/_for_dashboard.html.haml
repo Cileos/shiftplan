@@ -2,4 +2,11 @@
   %ul.milestones
     - milestones.each do |ms|
       %li
-        %span.name= ms.name
+        = link_to ms.name, '#', class: 'name'
+        - if ms.due_at
+          %span.due_on= l ms.due_at.to_date
+        - if ms.responsible
+          %span.employee.responsible
+            %span.name= ms.responsible.name
+        - if ms.description.present?
+          %span.description= ms.description

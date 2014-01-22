@@ -100,30 +100,34 @@ Feature: Dashboard
     Given another organization "Sweets" exists with account: the account
       And the employee "Homer" is a member of the organization "Sweets"
       And a plan "Doughnuts" exists with organization: the organization
+      And an employee "Carl" exists with first_name: "Carl", last_name: "Carlson", account: the account
     Given the following milestones exist:
-        | name        | plan                  | due_at     | responsible          | done  |
-        | Null        | the plan "Brennstäbe" |            | the employee "Homer" | true  |
-        | Alpha       | the plan "Brennstäbe" | 2012-12-01 | the employee "Homer" | false |
-        | Closed Beta | the plan "Brennstäbe" | 2012-12-05 | the employee "Homer" | false |
-        | Beta        | the plan "Brennstäbe" |            | the employee "Homer" | false |
-        | Gamma       | the plan "Brennstäbe" |            |                      | false |
-        | Imma        | the plan "Doughnuts"  |            |                      | false |
+        | name        | plan                  | due_at     | responsible          | done  | description |
+        | Null        | the plan "Brennstäbe" |            | the employee "Homer" | true  |             |
+        | Alpha       | the plan "Brennstäbe" | 2012-12-01 | the employee "Homer" | false |             |
+        | Closed Beta | the plan "Brennstäbe" | 2012-12-05 | the employee "Homer" | false |             |
+        | Beta        | the plan "Brennstäbe" |            | the employee "Homer" | false |             |
+        | Gamma       | the plan "Brennstäbe" |            |                      | false | use Gloves  |
+        | Delta       | the plan "Brennstäbe" |            | the employee "Carl"  | false |             |
+        | Imma        | the plan "Doughnuts"  |            |                      | false |             |
       And I am signed in as the user "homer"
      When I go to the dashboard
      Then I should see a list of the following milestones:
-        | name        |
-        | Imma        |
-        | Gamma       |
-        | Beta        |
-        | Closed Beta |
+        | name        | due_on     | responsible   | description |
+        | Imma        |            |               |             |
+        | Delta       |            | Carl Carlson  |             |
+        | Gamma       |            |               | use Gloves  |
+        | Beta        |            | Homer Simpson |             |
+        | Closed Beta | 05.12.2012 | Homer Simpson |             |
         # Null is already completed
         # Alpha is in the past
 
      When I go to the page of the organization "sector 7g"
      Then I should see a list of the following milestones:
-        | name        |
-        | Gamma       |
-        | Beta        |
-        | Closed Beta |
-        # Imma is in another org
+        | name        | due_on     | responsible   | description |
+        | Delta       |            | Carl Carlson  |             |
+        | Gamma       |            |               | use Gloves  |
+        | Beta        |            | Homer Simpson |             |
+        | Closed Beta | 05.12.2012 | Homer Simpson |             |
+        # Imma is in another org |
 
