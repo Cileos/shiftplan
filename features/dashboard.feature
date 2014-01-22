@@ -101,15 +101,21 @@ Feature: Dashboard
       And the employee "Homer" is a member of the organization "Sweets"
       And a plan "Doughnuts" exists with organization: the organization
       And an employee "Carl" exists with first_name: "Carl", last_name: "Carlson", account: the account
-    Given the following milestones exist:
-        | name        | plan                  | due_at     | responsible          | done  | description |
-        | Null        | the plan "Brennstäbe" |            | the employee "Homer" | true  |             |
-        | Alpha       | the plan "Brennstäbe" | 2012-12-01 | the employee "Homer" | false |             |
-        | Closed Beta | the plan "Brennstäbe" | 2012-12-05 | the employee "Homer" | false |             |
-        | Beta        | the plan "Brennstäbe" |            | the employee "Homer" | false |             |
-        | Gamma       | the plan "Brennstäbe" |            |                      | false | use Gloves  |
-        | Delta       | the plan "Brennstäbe" |            | the employee "Carl"  | false |             |
-        | Imma        | the plan "Doughnuts"  |            |                      | false |             |
+      And the following milestones exist:
+        | name        | plan                  | due_at     | responsible          | done  | description | milestone   |
+        | Null        | the plan "Brennstäbe" |            | the employee "Homer" | true  |             | Null        |
+        | Alpha       | the plan "Brennstäbe" | 2012-12-01 | the employee "Homer" | false |             | Alpha       |
+        | Closed Beta | the plan "Brennstäbe" | 2012-12-05 | the employee "Homer" | false | invite ppl  | Closed Beta |
+        | Beta        | the plan "Brennstäbe" |            | the employee "Homer" | false |             | Beta        |
+        | Gamma       | the plan "Brennstäbe" |            |                      | false | use Gloves  | Gamma       |
+        | Delta       | the plan "Brennstäbe" |            | the employee "Carl"  | false |             | Delta       |
+        | Imma        | the plan "Doughnuts"  |            |                      | false |             | Imma        |
+      And the following tasks exist:
+        | name          | milestone                   | due_at     | responsible          | done  | description |
+        | Invite Paul   | the milestone "Closed Beta" | 2012-12-04 | the employee "Homer" | false |             |
+        | Invite Paula  | the milestone "Closed Beta" |            |                      | false | before Paul |
+        | Invite O'ktap | the milestone "Closed Beta" |            | the employee "Homer" | true  |             |
+
       And I am signed in as the user "homer"
      When I go to the dashboard
      Then I should see a list of the following milestones:
@@ -118,9 +124,13 @@ Feature: Dashboard
         | Delta       |            | Carl Carlson  |             |
         | Gamma       |            |               | use Gloves  |
         | Beta        |            | Homer Simpson |             |
-        | Closed Beta | 05.12.2012 | Homer Simpson |             |
+        | Closed Beta | 05.12.2012 | Homer Simpson | invite ppl  |
         # Null is already completed
         # Alpha is in the past
+      And I should see a list of the following tasks within the 5th milestone:
+        | name         | due_on     | responsible   | description |
+        | Invite Paula |            |               | before Paul |
+        | Invite Paul  | 04.12.2012 | Homer Simpson |             |
 
      When I go to the page of the organization "sector 7g"
      Then I should see a list of the following milestones:
@@ -128,6 +138,6 @@ Feature: Dashboard
         | Delta       |            | Carl Carlson  |             |
         | Gamma       |            |               | use Gloves  |
         | Beta        |            | Homer Simpson |             |
-        | Closed Beta | 05.12.2012 | Homer Simpson |             |
+        | Closed Beta | 05.12.2012 | Homer Simpson | invite ppl  |
         # Imma is in another org |
 

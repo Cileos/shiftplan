@@ -1,0 +1,10 @@
+= link_to doable.name, url, class: 'name'
+- if doable.due_at
+  %span.due_on= l doable.due_at.to_date
+- if doable.responsible
+  %span.employee.responsible
+    %span.name= doable.responsible.name
+- if doable.description.present?
+  %span.description= doable.description
+
+

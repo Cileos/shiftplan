@@ -1,5 +1,6 @@
 # to be included in modals which can be done (tasks, milestones etc)
 module Doable
+  Overlapse = 12.hours
   def self.included(model)
     model.class_eval do
       validates_presence_of :name
@@ -15,7 +16,7 @@ module Doable
 
   module ClassMethods
     def todo
-      where('due_at is NULL OR ? < due_at', Time.zone.now).where(done: false).order('updated_at DESC')
+      where('due_at is NULL OR ? < due_at', Time.zone.now.beginning_of_day - Overlapse).where(done: false).order('updated_at DESC')
     end
   end
 end

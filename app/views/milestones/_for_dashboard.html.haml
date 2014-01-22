@@ -1,12 +1,9 @@
 - unless milestones.blank?
   %ul.milestones
     - milestones.each do |ms|
-      %li
-        = link_to ms.name, '#', class: 'name'
-        - if ms.due_at
-          %span.due_on= l ms.due_at.to_date
-        - if ms.responsible
-          %span.employee.responsible
-            %span.name= ms.responsible.name
-        - if ms.description.present?
-          %span.description= ms.description
+      %li.milestone
+        = render 'doables/details', doable: ms, url: '#'
+        - unless ms.tasks.todo.empty?
+          %ul.tasks
+            - ms.tasks.todo.each do |t|
+              %li.task= render 'doables/details', doable: t, url: '#'
