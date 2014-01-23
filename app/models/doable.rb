@@ -16,7 +16,7 @@ module Doable
 
   module ClassMethods
     def todo
-      where('due_at is NULL OR ? < due_at', Time.zone.now.beginning_of_day - Overlapse).where(done: false).order('updated_at DESC')
+      where('due_at is NULL OR ? < due_at', Time.zone.now.beginning_of_day - Overlapse).where('done IS NULL OR done = ?', false).order('updated_at DESC')
     end
   end
 end
