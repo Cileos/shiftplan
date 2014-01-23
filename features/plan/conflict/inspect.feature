@@ -37,12 +37,26 @@ Feature: Inspect conflicts on Schedulings
       And I should see "13:15-14:00" within the right column within the modal box
       And I should see "15:15-16:00" within the right column within the modal box
 
+     # follow one established
+     When I follow "14:00" within the right column within the modal box
+      And I wait for the modal box to appear
+      And I close the modal box
+     Then I should be on the teams in week page of the plan "feed dogs" for cwyear: 2012, week: 7
+
+     When I follow "!" within the cell "Mi"/"Ohne Team"
+     Then I should see "13:15-14:00" within the left column within the modal box
+      And I should see "10:00-18:00" within the right column within the modal box
+      But I should not see "15:15-16:00" within the modal box
+
+     # back to original provoker
+     When I follow "18:00" within the right column within the modal box
+      And I wait for the modal box to appear
 
      When I close the modal box
       And I wait for the modal box to disappear
       And I click on the scheduling "10:00-18:00"
       And I wait for the modal box to appear
-      And I select "Lenny L" from "Mitarbeiter"
+      And I select "Lenny L" from the "Mitarbeiter" single-select box
       And I press "Speichern"
       And I wait for the modal box to disappear
      # other employee => conflict gone
@@ -52,7 +66,7 @@ Feature: Inspect conflicts on Schedulings
 
      When I click on the scheduling "10:00-18:00"
       And I wait for the modal box to appear
-      And I select "Homer S" from "Mitarbeiter"
+      And I select "Homer S" from the "Mitarbeiter" single-select box
       And I press "Speichern"
       And I wait for the modal box to disappear
      # back to previous employee => conflict reappears

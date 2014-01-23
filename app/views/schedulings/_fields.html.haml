@@ -12,10 +12,13 @@
   = f.input :start_time, as: :string, :wrapper_html => {:class => 'start-time'}
   = f.input :end_time, as: :string, :wrapper_html => {:class => 'end-time'}
 
-= f.association :employee, as: :select, collection: employees_for_select(scheduling)
+= f.association :employee, as: :select, collection: employees_for_select(scheduling),
+  input_html: { class: 'chosen-select' }
 
-= f.association :qualification, as: :select, collection: current_account.qualifications
+= f.association :qualification, as: :select, collection: current_account.qualifications,
+  input_html: { class: 'chosen-select' }
 
-= f.association :team, as: :select, include_blank: true, collection: scheduling.plan.organization.teams
+= f.association :team, as: :select, include_blank: true, collection: scheduling.plan.organization.teams,
+  input_html: { class: 'chosen-select' }
 
 %p.quickie_preview

@@ -62,35 +62,36 @@ Feature: Adopt Employee from other Organization
       And I fill in "last_name" with "Simpson" within the search form
       And I fill in "email" with "homer@thesimpsons.com" within the search form
       And I select "Sector 6-F" from "organization" within the search form
-      And I wait a bit
-     Then I should see the following table of employees:
+      And I wait for the spinner to disappear
+     Then I should see "1 Mitarbeiter gefunden"
+      And I should see the following table of employees:
         | Name            | WAZ  | E-Mail                 | Status  | Organisationen              |
         | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv   | Cooling Towers\nSector 6-F  |
 
      # Clear
      When I follow "Suchfilter zurücksetzen"
-      And I wait a bit
-     Then I should see the following table of employees:
+      And I wait for the spinner to disappear
+     Then I should see "2 Mitarbeiter gefunden."
+      And I should see the following table of employees:
         | Name            | WAZ  | E-Mail                 | Status                 | Organisationen              |
         | Simpson, Bart   |      |                        | Noch nicht eingeladen  | Sector 6-F                  |
         | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv                  | Cooling Towers\nSector 6-F  |
-      And I should see "2 Mitarbeiter gefunden."
 
      # search that yields no results
      When I fill in "first_name" with "Heinz"
-      And I wait a bit
-     Then I should see the following table of employees:
+      And I wait for the spinner to disappear
+     Then I should see "0 Mitarbeiter gefunden."
+      And I should see the following table of employees:
         | Name  | WAZ  | E-Mail  | Status  | Organisationen  |
-      And I should see "0 Mitarbeiter gefunden."
       And the adopt employee button should be disabled
 
      # Successful search again, work can continue
      When I follow "Suchfilter zurücksetzen"
       And I fill in "last_name" with "Simpson" within the search form
-      And I wait a bit
-     Then I should see the following table of employees:
+      And I wait for the spinner to disappear
+     Then I should see "2 Mitarbeiter gefunden."
+      And I should see the following table of employees:
         | Name            | WAZ  | E-Mail                 | Status                 | Organisationen              |
         | Simpson, Bart   |      |                        | Noch nicht eingeladen  | Sector 6-F                  |
         | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv                  | Cooling Towers\nSector 6-F  |
-      And I should see "2 Mitarbeiter gefunden."
       And the adopt employee button should not be disabled

@@ -46,7 +46,8 @@ class EmployeesController < BaseController
       :organization_id,
       :account_id,
       :shortcut,
-      :force_duplicate
+      :force_duplicate,
+      { qualification_ids: [] }
     ]
     permitted_attributes << :membership_role if planner_or_owner?
     params.require(:employee).permit(*permitted_attributes)

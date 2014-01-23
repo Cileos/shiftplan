@@ -34,6 +34,8 @@ class Ability
       # The user is not in the scope of an account. (A user can have multiple
       # accounts)
       authorize_signed_in(user)
+    else # the user is not logged in
+      authorize_anonymous
     end
     can :create, Feedback
   end
@@ -73,6 +75,8 @@ class Ability
     can [:read, :create, :destroy], IcalExport do |ie|
       user == ie.user
     end
+
+    can :update, Volksplaner::Undo::Step
   end
 
   def authorize_employee(user)
@@ -320,5 +324,9 @@ class Ability
       curr_organization == doc.plan.organization
     end
 
+  end
+
+  def authorize_anonymous
+    can :manage, Signup
   end
 end

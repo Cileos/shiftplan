@@ -74,6 +74,7 @@ Feature: Dashboard
      When I follow "Reaktor Fegen [RF]" within the schedulings module
      Then I should be on the employees in week page of the plan "Pumpen ölen" for cwyear: 2012, week: 50
      Then I should be somewhere under the page of the plan "Pumpen ölen"
+      And the cell "Mi"/"Homer S" should be focus
 
    Scenario: List recent news posts of company blogs of organizations I am a member in
     Given an organization "cooling towers" exists with name: "Cooling Towers", account: the account

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   include Volksplaner::Currents
   include Volksplaner::ControllerCaching
+  include Volksplaner::Undo::ControllerHelpers
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.debug('Access denied')
@@ -71,22 +72,13 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :nested_resources_for
-  # returns an array to be used in link_to and other helpers containing the full-defined nesting for the given resource
-  def nested_resources_for(resource, *extra)
-    case resource
-    when Comment
-      nested_resources_for(resource.commentable.blog) + [ resource.commentable, resource]
-    when Post
-      nested_resources_for(resource.blog) + [resource]
-    when Blog, Team, Plan, PlanTemplate
-      nested_resources_for(resource.organization) + [resource]
-    when Organization
-      [ resource.account, resource ]
-    when Shift
-      nested_resources_for(resource.plan_template) + [resource]
-    when Scheduling, AttachedDocument
-      nested_resources_for(resource.plan) + [resource]
-    end + extra
+  def nested_resources_for(*a)
+    Volksplaner.nested_resource_dispatcher.resources_for(*a)
+  end
+
+  helper_method :nested_show_resources_for
+  def nested_show_resources_for(*a)
+    Volksplaner.nested_resource_dispatcher.show_resources_for(*a)
   end
 
   helper_method :year_for_cweek_at
@@ -101,10 +93,14 @@ class ApplicationController < ActionController::Base
   end
 
   def set_flash(severity, key=nil, opts={})
+    flash[severity] = generate_flash_message(severity, key, opts)
+  end
+
+  def generate_flash_message(severity, key=nil, opts={})
     key ||= severity
-    action = opts.delete(:action) || params[:action]
+    action     = opts.delete(:action) || params[:action]
     controller = opts.delete(:controller) || params[:controller]
-    flash[severity] = t("flash.#{controller}.#{action}.#{key}", opts)
+    t("flash.#{controller}.#{action}.#{key}", opts)
   end
 
   # TODO test

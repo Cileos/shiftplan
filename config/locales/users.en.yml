@@ -9,10 +9,6 @@ en:
     attributes:
       user:
         email: "E-mail"
-        first_name: Name
-        last_name: Surname
-        organization_name: Unit name
-        account_name: Company name
         name: "Name"
         locale: "Language"
         receive_notification_emails: "Receive notification emails"

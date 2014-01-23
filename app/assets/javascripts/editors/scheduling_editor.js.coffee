@@ -1,5 +1,5 @@
 # Attributes:
-#   element: the jQuery element of a form used to edit a Scheduling
+#   element: the jQuery element of a form used to edit a Scheduling or Shift, basically anything with a start_time and end_time
 #
 #   be aware, that the Quickie input was removed, rendering half the code in here dead.
 #
@@ -41,7 +41,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     $('.weekday-and-time input[type=checkbox]').on 'change', => @updateDate()
 
   input: (name) ->
-    @get('element').find(":input[name=\"scheduling[#{name}]\"]")
+    @get('element').find(":input[name$=\"[#{name}]\"]")
 
   checkWeekdayForDate: ->
     weekday_selector = ".weekday-and-time input[type=checkbox][value='#{@date().val()}']"

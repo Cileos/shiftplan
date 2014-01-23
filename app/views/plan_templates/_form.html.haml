@@ -1,6 +1,7 @@
 = simple_form_for nested_resources_for(plan_template), remote: true do |f|
   .inputs.edit-team
     = f.input :name, autofocus: true
-    = f.input :template_type, collection: PlanTemplate.template_type_options, include_blank: false
+    = f.input :template_type, collection: PlanTemplate.template_type_options,
+      include_blank: false, input_html: { class: 'chosen-select' }
   .actions
     = f.create_or_update_button

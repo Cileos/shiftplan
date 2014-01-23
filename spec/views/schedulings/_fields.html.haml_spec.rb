@@ -11,7 +11,7 @@ describe 'schedulings/_fields.html.haml' do
   it "asks helper for selectable employees" do
     employees = [double, double]
     view.should_receive(:employees_for_select).with(scheduling).and_return(employees)
-    form_builder.should_receive(:association).with(:employee, as: :select, collection: employees)
+    form_builder.should_receive(:association).with(:employee, as: :select, collection: employees, input_html: { class: "chosen-select" } )
     render_partial locals: { f: form_builder }
   end
 

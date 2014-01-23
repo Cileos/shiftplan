@@ -99,8 +99,14 @@ Clockwork::Application.routes.draw do
     get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'
   end
 
+  put "undo" => 'undo#update', as: 'undo'
 
-  devise_for :users, :controllers => { registrations: 'owners/registrations', sessions: 'sessions'}
+
+  devise_for :users, :controllers => { registrations: 'signup', sessions: 'sessions'}
+
+  devise_scope :user do
+    resource :signup, controller: 'signup', only: [:show, :create]
+  end
 
   if Rails.env.test?
     scope 'test' do

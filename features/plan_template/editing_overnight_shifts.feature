@@ -20,10 +20,9 @@ Feature: Editing overnight shifts of plan templates
 
      When I click on the early shift "22:00-06:00"
       And I wait for the modal box to appear
-     Then the selected "Startstunde" should be "22"
-      And the selected "Endstunde" should be "6"
-     When I select "7" from "Endstunde"
-      And I select "21" from "Startstunde"
+     Then the "Startzeit" field should contain "22:00"
+      And the "Endzeit" field should contain "06:00"
+     When I schedule shift "21-7"
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
@@ -31,17 +30,19 @@ Feature: Editing overnight shifts of plan templates
         | Brennstabkessel(B)     |     |                                        |                                        |     |     |     |     |
         | Druckwasserreaktor(D)  |     | 21:00-07:00 3 x 2 x Brennstabpolierer  | 21:00-07:00 3 x 2 x Brennstabpolierer  |     |     |     |     |
 
+
   Scenario: Editing the team of overnight shifts
     Given I am on the teams in week page for the plan template
       And I click on the late shift "22:00-06:00"
       And I wait for the modal box to appear
-     When I select "Brennstabkessel" from "Team"
+     When I select "Brennstabkessel" from the "Team" single-select box
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
         | Teams                  | Mo  | Di                                     | Mi                                     | Do  | Fr  | Sa  | So  |
         | Brennstabkessel(B)     |     | 22:00-06:00 3 x 2 x Brennstabpolierer  | 22:00-06:00 3 x 2 x Brennstabpolierer  |     |     |     |     |
         | Druckwasserreaktor(D)  |     |                                        |                                        |     |     |     |     |
+
 
   Scenario: Deleting demands of overnight shifts
     Given I am on the teams in week page for the plan template

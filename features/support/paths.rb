@@ -15,7 +15,7 @@ module NavigationHelpers
       new_user_session_path
 
     when /the (?:signup|sign up) page/
-      new_user_registration_path
+      signup_path
 
     when /^the change (email|password) page$/
       send("change_#{$1}_path")

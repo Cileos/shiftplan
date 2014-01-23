@@ -101,6 +101,7 @@ gem 'devise'
 gem 'spectator-validates_email', :require => 'validates_email'
 gem 'cancan'
 gem 'simple_form', '~> 2.0.0'
+gem 'chosen-rails' # for making select boxes more userfriendly
 gem 'haml-rails'
 gem 'inherited_resources'
 gem 'draper', '~> 1.1.0'

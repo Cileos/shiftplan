@@ -134,15 +134,17 @@ When /^I assume the calendar will not change$/ do
   # calendar will be cleared after each scenario
 end
 
-When /^(?:I|they) schedule #{capture_quoted}$/ do |quickie_string|
+When /^(?:I|they) schedule (shift |)#{capture_quoted}$/ do |kind, quickie_string|
+  kind = 'scheduling' if kind.blank?
+  kind = kind.strip
   quickie = Quickie.parse(quickie_string)
 
   holder = OpenStruct.new
   quickie.fill(holder)
 
-  fill_in('scheduling_start_time', with: holder.start_time) if holder.start_time.present?
-  fill_in('scheduling_end_time', with: holder.end_time) if holder.end_time.present?
-  select(holder.team_name, :from => 'scheduling_team_id') if holder.team_name.present?
+  fill_in("#{kind}_start_time", with: holder.start_time) if holder.start_time.present?
+  fill_in("#{kind}_end_time", with: holder.end_time) if holder.end_time.present?
+  step %Q~I select "#{holder.team_name}" from the "Team" single-select box~ if holder.team_name.present?
 end
 
 # TODO same as "I fill in the empty" ?
@@ -159,6 +161,14 @@ Then /^I reschedule #{capture_quoted} and select #{capture_quoted} as #{capture_
   within_modal_box do
     step %Q~I schedule "#{quickie}"~
     select employee, from: employee_field
+    click_button "Speichern"
+  end
+end
+
+Then /^I reschedule #{capture_quoted} and select #{capture_quoted} as #{capture_quoted} in the single-select box$/ do |quickie, employee, employee_field|
+  within_modal_box do
+    step %Q~I schedule "#{quickie}"~
+    step %Q~I select "#{employee}" from the "#{employee_field}" single-select box~
     click_button "Speichern"
   end
 end

@@ -8,9 +8,6 @@ de:
           password: 'Neues Passwort'
           password_confirmation: 'Neues Passwort bestätigen'
     hints:
-      user:
-        account_name: 'z. B.: Veridian Dynamics (muss mit Buchstaben beginnen)'
-        organization_name: 'z. B.: Entwicklungsabteilung (muss mit Buchstaben beginnen)'
       plan:
         starts_at: 'z.B. 01.12.2012'
         ends_at: 'z.B. 31.12.2012'

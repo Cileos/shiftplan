@@ -12,6 +12,7 @@
 //= require xregexp
 //= require xregexp/unicode-base
 //= require xregexp/build
+//= require routie
 
 //= require_tree './lib'
 //= require bootstrap/dropdown
@@ -28,3 +29,4 @@
 //= require datepicker/jquery.datepick.ext.js
 //= require datepicker/jquery.datepick-de
 //= require bindWithDelay/bindWithDelay
+//= require chosen-jquery
