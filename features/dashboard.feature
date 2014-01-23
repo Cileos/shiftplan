@@ -121,13 +121,15 @@ Feature: Dashboard
      Then I should see a list of the following milestones:
         | name        | due_on     | responsible   | description |
         | Imma        |            |               |             |
+      And I should see a second list of the following milestones:
+        | name        | due_on     | responsible   | description |
         | Delta       |            | Carl Carlson  |             |
         | Gamma       |            |               | use Gloves  |
         | Beta        |            | Homer Simpson |             |
         | Closed Beta | 05.12.2012 | Homer Simpson | invite ppl  |
         # Null is already completed
         # Alpha is in the past
-      And I should see a list of the following tasks within the 5th milestone:
+      And I should see a list of the following tasks within the 4th milestone within the 2nd milestones list:
         | name         | due_on     | responsible   | description |
         | Invite Paula |            |               | before Paul |
         | Invite Paul  | 04.12.2012 | Homer Simpson |             |

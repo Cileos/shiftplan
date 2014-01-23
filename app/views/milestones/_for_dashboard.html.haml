@@ -3,13 +3,19 @@
     %h2= Milestone.model_name.human count: 9001
   .content
     - unless milestones.blank?
-      %ul.milestones
-        - milestones.each do |ms|
-          %li.milestone
-            = render 'doables/details', doable: ms, url: nested_resources_for(ms)
-            - unless ms.tasks.todo.empty?
-              %ul.tasks
-                - ms.tasks.todo.each do |t|
-                  %li.task= render 'doables/details', doable: t, url: nested_resources_for(t)
+      - milestones.group_by(&:plan).each do |plan, mss|
+        %h3
+          = link_to nested_resources_for(plan) do
+            = plan.organization.name
+            = ' / '
+            = plan.name
+        %ul.milestones
+          - mss.each do |ms|
+            %li.milestone
+              = render 'doables/details', doable: ms, url: nested_resources_for(ms)
+              - unless ms.tasks.todo.empty?
+                %ul.tasks
+                  - ms.tasks.todo.each do |t|
+                    %li.task= render 'doables/details', doable: t, url: nested_resources_for(t)
     - else
       %p= t('.none')
