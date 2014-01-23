@@ -46,11 +46,11 @@ Feature: Creating shifts for plan templates
      When I go to the teams in week page for the plan template
       And I click on cell "Di"/"Druckwasserreaktor(D)"
       And I wait for the modal box to appear
-     Then the selected "Team" should be "Druckwasserreaktor"
+     Then the selected "Team" of the single-select box should be "Druckwasserreaktor"
       And the selected "Tag" should be "Di"
      When I schedule shift "9-17"
       And I fill in "Anzahl" with "2"
-      And I select "Brennstabpolierer" from "Qualifikation"
+      And I select "Brennstabpolierer" from the "Qualifikation" single-select box
       And I follow "Anforderung hinzufügen"
       And I fill in the 2nd "Anzahl" with "3"
       And I press "Anlegen"
@@ -72,7 +72,7 @@ Feature: Creating shifts for plan templates
       And I wait for the modal box to appear
       When I schedule shift "22-6:15"
       And I fill in "Anzahl" with "2"
-      And I select "Brennstabpolierer" from "Qualifikation"
+      And I select "Brennstabpolierer" from the "Qualifikation" single-select box
       And I press "Anlegen"
       And I wait for the modal box to disappear
 

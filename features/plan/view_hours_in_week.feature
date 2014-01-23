@@ -28,7 +28,7 @@ Feature: View hours over weekdays in plan
      When I click on the "Di" column
       And I wait for the new scheduling form to appear
       And I schedule "9-17 Reaktor putzen"
-      And I select "Lenny L" from "Mitarbeiter"
+      And I select "Lenny L" from the "Mitarbeiter" single-select box
       And I press "Anlegen"
       And I wait for the new scheduling form to disappear
      Then I should see the following calendar:
@@ -42,7 +42,7 @@ Feature: View hours over weekdays in plan
       And I am on the hours in week page of the plan for cwyear: 2012, week: 49
 
      When I click on the scheduling "09:00-17:00"
-     Then I reschedule "1-23" and select "Lenny L" as "Mitarbeiter"
+     Then I reschedule "1-23" and select "Lenny L" as "Mitarbeiter" in the single-select box
       And I should see the following calendar:
        | Mo  | Di                      | Mi  | Do  | Fr  |
        |     | Lenny L 01:00-23:00 Rp  |     |     |     |

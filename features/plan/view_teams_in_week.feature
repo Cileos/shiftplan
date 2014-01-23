@@ -27,7 +27,7 @@ Feature: View Teams over weekdays in plan
       And I am on the teams in week page of the plan for cwyear: 2012, week: 49
      When I click on cell "Di"/"Reaktor putzen (Rp)"
       And I schedule "9-17"
-      And I select "Homer S" from "Mitarbeiter"
+      And I select "Homer S" from the "Mitarbeiter" single-select box
       And I press "Anlegen"
       And I wait for the modal box to disappear
 
@@ -44,7 +44,7 @@ Feature: View Teams over weekdays in plan
 
      When I click on the scheduling "09:00-17:00"
      # TODO should not show team in quickie?
-     Then I reschedule "1-23" and select "Lenny L" as "Mitarbeiter"
+     Then I reschedule "1-23" and select "Lenny L" as "Mitarbeiter" in the single-select box
       And I should see the following partial calendar:
        | Teams                | Mo  | Di                   | Mi  | Do  | Fr  |
        | Reaktor putzen (Rp)  |     | Lenny L 01:00-23:00  |     |     |     |

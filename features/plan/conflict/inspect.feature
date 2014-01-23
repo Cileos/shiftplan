@@ -56,7 +56,7 @@ Feature: Inspect conflicts on Schedulings
       And I wait for the modal box to disappear
       And I click on the scheduling "10:00-18:00"
       And I wait for the modal box to appear
-      And I select "Lenny L" from "Mitarbeiter"
+      And I select "Lenny L" from the "Mitarbeiter" single-select box
       And I press "Speichern"
       And I wait for the modal box to disappear
      # other employee => conflict gone
@@ -66,7 +66,7 @@ Feature: Inspect conflicts on Schedulings
 
      When I click on the scheduling "10:00-18:00"
       And I wait for the modal box to appear
-      And I select "Homer S" from "Mitarbeiter"
+      And I select "Homer S" from the "Mitarbeiter" single-select box
       And I press "Speichern"
       And I wait for the modal box to disappear
      # back to previous employee => conflict reappears

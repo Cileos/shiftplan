@@ -1,3 +1,4 @@
+@javascript
 Feature: Manage Teams
   In order to increase the readability of the plan
   As a Planer
@@ -6,7 +7,6 @@ Feature: Manage Teams
   Background:
     Given the situation of a nuclear reactor
 
-  @javascript
   Scenario: Adding a team on the teams page
     Given I am on the page for teams of the organization "Reactor"
      Then I should see "Es existieren noch keine Teams für diese Organisation."
@@ -35,6 +35,7 @@ Feature: Manage Teams
         | organization "Reactor"    | Jodausschank   |
         | organization "Government" | Entsorgung     |
       And I am on the page for the organization "Reactor"
+      And I follow "Stammdaten"
      When I follow "Teams"
      Then I should be on the page for teams of the organization "Reactor"
       And I should see the following table of teams:
@@ -45,8 +46,6 @@ Feature: Manage Teams
       But I should not see "Entsorgung"
       And I should not see "Es existieren noch keine Teams für diese Organisation."
 
-
-  @javascript
   Scenario: Modify the color of a team
     Given a team exists with organization: organization: "Reactor"
       And I am on the page for teams of the organization "Reactor"
@@ -64,7 +63,6 @@ Feature: Manage Teams
       And the team color should be "rgb(200, 59, 180)"
 
 
-  @javascript
   Scenario: Modify the shortcut of a team
     Given a team exists with name: "Uran rangieren", organization: organization: "Reactor"
       And I am on the page for teams of the organization "Reactor"

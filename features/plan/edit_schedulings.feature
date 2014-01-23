@@ -16,7 +16,7 @@ Feature: Edit Schedulings of a Plan
      When I click on the scheduling "07:00-23:15"
       And I wait for the modal box to appear
       And I choose "Do"
-      And I reschedule "1-23:44" and select "Homer S" as "Mitarbeiter"
+      And I reschedule "1-23:44" and select "Homer S" as "Mitarbeiter" in the single-select box
      Then I should see the following partial calendar:
         | Mitarbeiter    | Do           | Fr  |
         | Planner Burns  |              |     |
@@ -25,6 +25,7 @@ Feature: Edit Schedulings of a Plan
         | Homer S        | 01:00-23:45  |     |
       And the employee "Lenny L" should have a grey hours/waz value of "0"
       And the employee "Homer S" should have a yellow hours/waz value of "22¾ / 40"
+
 
   Scenario: Edit a scheduling in a cell with multiple schedulings
     Given the employee "Lenny" was scheduled in the plan as following:

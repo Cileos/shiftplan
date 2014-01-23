@@ -25,7 +25,7 @@ Feature: Attached documents
       When I follow "Dokument hochladen"
        And I wait for the modal box to appear
        And I attach the file "factories/attached_documents/howto.docx" to "Datei"
-       And I select "Weltherrschaft" from "Meilenstein"
+       And I select "Weltherrschaft" from the "Meilenstein" single-select box
        And I press "Hochladen"
        And I wait for the modal box to disappear
       Then I should see a list of the following attached_documents:
