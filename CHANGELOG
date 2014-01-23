@@ -1,6 +1,15 @@
 Changelog
 =========
 
+Release 1.0.11 2014-01-23 12:35
+-------------------------------
+93278d8 Merge pull request #219 from Cileos/feature/assign-qualifications-to-employees
+42414af Merge pull request #229 from Cileos/feature/signup-with-malformed-account-name
+3aae8b3 Merge pull request #230 from Cileos/feature/undo-apply_plan_template
+a115334 Merge pull request #215 from Cileos/feature/jump-to-scheduling
+61f74c9 Merge pull request #231 from Cileos/feature/shifts-with-15-minutes
+36ba6ef Merge pull request #227 from Cileos/feature/unfocus-cells-when-leaving-calendar-with-mouse
+
 Release 1.0.10 2014-01-21 10:25
 ------------------------------
 092aa17 Merge branch 'feature/add-datepicker-hints-in-correct-english-date-format' into develop
