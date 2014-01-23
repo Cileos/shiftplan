@@ -1,5 +1,9 @@
 class NestedResourceDispatcher
 
+  def initialize(view)
+    @view = view
+  end
+
   # returns an array to be used in form_for containing the full-defined nesting for the given resource.
   def resources_for(resource, *extra)
     case resource
@@ -15,6 +19,12 @@ class NestedResourceDispatcher
       resources_for(resource.plan_template) + [resource]
     when Scheduling, AttachedDocument
       resources_for(resource.plan) + [resource]
+    when Milestone, Task
+      if d = resource.due_at
+        return @view.account_organization_plan_employees_in_week_path(*resources_for(resource.plan), cwyear: d.cwyear, week: d.cweek)
+      else
+        resources_for(resource.plan)
+      end
     else
       raise ArgumentError, "cannot find nesting for #{resource.inspect}"
     end + extra

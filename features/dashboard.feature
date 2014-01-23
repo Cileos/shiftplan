@@ -140,4 +140,6 @@ Feature: Dashboard
         | Beta        |            | Homer Simpson |             |
         | Closed Beta | 05.12.2012 | Homer Simpson | invite ppl  |
         # Imma is in another org |
+     When I follow "Closed Beta"
+     Then I should be on the employees in week page of the plan "Brennstäbe" for cwyear: 2012, week: 49
 

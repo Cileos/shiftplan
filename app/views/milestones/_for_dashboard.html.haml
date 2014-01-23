@@ -1,9 +1,15 @@
-- unless milestones.blank?
-  %ul.milestones
-    - milestones.each do |ms|
-      %li.milestone
-        = render 'doables/details', doable: ms, url: '#'
-        - unless ms.tasks.todo.empty?
-          %ul.tasks
-            - ms.tasks.todo.each do |t|
-              %li.task= render 'doables/details', doable: t, url: '#'
+.module.milestones
+  %header
+    %h2= Milestone.model_name.human count: 9001
+  .content
+    - unless milestones.blank?
+      %ul.milestones
+        - milestones.each do |ms|
+          %li.milestone
+            = render 'doables/details', doable: ms, url: nested_resources_for(ms)
+            - unless ms.tasks.todo.empty?
+              %ul.tasks
+                - ms.tasks.todo.each do |t|
+                  %li.task= render 'doables/details', doable: t, url: nested_resources_for(t)
+    - else
+      %p= t('.none')

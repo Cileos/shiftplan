@@ -12,6 +12,9 @@ describe NestedResourceDispatcher do
   let(:scheduling)    { stub_model Scheduling, plan: plan }
   let(:attached_doc)  { stub_model AttachedDocument, plan: plan }
 
+  let(:view)          { double 'View' }
+  subject { described_class.new(view) }
+
   describe '#resources_for' do
 
 
