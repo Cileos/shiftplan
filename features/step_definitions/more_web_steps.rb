@@ -205,3 +205,34 @@ end
 Before '~@javascript' do # cannot set headers with selenium
   add_headers 'Accept-Language' => nil # clear
 end
+
+module ErrorFieldFinder
+  def find_error_field(field_name)
+    begin
+      field = find_field(field_name)
+    rescue Capybara::ElementNotFound => e
+      fail %Q~could not find field "#{field_name}"~
+    end
+    begin
+      field.find(:xpath, 'following-sibling::span[@class="error"]')
+    rescue Capybara::ElementNotFound => e
+      fail %Q~could not find error field for "#{field_name}"~
+    end
+  end
+end
+
+World(ErrorFieldFinder)
+
+Then /^the #{capture_quoted} field should have error #{capture_quoted}$/ do |field_name, expected_error|
+  find_error_field(field_name).text.should include(expected_error)
+end
+
+Then /^I should see the following validation errors:$/ do |expected_errors|
+  found = expected_errors.rows_hash.map do |field, error|
+    [
+      field,
+      (find_error_field(field).text rescue '')
+    ]
+  end
+  expected_errors.diff! found
+end

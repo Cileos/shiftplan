@@ -24,11 +24,16 @@ class Account < ActiveRecord::Base
 
   validates_format_of :name, with: Volksplaner::NameRegEx
   validates_presence_of :name
-  validates_presence_of :organization_name,
-                        :first_name,
-                        :last_name,
-                        :user_id,
-                        if: Proc.new { |a| a.on_new_account }
+
+  # TODO extract to AccountCreation/Signup or similar
+  with_options if: Proc.new { |a| a.on_new_account } do |on_new_account|
+    on_new_account.validates_presence_of :organization_name,
+                                         :first_name,
+                                         :last_name,
+                                         :user_id
+    on_new_account.validates_format_of :organization_name, with: Volksplaner::NameRegEx
+    on_new_account.validates_format_of :first_name, :last_name, with: Volksplaner::HumanNameRegEx, allow_nil: true
+  end
 
   def user
     User.find(user_id)

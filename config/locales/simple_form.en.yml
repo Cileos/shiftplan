@@ -8,9 +8,6 @@ en:
           password: 'New password'
           password_confirmation: 'Confirm new password'
     hints:
-      user:
-        account_name: 'e.g. Yellow Submarine Inc. (must start with a letter)'
-        organization_name: 'e.g. Engineering Beetles (must start with a letter)'
       plan:
         starts_at: 'e.g. 02/01/2013 (mm/dd/yyyy)'
         ends_at: 'e.g. 02/10/2013 (mm/dd/yyyy)'

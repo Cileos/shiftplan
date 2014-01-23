@@ -15,5 +15,5 @@
           %li= link_to :settings, edit_profile_employee_path(current_user.employees.first), :class => 'icon-settings'
         %li= link_to :signout, destroy_user_session_path, :method => :delete, :class => 'icon-signout'
   - else
-    %li= link_to :signup, new_user_registration_path, :class => 'icon-signup'
+    %li= link_to :signup, signup_path, :class => 'icon-signup'
     %li= link_to :signin, new_user_session_path, :class => 'icon-signin'
