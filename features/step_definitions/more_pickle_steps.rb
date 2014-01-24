@@ -85,3 +85,11 @@ Given /^mr burns, owner of the Springfield Nuclear Power Plant exists$/ do
     step %{I use a german browser}
   end
 end
+
+Given /^#{capture_quoted} was suspended from #{capture_quoted}$/ do |employee_ref, org_ref|
+  membership = Membership.where(
+                                employee_id:     model!(%Q~employee "#{employee_ref}"~).id,
+                                organization_id: model!(%Q~organization "#{org_ref}"~).id
+  ).first!
+  membership.update_attributes! suspended: true
+end
