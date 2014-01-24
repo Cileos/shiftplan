@@ -23,5 +23,5 @@ Feature: Suspended employees on Plan
         | 2012-02-14 | 7-23    |
       And I am on the page of the plan
      Then I should see "Homer" within the calendar
-      And I should see "Lenny" within the calendar
+      And I should see "Lenny" within ".employee.suspended" within the calendar
       And I should see "07:00-23:00" within the calendar
