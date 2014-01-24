@@ -14,10 +14,6 @@ Clockwork.Doable = Ember.Mixin.create
       return value
   ).property('due_at', 'Clockwork.settings.dateFormat')
 
-  commitDone: (->
-    @get('store').commit()
-  ).observes('done')
-
   # as long as ember-data does not handle server-side validations, we have to do this manually
   # DEAD code for now, we managed to handle server-side validations
   validate: ->
