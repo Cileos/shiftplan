@@ -1,5 +1,5 @@
 Clockwork.Milestone = DS.Model.extend Clockwork.Doable,
-  tasks: DS.hasMany('Clockwork.Task')
+  tasks: DS.hasMany('task')
   savedTasks: (->
     @get('tasks').filterProperty('isNew', false)
   ).property('tasks', 'tasks.@each.isNew')
