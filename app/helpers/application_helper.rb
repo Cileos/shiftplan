@@ -19,4 +19,11 @@ module ApplicationHelper
   def static_landing_page_url
     'http://clockwork.io'
   end
+
+  def yes_or_no_tag( bool )
+    yes_or_no = bool ? 'yes' : 'no'
+    human     = t("dialogue.#{yes_or_no}")
+    content_tag :span, human, :class => "bool #{yes_or_no}"
+  end
+
 end
