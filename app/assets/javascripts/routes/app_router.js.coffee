@@ -20,3 +20,13 @@ Clockwork.Router.reopen
     @get('applicationController').connectOutlet 'modal', opts...
   closeModal: ->
     @get('applicationController').disconnectOutlet 'modal'
+
+Clockwork.IndexRoute = Ember.Route.extend
+  beforeModel: ->
+    @transitionTo 'milestones'
+
+Clockwork.MilestonesIndexRoute = Ember.Route.extend
+  model: ->
+    @store.find 'milestone'
+  setupController: (controller)->
+    console?.debug 'milestones setup controller', controller
