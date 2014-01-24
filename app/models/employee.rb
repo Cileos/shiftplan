@@ -104,11 +104,11 @@ class Employee < ActiveRecord::Base
   def membership_for_organization(org)
     org = org.id if org.is_a?(ActiveRecord::Base)
     raise ArgumentError, "no organization/id given" if org.nil?
-    memberships.where(organization_id: org).first!
+    memberships.where(organization_id: org).first
   end
 
   def current_membership
-    @current_membership ||= membership_for_organization(organization_id)
+    @current_membership ||= membership_for_organization(organization_id) || memberships.build(organization_id: organization_id)
   end
 
 
@@ -128,17 +128,12 @@ class Employee < ActiveRecord::Base
 
   def update_or_create_membership
     if organization_id
-      m = find_or_build_membership
+      m = current_membership
       if membership_role.to_s != 'owner'
         m.role = membership_role
       end
       m.save!
     end
-  end
-
-  def find_or_build_membership
-    current_membership ||
-      memberships.build(organization_id: organization_id)
   end
 
   def reset_duplicates
