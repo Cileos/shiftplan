@@ -5,8 +5,8 @@
 //= require space-pen/space-pen
 //= require jquery.minicolors
 //= require handlebars
-//= require ember-latest
-//= require ember-data-latest
+//= require ember
+//= require ember-data
 //= require ember-rails-flash
 // for QuickieParser
 //= require xregexp
