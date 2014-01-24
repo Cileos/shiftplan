@@ -9,6 +9,7 @@
 #= require_tree ./routes
 
 Clockwork = Ember.Application.create
+  LOG_TRANSITIONS: true
   rootElement: '#milestones'
   Fields: Ember.Object.extend()
 
