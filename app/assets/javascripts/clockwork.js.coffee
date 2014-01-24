@@ -35,6 +35,7 @@ window.Clockwork = Clockwork
 jQuery ->
   if ($root = $('#milestones')).length > 0
     # base all URLs on current plan
-    root_url = (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
+    Clockwork.ApplicationAdapter = DS.RESTAdapter.extend
+      namespace: (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
     Clockwork.set 'current_user', Ember.Object.create(role: $root.data('role'))
     Clockwork.advanceReadiness()
