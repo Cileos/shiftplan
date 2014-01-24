@@ -25,8 +25,6 @@ Clockwork.IndexRoute = Ember.Route.extend
   beforeModel: ->
     @transitionTo 'milestones'
 
-Clockwork.MilestonesIndexRoute = Ember.Route.extend
+Clockwork.MilestonesRoute = Ember.Route.extend
   model: ->
     @store.find 'milestone'
-  setupController: (controller)->
-    console?.debug 'milestones setup controller', controller
