@@ -9,18 +9,11 @@
 #= require_tree ./routes
 
 Clockwork = Ember.Application.create
-  autoinit: false
   rootElement: '#milestones'
   Fields: Ember.Object.extend()
 
-Clockwork.store = DS.Store.create
-  revision: 7
-  adapter: DS.RESTAdapter.create
-    bulkCommit: false
-    mappings:
-      responsibles: 'Clockwork.Employee'
-    #plurals:
-    #  directory: 'directories'
+# can be removed when we use Ember everywhere
+Clockwork.deferReadiness()
 
 Clockwork.settings = Ember.Object.create
   dateFormat: 'yyyy-mm-dd' # TODO globalize
@@ -41,7 +34,6 @@ window.Clockwork = Clockwork
 jQuery ->
   if ($root = $('#milestones')).length > 0
     # base all URLs on current plan
-    Clockwork.store.get('adapter').set 'namespace', (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
-    Clockwork.set 'employees', Clockwork.Employee.find()
+    root_url = (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
     Clockwork.set 'current_user', Ember.Object.create(role: $root.data('role'))
-    Clockwork.initialize()
+    Clockwork.advanceReadiness()
