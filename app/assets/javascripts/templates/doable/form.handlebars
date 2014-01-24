@@ -19,7 +19,7 @@
   </div>
 </div>
 
-{{#if can_manage}}
+{{#if currentUser.canManage}}
   <div class="actions">
   {{#unless isNew}}
       <button class="button-warning delete" {{action doDelete}}>Löschen</button>

@@ -19,16 +19,19 @@ Clockwork.deferReadiness()
 Clockwork.settings = Ember.Object.create
   dateFormat: 'yyyy-mm-dd' # TODO globalize
 
-# FIXME: cheap way of re-implementing abilities.
-#
-# If we do not want to send a Request for each resource  to the server, we
-# have to re-implement something like cancan.
-Clockwork.isOwnerOrPlanner = ->
-  (->
-    role = Clockwork.get('current_user.role')
-    role is 'owner' or role is 'planner'
-  ).property('Clockwork.current_user.role')
+Clockwork.initializer
+  # injects 'currentUser' in every controller for authorization
+  name: 'currentUser'
+  initialize: (container) ->
+    Clockwork.deferReadiness()
+    $ ->
+      $root = $(Clockwork.rootElement)
+      user = Ember.Object.create
+        role: $root.data('role')
 
+      controller = container.lookup('controller:currentUser').set('content', user)
+      container.typeInjection('controller', 'currentUser', 'controller:currentUser')
+      Clockwork.advanceReadiness()
 
 window.Clockwork = Clockwork
 
@@ -37,5 +40,4 @@ jQuery ->
     # base all URLs on current plan
     Clockwork.ApplicationAdapter = DS.RESTAdapter.extend
       namespace: (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
-    Clockwork.set 'current_user', Ember.Object.create(role: $root.data('role'))
     Clockwork.advanceReadiness()

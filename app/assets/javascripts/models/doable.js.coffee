@@ -34,5 +34,3 @@ Clockwork.Doable = Ember.Mixin.create
 
 
   responsible: DS.belongsTo('employee', key: 'responsible_id')
-
-  can_manage: Clockwork.isOwnerOrPlanner()
