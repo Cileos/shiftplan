@@ -7,7 +7,11 @@ parseIso8601 = (str) ->
   return null unless str?
   $.datepick.parseDate('yyyy-mm-dd*', str)
 
-$.fn.rails_datepick = ->
+default_options =
+  onSelect: (dates)-> #nuffin
+
+$.fn.rails_datepick = (options)->
+  options = $.extend default_options, options
   $(this).each ->
     $stringy = $(this)
 
@@ -24,6 +28,7 @@ $.fn.rails_datepick = ->
         onSelect: (dates) ->
           date = dates[0]
           $iso.val($.datepick.formatDate($.datepick.ISO_8601, date))
+          options.onSelect.apply(this, arguments)
      .datepick('setDate', default_date)
 
 
