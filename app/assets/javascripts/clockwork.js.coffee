@@ -32,6 +32,8 @@ Clockwork.initializer
       container.typeInjection('controller', 'currentUser', 'controller:currentUser')
       Clockwork.advanceReadiness()
 
+Clockwork.ApplicationSerializer = DS.ActiveModelSerializer.extend()
+
 window.Clockwork = Clockwork
 
 jQuery ->
