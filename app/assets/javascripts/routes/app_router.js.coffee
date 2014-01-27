@@ -43,12 +43,14 @@ Clockwork.MilestonesNewRoute = Ember.Route.extend
       responsible:      null
   actions:
     save: ->
-      @modelFor('milestones.new')
-        .save()
+      mo = @modelFor('milestones.new')
+      mo.get("errors").clear() # allows retry saving
+      mo.save()
         .then =>
           @transitionTo 'milestones'
         , =>
-          m = @modelFor('milestones.new')
+          # must be here to catch the error. We display the error(s) in the
+          # form, retry possible.
           console?.debug 'failed to create milestone'
     cancel: ->
       @modelFor('milestones.new').rollback()
