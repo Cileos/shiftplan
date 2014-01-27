@@ -1,3 +1,4 @@
+# TODO make this usable in a route
 Clockwork.ModalMixin = Ember.Mixin.create
   classNames: ['modalor']
   layout: Ember.Handlebars.compile("{{yield}}")
@@ -22,5 +23,5 @@ Clockwork.ModalMixin = Ember.Mixin.create
   close: -> @$().dialog('close')
 
   dialogclose: (event, ui) ->
-    Clockwork.get('router').send('cancel')
+    #    Clockwork.get('router').send('cancel')
 
