@@ -21,6 +21,11 @@ Clockwork.Router.reopen
   closeModal: ->
     @get('applicationController').disconnectOutlet 'modal'
 
+Clockwork.ApplicationRoute = Ember.Route.extend
+  setupController: (controller)->
+    # preload models to populate forms
+    @controllerFor('employees').set('model', @store.find('employee'))
+
 Clockwork.IndexRoute = Ember.Route.extend
   beforeModel: ->
     @transitionTo 'milestones'
