@@ -35,14 +35,22 @@ Clockwork.MilestonesRoute = Ember.Route.extend
     @store.find 'milestone'
 
 Clockwork.MilestonesNewRoute = Ember.Route.extend
+  model: ->
+    Ember.Object.create
+      name:            ''
+      due_at:           null
+      description:      ''
+      responsible:      null
   actions:
     save: ->
-      c = @get('controller')
+      c = @get('controller.content')
       ms = @store.createRecord 'milestone',
-        name: c.get('name')
+        name:              c.get('name')
+        due_at:            c.get('due_at')
+        description:       c.get('description')
+        responsible:       c.get('responsible')
 
       ms.save()
         .then =>
           @transitionTo 'milestones'
-          c.set 'name', ''
 
