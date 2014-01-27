@@ -1,3 +1,4 @@
+#= require_tree ./ember-patches
 #= require_self
 #= require_tree ./mixins
 #= require_tree ./models
@@ -39,6 +40,6 @@ window.Clockwork = Clockwork
 jQuery ->
   if ($root = $('#milestones')).length > 0
     # base all URLs on current plan
-    Clockwork.ApplicationAdapter = DS.RESTAdapter.extend
+    Clockwork.ApplicationAdapter = DS.ActiveModelAdapter.extend
       namespace: (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
     Clockwork.advanceReadiness()
