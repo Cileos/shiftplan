@@ -14,13 +14,6 @@ Clockwork.Router.map ->
   @route 'scheduling', path: '/schedulings/:id'
   @route 'scheduling_comments', path: '/schedulings/:id/comments'
 
-Clockwork.Router.reopen
-  openModal: (opts...) ->
-    # The used View must mixin Clockwork.ModalMixin
-    @get('applicationController').connectOutlet 'modal', opts...
-  closeModal: ->
-    @get('applicationController').disconnectOutlet 'modal'
-
 Clockwork.ApplicationRoute = Ember.Route.extend
   setupController: (controller)->
     # preload models to populate forms
