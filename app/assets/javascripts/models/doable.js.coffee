@@ -14,4 +14,9 @@ Clockwork.Doable = Ember.Mixin.create
       return value
   ).property('due_at', 'Clockwork.settings.dateFormat')
 
+  # automatically saves the model when it's checkbox is ticked
+  commitDone: (->
+    @save() if @get('isDirty')
+  ).observes('done')
+
   responsible: DS.belongsTo('employee', key: 'responsible_id')
