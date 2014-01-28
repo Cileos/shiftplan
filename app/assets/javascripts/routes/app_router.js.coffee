@@ -4,8 +4,8 @@
 Clockwork.Router.map ->
   @resource 'milestones', ->
     @route 'new'
+    @route 'edit', path: ':milestone_id'
   @resource 'milestone', path: '/milestone/:milestone_id', ->
-    @route 'edit'
     @resource 'tasks', ->
       @route 'new'
     @route 'task', path: 'tasks/:task_id'
@@ -34,6 +34,25 @@ Clockwork.MilestonesRoute = Ember.Route.extend
   model: ->
     @store.find 'milestone'
 
+
+milestoneModalActions =
+  save: ->
+    mo = @modelFor(@routeName)
+    mo.get("errors").clear() # allows retry saving
+    mo.save()
+      .then =>
+        @transitionTo 'milestones'
+      , =>
+        # must be here to catch the error. We display the error(s) in the
+        # form, retry possible.
+        console?.debug "failed to #{@routeName} milestone"
+  cancel: ->
+    @modelFor(@routeName).rollback()
+    @transitionTo 'milestones'
+
+Clockwork.MilestonesEditRoute = Ember.Route.extend
+  actions: milestoneModalActions
+
 Clockwork.MilestonesNewRoute = Ember.Route.extend
   model: ->
     @store.createRecord 'milestone',
@@ -41,18 +60,5 @@ Clockwork.MilestonesNewRoute = Ember.Route.extend
       due_at:           null
       description:      ''
       responsible:      null
-  actions:
-    save: ->
-      mo = @modelFor('milestones.new')
-      mo.get("errors").clear() # allows retry saving
-      mo.save()
-        .then =>
-          @transitionTo 'milestones'
-        , =>
-          # must be here to catch the error. We display the error(s) in the
-          # form, retry possible.
-          console?.debug 'failed to create milestone'
-    cancel: ->
-      @modelFor('milestones.new').rollback()
-      @transitionTo 'milestones'
+  actions: milestoneModalActions
 
