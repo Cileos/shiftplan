@@ -8,7 +8,7 @@ Clockwork.ModalMixin = Ember.Mixin.create
       closeOnEscape: false
       modal: true
       title: @get('heading')
-      close: @dialogclose
+      close: => @dialogclose(arguments)
       zIndex: 500
 
     # jQueryIU attaches a dialog box to the body by default. we want to react
@@ -23,5 +23,5 @@ Clockwork.ModalMixin = Ember.Mixin.create
   close: -> @$().dialog('close')
 
   dialogclose: (event, ui) ->
-    #    Clockwork.get('router').send('cancel')
+    @get('controller.target').send('cancel')
 
