@@ -14,19 +14,4 @@ Clockwork.Doable = Ember.Mixin.create
       return value
   ).property('due_at', 'Clockwork.settings.dateFormat')
 
-  # as long as ember-data does not handle server-side validations, we have to do this manually
-  # DEAD code for now, we managed to handle server-side validations
-  validate: ->
-    errors = Ember.Object.create()
-    valid = true
-    if !@get('name')? or @get('name.length') == 0 or @get('name').replace(/\s+/g,'').length == 0
-      valid = false
-      errors.set 'name', 'muss ausgefüllt werden!!'
-    # ---------------
-    unless valid
-      @send 'becameInvalid', errors
-
-    valid
-
-
   responsible: DS.belongsTo('employee', key: 'responsible_id')
