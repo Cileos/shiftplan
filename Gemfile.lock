@@ -53,13 +53,6 @@ GIT
       paint (>= 0.8.4)
 
 GIT
-  remote: git://github.com/rails-api/active_model_serializers.git
-  revision: e79fe399a53bb79b22f040697681617eea8cedbc
-  specs:
-    active_model_serializers (0.5.2)
-      activemodel (>= 3.0)
-
-GIT
   remote: git@github.com:rwrede/nested_form.git
   revision: 5c78a4137124defa96aa65470c6095707d218488
   specs:
@@ -85,6 +78,8 @@ GEM
     active_attr (0.5.1)
       activemodel (>= 3.0.2, < 4.1)
       activesupport (>= 3.0.2, < 4.1)
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.0)
     activemodel (3.2.16)
       activesupport (= 3.2.16)
       builder (~> 3.0.0)
@@ -457,7 +452,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   active_attr (~> 0.5.0.alpha2)
-  active_model_serializers!
+  active_model_serializers (~> 0.8.0)
   acts_as_commentable_with_threading (~> 1.1.2)!
   backup
   better_errors

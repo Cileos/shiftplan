@@ -13,7 +13,7 @@ Clockwork.Milestone = DS.Model.extend Clockwork.Doable,
           -1 # b is null => to bottom
       else
         1 # a is null => to buttom
-  ).property('savedTasks', 'savedTasks.@each.id')
+  ).property('savedTasks', 'savedTasks.@each.due_at')
 
   checkboxDisabled: (->
     if @get('savedTasks').every( (task) -> task.get('done') )
