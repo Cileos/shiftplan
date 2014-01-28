@@ -49,6 +49,14 @@ milestoneModalActions =
   cancel: ->
     @modelFor(@routeName).rollback()
     @transitionTo 'milestones'
+  doDelete: ->
+    mo = @modelFor(@routeName)
+    mo.deleteRecord()
+    mo.save()
+      .then =>
+        @transitionTo 'milestones'
+      , =>
+        console?.debug "failed to delete milestone, try again later"
 
 Clockwork.MilestonesEditRoute = Ember.Route.extend
   actions: milestoneModalActions
