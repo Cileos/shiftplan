@@ -63,3 +63,6 @@ Clockwork.MilestonesNewRoute = Ember.Route.extend
       responsible:      null
   actions: milestoneModalActions
 
+Clockwork.MilestoneTaskRoute = Ember.Route.extend
+  actions: milestoneModalActions
+
