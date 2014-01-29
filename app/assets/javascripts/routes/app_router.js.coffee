@@ -6,8 +6,7 @@ Clockwork.Router.map ->
     @route 'new'
     @route 'edit', path: ':milestone_id'
   @resource 'milestone', path: '/milestone/:milestone_id', ->
-    @resource 'tasks', ->
-      @route 'new'
+    @route 'newTask'
     @route 'task', path: 'tasks/:task_id'
 
   # these are handled by routie and are just here to not confuse Ember
@@ -73,3 +72,19 @@ Clockwork.MilestonesNewRoute = Ember.Route.extend
 Clockwork.MilestoneTaskRoute = Ember.Route.extend
   actions: milestoneModalActions
 
+Clockwork.MilestoneNewTaskRoute = Ember.Route.extend
+  beforeModel: (transition)->
+    if m = transition.providedModels.milestone
+      @set 'milestone', m
+    else
+      @store.find('milestone', transition.params.milestone_id).then (ms)=>
+        @set 'milestone', ms
+  model: (_, transition)->
+    task = @store.createRecord 'task',
+      name:            ''
+      due_at:           null
+      description:      ''
+      responsible:      null
+      milestone:        @get('milestone')
+
+  actions: milestoneModalActions

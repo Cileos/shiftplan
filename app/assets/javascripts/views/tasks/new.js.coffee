@@ -1,3 +1,3 @@
-Clockwork.NewTaskView = Clockwork.NewDoable.extend
+Clockwork.MilestoneNewTaskView = Clockwork.NewDoable.extend
   heading: 'neue Aufgabe'
 
