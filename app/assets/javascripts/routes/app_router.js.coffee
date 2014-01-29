@@ -15,9 +15,15 @@ Clockwork.Router.map ->
   @route 'scheduling_comments', path: '/schedulings/:id/comments'
 
 Clockwork.ApplicationRoute = Ember.Route.extend
-  setupController: (controller)->
-    # preload models to populate forms
-    @controllerFor('employees').set('model', @store.find('employee'))
+  model: ->
+    Em.RSVP.hash
+      employees: @store.find('employee')
+      milestones: @store.find('milestone')
+  setupController: (controller, model)->
+    # populate forms
+    @controllerFor('employees').set('model', model.employees)
+    # always rendered
+    @controllerFor('milestones').set('model', model.milestones)
 
 Clockwork.IndexRoute = Ember.Route.extend
   beforeModel: ->
@@ -26,6 +32,7 @@ Clockwork.IndexRoute = Ember.Route.extend
 Clockwork.MilestonesRoute = Ember.Route.extend
   model: ->
     @store.find 'milestone'
+  render: -> #nothing, we render it permanentely in application.hb
 
 
 milestoneModalActions =
