@@ -66,6 +66,16 @@ describe CopyWeek do
     target_monday_schedulings.should_not be_empty
   end
 
+  it "remembers all copied schedulings on monday" do
+    source(cwday: 1, quickie: '8-16')
+    source(cwday: 2, quickie: '8-16')
+    copy.save
+    copy.created_schedulings.should have(2).records
+    copy.created_schedulings.each do |s|
+      s.should be_a(Scheduling)
+    end
+  end
+
   it "copies nightshift schedulings on weekends" do
     source(cwday: 6, quickie: '22-6')
     copy.save
