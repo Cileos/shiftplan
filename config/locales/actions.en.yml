@@ -29,34 +29,34 @@ en:
       plan_templates: Plan Templates
       add: Add
       adopt: Adopt
-      new_employee: "Create user"
-      add_employee: "Add employee"
+      new_employee: "Create User"
+      add_employee: "Add Employee"
       add_organization: "Add Unit"
       edit_organization: Edit unit
-      adopt_employee: "Adopt employee"
+      adopt_employee: "Adopt Employee"
       want_to_adopt: "Adopt this employee?"
-      adopt_employees: "Adopt employees"
-      new_team: "New team"
-      edit_team: "Edit team"
+      adopt_employees: "Adopt Employees"
+      new_team: "New Team"
+      edit_team: "Edit Team"
       new_qualification: Add Qualification
       edit_qualification: Edit Qualification
       new_plan_template: Add Plan Template
       edit_plan_template: Edit Plan Template
       new_attached_document: Upload new document
-      new_team_merge: "Merge teams"
-      edit_employee: "Edit employee"
+      new_team_merge: "Merge Teams"
+      edit_employee: "Edit Employee"
       all_organizations: "All units"
       plans: Plans
       all_plans: "All plans"
       all_posts: "All posts"
       new_plan: "New plan"
       edit_plan: "Edit plan"
-      new_scheduling: "New scheduling"
+      new_scheduling: "New Scheduling"
       new_shift: New Shift
       edit_shift: Edit Shift
       demands: Demands
-      add_demand: "add demand"
-      remove_demand: "remove demand"
+      add_demand: "Add demand"
+      remove_demand: "Remove demand"
       new_plan_template: New Plan Template
       new_organization: "Create another Unit"
       next: Next

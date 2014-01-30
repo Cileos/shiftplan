@@ -17,10 +17,10 @@ de:
         start_minute: Startminute
         end_hour: Endstunde
         end_minute: Endminute
-        starts_at: Startzeit
-        ends_at: Endzeit
-        start_time: Startzeit
-        end_time: Endzeit
+        starts_at: Beginn
+        ends_at: Ende
+        start_time: Beginn
+        end_time: Ende
   simple_form:
     labels:
       defaults:

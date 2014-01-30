@@ -12,8 +12,10 @@ en:
         day: Day
         date: Weekday
         quickie: Quickie
-        starts_at: Start time
-        ends_at: End time
+        starts_at: Start
+        ends_at: End
+        start_time: Start
+        end_time: End
   simple_form:
     labels:
       defaults:
