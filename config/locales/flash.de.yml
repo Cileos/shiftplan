@@ -25,3 +25,5 @@ de:
     copy_week:
       create:
         notice: "Alle Termine wurden erfolgreich übernommen."
+        undo:  "Die kopierte Woche wurde gelöscht."
+
