@@ -116,6 +116,10 @@ class Ability
     can :read, Task do |task|
       curr_employee.organizations.include?(task.milestone.plan.organization)
     end
+
+    can :index, Employee do |empl|
+      (curr_employee.organizations & empl.organizations).length > 0
+    end
   end
 
   # As a planner or an owner must not have a membership for an organization of
