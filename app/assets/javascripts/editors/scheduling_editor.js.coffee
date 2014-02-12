@@ -27,14 +27,14 @@ Clockwork.SchedulingEditor = Ember.Object.extend
 
     @input('start_time')
       .timeEntry(timeoptions)
-      .bindWithDelay('keyup mousewheel', (=> @updateQuickie()), 150)
+      #.bindWithDelay('keyup mousewheel', (=> @updateQuickie()), 150)
       .focus()
     @input('end_time')
       .timeEntry(timeoptions)
-      .bindWithDelay('keyup mousewheel', (=> @updateQuickie()), 150)
+      #.bindWithDelay('keyup mousewheel', (=> @updateQuickie()), 150)
 
-    @input('team_id')
-      .bindWithDelay('change', (=> @updateQuickie()), 150)
+    #@input('team_id')
+    #  .bindWithDelay('change', (=> @updateQuickie()), 150)
 
     @checkWeekdayForDate()
 
