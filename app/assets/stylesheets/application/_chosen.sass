@@ -1,0 +1,25 @@
+// otherwise the 'selects' are hidden
+.ui-dialog.has-chosen,
+.ui-dialog.has-chosen .ui-dialog-content
+  overflow: visible
+
+.chosen-container,
+.chosen-container *
+  +box-sizing(content-box)
+
+.chosen-container
+  margin-top: 0.25em
+  min-width: 100% !important
+  max-width: 100% !important
+
+  .chosen-results
+    li.highlighted
+      color: #fff
+      background: $ci_blue
+
+  .chosen-choices
+    @extend textarea
+
+.qualification-fields
+  .chosen-container
+    margin-bottom: 0.5em

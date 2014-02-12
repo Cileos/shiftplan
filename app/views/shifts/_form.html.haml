@@ -28,7 +28,7 @@
             collection: current_account.qualifications,
             input_html: { tabindex: 8, :class => 'qualification-select, chosen-select' }
           = df.link_to_remove ta(:destroy),
-            class: 'button button-warning button-small'
+            class: 'button button-warning'
 
         = f.link_to_add ta(:add_demand), :demands, class: 'button button-add',
           model_object: shift.source.demands.new(quantity: 1)

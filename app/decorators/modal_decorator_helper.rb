@@ -34,7 +34,7 @@ module ModalDecoratorHelper
   def modal_default_options
     {
       modal: true,
-      resizable: true,
+      resizable: false,
       draggable: true,
       zIndex: 500, # bootstrap typeahead
       width: 'auto'

@@ -12,6 +12,10 @@ chosen_default_texts =
 
 chosify = (opts)->
     $(".chosen-select").chosen(opts)
+    # we need to set the overflow values when a modalbox has
+    # chosen, otherwise the 'selects' are hidden
+    $(".chosen-select").closest('.ui-dialog')
+                       .addClass('has-chosen')
 
 jQuery ->
   lang = $('html').attr('lang')
@@ -20,7 +24,6 @@ jQuery ->
     no_results_text: chosen_default_texts[lang]['no_results_text']
     placeholder_text_single: chosen_default_texts[lang]['placeholder_text_single']
     placeholder_text_multiple: chosen_default_texts[lang]['placeholder_text_multiple']
-    width: "200px"
 
   chosify(chosen_opts)
 # Nested Form's "add field" feature, adds fields dynamically to the form. (see
