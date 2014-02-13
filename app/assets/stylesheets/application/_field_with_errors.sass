@@ -1,0 +1,16 @@
+$error_color: $ci_darkorange
+
+.field_with_errors
+  #{$all-text-inputs},
+  textarea
+    border-color: $error_color
+
+    &:not([disabled="disabled"])
+      &:active,
+      &:focus
+        border-color: $ci_blue
+
+  .error
+    display: block
+    margin: 0.125em 0 0 0.5em
+    color: $error_color
