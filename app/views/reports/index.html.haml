@@ -1,0 +1,6 @@
+- title :report
+
+- unless collection.empty?
+  = render 'table', records: collection
+- else
+  %p= t(:'.no_schedulings')

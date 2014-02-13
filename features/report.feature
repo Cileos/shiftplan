@@ -7,16 +7,13 @@ Feature: create a report for account owner
     Given the situation of a nuclear reactor
 
   Scenario:
-    Given a organization "PR" exist with account: the account
-    And a plan "shut down" exists with organization: organization "Reactor"
-    And a plan "lie to the public" exists with organization: organization "PR"
-    And a plan "sell nuclear energy" exists with organization: organization "PR"
+    Given a plan "shut down" exists with organization: organization "Reactor"
     And the employee "Lenny" was scheduled in the plan "shut down" as following:
         | date       | quickie |
         | 2012-12-21 | 7-23:15 |
     And the employee "Homer" was scheduled in the plan "shut down" as following:
         | date       | quickie |
-        | 2012-12-21 | 7-23:15 |
+        | 2012-12-21 | 8-23:15 |
     And the employee "Lenny" was scheduled in the plan "clean reactor" as following:
         | date       | quickie |
         | 2013-01-15 | 7-23:15 |
@@ -24,24 +21,12 @@ Feature: create a report for account owner
         | date       | quickie |
         | 2013-01-21 | 7-23:15 |
         | 2013-01-22 | 7-23:15 |
-    And the employee "Carl" was scheduled in the plan "lie to the public" as following:
-        | date       | quickie |
-        | 2013-02-04 | 7-23:15 |
-    And the employee "Burns" was scheduled in the plan "lie to the public" as following:
-        | date       | quickie  |
-        | 2013-03-14 | 10-18:15 |
-    And the employee "Burns" was scheduled in the plan "sell nuclear energy" as following:
-        | date       | quickie  |
-        | 2013-04-05 | 10-18:15 |
     And I choose "Report" from the drop down "Info"
-    And I see a list of the following schedulings:
-      | date       |
-      | 21.12.2012 |
-      | 21.12.2012 |
-      | 15.01.2013 |
-      | 21.01.2013 |
-      | 22.01.2013 |
-      | 04.02.2013 |
-      | 14.03.2013 |
-      | 05.04.2013 |
+    And I should see the following table of reports:
+      | Datum                   | Anzahl der Stunden | Name     | Team | Plan                 |
+      | 22.01.2013 um 07:00 Uhr | 16:15              | S, Homer |      | Cleaning the Reactor |
+      | 21.01.2013 um 07:00 Uhr | 16:15              | S, Homer |      | Cleaning the Reactor |
+      | 15.01.2013 um 07:00 Uhr | 16:15              | L, Lenny |      | Cleaning the Reactor |
+      | 21.12.2012 um 08:00 Uhr | 15:15              | S, Homer |      | Egon's 1st Plan      |
+      | 21.12.2012 um 07:00 Uhr | 16:15              | L, Lenny |      | Egon's 1st Plan      |
 

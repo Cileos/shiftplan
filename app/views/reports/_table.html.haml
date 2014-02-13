@@ -1,0 +1,17 @@
+%table#reports
+  %thead
+    %tr.report
+      %th= t('.date')
+      %th= t('.hours')
+      %th= Employee.human_attribute_name(:full_name)
+      %th= t('.team')
+      %th= t('.plan')
+
+  %tbody
+    - @schedulings.order("starts_at DESC").each do |scheduling|
+      %tr{ id: "record_#{scheduling.id}" }
+        %td= l(scheduling.starts_at, format: :tiny)
+        %td= scheduling.duration
+        %td= scheduling.employee.last_and_first_name if scheduling.employee
+        %td= scheduling.team.name if scheduling.team
+        %td= scheduling.plan.name

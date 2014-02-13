@@ -1,0 +1,7 @@
+en:
+  reports:
+    table:
+      date: Date
+      hours: Hours
+      team: Team
+      plan: Plan
