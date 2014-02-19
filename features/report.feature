@@ -1,7 +1,7 @@
-Feature: create a report for account owner
-  In order to keep an overviews of the schedulings
-  As an owner of the account with 2 organizations
-  I want to see the created schedulings of that organization I have selected in a report page
+Feature: Report
+  In order to keep an overview of the schedulings
+  As an employee
+  I want to see a list of all the schedulings of the organization
 
   Background:
     Given the situation of a nuclear reactor
