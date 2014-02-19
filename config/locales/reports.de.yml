@@ -1,7 +1,9 @@
 de:
   reports:
+    index:
+      no_schedulings: "Es gibt keine Schichten."
     table:
-      date: Datum
-      hours: Anzahl der Stunden
-      team: Team
-      plan: Plan
+      date: "Datum"
+      hours: "Stunden"
+      team: "Team"
+      plan: "Plan"

@@ -21,4 +21,3 @@ en:
     actions:
       confirm_destroy_plan: "Are you sure you want to delete \"%{plan}\"?"
       plan_cannot_be_destroyed: " \"%{plan}\" cannot be deleted because it already contains some entries."
-      

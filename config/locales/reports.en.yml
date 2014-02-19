@@ -1,7 +1,9 @@
 en:
   reports:
+    index:
+      no_schedulings: "There are no schedulings."
     table:
-      date: Date
-      hours: Hours
-      team: Team
-      plan: Plan
+      date: "Date"
+      hours: "Hours"
+      team: "Team"
+      plan: "Plan"
