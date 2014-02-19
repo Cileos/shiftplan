@@ -44,6 +44,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | true    |
        | Dashboard                                         | true    |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -66,6 +67,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | true    |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | true    |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -79,6 +81,25 @@ Feature: Navigation
         | Springfield Nuclear Power Plant - Cooling Towers  |
         | Springfield Nuclear Power Plant - Sector 7-G      |
 
+     When I choose "Report" from the drop down "Info"
+     Then I should see the following list of links within the navigation:
+       | link                                              | active  |
+       | Organisationen                                    | false   |
+       | Alle Organisationen                               | false   |
+       | Springfield Nuclear Power Plant - Cooling Towers  | false   |
+       | Springfield Nuclear Power Plant - Sector 7-G      | true    |
+       | Info                                              | true    |
+       | Dashboard                                         | false   |
+       | Report                                            | true    |
+       | Neuigkeiten                                       | false   |
+       | Pläne                                             | false   |
+       | Alle Pläne                                        | false   |
+       | Stammdaten                                        | false   |
+       | Mitarbeiter                                       | false   |
+       | Teams                                             | false   |
+       | Qualifikationen                                   | false   |
+       | Planvorlagen                                      | false   |
+
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
        | link                                              | active  |
@@ -88,6 +109,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | false   |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | true    |
        | Alle Pläne                                        | false   |
@@ -106,6 +128,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | false   |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -124,6 +147,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | false   |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -142,6 +166,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | false   |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -160,6 +185,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | false   |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -221,6 +247,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | true    |
        | Dashboard                                         | true    |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
