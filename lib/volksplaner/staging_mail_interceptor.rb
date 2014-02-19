@@ -25,6 +25,7 @@ module Volksplaner
       def intercepted_mail_addresses
         [
           'mdz@emtrax.net',
+          'tyranja@cassiopeia.uberspace.de',
           'support@staging.clockwork.io',
           'support@clockwork.io', # for unit test
           'application@clockwork.io'
