@@ -23,6 +23,7 @@ Feature: Report
     And the employee "Lenny" was scheduled in the plan "clean reactor" as following:
         | date       | quickie |
         | 2013-01-15 | 7-14:30 |
+    And I choose "Reactor" from the drop down "Organisation"
     And I choose "Report" from the drop down "Info"
     And I should see the following table of reports:
       | Datum                    | Stunden  | Name      | Team            | Plan                  |
