@@ -13,5 +13,5 @@
         %td= l(scheduling.starts_at, format: :tiny)
         %td= scheduling.duration
         %td= scheduling.employee.try(:last_and_first_name)
-        %td= scheduling.team.name if scheduling.team
+        %td= scheduling.team.try(:name)
         %td= scheduling.plan.name
