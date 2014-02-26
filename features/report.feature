@@ -11,13 +11,13 @@ Feature: Report
     And a plan "lie to the public" exists with organization: organization "PR"
     And a plan "shut down" exists with organization: organization "Reactor", name: "Shut down"
     And a team "Uran rangieren" exists with organization: organization: "Reactor", name: "Uran rangieren"
-    And a qualification "Brennstabpolierer" exists with account: the account, name: "Brennstabpolierer"
+    And a qualification exists with account: the account, name: "Brennstabpolierer"
     And the following schedulings exists:
-     | date        | employee          | quickie  | plan                          | team                       | qualification                          |
-     | 2012-12-21  | employee "Lenny"  | 7-14:30  | the plan "lie to the public"  |                            |                                        |
-     | 2012-12-21  | employee "Lenny"  | 7-14:30  | the plan "shut down"          | the team "Uran rangieren"  | the qualification "Brennstabpolierer"  |
-     | 2012-12-21  | employee "Homer"  | 8-16:30  | the plan "shut down"          |                            |                                        |
-     | 2013-01-15  | employee "Lenny"  | 7-14:30  | the plan "clean reactor"      |                            |                                        |
+     | date        | employee          | quickie  | plan                          | team                       | qualification      |
+     | 2012-12-21  | employee "Lenny"  | 7-14:30  | the plan "lie to the public"  |                            |                    |
+     | 2012-12-21  | employee "Lenny"  | 7-14:30  | the plan "shut down"          | the team "Uran rangieren"  | the qualification  |
+     | 2012-12-21  | employee "Homer"  | 8-16:30  | the plan "shut down"          |                            |                    |
+     | 2013-01-15  | employee "Lenny"  | 7-14:30  | the plan "clean reactor"      |                            |                    |
 
     And I choose "Reactor" from the drop down "Organisation"
     And I choose "Report" from the drop down "Info"
