@@ -26,7 +26,7 @@ Feature: Report
     And I choose "Reactor" from the drop down "Organisation"
     And I choose "Report" from the drop down "Info"
     And I should see the following table of reports:
-      | Datum                    | Stunden  | Name      | Team            | Plan                  |
-      | 15.01.2013 um 07:00 Uhr  | 7:30     | L, Lenny  |                 | Cleaning the Reactor  |
-      | 21.12.2012 um 08:00 Uhr  | 8:30     | S, Homer  |                 | Shut down             |
-      | 21.12.2012 um 07:00 Uhr  | 7:30     | L, Lenny  | Uran rangieren  | Shut down             |
+      | Datum                    | Stunden  | Name      | Team            | Plan                  | Organisation  |
+      | 15.01.2013 um 07:00 Uhr  | 7:30     | L, Lenny  |                 | Cleaning the Reactor  | Reactor       |
+      | 21.12.2012 um 08:00 Uhr  | 8:30     | S, Homer  |                 | Shut down             | Reactor       |
+      | 21.12.2012 um 07:00 Uhr  | 7:30     | L, Lenny  | Uran rangieren  | Shut down             | Reactor       |

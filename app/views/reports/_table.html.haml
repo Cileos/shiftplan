@@ -6,6 +6,7 @@
       %th= Employee.human_attribute_name(:full_name)
       %th= t('.team')
       %th= t('.plan')
+      %th= t('.organisation')
 
   %tbody
     - @schedulings.order("starts_at DESC").each do |scheduling|
@@ -15,3 +16,4 @@
         %td= scheduling.employee.try(:last_and_first_name)
         %td= scheduling.team.try(:name)
         %td= scheduling.plan.name
+        %td= scheduling.organization.name
