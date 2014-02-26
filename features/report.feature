@@ -12,21 +12,13 @@ Feature: Report
     And a plan "shut down" exists with organization: organization "Reactor", name: "Shut down"
     And a team "Uran rangieren" exists with organization: organization: "Reactor", name: "Uran rangieren"
     And a qualification "Brennstabpolierer" exists with account: the account, name: "Brennstabpolierer"
-    And a scheduling exists with employee: employee "Lenny", plan: the plan "lie to the public", date: "2012-12-21", quickie: "7-14:30"
+    And the following schedulings exists:
+     | date        | employee          | quickie  | plan                          | team                       | qualification                          |
+     | 2012-12-21  | employee "Lenny"  | 7-14:30  | the plan "lie to the public"  |                            |                                        |
+     | 2012-12-21  | employee "Lenny"  | 7-14:30  | the plan "shut down"          | the team "Uran rangieren"  | the qualification "Brennstabpolierer"  |
+     | 2012-12-21  | employee "Homer"  | 8-16:30  | the plan "shut down"          |                            |                                        |
+     | 2013-01-15  | employee "Lenny"  | 7-14:30  | the plan "clean reactor"      |                            |                                        |
 
-    # Then the employee "Lenny" was scheduled in the plan "lie to the public" as following:
-    #     | date       | quickie |
-    #     | 2012-12-21 | 7-14:30 |
-    And a scheduling exists with employee: employee "Lenny", plan: the plan "shut down", date: "2012-12-21", quickie: "7-14:30", team: the team "Uran rangieren", qualification: the qualification "Brennstabpolierer"
-    # Then the employee "Lenny" was scheduled in the plan "shut down" as following:
-    #     | date       | quickie                  |
-    #     | 2012-12-21 | 7-14:30  Uran rangieren  |
-    And the employee "Homer" was scheduled in the plan "shut down" as following:
-        | date       | quickie |
-        | 2012-12-21 | 8-16:30 |
-    And the employee "Lenny" was scheduled in the plan "clean reactor" as following:
-        | date       | quickie |
-        | 2013-01-15 | 7-14:30 |
     And I choose "Reactor" from the drop down "Organisation"
     And I choose "Report" from the drop down "Info"
     And I should see the following table of reports:
