@@ -5,6 +5,7 @@ de:
     table:
       date: "Datum"
       hours: "Stunden"
+      qualification: "Qualifikation"
       team: "Team"
       plan: "Plan"
       organisation: "Organisation"
