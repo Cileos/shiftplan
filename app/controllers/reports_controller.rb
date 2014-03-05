@@ -9,5 +9,13 @@ class ReportsController < InheritedResources::Base
   end
   helper_method :total_duration
 
+  skip_authorization_check
+  before_filter :authorize_read_report
+
+  protected
+
+  def authorize_read_report
+    authorize! :read_report, current_organization
+  end
 end
 
