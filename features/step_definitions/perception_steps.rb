@@ -67,7 +67,7 @@ end
 Then /^I should see the following table of (.+):$/ do |plural, expected|
   retrying_once Selenium::WebDriver::Error::WebDriverError do
     # table is a Cucumber::Ast::Table
-    actual = find("table##{plural}").all('tr').map do |tr|
+    actual = find("table##{plural}").all('tr:not(.aggregation)').map do |tr|
       # tr.all('th,td').map(&:text).map(&:strip)
       tr.all('th, td').map do |cell|
         if cell.all('*').empty? # a text-only cell ader

@@ -18,11 +18,14 @@ Feature: Report
      | 2012-12-21  | employee "Lenny"  | 7-14:30  | the plan "shut down"          | the team "Uran rangieren"  | the qualification  |
      | 2012-12-21  | employee "Homer"  | 8-16:30  | the plan "shut down"          |                            |                    |
      | 2013-01-15  | employee "Lenny"  | 7-14:30  | the plan "clean reactor"      |                            |                    |
+     | 2013-01-20  | employee "Homer"  | 22-4:30  | the plan "clean reactor"      |                            |                    |
 
     And I choose "Reactor" from the drop down "Organisation"
     And I choose "Report" from the drop down "Info"
     And I should see the following table of reports:
-      | Datum       | Stunden  | Name      | Team            | Qualifikation      | Plan                  | Organisation  |
-      | 15.01.2013  | 7:30     | L, Lenny  |                 |                    | Cleaning the Reactor  | Reactor       |
-      | 21.12.2012  | 8:30     | S, Homer  |                 |                    | Shut down             | Reactor       |
-      | 21.12.2012  | 7:30     | L, Lenny  | Uran rangieren  | Brennstabpolierer  | Shut down             | Reactor       |
+      | Datum      | Stunden | Name     | Team           | Qualifikation     | Plan                 | Organisation |
+      | 20.01.2013 | 6:30    | S, Homer |                |                   | Cleaning the Reactor | Reactor      |
+      | 15.01.2013 | 7:30    | L, Lenny |                |                   | Cleaning the Reactor | Reactor      |
+      | 21.12.2012 | 8:30    | S, Homer |                |                   | Shut down            | Reactor      |
+      | 21.12.2012 | 7:30    | L, Lenny | Uran rangieren | Brennstabpolierer | Shut down            | Reactor      |
+    And I should see "30:00" within the header aggregation within the reports table
