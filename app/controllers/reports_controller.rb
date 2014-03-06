@@ -1,5 +1,5 @@
 class ReportsController < InheritedResources::Base
-  nested_belongs_to :account, :organization
+  nested_belongs_to :account
   defaults resource_class: Scheduling, collection_name: 'schedulings', instance_name: 'scheduling'
   load_and_authorize_resource class: Scheduling
 
