@@ -24,4 +24,5 @@
         alert: "We couldn't change your password."
     copy_week:
       create:
-        notice: "All apointments created."
+        notice: "All appointments created."
+        undo: "The copy of the week was deleted."

@@ -30,3 +30,13 @@ Feature: Plan a week
         | Carl C         |     |              |              |              |     |
         | Lenny L        |     |              |              |              |     |
         | Homer S        |     | 10:00-10:15  | 11:00-12:45  | 12:00-13:00  |     |
+
+      When I press "Rückgängig machen"
+      Then I should see notice "Die kopierte Woche wurde gelöscht."
+      And I should see the following partial calendar:
+        | Mitarbeiter    | Mo  | Di           | Mi           | Do           | Fr  |
+        | Planner Burns  |     |              |              |              |     |
+        | Carl C         |     |              |              |              |     |
+        | Lenny L        |     |              |              |              |     |
+        | Homer S        |     |              |              |              |     |
+      And I should not see "Rückgängig machen"
