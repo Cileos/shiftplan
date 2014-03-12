@@ -35,9 +35,9 @@ Feature: Report
     And I choose "Report" from the drop down "Info"
     And I should see the following table of reports:
       | Datum      | Stunden | Name     | Team           | Qualifikation     | Plan                 | Organisation |
-      | 20.01.2013 | 6.75    | S, Homer |                |                   | Cleaning the Reactor | Reactor      |
-      | 15.01.2013 | 7.5     | L, Lenny |                |                   | Cleaning the Reactor | Reactor      |
-      | 23.12.2012 | 7.5     | L, Lenny |                |                   | Lie to the public    | PR           |
-      | 21.12.2012 | 8.5     | S, Homer |                |                   | Shut down            | Reactor      |
-      | 21.12.2012 | 7.5     | L, Lenny | Uran rangieren | Brennstabpolierer | Shut down            | Reactor      |
-    And I should see "37.75" within the header aggregation within the reports table
+      | 20.01.2013 | 6,75    | S, Homer |                |                   | Cleaning the Reactor | Reactor      |
+      | 15.01.2013 | 7,50    | L, Lenny |                |                   | Cleaning the Reactor | Reactor      |
+      | 23.12.2012 | 7,50    | L, Lenny |                |                   | Lie to the public    | PR           |
+      | 21.12.2012 | 8,50    | S, Homer |                |                   | Shut down            | Reactor      |
+      | 21.12.2012 | 7,50    | L, Lenny | Uran rangieren | Brennstabpolierer | Shut down            | Reactor      |
+    And I should see "37,75" within the header aggregation within the reports table

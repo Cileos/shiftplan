@@ -1,4 +1,4 @@
--# - binding.pry
+- total_decimal_duration = number_with_precision(total_duration, precision: 2)
 %table#reports
   %thead
     %tr
@@ -11,14 +11,14 @@
       %th= t('.organisation')
     %tr.aggregation
       %td.numeric= t('.total_duration')
-      %td.numeric= total_duration
+      %td.numeric= total_decimal_duration
       %td{colspan: 5}
 
   %tbody
     - @schedulings.order("starts_at DESC").reject(&:previous_day).map(&:decorate).each do |scheduling|
       %tr{ id: "record_#{scheduling.id}" }
         %td= scheduling.link_to_calendar l(scheduling.starts_at.to_date)
-        %td.numeric= scheduling.decimal_duration
+        %td.numeric= number_with_precision(scheduling.decimal_duration, precision: 2)
         %td= scheduling.employee.try(:last_and_first_name)
         %td= scheduling.team.try(:name)
         %td= scheduling.qualification.try(:name)
@@ -28,5 +28,5 @@
   %tfoot
     %tr.aggregation
       %td.numeric= t('.total_duration')
-      %td.numeric= total_duration
+      %td.numeric= total_decimal_duration
       %td{colspan: 5}
