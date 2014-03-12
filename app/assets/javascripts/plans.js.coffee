@@ -24,8 +24,6 @@ jQuery(document).ready ->
     $('body').bind 'dialogopen', (event, ui) ->
       $(event.target).find('form:not(:has(input._clockwork_mode))').append($hidden_mode)
 
-    cursor = new CalendarCursor $calendar
-
     refresh_behaviour_of_cell = ->
       $cell = $(this)
       $cell.find('.scheduling:not(.shift)').each ->
@@ -35,20 +33,6 @@ jQuery(document).ready ->
     $calendar.find('td').each refresh_behaviour_of_cell
     $calendar.on 'update', 'td', refresh_behaviour_of_cell
     $calendar.on 'update', -> $calendar.find('td').each refresh_behaviour_of_cell
-
-    # OPTIMIZE over long time, transfer this to ember?
-    routie
-      'comments /scheduling/:id/comments': (id)->
-        $scheduling = cursor.findByCid(id)
-        if $scheduling.length == 1
-          cursor.focus($scheduling)
-          $scheduling.find('a.comments, a.no-comments').click()
-
-      'scheduling /scheduling/:id': (id)->
-        $scheduling = cursor.findByCid(id)
-        if $scheduling.length == 1
-          cursor.focus($scheduling)
-          cursor.activate() unless cursor.isReadonly()
 
   $('nav a#new_scheduling_button').live 'ajax:success', ->
     Clockwork.SchedulingEditor.create element: $('#modalbox form:first')

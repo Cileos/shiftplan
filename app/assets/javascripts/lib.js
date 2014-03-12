@@ -12,7 +12,6 @@
 //= require xregexp
 //= require xregexp/unicode-base
 //= require xregexp/build
-//= require routie
 
 //= require_tree './lib'
 //= require bootstrap/dropdown

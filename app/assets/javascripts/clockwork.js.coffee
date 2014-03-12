@@ -12,6 +12,7 @@ Clockwork = Ember.Application.create
   LOG_TRANSITIONS: true
   rootElement: '#milestones'
   Fields: Ember.Object.extend()
+  cursor: null
 
 # can be removed when we use Ember everywhere
 Clockwork.deferReadiness()
@@ -43,3 +44,5 @@ jQuery ->
     Clockwork.ApplicationAdapter = DS.ActiveModelAdapter.extend
       namespace: (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
     Clockwork.advanceReadiness()
+
+    Clockwork.set 'cursor', new CalendarCursor $('table#calendar')
