@@ -102,4 +102,28 @@ describe Employee do
     let(:shortcut) { 'HJS' }
     it_should_behave_like :record_with_shortcut
   end
+
+  context 'as the only owner of account' do
+    before :each do
+      owner.reload # for #owned_account
+    end
+
+    let(:account)  { create(:account) }
+    let(:owner) { create(:employee_owner, account: account) }
+    it 'cannot change own role' do
+      owner.should be_owner
+      owner.membership_role = 'planner'
+      owner.should_not be_valid
+    end
+
+    let(:employee)     { create(:employee) }
+    let(:organization) { create(:organization, account: account) }
+    let(:membership)   { create(:membership, employee: employee, organization: organization) }
+    it 'can still change role of another employee' do
+      employee.reload
+      employee.should_not be_owner
+      employee.membership_role = 'planner'
+      employee.should be_valid
+    end
+  end
 end
