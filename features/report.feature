@@ -5,6 +5,7 @@ Feature: Report
 
   Background:
     Given the situation of a nuclear reactor
+      And the employee "Burns" is the owner of the account
 
   Scenario:
     Given a organization "PR" exist with account: the account, name: "PR"

@@ -23,3 +23,9 @@ Given /^the ([_\w]+)(?: attribute)? of #{capture_model} (?:are|is) changed to #{
   model.send("#{attribute}=", value)
   model.save!
 end
+
+And /^#{capture_model} is the owner of #{capture_model}$/ do |employee, account|
+  account = model!(account)
+  account.owner_id = model!(employee).id
+  account.save!
+end
