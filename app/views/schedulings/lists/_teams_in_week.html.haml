@@ -4,6 +4,7 @@
       = abbr_tag scheduling.period_with_zeros, scheduling.period_with_duration, class: 'work_time'
       = scheduling.link_to_conflicts
       - if scheduling.employee
+        - scheduling.employee.organization_id = current_organization.id
         = render 'employees/tiny', employee: scheduling.employee
       - if qualification = scheduling.try(:qualification)
         %span.qualification_name
