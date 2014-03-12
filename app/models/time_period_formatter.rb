@@ -38,6 +38,10 @@ module TimePeriodFormatter
     '%d:%02d' % [ length_in_minutes / 60, length_in_minutes % 60 ]
   end
 
+  def decimal_duration
+    length_in_minutes / 60
+  end
+
   def period
     TimePeriodFormatter.period self_or_prev_day.starts_at, self_or_next_day.ends_at
   end

@@ -18,7 +18,7 @@
     - @schedulings.order("starts_at DESC").reject(&:previous_day).map(&:decorate).each do |scheduling|
       %tr{ id: "record_#{scheduling.id}" }
         %td= scheduling.link_to_calendar l(scheduling.starts_at.to_date)
-        %td.numeric= scheduling.duration
+        %td.numeric= scheduling.decimal_duration
         %td= scheduling.employee.try(:last_and_first_name)
         %td= scheduling.team.try(:name)
         %td= scheduling.qualification.try(:name)

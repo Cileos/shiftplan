@@ -3,14 +3,14 @@ class ReportsController < InheritedResources::Base
   defaults resource_class: Scheduling, collection_name: 'schedulings', instance_name: 'scheduling'
   load_and_authorize_resource class: Scheduling
 
-  def total_duration
-    total_minutes = @schedulings.reject(&:previous_day).sum { |s| s.send(:length_in_minutes) }
-    '%d:%02d' % [total_minutes / 60, total_minutes % 60]
-  end
-  helper_method :total_duration
-
   skip_authorization_check
   before_filter :authorize_read_report
+
+
+  def total_duration
+    @schedulings.reject(&:previous_day).sum { |s| s.decimal_duration }
+  end
+  helper_method :total_duration
 
   protected
 
