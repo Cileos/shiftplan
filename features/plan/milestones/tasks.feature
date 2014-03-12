@@ -65,8 +65,11 @@ Feature: Tasks of milestones
       And the "Fällig am" field should contain "2012-12-22"
 
      When I fill in "Name" with "Kill the Queen"
+      And I pick "23. Dezember 2012" from "Fällig am"
+      And I select "Homer S" from "Verantwortlicher"
       And I press "Speichern"
       And I wait for the spinner to disappear
+
      Then I should not see "Kill the King"
       But I should see "Kill the Queen" within the first item within the tasks list within the first item within the milestones list
       And the task's name should be "Kill the Queen"
