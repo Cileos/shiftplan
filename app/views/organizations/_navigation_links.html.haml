@@ -5,7 +5,7 @@
   - # OPTIMIZE for more than 2 links, consider View Object
   - actives = {}
   - actives[:dashboard] = on_path?(nested_resources_for(current_organization))
-  - actives[:report]    = on_path?(base + [:reports])
+  - actives[:report]    = on_path?([organization.account, :reports])
   - actives[:news]      = below_path?(base + [company_blog, :posts]) if company_blog.present?
   %li.dropdown{class: actives.values.any? && 'active'  }
     = link_to :info, nested_resources_for(current_organization), {:class =>  'icon-news', data: { toggle: 'dropdown'}}
@@ -14,7 +14,7 @@
         = link_to :dashboard, nested_resources_for(current_organization), :class => 'icon-dashboard'
         -#  if can? :read_report, Organization
       - if can? :create, Account
-        = li_link :report, base + [:reports], :class => 'icon-report'
+        = li_link :report, [organization.account, :reports], :class => 'icon-report'
       - if company_blog.present?
         = li_link :news, base + [company_blog, :posts], can: [:read, organization], :class => 'icon-blog'
 

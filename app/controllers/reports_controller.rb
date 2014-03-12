@@ -15,7 +15,7 @@ class ReportsController < InheritedResources::Base
   protected
 
   def authorize_read_report
-    authorize! :read_report, current_organization
+    authorize! :read_report, current_account
   end
 end
 

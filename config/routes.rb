@@ -11,9 +11,9 @@ Clockwork::Application.routes.draw do
   put 'mark_notifications_as_read'    => 'mark_notifications_as_read#multiple', as: 'mark_notifications_as_read'
 
   resources :accounts, except: [:show] do
+    resources :reports
     resources :organizations do
 
-      resources :reports
 
       member do
         post 'add_members'
