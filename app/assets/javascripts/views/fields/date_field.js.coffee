@@ -7,4 +7,7 @@ Clockwork.Fields.DateField = Ember.TextField.extend
       onSelect: (dates)->
         date = dates[0]
         field.set 'rawValue', date
-        field.set 'value', $.datepick.formatDate($.datepick.ISO_8601, date)
+
+  value: Ember.computed ->
+    $.datepick.formatDate($.datepick.ISO_8601, @get('rawValue'))
+  .property('rawValue')

@@ -1,7 +1,7 @@
 {{#with view.content}}
   {{view Clockwork.DoableDoneView checkedBinding="done" classNames="task"}}
   {{#link-to 'milestone.task' this.milestone this class="name"}}{{name}}{{/link-to}}
-  {{#if due_at}}
+  {{#if dueAt}}
   <span class="due_on">{{formatted_due_on}}</span>
   {{#if responsible}}
   <span class="employee"><span class="name">{{responsible.name}}</span></span>

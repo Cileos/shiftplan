@@ -6,14 +6,14 @@ Clockwork.Milestone = DS.Model.extend Clockwork.Doable,
 
   savedAndSortedTasks: (->
     @get('savedTasks').toArray().sort (a,b) ->
-      if a.get('due_at')?
-        if b.get('due_at')?
-          a.get('due_at') - b.get('due_at')
+      if a.get('dueAt')?
+        if b.get('dueAt')?
+          a.get('dueAt') - b.get('dueAt')
         else
           -1 # b is null => to bottom
       else
         1 # a is null => to buttom
-  ).property('savedTasks', 'savedTasks.@each.due_at')
+  ).property('savedTasks', 'savedTasks.@each.dueAt')
 
   checkboxDisabled: (->
     if @get('savedTasks').every( (task) -> task.get('done') )

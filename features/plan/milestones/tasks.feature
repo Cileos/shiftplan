@@ -36,7 +36,7 @@ Feature: Tasks of milestones
       And the task's due_on should be "2012-12-31"
       And the task's description should be "need money"
       And the employee "Homer" should be the task's responsible
-      # sort by due_at asc, undef at bottom
+      # sort by dueAt asc, undef at bottom
       And I should see a list of the following tasks:
         | name          | employee | due_on     | description |
         | Kill the King |          | 2012-12-22 |             |
@@ -62,6 +62,8 @@ Feature: Tasks of milestones
   Scenario: Edit a task
      When I follow "Kill the King"
      Then I should see "Aufgabe bearbeiten" within the modal box header
+      And the "Fällig am" field should contain "2012-12-22"
+
      When I fill in "Name" with "Kill the Queen"
       And I press "Speichern"
       And I wait for the spinner to disappear

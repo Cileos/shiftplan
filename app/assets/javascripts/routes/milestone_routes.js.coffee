@@ -33,7 +33,7 @@ Clockwork.MilestonesNewRoute = Ember.Route.extend
   model: ->
     @store.createRecord 'milestone',
       name:            ''
-      due_at:           null
+      dueAt:            null
       description:      ''
       responsible:      null
   actions: milestoneModalActions
@@ -51,7 +51,7 @@ Clockwork.MilestoneNewTaskRoute = Ember.Route.extend
   model: (_, transition)->
     task = @store.createRecord 'task',
       name:            ''
-      due_at:           null
+      dueAt:            null
       description:      ''
       responsible:      null
       milestone:        @get('milestone')

@@ -1,6 +1,6 @@
 Clockwork.Doable = Ember.Mixin.create
   name: DS.attr('string')
-  due_at: DS.attr('date')
+  dueAt: DS.attr('date')
   done: DS.attr('boolean')
 
   description: DS.attr('string')
@@ -8,11 +8,11 @@ Clockwork.Doable = Ember.Mixin.create
   formatted_due_on: ( (key,value) ->
     format = Clockwork.get('settings.dateFormat')
     if arguments.length is 1 # getter
-      $.datepick.formatDate format, @get('due_at')
+      $.datepick.formatDate format, @get('dueAt')
     else
-      @set('due_at', $.datepick.parseDate(format, value))
+      @set('dueAt', $.datepick.parseDate(format, value))
       return value
-  ).property('due_at', 'Clockwork.settings.dateFormat')
+  ).property('dueAt', 'Clockwork.settings.dateFormat')
 
   # automatically saves the model when it's checkbox is ticked
   commitDone: (->
