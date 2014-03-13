@@ -8,3 +8,5 @@
 
     - if current_organization
       = render 'organizations/navigation_links', organization: current_organization
+    - elsif can? :read_report, Account
+      = li_link :report, [current_user.accounts.first, :reports], :class => 'icon-report'

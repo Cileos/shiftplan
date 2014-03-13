@@ -18,6 +18,7 @@ Feature: Navigation
        | Alle Organisationen                               | false   |
        | Springfield Nuclear Power Plant - Cooling Towers  | false   |
        | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+       | Report                                            | false   |
       And I should see the following items in the organization dropdown list:
         | Alle Organisationen                               |
         | Springfield Nuclear Power Plant - Cooling Towers  |
@@ -30,6 +31,7 @@ Feature: Navigation
        | Alle Organisationen                               | true    |
        | Springfield Nuclear Power Plant - Cooling Towers  | false   |
        | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+       | Report                                            | false   |
       And I should see the following items in the organization dropdown list:
         | Alle Organisationen                               |
         | Springfield Nuclear Power Plant - Cooling Towers  |
@@ -183,6 +185,7 @@ Feature: Navigation
        | Alle Organisationen                               | false   |
        | Springfield Nuclear Power Plant - Cooling Towers  | false   |
        | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+       | Report                                            | true    |
 
 
      # Click on the selected account in the account selector in menu when beeing in the
