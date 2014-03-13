@@ -135,7 +135,7 @@ module HtmlSelectorsHelpers
       'td:not(.outside_plan_period)'
 
     when %r~^(?:the )?table cell "([^"]+)"/"([^"]+)"$~
-      table = CalendarHelpers::Table.new(self)
+      table = TableHelpers::Table.new(self)
       column = table.column_index_for($1)
       row    = table.row_index_for($2)
       [:xpath, complicated_css("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})")]
