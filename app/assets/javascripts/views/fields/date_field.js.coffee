@@ -1,3 +1,4 @@
+# {{view Clockwork.Fields.DueDateField rawValueBinding="dueAt" placeholder="Fällig am"}}
 Clockwork.Fields.DateField = Ember.TextField.extend
   rawValue: null
   formatBinding: 'Clockwork.settings.dateFormat'
@@ -8,6 +9,11 @@ Clockwork.Fields.DateField = Ember.TextField.extend
         date = dates[0]
         field.set 'rawValue', date
 
-  value: Ember.computed ->
-    $.datepick.formatDate($.datepick.ISO_8601, @get('rawValue'))
-  .property('rawValue')
+  value: ( (key, val)->
+    if arguments.length > 1 # setter
+      date = $.rails_datepick.parse(val)
+      @set('rawValue', date)
+      date
+    else
+      $.rails_datepick.format(@get('rawValue'))
+  ).property('rawValue')

@@ -66,7 +66,9 @@ Feature: Tasks of milestones
 
      When I fill in "Name" with "Kill the Queen"
       And I pick "23. Dezember 2012" from "Fällig am"
-      And I select "Homer S" from "Verantwortlicher"
+     Then the "Fällig am" field should contain "2012-12-23"
+
+     When I select "Homer S" from "Verantwortlicher"
       And I fill in "Beschreibung" with "Happy Xmas"
       And I press "Speichern"
       And I wait for the spinner to disappear
