@@ -81,25 +81,6 @@ Feature: Navigation
         | Springfield Nuclear Power Plant - Cooling Towers  |
         | Springfield Nuclear Power Plant - Sector 7-G      |
 
-     When I choose "Report" from the drop down "Info"
-     Then I should see the following list of links within the navigation:
-       | link                                              | active  |
-       | Organisationen                                    | false   |
-       | Alle Organisationen                               | false   |
-       | Springfield Nuclear Power Plant - Cooling Towers  | false   |
-       | Springfield Nuclear Power Plant - Sector 7-G      | true    |
-       | Info                                              | true    |
-       | Dashboard                                         | false   |
-       | Report                                            | true    |
-       | Neuigkeiten                                       | false   |
-       | Pläne                                             | false   |
-       | Alle Pläne                                        | false   |
-       | Stammdaten                                        | false   |
-       | Mitarbeiter                                       | false   |
-       | Teams                                             | false   |
-       | Qualifikationen                                   | false   |
-       | Planvorlagen                                      | false   |
-
      When I choose "Alle Pläne" from the drop down "Pläne"
      Then I should see the following list of links within the navigation:
        | link                                              | active  |
@@ -194,6 +175,15 @@ Feature: Navigation
        | Teams                                             | false   |
        | Qualifikationen                                   | true    |
        | Planvorlagen                                      | false   |
+
+     When I choose "Report" from the drop down "Info"
+     Then I should see the following list of links within the navigation:
+       | link                                              | active  |
+       | Organisationen                                    | false   |
+       | Alle Organisationen                               | false   |
+       | Springfield Nuclear Power Plant - Cooling Towers  | false   |
+       | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+
 
      # Click on the selected account in the account selector in menu when beeing in the
      # scope of an organization.
