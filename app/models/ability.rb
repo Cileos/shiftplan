@@ -55,7 +55,7 @@ class Ability
     end
     can :read_report, Account do |account|
       employee = user.employee_for_account(account)
-      employee.owner?
+      employee && employee.owner?
     end
     can :read, Organization do |organization|
       employee = user.employee_for_account(organization.account)
