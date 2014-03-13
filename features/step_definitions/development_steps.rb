@@ -39,3 +39,12 @@ After do |scenario|
     Rails.logger.debug { "oooooo END Scenario #{scenario.title.inspect} (#{scenario.file_colon_line})" }
   end
 end
+
+module BenchmarkingHelper
+  def benchmark(description='something slow', &block)
+    ms = Benchmark.ms &block
+    STDERR.puts 'Benchmark %s: (%.2fs)' % [description, ms/1000]
+  end
+end
+
+World(BenchmarkingHelper)
