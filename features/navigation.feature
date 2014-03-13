@@ -23,6 +23,15 @@ Feature: Navigation
         | Alle Organisationen                               |
         | Springfield Nuclear Power Plant - Cooling Towers  |
         | Springfield Nuclear Power Plant - Sector 7-G      |
+     When I follow "Report"
+     Then I should see the following list of links within the navigation:
+       | link                                              | active  |
+       | Organisationen                                    | false   |
+       | Alle Organisationen                               | false   |
+       | Springfield Nuclear Power Plant - Cooling Towers  | false   |
+       | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+       | Report                                            | true    |
+
 
      When I follow "Organisationen"
      Then I should see the following list of links within the navigation:
@@ -204,6 +213,17 @@ Feature: Navigation
          | Springfield Nuclear Power Plant                   | false   |
          | Springfielder Klub für Vogelkunde                 | false   |
 
+      When I choose "Springfield Nuclear Power Plant" from the drop down "Reports"
+      Then I should see the following list of links within the navigation:
+         | link                                              | active  |
+         | Organisationen                                    | false   |
+         | Alle Organisationen                               | false   |
+         | Springfield Nuclear Power Plant - Cooling Towers  | false   |
+         | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+         | Springfielder Klub für Vogelkunde - Piepmatz      | false   |
+         | Reports                                           | true    |
+         | Springfield Nuclear Power Plant                   | true    |
+         | Springfielder Klub für Vogelkunde                 | false   |
 
      # Click on the selected account in the account selector in menu when beeing in the
      # scope of an organization.

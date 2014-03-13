@@ -13,7 +13,7 @@
       - if read_report_accounts.size == 1
         = li_link :report, [read_report_accounts.first, :reports], :class => 'icon-report'
       - elsif read_report_accounts.size > 1
-        %li.dropdown{class: read_report_accounts.map {|a| account_path(a)}.include?(request.path) && 'active'}
+        %li.dropdown{class: read_report_accounts.any? { |a| below_path?([a, :reports])} && 'active'}
           = link_to :reports, accounts_path, {data: { toggle: 'dropdown'}}
           %ul.report-dropdown.dropdown-menu
             - read_report_accounts.each do |account|
