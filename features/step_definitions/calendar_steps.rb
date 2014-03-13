@@ -1,13 +1,9 @@
 When /^I click on #{capture_cell}$/ do |cell|
-  page.execute_script <<-EOJS
-    $("#{selector_for(cell)}").click()
-  EOJS
+  find(*selector_for(cell)).click
 end
 
 When /^I click on (a .*)$/ do |name|
-  page.execute_script <<-EOJS
-    $("#{selector_for(name)}").click()
-  EOJS
+  find(*selector_for(name)).click
 end
 
 When /^I click on the #{capture_quoted} column$/ do |column_name|
@@ -27,7 +23,7 @@ end
 When /^I click on (?:the )?(early|late|) ?(shift|scheduling) #{capture_quoted}$/ do |early_or_late, shift_or_scheduling, quickie|
   selector = ".#{shift_or_scheduling}"
   selector << ".#{early_or_late}" if early_or_late.present?
-  shift_or_scheduling = page.find(selector, text: quickie)
+  shift_or_scheduling = page.first(selector, text: quickie)
   begin
     shift_or_scheduling.click()
   rescue Selenium::WebDriver::Error::UnknownError => e # page was maybe still moving, could not hit element
@@ -37,7 +33,7 @@ When /^I click on (?:the )?(early|late|) ?(shift|scheduling) #{capture_quoted}$/
 end
 
 Then /^the #{capture_cell} should be (focus)$/ do |cell, predicate|
-  page.find(selector_for(cell))[:class].split.should include(predicate)
+  page.find(*selector_for(cell))[:class].split.should include(predicate)
 end
 
 Then /^the scheduling #{capture_quoted} should be (focus)$/ do |quickie, predicate|
@@ -142,9 +138,16 @@ When /^(?:I|they) schedule (shift |)#{capture_quoted}$/ do |kind, quickie_string
   holder = OpenStruct.new
   quickie.fill(holder)
 
-  fill_in("#{kind}_start_time", with: holder.start_time) if holder.start_time.present?
-  fill_in("#{kind}_end_time", with: holder.end_time) if holder.end_time.present?
   step %Q~I select "#{holder.team_name}" from the "Team" single-select box~ if holder.team_name.present?
+  %w(start end).each do |pos|
+    name = "#{kind}_#{pos}_time"
+    attr = "#{pos}_time"
+    val = holder.public_send(attr)
+    if val.present?
+      find_field(name).send_string_of_keys 'arrow_left,arrow_left,arrow_left,arrow_left'
+      fill_in(name, with: val)
+    end
+  end
 end
 
 # TODO same as "I fill in the empty" ?

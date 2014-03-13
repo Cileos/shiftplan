@@ -51,6 +51,10 @@ Spork.prefork do
   # some people have slow computers, 2s are not enough. CI is slow also
   Capybara.default_wait_time = 8
 
+  # If two or more elements are found, return the one matching exactly instead
+  # of complaining about ambiguity
+  Capybara.match = :prefer_exact
+
   DatabaseCleaner.clean_with :truncation
 
   # Remember current locale to be able to reset the I18n locale to that

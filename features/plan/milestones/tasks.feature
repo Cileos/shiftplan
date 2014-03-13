@@ -23,7 +23,7 @@ Feature: Tasks of milestones
       And I wait for the spinner to disappear
      Then a task should exist with name: "become famous", milestone: the milestone
       # undef dua_at last
-      And I should see "become famous" within the second item within the tasks list within the first item within the milestones list
+      And I should see "become famous" within the sidebar
 
      When I follow "neue Aufgabe"
       And I fill in "Name" with "become rich"
@@ -56,7 +56,7 @@ Feature: Tasks of milestones
       And I press "Anlegen"
       And I wait for the spinner to disappear
      Then a task should exist with name: "Kill all INNOCENT humans", milestone: the milestone
-      And I should see "Kill all INNOCENT humans" within the second item within the tasks list within the first item within the milestones list
+      And I should see "Kill all INNOCENT humans" within the sidebar
       But I should not see "Kill all humans"
 
   Scenario: Edit a task
@@ -66,5 +66,5 @@ Feature: Tasks of milestones
       And I press "Speichern"
       And I wait for the spinner to disappear
      Then I should not see "Kill the King"
-      But I should see "Kill the Queen" within the first item within the tasks list within the first item within the milestones list
+      And I should see "Kill the Queen" within the sidebar
       And the task's name should be "Kill the Queen"

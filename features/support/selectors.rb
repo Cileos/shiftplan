@@ -103,10 +103,10 @@ module HtmlSelectorsHelpers
       '#notifications-spinner'
 
     when /^the #{capture_nth} active tab$/
-      ".tabbable#{Numerals[$1]} .tab-pane.active"
+      [:xpath, complicated_css(".tabbable#{Numerals[$1]} .tab-pane.active")]
 
     when /^the #{capture_nth} table row$/
-      "tbody tr#{Numerals[$1]}"
+      [:xpath, complicated_css("tbody tr#{Numerals[$1]}")]
 
     when /^the table for #{capture_model}$/
       model = model!($1)
@@ -123,10 +123,10 @@ module HtmlSelectorsHelpers
       %Q~a[data-method="delete"][title="#{I18n.translate('helpers.actions.destroy')}"]~
 
     when /^the #{capture_nth} form$/
-      "form#{Numerals[$1]}"
+      [:xpath, complicated_css("form#{Numerals[$1]}")]
 
     when /^the #{capture_nth} item/
-      "li#{Numerals[$1]}"
+      [:xpath, complicated_css("li#{Numerals[$1]}")]
 
     when /^a cell outside the plan period$/
       'td.outside_plan_period'
@@ -138,21 +138,21 @@ module HtmlSelectorsHelpers
       table = CalendarHelpers::Table.new(self)
       column = table.column_index_for($1)
       row    = table.row_index_for($2)
-      "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
+      [:xpath, complicated_css("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})")]
 
     when %r~^(?:the )?cell "([^"]+)"/"([^"]+)"$~
       column = the_calendar.column_index_for($1)
       row    = the_calendar.row_index_for($2)
-      "tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})"
+      [:xpath, complicated_css("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})")]
 
     when 'a hint'
       '.hint'
 
     when /^the left column$/
-      '.col:nth-child(1)'
+      [:xpath, complicated_css('.col:nth-child(1)')]
 
     when /^the right column$/
-      '.col:nth-child(2)'
+      [:xpath, complicated_css('.col:nth-child(2)')]
 
     when /conflict icon$/
       'a.conflict'
@@ -175,13 +175,13 @@ module HtmlSelectorsHelpers
       "ul.#{$1}"
 
     when /^the #{capture_nth} (post)/
-      ".#{$2}#{Numerals[$1]}"
+      [:xpath, complicated_css(".#{$2}#{Numerals[$1]}")]
 
     when 'active week'
       '.calendar-active-week'
 
     when 'weeks first date'
-      '#calendar thead th:nth-child(2) .date-without-year'
+      [:xpath, complicated_css('#calendar thead th:nth-child(2) .date-without-year')]
 
     when 'merge button'
       'button#merge-button'

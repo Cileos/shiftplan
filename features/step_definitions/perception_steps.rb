@@ -113,8 +113,10 @@ Then /^I should see an? (\w+) table with the following rows:$/ do |name, expecte
   expected.diff! actual
 end
 
-Then /^the page should be titled "([^"]*)"$/ do |title|
-  step %Q~I should see "#{title}" within "html head title"~
+Then /^the page (should|should not) be titled "([^"]*)"$/ do |should_or_should_not, title|
+  not_ignoring_hidden_elements do
+    step %Q~I #{should_or_should_not} see "#{title}" within "html head title"~
+  end
 end
 
 Then /^I (should|should not) be authorized to access the page$/ do |or_not|
@@ -163,7 +165,9 @@ end
 
 Then /^the notification hub should have #{capture_quoted} new notifications$/ do |number|
   step %~I should see "#{number}" within the notifications count~
-  step %~I should see "(#{number})" within the page title~
+  not_ignoring_hidden_elements do
+    step %~I should see "(#{number})" within the page title~
+  end
   step %~the notification hub should have class "has_new"~
 end
 

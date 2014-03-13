@@ -11,7 +11,6 @@ Feature: Manage schedulings without employees
   Scenario: create and update a scheduling without an employee
      Given I follow "Neue Terminierung"
       And I wait for the modal box to appear
-      And I select "" from "Mitarbeiter"
       And I uncheck "Mo"
       And I check "Mi"
       And I schedule "22-6"

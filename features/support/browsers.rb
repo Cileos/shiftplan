@@ -81,8 +81,12 @@ end
 
 module CapybaraHeadersHelper
   def add_headers(headers)
-    headers.each do |name, value|
-      page.driver.browser.header(name, value)
+    if page.driver.browser.respond_to?(:header)
+      headers.each do |name, value|
+        page.driver.browser.header(name, value)
+      end
+    else
+      Rails.logger.info "setting headers is not supported for this driver #{page.driver.browser.class}"
     end
   end
 end

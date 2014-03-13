@@ -36,9 +36,9 @@ Feature: Detect duplicate Employee
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
-        | Übernehmen?           | Name          | WAZ  | E-Mail                          | Status                 | Organisationen              |
-        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
-        |                       | Meier, Heinz  |      |                                 | Noch nicht eingeladen  | Cooling Towers              |
+        | Übernehmen?          | Name         | WAZ | E-Mail                         | Status                | Organisationen            |
+        | ist bereits Mitglied | Meier, Heinz |     | heinz.meier@npp-springfield.de | Aktiv                 | Cooling Towers Sector 7-G |
+        |                      | Meier, Heinz |     |                                | Noch nicht eingeladen | Cooling Towers            |
       And the "Trotzdem anlegen" checkbox should not be checked
 
      When I press "Anlegen"
@@ -50,10 +50,10 @@ Feature: Detect duplicate Employee
 
      Then I should be on the employees page for the organization "sector 7g"
       And I should see the following table of employees:
-        | Name            | WAZ  | E-Mail                          | Status                 | Organisationen              |
-        | Burns, Charles  |      | c.burns@npp-springfield.com     | Aktiv                  | Sector 7-G                  |
-        | Meier, Heinz    |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
-        | Meier, Heinz    | 40   |                                 | Noch nicht eingeladen  | Sector 7-G                  |
+        | Name           | WAZ | E-Mail                         | Status                | Organisationen            |
+        | Burns, Charles |     | c.burns@npp-springfield.com    | Aktiv                 | Sector 7-G                |
+        | Meier, Heinz   |     | heinz.meier@npp-springfield.de | Aktiv                 | Cooling Towers Sector 7-G |
+        | Meier, Heinz   | 40  |                                | Noch nicht eingeladen | Sector 7-G                |
 
   Scenario: Adopt duplicate employee Heinz Meier after trying to create
     Given I follow "Hinzufügen"
@@ -63,9 +63,9 @@ Feature: Detect duplicate Employee
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
-        | Übernehmen?           | Name          | WAZ  | E-Mail                          | Status                 | Organisationen              |
-        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
-        |                       | Meier, Heinz  |      |                                 | Noch nicht eingeladen  | Cooling Towers              |
+        | Übernehmen?          | Name         | WAZ | E-Mail                         | Status                | Organisationen            |
+        | ist bereits Mitglied | Meier, Heinz |     | heinz.meier@npp-springfield.de | Aktiv                 | Cooling Towers Sector 7-G |
+        |                      | Meier, Heinz |     |                                | Noch nicht eingeladen | Cooling Towers            |
       But I should not see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
 
      When I check the checkbox within the second table row
@@ -73,10 +73,10 @@ Feature: Detect duplicate Employee
 
      Then I should be on the employees page for the organization "sector 7g"
       And I should see the following table of employees:
-        | Name            | WAZ  | E-Mail                          | Status                 | Organisationen              |
-        | Burns, Charles  |      | c.burns@npp-springfield.com     | Aktiv                  | Sector 7-G                  |
-        | Meier, Heinz    |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
-        | Meier, Heinz    |      |                                 | Noch nicht eingeladen  | Cooling Towers\nSector 7-G  |
+        | Name           | WAZ | E-Mail                         | Status                | Organisationen            |
+        | Burns, Charles |     | c.burns@npp-springfield.com    | Aktiv                 | Sector 7-G                |
+        | Meier, Heinz   |     | heinz.meier@npp-springfield.de | Aktiv                 | Cooling Towers Sector 7-G |
+        | Meier, Heinz   |     |                                | Noch nicht eingeladen | Cooling Towers Sector 7-G |
 
   Scenario: with all duplicates beeing already member of organization
     Given a membership exists with employee: the employee "heinz2", organization: the organization "sector 7g"
@@ -88,9 +88,9 @@ Feature: Detect duplicate Employee
 
       And I should see "Es gibt bereits Mitarbeiter mit gleichem Namen in diesem Account."
       And I should see the following table of employees:
-        | Übernehmen?           | Name          | WAZ  | E-Mail                          | Status                 | Organisationen              |
-        | ist bereits Mitglied  | Meier, Heinz  |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
-        | ist bereits Mitglied  | Meier, Heinz  |      |                                 | Noch nicht eingeladen  | Cooling Towers\nSector 7-G  |
+        | Übernehmen?          | Name         | WAZ | E-Mail                         | Status                | Organisationen            |
+        | ist bereits Mitglied | Meier, Heinz |     | heinz.meier@npp-springfield.de | Aktiv                 | Cooling Towers Sector 7-G |
+        | ist bereits Mitglied | Meier, Heinz |     |                                | Noch nicht eingeladen | Cooling Towers Sector 7-G |
       And I should see "Alle Mitarbeiter sind bereits Mitglied in dieser Organisation und können daher nicht hinzugefügt werden."
       And the adopt employee button should be disabled
 
@@ -121,7 +121,7 @@ Feature: Detect duplicate Employee
 
      Then I should be on the employees page for the organization "sector 7g"
       And I should see the following table of employees:
-        | Name            | WAZ  | E-Mail                          | Status                 | Organisationen              |
-        | Burns, Charles  |      | c.burns@npp-springfield.com     | Aktiv                  | Sector 7-G                  |
-        | Meier, Heinz    |      | heinz.meier@npp-springfield.de  | Aktiv                  | Cooling Towers\nSector 7-G  |
-        | Meier, Heinz    | 33   |                                 | Noch nicht eingeladen  | Sector 7-G                  |
+        | Name           | WAZ | E-Mail                         | Status                | Organisationen            |
+        | Burns, Charles |     | c.burns@npp-springfield.com    | Aktiv                 | Sector 7-G                |
+        | Meier, Heinz   |     | heinz.meier@npp-springfield.de | Aktiv                 | Cooling Towers Sector 7-G |
+        | Meier, Heinz   | 33  |                                | Noch nicht eingeladen | Sector 7-G                |
