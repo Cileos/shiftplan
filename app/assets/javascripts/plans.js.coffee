@@ -34,6 +34,11 @@ jQuery(document).ready ->
     $calendar.on 'update', 'td', refresh_behaviour_of_cell
     $calendar.on 'update', -> $calendar.find('td').each refresh_behaviour_of_cell
 
+    if $('#milestones').length == 0
+      # no ember, we have no routing and must create cursor manually
+      cursor = new CalendarCursor $calendar
+
+
   $('nav a#new_scheduling_button').live 'ajax:success', ->
     Clockwork.SchedulingEditor.create element: $('#modalbox form:first')
     true
