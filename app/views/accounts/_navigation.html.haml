@@ -8,5 +8,13 @@
 
     - if current_organization
       = render 'organizations/navigation_links', organization: current_organization
-    - elsif can? :read_report, Account
-      = li_link :report, [current_user.accounts.first, :reports], :class => 'icon-report'
+    - else
+      - read_report_accounts = current_user.accounts.default_sorting.select { |a| can? :read_report, a }
+      - if read_report_accounts.size == 1
+        = li_link :report, [read_report_accounts.first, :reports], :class => 'icon-report'
+      - elsif read_report_accounts.size > 1
+        %li.dropdown{class: read_report_accounts.map {|a| account_path(a)}.include?(request.path) && 'active'}
+          = link_to :reports, accounts_path, {data: { toggle: 'dropdown'}}
+          %ul.report-dropdown.dropdown-menu
+            - read_report_accounts.each do |account|
+              = li_link account.name, [account, :reports], :class => 'icon-report'

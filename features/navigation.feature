@@ -187,6 +187,23 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | false   |
        | Report                                            | true    |
 
+     Given an account "vogelkunde" exists with name: "Springfielder Klub für Vogelkunde"
+       And an employee "charly" exists with first_name: "Charly", last_name: "Burns", account: account "vogelkunde", user: user "mr burns"
+       And a organization "piepmatz" exists with name: "Piepmatz", account: account "vogelkunde"
+       And the employee "charly" is the owner of the account "vogelkunde"
+
+      When I go to the dashboard page
+      Then I should see the following list of links within the navigation:
+         | link                                              | active  |
+         | Organisationen                                    | false   |
+         | Alle Organisationen                               | false   |
+         | Springfield Nuclear Power Plant - Cooling Towers  | false   |
+         | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+         | Springfielder Klub für Vogelkunde - Piepmatz      | false   |
+         | Reports                                           | false   |
+         | Springfield Nuclear Power Plant                   | false   |
+         | Springfielder Klub für Vogelkunde                 | false   |
+
 
      # Click on the selected account in the account selector in menu when beeing in the
      # scope of an organization.
@@ -224,6 +241,7 @@ Feature: Navigation
        | Cileos UG - Clockwork Programming                 | false   |
        | Springfield Nuclear Power Plant - Cooling Towers  | false   |
        | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+       | Report                                            | false   |
       And I should see the following items in the organization dropdown list:
        | Alle Organisationen                               |
        | Cileos UG - Clockwork Programming                 |

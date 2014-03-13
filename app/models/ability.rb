@@ -53,6 +53,10 @@ class Ability
     can :create, Account do |account|
       account.user == user
     end
+    can :read_report, Account do |account|
+      employee = user.employee_for_account(account)
+      employee.owner?
+    end
     can :read, Organization do |organization|
       employee = user.employee_for_account(organization.account)
       employee && employee.organizations.include?(organization)
