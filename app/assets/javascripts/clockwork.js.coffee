@@ -34,6 +34,14 @@ Clockwork.initializer
       container.typeInjection('controller', 'currentUser', 'controller:currentUser')
       Clockwork.advanceReadiness()
 
+Clockwork.initializer
+  # injects 'employees' in every controller. Is loaded in Applicationroute
+  name: 'employees'
+  initialize: (container)->
+    # lookup once to warm up caches and avoid StackLevelTooDeep
+    container.lookup('controller:employees')
+    container.typeInjection('controller', 'employees', 'controller:employees')
+
 Clockwork.ApplicationSerializer = DS.ActiveModelSerializer.extend()
 
 window.Clockwork = Clockwork
