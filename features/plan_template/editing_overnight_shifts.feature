@@ -20,8 +20,8 @@ Feature: Editing overnight shifts of plan templates
 
      When I click on the early shift "22:00-06:00"
       And I wait for the modal box to appear
-     Then the "Startzeit" field should contain "22:00"
-      And the "Endzeit" field should contain "06:00"
+     Then the "Beginn" field should contain "22:00"
+      And the "Ende" field should contain "06:00"
      When I schedule shift "21-7"
       And I press "Speichern"
       And I wait for the modal box to disappear

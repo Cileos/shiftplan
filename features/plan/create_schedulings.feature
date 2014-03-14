@@ -43,18 +43,18 @@ Feature: create a scheduling
   Scenario: Entering time span with minutes (15 minute intervals)
      When I click on cell "Di"/"Carl C"
       And I wait for the new scheduling form to appear
-     Then the "Startzeit" field should contain ""
-      And the "Endzeit" field should contain ""
+     Then the "Beginn" field should contain ""
+      And the "Ende" field should contain ""
 
       # full hour quickie
      When I schedule "9-17"
-     Then the "Startzeit" field should contain "09:00"
-      And the "Endzeit" field should contain "17:00"
+     Then the "Beginn" field should contain "09:00"
+      And the "Ende" field should contain "17:00"
 
       # minute quickie rounded to 15-minute intervals
      When I schedule "9:16-17:42"
-     Then the "Startzeit" field should contain "09:15"
-      And the "Endzeit" field should contain "17:45"
+     Then the "Beginn" field should contain "09:15"
+      And the "Ende" field should contain "17:45"
 
       # can submit unrounded times, but thay will be rounded on the server side (or invisibly fixed on client)
      When I schedule "9:16-17:42"
