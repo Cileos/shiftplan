@@ -53,6 +53,9 @@ describe "Scheduling permissions:" do
       it "should be able to manage schedulings" do
         should be_able_to(:manage, create(:scheduling, plan: plan))
       end
+      it "should be able to read reports" do
+        should be_able_to(:read_report, create(:organization, account: account))
+      end
     end
     context "for other accounts" do
       it_behaves_like "an employee with scheduling permissions for foreign accounts"
@@ -71,6 +74,9 @@ describe "Scheduling permissions:" do
     context "for organizations with planner membership" do
       it "should be able to manage schedulings" do
         should be_able_to(:manage, build(:scheduling, plan: plan))
+      end
+      it "should be able to read reports" do
+        should be_able_to(:read_report, create(:organization, account: account))
       end
     end
 
@@ -94,6 +100,9 @@ describe "Scheduling permissions:" do
     context "for organizations with membership" do
       it "should be able to read schedulings" do
         should be_able_to(:read, scheduling)
+      end
+      it "should not be able to read reports" do
+        should_not be_able_to(:read_report, create(:organization, account: account ))
       end
       it "should not be able to CUD schedulings" do
         should_not be_able_to(:create, scheduling)

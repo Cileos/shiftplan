@@ -323,6 +323,9 @@ class Ability
     can :manage, AttachedDocument do |doc|
       curr_organization == doc.plan.organization
     end
+    can [:read_report], Organization do |organization|
+      curr_account == organization.account
+    end
 
   end
 
