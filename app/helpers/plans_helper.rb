@@ -17,7 +17,11 @@ module PlansHelper
   end
 
   def employees_for_select(scheduling)
-    scheduling.plan.organization.employees
+    org = scheduling.plan.organization
+    org.employees.select do |e|
+      e.organization_id = org.id
+      e.planable?
+    end
   end
 
   def destroy_link_for_plan(plan, html_options={})

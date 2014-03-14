@@ -124,7 +124,7 @@ module Volksplaner::Currents
   def find_current_membership
     if current_account?
       if current_organization_by_params.present?
-        current_employee.memberships.find_by_organization_id(current_organization_by_params.id)
+        current_employee.membership_for_organization(current_organization_by_params)
       end
     end
   end

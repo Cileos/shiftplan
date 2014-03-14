@@ -35,7 +35,7 @@ class EmployeeDecorator < RecordDecorator
     role_in_context = if owner?
       'owner'
     else
-      membership = memberships.find_by_organization_id(h.current_organization.id)
+      membership = membership_for_organization(h.current_organization)
       membership.role.present? ? membership.role : 'none'
     end
     h.t("employees.roles.#{role_in_context}")
