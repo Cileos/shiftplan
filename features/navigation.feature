@@ -193,8 +193,18 @@ Feature: Navigation
        | Organisationen                                    | false   |
        | Alle Organisationen                               | false   |
        | Springfield Nuclear Power Plant - Cooling Towers  | false   |
-       | Springfield Nuclear Power Plant - Sector 7-G      | false   |
-       | Report                                            | true    |
+       | Springfield Nuclear Power Plant - Sector 7-G      | true    |
+       | Info                                              | true    |
+       | Dashboard                                         | false   |
+       | Report                                            | false   |
+       | Neuigkeiten                                       | false   |
+       | Pläne                                             | false   |
+       | Alle Pläne                                        | false   |
+       | Stammdaten                                        | false   |
+       | Mitarbeiter                                       | false   |
+       | Teams                                             | false   |
+       | Qualifikationen                                   | false   |
+       | Planvorlagen                                      | false   |
 
      Given an account "vogelkunde" exists with name: "Springfielder Klub für Vogelkunde"
        And an employee "charly" exists with first_name: "Charly", last_name: "Burns", account: account "vogelkunde", user: user "mr burns"

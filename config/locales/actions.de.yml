@@ -13,7 +13,8 @@ de:
       advanced_settings: Erweitert
       dashboard: Dashboard
       export: Export
-      report: Report (aktueller Monat)
+      report: Report
+      report_of_current_month: Report (aktueller Monat)
       reports: Reports
       info: Info
       news: Neuigkeiten
