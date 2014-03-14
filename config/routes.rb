@@ -101,6 +101,7 @@ Clockwork::Application.routes.draw do
 
   put "undo" => 'undo#update', as: 'undo'
 
+  get '/users/sign_up', to: redirect('/signup')
 
   devise_for :users, :controllers => { registrations: 'signup', sessions: 'sessions'}
 
