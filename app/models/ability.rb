@@ -53,6 +53,10 @@ class Ability
     can :create, Account do |account|
       account.user == user
     end
+    can :read_report, Account do |account|
+      employee = user.employee_for_account(account)
+      employee && employee.owner?
+    end
     can :read, Organization do |organization|
       employee = user.employee_for_account(organization.account)
       employee && employee.organizations.include?(organization)
@@ -308,6 +312,10 @@ class Ability
       current_organization == conflict.provoker.plan.organization
     end
 
+    can :read_report, Account do |account|
+      curr_account == account
+    end
+
     authorize_owner_and_planner(user)
     authorize_employee(user)
   end
@@ -323,7 +331,9 @@ class Ability
     can :manage, AttachedDocument do |doc|
       curr_organization == doc.plan.organization
     end
-
+    can :read_report, Organization do |organization|
+      curr_organization == organization
+    end
   end
 
   def authorize_anonymous

@@ -1,0 +1,12 @@
+de:
+  reports:
+    index:
+      no_schedulings: "Es gibt keine Schichten."
+    table:
+      date: "Datum"
+      hours: "Stunden"
+      qualification: "Qualifikation"
+      team: "Team"
+      plan: "Plan"
+      organisation: "Organisation"
+      total_duration: "Gesamtanzahl der Stunden"

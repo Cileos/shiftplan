@@ -3,10 +3,6 @@
 # display in a weekly calendar. It behaves like an ActiveRecord model
 # and can therefor be used in forms to build searches.
 class SchedulingFilter < RecordFilter
-  include ActiveAttr::Model
-  include ActiveAttr::TypecastedAttributes
-  include ActiveAttr::AttributeDefaults
-  include Draper::Decoratable
 
   class CannotFindMonday < RuntimeError; end
 
@@ -17,6 +13,10 @@ class SchedulingFilter < RecordFilter
   attribute :year, type: Integer
   attribute :cwyear, type: Integer
   attribute :ids #, type: Array # TODO Array cannot be typecasted yet by AA
+
+  def base
+    self.class.name.gsub('Filter', '').constantize
+  end
 
   def range
     if week?

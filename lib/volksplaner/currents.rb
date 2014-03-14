@@ -107,8 +107,6 @@ module Volksplaner::Currents
     if current_account?
       if current_organization_by_params.present?
         current_organization_by_params
-      elsif possible_organizations? && possible_organizations.count == 1
-        possible_organizations.first
       end
     end
   end
