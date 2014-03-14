@@ -4,7 +4,8 @@ Feature: Report
   I want to see a list of all the schedulings of my account or of an organization of my account
 
   Background:
-    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+    Given today is 2012-12-04
+      And mr burns, owner of the Springfield Nuclear Power Plant exists
       # More springfield account data:
       And a team exists with name: "Uran rangieren", organization: organization "sector 7g"
       And a qualification exists with name: "Brennstabpolierer", account: the account
@@ -20,9 +21,10 @@ Feature: Report
         | 23.12.2012  | employee owner "mr burns"  | 7-14:30  | plan "shut down"          |           |                    |
         | 21.12.2012  | employee owner "mr burns"  | 7-15:30  | plan "shut down"          | the team  | the qualification  |
         | 19.12.2012  | employee "homer"           | 7-13:45  | plan "lie to the public"  |           |                    |
+        | 17.11.2012  | employee owner "mr burns"  | 7-14:30  | plan "shut down"          |           |                    |
      When I am signed in as the user "mr burns"
 
-  Scenario: Report for account with two organizations in account scope
+  Scenario: Current month report for account
       # Foreign account data:
     Given an account "tv business" exists with name: "TV Business"
       And a organization "the clown show" exists with account: account "tv business", name: "The Clown Show"
@@ -46,7 +48,7 @@ Feature: Report
       And I should see "22,75" within the header aggregation within the reports table
 
 
-  Scenario: Report for account with two organizations in organization scope
+  Scenario: Current month report for organization
      When I go to the page of the organization "sector 7g"
       And I choose "Report" from the drop down "Info"
       # only schedulings of organization sector 7g should be shown
