@@ -8,7 +8,6 @@ class RecordFilter
   include ActiveAttr::AttributeDefaults
   include Draper::Decoratable
 
-  attribute :plan_template
   attribute :base
 
   delegate :all, to: :records
@@ -17,10 +16,6 @@ class RecordFilter
   # These _are_ the records you are looking for
   def records
     @records ||= fetch_records
-  end
-
-  def base
-    self.class.name.gsub('Filter', '').constantize
   end
 
   private

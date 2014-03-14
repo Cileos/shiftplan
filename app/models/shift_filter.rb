@@ -5,6 +5,10 @@
 class ShiftFilter < RecordFilter
   attribute :plan_template
 
+  def base
+    self.class.name.gsub('Filter', '').constantize
+  end
+
   private
     def conditions
       { :plan_template_id => plan_template.id }

@@ -2,6 +2,7 @@ class Organization < ActiveRecord::Base
   belongs_to :account
   belongs_to :planner,        class_name: 'User'
   has_many   :employees,      through: :memberships
+  has_many   :schedulings,    through: :plans
   has_many   :plans
   has_many   :teams,          order: 'name ASC'
   has_many   :invitations

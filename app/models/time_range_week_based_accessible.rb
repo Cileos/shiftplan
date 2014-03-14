@@ -66,7 +66,7 @@ module TimeRangeWeekBasedAccessible
 
   module Scopes
     def between(first, last)
-      where('? <= starts_at AND starts_at <= ?', first, last)
+      where("? <= #{table_name}.starts_at AND #{table_name}.starts_at <= ?", first, last)
     end
   end
 end

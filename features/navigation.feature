@@ -18,10 +18,20 @@ Feature: Navigation
        | Alle Organisationen                               | false   |
        | Springfield Nuclear Power Plant - Cooling Towers  | false   |
        | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+       | Report                                            | false   |
       And I should see the following items in the organization dropdown list:
         | Alle Organisationen                               |
         | Springfield Nuclear Power Plant - Cooling Towers  |
         | Springfield Nuclear Power Plant - Sector 7-G      |
+     When I follow "Report"
+     Then I should see the following list of links within the navigation:
+       | link                                              | active  |
+       | Organisationen                                    | false   |
+       | Alle Organisationen                               | false   |
+       | Springfield Nuclear Power Plant - Cooling Towers  | false   |
+       | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+       | Report                                            | true    |
+
 
      When I follow "Organisationen"
      Then I should see the following list of links within the navigation:
@@ -30,6 +40,7 @@ Feature: Navigation
        | Alle Organisationen                               | true    |
        | Springfield Nuclear Power Plant - Cooling Towers  | false   |
        | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+       | Report                                            | false   |
       And I should see the following items in the organization dropdown list:
         | Alle Organisationen                               |
         | Springfield Nuclear Power Plant - Cooling Towers  |
@@ -44,6 +55,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | true    |
        | Dashboard                                         | true    |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -66,6 +78,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | true    |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | true    |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -88,6 +101,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | false   |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | true    |
        | Alle Pläne                                        | false   |
@@ -106,6 +120,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | false   |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -124,6 +139,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | false   |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -142,6 +158,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | false   |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -160,6 +177,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | false   |
        | Dashboard                                         | false   |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
@@ -168,6 +186,54 @@ Feature: Navigation
        | Teams                                             | false   |
        | Qualifikationen                                   | true    |
        | Planvorlagen                                      | false   |
+
+     When I choose "Report" from the drop down "Info"
+     Then I should see the following list of links within the navigation:
+       | link                                              | active  |
+       | Organisationen                                    | false   |
+       | Alle Organisationen                               | false   |
+       | Springfield Nuclear Power Plant - Cooling Towers  | false   |
+       | Springfield Nuclear Power Plant - Sector 7-G      | true    |
+       | Info                                              | true    |
+       | Dashboard                                         | false   |
+       | Report                                            | true    |
+       | Neuigkeiten                                       | false   |
+       | Pläne                                             | false   |
+       | Alle Pläne                                        | false   |
+       | Stammdaten                                        | false   |
+       | Mitarbeiter                                       | false   |
+       | Teams                                             | false   |
+       | Qualifikationen                                   | false   |
+       | Planvorlagen                                      | false   |
+
+     Given an account "vogelkunde" exists with name: "Springfielder Klub für Vogelkunde"
+       And an employee "charly" exists with first_name: "Charly", last_name: "Burns", account: account "vogelkunde", user: user "mr burns"
+       And a organization "piepmatz" exists with name: "Piepmatz", account: account "vogelkunde"
+       And the employee "charly" is the owner of the account "vogelkunde"
+
+      When I go to the dashboard page
+      Then I should see the following list of links within the navigation:
+         | link                                              | active  |
+         | Organisationen                                    | false   |
+         | Alle Organisationen                               | false   |
+         | Springfield Nuclear Power Plant - Cooling Towers  | false   |
+         | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+         | Springfielder Klub für Vogelkunde - Piepmatz      | false   |
+         | Reports                                           | false   |
+         | Springfield Nuclear Power Plant                   | false   |
+         | Springfielder Klub für Vogelkunde                 | false   |
+
+      When I choose "Springfield Nuclear Power Plant" from the drop down "Reports"
+      Then I should see the following list of links within the navigation:
+         | link                                              | active  |
+         | Organisationen                                    | false   |
+         | Alle Organisationen                               | false   |
+         | Springfield Nuclear Power Plant - Cooling Towers  | false   |
+         | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+         | Springfielder Klub für Vogelkunde - Piepmatz      | false   |
+         | Reports                                           | true    |
+         | Springfield Nuclear Power Plant                   | true    |
+         | Springfielder Klub für Vogelkunde                 | false   |
 
      # Click on the selected account in the account selector in menu when beeing in the
      # scope of an organization.
@@ -205,6 +271,7 @@ Feature: Navigation
        | Cileos UG - Clockwork Programming                 | false   |
        | Springfield Nuclear Power Plant - Cooling Towers  | false   |
        | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+       | Report                                            | false   |
       And I should see the following items in the organization dropdown list:
        | Alle Organisationen                               |
        | Cileos UG - Clockwork Programming                 |
@@ -221,6 +288,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | true    |
        | Dashboard                                         | true    |
+       | Report                                            | false   |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
