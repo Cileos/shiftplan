@@ -13,7 +13,7 @@ Clockwork::Application.routes.draw do
   resources :accounts, except: [:show] do
     resources :reports
     resources :organizations do
-
+      resources :reports
 
       member do
         post 'add_members'

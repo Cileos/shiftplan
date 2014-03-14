@@ -14,7 +14,7 @@
       %li{class: actives[:dashboard] && 'active'}
         = link_to :dashboard, nested_resources_for(current_organization), :class => 'icon-dashboard'
       - if can? :read_report, account
-        = li_link :report, account_reports_path(account, organization_id: organization.id), :class => 'icon-report'
+        = li_link :report, [account, organization, :reports], :class => 'icon-report'
       - if company_blog.present?
         = li_link :news, base + [company_blog, :posts], can: [:read, organization], :class => 'icon-blog'
 
