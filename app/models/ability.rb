@@ -331,6 +331,9 @@ class Ability
     can :manage, AttachedDocument do |doc|
       curr_organization == doc.plan.organization
     end
+    can :read_report, Organization do |organization|
+      curr_organization == organization
+    end
   end
 
   def authorize_anonymous

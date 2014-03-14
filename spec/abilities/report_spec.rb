@@ -3,11 +3,12 @@ require "cancan/matchers"
 
 describe "Report permissions:" do
   subject { ability }
-  let(:ability)          { Ability.new(user) }
-  let(:user)             { create(:user) }
-  let(:account)          { create(:account) }
-  let(:foreign_account)  { create(:account) }
-  let(:organization)     { create(:organization, account: account) }
+  let(:ability)               { Ability.new(user) }
+  let(:user)                  { create(:user) }
+  let(:account)               { create(:account) }
+  let(:organization)          { create(:organization, account: account) }
+  let(:foreign_account)       { create(:account) }
+  let(:foreign_organization)  { create(:organization, account: foreign_account) }
 
   before(:each) do
     # The planner role is set on the membership, so a planner can only be
@@ -26,8 +27,16 @@ describe "Report permissions:" do
       should be_able_to(:read_report, account)
     end
 
+    it "can read reports of own organizations" do
+      should be_able_to(:read_report, organization)
+    end
+
     it "can not read reports of foreign accounts" do
       should_not be_able_to(:read_report, foreign_account)
+    end
+
+    it "can not read reports of foreign organizations" do
+      should_not be_able_to(:read_report, foreign_organization)
     end
   end
 
@@ -42,6 +51,18 @@ describe "Report permissions:" do
 
     it "can not read reports of own accounts" do
       should_not be_able_to(:read_report, account)
+    end
+
+    it "can read reports of own organizations" do
+      should be_able_to(:read_report, organization)
+    end
+
+    it "can not read reports of foreign accounts" do
+      should_not be_able_to(:read_report, foreign_account)
+    end
+
+    it "can not read reports of foreign organizations" do
+      should_not be_able_to(:read_report, foreign_organization)
     end
   end
 

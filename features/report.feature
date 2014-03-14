@@ -1,6 +1,6 @@
 Feature: Report
   In order to keep an overview of the schedulings
-  As an owner
+  As an owner or planner
   I want to see a list of all the schedulings of my account or of an organization of my account
 
   Background:
@@ -24,7 +24,7 @@ Feature: Report
         | 17.11.2012  | employee owner "mr burns"  | 7-14:30  | plan "shut down"          |           |                    |
      When I am signed in as the user "mr burns"
 
-  Scenario: Current month report for account
+  Scenario: Owner visits current month report for account
       # Foreign account data:
     Given an account "tv business" exists with name: "TV Business"
       And a organization "the clown show" exists with account: account "tv business", name: "The Clown Show"
@@ -48,7 +48,7 @@ Feature: Report
       And I should see "22,75" within the header aggregation within the reports table
 
 
-  Scenario: Current month report for organization
+  Scenario: Owner visits current month report for organization
      When I go to the page of the organization "sector 7g"
       And I choose "Report" from the drop down "Info"
       # only schedulings of organization sector 7g should be shown
@@ -57,3 +57,19 @@ Feature: Report
         | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
       And I should see "16,00" within the header aggregation within the reports table
+
+
+  Scenario: Planner visits current month report for organization
+    Given a confirmed user "bart" exists
+      And an employee "bart" exists with first_name: "Bart", account: the account, user: user "bart"
+      And the employee "bart" is a planner of the organization "sector 7g"
+      And I am signed in as the user "bart"
+     When I go to the page of the organization "sector 7g"
+      And I choose "Report" from the drop down "Info"
+      # only schedulings of organization sector 7g should be shown
+      And I should see the following table of reports:
+        | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
+        | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
+        | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
+      And I should see "16,00" within the header aggregation within the reports table
+
