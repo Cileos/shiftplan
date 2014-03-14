@@ -41,7 +41,7 @@ class Account < ActiveRecord::Base
   end
 
   def self.default_sorting
-    order('UPPER(name)')
+    order('UPPER(accounts.name) COLLATE "C"')
   end
 
   def to_s
