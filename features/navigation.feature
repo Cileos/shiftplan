@@ -196,7 +196,7 @@ Feature: Navigation
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | true    |
        | Dashboard                                         | false   |
-       | Report                                            | false   |
+       | Report                                            | true    |
        | Neuigkeiten                                       | false   |
        | Pläne                                             | false   |
        | Alle Pläne                                        | false   |
