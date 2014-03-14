@@ -31,8 +31,8 @@ Feature: Report
       | 2013-01-20  | employee "Homer"  | 22-4:45  | the plan "clean reactor"      |                            |                    |
       | 2013-01-06  | employee "Krusty" | 9-9:30   | the plan "make fun of homer"  |                            |                    |
 
-    And I choose "Reactor" from the drop down "Organisation"
-    And I choose "Report" from the drop down "Info"
+   When I go to the dashboard
+    And I follow "Report"
     And I should see the following table of reports:
       | Datum      | Stunden | Name     | Team           | Qualifikation     | Plan                 | Organisation |
       | 20.01.2013 | 6,75    | S, Homer |                |                   | Cleaning the Reactor | Reactor      |
