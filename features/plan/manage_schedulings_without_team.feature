@@ -29,7 +29,7 @@ Feature: Manage schedulings without teams
         | Ohne Team  |     |     | Homer S 22:00-06:00  | Homer S 22:00-06:00  |     |     |     |
      When I click on scheduling "22:00-06:00"
       And I wait for the modal box to appear
-      And I fill in "Endzeit" with "07:00"
+      And I fill in "Ende" with "07:00"
       And I select "Lenny L" from the "Mitarbeiter" single-select box
       And I press "Speichern"
       And I wait for the modal box to disappear

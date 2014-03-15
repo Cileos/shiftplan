@@ -2,8 +2,8 @@ en:
   activerecord:
     attributes:
       demand:
-        quantity: quantity
-        qualification: qualification
+        quantity: Quantity
+        qualification: Qualification
     models:
       demand:
         one: "demand"
