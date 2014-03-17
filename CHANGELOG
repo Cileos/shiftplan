@@ -1,12 +1,19 @@
 Changelog
 =========
 
+Release 1.1.0 2014-03-17 10:35
+-------------------------------
+1da2742 Merge pull request #234 from Cileos/feature/improve_shift_form_labels
+51caabc Merge branch 'feature/change-the-scope-of-the-report' into develop
+a43e73a Merge pull request #233 from Cileos/feature/disable-employees
+f7106a4 Merge pull request #239 from Cileos/feature/redirect-to-new-signup-url
+8676179 Merge pull request #235 from Cileos/feature/undo-apply-week-template
+
 Release 1.0.11 2014-01-23 12:35
 -------------------------------
 1767443 Merge pull request #236 from Cileos/feature/stylingsession_20140212
 f2af97d Merge branch 'feature/remove-quickie-feedback-in-scheduling-box' into develop
 91478c7 Merge branch 'release/1.0.11' into develop
-
 
 Release 1.0.11 2014-01-23 12:35
 -------------------------------
