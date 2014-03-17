@@ -13,20 +13,18 @@
    $ git checkout develop
    $ git pull --rebase
 
-4. Check if the rake db:seed task successfully runs locally. (We need the task after
-   deploying to staging.
 
-5. Fetch all tags that have been created so far:
+4. Fetch all tags that have been created so far:
 
    $ git fetch --tags
 
 
-6. List all tags:
+5. List all tags:
 
    $ git tag
 
 
-7. Create a new release with an incremented version number. Increment the highest tag
+6. Create a new release with an incremented version number. Increment the highest tag
    number you get from 'git tag'(see 5.) after you have updated the tags by
    'git fetch --tags'(see 4.). Compare this version number with the current version in the
     CHANGELOG and VERSION files.
@@ -36,10 +34,10 @@
    $ git flow release start 1.0.5
 
 
-8. Bump the version in the VERSION file:
+7. Bump the version in the VERSION file:
    e.g. replace 1.0.4 with 1.0.5
 
-9. Update the CHANGELOG file with important changes (Pull requests, Merges, Hotfixes) To
+8. Update the CHANGELOG file with important changes (Pull requests, Merges, Hotfixes) To
    easily get a list of all Merges/Pull requests/Hotfixes from the current master until
    the current develop branch execute:
 
@@ -63,9 +61,11 @@
    * 9743ad4 Merge branch 'hotfix/fix-fact-finder-export' into develop
 
 
-10. Commit all local changes(at least VERSION and CHANGELOG should have changes).
+9. Commit all local changes(at least VERSION and CHANGELOG should have changes).
+   git commit -m"update CHANGELOG and bump VERSION"
 
-11. Finish your release with:
+
+10. Finish your release with:
 
     $ git flow release finish <new-version-number>
 
@@ -94,25 +94,25 @@
     - Release branch 'release/1.0.13' has been deleted
 
 
-12. You should be on the develop branch then. Push both the master and develop branches:
+11. You should be on the develop branch then. Push both the master and develop branches:
 
     $ git push
 
     Make sure that both branches have been pushed.
 
-13. Review the Notes for the next deployment. These are located in
+12. Review the Notes for the next deployment. These are located in
     "doc/NEXT_RELEASE.markdown". It's fine if the document is empty, just check if there
     is anything special to be done before/during/after the actual deployment. A typical next
     release note is that certain yaml files need to be changed on the servers before
     deploying. The file doc/NEXT_RELEASE.markdown should be emptied immediately after
     a successful release in the develop branch. (see 18.)
 
-14. Before deploy check the diff if any gitignored .yml files have been changed. If yes,
+13. Before deploy check the diff if any gitignored .yml files have been changed. If yes,
     amend relevant files on staging and production to reflect the new structure.
     It is also a good idea to briefly take a look at each Kanbanery ticket that is to be
     released and check comments for important information.
 
-15. Wait for the master branch build on the CI Server to finish. If it is green, deploy
+14. Wait for the master branch build on the CI Server to finish. If it is green, deploy
     the master to staging with:
 
     $ cap staging deploy:migrations BRANCH=master
@@ -124,14 +124,14 @@
     Check if everything went fine on staging and briefly take a look at each feature just
     released and deployed.
 
-16. If the deployment to staging was successful, deploy the master to production with:
+15. If the deployment to staging was successful, deploy the master to production with:
 
     $ cap production deploy:migrations
 
-17. After the deployment, check all release tickets in the Kanbanery "Release" column to
+16. After the deployment, check all release tickets in the Kanbanery "Release" column to
     mark them as ready/deployed.
 
-18. Check if everything went fine on production and briefly take a look at each feature
+17. Check if everything went fine on production and briefly take a look at each feature
     just released and deployed. If a ticket looks fine on production, move it to the
     Kanbanery "Done" column.
 

@@ -58,6 +58,9 @@ module HtmlSelectorsHelpers
     when "the legend"
       '#legend'
 
+    when "the header aggregation"
+      'tr.aggregation'
+
     when "the active teams legend"
       '#legend #active-teams'
 

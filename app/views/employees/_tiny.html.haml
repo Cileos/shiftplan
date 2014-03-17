@@ -1,3 +1,3 @@
-.employee
+.employee{class: employee.planable? || 'suspended' }
   = avatar(employee.user, employee, :tiny)
   %span.name= employee.name

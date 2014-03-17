@@ -11,8 +11,8 @@ de:
         start_minute: Startminute
         end_hour: Endstunde
         end_minute: Endminute
-        start_time: Startzeit
-        end_time: Endzeit
+        start_time: Beginn
+        end_time: Ende
       shift/demands:
         quantity: Anzahl
         qualification: Qualifikation

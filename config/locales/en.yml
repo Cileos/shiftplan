@@ -78,7 +78,7 @@ en:
       time: "%H:%M"
       abbr_week_day: "%a"
       short_month_and_year: "%b %Y"
-      micro: "%m/%d/%Y, %H:%M"
+      micro: "%m/%m.%Y, %H:%M"
 
     am: "Morning"
     pm: "Afternoon"

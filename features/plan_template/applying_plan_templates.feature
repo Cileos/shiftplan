@@ -47,7 +47,7 @@ Feature: Applying Weekbased Plan Templates to Plans
         | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
 
      When I press "Rückgängig machen"
-     Then I should see notice "Die aus der Planvorlage übernommene Schichten wurden wieder gelöscht."
+     Then I should see notice "Die aus der Planvorlage übernommenen Schichten wurden wieder gelöscht."
       And I should see the following partial calendar:
         | Teams                  | Mo | Di | Mi | Do | Fr | Sa | So |
         | Brennstabkessel (B)    |    |    |    |    |    |    |    |

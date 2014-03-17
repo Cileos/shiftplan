@@ -6,14 +6,16 @@ en:
           start_time_must_be_different_from_end_time: "Start and end of shift are identical."
     attributes:
       shift:
-        day: day
-        start_hour: hour of start
-        start_minute: minute of start
-        end_hour: hour of end
-        end_minute: minute of end
+        day: Day
+        start_hour: Hour of start
+        start_minute: Minute of start
+        end_hour: Hour of end
+        end_minute: Minute of end
+        start_time: Start
+        end_time: End
       shift/demands:
-        quantity: quantity
-        qualification: qualification
+        quantity: Quantity
+        qualification: Qualification
     models:
       shift:
         one: "shift"

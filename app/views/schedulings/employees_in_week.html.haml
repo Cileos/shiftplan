@@ -10,7 +10,7 @@
           %span.day_name= abbr
           %span.date-without-year= date
   %tbody{ class: editable_class }
-    - filter.employees.each do |employee|
+    - filter.listed_employees.each do |employee|
       %tr{data: { :'employee-id' => employee.id }}
         %th.employee
           = render 'employees/tiny', employee: employee

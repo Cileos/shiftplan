@@ -131,8 +131,8 @@ describe Volksplaner::Currents do
           before(:each) do
             controller.current_user.stub(:organizations_for).and_return([organization_1])
           end
-          it "does set the current organization to the organization of the user" do
-            controller.current_organization.should == organization_1
+          it "does not set a current organization" do
+            controller.current_organization.should be_nil
           end
         end
       end

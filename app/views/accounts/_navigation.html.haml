@@ -2,9 +2,19 @@
   %ul
     %li.dropdown{class: request.path == accounts_path && 'active'}
       = link_to t('activerecord.models.organization.other'), accounts_path,
-        {:class => 'icon-organization', data: { toggle: 'dropdown'}}
+        {class: 'icon-organization', data: { toggle: 'dropdown'}}
       %ul.organization-dropdown.dropdown-menu
         = render 'accounts/organization_menu_items', accounts: current_user.accounts.default_sorting
 
     - if current_organization
       = render 'organizations/navigation_links', organization: current_organization
+    - else
+      - read_report_accounts = current_user.accounts.default_sorting.select { |a| can? :read_report, a }
+      - if read_report_accounts.size == 1
+        = li_link :report, [read_report_accounts.first, :reports], class: 'icon-report'
+      - elsif read_report_accounts.size > 1
+        %li.dropdown{class: read_report_accounts.any? { |a| below_path?([a, :reports])} && 'active'}
+          = link_to :reports, accounts_path, { class: 'icon-report', data: { toggle: 'dropdown'} }
+          %ul.report-dropdown.dropdown-menu
+            - read_report_accounts.each do |account|
+              = li_link account.name, [account, :reports]

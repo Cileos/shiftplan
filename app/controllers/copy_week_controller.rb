@@ -5,7 +5,10 @@ class CopyWeekController < BaseController
   def create
     create! do
       set_flash(:notice)
-      plan_week_mode_path(plan, current_plan_mode, resource.monday)
+      path = plan_week_mode_path(plan, current_plan_mode, resource.monday)
+
+      store_undo create: resource.created_schedulings, redirect: path
+      path
     end
   end
 

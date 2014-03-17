@@ -11,7 +11,10 @@ Clockwork::Application.routes.draw do
   put 'mark_notifications_as_read'    => 'mark_notifications_as_read#multiple', as: 'mark_notifications_as_read'
 
   resources :accounts, except: [:show] do
+    resources :reports, only: :index
     resources :organizations do
+      resources :reports, only: :index
+
       member do
         post 'add_members'
       end
@@ -101,6 +104,7 @@ Clockwork::Application.routes.draw do
 
   put "undo" => 'undo#update', as: 'undo'
 
+  get '/users/sign_up', to: redirect('/signup')
 
   devise_for :users, :controllers => { registrations: 'signup', sessions: 'sessions'}
 

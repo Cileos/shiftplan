@@ -35,8 +35,13 @@ class CopyWeek
         t = s.dup
         t.comments_count = 0 # do not copy the comments_count of the original
         t.move_to_week_and_year! target_week, target_year
+        created_schedulings << t
       end
     end
+  end
+
+  def created_schedulings
+    @created_schedulings ||= []
   end
 
   def source_schedulings

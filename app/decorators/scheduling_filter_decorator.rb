@@ -134,8 +134,18 @@ class SchedulingFilterDecorator < ApplicationDecorator
     organization.teams - active_teams
   end
 
+  def listed_employees
+    @listed_employees ||=
+      employees
+        .select do |empl|
+          empl.organization_id = organization.id
+          empl.planable? || records.find { |s| s.employee_id == empl.id }
+        end
+  end
+
   def employees
-    organization.employees.default_sorting
+    organization.employees
+                .default_sorting
   end
 
   delegate :plan,         to: :filter

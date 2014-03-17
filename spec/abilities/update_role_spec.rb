@@ -6,6 +6,7 @@ describe "Updating roles of employees permissions:" do
   let(:ability)               { Ability.new(user) }
   let(:user)                  { create(:user) }
   let(:account)               { create(:account) }
+  let(:foreign_account)       { create(:foreign_account) }
   let(:organization)          { create(:organization, account: account) }
 
   let(:another_employee)      { create(:employee, account: account) }

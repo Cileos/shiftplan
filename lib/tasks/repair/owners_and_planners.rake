@@ -101,7 +101,7 @@ namespace :repair do
           elsif employee.role == 'planner'
             account = employee.account
             account.organizations.each do |organization|
-              membership = employee.memberships.find_by_organization_id(organization.id)
+              membership = employee.membership_for_organization(organization)
               if membership
                 membership.role = 'planner'
                 membership.save!
