@@ -5,8 +5,8 @@ shared_examples :conflict_finder_not_finding_conflicts do
   before { subject.call }
 
   it 'does not find any conflicts' do
-    scheduling.conflicts.should be_blank
-    subject.conflicts.should be_blank
+    scheduling.conflicts.should be_empty, scheduling.conflicts.map(&:inspect).join(', ')
+    subject.conflicts.should be_empty
   end
 end
 
@@ -25,24 +25,25 @@ shared_examples :conflict_finder_finding_conflict do
   describe 'the found conflict' do
     let(:conflict) { subject.conflicts.first }
     it 'has input scheduling as provoker' do
-      conflict.provoker.should == scheduling
+      if conflict
+        conflict.provoker.should == scheduling
+      end
     end
 
     it 'has conflicting schedulings as established' do
-      conflict.established.should include(other)
+      if conflict
+        conflict.established.should include(other)
+      end
     end
   end
 end
 
 shared_examples :conflict_finder_scoped_to_employee do
   subject { described_class.new schedulings }
-  let(:employee) { create :employee }
-  let(:other_employee) { create :employee }
+  let(:employee) { create :employee, account: account }
+  let(:other_employee) { create :employee, account: account }
+  let(:account) { create :account }
   let(:schedulings) { [ scheduling ] }
-
-  def s(quickie, employee)
-    create :scheduling_by_quickie, quickie: quickie, employee: employee
-  end
 
   describe 'for lone scheduling' do
     let(:scheduling) { create :scheduling }
