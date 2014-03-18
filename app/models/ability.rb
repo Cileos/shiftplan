@@ -7,9 +7,10 @@ class Ability
   # not set and we cannot determine permissions
   #
   include CanCan::Ability
+  attr_reader :user
 
   def initialize(current_user_with_context)
-    user = current_user_with_context || User.new # guest user (not logged in)
+    @user = current_user_with_context || User.new # guest user (not logged in)
 
     alias_action :multiple, to: :read
     SchedulingFilterDecorator.supported_modes.each do |mode|
@@ -19,28 +20,28 @@ class Ability
     if employee = user.current_employee
       if employee.owner?
         # The user is in the scope of an account.
-        authorize_owner(user)
+        authorize_owner
       elsif membership = user.current_membership
         # The user is in the scope of an organization.
         if membership.role.present?
-          public_send "authorize_#{membership.role}", user
+          public_send "authorize_#{membership.role}"
         else
-          authorize_employee user
+          authorize_employee
         end
       else
-        authorize_employee user
+        authorize_employee
       end
     elsif user.persisted?
       # The user is not in the scope of an account. (A user can have multiple
       # accounts)
-      authorize_signed_in(user)
+      authorize_signed_in
     else # the user is not logged in
       authorize_anonymous
     end
     can :create, Feedback
   end
 
-  def authorize_signed_in(user)
+  def authorize_signed_in
     can :dashboard, User
     can [:read, :update], Notification::Base, employee: { user_id: user.id }
     can :read, Account do |account|
@@ -83,9 +84,8 @@ class Ability
     can :update, Volksplaner::Undo::Step
   end
 
-  def authorize_employee(user)
-    authorize_signed_in(user)
-    curr_employee = user.current_employee
+  def authorize_employee
+    authorize_signed_in
 
     can :read, Plan do |plan|
       curr_employee.organizations.include?(plan.organization)
@@ -132,10 +132,7 @@ class Ability
   # owner/planner with the account of the entities like Plan. The definition of
   # ablities might change soon in the future when we need to introduce roles on
   # memberships, too.
-  def authorize_planner(user)
-    curr_employee     = user.current_employee
-    curr_account      = curr_employee.account
-    curr_organization = user.current_membership.try(:organization)
+  def authorize_planner
 
     can [:read], Organization do |organization|
       curr_account == organization.account
@@ -169,7 +166,8 @@ class Ability
       curr_organization == plan.organization
     end
     can :manage, Scheduling do |scheduling|
-      curr_organization == scheduling.plan.organization
+      curr_organization == scheduling.plan.organization &&
+        ( !scheduling.represents_unavailability? || self_planning?(scheduling) )
     end
     can :manage, Shift do |shift|
       curr_organization == shift.plan_template.organization
@@ -219,18 +217,14 @@ class Ability
     end
 
     can :show, Conflict do |conflict|
-      current_organization == conflict.provoker.plan.organization
+      curr_organization == conflict.provoker.plan.organization
     end
 
-    authorize_owner_and_planner(user)
-    authorize_employee(user)
+    authorize_owner_and_planner
+    authorize_employee
   end
 
-  def authorize_owner(user)
-    owner         = user.current_employee
-    curr_account  = owner.account
-
-
+  def authorize_owner
     can [:update], Account do |a|
       curr_account == a
     end
@@ -256,14 +250,15 @@ class Ability
       )
     end
     can :update_role, Employee do |employee|
-      owner != employee && # no one can update her/his own role
+      curr_employee != employee && # no one can update her/his own role
         employee.account == curr_account
     end
     can :manage, Plan do |plan|
       curr_account == plan.organization.account
     end
     can :manage, Scheduling do |scheduling|
-      curr_account == scheduling.plan.organization.account
+      curr_account == scheduling.plan.organization.account &&
+        ( !scheduling.represents_unavailability? || self_planning?(scheduling) )
     end
     can :manage, Shift do |shift|
       curr_account == shift.plan_template.organization.account
@@ -313,24 +308,21 @@ class Ability
     end
 
     can :show, Conflict do |conflict|
-      current_organization == conflict.provoker.plan.organization
+      curr_organization == conflict.provoker.plan.organization
     end
 
     can :read_report, Account do |account|
       curr_account == account
     end
 
-    authorize_owner_and_planner(user)
-    authorize_employee(user)
+    authorize_owner_and_planner
+    authorize_employee
   end
 
   private
 
   # What owner and planner have in common
-  def authorize_owner_and_planner(user)
-    curr_employee     = user.current_employee
-    curr_account      = curr_employee.account
-    curr_organization = user.current_membership.try(:organization)
+  def authorize_owner_and_planner
 
     can :manage, AttachedDocument do |doc|
       curr_organization == doc.plan.organization
@@ -342,5 +334,21 @@ class Ability
 
   def authorize_anonymous
     can :manage, Signup
+  end
+
+  def self_planning?(scheduling)
+    scheduling.employee && scheduling.employee == curr_employee
+  end
+
+  def curr_employee
+    user.current_employee
+  end
+
+  def curr_organization
+    user.current_membership.try(:organization)
+  end
+
+  def curr_account
+    curr_employee.account
   end
 end
