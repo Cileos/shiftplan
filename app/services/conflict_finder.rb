@@ -53,8 +53,7 @@ class ConflictFinder < Struct.new(:schedulings)
   end
 
   def our_other_employee_ids
-    user_ids = Employee.where(id: scheduling_employee_ids).pluck('DISTINCT user_id')
-    Employee.where( user_id: user_ids).pluck('DISTINCT id')
+    find_alternative_employee_ids(scheduling_employee_ids)
   end
 
 
@@ -70,7 +69,12 @@ class ConflictFinder < Struct.new(:schedulings)
 
   def alternative_employee_ids(s)
     @alternative_employee_ids ||= Hash.new
-    @alternative_employee_ids[s.employee_id] ||= s.employee.user.employees.map(&:id)
+    @alternative_employee_ids[s.employee_id] ||= find_alternative_employee_ids(s.employee_id)
+  end
+
+  def find_alternative_employee_ids(ids)
+    user_ids = Employee.where(id: ids).pluck('DISTINCT user_id')
+    Employee.where( user_id: user_ids).pluck('DISTINCT id')
   end
 
 
