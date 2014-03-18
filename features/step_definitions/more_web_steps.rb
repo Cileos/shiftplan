@@ -130,6 +130,7 @@ end
 
 Then /^the (.+) should( not)? be disabled$/ do |name, negate|
   selector = selector_for(name)
+  page.should have_css(selector)
   elem = page.first(selector)
   disabled = elem['disabled']
   if negate
