@@ -14,8 +14,8 @@ end
 When /^I wait for (.+) to appear$/ do |name|
   selector = selector_for name
   begin
-    page.should have_css(selector, visible: true)
-  rescue Capybara::CapybaraError => timeout
+    page.wait_until { page.has_css?(selector, :visible => true) }
+  rescue Capybara::Session::TimedOut => timeout
     STDERR.puts "saved page: #{save_page}"
     STDERR.puts "saved screenshot: #{screenshot}"
     raise timeout
@@ -25,8 +25,8 @@ end
 When /^I wait for (.+) to disappear$/ do |name|
   selector = selector_for name
   begin
-    page.should have_no_css(selector, visible: true)
-  rescue Capybara::CapybaraError => timeout
+    page.wait_until { page.has_no_css?(selector, :visible => true) }
+  rescue Capybara::Session::TimedOut => timeout
     STDERR.puts "saved page: #{save_page}"
     STDERR.puts "saved screenshot: #{screenshot}"
     raise timeout
