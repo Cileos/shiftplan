@@ -166,7 +166,11 @@ end
 
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   expected = path_to(page_name)
-  URI.parse(current_url).path.should == expected
+  begin
+    page.wait_until { URI.parse(current_url).path == expected }
+  rescue Capybara::Session::TimedOut => timeout
+    URI.parse(current_url).path.should == expected
+  end
 end
 
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
