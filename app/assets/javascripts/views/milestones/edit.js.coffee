@@ -1,2 +1,2 @@
-Clockwork.EditMilestoneView = Clockwork.EditDoable.extend
+Clockwork.MilestonesEditView = Clockwork.EditDoable.extend
   heading: "Meilenstein bearbeiten"

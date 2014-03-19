@@ -1,13 +1,13 @@
 <ul class="milestones">
-  {{#each controller}}
+  {{#each filteredContent}}
     {{view Clockwork.ShowMilestoneView}}
   {{/each}}
 </ul>
 
 <ul class="actions">
-  {{#if can_manage}}
+  {{#if currentUser.canManage}}
   <li>
-    <a href="#" {{action newMilestone}} class="button button-add">neuer Meilenstein</a>
+    {{#link-to 'milestones.new' class="button button-add"}}neuer Meilenstein{{/link-to}}
   </li>
   {{/if}}
 </ul>

@@ -1,3 +1,3 @@
-Clockwork.EditTaskView = Clockwork.EditDoable.extend
+Clockwork.MilestoneTaskView = Clockwork.EditDoable.extend
   heading: "Aufgabe bearbeiten"
 

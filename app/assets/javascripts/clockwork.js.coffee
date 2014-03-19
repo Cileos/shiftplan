@@ -9,39 +9,48 @@
 #= require_tree ./routes
 
 Clockwork = Ember.Application.create
-  autoinit: false
+  LOG_TRANSITIONS: true
   rootElement: '#milestones'
   Fields: Ember.Object.extend()
+  cursor: null
 
-Clockwork.store = DS.Store.create
-  revision: 7
-  adapter: DS.RESTAdapter.create
-    bulkCommit: false
-    mappings:
-      responsibles: 'Clockwork.Employee'
-    #plurals:
-    #  directory: 'directories'
+# can be removed when we use Ember everywhere
+Clockwork.deferReadiness()
 
 Clockwork.settings = Ember.Object.create
   dateFormat: 'yyyy-mm-dd' # TODO globalize
 
-# FIXME: cheap way of re-implementing abilities.
-#
-# If we do not want to send a Request for each resource  to the server, we
-# have to re-implement something like cancan.
-Clockwork.isOwnerOrPlanner = ->
-  (->
-    role = Clockwork.get('current_user.role')
-    role is 'owner' or role is 'planner'
-  ).property('Clockwork.current_user.role')
+Clockwork.initializer
+  # injects 'currentUser' in every controller for authorization
+  name: 'currentUser'
+  initialize: (container) ->
+    Clockwork.deferReadiness()
+    $ ->
+      $root = $(Clockwork.rootElement)
+      user = Ember.Object.create
+        role: $root.data('role')
 
+      controller = container.lookup('controller:currentUser').set('content', user)
+      container.typeInjection('controller', 'currentUser', 'controller:currentUser')
+      Clockwork.advanceReadiness()
+
+Clockwork.initializer
+  # injects 'employees' in every controller. Is loaded in Applicationroute
+  name: 'employees'
+  initialize: (container)->
+    # lookup once to warm up caches and avoid StackLevelTooDeep
+    container.lookup('controller:employees')
+    container.typeInjection('controller', 'employees', 'controller:employees')
+
+Clockwork.ApplicationSerializer = DS.ActiveModelSerializer.extend()
 
 window.Clockwork = Clockwork
 
 jQuery ->
   if ($root = $('#milestones')).length > 0
     # base all URLs on current plan
-    Clockwork.store.get('adapter').set 'namespace', (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
-    Clockwork.set 'employees', Clockwork.Employee.find()
-    Clockwork.set 'current_user', Ember.Object.create(role: $root.data('role'))
-    Clockwork.initialize()
+    Clockwork.ApplicationAdapter = DS.ActiveModelAdapter.extend
+      namespace: (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
+    Clockwork.advanceReadiness()
+
+    Clockwork.set 'cursor', new CalendarCursor $('table#calendar')

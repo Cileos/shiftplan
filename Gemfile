@@ -115,7 +115,7 @@ gem 'versatile_rjs', :git => 'git://github.com/condor/versatile_rjs.git'
 gem 'polyglot' # load treetop grammars with #require
 
 gem 'gon' # push variables from rails to js
-gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
+gem "active_model_serializers", "~> 0.8.0"
 
 gem 'RedCloth' # textilize instructions and other texts from locales
 
@@ -131,7 +131,9 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart'
 gem 'gravtastic'
-gem 'ember-rails', '0.7.0'
+gem 'ember-rails'
+gem 'ember-source', '~> 1.3.1'
+gem "ember-data-source", "1.0.0.beta.5"
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
 
 gem 'strong_parameters', '~> 0.2.1'
