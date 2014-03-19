@@ -9,7 +9,7 @@
     - if current_organization
       = render 'organizations/navigation_links', organization: current_organization
     - else
-      - read_report_accounts = current_user.accounts.default_sorting.select { |a| can? :new, Report.new(account_id: a.id) }
+      - read_report_accounts = current_user.accounts.default_sorting.select { |a| can? :create, Report.new(account_id: a.id) }
       - if read_report_accounts.size == 1
         = li_link :report, [:new, read_report_accounts.first, :report], class: 'icon-report'
       - elsif read_report_accounts.size > 1
