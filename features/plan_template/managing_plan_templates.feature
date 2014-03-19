@@ -19,7 +19,7 @@ Feature: Create Weekbased Plan Template
      When I follow "Hinzufügen"
       And I wait for the modal box to appear
      When I fill in "Name" with "Typische Woche in der Brennstabpflege"
-      And I select "Wochenbasiert" from "Vorlagentyp"
+      And I select "Wochenbasiert" from the "Vorlagentyp" single-select box
       And I press "Anlegen"
       And I wait for the modal box to disappear
 

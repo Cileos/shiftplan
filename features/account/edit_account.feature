@@ -14,5 +14,4 @@ Feature: Edit Account
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should be on the accounts page
-      And I should see "Power Plant" within the content
-      And I should see "Power Plant - Sector 7-G" within the navigation
+      And I should see "Power Plant - Sector 7-G" within the orientation bar

@@ -71,7 +71,7 @@ Feature: User Navigation
       And I go to the dashboard page
      Then I should see the avatar "barts_avatar.jpg" within the user navigation
 
-     When I follow "Springfield Nuclear Power Plant"
+     When I follow "Springfield Nuclear Power Plant - Cooling Towers"
      Then I should see the avatar "barts_avatar.jpg" within the user navigation
      When I follow "Cileos UG"
      Then I should see the avatar "rails.png" within the user navigation

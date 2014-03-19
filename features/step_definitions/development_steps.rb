@@ -39,3 +39,34 @@ After do |scenario|
     Rails.logger.debug { "oooooo END Scenario #{scenario.title.inspect} (#{scenario.file_colon_line})" }
   end
 end
+
+module BenchmarkingHelper
+  def benchmark(description='something slow', &block)
+    ms = Benchmark.ms &block
+    STDERR.puts 'Benchmark %s: (%.2fs)' % [description, ms/1000]
+  end
+end
+World(BenchmarkingHelper)
+
+module ComplicatedCSSHelper
+  # When your selector raises
+  # "Selenium::WebDriver::Error::InvalidElementStateError: invalid element
+  # state: Failed to execute query: '<CSS>' is not a valid selector", wrap it
+  # with this.
+  #
+  # (before version 2, capybara did this automatically)
+  def complicated_css(css)
+    Nokogiri::CSS.xpath_for(css).first
+  end
+
+  # Capybara 2 ignores hidden elements by default. It is a good thing (TM).
+  # With this, you can still see them (for example the page title)
+  def not_ignoring_hidden_elements
+    old = Capybara.ignore_hidden_elements
+    Capybara.ignore_hidden_elements = false
+    yield
+  ensure
+    Capybara.ignore_hidden_elements = old
+  end
+end
+World(ComplicatedCSSHelper)

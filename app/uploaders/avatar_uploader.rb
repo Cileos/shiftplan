@@ -22,7 +22,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
     # after each test run without having to fear deleting production files,
     # accidentally.
     if Rails.env.test?
-      "#{Rails.root}/features/support/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+      "test_uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     else
       # production files are stored in 'uploads' under the Rails public path
       "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"

@@ -167,8 +167,8 @@ end
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   expected = path_to(page_name)
   begin
-    wait_until { URI.parse(current_url).path == expected }
-  rescue Capybara::TimeoutError => e
+    page.wait_until { URI.parse(current_url).path == expected }
+  rescue Capybara::Session::TimedOut => timeout
     URI.parse(current_url).path.should == expected
   end
 end

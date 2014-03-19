@@ -31,9 +31,9 @@ Feature: Adopt Employee from other Organization
       And I follow "Übernehmen"
      Then I should be on the adopt employees page for the organization "sector 7g"
       And I should see the following table of employees:
-        | Übernehmen?  | Name            | WAZ  | E-Mail                 | Status                 | Organisationen              |
-        |              | Simpson, Bart   |      |                        | Noch nicht eingeladen  | Sector 6-F                  |
-        |              | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv                  | Cooling Towers\nSector 6-F  |
+        | Übernehmen? | Name           | WAZ | E-Mail                | Status                | Organisationen            |
+        |             | Simpson, Bart  |     |                       | Noch nicht eingeladen | Sector 6-F                |
+        |             | Simpson, Homer |     | homer@thesimpsons.com | Aktiv                 | Cooling Towers Sector 6-F |
 
   Scenario: Adopting employees
      When I press "Mitarbeiter übernehmen"
@@ -48,12 +48,12 @@ Feature: Adopt Employee from other Organization
       And I should see the following table of employees:
         | Name            | WAZ  | E-Mail                       | Status                 | Organisationen          |
         | Burns, Charles  |      | c.burns@npp-springfield.com  | Aktiv                  | Sector 7-G              |
-        | Simpson, Bart   |      |                              | Noch nicht eingeladen  | Sector 6-F\nSector 7-G  |
+        | Simpson, Bart   |      |                              | Noch nicht eingeladen  | Sector 6-F Sector 7-G  |
 
      When I follow "Übernehmen"
      Then I should see the following table of employees:
         | Übernehmen?  | Name            | WAZ  | E-Mail                 | Status  | Organisationen              |
-        |              | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv   | Cooling Towers\nSector 6-F  |
+        |              | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv   | Cooling Towers Sector 6-F  |
 
    @javascript
    Scenario: Search, Clear, refine search to continue to adopt the found employees
@@ -66,7 +66,7 @@ Feature: Adopt Employee from other Organization
      Then I should see "1 Mitarbeiter gefunden"
       And I should see the following table of employees:
         | Name            | WAZ  | E-Mail                 | Status  | Organisationen              |
-        | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv   | Cooling Towers\nSector 6-F  |
+        | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv   | Cooling Towers Sector 6-F  |
 
      # Clear
      When I follow "Suchfilter zurücksetzen"
@@ -75,7 +75,7 @@ Feature: Adopt Employee from other Organization
       And I should see the following table of employees:
         | Name            | WAZ  | E-Mail                 | Status                 | Organisationen              |
         | Simpson, Bart   |      |                        | Noch nicht eingeladen  | Sector 6-F                  |
-        | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv                  | Cooling Towers\nSector 6-F  |
+        | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv                  | Cooling Towers Sector 6-F  |
 
      # search that yields no results
      When I fill in "first_name" with "Heinz"
@@ -93,5 +93,5 @@ Feature: Adopt Employee from other Organization
       And I should see the following table of employees:
         | Name            | WAZ  | E-Mail                 | Status                 | Organisationen              |
         | Simpson, Bart   |      |                        | Noch nicht eingeladen  | Sector 6-F                  |
-        | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv                  | Cooling Towers\nSector 6-F  |
+        | Simpson, Homer  |      | homer@thesimpsons.com  | Aktiv                  | Cooling Towers Sector 6-F  |
       And the adopt employee button should not be disabled

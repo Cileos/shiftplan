@@ -39,7 +39,7 @@ Feature: Edit Schedulings of a Plan
      Then the scheduling "04:00-10:00" should be focus within the cell "Fr"/"Lenny L"
 
      When I press key "e"
-     Then I reschedule "4-11" and select "Lenny L" as "Mitarbeiter"
+     Then I reschedule "4-11" and select "Lenny L" as "Mitarbeiter" in the single-select box
       And I should see the following partial calendar:
         | Mitarbeiter    | Fr                                   |
         | Planner Burns  |                                      |

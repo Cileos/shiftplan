@@ -13,7 +13,7 @@ Feature: working off milestones
       And I am on the page for the plan
 
   Scenario: marking a milestone as done
-     When I check "done" within the first item within the milestones list
+     When I check the milestone "World Domination"
       And I wait for the spinner to disappear
      Then the milestone should be done
 
