@@ -6,7 +6,7 @@
     = simple_form_for @report, url: [:new, current_account, :report], method: :get do |f|
       .inputs
         = f.input :organization_id, collection: current_account.organizations,
-          include_blank: true
+          include_blank: true, input_html: { class: 'chosen-select' }
 
       .actions
         = f.responsive_submit_button ta(:filter)
