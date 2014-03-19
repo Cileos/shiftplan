@@ -1,41 +1,21 @@
-class ReportsController < InheritedResources::Base
-  nested_belongs_to :account
-  defaults resource_class: Scheduling, collection_name: 'schedulings', instance_name: 'scheduling'
-  load_and_authorize_resource class: Scheduling
-  actions :index
-
-  skip_authorization_check
-  before_filter :authorize_read_report
+class ReportsController < BaseController
+  actions :new
 
   def total_duration
-    @schedulings.reject(&:previous_day).sum { |s| s.decimal_duration }
+    @report.records.reject(&:previous_day).sum { |s| s.decimal_duration }
   end
   helper_method :total_duration
 
-    protected
-
-  def authorize_read_report
-    if current_organization
-      authorize! :read_report, current_organization
-    else
-      authorize! :read_report, current_account
-    end
-  end
-
     private
 
-  def collection
-    @schedulings ||= filter.records
+  def build_resource
+    @report ||= Report.new(account_id: current_account.id, organization_id: organization.try(:id))
   end
 
-  def filter
-    @filter ||= ReportFilter.new(base: base)
-  end
-
-  def base
-    current_account.organizations.find_by_id(params[:org_id]) ||
-      current_organization ||
-      current_account
+  def organization
+    org_id = resource_params.first[:organization_id]
+    org_id && current_account.organizations.find_by_id(org_id) ||
+      current_organization
   end
 end
 

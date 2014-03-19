@@ -1,4 +1,8 @@
 de:
+  activemodel:
+    attributes:
+      report:
+        organization_id: Organisation
   reports:
     index:
       no_schedulings: "Es gibt keine Schichten."

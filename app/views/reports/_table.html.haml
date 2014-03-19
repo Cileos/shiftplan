@@ -15,7 +15,7 @@
       %td{colspan: 5}
 
   %tbody
-    - @schedulings.order("starts_at DESC").reject(&:previous_day).map(&:decorate).each do |scheduling|
+    - @report.records.order("starts_at DESC").reject(&:previous_day).map(&:decorate).each do |scheduling|
       %tr{ id: "record_#{scheduling.id}" }
         %td= scheduling.link_to_calendar l(scheduling.starts_at.to_date)
         %td.numeric= number_with_precision(scheduling.decimal_duration, precision: 2)

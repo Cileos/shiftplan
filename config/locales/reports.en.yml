@@ -1,4 +1,8 @@
 en:
+  activemodel:
+    attributes:
+      report:
+        organization_id: Organization
   reports:
     index:
       no_schedulings: "There are no schedulings."

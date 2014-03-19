@@ -9,12 +9,12 @@
     - if current_organization
       = render 'organizations/navigation_links', organization: current_organization
     - else
-      - read_report_accounts = current_user.accounts.default_sorting.select { |a| can? :read_report, a }
+      - read_report_accounts = current_user.accounts.default_sorting.select { |a| can? :new, Report.new(account_id: a.id) }
       - if read_report_accounts.size == 1
-        = li_link :report, [read_report_accounts.first, :reports], class: 'icon-report'
+        = li_link :report, [:new, read_report_accounts.first, :report], class: 'icon-report'
       - elsif read_report_accounts.size > 1
-        %li.dropdown{class: read_report_accounts.any? { |a| below_path?([a, :reports])} && 'active'}
+        %li.dropdown{class: read_report_accounts.any? { |a| below_path?([:new, a, :report])} && 'active'}
           = link_to :reports, accounts_path, { class: 'icon-report', data: { toggle: 'dropdown'} }
           %ul.report-dropdown.dropdown-menu
             - read_report_accounts.each do |account|
-              = li_link account.name, [account, :reports]
+              = li_link account.name, [:new, account, :report]

@@ -54,8 +54,8 @@ class Ability
     can :create, Account do |account|
       account.user == user
     end
-    can :read_report, Account do |account|
-      employee = user.employee_for_account(account)
+    can :new, Report do |report|
+      employee = user.employee_for_account(report.account)
       employee && employee.owner?
     end
     can :read, Organization do |organization|
@@ -311,8 +311,8 @@ class Ability
       curr_organization == conflict.provoker.plan.organization
     end
 
-    can :read_report, Account do |account|
-      curr_account == account
+    can :new, Report do |report|
+      curr_account == report.account
     end
 
     authorize_owner_and_planner
@@ -327,8 +327,8 @@ class Ability
     can :manage, AttachedDocument do |doc|
       curr_organization == doc.plan.organization
     end
-    can :read_report, Organization do |organization|
-      curr_organization == organization
+    can :new, Report do |report|
+      curr_organization == report.organization
     end
   end
 

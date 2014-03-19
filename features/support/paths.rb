@@ -82,7 +82,7 @@ module NavigationHelpers
 
     when /^the report page of #{capture_model}$/
       account = model!($1)
-      account_reports_path(account)
+      new_account_report_path(account)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
