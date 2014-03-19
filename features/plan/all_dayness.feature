@@ -28,6 +28,7 @@ Feature: All Day ness
       And I should not see a field labeled "Ende"
 
      When I press "Anlegen"
+      And I wait for the modal box to disappear
      Then I should see the following partial calendar:
         | Mitarbeiter   | Mo | Di | Mi | Do        | Fr | Sa | So |
         | Planner Burns |    |    |    |           |    |    |    |

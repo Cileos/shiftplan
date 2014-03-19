@@ -4,7 +4,7 @@
 
 %a{href: polymorphic_path(*nested_show_resources_for(scheduling, mode: current_plan_mode))}
   %section.scheduling{class: scheduling.css_class}
-    = abbr_tag scheduling.period_with_zeros, scheduling.period_with_duration, class: 'work_time'
+    = scheduling.work_time
     - if qualification = scheduling.try(:qualification)
       %span.qualification_name
         = qualification.name
