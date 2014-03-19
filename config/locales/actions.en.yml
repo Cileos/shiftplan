@@ -1,6 +1,7 @@
 en:
   helpers:
     actions:
+      filter: 'Filter'
       show_all: 'Show all'
       notifications: 'Notifications'
       new_post: "Create a new post"

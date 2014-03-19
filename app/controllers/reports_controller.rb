@@ -29,7 +29,13 @@ class ReportsController < InheritedResources::Base
   end
 
   def filter
-    @filter ||= ReportFilter.new(base: current_organization || current_account)
+    @filter ||= ReportFilter.new(base: base)
+  end
+
+  def base
+    current_account.organizations.find_by_id(params[:org_id]) ||
+      current_organization ||
+      current_account
   end
 end
 

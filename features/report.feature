@@ -40,7 +40,7 @@ Feature: Report
      When I go to the dashboard page
       And I follow "Report"
       # schedulings of both organizations of the springfield account are listed
-      And I should see the following table of reports:
+     Then I should see the following table of reports:
         | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
         | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
@@ -52,7 +52,7 @@ Feature: Report
      When I go to the page of the organization "sector 7g"
       And I choose "Report" from the drop down "Info"
       # only schedulings of organization sector 7g should be shown
-      And I should see the following table of reports:
+     Then I should see the following table of reports:
         | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
         | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
@@ -67,9 +67,19 @@ Feature: Report
      When I go to the page of the organization "sector 7g"
       And I choose "Report" from the drop down "Info"
       # only schedulings of organization sector 7g should be shown
-      And I should see the following table of reports:
+     Then I should see the following table of reports:
         | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
         | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
       And I should see "16,00" within the header aggregation within the reports table
 
+  Scenario: Owner filters by organization
+     When I go to the report page of the account
+      And I select "Sector 7-G" from "Organisation"
+      And I press "Filtern"
+     Then I should see the following table of reports:
+        | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
+        | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
+        | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
+      And I should see "16" within the header aggregation within the reports table
+      And the selected "Organisation" should be "Sector 7-G"
