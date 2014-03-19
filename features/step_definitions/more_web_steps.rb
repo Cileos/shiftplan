@@ -148,7 +148,11 @@ end
 #  Then I should be under the page of the plan
 Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
   expected = path_to(page_name)
-  URI.parse(current_url).path.should start_with(expected)
+  begin
+    page.wait_until { URI.parse(current_url).path.starts_with? expected }
+  rescue Capybara::Session::TimedOut => timeout
+    URI.parse(current_url).path.should start_with(expected)
+  end
 end
 
 # The following steps are inspired by web_steps, but modified to wait a bit (for JS to change the values)
