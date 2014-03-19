@@ -82,5 +82,5 @@ Feature: Report
         | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
         | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
-      And I should see "16" within the header aggregation within the reports table
+      And I should see "16,00" within the header aggregation within the reports table
       And the selected "Organisation" should be "Sector 7-G"
