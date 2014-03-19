@@ -4,9 +4,14 @@
 
   - unless current_organization
     = simple_form_for @report, url: [:new, current_account, :report], method: :get do |f|
-      = f.input :organization_id, collection: current_account.organizations, include_blank: true
-      = f.submit ta(:filter)
+      .inputs
+        = f.input :organization_id, collection: current_account.organizations,
+          include_blank: true
+
+      .actions
+        = f.responsive_submit_button ta(:filter)
 
   = render 'table', records: @report.records
+
 - else
   %p= t(:'.no_schedulings')
