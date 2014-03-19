@@ -9,7 +9,7 @@ Clockwork.Router.map ->
     @route 'newTask'
     @route 'task', path: 'tasks/:task_id'
 
-  @route 'scheduling', path: '/schedulings/:id'
+  @route 'scheduling', path: '/scheduling/:id'
   @route 'scheduling_comments', path: '/scheduling/:id/comments'
 
 Clockwork.ApplicationRoute = Ember.Route.extend

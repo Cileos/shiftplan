@@ -37,7 +37,9 @@ When /^I click on (?:the )?(early|late|) ?(shift|scheduling) #{capture_quoted}$/
 end
 
 Then /^the #{capture_cell} should be (focus)$/ do |cell, predicate|
-  page.find(selector_for(cell))[:class].split.should include(predicate)
+  selector = selector_for(cell)
+  page.should have_css(selector)
+  page.find(selector)[:class].split.should include(predicate)
 end
 
 Then /^the scheduling #{capture_quoted} should be (focus)$/ do |quickie, predicate|
