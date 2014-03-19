@@ -73,6 +73,7 @@ Feature: Report
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
       And I should see "16,00" within the header aggregation within the reports table
 
+
   Scenario: Owner filters by organization
      When I go to the report page of the account
       And I select "Sector 7-G" from "Organisation"
