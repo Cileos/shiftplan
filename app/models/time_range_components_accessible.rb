@@ -56,6 +56,12 @@ module TimeRangeComponentsAccessible
     (starts_at...ends_at)
   end
 
+  # returns 3.25 for 3 hours and 15 minutes
+  # OPTIMIZE rounding
+  def length_in_hours
+    (end_hour - start_hour) + (end_minute-start_minute).to_f / 60
+  end
+
   def base_for_time_range_components
     @date || (starts_at.present? && starts_at.to_date)
   end

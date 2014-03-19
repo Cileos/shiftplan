@@ -29,6 +29,7 @@ class Scheduling < ActiveRecord::Base
   include TimeRangeComponentsAccessible
   include TimePeriodFormatter # for quickie generation
 
+  include AllDaySettable
   include Overnightable
 
   acts_as_commentable
@@ -122,12 +123,6 @@ class Scheduling < ActiveRecord::Base
   attr_writer :quickie
 
   delegate :iso8601, to: :date
-
-  # returns 3.25 for 3 hours and 15 minutes
-  # OPTIMIZE rounding
-  def length_in_hours
-    (end_hour - start_hour) + (end_minute-start_minute).to_f / 60
-  end
 
   def self.filter(params={})
     SchedulingFilter.new params.reverse_merge(:base => self)
