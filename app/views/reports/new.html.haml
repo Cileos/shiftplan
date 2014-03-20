@@ -1,20 +1,21 @@
 - title :report_of_current_month
 
+- unless current_organization
+  = simple_form_for @report, url: [:new, current_account, :report], method: :get do |f|
+    .inputs
+      = f.input :organization_id, collection: current_account.organizations,
+        include_blank: true, input_html: { class: 'chosen-select' }
+      - now = Time.zone.now.to_date
+      = f.input :from, as: :stringy_date,
+        input_html: { value: @report.from.iso8601 }
+      = f.input :to, as: :stringy_date,
+        input_html: { value: @report.to.iso8601 }
+
+    .actions
+      = f.responsive_submit_button ta(:filter)
+
+
 - unless @report.records.empty?
-
-  - unless current_organization
-    = simple_form_for @report, url: [:new, current_account, :report], method: :get do |f|
-      .inputs
-        = f.input :organization_id, collection: current_account.organizations,
-          include_blank: true, input_html: { class: 'chosen-select' }
-        - now = Time.zone.now.to_date
-        = f.input :from, as: :stringy_date,
-          input_html: { value: @report.from.iso8601 }
-        = f.input :to, as: :stringy_date,
-          input_html: { value: @report.to.iso8601 }
-
-      .actions
-        = f.responsive_submit_button ta(:filter)
 
   = render 'table', records: @report.records
 
