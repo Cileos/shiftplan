@@ -6,7 +6,7 @@ de:
         from: Von
         to: Bis
   reports:
-    index:
+    new:
       no_schedulings: "Es gibt keine Schichten."
     table:
       date: "Datum"

@@ -6,7 +6,7 @@ en:
         from: From
         to: To
   reports:
-    index:
+    new:
       no_schedulings: "There are no schedulings."
     table:
       date: "Date"
