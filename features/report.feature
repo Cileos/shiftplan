@@ -84,3 +84,24 @@ Feature: Report
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
       And I should see "16,00" within the header aggregation within the reports table
       And the selected "Organisation" should be "Sector 7-G"
+
+  @javascript
+  Scenario: Owner filters by date
+     When I go to the report page of the account
+      And the following schedulings exists:
+        | date        | employee          | quickie  | plan              |
+        | 17.11.2012  | employee "Homer"  | 0-24:00  | plan "Shut down"  |
+     # default to current month
+     Then the "Von" field should contain "01.12.2012"
+      And the "Bis" field should contain "31.12.2012"
+
+     When I pick "17. November 2012" from "Von"
+      And I pick "21. Dezember 2012" from "Bis"
+      And I press "Filtern"
+     Then I should see the following table of reports:
+        | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
+        | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
+        | 19.12.2012  | 6,75     | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
+        | 17.11.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
+        | 17.11.2012  | 24,00    | Simpson, Homer  |                 |                    | Shut down          | Sector 7-G    |
+      And I should see "46,75" within the header aggregation within the reports table

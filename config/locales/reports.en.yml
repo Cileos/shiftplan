@@ -3,6 +3,8 @@ en:
     attributes:
       report:
         organization_id: Organization
+        from: From
+        to: To
   reports:
     index:
       no_schedulings: "There are no schedulings."

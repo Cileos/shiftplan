@@ -9,7 +9,11 @@ class ReportsController < BaseController
     private
 
   def build_resource
-    @report ||= Report.new(account: current_account, organization: organization)
+    @report ||= Report.new(base_attrs.merge(resource_params.first))
+  end
+
+  def base_attrs
+    { account: current_account, organization: organization }
   end
 
   def organization

@@ -3,6 +3,8 @@ class Report < RecordFilter
 
   attribute :account
   attribute :organization
+  attribute :from, type: Date
+  attribute :to, type: Date
 
   def records
     fetch_records
@@ -16,13 +18,21 @@ class Report < RecordFilter
     @account_id ||= account.id
   end
 
+  def from
+    super || Time.zone.now.to_date.beginning_of_month
+  end
+
+  def to
+    super || Time.zone.now.to_date.end_of_month
+  end
+
     private
 
   def fetch_records
     # Filters for the time range will be added later. As we do not have
     # pagination, yet, only show the schedulings of the current month for now.
     base.schedulings.
-      from_month(Time.zone.now).
+      between(from.to_time_in_current_zone.beginning_of_day, to.to_time_in_current_zone.end_of_day).
       order("starts_at DESC").
       reject(&:previous_day)
   end

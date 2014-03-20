@@ -3,6 +3,8 @@ de:
     attributes:
       report:
         organization_id: Organisation
+        from: Von
+        to: Bis
   reports:
     index:
       no_schedulings: "Es gibt keine Schichten."
