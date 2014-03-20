@@ -7,10 +7,10 @@ describe "Report permissions:" do
   let(:user)                         { create(:user) }
   let(:account)                      { create(:account) }
   let(:organization)                 { create(:organization, account: account) }
-  let(:report_in_account)            { Report.new(account_id: account.id)}
-  let(:report_in_org)                { Report.new(account_id: account.id, organization_id: organization.id) }
-  let(:foreign_account_report)       { Report.new(account_id: create(:account).id) }
-  let(:foreign_organization_report)  { Report.new(account_id: create(:account).id, organization_id: create(:organization).id) }
+  let(:report_in_account)            { Report.new(account: account)}
+  let(:report_in_org)                { Report.new(account: account, organization: organization) }
+  let(:foreign_account_report)       { Report.new(account: create(:account)) }
+  let(:foreign_organization_report)  { Report.new(account: create(:account), organization: create(:organization)) }
 
   before(:each) do
     # The planner role is set on the membership, so a planner can only be
