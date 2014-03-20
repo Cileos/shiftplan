@@ -13,9 +13,11 @@ class ReportsController < BaseController
   end
 
   def organization
-    org_id = resource_params.first[:organization_id]
-    org_id && current_account.organizations.find_by_id(org_id) ||
+    if org_id = resource_params.first[:organization_id]
+      current_account.organizations.find_by_id(org_id)
+    else
       current_organization
+    end
   end
 end
 
