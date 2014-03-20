@@ -1,19 +1,19 @@
 # encoding: utf-8
 class Report < RecordFilter
 
-  attribute :account_id
-  attribute :organization_id
+  attribute :account
+  attribute :organization
 
   def records
     fetch_records
   end
 
-  def organization
-    @organization ||= account.organizations.find_by_id(organization_id)
+  def organization_id
+    @organization_id ||= organization.try(:id)
   end
 
-  def account
-    @account ||= Account.find_by_id(account_id)
+  def account_id
+    @account_id ||= account.id
   end
 
     private

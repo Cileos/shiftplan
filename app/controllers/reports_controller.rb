@@ -9,7 +9,7 @@ class ReportsController < BaseController
     private
 
   def build_resource
-    @report ||= Report.new(account_id: current_account.id, organization_id: organization.try(:id))
+    @report ||= Report.new(account: current_account, organization: organization)
   end
 
   def organization
