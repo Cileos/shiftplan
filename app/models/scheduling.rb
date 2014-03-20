@@ -55,6 +55,10 @@ class Scheduling < ActiveRecord::Base
     where(team_id: team.id)
   end
 
+  def self.from_month(date)
+    between(date.beginning_of_month, date.end_of_month)
+  end
+
   # Used for dupping, for example in nightshift. #dup won't copy associations,
   # so please add them here if needed.
   def initialize_dup(original)

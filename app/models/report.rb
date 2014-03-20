@@ -19,10 +19,9 @@ class Report < RecordFilter
     private
 
   def fetch_records
-    now = Time.zone.now
     # Filters for the time range will be added later. As we do not have
     # pagination, yet, only show the schedulings of the current month for now.
-    base.schedulings.between(now.beginning_of_month, now.end_of_month)
+    base.schedulings.from_month(Time.zone.now)
   end
 
   def base
