@@ -12,6 +12,8 @@
 //= require xregexp
 //= require xregexp/unicode-base
 //= require xregexp/build
+//= require moment-with-langs
+//
 
 //= require_tree './lib'
 //= require bootstrap/dropdown

@@ -1,15 +1,24 @@
 Ununununun
 
 <table>
-{{#each week in controller.daysGroupedByWeek}}
+  <thead>
+    <tr>
+      {{#each day in controller.weekdayNames}}
+      <th>{{day}}</th>
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+  {{#each week in controller.daysGroupedByWeek}}
 
-  <tr>
-  {{#each day in week}}
-    <td>
-      {{day}}
-    </td>
+    <tr>
+    {{#each day in week}}
+      <td>
+        {{day}}
+      </td>
+    {{/each}}
+    <tr>
+
   {{/each}}
-  <tr>
-
-{{/each}}
+  </tbody>
 </table>
