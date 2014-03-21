@@ -9,22 +9,19 @@ Clockwork.Router.map ->
     @route 'newTask'
     @route 'task', path: 'tasks/:task_id'
 
+  @route 'unavailabilities', path: 'una/:year/:month'
+
   @route 'scheduling', path: '/scheduling/:id'
   @route 'scheduling_comments', path: '/scheduling/:id/comments'
 
-Clockwork.ApplicationRoute = Ember.Route.extend
-  model: ->
-    Em.RSVP.hash
-      employees: @store.find('employee')
-      milestones: @store.find('milestone')
-  setupController: (controller, model)->
-    # populate forms
-    @controllerFor('employees').set('model', model.employees)
-    # always rendered
-    @controllerFor('milestones').set('model', model.milestones)
+Clockwork.ApplicationRoute = Ember.Route.extend()
 
 Clockwork.IndexRoute = Ember.Route.extend
   beforeModel: ->
-    @transitionTo 'milestones'
+    if Clockwork.get('page') is 'milestones'
+      @transitionTo 'milestones'
+    else
+      # FIXME dynamic NOW
+      @transitionTo 'unavailabilities', year: 2012, month: 12
 
 

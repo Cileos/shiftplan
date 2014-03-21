@@ -10,9 +10,9 @@
 
 Clockwork = Ember.Application.create
   LOG_TRANSITIONS: true
-  rootElement: '#milestones'
   Fields: Ember.Object.extend()
   cursor: null
+  page: null
 
 # can be removed when we use Ember everywhere
 Clockwork.deferReadiness()
@@ -48,9 +48,16 @@ window.Clockwork = Clockwork
 
 jQuery ->
   if ($root = $('#milestones')).length > 0
+    Clockwork.set 'rootElement', '#milestones'
+    Clockwork.set 'page', 'milestones'
     # base all URLs on current plan
     Clockwork.ApplicationAdapter = DS.ActiveModelAdapter.extend
       namespace: (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
     Clockwork.advanceReadiness()
 
     Clockwork.set 'cursor', new CalendarCursor $('table#calendar')
+
+  if ($root = $('#calendar.monthly')).length > 0
+    Clockwork.set 'rootElement', '#calendar.monthly'
+    Clockwork.set 'page', 'unavailabilities'
+    Clockwork.advanceReadiness()

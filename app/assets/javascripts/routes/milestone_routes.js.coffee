@@ -1,7 +1,15 @@
 Clockwork.MilestonesRoute = Ember.Route.extend
   model: ->
-    @store.find 'milestone'
-  render: -> #nothing, we render it permanentely in application.hb
+    Em.RSVP.hash
+      employees: @store.find('employee')
+      milestones: @store.find('milestone')
+  setupController: (controller, model)->
+    controller.set 'model', model.milestones
+    # populate forms
+    @controllerFor('employees').set('model', model.employees)
+
+  renderTemplate: -> #nothing, we render it permanentely in application.hb
+    @render 'milestones'
 
 milestoneModalActions =
   save: ->
