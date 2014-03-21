@@ -130,16 +130,10 @@ end
 
 Then /^the (.+) should( not)? be disabled$/ do |name, negate|
   if name =~ /field #{capture_quoted}/
-    elem = field_labeled($1)
+    page.should have_field($1, disabled: !negate)
   else
     selector = selector_for(name)
-    elem = page.first(selector)
-  end
-  disabled = elem['disabled']
-  if negate
-    disabled.should be_in(["false", nil])
-  else
-    disabled.should be_in(%w(true disabled))
+    page.should have_css(selector, disabled: !negate)
   end
 end
 
