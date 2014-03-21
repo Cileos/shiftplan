@@ -5,14 +5,13 @@
 //= require space-pen/space-pen
 //= require jquery.minicolors
 //= require handlebars
-//= require ember-latest
-//= require ember-data-latest
+//= require ember
+//= require ember-data
 //= require ember-rails-flash
 // for QuickieParser
 //= require xregexp
 //= require xregexp/unicode-base
 //= require xregexp/build
-//= require routie
 
 //= require_tree './lib'
 //= require bootstrap/dropdown
