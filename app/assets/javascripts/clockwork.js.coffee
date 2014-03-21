@@ -57,7 +57,7 @@ jQuery ->
 
     Clockwork.set 'cursor', new CalendarCursor $('table#calendar')
 
-  if ($root = $('#calendar.monthly')).length > 0
-    Clockwork.set 'rootElement', '#calendar.monthly'
+  if ($root = $('#unavailabilities')).length > 0
+    Clockwork.set 'rootElement', '#unavailabilities'
     Clockwork.set 'page', 'unavailabilities'
     Clockwork.advanceReadiness()
