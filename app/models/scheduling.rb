@@ -148,6 +148,10 @@ class Scheduling < ActiveRecord::Base
     end
   end
 
+  def represents_unavailability
+    super || false # default nil => false
+  end
+
   # TODO save start_hour and end_hour or even cache the whole quickie
   def self.quickies
     id = "#{table_name}.id"

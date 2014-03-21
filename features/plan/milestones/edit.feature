@@ -19,8 +19,8 @@ Feature: edit Milestones for a plan
      #Then I should see flash notice "Meilenstein erfolgreich geändert"
     Then I should see "World Domination" within the milestones list
      But I should not see "Global Domination" within the milestones list
-     And a milestone should exist with name: "World Domination"
      And I should not see a field labeled "Name"
+     And the milestone's name should be "World Domination"
 
   Scenario: Edit and cancel should rollback changes
     When I fill in "Name" with "Kindergarten"
