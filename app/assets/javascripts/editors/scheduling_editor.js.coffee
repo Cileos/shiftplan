@@ -84,9 +84,9 @@ Clockwork.SchedulingEditor = Ember.Object.extend
   clickedAllDay: (event)->
     $box = $(event.target)
     if $box.prop('checked')
-      @get('element').find("div.time").hide()
+      @get('element').find("div.start-time").add('div.end-time').hide()
     else
-      @get('element').find("div.time").show()
+      @get('element').find("div.start-time").add('div.end-time').show()
 
   # DEAD (Quickie readonly)
   updateFields: ->

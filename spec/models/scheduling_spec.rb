@@ -675,28 +675,7 @@ describe Scheduling do
     end
   end
 
-  describe 'spanning all_day' do
-    let(:scheduling) { create :scheduling, all_day: true }
-
-    it 'starts at midnight' do
-      scheduling.start_time.should == '00:00'
-      scheduling.starts_at.hour.should == 0
-      scheduling.starts_at.min.should == 0
-    end
-
-    it 'ends at next midnight' do
-      scheduling.end_time.should == '23:59'
-      scheduling.ends_at.hour.should == 23
-      scheduling.ends_at.min.should == 59
-    end
-
-    it "lasts 24 hours" do
-      (scheduling.ends_at - scheduling.starts_at).should == 24.hours
-    end
-
-    it 'has a zero length_in_hours (does not count into wwt)' do
-      scheduling.length_in_hours.should == 0
-    end
-
+  it_behaves_like :spanning_all_day do
+    let(:record) { create :scheduling, all_day: true }
   end
 end
