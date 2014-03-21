@@ -90,6 +90,8 @@ Clockwork::Application.routes.draw do
   scope 'profile', as: 'profile' do
     resources :employees, only: [:edit, :update, :index], controller: 'profile_employees'
   end
+  get 'availability' => 'unavailabilities#index', as: 'availability'
+  resources :unavailabilities, except: [:show]
   resource :profile, only: [:edit, :update], controller: 'profile' do
     resource :export, only: [:show, :create, :destroy]
   end
