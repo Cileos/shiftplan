@@ -101,6 +101,10 @@ class Ability
           end
         )
     end
+
+    can :manage, Unavailability do |un|
+      un.user_id == current_user.id
+    end
   end
 
   def authorize_employee
