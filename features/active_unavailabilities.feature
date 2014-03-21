@@ -6,7 +6,7 @@ Feature: Active Unavailabilities
 
 
   Scenario: Enter a sick day
-    Given today is 2013-03-14
+    Given today is 2012-12-21
       And an account exists with name: "Springfield NPP"
       And an organization exists with name: "Sector 7-G", account: the account
       And a confirmed user exists
@@ -16,9 +16,9 @@ Feature: Active Unavailabilities
       And I am on the dashboard
      When I choose "Verfügbarkeit" from the session and settings menu item
      Then I should see the following calendar:
-         | Su | Mo | Tu | We | Th | Fr | Sa |
-         |    |    |    |    |    |  1 |  2 |
-         |  3 |  4 |  5 |  6 |  7 |  8 |  9 |
+         | Mo | Di | Mi | Do | Fr | Sa | So |
+         |    |    |    |    |    | 1  | 2  |
+         | 3  | 4  | 5  | 6  | 7  | 8  | 9  |
          | 10 | 11 | 12 | 13 | 14 | 15 | 16 |
          | 17 | 18 | 19 | 20 | 21 | 22 | 23 |
          | 24 | 25 | 26 | 27 | 28 | 29 | 30 |
@@ -31,7 +31,7 @@ Feature: Active Unavailabilities
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-         | Su | Mo | Tu | We | Th           | Fr | Sa |
+         | Mo | Di | Mi | Do | Fr           | Sa | So |
          |    |    |    |    |              | 1  | 2  |
          | 3  | 4  | 5  | 6  | 7            | 8  | 9  |
          | 10 | 11 | 12 | 13 | 14           | 15 | 16 |
