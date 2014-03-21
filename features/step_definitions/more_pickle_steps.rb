@@ -21,7 +21,7 @@ Then /^#{capture_model} (should|should not) be done/ do |subject, should_not_not
 end
 
 # Given the employee "Homer" is a member in the organization "Simpson Family"
-Given /^#{capture_model} is a (member|planner) (?:of|in) #{capture_model}$/ do |employee, role, organization|
+Given /^#{capture_model} is (?:a )?(member|planner) (?:of|in) #{capture_model}$/ do |employee, role, organization|
   employee = model! employee
   organization = model! organization
 

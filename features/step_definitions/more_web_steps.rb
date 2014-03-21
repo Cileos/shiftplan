@@ -129,9 +129,12 @@ When /^I check the checkbox$/ do
 end
 
 Then /^the (.+) should( not)? be disabled$/ do |name, negate|
-  selector = selector_for(name)
-  page.should have_css(selector)
-  elem = page.first(selector)
+  if name =~ /field #{capture_quoted}/
+    elem = field_labeled($1)
+  else
+    selector = selector_for(name)
+    elem = page.first(selector)
+  end
   disabled = elem['disabled']
   if negate
     disabled.should be_in(["false", nil])

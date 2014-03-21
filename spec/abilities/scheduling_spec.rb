@@ -2,6 +2,7 @@ require 'spec_helper'
 require "cancan/matchers"
 
 describe "Scheduling permissions:" do
+  # TODO unify these both shared examples, symbolize
   shared_examples  "an employee with scheduling permissions for foreign accounts" do
     let(:foreign_plan)        {  create(:plan, organization: create(:organization)) }
     let(:foreign_scheduling)  {  build(:scheduling, plan: foreign_plan) }
@@ -27,13 +28,26 @@ describe "Scheduling permissions:" do
     end
   end
 
+  shared_examples :allows_only_self_planner_to_set_represents_unavailability do
+    context "represents_unavailability" do
+      it "can only be set by a self planner" do
+        scheduling = build(:scheduling, employee: employee, plan: plan, represents_unavailability: true)
+        should be_able_to(:manage, scheduling)
+      end
+      it "can not be set by someone else" do
+        scheduling = build(:scheduling, employee: other_employee, plan: plan, represents_unavailability: true)
+        should_not be_able_to(:manage, scheduling)
+      end
+    end
+  end
+
   subject             {  ability }
   let(:ability)       {  Ability.new(user) }
   let(:user)          {  create(:user) }
   let(:account)       {  create(:account) }
   let(:organization)  {  create(:organization, account: account) }
   let(:plan)          {  create(:plan, organization: organization) }
-
+  let(:other_employee) { create(:employee, account: account) }
 
   before(:each) do
     # The planner role is set on the membership, so a planner can only be
@@ -51,8 +65,10 @@ describe "Scheduling permissions:" do
 
     context "for own accounts" do
       it "should be able to manage schedulings" do
-        should be_able_to(:manage, create(:scheduling, plan: plan))
+        should be_able_to(:manage, build(:scheduling, plan: plan))
       end
+
+      it_behaves_like :allows_only_self_planner_to_set_represents_unavailability
     end
     context "for other accounts" do
       it_behaves_like "an employee with scheduling permissions for foreign accounts"
@@ -72,6 +88,8 @@ describe "Scheduling permissions:" do
       it "should be able to manage schedulings" do
         should be_able_to(:manage, build(:scheduling, plan: plan))
       end
+
+      it_behaves_like :allows_only_self_planner_to_set_represents_unavailability
     end
 
     context "for organizations without membership" do

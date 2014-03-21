@@ -8,7 +8,7 @@ class UserConflictFinder < ConflictFinder
 
 
   # employees of users of employees in schedulings
-  def employee_ids
+  def scheduling_employee_ids
     user_ids = Employee.where(id: super).pluck('DISTINCT user_id')
     Employee.where( user_id: user_ids).pluck('DISTINCT id')
   end
