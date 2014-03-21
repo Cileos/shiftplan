@@ -54,6 +54,8 @@ class User < ActiveRecord::Base
 
   has_many :posts_of_joined_organizations, source: :posts, through: :joined_organizations
 
+  has_many :unavailabilities
+
   def notifications_for_hub
     notifications.for_hub
   end
