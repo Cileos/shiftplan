@@ -9,6 +9,10 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
     moment("1997-08-#{11+day}").format('dd') for day in [0..6]
   ).property()
 
+  content: (->
+    @store.findQuery('unavailability', year: @get('year'), month: @get('month'))
+  ).property('year', 'month')
+
   days: (->
     year = @get('year')
     month = @get('month')
