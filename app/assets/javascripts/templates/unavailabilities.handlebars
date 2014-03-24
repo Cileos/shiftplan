@@ -1,6 +1,6 @@
 Ununununun
 
-<table>
+<table style="display:none">
   <thead>
     <tr>
       {{#each day in controller.weekdayNames}}
@@ -22,3 +22,5 @@ Ununununun
   {{/each}}
   </tbody>
 </table>
+
+{{view Clockwork.MonthlyCalendarView contentBinding='days' columnsBinding='weekdayNames' rowsBinding='weeks' rowHeaderVisible=false}}

@@ -5,8 +5,16 @@ GroupingTable = Ember.ContainerView.extend
   tbody: null
   columns: Ember.A(['', 1,2,3,4,5])
   rows: Ember.String.w('a b c d e')
+  rowHeaderVisible: true
   content: Ember.A()
+  columnProperty: 'column'
+  rowProperty: 'row'
   init: ->
+    c = {
+      columnProperty: @get('columnProperty')
+      rowProperty:    @get('rowProperty')
+    }
+
     @set 'thead', Ember.ContainerView.create
       tagName: 'thead'
       childViews: ['header']
@@ -23,10 +31,15 @@ GroupingTable = Ember.ContainerView.extend
       # the row containing matching y
       itemViewClass: Ember.ContainerView.extend
         tagName: 'tr'
-        childViews: ['heading', 'cells']
+        childViews: (->
+          if @get('rowHeaderVisible')
+            ['heading', 'cells']
+          else
+            ['cells']
+        ).property('parentView.parentView.rowHeaderVisible')
         contentInRow: (->
-          @get('parentView.parentView.content').filterProperty('y', @get('content'))
-        ).property('content.@each', 'parentView.parentView.content.@each.y')
+          @get('parentView.parentView.content').filterProperty(c.rowProperty, @get('content'))
+        ).property("content.@each', 'parentView.parentView.content.@each.#{c.rowProperty}")
         columnsBinding: 'parentView.parentView.columns'
 
         heading: Ember.View.extend
@@ -41,8 +54,8 @@ GroupingTable = Ember.ContainerView.extend
             tagName: 'td'
             childViews: ['list']
             contentInCell: (->
-              @get('parentView..parentView.contentInRow').filterProperty('x', @get('content'))
-            ).property('parentView.columns.@each', 'parentView.parentView.contentInRow.@each.x')
+              @get('parentView..parentView.contentInRow').filterProperty(c.columnProperty, @get('content'))
+            ).property("parentView.columns.@each', 'parentView.parentView.contentInRow.@each.#{c.columnProperty}")
 
             # The actual list within the cell
             list: Ember.CollectionView.extend

@@ -27,6 +27,11 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
     days
   ).property('year', 'month')
 
+  # TODO hide row header in table
+  weeks: (->
+    [1,2,3,4,5,6]
+  ).property('year', 'month')
+
   daysGroupedByWeek: ( ->
     weeks = [[]]
     days = @get('days')

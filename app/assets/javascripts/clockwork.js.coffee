@@ -1,9 +1,11 @@
+#= require grouping_table
 #= require_tree ./ember-patches
 #= require_self
 #= require_tree ./mixins
 #= require_tree ./models
 #= require_tree ./controllers
 #= require ./views
+#= require ./views/monthly_calendar_view
 #= require_tree ./helpers
 #= require_tree ./templates
 #= require_tree ./routes
