@@ -9,12 +9,14 @@ GroupingTable = Ember.ContainerView.extend
   content: Ember.A()
   columnProperty: 'column'
   rowProperty: 'row'
+  columnHeaderProperty: 'name'
   cellLabelProperty: 'name'
   init: ->
     c = {
       columnProperty: @get('columnProperty')
       rowProperty:    @get('rowProperty')
       cellLabelProperty: @get('cellLabelProperty')
+      columnHeaderProperty: @get('columnHeaderProperty')
     }
 
     @set 'thead', Ember.ContainerView.create
@@ -25,7 +27,7 @@ GroupingTable = Ember.ContainerView.extend
         contentBinding: 'parentView.parentView.columns'
         itemViewClass: Ember.View.extend
           tagName: 'th'
-          template: Ember.Handlebars.compile '{{view.content}}'
+          template: Ember.Handlebars.compile "{{view.content.#{c.columnHeaderProperty}}}"
     @set 'tbody', Ember.CollectionView.create
       tagName: 'tbody'
       contentBinding: 'parentView.rows'
@@ -63,7 +65,7 @@ GroupingTable = Ember.ContainerView.extend
             ).property('contentInCell.length')
 
             contentInCell: (->
-              @get('parentView..parentView.contentInRow').filterProperty(c.columnProperty, @get('content'))
+              @get('parentView..parentView.contentInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
             ).property("parentView.columns.@each', 'parentView.parentView.contentInRow.@each.#{c.columnProperty}")
 
             # The actual list within the cell

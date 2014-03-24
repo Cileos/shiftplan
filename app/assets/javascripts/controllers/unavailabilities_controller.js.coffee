@@ -9,6 +9,9 @@ Clockwork.DayInCalendar = Ember.Object.extend
   weekInYear: (->  # 1-~52, respecting Jan 4th
     @get('date').isoWeek()
   ).property('date')
+  humanDayInWeek: (->
+    @get('date').format('dd')
+  ).property('date')
 
 
 Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
@@ -18,9 +21,9 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
 
   # monday is hardcoded as first day of week, because moment.weekdaysShort()
   # always returns sunday first.
-  weekdayNames: (->
-    #moment("1997-08-#{11+day}").format('dd') for day in [0..6]
-    [0..6]
+  weekdays: (->
+    for day in [0..6]
+      Clockwork.DayInCalendar.create date: moment("1997-08-#{11+day}")
   ).property()
 
   content: (->
