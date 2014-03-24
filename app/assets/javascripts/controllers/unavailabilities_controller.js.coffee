@@ -1,10 +1,13 @@
 Clockwork.DayInCalendar = Ember.Object.extend
   date: null
-  dayInWeek: (->
+  dayInWeek: (->    # 0-6 0==Sunday
     @get('date').day()
   ).property('date')
-  dayInMonth: (->
+  dayInMonth: (->    # 1-31/30/28/29
     @get('date').date()
+  ).property('date')
+  weekInYear: (->  # 1-~52, respecting Jan 4th
+    @get('date').isoWeek()
   ).property('date')
 
 
@@ -16,7 +19,8 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
   # monday is hardcoded as first day of week, because moment.weekdaysShort()
   # always returns sunday first.
   weekdayNames: (->
-    moment("1997-08-#{11+day}").format('dd') for day in [0..6]
+    #moment("1997-08-#{11+day}").format('dd') for day in [0..6]
+    [0..6]
   ).property()
 
   content: (->
@@ -38,9 +42,9 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
     days
   ).property('year', 'month')
 
-  # TODO hide row header in table
+  # TODO show only weeks in #year/month
   weeks: (->
-    [1,2,3,4,5,6]
+    [45..60]
   ).property('year', 'month')
 
   daysGroupedByWeek: ( ->

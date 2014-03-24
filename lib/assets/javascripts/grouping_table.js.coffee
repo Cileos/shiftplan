@@ -9,10 +9,12 @@ GroupingTable = Ember.ContainerView.extend
   content: Ember.A()
   columnProperty: 'column'
   rowProperty: 'row'
+  cellLabelProperty: 'name'
   init: ->
     c = {
       columnProperty: @get('columnProperty')
       rowProperty:    @get('rowProperty')
+      cellLabelProperty: @get('cellLabelProperty')
     }
 
     @set 'thead', Ember.ContainerView.create
@@ -52,7 +54,14 @@ GroupingTable = Ember.ContainerView.extend
           # the cell containing matching x and y
           itemViewClass: Ember.ContainerView.extend
             tagName: 'td'
-            childViews: ['list']
+            childViews: (->
+              # FIXME may not be exact
+              if @get('contentInCell.length') == 1
+                ['label']
+              else
+                ['label', 'list']
+            ).property('contentInCell.length')
+
             contentInCell: (->
               @get('parentView..parentView.contentInRow').filterProperty(c.columnProperty, @get('content'))
             ).property("parentView.columns.@each', 'parentView.parentView.contentInRow.@each.#{c.columnProperty}")
@@ -63,6 +72,11 @@ GroupingTable = Ember.ContainerView.extend
               contentBinding: 'parentView.contentInCell'
               itemViewClass: Ember.View.extend
                 template: Ember.Handlebars.compile '{{view.content.name}}'
+
+            label: Ember.View.extend
+              tagName: 'span'
+              contentBinding: 'parentView.contentInCell.firstObject'
+              template: Ember.Handlebars.compile "{{view.content.#{c.cellLabelProperty}}}"
 
     @_super()
 

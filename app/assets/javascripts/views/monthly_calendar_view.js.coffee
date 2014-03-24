@@ -1,3 +1,4 @@
 Clockwork.MonthlyCalendarView = GroupingTable.extend
-  columnProperty: 'weekday'
-  rowProperty: 'weekInMonth'
+  columnProperty: 'dayInWeek'
+  rowProperty: 'weekInYear'
+  cellLabelProperty: 'dayInMonth'
