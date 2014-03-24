@@ -1,3 +1,13 @@
+Clockwork.DayInCalendar = Ember.Object.extend
+  date: null
+  dayInWeek: (->
+    @get('date').day()
+  ).property('date')
+  dayInMonth: (->
+    @get('date').date()
+  ).property('date')
+
+
 Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
   year: null
   month: null
@@ -21,7 +31,8 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
     days = []
     d = moment "#{year}-#{month}-01"
     while d.month() is month - 1
-      days.push(d)
+      day = Clockwork.DayInCalendar.create date: d
+      days.pushObject(day)
       d = d.clone().add('days', 1)
 
     days
@@ -37,7 +48,7 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
     days = @get('days')
     return weeks if days.length == 0
     index = -7
-    firstWeekDay = days[0].day() - 1
+    firstWeekDay = days[0].get('dayInWeek') - 1
     for i in [1..firstWeekDay]
       weeks[0].push "fnord"
     for i in [firstWeekDay..6]
