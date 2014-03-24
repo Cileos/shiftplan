@@ -47,7 +47,15 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
 
   # TODO show only weeks in #year/month
   weeks: (->
-    [45..60]
+    first = moment("#{@get('year')}-#{@get('month')}-01")
+    last = first.clone().endOf('month')
+    if first.isoWeek() < last.isoWeek()
+      [first.isoWeek() .. last.isoWeek()]
+    else # happy new year!
+      butLast = last.clone().subtract('weeks', 1)
+      weeks = [first.isoWeek() .. butLast.isoWeek()]
+      weeks.push(1)
+      weeks
   ).property('year', 'month')
 
   daysGroupedByWeek: ( ->
