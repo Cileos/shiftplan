@@ -22,6 +22,7 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
 
     days
   ).property('year', 'month')
+
   daysGroupedByWeek: ( ->
     days = @get('days')
     weeks = [[]]

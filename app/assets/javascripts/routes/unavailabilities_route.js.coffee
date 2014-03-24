@@ -5,4 +5,4 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
     controller.set('year', params.year)
     controller.set('month', params.month)
     # TODO load unavailabilities from server, query
-    []
+    @store.findQuery('unavailability', params)

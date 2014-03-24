@@ -1,6 +1,8 @@
 class UnavailabilitiesController < BaseController
   before_filter :ensure_year_and_month, only: :index
 
+  respond_to :json, :html
+
 protected
   def ensure_year_and_month
     unless params[:year] && params[:month]
