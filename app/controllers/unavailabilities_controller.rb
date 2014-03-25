@@ -5,9 +5,11 @@ class UnavailabilitiesController < BaseController
 
 protected
   def ensure_year_and_month
-    unless params[:year] && params[:month]
-      now = Time.current
-      redirect_to unavailabilities_path year: now.year, month: now.month
+    unless request.format.html?
+      unless params[:year] && params[:month]
+        now = Time.current
+        redirect_to unavailabilities_path year: now.year, month: now.month
+      end
     end
   end
 

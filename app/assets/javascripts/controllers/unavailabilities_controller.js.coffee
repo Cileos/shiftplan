@@ -27,7 +27,14 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
   ).property()
 
   content: (->
-    @store.findQuery('unavailability', year: @get('year'), month: @get('month'))
+    year = @get('year')
+    month = @get('month')
+    return [] unless year?
+    return [] unless month?
+    fetched = @store.findQuery('unavailability', year: year, month: month)
+    fetched.then (unas)=>
+      console?.debug "TODO attach unavailabilities to days"
+    fetched
   ).property('year', 'month')
 
   days: (->
@@ -57,22 +64,3 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
       weeks.push(1)
       weeks
   ).property('year', 'month')
-
-  daysGroupedByWeek: ( ->
-    weeks = [[]]
-    days = @get('days')
-    return weeks if days.length == 0
-    index = -7
-    firstWeekDay = days[0].get('dayInWeek') - 1
-    for i in [1..firstWeekDay]
-      weeks[0].push "fnord"
-    for i in [firstWeekDay..6]
-      index += 1
-      weeks[0].push days[i-firstWeekDay]
-    while ((index += 7) < days.length)
-      weeks.push(days.slice(index, index+7))
-
-    weeks
-
-  ).property('days')
-

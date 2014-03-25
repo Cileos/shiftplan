@@ -22,6 +22,7 @@ Clockwork.IndexRoute = Ember.Route.extend
       @transitionTo 'milestones'
     else
       # FIXME dynamic NOW
-      @transitionTo 'unavailabilities', year: 2012, month: 12
+      now = moment()
+      @transitionTo 'unavailabilities', year: now.year(), month: now.month()
 
 
