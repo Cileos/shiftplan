@@ -5,3 +5,4 @@ Clockwork.MonthlyCalendarView = GroupingTable.extend
   cellView: Ember.View.extend
     tagName: 'span'
     templateName: 'unavailabilities/day_in_month'
+  elementId: 'calendar'
