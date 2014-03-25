@@ -15,6 +15,7 @@ Feature: Active Unavailabilities
       And I am signed in as the confirmed user
       And I am on the dashboard
      When I choose "Verfügbarkeit" from the session and settings menu item
+      And I wait for Ember to boot
      Then I should see the following calendar:
          | Mo | Di | Mi | Do | Fr | Sa | So |
          |    |    |    |    |    | 1  | 2  |
