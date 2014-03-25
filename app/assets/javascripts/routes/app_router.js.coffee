@@ -44,8 +44,7 @@ Clockwork.IndexRoute = Ember.Route.extend
     if Clockwork.get('page') is 'milestones'
       @transitionTo 'milestones'
     else
-      # FIXME dynamic NOW
       now = moment()
-      @transitionTo 'unavailabilities.index', year: now.year(), month: now.month()
+      @transitionTo 'unavailabilities.index', year: now.year(), month: now.month() + 1
 
 
