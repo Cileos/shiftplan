@@ -1,7 +1,7 @@
 # TODO make this usable in a route
 Clockwork.ModalMixin = Ember.Mixin.create
   classNames: ['modalor']
-  layout: Ember.Handlebars.compile("{{yield}}")
+  layoutName: 'mixins/modal'
   heading: '<set a `heading` in your View>'
   didInsertElement: ->
     dialog = @$().dialog
@@ -22,6 +22,9 @@ Clockwork.ModalMixin = Ember.Mixin.create
 
   close: -> @$().dialog('close')
 
+  # works almoost all of the time
+  backRoute: 'index'
+
   dialogclose: (event, ui) ->
-    @get('controller.target').send('cancel')
+    @get('controller.target').send('cancel', @get('backRoute') )
 

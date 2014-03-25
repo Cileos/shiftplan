@@ -16,7 +16,29 @@ Clockwork.Router.map ->
   @route 'scheduling', path: '/scheduling/:id'
   @route 'scheduling_comments', path: '/scheduling/:id/comments'
 
-Clockwork.ApplicationRoute = Ember.Route.extend()
+Clockwork.ApplicationRoute = Ember.Route.extend
+  actions:
+    save: (backRoute)->
+      mo = @modelFor(@get('controller.currentRouteName'))
+      mo.get("errors").clear() # allows retry saving
+      mo.save()
+        .then =>
+          @transitionTo backRoute
+        , =>
+          # must be here to catch the error. We display the error(s) in the
+          # form, retry possible.
+          console?.debug "failed to #{@get('controller.currentRouteName')}", mo
+    cancel: (backRoute)->
+      @modelFor(@get('controller.currentRouteName')).rollback()
+      @transitionTo backRoute
+    doDelete: (backRoute)->
+      mo = @modelFor(@get('controller.currentRouteName'))
+      mo.deleteRecord()
+      mo.save()
+        .then =>
+          @transitionTo backRoute
+        , =>
+          console?.debug "failed to delete", mo
 
 Clockwork.IndexRoute = Ember.Route.extend
   beforeModel: ->

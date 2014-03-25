@@ -18,12 +18,3 @@
     {{view Clockwork.Fields.Text valueBinding="description" name="Beschreibung"}}
   </div>
 </div>
-
-{{#if currentUser.canManage}}
-  <div class="actions">
-  {{#unless isNew}}
-      <button class="button-warning delete" {{action doDelete}}>Löschen</button>
-  {{/unless}}
-  <button class="button-success" {{action save}}>{{view.buttonLabel}}</button>
-  </div>
-{{/if}}

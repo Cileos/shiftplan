@@ -11,32 +11,6 @@ Clockwork.MilestonesRoute = Ember.Route.extend
   renderTemplate: -> #nothing, we render it permanentely in application.hb
     @render 'milestones'
 
-milestoneModalActions =
-  save: ->
-    mo = @modelFor(@routeName)
-    mo.get("errors").clear() # allows retry saving
-    mo.save()
-      .then =>
-        @transitionTo 'milestones'
-      , =>
-        # must be here to catch the error. We display the error(s) in the
-        # form, retry possible.
-        console?.debug "failed to #{@routeName} milestone"
-  cancel: ->
-    @modelFor(@routeName).rollback()
-    @transitionTo 'milestones'
-  doDelete: ->
-    mo = @modelFor(@routeName)
-    mo.deleteRecord()
-    mo.save()
-      .then =>
-        @transitionTo 'milestones'
-      , =>
-        console?.debug "failed to delete milestone, try again later"
-
-Clockwork.MilestonesEditRoute = Ember.Route.extend
-  actions: milestoneModalActions
-
 Clockwork.MilestonesNewRoute = Ember.Route.extend
   model: ->
     @store.createRecord 'milestone',
@@ -44,10 +18,6 @@ Clockwork.MilestonesNewRoute = Ember.Route.extend
       dueAt:            null
       description:      ''
       responsible:      null
-  actions: milestoneModalActions
-
-Clockwork.MilestoneTaskRoute = Ember.Route.extend
-  actions: milestoneModalActions
 
 Clockwork.MilestoneNewTaskRoute = Ember.Route.extend
   beforeModel: (transition)->
@@ -63,6 +33,3 @@ Clockwork.MilestoneNewTaskRoute = Ember.Route.extend
       description:      ''
       responsible:      null
       milestone:        @get('milestone')
-
-  actions: milestoneModalActions
-
