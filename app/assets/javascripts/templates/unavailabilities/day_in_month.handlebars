@@ -1,5 +1,5 @@
 {{#if view.content}}
-  The {{view.content.dayInMonth}}th day
+  {{#link-to 'unavailabilities.new'}}{{view.content.dayInMonth}}{{/link-to}}
 {{else}}
   <3
 {{/if}}

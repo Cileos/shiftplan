@@ -9,7 +9,9 @@ Clockwork.Router.map ->
     @route 'newTask'
     @route 'task', path: 'tasks/:task_id'
 
-  @route 'unavailabilities', path: 'una/:year/:month'
+  @resource 'unavailabilities', path: 'una', ->
+    @route 'index', path: ':year/:month'
+    @route 'new'
 
   @route 'scheduling', path: '/scheduling/:id'
   @route 'scheduling_comments', path: '/scheduling/:id/comments'
@@ -23,6 +25,6 @@ Clockwork.IndexRoute = Ember.Route.extend
     else
       # FIXME dynamic NOW
       now = moment()
-      @transitionTo 'unavailabilities', year: now.year(), month: now.month()
+      @transitionTo 'unavailabilities.index', year: now.year(), month: now.month()
 
 

@@ -1,4 +1,4 @@
-Clockwork.UnavailabilitiesRoute = Ember.Route.extend
+Clockwork.UnavailabilitiesIndexRoute = Ember.Route.extend
   serialize: (model, params)->
     {
       year: model.year

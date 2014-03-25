@@ -64,3 +64,5 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
       weeks.push(1)
       weeks
   ).property('year', 'month')
+
+Clockwork.UnavailabilitiesIndexController = Clockwork.UnavailabilitiesController.extend()
