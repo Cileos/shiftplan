@@ -9,8 +9,7 @@ Clockwork.Router.map ->
     @route 'newTask'
     @route 'task', path: 'tasks/:task_id'
 
-  @resource 'unavailabilities', path: 'una', ->
-    @route 'index', path: ':year/:month'
+  @resource 'unavailabilities', path: 'una/:year/:month', ->
     @route 'new'
 
   @route 'scheduling', path: '/scheduling/:id'
