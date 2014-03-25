@@ -10,12 +10,14 @@ GroupingTable = Ember.ContainerView.extend
   columnProperty: 'column'
   rowProperty: 'row'
   columnHeaderProperty: 'name'
-  cellLabelProperty: 'name'
+  cellView: Ember.View.extend
+    tagName: 'span'
+    template: Ember.Handlebars.compile "{{view.content.name}}"
   init: ->
     c = {
       columnProperty: @get('columnProperty')
       rowProperty:    @get('rowProperty')
-      cellLabelProperty: @get('cellLabelProperty')
+      cellView:       @get('cellView')
       columnHeaderProperty: @get('columnHeaderProperty')
     }
 
@@ -75,10 +77,8 @@ GroupingTable = Ember.ContainerView.extend
               itemViewClass: Ember.View.extend
                 template: Ember.Handlebars.compile '{{view.content.name}}'
 
-            label: Ember.View.extend
-              tagName: 'span'
+            label: c.cellView.extend
               contentBinding: 'parentView.contentInCell.firstObject'
-              template: Ember.Handlebars.compile "{{view.content.#{c.cellLabelProperty}}}"
 
     @_super()
 

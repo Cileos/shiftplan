@@ -1,5 +1,7 @@
 Clockwork.MonthlyCalendarView = GroupingTable.extend
   columnProperty: 'dayInWeek'
   rowProperty: 'weekInYear'
-  cellLabelProperty: 'dayInMonth'
   columnHeaderProperty: 'humanDayInWeek'
+  cellView: Ember.View.extend
+    tagName: 'span'
+    templateName: 'unavailabilities/day_in_month'
