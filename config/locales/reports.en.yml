@@ -7,7 +7,7 @@ en:
         to: To
   reports:
     new:
-      no_schedulings: "There are no schedulings."
+      no_schedulings: "No schedulings found."
     table:
       date: "Date"
       hours: "Hours"

@@ -5,6 +5,8 @@
     .inputs
       = f.input :organization_id, collection: current_account.organizations,
         include_blank: true, input_html: { class: 'chosen-select' }
+      = f.input :employee_id, collection: current_account.employees,
+        include_blank: true, input_html: { class: 'chosen-select' }
       - now = Time.zone.now.to_date
       = f.input :from, as: :stringy_date,
         input_html: { value: @report.from.iso8601 }

@@ -7,7 +7,7 @@ de:
         to: Bis
   reports:
     new:
-      no_schedulings: "Es gibt keine Schichten."
+      no_schedulings: "Keine Terminierungen gefunden."
     table:
       date: "Datum"
       hours: "Stunden"

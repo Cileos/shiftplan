@@ -73,4 +73,20 @@ describe Report do
     end
   end
 
+  context "filters by employee" do
+    let!(:s0) { create(:scheduling, employee: homer, plan: plan, quickie: '8-24',  date: '03.10.2014' ) }
+    let!(:s1) { create(:scheduling, employee: bart,  plan: plan, quickie: '8-24',  date: '02.10.2014' ) }
+
+    let(:homer)  { create(:employee, name: 'Homer') }
+    let(:bart)   { create(:employee, name: 'Bart') }
+
+    let(:report_params) do
+      super().merge(employee_id: homer.id)
+    end
+
+    it "finds schedulings of the employee" do
+      report.records.should match_array [s0]
+    end
+  end
+
 end

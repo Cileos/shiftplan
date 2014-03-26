@@ -3,6 +3,7 @@ class Report < RecordFilter
 
   attribute :account
   attribute :organization
+  attribute :employee_id
   attribute :from, type: Date
   attribute :to, type: Date
 
@@ -31,10 +32,12 @@ class Report < RecordFilter
   def fetch_records
     # Filters for the time range will be added later. As we do not have
     # pagination, yet, only show the schedulings of the current month for now.
-    base.schedulings.
-      between(from, to).
-      order("starts_at DESC").
-      reject(&:previous_day)
+    scoped = base.schedulings
+    scoped = scoped.between(from, to)
+    scoped = scoped.where(employee_id: employee_id) if employee_id.present?
+    scoped = scoped.order("starts_at DESC")
+
+    scoped.reject(&:previous_day)
   end
 
   def base

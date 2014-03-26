@@ -105,3 +105,12 @@ Feature: Report
         | 17.11.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
         | 17.11.2012  | 24,00    | Simpson, Homer  |                 |                    | Shut down          | Sector 7-G    |
       And I should see "46,75" within the header aggregation within the reports table
+
+  Scenario: Owner filters by employee
+     When I go to the report page of the account
+      And I select "Homer Simpson" from "Employee"
+      And I press "Filtern"
+     Then I should see the following table of reports:
+        | Datum       | Stunden  | Name            | Plan               | Organisation  |
+        | 19.12.2012  | 6,75     | Simpson, Homer  | Lie to the public  | PR            |
+      And the selected "Employee" should be "Homer Simpson"
