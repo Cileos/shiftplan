@@ -12,6 +12,7 @@ de:
     table:
       date: "Datum"
       hours: "Stunden"
+      employees: Mitarbeiter
       qualification: "Qualifikation"
       team: "Team"
       plan: "Plan"

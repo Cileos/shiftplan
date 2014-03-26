@@ -12,6 +12,7 @@ en:
     table:
       date: "Date"
       hours: "Hours"
+      employees: Employees
       qualification: "Qualification"
       team: "Team"
       plan: "Plan"

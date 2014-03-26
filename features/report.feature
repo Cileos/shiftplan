@@ -41,7 +41,7 @@ Feature: Report
       And I follow "Report"
       # schedulings of both organizations of the springfield account are listed
      Then I should see the following table of reports:
-        | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
+        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
         | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
         | 19.12.2012  | 6,75     | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
@@ -53,7 +53,7 @@ Feature: Report
       And I choose "Report" from the drop down "Info"
       # only schedulings of organization sector 7g should be shown
      Then I should see the following table of reports:
-        | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
+        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
         | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
       And I should see "16,00" within the header aggregation within the reports table
@@ -68,7 +68,7 @@ Feature: Report
       And I choose "Report" from the drop down "Info"
       # only schedulings of organization sector 7g should be shown
      Then I should see the following table of reports:
-        | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
+        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
         | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
       And I should see "16,00" within the header aggregation within the reports table
@@ -79,7 +79,7 @@ Feature: Report
       And I select "Sector 7-G" from "Organisation"
       And I press "Filtern"
      Then I should see the following table of reports:
-        | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
+        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
         | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
       And I should see "16,00" within the header aggregation within the reports table
@@ -99,7 +99,7 @@ Feature: Report
       And I pick "21. Dezember 2012" from "Bis"
       And I press "Filtern"
      Then I should see the following table of reports:
-        | Datum       | Stunden  | Name            | Team            | Qualifikation      | Plan               | Organisation  |
+        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
         | 19.12.2012  | 6,75     | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
         | 17.11.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |

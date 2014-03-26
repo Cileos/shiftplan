@@ -1,4 +1,4 @@
-- title :report_of_current_month
+- title :report
 
 - unless current_organization
   = simple_form_for @report, url: [:new, current_account, :report], method: :get, html: { class: 'reports-filter' } do |f|
