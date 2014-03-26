@@ -1,3 +1,10 @@
 class Unavailability < ActiveRecord::Base
-  attr_accessible :employee_id, :ends_at, :starts_at, :user_id
+  include TimeRangeComponentsAccessible
+  attr_accessible :employee_id,
+                  :starts_at,
+                  :ends_at,
+                  :start_time,
+                  :end_time,
+                  :date,
+                  :user_id
 end

@@ -20,6 +20,7 @@ module TimeRangeComponentsAccessible
 
   def self.included(model)
     model.class_eval do
+      delegate :iso8601, to: :base_for_time_range_components
       before_validation :compose_time_range_from_components
       alias_method_chain :end_minute, :respecting_end_of_day
       alias_method_chain :end_hour, :respecting_end_of_day
@@ -64,6 +65,20 @@ module TimeRangeComponentsAccessible
 
   def base_for_time_range_components
     @date || (starts_at.present? && starts_at.to_date)
+  end
+
+  def date
+    @date || date_part_or_default(:to_date) { date_from_human_week_date_attributes }
+  end
+
+  def date=(new_date)
+    if new_date
+      if new_date.respond_to?(:year) # date/time like thingy
+        @date = new_date.to_date
+      else
+        @date = Time.zone.parse(new_date).to_date
+      end
+    end
   end
 
   protected

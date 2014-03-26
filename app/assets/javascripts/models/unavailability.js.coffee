@@ -4,3 +4,4 @@ Clockwork.Unavailability = DS.Model.extend
   endsAt: DS.attr('date')
   startTime: DS.attr('string')
   endTime: DS.attr('string')
+  date: DS.attr('date')

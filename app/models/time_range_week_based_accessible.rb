@@ -27,7 +27,7 @@ module TimeRangeWeekBasedAccessible
     raise ArgumentError, "#{e.message} from (#{year}, #{week}, #{cwday}"
   end
 
-  def date_from_human_date_attributes
+  def date_from_human_week_date_attributes
     if @cwday
       build_date_from_human_attributes(year, week, @cwday)
     end

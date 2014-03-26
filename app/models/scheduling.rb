@@ -77,11 +77,6 @@ class Scheduling < ActiveRecord::Base
 
   include Stackable
 
-  # date of the day the Scheduling starts
-  def date
-    @date || date_part_or_default(:to_date) { date_from_human_date_attributes }
-  end
-
   # Because Date and Times are immutable, we have to situps to just change the week and year.
   # must be used on a valid record.
   # FIXME this is the reason to refactor Overnightable
@@ -104,17 +99,6 @@ class Scheduling < ActiveRecord::Base
     self
   end
 
-  def date=(new_date)
-    if new_date
-      if new_date.respond_to?(:to_date)
-        @date = new_date.to_date
-      else
-        @date = Date.parse(new_date)
-      end
-    end
-  end
-
-
   # we have two ways to clean and re-generate the quickie, parsed#to_s or
   # the attributes based self#to_quickie. We use the latter here
   def quickie
@@ -123,6 +107,12 @@ class Scheduling < ActiveRecord::Base
   attr_writer :quickie
 
   delegate :iso8601, to: :date
+
+  # returns 3.25 for 3 hours and 15 minutes
+  # OPTIMIZE rounding
+  def length_in_hours
+    (end_hour - start_hour) + (end_minute-start_minute).to_f / 60
+  end
 
   def self.filter(params={})
     SchedulingFilter.new params.reverse_merge(:base => self)
