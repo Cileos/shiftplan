@@ -26,17 +26,6 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
       Clockwork.DayInCalendar.create date: moment("1997-08-#{11+day}")
   ).property()
 
-  content: (->
-    year = @get('year')
-    month = @get('month')
-    return [] unless year?
-    return [] unless month?
-    fetched = @store.findQuery('unavailability', year: year, month: month)
-    fetched.then (unas)=>
-      console?.debug "TODO attach unavailabilities to days"
-    fetched
-  ).property('year', 'month')
-
   days: (->
     year = @get('year')
     month = @get('month')

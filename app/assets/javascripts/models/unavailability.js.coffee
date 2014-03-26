@@ -11,3 +11,10 @@ Clockwork.Unavailability = DS.Model.extend
   weekInYear: (->
     moment(@get('startsAt')).isoWeek()
   ).property('startsAt')
+
+  formattedStartTime: (->
+    moment(@get('startsAt')).format('H:mm')
+  ).property('startsAt')
+  formattedEndTime: (->
+    moment(@get('endsAt')).format('H:mm')
+  ).property('endsAt')
