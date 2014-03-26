@@ -6,18 +6,23 @@ GroupingTable = Ember.ContainerView.extend
   columns: Ember.A(['', 1,2,3,4,5])
   rows: Ember.String.w('a b c d e')
   rowHeaderVisible: true
+  structure: Ember.A()
   content: Ember.A()
   columnProperty: 'column'
   rowProperty: 'row'
   columnHeaderProperty: 'name'
-  cellView: Ember.View.extend
+  cellLabelView: Ember.View.extend
     tagName: 'span'
     template: Ember.Handlebars.compile "{{view.content.name}}"
+  cellListItemView: Ember.View.extend
+    template: Ember.Handlebars.compile '{{view.content.name}}'
+
   init: ->
     c = {
       columnProperty: @get('columnProperty')
       rowProperty:    @get('rowProperty')
-      cellView:       @get('cellView')
+      cellLabelView:       @get('cellLabelView')
+      cellListItemView:       @get('cellListItemView')
       columnHeaderProperty: @get('columnHeaderProperty')
     }
 
@@ -43,6 +48,9 @@ GroupingTable = Ember.ContainerView.extend
           else
             ['cells']
         ).property('parentView.parentView.rowHeaderVisible')
+        structureInRow: (->
+          @get('parentView.parentView.structure').filterProperty(c.rowProperty, @get('content'))
+        ).property("content.@each', 'parentView.parentView.structure.@each.#{c.rowProperty}")
         contentInRow: (->
           @get('parentView.parentView.content').filterProperty(c.rowProperty, @get('content'))
         ).property("content.@each', 'parentView.parentView.content.@each.#{c.rowProperty}")
@@ -59,26 +67,28 @@ GroupingTable = Ember.ContainerView.extend
           itemViewClass: Ember.ContainerView.extend
             tagName: 'td'
             childViews: (->
-              # FIXME may not be exact
-              if @get('contentInCell.length') == 1
+              if @get('contentInCell.length') == 0
                 ['label']
               else
                 ['label', 'list']
             ).property('contentInCell.length')
 
+            structureInCell: (->
+              @get('parentView.parentView.structureInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
+            ).property("parentView.columns.@each', 'parentView.parentView.structureInRow.@each.#{c.columnProperty}")
+
             contentInCell: (->
-              @get('parentView..parentView.contentInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
+              @get('parentView.parentView.contentInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
             ).property("parentView.columns.@each', 'parentView.parentView.contentInRow.@each.#{c.columnProperty}")
 
             # The actual list within the cell
             list: Ember.CollectionView.extend
               tagName: 'ul'
               contentBinding: 'parentView.contentInCell'
-              itemViewClass: Ember.View.extend
-                template: Ember.Handlebars.compile '{{view.content.name}}'
+              itemViewClass: c.cellListItemView
 
-            label: c.cellView.extend
-              contentBinding: 'parentView.contentInCell.firstObject'
+            label: c.cellLabelView.extend
+              contentBinding: 'parentView.structureInCell.firstObject'
 
     @_super()
 
