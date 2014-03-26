@@ -1,4 +1,15 @@
-NEW Unavailability
-
-{{view.buttonLabel}}
-{{controller}}
+{{#if hasErrors}}
+<div class="flash error"><a class="close" data-dismiss="flash">×</a>{{errorMessages}}</div>
+{{/if}}
+<div class="inputs">
+  <div class="weekday-and-time">
+    <div class="input start-time">
+      <label for="una_start_time">Beginn</label>
+      {{view Clockwork.Fields.TimeField elementId="una_start_time" valueBinding="startTime" placeholder="Beginn"}}
+    </div>
+    <div class="input end-time">
+      <label for="una_end_time">Ende</label>
+      {{view Clockwork.Fields.TimeField elementId="una_end_time" valueBinding="endTime" placeholder="Ende"}}
+    </div>
+  </div>
+</div>

@@ -20,6 +20,12 @@ Clockwork.deferReadiness()
 
 Clockwork.settings = Ember.Object.create
   dateFormat: 'yyyy-mm-dd' # TODO globalize
+  timeoptions:
+    show24Hours: true
+    showSeconds: false
+    spinnerImage: ''
+    timeSteps: [1, 15, 0]
+    useMouseWheel: true
 
 Clockwork.initializer
   # injects 'currentUser' in every controller for authorization

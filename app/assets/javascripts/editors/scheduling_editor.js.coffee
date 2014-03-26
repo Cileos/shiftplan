@@ -18,12 +18,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     # TODO: Comment in again when the passive una feature gets enabled again.
     @currentEmployeeId = $('html').data('current_employee_id')
 
-    timeoptions =
-      show24Hours: true
-      showSeconds: false
-      spinnerImage: ''
-      timeSteps: [1, 15, 0]
-      useMouseWheel: true
+    timeoptions = Clockwork.settings.get('timeoptions')
 
     # holds the state, there should be only ONE here
     @quickie = new Quickie()
