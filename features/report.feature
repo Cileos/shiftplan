@@ -108,9 +108,9 @@ Feature: Report
 
   Scenario: Owner filters by employee
      When I go to the report page of the account
-      And I select "Homer Simpson" from "Employee"
+      And I select "Homer Simpson" from "Mitarbeiter"
       And I press "Filtern"
      Then I should see the following table of reports:
         | Datum       | Stunden  | Name            | Plan               | Organisation  |
         | 19.12.2012  | 6,75     | Simpson, Homer  | Lie to the public  | PR            |
-      And the selected "Employee" should be "Homer Simpson"
+      And the selected "Mitarbeiter" should be "Homer Simpson"

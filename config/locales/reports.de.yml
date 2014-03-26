@@ -3,6 +3,7 @@ de:
     attributes:
       report:
         organization_id: Organisation
+        employee_id: Mitarbeiter
         from: Von
         to: Bis
   reports:

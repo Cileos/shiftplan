@@ -3,6 +3,7 @@ en:
     attributes:
       report:
         organization_id: Organization
+        employee_id: "Employee"
         from: From
         to: To
   reports:
