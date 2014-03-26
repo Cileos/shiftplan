@@ -1,6 +1,6 @@
 {{yield}}
 
-{{#if currentUser.canManage}}
+{{#if canManage}}
   <div class="actions">
   {{#unless isNew}}
       <button class="button-warning delete" {{action doDelete view.backRoute}}>Löschen</button>

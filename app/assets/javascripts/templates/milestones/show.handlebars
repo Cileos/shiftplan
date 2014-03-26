@@ -11,7 +11,7 @@
 {{/if}}
 {{#if tasksEnabled}}
   {{view Clockwork.TaskListView contentBinding="savedAndSortedTasks"}}
-  {{#if controller.currentUser.canManage}}
+  {{#if currentUser.canManageMilestones}}
   {{#link-to 'milestone.newTask' this class="button button-small button-add"}}neue Aufgabe{{/link-to}}
   {{/if}}
 {{/if}}

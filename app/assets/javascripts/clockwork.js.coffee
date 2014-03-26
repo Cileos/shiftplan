@@ -34,8 +34,7 @@ Clockwork.initializer
     Clockwork.deferReadiness()
     $ ->
       $root = $(Clockwork.rootElement)
-      user = Ember.Object.create
-        role: $root.data('role')
+      user = Clockwork.User.create $root.data()
 
       controller = container.lookup('controller:currentUser').set('content', user)
       container.typeInjection('controller', 'currentUser', 'controller:currentUser')

@@ -103,7 +103,7 @@ class Ability
     end
 
     can :manage, Unavailability do |un|
-      un.user_id == current_user.id
+      un.user_id == user.id
     end
   end
 
