@@ -43,6 +43,12 @@ describe Report do
     end
   end
 
+  it "does not find next days of overnightables" do
+    s0 = create(:scheduling, plan: plan, quickie: '22-6', date: '10.10.2014' )
+
+    report.records.should match_array [s0]
+  end
+
   context "filter account or organization wide" do
 
     let!(:s0) { create(:scheduling, plan: plan, quickie: '8-24',  date: '03.10.2014' ) }
