@@ -5,13 +5,6 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
     return [] unless params.month?
     @store.findQuery('unavailability', year: params.year, month: params.month)
 
-  serialize: (model, params)->
-    params = @get 'searchParams'
-    {
-      year: params.year
-      month: params.month
-    }
-
   setupController: (controller, model)->
     controller.set('content', model)
     params = @get 'searchParams'
@@ -21,8 +14,8 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
 Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
   model: (params, transition)->
     here = moment().
-      year(transition.resolvedModels.unavailabilities.year).
-      month(transition.resolvedModels.unavailabilities.month + 1).
+      year(transition.params.unavailabilities.year).
+      month(transition.params.unavailabilities.month + 1).
       date(params.day).
       startOf('day').
       toDate()
