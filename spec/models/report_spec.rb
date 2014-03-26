@@ -27,7 +27,7 @@ describe Report do
     end
 
     it "includes schedulings in given range" do
-      report.records.should == [s3, s2, s1]
+      report.records.should match_array [s3, s2, s1]
     end
   end
 
@@ -39,7 +39,7 @@ describe Report do
     context "when no organization given" do
 
       it "finds schedulings within the account" do
-        report.records.should == [s0, s1]
+        report.records.should match_array [s0, s1]
       end
     end
 
@@ -50,7 +50,7 @@ describe Report do
       end
 
       it "finds schedulings within the organization" do
-        report.records.should == [s0]
+        report.records.should match_array [s0]
       end
     end
   end
