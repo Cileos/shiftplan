@@ -1,25 +1,26 @@
 - title :report
 
 - unless current_organization
-  = simple_form_for @report, url: [:new, current_account, :report], method: :get, html: { class: 'reports-filter' } do |f|
-    .module
-      -# insert grouping here
+  = collapsible(t('.filter'), id: 'reports-filter', class: 'reports-filter-heading') do
+    = simple_form_for @report, url: [:new, current_account, :report], method: :get, html: { class: 'reports-filter' } do |f|
+      .module
+        -# insert grouping here
 
-    .module
-      .inputs
-        = f.input :organization_id, collection: current_account.organizations,
-          include_blank: true, input_html: { class: 'chosen-select' }
-        = f.input :employee_id, collection: current_account.employees,
-          include_blank: true, input_html: { class: 'chosen-select' }
-        - now = Time.zone.now.to_date
-        .time-inputs
-          = f.input :from, as: :stringy_date,
-            input_html: { value: @report.from.iso8601 }
-          = f.input :to, as: :stringy_date,
-            input_html: { value: @report.to.iso8601 }
+      .module
+        .inputs
+          = f.input :organization_id, collection: current_account.organizations,
+            include_blank: true, input_html: { class: 'chosen-select' }
+          = f.input :employee_id, collection: current_account.employees,
+            include_blank: true, input_html: { class: 'chosen-select' }
+          - now = Time.zone.now.to_date
+          .time-inputs
+            = f.input :from, as: :stringy_date,
+              input_html: { value: @report.from.iso8601 }
+            = f.input :to, as: :stringy_date,
+              input_html: { value: @report.to.iso8601 }
 
-    .actions
-      = f.responsive_submit_button ta(:filter)
+      .actions
+        = f.responsive_submit_button ta(:filter)
 
 
 - unless @report.records.empty?

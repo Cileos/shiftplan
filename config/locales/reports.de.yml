@@ -8,6 +8,7 @@ de:
         to: Bis
   reports:
     new:
+      filter: Filter anpassen
       no_schedulings: "Keine Terminierungen gefunden."
     table:
       date: "Datum"

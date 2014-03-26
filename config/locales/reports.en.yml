@@ -8,6 +8,7 @@ en:
         to: To
   reports:
     new:
+      filter: Adapt Filters
       no_schedulings: "No schedulings found."
     table:
       date: "Date"
