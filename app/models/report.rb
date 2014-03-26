@@ -19,11 +19,11 @@ class Report < RecordFilter
   end
 
   def from
-    super || Time.zone.now.to_date.beginning_of_month
+    (super || today.beginning_of_month).beginning_of_day
   end
 
   def to
-    super || Time.zone.now.to_date.end_of_month
+    (super || today.end_of_month).end_of_day
   end
 
     private
@@ -32,7 +32,7 @@ class Report < RecordFilter
     # Filters for the time range will be added later. As we do not have
     # pagination, yet, only show the schedulings of the current month for now.
     base.schedulings.
-      between(from.to_time_in_current_zone.beginning_of_day, to.to_time_in_current_zone.end_of_day).
+      between(from, to).
       order("starts_at DESC").
       reject(&:previous_day)
   end
@@ -40,4 +40,9 @@ class Report < RecordFilter
   def base
     organization || account
   end
+
+  def today
+    Date.today
+  end
+
 end
