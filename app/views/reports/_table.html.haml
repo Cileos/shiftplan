@@ -1,9 +1,9 @@
 - total_decimal_duration = number_with_precision(total_duration, precision: 2)
-%table#reports
+%table#reports.reports
   %thead
     %tr
       %th= t('.date')
-      %th= t('.hours')
+      %th.numeric= t('.hours')
       %th= Employee.human_attribute_name(:full_name)
       %th= t('.team')
       %th= t('.qualification')
