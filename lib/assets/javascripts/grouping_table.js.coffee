@@ -110,6 +110,7 @@ GroupingTable.createView = (options)->
               tagName: 'ul'
               content: alias('parentView.itemsInCell')
               itemViewClass: c.cellListItemView.extend
+                attributeBindings:  ['fnord:data-fnord']
                 fnord: alias('parentView.fnord')
               fnord: alias('parentView.fnord')
 
