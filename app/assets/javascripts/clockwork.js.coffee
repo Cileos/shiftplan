@@ -9,7 +9,7 @@
 #= require_tree ./templates
 #= require_tree ./routes
 
-Ember.LOG_BINDINGS = true
+Ember.LOG_BINDINGS = false
 
 Clockwork = Ember.Application.create
   LOG_TRANSITIONS: true
