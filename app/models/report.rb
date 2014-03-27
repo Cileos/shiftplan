@@ -14,7 +14,11 @@ class Report < RecordFilter
   end
 
   def total_duration
-    all_records.reject(&:previous_day).sum { |s| s.decimal_duration }
+    @total_duration ||= all_records_without_next_days.sum { |s| s.decimal_duration }
+  end
+
+  def total_number_of_records
+    @total_number_of_records ||= all_records_without_next_days.size
   end
 
   # The organization_id will be present when the user visits the report page of
@@ -60,8 +64,12 @@ class Report < RecordFilter
     scoped
   end
 
+  def all_records_without_next_days
+    @all_records_without_next_days ||= all_records.reject(&:previous_day)
+  end
+
   def fetch_records
-    rslt = all_records.reject(&:previous_day)
+    rslt = all_records_without_next_days
     rslt = rslt.take(limit.to_i) if limit
     rslt
   end

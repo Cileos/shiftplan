@@ -144,7 +144,8 @@ describe Report do
     end
   end
 
-  describe "#total_duration" do
+  context "totals" do
+
     let!(:s0) { create(:scheduling, plan: plan, quickie: '22-6', date: '03.10.2014' )  }
     let!(:s1) { create(:scheduling, plan: plan, quickie: '1-2', date: '02.10.2014' ) }
     let!(:s2) { create(:scheduling, plan: plan, quickie: '1-4', date: '01.10.2014' ) }
@@ -153,9 +154,18 @@ describe Report do
       super().merge(limit: 2)
     end
 
-    it "sums up time of all schedulings regardless of limit" do
-      report.total_duration.should == 12.0
+    describe "#total_duration" do
+
+      it "sums up time of all schedulings regardless of limit" do
+        report.total_duration.should == 12.0
+      end
     end
 
+    describe "#total_number_of_records" do
+
+      it "sums up number of all schedulings regardless of limit" do
+        report.total_number_of_records.should == 3
+      end
+    end
   end
 end

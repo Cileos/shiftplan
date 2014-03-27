@@ -31,8 +31,16 @@
 - unless @report.records.empty?
 
   = render 'table', records: @report.records
-  - ['50', '100', '250', 'all'].each do |lim|
-    =  link_to lim.to_sym, { report: { limit: lim } }, class: (params[:report].try(:[], :limit) == lim && 'active')
+
+  - number_links = [1, 100, 250].select { |n| n < @report.total_number_of_records }.map(&:to_s)
+  - unless number_links.empty?
+    %span
+      = t('.show')
+      - (number_links + ['all']).each do |lim|
+        =  link_to lim.to_sym, { report: { limit: lim } }, class: (params[:report].try(:[], :limit) == lim && 'active')
+      = t('.total_number_of_records', total: @report.total_number_of_records)
+  - else
+    %span= t('.number_of_records_found', total: @report.total_number_of_records)
 
 - else
   %p= t(:'.no_schedulings')

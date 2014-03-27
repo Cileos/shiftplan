@@ -9,7 +9,10 @@ en:
   reports:
     new:
       filter: Adapt Filters
-      no_schedulings: "No schedulings found."
+      no_schedulings: "No entries found."
+      show: 'Show:'
+      total_number_of_records: 'of %{total} found entries'
+      number_of_records_found: '%{total} entries found'
     table:
       date: "Date"
       hours: "Hours"
