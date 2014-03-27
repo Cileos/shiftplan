@@ -1,4 +1,4 @@
-Clockwork.MonthlyCalendarView = createGroupingTableView
+Clockwork.MonthlyCalendarView = GroupingTable.createView
   columnProperty: 'dayInWeek'
   rowProperty: 'weekInYear'
   columnHeaderProperty: 'humanDayInWeek'

@@ -13,28 +13,41 @@ defaults =
   cellListItemView: Ember.View.extend
     template: Ember.Handlebars.compile '{{view.content.name}}'
 
-createGroupingTableView = (options)->
+GroupingTable = Ember.Namespace.create()
+
+GroupingTable.HeaderView = Ember.CollectionView.extend
+  tagName: 'tr'
+  contentBinding: 'parentView.parentView.columns'
+
+GroupingTable.BodyView = Ember.CollectionView.extend
+  tagName: 'tbody'
+  rowsBinding: 'parentView.rows'
+  contentBinding: 'rows'
+  structureBinding: 'parentView.structure'
+  itemsBinding: 'parentView.content'
+
+GroupingTable.CellsView = Ember.CollectionView.extend
+  columnsBinding: 'parentView.columns'
+  contentBinding: 'columns'
+  structureBinding: 'parentView.structureInRow'
+  itemsBinding: 'parentView.itemsInRow'
+
+
+GroupingTable.createView = (options)->
   c = jQuery.extend {}, defaults, options
 
   Ember.ContainerView.extend c,
     structure: Ember.A()
     content: Ember.A()
-    thead: Ember.ContainerView.create
+    thead: Ember.ContainerView.extend
       tagName: 'thead'
       childViews: ['header']
-      header: Ember.CollectionView.create
-        tagName: 'tr'
-        contentBinding: 'parentView.parentView.columns'
+      header: GroupingTable.HeaderView.extend
         itemViewClass: Ember.View.extend
           tagName: 'th'
           template: Ember.Handlebars.compile "{{view.content.#{c.columnHeaderProperty}}}"
 
-    tbody: Ember.CollectionView.extend
-      tagName: 'tbody'
-      rowsBinding: 'parentView.rows'
-      contentBinding: 'rows'
-      structureBinding: 'parentView.structure'
-      itemsBinding: 'parentView.content'
+    tbody: GroupingTable.BodyView.extend
 
       # the row containing matching y
       itemViewClass: Ember.ContainerView.extend
@@ -60,11 +73,7 @@ createGroupingTableView = (options)->
           tagName: 'th'
           template: Ember.Handlebars.compile '{{view.parentView.content}} ({{view.parentView.itemsInRow.length}})'
 
-        cells: Ember.CollectionView.extend
-          columnsBinding: 'parentView.columns'
-          contentBinding: 'columns'
-          structureBinding: 'parentView.structureInRow'
-          itemsBinding: 'parentView.itemsInRow'
+        cells: GroupingTable.CellsView.extend
 
           # the cell containing matching x and y
           itemViewClass: Ember.ContainerView.extend
@@ -93,4 +102,4 @@ createGroupingTableView = (options)->
             label: c.cellLabelView.extend
               contentBinding: 'parentView.structureInCell.firstObject'
 
-window.createGroupingTableView = createGroupingTableView
+window.GroupingTable = GroupingTable
