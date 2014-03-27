@@ -14,11 +14,7 @@ defaults =
     template: Ember.Handlebars.compile "{{view.content.name}}"
   cellListItemView: Ember.View.extend
     template: Ember.Handlebars.compile '{{view.content.name}}'
-  # we tick this to force a re-evaluation of itemsInCell/itemsInRow.
-  # FIXME this should not be neccessary but there seems to be something wrong
-  # with bindings towards parentView
   fnord: 23
-  tick: -> @incrementProperty 'fnord'
   items: alias('content')
 
 GroupingTable = Ember.Namespace.create()
@@ -54,11 +50,15 @@ GroupingTable.createView = (options)->
   c = jQuery.extend {}, defaults, options
 
   Ember.ContainerView.extend c,
-    init: ->
-      window.t = this
-      @_super()
     structure: Ember.A()
     content: Ember.A()
+
+    # we tick this to force a re-evaluation of itemsInCell/itemsInRow.
+    # FIXME this should not be neccessary but there seems to be something wrong
+    # with bindings towards parentView
+    contentDidChange: (->
+      @incrementProperty('fnord')
+    ).observes('content.@each')
     thead: Ember.ContainerView.extend SettingsAliases,
       tagName: 'thead'
       childViews: ['header']
@@ -101,28 +101,28 @@ GroupingTable.createView = (options)->
           # the cell containing matching x and y
           itemViewClass: Ember.ContainerView.extend SettingsAliases,
             tagName: 'td'
-
-            childViews: (->
-              if @get('itemsInCell.length') == 0
-                ['label']
-              else
-                ['label', 'list']
-            ).property('itemsInCell.length')
+            childViews: ['label', 'list']
 
             structureInCell: (->
               @get('parentView.structureInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
             ).property("columns.@each', 'structure.@each.#{c.columnProperty}")
 
             itemsInCell: (->
-              console?.debug "cell", @get("content.#{c.columnProperty}")
+              console?.debug "cell",
+                this.toString(),
+                @get("content.#{c.columnProperty}"),
+                @get('parentView.parentView.content'),
+                @get('parentView.itemsInRow').mapProperty(c.columnProperty).join(',')
               @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
             ).property("columns.@each', 'parentView.itemsInRow.@each.#{c.columnProperty}", 'fnord', 'parentView.itemsInRow')
 
             # The actual list within the cell
             list: Ember.CollectionView.extend
               tagName: 'ul'
-              contentBinding: 'parentView.itemsInCell'
-              itemViewClass: c.cellListItemView
+              content: alias('parentView.itemsInCell')
+              itemViewClass: c.cellListItemView.extend
+                fnord: alias('parentView.fnord')
+              fnord: alias('parentView.fnord')
 
             label: c.cellLabelView.extend
               content: alias('parentView.structureInCell.firstObject')
