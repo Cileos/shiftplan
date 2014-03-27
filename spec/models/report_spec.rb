@@ -119,4 +119,28 @@ describe Report do
     end
   end
 
+  context "when limit given" do
+
+    let!(:s0) { create(:scheduling, plan: plan, quickie: '8-24',  date: '01.10.2014' ) }
+    let!(:s1) { create(:scheduling, plan: plan, quickie: '8-24',  date: '02.10.2014' ) }
+
+    let(:report_params) do
+      super().merge(limit: 1)
+    end
+
+    it "finds the limited number of schedulings" do
+      report.records.should match_array [s1]
+    end
+
+    context "when limit is 'all'" do
+
+      let(:report_params) do
+        super().merge(limit: 'all')
+      end
+
+      it "finds all schedulings" do
+        report.records.should match_array [s1, s0]
+      end
+    end
+  end
 end

@@ -17,6 +17,7 @@ en:
       report: Report
       reports: Reports
       reset_filters: Reset filters
+      all: all
       info: Info
       news: News
       signin: Log in

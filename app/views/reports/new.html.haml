@@ -31,6 +31,8 @@
 - unless @report.records.empty?
 
   = render 'table', records: @report.records
+  - ['50', '100', '250', 'all'].each do |lim|
+    =  link_to lim.to_sym, { report: { limit: lim } }, class: (params[:report].try(:[], :limit) == lim && 'active')
 
 - else
   %p= t(:'.no_schedulings')

@@ -5,6 +5,7 @@ class Report < RecordFilter
   attribute :organization
   attribute :organization_ids
   attribute :employee_ids
+  attribute :limit
   attribute :from, type: Date
   attribute :to, type: Date
 
@@ -40,6 +41,10 @@ class Report < RecordFilter
     (super || today.end_of_month).end_of_day
   end
 
+  def limit
+    super == 'all' ? nil : super || 50
+  end
+
     private
 
   def fetch_records
@@ -47,6 +52,7 @@ class Report < RecordFilter
     scoped = scoped.in_organizations(organization_list) if filter_by_organization?
     scoped = scoped.between(from, to)
     scoped = scoped.where(employee_id: employee_ids) unless employee_ids.empty?
+    scoped = scoped.limit(limit)
     scoped = scoped.order("starts_at DESC")
 
     scoped.reject(&:previous_day)
