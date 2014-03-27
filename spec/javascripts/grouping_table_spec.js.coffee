@@ -58,7 +58,6 @@ describe 'GroupingTable', ->
     Ember.run ->
       first = view.get('content.firstObject')
       first.set('c', 'B') # A3 -> B3
-      view.tick()
 
     expect( view.$('tbody tr:nth(0) > td:nth(2)').text() ).toEqual('C1')
     expect( view.$('tbody tr:nth(1) > td:nth(1)').text() ).toEqual('B2')
@@ -72,7 +71,6 @@ describe 'GroupingTable', ->
         Thingy.create(c: 'B', r: 1)
         Thingy.create(c: 'C', r: 3)
       ]
-      view.tick()
     expect( view.$('tbody tr:nth(0) > td:nth(1)').text() ).toEqual('B1')
     expect( view.$('tbody tr:nth(1) > td:nth(0)').text() ).toEqual('A2')
     expect( view.$('tbody tr:nth(2) > td:nth(2)').text() ).toEqual('C3')
