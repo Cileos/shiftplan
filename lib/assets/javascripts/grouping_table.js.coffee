@@ -58,7 +58,7 @@ GroupingTable.createView = (options)->
     # with bindings towards parentView
     contentDidChange: (->
       @incrementProperty('fnord')
-    ).observes('content.@each')
+    ).observes('content.@each', "content.@each.#{c.rowProperty}", "content.@each.#{c.columnProperty}")
     thead: Ember.ContainerView.extend SettingsAliases,
       tagName: 'thead'
       childViews: ['header']
