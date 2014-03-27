@@ -20,7 +20,7 @@ Feature: Report
         | date        | employee                   | quickie  | plan                      | team      | qualification      |
         | 23.12.2012  | employee owner "mr burns"  | 7-14:30  | plan "shut down"          |           |                    |
         | 21.12.2012  | employee owner "mr burns"  | 7-15:30  | plan "shut down"          | the team  | the qualification  |
-        | 20.12.2012  | employee "homer"           | 7-16:00  | plan "shut down"          | the team  | the qualification  |
+        | 20.12.2012  | employee "homer"           | 22-7     | plan "shut down"          | the team  | the qualification  |
         | 19.12.2012  | employee "homer"           | 7-13:45  | plan "lie to the public"  |           |                    |
         | 17.11.2012  | employee owner "mr burns"  | 7-14:30  | plan "shut down"          |           |                    |
         | 17.11.2012  | employee "homer"           | 0-24:00  | plan "Shut down"          |           |                    |

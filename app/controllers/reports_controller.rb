@@ -2,7 +2,7 @@ class ReportsController < BaseController
   actions :new
 
   def total_duration
-    @report.records.reject(&:previous_day).sum { |s| s.decimal_duration }
+    @report.records.sum { |s| s.decimal_duration }
   end
   helper_method :total_duration
 
