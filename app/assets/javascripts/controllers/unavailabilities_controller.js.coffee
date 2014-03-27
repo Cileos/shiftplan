@@ -46,11 +46,11 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
     first = moment("#{@get('year')}-#{@get('month')}-01")
     last = first.clone().endOf('month')
     if first.isoWeek() < last.isoWeek()
-      [first.isoWeek() .. last.isoWeek()]
+      Ember.A([first.isoWeek() .. last.isoWeek()])
     else # happy new year!
       butLast = last.clone().subtract('weeks', 1)
-      weeks = [first.isoWeek() .. butLast.isoWeek()]
-      weeks.push(1)
+      weeks = Ember.A([first.isoWeek() .. butLast.isoWeek()])
+      weeks.pushObject(1)
       weeks
   ).property('year', 'month')
 
