@@ -16,6 +16,7 @@ en:
       export: Export
       report: Report
       reports: Reports
+      reset_filters: Reset filters
       info: Info
       news: News
       signin: Log in

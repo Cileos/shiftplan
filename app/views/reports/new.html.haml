@@ -1,7 +1,11 @@
 - title :report
 
 = collapsible(t('.filter'), id: 'reports-filter', class: 'reports-filter-heading') do
-  = simple_form_for @report, url: [:new, current_account, :report], method: :get, html: { class: 'reports-filter' } do |f|
+  - if current_organization
+    - url = [:new, current_account, current_organization, :report]
+  - else
+    - url = [:new, current_account, :report]
+  = simple_form_for @report, url: url, method: :get, html: { class: 'reports-filter' } do |f|
     .module
       -# insert grouping here
 
@@ -21,6 +25,7 @@
 
     .actions
       = f.responsive_submit_button ta(:filter)
+      = link_to :reset_filters, url, class: 'button'
 
 
 - unless @report.records.empty?
