@@ -71,10 +71,6 @@ GroupingTable.createView = (options)->
       # the row containing matching y
       itemViewClass: Ember.ContainerView.extend SettingsAliases,
         tagName: 'tr'
-        otherFnord: (->
-          console?.debug "other fnord", @get('fnord')
-          @get('fnord') * 2
-        ).property('fnord', 'Clockwork.fnord')
         childViews: (->
           if @get('rowHeaderVisible')
             ['heading', 'cells']
@@ -83,12 +79,10 @@ GroupingTable.createView = (options)->
         ).property('rowHeaderVisible')
 
         structureInRow: (->
-          console?.debug "row structure", @get('content')
           @get('structure').filterProperty(c.rowProperty, @get('content'))
         ).property("rows.@each', 'structure.@each.#{c.rowProperty}")
 
         itemsInRow: (->
-          console?.debug "row items", @get('content'), @get('fnord')
           @get('items').filterProperty(c.rowProperty, @get('content'))
         ).property("rows.@each', 'items.@each.#{c.rowProperty}", 'fnord')
 
@@ -108,11 +102,6 @@ GroupingTable.createView = (options)->
             ).property("columns.@each', 'structure.@each.#{c.columnProperty}")
 
             itemsInCell: (->
-              console?.debug "cell",
-                this.toString(),
-                @get("content.#{c.columnProperty}"),
-                @get('parentView.parentView.content'),
-                @get('parentView.itemsInRow').mapProperty(c.columnProperty).join(',')
               @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
             ).property("columns.@each', 'parentView.itemsInRow.@each.#{c.columnProperty}", 'fnord', 'parentView.itemsInRow')
 
