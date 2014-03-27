@@ -33,9 +33,6 @@ describe 'GroupingTable', ->
     view = null
     klass = null
 
-  it 'has the right jasmine version', ->
-    expect( jasmine.VERSION ).toEqual('1.3.1')
-
   it 'should be defined', ->
     expect(view).toBeDefined()
 
@@ -60,12 +57,13 @@ describe 'GroupingTable', ->
   it 'reflects changes in content', ->
     Ember.run ->
       first = view.get('content.firstObject')
-      first.set('c', 'B')
-    expect( view.$('tbody tr:nth(2) > td:nth(0)').text() ).not.toEqual('A3')
-    expect( view.$('tbody tr:nth(2) > td:nth(0)').text() ).not.toEqual('B3') # rerendered item, but at wrong place
-    expect( view.$('tbody tr:nth(1) > td:nth(2)').text() ).toEqual('B3')
+      first.set('c', 'B') # A3 -> B3
+      view.tick()
+
     expect( view.$('tbody tr:nth(0) > td:nth(2)').text() ).toEqual('C1')
     expect( view.$('tbody tr:nth(1) > td:nth(1)').text() ).toEqual('B2')
+    expect( view.$('tbody tr:nth(2) > td:nth(0)').text() ).not.toEqual('A3')
+    expect( view.$('tbody tr:nth(2) > td:nth(1)').text() ).toEqual('B3')
 
   it 're-renders when new content is set', ->
     Ember.run ->
@@ -74,6 +72,7 @@ describe 'GroupingTable', ->
         Thingy.create(c: 'B', r: 1)
         Thingy.create(c: 'C', r: 3)
       ]
+      view.tick()
     expect( view.$('tbody tr:nth(0) > td:nth(1)').text() ).toEqual('B1')
     expect( view.$('tbody tr:nth(1) > td:nth(0)').text() ).toEqual('A2')
     expect( view.$('tbody tr:nth(2) > td:nth(2)').text() ).toEqual('C3')

@@ -14,7 +14,11 @@ defaults =
     template: Ember.Handlebars.compile "{{view.content.name}}"
   cellListItemView: Ember.View.extend
     template: Ember.Handlebars.compile '{{view.content.name}}'
+  # we tick this to force a re-evaluation of itemsInCell/itemsInRow.
+  # FIXME this should not be neccessary but there seems to be something wrong
+  # with bindings towards parentView
   fnord: 23
+  tick: -> @incrementProperty 'fnord'
   items: alias('content')
 
 GroupingTable = Ember.Namespace.create()
@@ -86,7 +90,7 @@ GroupingTable.createView = (options)->
         itemsInRow: (->
           console?.debug "row items", @get('content'), @get('fnord')
           @get('items').filterProperty(c.rowProperty, @get('content'))
-        ).property("rows.@each', 'items.@each.#{c.rowProperty}")
+        ).property("rows.@each', 'items.@each.#{c.rowProperty}", 'fnord')
 
         heading: Ember.View.extend
           tagName: 'th'
@@ -107,12 +111,12 @@ GroupingTable.createView = (options)->
 
             structureInCell: (->
               @get('parentView.structureInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
-            ).property("columns.@each', 'parentView.structureInRow.@each.#{c.columnProperty}")
+            ).property("columns.@each', 'structure.@each.#{c.columnProperty}")
 
             itemsInCell: (->
               console?.debug "cell", @get("content.#{c.columnProperty}")
               @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
-            ).property("columns.@each', 'parentView.itemsInRow.@each.#{c.columnProperty}")
+            ).property("columns.@each', 'parentView.itemsInRow.@each.#{c.columnProperty}", 'fnord', 'parentView.itemsInRow')
 
             # The actual list within the cell
             list: Ember.CollectionView.extend
@@ -121,6 +125,6 @@ GroupingTable.createView = (options)->
               itemViewClass: c.cellListItemView
 
             label: c.cellLabelView.extend
-              contentBinding: 'parentView.structureInCell.firstObject'
+              content: alias('parentView.structureInCell.firstObject')
 
 window.GroupingTable = GroupingTable
