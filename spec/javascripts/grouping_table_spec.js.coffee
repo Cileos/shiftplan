@@ -29,7 +29,7 @@ describe 'GroupingTable', ->
     Ember.run -> view.append()
 
   afterEach ->
-    Ember.run -> view.remove
+    Ember.run -> view.remove()
     view = null
     klass = null
 
