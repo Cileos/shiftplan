@@ -63,12 +63,12 @@ GroupingTable.createView = (options)->
         structureInRow: (->
           console?.debug "row", @get('content')
           @get('parentView.parentView.structure').filterProperty(c.rowProperty, @get('content'))
-        ).property("parentView.rows.@each', 'parentView.structure.@each")
+        ).property("parentView.rows.@each', 'parentView.structure.@each.#{c.rowProperty}")
 
         itemsInRow: (->
           console?.debug "row items", @get('content')
           @get('parentView.parentView.content').filterProperty(c.rowProperty, @get('content'))
-        ).property("parentView.rows.@each', 'parentView.parentView.content.@each")
+        ).property("parentView.rows.@each', 'parentView.items.@each.#{c.rowProperty}")
 
         heading: Ember.View.extend
           tagName: 'th'
@@ -88,11 +88,11 @@ GroupingTable.createView = (options)->
 
             structureInCell: (->
               @get('parentView.parentView.structureInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
-            ).property("parentView.columns.@each', 'parentView.structure.@each")
+            ).property("parentView.columns.@each', 'parentView.structure.@each.#{c.columnProperty}")
 
             itemsInCell: (->
               @get('parentView.parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
-            ).property("parentView.columns.@each', 'parentView.parentView.parentView.parentView.content.@each")
+            ).property("parentView.columns.@each', 'parentView.items.@each.#{c.columnProperty}")
 
             # The actual list within the cell
             list: Ember.CollectionView.extend
