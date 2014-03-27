@@ -32,7 +32,7 @@
 
   = render 'table', records: @report.records
 
-  - number_links = [1, 100, 250].select { |n| n < @report.total_number_of_records }.map(&:to_s)
+  - number_links = [50, 100, 250].select { |n| n < @report.total_number_of_records }.map(&:to_s)
   - unless number_links.empty?
     %span
       = t('.show')
