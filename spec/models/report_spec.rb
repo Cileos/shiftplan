@@ -143,4 +143,19 @@ describe Report do
       end
     end
   end
+
+  describe "#total_duration" do
+    let!(:s0) { create(:scheduling, plan: plan, quickie: '22-6', date: '03.10.2014' )  }
+    let!(:s1) { create(:scheduling, plan: plan, quickie: '1-2', date: '02.10.2014' ) }
+    let!(:s2) { create(:scheduling, plan: plan, quickie: '1-4', date: '01.10.2014' ) }
+
+    let(:report_params) do
+      super().merge(limit: 2)
+    end
+
+    it "sums up time of all schedulings regardless of limit" do
+      report.total_duration.should == 12.0
+    end
+
+  end
 end

@@ -13,6 +13,10 @@ class Report < RecordFilter
     @records ||= fetch_records
   end
 
+  def total_duration
+    all_records.reject(&:previous_day).sum { |s| s.decimal_duration }
+  end
+
   # The organization_id will be present when the user visits the report page of
   # an organization. At this moment, she is in the sope of an organization.
   def organization_id
@@ -47,15 +51,19 @@ class Report < RecordFilter
 
     private
 
-  def fetch_records
+  def all_records
     scoped = account.schedulings
     scoped = scoped.in_organizations(organization_list) if filter_by_organization?
     scoped = scoped.between(from, to)
     scoped = scoped.where(employee_id: employee_ids) unless employee_ids.empty?
-    scoped = scoped.limit(limit)
     scoped = scoped.order("starts_at DESC")
+    scoped
+  end
 
-    scoped.reject(&:previous_day)
+  def fetch_records
+    rslt = all_records.reject(&:previous_day)
+    rslt = rslt.take(limit.to_i) if limit
+    rslt
   end
 
   def organization_list
