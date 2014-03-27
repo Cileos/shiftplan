@@ -8,10 +8,10 @@
 
       .module
         .inputs
-          = f.input :organization_id, collection: current_account.organizations,
-            include_blank: true, input_html: { class: 'chosen-select' }
-          = f.input :employee_id, collection: current_account.employees,
-            include_blank: true, input_html: { class: 'chosen-select' }
+          = f.input :organization_ids, collection: current_account.organizations,
+            include_blank: true, input_html: { class: 'chosen-select', multiple: true }
+          = f.input :employee_ids, collection: current_account.employees,
+            include_blank: true, input_html: { class: 'chosen-select', multiple: true }
           - now = Time.zone.now.to_date
           .time-inputs
             = f.input :from, as: :stringy_date,

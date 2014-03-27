@@ -21,6 +21,8 @@ class Scheduling < ActiveRecord::Base
   validates_with NextDayWithinPlanPeriodValidator
   validates_with ShiftPeriodValidator, unless: ->(s) { s.start_hour == 0 && s.start_minute == 0 }
 
+  scope :in_organizations, ->(org_ids) { joins(:plan).where("plans.organization_id IN (#{org_ids.join(',')})") }
+
   attr_writer :year
 
   include TimeRangeWeekBasedAccessible

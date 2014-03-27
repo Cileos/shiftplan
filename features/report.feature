@@ -20,11 +20,15 @@ Feature: Report
         | date        | employee                   | quickie  | plan                      | team      | qualification      |
         | 23.12.2012  | employee owner "mr burns"  | 7-14:30  | plan "shut down"          |           |                    |
         | 21.12.2012  | employee owner "mr burns"  | 7-15:30  | plan "shut down"          | the team  | the qualification  |
+        | 20.12.2012  | employee "homer"           | 7-16:00  | plan "shut down"          | the team  | the qualification  |
         | 19.12.2012  | employee "homer"           | 7-13:45  | plan "lie to the public"  |           |                    |
         | 17.11.2012  | employee owner "mr burns"  | 7-14:30  | plan "shut down"          |           |                    |
+        | 17.11.2012  | employee "homer"           | 0-24:00  | plan "Shut down"          |           |                    |
      When I am signed in as the user "mr burns"
 
-  Scenario: Owner visits current month report for account
+  # most common path scenario
+  @javascript
+  Scenario: Owner uses filters on account report page
       # Foreign account data:
     Given an account "tv business" exists with name: "TV Business"
       And a organization "the clown show" exists with account: account "tv business", name: "The Clown Show"
@@ -39,78 +43,37 @@ Feature: Report
 
      When I go to the dashboard page
       And I follow "Report"
-      # schedulings of both organizations of the springfield account are listed
+      # Schedulings of both organizations of the springfield account are listed.
+      # Per default only the schedulings of the current month are listed.
      Then I should see the following table of reports:
         | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
         | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
         | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
+        | 20.12.2012  | 9,00     | Simpson, Homer  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
         | 19.12.2012  | 6,75     | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
-      And I should see "22,75" within the header aggregation within the reports table
+      And I should see "31,75" within the header aggregation within the reports table
 
-
-  Scenario: Owner visits current month report for organization
-     When I go to the page of the organization "sector 7g"
-      And I choose "Report" from the drop down "Info"
-      # only schedulings of organization sector 7g should be shown
-     Then I should see the following table of reports:
-        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
-        | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
-        | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
-      And I should see "16,00" within the header aggregation within the reports table
-
-
-  Scenario: Planner visits current month report for organization
-    Given a confirmed user "bart" exists
-      And an employee "bart" exists with first_name: "Bart", account: the account, user: user "bart"
-      And the employee "bart" is a planner of the organization "sector 7g"
-      And I am signed in as the user "bart"
-     When I go to the page of the organization "sector 7g"
-      And I choose "Report" from the drop down "Info"
-      # only schedulings of organization sector 7g should be shown
-     Then I should see the following table of reports:
-        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
-        | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
-        | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
-      And I should see "16,00" within the header aggregation within the reports table
-
-
-  Scenario: Owner filters by organization
-     When I go to the report page of the account
-      And I select "Sector 7-G" from "Organisation"
-      And I press "Filtern"
-     Then I should see the following table of reports:
-        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
-        | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
-        | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
-      And I should see "16,00" within the header aggregation within the reports table
-      And the selected "Organisation" should be "Sector 7-G"
-
-  @javascript
-  Scenario: Owner filters by date
-     When I go to the report page of the account
-      And the following schedulings exists:
-        | date        | employee          | quickie  | plan              |
-        | 17.11.2012  | employee "Homer"  | 0-24:00  | plan "Shut down"  |
-     # default to current month
-     Then the "Von" field should contain "01.12.2012"
+      And the "Von" field should contain "01.12.2012"
       And the "Bis" field should contain "31.12.2012"
 
-     When I pick "17. November 2012" from "Von"
+     When I select "Sector 7-G" from the "Organisation" multiple-select box
+      And I select "Homer Simpson" from the "Mitarbeiter" multiple-select box
+      And I pick "17. November 2012" from "Von"
       And I pick "21. Dezember 2012" from "Bis"
       And I press "Filtern"
      Then I should see the following table of reports:
-        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
-        | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
-        | 19.12.2012  | 6,75     | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
-        | 17.11.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
-        | 17.11.2012  | 24,00    | Simpson, Homer  |                 |                    | Shut down          | Sector 7-G    |
-      And I should see "46,75" within the header aggregation within the reports table
+        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan       | Organisation  |
+        | 20.12.2012  | 9,00     | Simpson, Homer  | Uran rangieren  | Brennstabpolierer  | Shut down  | Sector 7-G    |
+        | 17.11.2012  | 24,00    | Simpson, Homer  |                 |                    | Shut down  | Sector 7-G    |
+      And I should see "33,00" within the header aggregation within the reports table
 
-  Scenario: Owner filters by employee
-     When I go to the report page of the account
-      And I select "Homer Simpson" from "Mitarbeiter"
-      And I press "Filtern"
+  Scenario: Owner visits organization report page
+     When I go to the page of the organization "sector 7g"
+      And I choose "Report" from the drop down "Info"
+      # only schedulings of organization sector 7g should be shown
      Then I should see the following table of reports:
-        | Datum       | Stunden  | Name            | Plan               | Organisation  |
-        | 19.12.2012  | 6,75     | Simpson, Homer  | Lie to the public  | PR            |
-      And the selected "Mitarbeiter" should be "Homer Simpson"
+        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
+        | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
+        | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
+        | 20.12.2012  | 9,00     | Simpson, Homer  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
+      And I should see "25,00" within the header aggregation within the reports table

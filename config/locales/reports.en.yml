@@ -2,8 +2,8 @@ en:
   activemodel:
     attributes:
       report:
-        organization_id: Organization
-        employee_id: "Employee"
+        organization_ids: Organization
+        employee_ids: "Employee"
         from: From
         to: To
   reports:

@@ -13,15 +13,7 @@ class ReportsController < BaseController
   end
 
   def base_attrs
-    { account: current_account, organization: organization }
-  end
-
-  def organization
-    if org_id = resource_params.first[:organization_id]
-      current_account.organizations.find_by_id(org_id)
-    else
-      current_organization
-    end
+    { account: current_account, organization: current_organization }
   end
 end
 
