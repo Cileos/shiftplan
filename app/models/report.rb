@@ -12,12 +12,24 @@ class Report < RecordFilter
     @records ||= fetch_records
   end
 
+  # The organization_id will be present when the user visits the report page of
+  # an organization. At this moment, she is in the sope of an organization.
   def organization_id
     @organization_id ||= organization.try(:id)
   end
 
   def account_id
     @account_id ||= account.id
+  end
+
+  def employee_ids
+    super ? super.reject(&:blank?) : []
+  end
+
+  # The organization_ids will be present when the user is on the report page of
+  # an account and filters by organizations.
+  def organization_ids
+    super ? super.reject(&:blank?) : []
   end
 
   def from
@@ -31,37 +43,24 @@ class Report < RecordFilter
     private
 
   def fetch_records
-    # Filters for the time range will be added later. As we do not have
-    # pagination, yet, only show the schedulings of the current month for now.
     scoped = account.schedulings
-    if filter_by_organization?
-      scoped = scoped.in_organizations(organization_list)
-    end
+    scoped = scoped.in_organizations(organization_list) if filter_by_organization?
     scoped = scoped.between(from, to)
-    scoped = scoped.where(employee_id: employee_ids_without_blank) unless employee_ids_without_blank.empty?
+    scoped = scoped.where(employee_id: employee_ids) unless employee_ids.empty?
     scoped = scoped.order("starts_at DESC")
 
     scoped.reject(&:previous_day)
   end
 
-  def employee_ids_without_blank
-    employee_ids ? employee_ids.reject(&:blank?) : []
-  end
-
-  def organization_ids_without_blank
-    organization_ids ? organization_ids.reject(&:blank?) : []
-  end
-
   def organization_list
-    organization_id ? [organization_id] : organization_ids_without_blank
+    organization_id ? [organization_id] : organization_ids
   end
 
   def filter_by_organization?
-    organization_ids_without_blank.present? || organization_id
+    organization_ids.present? || organization_id
   end
 
   def today
     Date.today
   end
-
 end
