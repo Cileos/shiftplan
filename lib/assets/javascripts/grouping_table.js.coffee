@@ -42,8 +42,8 @@ GroupingTable.BodyView = Ember.CollectionView.extend
 
 GroupingTable.CellsView = Ember.CollectionView.extend
   content: alias('columns')
-  structure: alias('parentView.structureInRow')
-  items: alias('parentView.itemsInRow')
+  structureInRow: alias('parentView.structureInRow')
+  itemsInRow: alias('parentView.itemsInRow')
 
 
 GroupingTable.createView = (options)->
@@ -67,8 +67,6 @@ GroupingTable.createView = (options)->
       # the row containing matching y
       itemViewClass: Ember.ContainerView.extend SettingsAliases,
         tagName: 'tr'
-        columns: alias('parentView.columns')
-        fnord: Ember.computed.alias('parentView.fnord')
         otherFnord: (->
           console?.debug "other fnord", @get('fnord')
           @get('fnord') * 2
@@ -108,13 +106,13 @@ GroupingTable.createView = (options)->
             ).property('itemsInCell.length')
 
             structureInCell: (->
-              @get('parentView.structure').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
-            ).property("columns.@each', 'parentView.structure.@each.#{c.columnProperty}")
+              @get('parentView.structureInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
+            ).property("columns.@each', 'parentView.structureInRow.@each.#{c.columnProperty}")
 
             itemsInCell: (->
               console?.debug "cell", @get("content.#{c.columnProperty}")
-              @get('parentView.items').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
-            ).property("columns.@each', 'parentView.items.@each.#{c.columnProperty}")
+              @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
+            ).property("columns.@each', 'parentView.itemsInRow.@each.#{c.columnProperty}")
 
             # The actual list within the cell
             list: Ember.CollectionView.extend
