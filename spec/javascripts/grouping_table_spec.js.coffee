@@ -50,8 +50,28 @@ describe 'GroupingTable', ->
   it 'renders rows', ->
     expect( view.$('tbody > tr').length ).toEqual(3)
 
-
   it 'renders content into their cells', ->
     expect( view.$('tbody tr:nth(0) > td:nth(2)').text() ).toEqual('C1')
     expect( view.$('tbody tr:nth(1) > td:nth(1)').text() ).toEqual('B2')
     expect( view.$('tbody tr:nth(2) > td:nth(0)').text() ).toEqual('A3')
+
+  it 'reflects changes in content', ->
+    Ember.run ->
+      first = view.get('content.firstObject')
+      first.set('c', 'B')
+    expect( view.$('tbody tr:nth(2) > td:nth(0)').text() ).not.toEqual('A3')
+    expect( view.$('tbody tr:nth(2) > td:nth(0)').text() ).not.toEqual('B3') # rerendered item, but at wrong place
+    expect( view.$('tbody tr:nth(1) > td:nth(2)').text() ).toEqual('B3')
+    expect( view.$('tbody tr:nth(0) > td:nth(2)').text() ).toEqual('C1')
+    expect( view.$('tbody tr:nth(1) > td:nth(1)').text() ).toEqual('B2')
+
+  it 're-renders when new content is set', ->
+    Ember.run ->
+      view.set 'content', [
+        Thingy.create(c: 'A', r: 2)
+        Thingy.create(c: 'B', r: 1)
+        Thingy.create(c: 'C', r: 3)
+      ]
+    expect( view.$('tbody tr:nth(0) > td:nth(1)').text() ).toEqual('B1')
+    expect( view.$('tbody tr:nth(1) > td:nth(0)').text() ).toEqual('A2')
+    expect( view.$('tbody tr:nth(2) > td:nth(2)').text() ).toEqual('C3')
