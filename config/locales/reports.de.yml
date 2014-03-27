@@ -8,7 +8,7 @@ de:
         to: Bis
   reports:
     new:
-      filter: Filter anpassen
+      filter: Filtern
       no_schedulings: "Keine Einträge gefunden."
       show: 'Anzeigen:'
       total_number_of_records: 'von insgesamt %{total} Einträgen'

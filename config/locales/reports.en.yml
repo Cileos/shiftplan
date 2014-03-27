@@ -8,7 +8,7 @@ en:
         to: To
   reports:
     new:
-      filter: Adapt Filters
+      filter: Filter
       no_schedulings: "No entries found."
       show: 'Show:'
       total_number_of_records: 'of %{total} found entries'
