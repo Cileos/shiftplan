@@ -14,7 +14,6 @@ defaults =
     template: Ember.Handlebars.compile "{{view.content.name}}"
   cellListItemView: Ember.View.extend
     template: Ember.Handlebars.compile '{{view.content.name}}'
-  fnord: 23
   items: alias('content')
 
 GroupingTable = Ember.Namespace.create()
@@ -27,7 +26,6 @@ SettingsAliases = Ember.Mixin.create
   columns: alias('parentView.columns')
   rows: alias('parentView.rows')
   rowHeaderVisible: alias('parentView.rowHeaderVisible')
-  fnord: alias('parentView.fnord')
   structure: alias('parentView.structure')
   items: alias('parentView.items')
 
@@ -112,10 +110,7 @@ GroupingTable.createView = (options)->
             list: Ember.CollectionView.extend
               tagName: 'ul'
               content: alias('parentView.itemsInCell')
-              itemViewClass: c.cellListItemView.extend
-                attributeBindings:  ['fnord:data-fnord']
-                fnord: alias('parentView.fnord')
-              fnord: alias('parentView.fnord')
+              itemViewClass: c.cellListItemView.extend()
 
             label: c.cellLabelView.extend
               content: alias('parentView.structureInCell.firstObject')
