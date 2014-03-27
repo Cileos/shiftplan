@@ -1,3 +1,5 @@
+alias = Ember.computed.alias
+
 defaults =
   tagName: 'table'
   childViews: ['thead', 'tbody']
@@ -12,34 +14,48 @@ defaults =
     template: Ember.Handlebars.compile "{{view.content.name}}"
   cellListItemView: Ember.View.extend
     template: Ember.Handlebars.compile '{{view.content.name}}'
+  fnord: 23
+  items: alias('content')
 
 GroupingTable = Ember.Namespace.create()
 
+
+# bindings over two parentView are broken, so we alias
+# them through the view hierarchy
+# https://github.com/emberjs/ember.js/issues/3693
+SettingsAliases = Ember.Mixin.create
+  columns: alias('parentView.columns')
+  rows: alias('parentView.rows')
+  rowHeaderVisible: alias('parentView.rowHeaderVisible')
+  fnord: alias('parentView.fnord')
+  structure: alias('parentView.structure')
+  items: alias('parentView.items')
+
+
 GroupingTable.HeaderView = Ember.CollectionView.extend
   tagName: 'tr'
-  contentBinding: 'parentView.parentView.columns'
+  content: alias('parentView.columns')
 
 GroupingTable.BodyView = Ember.CollectionView.extend
   tagName: 'tbody'
-  rowsBinding: 'parentView.rows'
-  contentBinding: 'rows'
-  structureBinding: 'parentView.structure'
-  itemsBinding: 'parentView.content'
+  content: alias('rows')
 
 GroupingTable.CellsView = Ember.CollectionView.extend
-  columnsBinding: 'parentView.columns'
-  contentBinding: 'columns'
-  structureBinding: 'parentView.structureInRow'
-  itemsBinding: 'parentView.itemsInRow'
+  content: alias('columns')
+  structure: alias('parentView.structureInRow')
+  items: alias('parentView.itemsInRow')
 
 
 GroupingTable.createView = (options)->
   c = jQuery.extend {}, defaults, options
 
   Ember.ContainerView.extend c,
+    init: ->
+      window.t = this
+      @_super()
     structure: Ember.A()
     content: Ember.A()
-    thead: Ember.ContainerView.extend
+    thead: Ember.ContainerView.extend SettingsAliases,
       tagName: 'thead'
       childViews: ['header']
       header: GroupingTable.HeaderView.extend
@@ -47,38 +63,43 @@ GroupingTable.createView = (options)->
           tagName: 'th'
           template: Ember.Handlebars.compile "{{view.content.#{c.columnHeaderProperty}}}"
 
-    tbody: GroupingTable.BodyView.extend
-
+    tbody: GroupingTable.BodyView.extend SettingsAliases,
       # the row containing matching y
-      itemViewClass: Ember.ContainerView.extend
+      itemViewClass: Ember.ContainerView.extend SettingsAliases,
         tagName: 'tr'
-        columnsBinding: 'parentView.parentView.columns'
+        columns: alias('parentView.columns')
+        fnord: Ember.computed.alias('parentView.fnord')
+        otherFnord: (->
+          console?.debug "other fnord", @get('fnord')
+          @get('fnord') * 2
+        ).property('fnord', 'Clockwork.fnord')
         childViews: (->
           if @get('rowHeaderVisible')
             ['heading', 'cells']
           else
             ['cells']
-        ).property('parentView.parentView.rowHeaderVisible')
+        ).property('rowHeaderVisible')
 
         structureInRow: (->
-          console?.debug "row", @get('content')
-          @get('parentView.parentView.structure').filterProperty(c.rowProperty, @get('content'))
-        ).property("parentView.rows.@each', 'parentView.structure.@each.#{c.rowProperty}")
+          console?.debug "row structure", @get('content')
+          @get('structure').filterProperty(c.rowProperty, @get('content'))
+        ).property("rows.@each', 'structure.@each.#{c.rowProperty}")
 
         itemsInRow: (->
-          console?.debug "row items", @get('content')
-          @get('parentView.parentView.content').filterProperty(c.rowProperty, @get('content'))
-        ).property("parentView.rows.@each', 'parentView.items.@each.#{c.rowProperty}")
+          console?.debug "row items", @get('content'), @get('fnord')
+          @get('items').filterProperty(c.rowProperty, @get('content'))
+        ).property("rows.@each', 'items.@each.#{c.rowProperty}")
 
         heading: Ember.View.extend
           tagName: 'th'
           template: Ember.Handlebars.compile '{{view.parentView.content}} ({{view.parentView.itemsInRow.length}})'
 
-        cells: GroupingTable.CellsView.extend
+        cells: GroupingTable.CellsView.extend SettingsAliases,
 
           # the cell containing matching x and y
-          itemViewClass: Ember.ContainerView.extend
+          itemViewClass: Ember.ContainerView.extend SettingsAliases,
             tagName: 'td'
+
             childViews: (->
               if @get('itemsInCell.length') == 0
                 ['label']
@@ -87,12 +108,13 @@ GroupingTable.createView = (options)->
             ).property('itemsInCell.length')
 
             structureInCell: (->
-              @get('parentView.parentView.structureInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
-            ).property("parentView.columns.@each', 'parentView.structure.@each.#{c.columnProperty}")
+              @get('parentView.structure').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
+            ).property("columns.@each', 'parentView.structure.@each.#{c.columnProperty}")
 
             itemsInCell: (->
-              @get('parentView.parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
-            ).property("parentView.columns.@each', 'parentView.items.@each.#{c.columnProperty}")
+              console?.debug "cell", @get("content.#{c.columnProperty}")
+              @get('parentView.items').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
+            ).property("columns.@each', 'parentView.items.@each.#{c.columnProperty}")
 
             # The actual list within the cell
             list: Ember.CollectionView.extend

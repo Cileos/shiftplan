@@ -5,7 +5,6 @@ Thingy = Ember.Object.extend
     "#{@get('c')}#{@get('r')}"
   ).property('r', 'c')
 
-
 describe 'GroupingTable', ->
   klass = null
   view  = null
@@ -33,6 +32,9 @@ describe 'GroupingTable', ->
     Ember.run -> view.remove
     view = null
     klass = null
+
+  it 'has the right jasmine version', ->
+    expect( jasmine.VERSION ).toEqual('1.3.1')
 
   it 'should be defined', ->
     expect(view).toBeDefined()

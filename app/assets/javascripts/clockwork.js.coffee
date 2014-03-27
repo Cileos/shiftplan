@@ -9,11 +9,14 @@
 #= require_tree ./templates
 #= require_tree ./routes
 
+Ember.LOG_BINDINGS = true
+
 Clockwork = Ember.Application.create
   LOG_TRANSITIONS: true
   Fields: Ember.Object.extend()
   cursor: null
   page: null
+  fnord: 1
 
 # can be removed when we use Ember everywhere
 Clockwork.deferReadiness()
