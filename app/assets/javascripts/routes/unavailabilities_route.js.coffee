@@ -16,13 +16,12 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
 Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
   model: (params, transition)->
     here = moment().
-      year(transition.params.unavailabilities.year).
-      month(transition.params.unavailabilities.month + 1).
+      year( parseInt(transition.params.unavailabilities.year)).
+      month(parseInt(transition.params.unavailabilities.month) - 1).
       date(params.day).
-      startOf('day').
-      toDate()
+      startOf('day')
     @store.createRecord 'unavailability',
-      date:         here
+      date:         here.toDate()
       startsAt:     null
       endsAt:       null
       startTime:    '06:00'
