@@ -56,4 +56,31 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
       weeks
   ).property('year', 'month')
 
+  previousMonth: Ember.computed ->
+    month = parseInt @get('month')
+    if month == 1 then 12 else month - 1
+  .property('month', 'year')
+
+  previousYear: Ember.computed ->
+    month = parseInt @get('month')
+    year  = parseInt @get('year')
+    if month == 1 then year - 1 else year
+  .property('month', 'year')
+
+  nextMonth: Ember.computed ->
+    month = parseInt @get('month')
+    if month == 12 then 1 else month + 1
+  .property('month', 'year')
+
+  nextYear: Ember.computed ->
+    month = parseInt @get('month')
+    year  = parseInt @get('year')
+    if month == 12 then year + 1 else year
+  .property('month', 'year')
+
+  humanMonth: Ember.computed ->
+    moment().month( @get('month') - 1 ).format('MMMM')
+  .property('month')
+
+
 Clockwork.UnavailabilitiesIndexController = Clockwork.UnavailabilitiesController.extend()

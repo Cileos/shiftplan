@@ -1,2 +1,11 @@
+<nav role="toolbar">
+  <span class="make-me-beautiful">
+    {{humanMonth}} {{year}}
+  </span>
+  <div class="button-group">
+    {{#link-to "unavailabilities.index" previousYear previousMonth classNames="button"}}&lt;{{/link-to}}
+    {{#link-to "unavailabilities.index" nextYear nextMonth classNames="button"}}&gt;{{/link-to}}
+  </div>
+</nav>
 {{view Clockwork.MonthlyCalendarView contentBinding='controller' structureBinding='days' columnsBinding='weekdays' rowsBinding='weeks' rowHeaderVisible=false}}
 {{outlet}}
