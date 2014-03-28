@@ -152,6 +152,38 @@ describe Report do
     end
   end
 
+  context "filter by plan" do
+    let!(:s0) { create(:scheduling, plan: p0, quickie: '8-24',  date: '01.10.2014' ) }
+    let!(:s1) { create(:scheduling, plan: p1, quickie: '8-24',  date: '02.10.2014' ) }
+    let!(:s2) { create(:scheduling, plan: p2, quickie: '8-24',  date: '03.10.2014' ) }
+
+    let(:p0) { create(:plan, name: 'Reaktor A', organization: organization) }
+    let(:p1) { create(:plan, name: 'Reaktor B', organization: organization) }
+    let(:p2) { create(:plan, name: 'Reaktor C', organization: organization) }
+
+    context "when plans are selected" do
+
+      let(:report_params) do
+        super().merge(plan_ids: ['', p0.id, p1.id])
+      end
+
+      it "finds schedulings of the plans" do
+        report.records.should match_array [s0, s1]
+      end
+    end
+
+    context "when no plan is selected (only blank option)" do
+
+      let(:report_params) do
+        super().merge(plan_ids: [''])
+      end
+
+      it "finds all schedulings" do
+        report.records.should match_array [s0, s1, s2]
+      end
+    end
+  end
+
   context "when limit given" do
 
     let!(:s0) { create(:scheduling, plan: plan, quickie: '8-24',  date: '01.10.2014' ) }

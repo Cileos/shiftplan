@@ -59,6 +59,7 @@ Feature: Report
      When I select "Sector 7-G" from the "Organisation" multiple-select box
       And I select "Homer Simpson" from the "Mitarbeiter" multiple-select box
       And I select "Uran rangieren" from the "Team" multiple-select box
+      And I select "Shut down" from the "Plan" multiple-select box
       And I pick "17. November 2012" from "Von"
       And I pick "21. Dezember 2012" from "Bis"
       And I press "Filtern"

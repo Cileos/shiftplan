@@ -5,6 +5,7 @@ en:
         organization_ids: Organization
         employee_ids: "Employee"
         team_ids: Team
+        plan_ids: Plan
         from: From
         to: To
   reports:
