@@ -36,12 +36,15 @@
 
   = render 'table', records: @report.records
 
-  - number_links = [50, 100, 250].select { |n| n < @report.total_number_of_records }.map(&:to_s)
+  - first = 50
+  - number_links = [first, 100, 250].select { |n| n < @report.total_number_of_records }.map(&:to_s)
   - unless number_links.empty?
+    - limit_param = params[:report].try(:[], :limit)
     %span
       = t('.show')
       - (number_links + ['all']).each do |lim|
-        =  link_to lim.to_sym, { report: { limit: lim } }, class: (params[:report].try(:[], :limit) == lim && 'active')
+        =  link_to lim.to_sym, { report: { limit: lim } },
+          class: ((limit_param == lim || limit_param.nil? && lim == first.to_s) && 'active')
       = t('.total_number_of_records', total: @report.total_number_of_records)
   - else
     %span= t('.number_of_records_found', total: @report.total_number_of_records)
