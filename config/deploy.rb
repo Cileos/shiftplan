@@ -56,7 +56,12 @@ namespace :deploy do
     run "ln -sf #{deploy_to}/shared/uploads #{current_release}/public/uploads"
   end
 
+  task :export_translations_to_ember do
+    run "cd #{current_release} && RAILS_ENV=production bundle exec rake ember:i18n:export"
+  end
+
   before "deploy:assets:precompile", "deploy:symlink_static_directories"
+  before "deploy:assets:precompile", "deploy:export_translations_to_ember"
 
   desc "Delete the code we use to accelerate testing"
   task :delete_test_code do

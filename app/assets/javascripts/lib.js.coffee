@@ -9,6 +9,7 @@
 #= require ember
 #= require ember-data
 #= require ember-rails-flash
+#= require i18n/ember-i18n
 # for QuickieParser
 #= require xregexp
 #= require xregexp/unicode-base

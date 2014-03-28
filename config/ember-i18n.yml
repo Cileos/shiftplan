@@ -1,0 +1,2 @@
+# Split context in several files.
+split: true

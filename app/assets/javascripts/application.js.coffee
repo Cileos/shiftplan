@@ -1,4 +1,6 @@
 # Please include all needed application specific JS files manually
+#= require i18n/translations
+#= require i18n/transfer_translations
 #= require ./clockwork
 #= require defaults
 #= require employees
