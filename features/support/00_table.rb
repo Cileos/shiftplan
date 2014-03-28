@@ -20,6 +20,7 @@ module TableHelpers
     end
 
     def element
+      world.page.should world.have_css(selector) # autowait
       html = world.evaluate_script(%Q~jQuery('#{selector}').html()~)
       Capybara::Node::Simple.new(html)
     rescue Capybara::NotSupportedByDriverError => e
