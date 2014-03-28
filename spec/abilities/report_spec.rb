@@ -8,9 +8,25 @@ describe "Report permissions:" do
   let(:account)                      { create(:account) }
   let(:organization)                 { create(:organization, account: account) }
   let(:report_in_account)            { Report.new(account: account)}
-  let(:report_in_org)                { Report.new(account: account, organization: organization) }
+  let(:report_in_org)                { Report.new(account: account, organization_ids: [organization.id]) }
   let(:foreign_account_report)       { Report.new(account: create(:account)) }
-  let(:foreign_organization_report)  { Report.new(account: create(:account), organization: create(:organization)) }
+  let(:foreign_organization_report)  { Report.new(account: create(:account), organization_ids: [create(:organization).id]) }
+  let(:report_including_foreign_organization)  do
+    # Account is own account, but the organizations include a foreign
+    # organization. This simulates a user manipulating the organization filter
+    # by submitting organization_ids of foreign accounts.
+    Report.new(account: account, organization_ids: [organization.id, create(:organization).id])
+  end
+  let(:report_with_foreign_organization)  do
+    # Account is own account, but the organizations include a foreign
+    # organization. This simulates a user manipulating the organization filter
+    # by submitting organization_ids of foreign accounts.  Used to test abilites
+    # of the planner. Planner can only filter by one organization at once. This
+    # organization implicitely is the current organization always. As the
+    # planner creates reports in organization scope only, e.g., the
+    # organizations filter will not be shown there.
+    Report.new(account: account, organization_ids: [create(:organization).id])
+  end
 
   before(:each) do
     # The planner role is set on the membership, so a planner can only be
@@ -39,6 +55,7 @@ describe "Report permissions:" do
 
     it "can not create reports for foreign organizations" do
       should_not be_able_to(:create, foreign_organization_report)
+      should_not be_able_to(:create, report_including_foreign_organization)
     end
   end
 
@@ -65,6 +82,7 @@ describe "Report permissions:" do
 
     it "can not create reports for foreign organizations" do
       should_not be_able_to(:create, foreign_organization_report)
+      should_not be_able_to(:create, report_with_foreign_organization)
     end
   end
 

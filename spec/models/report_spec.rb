@@ -74,18 +74,6 @@ describe Report do
         report.records.should match_array [s0, s1]
       end
     end
-
-    # simulate being in organization scope
-    context "when organization given" do
-
-      let(:report_params) do
-        super().merge(organization: organization)
-      end
-
-      it "finds schedulings within the organization" do
-        report.records.should match_array [s0]
-      end
-    end
   end
 
   context "filter by employee" do

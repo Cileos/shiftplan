@@ -2,7 +2,6 @@
 class Report < RecordFilter
 
   attribute :account
-  attribute :organization
   attribute :organization_ids
   attribute :employee_ids
   attribute :team_ids
@@ -21,12 +20,6 @@ class Report < RecordFilter
 
   def total_number_of_records
     @total_number_of_records ||= all_records_without_next_days.size
-  end
-
-  # The organization_id will be present when the user visits the report page of
-  # an organization. At this moment, she is in the sope of an organization.
-  def organization_id
-    @organization_id ||= organization.try(:id)
   end
 
   def account_id
@@ -57,7 +50,7 @@ class Report < RecordFilter
 
   def all_records
     scoped = account.schedulings
-    scoped = scoped.in_organizations(organization_list) if filter_by_organization?
+    scoped = scoped.in_organizations(organization_ids) unless organization_ids.empty?
     scoped = scoped.between(from, to)
     scoped = scoped.where(employee_id: employee_ids) unless employee_ids.empty?
     scoped = scoped.where(team_id: team_ids) unless team_ids.empty?
@@ -74,14 +67,6 @@ class Report < RecordFilter
     rslt = all_records_without_next_days
     rslt = rslt.take(limit.to_i) if limit
     rslt
-  end
-
-  def organization_list
-    organization_id ? [organization_id] : organization_ids
-  end
-
-  def filter_by_organization?
-    organization_ids.present? || organization_id
   end
 
   def today

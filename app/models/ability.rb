@@ -54,10 +54,6 @@ class Ability
     can :create, Account do |account|
       account.user == user
     end
-    can :create, Report do |report|
-      employee = user.employee_for_account(report.account)
-      employee && employee.owner?
-    end
     can :read, Organization do |organization|
       employee = user.employee_for_account(organization.account)
       employee && employee.organizations.include?(organization)
@@ -220,6 +216,22 @@ class Ability
       curr_organization == conflict.provoker.plan.organization
     end
 
+    # For reports we only check the base on which schedulings will be found. For
+    # example we do not need to test if the plan_ids submitted belong to the
+    # base.
+    # Please see the report model for how records are fetched. The base is
+    # always the account and one or more organizations within the account.
+    # If the user would submit foreign plan_ids for example, this will not do
+    # any harm as the result simply will be empty.
+    can :create, Report do |report|
+      # A planner is only able to see a report within an organization.
+      # The filter for organizations will no be shown on the report page of the
+      # organization. Therefore the organization_ids of the report should only
+      # include the id of the current organization.
+      report.organization_ids.size == 1 &&
+        report.organization_ids.first == curr_organization.id
+    end
+
     authorize_owner_and_planner
     authorize_employee
   end
@@ -311,8 +323,24 @@ class Ability
       curr_organization == conflict.provoker.plan.organization
     end
 
+    # For reports we only check the base on which schedulings will be found. For
+    # example we do not need to test if the plan_ids submitted belong to the
+    # base.
+    # Please see the report model for how records are fetched. The base is
+    # always the account and one or more organizations within the account.
+    # If the user would submit foreign plan_ids for example, this will not do
+    # any harm as the result simply will be empty.
     can :create, Report do |report|
-      curr_account == report.account
+      account = report.account
+      employee = user.employee_for_account(account)
+
+      employee && employee.owner? &&
+        (
+          report.organization_ids.empty? ||
+          report.organization_ids.all? do |org_id|
+            account.organizations.map(&:id).include? org_id.to_i
+          end
+        )
     end
 
     authorize_owner_and_planner
@@ -326,9 +354,6 @@ class Ability
 
     can :manage, AttachedDocument do |doc|
       curr_organization == doc.plan.organization
-    end
-    can :create, Report do |report|
-      report.organization && report.organization == curr_organization
     end
   end
 
