@@ -4,6 +4,7 @@ de:
       report:
         organization_ids: Organisation
         employee_ids: Mitarbeiter
+        team_ids: Team
         from: Von
         to: Bis
   reports:

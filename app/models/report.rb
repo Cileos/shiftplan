@@ -5,6 +5,7 @@ class Report < RecordFilter
   attribute :organization
   attribute :organization_ids
   attribute :employee_ids
+  attribute :team_ids
   attribute :limit
   attribute :from, type: Date
   attribute :to, type: Date
@@ -31,14 +32,12 @@ class Report < RecordFilter
     @account_id ||= account.id
   end
 
-  def employee_ids
-    super ? super.reject(&:blank?) : []
-  end
-
   # The organization_ids will be present when the user is on the report page of
   # an account and filters by organizations.
-  def organization_ids
-    super ? super.reject(&:blank?) : []
+  ['organization_ids', 'employee_ids', 'team_ids'].each do |method_name|
+    define_method(method_name) do
+      super() ? super().reject(&:blank?) : []
+    end
   end
 
   def from
@@ -60,6 +59,7 @@ class Report < RecordFilter
     scoped = scoped.in_organizations(organization_list) if filter_by_organization?
     scoped = scoped.between(from, to)
     scoped = scoped.where(employee_id: employee_ids) unless employee_ids.empty?
+    scoped = scoped.where(team_id: team_ids) unless team_ids.empty?
     scoped = scoped.order("starts_at DESC")
     scoped
   end

@@ -58,14 +58,14 @@ Feature: Report
 
      When I select "Sector 7-G" from the "Organisation" multiple-select box
       And I select "Homer Simpson" from the "Mitarbeiter" multiple-select box
+      And I select "Uran rangieren" from the "Team" multiple-select box
       And I pick "17. November 2012" from "Von"
       And I pick "21. Dezember 2012" from "Bis"
       And I press "Filtern"
      Then I should see the following table of reports:
         | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan       | Organisation  |
         | 20.12.2012  | 9,00     | Simpson, Homer  | Uran rangieren  | Brennstabpolierer  | Shut down  | Sector 7-G    |
-        | 17.11.2012  | 24,00    | Simpson, Homer  |                 |                    | Shut down  | Sector 7-G    |
-      And I should see "33,00" within the header aggregation within the reports table
+      And I should see "9,00" within the header aggregation within the reports table
 
   Scenario: Owner visits organization report page
      When I go to the page of the organization "sector 7g"

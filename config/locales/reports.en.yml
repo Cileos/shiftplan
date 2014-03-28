@@ -4,6 +4,7 @@ en:
       report:
         organization_ids: Organization
         employee_ids: "Employee"
+        team_ids: Team
         from: From
         to: To
   reports:

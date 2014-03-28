@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe Report do
@@ -87,7 +88,7 @@ describe Report do
     end
   end
 
-  context "filters by employee" do
+  context "filter by employee" do
     let!(:s0) { create(:scheduling, employee: homer, plan: plan, quickie: '8-24',  date: '01.10.2014' ) }
     let!(:s1) { create(:scheduling, employee: bart,  plan: plan, quickie: '8-24',  date: '02.10.2014' ) }
     let!(:s2) { create(:scheduling, employee: maggie,  plan: plan, quickie: '8-24',  date: '03.10.2014' ) }
@@ -102,7 +103,7 @@ describe Report do
         super().merge(employee_ids: ['', homer.id, bart.id])
       end
 
-      it "finds schedulings of the employee" do
+      it "finds schedulings of the employees" do
         report.records.should match_array [s0, s1]
       end
     end
@@ -111,6 +112,38 @@ describe Report do
 
       let(:report_params) do
         super().merge(employee_ids: [''])
+      end
+
+      it "finds all schedulings" do
+        report.records.should match_array [s0, s1, s2]
+      end
+    end
+  end
+
+  context "filter by team" do
+    let!(:s0) { create(:scheduling, team: t0, plan: plan, quickie: '8-24',  date: '01.10.2014' ) }
+    let!(:s1) { create(:scheduling, team: t1, plan: plan, quickie: '8-24',  date: '02.10.2014' ) }
+    let!(:s2) { create(:scheduling, team: t2, plan: plan, quickie: '8-24',  date: '03.10.2014' ) }
+
+    let(:t0) { create(:team, name: 'Tellerwäscher') }
+    let(:t1) { create(:team, name: 'Fensterputzer') }
+    let(:t2) { create(:team, name: 'Schornsteinfeger') }
+
+    context "when teams are selected" do
+
+      let(:report_params) do
+        super().merge(team_ids: ['', t0.id, t1.id])
+      end
+
+      it "finds schedulings of the teams" do
+        report.records.should match_array [s0, s1]
+      end
+    end
+
+    context "when no team is selected (only blank option)" do
+
+      let(:report_params) do
+        super().merge(team_ids: [''])
       end
 
       it "finds all schedulings" do
