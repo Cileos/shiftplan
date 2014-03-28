@@ -1,13 +1,19 @@
 Clockwork.UnavailabilitiesRoute = Ember.Route.extend
+  beforeModel: (transition)->
+    params = transition.params.unavailabilities
+    unas = if params.year? and params.month?
+             @store.findQuery('unavailability', year: params.year, month: params.month)
+           else
+             Ember.A()
+    @set 'unas', unas
+    unas
   model: (params)->
     @set 'searchParams', params
-    return [] unless params.year?
-    return [] unless params.month?
-    console?.debug "fetching"
-    @store.findQuery('unavailability', year: params.year, month: params.month)
+    unas = @get 'unas'
+    # transform the DS.PromiseFooArray into a real one so we can append new records to it
+    unas.toArray()
 
   setupController: (controller, model)->
-    console?.debug "setting up the controller"
     @_super(controller, model)
     params = @get 'searchParams'
     controller.set('year', params.year)
@@ -28,3 +34,8 @@ Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
       endTime:      '18:00'
   renderTemplate: (controller)->
     @render 'unavailabilities/new'
+
+  deactivate: ->
+    if @currentModel.get('id')
+      @modelFor('unavailabilities').pushObject @currentModel
+      @controllerFor('unavailabilities').notifyPropertyChange 'content'
