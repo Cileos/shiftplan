@@ -17,7 +17,6 @@ module TimeRangeWeekBasedAccessible
     model.class_eval do
       attr_writer :year, :week, :cwday
       before_validation :calculate_date_from_week_and_weekday
-      extend Scopes
     end
   end
   # calculates the date manually from #year, #week and #cwday
@@ -64,9 +63,4 @@ module TimeRangeWeekBasedAccessible
     end
   end
 
-  module Scopes
-    def between(first, last)
-      where("? <= #{table_name}.starts_at AND #{table_name}.starts_at <= ?", first, last)
-    end
-  end
 end

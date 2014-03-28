@@ -17,25 +17,31 @@ Clockwork.Router.map ->
 
 Clockwork.ApplicationRoute = Ember.Route.extend
   actions:
-    save: (backRoute)->
+    save: (backRoute...)->
+      # handle variable number of arguments thanks to dynamic route segments
+      backRoute = Ember.A(backRoute).get('firstObject')
       mo = @modelFor(@get('controller.currentRouteName'))
       mo.get("errors").clear() # allows retry saving
       mo.save()
         .then =>
-          @transitionTo backRoute
+          @transitionTo backRoute...
         , =>
           # must be here to catch the error. We display the error(s) in the
           # form, retry possible.
           console?.debug "failed to #{@get('controller.currentRouteName')}", mo
-    cancel: (backRoute)->
+    cancel: (backRoute...)->
+      # handle variable number of arguments thanks to dynamic route segments
+      backRoute = Ember.A(backRoute).get('firstObject')
       @modelFor(@get('controller.currentRouteName')).rollback()
-      @transitionTo backRoute
-    doDelete: (backRoute)->
+      @transitionTo backRoute...
+    doDelete: (backRoute...)->
+      # handle variable number of arguments thanks to dynamic route segments
+      backRoute = Ember.A(backRoute).get('firstObject')
       mo = @modelFor(@get('controller.currentRouteName'))
       mo.deleteRecord()
       mo.save()
         .then =>
-          @transitionTo backRoute
+          @transitionTo backRoute...
         , =>
           console?.debug "failed to delete", mo
 

@@ -24,6 +24,7 @@ module TimeRangeComponentsAccessible
       before_validation :compose_time_range_from_components
       alias_method_chain :end_minute, :respecting_end_of_day
       alias_method_chain :end_hour, :respecting_end_of_day
+      extend Scopes
     end
   end
 
@@ -122,4 +123,9 @@ module TimeRangeComponentsAccessible
     end
   end
 
+  module Scopes
+    def between(first, last)
+      where("? <= #{table_name}.starts_at AND #{table_name}.starts_at <= ?", first, last)
+    end
+  end
 end
