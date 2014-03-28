@@ -18,3 +18,10 @@ Clockwork.Unavailability = DS.Model.extend
   formattedEndTime: (->
     moment(@get('endsAt')).format('H:mm')
   ).property('endsAt')
+  reasonText: (->
+    r = @get('reason')
+    if r? and r.length > 0
+      Em.I18n.t("activerecord.values.unavailability.reasons.#{r}")
+    else
+      null
+  ).property('reason')

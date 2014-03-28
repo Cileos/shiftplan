@@ -12,4 +12,9 @@
       {{view Clockwork.Fields.TimeField elementId="una_end_time" valueBinding="endTime" placeholder="Ende"}}
     </div>
   </div>
+
+  <div class="input">
+    <label for="una_reason">{{t 'activerecord.attributes.unavailability.reason'}}</label>
+    {{view Clockwork.Fields.SelectReason elementId="una_reason" value=reason}}
+  </div>
 </div>

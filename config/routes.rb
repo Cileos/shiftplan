@@ -116,6 +116,10 @@ Clockwork::Application.routes.draw do
     resource :signup, controller: 'signup', only: [:show, :create]
   end
 
+  get 'i18n/:id' => 'locales#show', constraints: {
+    id: /[a-z]{2}/i
+  }
+
   if Rails.env.test?
     scope 'test' do
       get 'sign_in' => 'test_acceleration#sign_in', as: 'fast_sign_in'

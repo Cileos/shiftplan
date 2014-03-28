@@ -1,0 +1,13 @@
+de:
+  activerecord:
+    attributes:
+      unavailability:
+        reason: 'Grund'
+    values:
+      unavailability:
+        reasons:
+          _prompt: '-- Grund --'
+          vacation: 'Urlaub'
+          illness: 'Krankheit'
+          education: 'Weiterbilding'
+          other: "Sonstiges"

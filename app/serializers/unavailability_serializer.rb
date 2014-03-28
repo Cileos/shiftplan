@@ -1,3 +1,3 @@
 class UnavailabilitySerializer < ApplicationSerializer
-  attributes :id, :starts_at, :ends_at
+  attributes :id, :starts_at, :ends_at, :reason
 end

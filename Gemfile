@@ -135,7 +135,6 @@ gem 'ember-rails'
 gem 'ember-source', '~> 1.4.0'
 gem "ember-data-source", "1.0.0.beta.7"
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
-gem 'ember-i18n-rails', github: 'Neschur/ember-i18n-rails', ref: 'rails4'
 
 gem 'strong_parameters', '~> 0.2.1'
 gem 'nested_form', :git => 'git@github.com:rwrede/nested_form.git'

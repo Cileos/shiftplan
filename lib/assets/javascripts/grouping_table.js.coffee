@@ -91,6 +91,9 @@ GroupingTable.createView = (options)->
           tagName: 'th'
           template: Ember.Handlebars.compile '{{view.parentView.content}} ({{view.parentView.itemsInRow.length}})'
 
+        ############################################################################
+        # Ember bindings get lost here
+        ############################################################################
         cells: GroupingTable.CellsView.extend SettingsAliases,
 
           # the cell containing matching x and y

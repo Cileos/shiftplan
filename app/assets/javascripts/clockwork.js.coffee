@@ -51,6 +51,17 @@ Clockwork.initializer
     container.lookup('controller:employees')
     container.typeInjection('controller', 'employees', 'controller:employees')
 
+Clockwork.initializer
+  name: 'load-i18n'
+  initialize: (container)->
+    Clockwork.deferReadiness()
+    $ ->
+      locale = $('html').attr('lang') || 'en'
+      f = $.getJSON "/i18n/#{locale}.json"
+      f.then (result)->
+        Ember.I18n.translations = result
+        Clockwork.advanceReadiness()
+
 Clockwork.ApplicationSerializer = DS.ActiveModelSerializer.extend()
 
 window.Clockwork = Clockwork
