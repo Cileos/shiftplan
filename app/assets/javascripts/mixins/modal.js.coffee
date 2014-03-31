@@ -5,9 +5,10 @@ Clockwork.ModalMixin = Ember.Mixin.create
   heading: '<set a `heading` in your View>'
   didInsertElement: ->
     dialog = @$().dialog
-      closeOnEscape: false
+      closeOnEscape: true
       modal: true
       title: @get('heading')
+      resizable: no
       close: => @dialogclose(arguments)
       zIndex: 500
 
