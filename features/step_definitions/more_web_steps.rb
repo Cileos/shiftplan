@@ -135,9 +135,9 @@ Then /^the (.+) should( not)? be disabled$/ do |name, negate|
     selector = selector_for(name)
     elem = page.first(selector)
     if negate
-      elem.should_not be_diabled
+      elem.should_not be_disabled
     else
-      elem.should be_diabled
+      elem.should be_disabled
     end
   end
 end
