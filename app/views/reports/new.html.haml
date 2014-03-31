@@ -11,7 +11,7 @@
   - if report.is_chunky?
     %span
       = t('reports.new.show')
-      - report.chunks.map do |chunk|
+      - report.chunks.each do |chunk|
         = report.chunky_link(chunk)
       = t('.total_number_of_records', total: report.total_number_of_records)
   - else
