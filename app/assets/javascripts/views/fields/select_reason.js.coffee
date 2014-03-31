@@ -1,8 +1,10 @@
+#= require views/fields/single_select
+
 tr = (key)-> "activerecord.values.unavailability.reasons.#{key}"
 
 
 
-Clockwork.Fields.SelectReason = Ember.Select.extend
+Clockwork.Fields.SelectReason = Clockwork.Fields.SingleSelect.extend
   promptTranslation: tr('prompt')
   content: (->
     reasons = Ember.A()
