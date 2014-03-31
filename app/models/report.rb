@@ -1,6 +1,8 @@
 # encoding: utf-8
 class Report < RecordFilter
 
+  CHUNK_SIZES = [ 50, 100, 250 ]
+
   attribute :account
   attribute :organization_ids
   attribute :employee_ids
@@ -43,7 +45,11 @@ class Report < RecordFilter
   end
 
   def limit
-    super == 'all' ? nil : super || 50
+    super == 'all' ? nil : super || chunk_sizes.first
+  end
+
+  def chunk_sizes
+    CHUNK_SIZES
   end
 
     private

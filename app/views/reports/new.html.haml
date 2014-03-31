@@ -1,23 +1,21 @@
 - title :report
 
-= render 'form', report: @report
+- report = @report.decorate
 
-- unless @report.records.empty?
+= render 'form', report: report
 
-  = render 'table', records: @report.records
+- unless report.records.empty?
 
-  - first = 50
-  - number_links = [first, 100, 250].select { |n| n < @report.total_number_of_records }.map(&:to_s)
-  - unless number_links.empty?
-    - limit_param = params[:report].try(:[], :limit)
+  = render 'table', records: report.records
+
+  - if report.is_chunky?
     %span
-      = t('.show')
-      - (number_links + ['all']).each do |lim|
-        =  link_to lim.to_sym, { report: { limit: lim } },
-          class: ((limit_param == lim || limit_param.nil? && lim == first.to_s) && 'active')
-      = t('.total_number_of_records', total: @report.total_number_of_records)
+      = t('reports.new.show')
+      - report.chunks.map do |chunk|
+        = report.chunky_link(chunk)
+      = t('.total_number_of_records', total: report.total_number_of_records)
   - else
-    %span= t('.number_of_records_found', total: @report.total_number_of_records)
+    %span= t('.number_of_records_found', total: report.total_number_of_records)
 
 - else
   %p= t(:'.no_schedulings')
