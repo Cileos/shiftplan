@@ -133,7 +133,12 @@ Then /^the (.+) should( not)? be disabled$/ do |name, negate|
     page.should have_field($1, disabled: !negate)
   else
     selector = selector_for(name)
-    page.should have_css(selector, disabled: !negate)
+    elem = page.first(selector)
+    if negate
+      elem.should_not be_diabled
+    else
+      elem.should be_diabled
+    end
   end
 end
 
