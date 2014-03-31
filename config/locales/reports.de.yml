@@ -9,8 +9,9 @@ de:
         from: Von
         to: Bis
   reports:
-    new:
+    form:
       filter: Filtern
+    new:
       no_schedulings: "Keine Einträge gefunden."
       show: 'Anzeigen:'
       total_number_of_records: 'von insgesamt %{total} Einträgen'

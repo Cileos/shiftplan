@@ -1,36 +1,6 @@
 - title :report
 
-= collapsible(t('.filter'), id: 'reports-filter', class: 'reports-filter-heading') do
-  - if current_organization
-    - url = [:new, current_account, current_organization, :report]
-  - else
-    - url = [:new, current_account, :report]
-  = simple_form_for @report, url: url, method: :get, html: { class: 'reports-filter' } do |f|
-    .module
-      -# insert grouping here
-
-    .module
-      .inputs
-        - unless current_organization
-          = f.input :organization_ids, collection: current_account.organizations,
-            include_blank: true, input_html: { class: 'chosen-select', multiple: true }
-        = f.input :employee_ids, collection: (current_organization || current_account).employees,
-          include_blank: true, input_html: { class: 'chosen-select', multiple: true }
-        = f.input :plan_ids, collection: (current_organization || current_account).plans,
-          include_blank: true, input_html: { class: 'chosen-select', multiple: true }
-        = f.input :team_ids, collection: (current_organization || current_account).teams,
-          include_blank: true, input_html: { class: 'chosen-select', multiple: true }
-        - now = Time.zone.now.to_date
-        .time-inputs
-          = f.input :from, as: :stringy_date,
-            input_html: { value: @report.from.iso8601 }
-          = f.input :to, as: :stringy_date,
-            input_html: { value: @report.to.iso8601 }
-
-    .actions
-      = f.responsive_submit_button ta(:filter)
-      = link_to :reset_filters, url, class: 'button'
-
+= render 'form', report: @report
 
 - unless @report.records.empty?
 

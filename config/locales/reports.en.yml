@@ -9,8 +9,9 @@ en:
         from: From
         to: To
   reports:
-    new:
+    form:
       filter: Filter
+    new:
       no_schedulings: "No entries found."
       show: 'Show:'
       total_number_of_records: 'of %{total} found entries'
