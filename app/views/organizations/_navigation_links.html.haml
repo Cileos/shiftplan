@@ -13,7 +13,7 @@
     %ul.dropdown-menu
       %li{class: actives[:dashboard] && 'active'}
         = link_to :dashboard, nested_resources_for(current_organization), :class => 'icon-dashboard'
-      - if can? :create, Report.new(account: account, organization: organization)
+      - if can? :create, Report.new(account: account, organization_ids: [organization.id])
         = li_link :report, [:new, account, organization, :report], :class => 'icon-report'
       - if company_blog.present?
         = li_link :news, base + [company_blog, :posts], can: [:read, organization], :class => 'icon-blog'
