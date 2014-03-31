@@ -5,6 +5,7 @@ Feature: Passive unavailability
   So that nobody accidently schedules me for the same time period
 
   But I cannot mark other's schedulings in the same way
+  And I cannot inspect the value of foreign schedulings (defaulting to busy)
 
   Scenario: marking myself as busy
     Given mr burns, owner of the Springfield Nuclear Power Plant exists
@@ -15,18 +16,19 @@ Feature: Passive unavailability
 
      When I go to the page of the plan
       And I click on cell "Mo"/"Charles Burns"
-     Then the field "Beschäftigt" should not be disabled
-      And the field "Verfügbar" should not be disabled
+     Then the "Beschäftigt" checkbox should be checked
+      And the "Verfügbar" checkbox should not be checked
 
+     When I choose "Verfügbar"
      When I select "Homer Simpson" from the "Mitarbeiter" single-select box
-     Then the field "Beschäftigt" should be disabled
-      And the field "Verfügbar" should be disabled
+     Then I should not see a field labeled "Beschäftigt"
+      And I should not see a field labeled "Verfügbar"
 
      When I select "Charles Burns" from the "Mitarbeiter" single-select box
-     Then the field "Beschäftigt" should not be disabled
-      And the field "Verfügbar" should not be disabled
+     # back to default
+     Then the "Beschäftigt" checkbox should be checked
+      And the "Verfügbar" checkbox should not be checked
 
-     When I choose "Beschäftigt"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then a scheduling should exist with represents_unavailability: true

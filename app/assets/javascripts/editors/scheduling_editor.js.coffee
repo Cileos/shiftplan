@@ -63,14 +63,12 @@ Clockwork.SchedulingEditor = Ember.Object.extend
 
   employeeSelected: (e)->
     selected = parseInt $(e.target).val()
-    $inputs = @get('element').find('div.represents_unavailability :input')
-    $labels = @get('element').find('div.represents_unavailability label')
+    $wrapper = @get('element').find('div.represents_unavailability')
     if @currentEmployeeId and selected is @currentEmployeeId
-      $inputs.prop('disabled', null)
-      $labels.removeClass('disabled')
+      @input('represents_unavailability').val([true, true])
+      $wrapper.show()
     else
-      $inputs.prop('disabled', 'disabled')
-      $labels.addClass('disabled')
+      $wrapper.hide()
 
 
   # DEAD (Quickie readonly)
