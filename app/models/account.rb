@@ -56,6 +56,10 @@ class Account < ActiveRecord::Base
       organization.memberships.create!(employee: e)
     end
   end
+
+  def email
+    owner.user.email
+  end
 end
 
 AccountDecorator
