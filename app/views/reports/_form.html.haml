@@ -19,7 +19,6 @@
           include_blank: true, input_html: { class: 'chosen-select', multiple: true }
         = f.input :team_ids, collection: (current_organization || current_account).teams,
           include_blank: true, input_html: { class: 'chosen-select', multiple: true }
-        - now = Time.zone.now.to_date
         .time-inputs
           = f.input :from, as: :stringy_date,
             input_html: { value: report.from.iso8601 }
