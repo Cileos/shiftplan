@@ -251,8 +251,9 @@ class Ability
       # The filter for organizations will no be shown on the report page of the
       # organization. Therefore the organization_ids of the report should only
       # include the id of the current organization.
-      report.organization_ids.size == 1 &&
-        report.organization_ids.first == curr_organization.id
+      org_ids = report.organization_ids
+      org_ids.size == 1 &&
+        org_ids.first.to_i == curr_organization.id
     end
 
     authorize_owner_and_planner
