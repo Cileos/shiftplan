@@ -130,7 +130,7 @@ When /^I assume the calendar will not change$/ do
   # calendar will be cleared after each scenario
 end
 
-When /^(?:I|they) schedule (shift |)#{capture_quoted}$/ do |kind, quickie_string|
+When /^(?:I|they) schedule (\w+ |)#{capture_quoted}$/ do |kind, quickie_string|
   kind = 'scheduling' if kind.blank?
   kind = kind.strip
   quickie = Quickie.parse(quickie_string)

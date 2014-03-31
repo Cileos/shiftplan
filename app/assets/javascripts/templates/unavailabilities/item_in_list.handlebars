@@ -1,4 +1,6 @@
-{{view.content.formattedStartTime}}-{{view.content.formattedEndTime}}
+{{#link-to 'unavailabilities.edit' view.content}}
+{{view.content.startTime}}-{{view.content.endTime}}
+{{/link-to}}
 
 <span class="reason">
   {{view.content.reasonText}}

@@ -11,6 +11,7 @@ Clockwork.Router.map ->
 
   @resource 'unavailabilities', path: 'una/:year/:month', ->
     @route 'new', path: ':day/new'
+    @route 'edit', path: 'edit/:id'
 
   @route 'scheduling', path: '/scheduling/:id'
   @route 'scheduling_comments', path: '/scheduling/:id/comments'

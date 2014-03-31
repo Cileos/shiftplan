@@ -39,3 +39,7 @@ Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
     if @currentModel.get('id')
       @modelFor('unavailabilities').pushObject @currentModel
       @controllerFor('unavailabilities').notifyPropertyChange 'content'
+
+Clockwork.UnavailabilitiesEditRoute = Ember.Route.extend
+  model: (params)->
+    @store.find 'unavailability', params.id

@@ -1,10 +1,29 @@
+formattedTimeProperty = (name)->
+  Ember.computed (key, value)->
+    if arguments.length > 1
+      date = @get('date') || @get('startsAt')
+      splot = value.split(':')
+      @set name, moment(date).
+                         clone().
+                         hour(splot[0]).
+                         minute(splot[1]).
+                         toDate()
+    moment(@get(name)).format('H:mm')
+  .property(name)
+
+
+
 Clockwork.Unavailability = DS.Model.extend
   reason: DS.attr('string')
   startsAt: DS.attr('date')
   endsAt: DS.attr('date')
-  startTime: DS.attr('string')
-  endTime: DS.attr('string')
-  date: DS.attr('date')
+
+  # this are currently needed for creation by time
+  date: null
+
+  startTime: formattedTimeProperty 'startsAt'
+  endTime: formattedTimeProperty 'endsAt'
+
   dayInWeek: (->
     moment(@get('startsAt')).day()
   ).property('startsAt')
@@ -12,12 +31,6 @@ Clockwork.Unavailability = DS.Model.extend
     moment(@get('startsAt')).isoWeek()
   ).property('startsAt')
 
-  formattedStartTime: (->
-    moment(@get('startsAt')).format('H:mm')
-  ).property('startsAt')
-  formattedEndTime: (->
-    moment(@get('endsAt')).format('H:mm')
-  ).property('endsAt')
   reasonText: (->
     r = @get('reason')
     if r? and r.length > 0

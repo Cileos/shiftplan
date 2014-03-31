@@ -1,3 +1,8 @@
+Clockwork.UnavailabilitiesItemInListView = Ember.View.extend
+  templateName: 'unavailabilities/item_in_list'
+  click: (e)->
+    @get('controller').transitionToRoute 'unavailabilities.edit', @get('content')
+
 Clockwork.MonthlyCalendarView = GroupingTable.createView
   columnProperty: 'dayInWeek'
   rowProperty: 'weekInYear'
@@ -5,7 +10,6 @@ Clockwork.MonthlyCalendarView = GroupingTable.createView
   cellLabelView: Ember.View.extend
     tagName: 'span'
     templateName: 'unavailabilities/day_in_month'
-  cellListItemView: Ember.View.extend
-    templateName: 'unavailabilities/item_in_list'
+  cellListItemView: Clockwork.UnavailabilitiesItemInListView
   elementId: 'calendar'
   classNames: ['calendar']
