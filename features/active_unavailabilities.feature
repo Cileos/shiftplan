@@ -24,6 +24,7 @@ Feature: Active Unavailabilities
          | 17 | 18 | 19 | 20 | 21 | 22 | 23 |
          | 24 | 25 | 26 | 27 | 28 | 29 | 30 |
          | 31 |    |    |    |    |    |    |
+
      When I follow "21"
       And I wait for the modal box to appear
      #     Then the "Ganztägig" checkbox should be checked
@@ -32,10 +33,12 @@ Feature: Active Unavailabilities
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-         | Mo | Di | Mi | Do | Fr           | Sa | So |
-         |    |    |    |    |              | 1  | 2  |
-         | 3  | 4  | 5  | 6  | 7            | 8  | 9  |
-         | 10 | 11 | 12 | 13 | 14           | 15 | 16 |
-         | 17 | 18 | 19 | 20 | 21 Krankheit | 22 | 23 |
-         | 24 | 25 | 26 | 27 | 28           | 29 | 30 |
-         | 31 |    |    |    |              |    |    |
+         | Mo | Di | Mi | Do | Fr                      | Sa | So |
+         |    |    |    |    |                         | 1  | 2  |
+         | 3  | 4  | 5  | 6  | 7                       | 8  | 9  |
+         | 10 | 11 | 12 | 13 | 14                      | 15 | 16 |
+         | 17 | 18 | 19 | 20 | 21 6:00-18:00 Krankheit | 22 | 23 |
+         | 24 | 25 | 26 | 27 | 28                      | 29 | 30 |
+         | 31 |    |    |    |                         |    |    |
+      And an unavailability should exist with reason: "illness"
+      And the confirmed user should be the unavailability's user

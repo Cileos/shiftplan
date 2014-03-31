@@ -6,6 +6,7 @@ class Unavailability < ActiveRecord::Base
                   :start_time,
                   :end_time,
                   :date,
-                  :reason,
-                  :user_id
+                  :reason
+
+  belongs_to :user
 end
