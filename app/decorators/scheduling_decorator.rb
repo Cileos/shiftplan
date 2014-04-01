@@ -58,6 +58,10 @@ class SchedulingDecorator < RecordDecorator
     end
   end
 
+  def account
+    scheduling.plan.organization.account
+  end
+
 
   private
   def scheduling
