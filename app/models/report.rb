@@ -32,7 +32,7 @@ class Report < RecordFilter
   # an account and filters by organizations.
   ['organization_ids', 'employee_ids', 'team_ids', 'plan_ids'].each do |method_name|
     define_method(method_name) do
-      super() ? super().reject(&:blank?) : []
+      Array(super()).reject(&:blank?)
     end
   end
 
