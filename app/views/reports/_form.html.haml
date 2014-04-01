@@ -4,7 +4,7 @@
   - url = [:new, current_account, :report]
 = collapsible(t('.filter'), id: 'reports-filter', class: 'reports-filter-heading') do
 
-  = simple_form_for report, url: url, method: :get, html: { class: 'reports-filter' } do |f|
+  = simple_form_for report, url: url, method: :get, html: { autocomplete: 'off', class: 'reports-filter' } do |f|
     .module
       -# insert grouping here
 
