@@ -15,6 +15,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     #  .bindWithDelay('keyup', (=> @updateFields()), 150)
     #  .closest('form').on('submit', => @updateQuickie()).end()
     @currentEmployeeId = $('html').data('current_employee_id')
+    @initialEmployeeId = parseInt @input('employee_id').val()
 
     timeoptions =
       show24Hours: true
@@ -65,7 +66,8 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     selected = parseInt $(e.target).val()
     $wrapper = @get('element').find('div.represents_unavailability')
     if @currentEmployeeId and selected is @currentEmployeeId
-      @input('represents_unavailability').val([true, true])
+      if @initialEmployeeId is not @currentEmployeeId
+        @input('represents_unavailability').val([true, true])
       $wrapper.show()
     else
       $wrapper.hide()
