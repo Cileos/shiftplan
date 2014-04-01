@@ -1,4 +1,4 @@
-- total_decimal_duration = number_with_precision(@report.total_duration, precision: 2)
+- total_decimal_duration = number_with_precision(report.total_duration, precision: 2)
 
 %table#reports.reports
   %thead
@@ -16,7 +16,7 @@
       %td{colspan: 5}
 
   %tbody
-    - @report.records.map(&:decorate).each do |scheduling|
+    - report.records.map(&:decorate).each do |scheduling|
       %tr{ id: "record_#{scheduling.id}" }
         %td= scheduling.link_to_calendar l(scheduling.starts_at.to_date)
         %td.numeric= number_with_precision(scheduling.decimal_duration, precision: 2)

@@ -6,7 +6,7 @@
 
 - unless report.records.empty?
 
-  = render 'table', records: report.records
+  = render 'table', report: @report
 
   - if report.is_chunky?
     %span
