@@ -1,11 +1,11 @@
 class ReportDecorator < RecordDecorator
 
   def is_chunky?
-    current_chunk_sizes.present?
+    available_chunk_sizes.present?
   end
 
   def chunks
-    current_chunk_sizes + ['all']
+    available_chunk_sizes + ['all']
   end
 
   def chunky_link(chunk)
@@ -29,10 +29,10 @@ class ReportDecorator < RecordDecorator
   end
 
   def first_chunk
-    current_chunk_sizes.first
+    available_chunk_sizes.first
   end
 
-  def current_chunk_sizes
+  def available_chunk_sizes
     chunk_sizes.select { |n| n < total_number_of_records }
   end
 
