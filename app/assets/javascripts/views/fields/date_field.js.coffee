@@ -4,6 +4,7 @@ Clockwork.Fields.DateField = Ember.TextField.extend
   formatBinding: 'Clockwork.settings.dateFormat'
   didInsertElement: ->
     field = this
+    @$().data('iso-date', $.rails_datepick.format(@get('rawValue')))
     @$().rails_datepick
       onSelect: (dates)->
         date = dates[0]

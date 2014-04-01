@@ -23,7 +23,7 @@ $.fn.rails_datepick = (options)->
       .attr('type', 'hidden')
       .appendTo($stringy.parent())
 
-    default_date = parseIso8601 $iso.data('iso-date')
+    default_date = parseIso8601 $stringy.data('iso-date')
 
     $stringy
       .attr('readonly', 'readonly')
