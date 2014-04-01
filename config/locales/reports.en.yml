@@ -15,7 +15,9 @@ en:
       no_schedulings: "No entries found."
       show: 'Show:'
       total_number_of_records: 'of %{total} found entries'
-      number_of_records_found: '%{total} entries found'
+      number_of_records_found:
+        one: '%{count} entry found.'
+        other: '%{count} entries found.'
     table:
       date: "Date"
       hours: "Hours"

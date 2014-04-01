@@ -15,7 +15,9 @@ de:
       no_schedulings: "Keine Einträge gefunden."
       show: 'Anzeigen:'
       total_number_of_records: 'von insgesamt %{total} Einträgen'
-      number_of_records_found: 'Insgesamt %{total} Einträge gefunden.'
+      number_of_records_found:
+       one: 'Insgesamt %{count} Eintrag gefunden.'
+       other: 'Insgesamt %{count} Einträge gefunden.'
     table:
       date: "Datum"
       hours: "Stunden"

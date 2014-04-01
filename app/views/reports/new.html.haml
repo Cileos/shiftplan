@@ -15,7 +15,7 @@
         = report.chunky_link(chunk)
       = t('.total_number_of_records', total: report.total_number_of_records)
   - else
-    %span= t('.number_of_records_found', total: report.total_number_of_records)
+    %span= t('.number_of_records_found', count: report.total_number_of_records)
 
 - else
   %p= t(:'.no_schedulings')
