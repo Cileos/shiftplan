@@ -30,6 +30,7 @@ Feature: Active Unavailabilities
       And I wait for the modal box to appear
      #     Then the "Ganztägig" checkbox should be checked
      When I select "Krankheit" from the "Grund" single-select box
+      And I fill in "Beschreibung" with "My head hurts"
      #     And I select "Springfield NPP"
       And I press "Anlegen"
       And I wait for the modal box to disappear
@@ -41,7 +42,7 @@ Feature: Active Unavailabilities
          | 17 | 18 | 19 | 20 | 21 6:00-18:00 Krankheit | 22 | 23 |
          | 24 | 25 | 26 | 27 | 28                      | 29 | 30 |
          | 31 |    |    |    |                         |    |    |
-      And an unavailability should exist with reason: "illness"
+      And an unavailability should exist with reason: "illness", description: "My head hurts"
       And the confirmed user should be the unavailability's user
 
   Scenario: Changing a sick day to education

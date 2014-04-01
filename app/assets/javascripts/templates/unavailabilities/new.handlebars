@@ -14,4 +14,9 @@
     <label for="una_reason">{{t 'activerecord.attributes.unavailability.reason'}}</label>
     {{view Clockwork.Fields.SelectReason elementId="una_reason" value=reason}}
   </div>
+
+  <div class="input">
+    <label for="una_description">{{t 'activerecord.attributes.unavailability.description'}}</label>
+    {{view Ember.TextArea elementId="una_description" value=description}}
+  </div>
 </div>
