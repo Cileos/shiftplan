@@ -4,7 +4,7 @@
   - url = [:new, current_account, :report]
 = collapsible(t('.filter'), id: 'reports-filter', class: 'reports-filter-heading') do
 
-  = simple_form_for report, url: url, method: :get, html: { class: 'reports-filter' } do |f|
+  = simple_form_for report, url: url, method: :get, html: { autocomplete: 'off', class: 'reports-filter' } do |f|
     .module
       -# insert grouping here
 
@@ -22,9 +22,9 @@
           include_blank: true, input_html: { class: 'chosen-select', multiple: true }
         .time-inputs
           = f.input :from, as: :stringy_date,
-            input_html: { value: report.from.iso8601 }
+            input_html: { value: report.from.iso8601, data: { iso_date: report.from.iso8601 } }
           = f.input :to, as: :stringy_date,
-            input_html: { value: report.to.iso8601 }
+            input_html: { value: report.to.iso8601, data: { iso_date: report.to.iso8601 } }
 
     .actions
       = f.responsive_submit_button ta(:filter)
