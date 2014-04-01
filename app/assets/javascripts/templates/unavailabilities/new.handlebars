@@ -19,4 +19,26 @@
     <label for="una_description">{{t 'activerecord.attributes.unavailability.description'}}</label>
     {{view Ember.TextArea elementId="una_description" value=description}}
   </div>
+
+  {{#if multipleAccounts}}
+    <div class="input">
+      <label>
+        {{input type="checkbox" checked=allAccounts}}
+        {{t 'activerecord.attributes.unavailability.all_accounts'}}
+      </label>
+
+      {{#unless allAccounts}}
+        <ul>
+          {{#each account in accounts}}
+            <li>
+              <label>
+                {{input type="checkbox" checked=account.selected}}
+                {{account.name}}
+              </label>
+            </li>
+          {{/each}}
+        </ul>
+      {{/unless}}
+    </div>
+  {{/if}}
 </div>

@@ -1,7 +1,7 @@
 class AccountsController < BaseController
   actions :all
 
-  respond_to :js, :html
+  respond_to :json, :js, :html
 
   after_filter  :setup_account,       only: :create
   before_filter :prepare_new_account, only: :new

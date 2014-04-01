@@ -4,6 +4,7 @@ de:
       unavailability:
         reason: 'Grund'
         description: "Beschreibung"
+        all_accounts: "alle Accounts"
     values:
       unavailability:
         reasons:

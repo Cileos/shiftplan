@@ -1,3 +1,2 @@
-Clockwork.UnavailabilitiesEditController = Ember.ObjectController.extend
-  canManage: true
-
+# =require controllers/unavailabilities_new_controller
+Clockwork.UnavailabilitiesEditController = Clockwork.UnavailabilitiesNewController.extend()

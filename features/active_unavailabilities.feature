@@ -54,6 +54,7 @@ Feature: Active Unavailabilities
       And an employee "Daddy" exists with user: the confirmed user, account: account "Home"
       And the employee "Daddy" is a member of the organization "Family"
       And I go to the availability page
+      And I wait for Ember to boot
      When I follow "21"
       And I wait for the modal box to appear
      Then the "alle Accounts" checkbox should be checked

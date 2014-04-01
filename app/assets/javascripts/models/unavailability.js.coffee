@@ -39,3 +39,5 @@ Clockwork.Unavailability = DS.Model.extend
     else
       null
   ).property('reason')
+
+  allAccounts: true
