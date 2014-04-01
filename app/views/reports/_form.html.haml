@@ -10,14 +10,15 @@
 
     .module
       .inputs
+        - base = current_organization || current_account
         - unless current_organization
           = f.input :organization_ids, collection: current_account.organizations,
             include_blank: true, input_html: { class: 'chosen-select', multiple: true }
-        = f.input :employee_ids, collection: (current_organization || current_account).employees,
+        = f.input :employee_ids, collection: base.employees,
           include_blank: true, input_html: { class: 'chosen-select', multiple: true }
-        = f.input :plan_ids, collection: (current_organization || current_account).plans,
+        = f.input :plan_ids, collection: base.plans,
           include_blank: true, input_html: { class: 'chosen-select', multiple: true }
-        = f.input :team_ids, collection: (current_organization || current_account).teams,
+        = f.input :team_ids, collection: base.teams,
           include_blank: true, input_html: { class: 'chosen-select', multiple: true }
         .time-inputs
           = f.input :from, as: :stringy_date,
