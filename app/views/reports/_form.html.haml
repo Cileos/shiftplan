@@ -22,9 +22,9 @@
           include_blank: true, input_html: { class: 'chosen-select', multiple: true }
         .time-inputs
           = f.input :from, as: :stringy_date,
-            input_html: { value: report.from.iso8601 }
+            input_html: { value: report.from.iso8601, data: { iso_date: report.from.iso8601 } }
           = f.input :to, as: :stringy_date,
-            input_html: { value: report.to.iso8601 }
+            input_html: { value: report.to.iso8601, data: { iso_date: report.to.iso8601 } }
 
     .actions
       = f.responsive_submit_button ta(:filter)
