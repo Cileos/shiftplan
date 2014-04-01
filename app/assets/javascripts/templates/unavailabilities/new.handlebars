@@ -38,6 +38,9 @@
             </li>
           {{/each}}
         </ul>
+
+        <p>{{#each a in selectedAccounts}}{{a.name}}{{/each}}</p>
+        <p>{{#each i in accountIds}}{{i}}{{/each}}</p>
       {{/unless}}
     </div>
   {{/if}}
