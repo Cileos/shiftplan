@@ -255,13 +255,17 @@ Feature: Navigation
   # 2.) The user is also a normal employee
   # in another account "Cileos UG" with a membership for organization "Clockwork
   # Programming" but has no membership for organization "Clockwork Marketing".
+  # 3.) The user is a planner of organization "Clockwork Sales" of account
+  # "Cileos"
   Scenario: a user beeing an employee for two accounts
     Given an organization "cooling towners" exists with name: "Cooling Towers", account: the account
       And a account "cileos" exists with name: "Cileos UG"
-      And an organization "clockwork programming" exists with name: "Clockwork Programming", account: the account "cileos"
-      And an organization "clockwork marketing" exists with name: "Clockwork Marketing", account: the account "cileos"
-      And an employee "charles m. burns" exists with first_name: "Charles M.", last_name: "Burns", account: the account "cileos", user: the user
-      And a membership exists with organization: the organization "clockwork programming", employee: the employee "charles m. burns"
+      And an organization "clockwork programming" exists with name: "Clockwork Programming", account: account "cileos"
+      And an organization "clockwork marketing" exists with name: "Clockwork Marketing", account: account "cileos"
+      And an organization "clockwork sales" exists with name: "Clockwork Sales", account: account "cileos"
+      And an employee "charles m. burns" exists with first_name: "Charles M.", last_name: "Burns", account: account "cileos", user: the user
+      And a membership exists with organization: organization "clockwork programming", employee: employee "charles m. burns"
+      And a membership exists with organization: organization "clockwork sales", employee: employee "charles m. burns", role: "planner"
 
      When I go to the dashboard page
      Then I should see the following list of links within the navigation:
@@ -269,12 +273,14 @@ Feature: Navigation
        | Organisationen                                    | false   |
        | Alle Organisationen                               | false   |
        | Cileos UG - Clockwork Programming                 | false   |
+       | Cileos UG - Clockwork Sales                       | false   |
        | Springfield Nuclear Power Plant - Cooling Towers  | false   |
        | Springfield Nuclear Power Plant - Sector 7-G      | false   |
        | Report                                            | false   |
       And I should see the following items in the organization dropdown list:
        | Alle Organisationen                               |
        | Cileos UG - Clockwork Programming                 |
+       | Cileos UG - Clockwork Sales                       |
        | Springfield Nuclear Power Plant - Cooling Towers  |
        | Springfield Nuclear Power Plant - Sector 7-G      |
 
@@ -284,6 +290,7 @@ Feature: Navigation
        | Organisationen                                    | false   |
        | Alle Organisationen                               | false   |
        | Cileos UG - Clockwork Programming                 | false   |
+       | Cileos UG - Clockwork Sales                       | false   |
        | Springfield Nuclear Power Plant - Cooling Towers  | false   |
        | Springfield Nuclear Power Plant - Sector 7-G      | true    |
        | Info                                              | true    |
@@ -300,5 +307,29 @@ Feature: Navigation
       And I should see the following items in the organization dropdown list:
        | Alle Organisationen                               |
        | Cileos UG - Clockwork Programming                 |
+       | Cileos UG - Clockwork Sales                       |
        | Springfield Nuclear Power Plant - Cooling Towers  |
        | Springfield Nuclear Power Plant - Sector 7-G      |
+
+    # The user is planner of the sales org. He therefore should see the reports menu
+    # item.
+     When I go to the page of the organization "clockwork sales"
+     Then I should see the following list of links within the navigation:
+       | link                                              | active  |
+       | Organisationen                                    | false   |
+       | Alle Organisationen                               | false   |
+       | Cileos UG - Clockwork Programming                 | false   |
+       | Cileos UG - Clockwork Sales                       | true    |
+       | Springfield Nuclear Power Plant - Cooling Towers  | false   |
+       | Springfield Nuclear Power Plant - Sector 7-G      | false   |
+       | Info                                              | true    |
+       | Dashboard                                         | true    |
+       | Report                                            | false   |
+       | Neuigkeiten                                       | false   |
+       | Pläne                                             | false   |
+       | Alle Pläne                                        | false   |
+       | Stammdaten                                        | false   |
+       | Mitarbeiter                                       | false   |
+       | Teams                                             | false   |
+       | Qualifikationen                                   | false   |
+       | Planvorlagen                                      | false   |

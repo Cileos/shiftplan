@@ -1,0 +1,36 @@
+.reports-filter-heading
+  +background-image(linear-gradient(white, $ci_table-zebra))
+
+  [data-toggle='collapsible-heading']
+    padding-left: 25px
+    font-size: $font-size_larger
+
+    &:before
+      top: 9px
+
+.reports-filter
+  padding: 1em 2em
+  margin-bottom: 3em
+
+  .module
+    width: 30%
+
+  .actions
+    clear: both
+
+.reports
+
+// TODO: make this modular after merging of availabilitities
+.time-inputs
+  > div
+    float: left
+    display: inline-block
+    width: 35%
+    margin-right: 2em
+
+  label
+    display: block
+
+  input
+    width: 80px
+    text-align: center

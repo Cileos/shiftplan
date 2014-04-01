@@ -1,10 +1,11 @@
-- total_decimal_duration = number_with_precision(total_duration, precision: 2)
-%table#reports
+- total_decimal_duration = number_with_precision(report.total_duration, precision: 2)
+
+%table#reports.reports
   %thead
     %tr
       %th= t('.date')
-      %th= t('.hours')
-      %th= Employee.human_attribute_name(:full_name)
+      %th.numeric= t('.hours')
+      %th= t('.employees')
       %th= t('.team')
       %th= t('.qualification')
       %th= t('.plan')
@@ -15,7 +16,7 @@
       %td{colspan: 5}
 
   %tbody
-    - @schedulings.order("starts_at DESC").reject(&:previous_day).map(&:decorate).each do |scheduling|
+    - report.records.map(&:decorate).each do |scheduling|
       %tr{ id: "record_#{scheduling.id}" }
         %td= scheduling.link_to_calendar l(scheduling.starts_at.to_date)
         %td.numeric= number_with_precision(scheduling.decimal_duration, precision: 2)

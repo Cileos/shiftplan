@@ -80,6 +80,15 @@ module NavigationHelpers
     when /^accounts page$/
       accounts_path
 
+    when /^the report page of #{capture_model}$/
+      m = model!($1)
+      case m
+      when Account
+        new_account_report_path(m)
+      when Organization
+        new_account_organization_report_path(m.account, m)
+      end
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
