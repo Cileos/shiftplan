@@ -1,6 +1,6 @@
 - scheduling = f.object
 -# defaults
-- scheduling.represents_unavailability = true
+- scheduling.represents_unavailability = true unless scheduling.persisted?
 .weekday-and-time
   .weekday
     - if scheduling.persisted?

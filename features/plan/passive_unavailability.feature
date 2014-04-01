@@ -33,10 +33,14 @@ Feature: Passive unavailability
      Then the "Verfügbar" checkbox should be checked
       And the "Beschäftigt" checkbox should not be checked
 
-     When I choose "Beschäftigt"
-      And I press "Anlegen"
+     When I press "Anlegen"
       And I wait for the modal box to disappear
-     Then a scheduling should exist with represents_unavailability: true
+     Then a scheduling should exist with represents_unavailability: false
+
+     When I click on cell "Mo"/"Charles Burns"
+      And I wait for the modal box to appear
+     Then the "Verfügbar" checkbox should be checked
+      And the "Beschäftigt" checkbox should not be checked
 
 
   Scenario: cannot determine busy state of scheduling of a self-planner
