@@ -166,8 +166,7 @@ class Ability
       curr_organization == plan.organization
     end
     can :manage, Scheduling do |scheduling|
-      curr_organization == scheduling.plan.organization &&
-        ( !scheduling.represents_unavailability? || self_planning?(scheduling) )
+      curr_organization == scheduling.plan.organization
     end
     can :manage, Shift do |shift|
       curr_organization == shift.plan_template.organization
@@ -257,8 +256,7 @@ class Ability
       curr_account == plan.organization.account
     end
     can :manage, Scheduling do |scheduling|
-      curr_account == scheduling.plan.organization.account &&
-        ( !scheduling.represents_unavailability? || self_planning?(scheduling) )
+      curr_account == scheduling.plan.organization.account
     end
     can :manage, Shift do |shift|
       curr_account == shift.plan_template.organization.account

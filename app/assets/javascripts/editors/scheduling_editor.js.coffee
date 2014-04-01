@@ -65,11 +65,13 @@ Clockwork.SchedulingEditor = Ember.Object.extend
   employeeSelected: (e)->
     selected = parseInt $(e.target).val()
     $wrapper = @get('element').find('div.represents_unavailability')
+    $input   = @input('represents_unavailability')
     if @currentEmployeeId and selected is @currentEmployeeId
-      if @initialEmployeeId is not @currentEmployeeId
-        @input('represents_unavailability').val([true, true])
+      unless @initialEmployeeId is @currentEmployeeId
+        $input.val([true, true])
       $wrapper.show()
     else
+      $input.val([true, true])
       $wrapper.hide()
 
 

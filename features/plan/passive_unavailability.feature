@@ -29,11 +29,12 @@ Feature: Passive unavailability
       And I should not see a field labeled "Verfügbar"
 
      When I select "Charles Burns" from the "Mitarbeiter" single-select box
-     # not back to default
-     Then the "Verfügbar" checkbox should be checked
-      And the "Beschäftigt" checkbox should not be checked
+     # back to default
+     Then the "Beschäftigt" checkbox should be checked
+      And the "Verfügbar" checkbox should not be checked
 
-     When I press "Anlegen"
+     When I choose "Verfügbar"
+      And I press "Anlegen"
       And I wait for the modal box to disappear
      Then a scheduling should exist with represents_unavailability: false
 
@@ -41,6 +42,23 @@ Feature: Passive unavailability
       And I wait for the modal box to appear
      Then the "Verfügbar" checkbox should be checked
       And the "Beschäftigt" checkbox should not be checked
+
+     When I select "Homer Simpson" from the "Mitarbeiter" single-select box
+     Then I should not see a field labeled "Beschäftigt"
+      And I should not see a field labeled "Verfügbar"
+     When I press "Speichern"
+      And I wait for the modal box to disappear
+     Then a scheduling should exist with represents_unavailability: true
+
+     When I click on cell "Mo"/"Homer Simpson"
+      And I wait for the modal box to appear
+     When I select "Charles Burns" from the "Mitarbeiter" single-select box
+     Then the "Verfügbar" checkbox should not be checked
+      And the "Beschäftigt" checkbox should be checked
+
+     When I press "Speichern"
+      And I wait for the modal box to disappear
+     Then a scheduling should exist with represents_unavailability: true
 
 
   Scenario: cannot determine busy state of scheduling of a self-planner
