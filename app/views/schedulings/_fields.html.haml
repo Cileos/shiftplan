@@ -21,5 +21,7 @@
 = f.association :team, as: :select, include_blank: true, collection: scheduling.plan.organization.teams,
   input_html: { class: 'chosen-select' }
 
-= f.input :represents_unavailability, as: :radio_buttons,
-  collection: represents_unavailability_options, wrapper_html: { class: 'represents_unavailability' }
+-# Currently the passive unavailabilty feature is deactivated. Comment in again
+-# when enabling the feature again.
+-# = f.input :represents_unavailability, as: :radio_buttons,
+-#   collection: represents_unavailability_options, wrapper_html: { class: 'represents_unavailability' }

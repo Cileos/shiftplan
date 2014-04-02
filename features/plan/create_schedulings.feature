@@ -35,6 +35,7 @@ Feature: create a scheduling
       And I schedule "22:15-6:45"
       And I press "Anlegen"
       And I wait for the modal box to disappear
+      # The created schedulings are overnightables!
      Then I should see the following partial calendar:
         | Mitarbeiter    | Mo  | Di  | Mi           | Do                       | Fr           | Sa           | So           |
         | Planner Burns  |     |     |              |                          |              |              |              |
