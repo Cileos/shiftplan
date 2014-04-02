@@ -4,7 +4,7 @@
 Then /^I should (see|not see) (?:an? )?(?:flash )?(flash|info|alert|notice) "([^"]*)"$/ do |see_or_not, severity, message|
   step %Q{I wait for the spinner to disappear}
   if see_or_not =~ /not/
-    page.should have_no_content(text)
+    page.should have_no_content(message)
   else
     page.should have_css(".flash.#{severity}", text: message)
   end
