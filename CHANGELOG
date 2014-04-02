@@ -1,6 +1,15 @@
 Changelog
 =========
 
+Release 1.1.1 2014-04-02 17:20
+-------------------------------
+f687cd9 Merge pull request #250 from Cileos/feature/deactivate-represents_unavailability-flag
+74554fc Merge pull request #249 from Cileos/feature/rails-datepicker-supports-backbutton
+f7b43dc Merge pull request #242 from Cileos/feature/add-basic-report-filters
+0bb2e5d Merge branch 'feature/unavailabilities' into develop
+62c9a41 Merge branch 'feature/upgrade-ember-to-1.3' into develop
+605bb68 Merge pull request #241 from Cileos/feature/faster-calendar-cucumbering
+
 Release 1.1.0 2014-03-17 10:35
 -------------------------------
 1da2742 Merge pull request #234 from Cileos/feature/improve_shift_form_labels
