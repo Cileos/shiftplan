@@ -7,7 +7,7 @@ class NotificationsController < InheritedResources::Base
 
   load_and_authorize_resource class: Notification::Base
 
-  before_filter :reset_new_notifications_count_for_user
+  before_filter :mark_all_as_read
 
   respond_to :js, :html
 
@@ -21,8 +21,7 @@ class NotificationsController < InheritedResources::Base
     super.default_sorting.page(params[:page]).per(30)
   end
 
-  def reset_new_notifications_count_for_user
-    current_user.new_notifications_count = 0
-    current_user.save!
+  def mark_all_as_read
+    current_user.notifications.update_all(seen: true)
   end
 end

@@ -72,27 +72,5 @@ describe Notification::Base do
       notification.mark_as_read!
       expect { notification.mark_as_read! }.not_to raise_error
     end
-
-    it "decreases the user's new_notifications_count" do
-      n = create(:notification, employee: create(:employee_with_confirmed_user))
-
-      expect do
-        n.mark_as_read!
-        n.mark_as_read! # to check if only decreased once
-      end.to change { n.employee.user.new_notifications_count }.from(1).to(0)
-    end
-  end
-
-  context "#decrease_notifications_count_on_user" do
-    let(:notification) do
-      create(:notification, employee: create(:employee_with_confirmed_user))
-    end
-
-    it "does only decrement the user's new_notifications_count to 0" do
-      expect do
-        3.times { notification.send(:decrease_notifications_count_on_user!) }
-      end.to change { notification.employee.user.new_notifications_count }.from(1).to(0)
-    end
-
   end
 end

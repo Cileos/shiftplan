@@ -6,14 +6,16 @@ class Notification::Base < ActiveRecord::Base
 
   validates_presence_of :employee
 
-  after_create :increase_notifications_count_on_user
-
   def self.default_sorting
     order('created_at desc')
   end
 
   def self.unread
     where(read_at: nil)
+  end
+
+  def self.unseen
+    where(seen: false)
   end
 
   def self.for_hub
@@ -114,7 +116,6 @@ class Notification::Base < ActiveRecord::Base
     unless read_at
       self.read_at = Time.zone.now
       save!
-      decrease_notifications_count_on_user!
     end
   end
 
@@ -122,25 +123,6 @@ class Notification::Base < ActiveRecord::Base
     if employee.user && employee.user.receive_notification_emails
       self.class.mailer_class.public_send(self.class.mailer_action, self).deliver
       touch :sent_at
-    end
-  end
-
-  private
-
-  def decrease_notifications_count_on_user!
-    if u = employee.user
-      # Do not use User#decrement! (bang) method, to make sure validations are
-      # run. Makes sure that the count does not get a value < 0.
-      if u.new_notifications_count > 0
-        u.decrement(:new_notifications_count)
-        u.save!
-      end
-    end
-  end
-
-  def increase_notifications_count_on_user
-    if u = employee.user
-      u.increment!(:new_notifications_count)
     end
   end
 end

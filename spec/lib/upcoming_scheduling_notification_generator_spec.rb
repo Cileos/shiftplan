@@ -67,7 +67,7 @@ describe UpcomingSchedulingNotificationGenerator do
       it "does not create a notification" do
         expect do
           described_class.generate!
-        end.to_not change(Notification::UpcomingScheduling, :count)
+        end.not_to change(Notification::UpcomingScheduling, :count)
       end
     end
 

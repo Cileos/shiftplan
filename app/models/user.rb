@@ -39,7 +39,6 @@ class User < ActiveRecord::Base
   include Volksplaner::CaseInsensitiveEmailAttribute
   validates :email, :email => true
   validates_inclusion_of :locale, in: lambda { |u| I18n.available_locales.map(&:to_s) }, allow_blank: true
-  validates_numericality_of :new_notifications_count, greater_than_or_equal_to: 0
 
   has_many :employees # but just one employee per account
   has_many :invitations
@@ -61,6 +60,10 @@ class User < ActiveRecord::Base
 
   def notifications_for_dashboard
     notifications.for_dashboard
+  end
+
+  def new_notifications_count
+    notifications.unseen.size
   end
 
   # unsure about the naming of this method.. rather call it organizations_for_account ?
