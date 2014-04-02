@@ -8,7 +8,7 @@ Feature: Planning Active Unavailabilities
     Given today is 2012-12-21
       And the situation of a nuclear reactor
       And I choose "Verfügbarkeit" from the drop down "Stammdaten"
-     Then I should be on the availability page for the account
+     Then I should be on the availability page
       And I wait for Ember to boot
 
   Scenario: enter an education day for one of the employees
