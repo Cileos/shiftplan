@@ -1,4 +1,4 @@
-- count_new = current_user.new_notifications_count
+- count_new = current_user.unseen_notifications_count
 - hub_class = count_new > 0 ? 'has_new' : ''
 - hub_class += current_user.notifications.unread.count > 0 ? ' has_unread' : ''
 

@@ -3,7 +3,7 @@ var count_substr_match = $.trim(current_title).match(/^\(\d+\)/);
 if (count_substr_match) {
   $('title').text(current_title.replace(count_substr_match[0], ''));
 }
-<% if (count = current_user.new_notifications_count) > 0 %>
+<% if (count = current_user.unseen_notifications_count) > 0 %>
   $("li#notification-hub").addClass('has_new has_unread');
   $('a#notifications-count span.count').remove();
   $('a#notifications-count').append('<span class="count"><%= count %></span>')

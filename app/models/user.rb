@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
     notifications.for_dashboard
   end
 
-  def new_notifications_count
+  def unseen_notifications_count
     notifications.unseen.size
   end
 
