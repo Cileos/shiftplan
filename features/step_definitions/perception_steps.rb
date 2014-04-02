@@ -35,10 +35,10 @@ Then /^I should see a (#{match_nth} |)list of the following (\w+\s?\w+)(?!within
   nth.strip!
   nth = 'first' if nth.blank?
   selectors = expected.column_names.map(&:underscore).map {|s| ".#{s}" }
-  list_sel = "ul.#{plural}#{Numerals[nth]}"
-  page.should have_css(list_sel)
+  list_sel = complicated_css "ul.#{plural}#{Numerals[nth]}"
+  page.should have_xpath(*list_sel)
   # xpath to select only direct children, not grandchildren
-  actual = first(list_sel).all(:xpath, 'li').map do |li|
+  actual = first(:xpath, list_sel).all(:xpath, 'li').map do |li|
     selectors.map do |column|
       li.first(column).try(:text).try(:strip).try(:lines).try(:first) || ''
     end
