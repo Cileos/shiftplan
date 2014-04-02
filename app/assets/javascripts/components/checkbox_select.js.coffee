@@ -32,5 +32,3 @@ Clockwork.CheckboxItemController = Ember.ObjectController.extend
       children.removeObject element
     return
   ).observes("selected")
-
-  serializeHasMany

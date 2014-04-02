@@ -12,5 +12,9 @@ class Unavailability < ActiveRecord::Base
 
   belongs_to :user
 
+  def accounts
+    Account.where id: account_ids
+  end
+
   # TODO ability to assign the account_ids?
 end

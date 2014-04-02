@@ -6,7 +6,7 @@ Feature: Active Unavailabilities
 
   Background:
     Given today is 2012-12-21
-      And an account exists with name: "Springfield NPP"
+      And an account "Work" exists with name: "Springfield NPP"
       And an organization exists with name: "Sector 7-G", account: the account
       And a confirmed user exists
       And an employee exists with user: the confirmed user, first_name: "Lenny", last_name: "Leonard", account: the account
@@ -77,8 +77,8 @@ Feature: Active Unavailabilities
          | 31 |    |    |    |                         |    |    |
       And an unavailability should exist with reason: "illness"
       And the confirmed user should be the unavailability's user
-      And the account "Home" should be one of the unavailability's accounts
-      And the account "Springfield NPP" should not be one of the unavailability's accounts
+      And the account "Work" should be one of the unavailability's accounts
+      But the account "Home" should not be one of the unavailability's accounts
 
   Scenario: Changing a sick day to education
     Given an unavailability exists with reason: "illness", user: confirmed user, starts_at: "2012-12-21 6:00", ends_at: "2012-12-21 18:00"
