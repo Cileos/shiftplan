@@ -17,4 +17,5 @@ de:
   attached_documents:
     item:
       uploader: "von %{name}"
+      delete: Löschen
       confirm_to_delete: "Wollen Sie das Dokument '%{name}' löschen?"

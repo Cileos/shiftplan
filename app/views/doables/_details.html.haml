@@ -1,10 +1,10 @@
 = link_to doable.name, url, class: 'name'
 - if doable.due_at
-  %span.due_on= l doable.due_at.to_date
+  %div.due_on= l doable.due_at.to_date
 - if doable.responsible
-  %span.employee.responsible{class: doable.responsible.user_id == current_user.id && 'you'}
-    %span.name= doable.responsible.name
+  %div.employee.responsible{class: doable.responsible.user_id == current_user.id && 'you'}
+    %div.name= doable.responsible.name
 - if doable.description.present?
-  %span.description= doable.description
+  %div.description= doable.description
 
 

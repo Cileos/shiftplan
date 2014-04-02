@@ -1,7 +1,14 @@
 .attached_documents
-  margin: -0.5em 0 1em
+  margin: -0.5em 0 1em -1em
+  overflow: hidden
   font-size: $font-size_small
   line-height: 1
+
+  li
+    margin-left: 1em
+
+  div
+    margin: 0.3em 0
 
   .size,
   .uploader,
@@ -21,11 +28,7 @@
     &:hover:before
       color: black
 
-  .size
-    float: right
-    margin-left: 0.25em
-
   .destroy-button
     float: right
     @extend %destroy-button
-    margin: -0.3em 0 0 1em
+    margin: 0.5em 0 0.5em 1em
