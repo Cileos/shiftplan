@@ -1,5 +1,5 @@
 @javascript
-Feature: Active Unavailabilities
+Feature: Personal Active Unavailabilities
   As an employee
   In order to tell my boss about the reason for staying away at a future day
   I want to maintain unavailability entries in a monthly calendar
