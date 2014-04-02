@@ -3,5 +3,6 @@ class UnavailabilitySerializer < ApplicationSerializer
              :starts_at,
              :ends_at,
              :description,
-             :reason
+             :reason,
+             :account_ids
 end
