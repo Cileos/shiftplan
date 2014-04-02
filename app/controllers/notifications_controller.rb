@@ -7,7 +7,7 @@ class NotificationsController < InheritedResources::Base
 
   load_and_authorize_resource class: Notification::Base
 
-  before_filter :mark_all_as_read
+  before_filter :mark_all_as_seen
 
   respond_to :js, :html
 
@@ -21,7 +21,7 @@ class NotificationsController < InheritedResources::Base
     super.default_sorting.page(params[:page]).per(30)
   end
 
-  def mark_all_as_read
+  def mark_all_as_seen
     current_user.notifications.update_all(seen: true)
   end
 end
