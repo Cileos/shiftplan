@@ -41,4 +41,4 @@ Clockwork.Unavailability = DS.Model.extend
   ).property('reason')
 
   allAccounts: true
-  accountIds: []
+  accounts: DS.hasMany('account')

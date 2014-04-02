@@ -28,19 +28,9 @@
       </label>
 
       {{#unless allAccounts}}
-        <ul>
-          {{#each account in accounts}}
-            <li>
-              <label>
-                {{input type="checkbox" checked=account.selected}}
-                {{account.name}}
-              </label>
-            </li>
-          {{/each}}
-        </ul>
+        {{checkbox-select model=this elements=availableAccounts propertyPath="accounts" labelPath="name"}}
 
-        <p>{{#each a in selectedAccounts}}{{a.name}}{{/each}}</p>
-        <p>{{#each i in accountIds}}{{i}}{{/each}}</p>
+        <p>{{#each a in content.accounts}}{{a.name}}{{/each}}</p>
       {{/unless}}
     </div>
   {{/if}}

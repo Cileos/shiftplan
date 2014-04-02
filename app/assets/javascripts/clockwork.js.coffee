@@ -5,6 +5,7 @@
 #= require_tree ./models
 #= require_tree ./controllers
 #= require_tree ./views
+#= require_tree ./components
 #= require_tree ./helpers
 #= require_tree ./templates
 #= require_tree ./routes
@@ -62,7 +63,25 @@ Clockwork.initializer
         Ember.I18n.translations = result
         Clockwork.advanceReadiness()
 
-Clockwork.ApplicationSerializer = DS.ActiveModelSerializer.extend()
+get = Ember.get
+Clockwork.ApplicationSerializer = DS.ActiveModelSerializer.extend
+  attrs:
+    accounts:
+      embedded: 'ids'
+  # When settings "embedded" to "ids", we will just send the ids of the
+  # associated records within the JSON
+  serializeHasMany: (record, json, relationship)->
+    key = relationship.key
+    attrs = get(this, 'attrs')
+    embed = attrs && attrs[key]?.embedded is 'ids'
+
+    if embed
+      json[ @keyForRelationship(key, 'hasMany') ] = get(record, key).map (relation)=>
+        primaryKey = get(this, 'primaryKey')
+        get(relation, primaryKey)
+    else
+      @_super(record, json, relationship)
+
 
 window.Clockwork = Clockwork
 

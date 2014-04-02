@@ -7,7 +7,10 @@ class Unavailability < ActiveRecord::Base
                   :end_time,
                   :date,
                   :reason,
+                  :account_ids,
                   :description
 
   belongs_to :user
+
+  # TODO ability to assign the account_ids?
 end
