@@ -15,6 +15,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     #  .bindWithDelay('keyup', (=> @updateFields()), 150)
     #  .closest('form').on('submit', => @updateQuickie()).end()
     @currentEmployeeId = $('html').data('current_employee_id')
+    @initialEmployeeId = parseInt @input('employee_id').val()
 
     timeoptions =
       show24Hours: true
@@ -63,14 +64,15 @@ Clockwork.SchedulingEditor = Ember.Object.extend
 
   employeeSelected: (e)->
     selected = parseInt $(e.target).val()
-    $inputs = @get('element').find('div.represents_unavailability :input')
-    $labels = @get('element').find('div.represents_unavailability label')
+    $wrapper = @get('element').find('div.represents_unavailability')
+    $input   = @input('represents_unavailability')
     if @currentEmployeeId and selected is @currentEmployeeId
-      $inputs.prop('disabled', null)
-      $labels.removeClass('disabled')
+      unless @initialEmployeeId is @currentEmployeeId
+        $input.val([true, true])
+      $wrapper.show()
     else
-      $inputs.prop('disabled', 'disabled')
-      $labels.addClass('disabled')
+      $input.val([true, true])
+      $wrapper.hide()
 
 
   # DEAD (Quickie readonly)
