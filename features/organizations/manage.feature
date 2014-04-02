@@ -37,7 +37,7 @@ Feature: create organizations
       But I should not see link "Organisation hinzufügen" within the table for the account "cileos"
 
   Scenario: Edit organization
-     When I follow "Bearbeiten" within the first table row within the table for the account "springfield"
+     When I follow "Bearbeiten"
       And I wait for the modal box to appear
       And I fill in "Name" with "Cooling Supertowers"
       And I press "Speichern"

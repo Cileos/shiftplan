@@ -30,6 +30,23 @@ class SchedulingsController < BaseController
     end
     helper_method :filter
 
+
+    def resource_params
+      [
+        params.require(:scheduling).permit(
+          { days: [] },
+          :date,
+          :start_time,
+          :end_time,
+          :employee_id,
+          :qualification_id,
+          :team_id,
+          # Currently deactivated
+          # :represents_unavailability
+        )
+      ]
+    end
+
     # InheritedResources
     def smart_resource_url
       filter.path_to_date(resource.date)

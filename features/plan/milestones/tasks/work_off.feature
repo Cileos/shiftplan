@@ -12,21 +12,21 @@ Feature: Work of task for milestone of a plan
 
   Scenario: mark task for milestone as done
     Given I am on the page for the plan
-     When I check "done" within the first item within the tasks list within the first item within the milestones list
+     When I check the task "Kill the King"
       And I wait for the spinner to disappear
      Then the task should be done
 
-     When I uncheck "done" within the first item within the tasks list within the first item within the milestones list
+     When I uncheck the task "Kill the King"
       And I wait for the spinner to disappear
      Then the task should not be done
 
   Scenario: can mark milestone only if all tasks are marked
     Given a task exists with name: "Kill the Queen", milestone: the milestone
       And I am on the page for the plan
-      And the "done" milestone checkbox should be disabled within the first item within the milestones list
+      And the "done" milestone checkbox should be disabled within the milestones list
 
-     When I check "done" within the first item within the tasks list within the first item within the milestones list
+     When I check the task "Kill the Queen"
      Then the "done" milestone checkbox should be disabled
 
-     When I check "done" within the second item within the tasks list within the first item within the milestones list
+     When I check the task "Kill the King"
      Then the "done" milestone checkbox should not be disabled

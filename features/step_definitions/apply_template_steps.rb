@@ -3,7 +3,7 @@ When /^I apply template #{capture_quoted} in modalbox$/ do |name|
     steps %Q{
      When I choose "Planvorlage anwenden" from the drop down "Weitere Aktionen"
       And I wait for the modal box to appear
-      And I select "#{name}" from "Planvorlage"
+      And I select "#{name}" from the "Planvorlage" single-select box
       And I press "Anwenden"
       And I wait for the modal box to disappear
     }

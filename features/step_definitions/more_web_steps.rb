@@ -5,7 +5,7 @@ Then /^the selected "([^"]*)" should be "([^"]*)"$/ do |field, value|
 end
 
 Then /^the selected "([^"]*)" of the single-select box should be "([^"]*)"$/ do |field, value|
-  select_id = field_labeled(field)["id"]
+  select_id = field_labeled(field, visible: false)["id"]
   selected = page.find("div##{select_id}_chosen a.chosen-single span")
   selected.should be_present
   selected.text.should =~ /#{value}/
@@ -14,8 +14,8 @@ end
 When /^I wait for (.+) to appear$/ do |name|
   selector = selector_for name
   begin
-    wait_until { page.has_css?(selector, :visible => true) }
-  rescue Capybara::TimeoutError => timeout
+    page.wait_until { page.has_css?(selector, :visible => true) }
+  rescue Capybara::Session::TimedOut => timeout
     STDERR.puts "saved page: #{save_page}"
     STDERR.puts "saved screenshot: #{screenshot}"
     raise timeout
@@ -25,8 +25,8 @@ end
 When /^I wait for (.+) to disappear$/ do |name|
   selector = selector_for name
   begin
-    wait_until { page.has_no_css?(selector, :visible => true) }
-  rescue Capybara::TimeoutError => timeout
+    page.wait_until { page.has_no_css?(selector, :visible => true) }
+  rescue Capybara::Session::TimedOut => timeout
     STDERR.puts "saved page: #{save_page}"
     STDERR.puts "saved screenshot: #{screenshot}"
     raise timeout
@@ -71,10 +71,11 @@ Then /^I should see the following defined items:$/ do |expected|
 end
 
 Then /^the #{capture_quoted} field should be empty$/ do |field|
-  wait_until do
-    find_field(field).value.empty?
-  end
-  find_field(field).value.should be_empty
+  find_field(field).value.should be_blank
+end
+
+Then /^the #{capture_quoted} field should not be empty$/ do |field|
+  find_field(field).value.should_not be_blank
 end
 
 Then /^the #{capture_quoted} tab should be active$/ do |tab_name|
@@ -128,13 +129,16 @@ When /^I check the checkbox$/ do
 end
 
 Then /^the (.+) should( not)? be disabled$/ do |name, negate|
-  selector = selector_for(name)
-  elem = page.first(selector)
-  disabled = elem['disabled']
-  if negate
-    disabled.should be_in(["false", nil])
+  if name =~ /field #{capture_quoted}/
+    page.should have_field($1, disabled: !negate)
   else
-    disabled.should be_in(%w(true disabled))
+    selector = selector_for(name)
+    elem = page.first(selector)
+    if negate
+      elem.should_not be_disabled
+    else
+      elem.should be_disabled
+    end
   end
 end
 
@@ -147,8 +151,8 @@ end
 Then /^(?:|I )should be somewhere under (.+)$/ do |page_name|
   expected = path_to(page_name)
   begin
-    wait_until { URI.parse(current_url).path.starts_with? expected }
-  rescue Capybara::TimeoutError => e
+    page.wait_until { URI.parse(current_url).path.starts_with? expected }
+  rescue Capybara::Session::TimedOut => timeout
     URI.parse(current_url).path.should start_with(expected)
   end
 end
@@ -157,31 +161,13 @@ end
 
 Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
   with_scope(parent) do
-    field = find_field(field)
-    field_value = nil
-    begin
-      wait_until do
-        field_value = (field.tag_name == 'textarea') ? field.text : field.value
-        field_value =~ /#{value}/
-      end
-    rescue Capybara::TimeoutError
-      field_value.should =~ /#{value}/
-    end
+    page.should have_field(field, with: value)
   end
 end
 
 Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |field, parent, value|
   with_scope(parent) do
-    field = find_field(field)
-    field_value = nil
-    begin
-      wait_until do
-        field_value = (field.tag_name == 'textarea') ? field.text : field.value
-        field_value !~ /#{value}/
-      end
-    rescue Capybara::TimeoutError
-      field_value.should_not =~ /#{value}/
-    end
+    page.should have_no_field(field, with: value)
   end
 end
 
@@ -245,12 +231,15 @@ Then /^I should see the following validation errors:$/ do |expected_errors|
 end
 
 When /^I select "(.*?)" from the "(.*?)" multiple-select box/ do |text,label|
-  find("label:contains('#{label}') ~ div.chosen-container").click
-  find("div.chosen-container li", text:text).click
+  find(:xpath, complicated_css("label:contains('#{label}') ~ div.chosen-container")).click
+  find(:xpath, complicated_css("div.chosen-container li"), text:text).click
 end
 
 When /^I select "(.*?)" from the "(.*?)" single-select box/ do |text,label|
-  find("label:contains('#{label}') ~ div.chosen-container-single").click
-  find("div.chosen-container li.active-result", text:text).click
+  find(:xpath, complicated_css("label:contains('#{label}') ~ div.chosen-container-single")).click
+  find(:xpath, complicated_css("div.chosen-container li.active-result"), text:text).click
 end
 
+When /^I (uncheck|check) the (?:task|milestone) #{capture_quoted}$/ do |on_or_off, name|
+  find(:xpath, %Q~//a[contains(., "#{name}")]/preceding-sibling::input~).set(on_or_off.exclude?('un'))
+end

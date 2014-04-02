@@ -25,7 +25,7 @@ end
 
 
 group :test do
-  gem 'cucumber-rails', "~> 1.2.1", :require => false
+  gem 'cucumber-rails', "~> 1.4.0", :require => false
   gem 'rspec-rails', '~> 2.14.0'
   gem 'rspec-fire'
   gem 'launchy'
@@ -38,13 +38,12 @@ group :test do
   # until it fetches from the new location: https://github.com/flavorjones/chromedriver-helper/pull/8
   gem 'chromedriver-helper', git: 'git://github.com/mars/chromedriver-helper.git', branch: 'download-via-bucket-xml'
 
-  gem "spork", "1.0.0rc3"
+  gem "spork", "1.0.0rc4"
   gem "guard-rspec", "~> 2.4.0"
-  gem "guard-cucumber", "~> 1.3.2"
+  gem "guard-cucumber", "~> 1.4.1"
   gem "guard-spork", "~> 1.4.2"
   gem "guard-bundler", "~> 1.0.0"
   gem "libnotify", :require => false
-  gem 'rb-fsevent', '~> 0.9.1', :require => false
 
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
   gem "kopflos", :git => 'git://github.com/niklas/kopflos.git'
@@ -70,7 +69,8 @@ group :development, :test do
   gem 'pry'
   gem "guard-jasmine"
   gem "jasminerice"
-  gem 'rb-inotify', '~> 0.8.8', :require => false
+  gem 'rb-fsevent', '~> 0.9', :require => false
+  gem 'rb-inotify', '~> 0.9', :require => false
   gem 'zeus'
 end
 
@@ -115,7 +115,7 @@ gem 'versatile_rjs', :git => 'git://github.com/condor/versatile_rjs.git'
 gem 'polyglot' # load treetop grammars with #require
 
 gem 'gon' # push variables from rails to js
-gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
+gem "active_model_serializers", "~> 0.8.0"
 
 gem 'RedCloth' # textilize instructions and other texts from locales
 
@@ -131,7 +131,9 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart'
 gem 'gravtastic'
-gem 'ember-rails', '0.7.0'
+gem 'ember-rails'
+gem 'ember-source', '~> 1.3.1'
+gem "ember-data-source", "1.0.0.beta.5"
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
 
 gem 'strong_parameters', '~> 0.2.1'

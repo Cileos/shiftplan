@@ -26,4 +26,11 @@ module ApplicationHelper
     content_tag :span, human, :class => "bool #{yes_or_no}"
   end
 
+
+  def current_context_for_js
+    {
+      current_employee_id: current_employee.try(:id)
+    }
+  end
+
 end

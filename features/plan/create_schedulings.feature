@@ -16,6 +16,7 @@ Feature: create a scheduling
       And I select "Homer S" from the "Mitarbeiter" single-select box
       And I schedule "9-17"
       And I press "Anlegen"
+      And I wait for the modal box to disappear
      Then I should see the following partial calendar:
         | Mitarbeiter    | Mo  | Di  | Mi           | Do  | Fr  | Sa  | So  |
         | Planner Burns  |     |     |              |     |     |     |     |
@@ -33,6 +34,8 @@ Feature: create a scheduling
       And I check "Sa"
       And I schedule "22:15-6:45"
       And I press "Anlegen"
+      And I wait for the modal box to disappear
+      # The created schedulings are overnightables!
      Then I should see the following partial calendar:
         | Mitarbeiter    | Mo  | Di  | Mi           | Do                       | Fr           | Sa           | So           |
         | Planner Burns  |     |     |              |                          |              |              |              |
@@ -43,8 +46,8 @@ Feature: create a scheduling
   Scenario: Entering time span with minutes (15 minute intervals)
      When I click on cell "Di"/"Carl C"
       And I wait for the new scheduling form to appear
-     Then the "Beginn" field should contain ""
-      And the "Ende" field should contain ""
+     Then the "Beginn" field should contain "00:00"
+      And the "Ende" field should contain "00:00"
 
       # full hour quickie
      When I schedule "9-17"

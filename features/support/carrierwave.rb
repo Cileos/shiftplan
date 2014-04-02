@@ -4,5 +4,5 @@ CarrierWave.configure do |config|
 end
 
 After('@fileupload') do
-  FileUtils.rm_rf(Dir["#{Rails.root}/features/support/uploads"])
+  FileUtils.rm_rf(Dir["#{Rails.root}/public/test_uploads"])
 end

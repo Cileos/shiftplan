@@ -1,10 +1,27 @@
 en:
+  activemodel:
+    attributes:
+      report:
+        organization_ids: Organization
+        employee_ids: "Employee"
+        team_ids: Team
+        plan_ids: Plan
+        from: From
+        to: To
   reports:
-    index:
-      no_schedulings: "There are no schedulings."
+    form:
+      filter: Filter
+    new:
+      no_schedulings: "No entries found."
+      show: 'Show:'
+      total_number_of_records: 'of %{total} found entries'
+      number_of_records_found:
+        one: '%{count} entry found.'
+        other: '%{count} entries found.'
     table:
       date: "Date"
       hours: "Hours"
+      employees: Employees
       qualification: "Qualification"
       team: "Team"
       plan: "Plan"

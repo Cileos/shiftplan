@@ -21,6 +21,8 @@ class Scheduling < ActiveRecord::Base
   validates_with NextDayWithinPlanPeriodValidator
   validates_with ShiftPeriodValidator, unless: ->(s) { s.start_hour == 0 && s.start_minute == 0 }
 
+  scope :in_organizations, ->(ids) { where(organizations: { id: ids }) }
+
   attr_writer :year
 
   include TimeRangeWeekBasedAccessible
@@ -53,6 +55,10 @@ class Scheduling < ActiveRecord::Base
 
   def self.for_team(team)
     where(team_id: team.id)
+  end
+
+  def self.from_month(date)
+    between(date.beginning_of_month, date.end_of_month)
   end
 
   # Used for dupping, for example in nightshift. #dup won't copy associations,
@@ -146,6 +152,10 @@ class Scheduling < ActiveRecord::Base
     if team && team.new_record?
       team.shortcut = shortcut
     end
+  end
+
+  def represents_unavailability
+    super || false # default nil => false
   end
 
   # TODO save start_hour and end_hour or even cache the whole quickie

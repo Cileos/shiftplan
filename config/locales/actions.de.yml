@@ -1,6 +1,7 @@
 de:
   helpers:
     actions:
+      filter: 'Filtern'
       show_all: 'Alle anzeigen'
       notifications: 'Benachrichtigungen'
       new_post: 'Neuen Blogpost erstellen'
@@ -14,8 +15,9 @@ de:
       dashboard: Dashboard
       export: Export
       report: Report
-      report_of_current_month: Report (aktueller Monat)
       reports: Reports
+      reset_filters: Filter zurücksetzen
+      all: alle
       info: Info
       news: Neuigkeiten
       signin: Einloggen

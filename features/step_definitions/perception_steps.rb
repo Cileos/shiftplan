@@ -66,22 +66,8 @@ end
 #     %td.age
 Then /^I should see the following table of (.+):$/ do |plural, expected|
   retrying_once Selenium::WebDriver::Error::WebDriverError do
-    # table is a Cucumber::Ast::Table
-    actual = find("table##{plural}").all('tr:not(.aggregation)').map do |tr|
-      # tr.all('th,td').map(&:text).map(&:strip)
-      tr.all('th, td').map do |cell|
-        if cell.all('*').empty? # a text-only cell ader
-          cell.text
-        else # remove the text of all included buttons and links, they gonna be clicked anyway
-          text = cell.text
-          cell.all('a.button,a.comments,button,.avatar').each do |e|
-            text = text.sub(e.text, '')
-          end
-          text
-        end.strip.squeeze(' ')
-      end
-    end
-    expected.diff! actual
+    table = TableHelpers::Table.new(self, selector: "table##{plural}", row_selector: 'tr:not(.aggregation)', ignore: 'a.button,a.comments,button,.avatar')
+    expected.diff! table.parsed
   end
 end
 
@@ -113,8 +99,10 @@ Then /^I should see an? (\w+) table with the following rows:$/ do |name, expecte
   expected.diff! actual
 end
 
-Then /^the page should be titled "([^"]*)"$/ do |title|
-  step %Q~I should see "#{title}" within "html head title"~
+Then /^the page (should|should not) be titled "([^"]*)"$/ do |should_or_should_not, title|
+  not_ignoring_hidden_elements do
+    step %Q~I #{should_or_should_not} see "#{title}" within "html head title"~
+  end
 end
 
 Then /^I (should|should not) be authorized to access the page$/ do |or_not|
@@ -163,7 +151,9 @@ end
 
 Then /^the notification hub should have #{capture_quoted} new notifications$/ do |number|
   step %~I should see "#{number}" within the notifications count~
-  step %~I should see "(#{number})" within the page title~
+  not_ignoring_hidden_elements do
+    step %~I should see "(#{number})" within the page title~
+  end
   step %~the notification hub should have class "has_new"~
 end
 

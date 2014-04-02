@@ -23,7 +23,7 @@ Feature: Tasks of milestones
       And I wait for the spinner to disappear
      Then a task should exist with name: "become famous", milestone: the milestone
       # undef dua_at last
-      And I should see "become famous" within the second item within the tasks list within the first item within the milestones list
+      And I should see "become famous" within the sidebar
 
      When I follow "neue Aufgabe"
       And I fill in "Name" with "become rich"
@@ -36,7 +36,7 @@ Feature: Tasks of milestones
       And the task's due_on should be "2012-12-31"
       And the task's description should be "need money"
       And the employee "Homer" should be the task's responsible
-      # sort by due_at asc, undef at bottom
+      # sort by dueAt asc, undef at bottom
       And I should see a list of the following tasks:
         | name          | employee | due_on     | description |
         | Kill the King |          | 2012-12-22 |             |
@@ -56,15 +56,25 @@ Feature: Tasks of milestones
       And I press "Anlegen"
       And I wait for the spinner to disappear
      Then a task should exist with name: "Kill all INNOCENT humans", milestone: the milestone
-      And I should see "Kill all INNOCENT humans" within the second item within the tasks list within the first item within the milestones list
+      And I should see "Kill all INNOCENT humans" within the sidebar
       But I should not see "Kill all humans"
 
   Scenario: Edit a task
      When I follow "Kill the King"
      Then I should see "Aufgabe bearbeiten" within the modal box header
+      And the "Fällig am" field should contain "2012-12-22"
+
      When I fill in "Name" with "Kill the Queen"
+      And I pick "23. Dezember 2012" from "Fällig am"
+     Then the "Fällig am" field should contain "2012-12-23"
+
+     When I select "Homer S" from "Verantwortlicher"
+      And I fill in "Beschreibung" with "Happy Xmas"
       And I press "Speichern"
       And I wait for the spinner to disappear
+
      Then I should not see "Kill the King"
-      But I should see "Kill the Queen" within the first item within the tasks list within the first item within the milestones list
+      And I should see "Kill the Queen" within the sidebar
+      But I should see "Happy Xmas"
       And the task's name should be "Kill the Queen"
+      And the task's description should be "Happy Xmas"

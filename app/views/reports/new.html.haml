@@ -1,0 +1,21 @@
+- title :report
+
+- report = @report.decorate
+
+= render 'form', report: report
+
+- unless report.records.empty?
+
+  = render 'table', report: @report
+
+  - if report.is_chunky?
+    %span
+      = t('reports.new.show')
+      - report.chunks.each do |chunk|
+        = report.chunky_link(chunk)
+      = t('.total_number_of_records', total: report.total_number_of_records)
+  - else
+    %span= t('.number_of_records_found', count: report.total_number_of_records)
+
+- else
+  %p= t(:'.no_schedulings')

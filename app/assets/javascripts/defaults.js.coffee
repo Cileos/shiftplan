@@ -40,3 +40,5 @@ jQuery(document).ready ->
       )
     }
   )
+
+  $('body').find('input.stringy_date').rails_datepick()

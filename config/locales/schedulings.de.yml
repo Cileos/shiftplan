@@ -21,6 +21,7 @@ de:
         ends_at: Ende
         start_time: Beginn
         end_time: Ende
+        represents_unavailability: Anzeigen als
   simple_form:
     labels:
       defaults:
@@ -37,5 +38,8 @@ de:
     plan_period:
       starts_at: "Beginnt: %{date}"
       ends_at: "Endet: %{date}"
+    represents_unavailability:
+      busy: Beschäftigt
+      available: Verfügbar
 
 

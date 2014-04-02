@@ -15,6 +15,9 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     #  .bindWithDelay('keyup', (=> @updateFields()), 150)
     #  .closest('form').on('submit', => @updateQuickie()).end()
 
+    # TODO: Comment in again when the passive una feature gets enabled again.
+    @currentEmployeeId = $('html').data('current_employee_id')
+
     timeoptions =
       show24Hours: true
       showSeconds: false
@@ -32,6 +35,11 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     @input('end_time')
       .timeEntry(timeoptions)
       #.bindWithDelay('keyup mousewheel', (=> @updateQuickie()), 150)
+
+    # TODO: Comment in again when the passive una feature gets enabled again.
+    # @input('employee_id')
+    #   .change( (e)=> @employeeSelected(e) )
+    #   .change()
 
     #@input('team_id')
     #  .bindWithDelay('change', (=> @updateQuickie()), 150)
@@ -56,6 +64,19 @@ Clockwork.SchedulingEditor = Ember.Object.extend
 
   date: ->
     @input('date')
+
+  # TODO: Comment in again when the passive una feature gets enabled again.
+  # employeeSelected: (e)->
+  #   selected = parseInt $(e.target).val()
+  #   $inputs = @get('element').find('div.represents_unavailability :input')
+  #   $labels = @get('element').find('div.represents_unavailability label')
+  #   if @currentEmployeeId and selected is @currentEmployeeId
+  #     $inputs.prop('disabled', null)
+  #     $labels.removeClass('disabled')
+  #   else
+  #     $inputs.prop('disabled', 'disabled')
+  #     $labels.addClass('disabled')
+
 
   # DEAD (Quickie readonly)
   updateFields: ->

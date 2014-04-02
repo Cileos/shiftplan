@@ -1,10 +1,27 @@
 de:
+  activemodel:
+    attributes:
+      report:
+        organization_ids: Organisation
+        employee_ids: Mitarbeiter
+        team_ids: Team
+        plan_ids: Plan
+        from: Von
+        to: Bis
   reports:
-    index:
-      no_schedulings: "Es gibt keine Schichten."
+    form:
+      filter: Filtern
+    new:
+      no_schedulings: "Keine Einträge gefunden."
+      show: 'Anzeigen:'
+      total_number_of_records: 'von insgesamt %{total} Einträgen'
+      number_of_records_found:
+       one: 'Insgesamt %{count} Eintrag gefunden.'
+       other: 'Insgesamt %{count} Einträge gefunden.'
     table:
       date: "Datum"
       hours: "Stunden"
+      employees: Mitarbeiter
       qualification: "Qualifikation"
       team: "Team"
       plan: "Plan"

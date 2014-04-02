@@ -24,6 +24,7 @@ jQuery ->
     no_results_text: chosen_default_texts[lang]['no_results_text']
     placeholder_text_single: chosen_default_texts[lang]['placeholder_text_single']
     placeholder_text_multiple: chosen_default_texts[lang]['placeholder_text_multiple']
+    search_contains: true
 
   chosify(chosen_opts)
 # Nested Form's "add field" feature, adds fields dynamically to the form. (see

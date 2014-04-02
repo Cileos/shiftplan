@@ -32,6 +32,8 @@ group :test, :halt_on_fail => true do
     # watch('app/models/ability.rb')                      { "spec/abilities" }
     # Capybara request specs
     watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
+
+    watch(%r{^spec/support/shared/conflict_finder.rb$}) { ['spec/services/conflict_finder_spec.rb', 'spec/services/user_conflict_finder_spec.rb'] }
   end
 
   guard 'jasmine', :all_on_start => false do
