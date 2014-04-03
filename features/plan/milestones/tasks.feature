@@ -52,6 +52,7 @@ Feature: Tasks of milestones
       And 0 tasks should exist with name: "Kill all humans"
 
      When I follow "neue Aufgabe"
+      And I wait for the modal box to appear
       And I fill in "Name" with "Kill all INNOCENT humans"
       And I press "Anlegen"
       And I wait for the spinner to disappear
