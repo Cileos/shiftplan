@@ -20,4 +20,5 @@
 - else
   %p= t(:'.no_schedulings')
 
-= link_to "Als CSV-Datei exportieren", {format: :csv }
+= link_to "Als CSV-Datei exportieren", {format: :csv}.merge(params)
+

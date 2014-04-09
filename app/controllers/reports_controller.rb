@@ -1,7 +1,12 @@
 class ReportsController < BaseController
   actions :new
-  respond_to :csv
+  respond_to :csv, :html
 
+  def new
+    new! do |respond|
+      respond.csv { @csv_options = { :force_quotes => false, :col_sep => ';' } }
+    end
+  end
 
     private
 
