@@ -4,7 +4,7 @@ class ReportsController < BaseController
 
   def new
     new! do |respond|
-      respond.csv { @csv_options = { :force_quotes => false, :col_sep => ';' } }
+      respond.csv { @csv_options = { force_quotes: true, col_sep: ';' } }
     end
   end
 
