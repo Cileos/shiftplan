@@ -1,5 +1,7 @@
 class ReportsController < BaseController
   actions :new
+  respond_to :csv
+
 
     private
 
