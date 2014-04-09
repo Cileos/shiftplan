@@ -1,0 +1,12 @@
+report = @report.decorate
+
+csv << ["Mitarbeiter","Datum","Stunden","Plan","Organisation"]
+
+report.records.map(&:decorate).each do |scheduling|
+  csv << [scheduling.employee.try(:last_and_first_name),
+          l(scheduling.starts_at.to_date),
+          number_with_precision(scheduling.decimal_duration, precision: 2),
+          scheduling.plan.name,
+          scheduling.organization.name
+          ]
+end

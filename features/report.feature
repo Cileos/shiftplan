@@ -10,6 +10,7 @@ Feature: Report
 
   # most common path scenario
   @javascript
+  @wip
   Scenario: Owner uses filters on account report page
       # More springfield account data:
     Given a team exists with name: "Uran rangieren", organization: organization "sector 7g"
@@ -87,3 +88,7 @@ Feature: Report
         | Datum       | Stunden  | Mitarbeiter    | Plan       | Organisation    |
         | 20.12.2012  | 2,00     | Burns, Charly  | Bundesliga | Herren Bowling  |
       And I should see "2,00" within the header aggregation within the reports table
+     When I follow "Als CSV-Datei exportieren"
+     Then I should see the following comma separated csv file:
+      | Mitarbeiter    | Datum       | Stunden  | Plan        | Organisation    |
+      | Burns, Charly  | 20.12.2012  | 2,00     | Bundesliga  | Herren Bowling  |
