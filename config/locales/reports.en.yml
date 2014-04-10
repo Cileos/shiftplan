@@ -18,6 +18,7 @@ en:
       number_of_records_found:
         one: '%{count} entry found.'
         other: '%{count} entries found.'
+      csv_export: "Export as CSV file"
       date: 'Date'
       hours: 'Hours'
     table:
