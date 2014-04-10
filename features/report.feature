@@ -89,7 +89,13 @@ Feature: Report
         | Datum       | Stunden  | Mitarbeiter     | Plan        | Organisation    |
         | 21.12.2012  | 2,00     | Simpson, Homer  | Bundesliga  | Herren Bowling  |
         | 20.12.2012  | 2,00     | Burns, Charly   | Bundesliga  | Herren Bowling  |
+     When I follow "Als CSV-Datei exportieren"
+     Then I should see the following semicolon separated csv file:
+      | Mitarbeiter    | Datum       | Stunden  | Plan        | Organisation    |
+      | Simpson, Homer | 21.12.2012  | 2,00     | Bundesliga  | Herren Bowling  |
+      | Burns, Charly  | 20.12.2012  | 2,00     | Bundesliga  | Herren Bowling  |
 
+     When I go to the report page of the organization "male bowling"
      When I select "Charly Burns" from "Mitarbeiter"
       And I press "Filtern"
      Then I should see the following table of reports:
