@@ -10,7 +10,6 @@ Feature: Report
 
   # most common path scenario
   @javascript
-  @wip
   Scenario: Owner uses filters on account report page
       # More springfield account data:
     Given a team exists with name: "Uran rangieren", organization: organization "sector 7g"
@@ -82,13 +81,13 @@ Feature: Report
         | date        | employee                  | quickie | plan              |
         | 20.12.2012  | employee "charly burns"   | 20-22   | plan "bundesliga" |
         | 21.12.2012  | employee "homer simpson"  | 10-12   | plan "bundesliga" |
-
      When I go to the page of the organization "male bowling"
       And I choose "Report" from the drop down "Info"
      Then I should see the following table of reports:
         | Datum       | Stunden  | Mitarbeiter     | Plan        | Organisation    |
         | 21.12.2012  | 2,00     | Simpson, Homer  | Bundesliga  | Herren Bowling  |
         | 20.12.2012  | 2,00     | Burns, Charly   | Bundesliga  | Herren Bowling  |
+
      When I follow "Als CSV-Datei exportieren"
      Then I should see the following semicolon separated csv file:
       | Mitarbeiter    | Datum       | Stunden  | Plan        | Organisation    |

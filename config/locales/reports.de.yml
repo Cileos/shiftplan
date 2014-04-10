@@ -18,6 +18,8 @@ de:
       number_of_records_found:
        one: 'Insgesamt %{count} Eintrag gefunden.'
        other: 'Insgesamt %{count} Einträge gefunden.'
+      date: 'Datum'
+      hours: 'Stunden'
     table:
       date: "Datum"
       hours: "Stunden"

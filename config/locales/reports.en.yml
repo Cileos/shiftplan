@@ -18,6 +18,8 @@ en:
       number_of_records_found:
         one: '%{count} entry found.'
         other: '%{count} entries found.'
+      date: 'Date'
+      hours: 'Hours'
     table:
       date: "Date"
       hours: "Hours"
