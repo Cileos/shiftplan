@@ -8,6 +8,8 @@
 
   = render 'table', report: @report
 
+  = link_to t('.csv_export'), csv_export_params
+
   - if report.is_chunky?
     %span
       = t('reports.new.show')
@@ -20,5 +22,4 @@
 - else
   %p= t(:'.no_schedulings')
 
-= link_to t('.csv_export'), csv_export_params
 
