@@ -11,6 +11,7 @@ class Report < RecordFilter
   attribute :limit
   attribute :from, type: Date
   attribute :to, type: Date
+  attribute :time_range
 
   def records
     @records ||= fetch_records
@@ -26,6 +27,10 @@ class Report < RecordFilter
 
   def account_id
     @account_id ||= account.id
+  end
+
+  def time_range
+    ["Heute","Gestern"]
   end
 
   # The organization_ids will be present when the user is on the report page of

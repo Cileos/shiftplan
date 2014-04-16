@@ -8,6 +8,7 @@ de:
         plan_ids: Plan
         from: Von
         to: Bis
+        time_range: Zeitraum
   reports:
     form:
       filter: Filtern
