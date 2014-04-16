@@ -21,6 +21,7 @@ en:
       csv_export: "Export as CSV file"
       date: 'Date'
       hours: 'Hours'
+      all: "all"
     table:
       date: "Date"
       hours: "Hours"
