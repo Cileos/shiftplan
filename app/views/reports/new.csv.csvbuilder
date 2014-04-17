@@ -1,10 +1,12 @@
-csv << [Employee.model_name.human,t('.date'),t('.hours'),Plan.model_name.human,Organization.model_name.human]
+csv << [Employee.model_name.human,t('.date'),t('.hours'),Plan.model_name.human,Organization.model_name.human,Team.model_name.human,Qualification.model_name.human]
 
 @report.records.map(&:decorate).each do |scheduling|
   csv << [scheduling.employee.try(:last_and_first_name),
           l(scheduling.starts_at.to_date),
           number_with_precision(scheduling.decimal_duration, precision: 2),
           scheduling.plan.name,
-          scheduling.organization.name
+          scheduling.organization.name,
+          scheduling.team.try(:name),
+          scheduling.qualification.try(:name)
           ]
 end

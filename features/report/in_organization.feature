@@ -46,11 +46,6 @@ Feature: Report
         | 04.12.2012  | 2,00     | Burns, Charly  | Bundesliga | Herren Bowling  |
      When I follow "Als CSV-Datei exportieren"
      Then I should see the following semicolon separated csv file:
-      | Mitarbeiter    | Datum       | Stunden  | Plan        | Organisation    |
-      | Burns, Charly  | 20.12.2012  | 2,00     | Bundesliga  | Herren Bowling  |
-      | Burns, Charly  | 04.12.2012  | 2,00     | Bundesliga  | Herren Bowling  |
-
-
-  Scenario: Planner filters by time range
-     When I select "Heute" from "Zeitraum"
-      And I press "Filtern"
+      | Mitarbeiter    | Datum       | Stunden  | Plan        | Organisation    | Team   | Qualifikation  |
+      | Burns, Charly  | 20.12.2012  | 2,00     | Bundesliga  | Herren Bowling  |        |                |
+      | Burns, Charly  | 04.12.2012  | 2,00     | Bundesliga  | Herren Bowling  | Loser  | Superstriker   |
