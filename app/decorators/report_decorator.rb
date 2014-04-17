@@ -9,7 +9,7 @@ class ReportDecorator < RecordDecorator
   end
 
   def chunky_link(chunk)
-    h.link_to chunk, { report: report_params.merge(limit: chunk) }, class: active_or_not(chunk)
+    h.link_to chunk == 'all' ? h.t('.all') : chunk, { report: report_params.merge(limit: chunk) }, class: active_or_not(chunk)
   end
 
     private

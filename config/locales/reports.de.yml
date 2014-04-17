@@ -18,6 +18,10 @@ de:
       number_of_records_found:
        one: 'Insgesamt %{count} Eintrag gefunden.'
        other: 'Insgesamt %{count} Einträge gefunden.'
+      csv_export: "Als CSV-Datei exportieren"
+      date: 'Datum'
+      hours: 'Stunden'
+      all: "Alle"
     table:
       date: "Datum"
       hours: "Stunden"

@@ -1,5 +1,16 @@
 class ReportsController < BaseController
   actions :new
+  respond_to :csv, :html
+
+  def new
+    new! do |respond|
+      respond.csv do
+        @csv_options = { force_quotes: true, col_sep: ';' }
+        @output_encoding = 'UTF-8'
+        @filename = "#{current_account.name}-report.csv"
+      end
+    end
+  end
 
     private
 
