@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Release 1.1.2 2014-04-17 13:20
+-------------------------------
+8771e86 Merge pull request #251 from Cileos/feature/advanced_report_filters
+
 Release 1.1.1 2014-04-02 17:20
 -------------------------------
 f687cd9 Merge pull request #250 from Cileos/feature/deactivate-represents_unavailability-flag
