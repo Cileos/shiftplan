@@ -9,6 +9,7 @@ class ReportsController < BaseController
         @output_encoding = 'UTF-8'
         @filename = "#{current_account.name}-report.csv"
       end
+      respond.xls
     end
   end
 

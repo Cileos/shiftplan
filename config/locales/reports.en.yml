@@ -19,6 +19,7 @@ en:
         one: '%{count} entry found.'
         other: '%{count} entries found.'
       csv_export: "Export as CSV file"
+      xls_export: "Export as Excel file"
       date: 'Date'
       hours: 'Hours'
       all: "all"
