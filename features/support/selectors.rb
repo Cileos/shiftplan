@@ -71,7 +71,7 @@ module HtmlSelectorsHelpers
       'nav[role=toolbar]'
 
     when 'the modal box'
-      'div#modalbox'
+      '.ui-dialog-content'
 
     when /^the modal box (?:header|title)$/
       '.ui-dialog .ui-dialog-title'

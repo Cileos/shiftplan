@@ -243,3 +243,19 @@ end
 When /^I (uncheck|check) the (?:task|milestone) #{capture_quoted}$/ do |on_or_off, name|
   find(:xpath, %Q~//a[contains(., "#{name}")]/preceding-sibling::input~).set(on_or_off.exclude?('un'))
 end
+
+Then /^I should see the following (tab|semicolon|pipe|comma) separated csv file:$/ do |delimiter, expected|
+  delim = case delimiter
+  when 'tab'
+    "\t"
+  when 'semicolon'
+    ";"
+  when 'pipe'
+    "|"
+  when 'comma'
+    ","
+  else
+    raise ArgumentError, "csv delimiter '#{delim}' not supported"
+  end
+  expected.diff!(parse_csv(page.source, delim), :misplaced_col => true, :surplus_col => true)
+end

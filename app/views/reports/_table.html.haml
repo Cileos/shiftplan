@@ -6,10 +6,10 @@
       %th= t('.date')
       %th.numeric= t('.hours')
       %th= t('.employees')
-      %th= t('.team')
-      %th= t('.qualification')
       %th= t('.plan')
       %th= t('.organisation')
+      %th= t('.team')
+      %th= t('.qualification')
     %tr.aggregation
       %td.numeric= t('.total_duration')
       %td.numeric= total_decimal_duration
@@ -21,10 +21,10 @@
         %td= scheduling.link_to_calendar l(scheduling.starts_at.to_date)
         %td.numeric= number_with_precision(scheduling.decimal_duration, precision: 2)
         %td= scheduling.employee.try(:last_and_first_name)
-        %td= scheduling.team.try(:name)
-        %td= scheduling.qualification.try(:name)
         %td= scheduling.plan.name
         %td= scheduling.organization.name
+        %td= scheduling.team.try(:name)
+        %td= scheduling.qualification.try(:name)
 
   %tfoot
     %tr.aggregation

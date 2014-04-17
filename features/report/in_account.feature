@@ -68,22 +68,3 @@ Feature: Report
         | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan       | Organisation  |
         | 20.12.2012  | 9,00     | Simpson, Homer  | Uran rangieren  | Brennstabpolierer  | Shut down  | Sector 7-G    |
       And I should see "9,00" within the header aggregation within the reports table
-
-
-  Scenario: Planner visits organization report page
-    Given a account "bowling" exists with name: "Springfield Bowling Club"
-      And an organization "male bowling" exists with name: "Herren Bowling", account: account "bowling"
-      And an employee "charly burns" exists with first_name: "Charly", last_name: "Burns", account: account "bowling", user: the user
-      And the employee "charly burns" is a planner of the organization "male bowling"
-      And a plan "bundesliga" exists with organization: organization "male bowling", name: "Bundesliga"
-      And the following schedulings exists:
-        | date        | employee                 | quickie | plan              |
-        | 20.12.2012  | employee "charly burns"  | 20-22   | plan "bundesliga" |
-
-     When I go to the page of the organization "male bowling"
-      And I choose "Report" from the drop down "Info"
-      Then I should be on the report page of the organization "male bowling"
-      Then I should see the following table of reports:
-        | Datum       | Stunden  | Mitarbeiter    | Plan       | Organisation    |
-        | 20.12.2012  | 2,00     | Burns, Charly  | Bundesliga | Herren Bowling  |
-      And I should see "2,00" within the header aggregation within the reports table
