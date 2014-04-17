@@ -3,6 +3,7 @@ class ReportsController < BaseController
   respond_to :csv, :html
 
   def new
+    @output_encoding = 'UTF-8'
     new! do |respond|
       respond.csv { @csv_options = { force_quotes: true, col_sep: ';' } }
     end
