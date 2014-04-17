@@ -7,13 +7,13 @@
   <Worksheet ss:Name="Sheet1">
     <Table>
       <Row>
-        <Cell><Data ss:Type="String">Mitarbeiter</Data></Cell>
-        <Cell><Data ss:Type="String">Datum</Data></Cell>
-        <Cell><Data ss:Type="String">Stunden</Data></Cell>
-        <Cell><Data ss:Type="String">Plan</Data></Cell>
-        <Cell><Data ss:Type="String">Organisation</Data></Cell>
-        <Cell><Data ss:Type="String">Team</Data></Cell>
-        <Cell><Data ss:Type="String">Qualifikation</Data></Cell>
+        <Cell><Data ss:Type="String"><%= Employee.model_name.human %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('.date') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('.hours') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= Plan.model_name.human %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= Organization.model_name.human %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= Team.model_name.human %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= Qualification.model_name.human %></Data></Cell>
       </Row>
     <% @report.records.map(&:decorate).each do |scheduling| %>
       <Row>
