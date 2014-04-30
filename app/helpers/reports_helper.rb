@@ -1,13 +1,13 @@
 module ReportsHelper
   def csv_export_params
-    { format: :csv, report: params_report }
+    { format: :csv, report: report_params }
   end
 
   def xls_export_params
-    { format: :xls, report: params_report }
+    { format: :xls, report: report_params }
   end
 
-  def params_report
+  def report_params
     (params[:report] || {}).merge(limit: 'all')
   end
 end
