@@ -36,12 +36,11 @@ Clockwork.initializer
   name: 'currentUser'
   initialize: (container) ->
     Clockwork.deferReadiness()
-    $ ->
-      $root = $(Clockwork.rootElement)
-      user = Clockwork.User.create $root.data()
-
-      controller = container.lookup('controller:currentUser').set('content', user)
-      container.typeInjection('controller', 'currentUser', 'controller:currentUser')
+    store = container.lookup('store:main')
+    user = store.find 'session', 'current'
+    controller = container.lookup('controller:currentUser').set('content', user)
+    container.typeInjection('controller', 'currentUser', 'controller:currentUser')
+    user.then ->
       Clockwork.advanceReadiness()
 
 Clockwork.initializer
