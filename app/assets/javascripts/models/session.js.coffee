@@ -5,4 +5,4 @@ attr = DS.attr
 
 Clockwork.Session = DS.Model.extend
   role: attr('string')
-  hasEmployees: attr('boolean')
+  canManageEmployees: attr('boolean')

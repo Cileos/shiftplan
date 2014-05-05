@@ -1,8 +1,12 @@
-Clockwork.UnavailabilitiesRoute = Ember.Route.extend
-  beforeModel: (transition)->
-    params = transition.params.unavailabilities
+Clockwork.UnavailabilitiesIndexRoute = Ember.Route.extend
+  beforeModel: (transition,x,y)->
+    user = @controllerFor('application').get('currentUser')
+    if user.get('canManageEmployees')
+      console?.debug "master blaster"
+    params = transition.params[@get('routeName')]
+    debugger
     unas = if params.year? and params.month?
-             @store.findQuery('unavailability', year: params.year, month: params.month)
+             @store.findQuery('unavailability', year: params.year, month: params.month, employee_id: params.employee_id)
            else
              Ember.A()
     @set 'unas', unas

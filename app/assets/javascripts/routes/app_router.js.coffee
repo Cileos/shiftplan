@@ -9,15 +9,9 @@ Clockwork.Router.map ->
     @route 'newTask'
     @route 'task', path: 'tasks/:task_id'
 
-  @resource 'employees', path: 'employee/:employee_id', ->
-    @resource 'unavailabilities', path: 'una/:year/:month', ->
-      @route 'new', path: ':day/new'
-      @route 'edit', path: 'edit/:id'
-
-  @resource 'my', ->
-    @resource 'my.unavailabilities', path: 'una/:year/:month', ->
-      @route 'new', path: ':day/new'
-      @route 'edit', path: 'edit/:id'
+  @resource 'unavailabilities', path: 'unas/:employee_id/:year/:month', ->
+    @route 'new', path: ':day/new'
+    @route 'edit', path: 'edit/:id'
 
   @route 'scheduling', path: '/scheduling/:id'
   @route 'scheduling_comments', path: '/scheduling/:id/comments'
@@ -58,10 +52,4 @@ Clockwork.IndexRoute = Ember.Route.extend
       @transitionTo 'milestones'
     else
       now = moment()
-      user = @controllerFor('application').get('currentUser')
-      # FIXME role is unknown here because route does not suggest an account
-      unless user.get('isOwnerOrPlanner')
-        # FIXME cannot use employee_id here, because I may have multiple employees in different accounts
-        @transitionTo 'my.unavailabilities.index', now.year(), now.month() + 1
-
-
+      @transitionTo 'unavailabilities', 'anyone', now.year(), now.month() + 1
