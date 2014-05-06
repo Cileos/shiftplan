@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   has_many :invitations
   has_one  :email_change
   has_many :accounts, through: :employees
+  has_many :owned_accounts, through: :employees
 
   has_many :memberships, :through => :employees
   # organizations the user joined (aka "has a membership in")
@@ -120,9 +121,16 @@ class User < ActiveRecord::Base
       where(role: 'planner').
       preload(organization: { account: :employees })
 
-    ms.map(&:organization).uniq.
+    pe = ms.map(&:organization).uniq.
        map(&:account).uniq.
        map(&:employees).flatten.uniq
+
+    pe += owned_accounts.
+       preload(:employees).
+       map(&:employees).
+       flatten
+
+    pe.uniq
   end
 
   def find_employee_with_avatar

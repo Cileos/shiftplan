@@ -190,10 +190,10 @@ describe User do
     let(:account) { create :account }
     let(:employee) { create :employee, account: account }
     let(:organization) { create :organization, account: account }
+    let(:me) { create :employee, account: account, user: user }
 
     context 'for user being planner in org' do
       before :each do
-        me = create :employee, account: account, user: user
         create :membership, employee: me, organization: organization, role: 'planner'
       end
 
@@ -216,7 +216,6 @@ describe User do
     context 'for user being normal member in org' do
       let!(:m) { create :membership, employee: employee, organization: organization }
       before :each do
-        me = create :employee, account: account, user: user
         create :membership, employee: me, organization: organization # NO ROLE
       end
 
@@ -229,6 +228,14 @@ describe User do
       let!(:m) { create :membership, employee: employee, organization: organization }
       it 'excludes the employee' do
         user.plannable_employees.should_not include(employee)
+      end
+    end
+
+    context 'for user being owner of the account' do
+      let(:me) { create :employee, user: user, account: account, owned_account: account }
+      it 'includes the employee' do
+        me && employee
+        user.plannable_employees.should include(employee)
       end
     end
 
