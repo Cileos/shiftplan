@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     respond_to do |denied|
       denied.html { redirect_to user_signed_in?? dashboard_url : root_url }
       denied.js   { render 'denied' }
+      denied.json { render text: 'access denied', status: 403 }
     end
   end
   layout 'application'
