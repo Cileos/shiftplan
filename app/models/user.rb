@@ -115,6 +115,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def plannable_employees
+    ms = memberships.
+      where(role: 'planner').
+      preload(organization: { account: :employees })
+
+    ms.map(&:organization).uniq.
+       map(&:account).uniq.
+       map(&:employees).flatten.uniq
+  end
+
   def find_employee_with_avatar
     employees.order(:created_at).detect { |employee| employee.avatar? }
   end

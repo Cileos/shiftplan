@@ -91,7 +91,6 @@ Clockwork::Application.routes.draw do
     resources :employees, only: [:edit, :update, :index], controller: 'profile_employees'
   end
   get 'availability' => 'unavailabilities#index', as: 'availability'
-  resources :unavailabilities, except: [:show]
   resource :profile, only: [:edit, :update], controller: 'profile' do
     resource :export, only: [:show, :create, :destroy]
   end
@@ -99,8 +98,11 @@ Clockwork::Application.routes.draw do
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
   get "dashboard" => 'welcome#dashboard', :as => 'user_root'
 
-  get "user/:user_id/employees" => 'employees#list', :as => 'list_employees'
-
+  # Ember
+  scope path: 'ember' do
+    get 'employees' => 'ember/employees#index'
+    resources :unavailabilities, except: [:show]
+  end
 
   scope '/feeds/:email/private-:private_token', constraints: { email: %r~[^/]+~i, private_token: /[\w]{20}/i  }  do
     get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'

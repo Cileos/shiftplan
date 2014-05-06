@@ -98,4 +98,7 @@ jQuery ->
   if ($root = $('#unavailabilities')).length > 0
     Clockwork.set 'rootElement', '#unavailabilities'
     Clockwork.set 'page', 'unavailabilities'
+    # we do this so late so we can fetch tue currentUser
+    Clockwork.ApplicationAdapter = DS.ActiveModelAdapter.extend
+      namespace: 'ember'
     Clockwork.advanceReadiness()

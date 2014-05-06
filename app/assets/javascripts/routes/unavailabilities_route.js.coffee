@@ -1,6 +1,8 @@
 Clockwork.UnavailabilitiesRoute = Ember.Route.extend
   beforeModel: ()->
-    # TODO load employees
+    user = @controllerFor('application').get('currentUser')
+    if user.get('canManageUnavailabilities')
+      @set 'employees', @get('store').findQuery('employee', reason: 'unavailabilities')
   model: (params)->
     @set 'searchParams', params
 
