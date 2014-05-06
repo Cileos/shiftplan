@@ -29,6 +29,11 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
 
   fnords: [23,42,66,84]
 
+  employeeDidChange: ((ctrl, name)->
+    if employee = ctrl.get(name)
+      @transitionToRoute 'unavailabilities', employee.get('id'), @get('year'), @get('month')
+  ).observes('employee')
+
   days: (->
     year = @get('year')
     month = @get('month')

@@ -19,6 +19,11 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
     controller.set('year', params.year)
     controller.set('month', params.month)
     controller.set('employees', @get('employees'))
+    if empl = parseInt(params.eid)
+      @get('store').find('employee', params.eid).then (e)=>
+        controller.set 'employee', e
+    else
+      controller.set 'employee', null
 
 Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
   model: (params, transition)->
