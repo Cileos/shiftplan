@@ -9,7 +9,7 @@ Clockwork.Router.map ->
     @route 'newTask'
     @route 'task', path: 'tasks/:task_id'
 
-  @resource 'unavailabilities', path: 'unas/:employee_id/:year/:month', ->
+  @resource 'unavailabilities', path: 'unas/:eid/:year/:month', ->
     @route 'new', path: ':day/new'
     @route 'edit', path: 'edit/:id'
 
@@ -52,4 +52,4 @@ Clockwork.IndexRoute = Ember.Route.extend
       @transitionTo 'milestones'
     else
       now = moment()
-      @transitionTo 'unavailabilities', 'anyone', now.year(), now.month() + 1
+      @transitionTo 'unavailabilities', 'me', now.year(), now.month() + 1
