@@ -17,6 +17,7 @@ Clockwork.DayInCalendar = Ember.Object.extend
 Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
   year: null
   month: null
+  employee: null
   locale: 'en'
 
   # monday is hardcoded as first day of week, because moment.weekdaysShort()

@@ -7,5 +7,8 @@
     {{#link-to "unavailabilities.index" nextYear nextMonth classNames="button"}}&gt;{{/link-to}}
   </div>
 </nav>
+{{#if currentUser.canManageUnavailabilities}}
+  {{view Clockwork.Fields.SelectEmployee selectionBinding="employee" name="Mitarbeiter" contentBinding="employees"}}
+{{/if}}
 {{view Clockwork.MonthlyCalendarView contentBinding='controller' structureBinding='days' columnsBinding='weekdays' rowsBinding='weeks' rowHeaderVisible=false}}
 {{outlet}}
