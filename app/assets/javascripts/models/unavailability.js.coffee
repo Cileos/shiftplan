@@ -18,6 +18,7 @@ Clockwork.Unavailability = DS.Model.extend
   description: DS.attr('string')
   startsAt: DS.attr('date')
   endsAt: DS.attr('date')
+  employee: DS.belongsTo('employee')
 
   # this are currently needed for creation by time
   date: null

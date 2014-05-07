@@ -48,6 +48,8 @@ Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
       endsAt:       null
       startTime:    '06:00'
       endTime:      '18:00'
+      employee:     @controllerFor('unavailabilities').get('employee')
+
   renderTemplate: (controller)->
     @render 'unavailabilities/new'
 
