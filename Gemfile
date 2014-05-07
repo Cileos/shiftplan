@@ -132,7 +132,7 @@ gem 'mini_magick'
 gem 'remotipart'
 gem 'gravtastic'
 gem 'ember-rails'
-gem 'ember-source', '~> 1.4.0'
+gem 'ember-source', '1.5.1.1'
 gem "ember-data-source", "1.0.0.beta.7"
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
 

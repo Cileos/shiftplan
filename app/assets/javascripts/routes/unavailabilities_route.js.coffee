@@ -15,8 +15,9 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
     if employee_id
       models.employee = @get('employees').findProperty('id', params.eid)
 
-    if params.year? and params.month?
-      models.unas = @store.findQuery 'unavailability',
+
+    models.unas = if params.year? and params.month?
+      @store.findQuery 'unavailability',
                year: params.year,
                month: params.month,
                employee_id: employee_id
@@ -34,6 +35,9 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
     controller.set('month', params.month)
     controller.set('employees', @get('employees'))
     controller.set('employee', model.employee)
+
+Clockwork.UnavailabilitiesIndexRoute = Ember.Route.extend
+  setupController: -> # skip handling complex model wrong
 
 Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
   model: (params, transition)->
@@ -55,8 +59,10 @@ Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
 
   deactivate: ->
     if @currentModel.get('id')
-      @modelFor('unavailabilities').pushObject @currentModel
-      @controllerFor('unavailabilities').notifyPropertyChange 'content'
+      controller = @controllerFor 'unavailabilities'
+      controller.get('content').pushObject @currentModel
+      # TODO we should not have to do this...
+      controller.notifyPropertyChange 'content'
 
 Clockwork.UnavailabilitiesEditRoute = Ember.Route.extend
   model: (params)->

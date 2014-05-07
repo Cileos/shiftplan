@@ -3,8 +3,8 @@
     {{humanMonth}} {{year}}
   </span>
   <div class="button-group">
-    {{#link-to "unavailabilities" previousYear previousMonth classNames="button"}}&lt;{{/link-to}}
-    {{#link-to "unavailabilities" nextYear nextMonth classNames="button"}}&gt;{{/link-to}}
+    {{#link-to "unavailabilities" employeeParam previousYear previousMonth classNames="button"}}&lt;{{/link-to}}
+    {{#link-to "unavailabilities" employeeParam nextYear nextMonth classNames="button"}}&gt;{{/link-to}}
   </div>
 </nav>
 {{#if currentUser.canManageUnavailabilities}}

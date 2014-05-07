@@ -34,6 +34,11 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
       @transitionToRoute 'unavailabilities', employee.get('id'), @get('year'), @get('month')
   ).observes('employee')
 
+  employeeParam:
+    Ember.computed ->
+      @get('employee.id') || 'me'
+    .property('employee')
+
   days: (->
     year = @get('year')
     month = @get('month')
@@ -87,6 +92,3 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
   humanMonth: Ember.computed ->
     moment().month( @get('month') - 1 ).format('MMMM')
   .property('month')
-
-
-Clockwork.UnavailabilitiesIndexController = Clockwork.UnavailabilitiesController.extend()
