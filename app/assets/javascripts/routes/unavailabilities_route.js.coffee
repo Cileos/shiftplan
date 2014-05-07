@@ -2,28 +2,38 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
   beforeModel: ()->
     user = @controllerFor('application').get('currentUser')
     if user.get('canManageUnavailabilities')
-      @set 'employees', @get('store').findQuery('employee', reason: 'unavailabilities')
+      @get('store').findQuery('employee', reason: 'unavailabilities').then (es)=>
+        @set 'employees', es
   model: (params)->
+    models = {} # hash of promises
+
     @set 'searchParams', params
 
+    # not named employee_id to keep Ember from fetching the employee.
+    employee_id = parseInt(params.eid) || null
+
+    if employee_id
+      models.employee = @get('employees').findProperty('id', params.eid)
+
     if params.year? and params.month?
-      empl = parseInt(params.eid) || null # not named employee_id to keep Ember from fetching the employee.
-      @store.findQuery('unavailability', year: params.year, month: params.month, employee_id: empl)
+      models.unas = @store.findQuery 'unavailability',
+               year: params.year,
+               month: params.month,
+               employee_id: employee_id
     else
       Ember.A()
 
+
+    Ember.RSVP.hash(models)
+
   setupController: (controller, model)->
     # transform the DS.PromiseFooArray into a real one so we can append new records to it
-    @_super(controller, model.toArray())
+    @_super(controller, model.unas.toArray())
     params = @get 'searchParams'
     controller.set('year', params.year)
     controller.set('month', params.month)
     controller.set('employees', @get('employees'))
-    if empl = parseInt(params.eid)
-      @get('store').find('employee', params.eid).then (e)=>
-        controller.set 'employee', e
-    else
-      controller.set 'employee', null
+    controller.set('employee', model.employee)
 
 Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
   model: (params, transition)->
