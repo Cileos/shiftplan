@@ -101,6 +101,7 @@ Clockwork::Application.routes.draw do
   # Ember
   scope path: 'ember' do
     get 'employees' => 'ember/employees#index'
+    get 'accounts' => 'accounts#index'
     resources :unavailabilities, except: [:show]
   end
 
