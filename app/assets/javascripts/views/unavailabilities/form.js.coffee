@@ -4,5 +4,11 @@ Clockwork.UnavailabilitiesFormView = Clockwork.ModalFormView.extend
     date = moment( @get('controller.startsAt') )
     ['unavailabilities', @get('controller.employee.id'), date.year(), date.month() + 1]
   .property('content')
-  heading: 'Wann kannste denn nich?'
+  heading:
+    Ember.computed ->
+      if name = @get('content.employee.name')
+        "Wann kann #{name} denn nich?"
+      else
+        'Wann kannste denn nich?'
+    .property('content.employee')
 
