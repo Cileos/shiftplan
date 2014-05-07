@@ -150,16 +150,16 @@ Then /^I should not see a field labeled #{capture_quoted}$/ do |label|
   page.should have_no_xpath( XPath::HTML.field(label) )
 end
 
-Then /^the notification hub should have #{capture_quoted} new notifications$/ do |number|
+Then /^the notification hub should have (\d+) unseen notifications?$/ do |number|
   step %~I should see "#{number}" within the notifications count~
   not_ignoring_hidden_elements do
     step %~I should see "(#{number})" within the page title~
   end
-  step %~the notification hub should have class "has_new"~
+  step %~the notification hub should have class "has_unseen"~
 end
 
-Then /^the notification hub should have no new notifications$/ do
-  step %~the notification hub should not have class "has_new"~
+Then /^the notification hub should have no unseen notifications$/ do
+  step %~the notification hub should not have class "has_unseen"~
   page.should have_css("a#notifications-count div.icon-bell_empty", text: '')
 end
 

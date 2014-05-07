@@ -19,19 +19,16 @@ Feature: Notification Hub
       And a scheduling exists with employee: employee "mr burns", plan: the plan
       And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
       And a comment exists with commentable: the scheduling, employee: the employee "bart", body: "Bitte Reaktor abschließen nach Dienstende"
-      And the notification hub should have no new notifications
+      And the notification hub should have no unseen notifications
 
      When all the delayed jobs are invoked
       And the time interval for updating the count of the notification hub elapses
-     Then the notification hub should have "3" new notifications
+     Then the notification hub should have 3 unseen notifications
      When I follow "3" within the notification hub
       And I wait for the notifications spinner to disappear
-     Then the notification hub should have no new notifications
+     Then the notification hub should have no unseen notifications
       And the page should not be titled "(3)"
       But the notification hub should have unread notifications
-      # The first line of the step`s table argument corresponds to the first
-      # list item which only includes the "Mark all as read" link.
-      # TODO: This first line should be removed when tatze changes the html.
       And I should see a list of the following notifications:
        | subject      | blurb                                                                    |
        | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
@@ -41,6 +38,7 @@ Feature: Notification Hub
      Then I should be on the page of the post
      When I open the notification hub menu
       And I wait for the notifications spinner to disappear
+      # notification was marked as read and is not displayed in the hub anymore
      Then I should see a list of the following notifications:
        | subject      | blurb                                                                    |
        | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
@@ -51,18 +49,17 @@ Feature: Notification Hub
     Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When all the delayed jobs are invoked
       And I go to the home page
-     Then the notification hub should have "1" new notifications
+     Then the notification hub should have 1 unseen notification
       And the notification hub should have unread notifications
      When I open the notification hub menu
       And I wait for the notifications spinner to disappear
-      # The first line of the step`s table argument corresponds to the first
-      # list item which only includes the "Mark all as read" link.
-      # TODO: This first line should be removed when tatze changes the html.
-     Then I should see a list of the following notifications:
+     Then the notification hub should have no unseen notifications
+      And I should see a list of the following notifications:
        | subject      | blurb                                                      |
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen" |
       But I should not see "Alles erledigt" within the notification hub
      When I follow "Als gelesen markieren" within the notification hub
+      And I wait for the notifications spinner to disappear
      Then the notification hub should not have unread notifications
       And I should not see "Umweltminister zu Besuch" within the notification hub
       But I should see "Alles erledigt" within the notification hub
@@ -88,14 +85,13 @@ Feature: Notification Hub
       | the blog  | employee "bart"  | Post 11  | Post 11  | 2012-12-22  |
      When all the delayed jobs are invoked
       And I go to the home page
-     Then the notification hub should have "11" new notifications
+     Then the notification hub should have 11 unseen notifications
       And the notification hub should have unread notifications
      When I open the notification hub menu
       And I wait for the notifications spinner to disappear
-      # The first line of the step`s table argument corresponds to the first
-      # list item which only includes the "Mark all as read" link.
-      # TODO: This first line should be removed when tatze changes the html.
-     Then I should see a list of the following notifications:
+      # 10 are seen, now. The 11th notification has not been seen, yet.
+     Then the notification hub should have 1 unseen notification
+      And I should see a list of the following notifications:
        | subject       | blurb                                 |
        | Bart Simpson  | hat "Post 11" geschrieben: "Post 11"  |
        | Bart Simpson  | hat "Post 10" geschrieben: "Post 10"  |
@@ -110,12 +106,8 @@ Feature: Notification Hub
 
      When I follow "Alle als gelesen markieren"
       And I wait for the notifications spinner to disappear
-      # The first line of the step`s table argument corresponds to the first
-      # list item which only includes the "Mark all as read" link.
-      # TODO: This first line should be removed when tatze changes the html.
-      #
-      # Only the notifications currently displayed in the hub get marked as read.
-     Then I should see a list of the following notifications:
+     Then the notification hub should have no unseen notifications
+      And I should see a list of the following notifications:
        | subject       | blurb                               |
        | Bart Simpson  | hat "Post 1" geschrieben: "Post 1"  |
       And the notification hub should have unread notifications
