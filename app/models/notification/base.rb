@@ -7,7 +7,7 @@ class Notification::Base < ActiveRecord::Base
   validates_presence_of :employee
 
   def self.default_sorting
-    order('created_at desc')
+    order('notifications.created_at desc')
   end
 
   def self.unread

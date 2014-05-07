@@ -10,6 +10,8 @@ class NotificationsController < InheritedResources::Base
   skip_authorization_check only: :mark_as_seen
   before_filter :authorize_multiple, only: :mark_as_seen
 
+  before_filter :mark_all_on_index_page_as_seen, only: :index
+
   respond_to :js, :html
 
   def mark_as_seen
@@ -24,6 +26,15 @@ class NotificationsController < InheritedResources::Base
 
   def end_of_association_chain
     super.default_sorting.page(params[:page]).per(30)
+  end
+
+  def mark_all_on_index_page_as_seen
+    respond_to do |format|
+      format.html do
+        collection.unseen.update_all(seen: true) # user visits index page
+      end
+      format.js # user opens the hub: do nothing
+    end
   end
 
   def seen_notifications

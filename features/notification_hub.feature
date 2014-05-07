@@ -115,3 +115,25 @@ Feature: Notification Hub
      When I follow "Alle als gelesen markieren"
      Then I should see "Alles erledigt" within the notification hub
       And the notification hub should not have unread notifications
+
+
+  Scenario: Mark all notifications on index page as seen
+    Given the following posts exist:
+      | blog      | author           | title    | body     | created_at  |
+      | the blog  | employee "bart"  | Post 1   | Post 1   | 2012-12-12  |
+      | the blog  | employee "bart"  | Post 2   | Post 2   | 2012-12-13  |
+      | the blog  | employee "bart"  | Post 3   | Post 3   | 2012-12-14  |
+      | the blog  | employee "bart"  | Post 4   | Post 4   | 2012-12-15  |
+      | the blog  | employee "bart"  | Post 5   | Post 5   | 2012-12-16  |
+      | the blog  | employee "bart"  | Post 6   | Post 6   | 2012-12-17  |
+      | the blog  | employee "bart"  | Post 7   | Post 7   | 2012-12-18  |
+      | the blog  | employee "bart"  | Post 8   | Post 8   | 2012-12-19  |
+      | the blog  | employee "bart"  | Post 9   | Post 9   | 2012-12-20  |
+      | the blog  | employee "bart"  | Post 10  | Post 10  | 2012-12-21  |
+      | the blog  | employee "bart"  | Post 11  | Post 11  | 2012-12-22  |
+     When all the delayed jobs are invoked
+      And I go to the home page
+     When I open the notification hub menu
+      And I wait for the notifications spinner to disappear
+      And I follow "Alle anzeigen"
+     Then the notification hub should have no unseen notifications
