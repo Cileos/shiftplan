@@ -58,13 +58,14 @@ jQuery(document).ready ->
     mark_fetched_as_seen = ->
       $list_items = $notifications_list().find('li.notification')
       ids = ($list_items.map (index, li) -> $(li).data('notification_id')).toArray()
-      $.ajax('/notifications/mark_as_seen',
-        type: 'put',
-        dataType: 'script',
-        global: false,
-        data:
-          seen_notifications: ids.join(',')
-      )
+      if ids.length > 0
+        $.ajax('/notifications/mark_as_seen',
+          type: 'put',
+          dataType: 'script',
+          global: false,
+          data:
+            seen_notifications: ids.join(',')
+        )
 
     $('a#notifications-count').on 'click', (e) ->
       send_update_notification_hub_request('/notifications', 'get')
