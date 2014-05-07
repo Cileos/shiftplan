@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   has_one  :email_change
   has_many :accounts, through: :employees
   has_many :owned_accounts, through: :employees
+  has_many :employees_in_owned_accounts, through: :owned_accounts, source: :employees
 
   has_many :memberships, :through => :employees
   # organizations the user joined (aka "has a membership in")
@@ -125,12 +126,9 @@ class User < ActiveRecord::Base
        map(&:account).uniq.
        map(&:employees).flatten.uniq
 
-    pe += owned_accounts.
-       preload(:employees).
-       map(&:employees).
-       flatten
+    pe += employees_in_owned_accounts
 
-    pe.uniq
+    pe.flatten.uniq
   end
 
   def find_employee_with_avatar

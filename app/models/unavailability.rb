@@ -11,6 +11,7 @@ class Unavailability < ActiveRecord::Base
                   :description
 
   belongs_to :user
+  belongs_to :employee
 
   def accounts
     Account.where id: account_ids

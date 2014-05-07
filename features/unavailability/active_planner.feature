@@ -13,6 +13,7 @@ Feature: Planning Active Unavailabilities
 
   Scenario: enter an education day for one of the employees
      When I select "Homer S" from "Mitarbeiter"
+      And I wait for the spinner to stop
      Then I should see the following calendar:
          | Mo | Di | Mi | Do | Fr | Sa | So |
          |    |    |    |    |    | 1  | 2  |
@@ -39,6 +40,7 @@ Feature: Planning Active Unavailabilities
       But the unavailability's user should be nil
 
      When I select "Carl C" from "Mitarbeiter"
+      And I wait for the spinner to stop
      Then I should see the following calendar:
          | Mo | Di | Mi | Do | Fr | Sa | So |
          |    |    |    |    |    | 1  | 2  |
@@ -49,6 +51,7 @@ Feature: Planning Active Unavailabilities
          | 31 |    |    |    |    |    |    |
 
      When I select "Homer S" from "Mitarbeiter"
+      And I wait for the spinner to stop
      Then I should see the following calendar:
          | Mo | Di | Mi | Do | Fr                          | Sa | So |
          |    |    |    |    |                             | 1  | 2  |

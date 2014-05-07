@@ -14,7 +14,11 @@ protected
   end
 
   def begin_of_association_chain
-    current_user
+    if employee?
+      employee
+    else
+      current_user
+    end
   end
 
   def collection
@@ -30,6 +34,24 @@ protected
 
   def period_params?
     params[:year] && params[:month]
+  end
+
+  def employee?
+    employee_id.present?
+  end
+
+  def employee
+    @employee ||= Employee.find(employee_id)
+  rescue
+    nil
+  end
+
+  def employee_id
+    if params[:unavailability]
+      params[:unavailability][:employee_id]
+    else
+      params[:employee_id]
+    end
   end
 
 end

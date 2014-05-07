@@ -22,7 +22,7 @@ When /^I wait for (.+) to appear$/ do |name|
   end
 end
 
-When /^I wait for (.+) to disappear$/ do |name|
+When /^I wait for (.+) to (?:disappear|stop)$/ do |name|
   selector = selector_for name
   begin
     page.wait_until { page.has_no_css?(selector, :visible => true) }
