@@ -8,7 +8,7 @@
   </div>
 </nav>
 {{#if currentUser.canManageUnavailabilities}}
-  {{view Clockwork.Fields.SelectEmployee selectionBinding="employee" name="Mitarbeiter" contentBinding="employees"}}
+  {{view Clockwork.Fields.SelectEmployee selectionBinding="employee" name="Mitarbeiter" contentBinding="employees" prompt="ich"}}
 {{/if}}
 {{view Clockwork.MonthlyCalendarView contentBinding='controller' structureBinding='days' columnsBinding='weekdays' rowsBinding='weeks' rowHeaderVisible=false}}
 {{outlet}}
