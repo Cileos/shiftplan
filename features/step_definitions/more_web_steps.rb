@@ -14,6 +14,7 @@ end
 When /^I wait for (.+) to appear$/ do |name|
   selector = selector_for name
   begin
+    some_time_passes
     page.wait_until { page.has_css?(selector, :visible => true) }
   rescue Capybara::Session::TimedOut => timeout
     STDERR.puts "saved page: #{save_page}"

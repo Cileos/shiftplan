@@ -10,6 +10,7 @@ module PageLoadSupport
     unless page.mode == :rack_test
       within page.send(:scopes).first do
         page.should have_css('html.loaded')
+        some_time_passes
       end
     end
   rescue Selenium::WebDriver::Error::UnhandledAlertError => e
@@ -22,6 +23,13 @@ module PageLoadSupport
     else
       raise e
     end
+  end
+
+  def some_time_passes
+    # we fake the time for JS with sinon. Because EmberJS is based on
+    # Backburner, it needs a _running_ clock to initialize
+
+    execute_script 'clock.tick(100)'
   end
 
 end

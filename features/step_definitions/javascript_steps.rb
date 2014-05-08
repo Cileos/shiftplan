@@ -50,5 +50,5 @@ When /^I wait for [Ee]mber to boot$/ do
   # we use sinon to fake the time on JS side. Sadly, it conflicts with Ember's
   # run loop, stopping it when establishing a fake time. Use this step after a
   # page load to enforce the bootup
-  execute_script 'clock.tick(100)'
+  some_time_passes
 end
