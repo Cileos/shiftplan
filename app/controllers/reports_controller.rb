@@ -7,12 +7,19 @@ class ReportsController < BaseController
       respond.csv do
         @csv_options = { force_quotes: true, col_sep: ';' }
         @output_encoding = 'UTF-8'
-        @filename = "#{current_account.name}-report.csv"
+        @filename = "#{filename}.csv"
+      end
+      respond.xls do
+        headers['Content-Disposition'] = "attachment; filename=\"#{filename}.xls\""
       end
     end
   end
 
     private
+
+  def filename
+    "#{current_account.name}-report"
+  end
 
   def build_resource
     @report ||= Report.new(base_attrs.reverse_merge(resource_params.first))

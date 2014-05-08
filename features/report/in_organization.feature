@@ -43,3 +43,6 @@ Feature: Report
       | Mitarbeiter    | Datum       | Stunden  | Plan        | Organisation    | Team   | Qualifikation  |
       | Burns, Chârly  | 20.12.2012  | 2,00     | Bundesliga  | Herren Bowling  |        |                |
       | Burns, Chârly  | 04.12.2012  | 2,00     | Bundesliga  | Herren Bowling  | Loser  | Superstriker   |
+
+     When I go to the report page of the organization "male bowling"
+     When I follow "Als Excel-Datei exportieren"
