@@ -1,4 +1,4 @@
-%li{id: dom_id(notification)}
+%li{id: dom_id(notification), class: 'notification', data: { 'notification_id' => notification.id } }
   %actions.actions
     = link_to :mark_as_read, mark_notification_as_read_path(notification),
       method: :put, remote: true, class: 'destroy-button mark_as_read'

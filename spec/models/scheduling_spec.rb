@@ -575,7 +575,7 @@ describe Scheduling do
 
   context ".upcoming" do
     it "is a working scope" do
-      expect { Scheduling.upcoming }.to_not raise_error
+      expect { Scheduling.upcoming }.not_to raise_error
     end
 
     it 'includes the current day' do
@@ -589,7 +589,7 @@ describe Scheduling do
   context ".starting_in_the_next" do
     context "with a valid interval argument" do
       it "does not raise an argument error" do
-        expect { Scheduling.starting_in_the_next('1 days') }.to_not raise_error
+        expect { Scheduling.starting_in_the_next('1 days') }.not_to raise_error
       end
     end
 

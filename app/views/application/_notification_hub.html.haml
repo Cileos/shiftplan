@@ -1,5 +1,5 @@
-- count_new = current_user.new_notifications_count
-- hub_class = count_new > 0 ? 'has_new' : ''
+- count_new = current_user.unseen_notifications_count
+- hub_class = count_new > 0 ? 'has_unseen' : ''
 - hub_class += current_user.notifications.unread.count > 0 ? ' has_unread' : ''
 
 %li#notification-hub.dropdown{class: hub_class }
