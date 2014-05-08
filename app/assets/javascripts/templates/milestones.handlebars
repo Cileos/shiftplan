@@ -5,7 +5,7 @@
 </ul>
 
 <ul class="actions">
-  {{#if currentUser.canManage}}
+  {{#if canManage}}
   <li>
     {{#link-to 'milestones.new' class="button button-add"}}neuer Meilenstein{{/link-to}}
   </li>
