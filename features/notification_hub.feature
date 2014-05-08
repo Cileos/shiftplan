@@ -45,7 +45,7 @@ Feature: Notification Hub
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"               |
 
 
-  Scenario: Marking notifications as read
+  Scenario: Explicitely marking notifications as read in the hub
     Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
      When all the delayed jobs are invoked
       And I go to the home page
@@ -64,9 +64,24 @@ Feature: Notification Hub
       And I should not see "Umweltminister zu Besuch" within the notification hub
       But I should see "Alles erledigt" within the notification hub
 
-     # the notification on the dashboard is still there and _looks_ unread
+
+  Scenario: Implicitely marking notifications as read and seen by clicing on one on the dashboard
+    Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+     When all the delayed jobs are invoked
+
+      And I go to the home page
+     Then the notification hub should have 1 unseen notification
+      And the notification hub should have unread notifications
      When I follow "Umweltminister zu Besuch" within the notifications module
      Then I should be on the page of the post
+      And the notification hub should have no unseen notifications
+      And the notification hub should not have unread notifications
+     When I open the notification hub menu
+      And I wait for the notifications spinner to disappear
+     Then the notification hub should have no unseen notifications
+      And the notification hub should not have unread notifications
+      And I should not see "Umweltminister zu Besuch" within the notification hub
+      But I should see "Alles erledigt" within the notification hub
 
 
   Scenario: Mark all notifications as read

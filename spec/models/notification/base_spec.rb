@@ -63,6 +63,12 @@ describe Notification::Base do
       notification.read_at.should_not be_nil
     end
 
+    it 'marks unread notification as seen' do
+      expect do
+        notification.mark_as_read!
+      end.to change { notification.reload.seen }.from(false).to(true)
+    end
+
     it 'saves the notification' do
       notification.mark_as_read!
       notification.should_not be_changed # all saved

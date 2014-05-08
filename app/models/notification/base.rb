@@ -115,6 +115,7 @@ class Notification::Base < ActiveRecord::Base
   def mark_as_read!
     unless read_at
       self.read_at = Time.zone.now
+      self.seen    = true # a read notification is always seen
       save!
     end
   end
