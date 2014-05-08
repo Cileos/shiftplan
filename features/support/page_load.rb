@@ -11,6 +11,7 @@ module PageLoadSupport
       within page.send(:scopes).first do
         page.should have_css('html.loaded')
         some_time_passes
+        step %Q~I wait for the spinner to stop~
       end
     end
   rescue Selenium::WebDriver::Error::UnhandledAlertError => e
