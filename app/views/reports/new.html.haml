@@ -17,7 +17,10 @@
   - else
     %span= t('.number_of_records_found', count: report.total_number_of_records)
 
-  %br= link_to t('.csv_export'), csv_export_params
+  %br
+  %br
+  = link_to t('.csv_export'), csv_export_params
+  |
   = link_to t('.xls_export'), xls_export_params
 - else
   %p= t(:'.no_schedulings')
