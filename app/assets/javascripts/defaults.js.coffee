@@ -3,6 +3,8 @@ addNamesToDatepickerSelects = (picker, inst) ->
     $s = $(this)
     $s.attr('name', $s.attr('title'))
 
+lastSessionTimeoutAt = null
+
 jQuery(document).ready ->
   $.ajaxSetup
     dataType: 'script'
@@ -11,15 +13,19 @@ jQuery(document).ready ->
   # show sign in dialog in modal box when an AJAX request encounters a session timeout or other 401
   $(document).ajaxError (e, xhr, options)->
     if xhr.status == 401
-      return if options.context? # Ember handles errors on its own - hopefully.
-      text = xhr.responseText
-      if options.dataType.match(/json/)
-        parsed = Ember.$.parseJSON(text)
-        text = parsed.error
-      $flash = $("<div></div>").addClass('flash').addClass('alert').text(text)
-      $.getScript '/users/sign_in', ->
-        $('#modalbox').prepend $flash
-        $('#modalbox input[type=hidden].return_to').val window.location.pathname
+      # mitigate too many failing requests
+      if moment.duration(moment() - lastSessionTimeoutAt).asSeconds() > 15
+        text = xhr.responseText
+        if options.dataType.match(/json/)
+          parsed = Ember.$.parseJSON(text)
+          text = parsed.error
+        $flash = $("<div></div>").addClass('flash').addClass('alert').text(text)
+        $('.ui-dialog-content').remove() # close all existing modal boxes (Ember does them a little bit different)
+        $.getScript '/users/sign_in', ->
+          $('#modalbox').prepend $flash
+          $('#modalbox input[type=hidden].return_to').val window.location.pathname
+
+      lastSessionTimeoutAt = moment()
 
   language = $('html').attr('lang')
   $('body').on 'dialogopen', (e, ui) ->
