@@ -20,7 +20,7 @@ Clockwork.ApplicationRoute = Ember.Route.extend
   actions:
     save: (backRoute...)->
       # handle variable number of arguments thanks to dynamic route segments
-      backRoute = Ember.A(backRoute).get('firstObject')
+      backRoute = Ember.A(backRoute)
       mo = @modelFor(@get('controller.currentRouteName'))
       mo.get("errors").clear() # allows retry saving
       mo.save()
@@ -32,12 +32,12 @@ Clockwork.ApplicationRoute = Ember.Route.extend
           console?.debug "failed to #{@get('controller.currentRouteName')}", mo
     cancel: (backRoute...)->
       # handle variable number of arguments thanks to dynamic route segments
-      backRoute = Ember.A(backRoute).get('firstObject')
+      backRoute = Ember.A(backRoute)
       @modelFor(@get('controller.currentRouteName')).rollback()
       @transitionTo backRoute...
     doDelete: (backRoute...)->
       # handle variable number of arguments thanks to dynamic route segments
-      backRoute = Ember.A(backRoute).get('firstObject')
+      backRoute = Ember.A(backRoute)
       mo = @modelFor(@get('controller.currentRouteName'))
       mo.deleteRecord()
       mo.save()
