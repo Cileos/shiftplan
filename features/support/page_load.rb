@@ -30,7 +30,11 @@ module PageLoadSupport
     # we fake the time for JS with sinon. Because EmberJS is based on
     # Backburner, it needs a _running_ clock to initialize
 
-    execute_script 'clock.tick(100)'
+    execute_script <<-EOJS
+      if (typeof clock !== "undefined" && clock !== null) {
+        clock.tick(2);
+      }
+    EOJS
   end
 
 end
