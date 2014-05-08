@@ -31,7 +31,7 @@ class NotificationsController < InheritedResources::Base
   def mark_all_on_index_page_as_seen
     respond_to do |format|
       format.html do
-        unseen_ids = collection.select { |n| n.seen == false }.map(&:id)
+        unseen_ids = collection.reject(&:seen?).map(&:id)
         if unseen_ids.present?
           current_user.notifications.where(id: unseen_ids).update_all(seen: true)
         end
