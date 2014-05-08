@@ -19,16 +19,16 @@ Feature: Notification Hub
       And a scheduling exists with employee: employee "mr burns", plan: the plan
       And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
       And a comment exists with commentable: the scheduling, employee: the employee "bart", body: "Bitte Reaktor abschließen nach Dienstende"
-      And the notification hub should have no unseen notifications
+      And the notification hub should not have unseen notifications
 
      When all the delayed jobs are invoked
       And the time interval for updating the count of the notification hub elapses
      Then the notification hub should have 3 unseen notifications
      When I follow "3" within the notification hub
       And I wait for the notifications spinner to disappear
-     Then the notification hub should have no unseen notifications
-      And the page should not be titled "(3)"
+     Then the notification hub should not have unseen notifications
       But the notification hub should have unread notifications
+      And the page should not be titled "(3)"
       And I should see a list of the following notifications:
        | subject      | blurb                                                                    |
        | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
@@ -53,7 +53,7 @@ Feature: Notification Hub
       And the notification hub should have unread notifications
      When I open the notification hub menu
       And I wait for the notifications spinner to disappear
-     Then the notification hub should have no unseen notifications
+     Then the notification hub should not have unseen notifications
       And I should see a list of the following notifications:
        | subject      | blurb                                                      |
        | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen" |
@@ -74,11 +74,11 @@ Feature: Notification Hub
       And the notification hub should have unread notifications
      When I follow "Umweltminister zu Besuch" within the notifications module
      Then I should be on the page of the post
-      And the notification hub should have no unseen notifications
+      And the notification hub should not have unseen notifications
       And the notification hub should not have unread notifications
      When I open the notification hub menu
       And I wait for the notifications spinner to disappear
-     Then the notification hub should have no unseen notifications
+     Then the notification hub should not have unseen notifications
       And the notification hub should not have unread notifications
       And I should not see "Umweltminister zu Besuch" within the notification hub
       But I should see "Alles erledigt" within the notification hub
@@ -121,7 +121,7 @@ Feature: Notification Hub
 
      When I follow "Alle als gelesen markieren"
       And I wait for the notifications spinner to disappear
-     Then the notification hub should have no unseen notifications
+     Then the notification hub should not have unseen notifications
       And I should see a list of the following notifications:
        | subject       | blurb                               |
        | Bart Simpson  | hat "Post 1" geschrieben: "Post 1"  |
@@ -178,5 +178,5 @@ Feature: Notification Hub
      Then the notification hub should have 1 unseen notifications
       And the notification hub should have unread notifications
      When I follow "2" within the pagination
-      And the notification hub should have no unseen notifications
+      And the notification hub should not have unseen notifications
       And the notification hub should have unread notifications

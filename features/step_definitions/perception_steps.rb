@@ -158,7 +158,7 @@ Then /^the notification hub should have (\d+) unseen notifications?$/ do |number
   step %~the notification hub should have class "has_unseen"~
 end
 
-Then /^the notification hub should have no unseen notifications$/ do
+Then /^the notification hub should not have unseen notifications$/ do
   step %~the notification hub should not have class "has_unseen"~
   page.should have_css("a#notifications-count div.icon-bell_empty", text: '')
 end
