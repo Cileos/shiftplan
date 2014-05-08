@@ -11,6 +11,7 @@
 #= require_tree ./routes
 
 Ember.LOG_BINDINGS = false
+get = Ember.get
 
 Clockwork = Ember.Application.create
   LOG_TRANSITIONS: true
@@ -19,50 +20,6 @@ Clockwork = Ember.Application.create
   page: null
   fnord: 1
 
-# can be removed when we use Ember everywhere
-Clockwork.deferReadiness()
-
-Clockwork.settings = Ember.Object.create
-  dateFormat: 'yyyy-mm-dd' # TODO globalize
-  timeoptions:
-    show24Hours: true
-    showSeconds: false
-    spinnerImage: ''
-    timeSteps: [1, 15, 0]
-    useMouseWheel: true
-
-Clockwork.initializer
-  # injects 'currentUser' in every controller for authorization
-  name: 'currentUser'
-  initialize: (container) ->
-    Clockwork.deferReadiness()
-    store = container.lookup('store:main')
-    user = store.find 'session', 'current'
-    controller = container.lookup('controller:currentUser').set('content', user)
-    container.typeInjection('controller', 'currentUser', 'controller:currentUser')
-    user.then ->
-      Clockwork.advanceReadiness()
-
-Clockwork.initializer
-  # injects 'employees' in every controller. Is loaded in Applicationroute
-  name: 'employees'
-  initialize: (container)->
-    # lookup once to warm up caches and avoid StackLevelTooDeep
-    container.lookup('controller:employees')
-    container.typeInjection('controller', 'employees', 'controller:employees')
-
-Clockwork.initializer
-  name: 'load-i18n'
-  initialize: (container)->
-    Clockwork.deferReadiness()
-    $ ->
-      locale = $('html').attr('lang') || 'en'
-      f = $.getJSON "/i18n/#{locale}.json"
-      f.then (result)->
-        Ember.I18n.translations = result
-        Clockwork.advanceReadiness()
-
-get = Ember.get
 Clockwork.ApplicationSerializer = DS.ActiveModelSerializer.extend
   attrs:
     accounts:
@@ -82,23 +39,81 @@ Clockwork.ApplicationSerializer = DS.ActiveModelSerializer.extend
       @_super(record, json, relationship)
 
 
+Clockwork.settings = Ember.Object.create
+  dateFormat: 'yyyy-mm-dd' # TODO globalize
+  timeoptions:
+    show24Hours: true
+    showSeconds: false
+    spinnerImage: ''
+    timeSteps: [1, 15, 0]
+    useMouseWheel: true
+
+# can be removed when we use Ember everywhere
+Clockwork.initializer
+  name: 'rootElement'
+  initialize: (container)->
+    # ember should only run on selected pages
+    Clockwork.deferReadiness()
+
+    if ($root = $('#milestones')).length > 0
+      Clockwork.set 'rootElement', '#milestones'
+      Clockwork.set 'page', 'milestones'
+      # base all URLs on current plan
+
+      Clockwork.set 'cursor', new CalendarCursor $('table#calendar')
+      Clockwork.advanceReadiness()
+
+    if ($root = $('#unavailabilities')).length > 0
+      Clockwork.set 'rootElement', '#unavailabilities'
+      Clockwork.set 'page', 'unavailabilities'
+      Clockwork.advanceReadiness()
+
+Clockwork.initializer
+  name: 'RESTnamespace'
+  initialize: (container)->
+    if ($root = $('#milestones')).length > 0
+      # base all URLs on current plan
+      Clockwork.ApplicationAdapter = DS.ActiveModelAdapter.extend
+        namespace: (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
+
+    if ($root = $('#unavailabilities')).length > 0
+      Clockwork.ApplicationAdapter = DS.ActiveModelAdapter.extend
+        namespace: 'ember'
+
+
+Clockwork.initializer
+  # injects 'currentUser' in every controller for authorization
+  name: 'currentUser'
+  after: 'RESTnamespace'
+  initialize: (container) ->
+    if Clockwork.get('page')
+      Clockwork.deferReadiness()
+      store = container.lookup('store:main')
+      user = store.find 'session', 'current'
+      controller = container.lookup('controller:currentUser').set('content', user)
+      container.typeInjection('controller', 'currentUser', 'controller:currentUser')
+      user.then ->
+        Clockwork.advanceReadiness()
+
+Clockwork.initializer
+  # injects 'employees' in every controller. Is loaded in Applicationroute
+  name: 'employees'
+  initialize: (container)->
+    if Clockwork.get('page')
+      # lookup once to warm up caches and avoid StackLevelTooDeep
+      container.lookup('controller:employees')
+      container.typeInjection('controller', 'employees', 'controller:employees')
+
+Clockwork.initializer
+  name: 'load-i18n'
+  initialize: (container)->
+    if Clockwork.get('page')
+      Clockwork.deferReadiness()
+      locale = $('html').attr('lang') || 'en'
+      f = $.getJSON "/i18n/#{locale}.json"
+      f.then (result)->
+        Ember.I18n.translations = result
+        Clockwork.advanceReadiness()
+
+
 window.Clockwork = Clockwork
-
-jQuery ->
-  if ($root = $('#milestones')).length > 0
-    Clockwork.set 'rootElement', '#milestones'
-    Clockwork.set 'page', 'milestones'
-    # base all URLs on current plan
-    Clockwork.ApplicationAdapter = DS.ActiveModelAdapter.extend
-      namespace: (window.location.pathname.replace(/(plans\/[^/]+).*$/,'$1')).slice(1)
-    Clockwork.advanceReadiness()
-
-    Clockwork.set 'cursor', new CalendarCursor $('table#calendar')
-
-  if ($root = $('#unavailabilities')).length > 0
-    Clockwork.set 'rootElement', '#unavailabilities'
-    Clockwork.set 'page', 'unavailabilities'
-    # we do this so late so we can fetch tue currentUser
-    Clockwork.ApplicationAdapter = DS.ActiveModelAdapter.extend
-      namespace: 'ember'
-    Clockwork.advanceReadiness()

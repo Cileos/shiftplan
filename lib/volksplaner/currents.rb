@@ -33,10 +33,14 @@ module Volksplaner::Currents
   end
 
   def current_role
-    if current_employee.owner?
-      'owner'
+    if current_employee?
+      if current_employee.owner?
+        'owner'
+      else
+        current_membership.role
+      end
     else
-      current_membership.role
+      "troll" # URL scope is missing
     end
   end
 

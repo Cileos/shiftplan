@@ -5,7 +5,7 @@ class SessionsController < Devise::SessionsController
 
   def show
     user = current_user
-    render json: user, serializer: SessionSerializer
+    render json: user, serializer: SessionSerializer, role: current_role
   end
 
   protected

@@ -117,7 +117,8 @@ Clockwork::Application.routes.draw do
 
   devise_scope :user do
     resource :signup, controller: 'signup', only: [:show, :create]
-    get '/sessions/current' => 'sessions#show'
+    get 'ember/sessions/current' => 'sessions#show'
+    get 'accounts/:account_id/organizations/:organization_id/plans/:plan_id/sessions/current' => 'sessions#show'
   end
 
   get 'i18n/:id' => 'locales#show', constraints: {

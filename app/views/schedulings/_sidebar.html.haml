@@ -6,7 +6,7 @@
     %div= filter.plan_period_end_date
 
 = collapsible( Milestone.model_name.human(count: 9001), id: 'milestones-toggle') do
-  #milestones.milestones-list{data: { role: current_role }}
+  #milestones.milestones-list
 
 
 = collapsible AttachedDocument.model_name.human(count: 9001), id: 'attached-documents-toggle' do
