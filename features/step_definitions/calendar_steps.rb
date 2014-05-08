@@ -26,6 +26,7 @@ When /^I click on (?:the )?(early|late|) ?(shift|scheduling) #{capture_quoted}$/
   shift_or_scheduling = page.first(selector, text: quickie)
   begin
     shift_or_scheduling.click()
+    wait_for_the_page_to_be_loaded
   rescue Selenium::WebDriver::Error::UnknownError => e # page was maybe still moving, could not hit element
     sleep 0.5
     shift_or_scheduling.click() # try again once
