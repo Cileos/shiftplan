@@ -12,79 +12,95 @@ Feature: Notification Hub
       And I am signed in as the user "mr burns"
 
 
-  Scenario: Notification hub is updated
-     When I go to the home page
-      And a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
-      And a plan exists with organization: the organization
-      And a scheduling exists with employee: employee "mr burns", plan: the plan
-      And a comment exists with commentable: the post, employee: the employee "bart", body: "Ich bringe einen Besen mit"
-      And a comment exists with commentable: the scheduling, employee: the employee "bart", body: "Bitte Reaktor abschließen nach Dienstende"
-      And the notification hub should not have unseen notifications
+  Scenario: Notification hub is updated periodically
+    Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
+      And I go to the home page
+      And all the delayed jobs are invoked
 
-     When all the delayed jobs are invoked
-      And the time interval for updating the count of the notification hub elapses
-     Then the notification hub should have 3 unseen notifications
-     When I follow "3" within the notification hub
+      # fake time interval configured in js has elapsed
+     When the time interval for updating the count of the notification hub elapses
+     Then the notification hub should have 1 unseen notification
+
+  Scenario: Opening the notification hub
+    Given the following posts exist:
+      | blog      | author           | title    | body     | created_at  |
+      | the blog  | employee "bart"  | Post 1   | Post 1   | 2012-12-12  |
+      | the blog  | employee "bart"  | Post 2   | Post 2   | 2012-12-13  |
+      | the blog  | employee "bart"  | Post 3   | Post 3   | 2012-12-14  |
+      | the blog  | employee "bart"  | Post 4   | Post 4   | 2012-12-15  |
+      | the blog  | employee "bart"  | Post 5   | Post 5   | 2012-12-16  |
+      | the blog  | employee "bart"  | Post 6   | Post 6   | 2012-12-17  |
+      | the blog  | employee "bart"  | Post 7   | Post 7   | 2012-12-18  |
+      | the blog  | employee "bart"  | Post 8   | Post 8   | 2012-12-19  |
+      | the blog  | employee "bart"  | Post 9   | Post 9   | 2012-12-20  |
+      | the blog  | employee "bart"  | Post 10  | Post 10  | 2012-12-21  |
+      | the blog  | employee "bart"  | Post 11  | Post 11  | 2012-12-22  |
+      And all the delayed jobs are invoked
+      And I go to the home page
+     Then the notification hub should have 11 unseen notifications
+      And the notification hub should have unread notifications
+
+     When I open the notification hub menu
       And I wait for the notifications spinner to disappear
-     Then the notification hub should not have unseen notifications
-      But the notification hub should have unread notifications
-      And the page should not be titled "(3)"
+      # 10 are seen, now. The 11th notification has not been seen, yet.
+     Then the notification hub should have 1 unseen notification
       And I should see a list of the following notifications:
-       | subject      | blurb                                                                    |
-       | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
-       | Bart Simpson | hat "Umweltminister zu Besuch" kommentiert: "Ich bringe einen Besen mit" |
-       | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"               |
-     When I follow "Umweltminister zu Besuch" within the notification hub
+       | subject       | blurb                                 |
+       | Bart Simpson  | hat "Post 11" geschrieben: "Post 11"  |
+       | Bart Simpson  | hat "Post 10" geschrieben: "Post 10"  |
+       | Bart Simpson  | hat "Post 9" geschrieben: "Post 9"    |
+       | Bart Simpson  | hat "Post 8" geschrieben: "Post 8"    |
+       | Bart Simpson  | hat "Post 7" geschrieben: "Post 7"    |
+       | Bart Simpson  | hat "Post 6" geschrieben: "Post 6"    |
+       | Bart Simpson  | hat "Post 5" geschrieben: "Post 5"    |
+       | Bart Simpson  | hat "Post 4" geschrieben: "Post 4"    |
+       | Bart Simpson  | hat "Post 3" geschrieben: "Post 3"    |
+       | Bart Simpson  | hat "Post 2" geschrieben: "Post 2"    |
+
+
+  Scenario: Clicking on a notification in the hub
+    Given the following posts exist:
+      | blog      | author           | title    | body     | created_at  |
+      | the blog  | employee "bart"  | Post 1   | Post 1   | 2012-12-12  |
+     When all the delayed jobs are invoked
+      And I go to the home page
+      And I open the notification hub menu
+      And I wait for the notifications spinner to disappear
+     Then I should see a list of the following notifications:
+       | subject       | blurb                                 |
+       | Bart Simpson  | hat "Post 1" geschrieben: "Post 1"    |
+      And the notification hub should have unread notifications
+
+     When I follow "Post 1" within the notification hub
      Then I should be on the page of the post
+      And the notification hub should not have unread notifications
      When I open the notification hub menu
       And I wait for the notifications spinner to disappear
       # notification was marked as read and is not displayed in the hub anymore
-     Then I should see a list of the following notifications:
-       | subject      | blurb                                                                    |
-       | Bart Simpson | hat Ihre Schicht kommentiert: "Bitte Reaktor abschließen n..."           |
-       | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen"               |
+     Then I should not see "Post 1" within the notification hub
+      But I should see "Alles erledigt" within the notification hub
 
 
-  Scenario: Explicitely marking notifications as read in the hub
-    Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
-     When all the delayed jobs are invoked
+  Scenario: Marking a notifications as read
+    Given the following posts exist:
+      | blog      | author           | title    | body     | created_at  |
+      | the blog  | employee "bart"  | Post 1   | Post 1   | 2012-12-12  |
+      And all the delayed jobs are invoked
       And I go to the home page
-     Then the notification hub should have 1 unseen notification
-      And the notification hub should have unread notifications
-     When I open the notification hub menu
+      And I open the notification hub menu
       And I wait for the notifications spinner to disappear
-     Then the notification hub should not have unseen notifications
-      And I should see a list of the following notifications:
-       | subject      | blurb                                                      |
-       | Bart Simpson | hat "Umweltminister zu Besuch" geschrieben: "Bitte putzen" |
-      But I should not see "Alles erledigt" within the notification hub
+     Then I should see a list of the following notifications:
+       | subject       | blurb                                 |
+       | Bart Simpson  | hat "Post 1" geschrieben: "Post 1"    |
+
      When I follow "Als gelesen markieren" within the notification hub
       And I wait for the notifications spinner to disappear
      Then the notification hub should not have unread notifications
-      And I should not see "Umweltminister zu Besuch" within the notification hub
+      And I should not see "Post 1" within the notification hub
       But I should see "Alles erledigt" within the notification hub
 
 
-  Scenario: Implicitely marking notifications as read and seen by clicing on one on the dashboard
-    Given a post exists with blog: the blog, author: employee "bart", title: "Umweltminister zu Besuch", body: "Bitte putzen"
-     When all the delayed jobs are invoked
-
-      And I go to the home page
-     Then the notification hub should have 1 unseen notification
-      And the notification hub should have unread notifications
-     When I follow "Umweltminister zu Besuch" within the notifications module
-     Then I should be on the page of the post
-      And the notification hub should not have unseen notifications
-      And the notification hub should not have unread notifications
-     When I open the notification hub menu
-      And I wait for the notifications spinner to disappear
-     Then the notification hub should not have unseen notifications
-      And the notification hub should not have unread notifications
-      And I should not see "Umweltminister zu Besuch" within the notification hub
-      But I should see "Alles erledigt" within the notification hub
-
-
-  Scenario: Mark all notifications as read
+  Scenario: Marking all notifications as read
     Given the following posts exist:
       | blog      | author           | title    | body     | created_at  |
       | the blog  | employee "bart"  | Post 1   | Post 1   | 2012-12-12  |
@@ -132,7 +148,7 @@ Feature: Notification Hub
       And the notification hub should not have unread notifications
 
 
-  Scenario: Mark all notifications on index page as seen
+  Scenario: Visiting the notifications page
     Given the following posts exist:
       | blog      | author           | title    | body     | created_at  |
       | the blog  | employee "bart"  | Post 1   | Post 1   | 2012-12-12  |
@@ -168,13 +184,12 @@ Feature: Notification Hub
       | the blog  | employee "bart"  | Post 31  | Post 31  | 2012-12-22  |
      When all the delayed jobs are invoked
       And I go to the home page
-     Then the notification hub should have 31 unseen notifications
-      And the notification hub should have unread notifications
      When I open the notification hub menu
       And I wait for the notifications spinner to disappear
-     Then the notification hub should have 21 unseen notifications
-      And the notification hub should have unread notifications
-      And I follow "Alle anzeigen"
+
+     When I follow "Alle anzeigen"
+     # Notifications are paginated on the index page. 30 are shown on each page.
+     # So one notification remains unseen.
      Then the notification hub should have 1 unseen notifications
       And the notification hub should have unread notifications
      When I follow "2" within the pagination
