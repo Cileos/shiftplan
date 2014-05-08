@@ -31,7 +31,10 @@ class NotificationsController < InheritedResources::Base
   def mark_all_on_index_page_as_seen
     respond_to do |format|
       format.html do
-        collection.unseen.update_all(seen: true) # user visits index page
+        unseen_ids = collection.select { |n| n.seen == false }.map(&:id)
+        if unseen_ids.present?
+          current_user.notifications.where(id: unseen_ids).update_all(seen: true)
+        end
       end
       format.js # user opens the hub: do nothing
     end

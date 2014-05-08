@@ -146,9 +146,37 @@ Feature: Notification Hub
       | the blog  | employee "bart"  | Post 9   | Post 9   | 2012-12-20  |
       | the blog  | employee "bart"  | Post 10  | Post 10  | 2012-12-21  |
       | the blog  | employee "bart"  | Post 11  | Post 11  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 12  | Post 12  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 13  | Post 13  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 14  | Post 14  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 15  | Post 15  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 16  | Post 16  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 17  | Post 17  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 18  | Post 18  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 19  | Post 19  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 20  | Post 20  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 21  | Post 21  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 22  | Post 22  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 23  | Post 23  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 24  | Post 24  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 25  | Post 25  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 26  | Post 26  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 27  | Post 27  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 28  | Post 28  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 29  | Post 29  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 30  | Post 30  | 2012-12-22  |
+      | the blog  | employee "bart"  | Post 31  | Post 31  | 2012-12-22  |
      When all the delayed jobs are invoked
       And I go to the home page
+     Then the notification hub should have 31 unseen notifications
+      And the notification hub should have unread notifications
      When I open the notification hub menu
       And I wait for the notifications spinner to disappear
+     Then the notification hub should have 21 unseen notifications
+      And the notification hub should have unread notifications
       And I follow "Alle anzeigen"
-     Then the notification hub should have no unseen notifications
+     Then the notification hub should have 1 unseen notifications
+      And the notification hub should have unread notifications
+     When I follow "2" within the pagination
+      And the notification hub should have no unseen notifications
+      And the notification hub should have unread notifications
