@@ -13,7 +13,7 @@ jQuery(document).ready ->
     if xhr.status == 401
       return if options.context? # Ember handles errors on its own - hopefully.
       text = xhr.responseText
-      if options.contentType.match(/json/)
+      if options.dataType.match(/json/)
         parsed = Ember.$.parseJSON(text)
         text = parsed.error
       $flash = $("<div></div>").addClass('flash').addClass('alert').text(text)
