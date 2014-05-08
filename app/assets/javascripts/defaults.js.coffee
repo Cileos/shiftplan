@@ -11,6 +11,7 @@ jQuery(document).ready ->
   # show sign in dialog in modal box when an AJAX request encounters a session timeout or other 401
   $(document).ajaxError (e, xhr, options)->
     if xhr.status == 401
+      return if options.context? # Ember handles errors on its own - hopefully.
       text = xhr.responseText
       if options.contentType.match(/json/)
         parsed = Ember.$.parseJSON(text)
