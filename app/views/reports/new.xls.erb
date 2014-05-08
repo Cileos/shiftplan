@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String"><%= Employee.model_name.human %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('.date') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= t('.hours') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= Plan.model_name.human %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= Organization.model_name.human %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= Team.model_name.human %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= Qualification.model_name.human %></Data></Cell>
+      </Row>
+    <% @report.records.map(&:decorate).each do |scheduling| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= scheduling.employee.try(:last_and_first_name) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= l(scheduling.starts_at.to_date) %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= scheduling.decimal_duration %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= scheduling.plan.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= scheduling.organization.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= scheduling.team.try(:name) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= scheduling.qualification.try(:name) %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

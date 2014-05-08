@@ -3,11 +3,14 @@ require 'spec_helper'
 
 describe User do
 
-  it 'must have a valid email' do
-    user = build(:user, email: 'fnørd..d.@p0x.asdt')
+  context "validations" do
 
-    user.should_not be_valid
-    user.should have(1).errors_on(:email)
+    it 'must have a valid email' do
+      user = build(:user, email: 'fnørd..d.@p0x.asdt')
+
+      user.should_not be_valid
+      user.should have(1).errors_on(:email)
+    end
   end
 
   context "current_employee" do

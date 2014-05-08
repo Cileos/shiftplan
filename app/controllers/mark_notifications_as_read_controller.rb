@@ -18,8 +18,7 @@ class MarkNotificationsAsReadController < ApplicationController
 
   def multiple
     notifications.each do |n|
-      n.read_at = Time.zone.now
-      n.save!
+      n.mark_as_read!
     end
   end
 

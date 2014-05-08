@@ -5,3 +5,4 @@ en:
       previous: '<<'
       next: '>>'
       last: 'Last'
+      truncate: '...'

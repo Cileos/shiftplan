@@ -7,10 +7,6 @@ describe Notification::UpcomingScheduling do
     described_class.new(notifiable: scheduling, employee: scheduling.employee)
   end
 
-  it_behaves_like :updating_new_notifications_count_for_user do
-    let(:notifiable) { scheduling }
-  end
-
   context "destroyed with its scheduling" do
     let(:scheduling)    { create(:scheduling, employee: employee) }
     let(:employee)      { create(:employee, user: create(:user)) }

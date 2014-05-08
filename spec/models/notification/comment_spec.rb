@@ -11,8 +11,4 @@ describe Notification::Comment do
       comment.destroy # scheduling destroyed
     end.to change { Notification::Comment.count }.from(1).to(0)
   end
-
-  it_behaves_like :updating_new_notifications_count_for_user do
-    let(:notifiable) { comment }
-  end
 end

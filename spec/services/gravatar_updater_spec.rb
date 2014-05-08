@@ -20,7 +20,7 @@ describe GravatarUpdater do
       logger.should_receive(:warn)
       expect {
         subject.update(record, size: 400, logger: logger)
-      }.to_not raise_error
+      }.not_to raise_error
     end
   end
 
