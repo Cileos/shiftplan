@@ -27,6 +27,9 @@ jQuery(document).ready ->
 
       lastSessionTimeoutAt = moment()
 
+    if xhr.status == 500
+      alert "Something went wrong on the server side. We are trying to fix it as quick as possible"
+
   language = $('html').attr('lang')
   $('body').on 'dialogopen', (e, ui) ->
     $(e.target).find('input.stringy_date').rails_datepick()
