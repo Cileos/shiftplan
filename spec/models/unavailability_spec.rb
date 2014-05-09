@@ -9,4 +9,14 @@ describe Unavailability do
       reloaded.account_ids.should == ids
     end
   end
+
+  describe '#user_id' do
+    it 'is set from employee' do
+      user     = create :user
+      employee = create :employee, user: user
+      una      = create :unavailability, employee: employee
+
+      una.user.should == user
+    end
+  end
 end
