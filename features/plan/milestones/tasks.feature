@@ -16,7 +16,7 @@ Feature: Tasks of milestones
   Scenario: create tasks for milestone
      When I follow "neue Aufgabe"
       And I fill in "Name" with "become famous"
-     Then I should not see "become famous" within the milestones list
+     Then I should not see "become famous"
      # ^^ do not list unsaved tasks
 
      When I press "Anlegen"
