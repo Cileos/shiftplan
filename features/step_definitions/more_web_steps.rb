@@ -63,6 +63,7 @@ end
 
 When /^I close the modal box$/ do
   page.first('a.ui-dialog-titlebar-close').click
+  some_time_passes
   page.should have_no_css('a.ui-dialog-titlebar-close', :visible => true) # implies waiting
 end
 
