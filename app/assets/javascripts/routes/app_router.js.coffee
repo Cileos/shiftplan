@@ -18,7 +18,7 @@ Clockwork.Router.map ->
 
 Clockwork.ApplicationRoute = Ember.Route.extend
   actions:
-    save: (backRoute...)->
+    save: (backRoute)->
       # handle variable number of arguments thanks to dynamic route segments
       backRoute = Ember.A(backRoute)
       mo = @modelFor(@get('controller.currentRouteName'))
@@ -30,12 +30,12 @@ Clockwork.ApplicationRoute = Ember.Route.extend
           # must be here to catch the error. We display the error(s) in the
           # form, retry possible.
           console?.debug "failed to #{@get('controller.currentRouteName')}", mo
-    cancel: (backRoute...)->
+    cancel: (backRoute)->
       # handle variable number of arguments thanks to dynamic route segments
       backRoute = Ember.A(backRoute)
       @modelFor(@get('controller.currentRouteName')).rollback()
       @transitionTo backRoute...
-    doDelete: (backRoute...)->
+    doDelete: (backRoute)->
       # handle variable number of arguments thanks to dynamic route segments
       backRoute = Ember.A(backRoute)
       mo = @modelFor(@get('controller.currentRouteName'))
