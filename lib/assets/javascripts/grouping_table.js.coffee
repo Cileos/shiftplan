@@ -67,29 +67,22 @@ GroupingTable.createView = (options)->
       # the row containing matching y
       itemViewClass: Ember.ContainerView.extend SettingsAliases,
         tagName: 'tr'
-        childViews: (->
-          if @get('rowHeaderVisible')
-            ['heading', 'cells']
-          else
-            ['cells']
-        ).property('rowHeaderVisible')
-
-        # notify all the cells of the change of items
-        # FIXME this should not be neccessary but there seems to be something wrong
-        # with bindings towards parentView or niklas is too stupid to get properties
-        itemsChanged: ((me,name)->
-          @notifyPropertyChange('itemsInRow')
-          @get('cells.childViews').forEach (view)->
-            view.notifyPropertyChange('itemsInCell')
-        ).observes('items', 'items.content') # controller is not enough
+        childViews:
+          Ember.computed ->
+            if @get('rowHeaderVisible')
+              ['heading', 'cells']
+            else
+              ['cells']
+          .property('rowHeaderVisible')
 
         structureInRow: (->
           @get('structure').filterProperty(c.rowProperty, @get('content'))
-        ).property("rows.@each', 'structure.@each.#{c.rowProperty}")
+        ).property("rows.@each", "structure.@each.#{c.rowProperty}")
 
-        itemsInRow: (->
-          @get('items').filterProperty(c.rowProperty, @get('content'))
-        ).property("rows.@each', 'items")
+        itemsInRow:
+          Ember.computed ->
+            @get('items').filterProperty(c.rowProperty, @get('content'))
+          .property("rows.@each", "items.length")
 
         heading: c.rowHeaderView.extend()
 
@@ -109,7 +102,7 @@ GroupingTable.createView = (options)->
 
             itemsInCell: (->
               @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
-            ).property("columns.@each", 'items')
+            ).property("columns.@each", "parentView.itemsInRow.@each.#{c.columnProperty}")
 
             # The actual list within the cell
             list: Ember.CollectionView.extend

@@ -17,7 +17,7 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
 
 
     models.unas = if params.year? and params.month?
-      @store.findQuery 'unavailability',
+      @store.find 'unavailability',
                year: params.year,
                month: params.month,
                employee_id: employee_id
@@ -29,7 +29,10 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
 
   setupController: (controller, model)->
     # transform the DS.PromiseFooArray into a real one so we can append new records to it
-    @_super(controller, model.unas.toArray())
+    # to a LiveArray so create/delete gets updates
+    filtered = @store.filter 'unavailability', (una)->
+      !una.get('isDeleted')
+    @_super(controller, filtered)
     params = @get 'searchParams'
     controller.set('year', params.year)
     controller.set('month', params.month)
@@ -56,13 +59,6 @@ Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
 
   renderTemplate: (controller)->
     @render 'unavailabilities/new'
-
-  deactivate: ->
-    if @currentModel.get('id')
-      controller = @controllerFor 'unavailabilities'
-      controller.get('content').pushObject @currentModel
-      # TODO we should not have to do this...
-      controller.notifyPropertyChange 'content'
 
 Clockwork.UnavailabilitiesEditRoute = Ember.Route.extend
   model: (params)->

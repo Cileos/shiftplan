@@ -62,6 +62,7 @@ describe 'GroupingTable', ->
     expect( view.$('tbody tr:nth(0) > td:nth(2)').text() ).toEqual('C1')
     expect( view.$('tbody tr:nth(1) > td:nth(1)').text() ).toEqual('B2')
     expect( view.$('tbody tr:nth(2) > td:nth(0)').text() ).not.toEqual('A3')
+    # FIXME that does not work yet without frakking everything up
     expect( view.$('tbody tr:nth(2) > td:nth(1)').text() ).toEqual('B3')
 
   it 're-renders when new content is set', ->
@@ -74,3 +75,18 @@ describe 'GroupingTable', ->
     expect( view.$('tbody tr:nth(0) > td:nth(1)').text() ).toEqual('B1')
     expect( view.$('tbody tr:nth(1) > td:nth(0)').text() ).toEqual('A2')
     expect( view.$('tbody tr:nth(2) > td:nth(2)').text() ).toEqual('C3')
+
+  it 'adds new items', ->
+    Ember.run ->
+      thing = Thingy.create(c: 'C', r: 2)
+      view.get('content').pushObject thing
+
+    expect( view.$('tbody tr:nth(1) > td:nth(2)').text() ).toEqual('C2')
+
+  it 'removes deleted items', ->
+    Ember.run ->
+      content = view.get('content')
+      thing = content.get('lastObject')
+      content.removeObject(thing)
+
+    expect( view.$('tbody tr:nth(0) > td:nth(2)').text() ).not.toEqual('C1')
