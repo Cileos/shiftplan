@@ -18,6 +18,7 @@ Feature: User Navigation
        |                 | false  |
        | CB              | false  |
        | Einstellungen   | false  |
+       | Verfügbarkeit   | false  |
        | Ausloggen       | false  |
 
      When I choose "Springfield Nuclear Power Plant - Cooling Towers" from the drop down "Organisationen"
