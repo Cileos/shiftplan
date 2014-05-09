@@ -14,10 +14,14 @@ protected
   end
 
   def begin_of_association_chain
-    if employee?
-      employee
+    if action_name == 'destroy' # cancan takes care of security
+      nil
     else
-      current_user
+      if employee?
+        employee
+      else
+        current_user
+      end
     end
   end
 
