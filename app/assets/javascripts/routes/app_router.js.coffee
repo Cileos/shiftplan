@@ -4,10 +4,11 @@
 Clockwork.Router.map ->
   @resource 'milestones', ->
     @route 'new'
-    @route 'edit', path: ':milestone_id'
-  @resource 'milestone', path: '/milestone/:milestone_id', ->
-    @route 'newTask'
-    @route 'task', path: 'tasks/:task_id'
+    @resource 'milestone', path: ':milestone_id', ->
+      @route 'edit'
+      @route 'newTask'
+      @route 'task', path: 'tasks/:task_id'
+
 
   @resource 'unavailabilities', path: 'unas/:eid/:year/:month', ->
     @route 'new', path: ':day/new'

@@ -10,6 +10,6 @@ Clockwork.DoableController = Ember.ObjectController.extend
 
 # revisit routes, these names are strange
 Clockwork.MilestonesNewController = Clockwork.DoableController.extend()
-Clockwork.MilestonesEditController = Clockwork.DoableController.extend()
+Clockwork.MilestoneEditController = Clockwork.DoableController.extend()
 Clockwork.MilestoneNewTaskController = Clockwork.DoableController.extend()
 Clockwork.MilestoneTaskController = Clockwork.DoableController.extend()

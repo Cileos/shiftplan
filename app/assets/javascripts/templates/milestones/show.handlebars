@@ -1,5 +1,5 @@
 {{view Clockwork.DoableDoneView checkedBinding="done" classNames="milestone" disabledBinding="checkboxDisabled"}}
-{{#link-to 'milestones.edit' this class="name"}}{{name}}{{/link-to}}
+{{#link-to 'milestone.edit' this class="name"}}{{name}}{{/link-to}}
 {{#if dueAt}}
 <span class="due_on">{{formatted_due_on}}</span>
 {{/if}}
