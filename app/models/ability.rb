@@ -103,10 +103,10 @@ class Ability
     end
 
     can :manage, Unavailability do |un|
-      if un.user_id
-        un.user_id == user.id
-      elsif e = un.employee
+      if e = un.employee
         user.plannable_employees.include?(e)
+      elsif un.user_id
+        un.user_id == user.id
       else
         false
       end
