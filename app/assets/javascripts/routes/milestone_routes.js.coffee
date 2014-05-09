@@ -21,7 +21,7 @@ Clockwork.MilestonesNewRoute = Ember.Route.extend
 
 Clockwork.MilestoneNewTaskRoute = Ember.Route.extend
   beforeModel: (transition)->
-    if m = transition.providedModels.milestone
+    if m = @modelFor('milestone')
       @set 'milestone', m
     else
       @store.find('milestone', transition.params.milestone_id).then (ms)=>
