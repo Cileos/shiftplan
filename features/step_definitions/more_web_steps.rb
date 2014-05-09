@@ -130,16 +130,20 @@ When /^I check the checkbox$/ do
   check page.first('input[type=checkbox]')['id']
 end
 
-Then /^the (.+) should( not)? be disabled$/ do |name, negate|
+Then /^the (.+) should( not|) be disabled$/ do |name, negate|
+  negate = negate.include?('not')
+
   if name =~ /field #{capture_quoted}/
     page.should have_field($1, disabled: !negate)
   else
     selector = selector_for(name)
     elem = page.first(selector)
+    disabled = elem['disabled']
+
     if negate
-      elem.should_not be_disabled
+      disabled.should be_in(["false", nil])
     else
-      elem.should be_disabled
+      disabled.should be_in(%w(true disabled))
     end
   end
 end
