@@ -48,6 +48,20 @@ Feature: Personal Active Unavailabilities
       And an unavailability should exist with reason: "illness", description: "My head hurts"
       And the confirmed user should be the unavailability's user
 
+     When I follow "6:00-18:00"
+      And I wait for the modal box to appear
+      And I press "Löschen"
+      And I wait for the modal box to disappear
+      And I wait for ember to run
+     Then I should see the following calendar:
+         | Mo | Di | Mi | Do | Fr | Sa | So |
+         |    |    |    |    |    | 1  | 2  |
+         | 3  | 4  | 5  | 6  | 7  | 8  | 9  |
+         | 10 | 11 | 12 | 13 | 14 | 15 | 16 |
+         | 17 | 18 | 19 | 20 | 21 | 22 | 23 |
+         | 24 | 25 | 26 | 27 | 28 | 29 | 30 |
+         | 31 |    |    |    |    |    |    |
+
   Scenario: only show one of my bosses that I am sick, stay at home
     Given an account "Home" exists with name: "Home"
       And an organization "Family" exists with account: account "Home"
