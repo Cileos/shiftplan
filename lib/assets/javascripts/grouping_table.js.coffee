@@ -14,6 +14,10 @@ defaults =
     template: Ember.Handlebars.compile "{{view.content.name}}"
   cellListItemView: Ember.View.extend
     template: Ember.Handlebars.compile '{{view.content.name}}'
+  rowHeaderView: Ember.View.extend
+    tagName: 'th'
+    template: Ember.Handlebars.compile '{{view.parentView.content}} ({{view.parentView.itemsInRow.length}})'
+
   items: alias('content')
 
 GroupingTable = Ember.Namespace.create()
@@ -87,9 +91,7 @@ GroupingTable.createView = (options)->
           @get('items').filterProperty(c.rowProperty, @get('content'))
         ).property("rows.@each', 'items")
 
-        heading: Ember.View.extend
-          tagName: 'th'
-          template: Ember.Handlebars.compile '{{view.parentView.content}} ({{view.parentView.itemsInRow.length}})'
+        heading: c.rowHeaderView.extend()
 
         ############################################################################
         # Ember bindings get lost here
