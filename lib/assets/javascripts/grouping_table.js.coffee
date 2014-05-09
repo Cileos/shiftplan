@@ -98,7 +98,7 @@ GroupingTable.createView = (options)->
 
             structureInCell: (->
               @get('parentView.structureInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
-            ).property("columns.@each', 'structure.@each.#{c.columnProperty}")
+            ).property("columns.@each", "structure.@each.#{c.columnProperty}")
 
             itemsInCell: (->
               @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
