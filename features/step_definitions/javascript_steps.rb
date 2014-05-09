@@ -46,7 +46,7 @@ When /^I hover over the notification hub menu item$/ do
   page.execute_script("$('body').trigger('tack')")
 end
 
-When /^I wait for [Ee]mber to boot$/ do
+When /^I wait for [Ee]mber to (?:boot|run)$/ do
   # we use sinon to fake the time on JS side. Sadly, it conflicts with Ember's
   # run loop, stopping it when establishing a fake time. Use this step after a
   # page load to enforce the bootup

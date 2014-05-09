@@ -48,6 +48,7 @@ Feature: Tasks of milestones
      When I follow "neue Aufgabe"
       And I fill in "Name" with "Kill all humans"
       And I close the modal box
+      And I wait for ember to run
      Then I should not see "Kill all humans"
       And 0 tasks should exist with name: "Kill all humans"
 
