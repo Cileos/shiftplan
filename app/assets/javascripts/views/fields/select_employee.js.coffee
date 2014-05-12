@@ -4,3 +4,10 @@ Clockwork.Fields.SelectEmployee = Ember.Select.extend
   optionValuePath: 'content.id'
   optionLabelPath: 'content.name'
   prompt: '-- Mitarbeiter --'
+  optionGroupPath:
+    Ember.computed ->
+      if @get('content').mapProperty('account.name').uniq().get('length') > 1
+        'account.name'
+      else
+        null
+    .property('content.@each.account.name')
