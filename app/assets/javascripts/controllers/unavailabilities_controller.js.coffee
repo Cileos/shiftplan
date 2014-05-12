@@ -14,6 +14,11 @@ Clockwork.DayInCalendar = Ember.Object.extend
   ).property('date')
 
 
+beginningOfMonth = (year, month)->
+  month = "0" + month if month < 10
+  moment "#{year}-#{month}-01"
+
+
 Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
   year: null
   month: null
@@ -48,7 +53,7 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
     return [] unless year?
     return [] unless month?
     days = []
-    d = moment "#{year}-#{month}-01"
+    d = beginningOfMonth(year, month)
     while d.month() is month - 1
       day = Clockwork.DayInCalendar.create date: d
       days.pushObject(day)
@@ -59,7 +64,7 @@ Clockwork.UnavailabilitiesController = Ember.ArrayController.extend
 
   # TODO show only weeks in #year/month
   weeks: (->
-    first = moment("#{@get('year')}-#{@get('month')}-01")
+    first = beginningOfMonth(@get('year'), @get('month'))
     last = first.clone().endOf('month')
     if first.isoWeek() < last.isoWeek()
       Ember.A([first.isoWeek() .. last.isoWeek()])
