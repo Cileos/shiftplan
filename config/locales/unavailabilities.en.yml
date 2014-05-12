@@ -1,0 +1,16 @@
+eb:
+  activerecord:
+    attributes:
+      unavailability:
+        reason: 'Reason'
+        description: "Notes"
+        all_accounts: "all Accounts"
+    values:
+      unavailability:
+        reasons:
+          _prompt: '-- Reason --'
+          vacation: 'Vacation'
+          illness: 'Illness'
+          education: 'Education'
+          other: "Other"
+
