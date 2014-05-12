@@ -29,8 +29,6 @@
 
       {{#unless allAccounts}}
         {{checkbox-select model=this elements=availableAccounts propertyPath="accounts" labelPath="name"}}
-
-        <p>{{#each a in content.accounts}}{{a.name}}{{/each}}</p>
       {{/unless}}
     </div>
   {{/if}}
