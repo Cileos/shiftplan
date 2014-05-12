@@ -37,7 +37,7 @@ Feature: Planning Active Unavailabilities
          | 31 |    |    |    |                             |    |    |
       And an unavailability should exist with reason: "education"
       And the employee "Homer" should be the unavailability's employee
-      But the unavailability's user should be nil
+      And the user "Homer" should be the unavailability's user
 
      When I select "Carl C" from "Mitarbeiter"
       And I wait for the spinner to stop
