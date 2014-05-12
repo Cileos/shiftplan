@@ -10,6 +10,11 @@ Clockwork.MonthlyCalendarView = GroupingTable.createView
   cellLabelView: Ember.View.extend
     tagName: 'span'
     templateName: 'unavailabilities/day_in_month'
+
   cellListItemView: Clockwork.UnavailabilitiesItemInListView
   elementId: 'calendar'
   classNames: ['calendar']
+
+  click: (e)->
+    if $(e.target).is('td')
+      $(e.target).find('a.day-in-month').click()
