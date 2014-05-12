@@ -8,5 +8,5 @@ Clockwork.UnavailabilitiesNewController = Ember.ObjectController.extend
 
   accountSelectorVisible:
     Ember.computed ->
-      @get('multipleAccounts') and !@get('content.employee')
+      @get('multipleAccounts') and !@get('content.employee') and !@get('content.id')
     .property('multipleAccounts', 'content.employee')
