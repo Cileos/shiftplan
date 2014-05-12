@@ -19,6 +19,10 @@ class Unavailability < ActiveRecord::Base
     Account.where id: account_ids
   end
 
+  def accounts=(new_accounts)
+    self.account_ids = new_accounts.map(&:id)
+  end
+
   # TODO ability to assign the account_ids?
 
 private

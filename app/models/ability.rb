@@ -109,7 +109,7 @@ class Ability
         un.user_id == user.id
       else
         false
-      end
+      end && un.accounts.all? {|a| user.accounts.include?(a) }
     end
   end
 
