@@ -17,6 +17,8 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
 
 
     models.unas = if params.year? and params.month?
+      # OPTIMIZE re-filter for the same params below
+      @store.unloadAll 'unavailability' # we only want to see ours
       @store.find 'unavailability',
                year: params.year,
                month: params.month,
