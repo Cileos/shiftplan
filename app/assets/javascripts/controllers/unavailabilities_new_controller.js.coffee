@@ -5,3 +5,8 @@ Clockwork.UnavailabilitiesNewController = Ember.ObjectController.extend
   multipleAccounts: Ember.computed ->
     @get('availableAccounts.length') > 1
   .property('availableAccounts.length')
+
+  accountSelectorVisible:
+    Ember.computed ->
+      @get('multipleAccounts') and !@get('content.employee')
+    .property('multipleAccounts', 'content.employee')

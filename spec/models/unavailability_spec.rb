@@ -8,6 +8,12 @@ describe Unavailability do
       reloaded = described_class.find created.id
       reloaded.account_ids.should == ids
     end
+
+    it 'must be empty when #employee is set' do
+      una = build(:unavailability, account_ids: [1,2,3], employee: build(:employee))
+      una.should_not be_valid
+      una.should have_at_least(1).error_on(:account_ids)
+    end
   end
 
   describe '#user_id' do

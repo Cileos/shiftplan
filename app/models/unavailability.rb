@@ -15,6 +15,8 @@ class Unavailability < ActiveRecord::Base
 
   before_validation :set_user_from_employee, on: :create
 
+  validates :account_ids, absense: true, if: :employee
+
   def accounts
     Account.where id: account_ids
   end
