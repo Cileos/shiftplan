@@ -6,7 +6,7 @@ class SessionSerializer < ApplicationSerializer
   end
 
   def can_manage_unavailabilities
-    object.memberships.any?(&:planner?)
+    object.memberships.any?(&:planner?) || !object.owned_accounts.empty?
   end
 
   # there is only one session: the current one
