@@ -4,7 +4,7 @@ tr = (key)-> "activerecord.values.unavailability.reasons.#{key}"
 
 
 
-Clockwork.Fields.SelectReason = Clockwork.Fields.SingleSelect.extend
+Clockwork.Fields.SelectReason = Ember.Select.extend
   promptTranslation: tr('prompt')
   content: (->
     reasons = Ember.A()
