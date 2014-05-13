@@ -15,14 +15,6 @@ module AllDaySettable
     end
   end
 
-  def length_in_hours
-    if all_day?
-      0.0
-    else
-      super
-    end
-  end
-
   class SpansAllDayValidator < ActiveModel::Validator
     def validate(record)
       if record.all_day?
