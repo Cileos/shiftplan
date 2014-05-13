@@ -1,7 +1,7 @@
 %ul
   - schedulings.each do |scheduling|
     %li.scheduling{class: scheduling.css_class, data: scheduling.metadata}
-      = schedling.work_time
+      = scheduling.work_time
       = scheduling.link_to_conflicts
       - if scheduling.employee
         - scheduling.employee.organization_id = current_organization.id
