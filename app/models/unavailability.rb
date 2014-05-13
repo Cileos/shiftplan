@@ -1,5 +1,7 @@
 class Unavailability < ActiveRecord::Base
+  include Quickie::Assignable
   include TimeRangeComponentsAccessible
+  include TimePeriodFormatter
   attr_accessible :employee_id,
                   :starts_at,
                   :ends_at,
@@ -23,6 +25,10 @@ class Unavailability < ActiveRecord::Base
 
   def accounts=(new_accounts)
     self.account_ids = new_accounts.map(&:id)
+  end
+
+  def to_quickie
+    period
   end
 
   # TODO ability to assign the account_ids?

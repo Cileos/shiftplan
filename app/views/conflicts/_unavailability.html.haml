@@ -1,0 +1,11 @@
+- una ||= record
+
+%heading
+  .reason= una.reason_text
+
+%section.unavailability
+  = abbr_tag una.period_with_zeros, una.period_with_duration, class: 'work_time'
+  - if description = una.description.presence
+    = description
+
+

@@ -16,6 +16,7 @@ Feature: Inspect conflicts on Schedulings
         | date       | quickie  |
         | 2012-02-15 | 13:15-14 |
         | 2012-02-15 | 15:15-16 |
+      And an unavailability_by_quickie exists with date: "2012-02-15", quickie: "12-14", employee: employee "Homer"
 
      When I go to the employees in week page of the plan "clean reactor" for cwyear: 2012, week: 7
      Then I should see the following calendar:
@@ -36,6 +37,7 @@ Feature: Inspect conflicts on Schedulings
      Then I should see "10:00-18:00" within the left column within the modal box
       And I should see "13:15-14:00" within the right column within the modal box
       And I should see "15:15-16:00" within the right column within the modal box
+      And I should see "12:00-14:00" within the right column within the modal box
 
      # follow one established
      When I follow "14:00" within the right column within the modal box

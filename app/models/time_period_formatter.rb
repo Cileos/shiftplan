@@ -61,11 +61,11 @@ module TimePeriodFormatter
   private
 
     def self_or_prev_day
-      @self_or_prev_day ||= previous_day ? previous_day : self
+      @self_or_prev_day ||= (respond_to?(:previous_day) && previous_day).presence || self
     end
 
     def self_or_next_day
-      @self_or_next_day ||= next_day ? next_day : self
+      @self_or_next_day ||= (respond_to?(:next_day) && next_day).presence || self
     end
 
     def length_in_minutes

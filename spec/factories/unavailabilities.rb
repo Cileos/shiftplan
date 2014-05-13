@@ -4,7 +4,13 @@ FactoryGirl.define do
   factory :unavailability do
     starts_at "2014-03-21 14:38:18"
     ends_at "2014-03-21 14:38:18"
-    employee_id ""
-    user_id ""
+  end
+
+  factory :unavailability_by_quickie, class: 'Unavailability' do
+    quickie '9-17'
+    date { Date.today }
+    after :build do |s|
+      s.valid?
+    end
   end
 end
