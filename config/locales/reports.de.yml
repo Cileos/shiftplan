@@ -22,6 +22,7 @@ de:
       xls_export: "Als Excel-Datei exportieren"
       date: 'Datum'
       hours: 'Stunden'
+      all_day: "Ganztägig"
       all: "Alle"
     table:
       date: "Datum"
