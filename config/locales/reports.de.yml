@@ -26,6 +26,7 @@ de:
     table:
       date: "Datum"
       hours: "Stunden"
+      all_day: "Ganztägig"
       employees: Mitarbeiter
       qualification: "Qualifikation"
       team: "Team"

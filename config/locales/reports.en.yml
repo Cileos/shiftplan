@@ -26,6 +26,7 @@ en:
     table:
       date: "Date"
       hours: "Hours"
+      all_day: "All day"
       employees: Employees
       qualification: "Qualification"
       team: "Team"

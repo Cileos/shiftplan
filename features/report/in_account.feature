@@ -22,13 +22,14 @@ Feature: Report
         | lie to the public  | Lie to the public  | organization "pr"         |
         | shut down          | Shut down          | organization "sector 7g"  |
       And the following schedulings exists:
-        | date        | employee                   | quickie  | plan                      | team      | qualification      |
-        | 23.12.2012  | employee owner "mr burns"  | 7-14:30  | plan "shut down"          |           |                    |
-        | 21.12.2012  | employee owner "mr burns"  | 7-15:30  | plan "shut down"          | the team  | the qualification  |
-        | 20.12.2012  | employee "homer"           | 22-7     | plan "shut down"          | the team  | the qualification  |
-        | 19.12.2012  | employee "homer"           | 7-13:45  | plan "lie to the public"  |           |                    |
-        | 17.11.2012  | employee owner "mr burns"  | 7-14:30  | plan "shut down"          |           |                    |
-        | 17.11.2012  | employee "homer"           | 0-24:00  | plan "Shut down"          |           |                    |
+        | date        | employee                   | quickie   | plan                      | team      | qualification      | all_day  |
+        | 23.12.2012  | employee owner "mr burns"  | 7-14:30   | plan "shut down"          |           |                    | false    |
+        | 21.12.2012  | employee owner "mr burns"  | 7-15:30   | plan "shut down"          | the team  | the qualification  | false    |
+        | 20.12.2012  | employee "homer"           | 22-7      | plan "shut down"          | the team  | the qualification  | false    |
+        | 19.12.2012  | employee "homer"           | 7-13:45   | plan "lie to the public"  |           |                    | false    |
+        | 19.12.2012  | employee "homer"           | 19-21:00  | plan "lie to the public"  |           |                    | true     |
+        | 17.11.2012  | employee owner "mr burns"  | 7-14:30   | plan "shut down"          |           |                    | false    |
+        | 17.11.2012  | employee "homer"           | 0-24:00   | plan "Shut down"          |           |                    | false    |
 
       # Foreign account data:
       And an account "tv business" exists with name: "TV Business"
@@ -47,11 +48,12 @@ Feature: Report
       # Schedulings of both organizations of the springfield account are listed.
       # Per default only the schedulings of the current month are listed.
      Then I should see the following table of reports:
-        | Datum       | Stunden  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
-        | 23.12.2012  | 7,50     | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
-        | 21.12.2012  | 8,50     | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
-        | 20.12.2012  | 9,00     | Simpson, Homer  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
-        | 19.12.2012  | 6,75     | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
+        | Datum       | Stunden  | Ganztägig  | Mitarbeiter     | Team            | Qualifikation      | Plan               | Organisation  |
+        | 23.12.2012  | 7,50     | nein       | Burns, Charles  |                 |                    | Shut down          | Sector 7-G    |
+        | 21.12.2012  | 8,50     | nein       | Burns, Charles  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
+        | 20.12.2012  | 9,00     | nein       | Simpson, Homer  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
+        | 19.12.2012  | 6,75     | nein       | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
+        | 19.12.2012  | 0,00     | ja         | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
       And I should see "31,75" within the header aggregation within the reports table
 
       And the "Von" field should contain "01.12.2012"

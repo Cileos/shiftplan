@@ -5,6 +5,7 @@
     %tr
       %th= t('.date')
       %th.numeric= t('.hours')
+      %th= t('.all_day')
       %th= t('.employees')
       %th= t('.plan')
       %th= t('.organisation')
@@ -20,6 +21,7 @@
       %tr{ id: "record_#{scheduling.id}" }
         %td= scheduling.link_to_calendar l(scheduling.starts_at.to_date)
         %td.numeric= number_with_precision(scheduling.decimal_duration, precision: 2)
+        %td= yes_or_no_tag(scheduling.all_day?)
         %td= scheduling.employee.try(:last_and_first_name)
         %td= scheduling.plan.name
         %td= scheduling.organization.name

@@ -25,6 +25,7 @@ en:
       scheduling:
         quickie: "e.g. 9-17 Awesome Job [AJ]"
   schedulings:
+    all_day: "all day"
     missing_team: Without team
     missing_employee: Without employee
     legend: Legend
