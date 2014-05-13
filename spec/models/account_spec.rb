@@ -28,4 +28,11 @@ describe Account do
       build(:new_account, user_id: '' ).should_not be_valid
     end
   end
+
+  let(:factory_name) { :account }
+  context "#name" do
+    let(:attr) { :name }
+    it_behaves_like :human_name_attribute
+  end
+
 end
