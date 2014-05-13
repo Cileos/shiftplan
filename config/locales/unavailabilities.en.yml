@@ -1,10 +1,12 @@
-eb:
+en:
   activerecord:
     attributes:
       unavailability:
         reason: 'Reason'
         description: "Notes"
         all_accounts: "all Accounts"
+        start_time: "Start"
+        end_time: "End"
     values:
       unavailability:
         reasons:

@@ -5,6 +5,8 @@ de:
         reason: 'Grund'
         description: "Beschreibung"
         all_accounts: "alle Accounts"
+        start_time: "Beginn"
+        end_time: "Ende"
     values:
       unavailability:
         reasons:
