@@ -39,7 +39,11 @@ module TimePeriodFormatter
   end
 
   def decimal_duration
-    length_in_minutes / 60
+    if all_day?
+      0.0
+    else
+      length_in_minutes / 60
+    end
   end
 
   def period

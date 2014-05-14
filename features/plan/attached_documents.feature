@@ -8,6 +8,7 @@ Feature: Attached documents
      Given the situation of a nuclear reactor
        And I am on the page of the plan
       When I follow "Dokument hochladen"
+       And I wait a bit
        And I wait for the modal box to appear
       Then I should see "Neues Dokument hochladen" within the modal box title
        And I attach the file "factories/attached_documents/howto.docx" to "Datei"
@@ -23,6 +24,7 @@ Feature: Attached documents
        And a milestone exists with name: "Weltherrschaft", plan: the plan
        And I am on the page of the plan
       When I follow "Dokument hochladen"
+       And I wait a bit
        And I wait for the modal box to appear
        And I attach the file "factories/attached_documents/howto.docx" to "Datei"
        And I select "Weltherrschaft" from the "Meilenstein" single-select box
@@ -38,6 +40,7 @@ Feature: Attached documents
        And I am on the page of the plan
        And I deactivate all confirm dialogs
       When I follow "Löschen" within the attached_documents list
+       And I wait a bit
       Then I should see flash notice "Dokument howto.docx gelöscht"
        And I should be somewhere under the page of the plan
        And I should not see "howto.docx" within the sidebar

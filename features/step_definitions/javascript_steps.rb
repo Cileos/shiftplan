@@ -31,7 +31,7 @@ When /^I disable (?:all )?jquery animations$/ do
   page.execute_script %Q~jQuery.fx.off = true~
 end
 
-When /^I leave #{capture_quoted} field$/ do |label|
+When /^I leave the #{capture_quoted} field$/ do |label|
   field = find_field(label)
   field[:id].should_not be_nil, "cannot leave '#{label}' field because it has no id"
 

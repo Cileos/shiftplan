@@ -10,11 +10,18 @@ describe EmployeeWwtDiffWidget do
 
   context '#hours' do
     it "sums up records with full hours" do
-      records << double('s1', employee: employee, length_in_hours: 4)
-      records << double('s2', employee: employee, length_in_hours: 8)
-      records << double('s3', employee: employee, length_in_hours: 15)
+      records << double('s1', employee: employee, length_in_hours: 4 , all_day?: false)
+      records << double('s2', employee: employee, length_in_hours: 8 , all_day?: false)
+      records << double('s3', employee: employee, length_in_hours: 15, all_day?: false)
 
       subject.hours.should == 4 + 8 + 15
+    end
+
+    it "sums up records with 15-minute intervals" do
+      records << double('s1', employee: employee, length_in_hours: 4.5 , all_day?: false)
+      records << double('s2', employee: employee, length_in_hours: 8.75, all_day?: false)
+
+      subject.hours.should == 13.25
     end
 
     it "ignores records by other employees" do
@@ -23,11 +30,10 @@ describe EmployeeWwtDiffWidget do
       subject.hours.should == 0
     end
 
-    it "sums up records with 15-minute intervals" do
-      records << double('s1', employee: employee, length_in_hours: 4.5)
-      records << double('s2', employee: employee, length_in_hours: 8.75)
+    it "ignores all day schedulings" do
+      records << double('s1', employee: employee, length_in_hours: 24 , all_day?: true)
 
-      subject.hours.should == 13.25
+      subject.hours.should == 0
     end
   end
 
@@ -65,6 +71,11 @@ describe EmployeeWwtDiffWidget do
 
     it 'excludes hours from other employees' do
       sch plan: plan, employee: other_employee, quickie: '2-5'
+      subject.additional_hours.should == 0
+    end
+
+    it 'excludes hours from all day schedulings' do
+      sch plan: other_plan, employee: employee, quickie: '2-4', all_day: true
       subject.additional_hours.should == 0
     end
   end

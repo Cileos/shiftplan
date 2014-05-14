@@ -17,7 +17,9 @@ class Report < RecordFilter
   end
 
   def total_duration
-    @total_duration ||= all_records_without_next_days.sum { |s| s.decimal_duration }
+    @total_duration ||= all_records_without_next_days.
+      reject { |s| s.all_day? }.
+      sum { |s| s.decimal_duration }
   end
 
   def total_number_of_records

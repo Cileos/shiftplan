@@ -26,6 +26,7 @@ de:
     labels:
       defaults:
         source: Von
+        all_day: Ganztägig
     hints:
       scheduling:
         quickie: "z. B.: 9-17 wichtige Arbeit [wA]"

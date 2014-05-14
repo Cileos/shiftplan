@@ -1,4 +1,4 @@
 - schedulings.each do |scheduling|
   %div.scheduling.horizontal{data: scheduling.metadata.merge(filter.stack_metadata_for(scheduling))}
-    = abbr_tag scheduling.period_with_zeros, scheduling.period_with_duration, class: 'work_time'
+    = scheduling.work_time
     = render 'employees/tiny', employee: scheduling.employee

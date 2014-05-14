@@ -41,6 +41,10 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     #   .change( (e)=> @employeeSelected(e) )
     #   .change()
 
+    @input('all_day')
+      .change( (e)=> @clickedAllDay(e) )
+      .change()
+
     #@input('team_id')
     #  .bindWithDelay('change', (=> @updateQuickie()), 150)
 
@@ -77,6 +81,12 @@ Clockwork.SchedulingEditor = Ember.Object.extend
   #     $inputs.prop('disabled', 'disabled')
   #     $labels.addClass('disabled')
 
+  clickedAllDay: (event)->
+    $box = $(event.target)
+    if $box.prop('checked')
+      @get('element').find("div.start-time").add('div.end-time').hide()
+    else
+      @get('element').find("div.start-time").add('div.end-time').show()
 
   # DEAD (Quickie readonly)
   updateFields: ->

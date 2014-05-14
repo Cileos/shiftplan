@@ -32,7 +32,7 @@ class ApplyPlanTemplate
 
   def create_schedulings_for_shift(shift)
     starts_at, ends_at = starts_at_and_ends_at_for(shift)
-    default_attrs = { starts_at: starts_at, ends_at: ends_at, team: shift.team }
+    default_attrs = { starts_at: starts_at, ends_at: ends_at, team: shift.team, all_day: shift.all_day? }
     if shift.demands.empty?
       create_scheduling(default_attrs)
     else
