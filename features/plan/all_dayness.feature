@@ -35,7 +35,4 @@ Feature: All Day ness
         | Carl C        |    |    |    |           |    |    |    |
         | Lenny L       |    |    |    |           |    |    |    |
         | Homer S       |    |    |    | Ganztägig |    |    |    |
-      And a scheduling should exist
-      And the scheduling's start_time should be "00:00"
-      And the scheduling's end_time should be "23:59"
-      But the employee "Homer S" should have a yellow hours/waz value of "0 / 40"
+      And the employee "Homer S" should have a yellow hours/waz value of "0 / 40"
