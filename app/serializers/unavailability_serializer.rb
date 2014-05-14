@@ -4,5 +4,6 @@ class UnavailabilitySerializer < ApplicationSerializer
              :ends_at,
              :description,
              :reason,
-             :account_ids
+             :account_ids,
+             :all_day
 end

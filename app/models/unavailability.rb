@@ -12,7 +12,8 @@ class Unavailability < ActiveRecord::Base
                   :date,
                   :reason,
                   :account_ids,
-                  :description
+                  :description,
+                  :all_day
 
   belongs_to :user
   belongs_to :employee

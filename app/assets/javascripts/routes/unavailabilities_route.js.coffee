@@ -55,6 +55,7 @@ Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
       date:         here.toDate()
       startsAt:     null
       endsAt:       null
+      allDay:       true
       startTime:    '06:00'
       endTime:      '18:00'
       employee:     @controllerFor('unavailabilities').get('employee')

@@ -16,6 +16,7 @@ formattedTimeProperty = (name)->
 Clockwork.Unavailability = DS.Model.extend
   reason: DS.attr('string')
   description: DS.attr('string')
+  allDay: DS.attr('boolean')
   startsAt: DS.attr('date')
   endsAt: DS.attr('date')
   employee: DS.belongsTo('employee')
@@ -40,6 +41,13 @@ Clockwork.Unavailability = DS.Model.extend
     else
       null
   ).property('reason')
+
+  timeRange: (->
+    if @get('allDay')
+      Em.I18n.t("activerecord.attributes.unavailability.all_day")
+    else
+      @get('startTime') + '-' + @get('endTime')
+  ).property('allDay')
 
   allAccounts: true
   accounts: DS.hasMany('account')
