@@ -9,7 +9,7 @@ Feature: Personal Active Unavailabilities
       And an account "Work" exists with name: "Springfield NPP"
       And an organization exists with name: "Sector 7-G", account: the account
       And a confirmed user exists
-      And an employee exists with user: the confirmed user, first_name: "Lenny", last_name: "Leonard", account: the account
+      And an employee "Homer" exists with user: the confirmed user, first_name: "Homer", last_name: "S.", account: the account
       And the employee is a member of the organization
       And I am signed in as the confirmed user
 
@@ -61,11 +61,18 @@ Feature: Personal Active Unavailabilities
          | 24 | 25 | 26 | 27 | 28 | 29 | 30 |
          | 31 |    |    |    |    |    |    |
 
-  Scenario: only show one of my bosses that I am sick, stay at home
+  Scenario: only show two of my bosses that I am sick, stay at home
+    # mark as unavailbe for Work & Home, go to Moe's Bar.
     Given an account "Home" exists with name: "Home"
       And an organization "Family" exists with account: account "Home"
       And an employee "Daddy" exists with user: the confirmed user, account: account "Home"
       And the employee "Daddy" is a member of the organization "Family"
+
+      And an account "Moe's" exists with name: "Moe's"
+      And an organization "Bar" exists with account: account "Moe's"
+      And an employee "Drunk Homer" exists with user: the confirmed user, account: account "Moe's"
+      And the employee "Drunk Homer" is a member of the organization "Bar"
+
       And I go to the availability page
       And I wait for Ember to boot
      When I follow "21"
@@ -76,22 +83,23 @@ Feature: Personal Active Unavailabilities
      When I uncheck "alle Accounts"
      Then the "Springfield NPP" checkbox should not be checked
       And the "Home" checkbox should not be checked
+      And the "Moe's" checkbox should not be checked
      When I check "Springfield NPP"
+      And I check "Home"
       And I select "Krankheit" from "Grund"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-         | Mo | Di | Mi | Do | Fr                      | Sa | So |
-         |    |    |    |    |                         | 1  | 2  |
-         | 3  | 4  | 5  | 6  | 7                       | 8  | 9  |
-         | 10 | 11 | 12 | 13 | 14                      | 15 | 16 |
-         | 17 | 18 | 19 | 20 | 21 6:00-18:00 Krankheit | 22 | 23 |
-         | 24 | 25 | 26 | 27 | 28                      | 29 | 30 |
-         | 31 |    |    |    |                         |    |    |
-      And an unavailability should exist with reason: "illness"
-      And the confirmed user should be the unavailability's user
-      And the account "Work" should be one of the unavailability's accounts
-      But the account "Home" should not be one of the unavailability's accounts
+         | Mo | Di | Mi | Do | Fr                                           | Sa | So |
+         |    |    |    |    |                                              | 1  | 2  |
+         | 3  | 4  | 5  | 6  | 7                                            | 8  | 9  |
+         | 10 | 11 | 12 | 13 | 14                                           | 15 | 16 |
+         | 17 | 18 | 19 | 20 | 21 6:00-18:00 Krankheit 6:00-18:00 Krankheit | 22 | 23 |
+         | 24 | 25 | 26 | 27 | 28                                           | 29 | 30 |
+         | 31 |    |    |    |                                              |    |    |
+      And an unavailability should exist with reason: "illness", user: confirmed user, employee: employee "Homer"
+      And an unavailability should exist with reason: "illness", user: confirmed user, employee: employee "Daddy"
+      But 0 unavailabilities should exist with employee: employee "Drunk Homer"
 
   Scenario: Changing a sick day to education
     Given an unavailability exists with reason: "illness", user: confirmed user, starts_at: "2012-12-21 6:00", ends_at: "2012-12-21 18:00"

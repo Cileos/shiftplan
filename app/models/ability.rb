@@ -103,14 +103,10 @@ class Ability
     end
 
     can :manage, Unavailability do |un|
-      if e = un.employee
-        user.plannable_employees.include?(e)
-      elsif un.user_id
-        un.user_id == user.id
-      else
-        false
-      end && un.accounts.all? {|a| user.accounts.include?(a) }
+      user.employees.include?(un.employee) ||
+      user.plannable_employees.include?(un.employee)
     end
+
   end
 
   def authorize_employee

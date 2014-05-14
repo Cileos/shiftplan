@@ -81,7 +81,8 @@ class User < ActiveRecord::Base
   end
 
   def employee_for_account(account)
-    employees.find_by_account_id(account.id)
+    account = account.id if account.respond_to?(:save) # AR
+    employees.find_by_account_id(account)
   end
 
   # A Planner or Owner does not need a membership
