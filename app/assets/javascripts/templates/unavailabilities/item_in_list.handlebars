@@ -1,10 +1,10 @@
-{{#link-to 'unavailabilities.edit' view.content}}
+{{#link-to 'unavailabilities.edit' view.content classNames="work_time"}}
 {{view.content.startTime}}-{{view.content.endTime}}
 {{/link-to}}
 
 <span class="reason">
   {{view.content.reasonText}}
-  {{#if view.content.description}}
-  <span class="description">{{view.content.description}}</span>
-  {{/if}}
 </span>
+{{#if view.content.description}}
+<span class="description">{{view.content.description}}</span>
+{{/if}}

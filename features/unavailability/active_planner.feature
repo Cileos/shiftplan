@@ -24,7 +24,7 @@ Feature: Planning Active Unavailabilities
          | 31 |    |    |    |    |    |    |
      When I follow "21"
       And I wait for the modal box to appear
-      And I select "Weiterbildung" from the "Grund" single-select box
+      And I select "Weiterbildung" from "Grund"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:

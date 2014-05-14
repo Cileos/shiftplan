@@ -31,20 +31,19 @@ Feature: Personal Active Unavailabilities
       And I wait for the modal box to appear
       # because I am an employee in only one account:
      Then I should not see "alle Accounts" within the modal box
-     #     Then the "Ganztägig" checkbox should be checked
-     When I select "Krankheit" from the "Grund" single-select box
+     When I select "Krankheit" from "Grund"
       And I fill in "Beschreibung" with "My head hurts"
      #     And I select "Springfield NPP"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
-         | Mo | Di | Mi | Do | Fr                      | Sa | So |
-         |    |    |    |    |                         | 1  | 2  |
-         | 3  | 4  | 5  | 6  | 7                       | 8  | 9  |
-         | 10 | 11 | 12 | 13 | 14                      | 15 | 16 |
-         | 17 | 18 | 19 | 20 | 21 6:00-18:00 Krankheit | 22 | 23 |
-         | 24 | 25 | 26 | 27 | 28                      | 29 | 30 |
-         | 31 |    |    |    |                         |    |    |
+         | Mo  | Di  | Mi  | Do  | Fr                                     | Sa  | So  |
+         |     |     |     |     |                                        | 1   | 2   |
+         | 3   | 4   | 5   | 6   | 7                                      | 8   | 9   |
+         | 10  | 11  | 12  | 13  | 14                                     | 15  | 16  |
+         | 17  | 18  | 19  | 20  | 21 6:00-18:00 Krankheit My head hurts  | 22  | 23  |
+         | 24  | 25  | 26  | 27  | 28                                     | 29  | 30  |
+         | 31  |     |     |     |                                        |     |     |
       And an unavailability should exist with reason: "illness", description: "My head hurts"
       And the confirmed user should be the unavailability's user
 
@@ -78,7 +77,7 @@ Feature: Personal Active Unavailabilities
      Then the "Springfield NPP" checkbox should not be checked
       And the "Home" checkbox should not be checked
      When I check "Springfield NPP"
-      And I select "Krankheit" from the "Grund" single-select box
+      And I select "Krankheit" from "Grund"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
@@ -104,7 +103,7 @@ Feature: Personal Active Unavailabilities
      Then the "Beginn" field should contain "06:00"
       And the "Ende" field should contain "18:00"
      When I schedule una "8-20"
-      And I select "Weiterbildung" from the "Grund" single-select box
+      And I select "Weiterbildung" from "Grund"
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
