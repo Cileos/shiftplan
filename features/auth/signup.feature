@@ -76,6 +76,10 @@ Feature: Signing up
       And I fill in the following:
         | E-Mail              | bart.simpson@yaho.com |
         | Passwort            | secret                |
+        # Trigger blur event explicitly, cause it seens that the browser running
+        # kopflos on CI behaves differently.
+      And I leave the "E-Mail" field
+      And I wait a bit
      Then I should see "Meinten Sie bart.simpson@yahoo.com?"
 
      When I follow "bart.simpson@yahoo.com"
