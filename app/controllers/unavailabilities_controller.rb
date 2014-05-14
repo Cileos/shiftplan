@@ -21,6 +21,7 @@ protected
       :employee_id,
       :starts_at,
       :ends_at,
+      :all_day,
       :reason,
       :description,
     ]
