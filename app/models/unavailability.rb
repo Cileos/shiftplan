@@ -2,6 +2,8 @@ class Unavailability < ActiveRecord::Base
   include Quickie::Assignable
   include TimeRangeComponentsAccessible
   include TimePeriodFormatter
+  include AllDaySettable
+
   attr_accessible :employee_id,
                   :starts_at,
                   :ends_at,

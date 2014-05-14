@@ -25,4 +25,8 @@ describe Unavailability do
       una.user.should == user
     end
   end
+
+  it_behaves_like :spanning_all_day do
+    let(:record) { create :unavailability, all_day: true }
+  end
 end
