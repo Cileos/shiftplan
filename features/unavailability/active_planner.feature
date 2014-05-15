@@ -25,6 +25,7 @@ Feature: Planning Active Unavailabilities
      When I follow "21"
       And I wait for the modal box to appear
       And I select "Weiterbildung" from "Grund"
+      And I uncheck "Ganztägig"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
