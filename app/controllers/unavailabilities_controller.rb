@@ -23,7 +23,6 @@ protected
 
   def permitted_params
     good = [
-      :employee_id,
       :starts_at,
       :ends_at,
       :all_day,
@@ -31,7 +30,7 @@ protected
       :description,
     ]
     if action_name == 'create'
-      params.require(:unavailability).permit(*good, account_ids: [])
+      params.require(:unavailability).permit(*good, :employee_id, account_ids: [])
     else # implicitly ignore account_ids (ember data always sends all attrs)
       params.require(:unavailability).permit(*good)
     end
