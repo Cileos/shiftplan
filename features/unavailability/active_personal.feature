@@ -104,7 +104,7 @@ Feature: Personal Active Unavailabilities
       But 0 unavailabilities should exist with employee: employee "Drunk Homer"
 
   Scenario: Changing a sick day to education
-    Given an unavailability exists with reason: "illness", employee: employee "Homer", starts_at: "2012-12-21 6:00", ends_at: "2012-12-21 18:00"
+    Given an unavailability exists with reason: "illness", user: confirmed user, employee: employee "Homer", starts_at: "2012-12-21 6:00", ends_at: "2012-12-21 18:00"
       And I am on the dashboard
      When I choose "Verfügbarkeit" from the session and settings menu item
       And I wait for Ember to boot
