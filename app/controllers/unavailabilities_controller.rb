@@ -5,7 +5,7 @@ class UnavailabilitiesController < InheritedResources::Base
   respond_to :json, :html
 
   def create
-    creator.call permitted_params.merge(user: current_user)
+    creator.call permitted_params
     respond_to do |format|
       format.json { render json: creator.created_records }
     end
