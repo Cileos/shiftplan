@@ -1,2 +1,6 @@
 %script{type: 'text/x-handlebars', data: { 'template-name' => 'application' }}
-  %h1 Tutorial
+  {{outlet}}
+
+%script{type: 'text/x-handlebars', data: { 'template-name' => 'index' }}
+  #map
+    = inline_svg 'map'
