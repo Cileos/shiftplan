@@ -154,3 +154,7 @@ gem 'ri_cal', git: 'git://github.com/KonaTeam/ri_cal.git'
 
 gem 'fastercsv'       # not sure if still required
 gem 'csv_builder'
+# for Unavailability#account_ids array type support
+gem 'postgres_ext'
+
+gem 'tutorial', path: 'vendor/engines/tutorial'

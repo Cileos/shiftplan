@@ -7,11 +7,11 @@ require "tutorial/version"
 Gem::Specification.new do |s|
   s.name        = "tutorial"
   s.version     = Tutorial::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Tutorial."
-  s.description = "TODO: Description of Tutorial."
+  s.authors     = ["Niklas Hofer"]
+  s.email       = ["nh@cileos.com"]
+  s.homepage    = "http://clockwork.io"
+  s.summary     = "The Tutorial for Clockwork"
+  s.description = "Highly experimental approach to an omnipresent and extendable tutorial."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]

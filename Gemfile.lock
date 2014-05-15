@@ -55,6 +55,12 @@ GIT
   specs:
     nested_form (0.3.2)
 
+PATH
+  remote: vendor/engines/tutorial
+  specs:
+    tutorial (0.0.1)
+      rails (~> 3.2.16)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -547,7 +553,8 @@ DEPENDENCIES
   thin
   timecop
   treetop
-  uglifier
+  tutorial!
+  uglifier (>= 1.2.3)
   versatile_rjs!
   whenever
   zeus
