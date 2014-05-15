@@ -16,3 +16,8 @@ de:
           illness: 'Krankheit'
           education: 'Weiterbildung'
           other: "Sonstiges"
+  unavailabilities:
+    new:
+      modal_title:
+        employee: 'Wann kann {{name}} denn nicht?'
+        self: 'Wann kannste denn nich?'

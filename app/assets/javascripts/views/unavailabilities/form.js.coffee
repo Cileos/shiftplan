@@ -7,8 +7,8 @@ Clockwork.UnavailabilitiesFormView = Clockwork.ModalFormView.extend
   heading:
     Ember.computed ->
       if name = @get('content.employee.name')
-        "Wann kann #{name} denn nich?"
+        Ember.I18n.t('unavailabilities.new.modal_title.employee', name: name)
       else
-        'Wann kannste denn nich?'
+        Ember.I18n.t('unavailabilities.new.modal_title.self')
     .property('content.employee')
 

@@ -16,4 +16,9 @@ en:
           illness: 'Illness'
           education: 'Education'
           other: "Other"
+  unavailabilities:
+    new:
+      modal_title:
+        employee: 'When will {{name}} be absent?'
+        self: 'When will you be absent?'
 
