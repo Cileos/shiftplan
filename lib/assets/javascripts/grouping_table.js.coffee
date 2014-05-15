@@ -7,6 +7,7 @@ defaults =
   rows: Ember.String.w('a b c d e')
   rowHeaderVisible: true
   columnProperty: 'column'
+  sortProperty: 'id'
   rowProperty: 'row'
   columnHeaderProperty: 'name'
   cellLabelView: Ember.View.extend
@@ -103,7 +104,7 @@ GroupingTable.createView = (options)->
             ).property("columns.@each", "structure.@each.#{c.columnProperty}")
 
             itemsInCell: (->
-              @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
+              @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}")).sortBy(c.sortProperty...)
             ).property("columns.@each", "parentView.itemsInRow.@each.#{c.columnProperty}")
 
             # The actual list within the cell

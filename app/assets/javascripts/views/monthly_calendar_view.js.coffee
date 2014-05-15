@@ -7,6 +7,7 @@ Clockwork.UnavailabilitiesItemInListView = Ember.View.extend
 Clockwork.MonthlyCalendarView = GroupingTable.createView
   columnProperty: 'dayInWeek'
   rowProperty: 'weekInYear'
+  sortProperty: ['account.name', 'startsAt']
   columnHeaderProperty: 'humanDayInWeek'
   cellLabelView: Ember.View.extend
     tagName: 'span'
