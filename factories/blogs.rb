@@ -8,6 +8,6 @@ FactoryGirl.define do
     association :author, factory: :employee
     sequence(:title) { |i| "Post title #{i.ordinalize}" }
     sequence(:body)  { |i| "Post body #{i.ordinalize}" }
-    published_at { Time.now }
+    published_at { Time.zone.now }
   end
 end

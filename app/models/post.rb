@@ -26,7 +26,7 @@ class Post < ActiveRecord::Base
   protected
 
   def set_published_at
-    self.published_at ||= Time.now
+    self.published_at ||= Time.zone.now
   end
 
   def create_notifications

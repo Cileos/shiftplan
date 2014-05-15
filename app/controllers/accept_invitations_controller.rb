@@ -7,7 +7,7 @@ class AcceptInvitationsController < ApplicationController
 
   def accept
     if @invitation.user.confirmed?
-      @invitation.update_attributes!(accepted_at: Time.now)
+      @invitation.update_attributes!(accepted_at: Time.zone.now)
       respond_with_successful_confirmation
     else
       respond_with_accept_by_setting_a_password

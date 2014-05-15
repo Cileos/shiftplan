@@ -23,7 +23,7 @@ class Invitation < ActiveRecord::Base
 
   def send_email
     InvitationMailer.invitation(self).deliver
-    self.sent_at = Time.now
+    self.sent_at = Time.zone.now
     save!
   end
 
