@@ -5,7 +5,6 @@ class UnavailabilityCreator < Struct.new(:controller)
     @created_records = []
 
     account_ids = attrs.delete(:account_ids) || []
-    current_user = controller.current_user
 
     # will NOT be saved, only used to build the real records
     dummy = klass.new attrs
@@ -17,10 +16,15 @@ class UnavailabilityCreator < Struct.new(:controller)
       end
 
       account_ids.each do |account_id|
-        create_una attrs.merge(employee: current_user.employee_for_account(account_id))
+        create_una attrs.merge(
+          employee: current_user.employee_for_account(account_id),
+          user: current_user
+        )
       end
     else
-      create_una attrs.merge(employee: dummy.employee)
+      create_una attrs.merge(
+        user: dummy.employee.user
+      )
     end
   end
 
@@ -29,6 +33,11 @@ class UnavailabilityCreator < Struct.new(:controller)
   end
 
 private
+
+  def current_user
+    controller.current_user
+  end
+
   def klass
     Unavailability
   end

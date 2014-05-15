@@ -14,8 +14,8 @@ describe UnavailabilityCreator do
   end
 
   describe "when self planning" do
-    # The employee will not be present. The employee will be determined via the
-    # account ids for each created una instead.
+    # The employee is not present in the params. The employee will be determined
+    # via the account ids for each created una instead.
 
     describe '#account_ids' do
       let(:accounts) { 3.times.map { create :account } }
@@ -61,8 +61,8 @@ describe UnavailabilityCreator do
   end
 
   describe "when planning other employee" do
-    # The employee will be present and the user will be set to the
-    # employee's user (if any). No account ids are present.
+    # The employee is present and the user will be set to the employee's user
+    # (if any). No account ids are present.
     let(:other_user)     { create(:user) }
     let(:other_employee) { create(:employee, user: other_user)}
 
