@@ -15,7 +15,7 @@ Feature: Personal Active Unavailabilities
 
   Scenario: Enter a sick day
     Given I am on the dashboard
-     When I choose "Verfügbarkeit" from the session and settings menu item
+     When I choose "Abwesenheit" from the session and settings menu item
       And I wait for Ember to boot
      Then I should be on the availability page
       And I should see the following calendar:
@@ -106,7 +106,7 @@ Feature: Personal Active Unavailabilities
   Scenario: Changing a sick day to education
     Given an unavailability exists with reason: "illness", user: confirmed user, employee: employee "Homer", starts_at: "2012-12-21 6:00", ends_at: "2012-12-21 18:00"
       And I am on the dashboard
-     When I choose "Verfügbarkeit" from the session and settings menu item
+     When I choose "Abwesenheit" from the session and settings menu item
       And I wait for Ember to boot
       And I follow "6:00-18:00"
       And I wait for the modal box to appear
@@ -128,7 +128,7 @@ Feature: Personal Active Unavailabilities
 
   Scenario: Enter a all day sick day
     Given I am on the dashboard
-     When I choose "Verfügbarkeit" from the session and settings menu item
+     When I choose "Abwesenheit" from the session and settings menu item
       And I wait for Ember to boot
 
      When I follow "21"

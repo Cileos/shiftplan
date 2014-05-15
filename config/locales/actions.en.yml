@@ -101,7 +101,7 @@ en:
       upload_attached_document: "Upload Document"
       upload: "Upload"
       undo: "Undo"
-      availability: "Availability"
+      availability: "Absence days"
   schedulings:
     calendar_navigation:
       day: "Day"
