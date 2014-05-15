@@ -19,7 +19,7 @@ I want to edit my profile
      When I fill in "Nachname" with "Simpson"
       And I press "Speichern"
      Then I should be on the profile page of the employee
-      And I should see "Profil gespeichert."
+      And I should see flash notice "Profil gespeichert."
       And I should see "Marge Simpson" within the orientation bar
       But I should not see "Zurück"
 
@@ -42,7 +42,7 @@ I want to edit my profile
       And I attach the file "app/assets/images/rails.png" to "employee_avatar"
       And I press "Speichern"
      Then I should be on the profile page of the employee
-      And I should see "Profil gespeichert."
+      And I should see flash notice "Profil gespeichert."
       And I should see the avatar "rails.png" within the user navigation
 
   Scenario: Edit my full name for one of the accounts I joined
@@ -60,7 +60,7 @@ I want to edit my profile
       # Margeret Bouvier just married Homer Simpson and needs to change her last name
       And I fill in "Nachname" with "Simpson"
       And I press "Speichern"
-     Then I should see "Profil gespeichert."
+      And I should see flash notice "Profil gespeichert."
       And I should see "Margeret Simpson" within the orientation bar
 
      When I follow "Zurück"
