@@ -1,6 +1,6 @@
 class CopyWeekController < BaseController
   defaults :singleton => true
-  nested_belongs_to :account, :organization, :plan
+  nested_belongs_to :plan, :organization, :account # must be reverse ?!
   respond_to :js
 
   def create
