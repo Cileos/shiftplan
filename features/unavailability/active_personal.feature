@@ -33,6 +33,7 @@ Feature: Personal Active Unavailabilities
      Then I should not see "alle Accounts" within the modal box
      When I select "Krankheit" from "Grund"
       And I fill in "Beschreibung" with "My head hurts"
+      And I uncheck "Ganztägig"
      #     And I select "Springfield NPP"
       And I press "Anlegen"
       And I wait for the modal box to disappear
@@ -87,6 +88,7 @@ Feature: Personal Active Unavailabilities
      When I check "Springfield NPP"
       And I check "Home"
       And I select "Krankheit" from "Grund"
+      And I uncheck "Ganztägig"
       And I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following calendar:
