@@ -47,7 +47,7 @@ Clockwork.Unavailability = DS.Model.extend
       Em.I18n.t("activerecord.attributes.unavailability.all_day")
     else
       @get('startTime') + '-' + @get('endTime')
-  ).property('allDay')
+  ).property('allDay', 'startTime', 'endTime')
 
   allAccounts: true
   accounts: DS.hasMany('account')
