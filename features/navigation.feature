@@ -339,6 +339,7 @@ Feature: Navigation
        | Alle Pläne                                        | false   |
        | Stammdaten                                        | false   |
        | Mitarbeiter                                       | false   |
+       | Verfügbarkeit                                     | false   |
        | Teams                                             | false   |
        | Qualifikationen                                   | false   |
        | Planvorlagen                                      | false   |
