@@ -94,7 +94,9 @@ GroupingTable.createView = (options)->
           # the cell containing matching x and y
           itemViewClass: Ember.ContainerView.extend SettingsAliases,
             tagName: 'td'
+            classNameBindings: ['isFocus:focus']
             childViews: ['label', 'list']
+            isFocus: false
 
             structureInCell: (->
               @get('parentView.structureInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
@@ -112,5 +114,8 @@ GroupingTable.createView = (options)->
 
             label: c.cellLabelView.extend
               content: alias('parentView.structureInCell.firstObject')
+
+            mouseEnter: (evt)-> @set 'isFocus', true
+            mouseLeave: (evt)-> @set 'isFocus', false
 
 window.GroupingTable = GroupingTable
