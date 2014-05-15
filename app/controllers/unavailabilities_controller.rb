@@ -16,6 +16,11 @@ class UnavailabilitiesController < InheritedResources::Base
   end
 
 protected
+
+  def resource_params
+    [permitted_params]
+  end
+
   def permitted_params
     good = [
       :employee_id,
