@@ -13,6 +13,7 @@ redirectToView = (eventName)->
         view[eventName](event)
 
 Tut.IndexView = Ember.View.extend
+  elementId: 'container'
   didInsertElement: ->
     @$().on 'click', 'path', redirectToView('click')
     # ^ does not work with mouse*
