@@ -46,12 +46,6 @@ module BrowserSupport
       end
     end
 
-    def close_alert
-      page.driver.browser.switch_to.alert.accept()
-    rescue Selenium::WebDriver::Error::NoAlertPresentError => e
-      # no alert? perfect!
-    end
-
   end
 
   module Cucumber
@@ -66,6 +60,12 @@ module BrowserSupport
       else
         STDERR.puts "cannot switch browser to unknown size: #{size_name}"
       end
+    end
+
+    def close_alert
+      page.driver.browser.switch_to.alert.accept()
+    rescue Selenium::WebDriver::Error::NoAlertPresentError => e
+      # no alert? perfect!
     end
   end
 end
