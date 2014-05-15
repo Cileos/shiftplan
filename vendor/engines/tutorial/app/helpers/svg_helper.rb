@@ -1,3 +1,4 @@
+require 'nokogiri'
 module SvgHelper
   Root = Pathname.new(__FILE__).join('../../assets/images')
   def inline_svg(name, opts={})
@@ -13,6 +14,7 @@ module SvgHelper
       attrs = elem.attributes.map do |k,a|
         %Q~#{k}="#{a}"~
       end.join(" ")
+      Rails.logger.debug "attrs: #{elem.attributes.keys.join(' ')}"
       int = %Q~{{interactive-path #{attrs}}}~
       elem.parent.add_child int
 

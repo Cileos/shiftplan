@@ -1,6 +1,8 @@
 %script{type: 'text/x-handlebars', data: { 'template-name' => 'application' }}
   {{outlet}}
 
+%script{type: 'text/x-handlebars', data: { 'template-name' => 'components/interactive-path' }}
+
 %script{type: 'text/x-handlebars', data: { 'template-name' => 'index' }}
   #map
     = inline_svg 'map'
