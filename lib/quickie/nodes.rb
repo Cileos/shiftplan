@@ -22,8 +22,12 @@ module Quickie
 
   class HourRangeNode < BaseNode
     def fill(target)
-      target.start_time = start_time.text_value
-      target.end_time = end_time.text_value
+      if target.respond_to?(:start_time=)
+        target.start_time = start_time.text_value
+      end
+      if target.respond_to?(:end_time=)
+        target.end_time = end_time.text_value
+      end
     end
   end
 

@@ -136,7 +136,7 @@ When /^(?:I|they) schedule (\w+ |)#{capture_quoted}$/ do |kind, quickie_string|
   kind = kind.strip
   quickie = Quickie.parse(quickie_string)
 
-  holder = OpenStruct.new
+  holder = Struct.new(:start_time, :end_time, :team_name).new
   quickie.fill(holder)
 
   step %Q~I select "#{holder.team_name}" from the "Team" single-select box~ if holder.team_name.present?
