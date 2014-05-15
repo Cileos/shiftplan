@@ -36,6 +36,7 @@ class Invitation < ActiveRecord::Base
   def associate_employee_with_user
     if user && !employee.user
       employee.user = user
+      employee.unavailabilities.where(user_id: nil).update_all(user_id: user.id)
       employee.save!
     end
   end
