@@ -1,5 +1,6 @@
 Clockwork.UnavailabilitiesItemInListView = Ember.View.extend
   templateName: 'unavailabilities/item_in_list'
+  classNames: ['unavailability']
   click: (e)->
     @get('controller').transitionToRoute 'unavailabilities.edit', @get('content')
 

@@ -9,6 +9,8 @@ class Unavailability < ActiveRecord::Base
   belongs_to :user
   belongs_to :employee
 
+  delegate :account, to: :employee
+
   def to_quickie
     period
   end
