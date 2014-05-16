@@ -39,7 +39,9 @@ describe ConflictFinder do
     end
 
     describe 'when unavailability of employee of same user in other account exists' do
-      let!(:other) { una '11-12', employee: employee_in_other_account }
+      let!(:other) do
+        una '11-12', employee: employee_in_other_account, user: employee_in_other_account.user
+      end
       it_should_behave_like :conflict_finder_finding_conflict
     end
 
