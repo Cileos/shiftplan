@@ -21,6 +21,13 @@ describe UserConflictFinder do
       let!(:other) { s '7-10', other_employee }
       let(:scheduling) { s '9-17', employee }
       it_should_behave_like :conflict_finder_finding_conflict
+
+      it 'marks the conflicts to show details' do
+        subject.call
+        subject.conflicts.each do |c|
+          c.should be_show_details
+        end
+      end
     end
 
     describe 'not overlapping' do

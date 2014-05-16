@@ -1,6 +1,6 @@
 .two-cols
   .col.provoker
-    = render 'conflicts/scheduling', scheduling: conflict.provoker.decorate
+    = render 'conflicts/scheduling', scheduling: conflict.provoker.decorate, provoker: conflict.provoker.decorate, show_details: conflict.show_details?
   .col.established
     - conflict.established.map(&:decorate).each do |est|
-      = render "conflicts/#{est.partial_name}", record: est, provoker: conflict.provoker.decorate
+      = render "conflicts/#{est.partial_name}", record: est, provoker: conflict.provoker.decorate, show_details: conflict.show_details?

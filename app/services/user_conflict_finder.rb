@@ -3,7 +3,14 @@
 #  * all schedulings of each employee of user are taken into consideration
 #
 # Answers: "What are conflicts for the user?"
+#
+# She can even see conflicts in her other accounts
+# She can even see details of her conflicts
 class UserConflictFinder < ConflictFinder
+  def call(*a)
+    super
+    conflicts.each(&:show_details!)
+  end
   private
 
 
