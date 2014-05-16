@@ -7,7 +7,7 @@ jQuery(document).ready ->
 
     setInterval ->
       $('body').trigger 'tick'
-    , 6000 * 1000
+    , (if window.location.hostname is 'localhost' then 6000 else 60) * 1000
 
     register_mark_as_read_event_listeners = ->
       $('a.mark_as_read, #mark_all_as_read a').click (e) ->
