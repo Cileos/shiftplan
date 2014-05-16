@@ -8,6 +8,7 @@ de:
         start_time: "Beginn"
         end_time: "Ende"
         all_day: "Ganztägig"
+        employee: "Mitarbeiter"
     values:
       unavailability:
         reasons:
