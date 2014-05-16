@@ -28,11 +28,6 @@ describe ConflictFinder do
       end
     end
 
-    describe 'when unavailability of same user exists' do
-      let!(:other) { una '11-12', user: employee.user }
-      it_should_behave_like :conflict_finder_finding_conflict
-    end
-
     describe 'when unavailability of same employee exists' do
       let!(:other) { una '11-12', employee: employee }
       it_should_behave_like :conflict_finder_finding_conflict
@@ -42,7 +37,16 @@ describe ConflictFinder do
       let!(:other) do
         una '11-12', employee: employee_in_other_account, user: employee_in_other_account.user
       end
-      it_should_behave_like :conflict_finder_finding_conflict
+      it_should_behave_like :conflict_finder_not_finding_conflicts
+    end
+
+    # totally unrelated other employee
+    describe 'when unavailability of other employee' do
+      let(:other_employee) { create :employee_with_confirmed_user }
+      let!(:other) do
+        una '11-12', employee: other_employee, user: other_employee.user
+      end
+      it_should_behave_like :conflict_finder_not_finding_conflicts
     end
 
     # NEG

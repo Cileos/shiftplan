@@ -106,11 +106,8 @@ class ConflictFinder < Struct.new(:schedulings)
     when Unavailability
       me != it &&
         me.employee_id &&
-        (
-          (it.employee_id && it.employee_id == me.employee_id) \
-          ||
-          (it.user_id && it.user_id == me.employee.user_id)
-        ) &&
+        it.employee_id &&
+        it.employee_id == me.employee_id &&
         me.cover?(it)
     else
       raise ArgumentError, "cannot determine if overlapping with #{it.class}"
