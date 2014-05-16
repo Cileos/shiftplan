@@ -18,6 +18,7 @@ en:
           other: "Other"
   unavailabilities:
     new:
+      me: 'me'
       modal_title:
         employee: 'When will {{name}} be absent?'
         self: 'When will you be absent?'

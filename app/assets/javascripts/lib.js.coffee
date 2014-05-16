@@ -1,4 +1,3 @@
-#= require_self
 #= require jquery
 #= require jquery_ujs
 #= require jquery.ui.all
@@ -33,3 +32,5 @@
 #= require datepicker/jquery.datepick-de
 #= require bindWithDelay/bindWithDelay
 #= require chosen-jquery
+
+Ember.Select.reopen(Ember.I18n.TranslateableProperties)

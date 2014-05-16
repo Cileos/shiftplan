@@ -18,6 +18,7 @@ de:
           other: "Sonstiges"
   unavailabilities:
     new:
+      me: 'ich'
       modal_title:
         employee: 'Wann kann {{name}} denn nicht?'
         self: 'Wann kannste denn nich?'
