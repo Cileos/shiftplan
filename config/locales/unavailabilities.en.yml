@@ -20,6 +20,6 @@ en:
     new:
       me: 'me'
       modal_title:
-        employee: 'When will {{name}} be absent?'
-        self: 'When will you be absent?'
+        employee: 'When will {{name}} be absent on {{date}}?'
+        self: 'When will you be absent on {{date}}?'
 

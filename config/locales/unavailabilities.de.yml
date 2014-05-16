@@ -20,5 +20,5 @@ de:
     new:
       me: 'ich'
       modal_title:
-        employee: 'Wann kann {{name}} denn nicht?'
-        self: 'Wann kannste denn nich?'
+        employee: 'Wann kann {{name}} denn nicht am {{date}}?'
+        self: 'Wann kannste denn nich am {{date}}?'

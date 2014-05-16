@@ -7,8 +7,8 @@ Clockwork.UnavailabilitiesFormView = Clockwork.ModalFormView.extend
   heading:
     Ember.computed ->
       if name = @get('content.employee.name')
-        Ember.I18n.t('unavailabilities.new.modal_title.employee', name: name)
+        Ember.I18n.t('unavailabilities.new.modal_title.employee', name: name, date: @get('controller.formattedDate'))
       else
-        Ember.I18n.t('unavailabilities.new.modal_title.self')
+        Ember.I18n.t('unavailabilities.new.modal_title.self', date: @get('controller.formattedDate'))
     .property('content.employee')
 

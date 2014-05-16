@@ -24,6 +24,10 @@ Clockwork.Unavailability = DS.Model.extend
 
   # this are currently needed for creation by time
   date: null
+  formattedDate:
+    Ember.computed ->
+      $.datepick.formatDate( @get('date') )
+    .property('date')
 
   startTime: formattedTimeProperty 'startsAt'
   endTime: formattedTimeProperty 'endsAt'
