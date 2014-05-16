@@ -1,3 +1,4 @@
+- provoker ||= nil
 %heading
   .org-name= scheduling.plan.organization.name
   .plan-name= scheduling.plan.name
@@ -5,6 +6,8 @@
 %a{href: polymorphic_path(*nested_show_resources_for(scheduling, mode: current_plan_mode))}
   %section.scheduling{class: scheduling.css_class}
     = scheduling.work_time
+
+  - if !provoker || provoker.account == scheduling.account
     - if qualification = scheduling.try(:qualification)
       %span.qualification_name
         = qualification.name
