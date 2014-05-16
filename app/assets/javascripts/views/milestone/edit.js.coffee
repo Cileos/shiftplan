@@ -1,2 +1,2 @@
 Clockwork.MilestoneEditView = Clockwork.EditDoable.extend
-  heading: "Meilenstein bearbeiten"
+  headingTranslation: 'milestones.edit.title'

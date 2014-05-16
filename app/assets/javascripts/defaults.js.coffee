@@ -28,10 +28,10 @@ jQuery(document).ready ->
       lastSessionTimeoutAt = moment()
 
     if xhr.status == 403
-      alert "You may not do that."
+      alert Ember.I18n.t 'flash.ajax.error.403'
 
     if xhr.status == 500
-      alert "Something went wrong on the server side. We are trying to fix it as quick as possible"
+      alert Ember.I18n.t 'flash.ajax.error.500'
 
   language = $('html').attr('lang')
   $('body').on 'dialogopen', (e, ui) ->
