@@ -4,6 +4,8 @@ class Unavailability < ActiveRecord::Base
   include TimePeriodFormatter
   include AllDaySettable
 
+  validates_with PeriodValidator
+
   attr_protected # let everything through, we use strong params and UnavailabilityCreator
 
   belongs_to :user

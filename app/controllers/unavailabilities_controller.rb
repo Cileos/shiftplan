@@ -9,10 +9,6 @@ class UnavailabilitiesController < InheritedResources::Base
     respond_to do |format|
       format.json { render json: creator.created_records }
     end
-  rescue ActiveRecord::RecordInvalid => e
-    respond_to do |format|
-      format.json { render json: e.to_s, status: 401 }
-    end
   end
 
 protected
