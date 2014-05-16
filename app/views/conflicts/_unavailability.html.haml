@@ -1,11 +1,12 @@
 - una ||= record
 
-%heading
-  .reason= una.reason_text
-
-%section.unavailability
+.unavailability
+  %span.account= una.account.name
   = abbr_tag una.period_with_zeros, una.period_with_duration, class: 'work_time'
+
+  %span.reason= una.reason_text
+
   - if description = una.description.presence
-    = description
+    %span.description= description
 
 
