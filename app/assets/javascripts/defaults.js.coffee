@@ -5,6 +5,13 @@ addNamesToDatepickerSelects = (picker, inst) ->
 
 lastSessionTimeoutAt = null
 
+
+translateOrDefault = (key, fallback)->
+  if Ember.I18n.exists(key)
+    Ember.I18n.t(key)
+  else
+    fallback
+
 jQuery(document).ready ->
   $.ajaxSetup
     dataType: 'script'
@@ -28,10 +35,10 @@ jQuery(document).ready ->
       lastSessionTimeoutAt = moment()
 
     if xhr.status == 403
-      alert Ember.I18n.t 'flash.ajax.error.403'
+      alert tranlateOrDefault('flash.ajax.error.403', '403 Access Denied')
 
     if xhr.status == 500
-      alert Ember.I18n.t 'flash.ajax.error.500'
+       alert translateOrDefault('flash.ajax.error.500', "500 Internal Server Error")
 
   language = $('html').attr('lang')
   $('body').on 'dialogopen', (e, ui) ->
