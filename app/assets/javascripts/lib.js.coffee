@@ -34,5 +34,5 @@
 #= require chosen-jquery
 
 Ember.Select.reopen(Ember.I18n.TranslateableProperties)
-Ember.TextField.reopen(Ember.I18n.TranslateableAttributes)
-Ember.TextArea.reopen(Ember.I18n.TranslateableAttributes)
+Ember.TextField.reopen(Ember.I18n.TranslateableProperties)
+Ember.TextArea.reopen(Ember.I18n.TranslateableProperties)
