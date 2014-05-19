@@ -132,8 +132,8 @@ gem 'mini_magick'
 gem 'remotipart'
 gem 'gravtastic'
 gem 'ember-rails'
-gem 'ember-source', '~> 1.3.1'
-gem "ember-data-source", "1.0.0.beta.5"
+gem 'ember-source', '1.5.1.1'
+gem "ember-data-source", "1.0.0.beta.7"
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
 
 gem 'strong_parameters', '~> 0.2.1'
@@ -153,3 +153,5 @@ gem 'ri_cal', git: 'git://github.com/KonaTeam/ri_cal.git'
 
 gem 'fastercsv'       # not sure if still required
 gem 'csv_builder'
+# for Unavailability#account_ids array type support
+gem 'postgres_ext'

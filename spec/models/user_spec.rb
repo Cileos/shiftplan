@@ -184,4 +184,60 @@ describe User do
       build(:user, locale: 'kg').should_not be_valid
     end
   end
+
+  describe '#plannable_employees' do
+    let(:user) { create :user }
+    let(:account) { create :account }
+    let(:employee) { create :employee, account: account }
+    let(:organization) { create :organization, account: account }
+    let(:me) { create :employee, account: account, user: user }
+
+    context 'for user being planner in org' do
+      before :each do
+        create :membership, employee: me, organization: organization, role: 'planner'
+      end
+
+      context 'for employee being member in org' do
+        let!(:m) { create :membership, employee: employee, organization: organization }
+
+        it 'includes the employee' do
+          user.plannable_employees.should include(employee)
+        end
+      end
+
+      context 'for employee NOT being member in org' do
+        let!(:m) { "no membership" }
+        it 'excludes the employee' do
+          user.plannable_employees.should_not include(employee)
+        end
+      end
+    end
+
+    context 'for user being normal member in org' do
+      let!(:m) { create :membership, employee: employee, organization: organization }
+      before :each do
+        create :membership, employee: me, organization: organization # NO ROLE
+      end
+
+      it 'excludes the employee' do
+        user.plannable_employees.should_not include(employee)
+      end
+    end
+
+    context 'for user not being planner in (that) org' do
+      let!(:m) { create :membership, employee: employee, organization: organization }
+      it 'excludes the employee' do
+        user.plannable_employees.should_not include(employee)
+      end
+    end
+
+    context 'for user being owner of the account' do
+      let(:me) { create :employee, user: user, account: account, owned_account: account }
+      it 'includes the employee' do
+        me && employee
+        user.plannable_employees.should include(employee)
+      end
+    end
+
+  end
 end

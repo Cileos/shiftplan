@@ -9,6 +9,10 @@ class RecordDecorator < ApplicationDecorator
   end
 
   def partial_name
+    source.class.model_name.singular
+  end
+
+  def partials_dir_name
     source.class.model_name.plural
   end
 

@@ -1,5 +1,9 @@
 - provoker ||= nil
+- show_details ||= false
+- scheduling ||= record
+
 %heading
+  .account-name= scheduling.plan.organization.account.name
   .org-name= scheduling.plan.organization.name
   .plan-name= scheduling.plan.name
 
@@ -7,7 +11,7 @@
   %section.scheduling{class: scheduling.css_class}
     = scheduling.work_time
 
-  - if !provoker || provoker.account == scheduling.account
+  - if show_details || !provoker || provoker.account == scheduling.account
     - if qualification = scheduling.try(:qualification)
       %span.qualification_name
         = qualification.name

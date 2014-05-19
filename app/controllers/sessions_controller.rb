@@ -1,6 +1,13 @@
 class SessionsController < Devise::SessionsController
   respond_to :html, :js
 
+  respond_to :json, only: :show
+
+  def show
+    user = current_user
+    render json: user, serializer: SessionSerializer, role: current_role
+  end
+
   protected
 
   def after_sign_in_path_for(resource)

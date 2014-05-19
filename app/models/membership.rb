@@ -15,4 +15,8 @@ class Membership < ActiveRecord::Base
   def inspect
     to_s
   end
+
+  Roles.each do |role|
+    define_method("#{role}?") { self.role == role }
+  end
 end

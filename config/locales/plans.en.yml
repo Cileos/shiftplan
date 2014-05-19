@@ -1,9 +1,11 @@
 en:
+  validators:
+    period:
+      message: "The start date must be earlier or equal to the end date."
   activerecord:
     errors:
       models:
        plan:
-        plan_period: "The start date must be earlier or equal to the end date."
         start_date_too_small: "Date cannot be changed. There is an entry for this plan that is earlier than the new start date. The earliest entry is on %{date_of_smallest_scheduling}."
         end_date_too_small: "Date cannot be changed. There is an entry for this plan that is later than the new end date. The latest end date is on %{date_of_greatest_scheduling}."
     attributes:

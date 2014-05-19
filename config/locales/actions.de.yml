@@ -102,6 +102,7 @@ de:
       upload_attached_document: "Dokument hochladen"
       upload: "Hochladen"
       undo: "Rückgängig machen"
+      availability: "Abwesenheit"
   schedulings:
     calendar_navigation:
       day: "Tag"

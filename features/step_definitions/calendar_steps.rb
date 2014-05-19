@@ -26,6 +26,7 @@ When /^I click on (?:the )?(early|late|) ?(shift|scheduling) #{capture_quoted}$/
   shift_or_scheduling = page.first(selector, text: quickie)
   begin
     shift_or_scheduling.click()
+    wait_for_the_page_to_be_loaded
   rescue Selenium::WebDriver::Error::UnknownError => e # page was maybe still moving, could not hit element
     sleep 0.5
     shift_or_scheduling.click() # try again once
@@ -130,12 +131,12 @@ When /^I assume the calendar will not change$/ do
   # calendar will be cleared after each scenario
 end
 
-When /^(?:I|they) schedule (shift |)#{capture_quoted}$/ do |kind, quickie_string|
+When /^(?:I|they) schedule (\w+ |)#{capture_quoted}$/ do |kind, quickie_string|
   kind = 'scheduling' if kind.blank?
   kind = kind.strip
   quickie = Quickie.parse(quickie_string)
 
-  holder = OpenStruct.new
+  holder = Struct.new(:start_time, :end_time, :team_name).new
   quickie.fill(holder)
 
   step %Q~I select "#{holder.team_name}" from the "Team" single-select box~ if holder.team_name.present?

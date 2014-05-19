@@ -1,8 +1,8 @@
 describe 'Calendar Cursor', ->
   beforeEach ->
-    setFixtures sandbox
-      id: 'calendar'
-    @$calendar = $('#calendar')
+    @$sandbox = $('#sandbox')
+
+    @$calendar = $('<div></div>').attr('id', 'calendar').appendTo(@$sandbox)
     @cursor = new CalendarCursor @$calendar
 
   afterEach ->

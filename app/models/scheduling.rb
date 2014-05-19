@@ -10,12 +10,9 @@ class Scheduling < ActiveRecord::Base
   delegate :user, to: :employee
   delegate :organization, to: :plan
 
-  before_validation :parse_quickie_and_fill_in
   before_destroy    :destroy_notifications
 
-
   validates_presence_of :plan
-  validates_presence_of :quickie
   validates_presence_of :starts_at, :ends_at, :year, :week
   validates :starts_at, :ends_at, within_plan_period: true
   validates_with NextDayWithinPlanPeriodValidator
@@ -25,9 +22,10 @@ class Scheduling < ActiveRecord::Base
 
   attr_writer :year
 
+  include Quickie::Assignable
   include TimeRangeWeekBasedAccessible
   include TimeRangeComponentsAccessible
-  include TimePeriodFormatter # for quickie generation
+  include TimePeriodFormatter
 
   include AllDaySettable
   include Overnightable
@@ -77,11 +75,6 @@ class Scheduling < ActiveRecord::Base
 
   include Stackable
 
-  # date of the day the Scheduling starts
-  def date
-    @date || date_part_or_default(:to_date) { date_from_human_date_attributes }
-  end
-
   # Because Date and Times are immutable, we have to situps to just change the week and year.
   # must be used on a valid record.
   # FIXME this is the reason to refactor Overnightable
@@ -104,25 +97,13 @@ class Scheduling < ActiveRecord::Base
     self
   end
 
-  def date=(new_date)
-    if new_date
-      if new_date.respond_to?(:to_date)
-        @date = new_date.to_date
-      else
-        @date = Date.parse(new_date)
-      end
-    end
-  end
-
-
-  # we have two ways to clean and re-generate the quickie, parsed#to_s or
-  # the attributes based self#to_quickie. We use the latter here
-  def quickie
-    to_quickie
-  end
-  attr_writer :quickie
-
   delegate :iso8601, to: :date
+
+  # returns 3.25 for 3 hours and 15 minutes
+  # OPTIMIZE rounding
+  def length_in_hours
+    (end_hour - start_hour) + (end_minute-start_minute).to_f / 60
+  end
 
   def self.filter(params={})
     SchedulingFilter.new params.reverse_merge(:base => self)
@@ -187,29 +168,11 @@ class Scheduling < ActiveRecord::Base
     conflicts.present?
   end
 
-  private
-
-  def parse_quickie_and_fill_in
-    if @quickie.present?
-      if parsed = Quickie.parse(@quickie)
-        @parsed_quickie = parsed
-        parsed.fill(self)
-      else
-        @parsed_quickie = nil
-        errors.add :quickie, :invalid
-      end
-    end
-  end
-
-  # A Quickie was given and it is parsable. Depends on #parse_quickie_and_fill_in to be run in advance.
-  def quickie_parsable?
-    @quickie.present? && @parsed_quickie.present?
-  end
+private
 
   def to_quickie
     [ period, team.try(:to_quickie) ].compact.join(' ')
   end
-
 
   # Returns the wanted +attr+ from the (start) date, falling back to supplied block.
   def date_part_or_default(attr, &fallback)

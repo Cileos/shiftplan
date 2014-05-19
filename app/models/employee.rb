@@ -26,6 +26,8 @@ class Employee < ActiveRecord::Base
   has_many   :employee_qualifications
   has_many   :qualifications, through: :employee_qualifications
 
+  has_many   :unavailabilities
+
   validates_presence_of :account_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
   validates_length_of :duplicates, is: 0,

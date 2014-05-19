@@ -26,4 +26,7 @@ de:
       create:
         notice: "Alle Termine wurden erfolgreich übernommen."
         undo:  "Die kopierte Woche wurde gelöscht."
-
+    ajax:
+      error:
+        403: 'Das darfst Du nicht.'
+        500: 'Auf der Serverseite ist etwas schiefgegangen. Wir gehen dem alsbald nach.'

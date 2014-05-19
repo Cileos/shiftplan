@@ -1,2 +1,2 @@
 Clockwork.MilestonesNewView = Clockwork.NewDoable.extend
-  heading: 'neuer Meilenstein'
+  headingTranslation: 'milestones.new.title'

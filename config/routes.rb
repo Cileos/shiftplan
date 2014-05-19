@@ -90,6 +90,7 @@ Clockwork::Application.routes.draw do
   scope 'profile', as: 'profile' do
     resources :employees, only: [:edit, :update, :index], controller: 'profile_employees'
   end
+  get 'availability' => 'unavailabilities#index', as: 'availability'
   resource :profile, only: [:edit, :update], controller: 'profile' do
     resource :export, only: [:show, :create, :destroy]
   end
@@ -97,8 +98,12 @@ Clockwork::Application.routes.draw do
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
   get "dashboard" => 'welcome#dashboard', :as => 'user_root'
 
-  get "user/:user_id/employees" => 'employees#list', :as => 'list_employees'
-
+  # Ember
+  scope path: 'ember' do
+    get 'employees' => 'ember/employees#index'
+    get 'accounts' => 'accounts#index'
+    resources :unavailabilities, except: [:show]
+  end
 
   scope '/feeds/:email/private-:private_token', constraints: { email: %r~[^/]+~i, private_token: /[\w]{20}/i  }  do
     get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'
@@ -112,7 +117,13 @@ Clockwork::Application.routes.draw do
 
   devise_scope :user do
     resource :signup, controller: 'signup', only: [:show, :create]
+    get 'ember/sessions/current' => 'sessions#show'
+    get 'accounts/:account_id/organizations/:organization_id/plans/:plan_id/sessions/current' => 'sessions#show'
   end
+
+  get 'i18n/:id' => 'locales#show', constraints: {
+    id: /[a-z]{2}/i
+  }
 
   if Rails.env.test?
     scope 'test' do

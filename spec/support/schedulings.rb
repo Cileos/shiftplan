@@ -14,6 +14,10 @@ module SchedulingCreationSpecHelper
   def s(quickie, employee, extra={})
     create :scheduling_by_quickie, extra.reverse_merge(quickie: quickie, employee: employee)
   end
+
+  def una(quickie, extra={})
+    create :unavailability_by_quickie, extra.reverse_merge(quickie: quickie)
+  end
 end
 
 RSpec.configure do |config|

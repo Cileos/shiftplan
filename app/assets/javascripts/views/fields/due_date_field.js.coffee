@@ -1,3 +1,4 @@
 Clockwork.Fields.DueDateField = Clockwork.Fields.DateField.extend
   attributeBindings: ['name']
-  name: 'Fällig am' # TODO i18n
+  nameTranslation: 'activerecord.attributes.milestone.due_at'
+  placeholderTranslation: 'activerecord.attributes.milestone.due_at'

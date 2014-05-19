@@ -12,8 +12,17 @@ class ApplicationController < ActionController::Base
     respond_to do |denied|
       denied.html { redirect_to user_signed_in?? dashboard_url : root_url }
       denied.js   { render 'denied' }
+      denied.json { render text: 'access denied', status: 403 }
     end
   end
+
+  rescue_from ActiveRecord::RecordInvalid do |exception|
+    set_flash(:alert)
+    respond_to do |format|
+      format.json { render json: { errors: exception.record.errors.messages }, status: 422 }
+    end
+  end
+
   layout 'application'
 
   check_authorization :unless => :devise_controller?

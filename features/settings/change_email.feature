@@ -132,6 +132,7 @@ Feature: As a logged in user
 
      When I fill in "E-Mail" with "charles@yaho.com"
       And I fill in "Aktuelles Passwort" with "secret"
+      And I leave the "E-Mail" field
      Then I should see "Meinten Sie charles@yahoo.com?"
 
      When I follow "charles@yahoo.com"
