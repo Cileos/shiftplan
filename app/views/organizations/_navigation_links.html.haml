@@ -30,6 +30,7 @@
       = link_to :core_data, '#', {:class =>  'icon-settings', data: { toggle: 'dropdown'}}
       %ul.dropdown-menu
         = li_link '.employees',      base + [:employees],      can: [:show, Employee],      :class => 'icon-employees'
+        = li_link '.availability',   availability_path,        can: [:manage, Unavailability], :class => 'icon-employees'
         = li_link '.teams',          base + [:teams],          can: [:show, Team],          :class => 'icon-teams'
         = li_link '.qualifications', base + [:qualifications], can: [:show, Qualification], :class => 'icon-qualifications'
         = li_link '.plan_templates', base + [:plan_templates], can: [:show, PlanTemplate],  :class => 'icon-templates'

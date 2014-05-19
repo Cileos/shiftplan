@@ -11,7 +11,7 @@ class Plan < ActiveRecord::Base
   include FriendlyId
   friendly_id :name, use: [:scoped, :slugged], scope: :organization
 
-  validates_with PlanPeriodValidator
+  validates_with PeriodValidator
   validates_with PlanPeriodSurroundsSchedulingsValidator
   validates_presence_of :name
   validates_uniqueness_of :name, scope: [:organization_id]

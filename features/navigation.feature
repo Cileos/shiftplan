@@ -61,6 +61,7 @@ Feature: Navigation
        | Alle Pläne                                        | false   |
        | Stammdaten                                        | false   |
        | Mitarbeiter                                       | false   |
+       | Abwesenheit                                     | false   |
        | Teams                                             | false   |
        | Qualifikationen                                   | false   |
        | Planvorlagen                                      | false   |
@@ -84,6 +85,7 @@ Feature: Navigation
        | Alle Pläne                                        | false   |
        | Stammdaten                                        | false   |
        | Mitarbeiter                                       | false   |
+       | Abwesenheit                                     | false   |
        | Teams                                             | false   |
        | Qualifikationen                                   | false   |
        | Planvorlagen                                      | false   |
@@ -107,6 +109,7 @@ Feature: Navigation
        | Alle Pläne                                        | false   |
        | Stammdaten                                        | false   |
        | Mitarbeiter                                       | false   |
+       | Abwesenheit                                     | false   |
        | Teams                                             | false   |
        | Qualifikationen                                   | false   |
        | Planvorlagen                                      | false   |
@@ -126,6 +129,7 @@ Feature: Navigation
        | Alle Pläne                                        | false   |
        | Stammdaten                                        | true    |
        | Mitarbeiter                                       | true    |
+       | Abwesenheit                                     | false   |
        | Teams                                             | false   |
        | Qualifikationen                                   | false   |
        | Planvorlagen                                      | false   |
@@ -145,6 +149,7 @@ Feature: Navigation
        | Alle Pläne                                        | false   |
        | Stammdaten                                        | true    |
        | Mitarbeiter                                       | false   |
+       | Abwesenheit                                     | false   |
        | Teams                                             | true    |
        | Qualifikationen                                   | false   |
        | Planvorlagen                                      | false   |
@@ -164,6 +169,7 @@ Feature: Navigation
        | Alle Pläne                                        | false   |
        | Stammdaten                                        | true    |
        | Mitarbeiter                                       | false   |
+       | Abwesenheit                                     | false   |
        | Teams                                             | false   |
        | Qualifikationen                                   | false   |
        | Planvorlagen                                      | true    |
@@ -183,6 +189,7 @@ Feature: Navigation
        | Alle Pläne                                        | false   |
        | Stammdaten                                        | true    |
        | Mitarbeiter                                       | false   |
+       | Abwesenheit                                     | false   |
        | Teams                                             | false   |
        | Qualifikationen                                   | true    |
        | Planvorlagen                                      | false   |
@@ -202,6 +209,7 @@ Feature: Navigation
        | Alle Pläne                                        | false   |
        | Stammdaten                                        | false   |
        | Mitarbeiter                                       | false   |
+       | Abwesenheit                                     | false   |
        | Teams                                             | false   |
        | Qualifikationen                                   | false   |
        | Planvorlagen                                      | false   |
@@ -301,6 +309,7 @@ Feature: Navigation
        | Alle Pläne                                        | false   |
        | Stammdaten                                        | false   |
        | Mitarbeiter                                       | false   |
+       | Abwesenheit                                     | false   |
        | Teams                                             | false   |
        | Qualifikationen                                   | false   |
        | Planvorlagen                                      | false   |
@@ -330,6 +339,7 @@ Feature: Navigation
        | Alle Pläne                                        | false   |
        | Stammdaten                                        | false   |
        | Mitarbeiter                                       | false   |
+       | Abwesenheit                                     | false   |
        | Teams                                             | false   |
        | Qualifikationen                                   | false   |
        | Planvorlagen                                      | false   |

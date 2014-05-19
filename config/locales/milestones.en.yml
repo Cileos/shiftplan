@@ -1,6 +1,22 @@
 en:
   activerecord:
+    attributes:
+      milestone:
+        name: "Name"
+        due_at: "Due at"
+        responsible: "Responsible"
+        description: "Description"
     models:
       milestone:
         one: "Milestone"
         other: "Milestones"
+  milestones:
+    new:
+      title: 'New milestone'
+    edit:
+      title: 'Edit milestone'
+  tasks:
+    new:
+      title: 'New task'
+    edit:
+      title: 'Edit task'

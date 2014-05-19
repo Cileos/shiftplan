@@ -31,7 +31,7 @@ When /^I disable (?:all )?jquery animations$/ do
   page.execute_script %Q~jQuery.fx.off = true~
 end
 
-When /^I leave #{capture_quoted} field$/ do |label|
+When /^I leave the #{capture_quoted} field$/ do |label|
   field = find_field(label)
   field[:id].should_not be_nil, "cannot leave '#{label}' field because it has no id"
 
@@ -44,4 +44,11 @@ end
 
 When /^I hover over the notification hub menu item$/ do
   page.execute_script("$('body').trigger('tack')")
+end
+
+When /^I wait for [Ee]mber to (?:boot|run)$/ do
+  # we use sinon to fake the time on JS side. Sadly, it conflicts with Ember's
+  # run loop, stopping it when establishing a fake time. Use this step after a
+  # page load to enforce the bootup
+  some_time_passes
 end

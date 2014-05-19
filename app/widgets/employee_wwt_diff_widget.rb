@@ -5,7 +5,10 @@ class EmployeeWwtDiffWidget < WwtDiffWidget
 
   # hours in this calendar (week)
   def hours
-    @hours ||= records.select {|s| s.employee == employee }.sum(&:length_in_hours)
+    @hours ||= records.
+      select {|s| s.employee == employee }.
+      reject { |s| s.all_day? }. # "all day" schedulings do not count for wwt
+      sum(&:length_in_hours)
   end
 
   # hours in all plans of the same account in the week described y filter
@@ -16,6 +19,7 @@ class EmployeeWwtDiffWidget < WwtDiffWidget
       unsorted_records.
       where(employee_id: employee.id).
       to_a.
+      reject { |s| s.all_day? }. # "all day" schedulings do not count for wwt
       sum(&:length_in_hours)
   end
 

@@ -12,8 +12,8 @@ module Volksplaner
   autoload :ShortcutAttribute, 'volksplaner/shortcut_attribute'
   autoload :Undo, 'volksplaner/undo'
 
-  HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .-]*\z/
-  NameRegEx = /\A[\p{Letter}][\p{Letter}\d .§&()-]*\z/
+  HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .'-]*\z/
+  NameRegEx = /\A[\p{Letter}][\p{Letter}\d .§&()'-]*\z/
 
 
   # staging and CI are on the same machine

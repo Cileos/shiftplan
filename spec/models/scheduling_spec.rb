@@ -674,4 +674,8 @@ describe Scheduling do
       end
     end
   end
+
+  it_behaves_like :spanning_all_day do
+    let(:record) { create :scheduling, all_day: true }
+  end
 end

@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Release 1.2.0 2014-05-19 19:30
+-------------------------------
+681061e Merge branch 'feature/active-unavailabilitiesisisis' into develop
+b950286 Merge pull request #248 from Cileos/feature/hide-details-of-conflicting-passive-una
+2d89bae Merge pull request #253 from Cileos/feature/all-dayness
+
 Release 1.1.3 2014-05-08 18:06
 -------------------------------
 a7aab84 Merge pull request #228 from Cileos/feature/bug-decrease-users-new-notifications-count-when-notification-is-marked-as-read

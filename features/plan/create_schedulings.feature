@@ -59,9 +59,6 @@ Feature: create a scheduling
      Then the "Beginn" field should contain "09:15"
       And the "Ende" field should contain "17:45"
 
-      # can submit unrounded times, but thay will be rounded on the server side (or invisibly fixed on client)
-     When I schedule "9:16-17:42"
-
      When I press "Anlegen"
       And I wait for the modal box to disappear
      Then I should see the following partial calendar:

@@ -8,34 +8,16 @@ describe Employee do
     end
   end
 
-  shared_examples 'human name' do
-    it "is needed" do
-      build(:employee, attr => nil).should be_invalid
-      build(:employee, attr => '').should  be_invalid
-      build(:employee, attr => ' ').should be_invalid
-    end
 
-    it "may not start with a dot" do # causes translate_action
-      build(:employee, attr => '.lookslikeaction').should be_invalid
-    end
-
-    it "may not start with a dash" do # looks ugly
-      build(:employee, attr => '-in').should be_invalid
-    end
-
-    it "may contain dashes" do
-      build(:employee, attr => 'Hans-Peter').should be_valid
-    end
-  end
-
+  let(:factory_name) { :employee }
   context "first name" do
     let(:attr) { :first_name }
-    it_behaves_like 'human name'
+    it_behaves_like :human_name_attribute
   end
 
   context "last name" do
     let(:attr) { :last_name }
-    it_behaves_like 'human name'
+    it_behaves_like :human_name_attribute
   end
 
   context "weekly working time" do

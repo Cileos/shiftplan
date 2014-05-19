@@ -212,6 +212,11 @@ describe Report do
       it "sums up time of all schedulings regardless of limit" do
         report.total_duration.should == 12.0
       end
+
+      it "sums up time excluding all day schedulings" do
+        s3 = create(:scheduling, plan: plan, quickie: '1-4', date: '01.10.2014', all_day: true)
+        report.total_duration.should == 12.0
+      end
     end
 
     describe "#total_number_of_records" do

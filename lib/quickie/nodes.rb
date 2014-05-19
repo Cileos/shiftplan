@@ -7,10 +7,10 @@ module Quickie
 
   module MessageNode
     include Serializable
-    def fill(scheduling)
+    def fill(target)
       elements.each do |child|
         if child.respond_to?(:fill)
-          child.fill(scheduling)
+          child.fill(target)
         end
       end
     end
@@ -21,21 +21,29 @@ module Quickie
   end
 
   class HourRangeNode < BaseNode
-    def fill(scheduling)
-      scheduling.start_time = start_time.text_value
-      scheduling.end_time = end_time.text_value
+    def fill(target)
+      if target.respond_to?(:start_time=)
+        target.start_time = start_time.text_value
+      end
+      if target.respond_to?(:end_time=)
+        target.end_time = end_time.text_value
+      end
     end
   end
 
   class TeamNameNode < BaseNode
-    def fill(scheduling)
-      scheduling.team_name = to_s
+    def fill(target)
+      if target.respond_to?(:team_name)
+        target.team_name = to_s
+      end
     end
   end
 
   class TeamShortcutNode < BaseNode
-    def fill(scheduling)
-      scheduling.team_shortcut = shortcut.text_value
+    def fill(target)
+      if target.respond_to?(:team_shortcut)
+        target.team_shortcut = shortcut.text_value
+      end
     end
   end
 end

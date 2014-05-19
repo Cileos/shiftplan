@@ -192,6 +192,7 @@ describe ApplyPlanTemplate do
         end
       end
     end
+
     context "with shift without demands" do
       # day = 0 => monday
       let!(:overnight_shift) do
@@ -205,6 +206,18 @@ describe ApplyPlanTemplate do
         lambda {
           apply_plan_template.save
         }.should change(schedulings_for_year_and_week, :count).from(0).to(1)
+      end
+    end
+
+    context "with shift spanning all day" do
+      let!(:all_day_shift) do
+        create(:shift, all_day: true, day: 0, plan_template: plan_template)
+      end
+
+      it "creates 1 scheduling spanning the whole day, too" do
+        lambda {
+          apply_plan_template.save
+        }.should change(schedulings_for_year_and_week.where(all_day: true), :count).from(0).to(1)
       end
     end
   end

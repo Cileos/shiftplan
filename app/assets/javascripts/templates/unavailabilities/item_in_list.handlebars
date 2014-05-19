@@ -1,0 +1,14 @@
+<span class="account">
+  {{view.content.account.name}}
+</span>
+
+{{#link-to 'unavailabilities.edit' view.content classNames="work_time"}}
+{{view.content.timeRange}}
+{{/link-to}}
+
+<span class="reason">
+  {{view.content.reasonText}}
+</span>
+{{#if view.content.description}}
+<span class="description">{{view.content.description}}</span>
+{{/if}}

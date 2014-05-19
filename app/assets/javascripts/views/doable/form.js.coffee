@@ -1,4 +1,4 @@
-Clockwork.DoableForm = Ember.View.extend Clockwork.ModalMixin,
+Clockwork.DoableForm = Ember.View.extend Clockwork.ModalMixin, Ember.I18n.TranslateableProperties,
   templateName: 'doable/form'
-  buttonLabel: '[buttonLabel]'
+  canManageBinding: 'controller.currentUser.canManageMilestones'
 

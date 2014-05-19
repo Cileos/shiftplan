@@ -2,20 +2,29 @@
 require 'spec_helper'
 
 describe Invitation do
-  describe 'associate employee with user' do
-    it 'links the employee to the user on save if user is set' do
-      employee = create :employee
-      user = create :user
-      invitation = create(:invitation, employee: employee, organization: create(:organization))
+  describe '#associate_employee_with_user' do
+    let(:employee)   { create :employee }
+    let(:user)       { create :user }
+    let(:invitation) { create(:invitation, employee: employee) }
+    describe 'when user is set' do
+      let(:setting_user) { lambda {
+        invitation.user = user
+        invitation.send :associate_employee_with_user
+      }}
+      it 'associates the user to the employee' do
+        expect(setting_user).to change { employee.reload.user }.from(nil).to(user)
+      end
 
-      employee.user.should be_nil
-      user.employees.should be_empty
+      it "adds the employee to the user's list of employees" do
+        expect(setting_user).to change { user.reload.employees.count }.from(0).to(1)
 
-      invitation.user = user
-      invitation.save!
+        user.employees.should include(employee)
+      end
 
-      employee.reload.user.should eql(user)
-      user.reload.employees.should include(employee)
+      it 'associates existing unavailabilities of the employee to the user' do # so he can edit them
+        una = create :unavailability, employee: employee
+        expect(setting_user).to change { una.reload.user }.from(nil).to(user)
+      end
     end
   end
 

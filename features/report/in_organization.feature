@@ -16,10 +16,11 @@ Feature: Report
       And an employee "homer simpson" exists with first_name: "Hômèr", last_name: "Simpson", account: account "bowling"
       And a plan "bundesliga" exists with organization: organization "male bowling", name: "Bundesliga"
       And the following schedulings exists:
-        | date        | employee                  | quickie  | plan               | team          | qualification                 |
-        | 04.12.2012  | employee "charly burns"   | 20-22    | plan "bundesliga"  | team "loser"  | qualification "superstriker"  |
-        | 20.12.2012  | employee "charly burns"   | 20-22    | plan "bundesliga"  |               |                               |
-        | 21.12.2012  | employee "homer simpson"  | 10-12    | plan "bundesliga"  |               |                               |
+        | date        | employee                  | quickie  | plan               | team          | qualification                 | all_day  |
+        | 04.12.2012  | employee "charly burns"   | 20-22    | plan "bundesliga"  | team "loser"  | qualification "superstriker"  | false    |
+        | 04.12.2012  | employee "charly burns"   | 20-22    | plan "bundesliga"  | team "loser"  | qualification "superstriker"  | true     |
+        | 20.12.2012  | employee "charly burns"   | 20-22    | plan "bundesliga"  |               |                               | false    |
+        | 21.12.2012  | employee "homer simpson"  | 10-12    | plan "bundesliga"  |               |                               | false    |
 
 
   Scenario: Planner visits organization report page and downloads csv
@@ -30,6 +31,7 @@ Feature: Report
         | 21.12.2012  | 2,00     | Simpson, Hômèr  | Bundesliga  | Herren Bowling  |        |                |
         | 20.12.2012  | 2,00     | Burns, Chârly   | Bundesliga  | Herren Bowling  |        |                |
         | 04.12.2012  | 2,00     | Burns, Chârly   | Bundesliga  | Herren Bowling  | Loser  | Superstriker   |
+        | 04.12.2012  | 0,00     | Burns, Chârly   | Bundesliga  | Herren Bowling  | Loser  | Superstriker   |
 
      When I go to the report page of the organization "male bowling"
       And I select "Chârly Burns" from "Mitarbeiter"
@@ -38,11 +40,13 @@ Feature: Report
         | Datum       | Stunden  | Mitarbeiter    | Plan       | Organisation    |
         | 20.12.2012  | 2,00     | Burns, Chârly  | Bundesliga | Herren Bowling  |
         | 04.12.2012  | 2,00     | Burns, Chârly  | Bundesliga | Herren Bowling  |
+        | 04.12.2012  | 0,00     | Burns, Chârly  | Bundesliga | Herren Bowling  |
      When I follow "Als CSV-Datei exportieren"
      Then I should see the following semicolon separated csv file:
-      | Mitarbeiter    | Datum       | Stunden  | Plan        | Organisation    | Team   | Qualifikation  |
-      | Burns, Chârly  | 20.12.2012  | 2,00     | Bundesliga  | Herren Bowling  |        |                |
-      | Burns, Chârly  | 04.12.2012  | 2,00     | Bundesliga  | Herren Bowling  | Loser  | Superstriker   |
+      | Mitarbeiter    | Datum       | Stunden | Ganztägig | Plan        | Organisation    | Team   | Qualifikation  |
+      | Burns, Chârly  | 20.12.2012  | 2,00    | nein      | Bundesliga  | Herren Bowling  |        |                |
+      | Burns, Chârly  | 04.12.2012  | 2,00    | nein      | Bundesliga  | Herren Bowling  | Loser  | Superstriker   |
+      | Burns, Chârly  | 04.12.2012  | 0,00    | ja        | Bundesliga  | Herren Bowling  | Loser  | Superstriker   |
 
      When I go to the report page of the organization "male bowling"
      When I follow "Als Excel-Datei exportieren"

@@ -20,9 +20,11 @@ module TimeRangeComponentsAccessible
 
   def self.included(model)
     model.class_eval do
+      delegate :iso8601, to: :base_for_time_range_components
       before_validation :compose_time_range_from_components
       alias_method_chain :end_minute, :respecting_end_of_day
       alias_method_chain :end_hour, :respecting_end_of_day
+      extend Scopes
     end
   end
 
@@ -56,8 +58,28 @@ module TimeRangeComponentsAccessible
     (starts_at...ends_at)
   end
 
+  # returns 3.25 for 3 hours and 15 minutes
+  # OPTIMIZE rounding
+  def length_in_hours
+    (end_hour - start_hour) + (end_minute-start_minute).to_f / 60
+  end
+
   def base_for_time_range_components
     @date || (starts_at.present? && starts_at.to_date)
+  end
+
+  def date
+    @date || date_part_or_default(:to_date) { date_from_human_week_date_attributes }
+  end
+
+  def date=(new_date)
+    if new_date
+      if new_date.respond_to?(:year) # date/time like thingy
+        @date = new_date.to_date
+      else
+        @date = Time.zone.parse(new_date).to_date
+      end
+    end
   end
 
   protected
@@ -101,4 +123,9 @@ module TimeRangeComponentsAccessible
     end
   end
 
+  module Scopes
+    def between(first, last)
+      where("? <= #{table_name}.starts_at AND #{table_name}.starts_at <= ?", first, last)
+    end
+  end
 end

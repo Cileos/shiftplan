@@ -1,6 +1,7 @@
 class Shift < ActiveRecord::Base
   include WithPreviousChangesUndone
   include TimeRangeComponentsAccessible
+  include AllDaySettable
   include Overnightable
 
   belongs_to :plan_template
@@ -17,6 +18,7 @@ class Shift < ActiveRecord::Base
                   :end_time,
                   :day,
                   :team_id,
+                  :all_day,
                   :demands_attributes
 
   validates :plan_template,

@@ -18,6 +18,7 @@ module Volksplaner::Currents
       helper_method :current_membership
       helper_method :current_membership?
       helper_method :current_plan_mode
+      helper_method :current_role
     end
   end
 
@@ -29,6 +30,22 @@ module Volksplaner::Currents
 
   def current_account
     @current_account ||= find_current_account
+  end
+
+  def current_role
+    if current_employee?
+      if current_employee.owner?
+        'owner'
+      else
+        if current_membership?
+          current_membership.role
+        else
+          'unmembered'
+        end
+      end
+    else
+      "troll" # URL scope is missing
+    end
   end
 
   def current_account?

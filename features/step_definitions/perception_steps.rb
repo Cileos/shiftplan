@@ -147,7 +147,7 @@ Then /^I should see the avatar "([^"]*)"$/ do |file_name|
 end
 
 Then /^I should not see a field labeled #{capture_quoted}$/ do |label|
-  page.should have_no_xpath( XPath::HTML.field(label) )
+  page.should have_no_xpath( XPath::HTML.field(label), visible: true )
 end
 
 Then /^the notification hub should have (\d+) unseen notifications?$/ do |number|

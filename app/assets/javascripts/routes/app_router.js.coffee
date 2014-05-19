@@ -4,27 +4,50 @@
 Clockwork.Router.map ->
   @resource 'milestones', ->
     @route 'new'
-    @route 'edit', path: ':milestone_id'
-  @resource 'milestone', path: '/milestone/:milestone_id', ->
-    @route 'newTask'
-    @route 'task', path: 'tasks/:task_id'
+    @resource 'milestone', path: ':milestone_id', ->
+      @route 'edit'
+      @route 'newTask'
+      @route 'task', path: 'tasks/:task_id'
+
+
+  @resource 'unavailabilities', path: 'unas/:eid/:year/:month', ->
+    @route 'new', path: ':day/new'
+    @route 'edit', path: 'edit/:id'
 
   @route 'scheduling', path: '/scheduling/:id'
   @route 'scheduling_comments', path: '/scheduling/:id/comments'
 
 Clockwork.ApplicationRoute = Ember.Route.extend
-  model: ->
-    Em.RSVP.hash
-      employees: @store.find('employee')
-      milestones: @store.find('milestone')
-  setupController: (controller, model)->
-    # populate forms
-    @controllerFor('employees').set('model', model.employees)
-    # always rendered
-    @controllerFor('milestones').set('model', model.milestones)
+  actions:
+    save: (backRoute)->
+      # handle variable number of arguments thanks to dynamic route segments
+      mo = @modelFor(@get('controller.currentRouteName'))
+      mo.get("errors").clear() # allows retry saving
+      mo.save()
+        .then =>
+          @transitionTo backRoute...
+        , =>
+          # must be here to catch the error. We display the error(s) in the
+          # form, retry possible.
+          console?.debug "failed to #{@get('controller.currentRouteName')}", mo
+    cancel: (backRoute)->
+      # handle variable number of arguments thanks to dynamic route segments
+      @modelFor(@get('controller.currentRouteName')).rollback()
+      @transitionTo backRoute...
+    doDelete: (backRoute)->
+      # handle variable number of arguments thanks to dynamic route segments
+      mo = @modelFor(@get('controller.currentRouteName'))
+      mo.deleteRecord()
+      mo.save()
+        .then =>
+          @transitionTo backRoute...
+        , =>
+          console?.debug "failed to delete", mo
 
 Clockwork.IndexRoute = Ember.Route.extend
   beforeModel: ->
-    @transitionTo 'milestones'
-
-
+    if Clockwork.get('page') is 'milestones'
+      @transitionTo 'milestones'
+    else
+      now = moment()
+      @transitionTo 'unavailabilities', 'me', now.year(), now.month() + 1

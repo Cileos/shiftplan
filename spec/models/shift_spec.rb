@@ -170,4 +170,8 @@ describe Shift do
       it_behaves_like "a new created overnight shift"
     end
   end
+
+  it_behaves_like :spanning_all_day do
+    let(:record) { create :shift, all_day: true }
+  end
 end

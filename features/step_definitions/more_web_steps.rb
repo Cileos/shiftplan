@@ -14,6 +14,7 @@ end
 When /^I wait for (.+) to appear$/ do |name|
   selector = selector_for name
   begin
+    some_time_passes
     page.wait_until { page.has_css?(selector, :visible => true) }
   rescue Capybara::Session::TimedOut => timeout
     STDERR.puts "saved page: #{save_page}"
@@ -22,7 +23,7 @@ When /^I wait for (.+) to appear$/ do |name|
   end
 end
 
-When /^I wait for (.+) to disappear$/ do |name|
+When /^I wait for (.+) to (?:disappear|stop)$/ do |name|
   selector = selector_for name
   begin
     page.wait_until { page.has_no_css?(selector, :visible => true) }
@@ -62,6 +63,7 @@ end
 
 When /^I close the modal box$/ do
   page.first('a.ui-dialog-titlebar-close').click
+  some_time_passes
   page.should have_no_css('a.ui-dialog-titlebar-close', :visible => true) # implies waiting
 end
 
@@ -128,16 +130,20 @@ When /^I check the checkbox$/ do
   check page.first('input[type=checkbox]')['id']
 end
 
-Then /^the (.+) should( not)? be disabled$/ do |name, negate|
+Then /^the (.+) should( not|) be disabled$/ do |name, negate|
+  negate = negate.include?('not')
+
   if name =~ /field #{capture_quoted}/
     page.should have_field($1, disabled: !negate)
   else
     selector = selector_for(name)
     elem = page.first(selector)
+    disabled = elem['disabled']
+
     if negate
-      elem.should_not be_disabled
+      disabled.should be_in(["false", nil])
     else
-      elem.should be_disabled
+      disabled.should be_in(%w(true disabled))
     end
   end
 end

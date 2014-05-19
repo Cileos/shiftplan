@@ -1,0 +1,41 @@
+<div class="inputs">
+  <div class="weekday-and-time">
+    <div class="input all-day">
+      {{view Ember.Checkbox elementId="una_all_day" checked=allDay}}
+      <label for="una_all_day">{{t 'activerecord.attributes.unavailability.all_day'}}</label>
+    </div>
+    {{#unless allDay}}
+      <div class="input start-time">
+        <label for="una_start_time">{{t 'activerecord.attributes.unavailability.start_time'}}</label>
+        {{view Clockwork.Fields.TimeField elementId="una_start_time" valueBinding="startTime"}}
+      </div>
+      <div class="input end-time">
+        <label for="una_end_time">{{t 'activerecord.attributes.unavailability.end_time'}}</label>
+        {{view Clockwork.Fields.TimeField elementId="una_end_time" valueBinding="endTime"}}
+      </div>
+    {{/unless}}
+  </div>
+
+  <div class="input">
+    <label for="una_reason">{{t 'activerecord.attributes.unavailability.reason'}}</label>
+    {{view Clockwork.Fields.SelectReason elementId="una_reason" value=reason}}
+  </div>
+
+  <div class="input">
+    <label for="una_description">{{t 'activerecord.attributes.unavailability.description'}}</label>
+    {{view Ember.TextArea elementId="una_description" value=description}}
+  </div>
+
+  {{#if accountSelectorVisible}}
+    <div class="input">
+      <label>
+        {{input type="checkbox" checked=allAccounts}}
+        {{t 'activerecord.attributes.unavailability.all_accounts'}}
+      </label>
+
+    {{#unless allAccounts}}
+      {{checkbox-select model=this elements=availableAccounts propertyPath="accounts" labelPath="name"}}
+    {{/unless}}
+    </div>
+  {{/if}}
+</div>

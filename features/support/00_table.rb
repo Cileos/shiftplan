@@ -2,6 +2,7 @@ module TableHelpers
   SelectorsForTextExtraction = [
     '.day_name',
     '.employee > .name',
+    '.day-in-month',
     '.work_time',
     '.team_name',
     'a.button.active',
@@ -9,7 +10,9 @@ module TableHelpers
     'li.dropdown a.button',
     '.demand',
     '.qualification_name',
-    '.conflict'
+    '.conflict',
+    '.reason',
+    '.description',
   ]
 
 
@@ -20,6 +23,7 @@ module TableHelpers
     end
 
     def element
+      world.page.should world.have_css(selector) # autowait
       html = world.evaluate_script(%Q~jQuery('#{selector}').html()~)
       Capybara::Node::Simple.new(html)
     rescue Capybara::NotSupportedByDriverError => e
