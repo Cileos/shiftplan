@@ -1,5 +1,11 @@
 de:
   activerecord:
+    attributes:
+      milestone:
+        name: "Name"
+        due_at: "Fällig am"
+        responsible: "Verantwortlicher"
+        description: "Beschreibung"
     models:
       milestone:
         one: "Meilenstein"

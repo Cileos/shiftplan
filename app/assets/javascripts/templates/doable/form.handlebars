@@ -6,15 +6,15 @@
 {{/if}}
 <div class="inputs">
   <div class="input">
-    {{view Clockwork.Fields.Name valueBinding="name" placeholder="Bezeichnung"}}
+    {{view Clockwork.Fields.Name valueBinding="name" placeholderTranslation="activerecord.attributes.milestone.name"}}
   </div>
   <div class="input">
-    {{view Clockwork.Fields.DueDateField rawValueBinding="dueAt" placeholder="Fällig am"}}
+    {{view Clockwork.Fields.DueDateField rawValueBinding="dueAt"}}
   </div>
   <div class="input">
-    {{view Clockwork.Fields.SelectEmployee selectionBinding="responsible" name="Verantwortlicher"}}
+    {{view Clockwork.Fields.SelectEmployee selectionBinding="responsible" promptTranslation="activerecord.attributes.milestone.responsible"}}
   </div>
   <div class="input">
-    {{view Clockwork.Fields.Text valueBinding="description" name="Beschreibung"}}
+    {{view Clockwork.Fields.Text valueBinding="description" placeholderTranslation="activerecord.attributes.milestone.description"}}
   </div>
 </div>
