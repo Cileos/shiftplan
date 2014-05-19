@@ -14,7 +14,7 @@ Feature: Tasks of milestones
 
   # TODO i18n in js
   Scenario: create tasks for milestone
-     When I follow "neue Aufgabe"
+     When I follow "Neue Aufgabe"
       And I fill in "Name" with "become famous"
      Then I should not see "become famous"
      # ^^ do not list unsaved tasks
@@ -25,7 +25,7 @@ Feature: Tasks of milestones
       # undef dua_at last
       And I should see "become famous" within the sidebar
 
-     When I follow "neue Aufgabe"
+     When I follow "Neue Aufgabe"
       And I fill in "Name" with "become rich"
       And I pick "31. Dezember 2012" from "Fällig am"
       And I select "Homer S" from "Verantwortlicher"
@@ -45,14 +45,14 @@ Feature: Tasks of milestones
 
 
   Scenario: start to create, cancel, try again (Bender mode)
-     When I follow "neue Aufgabe"
+     When I follow "Neue Aufgabe"
       And I fill in "Name" with "Kill all humans"
       And I close the modal box
       And I wait for ember to run
      Then I should not see "Kill all humans"
       And 0 tasks should exist with name: "Kill all humans"
 
-     When I follow "neue Aufgabe"
+     When I follow "Neue Aufgabe"
       And I wait for the modal box to appear
       And I fill in "Name" with "Kill all INNOCENT humans"
       And I press "Anlegen"
