@@ -1,0 +1,14 @@
+{{#if hasErrors}}
+<div class="flash error"><a class="close" data-dismiss="flash">×</a>{{errorMessages}}</div>
+{{/if}}
+
+{{yield}}
+
+{{#if canManage}}
+  <div class="actions">
+  {{#unless isNew}}
+    <button class="button-warning delete" {{action "doDelete" view.backRoute}}>{{t 'helpers.actions.destroy'}}</button>
+  {{/unless}}
+  <button class="button-success" {{action "save" view.backRoute}}>{{view.buttonLabel}}</button>
+  </div>
+{{/if}}

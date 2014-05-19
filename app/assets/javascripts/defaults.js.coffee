@@ -3,6 +3,15 @@ addNamesToDatepickerSelects = (picker, inst) ->
     $s = $(this)
     $s.attr('name', $s.attr('title'))
 
+lastSessionTimeoutAt = null
+
+
+translateOrDefault = (key, fallback)->
+  if Ember.I18n.exists(key)
+    Ember.I18n.t(key)
+  else
+    fallback
+
 jQuery(document).ready ->
   $.ajaxSetup
     dataType: 'script'
@@ -11,19 +20,32 @@ jQuery(document).ready ->
   # show sign in dialog in modal box when an AJAX request encounters a session timeout or other 401
   $(document).ajaxError (e, xhr, options)->
     if xhr.status == 401
-      text = xhr.responseText
-      if options.contentType.match(/json/)
-        parsed = Ember.$.parseJSON(text)
-        text = parsed.error
-      $flash = $("<div></div>").addClass('flash').addClass('alert').text(text)
-      $.getScript '/users/sign_in', ->
-        $('#modalbox').prepend $flash
-        $('#modalbox input[type=hidden].return_to').val window.location.pathname
+      # mitigate too many failing requests
+      if moment.duration(moment() - lastSessionTimeoutAt).asSeconds() > 15
+        text = xhr.responseText
+        if options.dataType.match(/json/)
+          parsed = Ember.$.parseJSON(text)
+          text = parsed.error
+        $flash = $("<div></div>").addClass('flash').addClass('alert').text(text)
+        $('.ui-dialog-content').remove() # close all existing modal boxes (Ember does them a little bit different)
+        $.getScript '/users/sign_in', ->
+          $('#modalbox').prepend $flash
+          $('#modalbox input[type=hidden].return_to').val window.location.pathname
+
+      lastSessionTimeoutAt = moment()
+
+    if xhr.status == 403
+      alert tranlateOrDefault('flash.ajax.error.403', '403 Access Denied')
+
+    if xhr.status == 500
+       alert translateOrDefault('flash.ajax.error.500', "500 Internal Server Error")
 
   language = $('html').attr('lang')
   $('body').on 'dialogopen', (e, ui) ->
     $(e.target).find('input.stringy_date').rails_datepick()
     $(':input#team_color').minicolors({position: 'top left'})
+
+  moment.lang(language)
 
   $.datepick.setDefaults $.extend( {},
     $.datepick.regional[ if language is 'en' then '' else language],

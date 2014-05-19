@@ -1,0 +1,25 @@
+de:
+  activerecord:
+    attributes:
+      unavailability:
+        reason: 'Grund'
+        description: "Beschreibung"
+        all_accounts: "alle Accounts"
+        start_time: "Beginn"
+        end_time: "Ende"
+        all_day: "Ganztägig"
+        employee: "Mitarbeiter"
+    values:
+      unavailability:
+        reasons:
+          _prompt: '-- Grund --'
+          vacation: 'Urlaub'
+          illness: 'Krankheit'
+          education: 'Weiterbildung'
+          other: "Sonstiges"
+  unavailabilities:
+    new:
+      me: 'ich'
+      modal_title:
+        employee: 'Wann kann {{name}} denn nicht am {{date}}?'
+        self: 'Wann kannste denn nich am {{date}}?'

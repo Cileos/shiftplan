@@ -1,3 +1,3 @@
 Clockwork.MilestoneTaskView = Clockwork.EditDoable.extend
-  heading: "Aufgabe bearbeiten"
+  headingTranslation: 'tasks.edit.title'
 

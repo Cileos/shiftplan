@@ -1,5 +1,6 @@
 module Quickie
   require_dependency 'quickie/nodes'
+  require_dependency 'quickie/assignable'
 
   def self.parse(string)
     parser.parse(string)

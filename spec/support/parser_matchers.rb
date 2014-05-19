@@ -6,21 +6,18 @@ RSpec::Matchers.define :parse_successfully do
 end
 
 RSpec::Matchers.define :fill_in do |attr, val|
-  def target
-    @target ||= OpenStruct.new
-  end
-
   match do |string|
+    @target = Struct.new(attr).new
     if quickie = Quickie.parse(string)
-      quickie.fill( target )
-      target.send(attr) == val
+      quickie.fill( @target )
+      @target.public_send(attr) == val
     else
       false # not even parsable
     end
   end
 
   failure_message_for_should do |actual|
-    "excpected that it fills in #{attr} with #{val}, but was #{target.send(attr)}"
+    "excpected that it fills in #{attr} with #{val}, but was #{@target.send(attr)}"
   end
 end
 

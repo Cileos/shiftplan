@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
   has_many :invitations
   has_one  :email_change
   has_many :accounts, through: :employees
+  has_many :owned_accounts, through: :employees
+  has_many :employees_in_owned_accounts, through: :owned_accounts, source: :employees
 
   has_many :memberships, :through => :employees
   # organizations the user joined (aka "has a membership in")
@@ -53,6 +55,8 @@ class User < ActiveRecord::Base
   has_many :schedulings, through: :employees
 
   has_many :posts_of_joined_organizations, source: :posts, through: :joined_organizations
+
+  has_many :unavailabilities
 
   def notifications_for_hub
     notifications.for_hub
@@ -77,7 +81,8 @@ class User < ActiveRecord::Base
   end
 
   def employee_for_account(account)
-    employees.find_by_account_id(account.id)
+    account = account.id if account.respond_to?(:save) # AR
+    employees.find_by_account_id(account)
   end
 
   # A Planner or Owner does not need a membership
@@ -111,6 +116,20 @@ class User < ActiveRecord::Base
     else
       raise ArgumentError, "given membership #{wanted_membership} does not exist for #{self}"
     end
+  end
+
+  def plannable_employees
+    ms = memberships.
+      where(role: 'planner').
+      preload(organization: { account: :employees })
+
+    pe = ms.map(&:organization).uniq.
+       map(&:account).uniq.
+       map(&:employees).flatten.uniq
+
+    pe += employees_in_owned_accounts
+
+    pe.flatten.uniq
   end
 
   def find_employee_with_avatar

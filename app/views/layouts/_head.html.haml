@@ -25,3 +25,7 @@
   -# just set something so gon is always present
   - controller.gon.controller_name = controller.controller_name
   = include_gon
+  - unless Rails.env.production?
+    = javascript_include_tag 'test'
+    - if defined?(Timecop) && faked = Timecop.top_stack_item
+      = javascript_tag %Q~jQuery( function() { freezeTime("#{faked.time.iso8601}") } );~

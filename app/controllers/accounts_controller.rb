@@ -1,7 +1,7 @@
 class AccountsController < BaseController
   actions :all
 
-  respond_to :js, :html
+  respond_to :json, :js, :html
 
   after_filter  :setup_account,       only: :create
   before_filter :prepare_new_account, only: :new
@@ -11,6 +11,14 @@ class AccountsController < BaseController
   end
 
   protected
+
+  def begin_of_association_chain
+    current_user
+  end
+
+  def end_of_association_chain
+    super.default_sorting
+  end
 
   def setup_account
     resource.setup

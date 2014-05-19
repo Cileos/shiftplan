@@ -1,0 +1,26 @@
+en:
+  activerecord:
+    attributes:
+      unavailability:
+        reason: 'Reason'
+        description: "Notes"
+        all_accounts: "all Accounts"
+        start_time: "Start"
+        end_time: "End"
+        all_day: "All day"
+        employee: "Employee"
+    values:
+      unavailability:
+        reasons:
+          _prompt: '-- Reason --'
+          vacation: 'Vacation'
+          illness: 'Illness'
+          education: 'Education'
+          other: "Other"
+  unavailabilities:
+    new:
+      me: 'me'
+      modal_title:
+        employee: 'When will {{name}} be absent on {{date}}?'
+        self: 'When will you be absent on {{date}}?'
+

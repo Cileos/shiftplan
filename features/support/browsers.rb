@@ -61,10 +61,20 @@ module BrowserSupport
         STDERR.puts "cannot switch browser to unknown size: #{size_name}"
       end
     end
+
+    def close_alert
+      page.driver.browser.switch_to.alert.accept()
+    rescue Selenium::WebDriver::Error::NoAlertPresentError => e
+      # no alert? perfect!
+    end
   end
 end
 
 World(BrowserSupport::Cucumber)
+
+Before '@javascript' do
+  close_alert
+end
 
 Before '@javascript','~@mobile_screen', '~@big_screen' do
   switch_browser_size(:small)

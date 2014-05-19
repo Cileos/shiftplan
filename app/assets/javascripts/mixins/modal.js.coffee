@@ -1,13 +1,14 @@
 # TODO make this usable in a route
 Clockwork.ModalMixin = Ember.Mixin.create
   classNames: ['modalor']
-  layout: Ember.Handlebars.compile("{{yield}}")
+  layoutName: 'mixins/modal'
   heading: '<set a `heading` in your View>'
   didInsertElement: ->
     dialog = @$().dialog
-      closeOnEscape: false
+      closeOnEscape: true
       modal: true
       title: @get('heading')
+      resizable: no
       close: => @dialogclose(arguments)
       zIndex: 500
 
@@ -22,6 +23,9 @@ Clockwork.ModalMixin = Ember.Mixin.create
 
   close: -> @$().dialog('close')
 
+  # works almost all of the time
+  backRoute: ['index']
+
   dialogclose: (event, ui) ->
-    @get('controller.target').send('cancel')
+    @get('controller.target').send('cancel', @get('backRoute') )
 

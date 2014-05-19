@@ -23,6 +23,8 @@ Feature: Work of task for milestone of a plan
   Scenario: can mark milestone only if all tasks are marked
     Given a task exists with name: "Kill the Queen", milestone: the milestone
       And I am on the page for the plan
+      # implicit wait
+      And I should see "World Domination"
       And the "done" milestone checkbox should be disabled within the milestones list
 
      When I check the task "Kill the Queen"

@@ -101,6 +101,12 @@ class Ability
           end
         )
     end
+
+    can :manage, Unavailability do |un|
+      user.employees.include?(un.employee) ||
+      user.plannable_employees.include?(un.employee)
+    end
+
   end
 
   def authorize_employee

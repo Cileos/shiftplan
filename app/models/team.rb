@@ -55,7 +55,7 @@ class Team < ActiveRecord::Base
   end
 
   def color_from_name
-    '#' + Digest::MD5.hexdigest(name || Time.now.to_s).first(6).upcase.tr('DEF', '789')
+    '#' + Digest::MD5.hexdigest(name || Time.zone.now.to_s).first(6).upcase.tr('DEF', '789')
   end
 
   def build_team_merge(attrs={})

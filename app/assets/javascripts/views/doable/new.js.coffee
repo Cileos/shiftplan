@@ -1,2 +1,2 @@
 Clockwork.NewDoable = Clockwork.DoableForm.extend
-  buttonLabel: "Anlegen"
+  buttonLabelTranslation: 'helpers.actions.create'
