@@ -6,6 +6,11 @@ en:
         other: "Milestones"
   milestones:
     new:
-      title: 'neuer Meilenstein'
+      title: 'New milestone'
     edit:
-      title: 'Meilenstein bearbeiten'
+      title: 'Edit milestone'
+  tasks:
+    new:
+      title: 'New task'
+    edit:
+      title: 'Edit task'

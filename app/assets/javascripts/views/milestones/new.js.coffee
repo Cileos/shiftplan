@@ -1,2 +1,3 @@
 Clockwork.MilestonesNewView = Clockwork.NewDoable.extend
-  heading: 'neuer Meilenstein'
+  heading: Ember.computed ->
+    Ember.I18n.t('milestones.new.title')

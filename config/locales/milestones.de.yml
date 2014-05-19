@@ -9,3 +9,8 @@ de:
       title: 'neuer Meilenstein'
     edit:
       title: 'Meilenstein bearbeiten'
+  tasks:
+    new:
+      title: 'Neue Aufgabe'
+    edit:
+      title: 'Aufgabe bearbeiten'

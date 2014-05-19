@@ -1,2 +1,3 @@
 Clockwork.MilestoneEditView = Clockwork.EditDoable.extend
-  headingTranslation: 'milestones.edit.title'
+  heading: Ember.computed ->
+    Ember.I18n.t('milestones.edit.title')

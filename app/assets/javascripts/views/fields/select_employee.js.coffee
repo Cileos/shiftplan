@@ -3,7 +3,7 @@ Clockwork.Fields.SelectEmployee = Ember.Select.extend
   contentBinding: 'controller.employees'
   optionValuePath: 'content.id'
   optionLabelPath: 'content.name'
-  promptTranslation: 'activerecord.models.employees.one'
+  promptTranslation: 'activerecord.models.employee.one'
   optionGroupPath:
     Ember.computed ->
       if @get('content').mapProperty('account.name').uniq().get('length') > 1

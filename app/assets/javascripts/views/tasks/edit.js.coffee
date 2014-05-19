@@ -1,3 +1,4 @@
 Clockwork.MilestoneTaskView = Clockwork.EditDoable.extend
-  heading: "Aufgabe bearbeiten"
+  heading: Ember.computed ->
+    Ember.I18n.t('tasks.edit.title')
 
