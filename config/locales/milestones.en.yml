@@ -4,3 +4,8 @@ en:
       milestone:
         one: "Milestone"
         other: "Milestones"
+  milestones:
+    new:
+      title: 'neuer Meilenstein'
+    edit:
+      title: 'Meilenstein bearbeiten'
