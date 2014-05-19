@@ -1,3 +1,4 @@
 #= require ./form
 Clockwork.EditDoable = Clockwork.DoableForm.extend
-  buttonLabel: 'Speichern'
+  buttonLabel: Ember.computed ->
+    Ember.I18n.t('helpers.actions.update')
