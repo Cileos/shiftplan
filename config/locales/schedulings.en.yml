@@ -21,6 +21,7 @@ en:
     labels:
       defaults:
         source: From
+        all_day: "All day"
     hints:
       scheduling:
         quickie: "e.g. 9-17 Awesome Job [AJ]"
