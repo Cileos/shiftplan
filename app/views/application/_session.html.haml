@@ -1,4 +1,8 @@
 %ul
+  - if tutorial_name = controller.current_tutorial
+    %li
+      = link_to :tutorial, '#', id: 'open-tutorial', data: { name: tutorial_name }, class: 'icon-help'
+
   - if user_signed_in?
     %li= link_to '?', '#', {:class => 'help-faq', :id => 'help', :title => t('helpers.actions.help')}
     = render 'application/notification_hub', notifications: current_user.notifications_for_hub
