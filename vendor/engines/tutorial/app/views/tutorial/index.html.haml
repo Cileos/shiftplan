@@ -1,8 +1,11 @@
 %script{type: 'text/x-handlebars', data: { 'template-name' => 'application' }}
-  {{outlet}}
+  #map
+    = inline_svg 'map'
+  #chapter
+    {{outlet}}
 
 %script{type: 'text/x-handlebars', data: { 'template-name' => 'components/interactive-path' }}
 
-%script{type: 'text/x-handlebars', data: { 'template-name' => 'index' }}
-  #map
-    = inline_svg 'map'
+%script{type: 'text/x-handlebars', data: { 'template-name' => 'chapter' }}
+  {{#link-to 'application'}}&lt;&lt;{{/link-to}}
+  %h2 {{title}}
