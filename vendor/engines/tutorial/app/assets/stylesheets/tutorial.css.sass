@@ -6,15 +6,32 @@ body
 #tutorial
   height: 100vh
   width: 100vw
-  #container
+  position: relative
+  #map
     height: 100%
     width: 100%
-    #map
-      height: 100%
-      width: 100%
-      background: lightgreen
-      overflow: scroll
+    overflow: scroll
 
-      path
-        &:hover
-          stroke: yellow !important
+    transition: width 0.5s
+
+    background: lightgreen
+
+    path
+      &:hover
+        stroke: yellow !important
+  #chapter
+    position: absolute
+    top: 0
+    right: 0
+    height: 100%
+    width: 0
+    overflow: scroll
+    transition: width 0.5s
+
+    background: lightblue
+
+  &.is-opened
+    #map
+      width: 60%
+    #chapter
+      width: 40%
