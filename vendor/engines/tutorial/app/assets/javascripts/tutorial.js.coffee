@@ -1,4 +1,5 @@
 # = require jquery.svg.js
+# = require showdown
 
 unless $.svg?.isSVGElem
   $.svg ||= {}
@@ -13,10 +14,12 @@ Tut.ApplicationAdapter = DS.FixtureAdapter
 
 Tut.Chapter = DS.Model.extend
   title: DS.attr 'string'
+  motivation: DS.attr 'string'
+  instructions: DS.attr 'string'
 
 Tut.Chapter.FIXTURES = [
-  { id: 'email', title: 'Erstanmeldung mit Email' }
-  { id: 'account', title: 'Der Account' }
+  { id: 'email', title: 'Erstanmeldung mit Email', motivation: 'Wir wollen Dich kontaktieren können.' }
+  { id: 'account', title: 'Der Account', motivation: 'Für den Papierkrams', instructions: "just look at the [menu]{header nav[role=navigation]}" }
 ]
 
 Tut.Router.map ->
@@ -44,6 +47,35 @@ Tut.ApplicationView = Ember.View.extend
   elementId: 'tutorial'
   classNameBindings: ['isOpened']
   isOpenedBinding: 'controller.isOpened'
+
+
+# We replace all occurences of [Visible Title]{#a_css .selector} to %span.hint
+# to highlight the element with the corresponding selector in the main document
+hintElements = (converter)->
+  [
+    {
+      type: 'lang'
+      regex: '\\[([^\\]]+)\\]\\{([^}]+)\\}'
+      replace: (match, name, selector)->
+        """
+        <span class="hint" rel="#{selector}">#{name}</span>
+        """
+    }
+  ]
+showdown = new Showdown.converter(extensions: [hintElements])
+Ember.Handlebars.helper 'format-markdown-with-element-hints', (value, options)->
+  if value?
+    new Handlebars.SafeString(showdown.makeHtml(value))
+  else
+    ''
+
+Tut.ChapterView = Ember.View.extend
+  click: (event)->
+    ele = $(event.target)
+    if ele.is('.hint')
+      selector = ele.attr('rel')
+      console?.debug "hinting to", selector
+    false
 
 
 Tut.InteractivePathComponent = Ember.Component.extend

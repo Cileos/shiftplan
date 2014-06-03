@@ -9,3 +9,7 @@
 %script{type: 'text/x-handlebars', data: { 'template-name' => 'chapter' }}
   {{#link-to 'application'}}&lt;&lt;{{/link-to}}
   %h2 {{title}}
+  .motivation {{motivation}}
+  {{#if instructions}}
+  .instructions {{format-markdown-with-element-hints instructions}}
+  {{/if}}
