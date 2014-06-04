@@ -4,6 +4,14 @@ window.toggleTutorial = (event)->
     console?.debug "opening tutorial for", name
     url = "#{location.origin}/tutorial/#/chapter/#{name}"
     jQuery('<iframe />').attr('id', 'tutorial').attr('src', url).appendTo('section[role=content]')
+
+    receiveFromIframe = (event)->
+      data = event.data
+      if data[0] is 'hint'
+        selector = data[1]
+        console?.debug "highlighting", selector
+
+    addEventListener "message", receiveFromIframe, false
   else
     jQuery("#tutorial").remove()
 
