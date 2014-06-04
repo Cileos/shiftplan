@@ -19,7 +19,7 @@ Tut.Chapter = DS.Model.extend
 
 Tut.Chapter.FIXTURES = [
   { id: 'email', title: 'Erstanmeldung mit Email', motivation: 'Wir wollen Dich kontaktieren können.' }
-  { id: 'account', title: 'Der Account', motivation: 'Für den Papierkrams', instructions: "just look at the [menu]{header nav[role=navigation]}" }
+  { id: 'account', title: 'Der Account', motivation: 'Für den Papierkrams', instructions: "just look at the [menu]{header nav[role=navigation]} or read the [news]{div.module.news h2}" }
 ]
 
 Tut.Router.map ->
