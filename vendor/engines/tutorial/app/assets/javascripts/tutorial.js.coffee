@@ -75,6 +75,7 @@ Tut.ChapterView = Ember.View.extend
     if ele.is('.hint')
       selector = ele.attr('rel')
       console?.debug "hinting to", selector
+      parent.postMessage ["hint", selector], "*"
     false
 
 
