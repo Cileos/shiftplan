@@ -3,6 +3,8 @@ defaults =
   targetId: 'tutorial'
   appendTo: 'body'
 
+receiveFromIframe = null
+
 # Applied to a link L, clicking on it will toggle the existance of an iframe
 # containing the tutorial for L's data-name.
 #
@@ -18,15 +20,24 @@ jQuery.fn.tutorialToggle = (options)->
     if jQuery("#" + o.targetId).length is 0
       console?.debug "opening tutorial for", name
       url = "#{location.origin}/tutorial/#/chapter/#{name}"
-      jQuery('<iframe />').attr('id', o.targetId).attr('src', url).appendTo(o.appendTo)
+      jQuery('<iframe />')
+        .attr('id', o.targetId)
+        .attr('src', url)
+        .appendTo(o.appendTo)
+        .mouseenter( -> $(@).addClass('hover') )
+        .mouseleave( -> $(@).removeClass('hover') )
 
-      receiveFromIframe = (event)->
-        data = event.data
-        if data[0] is 'hint'
-          selector = data[1]
-          o.hint(selector)
+      unless receiveFromIframe
+        receiveFromIframe = (event)->
+          data = event.data
+          if data[0] is 'hint'
+            selector = data[1]
+            o.hint(selector)
 
-      addEventListener "message", receiveFromIframe, false
+        addEventListener "message", receiveFromIframe, false
     else
+      if receiveFromIframe
+        removeEventListener "message", receiveFromIframe, false
+        receiveFromIframe = null
       jQuery("#" + o.targetId).remove()
 
