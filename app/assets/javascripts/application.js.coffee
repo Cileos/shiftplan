@@ -32,7 +32,8 @@ jQuery ->
   $('#keyboard-shortcuts [data-toggle="collapsible-heading"]').click()  unless $.cookie("clockwork_keyboard-shortcuts")
 
   # from tutorial-toggle
-  $('a#open-tutorial').click toggleTutorial(
+  $('a#open-tutorial').tutorialToggle
+    targetId: 'tutorial'
+    appendTo: 'section[role=content]'
     hint: (selector)->
       console?.debug "highlighting", selector
-  )
