@@ -13,3 +13,5 @@
   {{#if instructions}}
   .instructions {{format-markdown-with-element-hints instructions}}
   {{/if}}
+
+%script#fixtures{type: 'text/json', data: { chapters: @chapters.to_json } }
