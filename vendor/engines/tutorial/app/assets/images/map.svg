@@ -69,14 +69,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="1.8639934"
+     inkscape:cx="4.7211363"
      inkscape:cy="473.85987"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1916"
      inkscape:window-height="1037"
-     inkscape:window-x="1920"
+     inkscape:window-x="0"
      inkscape:window-y="41"
      inkscape:window-maximized="0" />
   <metadata
@@ -87,7 +87,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -131,6 +131,50 @@
        sodipodi:ry="34.285713"
        d="m 497.14286,989.50507 a 34.285713,34.285713 0 1 1 -68.57143,0 34.285713,34.285713 0 1 1 68.57143,0 z"
        transform="translate(-1.4285751,-318.57145)"
+       inkscape:label="#path5409-2" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#aa4400;fill-opacity:0.37668164;stroke:#863000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:5, 15;stroke-dashoffset:0"
+       id="tutorial_step_organization"
+       sodipodi:cx="462.85715"
+       sodipodi:cy="989.50507"
+       sodipodi:rx="34.285713"
+       sodipodi:ry="34.285713"
+       d="m 497.14286,989.50507 a 34.285713,34.285713 0 1 1 -68.57143,0 34.285713,34.285713 0 1 1 68.57143,0 z"
+       transform="translate(-182.85715,-378.57145)"
+       inkscape:label="#path5409-2" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#aa4400;fill-opacity:0.37668164;stroke:#863000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:5, 15;stroke-dashoffset:0"
+       id="tutorial_step_employee"
+       sodipodi:cx="462.85715"
+       sodipodi:cy="989.50507"
+       sodipodi:rx="34.285713"
+       sodipodi:ry="34.285713"
+       d="m 497.14286,989.50507 a 34.285713,34.285713 0 1 1 -68.57143,0 34.285713,34.285713 0 1 1 68.57143,0 z"
+       transform="translate(-117.14286,-560.00003)"
+       inkscape:label="#path5409-2" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#aa4400;fill-opacity:0.37668164;stroke:#863000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:5, 15;stroke-dashoffset:0"
+       id="tutorial_step_plan"
+       sodipodi:cx="462.85715"
+       sodipodi:cy="989.50507"
+       sodipodi:rx="34.285713"
+       sodipodi:ry="34.285713"
+       d="m 497.14286,989.50507 a 34.285713,34.285713 0 1 1 -68.57143,0 34.285713,34.285713 0 1 1 68.57143,0 z"
+       transform="translate(-75.714293,-688.57146)"
+       inkscape:label="#path5409-2" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#aa4400;fill-opacity:0.37668164;stroke:#863000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:5, 15;stroke-dashoffset:0"
+       id="tutorial_step_scheduling"
+       sodipodi:cx="462.85715"
+       sodipodi:cy="989.50507"
+       sodipodi:rx="34.285713"
+       sodipodi:ry="34.285713"
+       d="m 497.14286,989.50507 a 34.285713,34.285713 0 1 1 -68.57143,0 34.285713,34.285713 0 1 1 68.57143,0 z"
+       transform="translate(41.428566,-891.4286)"
        inkscape:label="#path5409-2" />
   </g>
 </svg>

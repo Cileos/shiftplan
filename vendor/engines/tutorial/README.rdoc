@@ -1,3 +1,9 @@
 = Tutorial
 
+Provides a rails engine for an Ember-powered tutorial. It should have a map, a
+lot of examples and maybe even achievements. We chose to embed it via an iframe
+so the DOM ids of the map will not clash with the rest of the page. Still, we
+want to highlight elements on the main page from within the tutorial.
+
+
 This project rocks and uses MIT-LICENSE.
