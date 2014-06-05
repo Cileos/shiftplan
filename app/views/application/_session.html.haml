@@ -1,5 +1,5 @@
 %ul
-  - if tutorial_name = controller.current_tutorial
+  - if controller.respond_to?(:current_tutorial) && tutorial_name = controller.current_tutorial
     %li
       = link_to :tutorial, '#', id: 'open-tutorial', data: { name: tutorial_name }, class: 'icon-help'
 

@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include Volksplaner::Currents
   include Volksplaner::ControllerCaching
   include Volksplaner::Undo::ControllerHelpers
+  include Tutorial::Controller
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.debug('Access denied')

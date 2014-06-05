@@ -13,6 +13,8 @@ class SchedulingsController < BaseController
   end
   before_filter :merge_time_components_from_next_day, only: :edit
 
+  tutorial 'scheduling', only: [:employees_in_week]
+
   respond_to :html, :js
   force_no_cache
 

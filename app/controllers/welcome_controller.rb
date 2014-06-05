@@ -1,6 +1,4 @@
 class WelcomeController < ApplicationController
-  include Tutorial::Controller
-
   before_filter :authorize_user, only: :dashboard
   before_filter :redirect_to_dynamic_dashboard_if_signed_in, only: :landing
 
