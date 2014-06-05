@@ -2,6 +2,7 @@ class OrganizationsController < BaseController
   belongs_to :account
 
   respond_to :html, :js
+  tutorial 'employee', only: [:show]
 
   def create
     create! { account_path(current_account) }
