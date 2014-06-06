@@ -82,13 +82,19 @@ Tut.ChapterView = Ember.View.extend
 
 Tut.InteractivePathComponent = Ember.Component.extend
   tagName: 'path'
-  classNameBindings: [ 'isHovered:hover' ]
+  classNameBindings: [ 'isHovered:hover', 'isMarker:marker' ]
   attributeBindings: Ember.String.w 'type style id cx cy rx ry d transform label'
   isHovered: false
   visit: 'gotoChapter'
   chapterId:
     Ember.computed ->
       @get('elementId').replace(/^tutorial_step_/, '')
+    .property('elementId')
+
+  isMarker:
+    Ember.computed ->
+      if id = @get('elementId')
+        id.indexOf('tutorial_step_') is 0
     .property('elementId')
 
 
