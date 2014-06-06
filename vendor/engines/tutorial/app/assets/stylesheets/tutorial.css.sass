@@ -6,9 +6,13 @@ $kf_red_mist: #C0868C
 $kf_boot_camp: #A6A787
 $kf_esperenza: #6B604F
 
-+keyframes(marker_hover)
++keyframes(rotate_marker)
   to
     stroke-dashoffset: -666
+
++keyframes(pulsate_marker)
+  to
+    stroke-width: 17
 
 body
   margin: 0
@@ -35,7 +39,7 @@ body
 
     path.marker
       &:hover
-        +animation(marker_hover 5s linear infinite)
+        +animation(rotate_marker 5s linear infinite, pulsate_marker 0.2s alternate linear infinite)
 
   #chapter
     position: absolute
