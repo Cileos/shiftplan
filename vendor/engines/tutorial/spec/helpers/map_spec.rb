@@ -6,6 +6,10 @@ describe 'The tutorial map' do
   let(:markers)  { (svg / 'path[id^=tutorial_step]').map { |e| e[:id].scan(/^tutorial_step_(.*)$/) }.flatten }
   let(:chapters) { I18n.translate('tutorial.chapters').map { |c| c['id'] } }
 
+  it 'has markers' do
+    markers.should_not be_empty
+  end
+
   context 'markers' do
     shared_examples :matching_markers_and_chapters do |locale|
       in_locale locale
