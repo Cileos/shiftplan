@@ -51,6 +51,12 @@ Tut.ApplicationView = Ember.View.extend
   classNameBindings: ['isOpened']
   isOpenedBinding: 'controller.isOpened'
 
+  didInsertElement: ->
+    $map = @$('svg')
+    width = $map.attr('width')
+    height = $map.attr('height')
+    $map.attr 'viewBox', [0,0,width,height].join(' ')
+
 
 # We replace all occurences of [Visible Title]{#a_css .selector} to %span.hint
 # to highlight the element with the corresponding selector in the main document
