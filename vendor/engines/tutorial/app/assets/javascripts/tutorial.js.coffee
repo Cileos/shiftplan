@@ -30,6 +30,8 @@ Tut.ApplicationRoute = Ember.Route.extend
   actions:
     gotoChapter: (chapter)->
       @transitionTo 'chapter', chapter
+    error: (exception)->
+      @transitionTo 'index'
 
 Tut.ChapterRoute = Ember.Route.extend
   activate: ->
