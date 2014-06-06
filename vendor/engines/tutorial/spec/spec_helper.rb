@@ -29,7 +29,7 @@ end
 
 RSpec.configure do |config|
   config.extend RSpecLocaleHelper
-  config.backtrace_clean_patterns = [
+  config.backtrace_exclusion_patterns = [
         /\/lib\d*\/ruby\//,
         /bin\//,
         /gems/,
