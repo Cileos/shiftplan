@@ -20,7 +20,8 @@ describe SvgInteractifier do
       interactify('  ').should have_selector('svg')
     end
 
-    xit 'makes the svg root interactive' do # to be able to set viewBox
+    # we want to be able to set viewBox by Ember properties, but cannot replace root node
+    xit 'makes the svg root interactive' do
       res = interactify('')
       res.should_not have_selector('svg')
       res.should include %Q~{{interactive-svg}}~
