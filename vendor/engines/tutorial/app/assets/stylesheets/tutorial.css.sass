@@ -1,9 +1,14 @@
+@import bourbon
 // FROM http://www.colourlovers.com/palette/3377785/Khaki_Fleur
 $kf_papercut: #EBE7DB
 $kf_cyan_mist: #A7D2CE
 $kf_red_mist: #C0868C
 $kf_boot_camp: #A6A787
 $kf_esperenza: #6B604F
+
++keyframes(marker_hover)
+  to
+    stroke-dashoffset: -666
 
 body
   margin: 0
@@ -21,9 +26,6 @@ body
     height: 100%
     width: 100%
     overflow: auto
-
-
-
     transition: width 0.5s
 
     svg
@@ -33,8 +35,8 @@ body
 
     path.marker
       &:hover
-        stroke: brighten($kf_red_mist, 20) !important
-        // animate stroke, circling?
+        +animation(marker_hover 5s linear infinite)
+
   #chapter
     position: absolute
     top: 0
