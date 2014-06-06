@@ -9,6 +9,7 @@ Combustion.initialize! :action_controller,
                        :sprockets
 
 require 'rspec/rails'
+require 'rspec/fire'
 require 'capybara/rails'
 
 module RSpecLocaleHelper
@@ -35,4 +36,5 @@ RSpec.configure do |config|
         /spec\/spec_helper\.rb/,
         /lib\/rspec\/(core|expectations|matchers|mocks)/
     ]
+  config.include(RSpec::Fire)
 end
