@@ -2,45 +2,46 @@ de:
   tutorial:
     chapters:
       - id: 'email'
-        hint: ''
+        hint: 'Email'
         title: 'Erstanmeldung mit Email'
         motivation: 'Wir wollen Dich kontaktieren können.'
-        instructions: "Fülle [Email]{input.email} und [Passwort]{input.password} aus."
+        instructions: 'Fülle [Email]{input.email} und [Passwort]{input.password} aus.'
         examples:
-          - "Paul vergisst häufiger seine Passwörter. Mithilfe der hinterlegten Emailadresse kann er dieses leicht wieder herstellen."
+          - 'Paul vergisst häufiger seine Passwörter. Mithilfe der hinterlegten Emailadresse kann er dieses leicht wieder herstellen.'
+          - 'Marie hat sich bei so vielen Seiten registriert und kann sich keine Benutzernamen mehr merken. Ihre Email-Adresse bleibt ihr natürlich im Gedächtnis'
       - id: 'account'
-        hint: 'Branding Deiner Firma'
-        title: 'Das Konto'
+        hint: 'Konto'
+        title: 'Konto -- Branding Deiner Firma'
         motivation: '??? Damit Multijobber ihre verschiedenen Arbeitsstellen unterscheiden können.'
-        instructions: "Wir benötigen "
+        instructions: 'Wir benötigen nur den [Namen]{input.name}'
         examples:
-          - "Peter ist Chef einer Firma und trägt deren Namen als Kontonamen ein."
-          - "Sarah ist selbständig und trägt ihren Namen ein. Dieser erscheint dann auf ihren Rechnungen."
+          - 'Peter ist Chef einer Firma und trägt deren Namen als Kontonamen ein.'
+          - 'Sarah ist selbständig und trägt ihren Namen ein. Dieser erscheint dann auf ihren Rechnungen.'
       - id: 'organization'
-        hint: 'Deine Firma unterteilen'
-        title: 'Organisationen'
-        motivation: "Strukturierung des Accounts für eine bessere Übersicht in eine oder mehrere Organisationen"
-        instructions: "Nur ein [Name]{input.name} wird benötigt."
+        hint: 'Organisationen'
+        title: 'Organisationen - unterteile Deine Firma'
+        motivation: 'Strukturierung des Accounts für eine bessere Übersicht in eine oder mehrere Organisationen'
+        instructions: 'Nur ein [Name]{input.name} wird benötigt.'
         examples:
-          - "Ronald hat eine Firma mit vielen Filialen. Zwar sind deren Belegschaften getrennt, aber eine Hand voll Mitarbeiter wechselt mehrmals pro Woche die Filiale."
-          - "General Haumichblau verwaltet mehrere Schiffe seiner Flotte. Für jedes Schiff legt er eine eigene Organisation an, da Besatzung selten das Gefährt wechseln."
+          - 'Ronald hat eine Firma mit vielen Filialen. Zwar sind deren Belegschaften getrennt, aber eine Hand voll Mitarbeiter wechselt mehrmals pro Woche die Filiale.'
+          - 'General Haumichblau verwaltet mehrere Schiffe seiner Flotte. Für jedes Schiff legt er eine eigene Organisation an, da Besatzung selten das Gefährt wechseln.'
 
       - id: 'employee'
         hint: 'Mitarbeiter'
         title: 'Mitarbeiter'
         motivation: 'Um die Arbeitszeiten planen zu können brauchen wir eine Liste der Mitarbeiter in der Firma'
-        instructions: "Folge den [Stammdaten im Menu]{nav[role=navigation] a.core-data}"
+        instructions: 'Folge den [Stammdaten im Menu]{nav[role=navigation] a.core-data}'
         examples:
-          - "Schneewittchen muss alle 7 Zwerge eintragen, damit diese sich nicht um ihre Arbeitszeiten streiten."
+          - 'Schneewittchen muss alle 7 Zwerge eintragen, damit diese sich nicht um ihre Arbeitszeiten streiten.'
       - id: 'team'
         hint: 'Arbeitsbereiche'
         title: 'Arbeitsbereiche und Aufgaben'
         motivation: 'Jeder Mitarbeiter kann für verschiedene Arbeitsbereiche eingeplant werden, die unterschiedliche Aufgaben beinhalten.'
-        instructions: "Folge den [Stammdaten im Menu]{nav[role=navigation] a.core-data} zu den Teams, wo Du unter anderem eine Farbe festlegen kannst, um den Bereich hervorzuheben"
+        instructions: 'Folge den [Stammdaten im Menu]{nav[role=navigation] a.core-data} zu den Teams, wo Du unter anderem eine Farbe festlegen kannst, um den Bereich hervorzuheben'
         examples:
-          - "Dr. Kelso teilt Früh- und Nachschicht getrennt von einander ein."
-          - "Bei Scotland Yard werden heute 8 Polizisten zur Streife und 3 zur Innendienst eingeteilt."
-          - "Luigi möchte in seinem Restaurant die 7 Kellner von den 3 Köchen unterscheiden können."
+          - 'Dr. Kelso teilt Früh- und Nachschicht getrennt von einander ein.'
+          - 'Bei Scotland Yard werden heute 8 Polizisten zur Streife und 3 zur Innendienst eingeteilt.'
+          - 'Luigi möchte in seinem Restaurant die 7 Kellner von den 3 Köchen unterscheiden können.'
       - id: 'plan'
         hint: 'Pläne'
         title: 'Pläne'
