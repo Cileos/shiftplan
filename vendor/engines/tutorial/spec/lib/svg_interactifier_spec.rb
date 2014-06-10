@@ -28,13 +28,23 @@ describe SvgInteractifier do
     end
 
     describe 'with paths matching our preference' do
-      let(:path_xml) { '<path id="tutorial_foo" d="long"></path>' }
+      let(:path_xml) { '<path id="tutorial_step_foo" d="long"></path>' }
       let(:result) { interactify(path_xml) }
 
       it 'adds handlebar component version of the wanted paths' do
-        result.should include(
-          %Q~{{interactive-path id="tutorial_foo" d="long"}}~
-        )
+        result.should include('{{interactive-path')
+      end
+
+      it 'keeps the id for routing and styling' do
+        result.should include('id="tutorial_step_foo"')
+      end
+
+      it "keeps the path trajectory" do
+        result.should include('d="long"')
+      end
+
+      it "sets up binding to named chapter attribute on controller" do
+        result.should include(' chapter=chapter_foo ')
       end
 
       it 'removes the original element' do

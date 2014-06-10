@@ -17,6 +17,7 @@ Tut.Chapter = DS.Model.extend
   motivation: DS.attr 'string'
   instructions: DS.attr 'string'
   examples: DS.attr 'array'
+  isDone: DS.attr 'boolean'
 
 Tut.initializer
   name: 'load_chapters'
@@ -28,6 +29,15 @@ Tut.Router.map ->
   @route 'chapter', path: 'chapter/:chapter_id'
 
 Tut.ApplicationRoute = Ember.Route.extend
+  model: -> @store.find 'chapter'
+
+  setupController: (controller, chapters)->
+    # pick up bindings from SvgInteractifier
+    chapters.forEach (m)->
+      prop =  "chapter_#{m.get('id')}"
+      controller.set prop, m
+    @_super(controller, chapters)
+
   actions:
     gotoChapter: (chapter)->
       @transitionTo 'chapter', chapter
@@ -91,8 +101,14 @@ Tut.ChapterView = Ember.View.extend
 
 Tut.InteractivePathComponent = Ember.Component.extend
   tagName: 'path'
-  classNameBindings: [ 'isHovered:hover', 'isMarker:marker', 'isActive:active']
+  classNameBindings: [
+    'isHovered:hover',
+    'isMarker:marker',
+    'isActive:active',
+    'isDone:done',
+  ]
   attributeBindings: Ember.String.w 'type style id cx cy rx ry d transform label'
+  chapter: null # is set with the help of SvgInteractifier and the ApplicationRoute on the ApplicationController
   isHovered: false
   visit: 'gotoChapter'
   chapterId:
@@ -110,8 +126,11 @@ Tut.InteractivePathComponent = Ember.Component.extend
   isActive:
     Ember.computed ->
       router = @get('router')
-      router.isActive 'chapter', @get('chapterId')
+      @get('isMarker') and router.isActive 'chapter', @get('chapterId')
     .property('isMarker', 'router.url')
+
+  isDoneBinding: 'chapter.isDone'
+
 
   router:
     Ember.computed ->
