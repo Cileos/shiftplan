@@ -17,4 +17,4 @@
   .example {{format-markdown-with-element-hints example}}
   {{/each}}
 
-%script#fixtures{type: 'text/json', data: { chapters: @chapters.to_json } }
+%script#fixtures{type: 'text/json', data: { chapters: chapters_array_as_json(@chapters) } }

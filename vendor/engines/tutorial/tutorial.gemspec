@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2.16"
   s.add_dependency "nokogiri", "~> 1.6.1"
+  s.add_dependency 'active_attr' # can be removed when rails >= 4, see Chapter
+  s.add_dependency 'active_model_serializers'
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
