@@ -6,6 +6,8 @@ $kf_red_mist: #C0868C
 $kf_boot_camp: #A6A787
 $kf_esperenza: #6B604F
 
+$marker_active: $kf_papercut
+
 +keyframes(rotate_marker)
   to
     stroke-dashoffset: -666
@@ -40,6 +42,10 @@ body
     path.marker
       &:hover
         +animation(rotate_marker 5s linear infinite, pulsate_marker 0.2s alternate linear infinite)
+
+      &.active
+        stroke: $marker_active !important
+
 
   #chapter
     position: absolute
