@@ -6,7 +6,7 @@ $kf_red_mist: #C0868C
 $kf_boot_camp: #A6A787
 $kf_esperenza: #6B604F
 
-$marker_active: $kf_papercut
+$marker_active: $kf_cyan_mist
 
 +keyframes(rotate_marker)
   to
@@ -42,6 +42,9 @@ body
     path.marker
       &:hover
         +animation(rotate_marker 5s linear infinite, pulsate_marker 0.2s alternate linear infinite)
+
+      &.done
+        fill: transparent !important
 
       &.active
         stroke: $marker_active !important
