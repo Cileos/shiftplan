@@ -7,11 +7,14 @@
 %script{type: 'text/x-handlebars', data: { 'template-name' => 'components/interactive-path' }}
 
 %script{type: 'text/x-handlebars', data: { 'template-name' => 'chapter' }}
-  {{#link-to 'application'}}&lt;&lt;{{/link-to}}
+  {{#link-to 'application' classNames="back"}}&lt;&lt;{{/link-to}}
   %h2 {{title}}
-  .motivation {{motivation}}
+  .motivation {{format-markdown-with-element-hints motivation}}
   {{#if instructions}}
   .instructions {{format-markdown-with-element-hints instructions}}
   {{/if}}
+  {{#each example in examples}}
+  .example {{format-markdown-with-element-hints example}}
+  {{/each}}
 
 %script#fixtures{type: 'text/json', data: { chapters: @chapters.to_json } }

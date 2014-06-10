@@ -16,6 +16,7 @@ Tut.Chapter = DS.Model.extend
   title: DS.attr 'string'
   motivation: DS.attr 'string'
   instructions: DS.attr 'string'
+  examples: DS.attr 'array'
 
 Tut.initializer
   name: 'load_chapters'
