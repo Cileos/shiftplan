@@ -24,6 +24,18 @@ module RSpecLocaleHelper
       I18n.locale = old
     end
   end
+
+  # use this when using Tutorial.define_chapter
+  def keep_chapter_conditions
+    old = nil
+    before :each do
+      old = Tutorial::Chapter.conditions.dup
+    end
+
+    after :each do
+      Tutorial::Chapter.conditions = old
+    end
+  end
 end
 
 

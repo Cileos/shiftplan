@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   has_many :accounts, through: :employees
   has_many :owned_accounts, through: :employees
   has_many :employees_in_owned_accounts, through: :owned_accounts, source: :employees
+  has_many :owned_organizations, through: :owned_accounts, source: :organizations
 
   has_many :memberships, :through => :employees
   # organizations the user joined (aka "has a membership in")

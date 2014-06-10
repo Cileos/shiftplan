@@ -59,6 +59,8 @@ PATH
   remote: vendor/engines/tutorial
   specs:
     tutorial (0.0.1)
+      active_attr
+      active_model_serializers
       nokogiri (~> 1.6.1)
       rails (~> 3.2.16)
 
