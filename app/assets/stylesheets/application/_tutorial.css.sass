@@ -2,22 +2,17 @@ $tutorial_z_index: 9002
 #tutorial
   position: absolute
   top: 7em
-  right: 1em
+  left: calc(50% - 1em)
   z-index: $tutorial_z_index - 1
+  // rolled paper
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.35), 0 85px 180px 0 #fff, 0 12px 8px -5px rgba(0, 0, 0, 0.85)
 
   iframe
     width: 50vw
     height: 50vh
     display: block
-
     border: 0 none
-    opacity: 0.7
-    transition: opacity 0.3s
-    &.hover
-      opacity: inherit
 
-    // rolled paper
 
 //#open-tutorial
 
