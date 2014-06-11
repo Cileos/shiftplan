@@ -40,15 +40,19 @@ $.fn.tutorialToggle = (options)->
               collision: 'fit'
 
   open = ->
-    name = $(event.target).closest('a').data('name')
+    $link = $(event.target).closest('a')
+    name = $link.data('name')
+    title = $link.attr('title')
     console?.debug "opening tutorial for", name
     url = "#{location.origin}/tutorial/#/chapter/#{name}"
-    $('<iframe />')
+    $container = $('<div></div>')
       .attr('id', o.targetId)
-      .attr('src', url)
       .appendTo(o.appendTo)
+    $('<iframe />')
+      .attr('src', url)
       .mouseenter( -> $(@).addClass('hover') )
       .mouseleave( -> $(@).removeClass('hover') )
+      .appendTo($container)
 
     unless receiveFromIframe
       receiveFromIframe = (event)->
@@ -62,7 +66,8 @@ $.fn.tutorialToggle = (options)->
     if receiveFromIframe
       removeEventListener "message", receiveFromIframe, false
       receiveFromIframe = null
-    $("#" + o.targetId).remove()
+    $("#" + o.targetId)
+      .remove()
     if o.hintClass?
       $('.' + o.hintClass).remove()
 
