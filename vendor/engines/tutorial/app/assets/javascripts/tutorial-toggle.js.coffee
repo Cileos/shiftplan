@@ -3,6 +3,8 @@ defaults =
   targetId: 'tutorial'
   appendTo: 'body'
   hintClass: 'tutorial-hint'
+  hintStayDuration: 5000
+  hintFadeDuration: 2000
 
 receiveFromIframe = null
 
@@ -33,11 +35,14 @@ $.fn.tutorialToggle = (options)->
           $hint.
             clone().
             appendTo('body').
+            delay(o.hintStayDuration).
+            fadeOut(o.hintFadeDuration, -> $(this).remove()).
             position
               my: 'left center'
               at: 'right center'
               of: this
               collision: 'fit'
+
 
   close = ->
     if receiveFromIframe
