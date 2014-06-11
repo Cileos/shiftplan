@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   before_filter :authorize_user, only: :dashboard
   before_filter :redirect_to_dynamic_dashboard_if_signed_in, only: :landing
 
-  tutorial 'account', only: [:dashboard], if: ->{ true }  # if -> { current_account.organizations.empty? && current_user.can?(:create, Organization) }
+  tutorial 'account', only: [:dashboard]
 
   def landing
   end

@@ -2,6 +2,8 @@ class SignupController < DeviseController
   skip_before_filter :authenticate_user!
   skip_authorization_check
 
+  tutorial 'email', only: [:show]
+
   def show
     authorize! :show, resource
   end
