@@ -1,3 +1,4 @@
+$header_z_index: 110
 [role=banner]
   display: inline-block
   width: 100%
@@ -5,7 +6,7 @@
   +background(linear-gradient(lighten($ci_blue, 2%), darken($ci_blue, 3%)))
   border-bottom: 1px solid darken($ci_blue, 7.5%)
   color: lighten($ci_blue, 50%)
-  +z-index("103", "fixed")
+  +z-index($header_z_index, "fixed")
   top: 0
   left: 0
 
