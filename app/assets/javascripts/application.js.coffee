@@ -32,20 +32,8 @@ jQuery ->
   $('#keyboard-shortcuts [data-toggle="collapsible-heading"]').click()  unless $.cookie("clockwork_keyboard-shortcuts")
 
 
-  $hint = $('<div>').addClass('tutorial-hint')
   # from tutorial-toggle
   $('a#open-tutorial').tutorialToggle
     targetId: 'tutorial'
     appendTo: 'section[role=content]'
-    hint: (selector)->
-      $('.tutorial-hint').remove()
-
-      $(selector).each ->
-        $hint.
-          clone().
-          appendTo('body').
-          position
-            my: 'left center'
-            at: 'right center'
-            of: this
-            collision: 'fit'
+    hintClass: 'tutorial-hint'
