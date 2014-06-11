@@ -77,6 +77,7 @@ $.fn.tutorialToggle = (options)->
     $container
       .appendTo(o.appendTo)
       .draggable
+        containment: 'body'
         start: (event, ui)->
           $iframeFix
             .clone()
