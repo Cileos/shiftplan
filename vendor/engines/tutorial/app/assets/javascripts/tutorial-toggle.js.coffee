@@ -1,9 +1,13 @@
 defaults =
-  hint: Ember.K
+  hint: true
   targetId: 'tutorial'
   appendTo: 'body'
+  hintClass: 'tutorial-hint'
 
 receiveFromIframe = null
+
+$ = jQuery
+
 
 # Applied to a link L, clicking on it will toggle the existance of an iframe
 # containing the tutorial for L's data-name.
@@ -12,32 +16,59 @@ receiveFromIframe = null
 #   hint: function getting the selector the tutorial wants to highlight
 #   targetId: the DOMid of the inserted iframe
 #   appendTo: selector/collection where the iframe is inserted into the DOM
-jQuery.fn.tutorialToggle = (options)->
-  o = jQuery.extend {}, defaults, options
+#
+# TODO: close button
+$.fn.tutorialToggle = (options)->
+  o = $.extend {}, defaults, options
+  $hint = $('<div>').addClass(o.hintClass)
 
-  jQuery(this).click (event)->
-    name = $(event.target).closest('a').data('name')
-    if jQuery("#" + o.targetId).length is 0
-      console?.debug "opening tutorial for", name
-      url = "#{location.origin}/tutorial/#/chapter/#{name}"
-      jQuery('<iframe />')
-        .attr('id', o.targetId)
-        .attr('src', url)
-        .appendTo(o.appendTo)
-        .mouseenter( -> $(@).addClass('hover') )
-        .mouseleave( -> $(@).removeClass('hover') )
-
-      unless receiveFromIframe
-        receiveFromIframe = (event)->
-          data = event.data
-          if data[0] is 'hint'
-            selector = data[1]
-            o.hint(selector)
-
-        addEventListener "message", receiveFromIframe, false
+  hint = (actor, selector)->
+    if $.isFunction actor
+      actor(selector)
     else
-      if receiveFromIframe
-        removeEventListener "message", receiveFromIframe, false
-        receiveFromIframe = null
-      jQuery("#" + o.targetId).remove()
+      if actor? and o.hintClass?
+        $('.' + o.hintClass).remove()
+
+        $(selector).each ->
+          $hint.
+            clone().
+            appendTo('body').
+            position
+              my: 'left center'
+              at: 'right center'
+              of: this
+              collision: 'fit'
+
+  open = ->
+    name = $(event.target).closest('a').data('name')
+    console?.debug "opening tutorial for", name
+    url = "#{location.origin}/tutorial/#/chapter/#{name}"
+    $('<iframe />')
+      .attr('id', o.targetId)
+      .attr('src', url)
+      .appendTo(o.appendTo)
+      .mouseenter( -> $(@).addClass('hover') )
+      .mouseleave( -> $(@).removeClass('hover') )
+
+    unless receiveFromIframe
+      receiveFromIframe = (event)->
+        data = event.data
+        if data[0] is 'hint'
+          hint o.hint, data[1]
+
+      addEventListener "message", receiveFromIframe, false
+
+  close = ->
+    if receiveFromIframe
+      removeEventListener "message", receiveFromIframe, false
+      receiveFromIframe = null
+    $("#" + o.targetId).remove()
+    if o.hintClass?
+      $('.' + o.hintClass).remove()
+
+  $(this).click (event)->
+    if $("#" + o.targetId).length is 0
+      open()
+    else
+      close()
 
