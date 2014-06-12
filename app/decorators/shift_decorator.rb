@@ -1,7 +1,7 @@
 class ShiftDecorator < RecordDecorator
   include TimePeriodFormatter
-  include OvernightableDecoratorHelper
   include SchedulableDecoratorHelper
+  include OvernightableDecoratorHelper
 
   decorates :shift
   decorates_association :demands
