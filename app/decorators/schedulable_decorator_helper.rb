@@ -17,7 +17,7 @@ module SchedulableDecoratorHelper
   end
 
   def css_class
-    concat nightshift_class, team_class
+    concat nightshift_class, team_class, all_day_class
   end
 
   def concat(*args)
@@ -27,5 +27,13 @@ module SchedulableDecoratorHelper
   # Not all Schedulables (ie. Unas) are overnightable
   def nightshift_class
     nil
+  end
+
+  def all_day_class
+    if all_day?
+      'all-day'
+    else
+      nil
+    end
   end
 end
