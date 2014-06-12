@@ -9,6 +9,8 @@ de:
         end_time: "Ende"
         all_day: "Ganztägig"
         employee: "Mitarbeiter"
+        start_date: "Erster Tag"
+        end_date: "Letzter Tag"
     values:
       unavailability:
         reasons:

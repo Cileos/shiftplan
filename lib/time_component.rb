@@ -42,6 +42,10 @@ class TimeComponent < Struct.new(:record, :start_or_end)
     @minute || (record.public_send(attr_name).present? && record.public_send(attr_name).min) || 0
   end
 
+  def day
+    @day || (record.public_send(attr_name).present? && record.public_send(attr_name).day) || 0
+  end
+
   def minute=(minute)
     @minute =
       if minute.present?

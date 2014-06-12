@@ -1,17 +1,33 @@
-formattedTimeProperty = (name)->
+formattedDateProperty = (name, format='L')->
   Ember.computed (key, value)->
     if arguments.length > 1
-      date = @get('date') || @get('startsAt')
-      splot = value.split(':')
-      @set name, moment(date).
+      have = @get(name)
+      want = moment(value, format)
+      console?.debug "date", value, want
+      @set name, moment(have).
                          clone().
-                         hour(splot[0]).
-                         minute(splot[1]).
+                         year( want.year() ).
+                         month( want.month() ).
+                         date( want.date() ).
                          toDate()
-    moment(@get(name)).format('H:mm')
+    moment(@get(name)).format(format)
   .property(name)
 
+formattedTimeProperty = (name, format='H:mm')->
+  Ember.computed (key, value)->
+    if arguments.length > 1
+      have = @get(name)
+      want = moment(value, format)
+      @set name, moment(have).
+                         clone().
+                         hour(want.hour()).
+                         minute(want.minute()).
+                         toDate()
+    moment(@get(name)).format(format)
+  .property(name)
 
+# The Temporary is used in the creation form to allow start/end date for
+# multiple unas  at once
 
 Clockwork.Unavailability = DS.Model.extend
   reason: DS.attr('string')
@@ -23,11 +39,13 @@ Clockwork.Unavailability = DS.Model.extend
   account: DS.belongsTo('account')
 
   # this are currently needed for creation by time
-  date: null
   formattedDate:
     Ember.computed ->
-      $.datepick.formatDate( @get('date') )
-    .property('date')
+      $.datepick.formatDate( @get('startsAt') )
+    .property('startsAt')
+
+  startDate: formattedDateProperty 'startsAt'
+  endDate: formattedDateProperty 'endsAt'
 
   startTime: formattedTimeProperty 'startsAt'
   endTime: formattedTimeProperty 'endsAt'

@@ -56,6 +56,30 @@ describe UnavailabilityCreator do
     end
   end
 
+  describe 'ranging over multiple days' do
+    let(:starts_at) { '2019-05-02 06:00' }
+    let(:ends_at)   { '2019-05-06 18:00' }
+    before :each do
+      account = create :account
+      create :employee, user: current_user, account: account
+    end
+    let(:creation)  { create_with_defaults starts_at: starts_at, ends_at: ends_at }
+    it 'creates an una for every day covered' do
+      expect { creation }.to change { Unavailability.count }.by(5)
+      creation.created_records.map(&:starts_at).map(&:day).should == [2,3,4,5,6]
+    end
+    it 'uses the same start time on all unas' do
+      creation.created_records.each do |record|
+        record.start_time.should == '06:00'
+      end
+    end
+    it 'uses the same end time on all unas' do
+      creation.created_records.each do |record|
+        record.end_time.should == '18:00'
+      end
+    end
+  end
+
   describe "when planning other employee" do
     # The employee is present and the user will be set to the employee's user
     # (if any). No account ids are present.

@@ -46,6 +46,7 @@ module TimeRangeComponentsAccessible
                  :minute, :minute=,
                  :time, :time=,
                  :hour_present?,
+                 :day,
                  to: :#{name}_component, prefix: :#{name}
       EOEVAL
     end

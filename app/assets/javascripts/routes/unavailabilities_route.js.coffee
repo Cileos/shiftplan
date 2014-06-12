@@ -52,9 +52,8 @@ Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
       date(params.day).
       startOf('day')
     @store.createRecord 'unavailability',
-      date:         here.toDate()
-      startsAt:     null
-      endsAt:       null
+      startsAt:     here
+      endsAt:       here
       allDay:       true
       startTime:    '06:00'
       endTime:      '18:00'

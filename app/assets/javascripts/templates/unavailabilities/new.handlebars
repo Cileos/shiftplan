@@ -14,6 +14,17 @@
         {{view Clockwork.Fields.TimeField elementId="una_end_time" valueBinding="endTime"}}
       </div>
     {{/unless}}
+
+    <div class="daterangewrapperfoo">
+      <div class="input start-date">
+        <label for="una_start_date">{{t 'activerecord.attributes.unavailability.start_date'}}</label>
+        {{view Clockwork.Fields.DateField elementId="una_start_date" value=startDate}}
+      </div>
+      <div class="input end-date">
+        <label for="una_end_date">{{t 'activerecord.attributes.unavailability.end_date'}}</label>
+        {{view Clockwork.Fields.DateField elementId="una_end_date" value=endDate}}
+      </div>
+    </div>
   </div>
 
   <div class="input">
