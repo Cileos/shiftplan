@@ -45,6 +45,7 @@ $.fn.tutorialToggle = (options)->
 
 
   close = ->
+    $link = $(event.target).closest('a')
     if receiveFromIframe
       removeEventListener "message", receiveFromIframe, false
       receiveFromIframe = null
@@ -52,6 +53,8 @@ $.fn.tutorialToggle = (options)->
       .remove()
     if o.hintClass?
       $('.' + o.hintClass).remove()
+
+    $link.removeClass('active')
 
   open = ->
     $link = $(event.target).closest('a')
@@ -105,6 +108,9 @@ $.fn.tutorialToggle = (options)->
           hint o.hint, data[1]
 
       addEventListener "message", receiveFromIframe, false
+
+    $link.addClass('active')
+
 
   $(this).click (event)->
     if $("#" + o.targetId).length is 0
