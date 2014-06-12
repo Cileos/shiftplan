@@ -52,6 +52,21 @@ describe FeedsController do
       end
     end
 
+    context 'all-day-ness' do
+      # http://www.innerjoin.org/iCalendar/all-day-events.html
+      let(:time) { Time.zone.parse('2013-05-05 05:23') }
+      before :each do
+        stub_schedulings all_day: true, starts_at: time, ends_at: time + 5.hours
+        fetch
+      end
+      it 'starts at beginning of day' do
+        event.dtstart.should == time.beginning_of_day
+      end
+      it 'ends at beginning of next day' do
+        event.dtend.should == time.tomorrow.beginning_of_day
+      end
+    end
+
     context 'summary' do
       subject { fetch && event.summary }
 

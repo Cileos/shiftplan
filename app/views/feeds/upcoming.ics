@@ -2,8 +2,13 @@ cal.method_property = ':PUBLISH' # ri_cal bug causes missing ':'
 cal.add_x_property 'X-WR-CALNAME', 'Clockwork'
 @schedulings.each do |s|
   cal.event do
-    dtstart      s.starts_at
-    dtend        s.ends_at
+    if s.all_day?
+      dtstart      s.starts_at.beginning_of_day
+      dtend        s.starts_at.tomorrow.beginning_of_day
+    else
+      dtstart      s.starts_at
+      dtend        s.ends_at
+    end
     summary      s.summary
     uid          "#{s.partial_name}-#{s.id}@#{Volksplaner.hostname}"
     last_modified s.updated_at
