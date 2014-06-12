@@ -63,11 +63,22 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # it is undefined by W3C spec anyway
   def cell_content(*a)
     schedulings = find_schedulings(*a)
-    content = ''
-    unless schedulings.empty?
-      content = h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate), filter: self
+    content = ''.tap do |c|
+      unless schedulings.empty?
+        list = h.render partial: "schedulings/item/#{mode}", collection: schedulings.map(&:decorate), locals: { filter: self }
+        if list_tag
+          c << h.content_tag(list_tag, list)
+        else
+          c << list
+        end
+      end
     end
-    h.content_tag :div, content, class: 'cellwrap'
+    h.content_tag :div, content.html_safe, class: 'cellwrap'
+  end
+
+  # Tag to wrap items into. overload with nil to disable wrapping
+  def list_tag
+    :ul
   end
 
   def render_cell_for_day(day, *a)

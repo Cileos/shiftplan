@@ -35,6 +35,11 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
     [ scheduling.date ]
   end
 
+  # vertical bars are separate
+  def list_tag
+    nil
+  end
+
   # TODO update content: only modify data-stack, do not replace ALL the divs
 
 
