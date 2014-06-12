@@ -109,8 +109,13 @@ class SchedulingFilterDecorator < ApplicationDecorator
     end
   end
 
+  # TODO remove duplication
   def find_unavailabilities(*criteria)
-    schedulings_for(*criteria)
+    if criteria.first.is_a?(Scheduling)
+      unavailabilities_for( *coordinates_for_scheduling( criteria.first) )
+    else
+      unavailabilities_for( *criteria )
+    end
   end
 
   def selector_for(name, resource=nil, extra=nil)
@@ -160,11 +165,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
           empl.organization_id = organization.id
           empl.planable? || records.find { |s| s.employee_id == empl.id }
         end
-  end
-
-  def employees
-    organization.employees
-                .default_sorting
   end
 
   delegate :plan,         to: :filter

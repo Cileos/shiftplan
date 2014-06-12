@@ -50,8 +50,8 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
     @scheduling_index ||= TwoDimensionalRecordIndex.new(:iso8601, y_attribute).with_records_added(records)
   end
 
-  def una_index
-    @una_index ||= TwoDimensionalRecordIndex.new(:iso8601, y_attribute).with_records_added(unavailabilities)
+  def unavailabilities_index
+    @unavailabilities_index ||= TwoDimensionalRecordIndex.new(:iso8601, y_attribute).with_records_added(unavailabilities)
   end
 
   private
