@@ -92,6 +92,8 @@ describe FeedsController do
       it 'is set for the event to be identified' do
         stub_schedulings id: 23
         should_not be_blank
+        should =~ /\A\w+-\d+@\S+\z/
+        should_not include('Decorator')
       end
     end
 
