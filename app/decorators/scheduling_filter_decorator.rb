@@ -67,6 +67,9 @@ class SchedulingFilterDecorator < ApplicationDecorator
         unless (schedulings = find_schedulings(*a)).empty?
           i << h.render(partial: "schedulings/item/#{mode}", collection: schedulings.map(&:decorate), locals: { filter: self })
         end
+        unless (unavailabilities = find_unavailabilities(*a)).empty?
+          i << h.render(partial: "unavailabilities/item/#{mode}", collection: unavailabilities.map(&:decorate), locals: { filter: self })
+        end
       end
       if list_tag
         c << h.content_tag(list_tag, items.html_safe)
@@ -104,6 +107,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
     else
       schedulings_for( *criteria )
     end
+  end
+
+  def find_unavailabilities(*criteria)
+    schedulings_for(*criteria)
   end
 
   def selector_for(name, resource=nil, extra=nil)

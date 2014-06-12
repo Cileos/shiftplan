@@ -19,12 +19,11 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
   end
 
   def schedulings_for(day, other)
-    indexed(day, other).sort_by(&:start_hour)
+    scheduling_index.fetch(day.iso8601, other).sort_by(&:start_hour)
   end
 
-  # looks up the index, savely
-  def indexed(day, other)
-    index.fetch(day.iso8601, other)
+  def unavailabilities_for(day, other)
+    unavailabilities_index.fetch(day.iso8601, other).sort_by(&:start_hour)
   end
 
   def previous_step
@@ -47,8 +46,12 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
   #
   #   scheduling.day(iso8601) => scheduling.xxxxxx => []
   #
-  def index
-    @index ||= TwoDimensionalRecordIndex.new(:iso8601, y_attribute).with_records_added(records)
+  def scheduling_index
+    @scheduling_index ||= TwoDimensionalRecordIndex.new(:iso8601, y_attribute).with_records_added(records)
+  end
+
+  def una_index
+    @una_index ||= TwoDimensionalRecordIndex.new(:iso8601, y_attribute).with_records_added(unavailabilities)
   end
 
   private
