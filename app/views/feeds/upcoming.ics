@@ -1,6 +1,6 @@
 cal.method_property = ':PUBLISH' # ri_cal bug causes missing ':'
 cal.add_x_property 'X-WR-CALNAME', 'Clockwork'
-@schedulings.map(&:decorate).each do |s|
+@schedulings.each do |s|
   cal.event do
     dtstart      s.starts_at
     dtend        s.ends_at
@@ -10,3 +10,5 @@ cal.add_x_property 'X-WR-CALNAME', 'Clockwork'
     sequence      s.updated_at.to_i
   end
 end
+
+# vim: set filetype=ruby:
