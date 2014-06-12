@@ -19,13 +19,14 @@ Feature: Inspect conflicts on Schedulings
       And an unavailability_by_quickie exists with date: "2012-02-15", quickie: "12-14", employee: employee "Homer"
 
      When I go to the employees in week page of the plan "clean reactor" for cwyear: 2012, week: 7
+     # observe: we see the unavailability
      Then I should see the following calendar:
-        | Mitarbeiter      | Mi            |
-        | Planner Burns    |               |
-        | Carl C           |               |
-        | Lenny L          |               |
-        | Homer S          | 10:00-18:00 ! |
-        | Ohne Mitarbeiter |               |
+        | Mitarbeiter      | Mi                        |
+        | Planner Burns    |                           |
+        | Carl C           |                           |
+        | Lenny L          |                           |
+        | Homer S          | 10:00-18:00 12:00-14:00 ! |
+        | Ohne Mitarbeiter |                           |
 
      When I go to the teams in week page of the plan "clean reactor" for cwyear: 2012, week: 7
      Then I should see the following calendar:
