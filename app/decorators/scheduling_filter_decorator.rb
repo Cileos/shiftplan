@@ -67,8 +67,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
         unless (schedulings = find_schedulings(*a)).empty?
           i << h.render(partial: "schedulings/item/#{mode}", collection: schedulings.map(&:decorate), locals: { filter: self })
         end
-        unless (unavailabilities = find_unavailabilities(*a)).empty?
-          i << h.render(partial: "unavailabilities/item/#{mode}", collection: unavailabilities.map(&:decorate), locals: { filter: self })
+        if mode.employees_in_week? # OPTIMIZE  more class splitting looks harmful
+          unless (unavailabilities = find_unavailabilities(*a)).empty?
+            i << h.render(partial: "unavailabilities/item/#{mode}", collection: unavailabilities.map(&:decorate), locals: { filter: self })
+          end
         end
       end
       if list_tag
