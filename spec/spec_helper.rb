@@ -42,6 +42,18 @@ Spork.prefork do
       Timecop.return # to not confuse the test suite benchmarker ("ran 9001 minutes")
     end
 
+    # useful for debugging without being bombarded with pry prompts:
+    # in your example:
+    #   $want_pry = true
+    #   call_method_that_is_called_a_gazillion.times
+    #
+    # at thew to be instpected location:
+    #   binding.pry if $want_pry
+    config.after(:each) do
+      # other examples should not open pry
+      $want_pry = false
+    end
+
     config.mock_with(:rspec)
 
     # reload Grammar manually, because the constant QuickieParser is created

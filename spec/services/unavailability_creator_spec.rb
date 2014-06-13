@@ -24,13 +24,9 @@ describe UnavailabilityCreator do
           create :employee, user: current_user, account: account
         end
       end
-      before :each do
-        $want_pry = false
-      end
 
       describe 'given as list' do
         it 'creates an Una for every id' do
-          $want_pry = true
           expect {
             create_with_defaults account_ids: accounts.map(&:id).first(2)
           }.to change { Unavailability.count }.by(2)
