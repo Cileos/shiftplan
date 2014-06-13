@@ -19,6 +19,6 @@ Feature: Milestones and tasks for a plan
     # TODO date should be formatted
     Then I should see a list of the following milestones:
      | name             | due_on     |
-     | World Domination | 2012-12-31 |
+     | World Domination | 31.12.2012 |
      | Rest             |            |
 

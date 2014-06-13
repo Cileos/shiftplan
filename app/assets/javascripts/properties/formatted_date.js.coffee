@@ -9,5 +9,9 @@ Clockwork.formattedDateProperty = (name, format='L')->
                          month( want.month() ).
                          date( want.date() ).
                          toDate()
-    moment(@get(name)).format(format)
+    have = @get(name)
+    if have?
+      moment(have).format(format)
+    else
+      have
   .property(name)

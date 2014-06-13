@@ -8,5 +8,10 @@ Clockwork.formattedTimeProperty = (name, format='H:mm')->
                          hour(want.hour()).
                          minute(want.minute()).
                          toDate()
-    moment(@get(name)).format(format)
+
+    have = @get(name)
+    if have?
+      moment(have).format(format)
+    else
+      have
   .property(name)
