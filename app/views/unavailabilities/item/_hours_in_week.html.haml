@@ -3,3 +3,5 @@
   = una.work_time
   - una.employee.organization_id = current_organization.id
   = render 'employees/tiny', employee: una.employee
+  - if una.reason.present?
+    %span.reason= una.reason_text
