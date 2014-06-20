@@ -32,77 +32,112 @@ describe FeedsController do
       user.stub_chain(:schedulings, :upcoming).and_return(build)
     end
 
-    it 'defines start time' do
-      time = Time.zone.parse('2013-05-05 05:23')
-      stub_schedulings starts_at: time
-      fetch
-      event.dtstart.should == time
+    context 'start_time' do
+      subject { fetch && event.dtstart }
+
+      it 'is set' do
+        time = Time.zone.parse('2013-05-05 05:23')
+        stub_schedulings starts_at: time
+        should == time
+      end
     end
 
-    it 'defines end time' do
-      time = Time.zone.parse('2013-05-05 07:23')
-      stub_schedulings ends_at: time
-      fetch
-      event.dtend.should == time
+    context 'end_time' do
+      subject { fetch && event.dtend }
+
+      it 'is defined' do
+        time = Time.zone.parse('2013-05-05 07:23')
+        stub_schedulings ends_at: time
+        should == time
+      end
     end
 
-    it 'mentiones lonely team name' do
-      stub_schedulings team: team, plan: nil
-      fetch
-      event.summary.should == 'The A Team'
+    context 'all-day-ness' do
+      # http://www.innerjoin.org/iCalendar/all-day-events.html
+      let(:time) { Time.zone.parse('2013-05-05 05:23') }
+      before :each do
+        stub_schedulings all_day: true, starts_at: time, ends_at: time + 5.hours
+        fetch
+      end
+      it 'starts at beginning of day' do
+        event.dtstart.should == time.beginning_of_day
+      end
+      it 'ends at beginning of next day' do
+        event.dtend.should == time.tomorrow.beginning_of_day
+      end
     end
 
+    context 'summary' do
+      subject { fetch && event.summary }
 
-    it 'mentions lonely plan name' do
-      stub_schedulings plan: plan, team: nil
-      fetch
-      event.summary.should == 'Hero Work'
+      it 'mentiones lonely team name' do
+        stub_schedulings team: team, plan: nil
+        should == 'The A Team'
+      end
+
+
+      it 'mentions lonely plan name' do
+        stub_schedulings plan: plan, team: nil
+        should == 'Hero Work'
+      end
+
+      it 'mentions team name (plan name)' do
+        stub_schedulings plan: plan, team: team
+        should == 'The A Team (Hero Work)'
+      end
     end
 
-    it 'mentions team name (plan name)' do
-      stub_schedulings plan: plan, team: team
-      fetch
-      event.summary.should == 'The A Team (Hero Work)'
+    context 'META' do
+      it 'defines calendar name' do
+        fetch
+        parsed.x_wr_calname.first.should =~ /Clockwork/
+      end
+
+      it 'shows intent to publish the events' do
+        fetch
+        # OPTIMIZE ri_cal does not add ':' delimiter on generation, and recognizes it on parsing
+        parsed.method_property.to_s.should == ':PUBLISH'
+        response.body.should include('METHOD:PUBLISH')
+      end
     end
 
-    it 'defines calendar name' do
-      fetch
-      parsed.x_wr_calname.first.should =~ /Clockwork/
+    context 'UID' do
+      subject { fetch && event.uid }
+
+      it 'is set for the event to be identified' do
+        stub_schedulings id: 23
+        should_not be_blank
+        should =~ /\A\w+-\d+@\S+\z/
+        should_not include('Decorator')
+      end
     end
 
-    it 'shows intent to publish the events' do
-      fetch
-      # OPTIMIZE ri_cal does not add ':' delimiter on generation, and recognizes it on parsing
-      parsed.method_property.to_s.should == ':PUBLISH'
-      response.body.should include('METHOD:PUBLISH')
+    context 'last_modified' do
+      subject { fetch && event.last_modified }
+
+      it 'sets LAST-MODIFIED for unknown reasons' do
+        time = Time.zone.parse('2013-05-05 07:23')
+        stub_schedulings updated_at: time
+        should == time
+      end
     end
 
+    context 'sequence' do
+      subject { fetch && event.sequence }
 
-    it 'sets UID for the event to be identified' do
-      stub_schedulings id: 23
-      fetch
-      event.uid.should_not be_blank
+      it 'is set for external programs to detect updates' do
+        # RFC 5455 says:
+        # "When a calendar component is created, its sequence number is zero
+        # [..]. It is monotonically incremented [..] each time the "Organizer"
+        # makes a significant revision to the calendar component."
+        #
+        # It does not say by how much. As time is monotonically increasing, we
+        # just use the seconds since epoch as a sequence
+        time = Time.zone.parse('2013-05-05 07:23')
+        stub_schedulings updated_at: time
+        should == time.to_i
+      end
     end
 
-    it 'sets LAST-MODIFIED for unknown reasons' do
-      time = Time.zone.parse('2013-05-05 07:23')
-      stub_schedulings updated_at: time
-      fetch
-      event.last_modified.should == time
-    end
-
-    it 'sets SEQUENCE for external programs to detect updates' do
-      # RFC 5455 says:
-      # "When a calendar component is created, its sequence number is zero
-      # [..]. It is monotonically incremented [..] each time the "Organizer"
-      # makes a significant revision to the calendar component."
-      #
-      # It does not say by how much. As time is monotonically increasing, we
-      # just use the seconds since epoch as a sequence
-      time = Time.zone.parse('2013-05-05 07:23')
-      stub_schedulings updated_at: time
-      fetch
-      event.sequence.should == time.to_i
-    end
   end
 end

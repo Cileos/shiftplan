@@ -11,9 +11,9 @@
   %section.scheduling{class: scheduling.css_class}
     = scheduling.work_time
 
-  - if show_details || !provoker || provoker.account == scheduling.account
-    - if qualification = scheduling.try(:qualification)
-      %span.qualification_name
-        = qualification.name
-    - if scheduling.team
-      = abbr_tag scheduling.team_name, scheduling.team_name, class: 'team_name'
+    - if show_details || !provoker || provoker.account == scheduling.account
+      - if qualification = scheduling.try(:qualification)
+        %span.qualification_name
+          = qualification.name
+      - if scheduling.team
+        = abbr_tag scheduling.team_name, scheduling.team_name, class: 'team_name'

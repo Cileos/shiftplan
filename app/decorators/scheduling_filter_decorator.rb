@@ -62,12 +62,29 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # FF cannot position: relative td, so we have to wrap it in a div
   # it is undefined by W3C spec anyway
   def cell_content(*a)
-    schedulings = find_schedulings(*a)
-    content = ''
-    unless schedulings.empty?
-      content = h.render "schedulings/lists/#{mode}", schedulings: schedulings.map(&:decorate), filter: self
+    content = ''.tap do |c|
+      items = ''.tap do |i|
+        unless (schedulings = find_schedulings(*a)).empty?
+          i << h.render(partial: "schedulings/item/#{mode}", collection: schedulings.map(&:decorate), locals: { filter: self })
+        end
+        if mode.employees_in_week? or mode.hours_in_week? # OPTIMIZE  more class splitting looks harmful
+          unless (unavailabilities = find_unavailabilities(*a)).empty?
+            i << h.render(partial: "unavailabilities/item/#{mode}", collection: unavailabilities.map(&:decorate), locals: { filter: self })
+          end
+        end
+      end
+      if list_tag
+        c << h.content_tag(list_tag, items.html_safe)
+      else
+        c << items
+      end
     end
-    h.content_tag :div, content, class: 'cellwrap'
+    h.content_tag :div, content.html_safe, class: 'cellwrap'
+  end
+
+  # Tag to wrap items into. overload with nil to disable wrapping
+  def list_tag
+    :ul
   end
 
   def render_cell_for_day(day, *a)
@@ -91,6 +108,15 @@ class SchedulingFilterDecorator < ApplicationDecorator
       schedulings_for( *coordinates_for_scheduling( criteria.first) )
     else
       schedulings_for( *criteria )
+    end
+  end
+
+  # TODO remove duplication
+  def find_unavailabilities(*criteria)
+    if criteria.first.is_a?(Scheduling)
+      unavailabilities_for( *coordinates_for_scheduling( criteria.first) )
+    else
+      unavailabilities_for( *criteria )
     end
   end
 
@@ -141,11 +167,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
           empl.organization_id = organization.id
           empl.planable? || records.find { |s| s.employee_id == empl.id }
         end
-  end
-
-  def employees
-    organization.employees
-                .default_sorting
   end
 
   delegate :plan,         to: :filter

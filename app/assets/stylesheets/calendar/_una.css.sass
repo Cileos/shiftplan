@@ -1,0 +1,32 @@
+$una_stripe_color_1: #e8e8e8
+$una_stripe_color_2: #ffffff
+.provoker .una,
+.established .una,
+.una
+  background: repeating-linear-gradient(-45deg, $una_stripe_color_1, $una_stripe_color_1 10px, $una_stripe_color_2 10px, $una_stripe_color_2 20px)
+
+.una
+  @extend .scheduling
+
+  &.all-day
+    position: absolute
+    z-index: 1
+    display: block
+    width: 100%
+    height: 100%
+    margin-top: -5px
+    top: 0
+    border-color: #ccc
+
+.calendar tbody.editable .una:hover,
+.calendar tbody.editable .una abbr:hover
+  cursor: default
+
+
+// tr:nth-child(even)
+//   .una
+//     background: repeating-linear-gradient(-45deg, transparent, transparent 10px, #fff 10px, #fff 20px)
+
+// tr:nth-child(odd)
+//   .una
+//     background: repeating-linear-gradient(-45deg, transparent, transparent 10px, $ci_table-zebra 10px, $ci_table-zebra 20px)

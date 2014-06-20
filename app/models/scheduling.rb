@@ -174,16 +174,6 @@ private
     [ period, team.try(:to_quickie) ].compact.join(' ')
   end
 
-  # Returns the wanted +attr+ from the (start) date, falling back to supplied block.
-  def date_part_or_default(attr, &fallback)
-    if starts_at.present?
-      starts_at.public_send(attr)
-      # starts_at.to_date.public_send(attr)
-    else
-      fallback.present? ? fallback.call : nil
-    end
-  end
-
   def destroy_notifications
     Volksplaner.notification_destroyer[self]
   end

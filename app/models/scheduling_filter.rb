@@ -14,6 +14,8 @@ class SchedulingFilter < RecordFilter
   attribute :cwyear, type: Integer
   attribute :ids #, type: Array # TODO Array cannot be typecasted yet by AA
 
+  delegate :organization, to: :plan
+
   def base
     self.class.name.gsub('Filter', '').constantize
   end
@@ -127,6 +129,18 @@ class SchedulingFilter < RecordFilter
 
   def without(*unwanted)
     self.class.new attributes.except(*unwanted.map(&:to_s))
+  end
+
+  def employees
+    organization.employees
+                .default_sorting
+  end
+
+  def unavailabilities
+    Unavailability.
+      between( starts_at, ends_at ).
+      preload(:employee).
+      where(employee_id: employees.map(&:id))
   end
 
   private

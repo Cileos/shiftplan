@@ -1,0 +1,9 @@
+- scheduling ||= employees_in_week
+%li.scheduling{class: scheduling.css_class, data: scheduling.metadata}
+  = scheduling.work_time
+  = scheduling.link_to_conflicts
+  - if qualification = scheduling.try(:qualification)
+    %span.qualification_name
+      = qualification.name
+  - if scheduling.team
+    = abbr_tag scheduling.team_shortcut, scheduling.team_name, class: 'team_name'

@@ -1,0 +1,7 @@
+- una ||= hours_in_week
+%div.vertical.una{class: una.css_class, data: una.metadata.merge(filter.stack_metadata_for(una))}
+  = una.work_time
+  - una.employee.organization_id = current_organization.id
+  = render 'employees/tiny', employee: una.employee
+  - if una.reason.present?
+    %span.reason= una.reason_text

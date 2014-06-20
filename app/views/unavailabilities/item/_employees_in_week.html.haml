@@ -1,0 +1,6 @@
+- una ||= employees_in_week
+%li.una{class: una.css_class}
+  = una.work_time
+  - if una.reason.present?
+    %span.reason= una.reason_text
+
