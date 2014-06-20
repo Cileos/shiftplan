@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Release 1.2.1 2014-06-20 17:10
+-------------------------------
+089578c Merge pull request #254 from Cileos/feature/display-unas-in-plan
+57d1455 Merge pull request #255 from Cileos/feature/unavailable-long-vacation
+
 Release 1.2.0 2014-05-19 19:30
 -------------------------------
 681061e Merge branch 'feature/active-unavailabilitiesisisis' into develop
