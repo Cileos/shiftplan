@@ -89,6 +89,15 @@ module NavigationHelpers
         new_account_organization_report_path(m.account, m)
       end
 
+    when /^my availability page for #{capture_fields}$/
+      now = Time.current
+      fields = parse_fields($1).symbolize_keys.reverse_merge(
+        year: now.year,
+        month: now.month
+      )
+
+      availability_path anchor: "/unas/me/#{fields[:year]}/#{fields[:month]}"
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

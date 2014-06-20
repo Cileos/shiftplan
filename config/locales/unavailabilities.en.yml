@@ -9,6 +9,8 @@ en:
         end_time: "End"
         all_day: "All day"
         employee: "Employee"
+        start_date: "First day"
+        end_date: "Last day"
     values:
       unavailability:
         reasons:

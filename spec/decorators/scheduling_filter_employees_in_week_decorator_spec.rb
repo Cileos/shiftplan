@@ -16,8 +16,10 @@ describe SchedulingFilterEmployeesInWeekDecorator do
       create(:scheduling, start_hour: 6),
       create(:scheduling, start_hour: 17)
     ]
-    day = double('day')
-    decorator.should_receive(:indexed).with(day, employee).and_return( schedulings )
+    day = double('day', iso8601: nil)
+    index = instance_double('TwoDimensionalRecordIndex')
+    decorator.stub scheduling_index: index
+    index.should_receive(:fetch).and_return( schedulings )
     decorator.schedulings_for(day, employee).map(&:start_hour).should == [6,17,23]
   end
 

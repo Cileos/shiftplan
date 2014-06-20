@@ -29,7 +29,7 @@ module ModeAwareness
   end
 
   def mode
-    @mode ||= self.class.name.scan(/Filter(.*)Decorator/).first.first.underscore
+    @mode ||= self.class.name.scan(/Filter(.*)Decorator/).first.first.underscore.inquiry
   end
 
   def mode?(query)

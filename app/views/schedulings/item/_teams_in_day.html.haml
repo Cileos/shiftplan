@@ -1,0 +1,5 @@
+- scheduling ||= teams_in_day
+%div.scheduling.horizontal{data: scheduling.metadata.merge(filter.stack_metadata_for(scheduling))}
+  = scheduling.work_time
+  = render 'employees/tiny', employee: scheduling.employee
+

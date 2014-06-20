@@ -46,6 +46,7 @@ module TimeRangeComponentsAccessible
                  :minute, :minute=,
                  :time, :time=,
                  :hour_present?,
+                 :day,
                  to: :#{name}_component, prefix: :#{name}
       EOEVAL
     end
@@ -120,6 +121,16 @@ module TimeRangeComponentsAccessible
       0
     else
       end_minute_without_respecting_end_of_day
+    end
+  end
+
+  # Returns the wanted +attr+ from the (start) date, falling back to supplied block.
+  def date_part_or_default(attr, &fallback)
+    if starts_at.present?
+      starts_at.public_send(attr)
+      # starts_at.to_date.public_send(attr)
+    else
+      fallback.present? ? fallback.call : nil
     end
   end
 

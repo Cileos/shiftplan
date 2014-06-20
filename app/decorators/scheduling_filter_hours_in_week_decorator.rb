@@ -22,6 +22,10 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
     pack_in_stacks records.select {|r| r.date == day}
   end
 
+  def unavailabilities_for(day)
+    pack_in_stacks unavailabilities.select {|r| r.date == day}
+  end
+
   def cell_metadata(day)
     { date: day.iso8601 }
   end
@@ -33,6 +37,11 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
   # hours are no real coordinates in a table kind of way
   def coordinates_for_scheduling(scheduling)
     [ scheduling.date ]
+  end
+
+  # vertical bars are separate
+  def list_tag
+    nil
   end
 
   # TODO update content: only modify data-stack, do not replace ALL the divs

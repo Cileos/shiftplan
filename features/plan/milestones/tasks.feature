@@ -39,8 +39,8 @@ Feature: Tasks of milestones
       # sort by dueAt asc, undef at bottom
       And I should see a list of the following tasks:
         | name          | employee | due_on     | description |
-        | Kill the King |          | 2012-12-22 |             |
-        | become rich   | Homer S  | 2012-12-31 | need money  |
+        | Kill the King |          | 22.12.2012 |             |
+        | become rich   | Homer S  | 31.12.2012 | need money  |
         | become famous |          |            |             |
 
 
@@ -64,11 +64,11 @@ Feature: Tasks of milestones
   Scenario: Edit a task
      When I follow "Kill the King"
      Then I should see "Aufgabe bearbeiten" within the modal box header
-      And the "Fällig am" field should contain "2012-12-22"
+      And the "Fällig am" field should contain "22.12.2012"
 
      When I fill in "Name" with "Kill the Queen"
       And I pick "23. Dezember 2012" from "Fällig am"
-     Then the "Fällig am" field should contain "2012-12-23"
+     Then the "Fällig am" field should contain "23.12.2012"
 
      When I select "Homer S" from "Verantwortlicher"
       And I fill in "Beschreibung" with "Happy Xmas"

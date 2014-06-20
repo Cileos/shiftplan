@@ -1,7 +1,7 @@
 module SchedulableDecoratorHelper
   def team_class
-    if team
-      dom_id(team)
+    if record.respond_to?(:team) && record.team
+      dom_id(record.team)
     else
       'no-team'
     end
@@ -17,10 +17,23 @@ module SchedulableDecoratorHelper
   end
 
   def css_class
-    concat nightshift_class, team_class
+    concat nightshift_class, team_class, all_day_class
   end
 
   def concat(*args)
     args.compact.join(' ')
+  end
+
+  # Not all Schedulables (ie. Unas) are overnightable
+  def nightshift_class
+    nil
+  end
+
+  def all_day_class
+    if all_day?
+      'all-day'
+    else
+      nil
+    end
   end
 end

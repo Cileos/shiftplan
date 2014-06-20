@@ -16,4 +16,9 @@ class SchedulingFilterTeamsInDayDecorator < SchedulingFilterDayDecorator
   def coordinates_for_scheduling(scheduling)
     [ scheduling.team ]
   end
+
+  # we only need a sequence of divs
+  def list_tag
+    nil
+  end
 end

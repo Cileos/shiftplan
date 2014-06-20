@@ -55,7 +55,9 @@ protected
 
   def collection
     return [] unless period_params?
-    @unavailabilities ||= end_of_association_chain.between(*requested_period)
+    @unavailabilities ||= end_of_association_chain.
+      includes(employee: [:account]).
+      between(*requested_period)
   end
 
   def requested_period

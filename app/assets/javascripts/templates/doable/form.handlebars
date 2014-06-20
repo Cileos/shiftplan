@@ -9,7 +9,7 @@
     {{view Clockwork.Fields.Name valueBinding="name" placeholderTranslation="activerecord.attributes.milestone.name"}}
   </div>
   <div class="input">
-    {{view Clockwork.Fields.DueDateField rawValueBinding="dueAt"}}
+    {{view Clockwork.Fields.DueDateField value=formattedDueOn}}
   </div>
   <div class="input">
     {{view Clockwork.Fields.SelectEmployee selectionBinding="responsible" nameTranslation="activerecord.attributes.milestone.responsible" promptTranslation="activerecord.attributes.milestone.responsible"}}
