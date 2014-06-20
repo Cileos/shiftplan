@@ -9,7 +9,7 @@ describe SchedulingFilterWeekDecorator do
   it "groups records by week and y axis"
 
   it "indexes schedulings their date#iso8601" do
-    index = double
+    index = instance_double 'TwoDimensionalRecordIndex'
     decorator.stub(:scheduling_index).and_return(index)
     day = double iso8601: 'iso8601'
     records = [instance_double('Scheduling', start_hour: 9)]
@@ -18,7 +18,7 @@ describe SchedulingFilterWeekDecorator do
   end
 
   it "indexes unavailabilities their date#iso8601" do
-    index = double
+    index = instance_double 'TwoDimensionalRecordIndex'
     decorator.stub(:unavailabilities_index).and_return(index)
     day = double iso8601: 'iso8601'
     records = [instance_double('Unavailability', start_hour: 9)]
