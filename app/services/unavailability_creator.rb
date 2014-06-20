@@ -46,7 +46,7 @@ private
 
   def create_una_span(attrs)
     dummy = klass.new(attrs)
-    if dummy.start_day && dummy.end_day && dummy.start_day < dummy.end_day
+    if dummy.start_day && dummy.end_day && dummy.starts_at < dummy.ends_at
       d = dummy.starts_at
       while d < dummy.ends_at.beginning_of_day
         create_una_by_day d, dummy.ends_at, attrs
@@ -54,7 +54,7 @@ private
       end
       create_una_by_day d, dummy.ends_at, attrs
     else
-      create_una(attrs)
+      create_una(attrs) # for all day
     end
   end
 

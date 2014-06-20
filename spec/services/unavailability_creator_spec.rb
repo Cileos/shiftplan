@@ -80,6 +80,25 @@ describe UnavailabilityCreator do
     end
   end
 
+  describe 'ranging over multiple months' do
+
+    let(:starts_at) { '2019-05-23 06:00' }
+    let(:ends_at)   { '2019-06-03 18:00' }
+    let(:creation)  { create_with_defaults starts_at: starts_at, ends_at: ends_at }
+
+    before :each do
+      account = create :account
+      create :employee, user: current_user, account: account
+    end
+
+    it 'creates an una for every day covered' do
+      expect { creation }.to change { Unavailability.count }.by(12)
+      Unavailability.all.to_a.each_cons(2) do |a,b|
+        (b.starts_at - a.starts_at).should == 1.day
+      end
+    end
+  end
+
   describe "when planning other employee" do
     # The employee is present and the user will be set to the employee's user
     # (if any). No account ids are present.
