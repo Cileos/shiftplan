@@ -3,6 +3,7 @@ class Unavailability < ActiveRecord::Base
   include TimeRangeComponentsAccessible
   include TimePeriodFormatter
   include AllDaySettable
+  include Stackable
 
   validates_with PeriodValidator
 

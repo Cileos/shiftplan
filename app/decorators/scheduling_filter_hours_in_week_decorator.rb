@@ -22,6 +22,10 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
     pack_in_stacks records.select {|r| r.date == day}
   end
 
+  def unavailabilities_for(day)
+    pack_in_stacks unavailabilities.select {|r| r.date == day}
+  end
+
   def cell_metadata(day)
     { date: day.iso8601 }
   end

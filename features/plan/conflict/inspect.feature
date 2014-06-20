@@ -76,3 +76,8 @@ Feature: Inspect conflicts on Schedulings
      Then I should see the following calendar:
         | Teams     | Mi                    |
         | Ohne Team | Homer S 10:00-18:00 ! |
+
+     When I go to the hours in week page of the plan "feed dogs" for cwyear: 2012, week: 7
+     Then I should see the following calendar:
+       | Mo | Di | Mi                                                              | Do | Fr |
+       |    |    | Homer S Homer S Homer S 13:15-14:00 15:15-16:00 12:00-14:00 ! ! |    |    |
