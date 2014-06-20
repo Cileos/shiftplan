@@ -1,6 +1,10 @@
+.provoker .una,
+.established .una,
+.una
+  background: repeating-linear-gradient(-45deg, #e8e8e8, #e8e8e8 10px, #fff 10px, #fff 20px)
+
 .una
   @extend .scheduling
-  background: repeating-linear-gradient(-45deg, #e8e8e8, #e8e8e8 10px, #fff 10px, #fff 20px)
 
   &.all-day
     position: absolute
@@ -11,6 +15,11 @@
     margin-top: -5px
     top: 0
     border-color: #ccc
+
+.calendar tbody.editable .una:hover,
+.calendar tbody.editable .una abbr:hover
+  cursor: default
+
 
 // tr:nth-child(even)
 //   .una
