@@ -1,14 +1,14 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.18'
+gem 'rails', '4.1.1'
 gem 'pg'
 
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.4'
-  gem 'uglifier', '>= 1.2.3'
+  gem 'sass-rails', '~> 4.0.3'
+  gem 'uglifier'
   gem 'jquery-rails', '~> 2.1.3' # latest 1.7, ember whines about >1.7
   gem 'jquery-ui-rails', '~> 2.0.2'
 end
@@ -95,12 +95,12 @@ end
 
 gem 'thin' # webrick must die
 
-gem 'coffee-rails', '~> 3.2.2'
+gem 'coffee-rails'
 gem 'bourbon', '~> 3.1'
 gem 'devise'
 gem 'spectator-validates_email', :require => 'validates_email'
 gem 'cancan'
-gem 'simple_form', '~> 2.0.0'
+gem 'simple_form'
 gem 'chosen-rails' # for making select boxes more userfriendly
 gem 'haml-rails'
 gem 'inherited_resources'
@@ -108,14 +108,14 @@ gem 'draper', '~> 1.1.0'
 gem 'factory_girl_rails', '~>4.2.1' # we use this for seeds, too
 gem 'treetop' # parse quickies
 
-gem 'active_attr', '~> 0.5.0.alpha2' # SchedulingFilter, need AttributeDefaults
+gem 'active_attr' # SchedulingFilter, need AttributeDefaults
 
 # we will try to gernerate js the old-fashioned way. TODO extract tas rajesh
 gem 'versatile_rjs', :git => 'git://github.com/condor/versatile_rjs.git'
 gem 'polyglot' # load treetop grammars with #require
 
 gem 'gon' # push variables from rails to js
-gem "active_model_serializers", "~> 0.8.0"
+gem "active_model_serializers"
 
 gem 'RedCloth' # textilize instructions and other texts from locales
 
@@ -125,7 +125,7 @@ gem 'database_cleaner'
 gem 'kaminari'
 # until merge of https://github.com/elight/acts_as_commentable_with_threading/pull/32
 #             or https://github.com/elight/acts_as_commentable_with_threading/pull/52
-gem 'acts_as_commentable_with_threading', '~> 1.1.2', git: 'git://github.com/niklas/acts_as_commentable_with_threading.git', branch: 'feature/nested_destruction_first_try'
+gem 'acts_as_commentable_with_threading'
 
 gem 'carrierwave'
 gem 'mini_magick'
@@ -134,13 +134,13 @@ gem 'gravtastic'
 gem 'ember-rails'
 gem 'ember-source', '1.5.1.1'
 gem "ember-data-source", "1.0.0.beta.7"
-gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git', ref: '6391429'
+gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git'
 
-gem 'strong_parameters', '~> 0.2.1'
+gem 'strong_parameters'
 gem 'nested_form', :git => 'git@github.com:rwrede/nested_form.git'
 
 gem 'backup', :require => false # just for restore
-gem 'friendly_id', '~> 4.0' # for rails 3
+gem 'friendly_id'
 # mitigate BREACH and CRIME https attack
 gem 'breach-mitigation-rails'
 
@@ -153,5 +153,3 @@ gem 'ri_cal', git: 'git://github.com/KonaTeam/ri_cal.git'
 
 gem 'fastercsv'       # not sure if still required
 gem 'csv_builder'
-# for Unavailability#account_ids array type support
-gem 'postgres_ext'
