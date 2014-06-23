@@ -136,7 +136,6 @@ gem 'ember-source', '1.5.1.1'
 gem "ember-data-source", "1.0.0.beta.7"
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git'
 
-gem 'strong_parameters'
 gem 'nested_form', :git => 'git@github.com:rwrede/nested_form.git'
 
 gem 'backup', :require => false # just for restore
