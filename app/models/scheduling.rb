@@ -121,7 +121,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def team_name=(new_name)
-    self.team = organization.teams.find_or_initialize_by_name(new_name)
+    self.team = organization.teams.find_or_initialize_by(name: new_name)
   end
 
   def team_shortcut=(shortcut)
