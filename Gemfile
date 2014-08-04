@@ -38,9 +38,9 @@ group :test do
   # until it fetches from the new location: https://github.com/flavorjones/chromedriver-helper/pull/8
   gem 'chromedriver-helper', git: 'git://github.com/mars/chromedriver-helper.git', branch: 'download-via-bucket-xml'
 
-  gem "guard-rspec", "~> 2.4.0"
-  gem "guard-cucumber", "~> 1.4.1"
-  gem "guard-bundler", "~> 1.0.0"
+  gem "guard-rspec"
+  gem "guard-cucumber"
+  gem "guard-bundler"
   gem "libnotify", :require => false
 
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
