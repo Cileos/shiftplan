@@ -1,1 +1,1 @@
-rvm ruby-2.1@shiftplan --create
+rvm ruby-2.1.2@shiftplan --create
