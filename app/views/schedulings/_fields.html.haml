@@ -21,8 +21,9 @@
   = f.association :qualification, as: :select, collection: current_account.qualifications,
     input_html: { class: 'chosen-select' }
 
-= f.association :team, as: :select, include_blank: true, collection: scheduling.plan.organization.teams,
-  input_html: { class: 'chosen-select' }
+- if current_organization.teams.present?
+  = f.association :team, as: :select, include_blank: true, collection: scheduling.plan.organization.teams,
+    input_html: { class: 'chosen-select' }
 
 -# Currently the passive unavailabilty feature is deactivated. Comment in again
 -# when enabling the feature again.
