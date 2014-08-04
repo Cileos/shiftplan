@@ -31,7 +31,7 @@ class Scheduling < ActiveRecord::Base
   include Overnightable
 
   acts_as_commentable
-  has_many :comments, as: :commentable, order: 'comments.lft, comments.id' # FIXME gets ALL comments, tree structure is ignored
+  has_many :comments, -> { order('comments.lft, comments.id') }, as: :commentable # FIXME gets ALL comments, tree structure is ignored
 
   def commenters
     comments.map(&:employee)

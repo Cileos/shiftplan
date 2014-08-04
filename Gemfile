@@ -125,6 +125,7 @@ gem 'kaminari'
 # until merge of https://github.com/elight/acts_as_commentable_with_threading/pull/32
 #             or https://github.com/elight/acts_as_commentable_with_threading/pull/52
 gem 'acts_as_commentable_with_threading'
+gem 'awesome_nested_set', '~> 3.0.0'
 
 gem 'carrierwave'
 gem 'mini_magick'

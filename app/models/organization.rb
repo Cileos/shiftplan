@@ -4,7 +4,7 @@ class Organization < ActiveRecord::Base
   has_many   :employees,      through: :memberships
   has_many   :schedulings,    through: :plans
   has_many   :plans
-  has_many   :teams,          order: 'name ASC'
+  has_many   :teams,          -> { order('name ASC') }
   has_many   :invitations
   has_many   :blogs
   has_many   :posts,          through: :blogs
