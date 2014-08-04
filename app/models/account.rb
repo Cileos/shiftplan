@@ -12,13 +12,6 @@ class Account < ActiveRecord::Base
   include FriendlyId
   friendly_id :name, use: :slugged
 
-  attr_accessible :name,
-                  :organization_name,
-                  :first_name,
-                  :last_name,
-                  :user_id,
-                  :on_new_account
-
   attr_accessor :organization_name,
                 :first_name,
                 :last_name,
