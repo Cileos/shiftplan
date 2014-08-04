@@ -27,4 +27,14 @@ class PlansController < BaseController
   def redirect_to_valid_week
     VP::PlanRedirector.new(self, resource).redirect
   end
+
+  def permitted_params
+    params.require(:plan).permit(
+      :name,
+      :description,
+      :duration,
+      :starts_at,
+      :ends_at
+    )
+  end
 end
