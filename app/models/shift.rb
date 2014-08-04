@@ -10,17 +10,6 @@ class Shift < ActiveRecord::Base
 
   accepts_nested_attributes_for :demands, reject_if: :all_blank, allow_destroy: true
 
-  attr_accessible :start_hour,
-                  :end_hour,
-                  :start_minute,
-                  :end_minute,
-                  :start_time,
-                  :end_time,
-                  :day,
-                  :team_id,
-                  :all_day,
-                  :demands_attributes
-
   validates :plan_template,
             :team,
             :day,
