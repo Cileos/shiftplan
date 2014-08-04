@@ -44,4 +44,20 @@ class SignupController < DeviseController
     end
   end
 
+  def permitted_params
+    params.require(:user).permit(
+      :email,
+      :password,
+      :password_confirmation,
+      :remember_me,
+      :locale,
+      :receive_notification_emails,
+
+      :first_name,
+      :last_name,
+      :organization_name,
+      :account_name
+    )
+  end
+
 end

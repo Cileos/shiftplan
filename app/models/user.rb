@@ -9,22 +9,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :timeoutable, :lockable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email,
-                  :password,
-                  :password_confirmation,
-                  :remember_me,
-                  :employee_id,
-                  :confirmed_at,
-                  :locale,
-                  :receive_notification_emails,
-
-                  :first_name,
-                  :last_name,
-                  :organization_name,
-                  :account_name,
-                  :confirming_email_change
-
   attr_reader :current_employee
   attr_reader :current_membership
 
