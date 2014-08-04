@@ -110,8 +110,8 @@ gem 'treetop' # parse quickies
 
 gem 'active_attr' # SchedulingFilter, need AttributeDefaults
 
-# we will try to gernerate js the old-fashioned way. TODO extract tas rajesh
-gem 'versatile_rjs', :git => 'git://github.com/condor/versatile_rjs.git'
+# we will try to gernerate js the old-fashioned way. TODO remove when reimplemented plans in ember
+gem 'versatile_rjs', github: 'niklas/versatile_rjs'
 gem 'polyglot' # load treetop grammars with #require
 
 gem 'gon' # push variables from rails to js
