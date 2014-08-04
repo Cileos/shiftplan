@@ -7,8 +7,6 @@ class Unavailability < ActiveRecord::Base
 
   validates_with PeriodValidator
 
-  attr_protected # let everything through, we use strong params and UnavailabilityCreator
-
   belongs_to :user
   belongs_to :employee
 
