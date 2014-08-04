@@ -15,4 +15,8 @@ class TasksController < BaseController
     end
   end
 
+  def permitted_params
+    params.require(:task).permit(:milestone_id)
+  end
+
 end
