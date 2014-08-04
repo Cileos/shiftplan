@@ -22,8 +22,9 @@
 
     = f.input :planable, as: :boolean
 
-    = f.association :qualifications, collection: current_account.qualifications(order: 'name'),
-      include_blank: true, input_html: { class: 'chosen-select' }
+    - if current_account.qualifications.present?
+      = f.association :qualifications, collection: current_account.qualifications(order: 'name'),
+        include_blank: true, input_html: { class: 'chosen-select' }
 
     = f.input :shortcut
 
