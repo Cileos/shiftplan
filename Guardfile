@@ -1,18 +1,6 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' }, :test_unit => false, :wait => 120 do
-  watch('config/application.rb')
-  watch('config/environment.rb')
-  watch(%r{^config/environments/.+\.rb$})
-  watch(%r{^config/initializers/.+\.rb$})
-  watch('Gemfile.lock')
-  watch('spec/spec_helper.rb')
-  watch('test/test_helper.rb')
-  watch('features/support/env.rb')
-  watch('config/spork_prefork.rb')
-end unless ENV['NO_SPORK']
-
 group :test, :halt_on_fail => true do
 
   guard 'rspec', :cli => '--drb --color --format nested --tag ~benchmark', :run_all => false, :all_on_start => false do
@@ -44,9 +32,8 @@ group :test, :halt_on_fail => true do
 
   ENV['CUCUMBER_FORMAT'] = 'fuubar'
   ENV['CAPYBARA_CHROME'] = 'yes'
-#                                                         V --no-drb skip spork to run simplecov
   guard 'cucumber',
-    :cli => "--drb --no-source --no-profile --strict --format pretty --format rerun --out rerun.txt --tags ~@wip",
+    :cli => "--no-source --no-profile --strict --format pretty --format rerun --out rerun.txt --tags ~@wip",
     :keep_failed => false,
     :run_all => { :cli => "--format fuubar --tags ~@wip" },
     :all_on_start => false,

@@ -38,10 +38,8 @@ group :test do
   # until it fetches from the new location: https://github.com/flavorjones/chromedriver-helper/pull/8
   gem 'chromedriver-helper', git: 'git://github.com/mars/chromedriver-helper.git', branch: 'download-via-bucket-xml'
 
-  gem "spork", "1.0.0rc4"
   gem "guard-rspec", "~> 2.4.0"
   gem "guard-cucumber", "~> 1.4.1"
-  gem "guard-spork", "~> 1.4.2"
   gem "guard-bundler", "~> 1.0.0"
   gem "libnotify", :require => false
 
