@@ -40,6 +40,7 @@ group :test, :halt_on_fail => true do
   guard 'cucumber',
     :cli => "--no-source --no-profile --strict --format pretty --format rerun --out rerun.txt --tags ~@wip",
     command_prefix: 'zeus',
+    bundler: false,
     :keep_failed => false,
     :run_all => { :cli => "--format fuubar --tags ~@wip" },
     :all_on_start => false,
