@@ -3,7 +3,6 @@ class AttachedDocument < ActiveRecord::Base
   belongs_to :milestone #optional
   belongs_to :uploader, class_name: 'Employee'
   mount_uploader :file, AttachedDocumentUploader
-  attr_accessible :file, :name, :milestone_id
 
   validates_presence_of :file
   validate :file, file_size: { maximum: 10.megabyte }
