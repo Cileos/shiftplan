@@ -2,15 +2,15 @@ shared_examples 'Notification for Dashboard' do
   # must let(:notification) in your example
 
   it "should have subject implemented" do
-    expect { notification.subject }.not_to raise_error(NotImplementedError)
+    expect { notification.subject }.not_to raise_error
   end
 
   it "should have introductory_text implemented" do
-    expect { notification.introductory_text }.not_to raise_error(NotImplementedError)
+    expect { notification.introductory_text }.not_to raise_error
   end
 
   it "should have acting_employee implemented" do
-    expect { notification.acting_employee }.not_to raise_error(NotImplementedError)
+    expect { notification.acting_employee }.not_to raise_error
   end
 
   it "should have a mail subject" do
