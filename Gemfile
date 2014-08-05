@@ -29,7 +29,9 @@ group :test do
   gem 'rspec-rails', '~> 2.14.0'
   gem 'rspec-fire'
   gem 'launchy'
-  gem "pickle"
+
+  # until niklas has admin rights on pickle and merges fixes for finders
+  gem "pickle", github: 'tbuehl/pickle'
   gem "timecop"
   gem "email_spec", '~> 1.4.0'
 
