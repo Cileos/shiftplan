@@ -10,6 +10,9 @@ gem 'uglifier'
 gem 'jquery-rails', '~> 2.1.3' # latest 1.7, ember whines about >1.7
 gem 'jquery-ui-rails', '~> 2.0.2'
 
+# do not digest robots.txt, favivon.ico etc
+gem "non-stupid-digest-assets"
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
