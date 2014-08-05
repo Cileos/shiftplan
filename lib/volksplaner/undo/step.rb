@@ -8,8 +8,18 @@ class Volksplaner::Undo::Step
     end
   end
 
+  def self.load(json)
+    parsed = JSON.parse(json)
+    new.tap do |undo|
+      undo.load parsed
+    end unless parsed.blank?
+  rescue
+    return nil
+  end
+
   attr_reader :created_records
   attr_reader :flash
+  attr_reader :flash_message
   attr_reader :location
 
   def initialize
@@ -51,6 +61,13 @@ class Volksplaner::Undo::Step
         end
       end
     end
+  end
+
+  def load(attrs)
+    @created_records = attrs['created_records']
+    @location        = attrs['location']
+    @flash           = attrs['flash']
+    @flash_message   = attrs['flash_message']
   end
 
   private
