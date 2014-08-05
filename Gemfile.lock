@@ -36,7 +36,7 @@ GIT
 
 GIT
   remote: git://github.com/niklas/versatile_rjs.git
-  revision: ccb58b97375d36f58fe721ba1bfa07e3eaa4c6a8
+  revision: a47a499c460ab34d96c7312335d059901108e483
   specs:
     versatile_rjs (0.1.4)
       rails (>= 3.1.0)
