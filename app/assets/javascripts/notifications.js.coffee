@@ -57,7 +57,7 @@ jQuery(document).ready ->
 
     mark_fetched_as_seen = ->
       $list_items = $notifications_list().find('li.notification')
-      ids = ($list_items.map (index, li) -> $(li).data('notification_id')).toArray()
+      ids = ($list_items.map (index, li) -> $(li).data('notification-id')).toArray()
       if ids.length > 0
         $.ajax('/notifications/mark_as_seen',
           type: 'put',
