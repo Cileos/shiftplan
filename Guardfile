@@ -4,7 +4,7 @@
 group :test, :halt_on_fail => true do
 
   guard 'rspec',
-    cmd: "zeus rspec --color --format nested ---tag ~benchmark",
+    cmd: "zeus rspec --color --format nested --tag ~benchmark",
     run_all: {
       cli: "--color --tag ~benchmark"
     },
