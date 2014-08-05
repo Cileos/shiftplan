@@ -12,7 +12,7 @@ class Organization < ActiveRecord::Base
   has_many   :plan_templates
 
   include FriendlyId
-  friendly_id :name, use: [:scoped, :slugged], scope: :account
+  friendly_id :name, use: [:scoped, :slugged, :finders], scope: :account
 
   validates_format_of :name, with: Volksplaner::NameRegEx
   validates_presence_of :name

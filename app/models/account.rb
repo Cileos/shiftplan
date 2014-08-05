@@ -10,7 +10,7 @@ class Account < ActiveRecord::Base
   has_many   :plans, through: :organizations
 
   include FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :finders]
 
   attr_accessor :organization_name,
                 :first_name,
