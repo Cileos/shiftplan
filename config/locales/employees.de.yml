@@ -109,6 +109,16 @@ de:
         Organisation und kann geplant werden.
 
 
+        Falls ein Mitarbeiter nicht in den Plänen dieser Organisation aufgelisted
+        werden soll, entfernen Sie bitte das Häkchen vor "planbar".
+
+
+        Wenn Sie einen Mitarbeiter beim Anlegen auch sofort zu Clockwork einladen
+        wollen, tragen Sie bitte die E-Mail Adresse des Mitarbeiters mit ein.
+        Sie haben auch die Möglichkeit, den Mitarbeiter zu einem späteren Zeitpunkt
+        einzuladen.
+
+
         Wenn Sie einem Mitarbeiter mehr Rechte geben wollen, dann wählen Sie bitte die
         Rolle Planer aus. Ein Planer kann, anders als normale Mitarbeiter, auch
         administrative Aufgaben wie z.B. das Verwalten von Mitarbeitern, Teams, Plänen und

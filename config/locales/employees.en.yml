@@ -92,6 +92,14 @@ en:
         After employees are created, they appear in all plans of the Unit and can be scheduled as well.
 
 
+        If an employee should not appear in all plans of this Unit, please remove
+        check mark for "planable".
+
+
+        If you want to invite the employee to Clockwork now, please also fill in
+        the email address. You can also invite the employee later.
+
+
         Want to give more rights to an employee? Select the _Planner_ role. _Planner_ can, unlike other employees,
         manage staff, teams, plans and appointments. The Unit owner cannot be changed and you cannot change your
         role by yourself.
