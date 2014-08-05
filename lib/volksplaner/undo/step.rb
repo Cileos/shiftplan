@@ -32,7 +32,7 @@ class Volksplaner::Undo::Step
       when :create
         things.flatten.each { |m| create_record m }
       when :flash
-        @flash = things[:notice]
+        @flash = things[:notice] || things['notice']
       when :flash_message
         @flash_message = things unless things.blank? # I18n may return nil
       when :redirect
