@@ -4,14 +4,11 @@ gem 'rails', '4.1.1'
 gem 'pg'
 
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails', '~> 4.0.3'
-  gem 'uglifier'
-  gem 'jquery-rails', '~> 2.1.3' # latest 1.7, ember whines about >1.7
-  gem 'jquery-ui-rails', '~> 2.0.2'
-end
+# Assets and related
+gem 'sass-rails', '~> 4.0.3'
+gem 'uglifier'
+gem 'jquery-rails', '~> 2.1.3' # latest 1.7, ember whines about >1.7
+gem 'jquery-ui-rails', '~> 2.0.2'
 
 
 # To use ActiveModel has_secure_password
