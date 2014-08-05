@@ -5,17 +5,13 @@ class UnavailabilitiesController < InheritedResources::Base
   respond_to :json, :html
 
   def create
-    creator.call permitted_params
+    creator.call unavailability_params
     respond_to do |format|
       format.json { render json: creator.created_records }
     end
   end
 
 protected
-
-  def resource_params
-    [permitted_params]
-  end
 
   def unavailability_params
     good = [
