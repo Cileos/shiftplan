@@ -12,6 +12,14 @@ class TeamMergesController < BaseController
   private
 
   def build_resource
-    @team_merge = TeamMerge.new params[:team_merge]
+    @team_merge = TeamMerge.new team_merge_params
+  end
+
+  def team_merge_params
+    params.permit(team_merge: [
+      :team_id,
+      :other_team_id,
+      :new_team_id
+    ])[:team_merge]
   end
 end
