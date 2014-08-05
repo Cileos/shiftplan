@@ -33,7 +33,7 @@ class SignupController < DeviseController
       set_flash_message :notice, :signed_up if is_navigational_format?
     else
       set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-      expire_session_data_after_sign_in!
+      expire_data_after_sign_in!
     end
   end
 
