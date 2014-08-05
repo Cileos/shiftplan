@@ -1,12 +1,22 @@
 class EmployeesController < BaseController
-  nested_belongs_to :account, :organization
+  belongs_to :account
   respond_to :html, :js, :json
 
   before_filter :set_adoptable_employees, only: [:search, :adopt]
   before_filter :set_organization_id_on_employee, only: [:new, :create, :edit, :update]
 
+  def new
+    @employee.invitation = build_invitation_for_employee(@employee)
+    new!
+  end
+
   def create
-    create! { account_organization_employees_path(current_account, current_organization) }
+    create! do |success, failure|
+      success.html do
+        resource.invitation.send_email if resource.invitation.present?
+        redirect_to nested_resources_for(current_organization) + [:employees]
+      end
+    end
   end
 
   def update
@@ -22,6 +32,12 @@ class EmployeesController < BaseController
   end
 
   private
+
+  def build_invitation_for_employee(employee)
+    Invitation.new(employee: employee,
+                   organization: current_organization,
+                   inviter: current_user.current_employee)
+  end
 
   def set_adoptable_employees
     search_attrs = { base: current_organization.adoptable_employees }
@@ -65,7 +81,9 @@ class EmployeesController < BaseController
       :planable,
       :shortcut,
       :force_duplicate,
-      { qualification_ids: [] }
+      :invite,
+      invitation_attributes: [:email, :organization_id, :inviter_id],
+      qualification_ids: []
     ]
     permitted_attributes << :membership_role if planner_or_owner?
     params.require(:employee).permit(*permitted_attributes)

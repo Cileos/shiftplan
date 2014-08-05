@@ -5,7 +5,7 @@ class Invitation < ActiveRecord::Base
   belongs_to :inviter, class_name: 'Employee'
   delegate :account, to: :organization
 
-  validates_presence_of :token, :organization_id, :employee_id, :email
+  validates_presence_of :token, :organization_id, :email
   validates_uniqueness_of :email, scope: :organization_id
   validates :email, :email => true, :unless => Proc.new{ |inv| inv.email.blank? }
   validates_with UniqueEmailOfInvitationValidator, on: :create

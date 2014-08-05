@@ -3,11 +3,9 @@
 
 
 = simple_form_for([current_account, current_organization, employee], remote: employee.persisted? == true,
-  html: { class: 'edit_employee' }) do |f|
+  html: { class: 'employee edit_employee' }) do |f|
 
   = employee.error_messages
-
-  - employee.account = current_account
 
   .inputs
 
@@ -19,6 +17,15 @@
 
     = f.input :first_name, autofocus: true
     = f.input :last_name
+
+    - unless employee.persisted?
+      = f.input :invite, as: :boolean, checked_value: "true", unchecked_value: "false"
+
+      .invitation_fields
+        = f.simple_fields_for(:invitation) do |fi|
+          = fi.input :organization_id, as: :hidden
+          = fi.input :inviter_id, as: :hidden
+          = fi.input :email
 
     = f.input :planable, as: :boolean
 

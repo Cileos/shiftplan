@@ -21,6 +21,8 @@ de:
         duplicates: 'Duplikate'
         shortcut: Kürzel
         planable: 'planbar'
+        invite: 'Sofort einladen'
+        email: 'E-Mail'
     errors:
       models:
         employee:

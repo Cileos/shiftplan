@@ -22,6 +22,8 @@ en:
         membership_role: Role
         force_create_duplicate: "Create anyway?"
         shortcut: Shortcut
+        invite: 'Invite promptly'
+        email: 'Email'
   simple_form:
     placeholders:
       employee:

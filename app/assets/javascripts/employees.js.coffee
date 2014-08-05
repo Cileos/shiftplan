@@ -1,5 +1,24 @@
 jQuery(document).ready ->
 
+  $invitation_fields = -> $('form.employee div.invitation_fields')
+  $invitation_inputs = -> $invitation_fields().find('input')
+
+  $('input#employee_invite').each ->
+    if $(this).is(':checked')
+      $invitation_fields().show()
+    else
+      # Prevent submitting params for hidden invitation fields by disabling
+      # them.
+      $invitation_inputs().prop('disabled', true)
+
+  $('input#employee_invite').on 'change', ->
+    if $(this).is(':checked')
+      $invitation_inputs().prop('disabled', false)
+      $invitation_fields().show()
+    else
+      $invitation_fields().hide()
+      $invitation_inputs().prop('disabled', true)
+
   $('form#search').each ->
     $search_form = $(this)
     search_url = $search_form.attr('action')
