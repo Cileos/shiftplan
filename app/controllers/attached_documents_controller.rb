@@ -21,10 +21,10 @@ private
   end
 
   def permitted_params
-    params.require(:attached_document).permit(
+    params.permit attached_document: [
       :file,
       :name,
       :milestone_id
-    )
+    ]
   end
 end

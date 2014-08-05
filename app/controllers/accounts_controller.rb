@@ -33,13 +33,13 @@ class AccountsController < BaseController
   end
 
   def permitted_params
-    params.require(:account).permit(
+    params.permit account: [
       :name,
       :organization_name,
       :first_name,
       :last_name,
       :user_id,
       :on_new_account
-    )
+    ]
   end
 end

@@ -10,12 +10,12 @@ class MilestonesController < BaseController
   end
 
   def permitted_params
-    params.require(:milestone).permit(
+    params.permit milestone: [
       :name,
       :due_at,
       :done,
       :responsible_id,
       :description
-    )
+    ]
   end
 end

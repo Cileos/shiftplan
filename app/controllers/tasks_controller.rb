@@ -16,14 +16,14 @@ class TasksController < BaseController
   end
 
   def permitted_params
-    params.require(:task).permit(
+    params.permit task: [
       :milestone_id,
       :name,
       :due_at,
       :done,
       :responsible_id,
       :description
-    )
+    ]
   end
 
 end

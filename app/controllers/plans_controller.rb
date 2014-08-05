@@ -29,12 +29,12 @@ class PlansController < BaseController
   end
 
   def permitted_params
-    params.require(:plan).permit(
+    params.permit plan: [
       :name,
       :description,
       :duration,
       :starts_at,
       :ends_at
-    )
+    ]
   end
 end

@@ -20,9 +20,9 @@ class PlanTemplatesController < BaseController
   end
 
   def permitted_params
-    params.require(:plan_template).permit(
+    params.permit plan_template: [
       :name,
       :template_type
-    )
+    ]
   end
 end

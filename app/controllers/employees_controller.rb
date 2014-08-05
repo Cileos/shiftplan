@@ -68,7 +68,7 @@ class EmployeesController < BaseController
       { qualification_ids: [] }
     ]
     permitted_attributes << :membership_role if planner_or_owner?
-    params.require(:employee).permit(*permitted_attributes)
+    params.permit(employee: permitted_attributes)
   end
 
   def planner_or_owner?

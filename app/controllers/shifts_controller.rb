@@ -43,7 +43,7 @@ class ShiftsController < BaseController
     end
 
     def permitted_params
-      params.require(:shift).permit(
+      params.permit shift: [
         :start_hour,
         :end_hour,
         :start_minute,
@@ -54,6 +54,6 @@ class ShiftsController < BaseController
         :team_id,
         :all_day,
         :demands_attributes
-      )
+      ]
     end
 end

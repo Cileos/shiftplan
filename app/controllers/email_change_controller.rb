@@ -46,10 +46,10 @@ class EmailChangeController < ApplicationController
   end
 
   def permitted_params
-    params.require(:email_change).permit(
+    params.permit email_change: [
       :email,
       :confirming_email_change,
       :confirmed_at # TODO set within model
-    )
+    ]
   end
 end

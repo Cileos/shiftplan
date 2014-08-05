@@ -17,7 +17,7 @@ protected
     [permitted_params]
   end
 
-  def permitted_params
+  def unavailability_params
     good = [
       :starts_at,
       :ends_at,

@@ -10,10 +10,10 @@ class TeamsController < BaseController
 private
 
   def permitted_params
-    params.require(:team).permit(
+    params.permit team: [
       :name,
       :shortcut,
       :color
-    )
+    ]
   end
 end

@@ -36,17 +36,13 @@ class ProfileEmployeesController < InheritedResources::Base
 
   private
 
-  def resource_params # TODO may not be needed in rails4
-    [permitted_params]
-  end
-
   def permitted_params
-    params.require(:employee).permit(
+    params.permit employee: [
       :first_name,
       :last_name,
       :avatar,
       :avatar_cache
-    )
+    ]
   end
 
 end

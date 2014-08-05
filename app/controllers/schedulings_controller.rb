@@ -31,20 +31,18 @@ class SchedulingsController < BaseController
     helper_method :filter
 
 
-    def resource_params
-      [
-        params.require(:scheduling).permit(
-          { days: [] },
-          :date,
-          :start_time,
-          :end_time,
-          :employee_id,
-          :qualification_id,
-          :team_id,
-          :all_day,
-          # Currently deactivated
-          # :represents_unavailability
-        )
+    def permitted_params
+      params.permit scheduling: [
+        { days: [] },
+        :date,
+        :start_time,
+        :end_time,
+        :employee_id,
+        :qualification_id,
+        :team_id,
+        :all_day,
+        # Currently deactivated
+        # :represents_unavailability
       ]
     end
 
