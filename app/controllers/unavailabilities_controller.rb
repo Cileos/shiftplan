@@ -57,7 +57,7 @@ protected
   end
 
   def requested_period
-    date = Date.new(params[:year].to_i, params[:month].to_i, 1).to_time_in_current_zone
+    date = Date.new(params[:year].to_i, params[:month].to_i, 1).in_time_zone
 
     [date.beginning_of_month - 2.days, date.end_of_month + 2.days]
   end
