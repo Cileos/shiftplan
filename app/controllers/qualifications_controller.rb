@@ -10,4 +10,12 @@ class QualificationsController < BaseController
   def update
     update! { [parent.account, parent, :qualifications] }
   end
+
+  private
+
+  def permitted_params
+    params.permit qualification: [
+      :name
+    ]
+  end
 end
