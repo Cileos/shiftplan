@@ -8,7 +8,10 @@ module PageLoadSupport
 
   def wait_for_the_page_to_be_loaded
     unless page.mode == :rack_test
-      page.should have_css('html.loaded')
+      # capybara cannot look into the header
+      page.wait_until do
+        evaluate_script(%Q~$('html.loaded').length~) == 1
+      end
       some_time_passes
     end
   rescue Selenium::WebDriver::Error::UnhandledAlertError => e
