@@ -22,7 +22,7 @@ en:
         membership_role: Role
         force_create_duplicate: "Create anyway?"
         shortcut: Shortcut
-        invite: 'Invite promptly'
+        invite: 'Fill in E-mail and invite to Clockwork now'
         email: 'Email'
   simple_form:
     placeholders:

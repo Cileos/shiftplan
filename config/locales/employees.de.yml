@@ -21,7 +21,7 @@ de:
         duplicates: 'Duplikate'
         shortcut: Kürzel
         planable: 'planbar'
-        invite: 'Sofort einladen'
+        invite: 'E-Mail eintragen und sofort zu Clockwork einladen'
         email: 'E-Mail'
     errors:
       models:

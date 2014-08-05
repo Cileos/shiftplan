@@ -43,18 +43,18 @@ Feature: Create Employees
     Given a clear email queue
       And today is "2012-05-24 12:00"
      When I am on the new employee page for the organization
-     Then I should not see a field labeled "E-Mail"
+     Then I should not see the invitation fields
 
      When I fill in the following:
         | Vorname   | Carl              |
         | Nachname  | Carlson           |
-      And I check "Sofort einladen"
-     Then I should see a field labeled "E-Mail"
+      And I check "E-Mail eintragen und sofort zu Clockwork einladen"
+     Then I should see the invitation fields
      When I fill in "E-Mail" with ""
       And I press "Anlegen"
      Then I should see "muss ausgefüllt werden"
-      # E-Mail field should still be visible because "Sofort einladen" was initially checked
-      And I should see a field labeled "E-Mail"
+      # E-Mail field should still be visible because "E-Mail eintragen und sofort zu Clockwork einladen" was initially checked
+     Then I should see the invitation fields
      When I fill in "E-Mail" with "carl@carlson.com"
       And I press "Anlegen"
      Then I should see flash notice "Mitarbeiter erfolgreich angelegt."

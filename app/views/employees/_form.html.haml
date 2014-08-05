@@ -27,20 +27,16 @@
           = fi.input :inviter_id, as: :hidden
           = fi.input :email
 
-    = f.input :planable, as: :boolean
-
     - if current_account.qualifications.present?
       = f.association :qualifications, collection: current_account.qualifications(order: 'name'),
         include_blank: true, input_html: { class: 'chosen-select' }
 
     = f.input :shortcut
-
     = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
-
     - if can?(:update_role, employee)
       = f.input :membership_role, include_blank: false,
         collection: [[t('employees.roles.none'), nil], [t('employees.roles.planner'), 'planner']]
-
+    = f.input :planable, as: :boolean
     = f.input :organization_id, as: :hidden
     = f.input :account_id, as: :hidden
 

@@ -37,9 +37,13 @@ When /^I wait for (.+) to (?:disappear|stop)$/ do |name|
   end
 end
 
-Then /^I should not see ([\w ]+)$/ do |name|
+Then /^I (should|should not) see ([\w ]+)$/ do |or_not,name|
   selector = selector_for name
-  page.should have_no_css(selector)
+  if or_not.include?('not')
+    page.should have_no_css(selector)
+  else
+    page.should have_css(selector)
+  end
 end
 
 Then /^(.+) should be visible/ do |name|
