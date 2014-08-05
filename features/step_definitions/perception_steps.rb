@@ -141,9 +141,9 @@ end
 
 Then /^I should see the avatar "([^"]*)"$/ do |file_name|
   image_tag = page.find("img.avatar")
-  assert image_tag['src'].split('/').last.include?(file_name), "No image tag with src including '#{file_name}' found"
+  image_tag['src'].split('/').last.should include(file_name),  "No image tag with src including '#{file_name}' found"
   path = [Rails.root, 'features', image_tag['src'].split('/features/')[1]].join('/')
-  assert File.exists?(path), "File '#{path}' does not exist."
+  expect( File.exists?(path) ).to be_true,"File '#{path}' does not exist."
 end
 
 Then /^I should not see a field labeled #{capture_quoted}$/ do |label|

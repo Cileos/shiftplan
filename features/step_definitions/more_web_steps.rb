@@ -182,11 +182,7 @@ Then /^the "([^"]*)" field(?: within (.*))? should equal "([^"]*)"$/ do |field, 
   with_scope(parent) do
     field = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
-    if field_value.respond_to? :should
-      field_value.should == value
-    else
-      assert_equal value, field_value
-    end
+    field_value.should == value
   end
 end
 
