@@ -10,6 +10,14 @@ When /^I pause|try pry|I pry|I debug$/ do
   end
 end
 
+When /^I want pry later$/ do
+  $want_pry = true
+end
+
+After do |scenario|
+  $want_pry = false
+end
+
 When /^nothing$/ do
   # for scenario outlines
 end
