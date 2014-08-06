@@ -60,7 +60,7 @@ jQuery(document).ready ->
       ids = ($list_items.map (index, li) -> $(li).data('notification-id')).toArray()
       if ids.length > 0
         $.ajax('/notifications/mark_as_seen',
-          type: 'put',
+          type: 'patch',
           dataType: 'script',
           global: false,
           data:
