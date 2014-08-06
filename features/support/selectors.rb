@@ -97,7 +97,7 @@ module HtmlSelectorsHelpers
       end
 
     when 'the spinner'
-      '#spinner'
+      '#spinner > div'
 
     when 'the notifications spinner'
       '#notifications-spinner'
