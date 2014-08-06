@@ -24,7 +24,7 @@ Feature: As a logged in user
       And I fill in "E-Mail" with "c.burns@npp-springfield.com"
       And I fill in "Passwort" with "topsecret"
       And I press "Einloggen"
-      And I should see "Erfolgreich eingeloggt."
+      And I should see "Erfolgreich angemeldet."
 
   Scenario: Trying to change the password with providing a wrong current password
     Given I am on the change password page
