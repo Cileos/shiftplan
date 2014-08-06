@@ -24,4 +24,11 @@ class InvitationsController < BaseController
     resource.send_email if resource.errors.empty?
     account_organization_employees_path(current_account, current_organization)
   end
+
+  def permitted_params
+    params.permit invitation: [
+      :employee_id,
+      :email,
+    ]
+  end
 end

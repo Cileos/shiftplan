@@ -15,7 +15,7 @@ class AcceptInvitationsController < ApplicationController
   end
 
   def confirm
-    if @invitation.update_attributes(params[:invitation])
+    if @invitation.update_attributes(invitiation_params)
       respond_with_successful_confirmation
     else
       render :accept
@@ -60,5 +60,18 @@ class AcceptInvitationsController < ApplicationController
   def respond_with_accept_by_setting_a_password
     flash[:notice] = t(:'invitations.accept_by_setting_a_password')
     render :accept
+  end
+
+  def invitiation_params
+    params.require(:invitation).permit(
+      :accepted_at,    # TODO don't let the user manipulate that
+      user_attributes: [
+        :id,           # wait, what?
+        :confirmed_at, # TODO don't let the user manipulate that
+        :email,        # TODO why?
+        :password,
+        :password_confirmation
+      ]
+    )
   end
 end
