@@ -29,14 +29,6 @@ class EmployeesController < BaseController
     @adoptable_employees = EmployeeSearch.new(search_attrs.symbolize_keys).fuzzy_results
   end
 
-  def resource_params
-    if [:update, :create].include?(params[:action].to_sym)
-      [permitted_employee_params]
-    else
-      super
-    end
-  end
-
   def collection
     super.tap do |employees|
       unless @_current_org_set
@@ -53,7 +45,7 @@ class EmployeesController < BaseController
     employee.organization_id ||= current_organization.id
   end
 
-  def permitted_employee_params
+  def permitted_params
     permitted_attributes = [
       :first_name,
       :last_name,
