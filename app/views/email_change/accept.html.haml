@@ -3,7 +3,7 @@
 %p= t('.instructions', email: @user.email)
 
 - @user.confirming_email_change = true
-= simple_form_for @user, :url => confirm_email_change_path(:token => @email_change.token), :html => { :method => :put } do |f|
+= simple_form_for @user, :url => confirm_email_change_path(:token => @email_change.token), :html => { :method => :patch } do |f|
   = f.input :confirming_email_change, as: :hidden
   = f.uncompleted_password :current_password, required: true, autofocus: true
 
