@@ -1,0 +1,12 @@
+en:
+  devise:
+    passwords:
+      change: "Change password"
+      forgotten: "Forgot your password?"
+      reset_password: "Reset password"
+    confirmations:
+      not_received: "I haven't received the confirmation e-mail."
+      resend_instructions: 'Resend Instructions'
+    unlocks:
+      not_received: "I haven't received the unlock e-mail."
+
