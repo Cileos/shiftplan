@@ -18,6 +18,8 @@ module PageLoadSupport
     unless e.message =~ /An open modal dialog blocked the operation/
       raise e
     end
+  rescue Selenium::WebDriver::Error::UnknownError => e
+    raise page.body.sub(/(Internal Server Error)/, '\1 (full trace in log/capybara_test.log)')
   rescue Capybara::CapybaraError => e
     if page.body =~ /Internal Server Error/
       raise page.body.sub(/(Internal Server Error)/, '\1 (full trace in log/capybara_test.log)')
