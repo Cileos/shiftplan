@@ -50,10 +50,10 @@ GIT
       rake
 
 GIT
-  remote: git@github.com:rwrede/nested_form.git
-  revision: 5c78a4137124defa96aa65470c6095707d218488
+  remote: git@github.com:ryanb/nested_form.git
+  revision: 1b0689dfb4d230ceabd278eba159fcb02f23c68a
   specs:
-    nested_form (0.3.1)
+    nested_form (0.3.2)
 
 GEM
   remote: http://rubygems.org/
