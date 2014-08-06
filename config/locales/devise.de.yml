@@ -47,7 +47,8 @@ de:
     unlocks:
       send_instructions: "Du erhältst in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Deinen Account entsperren können."
       send_paranoid_instructions: "Falls Deine E-Mail-Adresse in unserer Datenbank existiert erhältst Du in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Deinen Account entsperren kannst."
-      unlocked: "Dein Account wurde entsperrt. Du bist jetzt angemeldet."
+      unlocked: "Dein Konto wurde erfolgreich entsperrt. Bitten melde dich nun an."
+      unlocked_and_signed_in: "Dein Account wurde entsperrt. Du bist jetzt angemeldet."
   errors:
     messages:
       already_confirmed: "wurde bereits bestätigt"
