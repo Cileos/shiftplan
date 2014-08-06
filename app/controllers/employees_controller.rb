@@ -1,5 +1,5 @@
 class EmployeesController < BaseController
-  belongs_to :account
+  nested_belongs_to :account, :organization
   respond_to :html, :js, :json
 
   before_filter :set_adoptable_employees, only: [:search, :adopt]
@@ -7,6 +7,7 @@ class EmployeesController < BaseController
 
   def new
     @employee.invitation = build_invitation_for_employee(@employee)
+    @employee.account = current_account
     new!
   end
 
