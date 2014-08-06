@@ -53,7 +53,11 @@ class ShiftsController < BaseController
         :day,
         :team_id,
         :all_day,
-        :demands_attributes
+        { demands_attributes: [
+          :quantity,
+          :qualification_id,
+          :_destroy,
+        ]}
       ]
     end
 end
