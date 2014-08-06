@@ -36,7 +36,7 @@ group :test do
   gem "email_spec", '~> 1.4.0'
 
   # TODO for latest chrome-webdriver remove when capybara > 1.1.2 depends on it
-  gem 'selenium-webdriver', '~> 2.37.0'
+  gem 'selenium-webdriver', '~> 2.42.0'
   # until it fetches from the new location: https://github.com/flavorjones/chromedriver-helper/pull/8
   gem 'chromedriver-helper', git: 'git://github.com/mars/chromedriver-helper.git', branch: 'download-via-bucket-xml'
 
