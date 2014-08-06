@@ -13,9 +13,18 @@ class CommentsController < InheritedResources::Base
     end
   end
 
+  protected
+
+  def comment_params
+    params.require(:comment).permit(
+      :parent_id,
+      :body
+    )
+  end
+
   private
 
   def build_resource
-    @comment = Comment.build_from( parent, current_employee, params[:comment] )
+    @comment = Comment.build_from( parent, current_employee, comment_params )
   end
 end
