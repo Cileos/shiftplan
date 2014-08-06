@@ -10,7 +10,7 @@ class EmailChangeController < ApplicationController
   end
 
   def confirm
-    if @user.update_with_password(permitted_params)
+    if @user.update_with_password(confirmation_params)
       set_flash(:notice, 'accepted', email: @user.email)
       sign_in(User, @user)
       redirect_to dynamic_dashboard_path
@@ -45,11 +45,7 @@ class EmailChangeController < ApplicationController
     end
   end
 
-  def permitted_params
-    params.permit email_change: [
-      :email,
-      :confirming_email_change,
-      :confirmed_at # TODO set within model
-    ]
+  def confirmation_params
+    params.require(:user).permit(:current_password, :confirming_email_change)
   end
 end
