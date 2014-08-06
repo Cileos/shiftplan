@@ -22,4 +22,11 @@ class ProfileController < InheritedResources::Base
   def authorize_update_profile
     authorize! :update_profile, resource
   end
+
+  def permitted_params
+    params.permit user: [
+      :locale,
+      :receive_notification_emails,
+    ]
+  end
 end
