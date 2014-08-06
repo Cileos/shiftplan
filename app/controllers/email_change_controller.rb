@@ -10,7 +10,7 @@ class EmailChangeController < ApplicationController
   end
 
   def confirm
-    if @user.update_with_password(params[:user])
+    if @user.update_with_password(permitted_params)
       set_flash(:notice, 'accepted', email: @user.email)
       sign_in(User, @user)
       redirect_to dynamic_dashboard_path
