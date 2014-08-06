@@ -54,6 +54,7 @@ class ShiftsController < BaseController
         :team_id,
         :all_day,
         { demands_attributes: [
+          :id,
           :quantity,
           :qualification_id,
           :_destroy,
