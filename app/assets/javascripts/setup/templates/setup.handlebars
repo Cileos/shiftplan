@@ -8,7 +8,11 @@
 
 {{outlet step}}
 
-<button {{action 'gotoStep' previousStep}}>{{t 'helpers.actions.previous'}}</button>
-<button {{action 'gotoStep' nextStep}}>{{t 'helpers.actions.next'}}</button>
-
+<div class="buttons">
+  {{#if hasPrevious}}
+    <button class="button previous" {{action 'gotoStep' previousStep}}>{{t 'helpers.actions.previous'}}</button>
+  {{/if}}
+  {{#if hasNext}}
+    <button class="button next" {{action 'gotoStep' nextStep}}>{{t 'helpers.actions.next'}}</button>
+  {{/if}}
 <p class="fineprint">{{t 'copy.setup.not_fixed' }}</p>
