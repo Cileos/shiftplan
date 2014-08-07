@@ -44,4 +44,12 @@ module LayoutHelper
     col_count = 1 + sidebar + contextual_help
     (minimum && col_count < minimum) ? minimum : col_count
   end
+
+  def main_javascript(wanted=nil)
+    if wanted
+      @main_javascript = wanted
+    else
+      @main_javascript.presence || 'application'
+    end
+  end
 end
