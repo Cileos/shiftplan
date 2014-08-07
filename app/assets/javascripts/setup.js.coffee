@@ -4,12 +4,23 @@
 Setup = Ember.Application.create
   rootElement: '#setup'
   page: 'setup' # for i18n
+  steps: [
+    'user',
+    'account',
+    'organization',
+    'finished'
+  ]
 
 Setup.ChapterAdapter = DS.FixtureAdapter
 
 load_translations(Setup)
 
-Setup.Setup = Ember.Object.extend()
+Setup.Setup = DS.Model.extend
+  employee_first_name: DS.attr('string')
+  employee_last_name: DS.attr('string')
+  account_name: DS.attr('string')
+  organization_name: DS.attr('string')
+  team_names: DS.attr('string')
 
 Setup.Chapter = DS.Model.extend
   title: DS.attr 'string'
@@ -26,21 +37,42 @@ Setup.ApplicationView = Ember.View.extend
   templateName: 'setup/application'
 
 Setup.IndexRoute = Ember.Route.extend
-  beforeModel: -> @transitionTo 'setup', 'user'
+  beforeModel: -> @transitionTo 'setup', Setup.get('steps.firstObject')
 
 Setup.SetupRoute = Ember.Route.extend
-  beforeModel: (transition)->
-    step = transition.params.setup.step
-    @set 'step',step
-    @controllerFor('application').set('chapter', @store.find( 'chapter', step ) )
   model: (params)->
-    Setup.Setup.create()
+    @set 'step', params.step
+    @store.find 'setup', 'current'
+  setupController: (controller, model)->
+    @_super(controller, model)
+    controller.set('step', @get('step'))
+
   renderTemplate: ->
-    @render 'setup/' + @get('step')
+    @render 'setup/setup'
+    @render 'setup/steps/' + @get('step'),
+      into: 'setup/setup'
+      outlet: 'step'
+      controller: 'setup'
 
-Setup.ApplicationController = Ember.Controller.extend
-  chapter: null
+  actions:
+    gotoStep: (step)->
+      @transitionTo 'setup', step
 
-Setup.SetupController = Ember.ObjectController.extend()
+Setup.ApplicationController = Ember.Controller.extend()
+
+Setup.SetupController = Ember.ObjectController.extend
+  step: null
+  nextStep:
+    Ember.computed ->
+      curr = @get('step')
+      steps = Setup.get('steps')
+      pos = steps.indexOf(curr)
+
+      steps[pos + 1] || steps[ steps.length - 1]
+    .property('step')
+  chapter:
+    Ember.computed ->
+      @store.find 'chapter', @get('step')
+    .property('step')
 
 window.Setup = Setup
