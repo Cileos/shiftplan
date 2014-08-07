@@ -9,6 +9,7 @@ Feature: Setup / First UX
 
   Background:
     Given a confirmed user exists
+      And a setup exists with user: the user
       And I am signed in as the user
      When I go to the dashboard
      Then I should be on the setup page
