@@ -107,6 +107,7 @@ class Ability
       user.plannable_employees.include?(un.employee)
     end
 
+    can [:read, :update], Setup, user_id: user.id
   end
 
   def authorize_employee
