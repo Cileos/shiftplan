@@ -10,12 +10,13 @@ Feature: Manage Teams
   Scenario: Adding a team on the teams page
     Given I am on the page for teams of the organization "Reactor"
      Then I should see "Es existieren noch keine Teams für diese Organisation."
-     When I follow "Hilfe"
-      And I should see "Um ein neues Team implizit anzulegen"
-      And I should see "Sie können ein neues Team auch explizit anlegen"
-      And I should see "Sie können Teams zusammenlegen, indem"
+     # TODO help was disabled in favor of tutorial. And this is turned off because the map is ugly.
+     #When I follow "Hilfe"
+     # And I should see "Um ein neues Team implizit anzulegen"
+     # And I should see "Sie können ein neues Team auch explizit anlegen"
+     # And I should see "Sie können Teams zusammenlegen, indem"
 
-     When I close the modal box
+     #When I close the modal box
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Reaktor putzen"
