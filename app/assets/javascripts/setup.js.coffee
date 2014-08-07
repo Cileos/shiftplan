@@ -31,40 +31,44 @@ Setup.Chapter = DS.Model.extend
 load_fixtures_from_dom(Setup, 'Chapter', 'chapters')
 
 Setup.Router.map ->
-  @route 'setup', path: 'setup/:step'
+  @resource 'setup', ->
+    @route 'step', path: ':step'
 
 Setup.ApplicationView = Ember.View.extend
   templateName: 'setup/application'
+Setup.SetupView = Ember.View.extend
+  templateName: 'setup/setup'
 
 Setup.IndexRoute = Ember.Route.extend
-  beforeModel: -> @transitionTo 'setup', Setup.get('steps.firstObject')
+  beforeModel: -> @transitionTo 'setup.step', Setup.get('steps.firstObject')
 
 Setup.SetupRoute = Ember.Route.extend
   model: (params)->
-    @set 'step', params.step
     @store.find 'setup', 'current'
-  setupController: (controller, model)->
-    @_super(controller, model)
-    controller.set('step', @get('step'))
+  actions:
+    gotoStep: (step)->
+      @transitionTo 'setup.step', step
+
+Setup.SetupStepRoute = Ember.Route.extend
+  model: (params)->
+    params.step
 
   renderTemplate: ->
-    @render 'setup/setup'
-    @render 'setup/steps/' + @get('step'),
-      into: 'setup/setup'
+    @render 'setup/steps/' + @modelFor('setup_step'),
+      into: 'setup'
       outlet: 'step'
       controller: 'setup'
 
-  actions:
-    gotoStep: (step)->
-      @transitionTo 'setup', step
 
 Setup.ApplicationController = Ember.Controller.extend()
 
 Setup.SetupController = Ember.ObjectController.extend
-  step: null
+  needs: ['setup_step']
+  stepBinding: 'controllers.setup_step.content'
   nextStep:
     Ember.computed ->
       curr = @get('step')
+      return unless curr?
       steps = Setup.get('steps')
       pos = steps.indexOf(curr)
 
@@ -73,6 +77,7 @@ Setup.SetupController = Ember.ObjectController.extend
   previousStep:
     Ember.computed ->
       curr = @get('step')
+      return unless curr?
       steps = Setup.get('steps')
       pos = steps.indexOf(curr)
 
@@ -83,7 +88,11 @@ Setup.SetupController = Ember.ObjectController.extend
     .property('step')
   chapter:
     Ember.computed ->
-      @store.find 'chapter', @get('step')
+      curr = @get('step')
+      return unless curr?
+      @store.find 'chapter', curr
     .property('step')
+
+Setup.SetupStepController = Ember.ObjectController.extend()
 
 window.Setup = Setup
