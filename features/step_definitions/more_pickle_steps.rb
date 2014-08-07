@@ -32,6 +32,14 @@ Given /^#{capture_model} is (?:a )?(member|planner) (?:of|in) #{capture_model}$/
   )
 end
 
+# Then the employee "Homer" should be a member in the organization "Simpson Family"
+Given /^#{capture_model} should be (?:a )?(member|planner) (?:of|in) #{capture_model}$/ do |employee, role, organization|
+  employee = model! employee
+  organization = model! organization
+
+  organization.employees.should include(employee)
+end
+
 # Given the confirmed user "Homer" has joined another account
 Given /^#{capture_model} has joined another account(?: with #{capture_fields})?$/ do |user, options|
   user = model! user
