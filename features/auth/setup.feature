@@ -43,6 +43,7 @@ Feature: Setup / First UX
       And a team should exist with organization: the organization, name: "Knöpfe drücken"
       And an employee should exist with first_name: "Montgomery", last_name: "Burns", account: the account
       And the employee should be member in the organization
+      And the employee should be the account's owner
       And a plan should exist with organization: the organization
 
       And I should be on the page of the plan
