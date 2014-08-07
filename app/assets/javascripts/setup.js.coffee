@@ -8,7 +8,7 @@ Setup = Ember.Application.create
     'user',
     'account',
     'organization',
-    'finished'
+    'complete'
   ]
 
 Setup.ChapterAdapter = DS.FixtureAdapter
@@ -16,11 +16,11 @@ Setup.ChapterAdapter = DS.FixtureAdapter
 load_translations(Setup)
 
 Setup.Setup = DS.Model.extend
-  employee_first_name: DS.attr('string')
-  employee_last_name: DS.attr('string')
-  account_name: DS.attr('string')
-  organization_name: DS.attr('string')
-  team_names: DS.attr('string')
+  employeeFirstName: DS.attr('string')
+  employeeLastName: DS.attr('string')
+  accountName: DS.attr('string')
+  organizationName: DS.attr('string')
+  teamNames: DS.attr('string')
 
 Setup.Chapter = DS.Model.extend
   title: DS.attr 'string'

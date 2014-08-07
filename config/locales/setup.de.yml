@@ -1,0 +1,14 @@
+de:
+  activerecord:
+    attributes:
+      setup:
+        account_name: Accountbezeichnung
+        organization_name: Organisationsname
+        employee_first_name: Vorname
+        employee_last_name: Nachname
+        team_names: Gruppen
+  copy:
+    setup:
+      team_names: 'Unterteilst Du diese Organisation weiter in Arbeitsbereiche oder -Gruppen?'
+      not_fixed: 'All dies ist jederzeit änderbar.'
+
