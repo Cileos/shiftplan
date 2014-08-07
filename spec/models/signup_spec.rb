@@ -54,6 +54,8 @@ describe Signup do
         end
       end
     end
+
+    it 'prepares setup'
   end
 
   describe '#valid?' do
