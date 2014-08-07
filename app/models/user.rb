@@ -43,6 +43,8 @@ class User < ActiveRecord::Base
 
   has_many :unavailabilities
 
+  has_one :setup
+
   def notifications_for_hub
     notifications.for_hub
   end
