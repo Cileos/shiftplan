@@ -1,0 +1,15 @@
+en:
+  activerecord:
+    attributes:
+      setup:
+        account_name: Company name
+        organization_name: Unit name
+        employee_first_name: Name
+        employee_last_name: Surname
+        team_names: Teams
+  copy:
+    setup:
+      team_names: 'Do you devide your organization into groups or teams?'
+      not_fixed: 'You can change all these later.'
+
+

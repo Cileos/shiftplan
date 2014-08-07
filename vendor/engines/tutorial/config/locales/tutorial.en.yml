@@ -14,13 +14,13 @@ en:
           - 'Mary is registered on so many sites, she cannot remember custom usernames anymore. She will always remember her Email address'
       - id: 'account'
         hint: 'Account'
-        title: 'Account'
-        motivation: 'Official Business'
+        title: 'Whats the name of your company or institution?'
+        motivation:
         instructions: 'We only need the [Name]{input.name} for now.'
       - id: 'organization'
         hint: 'Organizations'
         title: 'Organizations - partition your company'
-        motivation: 'Structure your account into one or multiple organizations to get a better overview.'
+        motivation: 'In a big company, it might be a good idea to devide it further into units, for example branches, houses or locations.'
         instructions: 'We only need a [Name]{input.name}.'
       - id: 'employee'
         hint: 'Employees'
@@ -42,5 +42,5 @@ en:
         title: 'Scheduling'
         motivation: 'With this, you can plan who works when in which Team'
         instructions: 'To create a new Scheduling, you may click the [Button]{#new_scheduling_button} or at the empty space in a calendar cell.'
-
-
+      - id: 'complete'
+        title: 'Is this information correct?'

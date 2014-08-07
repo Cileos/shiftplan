@@ -14,16 +14,15 @@ de:
           - 'Marie hat sich bei so vielen Seiten registriert und kann sich keine Benutzernamen mehr merken. Ihre Email-Adresse bleibt ihr natürlich im Gedächtnis'
       - id: 'account'
         hint: 'Konto'
-        title: 'Konto -- Branding Deiner Firma'
-        motivation: '??? Damit Multijobber ihre verschiedenen Arbeitsstellen unterscheiden können.'
+        title: 'Was ist der Name Deiner Firma oder Institution?'
         instructions: 'Wir benötigen nur den [Namen]{input.name}'
         examples:
           - 'Peter ist Chef einer Firma und trägt deren Namen als Kontonamen ein.'
           - 'Sarah ist selbständig und trägt ihren Namen ein. Dieser erscheint dann auf ihren Rechnungen.'
       - id: 'organization'
         hint: 'Organisationen'
-        title: 'Organisationen - unterteile Deine Firma'
-        motivation: 'Strukturierung des Accounts für eine bessere Übersicht in eine oder mehrere Organisationen'
+        title: 'Mit welcher Organisationseinheit möchtest Du Deine Planung für Mitarbeiter beginnen?'
+        motivation: 'Bei größeren Firmen macht es Sinn, Pläne und Mitarbeiter in Organisationeinheiten wie zB Filialen, Häuser oder Standorte zu unterteilen.'
         instructions: 'Nur ein [Name]{input.name} wird benötigt.'
         examples:
           - 'Ronald hat eine Firma mit vielen Filialen. Zwar sind deren Belegschaften getrennt, aber eine Hand voll Mitarbeiter wechselt mehrmals pro Woche die Filiale.'
@@ -60,4 +59,6 @@ de:
         instructions: 'Das Formular kann durch einen Klick auf den [Button]{#new_scheduling_button} oder einen leeren Zeilenbereich geöffnet werden.'
         examples:
           - 'Ronald teilt [Peter, Paul und Maria]{form label[for=scheduling_employee_id]} jeweils für [jeden Wochentag]{form .weekday} [10-22 Uhr]{form div.start-time} zum [Burgergrillen]{form label[for=scheduling_team_id]} ein.'
+      - id: 'complete'
+        title: 'Sind diese Informationen korrekt?'
 

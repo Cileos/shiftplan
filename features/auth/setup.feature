@@ -23,17 +23,17 @@ Feature: Setup / First UX
       And I press "Weiter"
 
     Given I should see "Was ist der Name Deiner Firma oder Institution?"
-     When I fill in "Accountname" with "Powerplant"
+     When I fill in "Accountbezeichnung" with "Powerplant"
       And I press "Weiter"
 
     Given I should see "Bei größeren Firmen macht es Sinn, Pläne und Mitarbeiter in Organisationeinheiten wie zB Filialen, Häuser oder Standorte zu unterteilen."
       And I should see "Mit welcher Organisationseinheit möchtest Du Deine Planung für Mitarbeiter beginnen?"
      When I fill in "Organisationsname" with "Reaktor"
-    Given I should see "Unterteilst Du diese Organisation weiter in Arbeitsbereiche oder -Gruppen"
-     When I fill in "Teamnamen" with "Brennstäbe wechseln, Knöpfe drücken"
+    Given I should see "Unterteilst Du diese Organisation weiter in Arbeitsbereiche oder -Gruppen?"
+     When I fill in "Gruppen" with "Brennstäbe wechseln, Knöpfe drücken"
       And I press "Weiter"
 
-     Then I should see "Sind diese Daten korrekt?"
+     Then I should see "Sind diese Informationen korrekt?"
       And I should see "jederzeit änderbar"
      When I press "Fertig"
 
