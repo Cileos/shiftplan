@@ -17,6 +17,7 @@ Rails.application.configure do
    print.css
    iPad.css
    iPhone.css
+   setup.js
   )
 
   unless Rails.env.production?
