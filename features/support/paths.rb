@@ -11,11 +11,14 @@ module NavigationHelpers
     when /^the (?:home|landing)\s?page$/
       '/'
 
-    when /the (?:signin|sign in) page/
+    when /^the (?:signin|sign in) page/
       new_user_session_path
 
-    when /the (?:signup|sign up) page/
+    when /^the (?:signup|sign up) page/
       signup_path
+
+    when /^the setup page$/
+      setup_path
 
     when /^the change (email|password) page$/
       send("change_#{$1}_path")
