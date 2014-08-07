@@ -14,7 +14,7 @@ Feature: Edit Employee
       And a membership exists with organization: the organization, employee: the employee "homer"
       And I am on the employees page for the organization
      Then I should see the following table of employees:
-        | Name           | WAZ | E-Mail                      | Status                | 
+        | Name           | WAZ | E-Mail                      | Status                |
         | Burns, Charles |     | c.burns@npp-springfield.com | Aktiv                 |
         | Simpson, Homer | 40  |                             | Noch nicht eingeladen |
 

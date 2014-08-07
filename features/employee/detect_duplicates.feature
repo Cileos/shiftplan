@@ -1,3 +1,4 @@
+@javascript
 Feature: Detect duplicate Employee
   As a planner
   to avoid the creation of possible duplicate employees

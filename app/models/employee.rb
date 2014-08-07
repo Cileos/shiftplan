@@ -36,6 +36,9 @@ class Employee < ActiveRecord::Base
   before_validation :reset_duplicates
   after_save :update_or_create_membership
 
+  attr_accessor :invite
+  accepts_nested_attributes_for :invitation
+
   def notifications_for_dashboard
     notifications.for_dashboard
   end

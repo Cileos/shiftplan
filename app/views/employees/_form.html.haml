@@ -3,11 +3,9 @@
 
 
 = simple_form_for([current_account, current_organization, employee], remote: employee.persisted? == true,
-  html: { class: 'edit_employee' }) do |f|
+  html: { class: 'employee edit_employee' }) do |f|
 
   = employee.error_messages
-
-  - employee.account = current_account
 
   .inputs
 
@@ -20,20 +18,25 @@
     = f.input :first_name, autofocus: true
     = f.input :last_name
 
-    = f.input :planable, as: :boolean
+    - unless employee.persisted?
+      = f.input :invite, as: :boolean, checked_value: "true", unchecked_value: "false"
+
+      .invitation_fields
+        = f.simple_fields_for(:invitation) do |fi|
+          = fi.input :organization_id, as: :hidden
+          = fi.input :inviter_id, as: :hidden
+          = fi.input :email
 
     - if current_account.qualifications.present?
       = f.association :qualifications, collection: current_account.qualifications(order: 'name'),
         include_blank: true, input_html: { class: 'chosen-select' }
 
     = f.input :shortcut
-
     = f.input :weekly_working_time, input_html: { step: 1, min: 0 }
-
     - if can?(:update_role, employee)
       = f.input :membership_role, include_blank: false,
         collection: [[t('employees.roles.none'), nil], [t('employees.roles.planner'), 'planner']]
-
+    = f.input :planable, as: :boolean
     = f.input :organization_id, as: :hidden
     = f.input :account_id, as: :hidden
 

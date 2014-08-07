@@ -22,6 +22,8 @@ en:
         membership_role: Role
         force_create_duplicate: "Create anyway?"
         shortcut: Shortcut
+        invite: 'Fill in E-mail and invite to Clockwork now'
+        email: 'Email'
   simple_form:
     placeholders:
       employee:
@@ -88,6 +90,14 @@ en:
 
 
         After employees are created, they appear in all plans of the Unit and can be scheduled as well.
+
+
+        If an employee should not appear in all plans of this Unit, please remove
+        check mark for "planable".
+
+
+        If you want to invite the employee to Clockwork now, please also fill in
+        the email address. You can also invite the employee later.
 
 
         Want to give more rights to an employee? Select the _Planner_ role. _Planner_ can, unlike other employees,

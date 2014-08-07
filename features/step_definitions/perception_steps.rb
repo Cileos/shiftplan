@@ -146,8 +146,14 @@ Then /^I should see the avatar "([^"]*)"$/ do |file_name|
   assert File.exists?(path), "File '#{path}' does not exist."
 end
 
-Then /^I should not see a field labeled #{capture_quoted}$/ do |label|
-  page.should have_no_xpath( XPath::HTML.field(label), visible: true )
+Then /^I (should|should not) see a field labeled #{capture_quoted}$/ do |or_not, label|
+  xpath = XPath::HTML.field(label)
+  opts = { visible: true }
+  if or_not.include?('not')
+    page.should have_no_xpath( xpath, opts)
+  else
+    page.should have_xpath( xpath, opts)
+  end
 end
 
 Then /^the notification hub should have (\d+) unseen notifications?$/ do |number|
