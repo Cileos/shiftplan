@@ -65,27 +65,40 @@ Setup.ApplicationController = Ember.Controller.extend()
 Setup.SetupController = Ember.ObjectController.extend
   needs: ['setup_step']
   stepBinding: 'controllers.setup_step.content'
+  stepsBinding: 'Setup.steps'
+  stepPosition:
+    Ember.computed ->
+      curr = @get('step')
+      return 0 unless curr?
+      steps = @get('steps')
+      steps.indexOf(curr)
+    .property('step')
   nextStep:
     Ember.computed ->
-      curr = @get('step')
-      return unless curr?
-      steps = Setup.get('steps')
-      pos = steps.indexOf(curr)
+      steps = @get('steps')
+      pos = @get('stepPosition')
 
       steps[pos + 1] || steps[ steps.length - 1]
-    .property('step')
+    .property('stepPosition')
   previousStep:
     Ember.computed ->
-      curr = @get('step')
-      return unless curr?
-      steps = Setup.get('steps')
-      pos = steps.indexOf(curr)
+      steps = @get('steps')
+      pos = @get('stepPosition')
 
       if pos < 0
         steps[0]
       else
         steps[pos-1]
-    .property('step')
+    .property('stepPosition')
+  hasPrevious:
+    Ember.computed ->
+      @get('stepPosition') > 0
+    .property('stepPosition')
+  hasNext:
+    Ember.computed ->
+      @get('stepPosition') < @get('steps.length') - 1
+    .property('stepPosition')
+
   chapter:
     Ember.computed ->
       curr = @get('step')

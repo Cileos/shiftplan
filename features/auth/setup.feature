@@ -13,6 +13,7 @@ Feature: Setup / First UX
       And I am signed in as the user
      When I go to the dashboard
      Then I should be on the setup page
+      And I should not see "Zurück"
 
 
 
@@ -35,7 +36,12 @@ Feature: Setup / First UX
 
      Then I should see "Sind diese Informationen korrekt?"
       And I should see "jederzeit änderbar"
-     When I press "Fertig"
+      But I should not see "Weiter"
+
+     When I press "Zurück"
+     Then the "Gruppen" field should contain "Brennstäbe wechseln, Knöpfe drücken"
+     When I press "Weiter"
+      And I press "Fertig"
 
      Then an account should exist with owner: the user, name: "Powerplant"
       And an organization should exist with account: the account, name: "Reaktor"
