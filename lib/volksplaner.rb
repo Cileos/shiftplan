@@ -60,9 +60,6 @@ module Volksplaner
     Notification::RecipientsFinder.new.method(:find)
   end
 
-  def self.nested_resource_dispatcher
-    @nested_resource_dispatcher ||= NestedResourceDispatcher.new
-  end
 end
 
 VP = Volksplaner
