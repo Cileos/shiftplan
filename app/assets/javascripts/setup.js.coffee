@@ -32,14 +32,14 @@ Setup.SetupRoute = Ember.Route.extend
   beforeModel: (transition)->
     step = transition.params.setup.step
     @set 'step',step
-    @set 'chapter', @store.find( 'chapter', step )
+    @controllerFor('application').set('chapter', @store.find( 'chapter', step ) )
   model: (params)->
     Setup.Setup.create()
-  setupController: (controller, model)->
-    @_super(controller, model)
-    controller.set 'chapter', @get('chapter')
   renderTemplate: ->
     @render 'setup/' + @get('step')
+
+Setup.ApplicationController = Ember.Controller.extend
+  chapter: null
 
 Setup.SetupController = Ember.ObjectController.extend()
 
