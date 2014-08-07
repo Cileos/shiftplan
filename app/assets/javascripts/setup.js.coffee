@@ -70,6 +70,17 @@ Setup.SetupController = Ember.ObjectController.extend
 
       steps[pos + 1] || steps[ steps.length - 1]
     .property('step')
+  previousStep:
+    Ember.computed ->
+      curr = @get('step')
+      steps = Setup.get('steps')
+      pos = steps.indexOf(curr)
+
+      if pos < 0
+        steps[0]
+      else
+        steps[pos-1]
+    .property('step')
   chapter:
     Ember.computed ->
       @store.find 'chapter', @get('step')
