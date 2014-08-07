@@ -122,6 +122,7 @@ Clockwork::Application.routes.draw do
   end
 
   resource :setup, only: [:show, :create, :update], controller: 'setup'
+  get '/setups/current' => 'setup#show'
 
   get 'i18n/:id' => 'locales#show', constraints: {
     id: /[a-z]{2}/i

@@ -1,6 +1,7 @@
 class SetupController < InheritedResources::Base
   load_and_authorize_resource
   before_action :ensure_setup_present
+  respond_to :json, :html
 
   protected
 
