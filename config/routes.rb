@@ -121,7 +121,7 @@ Clockwork::Application.routes.draw do
     get 'accounts/:account_id/organizations/:organization_id/plans/:plan_id/sessions/current' => 'sessions#show'
   end
 
-  resource :setup, only: [:show, :create, :update]
+  resource :setup, only: [:show, :create, :update], controller: 'setup'
 
   get 'i18n/:id' => 'locales#show', constraints: {
     id: /[a-z]{2}/i
