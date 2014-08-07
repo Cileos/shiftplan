@@ -1,27 +1,46 @@
-#= require_tree ./setup
+# = require lib/load_fixtures_from_dom
+# = require_tree ./setup
 
 Setup = Ember.Application.create
   rootElement: '#setup'
   page: 'setup' # for i18n
 
+Setup.ChapterAdapter = DS.FixtureAdapter
+
 load_translations(Setup)
 
 Setup.Setup = Ember.Object.extend()
 
+Setup.Chapter = DS.Model.extend
+  title: DS.attr 'string'
+  motivation: DS.attr 'string'
+  instructions: DS.attr 'string'
+  examples: DS.attr 'array'
+
+load_fixtures_from_dom(Setup, 'Chapter', 'chapters')
+
 Setup.Router.map ->
-  @resource 'setup', ->
-    @route 'user'
+  @route 'setup', path: 'setup/:step'
 
 Setup.ApplicationView = Ember.View.extend
   templateName: 'setup/application'
 
 Setup.IndexRoute = Ember.Route.extend
-  beforeModel: -> @transitionTo 'setup.user'
+  beforeModel: -> @transitionTo 'setup', 'user'
 
 Setup.SetupRoute = Ember.Route.extend
-  model: ->
+  beforeModel: (transition)->
+    step = transition.params.setup.step
+    @set 'step',step
+    @set 'chapter', @store.find( 'chapter', step )
+  model: (params)->
     Setup.Setup.create()
+  setupController: (controller, model)->
+    @_super(controller, model)
+    controller.set 'chapter', @get('chapter')
+  renderTemplate: ->
+    @render 'setup/' + @get('step')
 
-Setup.SetupUserRoute = Setup.SetupRoute.extend()
+Setup.SetupController = Ember.ObjectController.extend()
 
 window.Setup = Setup
