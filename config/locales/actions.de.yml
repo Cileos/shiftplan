@@ -63,6 +63,7 @@ de:
       new_plan_template: Neue Planvorlage
       new_organization: "eine weitere Organisation anlegen"
       next: Weiter
+      previous: Zurück
       create: Anlegen
       create_busy: Lege an ...
       update: Speichern

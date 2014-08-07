@@ -63,6 +63,7 @@ en:
       new_plan_template: New Plan Template
       new_organization: "Create another Unit"
       next: Next
+      previous: Previous
       create: Create
       create_busy: Create ...
       update: Update
