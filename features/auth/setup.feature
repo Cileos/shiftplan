@@ -17,7 +17,7 @@ Feature: Setup / First UX
 
 
   Scenario: big company with boss knowing names for everything
-    Given I should see "Unter welchem Namen möchtest für die anderen Mitarbeiter sichtbar sein."
+    Given I should see "Unter welchem Namen möchtest Du für die anderen Mitarbeiter sichtbar sein?"
      When I fill in "Vorname" with "Montgomery"
       And I fill in "Nachname" with "Burns"
       And I press "Weiter"
