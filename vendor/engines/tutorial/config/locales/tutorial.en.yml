@@ -1,6 +1,9 @@
 en:
   tutorial:
     chapters:
+      - id: 'user'
+        hint: 'Your name'
+        title: 'By which name do you want to be called by your employees?'
       - id: 'email'
         hint: 'Email'
         title: 'Registration with Email'

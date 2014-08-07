@@ -1,6 +1,9 @@
 de:
   tutorial:
     chapters:
+      - id: 'user'
+        hint: 'Dein Name'
+        title: 'Unter welchem Namen möchtest Du für die anderen Mitarbeiter sichtbar sein?'
       - id: 'email'
         hint: 'Email'
         title: 'Erstanmeldung mit Email'

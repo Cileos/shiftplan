@@ -1,5 +1,6 @@
 # = require jquery.svg.js
 # = require showdown
+# = require lib/load_fixtures_from_dom
 
 unless $.svg?.isSVGElem
   $.svg ||= {}
@@ -19,11 +20,7 @@ Tut.Chapter = DS.Model.extend
   examples: DS.attr 'array'
   isDone: DS.attr 'boolean'
 
-Tut.initializer
-  name: 'load_chapters'
-  initialize: (container)->
-    $('#fixtures').each ->
-      Tut.Chapter.FIXTURES = $(this).data('chapters')
+load_fixtures_from_dom(Tur, 'Chapter', 'chapters')
 
 Tut.Router.map ->
   @route 'chapter', path: 'chapter/:chapter_id'
