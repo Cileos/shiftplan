@@ -26,7 +26,7 @@ class Signup
   def save!
     User.transaction do
       user.save!
-      user.create_setup
+      user.create_setup!
     end
   end
 

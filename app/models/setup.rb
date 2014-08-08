@@ -6,7 +6,7 @@ class Setup < ActiveRecord::Base
 
   validates_format_of :account_name, with: Volksplaner::NameRegEx, allow_blank: true
   validates_format_of :organization_name, with: Volksplaner::NameRegEx, allow_blank: true
-  validates_format_of :first_name, :last_name, with: Volksplaner::HumanNameRegEx
+  validates_format_of :employee_first_name, :employee_last_name, with: Volksplaner::HumanNameRegEx
 
   attr_reader :plan
 
@@ -26,10 +26,10 @@ class Setup < ActiveRecord::Base
         account.save!
 
         team_name_list.each do |team_name|
-          account.teams.create name: team_name
+          organization.teams.create! name: team_name
         end
 
-        @plan = organization.plans.create(name: plan_name)
+        @plan = organization.plans.create!(name: plan_name)
       end
     end
   end
