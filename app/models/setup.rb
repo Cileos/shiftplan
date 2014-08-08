@@ -30,6 +30,10 @@ class Setup < ActiveRecord::Base
         end
 
         @plan = organization.plans.create!(name: plan_name)
+
+        # We don't need the setup data anymore, would block the user from
+        # visiting her dashboard
+        destroy! if persisted?
       end
     end
   end
