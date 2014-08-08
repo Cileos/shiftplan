@@ -53,3 +53,7 @@ Feature: Setup / First UX
        | Name              | Status |
        | Burns, Montgomery | Aktiv  |
 
+     When I go to the dashboard
+     # setup was disabled/destroyed
+     Then I should be on the dashboard
+
