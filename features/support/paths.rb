@@ -75,7 +75,18 @@ module NavigationHelpers
       scope, model, params = $1, model!($2), parse_fields($3).symbolize_keys
       raise ArgumentError, "only plans and plan templates can be scoped as #{scope}" unless model.is_a?(Plan) || model.is_a?(PlanTemplate)
       organization = model.organization
-      send "account_organization_#{model.class.name.underscore}_#{scope.strip.gsub(/\s+/,'_')}_path", organization.account, organization, model, params
+      send "account_organization_#{model.class.name.underscore}_#{scope.strip.gsub(/\s+/,'_')}_path",
+        organization.account, organization, model, params
+
+    when /^the (teams in week|hours in week|teams in day|employees in week) page (?:of|for) #{capture_model} for today$/
+      scope, model = $1, model!($2)
+      raise ArgumentError, "only plans and plan templates can be scoped as #{scope}" unless model.is_a?(Plan) || model.is_a?(PlanTemplate)
+      organization = model.organization
+      now = Time.current
+      send "account_organization_#{model.class.name.underscore}_#{scope.strip.gsub(/\s+/,'_')}_path",
+        organization.account, organization, model,
+        cwyear: now.cwyear,
+        week: now.cweek
 
     when /^(?:my|the) dashboard$/
       dashboard_path
