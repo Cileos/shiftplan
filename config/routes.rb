@@ -105,7 +105,7 @@ Clockwork::Application.routes.draw do
     resources :unavailabilities, except: [:show]
   end
 
-  scope '/feeds/:email/private-:private_token', constraints: { email: %r~[^/]+~i, private_token: /[\w]{20}/i  }  do
+  scope '/feeds/:email/private-:private_token', constraints: { email: %r~[^/]+~i, private_token: /[\w-]{20}/i  }  do
     get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'
   end
 
