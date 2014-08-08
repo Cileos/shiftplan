@@ -10,6 +10,8 @@ Feature: Setup / First UX
   Background:
     Given a confirmed user exists
       And a setup exists with user: the user
+      # goal: be on page of plan
+      And 0 plans should exist
       And I am signed in as the user
      When I go to the dashboard
      Then I should be on the setup page
@@ -43,15 +45,7 @@ Feature: Setup / First UX
      When I press "Weiter"
       And I press "Fertig"
 
-     Then an account should exist with owner: the user, name: "Powerplant"
-      And an organization should exist with account: the account, name: "Reaktor"
-      And a team should exist with organization: the organization, name: "Brennstäbe wechseln"
-      And a team should exist with organization: the organization, name: "Knöpfe drücken"
-      And an employee should exist with first_name: "Montgomery", last_name: "Burns", account: the account
-      And the employee should be member in the organization
-      And the employee should be the account's owner
-      And a plan should exist with organization: the organization
-
+     Then a plan should exist
       And I should be on the page of the plan
       And I should see link "Mitarbeiter hinzufügen"
 

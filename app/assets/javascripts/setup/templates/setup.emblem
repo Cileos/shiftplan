@@ -11,5 +11,9 @@ if chapter.motivation
     button class="button previous" click="gotoStep previousStep"= t 'helpers.actions.previous'
   if hasNext
     button class="button next" click="gotoStep nextStep"= t 'helpers.actions.next'
+  else
+    if isComplete
+      button class="button finish" click="finishSetup"= t 'helpers.actions.finish'
+
 
 p.fineprint= t 'copy.setup.not_fixed'
