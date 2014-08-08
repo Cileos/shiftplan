@@ -12,6 +12,8 @@ Setup = Ember.Application.create
   ]
 
 Setup.ChapterAdapter = DS.FixtureAdapter
+Setup.SetupAdapter = DS.ActiveModelAdapter
+Setup.ApplicationSerializer = DS.ActiveModelSerializer
 
 load_translations(Setup)
 
@@ -44,10 +46,12 @@ Setup.IndexRoute = Ember.Route.extend
 
 Setup.SetupRoute = Ember.Route.extend
   model: (params)->
-    @store.find 'setup', 'current'
+    @store.find 'setup', 'singleton'
   actions:
     gotoStep: (step)->
+      @modelFor('setup').save()
       @transitionTo 'setup.step', step
+
 
 Setup.SetupStepRoute = Ember.Route.extend
   model: (params)->
