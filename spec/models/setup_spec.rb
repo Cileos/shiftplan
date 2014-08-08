@@ -34,6 +34,7 @@ describe Setup do
     let(:membership)   { Membership.find_by(organization: organization, employee: employee) }
     let(:teams)        { Team.all }
     let(:plan)         { Plan.first }
+    let(:blog)         { Blog.first }
 
     it 'creates account' do
       expect { execute(account_name: 'Foo') }.
@@ -92,6 +93,13 @@ describe Setup do
 
       # need to access it for redirection
       @setup.plan.should == plan
+    end
+
+    it 'creates a blog for the organization' do
+      expect { execute }.
+        to change { Blog.count }.from(0).to(1)
+
+      blog.organization.should == organization
     end
   end
 end
