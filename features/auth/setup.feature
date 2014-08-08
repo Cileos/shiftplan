@@ -47,5 +47,9 @@ Feature: Setup / First UX
 
      Then a plan should exist
       And I should be on the employees in week page of the plan for today
-      And I should see link "Mitarbeiter hinzufügen"
+
+     When I choose "Mitarbeiter anlegen" from the drop down "Weitere Aktionen"
+     Then I should see the following table of employees:
+       | Name              | Status |
+       | Burns, Montgomery | Aktiv  |
 
