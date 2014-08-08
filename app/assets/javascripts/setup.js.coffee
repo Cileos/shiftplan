@@ -54,7 +54,12 @@ Setup.SetupRoute = Ember.Route.extend
     @store.find 'setup', 'singleton'
   actions:
     gotoStep: (step)->
-      @modelFor('setup').save()
+      @modelFor('setup').save().then(
+        Ember.K,
+        (setup)->
+          console?.debug "trouble saving"
+      )
+
       @transitionTo 'setup.step', step
     finishSetup: ->
       setup = @modelFor('setup')

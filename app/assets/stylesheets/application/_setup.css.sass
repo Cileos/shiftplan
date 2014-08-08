@@ -1,0 +1,33 @@
+$master_padding: 1em
+$master_pushdown: 1.3em
+$rought_master_height: 5 * $master_padding * 1.5
+$pushup: 4.5em
+$round: 1em
+#setup
+  header.master
+    background-color: $ci_gray
+    color: $ci_anthracite
+    text-align: center
+    padding: 1em
+    font-size: 150%
+    font-weight: bold
+
+    // depend on no parent is pos:rel until body
+    position: absolute
+    width: 100vw
+    left: 0
+    margin-top: $master_pushdown
+
+  .road
+    background-color: $ci_darkwhite
+    padding: $rought_master_height + $master_pushdown 1em 0.3em 1em
+    border-radius: 0 0 $round $round
+
+    // make it slimmer and center it
+    max-width: 35em
+    margin: -$pushup auto 0 auto
+
+  .fineprint
+    margin: 2px auto
+    font-size: 90%
+    font-style: italic
