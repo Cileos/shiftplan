@@ -46,6 +46,6 @@ Feature: Setup / First UX
       And I press "Fertig"
 
      Then a plan should exist
-      And I should be on the page of the plan
+      And I should be on the employees in week page of the plan for today
       And I should see link "Mitarbeiter hinzufügen"
 
