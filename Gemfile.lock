@@ -114,6 +114,9 @@ GEM
       ember-source
       execjs
       handlebars-source
+    barber-emblem (0.1.1)
+      barber (>= 0.4.1)
+      emblem-source
     bcrypt (3.1.7)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -226,6 +229,10 @@ GEM
       railties (>= 3.1)
     ember-source (1.5.1.1)
       handlebars-source (~> 1.0)
+    emblem-rails (0.2.1)
+      barber-emblem (~> 0.1.1)
+      ember-rails (>= 0.14.0)
+    emblem-source (0.3.16)
     erubis (2.7.0)
     eventmachine (1.0.3)
     exception_notification (4.0.1)
@@ -510,6 +517,7 @@ DEPENDENCIES
   ember-rails
   ember-rails-flash!
   ember-source (= 1.5.1.1)
+  emblem-rails
   exception_notification
   factory_girl_rails (~> 4.2.1)
   fastercsv
