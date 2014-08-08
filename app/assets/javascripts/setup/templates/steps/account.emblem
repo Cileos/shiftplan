@@ -1,0 +1,5 @@
+.inputs
+  .input
+    label for="account_name"= t 'activerecord.attributes.setup.account_name'
+    = input value=accountName id="account_name"
+

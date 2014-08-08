@@ -1,0 +1,12 @@
+dl
+  dt= t 'activerecord.attributes.setup.employee_first_name'
+  dd= employeeFirstName
+  dt= t 'activerecord.attributes.setup.employee_last_name'
+  dd= employeeLastName
+  dt= t 'activerecord.attributes.setup.account_name'
+  dd= accountName
+  dt= t 'activerecord.attributes.setup.organization_name'
+  dd= organizationName
+  dt= t 'activerecord.attributes.setup.team_names'
+  dd= teamNames
+
