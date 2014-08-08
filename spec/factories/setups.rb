@@ -5,5 +5,9 @@ FactoryGirl.define do
     employee_first_name 'James'
     employee_last_name 'Bond'
     user
+    factory :empty_setup do
+      employee_first_name ''
+      employee_last_name ''
+    end
   end
 end

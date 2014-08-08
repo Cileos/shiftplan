@@ -10,6 +10,15 @@ Then /^I should (see|not see) (?:an? )?(?:flash )?(flash|info|alert|notice) "([^
   end
 end
 
+Then /^I should (see|not see) (?:an? )?(error) "([^"]*)"$/ do |see_or_not, klass, message|
+  step %Q{I wait for the spinner to disappear}
+  if see_or_not =~ /not/
+    page.should have_no_content(message)
+  else
+    page.should have_css(".#{klass}", text: message)
+  end
+end
+
 Then /^the page should be completely translated$/ do
   missing = "span.translation_missing"
   if page.has_css?(missing)
