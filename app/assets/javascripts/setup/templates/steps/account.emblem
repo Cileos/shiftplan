@@ -2,4 +2,6 @@
   .input
     label for="account_name"= t 'activerecord.attributes.setup.account_name'
     = input value=accountName id="account_name"
+    each errors.accountName
+      span.error= message
 

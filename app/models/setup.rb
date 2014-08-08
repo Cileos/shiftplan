@@ -7,7 +7,7 @@ class Setup < ActiveRecord::Base
 
   validates_format_of :account_name, with: Volksplaner::NameRegEx, allow_blank: true
   validates_format_of :organization_name, with: Volksplaner::NameRegEx, allow_blank: true
-  validates_format_of :employee_first_name, :employee_last_name, with: Volksplaner::HumanNameRegEx, allow_nil: true
+  validates_format_of :employee_first_name, :employee_last_name, with: Volksplaner::HumanNameRegEx, allow_blank: true
 
   attr_reader :plan
 

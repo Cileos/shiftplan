@@ -9,7 +9,7 @@ Feature: Setup / First UX
 
   Background:
     Given a confirmed user exists
-      And a setup exists with user: the user
+      And an empty setup exists with user: the user
       # goal: be on page of plan
       And 0 plans should exist
       And I am signed in as the user
@@ -20,6 +20,11 @@ Feature: Setup / First UX
 
 
   Scenario: big company with boss knowing names for everything
+     # try to go really fast. But we need at least the username
+     When I press "Weiter"
+      And I press "Weiter"
+     Then I should see error "muss ausgefüllt werden"
+
     Given I should see "Unter welchem Namen möchtest Du für die anderen Mitarbeiter sichtbar sein?"
      When I fill in "Vorname" with "Montgomery"
       And I fill in "Nachname" with "Burns"

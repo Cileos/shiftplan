@@ -51,19 +51,24 @@ Setup.IndexRoute = Ember.Route.extend
 
 Setup.SetupRoute = Ember.Route.extend
   model: (params)->
-    @store.find 'setup', 'singleton'
+    window.s = @store.find 'setup', 'singleton'
   actions:
     gotoStep: (step)->
-      @modelFor('setup').save().then(
-        Ember.K,
-        (setup)->
+      setup = @modelFor('setup')
+      setup.get('errors').clear()
+      setup.save().then(
+        =>
+          @transitionTo 'setup.step', step
+        ,
+        ->
+          jQuery('.road').effect('shake', {times: 2}, 111)
           console?.debug "trouble saving"
       )
 
-      @transitionTo 'setup.step', step
     finishSetup: ->
       setup = @modelFor('setup')
       setup.set 'execute', true
+      setup.get('errors').clear()
       setup.save().then(
         (done)->
           # HACK use a field on Setup model to store redirect location. We
