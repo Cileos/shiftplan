@@ -24,6 +24,11 @@ Setup.Setup = DS.Model.extend
   organizationName: DS.attr('string')
   teamNames: DS.attr('string')
 
+  execute: DS.attr('boolean')
+  redirectTo: DS.attr('string')
+
+  isComplete: true
+
 Setup.Chapter = DS.Model.extend
   title: DS.attr 'string'
   motivation: DS.attr 'string'
@@ -51,6 +56,23 @@ Setup.SetupRoute = Ember.Route.extend
     gotoStep: (step)->
       @modelFor('setup').save()
       @transitionTo 'setup.step', step
+    finishSetup: ->
+      setup = @modelFor('setup')
+      setup.set 'execute', true
+      setup.save().then(
+        (done)->
+          # HACK use a field on Setup model to store redirect location. We
+          # cannot send a 30x from the server because jQuery.ajax with
+          # transparently use it and repeat the PUT to the new location.
+          redirect = done.get('redirectTo')
+          if redirect?
+            window.location = redirect
+        ,
+        (req)->
+          # something went wrong
+          setup.set 'execute', true
+      )
+
 
 
 Setup.SetupStepRoute = Ember.Route.extend

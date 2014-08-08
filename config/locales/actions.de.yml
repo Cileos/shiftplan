@@ -105,6 +105,7 @@ de:
       upload: "Hochladen"
       undo: "Rückgängig machen"
       availability: "Abwesenheit"
+      finish: "Fertig"
   schedulings:
     calendar_navigation:
       day: "Tag"

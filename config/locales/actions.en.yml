@@ -104,6 +104,7 @@ en:
       upload: "Upload"
       undo: "Undo"
       availability: "Unavailability"
+      finish: "Finish"
   schedulings:
     calendar_navigation:
       day: "Day"

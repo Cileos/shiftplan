@@ -2,7 +2,19 @@ class SetupController < InheritedResources::Base
   defaults resource_class: Setup, instance_name: 'setup'
   load_and_authorize_resource
   before_action :ensure_setup_present
-  respond_to :json, :html
+  respond_to :html, only: [:show]
+  respond_to :json
+
+  def update
+    if wants_execute?
+      update! do |format|
+        format.json { render json: { setup: { id: 'singleton', redirect_to: '/' } } }
+      end
+      resource.execute!
+    else
+      update!
+    end
+  end
 
   protected
 
@@ -28,5 +40,10 @@ class SetupController < InheritedResources::Base
       :organization_name,
       :team_names,
     ])
+  end
+
+  # Ember sets "execute => true" when the "finish" button is pressed.
+  def wants_execute?
+    params[:setup] && params[:setup][:execute]
   end
 end
