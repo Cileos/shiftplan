@@ -2,11 +2,12 @@ class Setup < ActiveRecord::Base
   belongs_to :user
 
   validates_presence_of :employee_first_name,
-                        :employee_last_name
+                        :employee_last_name,
+                        on: :update
 
   validates_format_of :account_name, with: Volksplaner::NameRegEx, allow_blank: true
   validates_format_of :organization_name, with: Volksplaner::NameRegEx, allow_blank: true
-  validates_format_of :employee_first_name, :employee_last_name, with: Volksplaner::HumanNameRegEx
+  validates_format_of :employee_first_name, :employee_last_name, with: Volksplaner::HumanNameRegEx, allow_nil: true
 
   attr_reader :plan
 

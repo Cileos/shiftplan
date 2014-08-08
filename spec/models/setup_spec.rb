@@ -1,8 +1,27 @@
 require 'spec_helper'
 
 describe Setup do
-  it 'needs first name for employee'
-  it 'needs last name for employee'
+  context 'on intial creation' do
+    it 'may be completely blank' do
+      described_class.new.should be_valid
+    end
+  end
+
+  context 'on update' do
+    let(:setup) { create :setup }
+    it 'is valid from factory' do
+      setup.should be_valid
+    end
+    it 'needs first name for employee' do
+      setup.employee_first_name = nil
+      setup.should_not be_valid
+    end
+    it 'needs last name for employee' do
+      setup.employee_last_name = nil
+      setup.should_not be_valid
+    end
+
+  end
 
   context 'execute!' do
     def execute(attrs={})
