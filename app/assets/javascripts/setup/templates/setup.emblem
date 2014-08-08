@@ -1,0 +1,15 @@
+%heading
+  h4= chapter.title
+
+if chapter.motivation
+  p= chapter.motivation
+
+= outlet step
+
+.buttons
+  if hasPrevious
+    button class="button previous" click="gotoStep previousStep"= t 'helpers.actions.previous'
+  if hasNext
+    button class="button next" click="gotoStep nextStep"= t 'helpers.actions.next'
+
+p.fineprint= t 'copy.setup.not_fixed'
