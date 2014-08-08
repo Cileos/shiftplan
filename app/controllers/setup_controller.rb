@@ -8,9 +8,11 @@ class SetupController < InheritedResources::Base
   def update
     if wants_execute?
       update! do |format|
-        format.json { render json: { setup: { id: 'singleton', redirect_to: '/' } } }
+        resource.execute!
+        format.json do
+          render json: { setup: { id: 'singleton', redirect_to: url_for(nested_resources_for(resource.plan)) } }
+        end
       end
-      resource.execute!
     else
       update!
     end

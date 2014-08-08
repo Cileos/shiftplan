@@ -6,7 +6,8 @@ describe Setup do
 
   context 'execute!' do
     def execute(attrs={})
-      build(:setup, attrs).execute!
+      @setup = build(:setup, attrs)
+      @setup.execute!
     end
     let(:account)      { Account.first }
     let(:organization) { Organization.first }
@@ -69,6 +70,9 @@ describe Setup do
         to change { Plan.where(name: Setup.default_plan_name).count }.from(0).to(1)
 
       plan.organization.should == organization
+
+      # need to access it for redirection
+      @setup.plan.should == plan
     end
   end
 end
