@@ -1,7 +1,7 @@
 $master_padding: 1em
 $master_pushdown: 1.3em
 $rought_master_height: 5 * $master_padding * 1.5
-$pushup: 4.5em
+$pushup: 3.5em
 $round: 1em
 #setup
   header.master
@@ -27,7 +27,28 @@ $round: 1em
     max-width: 35em
     margin: -$pushup auto 0 auto
 
+    label
+      font-size: 120%
+
+    #employee_first_name, #employee_last_name
+      width: golden_ratio(100%, -2)
+    #account_name, #organization_name
+      width: golden_ratio(100%, -1)
+    #team_names
+      width: 100%
+
+  .buttons
+    +clearfix
+    padding: 0 0 0.7em
+
+    button
+      // bigger
+      font-size: 120%
+      padding: 0.7em
+
   .fineprint
+    max-width: 35em
     margin: 2px auto
     font-size: 90%
     font-style: italic
+    text-align: right
