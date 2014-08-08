@@ -31,6 +31,7 @@ Feature: Setup / First UX
       And I press "Weiter"
 
     Given I should see "Was ist der Name Deiner Firma oder Institution?"
+      And the "Accountbezeichnung" field should be empty
      When I fill in "Accountbezeichnung" with "Powerplant"
       And I press "Weiter"
 

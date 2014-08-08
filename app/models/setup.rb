@@ -13,8 +13,8 @@ class Setup < ActiveRecord::Base
 
   def execute!
     transaction do
-      Account.create!(name: account_name).tap do |account|
-        organization = Organization.create!(name: organization_name, account: account)
+      Account.create!(name: account_name_or_default).tap do |account|
+        organization = Organization.create!(name: organization_name_or_default, account: account)
         organization.setup # creates the organization's blog
         e = user.employees.create! do |e|
           e.first_name  = employee_first_name
@@ -39,12 +39,12 @@ class Setup < ActiveRecord::Base
     end
   end
 
-  def account_name
-    super.presence || self.class.default_account_name
+  def account_name_or_default
+    account_name.presence || self.class.default_account_name
   end
 
-  def organization_name
-    super.presence || self.class.default_organization_name
+  def organization_name_or_default
+    organization_name.presence || self.class.default_organization_name
   end
 
   def plan_name

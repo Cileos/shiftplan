@@ -7,6 +7,16 @@ describe Setup do
     end
   end
 
+  context 'when empty' do
+    subject { build :empty_setup }
+    it 'does not default account name' do
+      subject.account_name.should be_blank
+    end
+    it 'does not default organization name' do
+      subject.organization_name.should be_blank
+    end
+  end
+
   context 'on update' do
     let(:setup) { create :setup }
     it 'is valid from factory' do
