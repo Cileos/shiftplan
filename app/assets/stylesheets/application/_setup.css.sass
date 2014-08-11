@@ -3,6 +3,8 @@ $master_pushdown: 1.3em
 $rought_master_height: 5 * $master_padding * 1.5
 $pushup: 4.3em
 $round: 1em
+$step_count: 4
+
 #setup
   header.master
     background-color: $ci_gray
@@ -75,9 +77,14 @@ $round: 1em
         float: left
         position: relative
 
+        // devide space evenly
+        width: 100% / $step_count
+
         > span
           padding: .7em 1em .7em 2em
           float: left
+          // fill stretched li
+          width: 100%
           text-decoration: none
           color: $textcolor
           text-shadow: 0 1px 0 rgba(255, 255, 255, .5)
