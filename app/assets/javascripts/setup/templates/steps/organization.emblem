@@ -1,12 +1,12 @@
 .inputs
   .input
     label for="organization_name"= t 'activerecord.attributes.setup.organization_name'
-    = input value=organizationName id="organization_name"
+    = input value=organizationName id="organization_name" placeholderTranslation="activerecord.defaults.setup.organization_name"
     each errors.organizationName
       span.error= message
   p= t 'copy.setup.team_names'
   .input
     label for="team_names"= t 'activerecord.attributes.setup.team_names'
-    = input value=teamNames id="team_names"
+    = input value=teamNames id="team_names" placeholderTranslation="activerecord.defaults.setup.team_names"
     each errors.teamNames
       span.error= message

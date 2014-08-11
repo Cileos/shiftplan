@@ -57,15 +57,19 @@ class Setup < ActiveRecord::Base
 
   class << self
     def default_account_name
-      "Meine Firma"
+      translate_default 'account_name'
     end
 
     def default_organization_name
-      "Meine Organisation"
+      translate_default 'organization_name'
     end
 
     def default_plan_name
-      "Mein erster Plan"
+      translate_default 'plan_name'
+    end
+
+    def translate_default(field)
+      I18n.translate field, scope: 'activerecord.defaults.setup'
     end
   end
 end
