@@ -43,4 +43,5 @@ en:
         motivation: 'With this, you can plan who works when in which Team'
         instructions: 'To create a new Scheduling, you may click the [Button]{#new_scheduling_button} or at the empty space in a calendar cell.'
       - id: 'complete'
+        hint: 'Complete'
         title: 'Is this information correct?'
