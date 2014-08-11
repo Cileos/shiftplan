@@ -54,6 +54,7 @@ $duration: 1s
       margin: 0
       padding: 0
       list-style: none
+      +clearfix
 
       background-color: $ci_darkwhite
       border-radius: 5px
@@ -69,8 +70,7 @@ $duration: 1s
         float: left
         position: relative
 
-        // devide space evenly
-        width: 100% / $step_count
+        white-space: no-wrap
 
         = progress-step-background-color($bg)
           > span
@@ -78,6 +78,7 @@ $duration: 1s
             +adaptive_color(color, $bg)
             &::after
               border-left-color: $bg
+
 
         +progress-step-background-color($ci_bg-color)
 
@@ -89,7 +90,7 @@ $duration: 1s
           text-decoration: none
           color: $ci_darkgray
           text-shadow: 0 1px 0 rgba(255, 255, 255, .5)
-          transition: background-color $duration
+          transition: background-color $duration, color $duration
 
           &::after
             content: ''
@@ -120,10 +121,22 @@ $duration: 1s
         &.complete > span
           @extend .icon-check
 
+        // devide space
+          50 % for the current step
+          the other half equally over the rest
+        width: 50% / ($step_count - 1)
+        span.hint
+          display: none
+        &.done-0
+          width: 50%
+          span.hint
+            display: inline
+        transition: width $duration * 1.1
+
         // "current" is .done-0
         @for $doneage from 0 to $step_count
           &.done-#{$doneage}
-            +progress-step-background-color( lighten( darken($ci_blue, 12.5%), 7% * $doneage) )
+            +progress-step-background-color( lighten( darken($ci_blue, 12.5%), 7% * ($step_count - 1 - $doneage)) )
 
         &:first-child
           > span

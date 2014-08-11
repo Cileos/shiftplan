@@ -1,1 +1,2 @@
-span= view.content.chapter.hint
+span
+  span.hint= view.content.chapter.hint
