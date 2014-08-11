@@ -54,12 +54,9 @@ $step_count: 4
       padding: 0
       list-style: none
 
-      $color1: $ci_lightgray
-      $color2: $ci_midgray
-      $color3: $ci_gray
       $textcolor: $ci_darkgrey
 
-      $background: mix($color2, $color3)
+      $background: $ci_bg-color
 
 
       // arrows
@@ -68,6 +65,14 @@ $step_count: 4
       // ??          ^^1
       box-shadow: 0 0 2px rgba(0, 0, 0, .2)
       width: 100%
+
+      = progress-step-background-color($bg)
+        > span
+          background-color: $bg
+          &::after
+            border-left-color: $bg
+          &::before
+            border-left-color: darken($bg, 10%)
 
       li
         float: left
@@ -85,9 +90,6 @@ $step_count: 4
           color: $textcolor
           text-shadow: 0 1px 0 rgba(255, 255, 255, .5)
 
-          // gradient
-          background-color: $background
-          background-image: linear-gradient(to right, $color1, $background)
 
           &::after, &::before
             content: ''
@@ -102,12 +104,12 @@ $step_count: 4
 
           &::after
             z-index: 2
-            border-left-color: mix($color1, $color2)
 
           &::before
             z-index: 1
-            border-left-color: $background
             right: -1.1em
+
+        +progress-step-background-color($ci_bg-color)
 
         &:first-child
           > span
