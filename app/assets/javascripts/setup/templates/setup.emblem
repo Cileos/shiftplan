@@ -1,6 +1,7 @@
 header.master= chapter.title
 
 .road
+  Setup.ProgressView content=steps
   p= chapter.motivation
 
   = outlet step

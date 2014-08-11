@@ -46,6 +46,13 @@ Setup.ApplicationView = Ember.View.extend
 Setup.SetupView = Ember.View.extend
   templateName: 'setup/setup'
 
+Setup.ProgressView = Ember.CollectionView.extend
+  tagName: 'ul'
+  classNames: ['progress']
+  itemViewClass: Ember.View.extend
+    templateName: 'setup/progress_item'
+    classNames: ['step']
+
 Setup.IndexRoute = Ember.Route.extend
   beforeModel: -> @transitionTo 'setup.step', Setup.get('steps.firstObject')
 
