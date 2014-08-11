@@ -12,6 +12,7 @@ Setup = Ember.Application.create
   ]
 
 Setup.ChapterAdapter = DS.FixtureAdapter
+Setup.StepAdapter = DS.FixtureAdapter
 Setup.SetupAdapter = DS.ActiveModelAdapter
 Setup.ApplicationSerializer = DS.ActiveModelSerializer
 
@@ -35,11 +36,36 @@ Setup.Chapter = DS.Model.extend
   instructions: DS.attr 'string'
   examples: DS.attr 'array'
 
+Setup.Step = DS.Model.extend
+  position: DS.attr('number')
+  successor:
+    Ember.computed ->
+      @store.find('step', position: @get('position') + 1)
+    .property('position')
+  hasSuccessor:
+    Ember.computed ->
+      @get('position') < 1 + @store.findAll('step').get('length')
+    .property('position')
+  predecessor:
+    Ember.computed ->
+      @store.find('step', position: @get('position') - 1)
+    .property('position')
+  hasPredecessor:
+    Ember.computed ->
+      0 < @get('position')
+    .property('position')
+  chapter:
+    Ember.computed ->
+      @store.find 'chapter', @get('id')
+    .property('id')
+
+Setup.Step.FIXTURES = Setup.get('steps').map (id, index)->
+  { id: id, position: index }
 load_fixtures_from_dom(Setup, 'Chapter', 'chapters')
 
 Setup.Router.map ->
   @resource 'setup', ->
-    @route 'step', path: ':step'
+    @route 'step', path: ':step_id'
 
 Setup.ApplicationView = Ember.View.extend
   templateName: 'setup/application'
@@ -51,10 +77,16 @@ Setup.ProgressView = Ember.CollectionView.extend
   classNames: ['progress']
   itemViewClass: Ember.View.extend
     templateName: 'setup/progress_item'
-    classNames: ['step']
+    classNameBindings: ['step', 'doneRecently']
+    currentStepPositionBinding: 'controller.stepPosition'
+    doneRecently:
+      Ember.computed ->
+        console?.debug "step: " + @get('currentStepPosition')
+        "tihihi"
+      .property('currentStepPosition')
 
 Setup.IndexRoute = Ember.Route.extend
-  beforeModel: -> @transitionTo 'setup.step', Setup.get('steps.firstObject')
+  beforeModel: -> @transitionTo 'setup.step', 'user'
 
 Setup.SetupRoute = Ember.Route.extend
   model: (params)->
@@ -65,7 +97,7 @@ Setup.SetupRoute = Ember.Route.extend
       setup.get('errors').clear()
       setup.save().then(
         =>
-          @transitionTo 'setup.step', step
+          @transitionTo 'setup.step', step.id
         ,
         ->
           jQuery('.road').effect('shake', {times: 2}, 111)
@@ -93,11 +125,8 @@ Setup.SetupRoute = Ember.Route.extend
 
 
 Setup.SetupStepRoute = Ember.Route.extend
-  model: (params)->
-    params.step
-
   renderTemplate: ->
-    @render 'setup/steps/' + @modelFor('setup_step'),
+    @render 'setup/steps/' + @modelFor('setup_step').get('id'),
       into: 'setup'
       outlet: 'step'
       controller: 'setup'
@@ -108,46 +137,6 @@ Setup.ApplicationController = Ember.Controller.extend()
 Setup.SetupController = Ember.ObjectController.extend
   needs: ['setup_step']
   stepBinding: 'controllers.setup_step.content'
-  stepsBinding: 'Setup.steps'
-  stepPosition:
-    Ember.computed ->
-      curr = @get('step')
-      return 0 unless curr?
-      steps = @get('steps')
-      steps.indexOf(curr)
-    .property('step')
-  nextStep:
-    Ember.computed ->
-      steps = @get('steps')
-      pos = @get('stepPosition')
-
-      steps[pos + 1] || steps[ steps.length - 1]
-    .property('stepPosition')
-  previousStep:
-    Ember.computed ->
-      steps = @get('steps')
-      pos = @get('stepPosition')
-
-      if pos < 0
-        steps[0]
-      else
-        steps[pos-1]
-    .property('stepPosition')
-  hasPrevious:
-    Ember.computed ->
-      @get('stepPosition') > 0
-    .property('stepPosition')
-  hasNext:
-    Ember.computed ->
-      @get('stepPosition') < @get('steps.length') - 1
-    .property('stepPosition')
-
-  chapter:
-    Ember.computed ->
-      curr = @get('step')
-      return unless curr?
-      @store.find 'chapter', curr
-    .property('step')
 
 Setup.SetupStepController = Ember.ObjectController.extend()
 
