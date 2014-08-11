@@ -82,6 +82,11 @@ Then /^the #{capture_quoted} field should not be empty$/ do |field|
   find_field(field).value.should_not be_blank
 end
 
+Given /^the placeholder for field #{capture_quoted} should be #{capture_quoted}$/ do |label, placeholder|
+  find_field(label)[:placeholder].should == placeholder
+end
+
+
 Then /^the #{capture_quoted} tab should be active$/ do |tab_name|
   page.should have_css('.nav-tabs li.active', text: tab_name)
 end

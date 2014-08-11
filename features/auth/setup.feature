@@ -20,11 +20,6 @@ Feature: Setup / First UX
 
 
   Scenario: big company with boss knowing names for everything
-     # try to go really fast. But we need at least the username
-     When I press "Weiter"
-      And I press "Weiter"
-     Then I should see error "muss ausgefüllt werden"
-
     Given I should see "Unter welchem Namen möchtest Du für die anderen Mitarbeiter sichtbar sein?"
      When I fill in "Vorname" with "Montgomery"
       And I fill in "Nachname" with "Burns"
@@ -32,6 +27,7 @@ Feature: Setup / First UX
 
     Given I should see "Was ist der Name Deiner Firma oder Institution?"
       And the "Accountbezeichnung" field should be empty
+      And the placeholder for field "Accountbezeichnung" should be "Meine Firma"
      When I fill in "Accountbezeichnung" with "Powerplant"
       And I press "Weiter"
 
@@ -49,6 +45,12 @@ Feature: Setup / First UX
      When I press "Zurück"
      Then the "Gruppen" field should contain "Brennstäbe wechseln, Knöpfe drücken"
      When I press "Weiter"
+     Then I should see "Montgomery"
+      And I should see "Burns"
+      And I should see "Powerplant"
+      And I should see "Reaktor"
+      # defaults/placeholders are not shown
+      But I should not see "Meine Firma"
       And I press "Fertig"
 
      Then a plan should exist
@@ -63,3 +65,27 @@ Feature: Setup / First UX
      # setup was disabled/destroyed
      Then I should be on the dashboard
 
+  Scenario: small company with boss having to imagination
+     # try to go really fast. But we need at least the username
+     When I press "Weiter"
+      And I press "Weiter"
+     Then I should see error "muss ausgefüllt werden"
+     When I fill in "Vorname" with "Homer"
+      And I fill in "Nachname" with "Simpson"
+      And I press "Weiter"
+      # no account name
+      And I press "Weiter"
+      # no organization name or teams
+      And I press "Weiter"
+      # summary showing defaults being used to create account&org
+     Then I should see "Homer"
+      And I should see "Simpson"
+      And I should see "Meine Firma"
+      And I should see "Meine Organisation"
+      And I press "Fertig"
+     Then a plan should exist
+      And I should be on the employees in week page of the plan for today
+      And I should see "Meine Firma" within the orientation bar
+      And I should see "Meine Organisation" within the orientation bar
+      # hidden default
+      And I should see "Mein erster Plan"
