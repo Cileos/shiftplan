@@ -1,16 +1,16 @@
-header.master= chapter.title
+header.master= step.chapter.title
 
 .road
   Setup.ProgressView content=steps
-  p= chapter.motivation
+  p= step.chapter.motivation
 
   = outlet step
 
   .buttons
-    if step.hasPredecessor
-      button class="button button-cancel" click="gotoStep step.successor"= t 'helpers.actions.previous'
-    if step.hasSuccessor
-      button class="button button-blue button-ok" click="gotoStep step.predecessor"= t 'helpers.actions.next'
+    if step.predecessor
+      button class="button button-cancel" click="gotoStep step.predecessor"= t 'helpers.actions.previous'
+    if step.successor
+      button class="button button-blue button-ok" click="gotoStep step.successor"= t 'helpers.actions.next'
     else
       if isComplete
         button class="button-success button-ok" click="finishSetup"= t 'helpers.actions.finish'
