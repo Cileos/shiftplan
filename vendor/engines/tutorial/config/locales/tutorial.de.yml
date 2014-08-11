@@ -60,5 +60,6 @@ de:
         examples:
           - 'Ronald teilt [Peter, Paul und Maria]{form label[for=scheduling_employee_id]} jeweils für [jeden Wochentag]{form .weekday} [10-22 Uhr]{form div.start-time} zum [Burgergrillen]{form label[for=scheduling_team_id]} ein.'
       - id: 'complete'
+        hint: 'Fertig'
         title: 'Sind diese Informationen korrekt?'
 

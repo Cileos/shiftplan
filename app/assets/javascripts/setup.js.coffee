@@ -25,6 +25,7 @@ Setup.Setup = DS.Model.extend
   isComplete: true
 
 Setup.Chapter = DS.Model.extend
+  hint: DS.attr 'string'
   title: DS.attr 'string'
   motivation: DS.attr 'string'
   instructions: DS.attr 'string'
