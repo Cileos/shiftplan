@@ -46,6 +46,72 @@ $round: 1em
     #team_names
       width: 100%
 
+    ul.progress
+      // reset
+      margin: 0
+      padding: 0
+      list-style: none
+
+      $color1: $ci_lightgray
+      $color2: $ci_midgray
+      $color3: $ci_gray
+      $textcolor: $ci_darkgrey
+
+      $background: mix($color2, $color3)
+
+
+      // arrows
+      background-color: $ci_darkwhite
+      border-width: 1px
+      border-style: solid
+      border-color: $color1 $color2 $color3
+      border-radius: 5px
+      // ??          ^^1
+      box-shadow: 0 0 2px rgba(0, 0, 0, .2)
+      overflow: hidden
+      width: 100%
+
+      li
+        float: left
+        position: relative
+
+        > span
+          padding: .7em 1em .7em 2em
+          float: left
+          text-decoration: none
+          color: $textcolor
+          text-shadow: 0 1px 0 rgba(255, 255, 255, .5)
+
+          // gradient
+          background-color: $background
+          background-image: linear-gradient(to right, $color1, $background)
+
+          &::after, &::before
+            content: ''
+            position: absolute
+            // center vertically?
+            top: 50%
+            margin-top: -1.5em
+            border-top: 1.5em solid transparent
+            border-bottom: 1.5em solid transparent
+            border-left: 1em solid
+            right: -1em
+
+          &::after
+            z-index: 2
+            border-left-color: mix($color1, $color2)
+
+          &::before
+            z-index: 1
+            border-left-color: $background
+            right: -1.1em
+
+        &:first-child
+          > span
+            padding-left: 1em
+            border-radius: 5px 0 0 5px
+
+
   .error
     color: $ci_darkorange
 
