@@ -4,6 +4,7 @@ $rought_master_height: 5 * $master_padding * 1.5
 $pushup: 4.3em
 $round: 1em
 $step_count: 4
+$duration: 1s
 
 #setup
   header.master
@@ -88,6 +89,7 @@ $step_count: 4
           text-decoration: none
           color: $ci_darkgray
           text-shadow: 0 1px 0 rgba(255, 255, 255, .5)
+          transition: background-color $duration
 
 
           &::after
@@ -100,6 +102,7 @@ $step_count: 4
             border-bottom: 1.5em solid transparent
             border-left: 1em solid
             right: -1em
+            transition: border-color $duration
 
           &::after
             z-index: 2
