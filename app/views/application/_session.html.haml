@@ -1,5 +1,5 @@
 %ul
-  - if controller.respond_to?(:current_tutorial) && tutorial_name = controller.current_tutorial
+  - if false && controller.respond_to?(:current_tutorial) && tutorial_name = controller.current_tutorial
     %li= link_to '?', '#', id: 'open-tutorial', data: { name: tutorial_name, close_label: ta(:close) }, class: 'icon-help', title: t('helpers.actions.tutorial')
 
   - if user_signed_in?
