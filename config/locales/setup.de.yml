@@ -3,7 +3,7 @@ de:
     attributes:
       setup:
         account_name: Accountbezeichnung
-        organization_name: Organisationsname
+        organization_name: Erster Organisationsname
         employee_first_name: Vorname
         employee_last_name: Nachname
         team_names: Gruppen
