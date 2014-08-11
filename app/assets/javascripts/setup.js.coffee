@@ -61,7 +61,7 @@ Setup.ProgressView = Ember.CollectionView.extend
   classNames: ['progress']
   itemViewClass: Ember.View.extend
     templateName: 'setup/progress_item'
-    classNameBindings: ['step', 'doneAge']
+    classNameBindings: ['step', 'doneAge', 'content.id']
     currentStepPositionBinding: 'controller.stepPosition'
     doneAge:
       Ember.computed ->

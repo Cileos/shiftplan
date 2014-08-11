@@ -91,7 +91,6 @@ $duration: 1s
           text-shadow: 0 1px 0 rgba(255, 255, 255, .5)
           transition: background-color $duration
 
-
           &::after
             content: ''
             position: absolute
@@ -106,6 +105,20 @@ $duration: 1s
 
           &::after
             z-index: 2
+
+        // icons
+        > span
+          @extend %with-icon
+          @extend .icon-info
+
+        &.user > span
+          @extend .icon-employees
+        &.account > span
+          @extend .icon-dashboard
+        &.organization > span
+          @extend .icon-organization
+        &.complete > span
+          @extend .icon-check
 
         // "current" is .done-0
         @for $doneage from 0 to $step_count
