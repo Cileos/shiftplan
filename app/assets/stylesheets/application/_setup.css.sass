@@ -110,7 +110,7 @@ $duration: 1s
         // "current" is .done-0
         @for $doneage from 0 to $step_count
           &.done-#{$doneage}
-            +progress-step-background-color( lighten( darken($ci_blue, 12.5%), 10% * $doneage) )
+            +progress-step-background-color( lighten( darken($ci_blue, 12.5%), 7% * $doneage) )
 
         &:first-child
           > span
