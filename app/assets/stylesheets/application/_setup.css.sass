@@ -111,6 +111,10 @@ $step_count: 4
 
         +progress-step-background-color($ci_bg-color)
 
+        @for $recdone from 0 to $step_count
+          &.done-#{$recdone}
+            +progress-step-background-color( lighten( $ci_blue, 10% * $recdone) )
+
         &:first-child
           > span
             padding-left: 1em
