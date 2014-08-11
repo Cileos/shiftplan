@@ -44,6 +44,10 @@ class Ability
   def authorize_signed_in
     can :dashboard, User
     can [:read, :update], Notification::Base, employee: { user_id: user.id }
+    can [:read, :update], Setup, user_id: user.id
+
+    return if user.accounts.empty?
+
     can :read, Account do |account|
       user.accounts.include?(account)
     end
@@ -106,8 +110,6 @@ class Ability
       user.employees.include?(un.employee) ||
       user.plannable_employees.include?(un.employee)
     end
-
-    can [:read, :update], Setup, user_id: user.id
   end
 
   def authorize_employee
