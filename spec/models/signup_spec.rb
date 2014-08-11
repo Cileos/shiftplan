@@ -63,7 +63,7 @@ describe Signup do
     it 'complains when password does not equal confirmation' do
       signup.password_confirmation = 'something completely different'
       signup.should_not be_valid
-      signup.should have(1).error_on(:password)
+      signup.should have(1).error_on(:password_confirmation)
     end
   end
 end

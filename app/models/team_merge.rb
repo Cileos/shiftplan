@@ -8,8 +8,6 @@ class TeamMerge
 
   validates :team_id, :other_team_id, :new_team_id, presence: true
 
-  delegate :id, to: :new_team
-
   def other_team
     @other_team ||= other_team_id? && team.organization.teams.find_by_id(other_team_id)
   end
@@ -32,6 +30,10 @@ class TeamMerge
         team.destroy
       end
     end
+  end
+
+  def id
+    'team-merge'
   end
 end
 

@@ -5,7 +5,7 @@
   - else
     #mark_all_as_read.global-action= link_to :mark_all_as_read,
       mark_notifications_as_read_path(notifications: notifications.map(&:id).join(',')),
-      method: :put, remote: true
+      method: :patch, remote: true
     %ul.notifications
       - notifications.each do |notification|
         = render "notifications/notification", notification: notification

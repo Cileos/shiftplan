@@ -1,22 +1,15 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' }, :test_unit => false, :wait => 120 do
-  watch('config/application.rb')
-  watch('config/environment.rb')
-  watch(%r{^config/environments/.+\.rb$})
-  watch(%r{^config/initializers/.+\.rb$})
-  watch('Gemfile.lock')
-  watch('spec/spec_helper.rb')
-  watch('test/test_helper.rb')
-  watch('features/support/env.rb')
-  watch('config/spork_prefork.rb')
-end unless ENV['NO_SPORK']
-
 group :test, :halt_on_fail => true do
 
-  guard 'rspec', :cli => '--drb --color --format nested --tag ~benchmark', :run_all => false, :all_on_start => false do
-    #watch(%r{^factories/.+$})       { "spec" }
+  guard 'rspec',
+    cmd: "zeus rspec --color --format nested --tag ~benchmark",
+    run_all: {
+      cli: "--color --tag ~benchmark"
+    },
+    all_on_start: false,
+    all_after_pass: false do
 
     # Rails example
     watch(%r{^spec/.+_spec\.rb$})
@@ -40,13 +33,14 @@ group :test, :halt_on_fail => true do
     watch(%r{app/assets/javascripts/(.+)\.(js\.coffee|js|coffee)$}) { |m| "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
     watch(%r{spec/javascripts/(.+)_spec\.(js\.coffee|js|coffee)$})  { |m| puts m.inspect; "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
     watch(%r{spec/javascripts/spec\.(js\.coffee|js|coffee)$})       { "spec/javascripts" }
-  end
+  end if ENV['JASMINE']
 
   ENV['CUCUMBER_FORMAT'] = 'fuubar'
   ENV['CAPYBARA_CHROME'] = 'yes'
-#                                                         V --no-drb skip spork to run simplecov
   guard 'cucumber',
-    :cli => "--drb --no-source --no-profile --strict --format pretty --format rerun --out rerun.txt --tags ~@wip",
+    :cli => "--no-source --no-profile --strict --format pretty --format rerun --out rerun.txt --tags ~@wip",
+    command_prefix: 'zeus',
+    bundler: false,
     :keep_failed => false,
     :run_all => { :cli => "--format fuubar --tags ~@wip" },
     :all_on_start => false,

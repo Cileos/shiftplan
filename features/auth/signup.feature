@@ -24,7 +24,7 @@ Feature: Signing up
         | Passwort            | secret         |
         | Passwort bestätigen | secret         |
       And I press "Registrieren"
-     Then I should see "Du hast Dich erfolgreich registriert. Bitte schau in Dein Postfach, um Deine E-Mail-Adresse zu bestätigen."
+     Then I should see "Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit der Anleitung, wie Du Deinen Account freischalten kannst"
       And "me@example.com" should receive an email
 
       # auto-creation of account, organization, employee, membership and blog
@@ -38,9 +38,10 @@ Feature: Signing up
 
      When I open the email
       And I click the first link in the email
-     Then I should see "bestätigt"
-      And I should be signed in as "Homer Simpson"
-      And I should be on the page of the organization
+     Then I should see flash notice "Vielen Dank für Deine Registrierung. Bitte melde dich jetzt an."
+     When I sign in as the user
+      And I go to the page of the organization
+     Then I should be signed in as "Homer Simpson"
      When I follow "Alle Organisationen"
      # Check if the registered user is really an owner:
      # - only owners can edit accounts

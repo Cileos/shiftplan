@@ -14,7 +14,17 @@ class AttachedDocumentsController < BaseController
     end
   end
 
+private
+
   def interpolation_options
     { name: resource.name }
+  end
+
+  def permitted_params
+    params.permit attached_document: [
+      :file,
+      :name,
+      :milestone_id
+    ]
   end
 end

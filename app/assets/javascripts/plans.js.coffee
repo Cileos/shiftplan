@@ -62,8 +62,8 @@ jQuery(document).ready ->
     $picker.datepick
       showOnFocus: false
       defaultDate: parseIso8601( $cal.data('monday') )
-      minDate: parseIso8601( $cal.data('starts_at') )
-      maxDate: parseIso8601( $cal.data('ends_at') )
+      minDate: parseIso8601( $cal.data('starts-at') )
+      maxDate: parseIso8601( $cal.data('ends-at') )
       showOtherMonths: true
       onSelect: (dates) ->
         date = dates[0]

@@ -14,7 +14,7 @@ module Volksplaner
     end
 
     def store_undo(tracts)
-      session[UndoSessionKey] = Undo::Step.build tracts.merge(default_undo_options)
+      session[UndoSessionKey] = Undo::Step.build( tracts.merge(default_undo_options) ).to_json
     end
 
     def last_undo
@@ -29,7 +29,7 @@ module Volksplaner
     private
 
     def load_undo
-      session[UndoSessionKey]
+      Undo::Step.load session[UndoSessionKey]
     end
 
     def default_undo_options

@@ -16,7 +16,7 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     #  .closest('form').on('submit', => @updateQuickie()).end()
 
     # TODO: Comment in again when the passive una feature gets enabled again.
-    @currentEmployeeId = $('html').data('current_employee_id')
+    @currentEmployeeId = $('html').data('current-employee-id')
 
     timeoptions = Clockwork.settings.get('timeoptions')
 

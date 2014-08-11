@@ -11,12 +11,12 @@ Feature: Change locale
       And the locale attribute of the user is changed to nil
       And I use an <language> browser
      When I go to the home page
-     Then I should see "Register or log in to continue."
+     Then I should see flash alert "You need to sign in or sign up before continuing."
       And I fill in "E-mail" with "c.burns@npp-springfield.com"
       And I fill in "Password" with "secret"
       And I press "Log in"
      Then a user should exist with locale: "en"
-      And I should see "You've logged in"
+      And I should see flash notice "Signed in successfully."
 
     Examples:
       | language |
@@ -26,7 +26,7 @@ Feature: Change locale
 
   Scenario: fallback is English when no browser language is present
      When I go to the home page
-     Then I should see "Register or log in to continue."
+     Then I should see flash alert "You need to sign in or sign up before continuing."
 
 
   Scenario: overwrite browser detected locale with setting

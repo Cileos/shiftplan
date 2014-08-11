@@ -15,7 +15,7 @@ When /^I wait for (.+) to appear$/ do |name|
   selector = selector_for name
   begin
     some_time_passes
-    page.wait_until { page.has_css?(selector, :visible => true) }
+    page.should have_css(selector, visible: true)
   rescue Capybara::Session::TimedOut => timeout
     STDERR.puts "saved page: #{save_page}"
     STDERR.puts "saved screenshot: #{screenshot}"
@@ -26,7 +26,9 @@ end
 When /^I wait for (.+) to (?:disappear|stop)$/ do |name|
   selector = selector_for name
   begin
-    page.wait_until { page.has_no_css?(selector, :visible => true) }
+    page.should have_no_css(selector, visible: true)
+  rescue Selenium::WebDriver::Error::StaleElementReferenceError => stale
+    # looks like it's gone
   rescue Capybara::Session::TimedOut => timeout
     STDERR.puts "saved page: #{save_page}"
     STDERR.puts "saved screenshot: #{screenshot}"
@@ -186,11 +188,7 @@ Then /^the "([^"]*)" field(?: within (.*))? should equal "([^"]*)"$/ do |field, 
   with_scope(parent) do
     field = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
-    if field_value.respond_to? :should
-      field_value.should == value
-    else
-      assert_equal value, field_value
-    end
+    field_value.should == value
   end
 end
 

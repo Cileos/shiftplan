@@ -13,6 +13,7 @@ describe Volksplaner::Undo::Step do
       other66,
     ]
   }
+  let(:path) { '/an/url_to/redirect/after/execution' }
 
   describe '.build' do
     it 'stores created_records' do
@@ -24,7 +25,6 @@ describe Volksplaner::Undo::Step do
     end
 
     it 'stores redirect location when given' do
-      path = double 'Path'
       undo = described_class.build redirect: path
       undo.should be_redirectable
       undo.location.should == path
@@ -84,6 +84,25 @@ describe Volksplaner::Undo::Step do
       I18n.with_locale :de do
         undo.human_title.should == 'Rückgängig machen: Tür geöffnet'
       end
+    end
+  end
+
+  context 'serialization' do
+    let(:undo) { described_class.build create: records, redirect: path, flash: { notice: 'hohho' } }
+
+    let(:serialized) { undo.to_json }
+    let(:parsed)     { described_class.load serialized }
+
+    it 'keeps created records' do
+      parsed.created_records.should == undo.created_records
+    end
+
+    it 'keeps location' do
+      parsed.location.should == undo.location
+    end
+
+    it 'keeps flash' do
+      parsed.flash.should == undo.flash
     end
   end
 end

@@ -26,4 +26,12 @@ class PostsController < BaseController
       super
     end
   end
+
+  def permitted_params
+    params.permit post: [
+      :title,
+      :body,
+      :author_id, # TODO better assign author in controller to prevent HACKs
+    ]
+  end
 end

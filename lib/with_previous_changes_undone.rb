@@ -6,6 +6,6 @@ module WithPreviousChangesUndone
   end
 
   def attributes_for_undo
-    previous_changes.map { |k,(o,n)| { k => o }}.inject(&:merge)
+    previous_changes.map { |k,(o,n)| { k => o }}.inject({}, &:merge)
   end
 end

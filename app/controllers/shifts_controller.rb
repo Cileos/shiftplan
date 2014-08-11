@@ -41,4 +41,24 @@ class ShiftsController < BaseController
     def merge_time_components_from_next_day
       @shift.merge_time_components_from_next_day! if @shift.is_overnight?
     end
+
+    def permitted_params
+      params.permit shift: [
+        :start_hour,
+        :end_hour,
+        :start_minute,
+        :end_minute,
+        :start_time,
+        :end_time,
+        :day,
+        :team_id,
+        :all_day,
+        { demands_attributes: [
+          :id,
+          :quantity,
+          :qualification_id,
+          :_destroy,
+        ]}
+      ]
+    end
 end

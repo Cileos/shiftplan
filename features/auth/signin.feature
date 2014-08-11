@@ -17,13 +17,13 @@ Feature: Signing in
       And I fill in "E-Mail" with "c.burns@npp-springfield.com"
       And I fill in "Passwort" with "secret"
       And I press "Einloggen"
-     Then I should see "Erfolgreich eingeloggt."
+     Then I should see flash notice "Erfolgreich angemeldet."
       And I should be on the page for the organization "sector 7g"
       And I should be signed in as "Charles Burns"
      When I follow "Ausloggen"
      Then I should be on the sign in page
       And I should see "Einloggen"
-      And I should see a flash notice "Erfolgreich ausgeloggt."
+      And I should see a flash notice "Erfolgreich abgemeldet."
       But I should not see a flash alert message
 
   Scenario: User with two employees signing in successfully
@@ -36,6 +36,6 @@ Feature: Signing in
       And I fill in "E-Mail" with "c.burns@npp-springfield.com"
       And I fill in "Passwort" with "secret"
       And I press "Einloggen"
-     Then I should see "Erfolgreich eingeloggt."
+     Then I should see flash notice "Erfolgreich angemeldet."
       And I should be on the dashboard page
       And I should be signed in as "c.burns@npp-springfield.com"

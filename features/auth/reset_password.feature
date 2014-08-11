@@ -18,7 +18,7 @@ Feature: Resetting Password
       And I fill in "E-Mail" with "bart@thesimpsons.com"
       And I press "Passwort zurückzusetzen"
      Then I should be on the sign in page
-      And I should see notice "Du wirst in ein paar Minuten eine E-Mail erhalten, um Dein Passwort zurückzusetzen."
+      And I should see notice "Du erhältst in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Dein Passwort zurücksetzen kannst."
       And "bart@thesimpsons.com" should receive an email
 
      When I open the email
@@ -26,5 +26,5 @@ Feature: Resetting Password
       And I fill in "Passwort" with "topsecret"
       And I fill in "Passwort bestätigen" with "topsecret"
       And I press "Passwort ändern"
-     Then I should see notice "Dein Passwort wurde erfolgreich geändert - Du bist nun angemeldet."
+     Then I should see notice "Dein Passwort wurde geändert. Du bist jetzt angemeldet."
       And I am signed in as the confirmed user

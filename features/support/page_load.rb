@@ -8,15 +8,18 @@ module PageLoadSupport
 
   def wait_for_the_page_to_be_loaded
     unless page.mode == :rack_test
-      within page.send(:scopes).first do
-        page.should have_css('html.loaded')
-        some_time_passes
+      # capybara cannot look into the header
+      page.wait_until do
+        evaluate_script(%Q~$('html.loaded').length~) == 1
       end
+      some_time_passes
     end
   rescue Selenium::WebDriver::Error::UnhandledAlertError => e
     unless e.message =~ /An open modal dialog blocked the operation/
       raise e
     end
+  rescue Selenium::WebDriver::Error::UnknownError => e
+    raise page.body.sub(/(Internal Server Error)/, '\1 (full trace in log/capybara_test.log)')
   rescue Capybara::CapybaraError => e
     if page.body =~ /Internal Server Error/
       raise page.body.sub(/(Internal Server Error)/, '\1 (full trace in log/capybara_test.log)')

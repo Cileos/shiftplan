@@ -1,4 +1,7 @@
 class SessionsController < Devise::SessionsController
+  # FIXME after upgrade to rails4, CSRF fails in devise controllers. Repair it!
+  skip_before_action :verify_authenticity_token, only: [:create]
+
   respond_to :html, :js
 
   respond_to :json, only: :show

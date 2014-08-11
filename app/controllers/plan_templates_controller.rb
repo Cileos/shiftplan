@@ -18,4 +18,11 @@ class PlanTemplatesController < BaseController
       end
     end
   end
+
+  def permitted_params
+    params.permit plan_template: [
+      :name,
+      :template_type
+    ]
+  end
 end

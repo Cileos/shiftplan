@@ -33,4 +33,12 @@ class UserPasswordController < InheritedResources::Base
       sign_in(User, object, bypass: true)
     end
   end
+
+  def permitted_params
+    params.permit user: [
+      :password,
+      :password_confirmation,
+      :current_password,
+    ]
+  end
 end
