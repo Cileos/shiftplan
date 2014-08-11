@@ -4,12 +4,6 @@
 Setup = Ember.Application.create
   rootElement: '#setup'
   page: 'setup' # for i18n
-  steps: [
-    'user',
-    'account',
-    'organization',
-    'complete'
-  ]
 
 Setup.ChapterAdapter = DS.FixtureAdapter
 Setup.StepAdapter = DS.FixtureAdapter
@@ -36,31 +30,13 @@ Setup.Chapter = DS.Model.extend
   instructions: DS.attr 'string'
   examples: DS.attr 'array'
 
-Setup.Step = DS.Model.extend
-  position: DS.attr('number')
-  successor:
-    Ember.computed ->
-      @store.find('step', position: @get('position') + 1)
-    .property('position')
-  hasSuccessor:
-    Ember.computed ->
-      @get('position') < 1 + @store.findAll('step').get('length')
-    .property('position')
-  predecessor:
-    Ember.computed ->
-      @store.find('step', position: @get('position') - 1)
-    .property('position')
-  hasPredecessor:
-    Ember.computed ->
-      0 < @get('position')
-    .property('position')
-  chapter:
-    Ember.computed ->
-      @store.find 'chapter', @get('id')
-    .property('id')
+# a two-way linked list
+Setup.Step = Ember.Object.extend
+  position: -1
+  successor: null
+  predecessor: null
+  chapter: null
 
-Setup.Step.FIXTURES = Setup.get('steps').map (id, index)->
-  { id: id, position: index }
 load_fixtures_from_dom(Setup, 'Chapter', 'chapters')
 
 Setup.Router.map ->
@@ -125,6 +101,8 @@ Setup.SetupRoute = Ember.Route.extend
 
 
 Setup.SetupStepRoute = Ember.Route.extend
+  model: (params)->
+    @controllerFor('application').get('steps').findBy('id', params.step_id)
   renderTemplate: ->
     @render 'setup/steps/' + @modelFor('setup_step').get('id'),
       into: 'setup'
@@ -132,10 +110,32 @@ Setup.SetupStepRoute = Ember.Route.extend
       controller: 'setup'
 
 
-Setup.ApplicationController = Ember.Controller.extend()
+Setup.ApplicationController = Ember.Controller.extend
+  stepIds: [
+    'user',
+    'account',
+    'organization',
+    'complete'
+  ]
+  steps:
+    Ember.computed ->
+      # build linked list
+      prev = null
+
+      @get('stepIds').map (id, index)=>
+        s = Setup.Step.create
+          id: id
+          position: index
+          predecessor: prev
+          chapter: @store.find('chapter', id)
+
+        prev.set 'successor', s if prev?
+        prev = s
+    .property('stepIds')
 
 Setup.SetupController = Ember.ObjectController.extend
-  needs: ['setup_step']
+  needs: ['application', 'setup_step']
+  stepsBinding: 'controllers.application.steps'
   stepBinding: 'controllers.setup_step.content'
 
 Setup.SetupStepController = Ember.ObjectController.extend()
