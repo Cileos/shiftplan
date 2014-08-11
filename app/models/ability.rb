@@ -43,10 +43,24 @@ class Ability
 
   def authorize_signed_in
     can :dashboard, User
-    can [:read, :update], Notification::Base, employee: { user_id: user.id }
+
     can [:read, :update], Setup, user_id: user.id
 
-    return if user.accounts.empty?
+    # not during setup
+    return if user.setup
+
+    can [:read, :update], Notification::Base, employee: { user_id: user.id }
+
+    can [:update_profile], Employee do |employee|
+      user == employee.user
+    end
+    can [:read, :update, :update_profile], User do |u|
+      user == u
+    end
+
+    can [:read, :create, :destroy], IcalExport do |ie|
+      user == ie.user
+    end
 
     can :read, Account do |account|
       user.accounts.include?(account)
@@ -66,19 +80,9 @@ class Ability
       employee = user.employee_for_account(organization.account)
       employee && employee.owner?
     end
-    can [:update_profile], Employee do |employee|
-      user == employee.user
-    end
-    can [:read, :update, :update_profile], User do |u|
-      user == u
-    end
 
     can :show, Conflict do |conflict|
       user == conflict.provoker.employee.user
-    end
-
-    can [:read, :create, :destroy], IcalExport do |ie|
-      user == ie.user
     end
 
     can :update, Volksplaner::Undo::Step
