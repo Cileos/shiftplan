@@ -33,7 +33,7 @@ Feature: Setup / First UX
 
     Given I should see "Bei größeren Firmen macht es Sinn, Pläne und Mitarbeiter in Organisationeinheiten wie zB Filialen, Häuser oder Standorte zu unterteilen."
       And I should see "Mit welcher Organisationseinheit möchtest Du Deine Planung für Mitarbeiter beginnen?"
-     When I fill in "Organisationsname" with "Reaktor"
+     When I fill in "Erster Organisationsname" with "Reaktor"
     Given I should see "Unterteilst Du diese Organisation weiter in Arbeitsbereiche oder -Gruppen?"
      When I fill in "Gruppen" with "Brennstäbe wechseln, Knöpfe drücken"
       And I press "Weiter"

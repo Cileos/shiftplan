@@ -3,7 +3,7 @@ en:
     attributes:
       setup:
         account_name: Company name
-        organization_name: Unit name
+        organization_name: First unit name
         employee_first_name: Name
         employee_last_name: Surname
         team_names: Teams
