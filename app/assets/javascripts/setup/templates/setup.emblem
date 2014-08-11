@@ -7,10 +7,10 @@ header.master= chapter.title
   = outlet step
 
   .buttons
-    if hasPrevious
-      button class="button button-cancel" click="gotoStep previousStep"= t 'helpers.actions.previous'
-    if hasNext
-      button class="button button-blue button-ok" click="gotoStep nextStep"= t 'helpers.actions.next'
+    if step.hasPredecessor
+      button class="button button-cancel" click="gotoStep step.successor"= t 'helpers.actions.previous'
+    if step.hasSuccessor
+      button class="button button-blue button-ok" click="gotoStep step.predecessor"= t 'helpers.actions.next'
     else
       if isComplete
         button class="button-success button-ok" click="finishSetup"= t 'helpers.actions.finish'
