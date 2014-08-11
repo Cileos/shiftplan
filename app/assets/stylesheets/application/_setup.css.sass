@@ -54,26 +54,16 @@ $step_count: 4
       padding: 0
       list-style: none
 
-      $textcolor: $ci_darkgrey
-
-      $background: $ci_bg-color
-
-
-      // arrows
       background-color: $ci_darkwhite
       border-radius: 5px
       // ??          ^^1
       box-shadow: 0 0 2px rgba(0, 0, 0, .2)
       width: 100%
+      // guessed value to appear on top of header
+      position: relative
+      top: -10.5em
 
-      = progress-step-background-color($bg)
-        > span
-          background-color: $bg
-          &::after
-            border-left-color: $bg
-          &::before
-            border-left-color: darken($bg, 10%)
-
+      // arrows
       li
         float: left
         position: relative
@@ -81,17 +71,26 @@ $step_count: 4
         // devide space evenly
         width: 100% / $step_count
 
+        = progress-step-background-color($bg)
+          > span
+            background-color: $bg
+            +adaptive_color(color, $bg)
+            &::after
+              border-left-color: $bg
+
+        +progress-step-background-color($ci_bg-color)
+
         > span
           padding: .7em 1em .7em 2em
           float: left
           // fill stretched li
           width: 100%
           text-decoration: none
-          color: $textcolor
+          color: $ci_darkgray
           text-shadow: 0 1px 0 rgba(255, 255, 255, .5)
 
 
-          &::after, &::before
+          &::after
             content: ''
             position: absolute
             // center vertically?
@@ -105,20 +104,16 @@ $step_count: 4
           &::after
             z-index: 2
 
-          &::before
-            z-index: 1
-            right: -1.1em
-
-        +progress-step-background-color($ci_bg-color)
-
-        @for $recdone from 0 to $step_count
-          &.done-#{$recdone}
-            +progress-step-background-color( lighten( $ci_blue, 10% * $recdone) )
+        // "current" is .done-0
+        @for $doneage from 0 to $step_count
+          &.done-#{$doneage}
+            +progress-step-background-color( lighten( darken($ci_blue, 12.5%), 10% * $doneage) )
 
         &:first-child
           > span
             padding-left: 1em
             border-radius: 5px 0 0 5px
+
 
 
   .error

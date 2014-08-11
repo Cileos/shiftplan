@@ -36,6 +36,13 @@ Setup.Step = Ember.Object.extend
   successor: null
   predecessor: null
   chapter: null
+  doneAge: 9001
+  setAsCurrent: (d=0)->
+    if d <= 0
+      successor.setAsCurrent(d-1) if successor = @get('successor')
+    if d >= 0
+      predecessor.setAsCurrent(d+1) if predecessor = @get('predecessor')
+    @set 'doneAge', d
 
 load_fixtures_from_dom(Setup, 'Chapter', 'chapters')
 
@@ -53,13 +60,14 @@ Setup.ProgressView = Ember.CollectionView.extend
   classNames: ['progress']
   itemViewClass: Ember.View.extend
     templateName: 'setup/progress_item'
-    classNameBindings: ['step', 'doneRecently']
+    classNameBindings: ['step', 'doneAge']
     currentStepPositionBinding: 'controller.stepPosition'
-    doneRecently:
+    doneAge:
       Ember.computed ->
-        console?.debug "step: " + @get('currentStepPosition')
-        "tihihi"
-      .property('currentStepPosition')
+        age = @get('content.doneAge')
+        if age >= 0
+          "done-#{age}"
+      .property('content.doneAge')
 
 Setup.IndexRoute = Ember.Route.extend
   beforeModel: -> @transitionTo 'setup.step', 'user'
@@ -103,6 +111,9 @@ Setup.SetupRoute = Ember.Route.extend
 Setup.SetupStepRoute = Ember.Route.extend
   model: (params)->
     @controllerFor('application').get('steps').findBy('id', params.step_id)
+  setupController: (controller, model)->
+    @_super(controller, model)
+    model.setAsCurrent()
   renderTemplate: ->
     @render 'setup/steps/' + @modelFor('setup_step').get('id'),
       into: 'setup'
