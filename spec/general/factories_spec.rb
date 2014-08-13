@@ -11,7 +11,6 @@ describe 'Factory' do
       it "should successfully create record" do
         expect { @record = create(factory.name) }.not_to raise_error
         @record.should_not be_new_record
-        @record.should be_valid
       end
     end
   end

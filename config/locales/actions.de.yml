@@ -9,6 +9,7 @@ de:
       edit_account: Account bearbeiten
       add_account: Account hinzufügen
       help: Hilfe
+      tutorial: Tutorial
       profile: Profil
       settings: Einstellungen
       advanced_settings: Erweitert
@@ -62,6 +63,7 @@ de:
       new_plan_template: Neue Planvorlage
       new_organization: "eine weitere Organisation anlegen"
       next: Weiter
+      previous: Zurück
       create: Anlegen
       create_busy: Lege an ...
       update: Speichern
@@ -103,6 +105,7 @@ de:
       upload: "Hochladen"
       undo: "Rückgängig machen"
       availability: "Abwesenheit"
+      finish: "Fertig"
   schedulings:
     calendar_navigation:
       day: "Tag"

@@ -105,7 +105,7 @@ Clockwork::Application.routes.draw do
     resources :unavailabilities, except: [:show]
   end
 
-  scope '/feeds/:email/private-:private_token', constraints: { email: %r~[^/]+~i, private_token: /[\w]{20}/i  }  do
+  scope '/feeds/:email/private-:private_token', constraints: { email: %r~[^/]+~i, private_token: /[\w-]{20}/i  }  do
     get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'
   end
 
@@ -120,6 +120,11 @@ Clockwork::Application.routes.draw do
     get 'ember/sessions/current' => 'sessions#show'
     get 'accounts/:account_id/organizations/:organization_id/plans/:plan_id/sessions/current' => 'sessions#show'
   end
+
+  get '/setup' => 'setup#show', as: 'setup'
+  # ember cannot handle singleton URIs
+  get '/setups/:ignored' => 'setup#show'
+  put '/setups/:ignored' => 'setup#update'
 
   get 'i18n/:id' => 'locales#show', constraints: {
     id: /[a-z]{2}/i

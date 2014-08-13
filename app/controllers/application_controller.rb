@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include Volksplaner::Currents
   include Volksplaner::ControllerCaching
   include Volksplaner::Undo::ControllerHelpers
+  include Tutorial::Controller
 
   rescue_from CanCan::AccessDenied do |exception|
     logger.debug('Access denied')
@@ -82,12 +83,16 @@ class ApplicationController < ActionController::Base
 
   helper_method :nested_resources_for
   def nested_resources_for(*a)
-    Volksplaner.nested_resource_dispatcher.resources_for(*a)
+    nested_resource_dispatcher.resources_for(*a)
   end
 
   helper_method :nested_show_resources_for
   def nested_show_resources_for(*a)
-    Volksplaner.nested_resource_dispatcher.show_resources_for(*a)
+    nested_resource_dispatcher.show_resources_for(*a)
+  end
+
+  def nested_resource_dispatcher
+    @nested_resource_dispatcher ||= NestedResourceDispatcher.new
   end
 
   helper_method :year_for_cweek_at

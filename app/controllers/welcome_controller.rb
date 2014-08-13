@@ -1,6 +1,9 @@
 class WelcomeController < ApplicationController
   before_filter :authorize_user, only: :dashboard
+  before_filter :continue_setup
   before_filter :redirect_to_dynamic_dashboard_if_signed_in, only: :landing
+
+  tutorial 'account', only: [:dashboard]
 
   def landing
   end
@@ -23,6 +26,12 @@ class WelcomeController < ApplicationController
     unless flash[:alert] # no redirect loop on access denied
       flash.keep
       redirect_to dynamic_dashboard_path
+    end
+  end
+
+  def continue_setup
+    if current_user.setup
+      redirect_to setup_path
     end
   end
 

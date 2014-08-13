@@ -14,7 +14,6 @@ Feature: User Navigation
      # avatar are the initials of the employee
      Then I should see the following list of links within the user navigation:
        | link            | active |
-       | ?               | false  |
        |                 | false  |
        | CB              | false  |
        | Einstellungen   | false  |

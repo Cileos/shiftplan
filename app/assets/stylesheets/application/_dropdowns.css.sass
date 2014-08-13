@@ -1,3 +1,5 @@
+$dropdown_z_index: 200
+
 +keyframes(here_i_am)
   70%
     +transform(scale(1.05))
@@ -31,7 +33,7 @@ nav
     background: #fff
     border: 1px solid $global_border-color
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2)
-    z-index: 200
+    z-index: $dropdown_z_index
     +_triangle($global_border-color, white, 'top')
 
   > .dropdown-menu a

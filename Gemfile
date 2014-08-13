@@ -134,6 +134,8 @@ gem 'mini_magick'
 gem 'remotipart'
 gem 'gravtastic'
 gem 'ember-rails'
+# .emblem templates that look like slim which is similar to haml
+gem 'emblem-rails'
 gem 'ember-source', '1.5.1.1'
 gem "ember-data-source", "1.0.0.beta.7"
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git'
@@ -154,3 +156,7 @@ gem 'ri_cal', git: 'git://github.com/KonaTeam/ri_cal.git'
 
 gem 'fastercsv'       # not sure if still required
 gem 'csv_builder'
+# for Unavailability#account_ids array type support
+gem 'postgres_ext'
+
+gem 'tutorial', path: 'vendor/engines/tutorial'

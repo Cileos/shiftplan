@@ -1,0 +1,20 @@
+%script{type: 'text/x-handlebars', data: { 'template-name' => 'application' }}
+  #map
+    = interactive_svg 'map'
+  #chapter
+    {{outlet}}
+
+%script{type: 'text/x-handlebars', data: { 'template-name' => 'components/interactive-path' }}
+
+%script{type: 'text/x-handlebars', data: { 'template-name' => 'chapter' }}
+  {{#link-to 'application' classNames="back"}}&lt;&lt;{{/link-to}}
+  %h2 {{title}}
+  .motivation {{format-markdown-with-element-hints motivation}}
+  {{#if instructions}}
+  .instructions {{format-markdown-with-element-hints instructions}}
+  {{/if}}
+  {{#each example in examples}}
+  .example {{format-markdown-with-element-hints example}}
+  {{/each}}
+
+%script#fixtures{type: 'text/json', data: { chapters: chapters_array_as_json(@chapters) } }

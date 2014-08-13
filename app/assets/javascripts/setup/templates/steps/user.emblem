@@ -1,0 +1,11 @@
+.inputs
+  .input.required
+    label class="required" for="employee_first_name"= t 'activerecord.attributes.setup.employee_first_name'
+    = input value=employeeFirstName id="employee_first_name"
+    each errors.employeeFirstName
+      span.error= message
+  .input.required
+    label class="required" for="employee_last_name"= t 'activerecord.attributes.setup.employee_last_name'
+    = input value=employeeLastName id="employee_last_name"
+    each errors.employeeLastName
+      span.error= message

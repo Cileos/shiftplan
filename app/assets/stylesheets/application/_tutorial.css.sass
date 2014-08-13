@@ -1,0 +1,31 @@
+$tutorial_z_index: 100
+#tutorial
+  position: absolute
+  top: 7em
+  left: calc(50% - 1em)
+  z-index: $tutorial_z_index - 1
+  // rolled paper
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.35), 0 85px 180px 0 #fff, 0 12px 8px -5px rgba(0, 0, 0, 0.85)
+  overflow: hidden
+
+  iframe
+    width: 50vw
+    height: 50vh
+    display: block
+    border: 0 none
+
+
+//#open-tutorial
+
+
+$hint_size: 2em
+
+.tutorial-hint
+  width: $hint_size
+  height: $hint_size
+  z-index: 9002
+  position: absolute
+
+  border-right:  $hint_size solid red
+  border-top:    $hint_size solid transparent
+  border-bottom: $hint_size solid transparent

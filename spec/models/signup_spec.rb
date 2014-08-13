@@ -4,10 +4,6 @@ describe Signup do
   let(:email) { 'me@example.com' }
   let(:signup) do
     described_class.new(
-      first_name: 'Monty',
-      last_name: 'Burns',
-      account_name: 'Monty Enterprises',
-      organization_name: 'Power Plant',
       email: email,
       password: 'secret',
       password_confirmation: 'secret'
@@ -25,34 +21,9 @@ describe Signup do
   end
 
   describe '#save!' do
-    describe 'after' do
-      before :each do
-        signup.save!
-      end
-      let(:account) { Account.first }
-      let(:organization) { Organization.first }
-      let(:employee) { Employee.first }
-
-      describe 'the created acount' do
-        it 'has the employee as owner' do
-          account.owner.should == employee
-        end
-      end
-
-      describe 'the created employee' do
-        it 'belongs to the account (regardless of being owner)' do
-          employee.account.should == account
-        end
-
-        it 'belongs to the user signing up' do
-          signup.user.employees.should include(employee)
-        end
-
-        it 'is member in the organization' do
-          employee.should have(1).memberships
-          employee.memberships.first.organization.should == organization
-        end
-      end
+    it 'prepares setup' do
+      signup.save!
+      signup.user.setup.should be_present
     end
   end
 

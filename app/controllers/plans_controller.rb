@@ -1,6 +1,7 @@
 class PlansController < BaseController
   nested_belongs_to :account, :organization
   respond_to :html, :js
+  tutorial 'team', only: [:index, :new]
 
   def create
     create! do |success, failure|

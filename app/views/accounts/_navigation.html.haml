@@ -1,4 +1,4 @@
-- if user_signed_in?
+- if user_signed_in? && current_user.accounts.exists?
   %ul
     %li.dropdown{class: request.path == accounts_path && 'active'}
       = link_to t('activerecord.models.organization.other'), accounts_path,

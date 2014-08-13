@@ -4,6 +4,7 @@ class EmployeesController < BaseController
 
   before_filter :set_adoptable_employees, only: [:search, :adopt]
   before_filter :set_organization_id_on_employee, only: [:new, :create, :edit, :update]
+  tutorial 'employee', only: [:index, :new]
 
   def new
     @employee.invitation = build_invitation_for_employee(@employee)

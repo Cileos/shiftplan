@@ -1,0 +1,72 @@
+@import bourbon
+// FROM http://www.colourlovers.com/palette/3377785/Khaki_Fleur
+$kf_papercut: #EBE7DB
+$kf_cyan_mist: #A7D2CE
+$kf_red_mist: #C0868C
+$kf_boot_camp: #A6A787
+$kf_esperenza: #6B604F
+
+$marker_active: $kf_cyan_mist
+
++keyframes(rotate_marker)
+  to
+    stroke-dashoffset: -666
+
++keyframes(pulsate_marker)
+  to
+    stroke-width: 17
+
+body
+  margin: 0
+  padding: 0
+
+#tutorial
+  height: 100vh
+  width: 100vw
+  position: relative
+  background: $kf_papercut
+  color: $kf_esperenza
+  a
+    color: $kf_cyan_mist
+  #map
+    height: 100%
+    width: 100%
+    overflow: auto
+    transition: width 0.5s
+
+    svg
+      // viewBox needs this
+      width: 99%
+      height: 99%
+
+    path.marker
+      &:hover
+        +animation(rotate_marker 5s linear infinite, pulsate_marker 0.2s alternate linear infinite)
+
+      &.done
+        fill: transparent !important
+
+      &.active
+        stroke: $marker_active !important
+
+
+  #chapter
+    position: absolute
+    top: 0
+    right: 0
+    height: 100%
+    width: 0
+    overflow: auto
+    transition: width 0.5s
+
+    span.hint
+      text-decoration: overline
+      &:hover
+        background-color: $kf_red_mist
+        cursor: help
+
+  &.is-opened
+    #map
+      width: 60%
+    #chapter
+      width: 40%
