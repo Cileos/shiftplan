@@ -9,7 +9,7 @@ require 'capistrano/ext/multistage'
 
 # RVM bootstrap
 set :rvm_type, :system
-set(:rvm_ruby_string) { "1.9.3-p448@#{application}" }
+set(:rvm_ruby_string) { "ruby-2.1.2@#{application}" }
 require 'rvm/capistrano'
 
 # bundler bootstrap
