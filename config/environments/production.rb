@@ -81,7 +81,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.middleware.insert_after(::Rack::Lock, "::Rack::Auth::Basic", "You May Not Pass") do |u, p|
+  config.middleware.use("::Rack::Auth::Basic", "You May Not Pass") do |u, p|
     [u, p] == ['timtest', 'mug6Ue7i']
   end if Volksplaner.staging?
 
