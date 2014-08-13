@@ -86,10 +86,12 @@ Rails.application.configure do
   end if Volksplaner.staging?
 
   config.action_mailer.delivery_method = :sendmail
-  config.middleware.use ExceptionNotifier,
-    :email_prefix => "[Clockwork Exception] ",
-    :sender_address => %{"Clockwork Notifier" <notifier@#{Volksplaner.hostname}>},
-    :exception_recipients => %w{errors@clockwork.io}
+  config.middleware.use ExceptionNotification::Rack,
+    email: {
+      email_prefix:         "[Clockwork Exception] ",
+      sender_address:       %{"Clockwork Notifier" <notifier@#{Volksplaner.hostname}>},
+      exception_recipients: %w{errors@clockwork.io}
+  }
 
   config.action_mailer.default_url_options = { :host => Volksplaner.hostname }
 end
