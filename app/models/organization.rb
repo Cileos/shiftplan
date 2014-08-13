@@ -4,7 +4,7 @@ class Organization < ActiveRecord::Base
   has_many   :employees,      through: :memberships
   has_many   :schedulings,    through: :plans
   has_many   :plans
-  has_many   :teams,          order: 'name ASC'
+  has_many   :teams,          -> { order('name ASC') }
   has_many   :invitations
   has_many   :blogs
   has_many   :posts,          through: :blogs
@@ -12,7 +12,7 @@ class Organization < ActiveRecord::Base
   has_many   :plan_templates
 
   include FriendlyId
-  friendly_id :name, use: [:scoped, :slugged], scope: :account
+  friendly_id :name, use: [:scoped, :slugged, :finders], scope: :account
 
   validates_format_of :name, with: Volksplaner::NameRegEx
   validates_presence_of :name

@@ -10,6 +10,15 @@ Then /^I should (see|not see) (?:an? )?(?:flash )?(flash|info|alert|notice) "([^
   end
 end
 
+Then /^I should (see|not see) (?:an? )?(error) "([^"]*)"$/ do |see_or_not, klass, message|
+  step %Q{I wait for the spinner to disappear}
+  if see_or_not =~ /not/
+    page.should have_no_content(message)
+  else
+    page.should have_css(".#{klass}", text: message)
+  end
+end
+
 Then /^the page should be completely translated$/ do
   missing = "span.translation_missing"
   if page.has_css?(missing)
@@ -141,13 +150,19 @@ end
 
 Then /^I should see the avatar "([^"]*)"$/ do |file_name|
   image_tag = page.find("img.avatar")
-  assert image_tag['src'].split('/').last.include?(file_name), "No image tag with src including '#{file_name}' found"
+  image_tag['src'].split('/').last.should include(file_name),  "No image tag with src including '#{file_name}' found"
   path = [Rails.root, 'features', image_tag['src'].split('/features/')[1]].join('/')
-  assert File.exists?(path), "File '#{path}' does not exist."
+  expect( File.exists?(path) ).to be_true,"File '#{path}' does not exist."
 end
 
-Then /^I should not see a field labeled #{capture_quoted}$/ do |label|
-  page.should have_no_xpath( XPath::HTML.field(label), visible: true )
+Then /^I (should|should not) see a field labeled #{capture_quoted}$/ do |or_not, label|
+  xpath = XPath::HTML.field(label)
+  opts = { visible: true }
+  if or_not.include?('not')
+    page.should have_no_xpath( xpath, opts)
+  else
+    page.should have_xpath( xpath, opts)
+  end
 end
 
 Then /^the notification hub should have (\d+) unseen notifications?$/ do |number|

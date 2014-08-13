@@ -1,6 +1,7 @@
 class PlansController < BaseController
   nested_belongs_to :account, :organization
   respond_to :html, :js
+  tutorial 'team', only: [:index, :new]
 
   def create
     create! do |success, failure|
@@ -26,5 +27,15 @@ class PlansController < BaseController
 
   def redirect_to_valid_week
     VP::PlanRedirector.new(self, resource).redirect
+  end
+
+  def permitted_params
+    params.permit plan: [
+      :name,
+      :description,
+      :duration,
+      :starts_at,
+      :ends_at
+    ]
   end
 end

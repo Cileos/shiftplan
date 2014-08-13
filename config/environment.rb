@@ -1,5 +1,6 @@
-# Load the rails application
+# Load the Rails application.
 require File.expand_path('../application', __FILE__)
+require 'volksplaner'
 
-# Initialize the rails application
-Clockwork::Application.initialize!
+# Initialize the Rails application.
+Rails.application.initialize!

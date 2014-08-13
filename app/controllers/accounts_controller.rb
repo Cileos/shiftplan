@@ -31,4 +31,15 @@ class AccountsController < BaseController
       resource.last_name = current_user.employees.first.last_name
     end
   end
+
+  def permitted_params
+    params.permit account: [
+      :name,
+      :organization_name,
+      :first_name,
+      :last_name,
+      :user_id,
+      :on_new_account
+    ]
+  end
 end

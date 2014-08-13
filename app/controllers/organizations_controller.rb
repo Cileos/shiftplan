@@ -2,6 +2,7 @@ class OrganizationsController < BaseController
   belongs_to :account
 
   respond_to :html, :js
+  tutorial 'employee', only: [:show]
 
   def create
     create! { account_path(current_account) }
@@ -37,5 +38,9 @@ class OrganizationsController < BaseController
 
   def interpolation_options
     { organization: resource.name }
+  end
+
+  def permitted_params
+    params.permit(:organization => [:name])
   end
 end

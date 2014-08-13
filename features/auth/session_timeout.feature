@@ -30,7 +30,7 @@ Feature: Signing in
       And 2 hours pass
       And I press "Speichern"
       And I wait for a flash alert message to appear
-     Then I should see flash alert "Deine Sitzung ist abgelaufen, bitte melde Dich neu an." within the modal box
+     Then I should see flash alert "Deine Sitzung ist abgelaufen, bitte melde Dich erneut an." within the modal box
      When I fill in "E-Mail" with "<email>" within the modal box
       And I fill in "Passwort" with "secret" within the modal box
       And I press "Einloggen"
@@ -39,8 +39,8 @@ Feature: Signing in
 
     Examples:
        | scenario                                                     | email                  | result                                        | page                                                                |
-       | nothing                                                      | burns@clockwork.local  | I should see flash "Erfolgreich eingeloggt."  | the employees in week page for the plan for week: 49, cwyear: 2012  |
-       | nothing                                                      | homer@clockwork.local  | I should see flash "Erfolgreich eingeloggt."  | the employees in week page for the plan for week: 49, cwyear: 2012  |
+       | nothing                                                      | burns@clockwork.local  | I should see flash "Erfolgreich angemeldet."  | the employees in week page for the plan for week: 49, cwyear: 2012  |
+       | nothing                                                      | homer@clockwork.local  | I should see flash "Erfolgreich angemeldet."  | the employees in week page for the plan for week: 49, cwyear: 2012  |
        | a confirmed user exists with email: "peter@clockwork.local"  | peter@clockwork.local  | nothing                                       | the dashboard                                                       |
 
   Scenario: Session times out when visiting notification hub
@@ -50,13 +50,13 @@ Feature: Signing in
       # from time to time, we see the "please log in" flash message instead.
       # May be caused by background requests, because only the first request
       # after the session timeout will show THIS message.
-      #Then I should see flash alert "Deine Sitzung ist abgelaufen, bitte melde Dich neu an." within the modal box
+      #Then I should see flash alert "Deine Sitzung ist abgelaufen, bitte melde Dich erneut an." within the modal box
 
      When I fill in "E-Mail" with "burns@clockwork.local" within the modal box
       And I fill in "Passwort" with "secret" within the modal box
       And I press "Einloggen"
       And I wait for the modal box to disappear
-     Then I should see flash "Erfolgreich eingeloggt."
+     Then I should see flash "Erfolgreich angemeldet."
       And I should be on the employees in week page for the plan for week: 49, cwyear: 2012
 
   Scenario: Session times out on JSON requests (ie. Ember)
@@ -67,9 +67,9 @@ Feature: Signing in
       And 2 hours pass
       And I press "Speichern"
       And I wait for a flash alert message to appear
-     Then I should see flash alert "Deine Sitzung ist abgelaufen, bitte melde Dich neu an." within "#modalbox"
+     Then I should see flash alert "Deine Sitzung ist abgelaufen, bitte melde Dich erneut an." within "#modalbox"
      When I fill in "E-Mail" with "homer@clockwork.local" within "#modalbox"
       And I fill in "Passwort" with "secret" within "#modalbox"
       And I press "Einloggen"
-     Then I should see flash notice "Erfolgreich eingeloggt."
+     Then I should see flash notice "Erfolgreich angemeldet."
       And I should be on the employees in week page for the plan for week: 49, cwyear: 2012

@@ -31,7 +31,7 @@ class Scheduling < ActiveRecord::Base
   include Overnightable
 
   acts_as_commentable
-  has_many :comments, as: :commentable, order: 'comments.lft, comments.id' # FIXME gets ALL comments, tree structure is ignored
+  has_many :comments, -> { order('comments.lft, comments.id') }, as: :commentable # FIXME gets ALL comments, tree structure is ignored
 
   def commenters
     comments.map(&:employee)
@@ -121,7 +121,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def team_name=(new_name)
-    self.team = organization.teams.find_or_initialize_by_name(new_name)
+    self.team = organization.teams.find_or_initialize_by(name: new_name)
   end
 
   def team_shortcut=(shortcut)
@@ -137,22 +137,25 @@ class Scheduling < ActiveRecord::Base
   # TODO save start_hour and end_hour or even cache the whole quickie
   def self.quickies
     id = "#{table_name}.id"
-    # in a subselect, find the distinct values for quickies in the current scope
-    # (MAX works, too - must be aggregated)
-    samples = select("MIN(#{id}) AS id")
-      .group(%q~date_part('hour', starts_at),
-                date_part('minute', starts_at),
-                date_part('hour', ends_at),
-                date_part('minute', ends_at),
-                team_id~
-            )
-    # fetch only needed fields to build quickies
-    unscoped
-      .includes(:team)
-      .includes(:next_day)
-      .select(%q~id, starts_at, ends_at, team_id~)
-      .where("#{id} IN (#{samples.to_sql})")
-      .map(&:quickie)
+    connection.unprepared_statement do # avoid the $1 parameters
+      # in a subselect, find the distinct values for quickies in the current scope
+      # (MAX works, too - must be aggregated)
+      samples = select("MIN(#{id}) AS id")
+        .group(%q~date_part('hour', starts_at),
+                  date_part('minute', starts_at),
+                  date_part('hour', ends_at),
+                  date_part('minute', ends_at),
+                  team_id~
+              )
+
+      # fetch only needed fields to build quickies
+      unscoped
+        .preload(:team)
+        .preload(:next_day)
+        .select(%q~id, starts_at, ends_at, team_id, next_day_id~)
+        .where("#{id} IN (#{samples.to_sql})")
+        .map(&:quickie)
+    end
   end
 
   def to_s

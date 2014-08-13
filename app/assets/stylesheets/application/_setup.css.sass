@@ -1,0 +1,166 @@
+$master_padding: 1em
+$master_pushdown: 1.3em
+$rought_master_height: 5 * $master_padding * 1.5
+$pushup: 4.3em
+$round: 1em
+$step_count: 4
+$duration: 1s
+
+#setup
+  header.master
+    background-color: $ci_gray
+    color: $ci_anthracite
+    text-align: center
+    padding: 1em
+    font-size: 120%
+    font-weight: bold
+
+    // depend on no parent is pos:rel until body
+    position: absolute
+    width: 100vw
+    left: 0
+    margin-top: $master_pushdown
+    z-index: 1
+
+    box-shadow: 0px 5px 5px $ci_shadow
+
+  .road
+    background-color: $ci_darkwhite
+    padding: $rought_master_height + $master_pushdown 1em 0.3em 1em
+    border-radius: 0 0 $round $round
+
+    // make it slimmer and center it
+    max-width: 35em
+    margin: -$pushup auto 0 auto
+
+    box-shadow: 3px 3px 5px $ci_shadow
+
+    dt
+      color: $ci_darkgray
+    label, dd
+      font-size: 120%
+      &.default
+        color: $ci_darkgray
+
+    #employee_first_name, #employee_last_name
+      width: golden_ratio(100%, -2)
+    #account_name, #organization_name
+      width: golden_ratio(100%, -1)
+    #team_names
+      width: 100%
+
+    ul.progress
+      // reset
+      margin: 0
+      padding: 0
+      list-style: none
+      +clearfix
+
+      background-color: $ci_darkwhite
+      border-radius: 5px
+      // ??          ^^1
+      box-shadow: 0 0 2px rgba(0, 0, 0, .2)
+      width: 100%
+      // guessed value to appear on top of header
+      position: relative
+      top: -10.5em
+
+      // arrows
+      li
+        float: left
+        position: relative
+
+        white-space: nowrap
+
+        = progress-step-background-color($bg)
+          > span
+            background-color: $bg
+            +adaptive_color(color, $bg)
+            &::after
+              border-left-color: $bg
+
+
+        +progress-step-background-color($ci_bg-color)
+
+        > span
+          padding: .7em 1em .7em 2em
+          float: left
+          // fill stretched li
+          width: 100%
+          text-decoration: none
+          color: $ci_darkgray
+          text-shadow: 0 1px 0 rgba(255, 255, 255, .5)
+          transition: background-color $duration, color $duration
+
+          &::after
+            content: ''
+            position: absolute
+            // center vertically?
+            top: 50%
+            margin-top: -1.5em
+            border-top: 1.5em solid transparent
+            border-bottom: 1.5em solid transparent
+            border-left: 1em solid
+            right: -1em
+            transition: border-color $duration
+
+          &::after
+            z-index: 2
+
+        // icons
+        > span
+          @extend %with-icon
+          @extend .icon-info
+
+        &.user > span
+          @extend .icon-employees
+        &.account > span
+          @extend .icon-dashboard
+        &.organization > span
+          @extend .icon-organization
+        &.complete > span
+          @extend .icon-check
+
+        // devide space
+          50 % for the current step
+          the other half equally over the rest
+        width: 50% / ($step_count - 1)
+        span.hint
+          display: none
+        &.done-0
+          width: 50%
+          span.hint
+            display: inline
+        transition: width $duration * 1.1
+
+        // "current" is .done-0
+        @for $doneage from 0 to $step_count
+          &.done-#{$doneage}
+            +progress-step-background-color( lighten( darken($ci_blue, 12.5%), 7% * ($step_count - 1 - $doneage)) )
+
+        &:first-child
+          > span
+            padding-left: 1em
+            border-radius: 5px 0 0 5px
+
+
+
+  .error
+    color: $ci_darkorange
+
+  .buttons
+    +clearfix
+    border-top: 1px $ci_gray solid
+    padding: 0.7em 0
+
+    button
+      // bigger
+      font-size: 120%
+      padding: 0.7em
+
+  .fineprint
+    max-width: 35em
+    margin: 2px auto
+    font-size: 90%
+    font-style: italic
+    text-align: right

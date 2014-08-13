@@ -9,7 +9,7 @@ require 'capistrano/ext/multistage'
 
 # RVM bootstrap
 set :rvm_type, :system
-set(:rvm_ruby_string) { "1.9.3-p194@#{application}" }
+set(:rvm_ruby_string) { "1.9.3-p448@#{application}" }
 require 'rvm/capistrano'
 
 # bundler bootstrap
@@ -50,7 +50,9 @@ namespace :deploy do
 
   task :symlink_static_directories do
     run "rm -f #{current_release}/config/database.yml"
+    run "rm -f #{current_release}/config/secrets.yml"
     run "ln -sf #{deploy_to}/shared/config/database.yml #{latest_release}/config/database.yml"
+    run "ln -sf #{deploy_to}/shared/config/secrets.yml #{latest_release}/config/secrets.yml"
     #run "rm -f #{current_release}/config/application.yml"
     #run "ln -sf #{deploy_to}/shared/config/application.yml #{current_release}/config/application.yml"
     run "ln -sf #{deploy_to}/shared/uploads #{current_release}/public/uploads"
@@ -72,9 +74,20 @@ namespace :deploy do
       STDERR.puts "please specify the task you want to run with TASK="
     end
   end
-
 end
 
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
 after "deploy:restart", "delayed_job:restart"
+
+namespace :tail do
+  desc "tail production log files"
+  task :rails, :roles => :app do
+    trap("INT") { puts 'Interupted'; exit 0; }
+    run "tail -n 999 -f #{shared_path}/log/production.log" do |channel, stream, data|
+      puts  # for an extra line break before the host name
+      puts "#{channel[:host]}: #{data}"
+      break if stream == :err
+    end
+  end
+end

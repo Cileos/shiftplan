@@ -8,4 +8,14 @@ class MilestonesController < BaseController
   def collection
     @milestones ||= end_of_association_chain.includes(:tasks)
   end
+
+  def permitted_params
+    params.permit milestone: [
+      :name,
+      :due_at,
+      :done,
+      :responsible_id,
+      :description
+    ]
+  end
 end

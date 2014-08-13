@@ -5,25 +5,9 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :timeoutable, :lockable, :token_authenticatable
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email,
-                  :password,
-                  :password_confirmation,
-                  :remember_me,
-                  :employee_id,
-                  :confirmed_at,
-                  :locale,
-                  :receive_notification_emails,
-
-                  :first_name,
-                  :last_name,
-                  :organization_name,
-                  :account_name,
-                  :confirming_email_change
+  devise :rememberable, :database_authenticatable, :registerable,
+         :recoverable, :trackable, :validatable,
+         :confirmable, :timeoutable, :lockable
 
   attr_reader :current_employee
   attr_reader :current_membership
@@ -46,6 +30,7 @@ class User < ActiveRecord::Base
   has_many :accounts, through: :employees
   has_many :owned_accounts, through: :employees
   has_many :employees_in_owned_accounts, through: :owned_accounts, source: :employees
+  has_many :owned_organizations, through: :owned_accounts, source: :organizations
 
   has_many :memberships, :through => :employees
   # organizations the user joined (aka "has a membership in")
@@ -57,6 +42,8 @@ class User < ActiveRecord::Base
   has_many :posts_of_joined_organizations, source: :posts, through: :joined_organizations
 
   has_many :unavailabilities
+
+  has_one :setup
 
   def notifications_for_hub
     notifications.for_hub

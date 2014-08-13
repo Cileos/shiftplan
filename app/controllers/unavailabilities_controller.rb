@@ -5,7 +5,7 @@ class UnavailabilitiesController < InheritedResources::Base
   respond_to :json, :html
 
   def create
-    creator.call permitted_params
+    creator.call unavailability_params
     respond_to do |format|
       format.json { render json: creator.created_records }
     end
@@ -13,11 +13,7 @@ class UnavailabilitiesController < InheritedResources::Base
 
 protected
 
-  def resource_params
-    [permitted_params]
-  end
-
-  def permitted_params
+  def unavailability_params
     good = [
       :starts_at,
       :ends_at,
@@ -61,7 +57,7 @@ protected
   end
 
   def requested_period
-    date = Date.new(params[:year].to_i, params[:month].to_i, 1).to_time_in_current_zone
+    date = Date.new(params[:year].to_i, params[:month].to_i, 1).in_time_zone
 
     [date.beginning_of_month - 2.days, date.end_of_month + 2.days]
   end

@@ -34,9 +34,10 @@ module PlansHelper
       html_options[:confirm] = ta(:confirm_destroy_plan, plan: plan.name)
       link_to ta(:destroy), nested_resources_for(plan), html_options
     else
-      link_to_function ta(:destroy),
-        "alert('#{ta(:plan_cannot_be_destroyed, plan: plan.name, entries: plan.schedulings.count)}')",
-        html_options
+      # TODO make this unobstrusive
+      link_to ta(:destroy), '#', html_options.merge(
+        onclick: "alert('#{ta(:plan_cannot_be_destroyed, plan: plan.name, entries: plan.schedulings.count)}')"
+      )
     end
   end
 end

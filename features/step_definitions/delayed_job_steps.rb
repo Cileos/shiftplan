@@ -1,4 +1,4 @@
 When /^all the delayed jobs are invoked$/ do
-  Delayed::Job.all.each { |job| job.invoke_job }
+  Delayed::Worker.new.work_off
 end
 

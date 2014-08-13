@@ -1,0 +1,20 @@
+de:
+  activerecord:
+    attributes:
+      setup:
+        account_name: Accountbezeichnung
+        organization_name: Erster Organisationsname
+        employee_first_name: Vorname
+        employee_last_name: Nachname
+        team_names: Gruppen
+    defaults:
+      setup:
+        account_name: Meine Firma
+        organization_name: Meine Organisation
+        plan_name: Mein erster Plan
+        team_names: "Empfang, Kundenservice, schwarze Kasse, Putzen"
+  copy:
+    setup:
+      team_names: 'Unterteilst Du diese Organisation weiter in Arbeitsbereiche oder -Gruppen?'
+      not_fixed: 'All dies ist jederzeit änderbar.'
+

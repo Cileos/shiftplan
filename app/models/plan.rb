@@ -9,18 +9,12 @@ class Plan < ActiveRecord::Base
   has_many :tasks, through: :milestones
 
   include FriendlyId
-  friendly_id :name, use: [:scoped, :slugged], scope: :organization
+  friendly_id :name, use: [:scoped, :slugged, :finders], scope: :organization
 
   validates_with PeriodValidator
   validates_with PlanPeriodSurroundsSchedulingsValidator
   validates_presence_of :name
   validates_uniqueness_of :name, scope: [:organization_id]
-
-  attr_accessible :name,
-                  :description,
-                  :duration,
-                  :starts_at,
-                  :ends_at
 
   # for now, durations are hardcoded, not saved
   Durations = %w(1_week)

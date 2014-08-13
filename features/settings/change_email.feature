@@ -35,7 +35,7 @@ Feature: As a logged in user
       And I fill in "E-Mail" with "charles.burns@npp-springfield.com"
       And I fill in "Passwort" with "secret"
       And I press "Einloggen"
-      And I should see "Erfolgreich eingeloggt."
+      And I should see "Erfolgreich angemeldet."
 
   Scenario: Changing the email address with providing the same email address
     Given I am on the change email page

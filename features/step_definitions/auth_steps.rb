@@ -35,7 +35,7 @@ end
 
 When /^I sign out$/ do
   step %~I choose "Ausloggen" from the session and settings menu item~
-  step %~I should see "Erfolgreich ausgeloggt."~
+  step %~I should see "Erfolgreich abgemeldet."~
 end
 
 When /^I sign in as #{capture_model}$/ do |model|

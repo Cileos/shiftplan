@@ -1,0 +1,26 @@
+= Tutorial
+
+Provides a rails engine for an Ember-powered tutorial. It should have a map, a
+lot of examples and maybe even achievements. We chose to embed it via an iframe
+so the DOM ids of the map will not clash with the rest of the page. Still, we
+want to highlight elements on the main page from within the tutorial.
+
+
+== How to add a new step
+
+How to include a new step in the existing tutorial. In this example, we will
+use the name "drinking", which gives instructions how to get drunk really
+quick.
+
+1. Draw the step onto the map.svg, give it an id of "tutorial_step_drinking".
+2. Add an entry with `id: drinking` to i18n files for all locales under `tutorial.chapters`
+3. In the controller, add `tutorial 'drinking', only: [:new, :index]` for the
+   actions were the tutorial should be available (it takes the same arguments
+   as `before_filter`
+
+When you now visit the page for the controller and click the `tutorial`-button,
+it should open in your freshly created chapter.
+
+
+This project uses MIT-LICENSE with the additional restriction of denying the
+right of usage to military institutions.

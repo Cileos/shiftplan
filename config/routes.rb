@@ -1,16 +1,16 @@
 Clockwork::Application.routes.draw do
 
   get 'invitation/accept'    => 'accept_invitations#accept',  :as => :accept_invitation
-  put 'invitation/confirm'   => 'accept_invitations#confirm', :as => :confirm_invitation
+  patch 'invitation/confirm'   => 'accept_invitations#confirm', :as => :confirm_invitation
   get 'email_change/accept'  => 'email_change#accept',        :as => :accept_email_change
-  put 'email_change/confirm' => 'email_change#confirm',       :as => :confirm_email_change
+  patch 'email_change/confirm' => 'email_change#confirm',       :as => :confirm_email_change
 
   resources :notifications, only: [:index]
-  put 'notifications/mark_as_seen' => 'notifications#mark_as_seen', as: 'mark_notifications_as_seen'
+  patch 'notifications/mark_as_seen' => 'notifications#mark_as_seen', as: 'mark_notifications_as_seen'
 
   get 'count_notifications'           => 'count_notifications#count',           as: 'count_notifications'
-  put 'mark_notification_as_read/:id' => 'mark_notifications_as_read#one',      as: 'mark_notification_as_read'
-  put 'mark_notifications_as_read'    => 'mark_notifications_as_read#multiple', as: 'mark_notifications_as_read'
+  patch 'mark_notification_as_read/:id' => 'mark_notifications_as_read#one',      as: 'mark_notification_as_read'
+  patch 'mark_notifications_as_read'    => 'mark_notifications_as_read#multiple', as: 'mark_notifications_as_read'
 
   resources :accounts, except: [:show] do
     resources :reports, only: [:new]
@@ -81,9 +81,9 @@ Clockwork::Application.routes.draw do
   # conflict with devise's named route helper 'user_password'.
   scope '/user', as: 'change' do
     get  'password'  => 'user_password#show'
-    put  'password'  => 'user_password#update'
+    patch  'password'  => 'user_password#update'
     get  'email'     => 'user_email#show'
-    put  'email'     => 'user_email#update'
+    patch  'email'     => 'user_email#update'
   end
 
   resource :feedback, only: [:new, :create], :controller => 'feedback'
@@ -105,11 +105,11 @@ Clockwork::Application.routes.draw do
     resources :unavailabilities, except: [:show]
   end
 
-  scope '/feeds/:email/private-:private_token', constraints: { email: %r~[^/]+~i, private_token: /[\w]{20}/i  }  do
+  scope '/feeds/:email/private-:private_token', constraints: { email: %r~[^/]+~i, private_token: /[\w-]{20}/i  }  do
     get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'
   end
 
-  put "undo" => 'undo#update', as: 'undo'
+  patch "undo" => 'undo#update', as: 'undo'
 
   get '/users/sign_up', to: redirect('/signup')
 
@@ -120,6 +120,11 @@ Clockwork::Application.routes.draw do
     get 'ember/sessions/current' => 'sessions#show'
     get 'accounts/:account_id/organizations/:organization_id/plans/:plan_id/sessions/current' => 'sessions#show'
   end
+
+  get '/setup' => 'setup#show', as: 'setup'
+  # ember cannot handle singleton URIs
+  get '/setups/:ignored' => 'setup#show'
+  put '/setups/:ignored' => 'setup#update'
 
   get 'i18n/:id' => 'locales#show', constraints: {
     id: /[a-z]{2}/i

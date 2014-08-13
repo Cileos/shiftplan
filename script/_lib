@@ -14,6 +14,10 @@ function run_suite () {
       header "rSpec"
       bundle exec rake spec:ci --backtrace
       ;;
+    rspec_engines)
+      header "rSpec engines"
+      cd vendor/engines/tutorial && bundle install && bundle exec rspec ; cd -
+      ;;
     benchmark)
       header "Benchmarks"
       bundle exec rake spec:ci_benchmark --backtrace

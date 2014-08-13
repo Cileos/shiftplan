@@ -9,6 +9,7 @@ en:
       edit_account: Edit account
       add_account: Add account
       help: Help
+      tutorial: Tutorial
       profile: Profile
       settings: Preferences
       advanced_settings: Advanced
@@ -62,6 +63,7 @@ en:
       new_plan_template: New Plan Template
       new_organization: "Create another Unit"
       next: Next
+      previous: Previous
       create: Create
       create_busy: Create ...
       update: Update
@@ -102,6 +104,7 @@ en:
       upload: "Upload"
       undo: "Undo"
       availability: "Unavailability"
+      finish: "Finish"
   schedulings:
     calendar_navigation:
       day: "Day"

@@ -11,14 +11,13 @@ Feature: Unlocking account
       And the employee is a member in the organization
       And a clear email queue
       And the account of the confirmed user has been locked
-     Then "bart@thesimpsons.com" should receive an email with subject "Account entsperren"
+     Then "bart@thesimpsons.com" should receive an email with subject "Anleitung um Deinen Account freizuschalten"
 
   Scenario: Unlock account
     Given I open the email
       And I use a german browser
       And I follow the first link in the email
-     Then I should see notice "Ihr Konto wurde erfolgreich entsperrt. Bitten loggen Sie sich nun ein."
-      And I should see notice "Falls Sie Ihr Passwort vergessen haben, klicken Sie bitte auf 'Passwort vergessen?'"
+     Then I should see notice "Dein Konto wurde erfolgreich entsperrt. Bitten melde dich nun an."
      When I fill in "E-Mail" with "bart@thesimpsons.com"
       And I fill in "Passwort" with "secret"
       And I press "Einloggen"

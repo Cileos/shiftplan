@@ -40,4 +40,11 @@ class UserEmailController < InheritedResources::Base
       redirect_to change_email_path
     end
   end
+
+  def permitted_params
+    params.permit user: [
+      :email,
+      :current_password,
+    ]
+  end
 end

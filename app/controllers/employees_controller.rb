@@ -4,9 +4,21 @@ class EmployeesController < BaseController
 
   before_filter :set_adoptable_employees, only: [:search, :adopt]
   before_filter :set_organization_id_on_employee, only: [:new, :create, :edit, :update]
+  tutorial 'employee', only: [:index, :new]
+
+  def new
+    @employee.invitation = build_invitation_for_employee(@employee)
+    @employee.account = current_account
+    new!
+  end
 
   def create
-    create! { account_organization_employees_path(current_account, current_organization) }
+    create! do |success, failure|
+      success.html do
+        resource.invitation.send_email if resource.invitation.present?
+        redirect_to nested_resources_for(current_organization) + [:employees]
+      end
+    end
   end
 
   def update
@@ -23,18 +35,16 @@ class EmployeesController < BaseController
 
   private
 
+  def build_invitation_for_employee(employee)
+    Invitation.new(employee: employee,
+                   organization: current_organization,
+                   inviter: current_user.current_employee)
+  end
+
   def set_adoptable_employees
     search_attrs = { base: current_organization.adoptable_employees }
     search_attrs.merge!(params[:query]) if params[:query].present?
     @adoptable_employees = EmployeeSearch.new(search_attrs.symbolize_keys).fuzzy_results
-  end
-
-  def resource_params
-    if [:update, :create].include?(params[:action].to_sym)
-      [permitted_employee_params]
-    else
-      super
-    end
   end
 
   def collection
@@ -53,7 +63,7 @@ class EmployeesController < BaseController
     employee.organization_id ||= current_organization.id
   end
 
-  def permitted_employee_params
+  def permitted_params
     permitted_attributes = [
       :first_name,
       :last_name,
@@ -65,10 +75,12 @@ class EmployeesController < BaseController
       :planable,
       :shortcut,
       :force_duplicate,
-      { qualification_ids: [] }
+      :invite,
+      invitation_attributes: [:email, :organization_id, :inviter_id],
+      qualification_ids: []
     ]
     permitted_attributes << :membership_role if planner_or_owner?
-    params.require(:employee).permit(*permitted_attributes)
+    params.permit(employee: permitted_attributes)
   end
 
   def planner_or_owner?

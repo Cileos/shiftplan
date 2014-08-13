@@ -2,7 +2,7 @@
   %meta{'http-equiv' => "Content-Type", 'content' => "text/html;charset=utf-8"}
   %meta{name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"}
   = csrf_meta_tags
-  = favicon_link_tag
+  = favicon_link_tag '/favicon.ico'
 
   %title
     - if content_for?(:title)
@@ -21,7 +21,7 @@
       *.translation_missing { color: pink !important; background: #f700ff !important; font-weight: bold !important; }
 
   = javascript_include_tag 'lib'
-  = javascript_include_tag 'application'
+  = javascript_include_tag main_javascript
   -# just set something so gon is always present
   - controller.gon.controller_name = controller.controller_name
   = include_gon

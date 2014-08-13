@@ -1,0 +1,13 @@
+de:
+  devise:
+    passwords:
+      change: "Passwort ändern"
+      forgotten: "Passwort vergessen?"
+      reset_password: "Passwort zurückzusetzen"
+    confirmations:
+      not_received: "Bestätigung nicht erhalten?"
+      resend_instructions: 'Bestätigung erneut verschicken'
+    unlocks:
+      not_received: "E-Mail zum Entsperren nicht erhalten?"
+
+

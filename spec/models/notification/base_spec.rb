@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Notification::Base do
 
   context "#send_mail" do
@@ -10,7 +12,7 @@ describe Notification::Base do
       end
     end
 
-    let(:notification)  { Notification::Base.new(employee: employee) }
+    let(:notification)  { Notification::Base.create(employee: employee, type: 'Notification::Base') }
     let(:employee)      { build(:employee, user: user) }
     let(:mailer_class)  { double('Mailer') }
 

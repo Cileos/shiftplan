@@ -13,6 +13,8 @@ class SchedulingsController < BaseController
   end
   before_filter :merge_time_components_from_next_day, only: :edit
 
+  tutorial 'scheduling'
+
   respond_to :html, :js
   force_no_cache
 
@@ -31,20 +33,18 @@ class SchedulingsController < BaseController
     helper_method :filter
 
 
-    def resource_params
-      [
-        params.require(:scheduling).permit(
-          { days: [] },
-          :date,
-          :start_time,
-          :end_time,
-          :employee_id,
-          :qualification_id,
-          :team_id,
-          :all_day,
-          # Currently deactivated
-          # :represents_unavailability
-        )
+    def permitted_params
+      params.permit scheduling: [
+        { days: [] },
+        :date,
+        :start_time,
+        :end_time,
+        :employee_id,
+        :qualification_id,
+        :team_id,
+        :all_day,
+        # Currently deactivated
+        # :represents_unavailability
       ]
     end
 

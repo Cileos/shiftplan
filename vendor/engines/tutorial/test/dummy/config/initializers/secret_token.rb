@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Clockwork::Application.config.secret_token = '56c1abb6e277dd2828001c0de92b41bd2d3f6aee559603b00ef794431afe495baefaace91cec1c6c9b59029c49b59daee8f45b8a79a1e005d2160937482304c0'
+Dummy::Application.config.secret_token = 'd7ff5b97c5144cec73450e46d85781a89905675a11339da196c5aa33bceb228be05656931e854f39b43b125ca0777426cf0d285bf1bf268f7b32630aa9775854'

@@ -21,9 +21,11 @@ When /^I pick "(\d{1,2})\.\s*([a-zA-Z]+)\s+(\d{4})" from "(.*?)"$/ do |day, mont
   page.execute_script <<-EOJS
     $("label:contains('#{label}') ~ input").add("input[placeholder='#{label}']").first().focus()
   EOJS
-  step %Q~I select "#{year}" from "anderes Jahr anzeigen" within the datepicker~
-  step %Q~I select "#{month}" from "anderen Monat anzeigen" within the datepicker~
-  step %Q~I follow "#{day}" within the datepicker~
+  with_scope 'the datepicker' do
+    select year, from: 'anderes Jahr anzeigen'
+    select month, from: 'anderen Monat anzeigen'
+    click_link day
+  end
 end
 
 module ModalBoxHelper

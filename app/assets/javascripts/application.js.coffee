@@ -12,6 +12,7 @@
 #= require collapsible
 #= require sidebars
 #= require instructions
+#= require tutorial-toggle
 # always last!
 #= require lib/loaded_page
 #= require jquery_nested_form
@@ -29,3 +30,10 @@ jQuery ->
     elmTextarea.autosize()
 
   $('#keyboard-shortcuts [data-toggle="collapsible-heading"]').click()  unless $.cookie("clockwork_keyboard-shortcuts")
+
+
+  # from tutorial-toggle
+  $('a#open-tutorial').tutorialToggle
+    targetId: 'tutorial'
+    appendTo: 'section[role=content]'
+    hintClass: 'tutorial-hint'

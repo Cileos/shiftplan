@@ -97,7 +97,7 @@ module HtmlSelectorsHelpers
       end
 
     when 'the spinner'
-      '#spinner'
+      '#spinner > div'
 
     when 'the notifications spinner'
       '#notifications-spinner'
@@ -206,6 +206,9 @@ module HtmlSelectorsHelpers
 
     when /the date\s?picker/
       'div.datepick-popup div.datepick'
+
+    when /the invitation fields/
+      'div.invitation_fields'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
