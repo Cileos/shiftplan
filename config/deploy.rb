@@ -50,7 +50,9 @@ namespace :deploy do
 
   task :symlink_static_directories do
     run "rm -f #{current_release}/config/database.yml"
+    run "rm -f #{current_release}/config/secrets.yml"
     run "ln -sf #{deploy_to}/shared/config/database.yml #{latest_release}/config/database.yml"
+    run "ln -sf #{deploy_to}/shared/config/secrets.yml #{latest_release}/config/secrets.yml"
     #run "rm -f #{current_release}/config/application.yml"
     #run "ln -sf #{deploy_to}/shared/config/application.yml #{current_release}/config/application.yml"
     run "ln -sf #{deploy_to}/shared/uploads #{current_release}/public/uploads"
