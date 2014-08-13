@@ -72,9 +72,20 @@ namespace :deploy do
       STDERR.puts "please specify the task you want to run with TASK="
     end
   end
-
 end
 
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
 after "deploy:restart", "delayed_job:restart"
+
+namespace :tail do
+  desc "tail production log files"
+  task :rails, :roles => :app do
+    trap("INT") { puts 'Interupted'; exit 0; }
+    run "tail -n 999 -f #{shared_path}/log/production.log" do |channel, stream, data|
+      puts  # for an extra line break before the host name
+      puts "#{channel[:host]}: #{data}"
+      break if stream == :err
+    end
+  end
+end
