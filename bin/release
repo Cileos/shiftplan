@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+require 'rubygems'
+require 'semantic'
+
+
 $DEBUG = true
 
 def debug
@@ -8,26 +12,79 @@ def debug
   end
 end
 
-def ask(question, &block)
+class VersionSelector
+  Format = Semantic::Version::SemVerRegexp
+  VersionPath = File.expand_path('../../VERSION', __FILE__)
 
-
-  answer = ''
-
-  valid = block_given? ? block : proc { true }
-
-  while !valid[answer]
-    print question
-    print "  : "
-    answer = gets.chomp
+  def initialize
+    @list = next_versions
   end
 
-  answer
+  def execute
+    puts "Current version is #{latest_version}"
+
+    @list.each_with_index do |entry, index|
+      puts '%3d: %s' % [ index, entry ]
+    end
+    puts "or just enter a custom version"
+
+    begin
+      puts
+      print "version? > "
+      ans = gets.chomp
+      exit if ans =~ /^q/
+    end until is_selection?(ans) || is_version?(ans)
+
+    if is_selection?(ans)
+      @list[ans.to_i]
+    elsif is_version?(ans)
+      ans
+    end
+  end
+
+  private
+
+  def latest_version
+    @latest ||= Semantic::Version.new File.read(VersionPath).chomp
+  end
+
+  def next_versions
+    latest = latest_version
+
+    [].tap do |list|
+      next_patch = latest.dup
+      next_patch.patch += 1
+      list << next_patch
+
+      next_minor = latest.dup
+      next_minor.minor += 1
+      next_minor.patch = 0
+      list << next_minor
+
+      next_major = latest.dup
+      next_major.major += 1
+      next_major.minor = 0
+      next_major.patch = 0
+      list << next_major
+    end
+  end
+
+  def is_selection?(string)
+    string =~ /^\d+$/ && @list[string.to_i]
+  end
+
+  def is_version?(string)
+    string =~ Format
+  end
 end
+
 
 if $0 == __FILE__
 
-  version = ask("Version?") { |v| v =~ /\A\d+\.\d+\.\d+\z/ }
+  version = VersionSelector.new.execute
 
-  debug { "Releasing version #{version}" }
+  puts "Releasing version #{version}"
+  print "Continue? > "
+  gets
 
 end
