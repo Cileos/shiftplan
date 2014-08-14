@@ -87,6 +87,9 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
+
+  # semver for script/release
+  gem 'semantic'
 end
 
 group :production do
