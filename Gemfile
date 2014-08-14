@@ -105,7 +105,7 @@ gem 'simple_form'
 gem 'chosen-rails' # for making select boxes more userfriendly
 gem 'haml-rails'
 gem 'inherited_resources'
-gem 'draper', '~> 1.1.0'
+gem 'draper', '~> 1.3.0'
 gem 'factory_girl_rails', '~>4.2.1' # we use this for seeds, too
 gem 'treetop' # parse quickies
 
