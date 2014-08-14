@@ -3,9 +3,6 @@
 require 'rubygems'
 require 'semantic'
 
-
-$DEBUG = true
-
 def debug
   if $DEBUG
     $stderr.puts yield
@@ -18,9 +15,9 @@ class Base
   ChangelogPath = File.expand_path('../../CHANGELOG', __FILE__)
 
   def run(command)
-    $stderr.puts "  #{command}" if $DEBUG
+    $stderr.puts "  #{command}"
 
-    # system command
+    system command
   end
 
   def git(command)
