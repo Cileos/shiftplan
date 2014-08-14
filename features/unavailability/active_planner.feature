@@ -61,3 +61,9 @@ Feature: Planning Active Unavailabilities
          | 17 | 18 | 19 | 20 | 21 6:00-18:00 Weiterbildung | 22 | 23 |
          | 24 | 25 | 26 | 27 | 28                          | 29 | 30 |
          | 31 |    |    |    |                             |    |    |
+
+     When I follow "6:00-18:00"
+      And I wait for the modal box to appear
+      And I close the modal box
+      And I wait for the spinner to stop
+     Then the selected "Mitarbeiter" should be "Homer S"
