@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+$DEBUG = true
+
+def debug
+  if $DEBUG
+    $stderr.puts yield
+  end
+end
+
+def ask(question, &block)
+
+
+  answer = ''
+
+  valid = block_given? ? block : proc { true }
+
+  while !valid[answer]
+    print question
+    print "  : "
+    answer = gets.chomp
+  end
+
+  answer
+end
+
+if $0 == __FILE__
+
+  version = ask("Version?") { |v| v =~ /\A\d+\.\d+\.\d+\z/ }
+
+  debug { "Releasing version #{version}" }
+
+end
