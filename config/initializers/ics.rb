@@ -9,4 +9,3 @@ class IcsTemplateHandler
 end
 
 ActionView::Template.register_template_handler(:ics, IcsTemplateHandler.new)
-Mime::Type.register_alias "text/calendar", :ics
