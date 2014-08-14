@@ -12,10 +12,13 @@ def debug
   end
 end
 
-class VersionSelector
-  Format = Semantic::Version::SemVerRegexp
+class Base
+  VersionFormat = Semantic::Version::SemVerRegexp
   VersionPath = File.expand_path('../../VERSION', __FILE__)
+  ChangelogPath = File.expand_path('../../CHANGELOG', __FILE__)
+end
 
+class VersionSelector < Base
   def initialize
     @list = next_versions
   end
@@ -74,7 +77,59 @@ class VersionSelector
   end
 
   def is_version?(string)
-    string =~ Format
+    string =~ VersionFormat
+  end
+end
+
+class Release < Base
+  def initialize(version)
+    @version = version
+    @existing_changelog = read_changelog[3..-1] # without main heading
+  end
+
+  def start!
+    write_version
+    write_changelog
+  end
+
+  private
+  def write_version
+    File.open VersionPath, 'w' do |f|
+      f.puts @version
+    end
+  end
+
+  def write_changelog
+    File.open Changelog, 'w' do |c|
+      c.puts changelog_headline
+      c.puts changelog_header
+      c.puts changelog_lines.join("\n")
+      c.puts
+      c.puts @existing_changelog.join("\n")
+    end
+  end
+
+  def changelog_headline
+    "Changelog\n" +
+    "=========\n" +
+    "\n"
+  end
+
+  def changelog_lines
+    `git log --oneline master..develop | grep Merge | grep -v -e "Merge branch '\(develop\|master\)' of github"`.
+      lines.
+      map(&:chomp)
+  end
+
+  def changelog_header
+    now = Time.now.strftime '%Y-%m-%d %H:%M'
+    header = "Release %s %s" % [@version, now]
+    header = header + "\n" + ("-" * header.length) + "\n"
+    header
+  end
+
+  def read_changelog
+    File.read(ChangelogPath).lines.map(&:chomp)
   end
 end
 
@@ -86,5 +141,7 @@ if $0 == __FILE__
   puts "Releasing version #{version}"
   print "Continue? > "
   gets
+
+  Release.new(version).start!
 
 end
