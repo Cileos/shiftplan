@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Release 1.3.1 2014-08-14 16:10
+------------------------------
+821073f Merge branch 'feature/quieter-crons' into develop
+0009986 Merge tag 'rails4-the-overlooked-parts' into develo
+
 Release 1.3.0 2014-08-13 23:42
 ------------------------------
 f60dd1b Merge pull request #261 from Cileos/feature/bug-ie-dates
