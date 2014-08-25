@@ -9,6 +9,8 @@ class Account < ActiveRecord::Base
   has_many   :teams, through: :organizations
   has_many   :plans, through: :organizations
 
+  delegate :email, to: :owner
+
   include FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
@@ -55,10 +57,6 @@ class Account < ActiveRecord::Base
       end
       organization.memberships.create!(employee: e)
     end
-  end
-
-  def email
-    owner.user.email
   end
 end
 
