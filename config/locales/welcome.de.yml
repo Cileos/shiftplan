@@ -2,3 +2,5 @@ de:
   welcome:
     dashboard:
       organizations: Organisationen
+    internal_stats:
+      new_accounts: Neue Accounts

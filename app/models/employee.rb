@@ -28,6 +28,8 @@ class Employee < ActiveRecord::Base
 
   has_many   :unavailabilities
 
+  delegate :email, to: :user
+
   validates_presence_of :account_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
   validates_length_of :duplicates, is: 0,

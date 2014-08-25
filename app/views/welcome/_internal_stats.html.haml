@@ -1,0 +1,15 @@
+- if current_user.cileos_super_user?
+
+  .module
+    %header
+      %h2= t '.new_accounts'
+    .content
+      %ul.lines
+        - Account.order('created_at ASC').last(12).reverse.each do |account|
+          %li
+            = account.name
+            = link_to account.email, "mailto:#{account.email}"
+            = surround '(', ')' do
+              = l account.created_at.to_date
+
+
