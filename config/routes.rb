@@ -1,5 +1,7 @@
 Clockwork::Application.routes.draw do
 
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
+
   get 'invitation/accept'    => 'accept_invitations#accept',  :as => :accept_invitation
   patch 'invitation/confirm'   => 'accept_invitations#confirm', :as => :confirm_invitation
   get 'email_change/accept'  => 'email_change#accept',        :as => :accept_email_change
