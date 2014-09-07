@@ -28,7 +28,7 @@ class Employee < ActiveRecord::Base
 
   has_many   :unavailabilities
 
-  delegate :email, to: :user
+  delegate :email, to: :user, allow_nil: true
 
   validates_presence_of :account_id
   validates_uniqueness_of :user_id, scope: :account_id, allow_nil: true
