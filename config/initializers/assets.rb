@@ -23,6 +23,10 @@ Rails.application.configure do
   unless Rails.env.production?
     config.assets.precompile += %w(
       test.js
+      qunit.js
+      test_helper.js
+      qunit.css
+      test_helper.css
     )
   end
 

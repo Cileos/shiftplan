@@ -1,3 +1,6 @@
+#= require jquery
+#= require handlebars
+#= require ember
 Thingy = Ember.Object.extend
   c: null
   r: null

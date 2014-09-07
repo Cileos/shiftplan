@@ -368,6 +368,8 @@ GEM
       slop (~> 3.4)
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
+    qunit-rails (0.0.7)
+      railties
     rack (1.5.2)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
@@ -558,6 +560,7 @@ DEPENDENCIES
   postgres_ext
   pry
   quiet_assets
+  qunit-rails
   rails (= 4.1.1)
   rails-develotest
   rb-fsevent (~> 0.9)
