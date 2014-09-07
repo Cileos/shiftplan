@@ -70,6 +70,7 @@ group :development, :test do
   gem "guard-jasmine"
   gem 'jasmine-rails'
   gem 'qunit-rails'
+  gem 'ember-qunit-rails'
   # TODO revive js test suite - jasminerice uses deprecated `match` in its routes
   #gem "jasminerice"
   gem 'rb-fsevent', '~> 0.9', :require => false
