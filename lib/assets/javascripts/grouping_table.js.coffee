@@ -76,9 +76,10 @@ GroupingTable.createView = (options)->
               ['cells']
           .property('rowHeaderVisible')
 
-        structureInRow: (->
-          @get('structure').filterProperty(c.rowProperty, @get('content'))
-        ).property("rows.@each", "structure.@each.#{c.rowProperty}")
+        structureInRow:
+          Ember.computed ->
+            @get('structure').filterProperty(c.rowProperty, @get('content'))
+          .property("rows.@each", "structure.@each.#{c.rowProperty}")
 
         itemsInRow:
           Ember.computed ->
@@ -99,13 +100,15 @@ GroupingTable.createView = (options)->
             childViews: ['label', 'list']
             isFocus: false
 
-            structureInCell: (->
-              @get('parentView.structureInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
-            ).property("columns.@each", "structure.@each.#{c.columnProperty}")
+            structureInCell:
+              Ember.computed ->
+                @get('parentView.structureInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}"))
+              .property("columns.@each", "structure.@each.#{c.columnProperty}")
 
-            itemsInCell: (->
-              @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}")).sortBy(c.sortProperty...)
-            ).property("columns.@each", "parentView.itemsInRow.@each.#{c.columnProperty}")
+            itemsInCell:
+              Ember.computed ->
+                @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}")).sortBy(c.sortProperty...)
+              .property("columns.@each", "parentView.itemsInRow.@each.#{c.columnProperty}")
 
             # The actual list within the cell
             list: Ember.CollectionView.extend
