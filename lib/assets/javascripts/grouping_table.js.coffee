@@ -107,7 +107,7 @@ GroupingTable.createView = (options)->
 
             itemsInCell:
               Ember.computed ->
-                @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}")).sortBy(c.sortProperty...)
+                @get('parentView.itemsInRow').filterProperty(c.columnProperty, @get("content.#{c.columnProperty}")).sortBy(c.sortProperty)
               .property("columns.@each", "parentView.itemsInRow.@each.#{c.columnProperty}")
 
             # The actual list within the cell
