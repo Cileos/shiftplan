@@ -28,6 +28,7 @@ Rails.application.configure do
       qunit.css
       test_helper.css
     )
+    config.assets.paths.append Rails.root.join('spec', 'stylesheets')
   end
 
 end

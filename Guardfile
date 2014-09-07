@@ -48,6 +48,8 @@ group :test, :halt_on_fail => true do
     watch(%r{^features/.+\.feature$})
     watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0]  }
     #watch('app/decorators/scheduling_filter_decorator.rb') { 'features/plan/*.feature' }
+    watch(%r{^spec/javascripts/.*\.(js|coffee)$}) { 'features/qunit.feature' }
+    watch(%r{^app/assets/javascripts/.*\.(js|coffee)$}) { 'features/qunit.feature' }
 
     callback(:run_all_end) do
       # update todo file

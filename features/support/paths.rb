@@ -143,6 +143,13 @@ module NavigationHelpers
     when /^the email change confirmation page$/
       accept_email_change_path
 
+
+    ######################################################################################################
+    # Internals
+    ######################################################################################################
+    when 'the qunit page'
+      '/qunit'
+
     else
       begin
         page_name =~ /^the (.*) page$/
