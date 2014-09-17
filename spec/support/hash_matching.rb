@@ -23,5 +23,9 @@ module RSpec
     def be_hash_matching(expected, opts={})
       Matchers::BeMatching.new(expected, opts)
     end
+
+    def be_hash_matching_partially(expected, opts={})
+      Matchers::BeMatching.new(expected, opts.merge(ignore_additional: true))
+    end
   end
 end
