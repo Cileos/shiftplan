@@ -18,3 +18,6 @@
           %ul.report-dropdown.dropdown-menu
             - read_report_accounts.each do |account|
               = li_link account.name, [:new, account, :report]
+
+    - if current_user.cileos_super_user?
+      %li= link_to 'Stats', stats_path

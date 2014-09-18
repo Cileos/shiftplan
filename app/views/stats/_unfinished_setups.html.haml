@@ -1,0 +1,10 @@
+.module
+  %header
+    %h2= t '.heading'
+  .content
+    %ul.lines
+      - Setup.order('created_at ASC').preload(:user).last(12).reverse.each do |setup|
+        %li
+          = link_to setup.user.email, "mailto:#{setup.user.email}"
+          = surround '(', ')' do
+            = ago_with_date(setup.created_at)
