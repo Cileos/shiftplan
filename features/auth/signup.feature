@@ -24,6 +24,15 @@ Feature: Signing up
       And I go to the dashboard
      Then I should be on the setup page
 
+    # following the link again gives an expressive error message
+     When I sign out
+      And I open the email
+      And I click the first link in the email
+     Then I should see flash alert "Deine Emailadresse ist bereits bestätigt oder der Bestätigungslink ist ungültig."
+      And I should see "Bestätigung erneut verschicken"
+      # stupid simple form default error message
+      But I should not see "Es gab einen Fehler. Weitere Details sehen Sie weiter unten."
+
   Scenario: Signup by filling in malformed information
     Given I use a german browser
       And I am on the signup page
