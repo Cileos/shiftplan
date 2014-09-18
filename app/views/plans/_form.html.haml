@@ -1,10 +1,11 @@
 = simple_form_for nested_resources_for(plan), remote: true do |f|
   - unless plan.duration.present?
-    = f.input :duration, :collection => durations_for_select(plan), :as => :radio, autofocus: true
+    = f.input :duration, :collection => plan.durations_for_select, :as => :radio_buttons, autofocus: true
     = f.button :submit, translate_action('.next')
   - else
     .inputs
       = f.input :name, autofocus: true
+      = f.input :period_mode, as: :radio_buttons, collection: plan.period_modes_for_select
       = f.input :starts_at, as: :stringy_date, hint: true,
         input_html: { value: plan.starts_at.present? ? plan.starts_at.iso8601 : '' }
       = f.input :ends_at, as: :stringy_date, hint: true,

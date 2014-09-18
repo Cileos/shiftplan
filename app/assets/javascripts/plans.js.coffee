@@ -71,3 +71,18 @@ jQuery(document).ready ->
         week = $.datepick.iso8601Week(date)
         url = $link.attr('href').replace(/\d+\/\d+$/, "#{year}/#{week}")
         window.location.assign url
+
+
+  updatePlanPeriodMode = ->
+    $iwrap = $(this)
+    val = $iwrap.find(':input:radio:checked').val()
+    $targets = $iwrap.closest('.inputs').find('.plan_starts_at,.plan_ends_at')
+
+    if val is 'limited'
+      $targets.show()
+    else
+      $targets.hide()
+
+  $('body').on 'change', '#modalbox div.plan_period_mode', updatePlanPeriodMode
+  $("body").on "dialogopen", ->
+    $('#modalbox div.plan_period_mode').each(updatePlanPeriodMode)

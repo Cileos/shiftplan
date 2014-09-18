@@ -16,7 +16,10 @@ Feature: Creating a plan
       And I follow "Hinzufügen"
       And I wait for the modal box to appear
       And I fill in "Name" with "Halloween im Atomkraftwerk"
-     When I fill in "Beschreibung" with "5 eyes minimum"
+      And I fill in "Beschreibung" with "5 eyes minimum"
+    Given I should not see "Enddatum"
+      And the "fortlaufend" checkbox should be checked
+     When I choose "zeitlich beschränkt"
       And I pick "23. Dezember 2016" from "Enddatum"
       And I press "Anlegen"
       And I wait for the modal box to disappear
