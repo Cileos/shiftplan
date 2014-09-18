@@ -98,6 +98,8 @@ Clockwork::Application.routes.draw do
   get "dashboard" => 'welcome#dashboard', :as => 'dashboard'
   get "dashboard" => 'welcome#dashboard', :as => 'user_root'
 
+  get 'stats' => 'stats#index', as: 'stats'
+
   # Ember
   scope path: 'ember' do
     get 'employees' => 'ember/employees#index'
