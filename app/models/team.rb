@@ -16,7 +16,7 @@ class Team < ActiveRecord::Base
   validates :name, :organization, presence: true
   validates_format_of :color, with: /\A#[0-9A-F]{6}\z/
   # must correspond with Quickie#team_name
-  validates_format_of :name, with: /\A[\p{Letter}][\p{Letter}\d ]+\z/
+  validates_format_of :name, with: Volksplaner::NameRegEx
   validates_uniqueness_of :name, scope: :organization_id
 
   def self.default_sorting

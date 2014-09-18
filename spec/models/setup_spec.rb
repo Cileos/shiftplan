@@ -7,6 +7,15 @@ describe Setup do
     end
   end
 
+  it 'must have a list of team names' do
+    build(:setup, team_names: 'Rezeption1, Room-Service,Müll Kolonne').should be_valid
+    build(:setup, team_names: "Ernie & Bert").should be_valid
+    build(:setup, team_names: 'Rezeption').should be_valid
+    build(:setup, team_names: '').should be_valid
+
+    build(:setup, team_names: '1Team').should_not be_valid
+  end
+
   context 'when empty' do
     subject { build :empty_setup }
     it 'does not default account name' do
