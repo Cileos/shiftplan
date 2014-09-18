@@ -30,6 +30,10 @@ Feature: Editing plans
         | Name                   | Beschreibung                           | Startdatum | Enddatum   |
         | Cleaning the Reactor B | Reactor B needs to be cleaned properly | 01.01.2012 | 02.02.2012 |
 
+     When I follow "Bearbeiten" within the first table row
+      And I wait for the modal box to appear
+     Then the "Enddatum" field should contain "02.02.2012"
+
 
   Scenario: Editing the start date of a plan with schedulings
     # scheduling on 10.12.2012 9-17

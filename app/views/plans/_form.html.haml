@@ -7,9 +7,9 @@
       = f.input :name, autofocus: true
       = f.input :period_mode, as: :radio_buttons, collection: plan.period_modes_for_select
       = f.input :starts_at, as: :stringy_date, hint: true,
-        input_html: { value: plan.starts_at.present? ? plan.starts_at.iso8601 : '' }
+        input_html: { data: { 'iso-date' => plan.starts_at.present? ? plan.starts_at.iso8601 : '' }}
       = f.input :ends_at, as: :stringy_date, hint: true,
-        input_html: { value: plan.ends_at.present? ? plan.ends_at.iso8601 : '' }
+        input_html: { data: { 'iso-date' => plan.ends_at.present? ? plan.ends_at.iso8601 : '' }}
       = f.input :description, input_html: { rows: 3 }
     .actions
       = f.create_or_update_button
