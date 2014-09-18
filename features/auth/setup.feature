@@ -35,7 +35,7 @@ Feature: Setup / First UX
       And I should see "Mit welcher Organisationseinheit möchtest Du Deine Planung für Mitarbeiter beginnen?"
      When I fill in "Erster Organisationsname" with "Reaktor"
     Given I should see "Unterteilst Du diese Organisation weiter in Arbeitsbereiche oder -Gruppen?"
-     When I fill in "Gruppen" with "Brennstäbe wechseln, Knöpfe drücken"
+     When I fill in "Gruppen" with "Brennstäbe wechseln, Knöpfe drücken, Room-Service"
       And I press "Weiter"
 
      Then I should see "Sind diese Informationen korrekt?"
@@ -43,7 +43,7 @@ Feature: Setup / First UX
       But I should not see "Weiter"
 
      When I press "Zurück"
-     Then the "Gruppen" field should contain "Brennstäbe wechseln, Knöpfe drücken"
+     Then the "Gruppen" field should contain "Brennstäbe wechseln, Knöpfe drücken, Room-Service"
      When I press "Weiter"
      Then I should see "Montgomery"
       And I should see "Burns"

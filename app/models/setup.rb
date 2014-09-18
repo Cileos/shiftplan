@@ -8,6 +8,7 @@ class Setup < ActiveRecord::Base
   validates_format_of :account_name, with: Volksplaner::NameRegEx, allow_blank: true
   validates_format_of :organization_name, with: Volksplaner::NameRegEx, allow_blank: true
   validates_format_of :employee_first_name, :employee_last_name, with: Volksplaner::HumanNameRegEx, allow_blank: true
+  validates_format_of :team_names, with: Volksplaner::ListOfNamesRegEx, allow_blank: true
 
   attr_reader :plan
 
@@ -52,7 +53,7 @@ class Setup < ActiveRecord::Base
   end
 
   def team_name_list
-    (team_names || '').split(',').map(&:strip)
+    (team_names || '').split(',').map(&:strip).reject(&:blank?)
   end
 
   class << self
