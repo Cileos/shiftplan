@@ -18,6 +18,7 @@ de:
         ends_at: "Enddatum"
         description: "Beschreibung"
         action: Aktion
+        period_mode: 'Zeitraum'
     values:
       plan:
         period_modes:

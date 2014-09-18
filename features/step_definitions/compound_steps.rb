@@ -28,6 +28,16 @@ When /^I pick "(\d{1,2})\.\s*([a-zA-Z]+)\s+(\d{4})" from "(.*?)"$/ do |day, mont
   end
 end
 
+When /^I use the datepicker to clear #{capture_quoted}$/ do |label|
+  step %Q~I disable all jquery animations~
+  page.execute_script <<-EOJS
+    $("label:contains('#{label}') ~ input").add("input[placeholder='#{label}']").first().focus()
+  EOJS
+  with_scope 'the datepicker' do
+    find('a.datepick-cmd-clear').click()
+  end
+end
+
 module ModalBoxHelper
   def within_appearing(name, close=false)
     step %Q~I wait for #{name} to appear~

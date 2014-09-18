@@ -53,9 +53,7 @@ jQuery(document).ready ->
       firstDay: 1,
       yearRange: 'c-5:c+8',
       renderer: $.extend {}, $.datepick.weekOfYearRenderer,
-        picker: $.datepick.weekOfYearRenderer.picker.
-          # hide "clear"
-          replace(/\{link:clear\}/, ''),
+        picker: $.datepick.weekOfYearRenderer.picker
       onShow: $.datepick.multipleEvents(
         $.datepick.highlightWeek,
         addNamesToDatepickerSelects

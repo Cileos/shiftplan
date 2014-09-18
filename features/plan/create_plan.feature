@@ -17,10 +17,24 @@ Feature: Creating a plan
       And I wait for the modal box to appear
       And I fill in "Name" with "Halloween im Atomkraftwerk"
       And I fill in "Beschreibung" with "5 eyes minimum"
-    Given I should not see "Enddatum"
+
+    Given I should not see "Enddatum" within the modal box
       And the "fortlaufend" checkbox should be checked
      When I choose "zeitlich beschränkt"
-      And I pick "23. Dezember 2016" from "Enddatum"
+      And I pick "22. Dezember 2016" from "Enddatum"
+     Then the "Enddatum" field should contain "22.12.2016"
+
+     # values are kept within the form
+     When I choose "fortlaufend"
+      And I choose "zeitlich beschränkt"
+     Then the "Enddatum" field should contain "22.12.2016"
+
+     # clear field from within datepicker
+     When I use the datepicker to clear "Enddatum"
+     Then the "Enddatum" field should be empty
+
+     # clear field from within datepicker
+     When I pick "23. Dezember 2016" from "Enddatum"
       And I press "Anlegen"
       And I wait for the modal box to disappear
 
