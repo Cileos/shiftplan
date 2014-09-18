@@ -2,3 +2,5 @@ en:
   stats:
     new_accounts:
       heading: 'New Accounts'
+    unfinished_setups:
+      heading: 'Unfinished setups'

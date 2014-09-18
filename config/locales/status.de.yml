@@ -2,4 +2,5 @@ de:
   stats:
     new_accounts:
       heading: 'Neue Accounts'
-
+    unfinished_setups:
+      heading: 'Unvollendete Setups'

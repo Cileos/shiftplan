@@ -8,4 +8,4 @@
           = account.name
           = link_to account.email, "mailto:#{account.email}"
           = surround '(', ')' do
-            = l account.created_at.to_date
+            = ago_with_date(account.created_at)
