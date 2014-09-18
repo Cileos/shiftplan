@@ -7,6 +7,7 @@ de:
       confirmed_and_signed_in: "Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet."
       send_instructions: "Du erhältst in wenigen Minuten eine E-Mail, mit der Du Deine Registrierung bestätigen kannst."
       send_paranoid_instructions: "Falls Deine E-Mail-Adresse in unserer Datenbank existiert erhältst Du in wenigen Minuten eine E-Mail mit der Du Deine Registrierung bestätigen kannst."
+      unknown_token_or_already_confirmed: "Deine Emailadresse ist bereits bestätigt oder der Bestätigungslink ist ungültig."
     failure:
       already_authenticated: "Du bist bereits angemeldet."
       inactive: "Dein Account ist nicht aktiv."

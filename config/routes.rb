@@ -113,7 +113,11 @@ Clockwork::Application.routes.draw do
 
   get '/users/sign_up', to: redirect('/signup')
 
-  devise_for :users, :controllers => { registrations: 'signup', sessions: 'sessions'}
+  devise_for :users, :controllers => {
+    registrations: 'signup',
+    sessions: 'sessions',
+    confirmations: 'confirmations'
+  }
 
   devise_scope :user do
     resource :signup, controller: 'signup', only: [:show, :create]

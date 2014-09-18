@@ -6,6 +6,7 @@ en:
       confirmed: "Your account was successfully confirmed."
       send_instructions: "You will receive an email with instructions about how to confirm your account in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes."
+      unknown_token_or_already_confirmed: "Your email address is already confirmed or the confirmation link is invalid."
     failure:
       already_authenticated: "You are already signed in."
       inactive: "Your account is not activated yet."
