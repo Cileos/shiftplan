@@ -18,4 +18,9 @@ class PlanDecorator < TabularizedRecordDecorator
       'unlimited'
     end
   end
+
+  def respond
+    super
+    update_navigation
+  end
 end

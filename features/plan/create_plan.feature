@@ -44,7 +44,7 @@ Feature: Creating a plan
         | Halloween im Atomkraftwerk | 5 eyes minimum | -          | 23.12.2016 |
       And a plan should exist with organization: the organization, name: "Halloween im Atomkraftwerk"
 
-     When I follow "Halloween im Atomkraftwerk"
+     When I choose "Halloween im Atomkraftwerk" from the drop down "Pläne"
      Then I should be on the employees in week page for the plan for week: 5, cwyear: 2012
       And the page should be titled "Halloween im Atomkraftwerk"
       And I should see "5 eyes minimum"
