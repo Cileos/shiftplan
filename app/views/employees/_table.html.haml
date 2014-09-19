@@ -14,7 +14,7 @@
         %th= t('.action')
 
   %tbody
-    - records.each do |record|
+    - records.map(&:decorate).each do |record|
       %tr{ id: "record_#{record.id}" }
         %th
           - if can?(:update, record)
