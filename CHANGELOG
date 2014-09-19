@@ -1,6 +1,18 @@
 Changelog
 =========
 
+Release 1.3.2 2014-09-19 17:47
+------------------------------
+0d5229b Merge pull request #271 from Cileos/feature/notify-marketing-about-new-customers
+4c28f44 Merge pull request #270 from Cileos/feature/cannot-deslect-plan-date
+bd33c95 Merge pull request #268 from Cileos/feature/validate-team_names-during-setup
+c6dc2f7 Merge pull request #269 from Cileos/feature/admin-list-recent-users
+4bb51a7 Merge pull request #267 from Cileos/feature/upgrade-devise
+6d4c99b Merge pull request #266 from Cileos/feature/recently_created_accounts
+f8bd799 Merge pull request #265 from Cileos/feature/never-render-landing-page
+fff5405 Merge pull request #264 from Cileos/feature/release-script
+0b79f75 Merge tag '1.3.1' into develop
+
 Release 1.3.1 2014-08-14 16:10
 ------------------------------
 821073f Merge branch 'feature/quieter-crons' into develop
