@@ -139,4 +139,10 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource_or_scope)
     new_user_session_path
   end
+
+  def authorize_only_cileos_super_users
+    unless current_user && current_user.cileos_super_user?
+      redirect_to root_path
+    end
+  end
 end

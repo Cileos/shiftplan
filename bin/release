@@ -1,0 +1,212 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'semantic'
+
+def debug
+  if $DEBUG
+    $stderr.puts yield
+  end
+end
+
+class Base
+  VersionFormat = Semantic::Version::SemVerRegexp
+  VersionPath = File.expand_path('../../VERSION', __FILE__)
+  ChangelogPath = File.expand_path('../../CHANGELOG', __FILE__)
+
+  def run(command)
+    $stderr.puts "  #{command}"
+
+    system command
+  end
+
+  def git(command)
+    run "git #{command}"
+  end
+
+  def confirm!(question)
+    begin
+      puts
+      print "#{question} (y/n) > "
+      ans = gets.chomp
+
+      raise "aborted" if ans =~ /^n/
+    end until ans =~ /^y/
+  end
+end
+
+class VersionSelector < Base
+  def initialize
+    @list = next_versions
+  end
+
+  def execute
+    puts "Current version is #{latest_version}"
+
+    @list.each_with_index do |entry, index|
+      puts '%3d: %s' % [ index, entry ]
+    end
+    puts "or just enter a custom version"
+
+    begin
+      puts
+      print "version? > "
+      ans = gets.chomp
+      exit if ans =~ /^q/
+    end until is_selection?(ans) || is_version?(ans)
+
+    if is_selection?(ans)
+      @list[ans.to_i]
+    elsif is_version?(ans)
+      ans
+    end
+  end
+
+  private
+
+  def latest_version
+    @latest ||= Semantic::Version.new File.read(VersionPath).chomp
+  end
+
+  def next_versions
+    latest = latest_version
+
+    [].tap do |list|
+      next_patch = latest.dup
+      next_patch.patch += 1
+      list << next_patch
+
+      next_minor = latest.dup
+      next_minor.minor += 1
+      next_minor.patch = 0
+      list << next_minor
+
+      next_major = latest.dup
+      next_major.major += 1
+      next_major.minor = 0
+      next_major.patch = 0
+      list << next_major
+    end
+  end
+
+  def is_selection?(string)
+    string =~ /^\d+$/ && @list[string.to_i]
+  end
+
+  def is_version?(string)
+    string =~ VersionFormat
+  end
+end
+
+class Release < Base
+  def initialize(version)
+    @version = version
+    @existing_changelog = read_changelog[3..-1] # without main heading
+  end
+
+  def start!
+    confirm! "Continue?"
+
+    pull_branches
+    flow_release do
+      write_version
+      write_changelog
+    end
+    push_branches
+    print_release_notes
+    print_deploy_hints
+  end
+
+  private
+  def flow_release
+    git "flow release start #{@version}"
+    yield
+    git "add -a"
+    git "diff --cached"
+    confirm! "commit?"
+    git "commit -m 'release version #{@version}'"
+    git "flow release finish #{@version}"
+  end
+
+  def pull_branches
+    %w(master develop).each do |branch|
+      git "checkout #{branch}"
+      git "pull --rebase"
+    end
+  end
+
+  def push_branches
+    %w(master develop).each do |branch|
+      git "checkout #{branch}"
+      git "push origin #{branch}"
+    end
+    git "push --tags"
+  end
+
+  def print_release_notes
+    run "cat doc/NEXT_RELEASE.markdown"
+    puts
+  end
+
+  def print_deploy_hints
+    puts "Now you may deploy (after waiting for the CI of course)"
+    puts "To your local vagrant virtual machine:"
+    puts "  bundle exec cap vagrant deploy:migrations"
+    puts
+    puts "To Staging:"
+    puts "  bundle exec cap staging deploy:migrations"
+    puts
+    puts "To Production:"
+    puts "  bundle exec cap production deploy:migrations"
+    puts
+  end
+
+  def write_version
+    File.open VersionPath, 'w' do |f|
+      f.puts @version
+    end
+  end
+
+  def write_changelog
+    File.open ChangelogPath, 'w' do |c|
+      c.puts changelog_headline
+      c.puts changelog_header
+      c.puts changelog_lines.join("\n")
+      c.puts
+      c.puts @existing_changelog.join("\n")
+    end
+  end
+
+  def changelog_headline
+    "Changelog\n" +
+    "=========\n" +
+    "\n"
+  end
+
+  def changelog_lines
+    `git log --oneline master..develop | grep Merge | grep -v -e "Merge branch '\(develop\|master\)' of github"`.
+      lines.
+      map(&:chomp)
+  end
+
+  def changelog_header
+    now = Time.now.strftime '%Y-%m-%d %H:%M'
+    header = "Release %s %s" % [@version, now]
+    header = header + "\n" + ("-" * header.length) + "\n"
+    header
+  end
+
+  def read_changelog
+    File.read(ChangelogPath).lines.map(&:chomp)
+  end
+end
+
+
+if $0 == __FILE__
+
+  version = VersionSelector.new.execute
+
+  puts "Releasing version #{version}"
+  Release.new(version).start!
+
+end

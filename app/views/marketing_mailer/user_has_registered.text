@@ -1,0 +1,2 @@
+A user has registered with the email address <%= @user.email %>
+

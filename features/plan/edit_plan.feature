@@ -19,6 +19,7 @@ Feature: Editing plans
       And I wait for the modal box to appear
       And I fill in "Name" with "Cleaning the Reactor B"
       And I fill in "Beschreibung" with "Reactor B needs to be cleaned properly"
+      And I choose "zeitlich beschränkt"
       And I pick "1. Januar 2012" from "Startdatum"
       And I pick "2. Februar 2012" from "Enddatum"
       And I press "Speichern"
@@ -28,6 +29,10 @@ Feature: Editing plans
       And I should see the following table of plans:
         | Name                   | Beschreibung                           | Startdatum | Enddatum   |
         | Cleaning the Reactor B | Reactor B needs to be cleaned properly | 01.01.2012 | 02.02.2012 |
+
+     When I follow "Bearbeiten" within the first table row
+      And I wait for the modal box to appear
+     Then the "Enddatum" field should contain "02.02.2012"
 
 
   Scenario: Editing the start date of a plan with schedulings
@@ -43,6 +48,7 @@ Feature: Editing plans
      When I follow "Bearbeiten" within the first table row
       And I wait for the modal box to appear
       # one day after the scheduling
+      And I choose "zeitlich beschränkt"
       And I pick "11. Dezember 2012" from "Startdatum"
       And I press "Speichern"
 
@@ -74,6 +80,7 @@ Feature: Editing plans
 
      When I follow "Bearbeiten" within the first table row
       And I wait for the modal box to appear
+      And I choose "zeitlich beschränkt"
       # one day before the scheduling
      When I pick "9. Dezember 2012" from "Enddatum"
       And I press "Speichern"

@@ -8,12 +8,14 @@ class Setup < ActiveRecord::Base
   validates_format_of :account_name, with: Volksplaner::NameRegEx, allow_blank: true
   validates_format_of :organization_name, with: Volksplaner::NameRegEx, allow_blank: true
   validates_format_of :employee_first_name, :employee_last_name, with: Volksplaner::HumanNameRegEx, allow_blank: true
+  validates_format_of :team_names, with: Volksplaner::ListOfNamesRegEx, allow_blank: true
 
   attr_reader :plan
 
   def execute!
+    account = nil # frak scope
     transaction do
-      Account.create!(name: account_name_or_default).tap do |account|
+      account = Account.create!(name: account_name_or_default).tap do |account|
         organization = Organization.create!(name: organization_name_or_default, account: account)
         organization.setup # creates the organization's blog
         e = user.employees.create! do |e|
@@ -37,6 +39,8 @@ class Setup < ActiveRecord::Base
         destroy! if persisted?
       end
     end
+
+    MarketingMailer.account_was_set_up(account).deliver
   end
 
   def account_name_or_default
@@ -52,7 +56,7 @@ class Setup < ActiveRecord::Base
   end
 
   def team_name_list
-    (team_names || '').split(',').map(&:strip)
+    (team_names || '').split(',').map(&:strip).reject(&:blank?)
   end
 
   class << self

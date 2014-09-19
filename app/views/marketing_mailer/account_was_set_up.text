@@ -1,0 +1,1 @@
+The account <%= @account.name.inspect %> was set up with the email <%= @account.email %>

@@ -1,0 +1,11 @@
+.module
+  %header
+    %h2= t '.heading'
+  .content
+    %ul.lines
+      - Account.order('created_at ASC').last(12).reverse.each do |account|
+        %li
+          = account.name
+          = link_to account.email, "mailto:#{account.email}"
+          = surround '(', ')' do
+            = ago_with_date(account.created_at)

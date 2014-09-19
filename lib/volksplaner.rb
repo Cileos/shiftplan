@@ -13,7 +13,9 @@ module Volksplaner
   autoload :Undo, 'volksplaner/undo'
 
   HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .'-]*\z/
-  NameRegEx = /\A[\p{Letter}][\p{Letter}\d .§&()'-]*\z/
+  NameCharGroup = "[\\p{Letter}][\\p{Letter}\\d .§&()'-]"
+  NameRegEx = /\A#{NameCharGroup}*\z/
+  ListOfNamesRegEx = /\A#{NameCharGroup}*(?:\s*,\s*#{NameCharGroup}*)*\z/
 
 
   # staging and CI are on the same machine

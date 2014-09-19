@@ -4,6 +4,8 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
     if user.get('canManageUnavailabilities')
       @get('store').findQuery('employee', reason: 'unavailabilities').then (es)=>
         @set 'employees', es
+    else
+      @set 'employees', Ember.A()
   model: (params)->
     models = {} # hash of promises
 

@@ -166,6 +166,10 @@ class User < ActiveRecord::Base
     true
   end
   before_save :create_email_change
+
+  def cileos_super_user?
+    email.in? ['ft@cileos.com', 'rw@cileos.com', 'nh@cileos.com']
+  end
 end
 
 UserDecorator

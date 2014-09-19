@@ -7,4 +7,5 @@ class UnavailabilitySerializer < ApplicationSerializer
              :all_day
 
   has_one :account
+  has_one :employee
 end

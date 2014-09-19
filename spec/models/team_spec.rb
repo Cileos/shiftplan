@@ -39,8 +39,8 @@ describe Team do
       build(:team, name: '5arsch').should_not be_valid
     end
 
-    it "should not accept dashes to avoid confusion for Quickie parser" do
-      build(:team, name: 'Krümel-monster').should_not be_valid
+    it "accepts dashes" do
+      build(:team, name: 'Krümel-monster').should be_valid
     end
   end
 

@@ -26,6 +26,8 @@ class WelcomeController < ApplicationController
     unless flash[:alert] # no redirect loop on access denied
       flash.keep
       redirect_to dynamic_dashboard_path
+    else
+      render text: flash[:alert], status: 400
     end
   end
 
