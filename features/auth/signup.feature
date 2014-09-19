@@ -33,6 +33,11 @@ Feature: Signing up
       # stupid simple form default error message
       But I should not see "Es gab einen Fehler. Weitere Details sehen Sie weiter unten."
 
+
+     Then "marketing@clockwork.io" should receive an email with subject "User has registered: me@example.com"
+
+
+
   Scenario: Signup by filling in malformed information
     Given I use a german browser
       And I am on the signup page

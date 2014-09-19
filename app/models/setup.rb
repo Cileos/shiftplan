@@ -12,8 +12,9 @@ class Setup < ActiveRecord::Base
   attr_reader :plan
 
   def execute!
+    account = nil # frak scope
     transaction do
-      Account.create!(name: account_name_or_default).tap do |account|
+      account = Account.create!(name: account_name_or_default).tap do |account|
         organization = Organization.create!(name: organization_name_or_default, account: account)
         organization.setup # creates the organization's blog
         e = user.employees.create! do |e|
@@ -37,6 +38,8 @@ class Setup < ActiveRecord::Base
         destroy! if persisted?
       end
     end
+
+    MarketingMailer.account_was_set_up(account).deliver
   end
 
   def account_name_or_default
