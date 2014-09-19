@@ -28,6 +28,7 @@ class Signup
       user.save!
       user.create_setup!
     end
+    MarketingMailer.user_has_registered(user).deliver
   end
 
   def persisted?
