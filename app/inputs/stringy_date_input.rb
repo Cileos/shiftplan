@@ -5,7 +5,7 @@ class StringyDateInput < SimpleForm::Inputs::StringInput
 
   # iso-date is then used by jQuery.rails_datepick
   def input_html_options
-    value = object.public_send(column.name)
+    value = object && object.public_send(attribute_name)
     super.merge({ data: { 'iso-date' => value.present? ? value.iso8601 : '' } })
   end
 end
