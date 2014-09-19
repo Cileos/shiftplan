@@ -11,7 +11,7 @@ class PlansController < BaseController
 
   def destroy
     destroy! do |success, failure|
-      success.html { redirect_to (nested_resources_for(current_organization) + [:plans]) }
+      success.html { redirect_to list_of_plans_path }
     end
   end
 
@@ -37,5 +37,9 @@ class PlansController < BaseController
       :starts_at,
       :ends_at
     ]
+  end
+
+  def list_of_plans_path
+    nested_resources_for(current_organization) + [:plans]
   end
 end

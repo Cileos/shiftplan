@@ -18,6 +18,12 @@ de:
         ends_at: "Enddatum"
         description: "Beschreibung"
         action: Aktion
+        period_mode: 'Zeitraum'
+    values:
+      plan:
+        period_modes:
+          limited: 'zeitlich beschränkt'
+          unlimited: 'fortlaufend'
   plans:
     index:
       no_plans: "Es wurden noch keine Pläne angelegt."

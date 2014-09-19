@@ -10,12 +10,6 @@ module PlansHelper
       map    { |day| [l(day, :format => format), day.iso8601] }
   end
 
-  def durations_for_select(plan)
-    Plan::Durations.map do |duration|
-      [translate(duration, :scope => 'activerecord.values.plans.durations'), duration]
-    end
-  end
-
   def employees_for_select(scheduling)
     org = scheduling.plan.organization
     org.employees.select do |e|

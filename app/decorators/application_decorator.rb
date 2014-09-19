@@ -64,6 +64,10 @@ class ApplicationDecorator < Draper::Decorator
     h.render('application/flash')
   end
 
+  def update_navigation
+    page.select('nav[role=navigation]').html(h.render('accounts/navigation'))
+  end
+
   # Lazy Helpers
   #   PRO: Call Rails helpers without the h. proxy
   #        ex: number_to_currency(source.price)
