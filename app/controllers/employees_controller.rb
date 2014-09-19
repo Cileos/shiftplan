@@ -55,7 +55,7 @@ class EmployeesController < BaseController
         end
         @_current_org_set = true
       end
-    end
+    end.map(&:decorate)
   end
 
   # we want to use Employee#current_membership in views
