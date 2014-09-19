@@ -254,6 +254,7 @@ When /^I select "(.*?)" from the "(.*?)" single-select box/ do |text,label|
 end
 
 When /^I (uncheck|check) the (?:task|milestone) #{capture_quoted}$/ do |on_or_off, name|
+  page.should have_content(name)
   find(:xpath, %Q~//a[contains(., "#{name}")]/preceding-sibling::input~).set(on_or_off.exclude?('un'))
 end
 
