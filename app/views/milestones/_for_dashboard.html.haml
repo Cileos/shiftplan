@@ -4,7 +4,7 @@
   .content
     - unless milestones.blank?
       - milestones.group_by(&:plan).each do |plan, mss|
-        %h3
+        %h4.icon-plans
           = link_to nested_resources_for(plan) do
             = plan.organization.name
             = ' / '
