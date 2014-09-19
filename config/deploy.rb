@@ -22,6 +22,10 @@ require "whenever/capistrano"
 # delayed job
 require "delayed/recipes"
 
+require 'capistrano-flowdock'
+
+set :flowdock_api_token, "83fac3e3dd86c1d83c5096f46dca76f2"
+
 # server details
 set :user, 'application'
 default_run_options[:pty] = true

@@ -8,6 +8,9 @@ role :web, plock
 role :app, plock
 role :db, plock, :primary => true
 
+set :flowdock_project_name, "Clockwork staging"
+set :flowdock_deploy_tags, ["deploy_staging"]
+
 namespace :db do
 
   desc "Seed the Database"

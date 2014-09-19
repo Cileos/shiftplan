@@ -5,6 +5,16 @@ GIT
     ri_cal (0.8.8r)
 
 GIT
+  remote: git://github.com/flowdock/capistrano-flowdock.git
+  revision: a8ddc6b1540d0421772c620f87a7c52e84483c13
+  branch: capistrano-2
+  specs:
+    capistrano-flowdock (1.0.0)
+      capistrano (~> 2.0)
+      flowdock (~> 0.3.1)
+      grit (~> 2.4)
+
+GIT
   remote: git://github.com/mars/chromedriver-helper.git
   revision: 3be3d4494338c4372f19cdf57b08606db877bd3d
   branch: download-via-bucket-xml
@@ -247,6 +257,9 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.9.3)
+    flowdock (0.3.1)
+      httparty (~> 0.7)
+      multi_json
     formatador (0.2.5)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
@@ -262,6 +275,10 @@ GEM
       multi_json
       request_store (>= 1.0.5)
     gravtastic (3.2.6)
+    grit (2.5.0)
+      diff-lcs (~> 1.1)
+      mime-types (~> 1.15)
+      posix-spawn (~> 0.3.6)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -296,6 +313,9 @@ GEM
       activesupport (>= 3.2, < 5)
     highline (1.6.21)
     hike (1.2.3)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.11)
     inherited_resources (1.5.0)
       has_scope (~> 0.6.0.rc)
@@ -335,6 +355,7 @@ GEM
     minitest (5.4.1)
     multi_json (1.10.1)
     multi_test (0.1.1)
+    multi_xml (0.5.5)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -351,6 +372,7 @@ GEM
     pg (0.17.1)
     pg_array_parser (0.0.9)
     polyglot (0.3.5)
+    posix-spawn (0.3.9)
     postgres_ext (2.3.0)
       activerecord (>= 4.0.0)
       arel (>= 4.0.1)
@@ -499,8 +521,9 @@ DEPENDENCIES
   bourbon (~> 3.1)
   breach-mitigation-rails
   cancan
-  capistrano
+  capistrano (< 3)
   capistrano-ext
+  capistrano-flowdock!
   carrierwave
   chosen-rails
   chromedriver-helper!

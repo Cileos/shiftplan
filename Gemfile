@@ -77,9 +77,11 @@ end
 
 group :development do
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
-  gem 'capistrano'
+  # TODO updaade to capistrano 3
+  gem 'capistrano', '<3'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
+  gem 'capistrano-flowdock', github: 'flowdock/capistrano-flowdock', branch: 'capistrano-2'
   gem 'notes', :require => false, :git => 'git://github.com/niklas/notes.git'
   gem 'quiet_assets'
 
