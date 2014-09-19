@@ -51,6 +51,8 @@ Feature: Calendar navigation
       And I follow "Gehe zu" within the toolbar
      Then the selected "anderes Jahr anzeigen" should be "2015" within the datepicker
       And the selected "anderen Monat anzeigen" should be "Dezember" within the datepicker
+      And I should not see "löschen" within the datepicker
+      # no real field to clear ^^
      When I select "2017" from "anderes Jahr anzeigen" within the datepicker
       And I select "Oktober" from "anderen Monat anzeigen" within the datepicker
       And I follow "19" within the datepicker

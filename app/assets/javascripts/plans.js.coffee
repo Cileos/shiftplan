@@ -71,6 +71,11 @@ jQuery(document).ready ->
         week = $.datepick.iso8601Week(date)
         url = $link.attr('href').replace(/\d+\/\d+$/, "#{year}/#{week}")
         window.location.assign url
+      renderer: $.extend {}, $.datepick.weekOfYearRenderer,
+        picker: $.datepick.weekOfYearRenderer.picker.
+          # hide "clear"
+          replace(/\{link:clear\}/, ''),
+
 
 
   updatePlanPeriodMode = ->
