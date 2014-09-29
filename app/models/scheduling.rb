@@ -57,6 +57,7 @@ class Scheduling < ActiveRecord::Base
   end
 
   def self.from_month(date)
+    date = date.in_time_zone
     between(date.beginning_of_month, date.end_of_month)
   end
 
