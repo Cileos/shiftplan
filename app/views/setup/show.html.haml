@@ -1,4 +1,4 @@
 - main_javascript 'setup'
 %script#chapters_fixtures{type: 'text/json', data: { chapters: chapters_array_as_json(Tutorial::Chapter.all(current_user)) } }
-%script#timezones_fixtures{type: 'text/json', data: { timezones: ::ActiveSupport::TimeZone.all.map {|tz| {id: tz.name, offset: tz.formatted_offset} }.to_json } }
+%script#timezones_fixtures{type: 'text/json', data: { timezones: ::ActiveSupport::TimeZone.all.map {|tz| {id: tz.name, offset: tz.formatted_offset, iana: tz.tzinfo.name} }.to_json } }
 #setup

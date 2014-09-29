@@ -1,4 +1,5 @@
 # = require lib/load_fixtures_from_dom
+# = require jstz
 # = require_tree ./setup
 
 Setup = Ember.Application.create
@@ -34,10 +35,14 @@ Setup.Chapter = DS.Model.extend
   examples: DS.attr 'array'
 
 Setup.TimeZone = DS.Model.extend
+  # short name "Berlin"
   name: Ember.computed.alias 'id'
   offset: DS.attr 'string'
   nameWithOffset: Ember.computed 'name', 'offset', ->
     "GMT#{@get('offset')} #{@get('name')}"
+
+  # the IANA name, for example "Europe/Berlin"
+  iana: DS.attr 'string'
 
 # a two-way linked list
 Setup.Step = Ember.Object.extend
@@ -162,6 +167,16 @@ Setup.SetupController = Ember.ObjectController.extend
 
   timeZones: Ember.computed ->
     @store.find 'time_zone'
+
+  setupDetectedTimeZone: (->
+    if Ember.isBlank @get('timeZoneName')
+      iana = jstz.determine().name()
+      if iana?
+        @get('timeZones').then (zones)=>
+          found = zones.findProperty('iana', iana)
+          if found?
+            @set 'timeZoneName', found.get('name')
+  ).observes('content')
 
 Setup.SetupStepController = Ember.ObjectController.extend()
 

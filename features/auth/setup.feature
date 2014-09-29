@@ -32,7 +32,7 @@ Feature: Setup / First UX
       And I press "Weiter"
 
     Given I should see "In welcher Zeitzone findet der Großteil der Arbeit statt?"
-     When I select "GMT+01:00 Berlin" from "Zeitzone"
+     When I select "GMT-10:00 Hawaii" from "Zeitzone"
       And I press "Weiter"
 
     Given I should see "Bei größeren Firmen macht es Sinn, Pläne und Mitarbeiter in Organisationeinheiten wie zB Filialen, Häuser oder Standorte zu unterteilen."
@@ -53,7 +53,7 @@ Feature: Setup / First UX
       And I should see "Burns"
       And I should see "Powerplant"
       And I should see "Reaktor"
-      And I should see "Berlin"
+      And I should see "Hawaii"
       # defaults/placeholders are not shown
       But I should not see "Meine Firma"
       And I press "Fertig"
@@ -61,7 +61,7 @@ Feature: Setup / First UX
      Then a plan should exist
       And I should be on the employees in week page of the plan for today
 
-      And an account should exist with name: "Powerplant", time_zone_name: "Berlin"
+      And an account should exist with name: "Powerplant", time_zone_name: "Hawaii"
 
      When I choose "Mitarbeiter anlegen" from the drop down "Weitere Aktionen"
      Then I should see the following table of employees:
@@ -84,8 +84,7 @@ Feature: Setup / First UX
       And I press "Weiter"
       # no account name
       And I press "Weiter"
-      # must specify Time zone, no auto detection yet
-      And I select "GMT+01:00 Berlin" from "Zeitzone"
+      # time zone is auto detected (fingers crossed)
       And I press "Weiter"
       # no organization name or teams
       And I press "Weiter"
