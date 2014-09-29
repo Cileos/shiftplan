@@ -23,7 +23,7 @@ class ApplyPlanTemplate
   end
 
   def monday
-    Date.commercial(target_year, target_week, 1)
+    Date.commercial(target_year, target_week, 1).in_time_zone
   end
 
   def plan_template

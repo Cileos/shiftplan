@@ -42,14 +42,16 @@ class Shift < ActiveRecord::Base
   alias_method_chain :demands, :respecting_previous_day
 
   def starts_at
-    if super.present?
-      base_for_time_range_components + super.hour.hours + super.min.minutes
+    if v = super
+      v = v.in_time_zone # not time-casted
+      base_for_time_range_components + v.hour.hours + v.min.minutes
     end
   end
 
   def ends_at
-    if super.present?
-      base_for_time_range_components + super.hour.hours + super.min.minutes
+    if v = super
+      v = v.in_time_zone # not time-casted
+      base_for_time_range_components + v.hour.hours + v.min.minutes
     end
   end
 
@@ -57,7 +59,7 @@ class Shift < ActiveRecord::Base
 
   # we are only interested in the time component and do not want any time zones
   def base_for_time_range_components
-    Time.utc(1988,5,5,0,0,0)
+    Time.zone.local(1988,5,5,0,0,0)
   end
 end
 
