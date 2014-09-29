@@ -13,7 +13,7 @@ class TimeComponent < Struct.new(:record, :start_or_end)
   end
 
   def hour
-    @hour || (record.public_send(attr_name).present? && record.public_send(attr_name).hour) || 0
+    @hour || (from_record.present? && from_record.hour) || 0
   end
 
   def hour_present?
@@ -39,11 +39,11 @@ class TimeComponent < Struct.new(:record, :start_or_end)
   end
 
   def minute
-    @minute || (record.public_send(attr_name).present? && record.public_send(attr_name).min) || 0
+    @minute || (from_record.present? && from_record.min) || 0
   end
 
   def day
-    @day || (record.public_send(attr_name).present? && record.public_send(attr_name).day) || 0
+    @day || (from_record.present? && from_record.day) || 0
   end
 
   def minute=(minute)
@@ -69,6 +69,12 @@ class TimeComponent < Struct.new(:record, :start_or_end)
         ) / int
       ) * int
     ) % 60
+  end
+
+private
+
+  def from_record
+    record.public_send(attr_name)
   end
 end
 
