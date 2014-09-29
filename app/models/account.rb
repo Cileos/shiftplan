@@ -33,6 +33,8 @@ class Account < ActiveRecord::Base
     on_new_account.validates_format_of :first_name, :last_name, with: Volksplaner::HumanNameRegEx, allow_nil: true
   end
 
+  validates_inclusion_of :time_zone_name, in: ActiveSupport::TimeZone.all.map(&:name), allow_blank: true
+
   def user
     User.find(user_id)
   end

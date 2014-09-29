@@ -17,6 +17,9 @@ en:
         title: 'Whats the name of your company or institution?'
         motivation:
         instructions: 'We only need the [Name]{input.name} for now.'
+      - id: 'time_zone'
+        hint: 'Time zone'
+        title: 'In which time zone does your company operate?'
       - id: 'organization'
         hint: 'Organizations'
         title: 'Organizations - partition your company'
