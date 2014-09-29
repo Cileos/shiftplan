@@ -63,6 +63,9 @@ group :test do
   gem 'rspec-html-matchers'
 
   gem 'rails-develotest'
+
+  # select a random timezone on every test run
+  gem 'zonebie'
 end
 
 group :development, :test do

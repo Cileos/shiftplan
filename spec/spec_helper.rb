@@ -10,6 +10,8 @@ require 'draper/test/rspec_integration'
 # can be removed if we load the whole support dir while preloading
 require Rails.root.join('spec/support/locale')
 
+Zonebie.set_random_timezone
+
 RSpec.configure do |config|
   include FactoryGirl::Syntax::Default
   config.include(RSpec::Fire)
