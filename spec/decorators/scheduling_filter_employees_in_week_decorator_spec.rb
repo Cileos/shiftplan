@@ -9,6 +9,8 @@ describe SchedulingFilterEmployeesInWeekDecorator do
     filter.stub date: Time.zone.now
   end
 
+  let(:day) { double("Day", iso8601: 'iso8601').tap { |d| d.stub to_date: d } }
+
   it "sorts schedulings by start hour" do
     employee = create :employee
     schedulings = [
@@ -16,7 +18,6 @@ describe SchedulingFilterEmployeesInWeekDecorator do
       create(:scheduling, start_hour: 6),
       create(:scheduling, start_hour: 17)
     ]
-    day = double('day', iso8601: nil)
     index = instance_double('TwoDimensionalRecordIndex')
     decorator.stub scheduling_index: index
     index.should_receive(:fetch).and_return( schedulings )

@@ -1,17 +1,18 @@
-Clockwork.formattedTimeProperty = (name, format='H:mm')->
+Clockwork.formattedTimeProperty = (source, format='H:mm')->
   Ember.computed (key, value)->
     if arguments.length > 1
-      have = @get(name)
+      have = @get(source)
       want = moment(value, format)
-      @set name, moment(have).
-                         clone().
-                         hour(want.hour()).
-                         minute(want.minute()).
-                         toDate()
+      if want.isValid()
+        have = if have?.isValid() then have else now()
+        @set source, have.
+                     clone().
+                     hour(want.hour()).
+                     minute(want.minute())
 
-    have = @get(name)
-    if have?
-      moment(have).format(format)
+    have = @get(source)
+    if have && have.isValid()
+      have.zone(timezoneOffset()).format(format)
     else
       have
-  .property(name)
+  .property(source)

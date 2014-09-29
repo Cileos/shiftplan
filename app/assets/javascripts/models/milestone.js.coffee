@@ -6,8 +6,8 @@ Clockwork.Milestone = DS.Model.extend Clockwork.Doable,
 
   savedAndSortedTasks: (->
     @get('savedTasks').toArray().sort (a,b) ->
-      if a.get('dueAt')?
-        if b.get('dueAt')?
+      unless Ember.isBlank a.get('dueAt')
+        unless Ember.isBlank b.get('dueAt')
           a.get('dueAt') - b.get('dueAt')
         else
           -1 # b is null => to bottom

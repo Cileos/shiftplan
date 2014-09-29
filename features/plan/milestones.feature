@@ -11,7 +11,7 @@ Feature: Milestones and tasks for a plan
 
   Scenario: Listing existing milestones
    Given the following milestones exist:
-     | plan     | name             | due_at     |
+     | plan     | name             | due_on     |
      | the plan | World Domination | 2012-12-31 |
      | the plan | Rest             |            |
     When I go to the page for the plan

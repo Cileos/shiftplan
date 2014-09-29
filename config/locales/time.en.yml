@@ -1,0 +1,17 @@
+en:
+  date:
+    formats:
+      week_with_first_day: "Wk %V %m/%d/%Y"
+      week_day: "%A"
+      yearless_date: "%m/%d"
+      abbr_week_day: "%a"
+  time:
+    formats:
+      week_with_first_day: "Wk %V %m/%d/%Y"
+      week_with_year: "Wk %V / %Y"
+      week_day: "%A"
+      abbr_week_day: "%a"
+      week_day_with_yearless_date: "%A, %m/%d"
+      yearless_date: "%m/%d"
+      iso8601_date: "%Y-%m-%d"
+

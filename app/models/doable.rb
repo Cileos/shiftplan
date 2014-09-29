@@ -10,4 +10,10 @@ module Doable
   def due_on
     due_at.in_time_zone.to_date
   end
+
+  def due_on=(date)
+    if date
+      self.due_at = date.in_time_zone
+    end
+  end
 end

@@ -62,6 +62,10 @@ class SchedulingDecorator < RecordDecorator
     scheduling.plan.organization.account
   end
 
+  def iso8601_date
+    scheduling.date.to_date.iso8601
+  end
+
 
   private
   def scheduling

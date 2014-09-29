@@ -19,11 +19,11 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def schedulings_for(day)
-    pack_in_stacks records.select {|r| r.date == day}
+    pack_in_stacks records.select {|r| r.date.to_date == day}
   end
 
   def unavailabilities_for(day)
-    pack_in_stacks unavailabilities.select {|r| r.date == day}
+    pack_in_stacks unavailabilities.select {|r| r.date.to_date == day}
   end
 
   def cell_metadata(day)
@@ -31,7 +31,7 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def cell_selector(scheduling)
-   %Q~#calendar tbody tr td[data-date=#{scheduling.date.iso8601}]~
+    %Q~#calendar tbody tr td[data-date=#{scheduling.date.to_date.iso8601}]~
   end
 
   # hours are no real coordinates in a table kind of way

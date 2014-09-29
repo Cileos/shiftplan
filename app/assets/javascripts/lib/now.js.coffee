@@ -2,8 +2,11 @@
 # the current time, use `now()`. It is also advised to use it when creating new
 # timestamps by modifying them later, for example
 # `now().year(2000).startOfYear()` to celebrate exactly at the local party
+window.timezoneOffset = ->
+  $('head > meta[name=timezoneoffset]').prop('content')
+
 window.now = ->
-  offset = $('head > meta[name=timezoneoffset]').prop('content')
+  offset = timezoneOffset()
 
   # take the global "now", shift perspective to current timezone
   # example: 09:30+02:00 (Knoppers) => 04:30-03:00 (atlantic fish still sleeping)

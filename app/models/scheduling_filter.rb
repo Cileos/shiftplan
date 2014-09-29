@@ -32,7 +32,7 @@ class SchedulingFilter < RecordFilter
 
   def monday
     if week? && cwyear?
-      Date.commercial(cwyear, week, 1)
+      Date.commercial(cwyear, week, 1).in_time_zone
     else
       raise CannotFindMonday, "attributes: #{attributes.inspect}"
     end
@@ -88,7 +88,7 @@ class SchedulingFilter < RecordFilter
 
   # the Date `offset` days from #monday. 1-based
   def day_at(offset)
-    monday + (offset.to_i - 1 ).days
+    monday.to_date + (offset.to_i - 1 ).days
   end
 
   def date?
