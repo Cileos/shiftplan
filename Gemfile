@@ -84,7 +84,7 @@ group :development do
   gem 'capistrano', '<3'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
-  gem 'capistrano-flowdock', github: 'flowdock/capistrano-flowdock', branch: 'capistrano-2'
+  gem 'capistrano-flowdock', github: 'flowdock/capistrano-flowdock', branch: 'capistrano-2', require: false
   gem 'notes', :require => false, :git => 'git://github.com/niklas/notes.git'
   gem 'quiet_assets'
 
