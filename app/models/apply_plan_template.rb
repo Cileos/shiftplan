@@ -57,7 +57,7 @@ class ApplyPlanTemplate
     begin
       scheduling = plan.schedulings.new(attrs)
       scheduling.save!
-    rescue
+    rescue ActiveRecord::RecordInvalid => e
       if scheduling.errors[:starts_at].present? || scheduling.errors[:ends_at].present?
         self.some_shifts_outside_plan_period = true
       else
