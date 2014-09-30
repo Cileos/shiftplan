@@ -48,7 +48,7 @@ Clockwork.UnavailabilitiesIndexRoute = Ember.Route.extend
 
 Clockwork.UnavailabilitiesNewRoute = Ember.Route.extend
   model: (params, transition)->
-    here = moment().
+    here = now().
       year( parseInt(transition.params.unavailabilities.year)).
       month(parseInt(transition.params.unavailabilities.month) - 1).
       date(params.day).
