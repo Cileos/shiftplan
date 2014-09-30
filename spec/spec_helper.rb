@@ -62,6 +62,11 @@ RSpec.configure do |config|
   end
 
   config.extend RSpecLocale
+
+  # use this when testing daylight saving time behaviour
+  config.around berlin: true do |example|
+    Time.use_zone 'Europe/Berlin', &example
+  end
 end
 
 # Require supporting ruby files with custom matchers and macros, etc,

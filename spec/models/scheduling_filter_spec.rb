@@ -212,7 +212,7 @@ describe SchedulingFilter do
           starts_at.hour.should == 0
         end
 
-        it 'has zone CET' do
+        it 'has zone CET', berlin: true do
           starts_at.zone.should == 'CET'
         end
       end
@@ -224,7 +224,7 @@ describe SchedulingFilter do
           starts_at.hour.should == 0
         end
 
-        it 'has zone CEST' do
+        it 'has zone CEST', berlin: true do
           starts_at.zone.should == 'CEST'
         end
       end
@@ -252,7 +252,7 @@ describe SchedulingFilter do
           ends_at.sec.should == 59
         end
 
-        it 'has zone CET' do
+        it 'has zone CET', berlin: true do
           ends_at.zone.should == 'CET'
         end
       end
@@ -272,7 +272,7 @@ describe SchedulingFilter do
           ends_at.sec.should == 59
         end
 
-        it 'has zone CEST' do
+        it 'has zone CEST', berlin: true do
           ends_at.zone.should == 'CEST'
         end
       end
