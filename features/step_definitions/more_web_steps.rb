@@ -178,13 +178,15 @@ end
 
 Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
   with_scope(parent) do
-    page.should have_field(field, with: value)
+    ele = find_field field
+    ele.value.should include(value)
   end
 end
 
 Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |field, parent, value|
   with_scope(parent) do
-    page.should have_no_field(field, with: value)
+    ele = find_field field
+    ele.value.should_not include(value)
   end
 end
 
