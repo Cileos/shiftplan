@@ -9,6 +9,8 @@ dl
       = accountName
     else
       = t 'activerecord.defaults.setup.account_name'
+  dt= t 'activerecord.attributes.setup.time_zone'
+  dd= timeZoneName
   dt= t 'activerecord.attributes.setup.organization_name'
   dd class=organizationName::default
     if organizationName

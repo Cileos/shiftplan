@@ -1,6 +1,9 @@
 = simple_form_for @account do |f|
   .inputs.edit-account
     = f.input :name, autofocus: true
+    .input.time_zone
+      = f.label :time_zone_name
+      = f.time_zone_select :time_zone_name, nil, include_blank: true
   .actions
     = f.update_button
 

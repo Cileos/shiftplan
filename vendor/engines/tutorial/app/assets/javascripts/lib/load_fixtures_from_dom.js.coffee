@@ -4,7 +4,7 @@
 # load_fixtures_from_dom(MyApp, 'Post', 'posts')
 window.load_fixtures_from_dom = (app, model_name, attr_name)->
   app.initializer
-    name: 'load_chapters'
+    name: "load_#{attr_name}"
     initialize: (container)->
-      $('#fixtures').each ->
+      $("##{attr_name}_fixtures").each ->
         app[model_name].FIXTURES = $(this).data(attr_name)

@@ -7,12 +7,14 @@ en:
         employee_first_name: Name
         employee_last_name: Surname
         team_names: Teams
+        time_zone: Zeitzone
     defaults:
       setup:
         account_name: My Company
         organization_name: My Organization
         plan_name: My first Plan
         team_names: "Reception, Customer Service, cleaning"
+        time_zone: "please selecto yours"
   copy:
     setup:
       team_names: 'Do you devide your organization into groups or teams?'

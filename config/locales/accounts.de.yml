@@ -6,6 +6,7 @@ de:
         last_name: Nachname
         organization_name: Organisationsname
         name: Accountbezeichnung
+        time_zone_name: Zeitzone
     models:
       account:
         one: "Account"

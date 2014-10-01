@@ -1,0 +1,6 @@
+.inputs
+  .input
+    label for="time_zone_name"= t 'activerecord.attributes.setup.time_zone'
+    Ember.Select content=timeZones value=timeZoneName optionValuePath="content.id" optionLabelPath="content.nameWithOffset" promptTranslation="activerecord.defaults.setup.time_zone" id="time_zone_name"
+    each errors.timeZoneName
+      span.error= message

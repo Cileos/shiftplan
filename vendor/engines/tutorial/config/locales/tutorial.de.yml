@@ -19,6 +19,9 @@ de:
         examples:
           - 'Peter ist Chef einer Firma und trägt deren Namen als Kontonamen ein.'
           - 'Sarah ist selbständig und trägt ihren Namen ein. Dieser erscheint dann auf ihren Rechnungen.'
+      - id: 'time_zone'
+        hint: 'Zeitzone'
+        title: 'In welcher Zeitzone findet der Großteil der Arbeit statt?'
       - id: 'organization'
         hint: 'Organisationen'
         title: 'Mit welcher Organisationseinheit möchtest Du Deine Planung für Mitarbeiter beginnen?'
