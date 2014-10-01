@@ -59,7 +59,7 @@ class SchedulingFilterDecorator < SchedulableFilterDecorator
     content = ''.tap do |c|
       items = ''.tap do |i|
         unless (schedulings = find_schedulings(*a)).empty?
-          i << h.render(partial: "schedulings/item/#{mode}", collection: schedulings.map(&:decorate), locals: { filter: self })
+          i << h.render(partial: "schedulings/item/#{mode}", collection: schedulings, locals: { filter: self })
         end
         if mode.employees_in_week? or mode.hours_in_week? # OPTIMIZE  more class splitting looks harmful
           unless (unavailabilities = find_unavailabilities(*a)).empty?
@@ -99,7 +99,7 @@ class SchedulingFilterDecorator < SchedulableFilterDecorator
   # 2) coordinates to find all the scheudlings in cell (needs schedulings_for implemented)
   def find_schedulings(*criteria)
     if criteria.first.is_a?(Scheduling)
-      schedulings_for( *coordinates_for_scheduling( criteria.first) )
+      schedulings_for( *coordinates_for( criteria.first) )
     else
       schedulings_for( *criteria )
     end
@@ -108,7 +108,7 @@ class SchedulingFilterDecorator < SchedulableFilterDecorator
   # TODO remove duplication
   def find_unavailabilities(*criteria)
     if criteria.first.is_a?(Scheduling)
-      unavailabilities_for( *coordinates_for_scheduling( criteria.first) )
+      unavailabilities_for( *coordinates_for( criteria.first) )
     else
       unavailabilities_for( *criteria )
     end
@@ -123,8 +123,10 @@ class SchedulingFilterDecorator < SchedulableFilterDecorator
         day, employee_id = resource, extra
         %Q~#calendar tbody td[data-date=#{day.to_date.iso8601}][data-employee-id=#{employee_id}]~
       end
+    when :next_cell
+      next_cell_selector(resource)
     when :scheduling
-      %Q~#calendar tbody .scheduling[data-cid="#{resource.decorate.cid}"]~
+      %Q~#calendar tbody .scheduling[data-cid="#{resource.id}"]~
     when :wwt_diff
       %Q~#calendar tbody tr[data-employee-id=#{resource.id}] th .wwt_diff~
     when :legend
@@ -143,6 +145,10 @@ class SchedulingFilterDecorator < SchedulableFilterDecorator
     %Q~#calendar tbody td[data-date=#{scheduling.date.to_date.iso8601}][data-employee-id=#{scheduling.try(:employee_id) || 'missing'}]~
   end
 
+  # same for the other half of overnightable
+  def next_cell_selector(scheduling)
+    %Q~#calendar tbody td[data-date=#{scheduling.date.tomorrow.to_date.iso8601}][data-employee-id=#{scheduling.try(:employee_id) || 'missing'}]~
+  end
 
   # teams already scheduled in current week
   def active_teams
@@ -166,8 +172,12 @@ class SchedulingFilterDecorator < SchedulableFilterDecorator
   delegate :plan,         to: :filter
   delegate :organization, to: :plan
 
-  def coordinates_for_scheduling(scheduling)
+  def coordinates_for(scheduling)
     [ scheduling.date, scheduling.employee ]
+  end
+
+  def next_coordinates_for(scheduling)
+    [ scheduling.date.tomorrow, scheduling.employee ]
   end
 
   # URI-Path to another week

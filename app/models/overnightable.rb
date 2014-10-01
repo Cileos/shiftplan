@@ -12,9 +12,4 @@ module Overnightable
   def is_overnight?
     starts_at.day != ends_at.day
   end
-
-  # Checks if the model has an overnight timespan.
-  def has_overnight_timespan?
-    ends_at.present? && starts_at.present? && ends_at < starts_at
-  end
 end

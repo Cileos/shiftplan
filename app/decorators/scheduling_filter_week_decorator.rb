@@ -19,7 +19,9 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
   end
 
   def schedulings_for(day, other)
-    scheduling_index.fetch(day.to_date.iso8601, other).sort_by(&:start_hour)
+    scheduling_index.fetch(day.to_date, other).sort_by(&:start_hour).map(&:decorate).each do |s|
+      s.focus_day = day
+    end
   end
 
   def unavailabilities_for(day, other)
@@ -47,7 +49,7 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
   #   scheduling.day(iso8601) => scheduling.xxxxxx => []
   #
   def scheduling_index
-    @scheduling_index ||= TwoDimensionalRecordIndex.new(:iso8601, y_attribute).with_records_added(records)
+    @scheduling_index ||= SchedulingIndexByWeekDay.new(y_attribute).with_records_added(records)
   end
 
   def unavailabilities_index

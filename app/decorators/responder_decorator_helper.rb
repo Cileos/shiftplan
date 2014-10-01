@@ -35,14 +35,7 @@ module ResponderDecoratorHelper
 
   def respond_normally(resource)
     update_cell_for(resource)
-    respond_for_next_day(resource)
     respond_for_repetitions(resource)
-  end
-
-  def respond_for_next_day(resource)
-    if resource.next_day
-      update_cell_for(resource.next_day)
-    end
   end
 
   def respond_for_repetitions(resource)

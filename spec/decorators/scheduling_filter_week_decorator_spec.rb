@@ -10,11 +10,13 @@ describe SchedulingFilterWeekDecorator do
 
   let(:day) { double("Day", iso8601: 'iso8601').tap { |d| d.stub to_date: d } }
 
+  let(:scheduling) { instance_double('Scheduling', start_hour: 9, :focus_day= => true) }
   it "indexes schedulings their date#iso8601" do
-    index = instance_double 'TwoDimensionalRecordIndex'
+    index = instance_double 'SchedulingIndexByWeekDay'
     decorator.stub(:scheduling_index).and_return(index)
-    records = [instance_double('Scheduling', start_hour: 9)]
-    index.should_receive(:fetch).with('iso8601', 'b').and_return(records)
+    scheduling.stub decorate: scheduling
+    records = [scheduling]
+    index.should_receive(:fetch).with(day, 'b').and_return(records)
     decorator.schedulings_for(day, 'b').should == records
   end
 

@@ -92,7 +92,7 @@ describe SchedulingFilterDecorator, 'mode' do
     it "calculates coordinates from scheduling as criteria" do
       scheduling = Scheduling.new
       coordinates = [double, double]
-      decorator.should_receive(:coordinates_for_scheduling).with(scheduling).and_return(coordinates)
+      decorator.should_receive(:coordinates_for).with(scheduling).and_return(coordinates)
       decorator.should_receive(:schedulings_for).with(*coordinates).and_return(result)
       decorator.find_schedulings(scheduling).should == result
     end

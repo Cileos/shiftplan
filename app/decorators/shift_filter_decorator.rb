@@ -14,6 +14,8 @@ class ShiftFilterDecorator < SchedulableFilterDecorator
     case name
     when :cell
       cell_selector(resource)
+    when :next_cell
+      next_cell_selector(resource)
     else
       super
     end
@@ -23,11 +25,18 @@ class ShiftFilterDecorator < SchedulableFilterDecorator
      %Q~#calendar tbody td[data-day=#{shift.day}][data-team-id=#{shift.team_id}]~
   end
 
+  def next_cell_selector(shift)
+     %Q~#calendar tbody td[data-day=#{shift.day + 1}][data-team-id=#{shift.team_id}]~
+  end
+
   def cell_content(*a)
     shifts = find_shifts(*a)
     content = ''
     unless shifts.empty?
-      content = h.render "shifts/lists/teams_in_week", shifts: shifts.map(&:decorate), filter: self
+      prepared = shifts.map(&:decorate).each do |shift|
+        shift.focus_day = a.first
+      end
+      content = h.render "shifts/lists/teams_in_week", shifts: prepared, filter: self
     end
     h.content_tag :div, content, class: 'cellwrap'
   end
@@ -37,14 +46,18 @@ class ShiftFilterDecorator < SchedulableFilterDecorator
   # 2) coordinates to find all the shifts in cell (needs shifts_for implemented)
   def find_shifts(*criteria)
     if criteria.first.is_a?(Shift)
-      shifts_for( *coordinates_for_shift( criteria.first) )
+      shifts_for( *coordinates_for( criteria.first) )
     else
       # TODO
       shifts_for( *criteria )
     end
   end
 
-  def coordinates_for_shift(shift)
+  def coordinates_for(shift)
     [ shift.day, shift.team ]
+  end
+
+  def next_coordinates_for(shift)
+    [ shift.day + 1, shift.team ]
   end
 end

@@ -45,7 +45,7 @@ class NestedResourceDispatcher
         {
           cwyear: resource.cwyear,
           week: resource.week,
-          anchor: "/scheduling/#{resource.cid}#{extra}"
+          anchor: "/scheduling/#{resource.id}#{extra}"
         }
       ]
     end
