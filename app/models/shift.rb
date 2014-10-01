@@ -31,16 +31,6 @@ class Shift < ActiveRecord::Base
     ShiftFilter.new plan_template: plan_template
   end
 
-  # Delegate the demands of the second day of a nightshift to the previous day.
-  def demands_with_respecting_previous_day
-    if previous_day.present?
-      previous_day.demands
-    else
-      demands_without_respecting_previous_day
-    end
-  end
-  alias_method_chain :demands, :respecting_previous_day
-
   # we store the times as UTC and just pick hours&minute from it
   def starts_at
     read_attribute(:starts_at)
@@ -64,6 +54,7 @@ class Shift < ActiveRecord::Base
   protected
 
   # we are only interested in the time component, so always treat the time like they would be TODAY
+  # FIXME shouldn't this start at the plan_templates start, adding #day, #*hour and #*minute ?
   def base_for_time_range_components
     Time.current.beginning_of_day
   end

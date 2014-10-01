@@ -90,6 +90,10 @@ describe OvernightableJoiner do
     ]}
   end
 
+  it "must do the same for shifts"
+
+  it 'revokes column schedulings.next_day_id to exist (CREATE MIGRATION)'
+
   let(:plan) { create :plan }
   let(:team) { create :team }
   let(:someone) { create :employee }

@@ -74,58 +74,30 @@ describe Repeatable do
     let(:start_hour)    { 22 }
     let(:end_hour)      { 6 }
 
-    let(:first_day_schedulings) do
-      schedulings_by_starts_at.select {|s| s.next_day.present? }
-    end
-    let(:next_day_schedulings) do
-      schedulings_by_starts_at.select {|s| s.previous_day.present? }
+    let(:schedulings) do
+      schedulings_by_starts_at
     end
 
-    it "creates expected number of schedulings" do
-      Scheduling.count.should == 6
+    it "creates no extra Schedulings" do
+      Scheduling.count.should == 3
     end
 
     it "creates expected number of first days" do
-      first_day_schedulings.count.should == 3
-    end
-
-    it "creates expected number of next days" do
-      next_day_schedulings.count.should == 3
-    end
-
-    it "creates a next day for each first day" do
-      first_day_schedulings.each do |s|
-        s.next_day.should_not be_nil
-      end
+      schedulings.count.should == 3
     end
 
     it "creates first days having expected date" do
       [wednesday, thursday, saturday].each_with_index do |date, i|
-        first_day_schedulings[i].starts_at.to_date.to_s.should == date
-      end
-    end
-
-    it "creates next days having expected date" do
-      [thursday, friday, sunday].each_with_index do |date, i|
-        next_day_schedulings[i].starts_at.to_date.to_s.should == date
+        schedulings[i].starts_at.to_date.to_s.should == date
       end
     end
 
     it "creates first days having expected start and end time" do
-      first_day_schedulings.each do |first_day|
-        first_day.starts_at.hour.should == 22
-        first_day.starts_at.min.should == 0
-        first_day.ends_at.hour.should == 23
-        first_day.ends_at.min.should == 59
-      end
-    end
-
-    it "creates next days having expected start and end time" do
-      next_day_schedulings.each do |next_day|
-        next_day.starts_at.hour.should == 0
-        next_day.starts_at.min.should == 0
-        next_day.ends_at.hour.should == 6
-        next_day.ends_at.min.should == 0
+      schedulings.each do |day|
+        day.starts_at.hour.should == 22
+        day.starts_at.min.should == 0
+        day.ends_at.hour.should == 6
+        day.ends_at.min.should == 0
       end
     end
   end

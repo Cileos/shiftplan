@@ -135,8 +135,23 @@ module TimeRangeComponentsAccessible
   end
 
   module Scopes
-    def between(first, last)
-      where("? <= #{table_name}.starts_at AND #{table_name}.starts_at <= ?", first, last)
+    def overlapping(first, last)
+      first, last = first.utc, last.utc
+      t = arel_table
+      starts, ends = t[:starts_at], t[:ends_at]
+
+      starts_between = starts.gteq(first).and( starts.lteq(last) )
+      ends_between = ends.gteq(first).and( ends.lteq(last) )
+      where(starts_between.or(ends_between))
+    end
+
+    def starts_between(first, last)
+      first, last = first.utc, last.utc
+      t = arel_table
+      starts = t[:starts_at]
+
+      sbw = starts.gteq(first).and( starts.lteq(last) )
+      where(sbw)
     end
   end
 end

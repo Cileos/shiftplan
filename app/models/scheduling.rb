@@ -17,6 +17,7 @@ class Scheduling < ActiveRecord::Base
   validates :starts_at, :ends_at, within_plan_period: true
   validates_with NextDayWithinPlanPeriodValidator
   validates_with ShiftPeriodValidator, unless: ->(s) { s.start_hour == 0 && s.start_minute == 0 }
+  validates_with PeriodValidator
 
   scope :in_organizations, ->(ids) { where(organizations: { id: ids }) }
 
@@ -78,20 +79,15 @@ class Scheduling < ActiveRecord::Base
 
   # Because Date and Times are immutable, we have to situps to just change the week and year.
   # must be used on a valid record.
-  # FIXME this is the reason to refactor Overnightable
   def move_to_week_and_year!(week, year)
-    raise(ArgumentError, "please move previous day instead") if previous_day.present?
     wday = cwday
     wday = 7 if wday == 0 # sunday. bloody sunday
-    # next day was set by dup!?
-    *saved_hours = start_hour,
-                   next_day ? next_day.end_hour : end_hour
-    *saved_minutes = start_minute,
-                     next_day ? next_day.end_minute : end_minute
 
-    @date = Date.commercial(year, week, wday)
-    next_day.destroy if next_day.present? && next_day.persisted?
-    self.next_day_id = self.starts_at = self.ends_at = self.week = self.year = nil
+    *saved_hours = start_hour, end_hour
+    *saved_minutes = start_minute, end_minute
+
+    @date = Date.commercial(year, week, wday).in_time_zone.beginning_of_day
+    self.starts_at = self.ends_at = self.week = self.year = nil
     self.start_hour, self.end_hour = *saved_hours
     self.start_minute, self.end_minute = *saved_minutes
     save!
@@ -152,8 +148,7 @@ class Scheduling < ActiveRecord::Base
       # fetch only needed fields to build quickies
       unscoped
         .preload(:team)
-        .preload(:next_day)
-        .select(%q~id, starts_at, ends_at, team_id, next_day_id~)
+        .select(%q~id, starts_at, ends_at, team_id~)
         .where("#{id} IN (#{samples.to_sql})")
         .map(&:quickie)
     end

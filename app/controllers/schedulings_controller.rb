@@ -11,7 +11,6 @@ class SchedulingsController < BaseController
     only_collections.before_filter :validate_plan_period
     only_collections.before_filter :find_conflicts
   end
-  before_filter :merge_time_components_from_next_day, only: :edit
 
   tutorial 'scheduling'
 
@@ -70,11 +69,5 @@ class SchedulingsController < BaseController
 
     def plan
       parent
-    end
-
-    # We always edit the first day of an overnightable. This makes it necessary to
-    # initialize the first day with the end_hour and end_minute of the next day.
-    def merge_time_components_from_next_day
-      resource.merge_time_components_from_next_day! if resource.is_overnight?
     end
 end
