@@ -92,7 +92,7 @@ class ApplicationController < ActionController::Base
   end
 
   def nested_resource_dispatcher
-    @nested_resource_dispatcher ||= NestedResourceDispatcher.new
+    @nested_resource_dispatcher ||= NestedResourceDispatcher.new(self)
   end
 
   helper_method :year_for_cweek_at

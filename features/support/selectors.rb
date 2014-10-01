@@ -174,8 +174,11 @@ module HtmlSelectorsHelpers
     when /^(?: a |the )?(\w+) list$/
       "ul.#{$1}"
 
-    when /^the #{capture_nth} (post)/
+    when /^the #{capture_nth} (post|milestone)/
       [:xpath, complicated_css(".#{$2}#{Numerals[$1]}")]
+
+    when /^the #{capture_nth} (milestones) list$/
+      [:xpath, complicated_css("ul.#{$2}#{Numerals[$1]}")]
 
     when 'active week'
       '.calendar-active-week'

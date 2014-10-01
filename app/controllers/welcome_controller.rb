@@ -12,6 +12,7 @@ class WelcomeController < ApplicationController
     @upcoming      = current_user.schedulings.upcoming.starting_in_the_next('14 days')
     @notifications = current_user.notifications
     @posts         = current_user.posts_of_joined_organizations.recent(15)
+    @milestones    = current_user.milestones_of_joined_organizations.todo
 
     UserConflictFinder.new(@upcoming).call
   end

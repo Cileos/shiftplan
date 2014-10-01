@@ -80,7 +80,7 @@ Given /^#{capture_model} has joined another organization of #{capture_model}$/ d
 end
 
 
-Given /^mr burns, owner of the Springfield Nuclear Power Plant exists$/ do
+Given /^[mM]r [bB]urns, owner of the Springfield Nuclear Power Plant exists$/ do
   step %{a mr burns exists}
   step %{a user "mr burns" should exist}
   step %{a employee_owner "mr burns" should exist}

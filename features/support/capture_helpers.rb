@@ -2,7 +2,14 @@ Numerals = {
   'first'  => ':first',
   'second' => ':nth-of-type(2)',
   'third'  => ':nth-of-type(3)',
-  'forth'  => ':nth-of-type(4)'
+  'forth'  => ':nth-of-type(4)',
+  'fifth'  => ':nth-of-type(5)',
+
+  '1st'    => ':first',
+  '2nd'    => ':nth-of-type(2)',
+  '3rd'    => ':nth-of-type(3)',
+  '4th'    => ':nth-of-type(4)',
+  '5th'    => ':nth-of-type(5)',
 }
 module StringCaptureHelper
   def capture_quoted
