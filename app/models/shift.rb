@@ -43,9 +43,7 @@ class Shift < ActiveRecord::Base
 
   # we store the times as UTC and just pick hours&minute from it
   def starts_at
-    if utc = read_attribute(:starts_at)
-      base_for_time_range_components + utc.hour.hours + utc.min.minutes
-    end
+    read_attribute(:starts_at)
   end
 
   def starts_at=(time_with_zone)
@@ -54,7 +52,8 @@ class Shift < ActiveRecord::Base
 
   def ends_at
     if utc = read_attribute(:ends_at)
-      base_for_time_range_components + utc.hour.hours + utc.min.minutes
+      utc = utc.tomorrow if utc < starts_at
+      utc
     end
   end
 
