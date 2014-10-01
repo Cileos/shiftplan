@@ -97,12 +97,6 @@ class Scheduling < ActiveRecord::Base
     (start_hour...end_hour)
   end
 
-  # date of the day the Scheduling starts
-  def date
-    @date || date_part_or_default(:to_date) { date_from_human_date_attributes }
-  end
-
-
   # we have two ways to clean and re-generate the quickie, parsed#to_s or
   # the attributes based self#to_quickie. We use the latter here
   def quickie
