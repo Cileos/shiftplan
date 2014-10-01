@@ -31,6 +31,14 @@ class RecordDecorator < ApplicationDecorator
     end
   end
 
+  def url
+    h.url_for nesting
+  end
+
+  def nesting
+    h.nested_resources_for(object)
+  end
+
 
   private
 

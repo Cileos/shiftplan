@@ -41,6 +41,24 @@ class EmployeeDecorator < RecordDecorator
     h.t("employees.roles.#{role_in_context}")
   end
 
+  def planable_tag
+    bool = h.yes_or_no_tag object.planable?
+    id   = h.dom_id(object, 'planable')
+    title = object.class.human_attribute_name(:planable)
+    if h.can?(:update, object)
+      h.content_tag :label, for: id, class: 'planable', title: title, data: { url: url } do
+        h.check_box_tag(id, '1', object.planable?) +
+        bool
+      end
+    else
+      bool
+    end
+  end
+
+  def nesting
+    [h.current_account, h.current_organization, object]
+  end
+
   protected
 
   def resource
