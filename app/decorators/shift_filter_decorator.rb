@@ -1,11 +1,5 @@
-# This decorator has multiple `modes` to act in. These correspond to the
-# different actions and views of the ShiftsController.
-# OPTIMIZE unify with SchedulingFilterDecorator (by superclass)
-class ShiftFilterDecorator < ApplicationDecorator
+class ShiftFilterDecorator < SchedulableFilterDecorator
   decorates :shift_filter
-  delegate_all
-
-  include ModeAwareness
 
   def filter
     model
@@ -15,10 +9,6 @@ class ShiftFilterDecorator < ApplicationDecorator
   delegate :organization, to: :plan_template
 
   private
-
-  def update_cell_for(shift)
-    select(:cell, shift).refresh_html cell_content(shift) || ''
-  end
 
   def selector_for(name, resource=nil, extra=nil)
     case name

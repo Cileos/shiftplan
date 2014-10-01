@@ -1,11 +1,5 @@
-# This decorator has multiple `modes` to act in. These correspond to the
-# different actions and views of the SchedulingsController.
-class SchedulingFilterDecorator < ApplicationDecorator
-  include ModeAwareness
-
+class SchedulingFilterDecorator < SchedulableFilterDecorator
   decorates :scheduling_filter
-
-  delegate_all
 
   def self.supported_modes
     [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
@@ -214,10 +208,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def path_to_day(day=monday)
     h.account_organization_plan_teams_in_day_path(h.current_account, h.current_organization, plan, day.year, day.month, day.day)
-  end
-
-  def update_cell_for(scheduling)
-    select(:cell, scheduling).refresh_html cell_content(scheduling) || ''
   end
 
   def focus_element_for(scheduling)
