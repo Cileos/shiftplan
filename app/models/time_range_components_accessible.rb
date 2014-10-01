@@ -75,37 +75,32 @@ module TimeRangeComponentsAccessible
 
   def date=(new_date)
     if new_date
-      @date = if new_date.respond_to?(:year) # date/time like thingy
-          new_date
-        else
-          Time.zone.parse(new_date)
-        end.in_time_zone.beginning_of_day
-    end
-  end
+      keeping_time do
 
-  # Because Date and Times are immutable, we have to situps to just change the week and year.
-  # must be used on a valid record.
-  def move_to_week_and_year(week, year)
-    self.date = Date.commercial(year, week, cwday)
-  end
+        @date = if new_date.respond_to?(:year) # date/time like thingy
+            new_date
+          else
+            Time.zone.parse(new_date)
+          end.in_time_zone.beginning_of_day
 
-  def date=(new_date)
-    if new_date
-      if new_date.respond_to?(:to_date)
-        new_date = new_date.to_date
-      else
-        new_date = Date.parse(new_date)
       end
-
-      end_hour_or_end_hour_of_next_day = next_day ? next_day.end_hour : end_hour
-      *saved = start_hour, end_hour_or_end_hour_of_next_day
-      @date = new_date
-      self.next_day_id = self.starts_at = self.ends_at = self.week = self.year = nil
-      self.start_hour, self.end_hour = *saved
     end
   end
 
   protected
+
+  def keeping_time
+    end_hour_or_end_hour_of_next_day = (respond_to?(:next_day) && next_day) ? next_day.end_hour : end_hour
+    *saved = start_hour, end_hour_or_end_hour_of_next_day
+
+    yield
+
+    self.starts_at = self.ends_at = nil
+    if respond_to?(:next_day_id=)
+      self.next_day_id = nil
+    end
+    self.start_hour, self.end_hour = *saved
+  end
 
   # FIXME test this!
   def compose_time_range_from_components
