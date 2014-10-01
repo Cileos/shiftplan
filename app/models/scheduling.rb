@@ -15,7 +15,6 @@ class Scheduling < ActiveRecord::Base
   validates_presence_of :plan
   validates_presence_of :starts_at, :ends_at, :year, :week
   validates :starts_at, :ends_at, within_plan_period: true
-  validates_with NextDayWithinPlanPeriodValidator
   validates_with ShiftPeriodValidator, unless: ->(s) { s.start_hour == 0 && s.start_minute == 0 }
   validates_with PeriodValidator
 
@@ -59,7 +58,7 @@ class Scheduling < ActiveRecord::Base
 
   def self.from_month(date)
     date = date.in_time_zone
-    between(date.beginning_of_month, date.end_of_month)
+    starts_between(date.beginning_of_month, date.end_of_month)
   end
 
   # Used for dupping, for example in nightshift. #dup won't copy associations,

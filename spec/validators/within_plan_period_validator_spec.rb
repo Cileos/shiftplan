@@ -89,7 +89,7 @@ I18n.with_locale :de do
         scheduling = build :manual_scheduling, quickie: '22-6', date: ends_at, plan: plan, starts_at: nil, ends_at: nil, week: nil, year: nil
 
         scheduling.should_not be_valid
-        scheduling.errors[:base].should == ["Der nächste Tag endet nach der Endzeit des Plans."]
+        scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
       end
     end
 
