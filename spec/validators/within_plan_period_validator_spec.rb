@@ -92,6 +92,21 @@ I18n.with_locale :de do
         scheduling.errors[:base].should == ["Der nächste Tag endet nach der Endzeit des Plans."]
       end
     end
+
+    context "given nil value" do
+      let(:plan) { double 'Plan', starts_at: 1.day.from_now }
+      let(:record) { double('Record', plan: plan) }
+      let(:validator) { described_class.new(attributes: [:starts_at]) }
+
+      def validate!
+        validator.validate_each( record, :starts_at, value )
+      end
+
+      let(:value) { nil }
+      it "should not break" do
+        expect { validate! }.not_to raise_error
+      end
+    end
   end
 
 end # locale :de
