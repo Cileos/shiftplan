@@ -36,9 +36,11 @@ class CalendarCursor
       unless cursor.scrolling
         cursor.focus($(this), null, false)
       false
+
     unfocus = (event) ->
       unless cursor.scrolling
         cursor.unfocus($(this))
+        cursor.focus($(this).closest('td'), null, false)
       false
 
     if @$calendar.is('.week')
@@ -46,12 +48,6 @@ class CalendarCursor
         cursor.setupDraggable $(this)
       @$calendar.on 'mousemove', @droppable, (event) ->
         cursor.setupDroppable $(this)
-    @$calendar.on 'mouseleave', @items, (event) ->
-      unless cursor.scrolling
-        cursor.unfocus()
-        cursor.focus($(this).closest('td'), null, false)
-      false
-
 
     @$calendar.on 'mouseenter', @items, focus
     @$calendar.on 'mouseleave', @items, unfocus
