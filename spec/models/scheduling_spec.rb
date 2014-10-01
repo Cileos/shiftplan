@@ -304,12 +304,18 @@ describe Scheduling do
   end
 
   describe "ranging over midnight" do
-    let(:nightwatch) { build :scheduling, quickie: '19-6', date: Date.today }
+    let(:nightwatch) { build :scheduling, quickie: '19-6', date: Time.zone.parse('2014-09-24') }
 
     it "should have hours set" do
       nightwatch.valid?
       nightwatch.start_hour.should == 19
       nightwatch.end_hour.should == 6
+    end
+
+    it 'actually spans to the next day' do # no overnight split
+      nightwatch.starts_at.should < nightwatch.ends_at
+      nightwatch.valid?
+      nightwatch.start_day.should eq(nightwatch.end_day - 1)
     end
 
     # reload to force AR to re-init the dates and really delete all our state

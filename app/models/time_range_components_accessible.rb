@@ -93,15 +93,26 @@ module TimeRangeComponentsAccessible
 
       reset_start_components!
     end
-    if date.present? && end_hour_present?
-      if end_hour == 24
-        self.ends_at = date.end_of_day
-      elsif end_hour == 0 && start_minute >= end_minute
-        self.ends_at = date.end_of_day
-      else
-        self.ends_at = date + end_hour.hours + end_minute.minutes
-      end
 
+    if date.present? && end_hour_present?
+      self.ends_at =
+        if end_hour == 24   # ?-24 means until midnight
+          if end_minute > 0
+            date.tomorrow + end_minute.minutes
+          else
+            date.end_of_day
+          end
+        elsif end_hour == 0 # 0-0:15 is just quarter of an hour, 16-0 are eight hours
+          if start_hour == 0 && start_minute < end_minute
+            date + end_minute.minutes
+          else
+            date.end_of_day + end_minute.minutes
+          end
+        elsif end_hour < start_hour
+          date.tomorrow + end_hour.hours + end_minute.minutes
+        else
+          date + end_hour.hours + end_minute.minutes
+        end
       reset_end_components!
     end
   end
