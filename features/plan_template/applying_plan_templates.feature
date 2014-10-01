@@ -1,5 +1,5 @@
 @javascript
-@small_screen
+@screencast
 Feature: Applying Weekbased Plan Templates to Plans
   As I planner
   I want to apply a weekbased plan template to my plan
