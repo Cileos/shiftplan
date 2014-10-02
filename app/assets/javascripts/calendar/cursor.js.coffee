@@ -283,6 +283,7 @@ class CalendarCursor
       hoverClass: 'drop-hover'
       drop: (event, ui) ->
         $scheduling = ui.draggable
+        $(this).find('ul:first').append($scheduling)
         url = cursor.urlFor($scheduling)
         data = {}
         for field in ['date', 'employee-id', 'team-id', 'day']
