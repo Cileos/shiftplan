@@ -644,13 +644,15 @@ describe Scheduling do
   end
 
   context 'updates from drop' do
-    let(:created) { create :scheduling, quickie: '9-17' }
+    let(:created) { create :scheduling, quickie: '9-17:15' }
     let(:scheduling) { Scheduling.find(created.id) }
     let(:reloaded) { Scheduling.find(created.id) }
     it "can change date" do
       date = Date.new(1988,5,5)
       scheduling.update_attributes! date: date.iso8601
       reloaded.starts_at.to_date.should == date
+      reloaded.start_time.should == '09:00'
+      reloaded.end_time.should == '17:15'
     end
 
     it "can change employee" do

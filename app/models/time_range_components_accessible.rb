@@ -90,16 +90,12 @@ module TimeRangeComponentsAccessible
   protected
 
   def keeping_time
-    end_hour_or_end_hour_of_next_day = (respond_to?(:next_day) && next_day) ? next_day.end_hour : end_hour
-    *saved = start_hour, end_hour_or_end_hour_of_next_day
+    *saved = start_hour, end_hour, start_minute, end_minute
 
     yield
 
     self.starts_at = self.ends_at = nil
-    if respond_to?(:next_day_id=)
-      self.next_day_id = nil
-    end
-    self.start_hour, self.end_hour = *saved
+    self.start_hour, self.end_hour, self.start_minute, self.end_minute = *saved
   end
 
   # FIXME test this!
