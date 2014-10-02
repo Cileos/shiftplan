@@ -259,10 +259,6 @@ class CalendarCursor
   setupDraggable: ($item) ->
     @setupDroppable $(@droppable)
     $item.draggable
-      helper: (x,y,z) ->
-        $(this)
-          .css
-            width: $(this).width() * 0.9
       appendTo: @$calendar
       containment: @$calendar
       distance: 5
@@ -295,7 +291,7 @@ class CalendarCursor
           $scheduling.remove() # rjs rendered a new list in droppable
         , ->
           # revert to old position
-          $scheduling.css({left: 0, top: 0, width: 'auto'})
+          $scheduling.css({left: 0, top: 0})
 
   urlFor: ($element)->
     @$calendar.data('new-url').replace(/new$/, $element.data('cid'))
