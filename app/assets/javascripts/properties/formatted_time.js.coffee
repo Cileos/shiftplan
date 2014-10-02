@@ -12,7 +12,7 @@ Clockwork.formattedTimeProperty = (source, format='H:mm')->
 
     have = @get(source)
     if have && have.isValid()
-      have.zone(timezoneOffset()).format(format)
+      have.format(format)
     else
       have
   .property(source)

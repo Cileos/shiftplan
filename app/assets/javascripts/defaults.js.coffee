@@ -45,7 +45,7 @@ jQuery(document).ready ->
     $(e.target).find('input.stringy_date').rails_datepick()
     $(':input#team_color').minicolors({position: 'top left'})
 
-  moment.lang(language)
+  moment.locale(language)
 
   $.datepick.setDefaults $.extend( {},
     $.datepick.regional[ if language is 'en' then '' else language],

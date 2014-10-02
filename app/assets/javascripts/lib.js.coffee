@@ -14,6 +14,7 @@
 #= require xregexp/unicode-base
 #= require xregexp/build
 #= require moment-with-langs
+#= require moment-timezone-with-data-2010-2020
 
 
 #= require_tree './lib'
