@@ -271,6 +271,8 @@ class CalendarCursor
       distance: 5
       scroll: true
       scope: 'schedulings'
+      cursorAt:
+        bottom: 4
 
   setupDroppable: ($td) ->
     cursor = this
