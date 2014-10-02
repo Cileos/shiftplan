@@ -287,10 +287,16 @@ class CalendarCursor
           if value = $(this).data(field)
             value = null if value == 'missing' # "our" defined null
             data[field.replace(/-/g,'_')] = value
-        $.ajax url,
+        saving = $.ajax url,
           type: 'PUT'
           dataType: 'script'
           data: $.param(scheduling: data)
+
+        saving.then ->
+          $scheduling.remove() # rjs rendered a new list in droppable
+        , ->
+          # revert to old position
+          $scheduling.css({left: 0, top: 0, width: 'auto'})
 
   urlFor: ($element)->
     @$calendar.data('new-url').replace(/new$/, $element.data('cid'))
