@@ -313,8 +313,8 @@ describe Scheduling do
     end
 
     it 'actually spans to the next day' do # no overnight split
-      nightwatch.starts_at.should < nightwatch.ends_at
       nightwatch.valid?
+      nightwatch.starts_at.should < nightwatch.ends_at
       nightwatch.start_day.should eq(nightwatch.end_day - 1)
     end
 
