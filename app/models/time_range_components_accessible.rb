@@ -103,6 +103,7 @@ module TimeRangeComponentsAccessible
   end
 
   # FIXME test this!
+  # TODO half implementation in TimeRangeComposer
   def compose_time_range_from_components
     date = base_for_time_range_components
     if date.present? && start_hour_present?
