@@ -265,7 +265,6 @@ class CalendarCursor
             width: $(this).width() * 0.9
       appendTo: @$calendar
       containment: @$calendar
-      delay: 300
       distance: 5
       scroll: true
       scope: 'schedulings'

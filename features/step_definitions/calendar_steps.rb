@@ -176,3 +176,14 @@ Then /^I reschedule #{capture_quoted} and select #{capture_quoted} as #{capture_
     click_button "Speichern"
   end
 end
+
+When(/^I drag #{capture_quoted} and drop it onto #{capture_cell}$/) do |handle, cell_name|
+  cell = page.find *selector_for(cell_name)
+  cell.should_not be_nil, "could not find cell #{cell_name}"
+  ele = page.find('li', text: handle)
+  ele.should_not be_nil, "could not find draggable #{handle}"
+  # must setup lazy initialized draggables/droppables
+  execute_script %q~$('li.scheduling').trigger('mousemove')~
+  ele.drag_to(cell)
+  some_time_passes
+end
