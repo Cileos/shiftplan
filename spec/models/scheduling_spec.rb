@@ -234,7 +234,7 @@ describe Scheduling do
         build_without_dates( date: the_date)
       end
       it "should accept date to fill selectbox" do
-        scheduling.date.should == Time.zone.parse(the_date)
+        scheduling.date.should == Time.zone.parse(the_date).to_date
       end
     end
 
