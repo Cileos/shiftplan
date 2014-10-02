@@ -196,7 +196,7 @@ class CalendarCursor
 
   activate: ->
     @orientate()
-    if @$focussed_item.length > 0
+    if @$focussed_item.length > 0 and not @$focussed_item.is('.ui-draggable-dragging')
       @edit()
     else
       @create()
