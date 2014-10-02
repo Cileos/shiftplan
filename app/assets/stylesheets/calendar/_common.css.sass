@@ -142,8 +142,10 @@ $drop_hover: #B2D8AB
     &.comments
       display: none
 
-  .dragging
+  .ui-draggable-dragging
     cursor: move
+    // above the cursor focus
+    z-index: 100
 
 .calendar-description
   color: $ci_darkgrey
