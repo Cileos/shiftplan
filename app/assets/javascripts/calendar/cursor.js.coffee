@@ -273,6 +273,7 @@ class CalendarCursor
       scope: 'schedulings'
 
   setupDroppable: ($td) ->
+    cursor = this
     $td.droppable
       scope: 'schedulings'
       accept: @items
@@ -280,7 +281,7 @@ class CalendarCursor
       hoverClass: 'drop-hover'
       drop: (event, ui) ->
         $scheduling = ui.draggable
-        url = $scheduling.data('edit_url').replace(/\/edit$/,'')
+        url = cursor.urlFor($scheduling)
         data = {}
         for field in ['date', 'employee-id', 'team-id', 'day']
           if value = $(this).data(field)
@@ -291,6 +292,8 @@ class CalendarCursor
           dataType: 'script'
           data: $.param(scheduling: data)
 
+  urlFor: ($element)->
+    @$calendar.data('new-url').replace(/new$/, $element.data('cid'))
 
 
 
