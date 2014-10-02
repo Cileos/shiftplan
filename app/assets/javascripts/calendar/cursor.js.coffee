@@ -274,6 +274,7 @@ class CalendarCursor
       accept: @items
       activeClass: 'drop-invite'
       hoverClass: 'drop-hover'
+      overlap: 'pointer'
       drop: (event, ui) ->
         $scheduling = ui.draggable
         url = cursor.urlFor($scheduling)
