@@ -22,7 +22,7 @@ Clockwork.Unavailability = DS.Model.extend
   localStartsAt: Ember.computed 'startsAt', ->
     @get('startsAt').zone(timezoneOffset())
   localEndsAt: Ember.computed 'endsAt', ->
-    @get('startsAt').zone(timezoneOffset())
+    @get('endsAt').zone(timezoneOffset())
 
   dayInWeek: Ember.computed 'localStartsAt', ->
     @get('localStartsAt').day()
