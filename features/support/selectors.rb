@@ -145,6 +145,10 @@ module HtmlSelectorsHelpers
       row    = the_calendar.row_index_for($2)
       [:xpath, complicated_css("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})")]
 
+    when %r~^(?:the )?column "([^"]+)"$~
+      column = the_calendar.column_index_for($1)
+      [:xpath, complicated_css("tbody tr:first td:nth-child(#{column+1})")]
+
     when 'a hint'
       '.hint'
 

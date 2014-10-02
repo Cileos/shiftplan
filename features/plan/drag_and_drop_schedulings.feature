@@ -50,3 +50,12 @@ Feature: Drag & Drop Schedulings of a Plan
         | Teams      | Mo | Fr                 |
         | Putzen (P) |    |                    |
         | Sitzen (S) |    | Carl C 07:00-23:15 |
+
+     When I go to the hours in week page for the plan for cwyear: 2012, week: 51
+     Then I should see the following partial calendar:
+        | Mo | Fr                   |
+        |    | Carl C 07:00-23:15 S |
+     When I drag "07:00-23:15" and drop it onto column "Mo"
+     Then I should see the following partial calendar:
+        | Mo                   | Fr |
+        | Carl C 07:00-23:15 S |    |
