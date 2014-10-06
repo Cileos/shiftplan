@@ -49,6 +49,20 @@ class CalendarCursor
       @$calendar.on 'mousemove', @droppable, (event) ->
         cursor.setupDroppable $(this)
 
+    if @$calendar.is('.hours-in-week')
+      @$previewTemplate = $('<div></div>').addClass('resize-preview')
+
+      # cache. Don't you dare to zoom!
+      @hourHeight = $calendar.find('tbody').innerHeight() / 24 # hours
+      @gridScale = @hourHeight / 4
+      @inHours = (pix)->
+        quarters = pix / (@hourHeight / 4)
+        Math.round(quarters) / 4
+
+      @$calendar.on 'mousemove', 'td .scheduling:not(.ui-resizable)', (event) ->
+        cursor.setupResizable $(this)
+
+
     @$calendar.on 'mouseenter', @items, focus
     @$calendar.on 'mouseleave', @items, unfocus
 
@@ -293,6 +307,25 @@ class CalendarCursor
         , ->
           # revert to old position
           $scheduling.css({left: 0, top: 0})
+
+  setupResizable: ($div)->
+    $preview = @$previewTemplate.clone().appendTo($div)
+    $div.resizable
+      handles: 'n,s'
+      ghost: true
+      helper: 'resizing'
+      minHeight: @gridScale
+      grid: [0, @gridScale]
+      resize: (event, ui)=>
+        hours = @inHours(ui.size.height)
+        rounded = hours * @hourHeight
+        $preview.text(hours)
+        ui.helper.height rounded
+        true
+      stop: (event, ui)=>
+        height = ui.size.height
+        hours = @inHours(ui.size.height)
+        console.debug "resized! to #{hours}h (#{height}pixels)"
 
   urlFor: ($element)->
     @$calendar.data('new-url').replace(/new$/, $element.data('cid'))
