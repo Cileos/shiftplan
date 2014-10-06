@@ -69,8 +69,7 @@ table.hours-in-week
         z-index: 1000
         opacity: 0.9
 
-      //  runs til n-1 (24)
-      @for $hour from 0 to 25
+      @for $hour from 0 through 24
         &[data-start="#{$hour}"]
           top: $row_height * $hour + 1px
         &[data-start="#{$hour}.25"]
