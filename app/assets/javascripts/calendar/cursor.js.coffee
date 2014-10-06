@@ -276,7 +276,10 @@ class CalendarCursor
       scroll: true
       scope: 'schedulings'
       cursorAt:
-        bottom: 4
+        if @hourHeight
+          null
+        else
+          bottom: 4
       start: =>
         @dragging = true
       stop: =>
