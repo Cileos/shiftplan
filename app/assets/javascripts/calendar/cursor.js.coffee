@@ -14,6 +14,7 @@ class CalendarCursor
     $calendar = @$calendar
     cursor = this
     @$calendar.on 'click', @tds, (event) =>
+      return if @resizing
       $target = $(event.target)
       return true if $target.is('a,i') # keep rails' remote links working
       @focus $target.closest(@tds)
@@ -21,6 +22,7 @@ class CalendarCursor
       false
 
     @$calendar.on 'click', "#{@tds} #{@items}", (event) =>
+      return if @resizing
       $target = $(event.target)
       return true if $target.is('a,i') # keep rails' remote links working
       @focus $target.closest(@items), null
@@ -316,7 +318,7 @@ class CalendarCursor
         @updateWorkTime $div
         true
       stop: (event, ui)=>
-        @resizing = false
+        setTimeout( (=> @resizing = false), 50)
         height = ui.size.height
         hours = @inHours(ui.size.height)
         console.debug "resized! to #{hours}h (#{height}pixels)"
