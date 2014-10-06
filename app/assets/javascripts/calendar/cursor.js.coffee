@@ -310,10 +310,7 @@ class CalendarCursor
       minHeight: @gridScale
       grid: [0, @gridScale]
       resize: (event, ui)=>
-        snappedHeight = @snapToGrid ui.size.height
-        snappedTop = @snapToGrid ui.helper.position().top
-        @updateWorkTime $div, snappedHeight, snappedTop
-        ui.helper.height snappedHeight
+        @updateWorkTime $div
         true
       stop: (event, ui)=>
         height = ui.size.height
@@ -321,7 +318,7 @@ class CalendarCursor
         console.debug "resized! to #{hours}h (#{height}pixels)"
 
   inHours: (pix)->
-    quarters = pix / (@hourHeight / 4)
+    quarters = 4 * (pix / @hourHeight)
     Math.round(quarters) / 4
 
   # in: actual pixels, from height or top position
