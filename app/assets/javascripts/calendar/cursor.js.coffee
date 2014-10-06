@@ -51,7 +51,7 @@ class CalendarCursor
 
     if @$calendar.is('.hours-in-week')
       # cache. Don't you dare to zoom!
-      @hourHeight = $calendar.find('tbody').innerHeight() / 24 # hours
+      @hourHeight = 40 # corresponds with $row_height from calendar/_hours:24
       @gridScale = @hourHeight / 4
 
       @$calendar.on 'mousemove', 'td .scheduling:not(.ui-resizable)', (event) ->
