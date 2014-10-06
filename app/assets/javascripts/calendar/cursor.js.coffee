@@ -279,27 +279,20 @@ class CalendarCursor
         bottom: 4
 
   setupDroppable: ($td) ->
-    cursor = this
     $td.droppable
       scope: 'schedulings'
       accept: @items
       activeClass: 'drop-invite'
       hoverClass: 'drop-hover'
       overlap: 'pointer'
-      drop: (event, ui) ->
+      drop: (event, ui)=>
         $scheduling = ui.draggable
-        url = cursor.urlFor($scheduling)
         data = {}
         for field in ['date', 'employee-id', 'team-id', 'day']
           if value = $(this).data(field)
             value = null if value == 'missing' # "our" defined null
             data[field.replace(/-/g,'_')] = value
-        saving = $.ajax url,
-          type: 'PUT'
-          dataType: 'script'
-          data: $.param(scheduling: data)
-
-        saving.then ->
+        @saveScheduling($scheduling, data).then ->
           $scheduling.remove() # rjs rendered a new list in droppable
         , ->
           # revert to old position
@@ -319,9 +312,11 @@ class CalendarCursor
         true
       stop: (event, ui)=>
         setTimeout( (=> @resizing = false), 50)
-        height = ui.size.height
-        hours = @inHours(ui.size.height)
-        console.debug "resized! to #{hours}h (#{height}pixels)"
+        data = {}
+        times = @timesFromPixels($div)
+        @saveScheduling $div,
+          start_time: times[0]
+          end_time: times[1]
 
   inHours: (pix)->
     quarters = 4 * (pix / @hourHeight)
@@ -342,22 +337,28 @@ class CalendarCursor
     mins = "0" + mins if mins < 10
     "#{hours}:#{mins}"
 
-
-  # sets .work_time by pixels
-  updateWorkTime: ($ele)->
+  timesFromPixels: ($ele)->
     pixelTop    = $ele.position().top
     pixelHeight = $ele.outerHeight()
     start = @inHours(pixelTop)
     end = @inHours(pixelTop + pixelHeight)
 
-    preview = [@hoursAsTime(start), @hoursAsTime(end)].join('-')
+    [@hoursAsTime(start), @hoursAsTime(end)]
 
-    $ele.find('.work_time').text(preview)
-
+  # sets .work_time by pixels
+  updateWorkTime: ($ele)->
+    $ele.find('.work_time').text @timesFromPixels($ele).join('-')
 
   urlFor: ($element)->
     @$calendar.data('new-url').replace(/new$/, $element.data('cid'))
 
+
+  saveScheduling: ($scheduling, data)->
+    url = @urlFor($scheduling)
+    $.ajax url,
+      type: 'PUT'
+      dataType: 'script'
+      data: $.param(scheduling: data)
 
 
   enable: =>
