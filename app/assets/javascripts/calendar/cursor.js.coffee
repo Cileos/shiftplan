@@ -314,9 +314,13 @@ class CalendarCursor
         setTimeout( (=> @resizing = false), 50)
         data = {}
         times = @timesFromPixels($div)
-        @saveScheduling $div,
+        @saveScheduling($div,
           start_time: times[0]
           end_time: times[1]
+        ).fail =>
+          $div.css
+            top: ui.originalPosition.top
+            height: ui.originalSize.height
 
   inHours: (pix)->
     quarters = 4 * (pix / @hourHeight)
