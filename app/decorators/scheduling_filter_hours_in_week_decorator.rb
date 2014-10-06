@@ -23,7 +23,7 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def unavailabilities_for(day)
-    pack_in_stacks unavailabilities.select {|r| r.date.to_date == day}.map(&:decorate).each {|s| s.focus_day = day }
+    pack_in_stacks unavailabilities.select {|r| r.date.to_date == day}.map(&:decorate)
   end
 
   def cell_metadata(day)
