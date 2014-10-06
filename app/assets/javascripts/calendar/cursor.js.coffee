@@ -281,6 +281,7 @@ class CalendarCursor
         else
           bottom: 4
       start: =>
+        @unfocusAll()
         @dragging = true
       stop: =>
         setTimeout( (=> @dragging = false), 50)
