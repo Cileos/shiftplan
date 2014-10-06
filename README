@@ -4,6 +4,27 @@ Use it. Enjoy it. Love it.
 
 == Developer Notes
 
+=== Development VM
+
+Setup: install virtualbox and vagrant
+
+`vagrant up` # wait ~15min
+
+Something broken? Repair it and start over:
+
+`vagrant destroy && vagrant up`
+
+Edit the files from your Machine, run the following to keep VM up-to-date
+
+`vagrant rsync-auto` in an extra terminal
+
+Go into the machine (for server, bundle, migrate etc)
+
+`vagrant ssh` then `cd clockwork/`
+
+Cucumber @javascripts can only be run with kopflos, and maybe not even that.
+Niklas needs a mac for an hour to try X-Forwarding Apple-style.
+
 === Forms
 
 See Volksplaner::FormButtons for buttons to use in you forms.
