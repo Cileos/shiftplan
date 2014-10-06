@@ -24,4 +24,32 @@ module OvernightableDecoratorHelper
   def early?
     is_overnight? && ends_on_focussed_day?
   end
+
+  def length_in_hours
+    if is_overnight?
+      if starts_on_focussed_day?
+        length_in_hours_until_midnight
+      else
+        length_in_hours_from_midnight
+      end
+    else
+      object.length_in_hours
+    end
+  end
+
+  def start_hour
+    if is_overnight? && ends_on_focussed_day?
+      0
+    else
+      object.start_hour
+    end
+  end
+
+  def start_metric_hour
+    if is_overnight? && ends_on_focussed_day?
+      0
+    else
+      object.start_metric_hour
+    end
+  end
 end
