@@ -33,12 +33,12 @@ class CalendarCursor
     @$calendar.on 'focus', @items, (event) => @focus $(event.target)
 
     focus =  (event) ->
-      unless cursor.scrolling
+      unless cursor.scrolling or cursor.resizing
         cursor.focus($(this), null, false)
       false
 
     unfocus = (event) ->
-      unless cursor.scrolling
+      unless cursor.scrolling or cursor.resizing
         cursor.unfocus($(this))
         cursor.focus($(this).closest('td'), null, false)
       false
@@ -309,10 +309,14 @@ class CalendarCursor
       ghost: false
       minHeight: @gridScale
       grid: [0, @gridScale]
+      start: (event, focus)=>
+        @resizing = true
+        @unfocusAll()
       resize: (event, ui)=>
         @updateWorkTime $div
         true
       stop: (event, ui)=>
+        @resizing = false
         height = ui.size.height
         hours = @inHours(ui.size.height)
         console.debug "resized! to #{hours}h (#{height}pixels)"
