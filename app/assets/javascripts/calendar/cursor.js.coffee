@@ -269,6 +269,8 @@ class CalendarCursor
 
   setupDraggable: ($item) ->
     @setupDroppable $(@droppable)
+    # TODO how to handle overnightables without surprises?
+    return if @hourHeight and $item.is('.early,.late')
     $item.draggable
       appendTo: @$calendar
       containment: @$calendar
@@ -318,6 +320,8 @@ class CalendarCursor
           $scheduling.css({left: 0, top: 0})
 
   setupResizable: ($div)->
+    # TODO how to handle overnightables without surprises?
+    return if @hourHeight and $div.is('.early,.late')
     $div.resizable
       handles: 'n,s'
       ghost: false
