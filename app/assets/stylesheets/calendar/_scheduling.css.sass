@@ -18,13 +18,14 @@
   &.ui-draggable-dragging, &.ui-resizable-resizing
     +transition(none)
 
-  .ui-resizable-handle:hover
-    background: $ci_grey
-    opacity: 0.9
-    &.ui-resizable-n
-      border-radius: 2px 2px 0 0
-    &.ui-resizable-s
-      border-radius: 0 0 2px 2px
+  &:hover, &.ui-resizable-resizing
+    .ui-resizable-handle
+      background: $ci_grey
+      opacity: 0.9
+      &.ui-resizable-n
+        border-radius: 2px 2px 0 0
+      &.ui-resizable-s
+        border-radius: 0 0 2px 2px
 
   .team_name,
   .employee,
