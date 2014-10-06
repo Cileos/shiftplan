@@ -332,6 +332,7 @@ class CalendarCursor
 
   # 3.25 => 3:15
   hoursAsTime: (float)->
+    float = 0 if float < 0
     hours = Math.floor(float)
     mins = Math.round( 60 * (float - hours) )
     hours = "0" + hours if hours < 10
