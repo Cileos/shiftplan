@@ -281,9 +281,13 @@ class CalendarCursor
         @dragging = true
       stop: =>
         setTimeout( (=> @dragging = false), 50)
+      drag: (event, ui)=>
+        if @gridScale
+          $ele = ui.helper
+          @updateWorkTime $ele
 
-  setupDroppable: ($td) ->
-    $td.droppable
+  setupDroppable: ($ele) ->
+    $ele.droppable
       scope: 'schedulings'
       accept: @items
       activeClass: 'drop-invite'
