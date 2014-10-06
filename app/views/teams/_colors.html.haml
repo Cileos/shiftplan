@@ -8,4 +8,6 @@
 
 %style#team_colors
   - teams.each do |team|
-    = %Q~.#{dom_id(team)} { border-color: #{team.color};}~
+    - sel = ".#{dom_id(team)}"
+    = %Q~#{sel} { border-color: #{team.color};}~
+    = %Q~#{sel}:hover .ui-resizable-handle { background: #{team.color};}~
