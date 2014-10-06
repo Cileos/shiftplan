@@ -19,11 +19,11 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def schedulings_for(day)
-    pack_in_stacks records.select {|r| r.date.to_date == day}.map(&:decorate)
+    pack_in_stacks records.select {|r| r.date.to_date == day}.map(&:decorate).each { |s| s.focus_day = day }
   end
 
   def unavailabilities_for(day)
-    pack_in_stacks unavailabilities.select {|r| r.date.to_date == day}.map(&:decorate)
+    pack_in_stacks unavailabilities.select {|r| r.date.to_date == day}.map(&:decorate).each {|s| s.focus_day = day }
   end
 
   def cell_metadata(day)
