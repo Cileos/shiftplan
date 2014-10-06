@@ -179,6 +179,7 @@ Then /^I reschedule #{capture_quoted} and select #{capture_quoted} as #{capture_
   end
 end
 
+# These steps brake with jquery-ui 5.0
 When(/^I drag #{capture_quoted} and drop it onto #{capture_cell}$/) do |handle, cell_name|
   cell = page.find *selector_for(cell_name)
   cell.should_not be_nil, "could not find cell #{cell_name}"
