@@ -289,6 +289,7 @@ class CalendarCursor
         if @gridScale
           $ele = ui.helper
           @updateWorkTime $ele
+          ui.position.top = @snapToGrid ui.position.top
 
   setupDroppable: ($ele) ->
     $ele.droppable
@@ -296,7 +297,7 @@ class CalendarCursor
       accept: @items
       activeClass: 'drop-invite'
       hoverClass: 'drop-hover'
-      overlap: 'pointer'
+      tolerance: 'pointer'
       drop: (event, ui)=>
         $scheduling = ui.draggable
         $target = $(event.target)
