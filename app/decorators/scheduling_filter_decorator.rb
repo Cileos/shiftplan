@@ -182,10 +182,10 @@ class SchedulingFilterDecorator < ApplicationDecorator
     h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, cwyear: date.cwyear, week: date.cweek)
   end
 
-  def path_to_day(day)
+  def path_to_day(date)
     date = date.in_time_zone
     raise(ArgumentError, "can only link to day in day view") unless mode?('day')
-    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: day.year, month: day.month, day: day.day)
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: date.year, month: date.month, day: date.day)
   end
 
   # URI-Path to another mode
