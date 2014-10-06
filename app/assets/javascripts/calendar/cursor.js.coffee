@@ -341,11 +341,13 @@ class CalendarCursor
 
 
   # sets .work_time by pixels
-  updateWorkTime: ($ele, pixelHeight, pixelTop=0)->
-    length = @inHours(pixelHeight)
+  updateWorkTime: ($ele)->
+    pixelTop    = $ele.position().top
+    pixelHeight = $ele.outerHeight()
     start = @inHours(pixelTop)
+    end = @inHours(pixelTop + pixelHeight)
 
-    preview = [@hoursAsTime(start), @hoursAsTime(start + length)].join('-')
+    preview = [@hoursAsTime(start), @hoursAsTime(end)].join('-')
 
     $ele.find('.work_time').text(preview)
 
