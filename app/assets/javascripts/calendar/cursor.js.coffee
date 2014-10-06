@@ -14,7 +14,7 @@ class CalendarCursor
     $calendar = @$calendar
     cursor = this
     @$calendar.on 'click', @tds, (event) =>
-      return if @resizing
+      return if @resizing or @dragging
       $target = $(event.target)
       return true if $target.is('a,i') # keep rails' remote links working
       @focus $target.closest(@tds)
@@ -22,7 +22,7 @@ class CalendarCursor
       false
 
     @$calendar.on 'click', "#{@tds} #{@items}", (event) =>
-      return if @resizing
+      return if @resizing or @dragging
       $target = $(event.target)
       return true if $target.is('a,i') # keep rails' remote links working
       @focus $target.closest(@items), null
@@ -35,12 +35,12 @@ class CalendarCursor
     @$calendar.on 'focus', @items, (event) => @focus $(event.target)
 
     focus =  (event) ->
-      unless cursor.scrolling or cursor.resizing
+      unless cursor.scrolling or cursor.resizing or cursor.dragging
         cursor.focus($(this), null, false)
       false
 
     unfocus = (event) ->
-      unless cursor.scrolling or cursor.resizing
+      unless cursor.scrolling or cursor.resizing or cursor.dragging
         cursor.unfocus($(this))
         cursor.focus($(this).closest('td'), null, false)
       false
@@ -277,6 +277,10 @@ class CalendarCursor
       scope: 'schedulings'
       cursorAt:
         bottom: 4
+      start: =>
+        @dragging = true
+      stop: =>
+        setTimeout( (=> @dragging = false), 50)
 
   setupDroppable: ($td) ->
     $td.droppable
