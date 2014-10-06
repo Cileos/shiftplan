@@ -50,14 +50,9 @@ class CalendarCursor
         cursor.setupDroppable $(this)
 
     if @$calendar.is('.hours-in-week')
-      @$previewTemplate = $('<div></div>').addClass('resize-preview')
-
       # cache. Don't you dare to zoom!
       @hourHeight = $calendar.find('tbody').innerHeight() / 24 # hours
       @gridScale = @hourHeight / 4
-      @inHours = (pix)->
-        quarters = pix / (@hourHeight / 4)
-        Math.round(quarters) / 4
 
       @$calendar.on 'mousemove', 'td .scheduling:not(.ui-resizable)', (event) ->
         cursor.setupResizable $(this)
@@ -309,23 +304,50 @@ class CalendarCursor
           $scheduling.css({left: 0, top: 0})
 
   setupResizable: ($div)->
-    $preview = @$previewTemplate.clone().appendTo($div)
     $div.resizable
       handles: 'n,s'
-      ghost: true
-      helper: 'resizing'
+      ghost: false
       minHeight: @gridScale
       grid: [0, @gridScale]
       resize: (event, ui)=>
-        hours = @inHours(ui.size.height)
-        rounded = hours * @hourHeight
-        $preview.text(hours)
-        ui.helper.height rounded
+        snappedHeight = @snapToGrid ui.size.height
+        snappedTop = @snapToGrid ui.helper.position().top
+        @updateWorkTime $div, snappedHeight, snappedTop
+        ui.helper.height snappedHeight
         true
       stop: (event, ui)=>
         height = ui.size.height
         hours = @inHours(ui.size.height)
         console.debug "resized! to #{hours}h (#{height}pixels)"
+
+  inHours: (pix)->
+    quarters = pix / (@hourHeight / 4)
+    Math.round(quarters) / 4
+
+  # in: actual pixels, from height or top position
+  # out: pixels snapped to the grid of quarter-hours
+  snapToGrid: (pixel)->
+    hours = @inHours(pixel)
+    hours * @hourHeight
+
+  # 3.25 => 3:15
+  hoursAsTime: (float)->
+    hours = Math.floor(float)
+    mins = Math.round( 60 * (float - hours) )
+    hours = "0" + hours if hours < 10
+    mins = "0" + mins if mins < 10
+    "#{hours}:#{mins}"
+
+
+  # sets .work_time by pixels
+  updateWorkTime: ($ele, pixelHeight, pixelTop=0)->
+    length = @inHours(pixelHeight)
+    start = @inHours(pixelTop)
+
+    preview = [@hoursAsTime(start), @hoursAsTime(start + length)].join('-')
+
+    $ele.find('.work_time').text(preview)
+
 
   urlFor: ($element)->
     @$calendar.data('new-url').replace(/new$/, $element.data('cid'))
