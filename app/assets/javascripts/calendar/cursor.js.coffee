@@ -298,11 +298,17 @@ class CalendarCursor
       overlap: 'pointer'
       drop: (event, ui)=>
         $scheduling = ui.draggable
+        $target = $(event.target)
         data = {}
         for field in ['date', 'employee-id', 'team-id', 'day']
-          if value = $(this).data(field)
+          if value = $target.data(field)
             value = null if value == 'missing' # "our" defined null
             data[field.replace(/-/g,'_')] = value
+
+        if @hourHeight
+          times = @timesFromPixels($scheduling)
+          [data.start_time, data.end_time] = times
+
         @saveScheduling($scheduling, data).then ->
           $scheduling.remove() # rjs rendered a new list in droppable
         , ->
