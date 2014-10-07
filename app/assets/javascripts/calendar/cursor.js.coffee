@@ -11,6 +11,8 @@ class CalendarCursor
     # may receive drop
     @droppable = @tds + ':not(.ui-droppable)'
 
+    @$workTimePreviewTemplate = $('<div></div>').addClass('work_time_preview')
+
     $calendar = @$calendar
     cursor = this
     @$calendar.on 'click', @tds, (event) =>
@@ -374,9 +376,11 @@ class CalendarCursor
 
     [@hoursAsTime(start), @hoursAsTime(end)]
 
-  # sets .work_time by pixels
+  # creates/update a hovering preview showing expected preview
   updateWorkTime: ($ele)->
-    $ele.find('.work_time').text @timesFromPixels($ele).join('-')
+    $preview = $ele.find('.work_time_preview')
+    $preview = @$workTimePreviewTemplate.clone().appendTo($ele) if $preview.length is 0
+    $preview.text @timesFromPixels($ele).join(' - ')
 
   urlFor: ($element)->
     @$calendar.data('new-url').replace(/new$/, $element.data('cid'))
