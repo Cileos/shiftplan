@@ -305,7 +305,9 @@ class CalendarCursor
         $target = $(event.target)
         data = {}
         for field in ['date', 'employee-id', 'team-id', 'day']
-          if value = $target.data(field)
+          value = $target.data(field)
+          # for day, Monday is day=0
+          if value?
             value = null if value == 'missing' # "our" defined null
             data[field.replace(/-/g,'_')] = value
 
@@ -313,7 +315,7 @@ class CalendarCursor
           times = @timesFromPixels($scheduling)
           [data.start_time, data.end_time] = times
 
-        @saveScheduling($scheduling, data).then ->
+        @saveRecord($scheduling, data).then ->
           $scheduling.remove() # rjs rendered a new list in droppable
         , ->
           # revert to old position
@@ -337,7 +339,7 @@ class CalendarCursor
         setTimeout( (=> @resizing = false), 50)
         data = {}
         times = @timesFromPixels($div)
-        @saveScheduling($div,
+        @saveRecord($div,
           start_time: times[0]
           end_time: times[1]
         ).fail =>
@@ -380,12 +382,14 @@ class CalendarCursor
     @$calendar.data('new-url').replace(/new$/, $element.data('cid'))
 
 
-  saveScheduling: ($scheduling, data)->
-    url = @urlFor($scheduling)
+  saveRecord: ($element, data)->
+    url = @urlFor($element)
+    params = {}
+    params[if url.indexOf('/shifts/') > 0 then 'shift' else 'scheduling'] = data
     $.ajax url,
       type: 'PUT'
       dataType: 'script'
-      data: $.param(scheduling: data)
+      data: $.param(params)
 
 
   enable: =>
