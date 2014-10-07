@@ -35,6 +35,8 @@ describe EmployeeWwtDiffWidget do
 
       subject.hours.should == 0
     end
+
+    it "knows how to deal with overnightables on weekends (may count double)"
   end
 
   context 'additional hours' do

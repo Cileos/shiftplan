@@ -93,15 +93,26 @@ module TimeRangeComponentsAccessible
 
       reset_start_components!
     end
-    if date.present? && end_hour_present?
-      if end_hour == 24
-        self.ends_at = date.end_of_day
-      elsif end_hour == 0 && start_minute >= end_minute
-        self.ends_at = date.end_of_day
-      else
-        self.ends_at = date + end_hour.hours + end_minute.minutes
-      end
 
+    if date.present? && end_hour_present?
+      self.ends_at =
+        if end_hour == 24   # ?-24 means until midnight
+          if end_minute > 0
+            date.tomorrow + end_minute.minutes
+          else
+            date.end_of_day
+          end
+        elsif end_hour == 0 # 0-0:15 is just quarter of an hour, 16-0 are eight hours
+          if start_hour == 0 && start_minute < end_minute
+            date + end_minute.minutes
+          else
+            date.end_of_day + end_minute.minutes
+          end
+        elsif end_hour < start_hour
+          date.tomorrow + end_hour.hours + end_minute.minutes
+        else
+          date + end_hour.hours + end_minute.minutes
+        end
       reset_end_components!
     end
   end
@@ -135,8 +146,23 @@ module TimeRangeComponentsAccessible
   end
 
   module Scopes
-    def between(first, last)
-      where("? <= #{table_name}.starts_at AND #{table_name}.starts_at <= ?", first, last)
+    def overlapping(first, last)
+      first, last = first.utc, last.utc
+      t = arel_table
+      starts, ends = t[:starts_at], t[:ends_at]
+
+      starts_between = starts.gteq(first).and( starts.lteq(last) )
+      ends_between = ends.gteq(first).and( ends.lteq(last) )
+      where(starts_between.or(ends_between))
+    end
+
+    def starts_between(first, last)
+      first, last = first.utc, last.utc
+      t = arel_table
+      starts = t[:starts_at]
+
+      sbw = starts.gteq(first).and( starts.lteq(last) )
+      where(sbw)
     end
   end
 end

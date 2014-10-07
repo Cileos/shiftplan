@@ -17,18 +17,43 @@ describe Report do
   end
 
   context "when date range set" do
-    let!(:s0) { create(:scheduling, plan: plan, quickie: '8-24',     date: '02.12.2012' ) }
-    let!(:s1) { create(:scheduling, plan: plan, quickie: '0-24',     date: '03.12.2012' ) }
-    let!(:s2) { create(:scheduling, plan: plan, quickie: '1-2',      date: '03.12.2012' ) }
-    let!(:s3) { create(:scheduling, plan: plan, quickie: '23:45-24', date: '10.12.2012' ) }
-    let!(:s4) { create(:scheduling, plan: plan, quickie: '0-8',      date: '11.12.2012' ) }
-
     let(:report_params) do
       super().merge(from: '03.12.2012', to: '10.12.2012')
     end
 
-    it "finds schedulings in given range" do
-      report.records.should match_array [s3, s2, s1]
+    it 'includes lasting all first day' do
+      s = create(:scheduling, plan: plan, quickie: '0-24',      date: '03.12.2012' )
+      report.records.should include(s)
+    end
+
+    it 'includes beginning one hour after range start' do
+      s = create(:scheduling, plan: plan, quickie: '1-2',      date: '03.12.2012' )
+      report.records.should include(s)
+    end
+
+    it 'includes ending precisely' do
+      s = create(:scheduling, plan: plan, quickie: '23:45-24', date: '10.12.2012' )
+      report.records.should include(s)
+    end
+
+    it 'includes schedulings dangling out of the range at the end' do
+      dangle = create(:scheduling, plan: plan, quickie: '22-6', date: '10.12.2012')
+      report.records.should include(dangle)
+    end
+
+    it 'skips ending before range' do
+      s = create(:scheduling, plan: plan, quickie: '8-24',     date: '02.12.2012' )
+      report.records.should_not include(s)
+    end
+
+    it 'skips starting after range' do
+      s = create(:scheduling, plan: plan, quickie: '0-8',      date: '11.12.2012' )
+      report.records.should_not include(s)
+    end
+
+    it 'skips schedulings dangling into range at the beginning' do
+      dangle = create(:scheduling, plan: plan, quickie: '22-6', date: '02.12.2012')
+      report.records.should_not include(dangle)
     end
   end
 

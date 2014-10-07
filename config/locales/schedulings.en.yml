@@ -3,7 +3,6 @@ en:
     errors:
       models:
         scheduling:
-          next_day_outside_plan_period: "The appointment end time is later than the end time of the plan."
           greater_than_plan_end_time: "is later than the end time of the plan."
           smaller_than_plan_start_time: "is earlier than the start time of the plan."
     attributes:

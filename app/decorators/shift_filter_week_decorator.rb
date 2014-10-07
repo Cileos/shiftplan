@@ -10,7 +10,7 @@ class ShiftFilterWeekDecorator < ShiftFilterDecorator
   end
 
   def index
-    @index ||= TwoDimensionalRecordIndex.new(:day, y_attribute).with_records_added(records)
+    @index ||= ShiftIndexByNumericDay.new(y_attribute).with_records_added(records)
   end
 
   private

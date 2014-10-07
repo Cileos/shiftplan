@@ -11,7 +11,7 @@ module AllDaySettable
   def set_times_from_all_day
     if all_day?
       self.starts_at = starts_at.beginning_of_day
-      self.ends_at   = ends_at.end_of_day
+      self.ends_at   = starts_at.end_of_day
     end
   end
 

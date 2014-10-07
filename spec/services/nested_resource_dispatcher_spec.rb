@@ -98,7 +98,7 @@ describe NestedResourceDispatcher do
   describe '#show_resources_for' do
     describe 'for Scheduling' do
       before do
-        scheduling.stub cid: 23, # currently only in decorator
+        scheduling.stub id: 23, # currently only in decorator
                         week: 42,
                         cwyear: 2012
       end

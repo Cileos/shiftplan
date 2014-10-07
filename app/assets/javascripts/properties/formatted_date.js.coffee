@@ -12,7 +12,7 @@ Clockwork.formattedDateProperty = (source, format='L')->
                      date( want.date() )
     have = @get(source)
     if have && have.isValid()
-      have.zone(timezoneOffset()).format(format)
+      have.format(format)
     else
       null
   .property(source)

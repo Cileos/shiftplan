@@ -89,7 +89,22 @@ I18n.with_locale :de do
         scheduling = build :manual_scheduling, quickie: '22-6', date: ends_at, plan: plan, starts_at: nil, ends_at: nil, week: nil, year: nil
 
         scheduling.should_not be_valid
-        scheduling.errors[:base].should == ["Der nächste Tag endet nach der Endzeit des Plans."]
+        scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
+      end
+    end
+
+    context "given nil value" do
+      let(:plan) { double 'Plan', starts_at: 1.day.from_now }
+      let(:record) { double('Record', plan: plan) }
+      let(:validator) { described_class.new(attributes: [:starts_at]) }
+
+      def validate!
+        validator.validate_each( record, :starts_at, value )
+      end
+
+      let(:value) { nil }
+      it "should not break" do
+        expect { validate! }.not_to raise_error
       end
     end
   end

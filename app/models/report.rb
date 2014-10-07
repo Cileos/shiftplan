@@ -17,13 +17,13 @@ class Report < RecordFilter
   end
 
   def total_duration
-    @total_duration ||= all_records_without_next_days.
+    @total_duration ||= all_records.
       reject { |s| s.all_day? }.
       sum { |s| s.decimal_duration }
   end
 
   def total_number_of_records
-    @total_number_of_records ||= all_records_without_next_days.size
+    @total_number_of_records ||= all_records.size
   end
 
   def account_id
@@ -59,7 +59,7 @@ class Report < RecordFilter
   def all_records
     scoped = account.schedulings
     scoped = scoped.in_organizations(organization_ids) unless organization_ids.empty?
-    scoped = scoped.between(from, to)
+    scoped = scoped.starts_between(from, to)
     scoped = scoped.where(employee_id: employee_ids) unless employee_ids.empty?
     scoped = scoped.where(team_id: team_ids) unless team_ids.empty?
     scoped = scoped.where(plan_id: plan_ids) unless plan_ids.empty?
@@ -67,12 +67,8 @@ class Report < RecordFilter
     scoped
   end
 
-  def all_records_without_next_days
-    @all_records_without_next_days ||= all_records.reject(&:previous_day)
-  end
-
   def fetch_records
-    rslt = all_records_without_next_days
+    rslt = all_records
     rslt = rslt.take(limit.to_i) if limit
     rslt
   end

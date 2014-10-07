@@ -8,6 +8,7 @@ group :test, :halt_on_fail => true do
     run_all: {
       cli: "--color --tag ~benchmark"
     },
+    failed_mode: :focus,
     all_on_start: false,
     all_after_pass: false do
 

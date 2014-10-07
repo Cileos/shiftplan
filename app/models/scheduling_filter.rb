@@ -138,7 +138,7 @@ class SchedulingFilter < RecordFilter
 
   def unavailabilities
     Unavailability.
-      between( starts_at, ends_at ).
+      overlapping( starts_at, ends_at ).
       preload(:employee).
       where(employee_id: employees.map(&:id))
   end
@@ -147,14 +147,14 @@ class SchedulingFilter < RecordFilter
     def fetch_records
       results = base
       results = results.where(conditions)
-      results = results.between( starts_at, ends_at )
-      results = results.includes(*to_include)
-      results = results.includes(:plan => { :organization => :account })
+      results = results.overlapping( starts_at, ends_at )
+      results = results.preload(*to_preload)
+      results = results.preload(:plan => { :organization => :account })
       results
     end
 
-    def to_include
-      [:employee, :team, :previous_day, :next_day]
+    def to_preload
+      [:employee, :team]
     end
 
     def sort_fields

@@ -2,8 +2,8 @@ Clockwork.Unavailability = DS.Model.extend
   reason: DS.attr('string')
   description: DS.attr('string')
   allDay: DS.attr('boolean')
-  startsAt: DS.attr('utc')
-  endsAt: DS.attr('utc')
+  startsAt: DS.attr('moment')
+  endsAt: DS.attr('moment')
   employee: DS.belongsTo('employee')
   account: DS.belongsTo('account')
 
@@ -19,14 +19,9 @@ Clockwork.Unavailability = DS.Model.extend
   startTime: Clockwork.formattedTimeProperty 'startsAt'
   endTime: Clockwork.formattedTimeProperty 'endsAt'
 
-  localStartsAt: Ember.computed 'startsAt', ->
-    @get('startsAt').zone(timezoneOffset())
-  localEndsAt: Ember.computed 'endsAt', ->
-    @get('endsAt').zone(timezoneOffset())
-
-  dayInWeek: Ember.computed 'localStartsAt', ->
-    @get('localStartsAt').day()
-  weekInYear: Ember.computed 'localStartsAt', ->
+  dayInWeek: Ember.computed 'startsAt', ->
+    @get('startsAt').day()
+  weekInYear: Ember.computed 'startsAt', ->
     @get('startsAt').isoWeek()
 
   reasonText: (->

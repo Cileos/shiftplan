@@ -14,9 +14,9 @@ describe SchedulingFilterEmployeesInWeekDecorator do
   it "sorts schedulings by start hour" do
     employee = create :employee
     schedulings = [
-      create(:scheduling, start_hour: 23),
-      create(:scheduling, start_hour: 6),
-      create(:scheduling, start_hour: 17)
+      create(:scheduling, start_hour: 23, end_hour: 24),
+      create(:scheduling, start_hour: 6,  end_hour: 24),
+      create(:scheduling, start_hour: 17, end_hour: 24)
     ]
     index = instance_double('TwoDimensionalRecordIndex')
     decorator.stub scheduling_index: index

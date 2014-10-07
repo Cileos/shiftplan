@@ -178,18 +178,10 @@ describe ApplyPlanTemplate do
         )
       end
 
-      it "creates 4 schedulings for the plan for year and week" do
+      it "creates 2 schedulings for the plan for year and week" do # no overnightables splitting
         lambda {
           apply_plan_template.save
-        }.should change(schedulings_for_year_and_week, :count).from(0).to(4)
-      end
-
-      it "links the schedulings to their next day" do
-        apply_plan_template.save
-
-        monday_schedulings.each do |s|
-          s.next_day.should_not be_nil
-        end
+        }.should change(schedulings_for_year_and_week, :count).from(0).to(2)
       end
     end
 

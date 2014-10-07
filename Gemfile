@@ -26,7 +26,7 @@ gem "non-stupid-digest-assets"
 
 group :test do
   gem 'cucumber-rails', "~> 1.4.0", :require => false
-  gem 'rspec-rails', '~> 2.14.0'
+  gem 'rspec-rails', '< 3'
   gem 'rspec-fire'
   gem 'launchy'
 

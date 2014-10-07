@@ -1,7 +1,7 @@
 %head
   %meta{'http-equiv' => "Content-Type", 'content' => "text/html;charset=utf-8"}
   %meta{name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"}
-  %meta{name: "timezoneoffset", content: Time.current.formatted_offset}
+  %meta{name: "timezonename", content: Time.current.time_zone.tzinfo.name}
   = csrf_meta_tags
   = favicon_link_tag '/favicon.ico'
 

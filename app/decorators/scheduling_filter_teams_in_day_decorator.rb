@@ -12,10 +12,14 @@ class SchedulingFilterTeamsInDayDecorator < SchedulingFilterDayDecorator
   def cell_selector(scheduling)
    %Q~#calendar tbody td[data-team-id=#{scheduling.team_id}]~
   end
+  alias_method :next_cell_selector, :cell_selector
 
-  def coordinates_for_scheduling(scheduling)
+  def coordinates_for(scheduling)
     [ scheduling.team ]
   end
+  alias_method :next_coordinates_for, :coordinates_for
+
+  def nex
 
   # we only need a sequence of divs
   def list_tag
