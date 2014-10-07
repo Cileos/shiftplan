@@ -8,9 +8,15 @@ class CalendarCursor
     @tds = 'tbody.editable td:not(.wwt_diff):not(.outside_plan_period)',
     @items = '.scheduling') ->
 
+    # may receive drop
+    @droppable = @tds + ':not(.ui-droppable)'
+
+    @$workTimePreviewTemplate = $('<div></div>').addClass('work_time_preview')
+
     $calendar = @$calendar
     cursor = this
     @$calendar.on 'click', @tds, (event) =>
+      return if @resizing or @dragging
       $target = $(event.target)
       return true if $target.is('a,i') # keep rails' remote links working
       @focus $target.closest(@tds)
@@ -18,6 +24,7 @@ class CalendarCursor
       false
 
     @$calendar.on 'click', "#{@tds} #{@items}", (event) =>
+      return if @resizing or @dragging
       $target = $(event.target)
       return true if $target.is('a,i') # keep rails' remote links working
       @focus $target.closest(@items), null
@@ -30,13 +37,29 @@ class CalendarCursor
     @$calendar.on 'focus', @items, (event) => @focus $(event.target)
 
     focus =  (event) ->
-      unless cursor.scrolling
+      unless cursor.scrolling or cursor.resizing or cursor.dragging
         cursor.focus($(this), null, false)
       false
+
     unfocus = (event) ->
-      unless cursor.scrolling
+      unless cursor.scrolling or cursor.resizing or cursor.dragging
         cursor.unfocus($(this))
+        cursor.focus($(this).closest('td'), null, false)
       false
+
+    if @$calendar.is('.week')
+      @$calendar.on 'mousemove', @items + ':not(.ui-draggable)', (event) ->
+        cursor.setupDraggable $(this)
+      @$calendar.on 'mousemove', @droppable, (event) ->
+        cursor.setupDroppable $(this)
+
+    if @$calendar.is('.hours-in-week')
+      # cache. Don't you dare to zoom!
+      @hourHeight = 40 # corresponds with $row_height from calendar/_hours:24
+      @gridScale = @hourHeight / 4
+
+      @$calendar.on 'mousemove', 'td .scheduling:not(.ui-resizable)', (event) ->
+        cursor.setupResizable $(this)
 
 
     @$calendar.on 'mouseenter', @items, focus
@@ -186,7 +209,7 @@ class CalendarCursor
 
   activate: ->
     @orientate()
-    if @$focussed_item.length > 0
+    if @$focussed_item.length > 0 and not @$focussed_item.is('.ui-draggable-dragging')
       @edit()
     else
       @create()
@@ -245,6 +268,133 @@ class CalendarCursor
     @focus @$focussed_cell.closest('tbody').children('tr').
       eq( (@current_row+1) % @rows_count ).children(@tds).eq(@current_column),
       'first'
+
+  setupDraggable: ($item) ->
+    @setupDroppable $(@droppable)
+    # TODO how to handle overnightables without surprises?
+    return if @hourHeight and $item.is('.early,.late')
+    $item.draggable
+      appendTo: @$calendar
+      containment: @$calendar
+      distance: 5
+      scroll: true
+      scope: 'schedulings'
+      cursorAt:
+        if @hourHeight
+          null
+        else
+          bottom: 4
+      start: =>
+        @unfocusAll()
+        @dragging = true
+      stop: =>
+        setTimeout( (=> @dragging = false), 50)
+      drag: (event, ui)=>
+        if @gridScale
+          $ele = ui.helper
+          @updateWorkTime $ele
+          ui.position.top = @snapToGrid ui.position.top
+
+  setupDroppable: ($ele) ->
+    $ele.droppable
+      scope: 'schedulings'
+      accept: @items
+      activeClass: 'drop-invite'
+      hoverClass: 'drop-hover'
+      tolerance: 'pointer'
+      drop: (event, ui)=>
+        $scheduling = ui.draggable
+        $target = $(event.target)
+        data = {}
+        for field in ['date', 'employee-id', 'team-id', 'day']
+          value = $target.data(field)
+          # for day, Monday is day=0
+          if value?
+            value = null if value == 'missing' # "our" defined null
+            data[field.replace(/-/g,'_')] = value
+
+        if @hourHeight
+          times = @timesFromPixels($scheduling)
+          [data.start_time, data.end_time] = times
+
+        @saveRecord($scheduling, data).then ->
+          $scheduling.remove() # rjs rendered a new list in droppable
+        , ->
+          # revert to old position
+          $scheduling.css({left: 0, top: 0})
+
+  setupResizable: ($div)->
+    # TODO how to handle overnightables without surprises?
+    return if @hourHeight and $div.is('.early,.late')
+    $div.resizable
+      handles: 'n,s'
+      ghost: false
+      minHeight: @gridScale
+      grid: [0, @gridScale]
+      start: (event, focus)=>
+        @resizing = true
+        @unfocusAll()
+      resize: (event, ui)=>
+        @updateWorkTime $div
+        true
+      stop: (event, ui)=>
+        setTimeout( (=> @resizing = false), 50)
+        data = {}
+        times = @timesFromPixels($div)
+        @saveRecord($div,
+          start_time: times[0]
+          end_time: times[1]
+        ).fail =>
+          $div.css
+            top: ui.originalPosition.top
+            height: ui.originalSize.height
+
+  inHours: (pix)->
+    quarters = 4 * (pix / @hourHeight)
+    Math.round(quarters) / 4
+
+  # in: actual pixels, from height or top position
+  # out: pixels snapped to the grid of quarter-hours
+  snapToGrid: (pixel)->
+    hours = @inHours(pixel)
+    hours * @hourHeight
+
+  # 3.25 => 3:15
+  hoursAsTime: (float)->
+    float = 0 if float < 0
+    hours = Math.floor(float)
+    mins = Math.round( 60 * (float - hours) )
+    hours = "0" + hours if hours < 10
+    mins = "0" + mins if mins < 10
+    "#{hours}:#{mins}"
+
+  timesFromPixels: ($ele)->
+    pixelTop    = $ele.position().top
+    pixelHeight = $ele.outerHeight()
+    start = @inHours(pixelTop)
+    end = @inHours(pixelTop + pixelHeight)
+
+    [@hoursAsTime(start), @hoursAsTime(end)]
+
+  # creates/update a hovering preview showing expected preview
+  updateWorkTime: ($ele)->
+    $preview = $ele.find('.work_time_preview')
+    $preview = @$workTimePreviewTemplate.clone().appendTo($ele) if $preview.length is 0
+    $preview.text @timesFromPixels($ele).join(' - ')
+
+  urlFor: ($element)->
+    @$calendar.data('new-url').replace(/new$/, $element.data('cid'))
+
+
+  saveRecord: ($element, data)->
+    url = @urlFor($element)
+    params = {}
+    params[if url.indexOf('/shifts/') > 0 then 'shift' else 'scheduling'] = data
+    $.ajax url,
+      type: 'PUT'
+      dataType: 'script'
+      data: $.param(params)
+
 
   enable: =>
     @disable()

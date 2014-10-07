@@ -12,4 +12,12 @@ module Overnightable
   def is_overnight?
     starts_at.day != ends_at.day
   end
+
+  def length_in_hours_until_midnight
+    (starts_at.end_of_day - starts_at) / (60*60)
+  end
+
+  def length_in_hours_from_midnight
+    (ends_at - starts_at.tomorrow.beginning_of_day) / (60*60)
+  end
 end

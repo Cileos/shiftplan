@@ -75,17 +75,31 @@ module TimeRangeComponentsAccessible
 
   def date=(new_date)
     if new_date
-      @date = if new_date.respond_to?(:year) # date/time like thingy
-          new_date
-        else
-          Time.zone.parse(new_date)
-        end.in_time_zone.beginning_of_day
+      keeping_time do
+
+        @date = if new_date.respond_to?(:year) # date/time like thingy
+            new_date
+          else
+            Time.zone.parse(new_date)
+          end.in_time_zone.beginning_of_day
+
+      end
     end
   end
 
   protected
 
+  def keeping_time
+    *saved = start_hour, end_hour, start_minute, end_minute
+
+    yield
+
+    self.starts_at = self.ends_at = nil
+    self.start_hour, self.end_hour, self.start_minute, self.end_minute = *saved
+  end
+
   # FIXME test this!
+  # TODO half implementation in TimeRangeComposer
   def compose_time_range_from_components
     date = base_for_time_range_components
     if date.present? && start_hour_present?

@@ -4,8 +4,10 @@
     - bg_team_color = team.color[1,6].scan(/../).map { |color| color.to_i(16) }
     - bg_team_color = bg_team_color.join(',')
     - sel = ".#{dom_id(team)}"
-    = %Q~#{sel}, #{sel} .work_time, #{sel} .gimmicks { background: rgba(#{bg_team_color},0.2);}~
+    = %Q~#{sel}, #{sel} .work_time, #{sel} .scheduling { background: rgba(#{bg_team_color},0.2);}~
 
 %style#team_colors
   - teams.each do |team|
-    = %Q~.#{dom_id(team)} { border-color: #{team.color};}~
+    - sel = ".#{dom_id(team)}"
+    = %Q~#{sel} { border-color: #{team.color};}~
+    = %Q~#{sel}:hover .ui-resizable-handle { background: #{team.color};}~

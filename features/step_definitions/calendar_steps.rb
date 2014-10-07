@@ -52,6 +52,7 @@ end
 #
 # It will fail if there is an A-team or Caturday hidden somewhere
 Then /^I should see the following calendar:$/ do |expected|
+  some_time_passes
   expected.diff! the_calendar.parsed
 end
 
@@ -62,6 +63,7 @@ end
 #
 # It will not fail if there is an A-team at the end or the Monday is even important
 Then /^I should see the following partial calendar:$/ do |expected|
+  some_time_passes
   expected.diff! the_calendar.parsed, surplus_row: false, surplus_col: false
 end
 
@@ -175,4 +177,27 @@ Then /^I reschedule #{capture_quoted} and select #{capture_quoted} as #{capture_
     step %Q~I select "#{employee}" from the "#{employee_field}" single-select box~
     click_button "Speichern"
   end
+end
+
+# These steps brake with jquery-ui 5.0
+When(/^I drag #{capture_quoted} and drop it onto #{capture_cell}$/) do |handle, cell_name|
+  cell = page.find *selector_for(cell_name)
+  cell.should_not be_nil, "could not find cell #{cell_name}"
+  execute_script %q~$('.scheduling').trigger('mousemove')~
+  ele = page.find('li.ui-draggable', text: handle)
+  ele.should_not be_nil, "could not find draggable #{handle}"
+  # must setup lazy initialized draggables/droppables
+  ele.drag_to(cell)
+  some_time_passes
+end
+
+When(/^I drag #{capture_quoted} and drop it onto #{capture_column}$/) do |handle, column_name|
+  column = page.find *selector_for(column_name)
+  column.should_not be_nil, "could not find column #{column_name}"
+  # must setup lazy initialized draggables/droppables
+  execute_script %q~$('.scheduling').trigger('mousemove')~
+  ele = page.find('div.ui-draggable', text: handle)
+  ele.should_not be_nil, "could not find draggable #{handle}"
+  ele.drag_to(column)
+  some_time_passes
 end

@@ -3,6 +3,8 @@
     %tr
       %th.heading= account.name
       %td
+        %span.time= account.in_time_zone { l Time.zone.now, format: :long  }
+      %td
         .actions
           .button-group
             - if can? :create, Organization.new(account: account)

@@ -3,6 +3,7 @@
     %tr{id: "organization_#{organization.id}"}
       %th= link_to organization.name, nested_resources_for(organization)
       %td
+      %td
         .actions
           - if can? :edit, organization
             = link_to :edit, [:edit] + nested_resources_for(organization),

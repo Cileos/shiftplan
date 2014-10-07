@@ -60,6 +60,14 @@ class Account < ActiveRecord::Base
       organization.memberships.create!(employee: e)
     end
   end
+
+  def in_time_zone(&block)
+    if zone = time_zone_name.presence
+      Time.use_zone zone, &block
+    else
+      block.call
+    end
+  end
 end
 
 AccountDecorator

@@ -1,3 +1,4 @@
+$drop_hover: #B2D8AB
 .calendar
   abbr
     border-bottom: none
@@ -46,6 +47,11 @@
     &.outside_plan_period.focus
       background-color: $ci_lightgray
       border-color: $ci_lightgray
+
+    &.ui-droppable
+      //&.drop-invite these are basically all cells at one point
+      &.drop-hover
+        background: $drop_hover
 
   tbody.editable
     td.focus
@@ -135,6 +141,11 @@
 
     &.comments
       display: none
+
+  .ui-draggable-dragging
+    cursor: move
+    // above the cursor focus
+    z-index: 100
 
 .calendar-description
   color: $ci_darkgrey

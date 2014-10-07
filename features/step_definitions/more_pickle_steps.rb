@@ -101,3 +101,8 @@ Given /^#{capture_quoted} was suspended from #{capture_quoted}$/ do |employee_re
   ).first!
   membership.update_attributes! suspended: true
 end
+
+Given /^#{capture_model}'s ([\w_]+) is #{capture_quoted}$/ do |model, attr_name, value|
+  m = model! model
+  m.update_attributes! attr_name => value
+end

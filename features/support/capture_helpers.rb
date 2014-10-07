@@ -24,6 +24,10 @@ module StringCaptureHelper
     %r~(cell "[^"]+"/"[^"]+")~
   end
 
+  def capture_column
+    %r~(column "[^"]+")~
+  end
+
   def match_date_with_time(locale=:de)
     /\d{2}\.\d{2}.\d{4} um \d{2}:\d{2} Uhr/
   end

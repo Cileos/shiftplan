@@ -52,18 +52,18 @@ GIT
       rails (>= 3.1.0)
 
 GIT
+  remote: git://github.com/ryanb/nested_form.git
+  revision: 1b0689dfb4d230ceabd278eba159fcb02f23c68a
+  specs:
+    nested_form (0.3.2)
+
+GIT
   remote: git://github.com/tbuehl/pickle.git
   revision: eb928db7c279f097647663c71f2f4b00f03a68b3
   specs:
     pickle (0.4.11)
       cucumber (>= 0.8)
       rake
-
-GIT
-  remote: git@github.com:ryanb/nested_form.git
-  revision: 1b0689dfb4d230ceabd278eba159fcb02f23c68a
-  specs:
-    nested_form (0.3.2)
 
 PATH
   remote: vendor/engines/tutorial
