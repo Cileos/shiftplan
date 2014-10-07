@@ -19,8 +19,6 @@ class SchedulingFilterTeamsInDayDecorator < SchedulingFilterDayDecorator
   end
   alias_method :next_coordinates_for, :coordinates_for
 
-  def nex
-
   # we only need a sequence of divs
   def list_tag
     nil
