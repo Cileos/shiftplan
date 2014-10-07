@@ -42,8 +42,7 @@ class ApplicationController < ActionController::Base
   around_filter :set_time_zone_from_account, :if => :current_account?
 
   def set_time_zone_from_account(&block)
-    zone = current_account.time_zone_name.presence || 'Berlin'
-    Time.use_zone zone, &block
+    current_account.in_time_zone &block
   end
 
   prepend_before_filter :set_locale

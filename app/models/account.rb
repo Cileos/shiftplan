@@ -62,8 +62,11 @@ class Account < ActiveRecord::Base
   end
 
   def in_time_zone(&block)
-    zone = time_zone_name.presence || 'Berlin'
-    Time.use_zone zone, &block
+    if zone = time_zone_name.presence
+      Time.use_zone zone, &block
+    else
+      block.call
+    end
   end
 end
 
