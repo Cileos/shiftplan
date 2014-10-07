@@ -5,9 +5,11 @@ Feature: Edit Account
   I want to edit my account
 
   Background:
-    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+    Given today is "2012-05-23 08:00 CEST"
+      And mr burns, owner of the Springfield Nuclear Power Plant exists
       And I am signed in as the user "mr burns"
       And I am on the accounts page
+      And I should see "Mittwoch, 23. Mai 2012, 08:00 Uhr"
      When I follow "Account bearbeiten"
       And I wait for the modal box to appear
 
@@ -28,3 +30,4 @@ Feature: Edit Account
       And I wait for the modal box to disappear
      Then I should be on the accounts page
       And I should see flash notice "Account erfolgreich geändert."
+      And I should see "Dienstag, 22. Mai 2012, 20:00 Uhr"
