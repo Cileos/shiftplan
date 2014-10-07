@@ -4,11 +4,11 @@ Feature: Dashboard
   In order to be able to choose from one of them
 
   Background:
-    Given mr burns, owner of the Springfield Nuclear Power Plant exists
+    Given Mr Burns, owner of the Springfield Nuclear Power Plant exists
       And a confirmed user "homer" exists with email: "homer@thesimpsons.de"
       And an employee "Homer" exists with first_name: "Homer", user: user "homer", account: the account
       And the employee "Homer" is a member of the organization
-      And a plan "brennstäbe wechseln" exists with organization: the organization, name: "Brennstäbe wechseln"
+      And a plan "Brennstäbe" exists with organization: the organization, name: "Brennstäbe wechseln"
       # week 49
       And today is 2012-12-04 06:00
 
@@ -29,7 +29,7 @@ Feature: Dashboard
       And the employee "Daddy" is a member of the organization "Garten"
       And a plan "Spazieren" exists with organization: organization "Garten", name: "Spazieren"
 
-      And the employee "Homer" was scheduled in the plan "brennstäbe wechseln" as following:
+      And the employee "Homer" was scheduled in the plan "Brennstäbe" as following:
         | week | cwday | quickie                         |
         | 49   | 2     | 9-17 Reaktor Putzen [RP]        |
         | 49   | 3     | 9-17 Links abbiegen [La]        |
@@ -84,3 +84,53 @@ Feature: Dashboard
         | No Danger   |
         | Liquidators |
         | Oops        |
+
+  Scenario: List milestones and tasks for an employee
+    Given another organization "Sweets" exists with account: the account
+      And the employee "Homer" is a member of the organization "Sweets"
+      And a plan "Doughnuts" exists with organization: the organization
+      And an employee "Carl" exists with first_name: "Carl", last_name: "Carlson", account: the account
+      And the following milestones exist:
+        | name        | plan                  | due_at     | responsible          | done  | description | milestone   |
+        | Null        | the plan "Brennstäbe" |            | the employee "Homer" | true  |             | Null        |
+        | Alpha       | the plan "Brennstäbe" | 2012-12-01 | the employee "Homer" | false |             | Alpha       |
+        | Closed Beta | the plan "Brennstäbe" | 2012-12-05 | the employee "Homer" | false | invite ppl  | Closed Beta |
+        | Beta        | the plan "Brennstäbe" |            | the employee "Homer" | false |             | Beta        |
+        | Gamma       | the plan "Brennstäbe" |            |                      | false | use Gloves  | Gamma       |
+        | Delta       | the plan "Brennstäbe" |            | the employee "Carl"  | false |             | Delta       |
+        | Imma        | the plan "Doughnuts"  |            |                      | false |             | Imma        |
+      And the following tasks exist:
+        | name          | milestone                   | due_at     | responsible          | done  | description |
+        | Invite Paul   | the milestone "Closed Beta" | 2012-12-04 | the employee "Homer" | false |             |
+        | Invite Paula  | the milestone "Closed Beta" |            |                      | false | before Paul |
+        | Invite O'ktap | the milestone "Closed Beta" |            | the employee "Homer" | true  |             |
+
+      And I am signed in as the user "homer"
+     When I go to the dashboard
+     Then I should see a list of the following milestones:
+        | name        | due_on     | responsible   | description |
+        | Imma        |            |               |             |
+      And I should see a second list of the following milestones:
+        | name        | due_on     | responsible   | description |
+        | Delta       |            | Carl Carlson  |             |
+        | Gamma       |            |               | use Gloves  |
+        | Beta        |            | Homer Simpson |             |
+        | Closed Beta | 05.12.2012 | Homer Simpson | invite ppl  |
+        # Null is already completed
+        # Alpha is in the past
+      And I should see a list of the following tasks within the 4th milestone within the 2nd milestones list:
+        | name         | due_on     | responsible   | description |
+        | Invite Paula |            |               | before Paul |
+        | Invite Paul  | 04.12.2012 | Homer Simpson |             |
+
+     When I go to the page of the organization "sector 7g"
+     Then I should see a list of the following milestones:
+        | name        | due_on     | responsible   | description |
+        | Delta       |            | Carl Carlson  |             |
+        | Gamma       |            |               | use Gloves  |
+        | Beta        |            | Homer Simpson |             |
+        | Closed Beta | 05.12.2012 | Homer Simpson | invite ppl  |
+        # Imma is in another org |
+     When I follow "Closed Beta"
+     Then I should be on the employees in week page of the plan "Brennstäbe" for cwyear: 2012, week: 49
+

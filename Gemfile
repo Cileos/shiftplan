@@ -26,7 +26,7 @@ gem "non-stupid-digest-assets"
 
 group :test do
   gem 'cucumber-rails', "~> 1.4.0", :require => false
-  gem 'rspec-rails', '~> 2.14.0'
+  gem 'rspec-rails', '< 3'
   gem 'rspec-fire'
   gem 'launchy'
 
@@ -63,6 +63,9 @@ group :test do
   gem 'rspec-html-matchers'
 
   gem 'rails-develotest'
+
+  # select a random timezone on every test run
+  gem 'zonebie'
 end
 
 group :development, :test do
@@ -77,9 +80,11 @@ end
 
 group :development do
   # gem 'ruby-debug19' # http://stackoverflow.com/questions/8378277/cannot-use-ruby-debug19-with-1-9-3-p0
-  gem 'capistrano'
+  # TODO updaade to capistrano 3
+  gem 'capistrano', '<3'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
+  gem 'capistrano-flowdock', github: 'flowdock/capistrano-flowdock', branch: 'capistrano-2', require: false
   gem 'notes', :require => false, :git => 'git://github.com/niklas/notes.git'
   gem 'quiet_assets'
 
@@ -143,7 +148,7 @@ gem 'ember-source', '1.5.1.1'
 gem "ember-data-source", "1.0.0.beta.7"
 gem 'ember-rails-flash', git: 'git://github.com/niklas/ember-rails-flash.git'
 
-gem 'nested_form', :git => 'git@github.com:ryanb/nested_form.git'
+gem 'nested_form', :github => 'ryanb/nested_form'
 
 gem 'backup', :require => false # just for restore
 gem 'friendly_id'

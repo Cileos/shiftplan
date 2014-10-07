@@ -1,18 +1,18 @@
-Clockwork.formattedDateProperty = (name, format='L')->
+Clockwork.formattedDateProperty = (source, format='L')->
   Ember.computed (key, value)->
     if arguments.length > 1
-      have = @get(name)
+      have = @get(source)
       want = moment(value, format)
       if want.isValid()
-        @set name, moment(have).
-                           clone().
-                           year( want.year() ).
-                           month( want.month() ).
-                           date( want.date() ).
-                           toDate()
-    have = @get(name)
-    if have?
-      moment(have).format(format)
+        have = if have?.isValid() then have else now()
+        @set source, have.
+                     clone().
+                     year( want.year() ).
+                     month( want.month() ).
+                     date( want.date() )
+    have = @get(source)
+    if have && have.isValid()
+      have.format(format)
     else
-      have
-  .property(name)
+      null
+  .property(source)

@@ -15,6 +15,20 @@
   border-right-color: $ci_grey
   border-radius: 2px
   +transition(height 0.25s ease, width 0.25s ease, left 0.25s ease, right 0.25s ease)
+  &.ui-draggable-dragging, &.ui-resizable-resizing
+    +transition(none)
+
+  &:hover, &.ui-resizable-resizing
+    .ui-resizable-handle
+      background: black
+      &.ui-resizable-n
+        border-radius: 4px 4px 0 0
+      &.ui-resizable-s
+        border-radius: 0 0 4px 4px
+
+  &.ui-draggable-dragging.ui-resizable
+    .ui-resizable-handle
+      display: none
 
   .team_name,
   .employee,
@@ -63,7 +77,7 @@
     border-bottom: none
     border-bottom-left-radius: 0
     border-bottom-right-radius: 0
-    margin-bottom: -2px
+    margin-bottom: 2px
 
     .gimmicks
       padding-bottom: 5px
@@ -78,8 +92,9 @@
     background-repeat: repeat-x
 
   &.early:before
-    top: -10px
-    height: 15px
+    top: -3px
+    height: 10px
+    background-position: 0 -9px
 
   &.late:before
     bottom: 0
@@ -97,9 +112,19 @@
   abbr:hover
     cursor: default
 
-div[class*="team_"].scheduling,
-li[class*="team_"].scheduling
-  background: white
+  .work_time_preview
+    position: absolute
+    top: 50%
+    margin-top: -50%
+    width: 100%
+    background: $ci_darkgray
+    color: $ci_lightgray
+    opacity: 0.85
+    font-size: 200%
+    text-align: center
+    padding: 3px
+
+
 
 table tbody tr
   .scheduling.early:before,

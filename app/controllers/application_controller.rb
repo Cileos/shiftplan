@@ -39,6 +39,11 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+  around_filter :set_time_zone_from_account, :if => :current_account?
+
+  def set_time_zone_from_account(&block)
+    current_account.in_time_zone &block
+  end
 
   prepend_before_filter :set_locale
   def set_locale
@@ -92,7 +97,7 @@ class ApplicationController < ActionController::Base
   end
 
   def nested_resource_dispatcher
-    @nested_resource_dispatcher ||= NestedResourceDispatcher.new
+    @nested_resource_dispatcher ||= NestedResourceDispatcher.new(self)
   end
 
   helper_method :year_for_cweek_at

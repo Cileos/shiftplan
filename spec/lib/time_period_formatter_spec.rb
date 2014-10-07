@@ -7,7 +7,7 @@ describe TimePeriodFormatter do
     end
   end
   let(:decorator) { DecoratorForRecordWithTimes.new(record) }
-  let(:record) { double }
+  let(:record) { instance_double 'Scheduling' }
 
   context "#period_with_duration" do
     it 'is composed of period_with_zeros and duration' do
@@ -23,10 +23,9 @@ describe TimePeriodFormatter do
   context "#period_with_zeros" do
 
     context "for regular daytime records with minutes" do
-      let(:record) { double "regular",
+      let(:record) { instance_double "Scheduling",
                      starts_at: Time.zone.parse('8:15'),
-                     ends_at: Time.zone.parse('16:45'),
-                     next_day: nil, previous_day: nil
+                     ends_at: Time.zone.parse('16:45')
       }
 
       it "displays minutes" do
@@ -35,10 +34,9 @@ describe TimePeriodFormatter do
     end
 
     context "for regular daytime records with full hours" do
-      let(:record) { double "regular",
+      let(:record) { instance_double "Scheduling",
                      starts_at: Time.zone.parse('8:00'),
-                     ends_at: Time.zone.parse('16:45'),
-                     next_day: nil, previous_day: nil
+                     ends_at: Time.zone.parse('16:45')
       }
 
       it "displays zeros for minutes" do
@@ -47,14 +45,9 @@ describe TimePeriodFormatter do
     end
 
     context "for overnightables" do
-      let(:overnightable) { double 'overnightable',
-                            starts_at: Time.zone.parse('22:15'),
-                            ends_at: Time.zone.parse('06:45'),
-                            next_day: next_day, previous_day: nil
-      }
-      let(:next_day) { double 'next day',
-                       next_day: nil,
-                       ends_at: Time.zone.parse('06:45')
+      let(:overnightable) { instance_double 'Scheduling',
+                            starts_at: Time.zone.parse('2014-09-24 22:15'),
+                            ends_at: Time.zone.parse('2014-09-25 06:45')
       }
       let(:expected_period) { '22:15-06:45' }
 
@@ -62,16 +55,6 @@ describe TimePeriodFormatter do
         let(:record) { overnightable }
 
         it "starts today, ends at next day" do
-          decorator.period_with_zeros.should == expected_period
-        end
-      end
-      context "having a previous day" do
-        let(:record) { next_day }
-        before :each do
-          next_day.stub previous_day: overnightable # avoid recursion for let()
-        end
-
-        it "starts yesterday, ends today" do
           decorator.period_with_zeros.should == expected_period
         end
       end

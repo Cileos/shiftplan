@@ -1,6 +1,6 @@
 class PlanDecorator < TabularizedRecordDecorator
   def period_modes_for_select
-    %w(limited unlimited).map do |v|
+    %w(unlimited limited).map do |v|
       [h.t(v, scope: 'activerecord.values.plan.period_modes'), v]
     end
   end

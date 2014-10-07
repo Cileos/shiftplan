@@ -1,12 +1,14 @@
 # = require lib/load_fixtures_from_dom
+# = require jstz
 # = require_tree ./setup
 
 Setup = Ember.Application.create
   rootElement: '#setup'
   page: 'setup' # for i18n
 
-Setup.ChapterAdapter = DS.FixtureAdapter
-Setup.StepAdapter = DS.FixtureAdapter
+Setup.ChapterAdapter  = DS.FixtureAdapter
+Setup.StepAdapter     = DS.FixtureAdapter
+Setup.TimeZoneAdapter = DS.FixtureAdapter
 Setup.SetupAdapter = DS.ActiveModelAdapter
 Setup.ApplicationSerializer = DS.ActiveModelSerializer
 
@@ -18,6 +20,7 @@ Setup.Setup = DS.Model.extend
   accountName: DS.attr('string')
   organizationName: DS.attr('string')
   teamNames: DS.attr('string')
+  timeZoneName: DS.attr('string')
 
   execute: DS.attr('boolean')
   redirectTo: DS.attr('string')
@@ -30,6 +33,16 @@ Setup.Chapter = DS.Model.extend
   motivation: DS.attr 'string'
   instructions: DS.attr 'string'
   examples: DS.attr 'array'
+
+Setup.TimeZone = DS.Model.extend
+  # short name "Berlin"
+  name: Ember.computed.alias 'id'
+  offset: DS.attr 'string'
+  nameWithOffset: Ember.computed 'name', 'offset', ->
+    "GMT#{@get('offset')} #{@get('name')}"
+
+  # the IANA name, for example "Europe/Berlin"
+  iana: DS.attr 'string'
 
 # a two-way linked list
 Setup.Step = Ember.Object.extend
@@ -46,6 +59,7 @@ Setup.Step = Ember.Object.extend
     @set 'doneAge', d
 
 load_fixtures_from_dom(Setup, 'Chapter', 'chapters')
+load_fixtures_from_dom(Setup, 'TimeZone', 'timezones')
 
 Setup.Router.map ->
   @resource 'setup', ->
@@ -126,6 +140,7 @@ Setup.ApplicationController = Ember.Controller.extend
   stepIds: [
     'user',
     'account',
+    'time_zone',
     'organization',
     'complete'
   ]
@@ -149,6 +164,19 @@ Setup.SetupController = Ember.ObjectController.extend
   needs: ['application', 'setup_step']
   stepsBinding: 'controllers.application.steps'
   stepBinding: 'controllers.setup_step.content'
+
+  timeZones: Ember.computed ->
+    @store.find 'time_zone'
+
+  setupDetectedTimeZone: (->
+    if Ember.isBlank @get('timeZoneName')
+      iana = jstz.determine().name()
+      if iana?
+        @get('timeZones').then (zones)=>
+          found = zones.findProperty('iana', iana)
+          if found?
+            @set 'timeZoneName', found.get('name')
+  ).observes('content')
 
 Setup.SetupStepController = Ember.ObjectController.extend()
 

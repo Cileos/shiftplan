@@ -19,11 +19,14 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def schedulings_for(day)
-    pack_in_stacks records.select {|r| r.date == day}
+    pack_in_stacks records.
+      select {|r| r.date.to_date == day || (r.is_overnight? && r.date.to_date == day.yesterday) }.
+      map(&:decorate).
+      each { |s| s.focus_day = day }
   end
 
   def unavailabilities_for(day)
-    pack_in_stacks unavailabilities.select {|r| r.date == day}
+    pack_in_stacks unavailabilities.select {|r| r.date.to_date == day}.map(&:decorate)
   end
 
   def cell_metadata(day)
@@ -31,12 +34,20 @@ class SchedulingFilterHoursInWeekDecorator < SchedulingFilterWeekDecorator
   end
 
   def cell_selector(scheduling)
-   %Q~#calendar tbody tr td[data-date=#{scheduling.date.iso8601}]~
+    %Q~#calendar tbody tr td[data-date=#{scheduling.date.to_date.iso8601}]~
+  end
+
+  def next_cell_selector(scheduling)
+    %Q~#calendar tbody tr td[data-date=#{scheduling.date.tomorrow.to_date.iso8601}]~
   end
 
   # hours are no real coordinates in a table kind of way
-  def coordinates_for_scheduling(scheduling)
+  def coordinates_for(scheduling)
     [ scheduling.date ]
+  end
+
+  def next_coordinates_for(scheduling)
+    [ scheduling.date.tomorrow ]
   end
 
   # vertical bars are separate

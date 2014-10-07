@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   has_many :schedulings, through: :employees
 
   has_many :posts_of_joined_organizations, source: :posts, through: :joined_organizations
+  has_many :milestones_of_joined_organizations, source: :milestones, through: :joined_organizations
 
   has_many :unavailabilities
 

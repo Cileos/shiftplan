@@ -1,3 +1,4 @@
+$drop_hover: #B2D8AB
 .calendar
   abbr
     border-bottom: none
@@ -47,6 +48,11 @@
       background-color: $ci_lightgray
       border-color: $ci_lightgray
 
+    &.ui-droppable
+      //&.drop-invite these are basically all cells at one point
+      &.drop-hover
+        background: $drop_hover
+
   tbody.editable
     td.focus
       background: #abc6d8 image-url("plus.png") bottom center no-repeat
@@ -60,7 +66,6 @@
 
   .cellwrap
     position: relative
-    height: 100%
 
     ul
       height: 100%
@@ -121,7 +126,7 @@
 
   ul
     list-style: none
-    padding: 0
+    padding: 0 0 20px 0
     margin: 5px 0 20px 0
     font-size: $font-size_small
 
@@ -136,6 +141,11 @@
 
     &.comments
       display: none
+
+  .ui-draggable-dragging
+    cursor: move
+    // above the cursor focus
+    z-index: 100
 
 .calendar-description
   color: $ci_darkgrey

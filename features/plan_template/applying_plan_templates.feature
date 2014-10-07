@@ -1,5 +1,4 @@
 @javascript
-@small_screen
 Feature: Applying Weekbased Plan Templates to Plans
   As I planner
   I want to apply a weekbased plan template to my plan
@@ -40,7 +39,7 @@ Feature: Applying Weekbased Plan Templates to Plans
       And I am on the teams in week page of the plan for cwyear: 2012, week: 49
      When I apply template "Typische Woche" in modalbox
      Then I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
-      And 5 schedulings should exist with plan: the plan
+      And 4 schedulings should exist with plan: the plan
       And I should see the following partial calendar:
         | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel (B)     | 22:00-06:15 Brennstabexperte  | 22:00-06:15 Brennstabexperte                                                             |     |     |     |     |     |

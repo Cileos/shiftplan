@@ -2,15 +2,15 @@ Clockwork.Unavailability = DS.Model.extend
   reason: DS.attr('string')
   description: DS.attr('string')
   allDay: DS.attr('boolean')
-  startsAt: DS.attr('date')
-  endsAt: DS.attr('date')
+  startsAt: DS.attr('moment')
+  endsAt: DS.attr('moment')
   employee: DS.belongsTo('employee')
   account: DS.belongsTo('account')
 
   # this are currently needed for creation by time
   formattedDate:
     Ember.computed ->
-      $.datepick.formatDate( @get('startsAt') )
+      @get('startsAt').format('L')
     .property('startsAt')
 
   startDate: Clockwork.formattedDateProperty 'startsAt'
@@ -19,12 +19,10 @@ Clockwork.Unavailability = DS.Model.extend
   startTime: Clockwork.formattedTimeProperty 'startsAt'
   endTime: Clockwork.formattedTimeProperty 'endsAt'
 
-  dayInWeek: (->
-    moment(@get('startsAt')).day()
-  ).property('startsAt')
-  weekInYear: (->
-    moment(@get('startsAt')).isoWeek()
-  ).property('startsAt')
+  dayInWeek: Ember.computed 'startsAt', ->
+    @get('startsAt').day()
+  weekInYear: Ember.computed 'startsAt', ->
+    @get('startsAt').isoWeek()
 
   reasonText: (->
     r = @get('reason')

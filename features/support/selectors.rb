@@ -145,6 +145,10 @@ module HtmlSelectorsHelpers
       row    = the_calendar.row_index_for($2)
       [:xpath, complicated_css("tbody tr:nth-child(#{row+1}) td:nth-child(#{column+1})")]
 
+    when %r~^(?:the )?column "([^"]+)"$~
+      column = the_calendar.column_index_for($1)
+      [:xpath, complicated_css("tbody tr:first td:nth-child(#{column+1})")]
+
     when 'a hint'
       '.hint'
 
@@ -174,8 +178,11 @@ module HtmlSelectorsHelpers
     when /^(?: a |the )?(\w+) list$/
       "ul.#{$1}"
 
-    when /^the #{capture_nth} (post)/
+    when /^the #{capture_nth} (post|milestone)/
       [:xpath, complicated_css(".#{$2}#{Numerals[$1]}")]
+
+    when /^the #{capture_nth} (milestones) list$/
+      [:xpath, complicated_css("ul.#{$2}#{Numerals[$1]}")]
 
     when 'active week'
       '.calendar-active-week'

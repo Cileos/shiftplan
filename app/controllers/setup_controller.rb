@@ -41,6 +41,7 @@ class SetupController < InheritedResources::Base
       :account_name,
       :organization_name,
       :team_names,
+      :time_zone_name,
     ])
   end
 

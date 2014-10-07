@@ -39,6 +39,7 @@ class AccountsController < BaseController
       :first_name,
       :last_name,
       :user_id,
+      :time_zone_name,
       :on_new_account
     ]
   end

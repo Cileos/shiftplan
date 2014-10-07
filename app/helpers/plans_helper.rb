@@ -2,12 +2,12 @@ module PlansHelper
   # needs monday (Date)
   def cwdays_for_select(scheduling, format=:week_day)
     monday = scheduling.date || Date.new(2012,1,2)
-    monday = monday.beginning_of_week unless monday.cwday == 1
+    monday = monday.in_time_zone.monday
     (0..6).
       to_a.
       map    { |more| monday + more.days }.
       select { |day| scheduling.plan.period.include_date?(day) }.
-      map    { |day| [l(day, :format => format), day.iso8601] }
+      map    { |day| [l(day, :format => format), day.to_date.iso8601] }
   end
 
   def employees_for_select(scheduling)

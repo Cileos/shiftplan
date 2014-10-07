@@ -1,6 +1,17 @@
 Changelog
 =========
 
+Release 1.4.0 2014-10-07 19:05
+------------------------------
+5fc8271 Merge branch 'feature/drag-and-drop-schedulings' into develop
+f9554c1 Merge branch 'feature/kill-overnightables' into develop
+7d5c54c Merge branch 'feature/random-timezones-in-testsuite' into develop
+caf17ed Merge pull request #275 from Cileos/feature/account-timezone
+c5bba0a Merge pull request #247 from Cileos/feature/show-milestones-and-tasks-on-dashboard
+9abb8c4 Merge pull request #274 from Cileos/feature/plannable-checkboxes-in-table
+9912e16 Merge pull request #273 from Cileos/feature/bug-FF-schedulings-in-wrong-cell
+d5b92b9 Merge branch 'release/1.3.2' into develop
+
 Release 1.3.2 2014-09-19 17:47
 ------------------------------
 0d5229b Merge pull request #271 from Cileos/feature/notify-marketing-about-new-customers

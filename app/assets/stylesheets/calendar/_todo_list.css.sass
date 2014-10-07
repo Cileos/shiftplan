@@ -12,7 +12,6 @@ $todolist_border_color: $ci_gray
 
 .milestones
   li
-    +clearfix
     position: relative
     margin-bottom: 5px
     padding-bottom: 5px
@@ -24,28 +23,13 @@ $todolist_border_color: $ci_gray
   > li
     margin-bottom: 20px
     padding-left: 10px
-    // background: white;
     border-left: 1px solid $todolist_border_color
     border-bottom: 1px solid $todolist_border_color
-
-    &:nth-child(even)
-      // background: $ci_table-zebra;
-
-  .due_on
-    float: right
-    margin: 0 0 0 5px
 
   .employee,
   .due_on,
   .description
     font-size: $font-size_small
-
-  .employee
-    display: block
-
-  .due_on,
-  .employee
-    +clearfix
 
   .description
     color: $ci_darkgrey
@@ -60,6 +44,8 @@ $todolist_border_color: $ci_gray
         left: -18px
 
       &:before
+        display: block
+        content: ''
         width: 10px
         border-top: 1px solid $todolist_border_color
         position: relative

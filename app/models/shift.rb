@@ -31,33 +31,32 @@ class Shift < ActiveRecord::Base
     ShiftFilter.new plan_template: plan_template
   end
 
-  # Delegate the demands of the second day of a nightshift to the previous day.
-  def demands_with_respecting_previous_day
-    if previous_day.present?
-      previous_day.demands
-    else
-      demands_without_respecting_previous_day
-    end
-  end
-  alias_method_chain :demands, :respecting_previous_day
-
+  # we store the times as UTC and just pick hours&minute from it
   def starts_at
-    if super.present?
-      base_for_time_range_components + super.hour.hours + super.min.minutes
-    end
+    read_attribute(:starts_at)
+  end
+
+  def starts_at=(time_with_zone)
+    write_attribute :starts_at, time_with_zone.utc.beginning_of_day + time_with_zone.hour.hours + time_with_zone.min.minutes
   end
 
   def ends_at
-    if super.present?
-      base_for_time_range_components + super.hour.hours + super.min.minutes
+    if utc = read_attribute(:ends_at)
+      utc = utc.tomorrow if utc < starts_at
+      utc
     end
+  end
+
+  def ends_at=(time_with_zone)
+    write_attribute :ends_at, time_with_zone.utc.beginning_of_day + time_with_zone.hour.hours + time_with_zone.min.minutes
   end
 
   protected
 
-  # we are only interested in the time component and do not want any time zones
+  # we are only interested in the time component, so always treat the time like they would be TODAY
+  # FIXME shouldn't this start at the plan_templates start, adding #day, #*hour and #*minute ?
   def base_for_time_range_components
-    Time.utc(1988,5,5,0,0,0)
+    Time.current.beginning_of_day
   end
 end
 

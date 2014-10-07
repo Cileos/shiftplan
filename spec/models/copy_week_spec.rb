@@ -50,13 +50,13 @@ describe CopyWeek do
   # For year 2012 and week 49, the saturday is 08.12.2012.
   let(:target_saturday_schedulings) do
     target_schedulings.select do |s|
-      s.starts_at.day == 8
+      s.starts_at.day == 8 || s.ends_at.day == 8
     end
   end
   # For year 2012 and week 49, the saturday is 09.12.2012.
   let(:target_sunday_schedulings) do
     target_schedulings.select do |s|
-      s.starts_at.day == 9
+      s.starts_at.day == 9 || s.ends_at.day == 9
     end
   end
 
@@ -81,7 +81,6 @@ describe CopyWeek do
     copy.save
     target_saturday_schedulings.should_not be_empty
     target_sunday_schedulings.should_not be_empty
-    target_saturday_schedulings.first.next_day.should == target_sunday_schedulings.first
   end
 
   it "does not copy the comments_count of schedulings" do

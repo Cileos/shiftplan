@@ -9,5 +9,6 @@
 
 .row.two-columns.inverted.dashboard
   = render 'schedulings/for_dashboard', schedulings: @upcoming
-  = render 'notifications/for_dashboard', notifications: @notifications
   = render 'posts/for_dashboard', posts: @posts
+  = render 'milestones/for_dashboard', milestones: @milestones
+  = render 'notifications/for_dashboard', notifications: @notifications

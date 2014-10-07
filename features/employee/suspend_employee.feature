@@ -27,3 +27,17 @@ Feature: Suspend employee
         | Name           | Status                | planbar |
         | Burns, Charles | Aktiv                 | ja      |
         | Simpson, Homer | Noch nicht eingeladen | nein    |
+
+     When I uncheck "ja" within the first table row
+      And I wait for the spinner to disappear
+     Then I should see the following table of employees:
+        | Name           | Status                | planbar |
+        | Burns, Charles | Aktiv                 | nein    |
+        | Simpson, Homer | Noch nicht eingeladen | nein    |
+
+     When I check "nein" within the second table row
+      And I wait for the spinner to disappear
+     Then I should see the following table of employees:
+        | Name           | Status                | planbar |
+        | Burns, Charles | Aktiv                 | nein    |
+        | Simpson, Homer | Noch nicht eingeladen | ja      |

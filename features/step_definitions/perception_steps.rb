@@ -31,11 +31,14 @@ Then /^the page should be completely translated$/ do
   end
 end
 
-Then /^I should see a list of the following (.+):$/ do |plural, expected|
+Then /^I should see a (#{match_nth} |)list of the following (\w+\s?\w+)(?!within.*):$/ do |nth, plural, expected|
+  nth.strip!
+  nth = 'first' if nth.blank?
   selectors = expected.column_names.map(&:underscore).map {|s| ".#{s}" }
-  list_sel = "ul.#{plural}"
-  page.should have_css(list_sel)
-  actual = first(list_sel).all('li').map do |li|
+  list_sel = complicated_css "ul.#{plural}#{Numerals[nth]}"
+  page.should have_xpath(*list_sel)
+  # xpath to select only direct children, not grandchildren
+  actual = first(:xpath, list_sel).all(:xpath, 'li').map do |li|
     selectors.map do |column|
       li.first(column).try(:text).try(:strip).try(:lines).try(:first) || ''
     end

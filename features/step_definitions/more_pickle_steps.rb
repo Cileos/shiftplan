@@ -80,7 +80,7 @@ Given /^#{capture_model} has joined another organization of #{capture_model}$/ d
 end
 
 
-Given /^mr burns, owner of the Springfield Nuclear Power Plant exists$/ do
+Given /^[mM]r [bB]urns, owner of the Springfield Nuclear Power Plant exists$/ do
   step %{a mr burns exists}
   step %{a user "mr burns" should exist}
   step %{a employee_owner "mr burns" should exist}
@@ -100,4 +100,9 @@ Given /^#{capture_quoted} was suspended from #{capture_quoted}$/ do |employee_re
                                 organization_id: model!(%Q~organization "#{org_ref}"~).id
   ).first!
   membership.update_attributes! suspended: true
+end
+
+Given /^#{capture_model}'s ([\w_]+) is #{capture_quoted}$/ do |model, attr_name, value|
+  m = model! model
+  m.update_attributes! attr_name => value
 end

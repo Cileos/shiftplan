@@ -71,7 +71,7 @@ class Employee < ActiveRecord::Base
   alias_method :planable, :planable?
 
   def planable=(new_val)
-    current_membership.suspended = new_val.to_i != 1
+    current_membership.suspended = !%w(true 1 yes).include?(new_val.to_s)
   end
 
   def duplicates_search

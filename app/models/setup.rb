@@ -10,12 +10,17 @@ class Setup < ActiveRecord::Base
   validates_format_of :employee_first_name, :employee_last_name, with: Volksplaner::HumanNameRegEx, allow_blank: true
   validates_format_of :team_names, with: Volksplaner::ListOfNamesRegEx, allow_blank: true
 
+  validates_inclusion_of :time_zone_name, in: ActiveSupport::TimeZone.all.map(&:name), allow_blank: true
+
   attr_reader :plan
 
   def execute!
     account = nil # frak scope
     transaction do
-      account = Account.create!(name: account_name_or_default).tap do |account|
+      account = Account.create!(
+        name: account_name_or_default,
+        time_zone_name: time_zone_name).tap do |account|
+
         organization = Organization.create!(name: organization_name_or_default, account: account)
         organization.setup # creates the organization's blog
         e = user.employees.create! do |e|

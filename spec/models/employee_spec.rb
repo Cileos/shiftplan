@@ -84,4 +84,41 @@ describe Employee do
     let(:shortcut) { 'HJS' }
     it_should_behave_like :record_with_shortcut
   end
+
+  context '#planable=' do
+    subject { create :employee, organizations: [organization] }
+    let(:organization) { create :organization }
+    before do
+      subject.organization_id = organization.id
+      subject.planable = value
+    end
+    context 'given "1"' do
+      let(:value) { '1' }
+      it "wakes up membership" do
+        subject.current_membership.should_not be_suspended
+        subject.should be_planable
+      end
+    end
+    context 'given "true"' do
+      let(:value) { 'true' }
+      it "wakes up membership" do
+        subject.current_membership.should_not be_suspended
+        subject.should be_planable
+      end
+    end
+    context 'given "0"' do
+      let(:value) { '0' }
+      it "suspends membership" do
+        subject.current_membership.should be_suspended
+        subject.should_not be_planable
+      end
+    end
+    context 'given "false"' do
+      let(:value) { 'false' }
+      it "suspends membership" do
+        subject.current_membership.should be_suspended
+        subject.should_not be_planable
+      end
+    end
+  end
 end

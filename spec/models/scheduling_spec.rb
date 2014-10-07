@@ -304,49 +304,33 @@ describe Scheduling do
   end
 
   describe "ranging over midnight" do
-    let(:nightwatch) { build :scheduling, quickie: '19-6', date: Date.today }
+    let(:nightwatch) { build :scheduling, quickie: '19-6', date: Time.zone.parse('2014-09-24') }
 
     it "should have hours set" do
       nightwatch.valid?
       nightwatch.start_hour.should == 19
-      nightwatch.end_hour.should == 24
+      nightwatch.end_hour.should == 6
+    end
+
+    it 'actually spans to the next day' do # no overnight split
+      nightwatch.valid?
+      nightwatch.starts_at.should < nightwatch.ends_at
+      nightwatch.start_day.should eq(nightwatch.end_day - 1)
     end
 
     # reload to force AR to re-init the dates and really delete all our state
     let(:first) { nightwatch.class.find(nightwatch.id) }
-    let(:second) { nightwatch.class.find(nightwatch.next_day_id) }
 
-    context "pairing_id" do
-      before(:each) { nightwatch.save! }
-
-      it "should equal id for the first part" do
-        nightwatch.pairing_id.should == nightwatch.id
-      end
-
-      it "should equal the id of the first part for the second part" do
-        nightwatch.next_day.pairing_id.should == nightwatch.id
-      end
-    end
-
-    context "splitting the length in hours" do
-      before(:each) { nightwatch.save! }
-
-      it "should hold hours until midnight" do
+    context '#length_in_hours' do
+      it 'must get a context day, probably done in Decorator'
+      xit "hold hours until midnight" do
         first.length_in_hours.should == 5  # is ~ 4.99999999903 without reloading the record
       end
 
-      it "should move rest of the length to the next day" do
-        second.length_in_hours.should == 6
+      xit "move rest of the length to the next day" do
+        # change context
+        first.length_in_hours.should == 6
       end
-
-      it "has next day assiciated" do
-        second.should == nightwatch.next_day
-      end
-    end
-
-
-    it "should create 2 scheduling, ripped apart at midnight" do
-      expect { nightwatch.save! }.to change(Scheduling, :count).by(2)
     end
 
     context "with year and week turn" do
@@ -360,28 +344,8 @@ describe Scheduling do
         it { subject.year.should == 2012 }
         it { subject.cwyear.should == 2011 }
         it { subject.week.should == 52 }
-        it { subject.next_day.should_not be_blank }
       end
 
-      context "the next day" do
-        subject { nightwatch.next_day }
-
-        it { should be_persisted }
-        it { should be_valid }
-        it "should keep employee assigned" do
-          subject.employee.should == nightwatch.employee
-        end
-        it "should keep plan assigned" do
-          subject.plan.should == nightwatch.plan
-        end
-        it "should keep team assigned" do
-          subject.team.should == nightwatch.team
-        end
-        it { subject.year.should == 2012 }
-        it { subject.cwyear.should == 2012 }
-        it { subject.week.should == 1 }
-        it { subject.previous_day.should == nightwatch }
-      end
     end
   end
 
@@ -580,7 +544,7 @@ describe Scheduling do
 
     it 'includes the current day' do
       Timecop.freeze Time.zone.now.beginning_of_day + 9.hours do # it's 9 o'clock
-        at_today = create :scheduling, starts_at: 2.hours.ago    # work started at 7
+        at_today = create :scheduling, starts_at: 2.hours.ago, ends_at: 2.hours.from_now    # work started at 7
         Scheduling.upcoming.should include(at_today)
       end
     end
@@ -677,5 +641,30 @@ describe Scheduling do
 
   it_behaves_like :spanning_all_day do
     let(:record) { create :scheduling, all_day: true }
+  end
+
+  context 'updates from drop' do
+    let(:created) { create :scheduling, quickie: '9-17:15' }
+    let(:scheduling) { Scheduling.find(created.id) }
+    let(:reloaded) { Scheduling.find(created.id) }
+    it "can change date" do
+      date = Date.new(1988,5,5)
+      scheduling.update_attributes! date: date.iso8601
+      reloaded.starts_at.to_date.should == date
+      reloaded.start_time.should == '09:00'
+      reloaded.end_time.should == '17:15'
+    end
+
+    it "can change employee" do
+      employee = create :employee
+      scheduling.update_attributes! employee_id: employee.id
+      reloaded.employee.should == employee
+    end
+
+    it "can move to team-missing" do
+      scheduling.update_attributes! team_id: nil # from Presenter
+      reloaded.team.should be_nil
+      reloaded.team_id.should be_nil
+    end
   end
 end

@@ -121,7 +121,7 @@ class Release < Base
   def flow_release
     git "flow release start #{@version}"
     yield
-    git "add -a"
+    git "add --all"
     git "diff --cached"
     confirm! "commit?"
     git "commit -m 'release version #{@version}'"

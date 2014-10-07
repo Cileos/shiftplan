@@ -16,14 +16,14 @@ class ApplyPlanTemplate
 
   def save
     Plan.transaction do
-      plan_template.shifts.select { |s| !s.previous_day.present? }.each do |shift|
+      plan_template.shifts.each do |shift|
         create_schedulings_for_shift(shift)
       end
     end
   end
 
   def monday
-    Date.commercial(target_year, target_week, 1)
+    Date.commercial(target_year, target_week, 1).in_time_zone
   end
 
   def plan_template
@@ -44,12 +44,12 @@ class ApplyPlanTemplate
     end
   end
 
+  # TODO this repeats logic from Shift
   def starts_at_and_ends_at_for(shift)
     base_date = monday + shift.day.days
-    starts_at = base_date + shift.starts_at.hour.hours + shift.starts_at.min.minutes
-    shift_or_next_day = shift.next_day ? shift.next_day : shift
-    ends_at = base_date + shift_or_next_day.ends_at.hour.hours +
-      shift_or_next_day.ends_at.min.minutes
+    starts_at = base_date + shift.start_hour.hours + shift.start_minute.minutes
+    ends_at   = base_date + shift.end_hour.hours   + shift.end_minute.minutes
+    ends_at = ends_at.tomorrow if ends_at < starts_at
     *saved = starts_at, ends_at
   end
 
@@ -57,11 +57,11 @@ class ApplyPlanTemplate
     begin
       scheduling = plan.schedulings.new(attrs)
       scheduling.save!
-    rescue
+    rescue ActiveRecord::RecordInvalid => e
       if scheduling.errors[:starts_at].present? || scheduling.errors[:ends_at].present?
         self.some_shifts_outside_plan_period = true
       else
-        raise ApplyPlanTemplateError
+        raise ApplyPlanTemplateError, e
       end
     ensure
       created_schedulings << scheduling

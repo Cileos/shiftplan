@@ -43,4 +43,7 @@ Rails.application.configure do
   config.i18n.default_locale = :de
 
   Develotest.setup(config)
+
+  require_dependency 'capybara_time_zone_applier'
+  config.middleware.use CapybaraTimeZoneApplier
 end

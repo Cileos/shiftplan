@@ -5,6 +5,16 @@ GIT
     ri_cal (0.8.8r)
 
 GIT
+  remote: git://github.com/flowdock/capistrano-flowdock.git
+  revision: a8ddc6b1540d0421772c620f87a7c52e84483c13
+  branch: capistrano-2
+  specs:
+    capistrano-flowdock (1.0.0)
+      capistrano (~> 2.0)
+      flowdock (~> 0.3.1)
+      grit (~> 2.4)
+
+GIT
   remote: git://github.com/mars/chromedriver-helper.git
   revision: 3be3d4494338c4372f19cdf57b08606db877bd3d
   branch: download-via-bucket-xml
@@ -42,18 +52,18 @@ GIT
       rails (>= 3.1.0)
 
 GIT
+  remote: git://github.com/ryanb/nested_form.git
+  revision: 1b0689dfb4d230ceabd278eba159fcb02f23c68a
+  specs:
+    nested_form (0.3.2)
+
+GIT
   remote: git://github.com/tbuehl/pickle.git
   revision: eb928db7c279f097647663c71f2f4b00f03a68b3
   specs:
     pickle (0.4.11)
       cucumber (>= 0.8)
       rake
-
-GIT
-  remote: git@github.com:ryanb/nested_form.git
-  revision: 1b0689dfb4d230ceabd278eba159fcb02f23c68a
-  specs:
-    nested_form (0.3.2)
 
 PATH
   remote: vendor/engines/tutorial
@@ -247,6 +257,9 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.9.3)
+    flowdock (0.3.1)
+      httparty (~> 0.7)
+      multi_json
     formatador (0.2.5)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
@@ -262,6 +275,10 @@ GEM
       multi_json
       request_store (>= 1.0.5)
     gravtastic (3.2.6)
+    grit (2.5.0)
+      diff-lcs (~> 1.1)
+      mime-types (~> 1.15)
+      posix-spawn (~> 0.3.6)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -296,6 +313,9 @@ GEM
       activesupport (>= 3.2, < 5)
     highline (1.6.21)
     hike (1.2.3)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.11)
     inherited_resources (1.5.0)
       has_scope (~> 0.6.0.rc)
@@ -332,9 +352,10 @@ GEM
     mini_magick (3.8.0)
       subexec (~> 0.2.1)
     mini_portile (0.6.0)
-    minitest (5.4.1)
+    minitest (5.4.2)
     multi_json (1.10.1)
     multi_test (0.1.1)
+    multi_xml (0.5.5)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -351,6 +372,7 @@ GEM
     pg (0.17.1)
     pg_array_parser (0.0.9)
     polyglot (0.3.5)
+    posix-spawn (0.3.9)
     postgres_ext (2.3.0)
       activerecord (>= 4.0.0)
       arel (>= 4.0.1)
@@ -403,9 +425,10 @@ GEM
     rspec-html-matchers (0.5.0)
       nokogiri (~> 1)
       rspec (~> 2, >= 2.11.0)
-    rspec-mocks (2.14.0)
-    rspec-rails (2.14.0)
+    rspec-mocks (2.14.6)
+    rspec-rails (2.14.2)
       actionpack (>= 3.0)
+      activemodel (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec-core (~> 2.14.0)
@@ -483,6 +506,7 @@ GEM
       nokogiri (~> 1.3)
     zeus (0.15.1)
       method_source (>= 0.6.7)
+    zonebie (0.5.1)
 
 PLATFORMS
   ruby
@@ -499,8 +523,9 @@ DEPENDENCIES
   bourbon (~> 3.1)
   breach-mitigation-rails
   cancan
-  capistrano
+  capistrano (< 3)
   capistrano-ext
+  capistrano-flowdock!
   carrierwave
   chosen-rails
   chromedriver-helper!
@@ -558,7 +583,7 @@ DEPENDENCIES
   ri_cal!
   rspec-fire
   rspec-html-matchers
-  rspec-rails (~> 2.14.0)
+  rspec-rails (< 3)
   rvm-capistrano
   sass-rails (~> 4.0.3)
   selenium-webdriver (~> 2.42.0)
@@ -577,3 +602,4 @@ DEPENDENCIES
   versatile_rjs!
   whenever
   zeus
+  zonebie

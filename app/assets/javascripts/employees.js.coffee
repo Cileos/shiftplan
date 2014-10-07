@@ -41,3 +41,20 @@ jQuery(document).ready ->
     $('a#clear-search').click ->
       $('form#search').find('input[type=text],select').val('')
       $('form#search input#first_name').trigger('keyup')
+
+
+  $('body').on 'change', 'table#employees label.planable :input:checkbox', (e)->
+    $box = $(this)
+    checked = $box.is(':checked')
+    url = $box.closest('label').data('url')
+    console?.debug "planable", url, checked
+
+    set = $.ajax
+      url: url
+      type: 'PATCH'
+      data:
+        employee:
+          planable: checked
+
+    set.fail ->
+      $box.prop('checked', !checked) # revert old status

@@ -1,11 +1,5 @@
-# This decorator has multiple `modes` to act in. These correspond to the
-# different actions and views of the SchedulingsController.
-class SchedulingFilterDecorator < ApplicationDecorator
-  include ModeAwareness
-
+class SchedulingFilterDecorator < SchedulableFilterDecorator
   decorates :scheduling_filter
-
-  delegate_all
 
   def self.supported_modes
     [:employees_in_week, :teams_in_week, :hours_in_week, :teams_in_day]
@@ -45,7 +39,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
       plan_id:         plan.id,
       new_url:         h.new_account_organization_plan_scheduling_path(h.current_account, h.current_organization, plan),
       mode:            mode,
-      monday:          monday.iso8601,
+      monday:          h.l(monday, format: :iso8601_date),
       starts_at:       plan.starts_at.try(:to_date),
       ends_at:         plan.ends_at.try(:to_date),
     }
@@ -65,7 +59,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
     content = ''.tap do |c|
       items = ''.tap do |i|
         unless (schedulings = find_schedulings(*a)).empty?
-          i << h.render(partial: "schedulings/item/#{mode}", collection: schedulings.map(&:decorate), locals: { filter: self })
+          i << h.render(partial: "schedulings/item/#{mode}", collection: schedulings, locals: { filter: self })
         end
         if mode.employees_in_week? or mode.hours_in_week? # OPTIMIZE  more class splitting looks harmful
           unless (unavailabilities = find_unavailabilities(*a)).empty?
@@ -105,7 +99,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # 2) coordinates to find all the scheudlings in cell (needs schedulings_for implemented)
   def find_schedulings(*criteria)
     if criteria.first.is_a?(Scheduling)
-      schedulings_for( *coordinates_for_scheduling( criteria.first) )
+      schedulings_for( *coordinates_for( criteria.first) )
     else
       schedulings_for( *criteria )
     end
@@ -114,7 +108,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
   # TODO remove duplication
   def find_unavailabilities(*criteria)
     if criteria.first.is_a?(Scheduling)
-      unavailabilities_for( *coordinates_for_scheduling( criteria.first) )
+      unavailabilities_for( *coordinates_for( criteria.first) )
     else
       unavailabilities_for( *criteria )
     end
@@ -127,10 +121,12 @@ class SchedulingFilterDecorator < ApplicationDecorator
         cell_selector(resource)
       else
         day, employee_id = resource, extra
-        %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee-id=#{employee_id}]~
+        %Q~#calendar tbody td[data-date=#{day.to_date.iso8601}][data-employee-id=#{employee_id}]~
       end
+    when :next_cell
+      next_cell_selector(resource)
     when :scheduling
-      %Q~#calendar tbody .scheduling[data-cid="#{resource.decorate.cid}"]~
+      %Q~#calendar tbody .scheduling[data-cid="#{resource.id}"]~
     when :wwt_diff
       %Q~#calendar tbody tr[data-employee-id=#{resource.id}] th .wwt_diff~
     when :legend
@@ -146,9 +142,13 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   # selector for the cell of the given scheduling
   def cell_selector(scheduling)
-     %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee-id=#{scheduling.try(:employee_id) || 'missing'}]~
+    %Q~#calendar tbody td[data-date=#{scheduling.date.to_date.iso8601}][data-employee-id=#{scheduling.try(:employee_id) || 'missing'}]~
   end
 
+  # same for the other half of overnightable
+  def next_cell_selector(scheduling)
+    %Q~#calendar tbody td[data-date=#{scheduling.date.tomorrow.to_date.iso8601}][data-employee-id=#{scheduling.try(:employee_id) || 'missing'}]~
+  end
 
   # teams already scheduled in current week
   def active_teams
@@ -172,20 +172,24 @@ class SchedulingFilterDecorator < ApplicationDecorator
   delegate :plan,         to: :filter
   delegate :organization, to: :plan
 
-  def coordinates_for_scheduling(scheduling)
+  def coordinates_for(scheduling)
     [ scheduling.date, scheduling.employee ]
+  end
+
+  def next_coordinates_for(scheduling)
+    [ scheduling.date.tomorrow, scheduling.employee ]
   end
 
   # URI-Path to another week
   def path_to_week(date)
-    raise(ArgumentError, "please give a date or datetime, got #{date.inspect}") unless date.acts_like?(:date) or date.acts_like?(:time)
+    date = date.in_time_zone
     h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, cwyear: date.cwyear, week: date.cweek)
   end
 
-  def path_to_day(day)
-    raise(ArgumentError, "please give a date or datetime") unless day.acts_like?(:date)
+  def path_to_day(date)
+    date = date.in_time_zone
     raise(ArgumentError, "can only link to day in day view") unless mode?('day')
-    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: day.year, month: day.month, day: day.day)
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: date.year, month: date.month, day: date.day)
   end
 
   # URI-Path to another mode
@@ -214,10 +218,6 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   def path_to_day(day=monday)
     h.account_organization_plan_teams_in_day_path(h.current_account, h.current_organization, plan, day.year, day.month, day.day)
-  end
-
-  def update_cell_for(scheduling)
-    select(:cell, scheduling).refresh_html cell_content(scheduling) || ''
   end
 
   def focus_element_for(scheduling)

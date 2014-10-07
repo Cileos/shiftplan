@@ -37,9 +37,7 @@ module Repeatable
     self.class.new(repeatable_attributes).tap do |repetition|
       repetition.date = day
       repetition.start_time = start_time
-      # Repetitions must be initialized with the original end hour of the
-      # repeatable so that they will become overnightables, too.
-      repetition.end_time = is_overnight? ? next_day.end_time : end_time
+      repetition.end_time = end_time
       repetition.save!
     end
   end

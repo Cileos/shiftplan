@@ -17,7 +17,7 @@ class RecordDecorator < ApplicationDecorator
   end
 
   def insert_new_form(heading='', model_name)
-    append_modal body: h.render('new_form', model_name => model),
+    append_modal body: h.render('new_form', model_name => self),
       header: heading
   end
 
@@ -29,6 +29,14 @@ class RecordDecorator < ApplicationDecorator
     unless errors.empty?
       errors_for(source)
     end
+  end
+
+  def url
+    h.url_for nesting
+  end
+
+  def nesting
+    h.nested_resources_for(object)
   end
 
 

@@ -48,7 +48,7 @@ class ConflictFinder < Struct.new(:schedulings)
     klass = schedulings.first.class
     s = klass.arel_table
     @other_schedulings = klass.
-      between(*search_period).
+      overlapping(*search_period).
       where(
         s[:employee_id].in(scheduling_employee_ids).or(
           s[:represents_unavailability].eq(true).and(
@@ -65,7 +65,7 @@ class ConflictFinder < Struct.new(:schedulings)
     u = Unavailability.arel_table
 
     @unavailabilities = Unavailability.
-      between(*search_period).
+      overlapping(*search_period).
       where(
         u[:employee_id].in(our_other_employee_ids).or(
           u[:user_id].in(our_user_ids)

@@ -27,10 +27,6 @@ class SchedulingDecorator < RecordDecorator
     })
   end
 
-  def cid
-    cid_for_overnightable
-  end
-
   def link_to_conflicts
     if conflicting?
       h.link_to '!', h.nested_resources_for(scheduling, :conflicts), class: 'conflict', remote: true
@@ -62,6 +58,18 @@ class SchedulingDecorator < RecordDecorator
     scheduling.plan.organization.account
   end
 
+  def iso8601_date
+    scheduling.date.to_date.iso8601
+  end
+
+  # overnightable
+  def starts_on_focussed_day?
+    focus_day.day == starts_at.day
+  end
+
+  def ends_on_focussed_day?
+    focus_day.day == ends_at.day
+  end
 
   private
   def scheduling
