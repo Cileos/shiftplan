@@ -16,4 +16,7 @@ class Unavailability < ActiveRecord::Base
     period
   end
 
+  delegate :to_date, to: :base_for_time_range_components
+  delegate :iso8601, to: :to_date
+
 end

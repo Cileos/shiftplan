@@ -41,23 +41,32 @@ class Shift < ActiveRecord::Base
   end
   alias_method_chain :demands, :respecting_previous_day
 
+  # we store the times as UTC and just pick hours&minute from it
   def starts_at
-    if super.present?
-      base_for_time_range_components + super.hour.hours + super.min.minutes
+    if utc = read_attribute(:starts_at)
+      base_for_time_range_components + utc.hour.hours + utc.min.minutes
     end
   end
 
+  def starts_at=(time_with_zone)
+    write_attribute :starts_at, time_with_zone.utc.beginning_of_day + time_with_zone.hour.hours + time_with_zone.min.minutes
+  end
+
   def ends_at
-    if super.present?
-      base_for_time_range_components + super.hour.hours + super.min.minutes
+    if utc = read_attribute(:ends_at)
+      base_for_time_range_components + utc.hour.hours + utc.min.minutes
     end
+  end
+
+  def ends_at=(time_with_zone)
+    write_attribute :ends_at, time_with_zone.utc.beginning_of_day + time_with_zone.hour.hours + time_with_zone.min.minutes
   end
 
   protected
 
-  # we are only interested in the time component and do not want any time zones
+  # we are only interested in the time component, so always treat the time like they would be TODAY
   def base_for_time_range_components
-    Time.utc(1988,5,5,0,0,0)
+    Time.current.beginning_of_day
   end
 end
 

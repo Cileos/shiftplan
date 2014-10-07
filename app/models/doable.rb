@@ -14,6 +14,12 @@ module Doable
     due_at.in_time_zone.to_date
   end
 
+  def due_on=(date)
+    if date
+      self.due_at = date.in_time_zone
+    end
+  end
+
   module ClassMethods
     def todo
       where('due_at is NULL OR ? < due_at', Time.zone.now.beginning_of_day - Overlapse).where('done IS NULL OR done = ?', false).order('updated_at DESC')

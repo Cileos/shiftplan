@@ -21,8 +21,10 @@ Feature: Unavailable because of long vacation
       And I pick "10. Dezember 2012" from "Erster Tag"
       And I pick "23. Dezember 2012" from "Letzter Tag"
       And I press "Anlegen"
-      And I wait for the modal box to disappear
-     Then I should see the following calendar:
+      And I wait for the spinner to disappear
+     Then 14 unavailabilities should exist
+      And I should see "Ganztägig Urlaub"
+      And I should see the following calendar:
          | Mo                  | Di                  | Mi                  | Do                  | Fr                  | Sa                  | So                  |
          |                     |                     |                     |                     |                     | 1                   | 2                   |
          | 3                   | 4                   | 5                   | 6                   | 7                   | 8                   | 9                   |
@@ -30,4 +32,3 @@ Feature: Unavailable because of long vacation
          | 17 Ganztägig Urlaub | 18 Ganztägig Urlaub | 19 Ganztägig Urlaub | 20 Ganztägig Urlaub | 21 Ganztägig Urlaub | 22 Ganztägig Urlaub | 23 Ganztägig Urlaub |
          | 24                  | 25                  | 26                  | 27                  | 28                  | 29                  | 30                  |
          | 31                  |                     |                     |                     |                     |                     |                     |
-     And 14 unavailabilities should exist

@@ -59,6 +59,10 @@ class Team < ActiveRecord::Base
   def build_team_merge(attrs={})
     TeamMerge.new attrs.merge(:team_id => id)
   end
+
+  def to_s
+    %Q~<Team #{id || 'new'} #{shortcut} #{name}>~
+  end
 end
 
 TeamDecorator

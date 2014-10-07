@@ -8,10 +8,11 @@ describe SchedulingFilterWeekDecorator do
   it "does not contain records outside queried week"
   it "groups records by week and y axis"
 
+  let(:day) { double("Day", iso8601: 'iso8601').tap { |d| d.stub to_date: d } }
+
   it "indexes schedulings their date#iso8601" do
     index = instance_double 'TwoDimensionalRecordIndex'
     decorator.stub(:scheduling_index).and_return(index)
-    day = double iso8601: 'iso8601'
     records = [instance_double('Scheduling', start_hour: 9)]
     index.should_receive(:fetch).with('iso8601', 'b').and_return(records)
     decorator.schedulings_for(day, 'b').should == records
@@ -20,7 +21,6 @@ describe SchedulingFilterWeekDecorator do
   it "indexes unavailabilities their date#iso8601" do
     index = instance_double 'TwoDimensionalRecordIndex'
     decorator.stub(:unavailabilities_index).and_return(index)
-    day = double iso8601: 'iso8601'
     records = [instance_double('Unavailability', start_hour: 9)]
     index.should_receive(:fetch).with('iso8601', 'b').and_return(records)
     decorator.unavailabilities_for(day, 'b').should == records

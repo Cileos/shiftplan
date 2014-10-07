@@ -46,7 +46,7 @@ describe SchedulingFilter do
       it_behaves_like "a scheduling that knows the monday" do
         let(:year) { 2014 }
         let(:week) { 52 }
-        let(:expected_monday) { Date.new(2014, 12, 22) }
+        let(:expected_monday) { Time.zone.local(2014, 12, 22) }
       end
     end
 
@@ -54,7 +54,7 @@ describe SchedulingFilter do
       it_behaves_like "a scheduling that knows the monday" do
         let(:year) { 2015 }
         let(:week) { 1 }
-        let(:expected_monday) { Date.new(2014, 12, 29) }
+        let(:expected_monday) { Time.zone.local(2014, 12, 29) }
       end
     end
 
@@ -62,7 +62,7 @@ describe SchedulingFilter do
       it_behaves_like "a scheduling that knows the monday" do
         let(:year) { 2015 }
         let(:week) { 53 }
-        let(:expected_monday) { Date.new(2015, 12, 28) }
+        let(:expected_monday) { Time.zone.local(2015, 12, 28) }
       end
     end
 
@@ -70,7 +70,7 @@ describe SchedulingFilter do
       it_behaves_like "a scheduling that knows the monday" do
         let(:year) { 2016 }
         let(:week) { 1 }
-        let(:expected_monday) { Date.new(2016, 1, 4) }
+        let(:expected_monday) { Time.zone.local(2016, 1, 4) }
       end
     end
   end
@@ -79,7 +79,7 @@ describe SchedulingFilter do
     let(:filter) { SchedulingFilter.new week: 15, cwyear: 2013 }
 
     it "should know the monday" do
-      filter.monday.should == Date.new(2013, 4, 8)
+      filter.monday.should == Time.zone.local(2013, 4, 8)
     end
 
     it "calculates the nth day of the plan" do
@@ -212,7 +212,7 @@ describe SchedulingFilter do
           starts_at.hour.should == 0
         end
 
-        it 'has zone CET' do
+        it 'has zone CET', berlin: true do
           starts_at.zone.should == 'CET'
         end
       end
@@ -224,7 +224,7 @@ describe SchedulingFilter do
           starts_at.hour.should == 0
         end
 
-        it 'has zone CEST' do
+        it 'has zone CEST', berlin: true do
           starts_at.zone.should == 'CEST'
         end
       end
@@ -252,7 +252,7 @@ describe SchedulingFilter do
           ends_at.sec.should == 59
         end
 
-        it 'has zone CET' do
+        it 'has zone CET', berlin: true do
           ends_at.zone.should == 'CET'
         end
       end
@@ -272,7 +272,7 @@ describe SchedulingFilter do
           ends_at.sec.should == 59
         end
 
-        it 'has zone CEST' do
+        it 'has zone CEST', berlin: true do
           ends_at.zone.should == 'CEST'
         end
       end

@@ -45,7 +45,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
       plan_id:         plan.id,
       new_url:         h.new_account_organization_plan_scheduling_path(h.current_account, h.current_organization, plan),
       mode:            mode,
-      monday:          monday.iso8601,
+      monday:          h.l(monday, format: :iso8601_date),
       starts_at:       plan.starts_at.try(:to_date),
       ends_at:         plan.ends_at.try(:to_date),
     }
@@ -127,7 +127,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
         cell_selector(resource)
       else
         day, employee_id = resource, extra
-        %Q~#calendar tbody td[data-date=#{day.iso8601}][data-employee-id=#{employee_id}]~
+        %Q~#calendar tbody td[data-date=#{day.to_date.iso8601}][data-employee-id=#{employee_id}]~
       end
     when :scheduling
       %Q~#calendar tbody .scheduling[data-cid="#{resource.decorate.cid}"]~
@@ -146,7 +146,7 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   # selector for the cell of the given scheduling
   def cell_selector(scheduling)
-     %Q~#calendar tbody td[data-date=#{scheduling.date.iso8601}][data-employee-id=#{scheduling.try(:employee_id) || 'missing'}]~
+    %Q~#calendar tbody td[data-date=#{scheduling.date.to_date.iso8601}][data-employee-id=#{scheduling.try(:employee_id) || 'missing'}]~
   end
 
 
@@ -178,14 +178,14 @@ class SchedulingFilterDecorator < ApplicationDecorator
 
   # URI-Path to another week
   def path_to_week(date)
-    raise(ArgumentError, "please give a date or datetime, got #{date.inspect}") unless date.acts_like?(:date) or date.acts_like?(:time)
+    date = date.in_time_zone
     h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, cwyear: date.cwyear, week: date.cweek)
   end
 
-  def path_to_day(day)
-    raise(ArgumentError, "please give a date or datetime") unless day.acts_like?(:date)
+  def path_to_day(date)
+    date = date.in_time_zone
     raise(ArgumentError, "can only link to day in day view") unless mode?('day')
-    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: day.year, month: day.month, day: day.day)
+    h.send(:"account_organization_plan_#{mode}_path", h.current_account, h.current_organization, plan, year: date.year, month: date.month, day: date.day)
   end
 
   # URI-Path to another mode

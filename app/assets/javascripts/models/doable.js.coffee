@@ -1,6 +1,6 @@
 Clockwork.Doable = Ember.Mixin.create
   name: DS.attr('string')
-  dueAt: DS.attr('date')
+  dueAt: DS.attr('utc')
   done: DS.attr('boolean')
 
   description: DS.attr('string')

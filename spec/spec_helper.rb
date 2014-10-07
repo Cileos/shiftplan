@@ -10,6 +10,8 @@ require 'draper/test/rspec_integration'
 # can be removed if we load the whole support dir while preloading
 require Rails.root.join('spec/support/locale')
 
+Zonebie.set_random_timezone
+
 RSpec.configure do |config|
   include FactoryGirl::Syntax::Default
   config.include(RSpec::Fire)
@@ -60,6 +62,11 @@ RSpec.configure do |config|
   end
 
   config.extend RSpecLocale
+
+  # use this when testing daylight saving time behaviour
+  config.around berlin: true do |example|
+    Time.use_zone 'Europe/Berlin', &example
+  end
 end
 
 # Require supporting ruby files with custom matchers and macros, etc,

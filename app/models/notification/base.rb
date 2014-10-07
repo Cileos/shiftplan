@@ -104,7 +104,7 @@ class Notification::Base < ActiveRecord::Base
 
   def self.older_than(interval)
     raise ArgumentError unless interval =~ /\A\d+ [a-z]+\z/
-    where("#{table_name}.created_at < TIMESTAMP :now - INTERVAL '#{interval}'", now: Time.zone.now)
+    where("#{table_name}.created_at < TIMESTAMP :now - INTERVAL '#{interval}'", now: Time.zone.now.utc)
   end
 
   def user_locale

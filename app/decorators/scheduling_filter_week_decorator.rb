@@ -19,11 +19,11 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
   end
 
   def schedulings_for(day, other)
-    scheduling_index.fetch(day.iso8601, other).sort_by(&:start_hour)
+    scheduling_index.fetch(day.to_date.iso8601, other).sort_by(&:start_hour)
   end
 
   def unavailabilities_for(day, other)
-    unavailabilities_index.fetch(day.iso8601, other).sort_by(&:start_hour)
+    unavailabilities_index.fetch(day.to_date.iso8601, other).sort_by(&:start_hour)
   end
 
   def previous_step
@@ -35,7 +35,7 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
   end
 
   def today_path
-    path_to_week(Date.today)
+    path_to_week(Time.current)
   end
 
   def path_to_date(date)
