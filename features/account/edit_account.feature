@@ -7,6 +7,7 @@ Feature: Edit Account
   Background:
     Given today is "2012-05-23 08:00 CEST"
       And mr burns, owner of the Springfield Nuclear Power Plant exists
+      And the account's time_zone_name is "Berlin"
       And I am signed in as the user "mr burns"
       And I am on the accounts page
       And I should see "Mittwoch, 23. Mai 2012, 08:00 Uhr"
