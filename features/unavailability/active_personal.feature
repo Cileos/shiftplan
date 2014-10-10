@@ -131,6 +131,11 @@ Feature: Personal Active Unavailabilities
      When I choose "Abwesenheit" from the session and settings menu item
       And I wait for Ember to boot
 
+     When I follow "17"
+      And I wait for the modal box to appear
+      # oops, wrong day
+      And I close the modal box
+
      When I follow "21"
       And I wait for the modal box to appear
      Then the "Ganztägig" checkbox should be checked

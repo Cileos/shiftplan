@@ -40,6 +40,7 @@ Clockwork.UnavailabilitiesRoute = Ember.Route.extend
     params = @get 'searchParams'
     controller.set('year', params.year)
     controller.set('month', params.month)
+    controller.set('employeeId', params.eid)
     controller.set('employees', @get('employees'))
     controller.set('employee', model.employee)
 
