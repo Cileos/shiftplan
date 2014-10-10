@@ -3,7 +3,8 @@ Clockwork.UnavailabilitiesFormView = Clockwork.ModalFormView.extend
   backRoute:
     Ember.computed ->
       date = moment( @get('controller.startsAt') )
-      ['unavailabilities', (@get('content.employee.id') || 'me'), date.year(), date.month() + 1]
+      eid = @get('controller.employeeId')
+      ['unavailabilities', eid, date.year(), date.month() + 1]
     .property('content')
   heading:
     Ember.computed ->

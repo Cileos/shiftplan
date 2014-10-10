@@ -20,9 +20,9 @@ Clockwork.Unavailability = DS.Model.extend
   endTime: Clockwork.formattedTimeProperty 'endsAt'
 
   dayInWeek: Ember.computed 'startsAt', ->
-    @get('startsAt').day()
+    @get('startsAt')?.day()
   weekInYear: Ember.computed 'startsAt', ->
-    @get('startsAt').isoWeek()
+    @get('startsAt')?.isoWeek()
 
   reasonText: (->
     r = @get('reason')
