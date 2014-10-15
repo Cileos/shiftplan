@@ -70,24 +70,37 @@
 
   .weekday-and-time
     .weekday
-      width: 75%
+      padding-top: 1.5em
+      padding-bottom: 1.5em
       font-size: $font-size_small
+
+      span
+        // 7 days per week in one row
+        width: floor(100%/7)
+        display: inline-block
 
       input
         display: block
-        margin: 0 0 5px 11px
+        float: left
+        margin: 7px 5px 0 0
 
       label
-        float: left
-        margin-top: 10px
-        margin-right: 5px
+        display: block
+        width: 100%
         padding: 5px
-        // color: $ci_darkgray
-        text-align: center
         line-height: 1
 
         &:hover
           cursor: pointer
+
+  .times
+    +clearfix
+
+    div
+      float: left
+
+    .scheduling_all_day
+      margin-top: 30px
 
     .start-time,
     .end-time
@@ -99,8 +112,18 @@
         min-width: 55px
 
       label
+        display: block
         margin-left: 0
+        text-align: center
         white-space: nowrap
+
+      &.inactive
+        label,
+        input
+          color: $ci_darkgray
+
+        input
+          background: $ci_darkwhite
 
     .start-time
       margin-left: 5%
