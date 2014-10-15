@@ -25,7 +25,13 @@
     margin-bottom: 1em
 
   .actions
+    position: relative
+    margin-top: 15px
     text-align: center
+
+    .delete
+      position: absolute
+      left: 0
 
 .ui-dialog
   padding: 0 0 0.5em
@@ -59,7 +65,8 @@
     margin-right: 0.5em
     color: $ci_darkorange
 
-    &:hover
+    &:hover,
+    &:focus
       color: white
 
   .weekday-and-time,
