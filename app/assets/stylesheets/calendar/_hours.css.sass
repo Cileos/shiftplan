@@ -59,10 +59,10 @@ table.hours-in-week
         &.stack-last-of-#{$total}
           width: $ew - 2%
 
-      &.focus,
+      &.focus:not(.una),
       &.ui-resizable-resizing,
-      &:focus,
-      &:hover
+      &:focus:not(.una),
+      &:hover:not(.una)
         box-shadow: black 0px 0px 20px 1px
         // override upper styles set by stack-*
         width: 100%
