@@ -1,19 +1,22 @@
 <nav role="toolbar">
-  <span class="make-me-beautiful">
-    {{humanMonth}} {{year}}
-  </span>
-  <div class="button-group">
-    {{#link-to "unavailabilities" employeeParam previousYear previousMonth classNames="button"}}&lt;{{/link-to}}
-    {{#link-to "unavailabilities" employeeParam nextYear nextMonth classNames="button"}}&gt;{{/link-to}}
+  <div class="month-selector">
+    <div class="button-group">
+      {{#link-to "unavailabilities" employeeParam previousYear previousMonth classNames="button"}}&lt;{{/link-to}}
+      {{#link-to "unavailabilities" employeeParam nextYear nextMonth classNames="button"}}&gt;{{/link-to}}
+    </div>
+    <span class="month-name">
+      {{humanMonth}} {{year}}
+    </span>
   </div>
+  {{#if currentUser.canManageUnavailabilities}}
+    {{view Clockwork.Fields.SelectEmployee
+             selectionBinding="employee"
+             contentBinding="employees"
+             nameTranslation="activerecord.attributes.unavailability.employee"
+             promptTranslation="unavailabilities.new.me"
+             class="una-employee-select"
+     }}
+  {{/if}}
 </nav>
-{{#if currentUser.canManageUnavailabilities}}
-  {{view Clockwork.Fields.SelectEmployee
-           selectionBinding="employee"
-           contentBinding="employees"
-           nameTranslation="activerecord.attributes.unavailability.employee"
-           promptTranslation="unavailabilities.new.me"
-   }}
-{{/if}}
 {{view Clockwork.MonthlyCalendarView contentBinding='controller' structureBinding='days' columnsBinding='weekdays' rowsBinding='weeks' rowHeaderVisible=false}}
 {{outlet}}

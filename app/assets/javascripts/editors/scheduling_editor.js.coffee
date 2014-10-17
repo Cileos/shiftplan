@@ -45,17 +45,17 @@ Clockwork.SchedulingEditor = Ember.Object.extend
 
     @checkWeekdayForDate()
 
-    $('.weekday-and-time input[type=checkbox]').on 'change', => @updateDate()
+    $('.weekday-and-time .weekday input[type=checkbox]').on 'change', => @updateDate()
 
   input: (name) ->
     @get('element').find(":input[name$=\"[#{name}]\"]")
 
   checkWeekdayForDate: ->
-    weekday_selector = ".weekday-and-time input[type=checkbox][value='#{@date().val()}']"
+    weekday_selector = ".weekday-and-time .weekday input[type=checkbox][value='#{@date().val()}']"
     $(weekday_selector).attr('checked', true)
 
   updateDate: ->
-    checked_weekdays = $('.weekday-and-time input:checked').map((index, checkbox) ->
+    checked_weekdays = $('.weekday-and-time .weekday input:checked').map((index, checkbox) ->
       checkbox.value
     )
     if checked_weekdays.length > 0
@@ -79,9 +79,9 @@ Clockwork.SchedulingEditor = Ember.Object.extend
   clickedAllDay: (event)->
     $box = $(event.target)
     if $box.prop('checked')
-      @get('element').find("div.start-time").add('div.end-time').hide()
+      @get('element').find("div.start-time").add('div.end-time').addClass('inactive').find('input').prop('disabled', true)
     else
-      @get('element').find("div.start-time").add('div.end-time').show()
+      @get('element').find("div.start-time").add('div.end-time').removeClass('inactive').find('input').prop('disabled', false)
 
   # DEAD (Quickie readonly)
   updateFields: ->
