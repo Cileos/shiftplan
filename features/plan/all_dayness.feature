@@ -16,16 +16,18 @@ Feature: All Day ness
      # to make sure the time period will be enforced:
      When I schedule "8-10"
       And I check "Ganztägig"
-     Then I should not see a field labeled "Beginn"
-      And I should not see a field labeled "Ende"
+     Then the field "Beginn" should be disabled
+      And the field "Ende" should be disabled
 
      When I uncheck "Ganztägig"
-     Then the "Beginn" field should contain "08:00"
+     Then the field "Beginn" should not be disabled
+      And the field "Ende" should not be disabled
+      And the "Beginn" field should contain "08:00"
       And the "Ende" field should contain "10:00"
 
      When I check "Ganztägig"
-     Then I should not see a field labeled "Beginn"
-      And I should not see a field labeled "Ende"
+     Then the field "Beginn" should be disabled
+      And the field "Ende" should be disabled
 
      When I press "Anlegen"
       And I wait for the modal box to disappear
