@@ -50,8 +50,6 @@ Feature: Dashboard
         | 5   | Mi !     | Dez 2012   | 10 - 18    | Rechts abbiegen [Ra] | Sector 7-G   | Pumpen ölen         |
         | 5   | Mi !     | Dez 2012   | 12 - 20    | Kreise laufen [Kl]   | Garten       | Spazieren           |
         | 12  | Mi       | Dez 2012   | 10 - 18:30 | Reaktor Fegen [RF]   | Sector 7-G   | Pumpen ölen         |
-      But I should not see "22 - 23" within the schedulings module
-      And I should not see "Verantwortung tragen" within the schedulings module
 
      When I follow "!" within the second table row within the agenda table
       And I wait for the modal box to appear
@@ -60,7 +58,7 @@ Feature: Dashboard
       And I should see "12:00-20:00 Kreise laufen" within the right column within the modal box
      When I close the modal box
 
-     When I follow "Reaktor Fegen [RF]" within the schedulings module
+     When I follow "Reaktor Fegen [RF]" within the agenda table
      Then I should be on the employees in week page of the plan "Pumpen ölen" for cwyear: 2012, week: 50
      Then I should be somewhere under the page of the plan "Pumpen ölen"
      When I wait for ember to boot
