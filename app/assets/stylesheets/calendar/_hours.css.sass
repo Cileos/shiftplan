@@ -8,10 +8,6 @@
  *  see hours_in_week.html.haml */
 
 table.hours-in-week
-  // reset common styles
-  thead th
-    padding: 2px 10px
-
   tbody tr
     background: image-url("grid4.png") repeat 0px 2px
 
@@ -59,10 +55,10 @@ table.hours-in-week
         &.stack-last-of-#{$total}
           width: $ew - 2%
 
-      &.focus,
+      &.focus:not(.una),
       &.ui-resizable-resizing,
-      &:focus,
-      &:hover
+      &:focus:not(.una),
+      &:hover:not(.una)
         box-shadow: black 0px 0px 20px 1px
         // override upper styles set by stack-*
         width: 100%

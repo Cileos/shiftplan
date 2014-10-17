@@ -283,7 +283,7 @@ class CalendarCursor
         if @hourHeight
           null
         else
-          bottom: 4
+          top: 4
       start: =>
         @unfocusAll()
         @dragging = true

@@ -6,9 +6,9 @@
 
 {{#if canManage}}
   <div class="actions">
+  <button type="submit" class="button-success" {{action "save" view.backRoute}}>{{view.buttonLabel}}</button>
   {{#unless isNew}}
     <button class="button-warning delete" {{action "doDelete" view.backRoute}}>{{t 'helpers.actions.destroy'}}</button>
   {{/unless}}
-  <button class="button-success" {{action "save" view.backRoute}}>{{view.buttonLabel}}</button>
   </div>
 {{/if}}
