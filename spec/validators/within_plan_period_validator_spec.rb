@@ -40,7 +40,7 @@ I18n.with_locale :de do
       end
 
       it "rejects when end time is greater than the plan's end time" do
-        scheduling = scheduling(ends_at.end_of_day, ends_at.tomorrow)
+        scheduling = scheduling(ends_at.end_of_day, ends_at.tomorrow + 1.minute)
         scheduling.should_not be_valid
         scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
       end
@@ -80,7 +80,7 @@ I18n.with_locale :de do
       end
 
       it "rejects when the end time is greater than the plan's end time" do
-        scheduling = scheduling(ends_at.end_of_day, ends_at.tomorrow)
+        scheduling = scheduling(ends_at.end_of_day, ends_at.tomorrow + 1.minute)
         scheduling.should_not be_valid
         scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
       end
