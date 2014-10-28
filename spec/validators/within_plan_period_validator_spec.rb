@@ -34,13 +34,13 @@ I18n.with_locale :de do
       end
 
       it "rejects when the end time is smaller than the plan's start time" do
-        scheduling = scheduling(starts_at + 8.hours, starts_at - 8.hours)
+        scheduling = scheduling(starts_at - 1.hour, starts_at - 1.minute)
         scheduling.should_not be_valid
         scheduling.errors[:ends_at].should == ["ist kleiner als die Startzeit des Plans"]
       end
 
       it "rejects when end time is greater than the plan's end time" do
-        scheduling = scheduling(starts_at + 8.hours, ends_at + 1.day + 8.hours)
+        scheduling = scheduling(ends_at.end_of_day, ends_at.tomorrow)
         scheduling.should_not be_valid
         scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
       end
@@ -60,7 +60,7 @@ I18n.with_locale :de do
       end
 
       it "rejects when the end time is smaller than the plan's start time" do
-        scheduling = scheduling(starts_at + 1.hour, starts_at - 1.hour)
+        scheduling = scheduling(starts_at - 1.hour, starts_at - 1.minute)
         scheduling.should_not be_valid
         scheduling.errors[:ends_at].should == ["ist kleiner als die Startzeit des Plans"]
       end
@@ -80,7 +80,7 @@ I18n.with_locale :de do
       end
 
       it "rejects when the end time is greater than the plan's end time" do
-        scheduling = scheduling(ends_at - 1.hour, ends_at + 1.day + 1.hour)
+        scheduling = scheduling(ends_at.end_of_day, ends_at.tomorrow)
         scheduling.should_not be_valid
         scheduling.errors[:ends_at].should == ["ist größer als die Endzeit des Plans"]
       end

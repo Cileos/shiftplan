@@ -6,17 +6,17 @@ Feature: Nightshift
   @javascript
   Scenario: create and edit a nightshift
     Given the situation of a nuclear reactor
-     When I schedule "Homer S" on "Do" for "19-6"
+     When I schedule "Homer S" on "Do" for "19-00:30"
      Then I should see the following partial calendar:
         | Mitarbeiter   | Mo | Di | Mi | Do          | Fr          | Sa | So |
         | Planner Burns |    |    |    |             |             |    |    |
         | Carl C        |    |    |    |             |             |    |    |
         | Lenny L       |    |    |    |             |             |    |    |
-        | Homer S       |    |    |    | 19:00-06:00 | 19:00-06:00 |    |    |
-      And the employee "Homer S" should have a yellow hours/waz value of "11 / 40"
+        | Homer S       |    |    |    | 19:00-00:30 | 19:00-00:30 |    |    |
+      And the employee "Homer S" should have a yellow hours/waz value of "5½ / 40"
 
-     When I click on the early scheduling "19:00-06:00"
-      And I reschedule "20-5" and select "Lenny L" as "Mitarbeiter" in the single-select box
+     When I click on the early scheduling "19:00-00:30"
+     And I reschedule "20-5:00" and select "Lenny L" as "Mitarbeiter" in the single-select box
      Then I should see the following partial calendar:
         | Mitarbeiter   | Mo | Di | Mi | Do          | Fr          | Sa | So |
         | Planner Burns |    |    |    |             |             |    |    |
