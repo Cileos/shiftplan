@@ -1,11 +1,21 @@
 class TimeRangeComposer
   attr_reader :record
 
-  delegate :start_hour,
-           :start_minute,
-           :end_hour,
-           :end_minute,
-           to: :record
+  def self.from_record_defaulting_to_zero(method)
+    file, line = caller.first.split(':', 2)
+    line = line.to_i
+    module_eval <<-EORUBY, file, line
+      def #{method}
+        record.#{method}.presence || 0
+      end
+    EORUBY
+  end
+
+  from_record_defaulting_to_zero :start_hour
+  from_record_defaulting_to_zero :start_minute
+  from_record_defaulting_to_zero :end_hour
+  from_record_defaulting_to_zero :end_minute
+
 
   def initialize(record, opts={})
     @record = record
@@ -20,13 +30,11 @@ class TimeRangeComposer
   def ends_at
     if base && end_hour_present?
       if end_hour == 24 # ?-24 means until end of day (midnight)
-        base.end_of_day
+        ends_around_midnight
       elsif end_hour == 0 # 0-0:15 is just quarter of an hour, 16-0 are eight hours
-        if end_minute > 0
-          base.tomorrow + end_minute.minutes
-        else
-          base.end_of_day
-        end
+        ends_around_midnight
+      elsif end_hour < start_hour
+        base.tomorrow + end_hour.hours + end_minute.minutes
       else
         base + end_hour.hours + end_minute.minutes
       end
@@ -34,6 +42,14 @@ class TimeRangeComposer
   end
 
 private
+
+  def ends_around_midnight
+    if end_minute > 0
+      base.tomorrow + end_minute.minutes
+    else
+      base.end_of_day
+    end
+  end
 
   def base
     record.base_for_time_range_components
