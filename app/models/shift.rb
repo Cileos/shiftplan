@@ -51,8 +51,6 @@ class Shift < ActiveRecord::Base
     write_attribute :ends_at, time_with_zone.utc.beginning_of_day + time_with_zone.hour.hours + time_with_zone.min.minutes
   end
 
-  protected
-
   # we are only interested in the time component, so always treat the time like they would be TODAY
   # FIXME shouldn't this start at the plan_templates start, adding #day, #*hour and #*minute ?
   def base_for_time_range_components
