@@ -39,3 +39,10 @@ Feature: Nightshift
         | Lenny L       |    |    | 20:00-05:00 | 20:00-05:00 |    |    |    |
         | Homer S       |    |    |             |             |    |    |    |
       And the employee "Lenny L" should have a grey hours/waz value of "9"
+
+     # the half from "previous" day should always come first
+     When I schedule "Lenny L" on "Do" for "19-4"
+      And I schedule "Lenny L" on "Fr" for "18-3"
+     Then I should see the following partial calendar:
+        | Mitarbeiter   | Di | Mi          | Do                      | Fr                      | Sa          | So |
+        | Lenny L       |    | 20:00-05:00 | 20:00-05:00 19:00-04:00 | 19:00-04:00 18:00-03:00 | 18:00-03:00 |    |
