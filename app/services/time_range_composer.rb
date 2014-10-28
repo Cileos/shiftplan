@@ -35,9 +35,17 @@ class TimeRangeComposer
   def ends_at
     if base && end_hour_present?
       if end_hour == 24 # ?-24 means until end of day (midnight)
-        ends_around_midnight
+        if end_minute > 0
+          base.tomorrow + end_minute.minutes
+        else
+          base.end_of_day
+        end
       elsif end_hour == 0 # 0-0:15 is just quarter of an hour, 16-0 are eight hours
-        ends_around_midnight
+        if start_hour == 0 && start_minute < end_minute
+          base + end_minute.minutes
+        else
+          base.tomorrow + end_minute.minutes
+        end
       elsif end_hour < start_hour
         base.tomorrow + end_hour.hours + end_minute.minutes
       else
@@ -47,14 +55,6 @@ class TimeRangeComposer
   end
 
 private
-
-  def ends_around_midnight
-    if end_minute > 0
-      base.tomorrow + end_minute.minutes
-    else
-      base.end_of_day
-    end
-  end
 
   def base
     record.base_for_time_range_components

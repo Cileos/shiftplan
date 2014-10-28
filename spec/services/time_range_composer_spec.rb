@@ -1,5 +1,5 @@
 describe TimeRangeComposer do
-  let(:record) { instance_double 'Scheduling', start_hour: nil, end_hour: nil }
+  let(:record) { instance_double 'Scheduling', start_hour: nil, start_minute: nil, end_hour: nil, end_minute: nil }
   subject { described_class.new(record) }
 
   def time(stringy)
@@ -41,11 +41,6 @@ describe TimeRangeComposer do
           subject.ends_at.should be_within(1.second).of( time('2014-09-25 23:59:59'))
         end
 
-        it "spans into next day for hour 0 and some minutes" do
-          record.stub end_hour: 0, end_minute: 45
-          subject.ends_at.should == time('2014-09-26 00:45')
-        end
-
       end
 
       context 'ends at hour 24' do
@@ -69,6 +64,35 @@ describe TimeRangeComposer do
           subject.ends_at.should == time('2014-09-26 08:15')
         end
 
+      end
+
+    end
+
+    context '00:00-00:15' do
+      before :each do
+        record.stub start_hour: 0, start_minute: 0, end_hour: 0, end_minute: 15
+      end
+
+      it 'starts today at midnight' do
+        subject.starts_at.should == time('2014-09-25 00:00')
+      end
+
+      it 'ends 15 minutes later' do
+        subject.ends_at.should == time('2014-09-25 00:15')
+      end
+    end
+
+    context '01:00-00:15' do
+      before :each do
+        record.stub start_hour: 1, start_minute: 0, end_hour: 0, end_minute: 15
+      end
+
+      it 'starts today at 1am' do
+        subject.starts_at.should == time('2014-09-25 01:00')
+      end
+
+      it 'ends 15 minutes after midnight' do
+        subject.ends_at.should == time('2014-09-26 00:15')
       end
     end
 
