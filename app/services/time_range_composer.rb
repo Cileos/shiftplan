@@ -2,10 +2,8 @@ class TimeRangeComposer
   attr_reader :record
 
   delegate :start_hour,
-           :start_hour_present?,
            :start_minute,
            :end_hour,
-           :end_hour_present?,
            :end_minute,
            to: :record
 
@@ -21,7 +19,13 @@ class TimeRangeComposer
 
   def ends_at
     if base && end_hour_present?
-      base + end_hour.hours + end_minute.minutes
+      if end_hour == 24 # ?-24 means until end of day (midnight)
+        base.end_of_day
+      elsif end_hour == 0 # 0-0:15 is just quarter of an hour, 16-0 are eight hours
+        base.end_of_day
+      else
+        base + end_hour.hours + end_minute.minutes
+      end
     end
   end
 
@@ -29,6 +33,14 @@ private
 
   def base
     record.base_for_time_range_components
+  end
+
+  def start_hour_present?
+    start_hour.present?
+  end
+
+  def end_hour_present?
+    end_hour.present?
   end
 
 end
