@@ -82,6 +82,20 @@ describe TimeRangeComposer do
       end
     end
 
+    context '00:30-00:15' do
+      before :each do
+        record.stub start_hour: 0, start_minute: 30, end_hour: 0, end_minute: 15
+      end
+
+      it 'starts at 0:30 in the morning' do
+        subject.starts_at.should == time('2014-09-25 00:30')
+      end
+
+      it 'ends 15 minutes after midnight' do
+        subject.ends_at.should == time('2014-09-26 00:15')
+      end
+    end
+
     context '01:00-00:15' do
       before :each do
         record.stub start_hour: 1, start_minute: 0, end_hour: 0, end_minute: 15
@@ -93,6 +107,20 @@ describe TimeRangeComposer do
 
       it 'ends 15 minutes after midnight' do
         subject.ends_at.should == time('2014-09-26 00:15')
+      end
+    end
+
+    context '18:30-00:30' do
+      before :each do
+        record.stub start_hour: 18, start_minute: 30, end_hour: 0, end_minute: 30
+      end
+
+      it 'starts today evening' do
+        subject.starts_at.should == time('2014-09-25 18:30')
+      end
+
+      it 'ends 30 minutes after midnight' do
+        subject.ends_at.should == time('2014-09-26 00:30')
       end
     end
 
