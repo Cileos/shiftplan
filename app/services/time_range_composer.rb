@@ -21,6 +21,11 @@ class TimeRangeComposer
     @record = record
   end
 
+  def assign!
+    record.starts_at = starts_at
+    record.ends_at = ends_at
+  end
+
   def starts_at
     if base && start_hour_present?
       base + start_hour.hours + start_minute.minutes

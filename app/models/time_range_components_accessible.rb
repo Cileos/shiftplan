@@ -98,37 +98,10 @@ module TimeRangeComponentsAccessible
     self.start_hour, self.end_hour, self.start_minute, self.end_minute = *saved
   end
 
-  # FIXME test this!
-  # TODO half implementation in TimeRangeComposer
   def compose_time_range_from_components
-    date = base_for_time_range_components
-    if date.present? && start_hour_present?
-      self.starts_at = date + start_hour.hours + start_minute.minutes
-
-      reset_start_components!
-    end
-
-    if date.present? && end_hour_present?
-      self.ends_at =
-        if end_hour == 24   # ?-24 means until midnight
-          if end_minute > 0
-            date.tomorrow + end_minute.minutes
-          else
-            date.end_of_day
-          end
-        elsif end_hour == 0 # 0-0:15 is just quarter of an hour, 16-0 are eight hours
-          if start_hour == 0 && start_minute < end_minute
-            date + end_minute.minutes
-          else
-            date.end_of_day + end_minute.minutes
-          end
-        elsif end_hour < start_hour
-          date.tomorrow + end_hour.hours + end_minute.minutes
-        else
-          date + end_hour.hours + end_minute.minutes
-        end
-      reset_end_components!
-    end
+    TimeRangeComposer.new(self).assign!
+    reset_start_components!
+    reset_end_components!
   end
 
   # DateTime#end_of_day returns 23:59:59, which we show as 24 o'clock
