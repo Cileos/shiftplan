@@ -44,7 +44,11 @@ class TimeRangeComposer
         if start_hour == 0 && start_minute < end_minute
           base + end_minute.minutes
         else
-          base.tomorrow + end_minute.minutes
+          if end_minute > 0
+            base.tomorrow + end_minute.minutes
+          else
+            base.end_of_day # 13-0 is shown as 13-24
+          end
         end
       elsif end_hour < start_hour
         base.tomorrow + end_hour.hours + end_minute.minutes
