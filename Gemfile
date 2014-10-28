@@ -76,6 +76,7 @@ group :development, :test do
   gem 'rb-fsevent', '~> 0.9', :require => false
   gem 'rb-inotify', '~> 0.9', :require => false
   gem 'zeus'
+  gem 'pry-doc'
 end
 
 group :development do
