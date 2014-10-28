@@ -34,7 +34,7 @@ describe TimeRangeComposer do
         subject.ends_at.should be_within(1.second).of( time('2014-09-25 23:59:59'))
       end
 
-      xit "spans into next day for hour 0 and some minutes" do
+      it "spans into next day for hour 0 and some minutes" do
         record.stub end_hour: 0, end_minute: 45
         subject.ends_at.should == time('2014-09-26 00:45')
       end

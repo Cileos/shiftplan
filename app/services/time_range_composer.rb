@@ -22,7 +22,11 @@ class TimeRangeComposer
       if end_hour == 24 # ?-24 means until end of day (midnight)
         base.end_of_day
       elsif end_hour == 0 # 0-0:15 is just quarter of an hour, 16-0 are eight hours
-        base.end_of_day
+        if end_minute > 0
+          base.tomorrow + end_minute.minutes
+        else
+          base.end_of_day
+        end
       else
         base + end_hour.hours + end_minute.minutes
       end
