@@ -17,9 +17,14 @@ describe TimeRangeComposer do
         record.stub start_hour: 8, start_minute: 45
         subject.starts_at.should == time('2014-09-25 08:45')
       end
-      it "accepts hour 0 as start of day" do
-        record.stub start_hour: 0, start_minute: 15
-        subject.starts_at.should == time('2014-09-25 00:15')
+
+      context 'starts at hour 0' do
+
+        it "accepts hour 0 as start of day" do
+          record.stub start_hour: 0, start_minute: 15
+          subject.starts_at.should == time('2014-09-25 00:15')
+        end
+
       end
     end
 
@@ -29,19 +34,27 @@ describe TimeRangeComposer do
         subject.ends_at.should == time('2014-09-25 16:15')
       end
 
-      it "accepts hour 0 as end of day" do
-        record.stub end_hour: 0, end_minute: 0
-        subject.ends_at.should be_within(1.second).of( time('2014-09-25 23:59:59'))
+      context 'ends at hour 0' do
+
+        it "accepts hour 0 as end of day" do
+          record.stub end_hour: 0, end_minute: 0
+          subject.ends_at.should be_within(1.second).of( time('2014-09-25 23:59:59'))
+        end
+
+        it "spans into next day for hour 0 and some minutes" do
+          record.stub end_hour: 0, end_minute: 45
+          subject.ends_at.should == time('2014-09-26 00:45')
+        end
+
       end
 
-      it "spans into next day for hour 0 and some minutes" do
-        record.stub end_hour: 0, end_minute: 45
-        subject.ends_at.should == time('2014-09-26 00:45')
-      end
+      context 'ends at hour 24' do
 
-      it "accepts hour 24 as end of day" do
-        record.stub end_hour: 24, end_minute: 0
-        subject.ends_at.should be_within(1.second).of( time('2014-09-25 23:59:59'))
+        it "accepts hour 24 as end of day" do
+          record.stub end_hour: 24, end_minute: 0
+          subject.ends_at.should be_within(1.second).of( time('2014-09-25 23:59:59'))
+        end
+
       end
     end
 
