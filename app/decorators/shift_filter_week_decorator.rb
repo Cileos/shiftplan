@@ -1,7 +1,7 @@
 class ShiftFilterWeekDecorator < ShiftFilterDecorator
 
   def shifts_for(day, other)
-    indexed(day, other).sort_by(&:start_hour)
+    indexed(day, other).sort_by(&:starts_at)
   end
 
   # looks up the index, savely
