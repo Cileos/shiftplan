@@ -12,7 +12,7 @@ class ApplyPlanTemplateController < BaseController
       end
 
       path = plan_week_mode_path(plan, 'teams_in_week', resource.monday)
-      store_undo create: resource.created_schedulings, redirect: path
+      create_undo create: resource.created_schedulings, redirect: path
       path
     end
   end
