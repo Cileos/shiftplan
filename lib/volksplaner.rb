@@ -11,6 +11,7 @@ module Volksplaner
   autoload :CaseInsensitiveEmailAttribute, 'volksplaner/case_insensitive_email_attribute'
   autoload :ShortcutAttribute, 'volksplaner/shortcut_attribute'
   autoload :Undo, 'volksplaner/undo'
+  autoload :DeleteAlreadyAuthorizedFlash, 'volksplaner/delete_already_authorized_flash'
 
   HumanNameRegEx = /\A[\p{Letter}][\p{Letter}\d .'-]*\z/
   NameCharGroup = "[\\p{Letter}][\\p{Letter}\\d .§&()'-]"

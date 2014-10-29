@@ -20,6 +20,10 @@ Feature: Signing in
      Then I should see flash notice "Erfolgreich angemeldet."
       And I should be on the page for the organization "sector 7g"
       And I should be signed in as "Charles Burns"
+
+     When I go to the signin page
+     Then I should not see a flash alert message
+
      When I follow "Ausloggen"
      Then I should be on the sign in page
       And I should see "Einloggen"

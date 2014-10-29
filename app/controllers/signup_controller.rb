@@ -1,4 +1,6 @@
 class SignupController < DeviseController
+  include Volksplaner::DeleteAlreadyAuthorizedFlash
+
   skip_before_filter :authenticate_user!
   skip_authorization_check
 
@@ -61,5 +63,4 @@ class SignupController < DeviseController
       :account_name
     )
   end
-
 end
