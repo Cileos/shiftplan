@@ -1,3 +1,4 @@
+@screencast
 @javascript
 Feature: View hours over weekdays in plan
   In order to drag & drop schedulings with precision of an hour
