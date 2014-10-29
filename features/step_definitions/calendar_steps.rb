@@ -23,14 +23,9 @@ end
 When /^I click on (?:the )?(early|late|) ?(shift|scheduling) #{capture_quoted}$/ do |early_or_late, shift_or_scheduling, quickie|
   selector = ".#{shift_or_scheduling}"
   selector << ".#{early_or_late}" if early_or_late.present?
-  shift_or_scheduling = page.first(selector, text: quickie)
-  begin
-    shift_or_scheduling.click()
-    wait_for_the_page_to_be_loaded
-  rescue Selenium::WebDriver::Error::UnknownError => e # page was maybe still moving, could not hit element
-    sleep 0.5
-    shift_or_scheduling.click() # try again once
-  end
+  js = %Q~$('#{selector}:contains("#{quickie}"):first').click()~
+  page.execute_script(js)
+  wait_for_the_page_to_be_loaded
 end
 
 Then /^the #{capture_cell} should be (focus)$/ do |cell, predicate|
