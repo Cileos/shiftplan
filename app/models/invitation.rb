@@ -23,12 +23,18 @@ class Invitation < ActiveRecord::Base
 
   def accept!
     update_attributes!(accepted_at: Time.zone.now)
+    send_notification
   end
 
   def send_invitation
     InvitationMailer.invitation(self).deliver
     self.sent_at = Time.zone.now
     save!
+  end
+
+  # OPTIMIZE delive rasynchronically
+  def send_notification
+    InvitationMailer.notification(self).deliver
   end
 
   protected
