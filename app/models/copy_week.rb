@@ -10,20 +10,29 @@ class CopyWeek
   attribute :target_year, type: Integer
   attribute :target_week, type: Integer
 
-  validates_presence_of :plan, :source, :target
+  validates_presence_of :plan, :source_string, :target_string
   validates_presence_of :source_year, :source_week
   validates_presence_of :target_year, :target_week
 
+  YearAndWeekRE = %r~^(\d+)/(\d+)$~
+
+  class IsoWeekString < String
+    def iso8601
+      if self =~ YearAndWeekRE
+        Date.commercial($1.to_i, $2.to_i, 1).iso8601
+      end
+    end
+  end
+
   def self.assembles_from_year_and_week(name)
-    file, line = caller.first.split(':', 2)
-    line = line.to_i
-    module_eval <<-EORUBY, file, line
-      def #{name}
-        "\#{#{name}_year}/\#{#{name}_week}"
+    attr_name = "#{name}_string"
+    module_eval <<-EORUBY, __FILE__, __LINE__
+      def #{attr_name}
+        IsoWeekString.new "\#{#{name}_year}/\#{#{name}_week}"
       end
 
-      def #{name}=(new_#{name})
-        if new_#{name} =~ %r~^(\d+)/(\d+)$~
+      def #{attr_name}=(new_string)
+        if new_string =~ YearAndWeekRE
           self.#{name}_year = $1.to_i
           self.#{name}_week = $2.to_i
         end

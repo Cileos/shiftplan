@@ -1,9 +1,7 @@
 = simple_form_for copy_week,
   url: nested_resources_for(copy_week.plan) + [:copy_week] do |f|
   .inputs
-    = f.input :source,
-      collection: copy_week.previous_weeks_for_select,
-      include_blank: false, input_html: { class: 'chosen-select' }
-    = f.input :target
+    = f.input :source_string, as: :stringy_week
+    = f.input :target_string, as: :stringy_week
   .actions
     = f.responsive_submit_button :copy

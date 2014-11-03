@@ -64,7 +64,7 @@ class SchedulingFilter < RecordFilter
     end
   end
 
-  def previous_week
+  def predecessor
     prev = monday.prev_week
     self.class.new attributes.merge(week: prev.cweek, cwyear: prev.cwyear)
   end

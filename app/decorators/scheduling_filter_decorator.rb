@@ -249,7 +249,7 @@ class SchedulingFilterDecorator < SchedulableFilterDecorator
 
   def has_previous?
     if plan.starts_at.present?
-      plan.starts_at.to_date <= previous_week.days.last.to_date
+      plan.starts_at.to_date <= predecessor.days.last.to_date
     else
       true
     end

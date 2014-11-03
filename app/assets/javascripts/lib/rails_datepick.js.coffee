@@ -12,6 +12,8 @@ formatIso8601 = (date)->
 
 default_options =
   onSelect: (dates)-> #nuffin
+  week: false  # indented to select a week instead of an exact date
+  prepend: false # the content of the original input should be submitted, not the hidden field
 
 $.fn.rails_datepick = (options)->
   options = $.extend default_options, options
@@ -21,17 +23,29 @@ $.fn.rails_datepick = (options)->
     $iso = $stringy
       .clone()
       .attr('type', 'hidden')
-      .appendTo($stringy.parent())
+
+    if options.prepend
+      $iso.prependTo($stringy.parent())
+    else
+      $iso.appendTo($stringy.parent())
 
     default_date = parseIso8601 $stringy.data('iso-date')
 
+    onSelect = options.onSelect
+    options.onSelect = (dates)->
+      date = dates[0]
+      $iso.val(formatIso8601(date))
+      onSelect.apply(this, arguments)
+
+    if options.week
+      options.renderer = $.extend {}, $.datepick.weekOfYearRenderer,
+        picker: $.datepick.weekOfYearRenderer.picker.
+          # hide "clear"
+          replace(/\{link:clear\}/, ''),
+
     $stringy
       .attr('readonly', 'readonly')
-      .datepick
-        onSelect: (dates) ->
-          date = dates[0]
-          $iso.val(formatIso8601(date))
-          options.onSelect.apply(this, arguments)
+      .datepick(options)
       .datepick('setDate', default_date)
 
 $.rails_datepick = {}
