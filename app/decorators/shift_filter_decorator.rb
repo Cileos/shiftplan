@@ -34,7 +34,11 @@ class ShiftFilterDecorator < SchedulableFilterDecorator
     content = ''
     unless shifts.empty?
       prepared = shifts.map(&:decorate).each do |shift|
-        shift.focus_day = a.first
+        if a.first.is_a?(Shift) # single update, its day is ours
+          shift.focus_day = a.first.day
+        else
+          shift.focus_day = a.first
+        end
       end
       content = h.render "shifts/lists/teams_in_week", shifts: prepared, filter: self
     end
