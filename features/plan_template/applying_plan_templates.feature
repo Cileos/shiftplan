@@ -43,7 +43,7 @@ Feature: Applying Weekbased Plan Templates to Plans
       And I should see the following partial calendar:
         | Teams                   | Mo                            | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel (B)     | 22:00-06:15 Brennstabexperte  | 22:00-06:15 Brennstabexperte                                                             |     |     |     |     |     |
-        | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
+        | Druckwasserreaktor (D)  |                               | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabpolierer Brennstabexperte Brennstabexperte  |     |     |     |     |     |
 
       And I should see "Rückgängig machen: Alle Schichten der Planvorlage wurden erfolgreich übernommen"
      When I press "Rückgängig machen"
@@ -73,4 +73,4 @@ Feature: Applying Weekbased Plan Templates to Plans
       And I should see the following partial calendar:
         | Teams                   | Mo  | Di                                                                                       | Mi  | Do  | Fr  | Sa  | So  |
         | Brennstabkessel (B)     |     |                                                                                          |     |     |     |     |     |
-        | Druckwasserreaktor (D)  |     | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabexperte Brennstabexperte Brennstabpolierer  |     |     |     |     |     |
+        | Druckwasserreaktor (D)  |     | 04:00-12:00 04:00-12:00 04:00-12:00 Brennstabpolierer Brennstabexperte Brennstabexperte  |     |     |     |     |     |

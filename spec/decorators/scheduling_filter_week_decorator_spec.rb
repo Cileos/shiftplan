@@ -10,7 +10,7 @@ describe SchedulingFilterWeekDecorator do
 
   let(:day) { double("Day", iso8601: 'iso8601').tap { |d| d.stub to_date: d } }
 
-  let(:scheduling) { instance_double('Scheduling', start_hour: 9, :focus_day= => true) }
+  let(:scheduling) { instance_double('Scheduling', deterministic_order: 42, :focus_day= => true) }
   it "indexes schedulings their date#iso8601" do
     index = instance_double 'SchedulingIndexByWeekDay'
     decorator.stub(:scheduling_index).and_return(index)
