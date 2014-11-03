@@ -21,6 +21,10 @@ class Invitation < ActiveRecord::Base
     accepted_at.present?
   end
 
+  def accept!
+    update_attributes!(accepted_at: Time.zone.now)
+  end
+
   def send_invitation
     InvitationMailer.invitation(self).deliver
     self.sent_at = Time.zone.now

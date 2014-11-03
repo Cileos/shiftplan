@@ -6,8 +6,8 @@ class AcceptInvitationsController < ApplicationController
   before_filter :save_or_build_user_on_invition, only: [:accept]
 
   def accept
-    if @invitation.user.confirmed?
-      @invitation.update_attributes!(accepted_at: Time.zone.now)
+    if @invitation.user.confirmed? # invited a user already registered&confirmed on clockwork
+      @invitation.accept!
       respond_with_successful_confirmation
     else
       respond_with_accept_by_setting_a_password
@@ -16,6 +16,7 @@ class AcceptInvitationsController < ApplicationController
 
   def confirm
     if @invitation.update_attributes(invitiation_params)
+      @invitation.accept!
       respond_with_successful_confirmation
     else
       render :accept
@@ -64,7 +65,6 @@ class AcceptInvitationsController < ApplicationController
 
   def invitiation_params
     params.require(:invitation).permit(
-      :accepted_at,    # TODO don't let the user manipulate that
       user_attributes: [
         :id,           # wait, what?
         :confirmed_at, # TODO don't let the user manipulate that
