@@ -10,7 +10,10 @@ de:
           other_invitation_has_email: "wurde bereits in einer Einladung verwendet."
   mailer:
     invitation:
-      subject: 'Sie wurden zu Clockwork eingeladen'
+      invitation:
+        subject: 'Sie wurden zu Clockwork eingeladen'
+      notification:
+        subject: '%{employee_name} hat ihre Einladung akzeptiert'
   invitations:
     sent_successfully: 'Die Einladung wurde erfolgreich verschickt.'
     token_invalid: 'Der Einladungstoken ist nicht gültig. Ihre Einladung konnte nicht akzeptiert werden.'

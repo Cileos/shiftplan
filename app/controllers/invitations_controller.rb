@@ -21,7 +21,7 @@ class InvitationsController < BaseController
 
   def respond_with_successful_invitation
     flash[:notice] = t(:'invitations.sent_successfully')
-    resource.send_email if resource.errors.empty?
+    resource.send_invitation if resource.errors.empty?
     account_organization_employees_path(current_account, current_organization)
   end
 
