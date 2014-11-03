@@ -19,7 +19,7 @@ class SchedulingFilterWeekDecorator < SchedulingFilterDecorator
   end
 
   def schedulings_for(day, other)
-    scheduling_index.fetch(day.to_date, other).sort_by(&:starts_at).map(&:decorate).each do |s|
+    scheduling_index.fetch(day.to_date, other).map(&:decorate).sort_by(&:deterministic_order).each do |s|
       s.focus_day = day
     end
   end
