@@ -25,6 +25,7 @@ de:
     labels:
       defaults:
         source: Von
+        target: Nach
         all_day: Ganztägig
     hints:
       scheduling:

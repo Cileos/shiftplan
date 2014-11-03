@@ -14,16 +14,25 @@ class CopyWeek
   validates_presence_of :source_year, :source_week
   validates_presence_of :target_year, :target_week
 
-  def source
-    "#{source_year}/#{source_week}"
+  def self.assembles_from_year_and_week(name)
+    file, line = caller.first.split(':', 2)
+    line = line.to_i
+    module_eval <<-EORUBY, file, line
+      def #{name}
+        "\#{#{name}_year}/\#{#{name}_week}"
+      end
+
+      def #{name}=(new_#{name})
+        if new_#{name} =~ %r~^(\d+)/(\d+)$~
+          self.#{name}_year = $1.to_i
+          self.#{name}_week = $2.to_i
+        end
+      end
+    EORUBY
   end
 
-  def source=(new_source)
-    if new_source =~ %r~^(\d+)/(\d+)$~
-      self.source_year = $1.to_i
-      self.source_week = $2.to_i
-    end
-  end
+  assembles_from_year_and_week :source
+  assembles_from_year_and_week :target
 
   def monday
     Date.commercial(target_year, target_week, 1)
