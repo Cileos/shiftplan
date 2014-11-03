@@ -32,7 +32,7 @@ Feature: Applying Weekbased Plan Templates to Plans
         | Druckwasserreaktor(D)  |                                   | 04:00-12:00 2 x Brennstabexperte 1 x Brennstabpolierer  |     |     |     |     |     |
       And a plan exists with organization: the organization
 
-  Scenario: Applying a weekbased plan template to a plan in 2012
+  Scenario: Applying a weekbased plan template to a plan in 2012, undo, redo
     Given today is 2012-12-04
       And an employee exists with first_name: "Homer", last_name: "Simpson", account: the account
       And a membership exists with organization: the organization, employee: the employee
@@ -55,6 +55,12 @@ Feature: Applying Weekbased Plan Templates to Plans
       And 0 schedulings should exist
       And I should not see "Rückgängig machen"
 
+     When I apply template "Typische Woche" in modalbox
+     Then I should see notice "Alle Schichten der Planvorlage wurden erfolgreich übernommen"
+      And I should see "Rückgängig machen: Alle Schichten der Planvorlage wurden erfolgreich übernommen"
+     # hide undo after one request
+     When I go to the teams in week page of the plan for cwyear: 2012, week: 49
+     Then I should not see "Rückgängig machen"
 
 
   Scenario: Applying a weekbased plan template to a plan with a plan period

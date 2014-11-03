@@ -104,5 +104,23 @@ describe Volksplaner::Undo::Step do
     it 'keeps flash' do
       parsed.flash.should == undo.flash
     end
+
+    it 'keeps show count' do
+      undo.shown!
+      parsed.should be_shown
+    end
+  end
+
+  context 'shown only once' do
+    let(:undo) { described_class.build }
+
+    it 'is not shown from beginning' do
+      undo.should_not be_shown
+    end
+
+    it 'memoizes that it was shown' do
+      undo.shown!
+      undo.should be_shown
+    end
   end
 end
