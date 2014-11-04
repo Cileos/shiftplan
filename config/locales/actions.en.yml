@@ -80,6 +80,7 @@ en:
       reinvite: Invite again
       send_invitation: "Send invitation"
       copy: "Copy"
+      new_copy_week: "Copy"
       copy_from_last_week: "Copy from previous week"
       copy_to_next_week: "Copy to next week"
       new_apply_plan_template: "Apply a plan template"
