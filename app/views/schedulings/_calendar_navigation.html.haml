@@ -7,10 +7,15 @@
       = link_to t('.more_actions'), '#', data: { toggle: 'dropdown'}
       %ul.dropdown-menu
         - if filter.mode?('week')
-          %li= link_to ta(:new_copy_week),
+          %li= link_to ta(:copy_from_last_week),
             new_account_organization_plan_copy_week_path(current_organization.account,
             current_organization, filter.plan,
             copy_week: { source_week: filter.predecessor.week, source_year: filter.predecessor.cwyear, target_week: filter.week, target_year: filter.cwyear }),
+            remote: true, class: 'icon-copy_week'
+          %li= link_to ta(:copy_to_next_week),
+            new_account_organization_plan_copy_week_path(current_organization.account,
+            current_organization, filter.plan,
+            copy_week: { source_week: filter.week, source_year: filter.cwyear, target_week: filter.successor.week, target_year: filter.successor.cwyear }),
             remote: true, class: 'icon-copy_week'
         %li= link_to ta(:new_apply_plan_template),
           new_account_organization_plan_apply_plan_template_path(current_organization.account,

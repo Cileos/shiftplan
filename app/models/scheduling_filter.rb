@@ -69,6 +69,11 @@ class SchedulingFilter < RecordFilter
     self.class.new attributes.merge(week: prev.cweek, cwyear: prev.cwyear)
   end
 
+  def successor
+    nxt = monday.next_week
+    self.class.new attributes.merge(week: nxt.cweek, cwyear: nxt.cwyear)
+  end
+
   # list of Dates over wich the SchedulingFilter spans
   def days
     (1..duration_in_days).to_a.map do |number|

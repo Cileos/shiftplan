@@ -41,3 +41,10 @@ Feature: Plan a week
         | Lenny L        |     |              |              |              |     |
         | Homer S        |     |              |              |              |     |
       And I should not see "Rückgängig machen"
+
+  Scenario: copy to next week
+    Given I am on the employees in week page of the plan for week: 50, cwyear: 2012
+     When I choose "Übernahme in die nächste Woche" from the drop down "Weitere Aktionen"
+      And I wait for the modal box to appear
+     Then the "Von" field should contain "2012/50"
+      And the "Nach" field should contain "2012/51"
