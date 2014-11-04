@@ -1,6 +1,6 @@
 = simple_form_for copy_week,
   url: nested_resources_for(copy_week.plan) + [:copy_week] do |f|
-  .inputs
+  .inputs.copy_week
     = f.input :source_string, as: :stringy_week
     .arrow-down
     = f.input :target_string, as: :stringy_week
