@@ -17,6 +17,8 @@ Feature: Create Account
       # prefill with first employee of user
      Then the "Vorname" field should contain "Bart"
       And the "Nachname" field should contain "Simpson"
+      And I should see "neues Vertragsverhältnis"
+      And I should see "kostenpflichtiges Paket"
      When I fill in the following:
         | Accountbezeichnung | FC Springfield e.V. |
         | Organisationsname  | Skateboard          |

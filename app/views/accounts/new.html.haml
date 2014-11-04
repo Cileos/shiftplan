@@ -1,5 +1,11 @@
 - title :add_account
 
+#instructions.instructions
+  = tt '.instructions'
+
+.warnings
+  = tt '.warnings'
+
 .primary
   = simple_form_for @account do |f|
     .inputs.add-account
@@ -11,6 +17,3 @@
       = f.input :last_name, required: true
     .actions
       = f.create_button
-
-#instructions.instructions
-  = tt '.instructions'
