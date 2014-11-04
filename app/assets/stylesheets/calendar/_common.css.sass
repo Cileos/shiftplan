@@ -41,7 +41,7 @@ $drop_hover: #B2D8AB
 
     &.focus
       +z-index(30)
-      background: #ABC6D8
+      background: $ci_focus
       +transition(background-color 0.1s ease-in-out)
 
     &.outside_plan_period,
@@ -56,7 +56,7 @@ $drop_hover: #B2D8AB
 
   tbody.editable
     td.focus
-      background: #abc6d8 image-url("plus.png") bottom center no-repeat
+      background: $ci_focus image-url("plus.png") bottom center no-repeat
 
     td.outside_plan_period.focus
       background: $ci_lightgray
@@ -75,7 +75,7 @@ $drop_hover: #B2D8AB
   td,
   th
     &.today
-      background: lighten(#abc6d8, 15%)
+      background: lighten($ci_focus, 15%)
 
     &.employee,
     &.team
