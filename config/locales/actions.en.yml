@@ -62,6 +62,7 @@ en:
       remove_demand: "Remove demand"
       new_plan_template: New Plan Template
       new_organization: "Create another Unit"
+      new_account: "Create while liable to pay"
       next: Next
       previous: Previous
       create: Create

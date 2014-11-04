@@ -22,7 +22,7 @@ Feature: Create Account
      When I fill in the following:
         | Accountbezeichnung | FC Springfield e.V. |
         | Organisationsname  | Skateboard          |
-      And I press "Anlegen"
+      And I press "Zahlungspflichtig erstellen"
      Then I should see a flash notice "Account erfolgreich angelegt."
 
      Then an account "fc" should exist with name: "FC Springfield e.V."
