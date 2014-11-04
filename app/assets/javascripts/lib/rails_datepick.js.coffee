@@ -16,36 +16,36 @@ default_options =
   prepend: false # the content of the original input should be submitted, not the hidden field
 
 $.fn.rails_datepick = (options)->
-  options = $.extend default_options, options
   $(this).each ->
+    o = $.extend {}, default_options, options
     $stringy = $(this)
 
     $iso = $stringy
       .clone()
       .attr('type', 'hidden')
 
-    if options.prepend
+    if o.prepend
       $iso.prependTo($stringy.parent())
     else
       $iso.appendTo($stringy.parent())
 
     default_date = parseIso8601 $stringy.data('iso-date')
 
-    onSelect = options.onSelect
-    options.onSelect = (dates)->
+    onSelect = o.onSelect
+    o.onSelect = (dates)->
       date = dates[0]
       $iso.val(formatIso8601(date))
       onSelect.apply(this, arguments)
 
-    if options.week
-      options.renderer = $.extend {}, $.datepick.weekOfYearRenderer,
+    if o.week
+      o.renderer = $.extend {}, $.datepick.weekOfYearRenderer,
         picker: $.datepick.weekOfYearRenderer.picker.
           # hide "clear"
           replace(/\{link:clear\}/, ''),
 
     $stringy
       .attr('readonly', 'readonly')
-      .datepick(options)
+      .datepick(o)
       .datepick('setDate', default_date)
 
 $.rails_datepick = {}
