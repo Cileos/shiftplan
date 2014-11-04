@@ -45,6 +45,7 @@ jQuery(document).ready ->
     $(e.target).find('input.stringy_date').rails_datepick()
     $(e.target).find('input.stringy_week').rails_datepick
       week: true
+      readonly: false
       prepend: true
       onSelect: (dates)->
         $(this).val( moment(dates[0]).format('YYYY/WW') )

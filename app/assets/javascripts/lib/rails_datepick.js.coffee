@@ -14,6 +14,7 @@ default_options =
   onSelect: (dates)-> #nuffin
   week: false  # indented to select a week instead of an exact date
   prepend: false # the content of the original input should be submitted, not the hidden field
+  readonly: true
 
 $.fn.rails_datepick = (options)->
   $(this).each ->
@@ -44,9 +45,11 @@ $.fn.rails_datepick = (options)->
           replace(/\{link:clear\}/, ''),
 
     $stringy
-      .attr('readonly', 'readonly')
       .datepick(o)
       .datepick('setDate', default_date)
+
+    if o.readonly
+      $stringy.attr('readonly', 'readonly')
 
 $.rails_datepick = {}
 $.rails_datepick.parse = parseIso8601
