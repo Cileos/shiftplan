@@ -56,7 +56,7 @@ Feature: Setup / First UX
       And I should see "Hawaii"
       # defaults/placeholders are not shown
       But I should not see "Meine Firma"
-      And I press "Fertig"
+      And I press "Zahlungspflichtig erstellen"
 
      Then a plan should exist
       And I should be on the employees in week page of the plan for today
@@ -93,7 +93,7 @@ Feature: Setup / First UX
       And I should see "Simpson"
       And I should see "Meine Firma"
       And I should see "Meine Organisation"
-      And I press "Fertig"
+      And I press "Zahlungspflichtig erstellen"
      Then a plan should exist
       And I should be on the employees in week page of the plan for today
       And I should see "Meine Firma" within the orientation bar
