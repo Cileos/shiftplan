@@ -41,7 +41,7 @@ Feature: Create Account
 
      Then an account "new" should exist with name: "Boogers Inc."
       And an organization "new" should exist with name: "Skinner's Nightmare", account: the account "new"
-      And an employee "bart 2" should exist with first_name: "Bart", account: the account "new", owner: the confirmed user "bart"
+      And an employee "bart 2" should exist with first_name: "Bart", account: the account "new", user: the confirmed user "bart"
       And the employee "bart 2" should be a member in the organization "new"
 
       And a plan "new" should exist with organization: the organization "new"

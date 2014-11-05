@@ -62,7 +62,7 @@ de:
       remove_demand: "Anforderung löschen"
       new_plan_template: Neue Planvorlage
       new_organization: "eine weitere Organisation anlegen"
-      new_account: "Zahlungspflichtig erstellen"
+      create_account: "Zahlungspflichtig erstellen"
       next: Weiter
       previous: Zurück
       create: Anlegen
