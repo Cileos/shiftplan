@@ -45,6 +45,7 @@ class Ability
     can :dashboard, User
 
     can [:read, :update], Setup, user_id: user.id
+    can :create, Setup
 
     # not during setup
     return if user.setup

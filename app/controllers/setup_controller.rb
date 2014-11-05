@@ -2,8 +2,12 @@ class SetupController < InheritedResources::Base
   defaults resource_class: Setup, instance_name: 'setup'
   load_and_authorize_resource
   before_action :ensure_setup_present
-  respond_to :html, only: [:show]
+  respond_to :html, only: [:show, :create]
   respond_to :json
+
+  def create
+    update! { setup_path }
+  end
 
   def update
     if wants_execute?
@@ -22,6 +26,10 @@ class SetupController < InheritedResources::Base
 
   def resource
     @setup ||= current_user.setup
+  end
+
+  def build_resource
+    @setup ||= current_user.build_setup(resource_params.first)
   end
 
   # the Setup is created during the Signup. If there is none present, either 

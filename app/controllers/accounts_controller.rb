@@ -6,10 +6,6 @@ class AccountsController < BaseController
   after_filter  :setup_account,       only: :create
   before_filter :prepare_new_account, only: :new
 
-  def create
-    create! { accounts_path }
-  end
-
   def update
     update! { accounts_path }
   end

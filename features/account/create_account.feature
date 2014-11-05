@@ -16,13 +16,14 @@ Feature: Create Account
       And I am on the dashboard
      When I choose "Alle Organisationen" from the drop down "Organisationen"
       And I follow "Account hinzufügen"
+     Then I should be on the setup page
 
       #########################
       # Setup opens
       #########################
 
       # prefill with first employee of user
-     Then the "Vorname" field should contain "Bart"
+    Given the "Vorname" field should contain "Bart"
       And the "Nachname" field should contain "Simpson"
      When I press "Weiter"
       And I fill in "Accountbezeichnung" with "Boogers Inc."

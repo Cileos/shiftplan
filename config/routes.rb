@@ -128,6 +128,7 @@ Clockwork::Application.routes.draw do
   end
 
   get '/setup' => 'setup#show', as: 'setup'
+  post '/setups' => 'setup#create', as: 'setups'
   # ember cannot handle singleton URIs
   get '/setups/:ignored' => 'setup#show'
   put '/setups/:ignored' => 'setup#update'
