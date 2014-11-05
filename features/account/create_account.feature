@@ -17,6 +17,7 @@ Feature: Create Account
      When I choose "Alle Organisationen" from the drop down "Organisationen"
       And I follow "Account hinzufügen"
      Then I should be on the setup page
+      And I should not see a flash message
 
       #########################
       # Setup opens
