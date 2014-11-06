@@ -15,7 +15,7 @@ Feature: Create Account
     Given a clear email queue
       And I am on the dashboard
      When I choose "Alle Organisationen" from the drop down "Organisationen"
-      And I follow "Account hinzufügen"
+      And I follow "Weiteren Account erstellen"
      Then I should be on the setup page
       And I should not see a flash message
 
