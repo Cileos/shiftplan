@@ -5,12 +5,11 @@ class Invitation < ActiveRecord::Base
   belongs_to :inviter, class_name: 'Employee'
   delegate :account, to: :organization
 
-  validates_presence_of :token, :organization_id, :email
+  validates_presence_of :organization_id, :email
   validates_uniqueness_of :email, scope: :organization_id
   validates :email, :email => true, :unless => Proc.new{ |inv| inv.email.blank? }
   validates_with UniqueEmailOfInvitationValidator, on: :create
 
-  before_validation :set_token, on: :create
   after_save :associate_employee_with_user
 
   accepts_nested_attributes_for :user
@@ -27,6 +26,7 @@ class Invitation < ActiveRecord::Base
   end
 
   def send_invitation
+    set_token
     InvitationMailer.invitation(self).deliver
     self.sent_at = Time.zone.now
     save!
