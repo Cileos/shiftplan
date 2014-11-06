@@ -107,6 +107,7 @@ de:
       undo: "Rückgängig machen"
       availability: "Abwesenheit"
       finish: "Fertig"
+      cancel: "Abbrechen"
   schedulings:
     calendar_navigation:
       day: "Tag"

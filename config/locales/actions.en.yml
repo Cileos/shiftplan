@@ -106,6 +106,7 @@ en:
       undo: "Undo"
       availability: "Unavailability"
       finish: "Finish"
+      cancel: "Cancel"
   schedulings:
     calendar_navigation:
       day: "Day"

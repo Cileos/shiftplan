@@ -28,8 +28,9 @@ class SetupController < InheritedResources::Base
     @setup ||= current_user.setup
   end
 
+  # to create an additional account
   def build_resource
-    @setup ||= current_user.build_setup(resource_params.first)
+    @setup ||= current_user.build_setup(resource_params.first.merge(cancelable: true))
   end
 
   # the Setup is created during the Signup. If there is none present, either 

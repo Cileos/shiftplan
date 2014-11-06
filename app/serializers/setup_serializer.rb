@@ -5,7 +5,8 @@ class SetupSerializer < ApplicationSerializer
              :account_name,
              :organization_name,
              :time_zone_name,
-             :team_names
+             :team_names,
+             :cancelable
 
   def id
     'singleton'

@@ -16,7 +16,8 @@ Feature: Setup / First UX
      When I go to the dashboard
      Then I should be on the setup page
       And I should not see "Zurück"
-
+      # what should happen when a user cancels the initial setup?
+      And I should not see "Abbrechen"
 
 
   Scenario: big company with boss knowing names for everything

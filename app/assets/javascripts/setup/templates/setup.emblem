@@ -14,6 +14,8 @@ header.master= step.chapter.title
     else
       if isComplete
         button class="button-success button-ok" click="finishSetup"= t 'helpers.actions.create_account'
+    if cancelable
+      button class="button button-cancel" click="cancelSetup"= t 'helpers.actions.cancel'
 
 
 p.fineprint= t 'copy.setup.not_fixed'

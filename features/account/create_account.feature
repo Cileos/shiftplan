@@ -11,7 +11,6 @@ Feature: Create Account
       And the employee "bart" is a member of the organization
       And I am signed in as the user "bart"
 
-  Scenario: Create account
     Given a clear email queue
       And I am on the dashboard
      When I choose "Alle Organisationen" from the drop down "Organisationen"
@@ -19,6 +18,7 @@ Feature: Create Account
      Then I should be on the setup page
       And I should not see a flash message
 
+  Scenario: Create account
       #########################
       # Setup opens
       #########################
@@ -49,3 +49,10 @@ Feature: Create Account
       And I should be on the employees in week page of the plan "new" for today
 
       And "bart@thesimpsons.com" should receive no email
+
+  Scenario: Start to create account, but cancel
+     When I press "Weiter"
+      And I press "Weiter"
+      And I press "Abbrechen"
+     Then I should be on the accounts page
+      And 1 accounts should exist
