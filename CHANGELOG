@@ -1,6 +1,16 @@
 Changelog
 =========
 
+Release 1.4.2 2014-11-06 15:53
+------------------------------
+568e5d8 Merge pull request #284 from Cileos/feature/accept-invitation-notification
+6d00c5e Merge pull request #285 from Cileos/feature/first-part-of-overnightable-lags-style
+f00cd12 Merge pull request #281 from Cileos/feature/bug-sorting-of-overnightables-inconsistent
+75b9ad2 Merge pull request #283 from Cileos/feature/bug-flash-when-already-signed-in
+8bc8b44 Merge pull request #282 from Cileos/feature/hide-undo-button-after-next-request
+3cd817d Merge pull request #280 from Cileos/feature/the-meaning-of-the-hour-zero
+69aeb9f Merge branch 'release/1.4.1' into develop
+
 Release 1.4.1 2014-10-17 17:00
 ------------------------------
 8c87d3d Merge pull request #279 from Cileos/feature/ui_bugfix_round_20141015
