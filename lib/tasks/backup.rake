@@ -74,7 +74,9 @@ namespace :backup do
 
   desc "Ensure that a file 'tmp/backup.tar' is present, downloading and decrypting one if necessary"
   file :'tmp/backup.tar' => [:'tmp/backup.tar.gpg'] do |t|
-    sh %Q~gpg --use-agent --no-tty -o '#{t.name}' -d '#{t.prerequisites.first}'~
+    # do not ever ask for anything when restoring backup from cron on the servers
+    noask = `hostname -f`.include?('clockwork.io') ? ' --no-tty --batch ' : ''
+    sh %Q~gpg --use-agent #{noask} -o '#{t.name}' -d '#{t.prerequisites.first}'~
   end
 
   desc "Ensure that a file 'tmp/backup.tar.gpg' is present, downloading one if necessary"
