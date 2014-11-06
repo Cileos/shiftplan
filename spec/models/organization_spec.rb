@@ -31,4 +31,22 @@ describe Organization do
       end
     end
   end
+
+  context '#slug' do
+    let(:account) { create :account }
+    let(:name) { 'My little Org' }
+    it 'is generated uniquely even for the same name within the same account' do
+      o1 = create :organization, name: name, account: account
+      o2 = nil
+
+      expect { o2 = create :organization, name: name, account: account }.to_not raise_error # ActiveRecord::RecordNotUnique
+    end
+
+    it 'is generated uniquely even for the same name in different accounts' do
+      o1 = create :organization, name: name
+      o2 = nil
+
+      expect { o2 = create :organization, name: name }.to_not raise_error # ActiveRecord::RecordNotUnique
+    end
+  end
 end
