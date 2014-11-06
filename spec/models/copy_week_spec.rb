@@ -97,4 +97,23 @@ describe CopyWeek do
     target_schedulings.should be_empty
   end
 
+  context '#source' do
+    let(:copy) { described_class.new( source_string: '2012/45' ) }
+
+    it 'contains year and week' do
+      copy.source_string.should == '2012/45'
+    end
+
+    it 'reflects year and week' do
+      copy.source_year = 2014
+      copy.source_week = 32
+      copy.source_string.should == '2014/32'
+    end
+
+    it 'sets year and week' do
+      copy.source_year.should == 2012
+      copy.source_week.should == 45
+    end
+  end
+
 end

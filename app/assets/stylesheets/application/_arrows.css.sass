@@ -1,0 +1,33 @@
+$color1: $ci_blue
+$color2: $ci_focus
+
+div.arrow-down
+  position: relative
+  background: $color1
+  border: 6px solid $color2
+
+  width: 100px
+  margin: 0 auto 120px
+  height: 50px
+
+  &:after, &:before
+    top: 100%
+    left: 50%
+    border: solid transparent
+    content: " "
+    height: 0
+    width: 0
+    position: absolute
+    pointer-events: none
+
+  &:after
+    border-color: rgba(17, 120, 185, 0)
+    border-top-color: $color1
+    border-width: 104px
+    margin-left: -104px
+
+  &:before
+    border-color: rgba(171, 198, 216, 0)
+    border-top-color: $color2
+    border-width: 112px
+    margin-left: -112px
