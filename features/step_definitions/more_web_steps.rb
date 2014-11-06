@@ -42,7 +42,7 @@ end
 Then /^I (should|should not) see ([\w ]+)$/ do |or_not,name|
   selector = selector_for name
   if or_not.include?('not')
-    page.should have_no_css(selector)
+    page.should have_no_css(selector), "found: #{page.all(selector).map(&:text).join(', ')}"
   else
     page.should have_css(selector)
   end

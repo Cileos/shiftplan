@@ -1,10 +1,9 @@
 class UndoController < InheritedResources::Base
   include Volksplaner::Undo::ControllerHelpers
+  skip_authorization_check
 
   def update
-    if has_undo?
-      @undo = last_undo
-
+    if @undo = load_undo
       authorize! :update, @undo
 
       if @undo.execute!

@@ -1,9 +1,6 @@
 - title :set_your_password
 
-- @invitation.accepted_at = Time.zone.now
 = simple_form_for @invitation, :url => confirm_invitation_path(:token => @invitation.token), :html => { :method => :patch } do |f|
-  = f.input :accepted_at, as: :hidden
-
   - @invitation.user.skip_confirmation!
   = f.simple_fields_for :user do |user_form|
     .inputs

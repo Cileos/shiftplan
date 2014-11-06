@@ -15,7 +15,7 @@ class EmployeesController < BaseController
   def create
     create! do |success, failure|
       success.html do
-        resource.invitation.send_email if resource.invitation.present?
+        resource.invitation.send_invitation if resource.invitation.present?
         redirect_to nested_resources_for(current_organization) + [:employees]
       end
     end

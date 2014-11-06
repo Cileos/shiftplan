@@ -36,6 +36,8 @@ Feature: Inviting Employees
       And I fill in "E-Mail" with "carl@carlson.com"
       And I press "Einladung verschicken"
      Then I should see that the invitation for "carl@carlson.com" and organization "sector 7g" was successful
+      And "c.burns@npp-springfield.com" should have no email
+      But "carl@carlson.com" should have an email
      When I sign out
 
      When I open the email with subject "Sie wurden zu Clockwork eingeladen"
@@ -44,6 +46,8 @@ Feature: Inviting Employees
      When I fill in "Passwort" with "secret!"
       And I fill in "invitation_user_attributes_password_confirmation" with "secret!"
       And I press "Passwort setzen"
+     Then I should see a flash notice "Vielen Dank, dass Sie Ihre Einladung zu Clockwork akzeptiert haben."
+      And "c.burns@npp-springfield.com" should receive an email with subject "Carl Carlson hat ihre Einladung akzeptiert"
 
   Scenario: Inviting an employee with an email address that does not exist yet
      When I invite the employee "homer" with the email address "homer@thesimpsons.com" for the organization "sector 7g"

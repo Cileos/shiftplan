@@ -10,7 +10,10 @@ en:
           other_invitation_has_email: "This e-mail has already been used in an invitation."
   mailer:
     invitation:
-      subject: "Clockwork welcomes you!"
+      invitation:
+        subject: "Clockwork welcomes you!"
+      notification:
+        subject: '%{employee_name} has accepted your invitation'
   invitations:
     sent_successfully: "Invitation e-mail sent!"
     token_invalid: 'The invitation is not valid. Your invitation could not be accepted.'

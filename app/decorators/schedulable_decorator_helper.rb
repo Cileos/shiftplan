@@ -36,4 +36,8 @@ module SchedulableDecoratorHelper
       nil
     end
   end
+
+  def deterministic_order
+    "#{starts_at.iso8601}-#{id}"
+  end
 end

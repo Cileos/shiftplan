@@ -8,7 +8,7 @@ class CopyWeekController < BaseController
       set_flash(:notice)
       path = plan_week_mode_path(plan, current_plan_mode, resource.monday)
 
-      store_undo create: resource.created_schedulings, redirect: path
+      create_undo create: resource.created_schedulings, redirect: path
       path
     end
   end
