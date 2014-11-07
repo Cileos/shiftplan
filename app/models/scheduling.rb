@@ -118,6 +118,10 @@ class Scheduling < ActiveRecord::Base
     (ends_at - starts_at) / (60*60)
   end
 
+  def actual_length_as_time
+    '06:30'
+  end
+
   def self.filter(params={})
     SchedulingFilter.new params.reverse_merge(:base => self)
   end

@@ -142,8 +142,7 @@ When /^(?:I|they) schedule (\w+ |)#{capture_quoted}$/ do |kind, quickie_string|
     attr = "#{pos}_time"
     val = holder.public_send(attr)
     if val.present?
-      find_field(name).send_string_of_keys 'arrow_left,arrow_left,arrow_left,arrow_left'
-      fill_in(name, with: val)
+      step %Q~I pick time #{val} from "#{name}"~
     end
   end
 end

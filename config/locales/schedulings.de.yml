@@ -21,6 +21,7 @@ de:
         start_time: Beginn
         end_time: Ende
         represents_unavailability: Anzeigen als
+        actual_length_as_time: Tatsächliche Arbeitszeit
   simple_form:
     labels:
       defaults:

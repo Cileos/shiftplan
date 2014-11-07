@@ -11,8 +11,9 @@
 
   .times
     = f.input :all_day, as: :boolean
-    = f.input :start_time, as: :string, wrapper_html: {class: 'start-time'}
-    = f.input :end_time, as: :string, wrapper_html: {class: 'end-time'}
+    = f.input :start_time, as: :stringy_time, wrapper_html: {class: 'start-time'}
+    = f.input :end_time, as: :stringy_time, wrapper_html: {class: 'end-time'}
+    = f.input :actual_length_as_time, as: :stringy_time, wrapper_html: {class: 'actual-length-as-time'}
 
 = f.association :employee, as: :select, collection: employees_for_select(scheduling),
   input_html: { class: 'chosen-select' }
