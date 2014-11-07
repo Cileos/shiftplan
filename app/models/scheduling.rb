@@ -119,7 +119,11 @@ class Scheduling < ActiveRecord::Base
   end
 
   def actual_length_as_time
-    '06:30'
+    Volksplaner::Formatter.numeric_hours_to_time_string(actual_length_in_hours)
+  end
+
+  def actual_length_as_time=(stringy_time)
+    self.actual_length_in_hours = Volksplaner::Formatter.time_string_to_numeric_hours(stringy_time)
   end
 
   def self.filter(params={})
