@@ -21,11 +21,8 @@ class Volksplaner::Undo::Step
   attr_reader :flash
   attr_reader :flash_message
   attr_reader :location
-  attr_reader :show_count
-
   def initialize
     @created_records = {}
-    @show_count = 0
   end
 
   def add(tracts={})
@@ -74,11 +71,16 @@ class Volksplaner::Undo::Step
   end
 
   def shown!
+    show_count # lazy initialize
     @show_count += 1
   end
 
   def shown?
-    @show_count > 0
+    show_count > 0
+  end
+
+  def show_count
+    @show_count ||= 0
   end
 
   private
