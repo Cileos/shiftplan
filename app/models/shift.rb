@@ -1,6 +1,7 @@
 class Shift < ActiveRecord::Base
   include WithPreviousChangesUndone
   include TimeRangeComponentsAccessible
+  include TimePeriodFormatter
   include AllDaySettable
   include Overnightable
   include ActualLength
