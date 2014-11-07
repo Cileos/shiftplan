@@ -20,7 +20,7 @@
       <Row>
         <Cell><Data ss:Type="String"><%= scheduling.employee.try(:last_and_first_name) %></Data></Cell>
         <Cell><Data ss:Type="String"><%= l(scheduling.starts_at.to_date) %></Data></Cell>
-        <Cell><Data ss:Type="Number"><%= scheduling.length_in_hours %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= scheduling.total_length_in_hours %></Data></Cell>
         <Cell><Data ss:Type="String"><%= t("dialogue.#{ scheduling.all_day? ? 'yes' : 'no' }") %></Data></Cell>
         <Cell><Data ss:Type="String"><%= scheduling.plan.name %></Data></Cell>
         <Cell><Data ss:Type="String"><%= scheduling.organization.name %></Data></Cell>

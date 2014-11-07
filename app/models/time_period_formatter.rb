@@ -38,9 +38,15 @@ module TimePeriodFormatter
     '%d:%02d' % [ length_in_minutes / 60, length_in_minutes % 60 ]
   end
 
+  # may be overridden by OvernightableDecoratorHelper, returning only the length for one part
   # returns 3.25 for 3 hours and 15 minutes
   # OPTIMIZE rounding
   def length_in_hours
+    length_in_minutes / 60
+  end
+
+  # completely ignores overnightables, best for summing up
+  def total_length_in_hours
     length_in_minutes / 60
   end
 
