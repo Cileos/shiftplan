@@ -246,7 +246,6 @@ describe User do
     let(:user) { create(:confirmed_user, email: 'bart@thesimpsons.com') }
 
     before do
-      EmailChange.any_instance.stub(:send_confirmation_mail)
       user.email = 'lisa@thesimpsons.com'
     end
 
