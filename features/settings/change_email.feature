@@ -62,6 +62,7 @@ Feature: As a logged in user
 
   Scenario: User tries to confirm requested email change but fills in a wrong password on confirmation page
     Given an email change exists with user: user "mr burns", email: "charles.burns@npp-springfield.com"
+      And the confirmation email was sent for the email change
 
      When "charles.burns@npp-springfield.com" opens the email with subject "E-Mail Adresse ändern"
       And I click the first link in the email
@@ -71,43 +72,12 @@ Feature: As a logged in user
       And I should see "ist nicht gültig"
 
 
-
-      # Reconfirming email changes:
-
-  Scenario: Logged in user reconfirms an email change
-    Given an email change exists with user: user "mr burns", email: "charles.burns@npp-springfield.com"
-
-     When "charles.burns@npp-springfield.com" opens the email with subject "E-Mail Adresse ändern"
-      And I click the first link in the email
-      And I fill in "Aktuelles Passwort" with "secret"
-      And I press "Bestätigen"
-
-      # logged in user reconfirms
-     When I click the first link in the email
-     Then I should see "Sie haben die Änderung Ihrer E-Mail Adresse bereits bestätigt."
-
-  Scenario: Logged out user reconfirms an email change
-    Given an email change exists with user: user "mr burns", email: "charles.burns@npp-springfield.com"
-
-     When "charles.burns@npp-springfield.com" opens the email with subject "E-Mail Adresse ändern"
-      And I click the first link in the email
-      And I fill in "Aktuelles Passwort" with "secret"
-      And I press "Bestätigen"
-      And I sign out
-
-      # logged out user reconfirms
-     When I click the first link in the email
-     Then I should be on the sign in page
-      And I should see "Sie haben die Änderung Ihrer E-Mail Adresse bereits bestätigt."
-      And I should see "Bitte loggen Sie sich mit Ihrer E-Mail Adresse und Ihrem Passwort ein"
-
-
-
       # Confirming with a wrong email change token
       # E.g. user copies the confirmation link in the email but misses some characters at the end of the token
 
   Scenario: User confirms email change with wrong token
     Given an email change exists with user: user "mr burns", email: "charles.burns@npp-springfield.com"
+      And the confirmation email was sent for the email change
       And the token of the email change is changed to "somewrongtoken"
 
      When "charles.burns@npp-springfield.com" opens the email with subject "E-Mail Adresse ändern"
