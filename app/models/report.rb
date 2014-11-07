@@ -19,7 +19,7 @@ class Report < RecordFilter
   def total_duration
     @total_duration ||= all_records.
       reject { |s| s.all_day? }.
-      sum { |s| s.decimal_duration }
+      sum(&:length_in_hours)
   end
 
   def total_number_of_records

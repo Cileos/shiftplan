@@ -38,7 +38,9 @@ module TimePeriodFormatter
     '%d:%02d' % [ length_in_minutes / 60, length_in_minutes % 60 ]
   end
 
-  def decimal_duration
+  # returns 3.25 for 3 hours and 15 minutes
+  # OPTIMIZE rounding
+  def length_in_hours
     length_in_minutes / 60
   end
 

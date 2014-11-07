@@ -112,12 +112,6 @@ class Scheduling < ActiveRecord::Base
 
   delegate :iso8601, to: :date
 
-  # returns 3.25 for 3 hours and 15 minutes
-  # OPTIMIZE rounding
-  def length_in_hours
-    (ends_at - starts_at) / (60*60)
-  end
-
   def actual_length_as_time
     Volksplaner::Formatter.numeric_hours_to_time_string(actual_length_in_hours)
   end

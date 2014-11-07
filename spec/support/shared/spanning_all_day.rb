@@ -16,6 +16,6 @@ shared_examples :spanning_all_day do
   end
 
   it 'has a zero length_in_hours (does not count into wwt)' do
-    record.length_in_hours.should == 24
+    record.length_in_hours.should == 0
   end
 end
