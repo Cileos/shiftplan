@@ -240,4 +240,33 @@ describe User do
     end
 
   end
+
+  context 'when email changed' do
+
+    let(:user) { create(:confirmed_user, email: 'bart@thesimpsons.com') }
+
+    before do
+      EmailChange.any_instance.stub(:send_confirmation_mail)
+      user.email = 'lisa@thesimpsons.com'
+    end
+
+    it 'creates an email change record' do
+      expect do
+        user.save!
+      end.to change { EmailChange.count }.from(0).to(1)
+    end
+
+    it "created email change has correct new email set" do
+      user.save!
+
+      change = EmailChange.first
+      change.email.should == 'lisa@thesimpsons.com'
+    end
+
+    it "does not change the user's email" do
+      user.save!
+
+      user.reload.email.should == 'bart@thesimpsons.com'
+    end
+  end
 end
