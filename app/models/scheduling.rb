@@ -29,6 +29,7 @@ class Scheduling < ActiveRecord::Base
 
   include AllDaySettable
   include Overnightable
+  include ActualLength
 
   acts_as_commentable
   has_many :comments, -> { order('comments.lft, comments.id') }, as: :commentable # FIXME gets ALL comments, tree structure is ignored
@@ -111,14 +112,6 @@ class Scheduling < ActiveRecord::Base
   end
 
   delegate :iso8601, to: :date
-
-  def actual_length_as_time
-    Volksplaner::Formatter.numeric_hours_to_time_string(actual_length_in_hours)
-  end
-
-  def actual_length_as_time=(stringy_time)
-    self.actual_length_in_hours = Volksplaner::Formatter.time_string_to_numeric_hours(stringy_time)
-  end
 
   def self.filter(params={})
     SchedulingFilter.new params.reverse_merge(:base => self)

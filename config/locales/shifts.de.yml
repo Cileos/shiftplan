@@ -13,6 +13,7 @@ de:
         end_minute: Endminute
         start_time: Beginn
         end_time: Ende
+        actual_length_as_time: Tatsächliche Arbeitszeit
       shift/demands:
         quantity: Anzahl
         qualification: Qualifikation

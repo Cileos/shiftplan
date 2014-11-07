@@ -8,7 +8,7 @@ Feature: All Day ness
     Given today is 2012-02-13
       And the situation of a nuclear reactor
 
-  Scenario: create a all-day scheduling
+  Scenario: create an all-day scheduling
      When I click on cell "Do"/"Homer S"
       And I wait for the modal box to appear
      Then the "Ganztägig" checkbox should not be checked
@@ -54,3 +54,23 @@ Feature: All Day ness
         | Lenny L       |    |    |    |           |    |    |    |
         | Homer S       |    |    |    | Ganztägig |    |    |    |
       And the employee "Homer S" should have a yellow hours/waz value of "5½ / 40"
+
+
+  Scenario: create an all-day shift
+    Given a plan template exists with name: "Typische Woche", template_type: "weekbased", organization: the organization
+      And a team exists with name: "A", organization: the organization
+      And I am on the teams in week page for the plan template
+     When I click on cell "Di"/"A(A)"
+      And I wait for the modal box to appear
+      And I schedule shift "9-17"
+
+    Given I should not see a field labeled "Tatsächliche Arbeitszeit"
+     When I check "Ganztägig"
+     Then I should see a field labeled "Tatsächliche Arbeitszeit"
+     When I uncheck "Ganztägig"
+     Then I should not see a field labeled "Tatsächliche Arbeitszeit"
+     When I check "Ganztägig"
+      And I pick time 07:30 from "Tatsächliche Arbeitszeit"
+      And I press "Anlegen"
+      And I wait for the modal box to disappear
+     Then a shift should exist with actual_length_in_hours: 7.5

@@ -10,8 +10,9 @@
       = f.input :day,
         collection: days_for_select, include_blank: false,
         input_html: { tabindex: 5 }
-      = f.input :start_time, as: :string, :wrapper_html => {:class => 'start-time'}
-      = f.input :end_time, as: :string, :wrapper_html => {:class => 'end-time'}
+      = f.input :start_time, as: :stringy_time, :wrapper_html => {:class => 'start-time'}
+      = f.input :end_time, as: :stringy_time, :wrapper_html => {:class => 'end-time'}
+      = f.input :actual_length_as_time, as: :stringy_time, wrapper_html: {class: 'actual-length-as-time'}
 
     = f.input :all_day, as: :boolean
     = f.association :team,

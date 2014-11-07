@@ -45,6 +45,7 @@ class ShiftsController < BaseController
         :day,
         :team_id,
         :all_day,
+        :actual_length_as_time,
         { demands_attributes: [
           :id,
           :quantity,

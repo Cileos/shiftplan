@@ -3,6 +3,7 @@ class Shift < ActiveRecord::Base
   include TimeRangeComponentsAccessible
   include AllDaySettable
   include Overnightable
+  include ActualLength
 
   belongs_to :plan_template
   belongs_to :team
