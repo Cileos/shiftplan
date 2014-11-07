@@ -6,7 +6,7 @@ class EmailChange < ActiveRecord::Base
   include Volksplaner::CaseInsensitiveEmailAttribute
 
   before_validation :set_token, on: :create
-  after_commit :send_confirmation_mail, on: :create
+  after_create :send_confirmation_mail
 
   def confirmed?
     confirmed_at.present?
