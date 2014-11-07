@@ -28,6 +28,8 @@ Feature: As a logged in user
      Then I should be signed in as "Charles Burns"
       And I should see "Sie haben Ihre E-Mail Adresse erfolgreich geändert."
       And I should see "Bitte loggen Sie sich zukünftig mit der E-Mail Adresse charles.burns@npp-springfield.com bei uns ein."
+      # email change record is destroyed after confirmation
+      And 0 email changes should exist
 
     Given I sign out
       And I am on the home page
