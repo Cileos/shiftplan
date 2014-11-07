@@ -245,25 +245,26 @@ describe User do
 
     let(:user) { create(:confirmed_user, email: 'bart@thesimpsons.com') }
 
-    before do
+    def change_email
       user.email = 'lisa@thesimpsons.com'
+      user.save!
     end
 
     it 'creates an email change record' do
       expect do
-        user.save!
+        change_email
       end.to change { EmailChange.count }.from(0).to(1)
     end
 
     it "created email change has correct new email set" do
-      user.save!
+      change_email
 
       change = EmailChange.first
       change.email.should == 'lisa@thesimpsons.com'
     end
 
     it "does not change the user's email" do
-      user.save!
+      change_email
 
       user.reload.email.should == 'bart@thesimpsons.com'
     end
