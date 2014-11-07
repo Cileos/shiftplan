@@ -39,11 +39,7 @@ module TimePeriodFormatter
   end
 
   def decimal_duration
-    if all_day?
-      0.0
-    else
-      length_in_minutes / 60
-    end
+    length_in_minutes / 60
   end
 
   def period
@@ -70,6 +66,10 @@ module TimePeriodFormatter
 
     def length_in_minutes
       @length_in_minutes ||=
-        ((self_or_next_day.ends_at) - self_or_prev_day.starts_at) / 60
+        if all_day?
+          (actual_length_in_hours || 0.0) * 60
+        else
+          ((self_or_next_day.ends_at) - self_or_prev_day.starts_at) / 60
+        end
     end
 end
