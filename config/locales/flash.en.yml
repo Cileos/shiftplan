@@ -30,3 +30,6 @@
       error:
         403: 'You may not do that.'
         500: 'Something went wrong on the server side. We are trying to fix it as quick as possible'
+    setup:
+      create:
+        notice: '' # none, disrupts setup wizard

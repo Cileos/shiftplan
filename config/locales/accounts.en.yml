@@ -23,6 +23,12 @@ en:
         For every account we create a separate employee. So we can guarantee,
         that all your accounts don't share information.
         You can either copy an existing name or just use a different one.
+      warnings: >
+        You are creating a new account and thus entering a new contract
+        introducing additional costs when Clockwork starts requiring a fee.
+
+        Before this event though, we will notice and inform you so you can
+        decide calmly whether you want to subscribe to a package with costs.
     edit:
       instructions: >
         Here you can edit your account data.

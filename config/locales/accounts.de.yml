@@ -26,6 +26,14 @@ de:
         Informationen miteinander teilen.
         Sie können den Vor- und Nachnamen eines bestehenden Mitarbeiters
         übernehmen oder etwas anderes als Vor- und Nachnamen eintragen.
+      warnings: >
+        Sie erstellen ein neues Konto und gehen damit ein neues
+        Vertragsverhältnis ein, das mit monatlichen Kosten verbunden ist,
+        sobald Clockwork kostenpflichtig wird.
+
+        Wenn Clockwork kostenpflichtig wird, werden Sie zuvor darüber
+        informiert und können sich in Ruhe überlegen, ob Sie ein
+        kostenpflichtiges Paket abonnieren wollen.
     edit:
       instructions: >
         Hier können Sie Ihren Account bearbeiten.
