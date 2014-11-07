@@ -30,10 +30,10 @@ describe EmployeeWwtDiffWidget do
       subject.hours.should == 0
     end
 
-    it "ignores all day schedulings" do
-      records << double('s1', employee: employee, length_in_hours: 24 , all_day?: true)
+    it "respects all day schedulings" do # they return 0 or their #actual_length_in_hours
+      records << double('s1', employee: employee, length_in_hours: 5.5 , all_day?: true)
 
-      subject.hours.should == 0
+      subject.hours.should == 5.5
     end
 
     it "knows how to deal with overnightables on weekends (may count double)"
