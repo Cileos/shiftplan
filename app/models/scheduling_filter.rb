@@ -101,7 +101,7 @@ class SchedulingFilter < RecordFilter
   end
 
   def date
-    DateTime.civil_from_format(:utc, year, month, day)
+    DateTime.civil_from_format(:utc, year, month, day || 1)
   end
 
   def records
@@ -149,11 +149,12 @@ class SchedulingFilter < RecordFilter
   end
 
   private
+    def filtered_base
+      super.overlapping( starts_at, ends_at )
+    end
+
     def fetch_records
-      results = base
-      results = results.where(conditions)
-      results = results.overlapping( starts_at, ends_at )
-      results = results.preload(*to_preload)
+      results = filtered_base.preload(*to_preload)
       results = results.preload(:plan => { :organization => :account })
       results
     end

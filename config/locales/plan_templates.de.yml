@@ -11,6 +11,10 @@ de:
   plan_templates:
     template_types:
       weekbased: 'Wochenbasiert'
+    form:
+      fill_from_n_items:
+        one: 'Eintrag in Vorlage einbeziehen'
+        other: '%{count} Einträge in Vorlage einbeziehen'
     index:
       no_plan_templates: "Es existieren noch keine Planvorlagen für diese Organisation."
       planner_instructions: >
