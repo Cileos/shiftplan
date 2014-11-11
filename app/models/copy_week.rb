@@ -52,7 +52,9 @@ class CopyWeek
       source_schedulings.each do |s|
         t = s.dup
         t.comments_count = 0 # do not copy the comments_count of the original
-        t.move_to_week_and_year! target_week, target_year
+        # spanning in from previous week will be in previous of target_week
+        week = s.starts_at.cweek < source_week ? target_week - 1 : target_week
+        t.move_to_week_and_year! week, target_year
         created_schedulings << t
       end
     end
