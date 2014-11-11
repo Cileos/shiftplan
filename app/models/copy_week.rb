@@ -48,6 +48,7 @@ class CopyWeek
   end
 
   def save
+    return unless valid?
     Plan.transaction do
       source_schedulings.each do |s|
         t = s.dup
