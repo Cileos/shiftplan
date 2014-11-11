@@ -37,8 +37,7 @@ class UserEmailController < InheritedResources::Base
   private
 
   def send_confirmation_mail
-    email_change = resource.email_change
-    if email_change
+    if email_change = resource.email_change
       email_change.send_confirmation_mail
     end
   end
