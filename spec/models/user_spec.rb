@@ -263,7 +263,7 @@ describe User do
       change.email.should == 'lisa@thesimpsons.com'
     end
 
-    it "does not change the user's email" do
+    it "does not change the user's email yet" do # needs confirmation by clicking link in mail
       change_email
 
       user.reload.email.should == 'bart@thesimpsons.com'
