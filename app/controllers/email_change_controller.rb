@@ -14,6 +14,7 @@ class EmailChangeController < ApplicationController
       set_flash(:notice, 'accepted', email: @user.email)
       sign_in(User, @user)
       redirect_to dynamic_dashboard_path
+      @email_change.destroy
     else
       set_flash(:alert, 'rejected', email: @user.email)
       render :accept
