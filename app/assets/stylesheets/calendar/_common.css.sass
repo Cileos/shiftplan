@@ -127,8 +127,10 @@ $drop_hover: #B2D8AB
 
   ul
     list-style: none
+    // we want padding-bottom: 0, but capybara/selenium fails to click the td
+    // when another scheduling is in the cell, see features/plan/nightshift.feature
     padding: 0 0 20px 0
-    margin: 5px 0 0px 0
+    margin: 5px 0 20px 0
     font-size: $font-size_small
 
     &.weekswitch
