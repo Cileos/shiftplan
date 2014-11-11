@@ -45,6 +45,10 @@ class Ability
     can :dashboard, User
 
     can [:read, :update], Setup, user_id: user.id
+    can :create, Setup
+    can :destroy, Setup do |s|
+      s.user == user && s.cancelable?
+    end
 
     # not during setup
     return if user.setup

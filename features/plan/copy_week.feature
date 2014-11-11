@@ -17,7 +17,8 @@ Feature: Plan a week
       And I am on the employees in week page of the plan for week: 50, cwyear: 2012
      When I choose "Übernahme aus der letzten Woche" from the drop down "Weitere Aktionen"
       And I wait for the modal box to appear
-      And I select "KW 49 03.12.2012" from the "Von" single-select box
+     Then the "Von" field should contain "2012/49"
+      And the "Nach" field should contain "2012/50"
       And I press "Übernehmen"
      Then I should be on the employees in week page of the plan for cwyear: 2012, week: 50
       And I should see "Alle Termine wurden erfolgreich übernommen."
@@ -40,3 +41,10 @@ Feature: Plan a week
         | Lenny L        |     |              |              |              |     |
         | Homer S        |     |              |              |              |     |
       And I should not see "Rückgängig machen"
+
+  Scenario: copy to next week
+    Given I am on the employees in week page of the plan for week: 50, cwyear: 2012
+     When I choose "Übernahme in die nächste Woche" from the drop down "Weitere Aktionen"
+      And I wait for the modal box to appear
+     Then the "Von" field should contain "2012/50"
+      And the "Nach" field should contain "2012/51"

@@ -42,6 +42,27 @@ describe Invitation do
     invitation.should have(1).errors_on(:email)
   end
 
+  context '#send_invitation' do
+    it 'sets a token on the first invocation' do
+      invitation = build(:invitation)
+      expect { invitation.send_invitation }.to change { invitation.token }.from(nil)
+    end
+
+    it 'sets a token on the following invocations' do
+      invitation = create(:invitation)
+      invitation.send_invitation
+      expect { invitation.send_invitation }.to change { invitation.token }
+    end
+  end
+
+  context '#save' do
+    it 'does not change token' do # for confirmation etc
+      invitation = create(:invitation)
+      invitation.send_invitation
+      expect { invitation.save! }.not_to change { invitation.token }
+    end
+  end
+
   context 'uniqueness of email within account' do
     in_locale :de
 

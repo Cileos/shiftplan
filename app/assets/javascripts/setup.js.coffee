@@ -21,6 +21,7 @@ Setup.Setup = DS.Model.extend
   organizationName: DS.attr('string')
   teamNames: DS.attr('string')
   timeZoneName: DS.attr('string')
+  cancelable: DS.attr('boolean')
 
   execute: DS.attr('boolean')
   redirectTo: DS.attr('string')
@@ -119,6 +120,17 @@ Setup.SetupRoute = Ember.Route.extend
         (req)->
           # something went wrong
           setup.set 'execute', true
+      )
+
+    cancelSetup: ->
+      setup = @modelFor('setup')
+      setup.destroyRecord().then(
+        ->
+          window.location = '/accounts'
+        ,
+        (req)->
+          # something went wrong
+          alert("Could not cancel")
       )
 
 

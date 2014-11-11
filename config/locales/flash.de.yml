@@ -30,3 +30,6 @@ de:
       error:
         403: 'Das darfst Du nicht.'
         500: 'Auf der Serverseite ist etwas schiefgegangen. Wir gehen dem alsbald nach.'
+    setup:
+      create:
+        notice: '' # keine, stört setup wizard

@@ -1,6 +1,16 @@
 Changelog
 =========
 
+Release 1.4.3 2014-11-11 13:13
+------------------------------
+c099b19 Merge tag 'handle-old-undos-without-show-count' into develop
+9806cbe Merge pull request #290 from Cileos/feature/fail-quickly-on-backup-restore
+3ea3ae8 Merge pull request #287 from Cileos/feature/warn-about-costs-when-creating-second-account
+3a58add Merge pull request #289 from Cileos/feature/follow-signup-confirmation-link-twice
+6a4d430 Merge pull request #288 from Cileos/feature/only-accept-last-invitation
+04f7506 Merge pull request #286 from Cileos/feature/copy-week-more-flexible
+978febd Merge branch 'release/1.4.2' into develop
+
 Release 1.4.2 2014-11-06 15:53
 ------------------------------
 568e5d8 Merge pull request #284 from Cileos/feature/accept-invitation-notification

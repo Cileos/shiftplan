@@ -20,6 +20,8 @@ en:
     labels:
       defaults:
         source: From
+        source_string: From
+        target_string: To
         all_day: "All day"
     hints:
       scheduling:

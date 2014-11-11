@@ -25,6 +25,11 @@ Feature: Signing up
      Then I should be on the setup page
 
     # following the link again gives an expressive error message
+     When I open the email
+      And I click the first link in the email
+     Then I should see flash alert "Deine Emailadresse ist bereits bestätigt oder der Bestätigungslink ist ungültig."
+
+    # following the link again being signed out gives an expressive error message
      When I sign out
       And I open the email
       And I click the first link in the email

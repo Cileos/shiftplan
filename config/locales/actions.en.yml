@@ -7,7 +7,7 @@ en:
       new_post: "Create a new post"
       edit_post: "Edit post"
       edit_account: Edit account
-      add_account: Add account
+      add_account: Create another account
       help: Help
       tutorial: Tutorial
       profile: Profile
@@ -62,6 +62,7 @@ en:
       remove_demand: "Remove demand"
       new_plan_template: New Plan Template
       new_organization: "Create another Unit"
+      create_account: "Finish, pay later"
       next: Next
       previous: Previous
       create: Create
@@ -80,7 +81,9 @@ en:
       reinvite: Invite again
       send_invitation: "Send invitation"
       copy: "Copy"
-      new_copy_week: "Copy whole week"
+      new_copy_week: "Copy"
+      copy_from_last_week: "Copy from previous week"
+      copy_to_next_week: "Copy to next week"
       new_apply_plan_template: "Apply a plan template"
       apply: 'Apply'
       comment: Comment
@@ -105,6 +108,7 @@ en:
       undo: "Undo"
       availability: "Unavailability"
       finish: "Finish"
+      cancel: "Cancel"
   schedulings:
     calendar_navigation:
       day: "Day"

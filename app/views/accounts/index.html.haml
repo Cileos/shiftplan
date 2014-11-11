@@ -5,3 +5,11 @@
 
 #instructions.instructions
   = tt '.planner_instructions'
+
+- if can? :create, Setup
+  - masterhead_toolbar do
+    - e = current_user.employees.first
+    = link_to :add_account,
+      setups_path(setup: {employee_first_name: e.first_name, employee_last_name: e.last_name}),
+      method: 'POST',
+      class: 'button button-add', title: ta(:add_account)

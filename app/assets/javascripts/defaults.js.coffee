@@ -43,6 +43,12 @@ jQuery(document).ready ->
   language = $('html').attr('lang')
   $('body').on 'dialogopen', (e, ui) ->
     $(e.target).find('input.stringy_date').rails_datepick()
+    $(e.target).find('input.stringy_week').rails_datepick
+      week: true
+      readonly: false
+      prepend: true
+      onSelect: (dates)->
+        $(this).val( moment(dates[0]).format('YYYY/WW') )
     $(':input#team_color').minicolors({position: 'top left'})
 
   moment.locale(language)

@@ -1,33 +1,58 @@
-# remove wip tag and add new account link, when we are able to support multiple
-# accounts/billing
-@wip
+@javascript
 Feature: Create Account
   In order to have more than one account
   As a user
   I want to create accounts
 
-  Scenario: Create account
+  Background:
     Given mr burns, owner of the Springfield Nuclear Power Plant exists
-      And a confirmed user "bart" exists with email: "bart@thesimpsons.com"
-      And an employee "bart" exists with first_name: "Bart", account: the account "tepco", user: the confirmed user "bart"
-      And the employee "bart" is a member of the organization "fukushima"
-      And I am signed in as the confirmed user "bart"
+      And a confirmed user "bart" exists
+      And an employee "bart" exists with first_name: "Bart", account: the account, user: the confirmed user "bart"
+      And the employee "bart" is a member of the organization
+      And I am signed in as the user "bart"
 
     Given a clear email queue
-     When I go to the dashboard
-      And I follow "Account hinzufügen"
-      # prefill with first employee of user
-     Then the "Vorname" field should contain "Bart"
-      And the "Nachname" field should contain "Simpson"
-      And I fill in the following:
-        | Accountbezeichnung  | 1. FC Springfield e.V. |
-        | Organisationsname   | Skateboard             |
-      And I press "Anlegen"
+      And I am on the dashboard
+     When I choose "Alle Organisationen" from the drop down "Organisationen"
+      And I follow "Weiteren Account erstellen"
+     Then I should be on the setup page
+      And I should not see a flash message
 
-     Then an account "springfield" should exist with name: "1. FC Springfield e.V."
-      And an organization "skateboard" should exist with name: "Skateboard", account: the account "springfield"
-      And 1 users should exist with email: "bart@thesimpsons.com"
-      And an employee "bart 2" should exist with first_name: "Bart", account: the account "springfield", role: "owner", user: the confirmed user "bart"
-      And a membership should exist with employee: employee "bart 2", organization: organization "skateboard"
+  Scenario: Create account
+      #########################
+      # Setup opens
+      #########################
+
+      # prefill with first employee of user
+    Given the "Vorname" field should contain "Bart"
+      And the "Nachname" field should contain "Simpson"
+     When I press "Weiter"
+      And I fill in "Accountbezeichnung" with "Boogers Inc."
+      And I press "Weiter"
+      # skip timezone
+      And I press "Weiter"
+      And I fill in "Erster Organisationsname" with "Skinner's Nightmare"
+      And I fill in "Gruppen" with "Pranks in School, Prank Calls, Detention"
+      And I press "Weiter"
+
+     Then I should see "neues Vertragsverhältnis"
+      And I should see "kostenpflichtiges Paket"
+
+     When I press "Zahlungspflichtig erstellen"
+
+     Then an account "new" should exist with name: "Boogers Inc."
+      And an organization "new" should exist with name: "Skinner's Nightmare", account: the account "new"
+      And an employee "bart 2" should exist with first_name: "Bart", account: the account "new", user: the confirmed user "bart"
+      And the employee "bart 2" should be a member in the organization "new"
+
+      And a plan "new" should exist with organization: the organization "new"
+      And I should be on the employees in week page of the plan "new" for today
+
       And "bart@thesimpsons.com" should receive no email
-      And I should be on the page of the account "springfield"
+
+  Scenario: Start to create account, but cancel
+     When I press "Weiter"
+      And I press "Weiter"
+      And I press "Abbrechen"
+     Then I should be on the accounts page
+      And 1 accounts should exist
