@@ -56,7 +56,7 @@ Feature: Report
         | 19.12.2012  | 6,75     | nein       | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
         | 19.12.2012  | 0,00     | ja         | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
         | 18.12.2012  | 6,50     | ja         | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
-      And I should see "31,75" within the header aggregation within the reports table
+      And I should see "38,25" within the aggregated hours
 
       And the "Von" field should contain "01.12.2012"
       And the "Bis" field should contain "31.12.2012"

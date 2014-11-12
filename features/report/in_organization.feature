@@ -35,6 +35,7 @@ Feature: Report
         | 05.12.2012  | 7,50     | Burns, Chârly   | Bundesliga  | Herren Bowling  | Loser  | Superstriker   |
         | 04.12.2012  | 2,00     | Burns, Chârly   | Bundesliga  | Herren Bowling  | Loser  | Superstriker   |
         | 04.12.2012  | 0,00     | Burns, Chârly   | Bundesliga  | Herren Bowling  | Loser  | Superstriker   |
+      And I should see "13,50" within the aggregated hours
 
      When I go to the report page of the organization "male bowling"
       And I select "Chârly Burns" from "Mitarbeiter"
@@ -45,6 +46,7 @@ Feature: Report
         | 05.12.2012  | 7,50     | Burns, Chârly  | Bundesliga | Herren Bowling  |
         | 04.12.2012  | 2,00     | Burns, Chârly  | Bundesliga | Herren Bowling  |
         | 04.12.2012  | 0,00     | Burns, Chârly  | Bundesliga | Herren Bowling  |
+      And I should see "11,50" within the aggregated hours
      When I follow "Als CSV-Datei exportieren"
      Then I should see the following semicolon separated csv file:
       | Mitarbeiter    | Datum       | Stunden | Ganztägig | Plan        | Organisation    | Team   | Qualifikation  |
