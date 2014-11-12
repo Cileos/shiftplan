@@ -44,6 +44,8 @@ $.fn.rails_datepick = (options)->
           # hide "clear"
           replace(/\{link:clear\}/, ''),
 
+    o.showTrigger = '<button type="button" class="datepick-trigger"><i class="icon-datepick" /></button>'
+
     $stringy
       .datepick(o)
       .datepick('setDate', default_date)
