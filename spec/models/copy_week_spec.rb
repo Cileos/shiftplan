@@ -112,7 +112,8 @@ describe CopyWeek do
   end
 
   context '#source' do
-    let(:copy) { described_class.new( source_string: '2012/45' ) }
+    let(:plan) { instance_double 'Plan' }
+    let(:copy) { described_class.new( source_string: '2012/45', target_string: '2012/50', plan: plan ) }
 
     it 'contains year and week' do
       copy.source_string.should == '2012/45'
@@ -127,6 +128,16 @@ describe CopyWeek do
     it 'sets year and week' do
       copy.source_year.should == 2012
       copy.source_week.should == 45
+    end
+
+    it 'accepts valid values' do
+      copy.should be_valid
+    end
+
+    it 'must be formatted properly' do
+      copy = described_class.new( source_string: "2014/41", target_string: "2014/", plan: plan )
+      copy.source_string = '2015/'
+      copy.should_not be_valid
     end
   end
 

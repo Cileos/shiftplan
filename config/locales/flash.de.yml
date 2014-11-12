@@ -25,6 +25,7 @@ de:
     copy_week:
       create:
         notice: "Alle Termine wurden erfolgreich übernommen."
+        alert: "Konnte Woche nicht kopieren. Bitte überprüfe Deine Eingaben."
         undo:  "Die kopierte Woche wurde gelöscht."
     ajax:
       error:
