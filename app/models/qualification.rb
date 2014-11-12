@@ -1,7 +1,8 @@
 class Qualification < ActiveRecord::Base
   belongs_to :account
-  has_many   :schedulings
-  has_many   :employee_qualifications
+  has_many   :schedulings, dependent: :nullify
+  has_many   :demands, dependent: :nullify
+  has_many   :employee_qualifications, dependent: :destroy
   has_many   :employees, through: :employee_qualifications
 
   validates :name, :account, presence: true
