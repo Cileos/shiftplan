@@ -26,6 +26,8 @@ en:
     hints:
       scheduling:
         quickie: "e.g. 9-17 Awesome Job [AJ]"
+        qualification: 'Allows easy assignment of employees, can be <a href="../../../../../qualifications">managed in Core Data</a>.'
+        team: 'Makes it easy to group employees by their task, can be <a href="../../../../../qualifications">managed in Core Data</a>, too.'
   schedulings:
     all_day: "all day"
     missing_team: Without team
