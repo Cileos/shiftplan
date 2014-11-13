@@ -30,6 +30,7 @@ class FillPlanTemplate
 
   def filter
     @filter = Scheduling.filter(
+      strict: true,
       plan: plan,
       week: week,
       cwyear: year
@@ -37,7 +38,9 @@ class FillPlanTemplate
   end
 
   def records
-    filter.unsorted_records.where('team_id IS NOT NULL')
+    # shifts need teams
+    # need order to be deterministic for tests
+    filter.unsorted_records.where('team_id IS NOT NULL').reorder('created_at')
   end
 
 private

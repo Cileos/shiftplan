@@ -20,7 +20,7 @@ describe FillPlanTemplate do
     it 'asks filter for count' do
       cpt = described_class.new args
       Scheduling.stub filter: (filter = instance_double('SchedulingFilter'))
-      filter.stub_chain(:unsorted_records, :where, :count).and_return(7)
+      filter.stub_chain(:unsorted_records, :where, :reorder, :count).and_return(7)
       cpt.source_schedulings_count.should == 7
     end
 
@@ -33,9 +33,12 @@ describe FillPlanTemplate do
   end
 
   context '#fill!' do
+    let(:plan) { create :plan }
     before :each do
       subject.template = template
-      subject.stub filter: filter
+      subject.plan_id = plan.id
+      subject.week = 15
+      subject.year = 2013
     end
     def schedule(attrs={})
       create(:manual_scheduling, attrs.reverse_merge(
@@ -44,6 +47,7 @@ describe FillPlanTemplate do
         week: 15,
         cwday: 1,
         quickie: '9-17',
+        plan: plan,
         team: team
       ))
     end
@@ -70,6 +74,11 @@ describe FillPlanTemplate do
 
       it 'skips the scheduling when it has no team (shifts need team)' do
         schedule team: nil
+        expect { subject.fill! }.to_not change { Shift.count }.from(0)
+      end
+
+      it 'skips overnight scheduling from previous week' do
+        schedule week: 14, cwday: 7, quickie: '22-6'
         expect { subject.fill! }.to_not change { Shift.count }.from(0)
       end
     end

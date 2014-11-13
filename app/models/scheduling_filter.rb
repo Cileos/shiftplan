@@ -13,6 +13,7 @@ class SchedulingFilter < RecordFilter
   attribute :year, type: Integer
   attribute :cwyear, type: Integer
   attribute :ids #, type: Array # TODO Array cannot be typecasted yet by AA
+  attribute :strict, type: Boolean
 
   delegate :organization, to: :plan
 
@@ -142,15 +143,23 @@ class SchedulingFilter < RecordFilter
   end
 
   def unavailabilities
-    Unavailability.
-      overlapping( starts_at, ends_at ).
+    unas = if strict?
+             Unavailability.starts_between( starts_at, ends_at )
+           else
+             Unavailability.overlapping( starts_at, ends_at )
+           end
+    unas.
       preload(:employee).
       where(employee_id: employees.map(&:id))
   end
 
   private
     def filtered_base
-      super.overlapping( starts_at, ends_at )
+      if strict?
+        super.starts_between( starts_at, ends_at )
+      else
+        super.overlapping( starts_at, ends_at )
+      end
     end
 
     def fetch_records
