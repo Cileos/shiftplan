@@ -1,3 +1,4 @@
+# TODO use gem: font-awesome-sass
 icons:
   add:               'f067'
   edit:              'f0ad'
@@ -38,6 +39,7 @@ icons:
   user:              'f007'
   document:          'f0f6'
   report:            'f0c6'
+  datepick:          'f073'
 #
 # deprecated icons:
 #   new_plan:          'plus'

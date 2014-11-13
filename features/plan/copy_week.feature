@@ -48,3 +48,7 @@ Feature: Plan a week
       And I wait for the modal box to appear
      Then the "Von" field should contain "2012/50"
       And the "Nach" field should contain "2012/51"
+
+     When I fill in "Nach" with "2012/"
+      And I press "Übernehmen"
+     Then I should see flash alert "Konnte Woche nicht kopieren."

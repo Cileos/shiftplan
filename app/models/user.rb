@@ -162,7 +162,7 @@ class User < ActiveRecord::Base
     if email_was.present? and email_changed?
       email_change.destroy if email_change
       create_email_change!(email: email)
-      email = email_was
+      self.email = email_was
     end
     true
   end

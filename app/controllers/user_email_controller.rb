@@ -4,11 +4,13 @@ class UserEmailController < InheritedResources::Base
 
   before_filter :check_for_same_email, only: :update
 
+  # TODO: move this to EmailChangeController#create
   def update
     update! do |success, failure|
       success.html do
         set_flash :notice
         redirect_to change_email_path
+        send_confirmation_mail
       end
       failure.html do
         set_flash :alert
@@ -33,6 +35,12 @@ class UserEmailController < InheritedResources::Base
   end
 
   private
+
+  def send_confirmation_mail
+    if email_change = resource.email_change
+      email_change.send_confirmation_mail
+    end
+  end
 
   def check_for_same_email
     if params[:user][:email] == resource.email

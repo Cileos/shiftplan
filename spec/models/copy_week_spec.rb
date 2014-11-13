@@ -14,17 +14,17 @@ describe CopyWeek do
   end
 
   #   November 2012
-  # Su Mo Tu We Th Fr Sa
-  #              1  2  3
-  #  4  5  6  7  8  9 10
-  # 11 12 13 14 15 16 17
-  # 18 19 20 21 22 23 24 <= 47
-  # 25 26 27 28 29 30
+  # Mo Tu We Th Fr Sa So
+  #           1  2  3  4
+  #  5  6  7  8  9 10 11
+  # 12 13 14 15 16 17 18
+  # 19 20 21 22 23 24 25 <= 47
+  # 26 27 28 29 30
   #
   #   December 2012
-  # Su Mo Tu We Th Fr Sa
-  #                    1
-  #  2  3  4  5  6  7  8 <= 49
+  # Mo Tu We Th Fr Sa So
+  #                 1  2
+  #  3  4  5  6  7  8  9 <= 49
 
   let(:copy) {
     CopyWeek.new( plan: plan,
@@ -41,10 +41,17 @@ describe CopyWeek do
     plan.filter(cwyear: source_year, week: source_week).unsorted_records
   end
 
+  # For year 2012 and week 48, the sunday is 02.12.2012.
+  let(:target_previous_sunday_schedulings) do
+    target_schedulings.select do |s|
+      s.week == 48 && s.starts_at.day == 2
+    end
+  end
+
   # For year 2012 and week 49, the monday is 03.12.2012.
   let(:target_monday_schedulings) do
     target_schedulings.select do |s|
-      s.starts_at.day == 3
+      s.week == 49 && s.starts_at.day == 3
     end
   end
   # For year 2012 and week 49, the saturday is 08.12.2012.
@@ -83,6 +90,13 @@ describe CopyWeek do
     target_sunday_schedulings.should_not be_empty
   end
 
+  it "copies nightshift schedulings spanning from previous week" do
+    source(cwday: 7, quickie: '22-6', week: source_week -  1)
+    copy.save
+    target_previous_sunday_schedulings.should_not be_empty
+    target_sunday_schedulings.should be_empty
+  end
+
   it "does not copy the comments_count of schedulings" do
     source(cwday: 1, quickie: '8-16', comments_count: 3)
     copy.save
@@ -98,7 +112,8 @@ describe CopyWeek do
   end
 
   context '#source' do
-    let(:copy) { described_class.new( source_string: '2012/45' ) }
+    let(:plan) { instance_double 'Plan' }
+    let(:copy) { described_class.new( source_string: '2012/45', target_string: '2012/50', plan: plan ) }
 
     it 'contains year and week' do
       copy.source_string.should == '2012/45'
@@ -113,6 +128,16 @@ describe CopyWeek do
     it 'sets year and week' do
       copy.source_year.should == 2012
       copy.source_week.should == 45
+    end
+
+    it 'accepts valid values' do
+      copy.should be_valid
+    end
+
+    it 'must be formatted properly' do
+      copy = described_class.new( source_string: "2014/41", target_string: "2014/", plan: plan )
+      copy.source_string = '2015/'
+      copy.should_not be_valid
     end
   end
 
