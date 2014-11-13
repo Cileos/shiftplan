@@ -19,6 +19,7 @@ Feature: All Day ness
      Then the field "Beginn" should be disabled
       And the field "Ende" should be disabled
       And I should see a field labeled "Tatsächliche Arbeitszeit"
+      And I should see "Wird für die Wochenarbeitszeit und für Reports verwendet." within a hint
 
      When I uncheck "Ganztägig"
      Then the field "Beginn" should not be disabled
