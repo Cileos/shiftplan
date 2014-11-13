@@ -4,9 +4,9 @@ class FillPlanTemplate
   include ActiveAttr::AttributeDefaults
 
   attribute :template
-  attribute :plan_id
-  attribute :week
-  attribute :year
+  attribute :plan_id, type: Integer
+  attribute :week, type: Integer
+  attribute :year, type: Integer
 
   def source_schedulings_count
     if plan
