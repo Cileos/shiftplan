@@ -164,6 +164,9 @@ module HtmlSelectorsHelpers
     when /conflict icon$/
       'a.conflict'
 
+    when 'abbreviated work time'
+      'abbr.work_time'
+
     when 'the pagination'
       '.pagination'
 

@@ -62,6 +62,13 @@ Then /^I should see the following partial calendar:$/ do |expected|
   expected.diff! the_calendar.parsed, surplus_row: false, surplus_col: false
 end
 
+# We do not want to modify the_calendar parser to look at abbr[title]
+Then /^I should see #{capture_quoted} as the title of the (abbreviated [\w_ ]+)$/ do |content, name|
+  ele = page.find *selector_for(name)
+
+  ele[:title].should include(content)
+end
+
 Then /^I should see the following time bars:$/ do |raw|
   team_name = nil
 
