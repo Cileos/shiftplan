@@ -10,7 +10,7 @@ class FillPlanTemplate
 
   def source_schedulings_count
     if plan
-      filter.count
+      records.count
     else
       0
     end
@@ -24,7 +24,7 @@ class FillPlanTemplate
 
   def fill!
     Shift.transaction do
-      fill_from_records filter.records
+      fill_from_records records.to_a
     end
   end
 
@@ -34,6 +34,10 @@ class FillPlanTemplate
       week: week,
       cwyear: year
     )
+  end
+
+  def records
+    filter.unsorted_records.where('team_id IS NOT NULL')
   end
 
 private

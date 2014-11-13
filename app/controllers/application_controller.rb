@@ -19,8 +19,9 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordInvalid do |exception|
     set_flash(:alert)
-    respond_to do |format|
-      format.json { render json: { errors: exception.record.errors.messages }, status: 422 }
+    respond_to do |invalid|
+      invalid.html { render action: 'new', status: 422 unless self.response_body }
+      invalid.json { render json: { errors: exception.record.errors.messages }, status: 422 }
     end
   end
 

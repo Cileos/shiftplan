@@ -19,7 +19,8 @@ describe FillPlanTemplate do
   context '#source_schedulings_count' do
     it 'asks filter for count' do
       cpt = described_class.new args
-      Scheduling.stub filter: (filter = instance_double('SchedulingFilter', count: 7))
+      Scheduling.stub filter: (filter = instance_double('SchedulingFilter'))
+      filter.stub_chain(:unsorted_records, :where, :count).and_return(7)
       cpt.source_schedulings_count.should == 7
     end
 
@@ -32,13 +33,12 @@ describe FillPlanTemplate do
   end
 
   context '#fill!' do
-    let(:records) { [] }
     before :each do
       subject.template = template
       subject.stub filter: filter
     end
     def schedule(attrs={})
-      records << create(:manual_scheduling, attrs.reverse_merge(
+      create(:manual_scheduling, attrs.reverse_merge(
         # DEFAULS
         year: 2013,
         week: 15,
@@ -67,7 +67,13 @@ describe FillPlanTemplate do
         expect { subject.fill! }.to change { Shift.count }.from(0).to(1)
         assert_has_default_times Shift.first
       end
+
+      it 'skips the scheduling when it has no team (shifts need team)' do
+        schedule team: nil
+        expect { subject.fill! }.to_not change { Shift.count }.from(0)
+      end
     end
+
 
     context 'from plan with two scheduling at different days' do
       it 'creates two shift of it' do
@@ -144,7 +150,7 @@ describe FillPlanTemplate do
     let(:template) { create :plan_template }
     let(:team) { create :team, organization: template.organization }
     let(:other_team) { create :team, organization: template.organization }
-    let(:filter) { instance_double 'SchedulingFilter', records: records }
+    let(:filter) { instance_double 'SchedulingFilter', unsorted_records: Scheduling.all }
 
     # Qualifications
     let(:dancing) { create :qualification, name: "Dancing", account: template.account }
