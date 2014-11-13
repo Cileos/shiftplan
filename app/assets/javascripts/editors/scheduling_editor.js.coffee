@@ -32,6 +32,8 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       #.bindWithDelay('keyup mousewheel', (=> @updateQuickie()), 150)
 
     @input('actual_length_as_time')
+      .each -> # default the value to not confuse timeEntry
+        $(this).val('00:00') if $(this).val().length is 0
       .timeEntry(timeoptions)
 
     # TODO: Comment in again when the passive una feature gets enabled again.
