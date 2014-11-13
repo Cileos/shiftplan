@@ -25,7 +25,7 @@ class RecordFilter
 
     def fetch_records
       results = filtered_base
-      results = rwsults.includes(*to_include) unless to_include.empty?
+      results = results.includes(*to_include) unless to_include.empty?
       sort_fields.each do |field|
         results = results.sort_by(&field)
       end
