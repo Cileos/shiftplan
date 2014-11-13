@@ -31,11 +31,11 @@ module TimePeriodFormatter
   end
 
   def period_with_duration
-    period_with_zeros + ' (' + duration + 'h)'
+    period_with_zeros + ' ' + duration
   end
 
   def duration
-    '%d:%02d' % [ length_in_minutes / 60, length_in_minutes % 60 ]
+    '(%d:%02dh)' % [ length_in_minutes / 60, length_in_minutes % 60 ]
   end
 
   # may be overridden by OvernightableDecoratorHelper, returning only the length for one part

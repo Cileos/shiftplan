@@ -48,11 +48,11 @@ Feature: All Day ness
       And I press "Speichern"
       And I wait for the modal box to disappear
      Then I should see the following partial calendar:
-        | Mitarbeiter   | Mo | Di | Mi | Do        | Fr | Sa | So |
-        | Planner Burns |    |    |    |           |    |    |    |
-        | Carl C        |    |    |    |           |    |    |    |
-        | Lenny L       |    |    |    |           |    |    |    |
-        | Homer S       |    |    |    | Ganztägig |    |    |    |
+        | Mitarbeiter   | Mo | Di | Mi | Do                | Fr | Sa | So |
+        | Planner Burns |    |    |    |                   |    |    |    |
+        | Carl C        |    |    |    |                   |    |    |    |
+        | Lenny L       |    |    |    |                   |    |    |    |
+        | Homer S       |    |    |    | Ganztägig (05:30) |    |    |    |
       And the employee "Homer S" should have a yellow hours/waz value of "5½ / 40"
 
 
