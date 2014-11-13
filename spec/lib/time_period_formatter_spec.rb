@@ -11,13 +11,16 @@ describe TimePeriodFormatter do
 
   context "#period_with_duration" do
     it 'is composed of period_with_zeros and duration' do
-      decorator.stub period_with_zeros: '12-noon', duration: 'less than 1'
+      decorator.stub period_with_zeros: '12-noon', duration: '(less than 1h)'
       decorator.period_with_duration.should == '12-noon (less than 1h)'
     end
   end
 
   context '#duration' do
-    it 'normalizes minutes and hour'
+    it 'normalizes minutes and hour' do
+      decorator.stub all_day?: false, starts_at: Time.zone.now, ends_at: 3.hours.from_now + 15.minutes
+      decorator.duration.should == '(3:15h)'
+    end
   end
 
   context "#period_with_zeros" do
