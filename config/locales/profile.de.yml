@@ -4,6 +4,23 @@ de:
       change_locale_instructions: "Wählen Sie Ihre Spracheinstellungen:"
       change_notification_instructions: "Wählen Sie Ihre Benachrichtigungseinstellungen:"
   export:
+    introduction: |
+      Der Export ermöglicht es, Deine Termine auf Deinem Smartphone anzuzeigen oder in anderen Kalendersysteme zu abonieren.
+    instructions: |
+      h2. Einrichtung
+
+      Wie die Termine in ein anderes System eingefügt werden, hängt stark von diesem ab.
+
+      h3. Android Smartphone
+
+      Wenn Du die Kalendersynchronisation von Google benutzt, ist der einfachste Weg, Deine künftigen Termine auf dem Smartphone anzuzeigen, die oben stehende URL beim Anlegen eines neuen Kalenders anzugeben:
+
+      * besuche "Google Calendar":https://calendar.google.com und melde Dich ggfs. an
+      * auf der linken Seite klicke das kleine Dreieck neben "weitere Kalender" und wähle "Über URL hinzufügen"
+      * Kopiere die oben stehende URL und füge sie in das Formular ein
+      * schicke das Formular ab
+      * Deine Termine sollten nun in Deinem Kalender auftauchen, ebenso auf Deinem Smartphone nach nur kurzer Zeit
+
     is_inactive: "Im Moment wird keiner Deiner Termine exportiert."
     is_active: "Dies ist die Privatadresse für Deine Termine. Gib diese Adresse nur für andere Personen frei, wenn Du möchtest, das diese alle Deine Termine sehen können."
     webcal: "Für Macs oder iPhone/iPad/iPods oder andere Systeme, die webcal unterstützen, benutz bitte folgendenen Link:"
