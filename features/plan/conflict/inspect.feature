@@ -15,7 +15,7 @@ Feature: Inspect conflicts on Schedulings
       And the employee "Homer" was scheduled in the plan "feed dogs" as following:
         | date       | quickie  |
         | 2012-02-15 | 13:15-14 |
-        | 2012-02-15 | 15:15-16 |
+        | 2012-02-15 | 15:15-6  |
       And an unavailability_by_quickie exists with date: "2012-02-15", quickie: "12-14", employee: employee "Homer"
 
      When I go to the employees in week page of the plan "clean reactor" for cwyear: 2012, week: 7
@@ -37,7 +37,7 @@ Feature: Inspect conflicts on Schedulings
       And I wait for the modal box to appear
      Then I should see "10:00-18:00" within the left column within the modal box
       And I should see "13:15-14:00" within the right column within the modal box
-      And I should see "15:15-16:00" within the right column within the modal box
+      And I should see "15:15-06:00" within the right column within the modal box
       And I should see "12:00-14:00" within the right column within the modal box
 
      # follow one established
@@ -49,7 +49,7 @@ Feature: Inspect conflicts on Schedulings
      When I follow "!" within the cell "Mi"/"Ohne Team"
      Then I should see "13:15-14:00" within the left column within the modal box
       And I should see "10:00-18:00" within the right column within the modal box
-      But I should not see "15:15-16:00" within the modal box
+      But I should not see "15:15-06:00" within the modal box
 
      # back to original provoker
      When I follow "18:00" within the right column within the modal box
@@ -79,5 +79,5 @@ Feature: Inspect conflicts on Schedulings
 
      When I go to the hours in week page of the plan "feed dogs" for cwyear: 2012, week: 7
      Then I should see the following calendar:
-       | Mo | Di | Mi                                                              | Do | Fr |
-       |    |    | Homer S Homer S Homer S 13:15-14:00 15:15-16:00 12:00-14:00 ! ! |    |    |
+       | Mo | Di | Mi                                                              | Do                    | Fr |
+       |    |    | Homer S Homer S Homer S 13:15-14:00 15:15-06:00 12:00-14:00 ! ! | Homer S 15:15-06:00 ! |    |

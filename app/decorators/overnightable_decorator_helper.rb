@@ -2,7 +2,7 @@ module OvernightableDecoratorHelper
   # holds the currently rendered column, eg. which part of the nightshift is to be rendered
   attr_writer :focus_day
   def focus_day
-    @focus_day || raise('must set #focus_day for overnightables')
+    @focus_day
   end
 
   def metadata

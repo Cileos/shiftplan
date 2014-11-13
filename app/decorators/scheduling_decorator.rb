@@ -64,11 +64,11 @@ class SchedulingDecorator < RecordDecorator
 
   # overnightable
   def starts_on_focussed_day?
-    focus_day.day == starts_at.day
+    focus_day && focus_day.day == starts_at.day
   end
 
   def ends_on_focussed_day?
-    focus_day.day == ends_at.day
+    focus_day && focus_day.day == ends_at.day
   end
 
   private
