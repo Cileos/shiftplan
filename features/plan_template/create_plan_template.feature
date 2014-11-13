@@ -46,7 +46,7 @@ Feature: Create a plan template
       And I should be on the teams in week page for the plan template
      Then I should see the following partial calendar:
        | Teams         | Mo                   | Di                                                  | Mi | Do              | Fr |
-       | Inspektion(I) |                      | 10:00-17:00 10:00-16:00 1 x Schwitzen 2 x Schwitzen |    |                 |    |
+       | Inspektion(I) |                      | 10:00-16:00 10:00-17:00 2 x Schwitzen 1 x Schwitzen |    |                 |    |
        | Popeln(P)     | 09:00-17:00 2 x Nase |                                                     |    |                 |    |
        | Schlafen(S)   |                      |                                                     |    | 12:00-14:00 1 x |    |
        | Urlaub(U)     |                      |                                                     |    |                 |    |
