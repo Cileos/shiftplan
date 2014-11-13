@@ -49,3 +49,11 @@ Feature: Create a plan template
        | Schlafen(S)   |                      |                                                     |    | 12:00-14:00 1 x |    |
        | Urlaub(U)     |                      |                                                     |    |                 |    |
        # sorry, your vacation is in another week
+
+     When I go to the page of the plan
+      And I choose "Neue Planvorlage" from the drop down "Weitere Aktionen"
+      And I wait for the modal box to appear
+      And I fill in "Name" with "Inspektionswoche"
+      And I press "Anlegen"
+     Then I should see the following validation errors:
+       | Name | ist bereits vergeben |

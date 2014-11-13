@@ -1,9 +1,9 @@
 class PlanTemplatesController < BaseController
   nested_belongs_to :account, :organization
   before_action :authorize_source_of_schedulings, only: :create
-  after_action -> { resource.filler.fill! }, only: :create, if: -> { resource.fill_from_n_items? }
+  after_action -> { resource.filler.fill! }, only: :create, if: -> { resource.valid? && resource.fill_from_n_items? }
 
-  respond_to :html, :js
+  respond_to :js, :html
 
   def create
     create! do |success, failure|
