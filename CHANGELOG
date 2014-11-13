@@ -1,6 +1,15 @@
 Changelog
 =========
 
+Release 1.4.4 2014-11-13 12:08
+------------------------------
+d0c7876 Merge pull request #299 from Cileos/feature/open-datepicker-more-agressivly
+447c9a0 Merge pull request #297 from Cileos/feature/verify-copy-week-input
+1b9312c Merge pull request #296 from Cileos/feature/bug-copy-week-with-overnightables-on-weekends
+2cbec27 Merge pull request #294 from Cileos/feature/bug-ff-schedulables-flow-out-of-cells
+e24348f Merge pull request #291 from Cileos/feature/fix-email-change
+584139d Merge branch 'release/1.4.3' into develop
+
 Release 1.4.3 2014-11-11 13:13
 ------------------------------
 c099b19 Merge tag 'handle-old-undos-without-show-count' into develop
