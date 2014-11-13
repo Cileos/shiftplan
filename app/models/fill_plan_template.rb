@@ -57,7 +57,7 @@ private
             team: team,
             demands: demands,
             all_day: s.all_day,
-            day: s.starts_at.wday - 1, # week begins with day 0
+            day: day_from_start_of_week(s.starts_at),
             start_hour: s.start_hour,
             start_minute: s.start_minute,
             end_hour: s.end_hour,
@@ -66,6 +66,14 @@ private
         end
       end
     end
+  end
+
+  def start_of_week
+    @start_of_week ||= Date.commercial(year, week, 1).in_time_zone
+  end
+
+  def day_from_start_of_week(time)
+    ((time - start_of_week) / (60*60*24)).floor
   end
 end
 

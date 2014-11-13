@@ -81,6 +81,17 @@ describe FillPlanTemplate do
         schedule week: 14, cwday: 7, quickie: '22-6'
         expect { subject.fill! }.to_not change { Shift.count }.from(0)
       end
+
+      it 'uses overnight scheduling at sunday of current week' do
+        schedule cwday: 7, quickie: '22-6'
+        expect { subject.fill! }.to change { Shift.count }.from(0).to(1)
+        shift = Shift.first
+        shift.start_hour.should == 22
+        shift.start_minute.should == 0
+        shift.end_hour.should == 6
+        shift.end_minute.should == 0
+        shift.day.should == 6 # the seventh day
+      end
     end
 
 
