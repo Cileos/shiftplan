@@ -20,7 +20,7 @@
     - report.records.map(&:decorate).each do |scheduling|
       %tr{ id: "record_#{scheduling.id}" }
         %td= scheduling.link_to_calendar l(scheduling.starts_at.to_date)
-        %td.numeric= number_with_precision(scheduling.decimal_duration, precision: 2)
+        %td.numeric= number_with_precision(scheduling.total_length_in_hours, precision: 2)
         %td= yes_or_no_tag(scheduling.all_day?)
         %td= scheduling.employee.try(:last_and_first_name)
         %td= scheduling.plan.name

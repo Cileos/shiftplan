@@ -1,6 +1,9 @@
 de:
   feedback:
     your_feedback: 'Ihr Feedback'
-    thank_you: 'Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten.'
     mailer:
       subject: "Sie haben neues Feedback erhalten von %{name}"
+  flash:
+    feedback:
+      create:
+        notice: 'Vielen Dank! Wir werden Ihre Anfrage in Kürze bearbeiten.'

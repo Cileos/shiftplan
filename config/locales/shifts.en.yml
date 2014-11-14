@@ -43,3 +43,7 @@ en:
         You can use these defined plan templates on every plan.
       instructions: >
         Here you see all shifts defined for that template.
+  simple_form:
+    hints:
+      shift:
+        actual_length_as_time: "Will be used for calculation of weekly working time and for reports."

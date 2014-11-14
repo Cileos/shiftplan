@@ -146,6 +146,9 @@ Then /^the (.+) should( not|) be disabled$/ do |name, negate|
 
   if name =~ /field #{capture_quoted}/
     page.should have_field($1, disabled: !negate)
+  elsif name =~ /single-select box #{capture_quoted}/
+    # the select field itself is hidden, but chosen reflects the `disabled` state
+    page.should have_field($1, visible: false, disabled: !negate)
   else
     selector = selector_for(name)
     elem = page.first(selector)

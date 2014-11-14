@@ -28,6 +28,11 @@ When /^I pick "(\d{1,2})\.\s*([a-zA-Z]+)\s+(\d{4})" from "(.*?)"$/ do |day, mont
   end
 end
 
+When /^I pick time ([\d:]{1,5}) from #{capture_quoted}$/ do |time, name|
+  find_field(name).send_string_of_keys 'arrow_left,arrow_left,arrow_left,arrow_left'
+  fill_in(name, with: time)
+end
+
 When /^I use the datepicker to clear #{capture_quoted}$/ do |label|
   step %Q~I disable all jquery animations~
   page.execute_script <<-EOJS

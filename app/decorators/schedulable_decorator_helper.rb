@@ -10,7 +10,12 @@ module SchedulableDecoratorHelper
   def work_time(extra_class=nil)
     klass = "work_time #{extra_class}"
     if all_day?
-      h.content_tag :span, I18n.translate('all_day', scope: 'simple_form.labels.defaults'), class: klass
+      word = I18n.translate('all_day', scope: 'simple_form.labels.defaults')
+      if actual_length_in_hours.present?
+        h.abbr_tag word, word + ' ' + duration , class: klass
+      else
+        h.content_tag :span, word, class: klass
+      end
     else
       h.abbr_tag period_with_zeros, period_with_duration, class: klass
     end
@@ -37,7 +42,12 @@ module SchedulableDecoratorHelper
     end
   end
 
-  def deterministic_order
-    "#{starts_at.iso8601}-#{id}"
+  def deterministic_order # narf
+    case object
+    when Shift
+      "#{day}-#{object.start_hour}-#{object.end_hour}-#{id}"
+    else
+      "#{starts_at.iso8601}-#{id}"
+    end
   end
 end

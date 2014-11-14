@@ -13,6 +13,7 @@ de:
         end_minute: Endminute
         start_time: Beginn
         end_time: Ende
+        actual_length_as_time: Tatsächliche Arbeitszeit
       shift/demands:
         quantity: Anzahl
         qualification: Qualifikation
@@ -47,3 +48,7 @@ de:
         einen beliebigen Plan anwenden.
       instructions: >
         Hier sehen Sie alle Schichten, die für diese Planvorlage definiert sind.
+  simple_form:
+    hints:
+      shift:
+        actual_length_as_time: "Wird für die Wochenarbeitszeit und für Reports verwendet."

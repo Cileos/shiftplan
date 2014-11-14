@@ -24,11 +24,6 @@ Feature: Create Weekbased Plan Template
       And I wait for the modal box to disappear
 
      Then a plan template should exist with organization: the organization
-      And I should be on the plan templates page for the organization
-      And I should see the following table of plan_templates:
-        | Name                                   | Vorlagentyp    |
-        | Typische Woche in der Brennstabpflege  | Wochenbasiert  |
-     When I follow "Typische Woche in der Brennstabpflege"
      Then I should be on the teams in week page for the plan template
       And I should see the following calendar:
         | Teams                 | Mo  | Di  | Mi  | Do  | Fr  | Sa  | So  |

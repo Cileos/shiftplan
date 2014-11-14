@@ -99,12 +99,15 @@ class VersionSelector < Base
 end
 
 class Release < Base
-  def initialize(version)
-    @version = version
+  def initialize
     @existing_changelog = read_changelog[3..-1] # without main heading
   end
 
   def start!
+    show_changelog
+    @version = VersionSelector.new.execute
+    puts "Releasing version #{@version}"
+
     confirm! "Continue?"
 
     pull_branches
@@ -177,6 +180,11 @@ class Release < Base
     end
   end
 
+  def show_changelog
+    puts changelog_lines.join("\n")
+    puts
+  end
+
   def changelog_headline
     "Changelog\n" +
     "=========\n" +
@@ -204,9 +212,6 @@ end
 
 if $0 == __FILE__
 
-  version = VersionSelector.new.execute
-
-  puts "Releasing version #{version}"
-  Release.new(version).start!
+  Release.new.start!
 
 end

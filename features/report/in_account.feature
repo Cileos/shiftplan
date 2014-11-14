@@ -22,14 +22,15 @@ Feature: Report
         | lie to the public  | Lie to the public  | organization "pr"         |
         | shut down          | Shut down          | organization "sector 7g"  |
       And the following schedulings exists:
-        | date        | employee                   | quickie   | plan                      | team      | qualification      | all_day  |
-        | 23.12.2012  | employee owner "mr burns"  | 7-14:30   | plan "shut down"          |           |                    | false    |
-        | 21.12.2012  | employee owner "mr burns"  | 7-15:30   | plan "shut down"          | the team  | the qualification  | false    |
-        | 20.12.2012  | employee "homer"           | 22-7      | plan "shut down"          | the team  | the qualification  | false    |
-        | 19.12.2012  | employee "homer"           | 7-13:45   | plan "lie to the public"  |           |                    | false    |
-        | 19.12.2012  | employee "homer"           | 19-21:00  | plan "lie to the public"  |           |                    | true     |
-        | 17.11.2012  | employee owner "mr burns"  | 7-14:30   | plan "shut down"          |           |                    | false    |
-        | 17.11.2012  | employee "homer"           | 0-24:00   | plan "Shut down"          |           |                    | false    |
+        | date       | employee                  | quickie | plan                     | team     | qualification     | all_day | actual_length_in_hours |
+        | 23.12.2012 | employee owner "mr burns" | 7-14:30 | plan "shut down"         |          |                   | false   |                        |
+        | 21.12.2012 | employee owner "mr burns" | 7-15:30 | plan "shut down"         | the team | the qualification | false   |                        |
+        | 20.12.2012 | employee "homer"          | 22-7    | plan "shut down"         | the team | the qualification | false   |                        |
+        | 19.12.2012 | employee "homer"          | 7-13:45 | plan "lie to the public" |          |                   | false   |                        |
+        | 19.12.2012 | employee "homer"          |         | plan "lie to the public" |          |                   | true    |                        |
+        | 18.12.2012 | employee "homer"          |         | plan "lie to the public" |          |                   | true    | 6.5                    |
+        | 17.11.2012 | employee owner "mr burns" | 7-14:30 | plan "shut down"         |          |                   | false   |                        |
+        | 17.11.2012 | employee "homer"          | 0-24:00 | plan "Shut down"         |          |                   | false   |                        |
 
       # Foreign account data:
       And an account "tv business" exists with name: "TV Business"
@@ -54,7 +55,8 @@ Feature: Report
         | 20.12.2012  | 9,00     | nein       | Simpson, Homer  | Uran rangieren  | Brennstabpolierer  | Shut down          | Sector 7-G    |
         | 19.12.2012  | 6,75     | nein       | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
         | 19.12.2012  | 0,00     | ja         | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
-      And I should see "31,75" within the header aggregation within the reports table
+        | 18.12.2012  | 6,50     | ja         | Simpson, Homer  |                 |                    | Lie to the public  | PR            |
+      And I should see "38,25" within the aggregated hours
 
       And the "Von" field should contain "01.12.2012"
       And the "Bis" field should contain "31.12.2012"

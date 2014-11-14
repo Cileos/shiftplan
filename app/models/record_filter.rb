@@ -11,7 +11,7 @@ class RecordFilter
   attribute :base
 
   delegate :all, to: :records
-  delegate :count, to: :base
+  delegate :count, to: :filtered_base
 
   # These _are_ the records you are looking for
   def records
@@ -19,10 +19,12 @@ class RecordFilter
   end
 
   private
+    def filtered_base
+      base.where(conditions)
+    end
 
     def fetch_records
-      results = base
-      results = results.where(conditions)
+      results = filtered_base
       results = results.includes(*to_include) unless to_include.empty?
       sort_fields.each do |field|
         results = results.sort_by(&field)

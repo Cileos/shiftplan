@@ -11,6 +11,11 @@ Feature: create a scheduling
   Scenario: through the button on the top
      When I follow "Neue Terminierung"
      Then the "Mo" checkbox should be checked
+      # no qualis/teams
+      And the single-select box "Qualifikation" should be disabled
+      And the single-select box "Team" should be disabled
+      And I should see "Qualifikationen erleichtern das Zuordnen von vielen Mitarbeitern"
+      And I should see "Teams erleichtern das Gruppieren von Mitarbeitern mit selber Aufgabe"
      When I uncheck "Mo"
       And I check "Mi"
       And I select "Homer S" from the "Mitarbeiter" single-select box

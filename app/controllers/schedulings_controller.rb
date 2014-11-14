@@ -42,6 +42,7 @@ class SchedulingsController < BaseController
         :qualification_id,
         :team_id,
         :all_day,
+        :actual_length_as_time,
         # Currently deactivated
         # :represents_unavailability
       ]

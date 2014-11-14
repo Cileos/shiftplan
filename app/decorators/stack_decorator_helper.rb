@@ -24,7 +24,7 @@ module StackDecoratorHelper
   def stack_metadata_for(scheduling)
     {
       start:     Volksplaner::Formatter.metric_hour_string(scheduling.start_metric_hour),
-      length:    Volksplaner::Formatter.metric_hour_string(handle_zero_length scheduling.length_in_hours),
+      length:    Volksplaner::Formatter.metric_hour_string(displayed_length scheduling),
       stack:     scheduling.stack.to_s,
       remaining: scheduling.remaining_stack.to_s,
       total:     scheduling.total_stack.to_s
@@ -39,6 +39,14 @@ module StackDecoratorHelper
       0.25
     else
       hours
+    end
+  end
+
+  def displayed_length(scheduling)
+    if scheduling.all_day?
+      24
+    else
+      handle_zero_length scheduling.length_in_hours
     end
   end
 end

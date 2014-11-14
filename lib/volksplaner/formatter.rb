@@ -29,5 +29,20 @@ module Volksplaner
     rescue TypeError => e
       return '0'
     end
+
+    # 5.25 => 05:15
+    def self.numeric_hours_to_time_string(num)
+      return '' if num.nil?
+      full, frac = num.truncate, num - num.truncate
+      '%02d:%02d' % [full, frac * 60]
+    end
+
+    # 05:15 => 5.25
+    def self.time_string_to_numeric_hours(string)
+      return if string.blank?
+      if string =~ /\A(\d{1,2}):(\d{2})\z/
+        $1.to_i + ($2.to_f / 60)
+      end
+    end
   end
 end
