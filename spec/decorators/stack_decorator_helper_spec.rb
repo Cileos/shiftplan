@@ -29,13 +29,18 @@ describe StackDecoratorHelper do
     end
 
     it "includes whole-hour length" do
-      scheduling.stub length_in_hours: 8.0
+      scheduling.stub length_in_hours: 8.0, all_day?: false
       metadata[:length].should == '8'
     end
 
     it "includes fractal-hour length" do
-      scheduling.stub length_in_hours: 8.75
+      scheduling.stub length_in_hours: 8.75, all_day?: false
       metadata[:length].should == '8.75'
+    end
+
+    it "fixes all-days to full height" do
+      scheduling.stub length_in_hours: 8.75, all_day?: true
+      metadata[:length].should == '24'
     end
 
     it "includes its stack" do

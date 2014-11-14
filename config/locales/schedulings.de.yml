@@ -21,6 +21,7 @@ de:
         start_time: Beginn
         end_time: Ende
         represents_unavailability: Anzeigen als
+        actual_length_as_time: Tatsächliche Arbeitszeit
   simple_form:
     labels:
       defaults:
@@ -33,6 +34,7 @@ de:
         quickie: "z. B.: 9-17 wichtige Arbeit [wA]"
         qualification: 'Qualifikationen erleichtern das Zuordnen von vielen Mitarbeitern und können in den <a href="../../../../../qualifications">Stammdaten verwaltet</a> werden.'
         team: 'Teams erleichtern das Gruppieren von Mitarbeitern mit selber Aufgabe und können ebenfalls in den <a href="../../../../../teams">Stammdaten verwaltet</a> werden.'
+        actual_length_as_time: "Wird für die Wochenarbeitszeit und für Reports verwendet."
   schedulings:
     missing_team: Ohne Team
     missing_employee: Ohne Mitarbeiter

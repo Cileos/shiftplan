@@ -31,19 +31,23 @@ module TimePeriodFormatter
   end
 
   def period_with_duration
-    period_with_zeros + ' (' + duration + 'h)'
+    period_with_zeros + ' ' + duration
   end
 
   def duration
-    '%d:%02d' % [ length_in_minutes / 60, length_in_minutes % 60 ]
+    '(%d:%02dh)' % [ length_in_minutes / 60, length_in_minutes % 60 ]
   end
 
-  def decimal_duration
-    if all_day?
-      0.0
-    else
-      length_in_minutes / 60
-    end
+  # may be overridden by OvernightableDecoratorHelper, returning only the length for one part
+  # returns 3.25 for 3 hours and 15 minutes
+  # OPTIMIZE rounding
+  def length_in_hours
+    length_in_minutes / 60
+  end
+
+  # completely ignores overnightables, best for summing up
+  def total_length_in_hours
+    length_in_minutes / 60
   end
 
   def period
@@ -70,6 +74,10 @@ module TimePeriodFormatter
 
     def length_in_minutes
       @length_in_minutes ||=
-        ((self_or_next_day.ends_at) - self_or_prev_day.starts_at) / 60
+        if all_day?
+          (actual_length_in_hours || 0.0) * 60
+        else
+          ((self_or_next_day.ends_at) - self_or_prev_day.starts_at) / 60
+        end
     end
 end

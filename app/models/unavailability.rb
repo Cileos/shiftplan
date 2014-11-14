@@ -24,6 +24,10 @@ class Unavailability < ActiveRecord::Base
     to_s
   end
 
+  def actual_length_in_hours # does not matter TimePeriodFormatter
+    nil
+  end
+
   delegate :to_date, to: :base_for_time_range_components
   delegate :iso8601, to: :to_date
 

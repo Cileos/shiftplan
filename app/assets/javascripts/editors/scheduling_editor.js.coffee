@@ -31,6 +31,11 @@ Clockwork.SchedulingEditor = Ember.Object.extend
       .timeEntry(timeoptions)
       #.bindWithDelay('keyup mousewheel', (=> @updateQuickie()), 150)
 
+    @input('actual_length_as_time')
+      .each -> # default the value to not confuse timeEntry
+        $(this).val('00:00') if $(this).val().length is 0
+      .timeEntry(timeoptions)
+
     # TODO: Comment in again when the passive una feature gets enabled again.
     # @input('employee_id')
     #   .change( (e)=> @employeeSelected(e) )
@@ -80,8 +85,10 @@ Clockwork.SchedulingEditor = Ember.Object.extend
     $box = $(event.target)
     if $box.prop('checked')
       @get('element').find("div.start-time").add('div.end-time').addClass('inactive').find('input').prop('disabled', true)
+      @get('element').find("div.actual-length-as-time").show()
     else
       @get('element').find("div.start-time").add('div.end-time').removeClass('inactive').find('input').prop('disabled', false)
+      @get('element').find("div.actual-length-as-time").hide()
 
   # DEAD (Quickie readonly)
   updateFields: ->

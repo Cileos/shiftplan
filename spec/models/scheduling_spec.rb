@@ -667,4 +667,32 @@ describe Scheduling do
       reloaded.team_id.should be_nil
     end
   end
+
+  # Volksplaner::Formatter.numeric_hours_to_time_string
+  context '#actual_length_as_time' do
+    let(:scheduling) { build :scheduling }
+    it 'shows full hours with zeroes after colon' do
+      scheduling.actual_length_in_hours = 6
+      scheduling.actual_length_as_time.should == '06:00'
+    end
+
+    it 'shows minutes after colon' do
+      scheduling.actual_length_in_hours = 4.5
+      scheduling.actual_length_as_time.should == '04:30'
+    end
+  end
+
+  # Volksplaner::Formatter.time_string_to_numeric_hours
+  context '#actual_length_as_time=' do
+    let(:scheduling) { build :scheduling }
+    it 'sets full hours when given string with zeroes after colon' do
+      scheduling.actual_length_as_time = '05:00'
+      scheduling.actual_length_in_hours.should == 5
+    end
+
+    it 'sets fraction of actual_length_as_time from minutes after colon' do
+      scheduling.actual_length_as_time = '04:15'
+      scheduling.actual_length_in_hours.should == 4.25
+    end
+  end
 end

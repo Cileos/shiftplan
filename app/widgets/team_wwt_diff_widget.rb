@@ -7,7 +7,6 @@ class TeamWwtDiffWidget < WwtDiffWidget
   def hours
     @hours ||= records.
       select { |s| s.team == team }.
-      reject { |s| s.all_day? }. # "all day" schedulings do not count for wwt
       sum(&:length_in_hours)
   end
 
@@ -19,7 +18,6 @@ class TeamWwtDiffWidget < WwtDiffWidget
       unsorted_records.
       where(team_id: team.id).
       to_a.
-      reject { |s| s.all_day? }. # "all day" schedulings do not count for wwt
       sum(&:length_in_hours)
   end
 

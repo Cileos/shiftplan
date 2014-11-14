@@ -30,10 +30,10 @@ describe TeamWwtDiffWidget do
       subject.hours.should == 0
     end
 
-    it "ignores all day records" do
-      records << double('s1', team: team, length_in_hours: 24, all_day?: true)
+    it "respecs all day records" do
+      records << double('s1', team: team, length_in_hours: 4.25, all_day?: true)
 
-      subject.hours.should == 0
+      subject.hours.should == 4.25
     end
 
     it "knows how to deal with overnightables on weekends (may count double)"

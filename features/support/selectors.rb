@@ -79,6 +79,9 @@ module HtmlSelectorsHelpers
     when /^the page title$/
       'title'
 
+    when /^the aggregated hours$/
+      'table#reports tfoot .aggregation'
+
    # the "done" milestone checkbox
    when /^#{capture_quoted} (\w+) checkbox$/
      %Q~input.#{$2}[name="#{$1}"]~
@@ -160,6 +163,9 @@ module HtmlSelectorsHelpers
 
     when /conflict icon$/
       'a.conflict'
+
+    when 'abbreviated work time'
+      'abbr.work_time'
 
     when 'the pagination'
       '.pagination'

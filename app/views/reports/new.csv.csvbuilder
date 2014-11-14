@@ -3,7 +3,7 @@ csv << [Employee.model_name.human,t('.date'),t('.hours'),t('.all_day'),Plan.mode
 @report.records.map(&:decorate).each do |scheduling|
   csv << [scheduling.employee.try(:last_and_first_name),
           l(scheduling.starts_at.to_date),
-          number_with_precision(scheduling.decimal_duration),
+          number_with_precision(scheduling.total_length_in_hours),
           t("dialogue.#{ scheduling.all_day? ? 'yes' : 'no' }"),
           scheduling.plan.name,
           scheduling.organization.name,

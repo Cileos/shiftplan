@@ -29,6 +29,7 @@ class Scheduling < ActiveRecord::Base
 
   include AllDaySettable
   include Overnightable
+  include ActualLength
 
   acts_as_commentable
   has_many :comments, -> { order('comments.lft, comments.id') }, as: :commentable # FIXME gets ALL comments, tree structure is ignored
@@ -111,12 +112,6 @@ class Scheduling < ActiveRecord::Base
   end
 
   delegate :iso8601, to: :date
-
-  # returns 3.25 for 3 hours and 15 minutes
-  # OPTIMIZE rounding
-  def length_in_hours
-    (ends_at - starts_at) / (60*60)
-  end
 
   def self.filter(params={})
     SchedulingFilter.new params.reverse_merge(:base => self)
