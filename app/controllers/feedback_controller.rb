@@ -4,11 +4,6 @@ class FeedbackController < BaseController
   respond_to :js, :html
 
   def create
-    create! do |success|
-      success.html do
-        flash[:notice] = t(:'feedback.thank_you')
-        redirect_to root_url
-      end
-    end
+    create! { root_url }
   end
 end
