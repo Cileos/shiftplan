@@ -11,6 +11,10 @@ en:
   plan_templates:
     template_types:
       weekbased: 'week based'
+    form:
+      fill_from_n_items:
+        one: 'Factor in the one item into the template.'
+        other: 'Factor in all %{count} items into the template.'
     index:
       no_plan_templates: "There are no templates for the organization yet."
       planner_instructions: >

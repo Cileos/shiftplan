@@ -1,7 +1,13 @@
-= simple_form_for nested_resources_for(plan_template), remote: true do |f|
+= simple_form_for nested_resources_for(plan_template) do |f|
   .inputs.edit-team
     = f.input :name, autofocus: true
     = f.input :template_type, collection: PlanTemplate.template_type_options,
       include_blank: false, input_html: { class: 'chosen-select' }
+    - if f.object.filler.source_schedulings_count > 0
+      = f.input :fill_from_n_items, as: :boolean, label: t('.fill_from_n_items', count: f.object.filler.source_schedulings_count)
+      = f.fields_for :filler do |filler|
+        = filler.hidden_field :plan_id
+        = filler.hidden_field :year
+        = filler.hidden_field :week
   .actions
     = f.create_or_update_button
