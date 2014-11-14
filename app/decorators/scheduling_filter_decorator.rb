@@ -57,6 +57,7 @@ class SchedulingFilterDecorator < SchedulableFilterDecorator
   # it is undefined by W3C spec anyway
   def cell_content(*a)
     content = ''.tap do |c|
+      list_opts = {}
       items = ''.tap do |i|
         unless (schedulings = find_schedulings(*a)).empty?
           i << h.render(partial: "schedulings/item/#{mode}", collection: schedulings, locals: { filter: self })
@@ -64,11 +65,12 @@ class SchedulingFilterDecorator < SchedulableFilterDecorator
         if mode.employees_in_week? or mode.hours_in_week? # OPTIMIZE  more class splitting looks harmful
           unless (unavailabilities = find_unavailabilities(*a)).empty?
             i << h.render(partial: "unavailabilities/item/#{mode}", collection: unavailabilities.map(&:decorate), locals: { filter: self })
+            list_opts[:class] = 'has-una'
           end
         end
       end
       if list_tag
-        c << h.content_tag(list_tag, items.html_safe)
+        c << h.content_tag(list_tag, items.html_safe, list_opts)
       else
         c << items
       end
