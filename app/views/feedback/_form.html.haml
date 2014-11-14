@@ -1,4 +1,4 @@
-= simple_form_for(@feedback, url: feedback_path, remote: true) do |f|
+= simple_form_for(@feedback, url: feedback_path, remote: request.xhr?) do |f|
   = f.error_notification
 
   .inputs
