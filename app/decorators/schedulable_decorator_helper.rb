@@ -42,7 +42,12 @@ module SchedulableDecoratorHelper
     end
   end
 
-  def deterministic_order
-    "#{starts_at.iso8601}-#{id}"
+  def deterministic_order # narf
+    case object
+    when Shift
+      "#{day}-#{object.start_hour}-#{object.end_hour}-#{id}"
+    else
+      "#{starts_at.iso8601}-#{id}"
+    end
   end
 end
