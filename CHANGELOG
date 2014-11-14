@@ -1,6 +1,18 @@
 Changelog
 =========
 
+Release 1.4.6 2014-11-14 19:27
+------------------------------
+84b1d1e Merge pull request #298 from Cileos/feature/order-of-overnightable-shifts
+4ae5f34 Merge pull request #304 from Cileos/feature/must-read-una-reason
+cdeefeb Merge pull request #303 from Cileos/feature/quieten-down-stupid-crawlers
+8f051df Merge pull request #301 from Cileos/feature/bug-ff-cannot-trigger-open-datepick
+9ca1978 Merge pull request #293 from Cileos/feature/copy-plan-to-template
+8078b6b Merge pull request #292 from Cileos/feature/real-working-time-in-all-day-schedulables
+4969d2b Merge pull request #300 from Cileos/feature/hint-to-teams-and-qualifications
+dcdf11e Merge pull request #295 from Cileos/feature/inspect-conflicts-from-calendar
+864d5e1 Merge branch 'release/1.4.4' into develop
+
 Release 1.4.5 2014-11-14 18:53
 ------------------------------
 84b1d1e Merge pull request #298 from Cileos/feature/order-of-overnightable-shifts
