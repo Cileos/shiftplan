@@ -3,11 +3,11 @@
 = render layout: 'profile/with_menu' do
   - if @ical_export.active?
     %div= t 'export.is_active'
-    - ical_link = upcoming_feed_url(CGI.escape(@ical_export.email), @ical_export.private_token, format: 'ics')
+    - ical_link = upcoming_feed_url(@ical_export.email, @ical_export.private_token, format: 'ics')
     .export-link= link_to ical_link, ical_link, id: 'ics-export-link'
 
     %div= t 'export.webcal'
-    - webcal_link = upcoming_feed_url(CGI.escape(@ical_export.email), @ical_export.private_token, format: 'ics', protocol: 'webcal')
+    - webcal_link = upcoming_feed_url(@ical_export.email, @ical_export.private_token, format: 'ics', protocol: 'webcal')
     .export-link= link_to webcal_link, webcal_link
 
     .deactivate-export
