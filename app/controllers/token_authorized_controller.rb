@@ -16,6 +16,6 @@ class TokenAuthorizedController < ApplicationController
   private
 
   def current_user
-    @current_user ||= User.where(params.slice(:email, :private_token)).first || raise(UserNotFound)
+    @current_user ||= User.where(params.permit(:email, :private_token)).first || raise(UserNotFound)
   end
 end
