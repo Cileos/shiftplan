@@ -12,6 +12,10 @@ Feature: Ical settings
      Then I should see "Dies ist die Privatadresse für Deine Termine. Gib diese Adresse nur für andere Personen frei, wenn Du möchtest, das diese alle Deine Termine sehen können."
       And there should be an ics export link on the page
 
+     When I sign out
+      And I go to the page which the ics export link references
+     Then I should see "BEGIN:VCALENDAR"
+
 
   Scenario: reset private ICAL URL
     Given a confirmed user with private token exists

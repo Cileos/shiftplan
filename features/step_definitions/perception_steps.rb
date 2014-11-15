@@ -198,5 +198,6 @@ Then /^there (should|should not) be an ics export link on the page$/ do |should_
     page.should have_no_css('a#ics-export-link')
   else
     page.should have_css('a#ics-export-link')
+    @last_ics_export_url = page.find('a#ics-export-link')[:href]
   end
 end

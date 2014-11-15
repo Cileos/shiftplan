@@ -112,6 +112,9 @@ module NavigationHelpers
 
       availability_path anchor: "/unas/me/#{fields[:year]}/#{fields[:month]}"
 
+    when 'the page which the ics export link references'
+      @last_ics_export_url || raise("no link seen, please use 'Then there should be an ics export link on the page'")
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
