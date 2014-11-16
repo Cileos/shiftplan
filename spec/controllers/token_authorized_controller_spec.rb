@@ -3,7 +3,7 @@ describe TokenAuthorizedController do
   let(:email) { 'slave@example.com' }
   describe '#current_user' do
     before :each do
-      controller.stub params: { private_token: private_token, email: email }
+      controller.stub params: ActionController::Parameters.new( private_token: private_token, email: email)
     end
 
     it 'finds user by email and private token' do
