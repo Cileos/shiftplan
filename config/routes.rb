@@ -107,6 +107,11 @@ Clockwork::Application.routes.draw do
     resources :unavailabilities, except: [:show]
   end
 
+  # JSON api, for ember-clockwork 2015
+  scope path: 'api' do
+    get 'schedulings' => 'ember/schedulings#index'
+  end
+
   scope '/feeds/:email/private-:private_token', constraints: { email: %r~[^/]+~i, private_token: /[\w-]{20}/i  }  do
     get 'upcoming' => 'feeds#upcoming', as: 'upcoming_feed'
   end
