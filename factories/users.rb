@@ -1,5 +1,5 @@
 unless defined?(FactoryGirl::Password)
-  FactoryGirl::Password = 'secret'
+  FactoryGirl::Password = 'secret23'
 end
 
 FactoryGirl.define do
