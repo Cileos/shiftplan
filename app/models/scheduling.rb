@@ -114,7 +114,7 @@ class Scheduling < ActiveRecord::Base
   delegate :iso8601, to: :date
 
   def self.filter(params={})
-    SchedulingFilter.new params.reverse_merge(:base => self)
+    SchedulingFilter.new params.reverse_merge(base: self)
   end
 
   # FIXME going to fail on month/day view

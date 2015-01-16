@@ -19,8 +19,13 @@ class RecordFilter
   end
 
   private
+
+    def base_from_name
+      self.class.name.gsub('Filter', '').constantize
+    end
+
     def filtered_base
-      base.where(conditions)
+      (base || base_from_name).where(conditions)
     end
 
     def fetch_records

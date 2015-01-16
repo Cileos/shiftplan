@@ -17,10 +17,6 @@ class SchedulingFilter < RecordFilter
 
   delegate :organization, to: :plan
 
-  def base
-    self.class.name.gsub('Filter', '').constantize
-  end
-
   def range
     if week?
       :week
