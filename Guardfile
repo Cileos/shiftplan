@@ -1,8 +1,15 @@
-directories [
+# We only watch some directories so we do not accidently subscribe to a
+# gazillion temp files or something
+dirs = [
   'app',
   'spec',
-  'apps/frontend/app',
 ]
+ember_root = ENV['CLOCKWORK_EMBER_ROOT']
+if !ember_root.nil? && !ember_root.empty? && File.directory?(ember_root)
+  dirs << "#{ember_root}/app"
+end
+# tell guard
+directories dirs
 
 group :test, :halt_on_fail => true do
 
@@ -65,6 +72,10 @@ guard 'bundler' do
   watch('Gemfile')
 end
 
+# Most practical for ember
 guard "livereload" do
-  watch %r{apps/frontend/\w+/.+\.(js|hbs|html|css|coffee|emblem)}
+  #watch %r{apps/frontend/\w+/.+\.(js|hbs|html|css|coffee|emblem)}
+  # guard uses relative paths to match against the watcher, so we cannot match
+  # for any css, html etc, even from our rails app
+  watch %r{\.(js|hbs|html|css|coffee|emblem)$}
 end
