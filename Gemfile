@@ -40,8 +40,6 @@ group :test do
   # until it fetches from the new location: https://github.com/flavorjones/chromedriver-helper/pull/8
   gem 'chromedriver-helper', git: 'git://github.com/mars/chromedriver-helper.git', branch: 'download-via-bucket-xml'
 
-  gem "guard-rspec"
-  gem "guard-cucumber"
   gem "guard-bundler"
   gem "libnotify", :require => false
 
@@ -70,6 +68,8 @@ end
 
 group :development, :test do
   gem 'pry'
+  gem "guard-rspec"
+  gem "guard-cucumber"
   gem "guard-jasmine"
   # TODO revive js test suite - jasminerice uses deprecated `match` in its routes
   #gem "jasminerice"
@@ -96,6 +96,10 @@ group :development do
 
   # semver for script/release
   gem 'semantic'
+
+  # develop ember app wthout having to reload the browser
+  gem "guard-livereload", require: false
+  gem "rack-livereload"
 end
 
 group :production do
