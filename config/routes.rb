@@ -106,6 +106,7 @@ Clockwork::Application.routes.draw do
     get 'accounts' => 'accounts#index'
     resources :unavailabilities, except: [:show]
   end
+  get 'beta' => 'welcome#beta'
 
   # JSON api, for ember-clockwork 2015
   scope path: 'api' do

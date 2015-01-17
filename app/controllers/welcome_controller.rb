@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
   before_filter :authorize_user, only: :dashboard
   before_filter :continue_setup
+  before_filter :render_ember_frontend_if_wants_beta, only: :landing
   before_filter :redirect_to_dynamic_dashboard_if_signed_in, only: :landing
 
   tutorial 'account', only: [:dashboard]
@@ -21,6 +22,13 @@ class WelcomeController < ApplicationController
 
   def authorize_user
     authorize! :dashboard, current_user
+  end
+
+  def render_ember_frontend_if_wants_beta
+    # the place for the pure ember implementation
+    if params[:beta]
+      render :beta, layout: false
+    end
   end
 
   def redirect_to_dynamic_dashboard_if_signed_in

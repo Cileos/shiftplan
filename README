@@ -4,6 +4,20 @@ Use it. Enjoy it. Love it.
 
 == Developer Notes
 
+=== Ember Rewrite 2015
+
+We set the goal to reimplement the bigger part of clockwork as a single-page
+Ember app. Because we want to use Rails as a JSON-backend and for CSS
+generation, we mix it in using the `ember-cli-rails` gem and deploy them with a
+little magic.
+
+As long as both are in separate repositories, you must clone it somewhere else
+and give Rails a hint for its location:
+
+    export CLOCKWORK_EMBER_ROOT="~/work/clockwork-js"
+    git clone github.com:Cileos/clockwork-js $CLOCKWORK_EMBER_ROOT
+    # restart rails
+
 === Development VM
 
 Setup: install virtualbox and vagrant

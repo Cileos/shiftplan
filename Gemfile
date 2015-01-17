@@ -169,3 +169,9 @@ gem 'csv_builder'
 gem 'postgres_ext'
 
 gem 'tutorial', path: 'vendor/engines/tutorial'
+
+# develop & run an ember-cli app from within our rails app. This allows us to
+# * share the rails stylesheets to the ember app
+# * while still using ember-cli ES6 Modules for development
+# * and we want to deploy them separately (TODO check if this works)
+gem 'ember-cli-rails'
