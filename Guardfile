@@ -1,5 +1,8 @@
-# A sample Guardfile
-# More info at https://github.com/guard/guard#readme
+directories [
+  'app',
+  'spec',
+  'apps/frontend/app',
+]
 
 group :test, :halt_on_fail => true do
 
@@ -62,10 +65,6 @@ guard 'bundler' do
   watch('Gemfile')
 end
 
-ember_path = ENV['CLOCKWORK_EMBER_ROOT']
-if !ember_path.nil? && !ember_path.empty?
-  STDOUT.puts "livereload #{ember_path}"
-  guard "livereload" do
-    watch %r{#{ember_path}/\w+/.+\.(js|hbs|html|css|coffee|emblem)}
-  end
+guard "livereload" do
+  watch %r{apps/frontend/\w+/.+\.(js|hbs|html|css|coffee|emblem)}
 end
