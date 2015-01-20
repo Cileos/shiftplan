@@ -1,6 +1,7 @@
 - title :export
 
 = render layout: 'profile/with_menu' do
+  %div= tt 'export.introduction'
   - if @ical_export.active?
     %div= t 'export.is_active'
     - ical_link = upcoming_feed_url(@ical_export.email, @ical_export.private_token, format: 'ics')
@@ -17,3 +18,5 @@
     .enable-export
       = t 'export.is_inactive'
       = button_to t('export.create_export'), profile_export_path, method: :post
+
+  %div{style: 'margin-top: 3em'}= tt 'export.instructions'
