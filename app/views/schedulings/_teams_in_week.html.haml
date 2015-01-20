@@ -4,8 +4,9 @@
       = render 'schedulings/week_switch', filter: filter
     - filter.formatted_days.each do |full, date, abbr, opts|
       %th{opts}
-        %span.day_name= abbr
-        %span.date-without-year= date
+        = link_to filter.path_to_mode(:hours_in_week) do
+          %span.day_name= abbr
+          %span.date-without-year= date
 %tbody{ class: editable_class }
   - filter.teams.each do |team|
     %tr{data: { :'team-id' => team.id }}

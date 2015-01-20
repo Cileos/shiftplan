@@ -22,6 +22,17 @@ Feature: View hours over weekdays in plan
        | Mo                   | Di                   | Mi                   | Do                      | Fr  |
        | Homer S 09:00-17:00  | Homer S 10:00-16:00  | Homer S 11:00-15:00  | Homer S 12:00-14:00 fS  |     |
 
+  Scenario: jumping to hours view when clicking on date in calendar
+    Given the employee "Homer" was scheduled in the plan as following:
+        | week | cwday | quickie             |
+        | 49   | 1     | 9-17                |
+      And I am on the page of the plan
+      And I follow "03.12."
+     Then I should be on the hours in week page of the plan for cwyear: 2012, week: 49
+     Then I should see the following calendar:
+       | Mo                   | Di  | Mi  | Do  | Fr  |
+       | Homer S 09:00-17:00  |     |     |     |     |
+
   Scenario: creating a new scheduling by clicking in the day column and filling out the modal form
     Given I am on the hours in week page of the plan for cwyear: 2012, week: 49
       And a team exists with name: "Reaktor putzen", shortcut: "Rp", organization: the organization "Reactor"
